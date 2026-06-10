@@ -43,6 +43,8 @@ type Props = {
 	reactDispatch: Dispatch;
 	typeAheadHandlers: Array<TypeAheadHandler>;
 };
+
+/** Creates the type-ahead ProseMirror plugin. */
 export function createPlugin({
 	reactDispatch,
 	popupMountRef,
@@ -167,7 +169,18 @@ export function createPlugin({
 								if (!handler.customRegex) {
 									return false;
 								}
-								// Only match if the entire composition is a trigger character
+								// Only match if the composition is a NON-ASCII trigger character.
+								// ASCII triggers (e.g. '/') are handled by the normal input rule
+								// path and must NOT be intercepted here — otherwise typing '/' on
+								// a macOS Japanese IME (which briefly fires compositionupdate with
+								// data='/') would cause the Enter-confirm to open the typeahead.
+								// Matches any single ASCII character (U+0000–U+007F).
+								// No 'u' flag needed for ASCII-only ranges.
+								// Ignored via go/ees005
+								// eslint-disable-next-line require-unicode-regexp
+								if (/^[\x00-\x7F]$/.test(pendingData)) {
+									return false;
+								}
 								const pattern = new RegExp(`^(${handler.customRegex})$`, 'u');
 								return pattern.test(pendingData);
 							}) ?? null;

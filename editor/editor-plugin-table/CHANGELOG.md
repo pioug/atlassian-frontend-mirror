@@ -1,5 +1,60 @@
 # @atlaskit/editor-plugin-table
 
+## 23.3.4
+
+### Patch Changes
+
+- [`a4f97c853dccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4f97c853dccf) -
+  Extend `no-module-level-eval` lint rule to cover editor experiment APIs (`expValEquals`, `expVal`,
+  `editorExperiment`, `expValEqualsNoExposure`) imported from `@atlaskit/tmp-editor-statsig`
+  subpaths. Module-level evaluation of these functions causes flakiness because experiment values
+  may not be resolved yet at import time.
+
+  Fix existing violations in `editor-plugin-block-controls` (`global-styles.tsx`) and
+  `editor-plugin-table` (`ContextualMenu.tsx`) by converting module-level experiment evaluations to
+  lazy function calls.
+
+  Clean up fully-launched experiment `platform_editor_unify_native_dnd_selectors` — replace
+  conditional selector logic with the winning `dragHandlerAnchorSelectorWithTaskExclusion` value and
+  remove the experiment from `experiments-config.ts`.
+
+- Updated dependencies
+
+## 23.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.3.1
+
+### Patch Changes
+
+- [`f7faa21a01fc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7faa21a01fc7) -
+  Cleanup stale feature gates and experiments now that they have shipped. The following
+  gates/experiments have been removed and their enabled paths kept as the permanent behaviour:
+  platform_editor_fix_scrolling_popup_position, platform_editor_table_resize_chromeless,
+  platform_editor_chromeless_akeditor_class, create_work_item_modernization_exp.
+- Updated dependencies
+
+## 23.3.0
+
+### Minor Changes
+
+- [`dc18b82540c1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc18b82540c1e) -
+  [EDITOR-7606](https://hello.jira.atlassian.cloud/browse/EDITOR-7606) - fix SSR streaming tables
+  borders by adopting changes from `platform_editor_vc90_transition_table_border` experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.2.0
 
 ### Minor Changes

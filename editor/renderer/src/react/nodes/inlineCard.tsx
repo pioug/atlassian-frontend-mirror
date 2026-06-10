@@ -38,6 +38,7 @@ import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
 import { withSmartCardStorage } from '../../ui/SmartCardStorage';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
+import { getEventHandler } from '../../utils';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
@@ -212,7 +213,13 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 
 	const cardState = getSmartlinkState?.()[url || ''];
 
+	// Card/CardSSR's onClick — (e, { destinationUrl?, url? })
 	const onClick = getCardClickHandler(eventHandlers, url);
+	// SmartCardEventClickHandler — (e, url?) => void — for CardErrorBoundary.
+	// When the gate is off, fall back to the old behaviour (pass the same onClick as Card).
+	const onConsumerClick = fg('platform_smartlink_xpc_url_wrapping')
+		? getEventHandler(eventHandlers, 'smartCard')
+		: onClick;
 	const cardProps = {
 		url,
 		data,
@@ -450,6 +457,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...cardProps}
+						onClick={onConsumerClick}
 						onSetLinkTarget={onSetLinkTarget}
 					>
 						<MaybeOverlay

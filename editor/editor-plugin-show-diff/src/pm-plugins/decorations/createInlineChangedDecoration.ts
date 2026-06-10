@@ -6,7 +6,9 @@ import type { ColorScheme } from '../../showDiffPluginType';
 
 import {
 	editingStyle,
+	editingStyleExtended,
 	editingStyleActive,
+	editingStyleActiveExtended,
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedInlineContentBackground,
@@ -56,7 +58,7 @@ export const createInlineChangedDecoration = ({
 			if (colorScheme === 'traditional') {
 				style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
 			} else {
-				style = isActive ? editingStyleActive : editingStyle;
+				style = isActive ? editingStyleActiveExtended : editingStyleExtended;
 			}
 		} else {
 			if (colorScheme === 'traditional') {

@@ -97,6 +97,11 @@ interface ReactionSummaryButtonProps extends Pick<
 	 * Optional prop to set the most recently clicked emoji id
 	 */
 	summaryViewParticleEffectEmojiId?: { id: string; shortName: string } | null;
+
+	/**
+	 * Optional prop to indicate whether the summary popup is open, used for aria-expanded
+	 */
+	isOpen?: boolean;
 }
 
 /**
@@ -127,6 +132,7 @@ export const ReactionSummaryButton: ForwardRefExoticComponent<
 			summaryGetOptimisticImageURL,
 			summaryButtonIconAfter,
 			summaryViewParticleEffectEmojiId,
+			isOpen,
 		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
@@ -168,6 +174,7 @@ export const ReactionSummaryButton: ForwardRefExoticComponent<
 						ariaLabel={intl.formatMessage(messages.summary, {
 							count: totalReactionsCount,
 						})}
+						ariaExpanded={isOpen}
 						showSubtleStyle={subtleReactionsSummaryAndPicker}
 						showOpaqueBackground={showOpaqueBackground}
 					>

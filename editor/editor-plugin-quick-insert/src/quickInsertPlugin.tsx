@@ -53,7 +53,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		trigger: '/',
 		// Support fullwidth slash (U+FF0F) used by Japanese/CJK keyboards (e.g. typing / on a Japanese keyboard layout)
 		customRegex: expValEquals('platform_editor_wide_slash_trigger', 'isEnabled', true)
-			? '\\(?([/／])'
+			? '[/／]'
 			: undefined,
 		headless: options?.headless,
 		getItems({ query, editorState }) {

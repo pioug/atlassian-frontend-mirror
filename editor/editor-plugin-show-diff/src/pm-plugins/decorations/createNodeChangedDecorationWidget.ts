@@ -11,7 +11,9 @@ import type { NodeViewSerializer } from '../NodeViewSerializer';
 
 import {
 	editingStyle,
+	editingStyleExtended,
 	editingStyleActive,
+	editingStyleActiveExtended,
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedContentStyleNew,
@@ -49,9 +51,13 @@ const getInsertedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = 
 		return traditionalInsertStyle;
 	}
 	if (isActive) {
-		return editingStyleActive;
+		return expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+			? editingStyleActiveExtended
+			: editingStyleActive;
 	}
-	return editingStyle;
+	return expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+		? editingStyleExtended
+		: editingStyle;
 };
 const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
 	if (colorScheme === 'traditional') {

@@ -379,11 +379,7 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 				}
 			} else if (isCommentEditor) {
 				responsiveContainerWidth = containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR;
-			} else if (
-				isChromelessEditor &&
-				(expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ||
-					expValEquals('create_work_item_modernization_exp', 'isEnabled', true))
-			) {
+			} else if (isChromelessEditor) {
 				// there's no padding included in chromeless appearance, so we need to reduce table
 				// width to ensure all controls are visible.
 				// use lineLength as the value is updated by scrollbar visibility changes
@@ -404,32 +400,22 @@ export const ResizableTableContainer: React.MemoExoticComponent<
 			// Fix for HOT-119925: Ensure table width is properly constrained and responsive
 			// For wide tables, ensure they don't exceed container width and can be scrolled
 			const calculatedWidth =
-				// remove isCommentEditor check if platform_editor_table_resize_chromeless is cleaned up
-				!node.attrs.width &&
-				(((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ||
-					expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) &&
-					!isFullPageAppearance) ||
-					isCommentEditor)
+				!node.attrs.width && !isFullPageAppearance
 					? responsiveContainerWidth
 					: Math.min(tableWidth, responsiveContainerWidth);
 
 			// Ensure minimum width for usability while respecting container constraints
 			const width = Math.max(calculatedWidth, Math.min(responsiveContainerWidth * 0.5, 300));
 
-			// remove isCommentEditor check if platform_editor_table_resize_chromeless is cleaned up
-			const maxResizerWidth =
-				((expValEquals('platform_editor_table_resize_chromeless', 'isEnabled', true) ||
-					expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) &&
-					!isFullPageAppearance) ||
-				isCommentEditor
-					? responsiveContainerWidth
-					: Math.min(
-							responsiveContainerWidth,
-							expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-								expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-								? TABLE_MAX_WIDTH
-								: TABLE_FULL_WIDTH,
-						);
+			const maxResizerWidth = !isFullPageAppearance
+				? responsiveContainerWidth
+				: Math.min(
+						responsiveContainerWidth,
+						expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+							? TABLE_MAX_WIDTH
+							: TABLE_FULL_WIDTH,
+					);
 			return { width, maxResizerWidth };
 		}, [
 			containerWidth,

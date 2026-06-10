@@ -1,5 +1,3 @@
-import { type EventHandler, type KeyboardEvent, type MouseEvent } from 'react';
-
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
 
 import type {
@@ -7,6 +5,7 @@ import type {
 	CardPlatform,
 	EmbedIframeUrlType,
 	InternalCardActionOptions,
+	OnClickCallback,
 	OnResolveCallback,
 } from '../Card/types';
 import { type FrameStyle } from '../EmbedCard/types';
@@ -31,7 +30,7 @@ export type CardWithUrlContentProps = {
 	inlinePreloaderStyle?: InlinePreloaderStyle;
 	isHovered?: boolean;
 	isSelected?: boolean;
-	onClick?: EventHandler<MouseEvent | KeyboardEvent>;
+	onClick?: OnClickCallback;
 	onError?: OnErrorCallback;
 	onResolve?: OnResolveCallback;
 	placeholder?: string;

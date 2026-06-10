@@ -1,5 +1,46 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 11.2.0
+
+### Minor Changes
+
+- [`31c4f99dfaafa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31c4f99dfaafa) -
+  fix(editor): fix wide slash trigger opening menu for ASCII '/' on macOS IME
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.4
+
+### Patch Changes
+
+- [`2b3602c6e9f97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b3602c6e9f97) -
+  Clean up feature flag 'platform_safari_cursor_typeahead_fix'
+- [`458baedee68e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/458baedee68e8) -
+  [ux] Set Border radius px to 8px to align with figma designs
+- Updated dependencies
+
+## 11.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.2
+
+### Patch Changes
+
+- [`4c2645b77929d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c2645b77929d) -
+  [ux] EDITOR-7346 add ai and diff plugin support for panel_c1
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

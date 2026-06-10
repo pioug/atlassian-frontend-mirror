@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "115.7.1",
+	"version": "115.7.5",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -445,6 +445,7 @@
 		"./node-anchor-provider": "./src/node-anchor/node-anchor-provider.ts",
 		"./analytics/types/node-events": "./src/analytics/types/node-events.ts",
 		"./node-view": "./src/lazy-node-view/node-view.ts",
+		"./utils/node-type-utils": "./src/utils/node-type-utils.ts",
 		"./utils/nodes": "./src/utils/nodes.ts",
 		"./utils/nodes-by-localIds": "./src/utils/nodes-by-localIds.ts",
 		"./media/nodeviews": "./src/media/messages/nodeviews.ts",

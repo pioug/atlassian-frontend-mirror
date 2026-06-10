@@ -20,7 +20,6 @@ import { dateMessages as messages } from '@atlaskit/editor-common/messages';
 import { ErrorMessage } from '@atlaskit/form';
 import { fg } from '@atlaskit/platform-feature-flags';
 import TextField from '@atlaskit/textfield';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { DateType } from '../../types';
@@ -120,8 +119,7 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 		}
 
 		const shouldFocusInput =
-			fg('platform_editor_datepicker_focus_fix') ||
-			expValEquals('create_work_item_modernization_exp', 'isEnabled', true)
+			fg('platform_editor_datepicker_focus_fix')
 				? !prevProps.autoFocus && this.props.autoFocus
 				: this.props.autoFocus;
 
@@ -247,10 +245,7 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 		}
 
 		// focus trap for arrow keys in input field
-		if (
-			fg('platform_editor_datepicker_focus_fix') ||
-			expValEquals('create_work_item_modernization_exp', 'isEnabled', true)
-		) {
+		if (fg('platform_editor_datepicker_focus_fix')) {
 			event.stopPropagation();
 		}
 

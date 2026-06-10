@@ -5,12 +5,12 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { pickPanelTypeForInsertion } from '@atlaskit/editor-common/utils/node-type-utils';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PanelPlugin } from '../panelPluginType';
-import { pickPanelTypeForInsertion } from '../pm-plugins/utils/utils';
 
 type Props = {
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
@@ -30,7 +30,7 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 
 		api?.core.actions.execute(({ tr }) => {
 			const panelNodeType = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-				? pickPanelTypeForInsertion(tr.selection)
+				? pickPanelTypeForInsertion(tr.selection.$from)
 				: tr.doc.type.schema.nodes.panel;
 			const command = api?.blockMenu?.commands.transformNode(panelNodeType, {
 				inputMethod,

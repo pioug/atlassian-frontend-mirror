@@ -1,5 +1,45 @@
 # @atlaskit/editor-core
 
+## 220.2.3
+
+### Patch Changes
+
+- [`676198a68986c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/676198a68986c) -
+  Cleanup feature gate `platform_editor_prosemirror_rendered_data`. The ProseMirror rendered
+  analytics event now always includes page-load metadata, timing values, extension keys, and the UFO
+  interaction ID.
+- Updated dependencies
+
+## 220.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.2.1
+
+### Patch Changes
+
+- [`f7faa21a01fc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7faa21a01fc7) -
+  Cleanup stale feature gates and experiments now that they have shipped. The following
+  gates/experiments have been removed and their enabled paths kept as the permanent behaviour:
+  platform_editor_fix_scrolling_popup_position, platform_editor_table_resize_chromeless,
+  platform_editor_chromeless_akeditor_class, create_work_item_modernization_exp.
+- Updated dependencies
+
+## 220.2.0
+
+### Minor Changes
+
+- [`98bc3bac22bb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98bc3bac22bb2) -
+  Add platform_editor_blocks editor experiment that routes to platform_editor_blocks_conf on
+  Confluence and platform_editor_blocks_jira on Jira; migrate internal callsites of the old
+  per-product Blocks experiments to the unified key
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 220.1.3
 
 ### Patch Changes

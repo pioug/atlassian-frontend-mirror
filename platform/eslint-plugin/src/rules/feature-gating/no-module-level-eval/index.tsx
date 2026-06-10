@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 import type { Node } from 'estree';
-import { isAPIimport } from '../utils';
+import { isAPIimport, isIdentifierImportedFrom } from '../utils';
+import { EXPERIMENT_API_IMPORT_SOURCES } from '../../constants';
 import { getScope } from '../../util/context-compat';
 
 const isInFunctionLevel = (context: Rule.RuleContext, node: Node) => {
@@ -38,7 +39,13 @@ const rule: Rule.RuleModule = {
 				if (
 					node.type === 'CallExpression' &&
 					node.callee.type === 'Identifier' &&
-					isAPIimport(node.callee.name, context, node) &&
+					(isAPIimport(node.callee.name, context, node) ||
+						isIdentifierImportedFrom(
+							node.callee.name,
+							EXPERIMENT_API_IMPORT_SOURCES,
+							context,
+							node,
+						)) &&
 					!isInFunctionLevel(context, node)
 				) {
 					context.report({

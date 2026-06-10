@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-paste
 
+## 12.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.3
+
+### Patch Changes
+
+- [`dbe0d03cebcd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbe0d03cebcd7) -
+  Fix media copy/paste from rendered comments: only hoist external images from mediaSingle wrappers,
+  preserve internal media with valid file references so ProseMirror can reconstruct proper media
+  nodes. Remove debug console.log.
+- Updated dependencies
+
 ## 12.1.2
 
 ### Patch Changes

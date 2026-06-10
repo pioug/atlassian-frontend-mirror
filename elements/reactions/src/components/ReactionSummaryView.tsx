@@ -369,6 +369,7 @@ export const ReactionSummaryView = ({
 					summaryGetOptimisticImageURL={summaryGetOptimisticImageURL}
 					summaryButtonIconAfter={summaryButtonIconAfter}
 					summaryViewParticleEffectEmojiId={summaryViewParticleEffectEmojiId}
+					isOpen={isSummaryPopupOpen || isEmojiPickerOpen}
 				/>
 			)}
 		/>

@@ -72,7 +72,6 @@ import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorViewStateUpdatedCallbackProps } from '../types/editor-config';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
-import { getNodesCount } from '../utils/getNodesCount';
 import { getNodesCountWithExtensionKeys } from '../utils/getNodesCountWithExtensionKeys';
 import { getNodesVisibleInViewport } from '../utils/getNodesVisibleInViewport';
 import { isChromeless } from '../utils/is-chromeless';
@@ -866,14 +865,9 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					);
 
 					if (viewRef.current) {
-						const nodesAndExtensionKeys = expValEquals(
-							'platform_editor_prosemirror_rendered_data',
-							'isEnabled',
-							true,
-						)
-							? getNodesCountWithExtensionKeys(viewRef.current.state.doc)
-							: undefined;
-						const nodes = nodesAndExtensionKeys?.nodes ?? getNodesCount(viewRef.current.state.doc);
+						const { nodes, extensionKeys } = getNodesCountWithExtensionKeys(
+							viewRef.current.state.doc,
+						);
 						const ttfb = getResponseEndTime();
 						const requestToResponseTime = getRequestToResponseTime();
 
@@ -911,79 +905,55 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 								}
 							: {};
 
-						if (expValEquals('platform_editor_prosemirror_rendered_data', 'isEnabled', true)) {
-							const extensionKeys = nodesAndExtensionKeys?.extensionKeys ?? {};
-							const interaction = getActiveInteraction();
-							const pageLoadType = interaction?.type;
-							const pageType = interaction?.routeName;
-							const timings = (() => {
-								if (requestToResponseTime === undefined && bootStartTime === undefined) {
-									return undefined;
-								}
+						const interaction = getActiveInteraction();
+						const pageLoadType = interaction?.type;
+						const pageType = interaction?.routeName;
+						const timings = (() => {
+							if (requestToResponseTime === undefined && bootStartTime === undefined) {
+								return undefined;
+							}
 
-								const timingValues: {
-									bootToRender?: number;
-									'requestStart->responseEnd'?: number;
-								} = {};
+							const timingValues: {
+								bootToRender?: number;
+								'requestStart->responseEnd'?: number;
+							} = {};
 
-								if (requestToResponseTime !== undefined) {
-									timingValues['requestStart->responseEnd'] = Math.round(requestToResponseTime);
-								}
+							if (requestToResponseTime !== undefined) {
+								timingValues['requestStart->responseEnd'] = Math.round(requestToResponseTime);
+							}
 
-								if (bootStartTime !== undefined) {
-									timingValues.bootToRender = Math.round(startTime - bootStartTime);
-								}
+							if (bootStartTime !== undefined) {
+								timingValues.bootToRender = Math.round(startTime - bootStartTime);
+							}
 
-								return timingValues;
-							})();
+							return timingValues;
+						})();
 
-							const attributes = {
-								duration,
-								startTime,
-								nodes,
-								nodesInViewport,
-								nodeSize,
-								nodeSizeBucket,
-								totalNodes,
-								ttfb,
-								severity: proseMirrorRenderedSeverity,
-								objectId: contextIdentifier?.objectId,
-								distortedDuration,
-								pageLoadType,
-								pageType,
-								timings,
-								extensionKeys,
-								ufoInteractionId: getInteractionId().current,
-							};
+						const attributes = {
+							duration,
+							startTime,
+							nodes,
+							nodesInViewport,
+							nodeSize,
+							nodeSizeBucket,
+							totalNodes,
+							ttfb,
+							severity: proseMirrorRenderedSeverity,
+							objectId: contextIdentifier?.objectId,
+							distortedDuration,
+							pageLoadType,
+							pageType,
+							timings,
+							extensionKeys,
+							ufoInteractionId: getInteractionId().current,
+						};
 
-							dispatchAnalyticsEvent({
-								action: ACTION.PROSEMIRROR_RENDERED,
-								actionSubject: ACTION_SUBJECT.EDITOR,
-								attributes,
-								eventType: EVENT_TYPE.OPERATIONAL,
-							});
-						} else {
-							const attributes = {
-								duration,
-								startTime,
-								nodes,
-								nodesInViewport,
-								nodeSize,
-								nodeSizeBucket,
-								totalNodes,
-								ttfb,
-								severity: proseMirrorRenderedSeverity,
-								objectId: contextIdentifier?.objectId,
-								distortedDuration,
-							};
-
-							dispatchAnalyticsEvent({
-								action: ACTION.PROSEMIRROR_RENDERED,
-								actionSubject: ACTION_SUBJECT.EDITOR,
-								attributes,
-								eventType: EVENT_TYPE.OPERATIONAL,
-							});
-						}
+						dispatchAnalyticsEvent({
+							action: ACTION.PROSEMIRROR_RENDERED,
+							actionSubject: ACTION_SUBJECT.EDITOR,
+							attributes,
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
 					}
 				},
 			);

@@ -8,7 +8,6 @@ import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -142,12 +141,7 @@ export default class Popup extends React.Component<Props, State> {
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- Existing Popup positioning fallback; keep unchanged for safety.
 			boundariesElement: boundariesElement || document.body,
 			minPopupMargin,
-			scrollableElement:
-				stick &&
-				(expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true) ||
-					expValEquals('create_work_item_modernization_exp', 'isEnabled', true))
-					? this.scrollElement
-					: undefined,
+			scrollableElement: stick ? this.scrollElement : undefined,
 		});
 		position = onPositionCalculated ? onPositionCalculated(position) : position;
 
@@ -368,11 +362,7 @@ export default class Popup extends React.Component<Props, State> {
 	componentDidUpdate(prevProps: Props): void {
 		this.handleChangedFocusTrapProp(prevProps);
 
-		if (
-			(expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true) ||
-				expValEquals('create_work_item_modernization_exp', 'isEnabled', true)) &&
-			prevProps.scrollableElement !== this.props.scrollableElement
-		) {
+		if (prevProps.scrollableElement !== this.props.scrollableElement) {
 			this.initScrollElement();
 		}
 
@@ -386,36 +376,7 @@ export default class Popup extends React.Component<Props, State> {
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('resize', this.onResize);
 
-		if (
-			expValEquals('platform_editor_fix_scrolling_popup_position', 'isEnabled', true) ||
-			expValEquals('create_work_item_modernization_exp', 'isEnabled', true)
-		) {
-			this.initScrollElement();
-			return;
-		}
-
-		const { stick } = this.props;
-
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		const target = this.props.target!;
-
-		const scrollParentElement = findOverflowScrollParent(target);
-
-		if (scrollParentElement && this.resizeObserver) {
-			this.resizeObserver.observe(scrollParentElement);
-		}
-
-		if (stick) {
-			this.scrollElement = scrollParentElement;
-		} else {
-			this.scrollElement = this.props.scrollableElement;
-		}
-		if (this.scrollElement) {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			this.scrollElement.addEventListener('scroll', this.onResize);
-		}
+		this.initScrollElement();
 	}
 
 	componentWillUnmount(): void {

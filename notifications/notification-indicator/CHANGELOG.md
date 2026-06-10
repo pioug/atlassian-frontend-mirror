@@ -1,5 +1,32 @@
 # @atlaskit/notification-indicator
 
+## 10.2.0
+
+### Minor Changes
+
+- [`762163ffca9b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/762163ffca9b3) -
+  Added support for the new semantic Badge appearance values on the `NotificationIndicator`'s
+  `appearance` prop, and changed the default from `'important'` to `'dangerBold'` so the
+  notification bell badge uses the new bold danger styling. Legacy appearance values are still
+  supported — this is a non-breaking change.
+
+  **New accepted values (in addition to existing ones):**
+  - Semantic appearances:
+    `'success' | 'neutral' | 'information' | 'inverse' | 'danger' | 'warning' | 'discovery'`
+  - Bold semantic appearances:
+    `'successBold' | 'informationBold' | 'dangerBold' | 'warningBold' | 'discoveryBold'`
+
+  **Default change:** the default `appearance` value is now `'dangerBold'` (previously
+  `'important'`). Both render as a red badge — `'important'` uses the legacy Badge with a red300
+  background, while `'dangerBold'` uses the new bold danger Badge appearance behind the
+  `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate. When the feature gate is off,
+  `'dangerBold'` falls back to the legacy `'removed'` (red) Badge appearance via the Badge
+  component's built-in mapping — so the visual is consistent regardless of gate state.
+
+  **Backwards compatibility:** All legacy appearance values (`'added'`, `'default'`, `'important'`,
+  `'primary'`, `'primaryInverted'`, `'removed'`) continue to work as before. No migration required
+  for existing consumers.
+
 ## 10.1.4
 
 ### Patch Changes

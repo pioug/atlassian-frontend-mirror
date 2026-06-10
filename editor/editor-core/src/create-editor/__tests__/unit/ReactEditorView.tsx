@@ -116,7 +116,6 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -748,7 +747,6 @@ describe('@atlaskit/editor-core', () => {
 
 	describe('proseMirrorRendered analytics event', () => {
 		it('sends attributes', async () => {
-			setupEditorExperiments('test', { platform_editor_prosemirror_rendered_data: true });
 			(getActiveInteraction as jest.Mock).mockReturnValueOnce({
 				type: 'page_load',
 				routeName: 'edit-page',
@@ -792,8 +790,6 @@ describe('@atlaskit/editor-core', () => {
 					}),
 				});
 			});
-
-			setupEditorExperiments('test', {});
 		});
 	});
 

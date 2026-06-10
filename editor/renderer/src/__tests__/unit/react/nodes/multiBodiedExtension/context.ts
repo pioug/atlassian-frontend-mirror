@@ -1,9 +1,12 @@
+import React from 'react';
+
 import { renderHook, waitFor } from '@testing-library/react';
 import {
 	getExtensionModuleNodePrivateProps,
 	getNodeRenderer,
 } from '@atlaskit/editor-common/extensions';
 import { useProvider } from '@atlaskit/editor-common/provider-factory';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { useMultiBodiedExtensionContext } from '../../../../../react/nodes/multiBodiedExtension/context';
 
@@ -24,6 +27,18 @@ jest.mock('@atlaskit/editor-common/provider-factory', () => ({
 describe('useMultiBodiedExtensionContext', () => {
 	const extensionType = 'testType';
 	const extensionKey = 'testKey';
+	const node = {
+		type: 'multiBodiedExtension' as const,
+		extensionType,
+		extensionKey,
+	};
+	const rendererContext = {
+		adDoc: {
+			type: 'doc',
+			version: 1,
+			content: [],
+		},
+	};
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -86,6 +101,72 @@ describe('useMultiBodiedExtensionContext', () => {
 				NodeRenderer: mockNodeRenderer,
 				privateProps: mockPrivateProps,
 			});
+		});
+	});
+
+	it('should return extension handler renderer before resolving provider renderer when the native tabs gate is on', () => {
+		passGate('confluence_frontend_native_tabs_extension');
+		const extensionHandler = jest.fn(() =>
+			React.createElement('div', null, 'Extension handler result'),
+		);
+		(useProvider as jest.Mock).mockReturnValue(new Promise(() => {}));
+
+		const { result } = renderHook(() =>
+			useMultiBodiedExtensionContext({
+				extensionHandlers: {
+					[extensionType]: extensionHandler,
+				},
+				extensionType,
+				extensionKey,
+			}),
+		);
+
+		const NodeRenderer = result.current.extensionContext?.NodeRenderer;
+
+		expect(result.current.loading).toBe(false);
+		expect(result.current.extensionContext?.privateProps).toEqual({
+			__allowBodiedOverride: true,
+		});
+		expect(NodeRenderer).toBeDefined();
+		const HandlerRenderer = NodeRenderer as React.FunctionComponent<{
+			doc: typeof rendererContext.adDoc;
+			node: typeof node;
+		}>;
+		HandlerRenderer({ node, doc: rendererContext.adDoc });
+		expect(extensionHandler).toHaveBeenCalledWith(node, rendererContext.adDoc, undefined);
+		expect(getNodeRenderer).not.toHaveBeenCalled();
+	});
+
+	it('should use provider renderer when extension handler is available but the native tabs gate is off', async () => {
+		failGate('confluence_frontend_native_tabs_extension');
+		const mockPrivateProps = { __allowBodiedOverride: false };
+		const mockNodeRenderer = jest.fn();
+		const extensionHandler = jest.fn(() =>
+			React.createElement('div', null, 'Extension handler result'),
+		);
+		(useProvider as jest.Mock).mockReturnValue(Promise.resolve({}));
+		(getExtensionModuleNodePrivateProps as jest.Mock).mockReturnValue(
+			Promise.resolve(mockPrivateProps),
+		);
+		(getNodeRenderer as jest.Mock).mockReturnValue(mockNodeRenderer);
+
+		const { result } = renderHook(() =>
+			useMultiBodiedExtensionContext({
+				extensionHandlers: {
+					[extensionType]: extensionHandler,
+				},
+				extensionType,
+				extensionKey,
+			}),
+		);
+
+		await waitFor(() => {
+			expect(result.current.loading).toBe(false);
+			expect(result.current.extensionContext).toEqual({
+				NodeRenderer: mockNodeRenderer,
+				privateProps: mockPrivateProps,
+			});
+			expect(extensionHandler).not.toHaveBeenCalled();
 		});
 	});
 });

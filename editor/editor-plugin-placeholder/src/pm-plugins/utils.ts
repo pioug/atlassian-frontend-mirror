@@ -2,11 +2,11 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import { placeholderTextMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	bracketTyped,
-	getBaseNodeTypeName,
 	hasDocAsParent,
 	isEmptyDocument,
 	isEmptyParagraph,
 } from '@atlaskit/editor-common/utils';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';

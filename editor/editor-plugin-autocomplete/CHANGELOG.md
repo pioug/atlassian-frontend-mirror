@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 3.4.0
+
+### Minor Changes
+
+- [`b6fb60030b3b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6fb60030b3b9) -
+  Improve local autocomplete scheduling latency
+
 ## 3.3.0
 
 ### Minor Changes

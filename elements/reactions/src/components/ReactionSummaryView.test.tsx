@@ -173,6 +173,27 @@ describe('ReactionSummaryView', () => {
 	});
 
 	describe('a11y-fixes-week4-may-2026 experiment', () => {
+		it('should NOT set aria-expanded on summary button when experiment is disabled', async () => {
+			expValEqualsMock.mockReturnValue(false);
+			renderComponent();
+			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			expect(button).not.toHaveAttribute('aria-expanded');
+		});
+
+		it('should set aria-expanded="false" on summary button when experiment is enabled and popup is closed', async () => {
+			expValEqualsMock.mockReturnValue(true);
+			renderComponent();
+			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			expect(button).toHaveAttribute('aria-expanded', 'false');
+		});
+
+		it('should set aria-expanded="true" on summary button when experiment is enabled and popup is open', async () => {
+			expValEqualsMock.mockReturnValue(true);
+			renderComponent();
+			const button = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			await userEvent.click(button);
+			expect(button).toHaveAttribute('aria-expanded', 'true');
+		});
 		it('should render popup in portal (shouldRenderToParent=false) when experiment is off', async () => {
 			expValEqualsMock.mockReturnValue(false);
 			renderComponent();

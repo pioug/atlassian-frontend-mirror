@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 9.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.6
+
+### Patch Changes
+
+- [`ca2189db06329`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca2189db06329) -
+  Update diff style
+- Updated dependencies
+
+## 9.0.5
+
+### Patch Changes
+
+- [`4c2645b77929d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c2645b77929d) -
+  [ux] EDITOR-7346 add ai and diff plugin support for panel_c1
+- Updated dependencies
+
 ## 9.0.4
 
 ### Patch Changes

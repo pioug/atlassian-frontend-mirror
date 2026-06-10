@@ -1,4 +1,4 @@
-import { isNodeTypeValidChildOf } from '@atlaskit/editor-common/utils';
+import { isNodeTypeValidChildOf } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { NodeRange, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

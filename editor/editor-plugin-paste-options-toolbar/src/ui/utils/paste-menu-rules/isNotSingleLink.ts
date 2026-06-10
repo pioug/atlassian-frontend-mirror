@@ -3,6 +3,7 @@ import type { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirr
 /**
  * Returns true if the given text node's sole mark is a `link` mark whose href
  * matches the node's text content exactly (i.e. the link label IS the URL).
+ * Or if the text content is a parseable URL.
  */
 const isUrlOnlyLinkTextNode = (node: PMNode): boolean => {
 	if (!node.isText) {
@@ -12,7 +13,30 @@ const isUrlOnlyLinkTextNode = (node: PMNode): boolean => {
 		return false;
 	}
 	const href: string = node.marks[0].attrs?.href ?? '';
-	return node.text === href;
+
+	// Check if the text content is a URL
+	const textOfNode = node.text ?? '';
+
+	const parseableUrl = isParseableUrl(textOfNode);
+
+	return node.text === href || parseableUrl;
+};
+
+/**
+ * Checks if a given string is parseable as a URL.
+ */
+const isParseableUrl = (text: string): boolean => {
+	if (typeof URL?.canParse === 'function') {
+		return URL.canParse(text);
+	}
+
+	// Fallback for older environments
+	try {
+		new URL(text);
+		return true;
+	} catch (e) {
+		return false;
+	}
 };
 
 /**

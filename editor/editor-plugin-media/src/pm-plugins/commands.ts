@@ -76,6 +76,7 @@ export const insertMediaAsMediaSingleCommand =
 		inputMethod: InputMethodInsertMedia,
 		insertMediaVia?: InsertMediaVia,
 		positions?: [number, number],
+		dataConsumerSource?: string,
 	): EditorCommand =>
 		createInsertMediaAsMediaSingleCommand(
 			mediaAttrs,
@@ -84,4 +85,5 @@ export const insertMediaAsMediaSingleCommand =
 			insertMediaVia,
 			allowPixelResizing,
 			positions,
+			dataConsumerSource,
 		);

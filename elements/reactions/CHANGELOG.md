@@ -1,5 +1,34 @@
 # @atlaskit/reactions
 
+## 34.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.4.0
+
+### Minor Changes
+
+- [`ec2c29c3c63b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec2c29c3c63b3) -
+  [ux] Reaction button a11y fixes
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.3.1
 
 ### Patch Changes

@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 115.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.7.4
+
+### Patch Changes
+
+- [`03ac1a9785ec4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03ac1a9785ec4) -
+  Hide multi-bodied extension frames by default and explicitly reveal the active frame in editor
+  common UI.
+- Updated dependencies
+
+## 115.7.3
+
+### Patch Changes
+
+- [`f7faa21a01fc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7faa21a01fc7) -
+  Cleanup stale feature gates and experiments now that they have shipped. The following
+  gates/experiments have been removed and their enabled paths kept as the permanent behaviour:
+  platform_editor_fix_scrolling_popup_position, platform_editor_table_resize_chromeless,
+  platform_editor_chromeless_akeditor_class, create_work_item_modernization_exp.
+- Updated dependencies
+
+## 115.7.2
+
+### Patch Changes
+
+- [`4c2645b77929d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c2645b77929d) -
+  [ux] EDITOR-7346 add ai and diff plugin support for panel_c1
+- Updated dependencies
+
 ## 115.7.1
 
 ### Patch Changes

@@ -74,8 +74,8 @@ describe('optimizeLabelStackWithRegistry', () => {
 			expect(table).toEqual({
 				v: 2,
 				n: [
-					['abc123', -1],
-					['def456', 0],
+					{ l: 'abc123', p: -1 },
+					{ l: 'def456', p: 0 },
 				],
 			});
 			expect(resolveLabelStackFromTrie(table, result1 as number)).toBe('abc123');

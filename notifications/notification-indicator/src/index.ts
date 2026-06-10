@@ -11,12 +11,27 @@ import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/an
 const NotificationIndicatorWithAnalytics: ForwardRefExoticComponent<
 	Pick<Omit<Props, keyof WithAnalyticsEventsProps>, never> & {
 		appearance?:
+			// Legacy Badge appearances (still supported for backwards compatibility):
 			| 'added'
 			| 'default'
 			| 'important'
 			| 'primary'
 			| 'primaryInverted'
 			| 'removed'
+			// New semantic Badge appearances:
+			| 'success'
+			| 'neutral'
+			| 'information'
+			| 'inverse'
+			| 'danger'
+			| 'warning'
+			| 'discovery'
+			// New bold semantic Badge appearances:
+			| 'successBold'
+			| 'informationBold'
+			| 'dangerBold'
+			| 'warningBold'
+			| 'discoveryBold'
 			| undefined;
 		max?: number | undefined;
 		notificationLogProvider?: Promise<NotificationLogProvider> | undefined;

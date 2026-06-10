@@ -1,3 +1,16 @@
+// Experiment/statsig APIs that should not be evaluated at module level.
+// These are intentionally separate from FEATURE_API_IMPORT_SOURCES so that
+// only the no-module-level-eval rule applies — not rules like valid-gate-name,
+// prefer-fg, no-alias, etc. which are designed for boolean fg() gates only.
+export const EXPERIMENT_API_IMPORT_SOURCES: Set<string> = new Set([
+	// Editor experiment APIs — subpath imports must be listed individually
+	'@atlaskit/tmp-editor-statsig/exp-val-equals',
+	'@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure',
+	'@atlaskit/tmp-editor-statsig/expVal',
+	'@atlaskit/tmp-editor-statsig/experiments',
+	'@atlaskit/tmp-editor-statsig/dynamic-config-value-contains',
+]);
+
 // List of libraries that we maintain or have worked on
 // - eg `@atlaskit/feature-gate-js-client` shouldn't be included in here
 export const FEATURE_API_IMPORT_SOURCES: Set<string> = new Set([

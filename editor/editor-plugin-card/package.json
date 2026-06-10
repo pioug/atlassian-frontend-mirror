@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "17.3.1",
+	"version": "17.4.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -121,6 +121,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"confluence_editor_paste_3p_link_actions_menu": {
+			"type": "boolean"
+		},
 		"platform_native_embeds_rollout_non_maui_experience": {
 			"type": "boolean"
 		},

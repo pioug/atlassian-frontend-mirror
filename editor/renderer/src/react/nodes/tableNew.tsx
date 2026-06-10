@@ -299,6 +299,7 @@ export class TableContainer extends React.Component<
 
 	private containerRef: HTMLDivElement | null = null;
 	private _isInsideNestedRenderer: boolean | null = null;
+	private _isInsideTableCell: boolean | null = null;
 	// Stores the last computed style values from render() for use by applyNestedRendererTableFix().
 	// This avoids reading from the DOM which can be stale when React removes properties between renders.
 	private lastComputedStyle: { width?: string; left?: string; marginLeft?: string } = {};
@@ -356,11 +357,39 @@ export class TableContainer extends React.Component<
 	}
 
 	/**
+	 * Checks if this table is inside a table cell in the DOM. The result is cached
+	 * since a table's position in the DOM tree is stable after mount.
+	 */
+	private isInsideTableCell(): boolean {
+		if (this._isInsideTableCell !== null) {
+			return this._isInsideTableCell;
+		}
+		if (!this.containerRef) {
+			return false;
+		}
+		this._isInsideTableCell = Boolean(this.containerRef.closest('td, th'));
+		return this._isInsideTableCell;
+	}
+
+	private isInsideTableContext(): boolean {
+		return Boolean(this.props.isInsideOfTable || this.isInsideTableCell());
+	}
+
+	/**
 	 * For tables inside nested renderers (e.g. Include Page macro), the parent
 	 * renderer's CSS override forces width:100%!important and left:0!important
 	 * which overrides the inline styles set by this component. Using
 	 * style.setProperty with 'important' priority on inline styles beats
 	 * stylesheet !important rules per the CSS cascade.
+	 *
+	 * Tables that are nested inside another table need to remain constrained by
+	 * their table-cell context. Do not promote their width to inline !important,
+	 * otherwise nested tables rendered through macros such as Excerpt Include can
+	 * overflow and overlap adjacent cells.
+	 *
+	 * Top-level tables in nested renderers still preserve their saved width, but
+	 * are capped to their containing block so wide tables do not escape constrained
+	 * macro bodies such as Excerpt Include panels.
 	 *
 	 * Uses lastComputedStyle (populated during render) rather than reading from
 	 * element.style, because React may remove properties from the DOM when their
@@ -370,7 +399,7 @@ export class TableContainer extends React.Component<
 		if (!this.containerRef || !fg('platform_nested_table_style_override')) {
 			return;
 		}
-		if (!this.isInsideNestedRenderer()) {
+		if (!this.isInsideNestedRenderer() || this.isInsideTableContext()) {
 			return;
 		}
 
@@ -378,6 +407,7 @@ export class TableContainer extends React.Component<
 		const style = this.containerRef.style;
 
 		style.setProperty('width', width || 'auto', 'important');
+		style.setProperty('max-width', '100%', 'important');
 		style.setProperty('left', left || 'auto', 'important');
 		style.setProperty('margin-left', marginLeft || '0', 'important');
 	}
@@ -387,6 +417,10 @@ export class TableContainer extends React.Component<
 	 * to the handleRef prop from the overflow shadow HOC.
 	 */
 	private setContainerRef = (el: HTMLDivElement | null): void => {
+		if (this.containerRef !== el) {
+			this._isInsideNestedRenderer = null;
+			this._isInsideTableCell = null;
+		}
 		this.containerRef = el;
 		const { handleRef } = this.props;
 		if (typeof handleRef === 'function') {

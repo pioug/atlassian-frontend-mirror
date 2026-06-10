@@ -79,6 +79,11 @@ export const extensionFrame: NodeSpec = extensionFrameStage0Factory({
 	toDOM() {
 		const attrs: Record<string, string> = {
 			'data-extension-frame': 'true',
+			// Frames are hidden by default and the active frame is revealed via CSS.
+			// Using an inline style ensures frames are invisible from the moment
+			// ProseMirror inserts them into the DOM, preventing a flash of all
+			// frames before the styles are injected.
+			style: 'display:none',
 		};
 
 		return ['div', attrs, 0];

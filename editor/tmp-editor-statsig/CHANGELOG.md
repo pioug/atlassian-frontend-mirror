@@ -1,5 +1,98 @@
 # @atlaskit/editor-statsig-tmp
 
+## 93.0.1
+
+### Patch Changes
+
+- [`a4f97c853dccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4f97c853dccf) -
+  Extend `no-module-level-eval` lint rule to cover editor experiment APIs (`expValEquals`, `expVal`,
+  `editorExperiment`, `expValEqualsNoExposure`) imported from `@atlaskit/tmp-editor-statsig`
+  subpaths. Module-level evaluation of these functions causes flakiness because experiment values
+  may not be resolved yet at import time.
+
+  Fix existing violations in `editor-plugin-block-controls` (`global-styles.tsx`) and
+  `editor-plugin-table` (`ContextualMenu.tsx`) by converting module-level experiment evaluations to
+  lazy function calls.
+
+  Clean up fully-launched experiment `platform_editor_unify_native_dnd_selectors` — replace
+  conditional selector logic with the winning `dragHandlerAnchorSelectorWithTaskExclusion` value and
+  remove the experiment from `experiments-config.ts`.
+
+## 93.0.0
+
+### Major Changes
+
+- [`676198a68986c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/676198a68986c) -
+  Cleanup feature gate `platform_editor_prosemirror_rendered_data`. The ProseMirror rendered
+  analytics event now always includes page-load metadata, timing values, extension keys, and the UFO
+  interaction ID.
+
+### Minor Changes
+
+- [`ebd3c5d7d340a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebd3c5d7d340a) -
+  Gate single-link paste display menu behind confluence_editor_paste_3p_link_actions_menu feature
+  flag
+
+## 92.0.0
+
+### Major Changes
+
+- [`2b3602c6e9f97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b3602c6e9f97) -
+  Clean up feature flag 'platform_safari_cursor_typeahead_fix'
+
+### Patch Changes
+
+- Updated dependencies
+
+## 91.0.0
+
+### Major Changes
+
+- [`f7faa21a01fc7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7faa21a01fc7) -
+  Cleanup stale feature gates and experiments now that they have shipped. The following
+  gates/experiments have been removed and their enabled paths kept as the permanent behaviour:
+  platform_editor_fix_scrolling_popup_position, platform_editor_table_resize_chromeless,
+  platform_editor_chromeless_akeditor_class, create_work_item_modernization_exp.
+
+### Minor Changes
+
+- [`dbe0d03cebcd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbe0d03cebcd7) -
+  Added fix_copy_paste_external_media_renderer_to_editor experiment
+
+## 90.3.0
+
+### Minor Changes
+
+- [`55c06e0ce9944`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55c06e0ce9944) -
+  [ux] experiment cleanup on fg_cleanup_platform_rovo_inline_chat_missing_analytics_fix
+- [`dc18b82540c1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc18b82540c1e) -
+  [EDITOR-7606](https://hello.jira.atlassian.cloud/browse/EDITOR-7606) - fix SSR streaming tables
+  borders by adopting changes from `platform_editor_vc90_transition_table_border` experiment
+
+## 90.2.0
+
+### Minor Changes
+
+- [`ec2c29c3c63b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec2c29c3c63b3) -
+  [ux] Reaction button a11y fixes
+- [`98bc3bac22bb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98bc3bac22bb2) -
+  Add platform_editor_blocks editor experiment that routes to platform_editor_blocks_conf on
+  Confluence and platform_editor_blocks_jira on Jira; migrate internal callsites of the old
+  per-product Blocks experiments to the unified key
+
+### Patch Changes
+
+- Updated dependencies
+
+## 90.1.0
+
+### Minor Changes
+
+- [`1f87c5cc71aa3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f87c5cc71aa3) -
+  Improve reliability of editor controls positioning by using ProseMirror node decorations to apply
+  CSS anchor-name, replacing fragile CSS adjacency selectors. Gated behind
+  platform_editor_controls_reliable_anchor experiment.
+
 ## 90.0.0
 
 ### Major Changes

@@ -7,7 +7,11 @@ import { type FrameStyle } from '../EmbedCard/types';
 import type { EmbedModalSize } from '../EmbedModal/types';
 import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { type HoverPreviewOptions } from '../HoverCard/types';
-import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
+import {
+	type EventHandlerWithData,
+	type InlinePreloaderStyle,
+	type OnErrorCallback,
+} from '../types';
 
 export type { CardAppearance, CardPlatform };
 export type CardInnerAppearance =
@@ -93,6 +97,92 @@ interface HoverPreviewProps extends ActionProps {
 	showHoverPreview?: boolean;
 }
 
+export type OnClickData = {
+	/**
+	 * The destination URL that Smart Link resolved and will navigate to.
+	 * This may differ from the original `url` prop if Smart Link applied
+	 * cross-product analytics parameters or resolved a preferred URL from metadata.
+	 */
+	destinationUrl?: string;
+
+	/**
+	 * The original `url` prop given to the component
+	 * and the key to access link metadata in SmartCardProvider.
+	 */
+	url?: string;
+};
+
+/**
+ * Callback type for click events on Smart Links.
+ *
+ * Equivalent to:
+ *   (event: React.MouseEvent | React.KeyboardEvent, data?: OnClickData) => void
+ *
+ * Uses `EventHandlerWithData` (a bivariant method type) so that consumers can pass
+ * callbacks with narrower event types (e.g. `React.MouseEvent<HTMLElement>`) without
+ * TypeScript errors — the same technique React uses internally for `React.EventHandler`.
+ *
+ * The optional `data` argument provides additional context:
+ * - `data.destinationUrl` — the URL Smart Link resolved and will navigate to.
+ * - `data.url` — the original `url` prop passed to the component.
+ *
+ * Use this type when typing your own click handler variable or function outside JSX:
+ * @example
+ * const handleClick: OnClickCallback = (event, data) => {
+ *   event.preventDefault();
+ *   navigate(data?.destinationUrl ?? fallbackUrl);
+ * };
+ */
+export type OnClickCallback = EventHandlerWithData<
+	React.MouseEvent | React.KeyboardEvent,
+	OnClickData
+>;
+
+interface CardEventProps {
+	/**
+	 * A React component responsible for returning a fallback UI when smart link fails to render because of uncaught errors.
+	 */
+	fallbackComponent?: React.ComponentType;
+
+	/**
+	 * A callback function triggered when a Smart Link is clicked.
+	 *
+	 * When defined, the default browser navigation is prevented and your handler
+	 * is responsible for navigation — except for Flexible Card, which always opens
+	 * the link and then calls the callback.
+	 *
+	 * The optional second argument `data` provides additional context about the click:
+	 * - `data.destinationUrl` — the resolved URL Smart Link will navigate to.
+	 *   This may differ from the original `url` prop if Smart Link resolved a
+	 *   preferred URL from metadata or appended analytics parameters.
+	 * - `data.url` — the original `url` prop passed to the component.
+	 *
+	 * @example
+	 * // Basic usage
+	 * onClick={(e) => { e.preventDefault(); window.location.href = myUrl; }}
+	 *
+	 * // With destination URL
+	 * onClick={(e, data) => { navigate(data?.destinationUrl ?? url); }}
+	 */
+	onClick?: OnClickCallback;
+
+	/**
+	 * A callback function currently invoked in two cases:
+	 * 1. When the `CardState.status` is one of `ErrorCardType`. "err" property in argument will be undefined in this case
+	 *    This does not mean that smart card failed to render.
+	 * 2. When there is any unhandled error inside smart card while rendering, resulting in failure to render smart card successfully.
+	 *    "err" property in argument will be provided in this case.
+	 *    Presence of an err property indicates that the client should either render their own fallback
+	 *    or provide a fallbackComponent prop which will be rendered instead smart card component.
+	 *    If fallbackComponent is not provided, smart card will render null
+	 */
+	onError?: OnErrorCallback;
+	/**
+	 * A callback function after the url is resolved into smart card.
+	 */
+	onResolve?: OnResolveCallback;
+}
+
 export interface BaseCardProps {
 	/**
 	 * Define smart card default appearance.
@@ -114,10 +204,6 @@ export interface BaseCardProps {
 	 */
 	disablePreviewPanel?: boolean;
 	/**
-	 * A React component responsible for returning a fallback UI when smart link fails to render because of uncaught errors.
-	 */
-	fallbackComponent?: React.ComponentType;
-	/**
 	 * Unique id for smart link used in analytics.
 	 */
 	id?: string;
@@ -125,25 +211,6 @@ export interface BaseCardProps {
 	 * Show selected state of smart link.
 	 */
 	isSelected?: boolean;
-	/**
-	 * A callback function after a link is clicked.
-	 */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	/**
-	 * A callback function currently invoked in two cases:
-	 * 1. When the `CardState.status` is one of `ErrorCardType`. "err" property in argument will be undefined in this case
-	 *    This does not mean that smart card failed to render.
-	 * 2. When there is any unhandled error inside smart card while rendering, resulting in failure to render smart card successfully.
-	 *    "err" property in argument will be provided in this case.
-	 *    Presence of an err property indicates that the client should either render their own fallback
-	 *    or provide a fallbackComponent prop which will be rendered instead smart card component.
-	 *    If fallbackComponent is not provided, smart card will render null
-	 */
-	onError?: OnErrorCallback;
-	/**
-	 * A callback function after the url is resolved into smart card.
-	 */
-	onResolve?: OnResolveCallback;
 	/**
 	 * String to be displayed while the Card component is (lazy)loading.
 	 */
@@ -229,8 +296,8 @@ export interface FlexibleProps extends ActionProps, HoverPreviewProps {
 }
 
 export interface CardProps
-	extends
-		BaseCardProps,
+	extends BaseCardProps,
+		CardEventProps,
 		InlineProps,
 		BlockProps,
 		EmbedProps,

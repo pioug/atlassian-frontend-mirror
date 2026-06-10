@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 11.1.0
+
+### Minor Changes
+
+- [`31c4f99dfaafa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31c4f99dfaafa) -
+  fix(editor): fix wide slash trigger opening menu for ASCII '/' on macOS IME
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.2
 
 ### Patch Changes

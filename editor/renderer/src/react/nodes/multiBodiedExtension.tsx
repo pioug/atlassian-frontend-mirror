@@ -186,6 +186,7 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 		parameters,
 		extensionType,
 		extensionKey,
+		extensionHandlers,
 		content,
 		marks,
 		localId,
@@ -193,6 +194,7 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 	} = props;
 	const [activeChildIndex, setActiveChildIndex] = useState<number>(0);
 	const { loading, extensionContext } = useMultiBodiedExtensionContext({
+		extensionHandlers,
 		extensionType,
 		extensionKey,
 	});

@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-card
 
+## 17.4.0
+
+### Minor Changes
+
+- [`ebd3c5d7d340a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebd3c5d7d340a) -
+  Gate single-link paste display menu behind confluence_editor_paste_3p_link_actions_menu feature
+  flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.3.1
 
 ### Patch Changes

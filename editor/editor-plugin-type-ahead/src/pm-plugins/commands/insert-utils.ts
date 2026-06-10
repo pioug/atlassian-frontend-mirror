@@ -1,5 +1,6 @@
 import { normaliseNestedLayout, safeInsert } from '@atlaskit/editor-common/insert';
-import { isNodeOfSameBaseType, transformNodeIntoListItem } from '@atlaskit/editor-common/utils';
+import { transformNodeIntoListItem } from '@atlaskit/editor-common/utils';
+import { isNodeOfSameBaseType } from '@atlaskit/editor-common/utils/node-type-utils';
 import { Fragment, Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

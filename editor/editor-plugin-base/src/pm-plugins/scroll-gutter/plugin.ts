@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { scrollGutterPluginKey } from './plugin-key';
 
@@ -12,7 +12,7 @@ const GUTTER_ATTR = 'data-editor-scroll-gutter';
  * Create a gutter element that can be added or removed from the DOM.
  */
 function createGutter(gutterSize: number, parent: HTMLElement | null) {
-	if (FeatureGates.getExperimentValue('cc_snippets', 'isEnabled', false)) {
+	if (editorExperiment('platform_editor_blocks', true)) {
 		if (!parent) {
 			return () => {};
 		}

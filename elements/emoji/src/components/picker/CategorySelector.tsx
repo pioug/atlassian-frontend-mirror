@@ -109,6 +109,8 @@ const categorySelector = css({
 const categorySelectorNew = css({
 	flex: '0 0 auto',
 	backgroundColor: token('elevation.surface'),
+	borderTopLeftRadius: token('radius.large', '8px'),
+	borderTopRightRadius: token('radius.large', '8px'),
 	paddingTop: token('space.0'),
 	paddingBottom: token('space.0'),
 	borderBottomWidth: token('border.width'),

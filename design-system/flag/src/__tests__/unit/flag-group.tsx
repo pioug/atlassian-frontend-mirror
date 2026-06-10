@@ -310,6 +310,42 @@ describe('FlagGroup', () => {
 		expect(flagGroupContainer?.nodeName).toBe('DIV');
 	});
 
+	// cc_mohiti_flag_anchoring — symmetric 48px × 48px bottom-left anchoring.
+	// The legacy left inset was 80px (space.1000), a left-rail nav artefact.
+	describe('symmetric anchoring (cc_mohiti_flag_anchoring)', () => {
+		ffTest.on('cc_mohiti_flag_anchoring', 'when symmetric anchoring FF is on', () => {
+			it('applies space.600 (48px) as the inline-start inset', () => {
+				render(<FlagGroup id="fg-test">{generateFlag({ id: 'a' })}</FlagGroup>);
+				const container = document.getElementById('fg-test');
+				expect(container).not.toBeNull();
+				// jsdom's getComputedStyle normalises `var(--x, y)` by stripping the
+				// space after the comma, so compare with whitespace removed.
+				expect(
+					window
+						.getComputedStyle(container!)
+						.getPropertyValue('inset-inline-start')
+						.replace(/\s/g, ''),
+				).toBe('var(--ds-space-600,3pc)');
+			});
+		});
+
+		ffTest.off('cc_mohiti_flag_anchoring', 'when symmetric anchoring FF is off', () => {
+			it('keeps the legacy space.1000 (80px) inline-start inset', () => {
+				render(<FlagGroup id="fg-test">{generateFlag({ id: 'a' })}</FlagGroup>);
+				const container = document.getElementById('fg-test');
+				expect(container).not.toBeNull();
+				// jsdom's getComputedStyle normalises `var(--x, y)` by stripping the
+				// space after the comma, so compare with whitespace removed.
+				expect(
+					window
+						.getComputedStyle(container!)
+						.getPropertyValue('inset-inline-start')
+						.replace(/\s/g, ''),
+				).toBe('var(--ds-space-1000,5pc)');
+			});
+		});
+	});
+
 	// JRACLOUD-97876 — keyboard-only / AT users must be able to dismiss the
 	// topmost flag without tabbing through the entire page.
 	describe('keyboard dismiss (Escape)', () => {

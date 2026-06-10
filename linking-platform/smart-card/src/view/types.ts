@@ -52,3 +52,16 @@ export type OnErrorCallback = (data: {
 	status: Extract<CardType, ErrorCardType>;
 	url: string;
 }) => void;
+
+/**
+ * The method-in-object pattern (extracting `handler` via indexed access) is used intentionally
+ * to replicate TypeScript's bivariant method parameter checking — the same technique React uses
+ * internally for `React.EventHandler`. This allows consumers to pass callbacks with narrower
+ * event types (e.g. `React.MouseEvent<HTMLElement>`) without TypeScript errors, while still
+ * enabling callers inside Smart Links to pass the optional `data` second argument.
+ *
+ * See: https://www.typescriptlang.org/docs/handbook/2/functions.html#function-compatibility
+ */
+export type EventHandlerWithData<TEvent extends React.SyntheticEvent<any>, TData extends object> = {
+	bivarianceHack(event: TEvent, data?: TData): void;
+}['bivarianceHack'];

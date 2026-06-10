@@ -20,6 +20,7 @@ import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';
 import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import { useSmartCardContext } from '@atlaskit/link-provider';
 import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { CardPlugin } from '../cardPluginType';
@@ -620,6 +621,10 @@ export const getPasteDisplayAsMenuComponents = ({
 			},
 		],
 		isHidden: () => {
+			if (!expValEquals('confluence_editor_paste_3p_link_actions_menu', 'isEnabled', true)) {
+				return true;
+			}
+
 			const apiWithPasteOptionsToolbar = api as
 				| (ExtractInjectionAPI<CardPlugin> & PasteOptionsToolbarApi)
 				| undefined;

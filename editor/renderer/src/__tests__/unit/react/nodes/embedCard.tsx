@@ -10,7 +10,10 @@ import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/l
 import { Card } from '@atlaskit/smart-card';
 import { render } from '@testing-library/react';
 
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import EmbedCard from '../../../../react/nodes/embedCard';
+import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
 
 jest.mock('@atlaskit/smart-card', () => {
 	const originalModule = jest.requireActual('@atlaskit/smart-card');
@@ -24,6 +27,41 @@ jest.mock('@atlaskit/smart-card', () => {
 describe('Renderer - React/Nodes/EmbedCard', () => {
 	const url =
 		'https://pug.jira-dev.com/wiki/spaces/CE/blog/2017/08/18/3105751050/A+better+REST+API+for+Confluence+Cloud+via+Swagger';
+
+	it('should call consumer onClick with destinationUrl from Card when provided', () => {
+		passGate('platform_smartlink_xpc_url_wrapping');
+		const mockedOnClick = jest.fn();
+		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
+
+		// Test getCardClickHandler directly — the Card mock calls onClick(e) without the
+		// second argument, so we test the closure in isolation to verify the destinationUrl
+		// extraction logic without the mock Card interfering.
+		const onCardClick = getCardClickHandler({ smartCard: { onClick: mockedOnClick } }, url);
+
+		// Card/CardSSR now calls onClick(e, { destinationUrl }) — simulate that
+		onCardClick!(mockedEvent, {
+			destinationUrl: 'https://resolved.com',
+			url: 'https://original.com',
+		});
+
+		// Consumer (e.g. Confluence router) receives the resolved url, not the ADF url
+		expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, 'https://resolved.com');
+	});
+
+	it('should fall back to ADF url when Card onClick fires with no destinationUrl', () => {
+		passGate('platform_smartlink_xpc_url_wrapping');
+		const mockedOnClick = jest.fn();
+		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
+
+		const onCardClick = getCardClickHandler({ smartCard: { onClick: mockedOnClick } }, url);
+
+		// Card fires onClick with empty meta (no destinationUrl)
+		// @ts-ignore Ignore for testing purpose
+		onCardClick!(mockedEvent, {});
+
+		// Falls back to the ADF node's url when destinationUrl is absent
+		expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
+	});
 
 	it('should render Card with frameStyle if provided as SmartLinks prop', () => {
 		render(

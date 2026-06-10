@@ -1,5 +1,26 @@
 # @atlaskit/adf-schema
 
+## 52.16.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.16.4
+
+### Patch Changes
+
+- [`03ac1a9785ec4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03ac1a9785ec4) -
+  Hide multi-bodied extension frames by default and explicitly reveal the active frame in editor
+  common UI.
+- Updated dependencies
+
+## 52.16.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.16.2
 
 ### Patch Changes

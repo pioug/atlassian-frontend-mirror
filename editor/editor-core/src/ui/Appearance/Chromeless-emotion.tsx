@@ -13,8 +13,6 @@ import type { HTMLAttributes } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- intentional: emotion fallback; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const scrollbarStylesNew = css({
@@ -83,12 +81,7 @@ export const ChromelessEditorContainerEmotion = ({
 	<div
 		css={[chromelessEditorStylesNew, scrollbarStylesNew]}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		className={
-			fg('platform_editor_chromeless_akeditor_class') ||
-			expValEquals('create_work_item_modernization_exp', 'isEnabled', true)
-				? 'akEditor'
-				: undefined
-		}
+		className="akEditor"
 		style={{
 			maxHeight: maxHeight ? `${maxHeight}px` : undefined,
 			minHeight: `${minHeight}px`,

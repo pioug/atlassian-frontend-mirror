@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	__esModule: true,
@@ -16,10 +16,6 @@ jest.mock('@atlaskit/feature-gate-js-client', () => ({
 
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn().mockReturnValue(false),
-}));
-
-jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
-	editorExperiment: jest.fn().mockReturnValue(false),
 }));
 
 jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure', () => ({
@@ -96,37 +92,33 @@ describe('accessibility', () => {
 });
 
 describe('FullPageContentArea - scroll gutter rendering', () => {
-	afterEach(() => {
-		(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(false);
-	});
+	eeTest
+		.describe('platform_editor_blocks', 'when experiment is enabled')
+		.variant(true, () => {
+			it('renders scroll gutter with data-editor-scroll-gutter attribute', () => {
+				renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
+				expect(document.querySelector('[data-editor-scroll-gutter]')).toBeTruthy();
+			});
 
-	describe('when experiment cc_snippets is enabled', () => {
-		beforeEach(() => {
-			(FeatureGates.getExperimentValue as jest.Mock).mockReturnValue(true);
+			it('does not render scroll gutter when allowScrollGutter is falsy', () => {
+				renderComponent({ editorAPI: undefined });
+				expect(document.querySelector('[data-editor-scroll-gutter]')).toBeNull();
+			});
 		});
 
-		it('renders scroll gutter with data-editor-scroll-gutter attribute', () => {
-			renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
-			expect(document.querySelector('[data-editor-scroll-gutter]')).toBeTruthy();
-		});
+	eeTest
+		.describe('platform_editor_blocks', 'when experiment is disabled')
+		.variant(false, () => {
+			it('renders scroll gutter without data-editor-scroll-gutter attribute', () => {
+				renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
+				const gutter = document.querySelector('#editor-scroll-gutter');
+				expect(gutter).toBeTruthy();
+				expect(gutter?.getAttribute('data-editor-scroll-gutter')).toBeNull();
+			});
 
-		it('does not render scroll gutter when allowScrollGutter is falsy', () => {
-			renderComponent({ editorAPI: undefined });
-			expect(document.querySelector('[data-editor-scroll-gutter]')).toBeNull();
+			it('does not render scroll gutter when allowScrollGutter is falsy', () => {
+				renderComponent({ editorAPI: undefined });
+				expect(document.querySelector('#editor-scroll-gutter')).toBeNull();
+			});
 		});
-	});
-
-	describe('when experiment cc_snippets is disabled', () => {
-		it('renders scroll gutter without data-editor-scroll-gutter attribute', () => {
-			renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
-			const gutter = document.querySelector('#editor-scroll-gutter');
-			expect(gutter).toBeTruthy();
-			expect(gutter?.getAttribute('data-editor-scroll-gutter')).toBeNull();
-		});
-
-		it('does not render scroll gutter when allowScrollGutter is falsy', () => {
-			renderComponent({ editorAPI: undefined });
-			expect(document.querySelector('#editor-scroll-gutter')).toBeNull();
-		});
-	});
 });

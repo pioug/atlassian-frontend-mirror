@@ -70,7 +70,8 @@ const mbeNavigation = css({
 });
 
 const extensionFrameContent = css({
-	display: 'block',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+	display: 'block !important',
 	minHeight: '100px',
 	background: 'transparent',
 	borderBottomLeftRadius: token('radius.small', '3px'),
@@ -100,7 +101,8 @@ const extensionFrameContent = css({
 const extensionFrameContentOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	padding: `${token('space.100')} !important`,
-	display: 'block',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+	display: 'block !important',
 	minHeight: '100px',
 	background: 'transparent',
 	borderBottomLeftRadius: token('radius.small', '3px'),

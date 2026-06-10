@@ -5,7 +5,7 @@ import { bind } from 'bind-event-listener';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Popup } from '@atlaskit/editor-common/ui';
+import { Popup, type PopupPosition } from '@atlaskit/editor-common/ui';
 import {
 	ArrowKeyNavigationProvider,
 	ArrowKeyNavigationType,
@@ -23,10 +23,14 @@ import { getLayoutColumnMenuAnchorPos } from '../../pm-plugins/utils/layout-colu
 
 import { LAYOUT_COLUMN_MENU_FALLBACKS } from './components';
 import { LAYOUT_COLUMN_MENU } from './keys';
+import {
+	calculateFallbackBottomPosition,
+	LAYOUT_COLUMN_MENU_POPUP_OFFSET,
+	shouldOpenLayoutColumnMenuBelow,
+} from './utils';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
 
-const LAYOUT_COLUMN_MENU_POPUP_OFFSET: [number, number] = [0, 4];
 const TOOLBAR_MENU_SELECTOR = '[data-toolbar-component="menu"]';
 const NESTED_DROPDOWN_MENU_SELECTOR = '[data-toolbar-nested-dropdown-menu]';
 
@@ -167,6 +171,22 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 
 		const hasValidTarget = target instanceof HTMLElement;
 
+		const positionLayoutColumnMenu = useCallback(
+			(position: PopupPosition): PopupPosition => {
+				const popup = menuWrapperRef.current?.parentElement;
+				if (!(target instanceof HTMLElement) || !(popup instanceof HTMLElement)) {
+					return position;
+				}
+
+				if (shouldOpenLayoutColumnMenuBelow({ editorView, popup, scrollableElement, target })) {
+					return calculateFallbackBottomPosition(position, target, popup);
+				}
+
+				return position;
+			},
+			[editorView, scrollableElement, target],
+		);
+
 		useEffect(() => {
 			if (isLayoutColumnMenuOpen && (!hasValidTarget || components.length === 0)) {
 				closeLayoutColumnMenu();
@@ -185,9 +205,12 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				scrollableElement={scrollableElement}
 				zIndex={akEditorFloatingOverlapPanelZIndex}
 				alignX="center"
+				alignY="top"
+				forcePlacement={true}
 				preventOverflow={true}
 				stick={true}
 				offset={LAYOUT_COLUMN_MENU_POPUP_OFFSET}
+				onPositionCalculated={positionLayoutColumnMenu}
 				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={closeLayoutColumnMenu}
 				focusTrap={openedViaKeyboard ? focusTrap : undefined}

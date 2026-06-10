@@ -2,11 +2,8 @@ import {
 	isIgnored as isIgnoredByGapCursor,
 	isSelectionAtStartOfNode,
 } from '@atlaskit/editor-common/selection';
-import {
-	getBaseNodeTypeName,
-	isEmptyParagraph,
-	isListItemNode,
-} from '@atlaskit/editor-common/utils';
+import { isEmptyParagraph, isListItemNode } from '@atlaskit/editor-common/utils';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,

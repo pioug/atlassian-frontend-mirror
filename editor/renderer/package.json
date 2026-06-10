@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "132.0.3",
+	"version": "132.1.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -152,6 +152,9 @@
 		"confluence_frontend_table_scrollbar_ttvc_fix": {
 			"type": "boolean"
 		},
+		"confluence_frontend_native_tabs_extension": {
+			"type": "boolean"
+		},
 		"cc_comments_log_draft_annotation_ancestor_nodes": {
 			"type": "boolean"
 		},
@@ -253,6 +256,10 @@
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
+		},
+		"platform_smartlink_xpc_url_wrapping": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform_nested_table_style_override": {
 			"type": "boolean"

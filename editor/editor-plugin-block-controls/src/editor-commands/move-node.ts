@@ -17,7 +17,8 @@ import {
 	type ExtractInjectionAPI,
 	DIRECTION,
 } from '@atlaskit/editor-common/types';
-import { getBaseNodeTypeName, isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import {
 	type Node as PMNode,
 	Fragment,

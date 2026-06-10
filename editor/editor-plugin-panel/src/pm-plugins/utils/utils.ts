@@ -42,28 +42,6 @@ export const findPanel = (
 	);
 };
 
-export const pickPanelTypeForInsertion = (input: EditorState | Selection): NodeType => {
-	const selection = 'selection' in input ? input.selection : input;
-	const schema = selection.$from.doc.type.schema;
-	const { panel, panel_c1 } = schema.nodes;
-	const $from = selection.$from;
-
-	for (let depth = $from.depth; depth >= 0; depth--) {
-		const parent = $from.node(depth);
-		const index = $from.index(depth);
-		if (parent.canReplaceWith(index, index, panel_c1)) {
-			return panel_c1;
-		}
-		const spec = parent.type.spec;
-		// Stop at isolating containers (e.g. expand, tableCell) — hard walls where
-		// the panel stays inside and should use the regular panel type.
-		if (spec.isolating) {
-			return panel;
-		}
-	}
-
-	return panel;
-};
 
 export const panelAttrsToDom = (
 	attrs: PanelAttributes,

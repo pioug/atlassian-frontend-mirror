@@ -11,6 +11,13 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // the next line and associated import. For more information, see go/afm-a11y-tooling:jest
 skipAutoA11yFile();
 
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(),
+}));
+
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+const mockExpValEquals = expValEquals as jest.MockedFunction<typeof expValEquals>;
+
 describe('Heading Anchor', () => {
 	const onClickHandler = () => Promise.resolve();
 
@@ -67,5 +74,118 @@ describe('Heading Anchor', () => {
 		expect(anchorButton).toHaveAttribute('aria-hidden', 'false');
 		expect(anchorButton).toHaveAttribute('tabindex', '-1');
 		expect(anchorButton).toHaveAttribute('aria-label', 'Copy link to heading');
+	});
+
+	describe('a11y-fixes-week4-may-2026 experiment', () => {
+		describe('when experiment is ON', () => {
+			beforeEach(() => {
+				mockExpValEquals.mockImplementation((expName: string) => {
+					if (expName === 'a11y-fixes-week4-may-2026') {
+						return true;
+					}
+					return false;
+				});
+			});
+
+			it('should retain focus on the button after clicking copy (no Tooltip remount)', async () => {
+				act(() => {
+					renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
+				});
+
+				const copyButton = screen.getByRole('button', { name: 'Copy link to heading' });
+				copyButton.focus();
+				expect(document.activeElement).toBe(copyButton);
+
+				await userEvent.click(copyButton);
+
+				// After click, the button should still be in the DOM (no remount)
+				// and the tooltip message should update to "Copied!"
+				const copiedButton = await screen.findByRole('button', { name: 'Copied!' });
+				expect(copiedButton).toBeVisible();
+				expect(copiedButton).toBe(copyButton);
+				expect(document.activeElement).toBe(copiedButton);
+			});
+
+			it('should render tooltip with a meaningful message on hover', async () => {
+				act(() => {
+					renderWithIntl(<HeadingAnchor onCopyText={() => Promise.resolve()} level={1} />);
+				});
+
+				const copyLinkButton = screen.getByRole('button', {
+					name: 'Copy link to heading',
+				});
+				expect(copyLinkButton).toBeVisible();
+
+				await userEvent.hover(copyLinkButton);
+				await waitFor(() =>
+					expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })),
+				);
+			});
+
+			it('should update the tooltip message after copy without unmounting the button', async () => {
+				act(() => {
+					renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
+				});
+
+				const copyButton = screen.getByRole('button', { name: 'Copy link to heading' });
+				await userEvent.click(copyButton);
+
+				const copiedButton = await screen.findByRole('button', { name: 'Copied!' });
+				await waitFor(() => expect(copiedButton).toBeVisible());
+
+				await userEvent.hover(copiedButton);
+				await waitFor(() =>
+					expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible(),
+				);
+			});
+		});
+
+		describe('when experiment is OFF', () => {
+			beforeEach(() => {
+				mockExpValEquals.mockImplementation(() => {
+					return false;
+				});
+			});
+
+			it('should render tooltip with a meaningful message on hover', async () => {
+				act(() => {
+					renderWithIntl(<HeadingAnchor onCopyText={() => Promise.resolve()} level={1} />);
+				});
+
+				const copyLinkButton = screen.getByRole('button', {
+					name: 'Copy link to heading',
+				});
+				expect(copyLinkButton).toBeVisible();
+
+				await userEvent.hover(copyLinkButton);
+				await waitFor(() =>
+					expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })),
+				);
+			});
+
+			it('should remount the button on copy and not retain focus', async () => {
+				act(() => {
+					renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
+				});
+
+				const copyButton = screen.getByRole('button', {
+					name: 'Copy link to heading',
+				});
+				copyButton.focus();
+				expect(document.activeElement).toBe(copyButton);
+
+				await userEvent.click(copyButton);
+
+				const copiedButton = await screen.findByRole('button', { name: 'Copied!' });
+				await waitFor(() => expect(copiedButton).toBeVisible());
+				expect(copiedButton).not.toBe(copyButton);
+				expect(document.activeElement).not.toBe(copiedButton);
+
+				await userEvent.hover(copiedButton);
+				await waitFor(() =>
+					expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible(),
+				);
+			});
+		});
 	});
 });

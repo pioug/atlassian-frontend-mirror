@@ -1,1 +1,1 @@
-export type { CardProps, CardAppearance, CardPlatform } from '../view/Card/types';
+export type { CardProps, CardAppearance, CardPlatform, OnClickCallback } from '../view/Card/types';

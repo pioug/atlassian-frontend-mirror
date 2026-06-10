@@ -1,5 +1,40 @@
 # @atlaskit/renderer
 
+## 132.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.1.1
+
+### Patch Changes
+
+- [`03ac1a9785ec4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03ac1a9785ec4) -
+  Use extension handler renderers for multi-bodied extensions.
+- Updated dependencies
+
+## 132.1.0
+
+### Minor Changes
+
+- [`3b2848cddfcb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b2848cddfcb6) -
+  [ux] update heading link focus logic
+
+### Patch Changes
+
+- [`b108dbe3ff3fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b108dbe3ff3fa) -
+  Return destination url from smart link onClick callback.
+- Updated dependencies
+
+## 132.0.4
+
+### Patch Changes
+
+- [`d5787d7affb08`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5787d7affb08) -
+  Avoid applying nested renderer table style overrides to tables that are already constrained by a
+  table context.
+
 ## 132.0.3
 
 ### Patch Changes

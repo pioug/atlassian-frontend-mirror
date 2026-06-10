@@ -43,10 +43,10 @@ describe('LabelStackRegistry', () => {
 		expect(registry.getLookupTable()).toEqual({
 			v: 2,
 			n: [
-				['segId123', -1],
-				['componentA', 0],
-				['componentB', 0],
-				['child', 2],
+				{ l: 'segId123', p: -1 },
+				{ l: 'componentA', p: 0 },
+				{ l: 'componentB', p: 0 },
+				{ l: 'child', p: 2 },
 			],
 		});
 		expectResolvedLabelStacks(registry, {
@@ -66,10 +66,10 @@ describe('LabelStackRegistry', () => {
 		expect(table).toEqual({
 			v: 2,
 			n: [
-				['segId123', -1],
-				['componentA', 0],
-				['segId456', -1],
-				['componentB', 2],
+				{ l: 'segId123', p: -1 },
+				{ l: 'componentA', p: 0 },
+				{ l: 'segId456', p: -1 },
+				{ l: 'componentB', p: 2 },
 			],
 		});
 		expectResolvedLabelStacks(registry, {
@@ -104,7 +104,7 @@ describe('LabelStackRegistry', () => {
 		const index = registry.register('');
 
 		expect(index).toBe(0);
-		expect(registry.getLookupTable()).toEqual({ v: 2, n: [['', -1]] });
+		expect(registry.getLookupTable()).toEqual({ v: 2, n: [{ l: '', p: -1 }] });
 		expectResolvedLabelStacks(registry, {
 			[index]: '',
 		});

@@ -1,5 +1,15 @@
 # @atlaskit/flag
 
+## 17.13.0
+
+### Minor Changes
+
+- [`d3c301db190de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3c301db190de) -
+  [CCCEMAU-2964] Behind feature gate `cc_mohiti_flag_anchoring`, anchor `FlagGroup` symmetrically at
+  48px from the bottom-left of the viewport (was 80px left / 48px bottom). The 80px left offset was
+  a legacy artefact from the old left-rail navigation sidebar. Part of Mohiti surface modernization.
+  Mobile breakpoint (≤560px) is unaffected — both insets remain 0.
+
 ## 17.12.9
 
 ### Patch Changes

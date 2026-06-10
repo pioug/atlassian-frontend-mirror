@@ -1,4 +1,4 @@
-import { isNodeTypeValidChildOf } from '@atlaskit/editor-common/utils';
+import { isNodeTypeValidChildOf } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 

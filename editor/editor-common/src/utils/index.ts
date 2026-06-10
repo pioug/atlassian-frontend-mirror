@@ -61,7 +61,15 @@ export { setTextSelection } from './setTextSelection';
 export { stepHasSlice } from './stepHasSlice';
 export { withImageLoader } from './imageLoader';
 export type { ImageLoaderProps, ImageLoaderState, ImageStatus } from './imageLoader';
-export { absoluteBreakoutWidth, calcBreakoutWidth, calcWideWidth, breakoutConsts, calculateBreakoutStyles, calcBreakoutWidthPx, calcBreakoutWithCustomWidth } from './breakout';
+export {
+	absoluteBreakoutWidth,
+	calcBreakoutWidth,
+	calcWideWidth,
+	breakoutConsts,
+	calculateBreakoutStyles,
+	calcBreakoutWidthPx,
+	calcBreakoutWithCustomWidth,
+} from './breakout';
 export { breakoutResizableNodes } from './breakoutResizableNodes';
 export { getBreakoutResizableNodeTypes } from './getBreakoutResizableNodeTypes';
 export { getNextBreakoutMode } from './getNextBreakoutMode';
@@ -73,7 +81,14 @@ export { findChangedNodesFromTransaction } from './findChangedNodesFromTransacti
 export { isMediaNode } from './isMediaNode';
 export { isNodeBeforeMediaNode } from './isNodeBeforeMediaNode';
 export { isSupportedInParent } from './isSupportedInParent';
-export { validateNodes, isType, isParagraph, isText, isLinkMark, isNodeSelectedOrInRange } from './nodes';
+export {
+	validateNodes,
+	isType,
+	isParagraph,
+	isText,
+	isLinkMark,
+	isNodeSelectedOrInRange,
+} from './nodes';
 export { validNode } from './validNode';
 
 export type { Reducer } from './plugin-state-factory';
@@ -99,11 +114,18 @@ export { default as ADFTraversor } from './traversor';
  * Use entry-point `@atlaskit/editor-common/utils/analytics` instead
  */
 export { SEVERITY } from './SEVERITY';
-export { analyticsEventKey, getAnalyticsEditorAppearance, getAnalyticsEventSeverity } from './analytics';
+export {
+	analyticsEventKey,
+	getAnalyticsEditorAppearance,
+	getAnalyticsEventSeverity,
+} from './analytics';
 export { getAnalyticsAppearance } from './getAnalyticsAppearance';
 export { UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from './unsupportedContent/UNSUPPORTED_CONTENT_LEVEL_SEVERITY';
 export { UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS } from './unsupportedContent/UNSUPPORTED_CONTENT_LEVEL_SEVERITY_THRESHOLD_DEFAULTS';
-export { getUnsupportedContentLevelData, type UnsupportedContentLevelsTracking } from './unsupportedContent/get-unsupported-content-level-data';
+export {
+	getUnsupportedContentLevelData,
+	type UnsupportedContentLevelsTracking,
+} from './unsupportedContent/get-unsupported-content-level-data';
 export type {
 	UnsupportedContentTooltipPayload,
 	UnsupportedContentPayload,
@@ -203,7 +225,14 @@ export { FILEPATH_REGEXP } from './FILEPATH_REGEXP';
 export { LinkMatcher } from './LinkMatcher';
 export { canLinkBeCreatedInRange } from './canLinkBeCreatedInRange';
 export { getLinkDomain } from './getLinkDomain';
-export { isFromCurrentDomain, linkifyContent, findFilepaths, isLinkInMatches, DONTLINKIFY_REGEXP, getLinkCreationAnalyticsEvent } from './hyperlink';
+export {
+	isFromCurrentDomain,
+	linkifyContent,
+	findFilepaths,
+	isLinkInMatches,
+	DONTLINKIFY_REGEXP,
+	getLinkCreationAnalyticsEvent,
+} from './hyperlink';
 export { normalizeUrl } from './normalizeUrl';
 
 // prosemirror-history does not export its plugin key
@@ -241,7 +270,18 @@ export { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 
 export { canRenderDatasource } from './datasource';
 export { getDatasourceType } from './getDatasourceType';
-export { filterCommand, isEmptySelectionAtStart, isEmptySelectionAtEnd, deleteEmptyParagraphAndMoveBlockUp, insertNewLineWithAnalytics, createNewParagraphAbove, createNewParagraphBelow, createParagraphNear, walkNextNode, walkPrevNode } from './commands';
+export {
+	filterCommand,
+	isEmptySelectionAtStart,
+	isEmptySelectionAtEnd,
+	deleteEmptyParagraphAndMoveBlockUp,
+	insertNewLineWithAnalytics,
+	createNewParagraphAbove,
+	createNewParagraphBelow,
+	createParagraphNear,
+	walkNextNode,
+	walkPrevNode,
+} from './commands';
 export { insertContentDeleteRange } from './insertContentDeleteRange';
 export type { WalkNode } from './commands';
 
@@ -486,5 +526,3 @@ export type { PageElementCounts } from './page-element-counts';
 
 export { withFeatureFlaggedComponent } from './withFeatureFlaggedComponent';
 
-export { isNodeTypeValidChildOf } from './isNodeTypeValidChildOf';
-export { isNodeOfSameBaseType, getBaseNodeTypeName } from './node-type-utils';

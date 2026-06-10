@@ -29,6 +29,8 @@ import {
 export const autocompletePluginKey: PluginKey = new PluginKey('autocomplete');
 
 const DEBOUNCE_MS = 150;
+const NETWORK_SLOW_LANE_DEBOUNCE_MS = 300;
+const LOCAL_SLOW_LANE_DEBOUNCE_MS = 100;
 const CONTEXT_REFRESH_THROTTLE_MS = 1000;
 // Caps the dedup Set so long editing sessions don't retain every distinct
 // version of the (potentially hundreds-of-KB) page content for the plugin's
@@ -303,11 +305,11 @@ export const createAutocompletePlugin = (
 
 	const slowLaneClient = options?.useLocalModel
 		? createLocalSlowLaneClient({
-				debounceMs: 300,
+				debounceMs: LOCAL_SLOW_LANE_DEBOUNCE_MS,
 			})
 		: createSlowLaneClient({
 				baseUrl: '',
-				debounceMs: 300,
+				debounceMs: NETWORK_SLOW_LANE_DEBOUNCE_MS,
 			});
 	setDefaultSlowLaneClient(slowLaneClient);
 

@@ -1,5 +1,25 @@
 # @atlaskit/emoji
 
+## 70.16.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.16.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 70.16.4
+
+### Patch Changes
+
+- [`e0b7a42f5faaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0b7a42f5faaa) -
+  Round picker top corners.
+- Updated dependencies
+
 ## 70.16.3
 
 ### Patch Changes

@@ -38,7 +38,6 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -467,7 +466,7 @@ const Content = React.forwardRef<
 									? contentComponentClickWrapper(props.customContentComponents.after)
 									: null}
 								{allowScrollGutter &&
-									(FeatureGates.getExperimentValue('cc_snippets', 'isEnabled', false) ? (
+									(editorExperiment('platform_editor_blocks', true) ? (
 										<div
 											id="editor-scroll-gutter"
 											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}

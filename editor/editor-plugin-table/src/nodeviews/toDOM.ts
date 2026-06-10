@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import kebabCase from 'lodash/kebabCase';
 
 import { table, tableWithNestedTable } from '@atlaskit/adf-schema';
+import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { isTableInContentMode } from '@atlaskit/editor-common/table';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
@@ -136,7 +137,7 @@ export const tableNodeSpecWithFixedToDOM = (
 						'data-testid': 'sticky-sentinel-bottom',
 					},
 				],
-				...(expValEquals('platform_editor_vc90_transition_table_border', 'isEnabled', true)
+				...(isSSRStreaming()
 					? [
 							[
 								'div',

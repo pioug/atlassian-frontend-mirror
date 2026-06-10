@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.7.2
+
+### Patch Changes
+
+- [`236128665b5ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/236128665b5ee) -
+  Fix prod volume drop caused by `platform_ufo_labelstack_dedup` rollout. `LabelStackTrieNode` was a
+  TypeScript tuple `[string, number]` which serialises to a JSON array `["label", -1]`. The
+  analytics-service (Java/Jackson) re-serialises JSON arrays with numeric indices into objects
+  `{"0":"label","1":-1}`, causing the UFO service's `expandLabelStackReferences` to fail and
+  silently fall through to `splitUFOEvent` with still-numeric labelStacks, throwing "Invalid label
+  stack" and dropping events.
+
+  Fix: change `LabelStackTrieNode` to a named-property object `{ l: string; p: number }` which
+  survives all JSON serialisers/deserialisers intact.
+
 ## 6.7.1
 
 ### Patch Changes

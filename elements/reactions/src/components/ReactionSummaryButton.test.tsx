@@ -15,6 +15,10 @@ import { getReactionSummary } from '../MockReactionsClient';
 import { type ReactionSummary } from '../types';
 import { RENDER_COUNTER_TESTID } from './Counter';
 
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn().mockReturnValue(false),
+}));
+
 jest.mock('./ReactionParticleEffect', () => {
 	return {
 		ReactionParticleEffect: () => <>ReactionParticleEffect</>,
@@ -218,5 +222,30 @@ describe('ReactionSummaryButton', () => {
 		renderComponent();
 		await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
 		expect(screen.queryByText('ReactionParticleEffect')).not.toBeInTheDocument();
+	});
+
+	describe('aria-expanded (a11y-fixes-week4-may-2026 experiment)', () => {
+		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+
+		it('should NOT set aria-expanded on summary button when experiment is disabled', () => {
+			expValEquals.mockReturnValue(false);
+			renderComponent({ isOpen: true });
+			const button = screen.getByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			expect(button).not.toHaveAttribute('aria-expanded');
+		});
+
+		it('should set aria-expanded="false" on summary button when experiment is enabled and popup is closed', () => {
+			expValEquals.mockReturnValue(true);
+			renderComponent({ isOpen: false });
+			const button = screen.getByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			expect(button).toHaveAttribute('aria-expanded', 'false');
+		});
+
+		it('should set aria-expanded="true" on summary button when experiment is enabled and popup is open', () => {
+			expValEquals.mockReturnValue(true);
+			renderComponent({ isOpen: true });
+			const button = screen.getByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+			expect(button).toHaveAttribute('aria-expanded', 'true');
+		});
 	});
 });

@@ -13,8 +13,6 @@ import type { HTMLAttributes } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const chromelessStyles = cssMap({
@@ -82,12 +80,7 @@ export const ChromelessEditorContainerCompiled = ({
 }: ChromelessEditorContainerProps): React.JSX.Element => (
 	<div
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		className={
-			fg('platform_editor_chromeless_akeditor_class') ||
-			expValEquals('create_work_item_modernization_exp', 'isEnabled', true)
-				? 'akEditor'
-				: undefined
-		}
+		className="akEditor"
 		css={[chromelessStyles.editor, chromelessStyles.scrollbar]}
 		style={{
 			maxHeight: maxHeight ? `${maxHeight}px` : undefined,

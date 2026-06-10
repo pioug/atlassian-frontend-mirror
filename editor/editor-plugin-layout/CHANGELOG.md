@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-layout
 
+## 11.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.2
+
+### Patch Changes
+
+- [`7f12a2679677d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f12a2679677d) -
+  Open the layout column menu above the drag handle when space allows
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

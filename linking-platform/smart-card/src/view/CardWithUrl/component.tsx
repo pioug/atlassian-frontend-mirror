@@ -106,7 +106,7 @@ function Component({
 
 	const fire3PClickEvent = fg('platform_smartlink_3pclick_analytics')
 		? // eslint-disable-next-line react-hooks/rules-of-hooks
-		useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
+			useFire3PWorkflowsClickEvent(firstPartyIdentifier, thirdPartyARI)
 		: undefined;
 
 	// Shared scope guard for all 3P-click handlers.
@@ -190,8 +190,7 @@ function Component({
 				const preferredUrl = getClickUrl(url, state.details);
 				const destinationUrl = appendCrossProductAnalyticsParams(preferredUrl) ?? preferredUrl;
 
-				// FIXME: Consumer that handle click even themselves via callback won't have the decorated URL
-				onClick?.(event);
+				onClick?.(event, { url, destinationUrl });
 
 				// Check if the event is prevented via onClick callback
 				const consumerPreventedNavigation = event.defaultPrevented && !isEventDefaultPrevented;
@@ -370,10 +369,10 @@ function Component({
 						state.error === undefined
 							? null
 							: {
-								name: state.error.name,
-								kind: state.error.kind,
-								type: state.error.type,
-							},
+									name: state.error.name,
+									kind: state.error.kind,
+									type: state.error.type,
+								},
 				});
 			}
 		}

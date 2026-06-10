@@ -65,6 +65,14 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 
 	copyLinkId: string | undefined;
 
+	_tooltipUpdate: (() => void) | undefined;
+
+	// Stable reference for Tooltip content prop to avoid recreating on each render
+	private renderTooltipContent = ({ update }: { update?: () => void }) => {
+		this._tooltipUpdate = update;
+		return this.state.tooltipMessage;
+	};
+
 	constructor(props: HeadingAnchorProps) {
 		super(props);
 		this.copyLinkId = expValEquals(
@@ -81,11 +89,19 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 	}
 
 	private setTooltipState = (message: MessageDescriptor, isClicked: boolean = false) => {
-		this.setState({
-			// TODO: ED-14403 - investigate why this does not translate
-			tooltipMessage: this.props.intl.formatMessage(message),
-			isClicked,
-		});
+		this.setState(
+			{
+				// TODO: ED-14403 - investigate why this does not translate
+				tooltipMessage: this.props.intl.formatMessage(message),
+				isClicked,
+			},
+			() => {
+				// Reposition tooltip after content change (replaces the key-based remount)
+				if (expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true)) {
+					this._tooltipUpdate?.();
+				}
+			},
+		);
 	};
 
 	private getCopyAriaLabel = () => {
@@ -164,6 +180,28 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 		const { tooltipMessage } = this.state;
 
 		if (tooltipMessage) {
+			if (expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true)) {
+				// Fix for A11Y-30972: Use content as a function with update callback so
+				// the Tooltip repositions without unmounting (which caused focus loss).
+				// @see https://hello.jira.atlassian.cloud/browse/A11Y-30972
+				return (
+					<Tooltip
+						// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
+						tag={CopyAnchorWrapperWithRef}
+						content={this.renderTooltipContent}
+						position="top"
+						delay={0}
+						isScreenReaderAnnouncementDisabled={
+							expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
+								? true
+								: false
+						}
+					>
+						{this.renderAnchorButton()}
+					</Tooltip>
+				);
+			}
+
 			// We set the key to the message to ensure it remounts when the message
 			// changes, so that it correctly repositions.
 			// @see https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548

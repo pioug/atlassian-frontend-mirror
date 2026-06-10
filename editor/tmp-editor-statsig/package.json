@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tmp-editor-statsig",
-	"version": "90.0.0",
+	"version": "93.0.1",
 	"description": "Temp plugin to ease use of statsig feature flags until platform feature flags are available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -50,6 +50,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_experiments_use_product_keys": {
+			"type": "boolean"
+		},
+		"confluence_editor_paste_3p_link_actions_menu": {
 			"type": "boolean"
 		}
 	},

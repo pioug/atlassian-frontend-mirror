@@ -1,4 +1,9 @@
-export type LabelStackTrieNode = [label: string, parent: number];
+export type LabelStackTrieNode = {
+	/** label segment */
+	l: string;
+	/** parent trie node index, or -1 for root */
+	p: number;
+};
 
 export type LabelStackTrieLookupTable = {
 	v: 2;
@@ -42,7 +47,7 @@ export class LabelStackRegistry {
 				parent = existingChild;
 			} else {
 				const index = this.nodes.length;
-				this.nodes.push([label, parent]);
+				this.nodes.push({ l: label, p: parent });
 				this.childLookupMap.set(childLookupKey, index);
 				parent = index;
 			}
@@ -84,9 +89,8 @@ export function resolveLabelStackFromTrie(
 			return '';
 		}
 
-		const [label, parent] = node;
-		labels.push(label);
-		currentIndex = parent;
+		labels.push(node.l);
+		currentIndex = node.p;
 	}
 
 	return labels.reverse().join('/');

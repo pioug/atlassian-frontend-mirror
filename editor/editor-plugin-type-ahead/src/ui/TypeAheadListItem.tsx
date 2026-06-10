@@ -22,7 +22,6 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -318,10 +317,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 
 		useLayoutEffect(() => {
 			if (shouldUpdateFocus) {
-				const skipFocusOnSafariHover =
-					isSafari &&
-					lastInputMethodRef?.current === 'mouse' &&
-					expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true);
+				const skipFocusOnSafariHover = isSafari && lastInputMethodRef?.current === 'mouse';
 
 				if (!skipFocusOnSafariHover) {
 					customItemRef?.current?.focus();
@@ -331,10 +327,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 
 		useLayoutEffect(() => {
 			if (shouldUpdateFocus) {
-				const skipFocusOnSafariHover =
-					isSafari &&
-					lastInputMethodRef?.current === 'mouse' &&
-					expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true);
+				const skipFocusOnSafariHover = isSafari && lastInputMethodRef?.current === 'mouse';
 
 				if (!skipFocusOnSafariHover) {
 					buttonItemRef?.current?.focus();

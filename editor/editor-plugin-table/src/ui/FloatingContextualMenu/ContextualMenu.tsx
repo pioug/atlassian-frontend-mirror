@@ -3,11 +3,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Component } from 'react';
 import type { PointerEvent } from 'react';
+import React, { Component } from 'react';
 
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx } from '@emotion/react';
+import memoizeOne from 'memoize-one';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
@@ -18,8 +19,8 @@ type DropdownItem = MenuItem & {
 };
 
 import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
@@ -83,8 +84,8 @@ import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-res
 import { canMergeCells } from '../../pm-plugins/transforms/merge';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../pm-plugins/utils/selection';
 import { getMergedCellsPositions } from '../../pm-plugins/utils/table';
-import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
+import { TableCssClassName as ClassName } from '../../types';
 import { colorPalletteColumns, contextualMenuDropdownWidthDnD } from '../consts';
 
 import { cellColourPreviewStyles } from './styles';
@@ -113,11 +114,6 @@ interface State {
 	isOpenAllowed: boolean;
 	isSubmenuOpen: boolean;
 }
-const arrowsList = new Set(
-	!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)
-		? ['ArrowRight', 'ArrowLeft']
-		: ['ArrowRight'],
-);
 
 const dropdownMenuSection = { hasSeparator: true };
 
@@ -125,6 +121,16 @@ const elementBeforeIconStyles = xcss({
 	marginRight: 'space.negative.075',
 	display: 'flex',
 });
+
+const getArrowsList = memoizeOne(
+	() =>
+		new Set(
+			!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)
+				? ['ArrowRight', 'ArrowLeft']
+				: ['ArrowRight'],
+		),
+);
+
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ContextualMenu extends Component<Props & WrappedComponentProps, State> {
 	state: State = {
@@ -796,7 +802,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			const { event } = payload;
 			if (event && event instanceof KeyboardEvent) {
 				if (!this.state.isSubmenuOpen) {
-					if (arrowsList.has(event.key)) {
+					if (getArrowsList().has(event.key)) {
 						// preventing default behavior for avoiding cursor jump to next/previous table column
 						// when left/right arrow pressed.
 						event.preventDefault();
@@ -884,7 +890,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		setColorWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, color)(state, dispatch);
 		if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
 			this.toggleOpen();
-		} else if (expValEquals('platform_editor_table_close_cell_menu_on_move_exp', 'isEnabled',true)) {
+		} else if (
+			expValEquals('platform_editor_table_close_cell_menu_on_move_exp', 'isEnabled', true)
+		) {
 			this.toggleOpen();
 			if (isCellMenuOpenByKeyboard) {
 				setFocusToCellMenu(false)(editorView.state, dispatch);

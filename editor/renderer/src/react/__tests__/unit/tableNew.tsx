@@ -174,6 +174,53 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		</div>
 	);
 
+	const NestedRendererTableInsideTableCell = () => (
+		<div className="ak-renderer-document">
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<div className="extension-wrapper">
+								<div className="ak-renderer-document">
+									<TableContainer
+										tableNode={tableNodeWithWidth}
+										rendererAppearance="full-width"
+										renderWidth={640}
+										{...requiredProps}
+									>
+										<tr>
+											<td>1</td>
+										</tr>
+									</TableContainer>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	);
+
+	const NestedRendererNativeNestedTable = () => (
+		<div className="ak-renderer-document">
+			<div className="extension-wrapper">
+				<div className="ak-renderer-document">
+					<TableContainer
+						tableNode={tableNodeWithWidth}
+						rendererAppearance="full-width"
+						renderWidth={640}
+						isInsideOfTable
+						{...requiredProps}
+					>
+						<tr>
+							<td>1</td>
+						</tr>
+					</TableContainer>
+				</div>
+			</div>
+		</div>
+	);
+
 	ffTest(
 		'platform_nested_table_style_override',
 		() => {
@@ -181,18 +228,36 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 			const { unmount } = render(<NestedRendererTable />);
 			const tableContainer = screen.getByTestId('table-container');
 			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
+			expect(tableContainer.style.getPropertyValue('max-width')).toBe('100%');
+			expect(tableContainer.style.getPropertyPriority('max-width')).toBe('important');
 			unmount();
 
 			// Feature gate enabled: should NOT apply !important in top-level renderer
-			render(<TopLevelTable />);
+			const { unmount: unmountTopLevel } = render(<TopLevelTable />);
 			const topLevelContainer = screen.getByTestId('table-container');
 			expect(topLevelContainer.style.getPropertyPriority('width')).not.toBe('important');
+			expect(topLevelContainer.style.getPropertyPriority('max-width')).not.toBe('important');
+			unmountTopLevel();
+
+			// Feature gate enabled: should NOT apply !important when nested renderer content is inside a table cell
+			const { unmount: unmountTableCell } = render(<NestedRendererTableInsideTableCell />);
+			const tableCellContainer = screen.getByTestId('table-container');
+			expect(tableCellContainer.style.getPropertyPriority('width')).not.toBe('important');
+			expect(tableCellContainer.style.getPropertyPriority('max-width')).not.toBe('important');
+			unmountTableCell();
+
+			// Feature gate enabled: should NOT apply !important to native nested tables
+			render(<NestedRendererNativeNestedTable />);
+			const nestedTableContainer = screen.getByTestId('table-container');
+			expect(nestedTableContainer.style.getPropertyPriority('width')).not.toBe('important');
+			expect(nestedTableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
 		},
 		() => {
 			// Feature gate disabled: should NOT apply !important even in nested renderer
 			render(<NestedRendererTable />);
 			const tableContainer = screen.getByTestId('table-container');
 			expect(tableContainer.style.getPropertyPriority('width')).not.toBe('important');
+			expect(tableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
 		},
 	);
 });

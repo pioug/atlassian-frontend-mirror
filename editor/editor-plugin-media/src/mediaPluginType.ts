@@ -102,6 +102,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 				inputMethod: InputMethodInsertMedia,
 				insertMediaVia?: InsertMediaVia,
 				positions?: [number, number],
+				dataConsumerSource?: string,
 			) => EditorCommand;
 			/**
 			 * Sets the AI-generating decoration on a media node identified by `mediaId`.

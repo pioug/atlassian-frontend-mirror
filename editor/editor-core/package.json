@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "220.1.3",
+	"version": "220.2.3",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -332,9 +332,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
-			"type": "boolean"
-		},
-		"platform_editor_chromeless_akeditor_class": {
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_14": {

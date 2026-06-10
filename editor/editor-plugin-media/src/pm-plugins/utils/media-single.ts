@@ -289,6 +289,7 @@ export const createInsertMediaAsMediaSingleCommand = (
 	insertMediaVia?: InsertMediaVia,
 	allowPixelResizing?: boolean,
 	positions?: [number, number],
+	dataConsumerSource?: string,
 ): EditorCommand => {
 	return ({ tr }) => {
 		const { mediaSingle, media } = tr.doc.type.schema.nodes;
@@ -308,7 +309,15 @@ export const createInsertMediaAsMediaSingleCommand = (
 					layout: 'center',
 			  }
 			: {};
-		const mediaNode = media.create(mediaAttrs);
+
+		const dataConsumerMarkType =
+			dataConsumerSource ? tr.doc.type.schema.marks.dataConsumer : undefined;
+		const mediaNode =
+			dataConsumerSource && dataConsumerMarkType
+				? media.create(mediaAttrs, undefined, [
+						dataConsumerMarkType.create({ sources: [dataConsumerSource] }),
+				  ])
+				: media.create(mediaAttrs);
 
 		const mediaSingleNode = mediaSingle.create(mediaSingleAttrs, mediaNode);
 		const nodes = [mediaSingleNode];

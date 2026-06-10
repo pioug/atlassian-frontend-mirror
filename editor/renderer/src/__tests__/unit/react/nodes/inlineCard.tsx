@@ -11,7 +11,11 @@ import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import InlineCard from '../../../../react/nodes/inlineCard';
+import { CardErrorBoundary } from '../../../../react/nodes/fallback';
+import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MockCardComponent } from './card.mock';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
@@ -101,6 +105,32 @@ describe('Renderer - React/Nodes/InlineCard', () => {
 		const onClick = node.find(Card).prop('onClick');
 
 		onClick(mockedEvent);
+
+		expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
+	});
+
+	it('should pass consumer onClick (not Card onClick) to CardErrorBoundary', () => {
+		const mockedOnClick = jest.fn();
+		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
+		node = mount(
+			<Provider client={new Client('staging')}>
+				<InlineCard
+					url={url}
+					eventHandlers={{
+						smartCard: {
+							onClick: mockedOnClick,
+						},
+					}}
+				/>{' '}
+			</Provider>,
+		);
+
+		// CardErrorBoundary.onClick must be (e, url?: string) — the consumer-facing shape,
+		// not the Card/CardSSR shape (e, { destinationUrl? }).
+		// When CardErrorBoundary's fallback link is clicked, it calls onClick(e, url)
+		// using the ADF url from props.
+		const boundaryOnClick = node.find(CardErrorBoundary).prop('onClick');
+		boundaryOnClick!(mockedEvent);
 
 		expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
 	});
@@ -350,4 +380,43 @@ describe('Renderer - React/Nodes/InlineCard - platform_editor_smartlink_local_ca
 				expect(mockRefreshCache).not.toHaveBeenCalled();
 			});
 		});
+});
+
+describe('Renderer - React/Nodes/InlineCard - getCardClickHandler with platform_smartlink_xpc_url_wrapping', () => {
+	const url = 'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
+
+	it('should call consumer onClick with destinationUrl from Card when provided', () => {
+		passGate('platform_smartlink_xpc_url_wrapping');
+		const mockedOnClick = jest.fn();
+		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
+
+		// Test getCardClickHandler directly — the Card mock calls onClick(e) without the
+		// second argument, so we test the closure in isolation to verify the destinationUrl
+		// extraction logic without the mock Card interfering.
+		const onCardClick = getCardClickHandler({ smartCard: { onClick: mockedOnClick } }, url);
+
+		// Card/CardSSR now calls onClick(e, { destinationUrl }) — simulate that
+		onCardClick!(mockedEvent, {
+			destinationUrl: 'https://resolved.com',
+			url: 'https://original.com',
+		});
+
+		// Consumer (e.g. Confluence router) receives the resolved url, not the ADF url
+		expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, 'https://resolved.com');
+	});
+
+	it('should fall back to ADF url when Card onClick fires with no destinationUrl', () => {
+		passGate('platform_smartlink_xpc_url_wrapping');
+		const mockedOnClick = jest.fn();
+		const mockedEvent = { target: {} } as unknown as React.MouseEvent<HTMLElement>;
+
+		const onCardClick = getCardClickHandler({ smartCard: { onClick: mockedOnClick } }, url);
+
+		// Card fires onClick with empty meta (no destinationUrl)
+		// @ts-ignore Ignore for testing purpose
+		onCardClick!(mockedEvent, {});
+
+		// Falls back to the ADF node's url when destinationUrl is absent
+		expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
+	});
 });

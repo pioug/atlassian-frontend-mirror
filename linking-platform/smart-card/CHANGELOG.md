@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 44.24.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.24.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.24.0
+
+### Minor Changes
+
+- [`b108dbe3ff3fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b108dbe3ff3fa) -
+  Return destination url from smart link onClick callback.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.23.4
 
 ### Patch Changes

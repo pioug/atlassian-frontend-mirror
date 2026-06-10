@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-media
 
+## 13.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.0
+
+### Minor Changes
+
+- [`1b0c575cc96b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b0c575cc96b6) -
+  make remix generated images identifiable from regular images
+
 ## 13.3.1
 
 ### Patch Changes

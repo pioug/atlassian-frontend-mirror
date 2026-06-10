@@ -27,6 +27,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -76,6 +77,10 @@ const typeAheadWrapperWithViewMoreOverride = css({
 	flexDirection: 'column',
 });
 
+const typeAheadContentOverrideBorder = css({
+	borderRadius: token('radius.large', '8px'),
+});
+
 type TypeAheadPopupProps = {
 	anchorElement: HTMLElement;
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
@@ -90,11 +95,11 @@ type TypeAheadPopupProps = {
 	errorInfo: TypeAheadErrorInfo;
 	isEmptyQuery: boolean;
 	items: Array<TypeAheadItem>;
-	sections?: Array<TypeAheadResolvedSection>;
 	onItemInsert: (mode: SelectItemMode, index: number) => void;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
+	sections?: Array<TypeAheadResolvedSection>;
 	selectedIndex: number;
 	setSelectedItem: OnSelectItem;
 	showMoreOptionsButton?: boolean;
@@ -444,6 +449,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 					typeAheadContent,
 					moreElementsInQuickInsertViewEnabled && typeAheadContentOverride,
 					showMoreOptionsButton && typeAheadWrapperWithViewMoreOverride,
+					expValEquals('cc-markdown-mode', 'isEnabled', true) && typeAheadContentOverrideBorder,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={TYPE_AHEAD_POPUP_CONTENT_CLASS}

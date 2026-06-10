@@ -36,6 +36,7 @@ import {
 } from '@atlaskit/editor-common/quick-insert';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
+import { pickPanelTypeForInsertion } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -44,7 +45,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { PanelPlugin } from './panelPluginType';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
-import { pickPanelTypeForInsertion } from './pm-plugins/utils/utils';
 import { createPanelBlockMenuItem } from './ui/panelBlockMenuItem';
 import { getToolbarConfig } from './ui/toolbar';
 
@@ -299,7 +299,7 @@ function createPanelAction({
 	typeAheadInsert?: QuickInsertActionInsert;
 }) {
 	const panelNodeType = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-		? pickPanelTypeForInsertion(state)
+		? pickPanelTypeForInsertion(state.selection.$from)
 		: state.schema.nodes.panel;
 	let tr;
 	// If the selection is empty, we want to insert the panel on a new line

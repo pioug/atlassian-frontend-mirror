@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { ButtonItem, Section } from '@atlaskit/menu';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const buttonStyles = css({
@@ -46,10 +45,7 @@ export const MoreOptions = ({
 
 	useEffect(() => {
 		if (isFocused && ref.current) {
-			const skipFocusOnSafariHover =
-				isSafari &&
-				lastInputMethodRef?.current === 'mouse' &&
-				expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true);
+			const skipFocusOnSafariHover = isSafari && lastInputMethodRef?.current === 'mouse';
 
 			if (!skipFocusOnSafariHover) {
 				ref.current.focus();
@@ -88,10 +84,7 @@ export const MoreOptions = ({
 					ref={ref}
 					/* eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed) */
 					onMouseDown={(e: React.MouseEvent) => {
-						if (
-							isSafari &&
-							expValEquals('platform_safari_cursor_typeahead_fix', 'isEnabled', true)
-						) {
+						if (isSafari) {
 							e.preventDefault();
 						}
 					}}

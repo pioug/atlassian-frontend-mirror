@@ -146,6 +146,20 @@ const flagGroupContainerStylesTopLayer = css({
 	zIndex: 'initial',
 });
 
+// cc_mohiti_flag_anchoring: update left inset from space.1000 (80px) to space.600 (48px)
+// to match the bottom inset and produce a symmetric 48px × 48px anchor.
+// The 80px left offset was a legacy artefact from the old left-rail nav sidebar.
+// The mobile reset is mirrored from the base style so the override is self-contained
+// and doesn't depend on @compiled's atomic CSS emit order at the ≤560px breakpoint.
+const flagGroupContainerStylesSymmetric = css({
+	insetInlineStart: token('space.600'),
+	// TODO: Use new breakpoints
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (max-width: 560px)': {
+		insetInlineStart: 0,
+	},
+});
+
 /**
  * __Flag group__
  *
@@ -304,6 +318,7 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	};
 
 	const useTopLayer = fg('platform-dst-top-layer');
+	const useSymmetricAnchor = fg('cc_mohiti_flag_anchoring');
 
 	const isKeyboardDismissEnabled = fg('platform_dst_flag_keyboard_dismiss');
 	// When the keyboard dismiss shortcut is available, surface it to assistive
@@ -314,7 +329,11 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	const flags = (
 		<div
 			id={id}
-			css={[flagGroupContainerStyles, useTopLayer && flagGroupContainerStylesTopLayer]}
+			css={[
+				flagGroupContainerStyles,
+				useTopLayer && flagGroupContainerStylesTopLayer,
+				useSymmetricAnchor && flagGroupContainerStylesSymmetric,
+			]}
 			data-vc-oob
 		>
 			{hasFlags ? (

@@ -174,6 +174,30 @@ function canContainImage(element: HTMLElement | null): boolean {
 }
 
 /**
+ * Determines whether an `<img>` inside a mediaSingle wrapper should be hoisted
+ * out of the wrapper and treated as a standalone external image.
+ *
+ * This should only happen when:
+ * - The image source is external (data-source="external"), and
+ * - The media wrapper has no valid file reference (no data-id), meaning
+ *   ProseMirror cannot reconstruct a proper internal media node from the wrapper.
+ *
+ * When the wrapper has a valid file reference (e.g. internal media from Jira),
+ * we leave the wrapper intact so ProseMirror can reconstruct a proper internal media node with the file reference and fetch fresh auth tokens.
+ */
+function shouldHoistFromMediaSingle(imageTag: HTMLImageElement): boolean {
+	const isExternalSource = imageTag.getAttribute('data-source') === 'external';
+	if (!isExternalSource) {
+		return false;
+	}
+
+	const mediaNode = imageTag.closest('[data-node-type="media"]');
+	const hasFileReference = mediaNode?.hasAttribute('data-id') ?? false;
+
+	return !hasFileReference;
+}
+
+/**
  * Given a html string, we attempt to hoist any nested `<img>` tags,
  * not directly wrapped by a `<div>` as ProseMirror no-op's
  * on those scenarios.
@@ -218,6 +242,28 @@ export const unwrapNestedMediaElements = (html: string): string => {
 			// mediaInline nodes are leaf nodes and cannot have children
 			imageTag.remove();
 			return;
+		}
+
+		// when copying a jira comment that contains external image (data-source="external"),
+		// the 'media' div is like this:
+		// <div data-node-type="media"> has no data-id,
+		// But when copying a jira comment that contains image that was uploaded to Jira, the div is like this:
+		// <div data-node-type="media" data-type="file" data-id="dce9c14b-b857-41fd-9452-5f4ba3a4f679" data-collection="" data-file-name="Screenshot 2026-05-26 at 4.41.05 pm.png" data-file-size="1354355" data-file-mime-type="image/png">
+		// ProseMirror fails to parse the media node because it has no data-id,
+		// so we hoist the <img> to replace the entire mediaSingle wrapper
+		// so the editor can treat it as a plain external image and render/re-upload it correctly.
+		const mediaSingleWrapper = imageTag.closest('[data-node-type="mediaSingle"]');
+		if (
+			mediaSingleWrapper &&
+			shouldHoistFromMediaSingle(imageTag) &&
+			expValEquals('fix_copy_paste_external_media_renderer_to_editor', 'isEnabled', true)
+		) {
+			// Hoist the <img> to replace the entire mediaSingle wrapper
+			if (mediaSingleWrapper.parentElement) {
+				mediaSingleWrapper.parentElement.insertBefore(imageTag, mediaSingleWrapper);
+				mediaSingleWrapper.remove();
+				return;
+			}
 		}
 
 		// If either the parent or the image itself contains styles that would make

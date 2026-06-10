@@ -24,8 +24,8 @@ import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import {
 	hideLinkToolbarSetMeta,
@@ -181,7 +181,14 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 					title: formatMessage(messages.link),
 					description: formatMessage(messages.linkDescription),
 					keywords: ['hyperlink', 'url'],
-					priority: expVal('confluence_quick_insert_embeds', 'isEnabled', false) ? -300 : 1200,
+					priority: expValEquals(
+						'confluence_quick_insert_embeds',
+						'cohort',
+						'prioritizeLinkInQIM',
+						'control',
+					)
+						? -300
+						: 1200,
 					keyshortcut: tooltip(addLink),
 					icon: () => <IconLink />,
 					action(insert, state) {

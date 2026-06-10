@@ -595,6 +595,14 @@ export const createLocalSlowLaneClient = (
 	let lastRequestedText = '';
 	let requestCounter = 0;
 	let latestRequestId = -1;
+	let inferenceInFlight = false;
+	let activeInferenceText: string | null = null;
+	// The requestId of the inference currently in flight. Tracked so the
+	// in-flight dedup path can restore `latestRequestId` to it — otherwise an
+	// intermediate keystroke that bumped `latestRequestId` would cause the
+	// in-flight (still-current) result to be discarded as stale.
+	let activeInferenceRequestId = -1;
+	let pendingInference: { requestId: number; text: string } | null = null;
 	let ready = false;
 	let destroyed = false;
 	let initFailed = false;
@@ -920,8 +928,8 @@ export const createLocalSlowLaneClient = (
 				hasLmLogits: storedLmLogits !== null,
 			});
 		} catch (err) {
-			// Discard errors for stale requests
-			if (requestId < latestRequestId) {
+			// Discard errors for stale requests or after teardown
+			if (requestId < latestRequestId || destroyed) {
 				return;
 			}
 
@@ -943,8 +951,52 @@ export const createLocalSlowLaneClient = (
 
 	// ── Context update (debounced) ─────────────────────────────────────────
 
+	const startInference = (text: string, requestId: number): void => {
+		// Self-contained guard: never start a new inference cycle after teardown,
+		// regardless of caller discipline.
+		if (destroyed) {
+			return;
+		}
+
+		inferenceInFlight = true;
+		activeInferenceText = text;
+		activeInferenceRequestId = requestId;
+
+		void ensureEngineInitialized()
+			.then(() => runInference(text, requestId))
+			.catch(() => {})
+			.finally(() => {
+				inferenceInFlight = false;
+				activeInferenceText = null;
+				activeInferenceRequestId = -1;
+
+				const next = pendingInference;
+				pendingInference = null;
+				if (next && !destroyed) {
+					startInference(next.text, next.requestId);
+				}
+			});
+	};
+
 	const doUpdateContext = (text: string): void => {
 		if (destroyed || !text || text.trim().length === 0) {
+			return;
+		}
+
+		if (inferenceInFlight && text === activeInferenceText) {
+			// The latest desired text already matches the in-flight inference, so
+			// re-running it would be wasted work. But an intermediate keystroke may
+			// have bumped `latestRequestId` past the in-flight request (and then been
+			// coalesced away), which would cause runInference to discard the
+			// still-current result as stale. Pin `latestRequestId` back to the active
+			// request so its result is accepted, and drop any now-superseded pending
+			// request.
+			latestRequestId = activeInferenceRequestId;
+			pendingInference = null;
+			return;
+		}
+
+		if (inferenceInFlight && pendingInference?.text === text) {
 			return;
 		}
 
@@ -967,14 +1019,25 @@ export const createLocalSlowLaneClient = (
 			console.groupEnd();
 		}
 
-		void ensureEngineInitialized()
-			.then(() => runInference(text, requestId))
-			.catch(() => {});
+		if (inferenceInFlight) {
+			pendingInference = { text, requestId };
+			return;
+		}
+
+		startInference(text, requestId);
 	};
 
 	const updateContextDebounced = (text: string): void => {
 		if (debounceTimer) {
 			clearTimeout(debounceTimer);
+		}
+		if (inferenceInFlight) {
+			pendingInference = null;
+			if (text === activeInferenceText) {
+				latestRequestId = activeInferenceRequestId;
+				lastRequestedText = text;
+				return;
+			}
 		}
 		lastRequestedText = text;
 		debounceTimer = setTimeout(() => {
@@ -1008,6 +1071,10 @@ export const createLocalSlowLaneClient = (
 				unloadEngine(engineToUnload);
 			}
 			engineInitPromise = null;
+			inferenceInFlight = false;
+			activeInferenceText = null;
+			activeInferenceRequestId = -1;
+			pendingInference = null;
 			storedContextVector = null;
 			storedLmLogits = null;
 		},

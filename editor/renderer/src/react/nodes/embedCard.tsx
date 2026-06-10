@@ -44,6 +44,7 @@ import { RendererCssClassName } from '../../consts';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
+import { getEventHandler } from '../../utils';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { usePortal } from '../../ui/Renderer/PortalContext';
 import BlockCard from './blockCard';
@@ -107,7 +108,13 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 	} = props;
 	const portal = usePortal(props);
 	const embedIframeRef = useRef(null);
+	// Card/CardSSR's onClick — (e, { destinationUrl?, url? })
 	const onClick = getCardClickHandler(eventHandlers, url);
+	// SmartCardEventClickHandler — (e, url?) => void — for CardErrorBoundary.
+	// When the gate is off, fall back to the old behaviour (pass the same onClick as Card).
+	const onConsumerClick = fg('platform_smartlink_xpc_url_wrapping')
+		? getEventHandler(eventHandlers, 'smartCard')
+		: onClick;
 	const { actionOptions } = smartLinks || {};
 
 	const platform = 'web';
@@ -277,6 +284,7 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 								onSetLinkTarget={onSetLinkTarget}
 								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...cardProps}
+								onClick={onConsumerClick}
 							>
 								<EmbedResizeMessageListener
 									embedIframeRef={embedIframeRef}

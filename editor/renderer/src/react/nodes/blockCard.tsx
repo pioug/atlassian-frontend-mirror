@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-smart-link-draggable';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
+import { getEventHandler } from '../../utils';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
 import InlineCard from './inlineCard';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -78,7 +79,14 @@ export default function BlockCard(props: {
 	const { url, data, eventHandlers, smartLinks, isNodeNested, localId, onSetLinkTarget } = props;
 	const portal = usePortal(props);
 	const { actionOptions } = smartLinks || {};
+
+	// Card/CardSSR's onClick — (e, { destinationUrl?, url? })
 	const onClick = getCardClickHandler(eventHandlers, url);
+	// SmartCardEventClickHandler — (e, url?) => void — for CardErrorBoundary.
+	// When the gate is off, fall back to the old behaviour (pass the same onClick as Card).
+	const onConsumerClick = fg('platform_smartlink_xpc_url_wrapping')
+		? getEventHandler(eventHandlers, 'smartCard')
+		: onClick;
 
 	const platform = 'web';
 
@@ -138,6 +146,7 @@ export default function BlockCard(props: {
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...cardProps}
+						onClick={onConsumerClick}
 					>
 						<WidthConsumer>
 							{({ width }) => {
@@ -263,6 +272,7 @@ export default function BlockCard(props: {
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...cardProps}
+						onClick={onConsumerClick}
 					>
 						{cardComponent}
 					</CardErrorBoundary>

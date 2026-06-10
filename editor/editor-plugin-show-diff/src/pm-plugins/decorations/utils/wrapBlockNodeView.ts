@@ -2,6 +2,7 @@ import type { IntlShape } from 'react-intl';
 
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { trackChangesMessages } from '@atlaskit/editor-common/messages';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -17,9 +18,9 @@ import {
 	deletedContentStyleNew,
 	deletedStyleQuoteNodeWithLozenge,
 	deletedStyleQuoteNodeWithLozengeActive,
-	editingContentStyleInBlock,
-	editingStyle,
-	editingStyleActive,
+	editingContentStyleInBlockExtended,
+	editingStyleExtended,
+	editingStyleActiveExtended,
 	editingStyleNode,
 	addedCellOverlayStyle,
 	deletedCellOverlayStyle,
@@ -100,7 +101,7 @@ const getChangedContentStyle = (
 		if (colorScheme === 'traditional') {
 			return isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
 		}
-		return isActive ? editingStyleActive : editingStyle;
+		return isActive ? editingStyleActiveExtended : editingStyleExtended;
 	}
 	if (colorScheme === 'traditional') {
 		return getDeletedTraditionalInlineStyle(isActive);
@@ -123,7 +124,7 @@ const getChangedNodeStyle = (
 
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && isInserted) {
 		if (isMultiContainerBlockNode(nodeName)) {
-			return editingContentStyleInBlock;
+			return editingContentStyleInBlockExtended;
 		}
 		if (isTextLikeBlockNode(nodeName)) {
 			return undefined;
@@ -322,8 +323,11 @@ const applyStylesToElement = ({
 }): void => {
 	const currentStyle = element.getAttribute('style') || '';
 	const contentStyle = getChangedContentStyle(colorScheme, isActive, isInserted);
+	const targetNodeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? getBaseNodeTypeName(targetNode.type)
+		: targetNode.type.name;
 	const nodeSpecificStyle =
-		getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted, isActive) || '';
+		getChangedNodeStyle(targetNodeName, colorScheme, isInserted, isActive) || '';
 
 	element.setAttribute('style', `${currentStyle}${contentStyle}${nodeSpecificStyle}`);
 };
@@ -342,8 +346,11 @@ const applyMultiContainerLikeStyles = ({
 	targetNode: PMNode;
 }): void => {
 	const currentStyle = element.getAttribute('style') || '';
+	const targetNodeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? getBaseNodeTypeName(targetNode.type)
+		: targetNode.type.name;
 	const nodeSpecificStyle =
-		getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted, isActive) || '';
+		getChangedNodeStyle(targetNodeName, colorScheme, isInserted, isActive) || '';
 
 	if (targetNode.type.name === 'decisionList') {
 		element.querySelectorAll('li').forEach((listItem) => {
@@ -421,7 +428,10 @@ const createBlockNodeContentWrapper = ({
 	targetNode: PMNode;
 }): HTMLElement => {
 	const contentWrapper = document.createElement('div');
-	const nodeStyle = getChangedNodeStyle(targetNode.type.name, colorScheme, isInserted, isActive);
+	const targetNodeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? getBaseNodeTypeName(targetNode.type)
+		: targetNode.type.name;
+	const nodeStyle = getChangedNodeStyle(targetNodeName, colorScheme, isInserted, isActive);
 	contentWrapper.setAttribute(
 		'style',
 		`${getChangedContentStyle(colorScheme, isActive, isInserted)}${nodeStyle || ''}`,
@@ -559,9 +569,12 @@ const wrapBlockNode = ({
 	targetNode: PMNode;
 }): void => {
 	const blockWrapper = createBlockNodeWrapper();
+	const targetNodeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? getBaseNodeTypeName(targetNode.type)
+		: targetNode.type.name;
 
 	if (
-		shouldShowRemovedLozenge(targetNode.type.name) &&
+		shouldShowRemovedLozenge(targetNodeName) &&
 		(!expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) || !isInserted)
 	) {
 		const lozenge = createRemovedLozenge(intl, isActive, colorScheme);

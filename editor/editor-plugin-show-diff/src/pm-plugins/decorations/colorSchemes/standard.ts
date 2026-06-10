@@ -1,6 +1,7 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { token } from '@atlaskit/tokens';
 
+// delete on platform_editor_diff_plugin_extended cleanup
 export const editingStyle: string = convertToInlineCss({
 	background: token('color.background.accent.purple.subtlest'),
 	textDecoration: 'underline',
@@ -9,6 +10,7 @@ export const editingStyle: string = convertToInlineCss({
 	textDecorationColor: token('color.border.accent.purple'),
 });
 
+// delete on platform_editor_diff_plugin_extended cleanup
 export const editingContentStyleInBlock: string = convertToInlineCss({
 	textDecoration: 'underline',
 	textDecorationStyle: 'dotted',
@@ -16,12 +18,30 @@ export const editingContentStyleInBlock: string = convertToInlineCss({
 	textDecorationColor: token('color.border.accent.purple'),
 });
 
+// delete on platform_editor_diff_plugin_extended cleanup
 export const editingStyleActive: string = convertToInlineCss({
 	background: token('color.background.accent.purple.subtler.pressed'),
 	textDecoration: 'underline',
 	textDecorationStyle: 'dotted',
 	textDecorationThickness: token('space.025'),
 	textDecorationColor: token('color.text.accent.purple'),
+});
+
+export const editingStyleExtended: string = convertToInlineCss({
+	background: token('color.background.accent.purple.subtlest'),
+	borderBottom: `2px solid ${token('color.border.accent.purple')}`,
+	padding: `1px 0 2px`,
+});
+
+export const editingContentStyleInBlockExtended: string = convertToInlineCss({
+	borderBottom: `2px solid ${token('color.border.accent.purple')}`,
+	padding: `1px 0 2px`,
+});
+
+export const editingStyleActiveExtended: string = convertToInlineCss({
+	background: token('color.background.accent.purple.subtler.pressed'),
+	borderBottom: `2px solid ${token('color.border.accent.purple')}`,
+	padding: `1px 0 2px`,
 });
 
 export const deletedContentStyle: string = convertToInlineCss({

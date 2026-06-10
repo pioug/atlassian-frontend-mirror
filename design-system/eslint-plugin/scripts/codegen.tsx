@@ -1,6 +1,5 @@
 import fs from 'fs/promises';
-import { extname, join, relative } from 'path';
-import process from 'process';
+import { dirname, extname, join, relative } from 'path';
 
 // @ts-expect-error - this isn't declared in the types
 import { Legacy } from '@eslint/eslintrc';
@@ -53,11 +52,10 @@ const generatedConfigs: GeneratedConfig[] = [];
  */
 async function ruleDocsPath(name: string) {
 	const absolutePath = join(rulesDir, name, 'README.md');
-	const relativePath = '.' + absolutePath.replace(process.cwd(), '');
 
 	try {
 		const file = await fs.readFile(absolutePath, 'utf-8');
-		return { path: relativePath, file };
+		return { path: absolutePath, file };
 	} catch (_) {
 		throw new Error(`invariant: rule ${name} should have docs at ${absolutePath}`);
 	}
@@ -258,7 +256,7 @@ async function generateRuleTable(filepath: string, linkTo: 'docs' | 'repo', rule
 
 		if (linkTo === 'repo') {
 			const result = await ruleDocsPath(rule.moduleName);
-			docsPath = result.path;
+			docsPath = './' + relative(dirname(filepath), result.path);
 		} else {
 			docsPath = `/components/eslint-plugin-design-system/${rule.moduleName}/usage`;
 		}

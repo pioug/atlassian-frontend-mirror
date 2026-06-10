@@ -1,5 +1,38 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.11.1
+
+### Patch Changes
+
+- [`a4f97c853dccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4f97c853dccf) -
+  Extend `no-module-level-eval` lint rule to cover editor experiment APIs (`expValEquals`, `expVal`,
+  `editorExperiment`, `expValEqualsNoExposure`) imported from `@atlaskit/tmp-editor-statsig`
+  subpaths. Module-level evaluation of these functions causes flakiness because experiment values
+  may not be resolved yet at import time.
+
+  Fix existing violations in `editor-plugin-block-controls` (`global-styles.tsx`) and
+  `editor-plugin-table` (`ContextualMenu.tsx`) by converting module-level experiment evaluations to
+  lazy function calls.
+
+  Clean up fully-launched experiment `platform_editor_unify_native_dnd_selectors` — replace
+  conditional selector logic with the winning `dragHandlerAnchorSelectorWithTaskExclusion` value and
+  remove the experiment from `experiments-config.ts`.
+
+## 2.11.0
+
+### Minor Changes
+
+- [`6118ee73944d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6118ee73944d2) -
+  Adds new `no-direct-web-storage-usage` rule that disallows direct `window.localStorage` /
+  `window.sessionStorage` usage in CSM (Customer Service Management) packages, supporting the CSM EG
+  CM-04 compliance work. The rule is **team-scoped** — it only fires when the nearest
+  `package.json`'s `atlassian.team` value is one of `Boysenberry`, `Dropbears`, `CSM AI`, or
+  `CSM AI Exp` (together covering ~196 packages across `platform/`, `jira/`, and `help-center/`). It
+  is wired into the `commonConfig` shared by the `recommended`, `recommended/flat`, and Jira preset
+  configs of `@atlaskit/eslint-plugin-platform` at severity `'warn'`, mirroring the analogous
+  `no-direct-document-usage` rule. Use `AtlBrowserStorageLocal` / `AtlBrowserStorageSession` from
+  `@atlassian/browser-storage-controls` instead.
+
 ## 2.10.7
 
 ### Patch Changes

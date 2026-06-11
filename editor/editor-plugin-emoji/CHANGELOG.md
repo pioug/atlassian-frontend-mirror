@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-emoji
 
+## 12.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.7
+
+### Patch Changes
+
+- [`0f549097540b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f549097540b7) -
+  Fix Unicode emoji rendering for standard emoji skin tone variations.
+- Updated dependencies
+
+## 12.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.5
 
 ### Patch Changes

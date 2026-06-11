@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 11.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.8
+
+### Patch Changes
+
+- [`38d753a24e9ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38d753a24e9ad) -
+  Promote code block wrap and line number attrs to the full ADF schema
+- Updated dependencies
+
+## 11.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.6
 
 ### Patch Changes

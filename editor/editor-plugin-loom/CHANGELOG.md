@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 13.0.1
+
+### Patch Changes
+
+- [`6a684f522547d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a684f522547d) -
+  Bump @loomhq/record-sdk from ^4.11.0 to ^4.12.2
+- Updated dependencies
+
 ## 13.0.0
 
 ### Patch Changes

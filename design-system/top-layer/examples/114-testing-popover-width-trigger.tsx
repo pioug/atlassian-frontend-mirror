@@ -42,12 +42,14 @@ export default function TestingPopoverWidthTrigger(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	useWidthFromAnchor({
 		anchorRef: triggerRef,
 		popoverRef,
 		mode: 'match-anchor',
+		isOpen,
 	});
 
 	return (

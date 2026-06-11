@@ -64,7 +64,7 @@ export const DistributeColumnsItem = ({
 			INPUT_METHOD.TABLE_CONTEXT_MENU,
 			newResizeState,
 		)(editorView.state, editorView.dispatch);
-		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.execute(closeActiveTableMenu(api));
 		api?.core.actions.focus();
 	};
 

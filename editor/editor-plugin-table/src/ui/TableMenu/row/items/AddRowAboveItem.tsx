@@ -36,7 +36,7 @@ export const AddRowAboveItem = (props: TableMenuComponentsParams): React.JSX.Ele
 			index,
 			moveCursorToInsertedRow: true,
 		})(editorView.state, editorView.dispatch);
-		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.execute(closeActiveTableMenu(api));
 		api?.core.actions.focus();
 	};
 

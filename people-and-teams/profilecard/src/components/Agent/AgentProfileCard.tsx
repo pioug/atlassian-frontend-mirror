@@ -182,7 +182,11 @@ const AgentProfileCard = ({
 		);
 	}
 
-	const isRovoDev = agent.creator_type === 'ROVO_DEV';
+	// creator_type is 'ROVO_DEV' for both the original Rovo Dev agent and the renamed Jira Coding
+	// Agent (creator_type was never updated at the source). We use the agent name to distinguish
+	// them - once the rename backfill runs, the JCA name becomes 'Jira Coding Agent' and
+	// isRovoDev naturally becomes false, falling through to the agentNamedId avatar lookup.
+	const isRovoDev = agent.creator_type === 'ROVO_DEV' && agent.name.toLowerCase() === 'rovo dev';
 
 	const shouldShowConversationStarters =
 		!isRovoDev &&

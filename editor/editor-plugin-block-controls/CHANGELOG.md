@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 12.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.0
+
+### Minor Changes
+
+- [`293a0d6eaab12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/293a0d6eaab12) -
+  Fix Remix block menu item visibility to match Improve formatting
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.5
 
 ### Patch Changes

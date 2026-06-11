@@ -1,4 +1,11 @@
-import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
+import React, {
+	type KeyboardEvent,
+	type MouseEvent,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+} from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
@@ -82,8 +89,11 @@ function Component({
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
 
 	// Get state, actions for this card.
+	// appearance is pre-resolved by the caller (loader.tsx for Card, ssr.tsx for CardSSR):
+	// FlexibleCards are always passed appearance='block' when FG is on, so component.tsx
+	// simply consumes whatever appearance it receives.
 	const { state, actions, config, renderers, error, isPreviewPanelAvailable, openPreviewPanel } =
-		useSmartLink(id, url);
+		useSmartLink(id, url, appearance);
 	const ari = getObjectAri(state.details);
 	const name = getObjectName(state.details);
 	const definitionId = getDefinitionId(state.details);
@@ -116,6 +126,25 @@ function Component({
 		getClickUrl(url, state.details) === url &&
 		fire3PClickEvent &&
 		fg('platform_smartlink_3pclick_analytics');
+
+	const getDestinationUrl = useCallback(() => {
+		const preferredUrl = getClickUrl(url, state.details) ?? url;
+		return appendCrossProductAnalyticsParams(preferredUrl) ?? preferredUrl;
+	}, [appendCrossProductAnalyticsParams, state.details, url]);
+
+	const updateAnchorHref = useCallback(
+		(event: MouseEvent | KeyboardEvent, destinationUrl: string) => {
+			if (!(event.currentTarget instanceof HTMLAnchorElement)) {
+				return;
+			}
+
+			// FIXME: destinationUrl should be rendered in the DOM anchor href instead of derived at click time
+			// href is only defined when currentTarget is an anchor element.
+			// Update the anchor href so the browser context menu uses the decorated URL.
+			event.currentTarget.href = destinationUrl;
+		},
+		[],
+	);
 
 	// Setup UI handlers.
 	const handleClickWrapper = useCallback(
@@ -181,14 +210,13 @@ function Component({
 					return;
 				}
 
+				const destinationUrl = getDestinationUrl();
+				updateAnchorHref(event, destinationUrl);
+
 				// For FlexibleCard, read target from the clicked anchor element (e.g. _blank for links
 				// rendered with explicit target). For classic cards, default to _self
 				const { target: anchorTarget } = getAnchorAttributesFromEvent(event);
 				const target = isSpecialEvent(event) ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
-
-				// FIXME: preferredUrl should be rendered in the DOM anchor href instead of derived at click time
-				const preferredUrl = getClickUrl(url, state.details);
-				const destinationUrl = appendCrossProductAnalyticsParams(preferredUrl) ?? preferredUrl;
 
 				onClick?.(event, { url, destinationUrl });
 
@@ -280,9 +308,10 @@ function Component({
 			isFlexibleUi,
 			appearance,
 			definitionId,
+			getDestinationUrl,
 			onClick,
 			url,
-			appendCrossProductAnalyticsParams,
+			updateAnchorHref,
 			state.details,
 			ari,
 			name,
@@ -306,6 +335,11 @@ function Component({
 	// Scope is limited to 3P click analytics to keep the experiment focused.
 	const handleFrameAuxClick = useCallback(
 		(event: MouseEvent) => {
+			if (fg('platform_smartlink_xpc_url_wrapping')) {
+				const destinationUrl = getDestinationUrl();
+				updateAnchorHref(event, destinationUrl);
+			}
+
 			// isAuxClick filters Windows right-clicks (button === 2) that also fire onAuxClick.
 			if (
 				isAuxClick(event) &&
@@ -315,13 +349,18 @@ function Component({
 				fire3PClickEvent?.({ isAuxClick: true });
 			}
 		},
-		[fire3PClickEvent, shouldFire3PClickEvent],
+		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent, updateAnchorHref],
 	);
 
 	// Right-click handler to trigger fire3PClickEvent on right-clicks.
 	// Scope is limited to 3P click analytics to keep the experiment focused.
 	const handleFrameContextMenu = useCallback(
-		(_event: MouseEvent) => {
+		(event: MouseEvent) => {
+			if (fg('platform_smartlink_xpc_url_wrapping')) {
+				const destinationUrl = getDestinationUrl();
+				updateAnchorHref(event, destinationUrl);
+			}
+
 			if (
 				shouldFire3PClickEvent &&
 				expValEqualsNoExposure(TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT, 'isEnabled', true)
@@ -329,13 +368,37 @@ function Component({
 				fire3PClickEvent?.({ isContextMenu: true });
 			}
 		},
-		[fire3PClickEvent, shouldFire3PClickEvent],
+		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent, updateAnchorHref],
 	);
 
+	const { reload } = actions;
 	const handleAuthorize = useCallback(() => actions.authorize(appearance), [actions, appearance]);
 	const handleRetry = useCallback(() => {
-		actions.reload();
-	}, [actions]);
+		reload();
+	}, [reload]);
+	const hasMounted = useRef(false);
+	const prevAppearance = useRef(appearance);
+
+	// When appearance changes from inline to non-inline on a mounted card
+	// (e.g. direct consumer changes inline → block/embed), reload with the new appearance
+	// so ORS can return the appropriate full data. We intentionally do NOT reload on
+	// block → embed or embed → block transitions since both already have full ORS data.
+	useEffect(() => {
+		if (!hasMounted.current) {
+			hasMounted.current = true;
+			prevAppearance.current = appearance;
+			return;
+		}
+
+		if (
+			prevAppearance.current === 'inline' &&
+			appearance !== 'inline' &&
+			fg('platform_smartlink_inline_resolve_optimization')
+		) {
+			reload(appearance);
+		}
+		prevAppearance.current = appearance;
+	}, [appearance, reload]);
 	const handleInvoke = useCallback(
 		(opts: InvokeClientOpts | InvokeServerOpts) => actions.invoke(opts, appearance),
 		[actions, appearance],

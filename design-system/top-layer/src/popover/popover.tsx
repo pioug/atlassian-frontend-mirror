@@ -6,7 +6,6 @@ import React, {
 	forwardRef,
 	type Ref,
 	useCallback,
-	useEffect,
 	useId,
 	useLayoutEffect,
 	useRef,
@@ -117,7 +116,7 @@ export const Popover: React.ForwardRefExoticComponent<
 	// dropped (React 19.2 uses underscores).
 	const popoverId = idProp ?? `popover-${autoId.replace(/:/g, '')}`;
 
-	const { showChildren, preset } = useAnimatedVisibility({
+	const { phase, preset } = useAnimatedVisibility({
 		isOpen,
 		animate,
 		elementRef: ownRef,
@@ -125,12 +124,23 @@ export const Popover: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// Focus management: initial focus on open (role-dependent), Tab cycling
+	// Pre-computed phase predicate. `isVisible` mirrors "host element is
+	// mounted and on screen" (any phase except `closed`); used as a dep
+	// signal for listener-re-bind effects so they re-attach to the fresh
+	// host element after a close → reopen unmount/remount cycle.
+	const isVisible = phase !== 'closed';
+
+	// Focus management: initial focus on entry (role-dependent), Tab cycling
 	// for dialog roles. Restoration is native for outermost popovers; nested
 	// focus-capturing roles are handled below via `beforetoggle` snapshot.
 	// See: notes/architecture/focus-restoration.md
-	useFocusWrap({ elementRef: ownRef, role });
-	useInitialFocus({ elementRef: ownRef, isOpen, role });
+	//
+	// Both hooks take `phase` directly: `useFocusWrap` keeps its listener
+	// attached while `phase !== 'closed'` (so focus stays trapped through
+	// the animated-exit window — WCAG 2.4.3 regression guard);
+	// `useInitialFocus` moves focus on the transition into `'open'`.
+	useFocusWrap({ elementRef: ownRef, role, phase });
+	useInitialFocus({ elementRef: ownRef, phase, role });
 
 	// Register with open layer observer so `closeLayers()` and open-count
 	// subscriptions work. Only popup-like roles register as `popup`; passive
@@ -222,7 +232,22 @@ export const Popover: React.ForwardRefExoticComponent<
 		[onClose, onOpenChange, role],
 	);
 
-	useEffect(() => {
+	// Bind toggle/beforetoggle/keydown listeners via `useLayoutEffect` so
+	// they are attached BEFORE the show/hide layout effect calls
+	// `el.showPopover()`. `showPopover()` dispatches `beforetoggle`
+	// synchronously; binding the listener in a regular `useEffect`
+	// (which runs after layout effects) misses that first dispatch and
+	// the `previouslyFocusedElementRef` snapshot never gets taken — which
+	// breaks nested-popover focus restoration on close.
+	//
+	// `isVisible` is in deps so the listeners re-bind to the new host
+	// element after a host unmount/remount cycle. The cleanup detaches
+	// the old listeners.
+	//
+	// This layout effect MUST appear in the file before the show/hide
+	// layout effect — React runs layout effects in source order on the
+	// same commit, and we need listeners attached first.
+	useLayoutEffect(() => {
 		const element = ownRef.current;
 		if (!element) {
 			return;
@@ -250,10 +275,13 @@ export const Popover: React.ForwardRefExoticComponent<
 			unbindToggle();
 			unbindBeforeToggle();
 		};
-	}, [handleToggle, handleBeforeToggle]);
+	}, [handleToggle, handleBeforeToggle, isVisible]);
 
 	// Placement-dependent animation CSS vars. Kept separate from show/hide
-	// so preset reference changes do not re-trigger visibility.
+	// so preset reference changes do not re-trigger visibility. `isVisible`
+	// is in deps so the CSS vars are re-applied to the new host element after
+	// a remount cycle (otherwise the freshly mounted element would have no
+	// transform / placement vars set).
 	useLayoutEffect(() => {
 		const el = ownRef.current;
 		if (!el || !preset?.getProperties || !placement) {
@@ -263,7 +291,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		Object.entries(props).forEach(([key, value]) => {
 			el.style.setProperty(key, String(value));
 		});
-	}, [preset, placement]);
+	}, [preset, placement, isVisible]);
 
 	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
 	// already in the target state. Try/catch guards `InvalidStateError` on
@@ -276,6 +304,13 @@ export const Popover: React.ForwardRefExoticComponent<
 
 		if (isOpen) {
 			programmaticCloseRef.current = false;
+			// Reset the close-reason snapshot at the start of every open
+			// cycle. The ref outlives the host element (lives on the
+			// component, not the DOM), so a stale 'escape' from a prior
+			// cycle would otherwise leak into the next close — especially
+			// in the no-animation path where the host unmounts before
+			// `handleToggle` has a chance to reset the ref itself.
+			closeReasonRef.current = 'light-dismiss';
 			try {
 				el.showPopover();
 			} catch {}
@@ -293,6 +328,17 @@ export const Popover: React.ForwardRefExoticComponent<
 		} catch {}
 	}, [isOpen]);
 
+	// The host element is only rendered while the popover is open or its exit
+	// animation is playing. Once the phase returns to `closed`, we unmount
+	// the host entirely so it does not leave an empty `role="..."` /
+	// `popover` element in the accessibility tree. The element re-mounts on
+	// the next `isOpen=true` commit; refs and event listeners re-bind via
+	// the existing layout effect and `useEffect`. The popover `id` is stable
+	// across opens (derived from `useId()` or the consumer-supplied `idProp`).
+	if (!isVisible) {
+		return null;
+	}
+
 	return (
 		<div
 			ref={combinedRef}
@@ -309,7 +355,7 @@ export const Popover: React.ForwardRefExoticComponent<
 			className={xcssFromProps as string | undefined}
 			css={styles.root}
 		>
-			{showChildren ? children : null}
+			{children}
 		</div>
 	);
 });

@@ -10,6 +10,8 @@ import { useId } from '@atlaskit/ds-lib/use-id';
  * own `anchor-name` on the trigger element.
  */
 export function usePopoverId(): string {
-	// prefixing for debug clarity in the DOM
+	// `@atlaskit/ds-lib/use-id` already strips characters that React's
+	// `useId` produces (`:`, `«`, `»`) which are invalid in HTML ID
+	// tokens. The `popover-` prefix is purely for DOM debug clarity.
 	return `popover-${useId()}`;
 }

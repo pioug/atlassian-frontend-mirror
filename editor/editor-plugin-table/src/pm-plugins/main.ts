@@ -119,6 +119,7 @@ export const createPlugin = (
 		isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
 		isHeaderColumnEnabled: false,
 		isTableScalingEnabled: isTableScalingEnabled,
+		activeTableMenu: { type: 'none' },
 		...defaultHoveredCell,
 		...defaultTableSelection,
 		getIntl,

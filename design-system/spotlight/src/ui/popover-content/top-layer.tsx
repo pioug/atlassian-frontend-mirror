@@ -7,8 +7,7 @@ import { type ReactNode, useContext, useEffect, useLayoutEffect, useRef } from '
 import { jsx } from '@atlaskit/css';
 import { Motion } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
-import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
-import { Popover } from '@atlaskit/top-layer/popover';
+import { createPopoverCloseEvent, Popover } from '@atlaskit/top-layer/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useSimpleLightDismiss } from '@atlaskit/top-layer/use-simple-light-dismiss';
 
@@ -63,7 +62,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 
 	const done = 'done' in props ? props.done : undefined;
 	const next = 'next' in props ? props.next : undefined;
-	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverRef = useRef<HTMLDivElement | null>(null);
 	const { heading, popoverContent, card, primaryAction, secondaryAction, target } =
 		useContext(SpotlightContext);
 
@@ -71,6 +70,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 		anchorRef: target.ref,
 		popoverRef,
 		placement: placementMap[placement],
+		isOpen: isVisible,
 	});
 
 	useSimpleLightDismiss({

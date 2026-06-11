@@ -43,6 +43,7 @@ function DialogPopup() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -73,6 +74,7 @@ function MenuPopup() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -103,6 +105,7 @@ function ListboxPopup() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -131,6 +134,7 @@ function TooltipPopup() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

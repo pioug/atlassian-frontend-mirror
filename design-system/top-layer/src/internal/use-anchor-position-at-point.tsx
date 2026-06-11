@@ -76,6 +76,7 @@ export function useAnchorPositionAtPoint({
 	placement,
 	getPoint,
 	isEnabled = true,
+	isOpen,
 }: {
 	/**
 	 * Element being positioned. Passed to `useAnchorPosition`.
@@ -101,6 +102,11 @@ export function useAnchorPositionAtPoint({
 	 * and no positioning is applied. Defaults to `true`.
 	 */
 	isEnabled?: boolean;
+	/**
+	 * Whether the popover is currently open. Forwarded to the inner
+	 * `useAnchorPosition` so it re-runs across host remount cycles.
+	 */
+	isOpen: boolean;
 }): void {
 	const syntheticAnchorRef = useRef<HTMLDivElement | null>(null);
 
@@ -152,5 +158,6 @@ export function useAnchorPositionAtPoint({
 		popoverRef,
 		placement,
 		isEnabled,
+		isOpen,
 	});
 }

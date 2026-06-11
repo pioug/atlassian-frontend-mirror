@@ -748,8 +748,8 @@ describe('JSONTransformer:', () => {
 			});
 		});
 
-		it('should preserve wrap=false from stage-0 codeBlock node', () => {
-			const schema = AdfSchemaDefault.getSchemaBasedOnStage('stage0');
+		it('should preserve wrap=false from full-schema codeBlock node', () => {
+			const schema = AdfSchemaDefault.getSchemaBasedOnStage();
 			const pmDoc = schema.nodes.doc.createChecked(undefined, [
 				schema.nodes.codeBlock.createChecked({ wrap: false }, schema.text('var foo = 2;')),
 			]);

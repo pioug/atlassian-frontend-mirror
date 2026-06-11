@@ -1,5 +1,20 @@
 # @atlaskit/select
 
+## 21.12.13
+
+### Patch Changes
+
+- [`6d0485dce81c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d0485dce81c4) -
+  Internal: updated to the new `@atlaskit/top-layer` `Popover`/`Dialog` behaviour where the host
+  element unmounts after the exit animation completes. No consumer action required.
+- Updated dependencies
+
+## 21.12.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.12.11
 
 ### Patch Changes

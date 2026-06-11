@@ -1,5 +1,51 @@
 # @atlaskit/top-layer
 
+## 0.16.0
+
+### Minor Changes
+
+- [`6d0485dce81c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d0485dce81c4) -
+  `Popover` and `Dialog` now unmount their host element after the exit animation completes, instead
+  of leaving an empty `role` / `aria-*` element in the accessibility tree.
+
+  Other small changes that fall out of this:
+  - The popover/dialog `id` stays stable across opens.
+  - `ref.current` is only populated while the host element is rendered. Read the ref inside
+    `onOpenChange` / `onEnterFinish`, or gate the read on `isOpen`.
+  - `onEnterFinish` and `onExitFinish` now fire before the internal phase transition that drives the
+    unmount, so consumers reading the host element (or a forwarded ref) inside those callbacks
+    always see it attached to the DOM, regardless of React batching semantics.
+  - `getAriaForTrigger` returns `aria-controls: undefined` while `isOpen` is `false`; spreading the
+    result onto a JSX element strips the attribute from the DOM and avoids a dangling reference.
+  - `useAnchorPosition`, `useAnchorPositionAtPoint`, and `useWidthFromAnchor` now require `isOpen`
+    so positioning re-runs against the freshly mounted host element on each open.
+    `useWidthFromAnchor` also requires `anchorRef`.
+  - `DialogScrollLock` now requires an `isOpen` prop so the scroll lock is released the moment
+    `isOpen` flips to `false`, regardless of React's unmount timing.
+  - `useInitialFocus` now follows the WAI-ARIA APG Combobox Pattern: when a `menu` or `listbox`
+    popup is controlled by a focused combobox-like textbox whose `aria-controls` (or legacy
+    `aria-owns`) references the popup, initial focus stays on the textbox instead of moving into the
+    popup. Navigation is expected to be proxied via `aria-activedescendant`. Both variants are
+    detected:
+    - **In-popup combobox**: the focused textbox lives inside the popup.
+    - **External combobox**: the focused textbox is rendered OUTSIDE the popup (for example
+      `react-select`-style menus that portal the listbox). The carve-out also accepts the case where
+      the textbox's `aria-controls` references a DESCENDANT of the popup host (such as
+      react-select's inner `MenuList` element). Without this carve-out, moving focus into the
+      listbox would blur the external textbox and cause libraries like `react-select` to close the
+      menu on the same interaction that opened it.
+
+    Popups that are not opened from a combobox-like trigger continue to receive their
+    role-appropriate initial focus.
+
+## 0.15.0
+
+### Minor Changes
+
+- [`e5b4070f51a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5b4070f51a93) -
+  Remove Top Layer compatibility aliases and expose close-event helpers from the `dialog` and
+  `popover` entry points.
+
 ## 0.14.0
 
 ### Minor Changes

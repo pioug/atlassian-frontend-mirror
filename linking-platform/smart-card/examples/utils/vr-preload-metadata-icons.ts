@@ -6,6 +6,7 @@ import '@atlaskit/icon/core/task'; // IconType.CheckItem
 import '@atlaskit/icon/core/comment'; // IconType.Comment
 import '@atlaskit/icon/core/eye-open'; // IconType.View]
 import '@atlaskit/icon/core/thumbs-up'; // IconType.React
+import '@atlaskit/icon/core/arrow-up'; // IconType.Vote
 import '@atlaskit/icon/core/question-circle'; // IconType.PriorityUndefined
 import '@atlaskit/icon/core/angle-brackets'; // IconType.ProgrammingLanguage
 import '@atlaskit/icon/core/people-group'; // IconType.Subscriber

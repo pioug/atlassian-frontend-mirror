@@ -5,6 +5,8 @@ import { di } from 'react-magnetic-di';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { failUfoExperience, startUfoExperience } from '../../state/analytics';
 import { importWithRetry } from '../../utils';
@@ -122,10 +124,18 @@ export function CardWithURLRenderer(props: CardProps): React.JSX.Element {
 	const FallbackComponent = fallbackComponent ?? defaultFallBackComponent;
 	const ErrorFallback = () => <FallbackComponent />;
 
+	// FlexibleCards always need full ORS data regardless of appearance prop,
+	// because they render custom blocks (TitleBlock etc.) requiring complete response.
+	// Override appearance to 'block' for all FlexibleCards when FG is enabled.
+	const effectiveAppearance =
+		isFlexibleUi && fg('platform_smartlink_inline_resolve_optimization')
+			? 'block'
+			: appearance;
+
 	const cardWithUrlProps: CardWithUrlContentProps = {
 		id,
 		url,
-		appearance,
+		appearance: effectiveAppearance,
 		onClick,
 		isSelected,
 		isHovered,

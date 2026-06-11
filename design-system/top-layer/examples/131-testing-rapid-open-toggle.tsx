@@ -23,6 +23,7 @@ export default function TestingRapidOpenToggle(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	function rapidToggle() {

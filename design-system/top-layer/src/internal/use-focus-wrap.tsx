@@ -7,6 +7,8 @@ import { getLastFocusable } from '../focus/get-last-focusable';
 import { getNextFocusable } from '../focus/get-next-focusable';
 import { isNestedLayerFocused } from '../focus/is-nested-layer-focused';
 
+import { type TPhase } from './use-animated-visibility';
+
 /**
  * Roles that require focus wrapping per WAI-ARIA APG.
  *
@@ -48,13 +50,19 @@ function roleRequiresFocusWrap(role: string | undefined): boolean {
 export function useFocusWrap({
 	elementRef,
 	role,
+	phase,
 }: {
 	elementRef: RefObject<HTMLElement | null>;
 	role: string | undefined;
+	/**
+	 * Whether the element is open. Used to attach the Tab listener.
+	 */
+	phase: TPhase;
 }): void {
+	const isVisible = phase !== 'closed';
 	useEffect(() => {
 		const element = elementRef.current;
-		if (!element || !roleRequiresFocusWrap(role)) {
+		if (!element || !roleRequiresFocusWrap(role) || !isVisible) {
 			return;
 		}
 
@@ -102,5 +110,5 @@ export function useFocusWrap({
 		});
 
 		return unbind;
-	}, [elementRef, role]);
+	}, [elementRef, role, isVisible]);
 }

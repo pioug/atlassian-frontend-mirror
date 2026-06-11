@@ -1,5 +1,88 @@
 # @atlaskit/editor-common
 
+## 115.10.2
+
+### Patch Changes
+
+- [`50d17160d7177`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50d17160d7177) -
+  Cleanup FG `platform_editor_ally_remove_role_tabpanel`
+
+## 115.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.10.0
+
+### Minor Changes
+
+- [`293a0d6eaab12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/293a0d6eaab12) -
+  Fix Remix block menu item visibility to match Improve formatting
+
+### Patch Changes
+
+- [`8f894bdeea3a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f894bdeea3a0) -
+  Add analytics event for panel_c1 transformation
+- [`1df102e80b904`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1df102e80b904) -
+  Add parentNode field in insert table events to track panel_c1 -> table
+- Updated dependencies
+
+## 115.9.0
+
+### Minor Changes
+
+- [`92da883bae00d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92da883bae00d) -
+  Use XPC-wrapped destination URL for link navigation behind `platform_smartlink_xpc_url_wrapping`.
+
+  When the feature gate is enabled, the following link-opening locations now use the cross-product
+  analytics parameter-enriched URL provided by SmartCard instead of the raw node URL:
+  - **Toolbar "Open Link" button** (both smart card and datasource paths) — uses the new
+    `useSmartLinkDestinationUrl` hook from
+    `@atlaskit/smart-card/hook/use-smart-link-destination-url` via a new `OpenLinkToolbarButton`
+    custom toolbar component.
+  - **Inline card overlay anchor** (`InlineCardOverlay`) — `href` updated to use
+    `useSmartLinkDestinationUrl`.
+  - **Hover link overlay** (`HoverLinkOverlay`) — accepts a new optional `destinationUrl` prop; when
+    provided and the gate is on, uses it for both the anchor `href` and double-click `window.open`.
+    The `destinationUrl` is computed by `inlineCardWithAwareness` using `useSmartLinkDestinationUrl`
+    and passed down — keeping `editor-common` free of any SmartCard provider dependency.
+  - **Inline card Cmd/Ctrl+click** — reads `data.destinationUrl` from SmartCard's `onClick` callback
+    (typed as `OnClickCallback` from `@atlaskit/smart-card/card/types`).
+
+  All changes gracefully fall back to the raw URL when the gate is off or the link has not yet
+  resolved.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.8.2
+
+### Patch Changes
+
+- [`809a7bb620a33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/809a7bb620a33) -
+  [ux] Cleanup feature gate `cc_editor_hover_link_overlay_css_fix`. The hover link overlay overflow
+  handling is now always active, so labels reset on hover and hide when the button would overflow
+  its container.
+- Updated dependencies
+
+## 115.8.1
+
+### Patch Changes
+
+- [`4129a00a1ae04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4129a00a1ae04) -
+  Add `completionSource` attribute to contextual typeahead analytics events to distinguish between
+  cold (frequency-only), server slow-lane, and on-device local LLM scoring paths
+- Updated dependencies
+
+## 115.8.0
+
+### Minor Changes
+
+- [`a4b884454957a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4b884454957a) -
+  EDITOR-7306 Added analytics for viewing a suggestion in suggested edits
+
 ## 115.7.5
 
 ### Patch Changes

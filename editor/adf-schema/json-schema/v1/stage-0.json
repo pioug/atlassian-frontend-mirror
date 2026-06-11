@@ -91,9 +91,6 @@
           "$ref": "#/definitions/codeBlock_node"
         },
         {
-          "$ref": "#/definitions/codeBlock_with_extended_attributes_node"
-        },
-        {
           "$ref": "#/definitions/taskList_node"
         },
         {
@@ -718,6 +715,12 @@
             },
             "localId": {
               "type": "string"
+            },
+            "wrap": {
+              "type": "boolean"
+            },
+            "hideLineNumbers": {
+              "type": "boolean"
             }
           },
           "additionalProperties": false
@@ -743,84 +746,6 @@
           "items": {
             "$ref": "#/definitions/breakout_mark"
           }
-        },
-        "attrs": {
-          "type": "object",
-          "properties": {
-            "language": {
-              "type": "string"
-            },
-            "uniqueId": {
-              "type": "string"
-            },
-            "localId": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false
-        },
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/text_with_no_marks_node"
-          }
-        }
-      },
-      "additionalProperties": false,
-      "required": ["type"]
-    },
-    "codeBlock_root_only_with_extended_attributes_node": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "enum": ["codeBlock"]
-        },
-        "marks": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/breakout_mark"
-          }
-        },
-        "attrs": {
-          "type": "object",
-          "properties": {
-            "language": {
-              "type": "string"
-            },
-            "uniqueId": {
-              "type": "string"
-            },
-            "localId": {
-              "type": "string"
-            },
-            "wrap": {
-              "type": "boolean"
-            },
-            "hideLineNumbers": {
-              "type": "boolean"
-            }
-          },
-          "additionalProperties": false
-        },
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/text_with_no_marks_node"
-          }
-        }
-      },
-      "additionalProperties": false,
-      "required": ["type"]
-    },
-    "codeBlock_with_extended_attributes_node": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "enum": ["codeBlock"]
-        },
-        "marks": {
-          "type": "array",
-          "maxItems": 0
         },
         "attrs": {
           "type": "object",
@@ -980,9 +905,6 @@
                 "$ref": "#/definitions/codeBlock_node"
               },
               {
-                "$ref": "#/definitions/codeBlock_with_extended_attributes_node"
-              },
-              {
                 "$ref": "#/definitions/mediaSingle_caption_node"
               },
               {
@@ -1047,9 +969,6 @@
               },
               {
                 "$ref": "#/definitions/codeBlock_root_only_node"
-              },
-              {
-                "$ref": "#/definitions/codeBlock_root_only_with_extended_attributes_node"
               },
               {
                 "$ref": "#/definitions/layoutSection_with_single_column_node"
@@ -2493,9 +2412,6 @@
           "$ref": "#/definitions/codeBlock_node"
         },
         {
-          "$ref": "#/definitions/codeBlock_with_extended_attributes_node"
-        },
-        {
           "$ref": "#/definitions/mediaGroup_node"
         },
         {
@@ -2946,9 +2862,6 @@
           },
           {
             "$ref": "#/definitions/codeBlock_node"
-          },
-          {
-            "$ref": "#/definitions/codeBlock_with_extended_attributes_node"
           },
           {
             "$ref": "#/definitions/mediaSingle_caption_node"

@@ -220,6 +220,11 @@ export type { AIQuickPromptEventPayload } from './types/ai-quick-prompt-events';
 
 export type { AiAutocompleteEventPayload, TriggerType } from './types/ai-autocomplete-events';
 
+export type {
+	CompletionSource,
+	ContextualTypeaheadEventPayload,
+} from './types/contextual-typeahead-events';
+
 export type { AIDefinitionsEventPayload } from './types/ai-definitions-events';
 
 export type { AIUnifiedEventPayload, AIUnifiedCommonAttributes } from './types/ai-unified-events';

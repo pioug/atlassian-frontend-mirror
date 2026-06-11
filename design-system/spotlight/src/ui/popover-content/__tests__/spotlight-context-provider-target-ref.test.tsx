@@ -31,7 +31,10 @@ jest.mock('@atlaskit/top-layer/use-anchor-position', () => {
 
 jest.mock('@atlaskit/top-layer/popover', () => {
 	const React = require('react');
+	const actual = jest.requireActual('@atlaskit/top-layer/popover');
+
 	return {
+		...actual,
 		Popover: React.forwardRef(
 			(
 				{

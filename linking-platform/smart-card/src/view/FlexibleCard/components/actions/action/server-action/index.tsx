@@ -43,7 +43,11 @@ const ServerAction = ({
 					smartLinkActionType,
 				});
 				if (action.reload && action.reload.url) {
-					await reload(action.reload.url, true, undefined, action.reload.id);
+					await reload({
+						url: action.reload.url,
+						isReloading: true,
+						id: action.reload.id,
+					});
 				}
 				setIsLoading(false);
 				if (onClick) {

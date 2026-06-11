@@ -23,9 +23,6 @@ import { useLink } from './use-link';
 import { useRemoveButton } from './use-remove-button';
 import { useTagRemoval } from './use-tag-removal';
 
-// CSS variable name for icon color - must be used as literal string in cssMap due to Compiled CSS static analysis
-const iconColorVar = '--ds-tag-icon' as const;
-
 const styles = cssMapUnbound({
 	baseStyles: {
 		display: 'inline-flex',
@@ -61,8 +58,7 @@ const styles = cssMapUnbound({
 		// Prevent underline when tag is a link
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		textDecoration: 'none !important',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		color: `var(${iconColorVar})`,
+		color: `var(--ds-tag-icon)`,
 	},
 	beforeStylesSelected: {
 		color: token('color.icon.selected'),
@@ -177,141 +173,110 @@ const styles = cssMapUnbound({
 	},
 });
 
-// Border and icon color styles - each color sets CSS variables for its token values
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+// For accent borders, we use the new color.border.accent.*.subtle tokens (Color300
+// light / Color800 dark) which provide proper decorative-border colours
+//
+// Icons keep color.icon.accent.* in the default state (vibrant on the plain page
+// background) and swap to color.text.accent.* in hovered/pressed states (where the
+// Tag picks up a coloured background and needs guaranteed 3:1 icon contrast).
 const colorStyles = cssMapUnbound({
 	gray: {
-		'--tag-border-token': token('color.border.accent.gray'),
+		'--tag-border-token': token('color.border.accent.gray.subtle'),
 		'--tag-icon-token': token('color.icon.accent.gray'),
+		'--tag-icon-hovered-token': token('color.text.accent.gray'),
+		'--tag-icon-pressed-token': token('color.text.accent.gray'),
 		'--tag-metric-bg-token': token('color.background.accent.gray.subtler'),
 	},
 	blue: {
-		'--tag-border-token': token('color.border.accent.blue'),
+		'--tag-border-token': token('color.border.accent.blue.subtle'),
 		'--tag-icon-token': token('color.icon.accent.blue'),
+		'--tag-icon-hovered-token': token('color.text.accent.blue'),
+		'--tag-icon-pressed-token': token('color.text.accent.blue'),
 		'--tag-metric-bg-token': token('color.background.accent.blue.subtler'),
 	},
 	green: {
-		'--tag-border-token': token('color.border.accent.green'),
+		'--tag-border-token': token('color.border.accent.green.subtle'),
 		'--tag-icon-token': token('color.icon.accent.green'),
+		'--tag-icon-hovered-token': token('color.text.accent.green'),
+		'--tag-icon-pressed-token': token('color.text.accent.green'),
 		'--tag-metric-bg-token': token('color.background.accent.green.subtler'),
 	},
 	red: {
-		'--tag-border-token': token('color.border.accent.red'),
+		'--tag-border-token': token('color.border.accent.red.subtle'),
 		'--tag-icon-token': token('color.icon.accent.red'),
+		'--tag-icon-hovered-token': token('color.text.accent.red'),
+		'--tag-icon-pressed-token': token('color.text.accent.red'),
 		'--tag-metric-bg-token': token('color.background.accent.red.subtler'),
 	},
 	yellow: {
-		'--tag-border-token': token('color.border.accent.yellow'),
+		'--tag-border-token': token('color.border.accent.yellow.subtle'),
 		'--tag-icon-token': token('color.icon.accent.yellow'),
+		'--tag-icon-hovered-token': token('color.text.accent.yellow'),
+		'--tag-icon-pressed-token': token('color.text.accent.yellow'),
 		'--tag-metric-bg-token': token('color.background.accent.yellow.subtler'),
 	},
 	purple: {
-		'--tag-border-token': token('color.border.accent.purple'),
+		'--tag-border-token': token('color.border.accent.purple.subtle'),
 		'--tag-icon-token': token('color.icon.accent.purple'),
+		'--tag-icon-hovered-token': token('color.text.accent.purple'),
+		'--tag-icon-pressed-token': token('color.text.accent.purple'),
 		'--tag-metric-bg-token': token('color.background.accent.purple.subtler'),
 	},
 	lime: {
-		'--tag-border-token': token('color.border.accent.lime'),
+		'--tag-border-token': token('color.border.accent.lime.subtle'),
 		'--tag-icon-token': token('color.icon.accent.lime'),
+		'--tag-icon-hovered-token': token('color.text.accent.lime'),
+		'--tag-icon-pressed-token': token('color.text.accent.lime'),
 		'--tag-metric-bg-token': token('color.background.accent.lime.subtler'),
 	},
 	magenta: {
-		'--tag-border-token': token('color.border.accent.magenta'),
+		'--tag-border-token': token('color.border.accent.magenta.subtle'),
 		'--tag-icon-token': token('color.icon.accent.magenta'),
+		'--tag-icon-hovered-token': token('color.text.accent.magenta'),
+		'--tag-icon-pressed-token': token('color.text.accent.magenta'),
 		'--tag-metric-bg-token': token('color.background.accent.magenta.subtler'),
 	},
 	orange: {
-		'--tag-border-token': token('color.border.accent.orange'),
+		'--tag-border-token': token('color.border.accent.orange.subtle'),
 		'--tag-icon-token': token('color.icon.accent.orange'),
+		'--tag-icon-hovered-token': token('color.text.accent.orange'),
+		'--tag-icon-pressed-token': token('color.text.accent.orange'),
 		'--tag-metric-bg-token': token('color.background.accent.orange.subtler'),
 	},
 	teal: {
-		'--tag-border-token': token('color.border.accent.teal'),
+		'--tag-border-token': token('color.border.accent.teal.subtle'),
 		'--tag-icon-token': token('color.icon.accent.teal'),
+		'--tag-icon-hovered-token': token('color.text.accent.teal'),
+		'--tag-icon-pressed-token': token('color.text.accent.teal'),
 		'--tag-metric-bg-token': token('color.background.accent.teal.subtler'),
 	},
 });
 
-/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values */
-// Border + icon filter styles - base state
+// Border + icon filter styles - base state.
+// Borders use the new color.border.accent.*.subtle tokens directly.
+// Icons use the color.icon.accent.* tokens directly in the default state.
 const borderIconFilterStyles = cssMapUnbound({
 	root: {
-		borderColor:
-			'color-mix(in oklch, var(--tag-border-token) 100%, var(--cm-border-color) var(--cm-border-value))',
-		'--border-l-factor': '1.33',
-		'--cm-border-color': 'white',
-		'--cm-border-value': '45%',
-		'--cm-icon-color': 'black',
-		'--cm-icon-value': '20%',
-		[iconColorVar]:
-			'color-mix(in oklch, var(--tag-icon-token) 100%, var(--cm-icon-color) var(--cm-icon-value))',
-		'--icon-l-factor': '0.88',
-		'[data-color-mode="dark"] &': {
-			'--border-l-factor': '0.7',
-			'--cm-border-color': 'black',
-			'--cm-icon-color': 'white',
-			'--cm-icon-value': '0%',
-			'--icon-l-factor': '1',
-		},
-		'@supports (color: oklch(from white l c h))': {
-			borderColor: 'oklch(from var(--tag-border-token) calc(l * var(--border-l-factor)) c h)',
-			[iconColorVar]: 'oklch(from var(--tag-icon-token) calc(l * var(--icon-l-factor)) c h)',
-		},
+		borderColor: 'var(--tag-border-token)',
+		'--ds-tag-icon': 'var(--tag-icon-token)',
 	},
 });
 
-// Border + icon filter styles - interactive states (hover/pressed)
+// Border + icon filter styles - interactive states (hover/pressed).
+// Icons swap to the color.text.accent.* tokens for guaranteed 3:1 contrast
+// against the coloured interactive backgrounds. Borders stay constant.
 const borderIconInteractiveFilterStyles = cssMapUnbound({
 	root: {
-		'--border-hovered-l-factor': '1.2',
-		'--border-pressed-l-factor': '1.08',
-		'--cm-border-hovered-value': '30%',
-		'--cm-border-pressed-value': '10%',
-		'--cm-icon-hovered-value': '30%',
-		'--cm-icon-pressed-value': '40%',
-		'--icon-hovered-l-factor': '0.8',
-		'--icon-pressed-l-factor': '0.7',
-
-		'[data-color-mode="dark"] &': {
-			'--border-hovered-l-factor': '0.8',
-			'--border-pressed-l-factor': '0.9',
-			'--cm-icon-hovered-value': '30%',
-			'--cm-icon-pressed-value': '70%',
-			'--icon-hovered-l-factor': '1.15',
-			'--icon-pressed-l-factor': '1.37',
-		},
-
 		'&:hover': {
-			borderColor:
-				'color-mix(in oklch, var(--tag-border-token) 100%, var(--cm-border-color) var(--cm-border-hovered-value))',
-			[iconColorVar]:
-				'color-mix(in oklch, var(--tag-icon-token) 100%, var(--cm-icon-color) var(--cm-icon-hovered-value))',
+			borderColor: 'var(--tag-border-token)',
+			'--ds-tag-icon': 'var(--tag-icon-hovered-token)',
 		},
-
 		'&:active': {
-			borderColor:
-				'color-mix(in oklch, var(--tag-border-token) 100%, var(--cm-border-color) var(--cm-border-pressed-value))',
-			[iconColorVar]:
-				'color-mix(in oklch, var(--tag-icon-token) 100%, var(--cm-icon-color) var(--cm-icon-pressed-value))',
-		},
-
-		'@supports (color: oklch(from white l c h))': {
-			'&:hover': {
-				borderColor:
-					'oklch(from var(--tag-border-token) calc(l * var(--border-hovered-l-factor)) c h)',
-				[iconColorVar]:
-					'oklch(from var(--tag-icon-token) calc(l * var(--icon-hovered-l-factor)) c h)',
-			},
-			'&:active': {
-				borderColor:
-					'oklch(from var(--tag-border-token) calc(l * var(--border-pressed-l-factor)) c h)',
-				[iconColorVar]:
-					'oklch(from var(--tag-icon-token) calc(l * var(--icon-pressed-l-factor)) c h)',
-			},
+			borderColor: 'var(--tag-border-token)',
+			'--ds-tag-icon': 'var(--tag-icon-pressed-token)',
 		},
 	},
 });
-/* eslint-enable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values */
 
 const dropdownStyles = cssMapUnbound({
 	interactive: {
@@ -361,8 +326,6 @@ const dropdownStyles = cssMapUnbound({
 		// Force Spinner to follow the lozenge icon color.
 	},
 });
-
-/* eslint-enable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values */
 
 /**
  * __TagNew__

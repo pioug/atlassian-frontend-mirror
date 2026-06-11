@@ -21,7 +21,7 @@ export const useEmbedResolvePostMessageListener = ({
 			const isFromExpectedIframe =
 				embedIframeRef && event.source === embedIframeRef.current?.contentWindow;
 			if (event.data === 'force-resolve-smart-link' && isFromExpectedIframe) {
-				resolve(url, true);
+				resolve({ url, isReloading: true });
 			}
 		};
 

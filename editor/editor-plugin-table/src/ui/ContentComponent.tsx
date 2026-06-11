@@ -14,6 +14,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type tablePlugin from '../tablePlugin';
@@ -26,6 +27,7 @@ import FloatingDragMenu from './FloatingDragMenu';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import FloatingInsertButton from './FloatingInsertButton';
+import FloatingTableMenu from './FloatingTableMenu';
 import { FloatingToolbarLabel } from './FloatingToolbarLabel/FloatingToolbarLabel';
 import { GlobalStylesWrapper } from './global-styles';
 import { SizeSelector } from './SizeSelector';
@@ -185,27 +187,39 @@ const ContentComponentInternal = ({
 					isDragMenuOpen={isDragMenuOpen}
 				/>
 			)}
-			<FloatingDragMenu
-				editorView={editorView}
-				mountPoint={popupsMountPoint}
-				boundariesElement={popupsBoundariesElement}
-				tableRef={tableRef as HTMLTableElement}
-				tableNode={tableNode}
-				targetCellPosition={targetCellPosition}
-				direction={dragMenuDirection}
-				index={dragMenuIndex}
-				isOpen={!!isDragMenuOpen && !isResizing}
-				getEditorContainerWidth={defaultGetEditorContainerWidth}
-				editorAnalyticsAPI={editorAnalyticsAPI}
-				stickyHeaders={stickyHeader}
-				pluginConfig={pluginConfig}
-				isTableScalingEnabled={options?.isTableScalingEnabled}
-				getEditorFeatureFlags={options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags}
-				ariaNotifyPlugin={ariaNotifyPlugin}
-				api={api}
-				isCommentEditor={options?.isCommentEditor}
-				tableWrapper={tableWrapperTarget}
-			/>
+			{expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) ? (
+				<FloatingTableMenu
+					api={api}
+					boundariesElement={popupsBoundariesElement}
+					editorView={editorView}
+					mountPoint={popupsMountPoint}
+					stickyHeaders={stickyHeader}
+					tableWrapper={tableWrapperTarget}
+					targetCellPosition={targetCellPosition}
+				/>
+			) : (
+				<FloatingDragMenu
+					editorView={editorView}
+					mountPoint={popupsMountPoint}
+					boundariesElement={popupsBoundariesElement}
+					tableRef={tableRef as HTMLTableElement}
+					tableNode={tableNode}
+					targetCellPosition={targetCellPosition}
+					direction={dragMenuDirection}
+					index={dragMenuIndex}
+					isOpen={!!isDragMenuOpen && !isResizing}
+					getEditorContainerWidth={defaultGetEditorContainerWidth}
+					editorAnalyticsAPI={editorAnalyticsAPI}
+					stickyHeaders={stickyHeader}
+					pluginConfig={pluginConfig}
+					isTableScalingEnabled={options?.isTableScalingEnabled}
+					getEditorFeatureFlags={options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags}
+					ariaNotifyPlugin={ariaNotifyPlugin}
+					api={api}
+					isCommentEditor={options?.isCommentEditor}
+					tableWrapper={tableWrapperTarget}
+				/>
+			)}
 			{(options?.isTableScalingEnabled ||
 				(options?.tableOptions.allowTableResizing && options.isCommentEditor)) &&
 				isTableResizing &&

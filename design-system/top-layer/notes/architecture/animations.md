@@ -166,7 +166,7 @@ Always render the element. Control visibility via `isOpen`:
 ```tsx
 import { slideAndFade, fade } from '@atlaskit/top-layer/animations';
 
-// Dialog — always mounted, controlled by isOpen
+// Dialog — controlled by isOpen (host element unmounts after exit animation)
 <Dialog
   isOpen={isDialogOpen}
   onClose={handleClose}
@@ -177,7 +177,7 @@ import { slideAndFade, fade } from '@atlaskit/top-layer/animations';
   <p>Dialog content...</p>
 </Dialog>
 
-// Popover — always mounted, controlled by isOpen
+// Popover — controlled by isOpen (host element unmounts after exit animation)
 <Popover isOpen={isTooltipVisible} animate={slideAndFade()}>
   <TooltipContainer>...</TooltipContainer>
 </Popover>
@@ -189,7 +189,7 @@ import { slideAndFade, fade } from '@atlaskit/top-layer/animations';
 - `isOpen: true` → calls `showPopover()` / `showModal()`, entry animation plays via
   `@starting-style`
 - `isOpen: false` → calls `hidePopover()` / `close()`, exit animation plays via `allow-discrete`
-- The element stays mounted in the DOM the whole time
+- The element stays mounted while open or exit-animating; it unmounts after exit completes so it does not leave an empty role-bearing element in the accessibility tree (see `notes/decisions/host-element-unmount-when-hidden.md`)
 - No mount/unmount lifecycle — the consumer never conditionally renders the primitive
 
 ### `Popup.Content` (thin context wrapper)

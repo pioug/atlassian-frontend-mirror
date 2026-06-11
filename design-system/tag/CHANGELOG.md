@@ -1,5 +1,20 @@
 # @atlaskit/tag
 
+## 14.16.0
+
+### Minor Changes
+
+- [`1ed7a98923fd7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ed7a98923fd7) -
+  Removed all OKLCH and `color-mix()` runtime color transformations from the new Tag component
+  (behind the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate).
+  - Borders now use the new `color.border.accent.*.subtle` tokens (introduced in
+    `@atlaskit/tokens@13.2.0`).
+  - Icons keep `color.icon.accent.*` in the default state (vibrant on the plain page background) and
+    swap to `color.text.accent.*` on hover/pressed for guaranteed 3:1 contrast against the coloured
+    interactive backgrounds.
+  - The `AvatarTag` border uses `color.border.accent.gray.subtle` directly with no interactive
+    transforms.
+
 ## 14.15.0
 
 ### Minor Changes

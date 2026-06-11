@@ -38,9 +38,11 @@ exports[`JIRA wiki markup - Macros [CS-1470] code macro converts to code node wi
   "content": [
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "java",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -62,9 +64,11 @@ exports[`JIRA wiki markup - Macros [CS-1470] code macro converts to code node wi
   "content": [
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "xml",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -84,9 +88,11 @@ exports[`JIRA wiki markup - Macros [CS-1470] noformat macro converts to code nod
   "content": [
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": null,
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -126,9 +132,11 @@ exports[`JIRA wiki markup - Macros [CS-3139] code macro accepts C++ as language 
     },
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "c++",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -171,9 +179,11 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -224,9 +234,11 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -277,9 +289,11 @@ exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly insi
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -349,9 +363,11 @@ exports[`JIRA wiki markup - Macros ADFS-719 should place invalid adf macro insid
   "content": [
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": null,
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -440,9 +456,11 @@ exports[`JIRA wiki markup - Macros Should take only first occurrence of attribut
     },
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "java",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -479,9 +497,11 @@ exports[`JIRA wiki markup - Macros Should work with multiple equal signs in a si
     },
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "java",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -1475,9 +1495,11 @@ exports[`JIRA wiki markup - Macros should not process code contents 1`] = `
   "content": [
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "xml",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -1497,9 +1519,11 @@ exports[`JIRA wiki markup - Macros should not process noformat contents 1`] = `
   "content": [
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": null,
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -1536,9 +1560,11 @@ exports[`JIRA wiki markup - Macros should process code with title 1`] = `
     },
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "java",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -2321,9 +2347,11 @@ exports[`JIRA wiki markup - Macros should title of noformat 1`] = `
     },
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": null,
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {

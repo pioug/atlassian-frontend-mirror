@@ -50,6 +50,7 @@ function BasicPopover({ forceFallbackPositioning }: TBasicPopoverProps): React.R
 		popoverRef,
 		placement: { edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (

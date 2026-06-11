@@ -133,6 +133,7 @@ const HoverLinkOverlay = ({
 	children,
 	isVisible = false,
 	url,
+	destinationUrl,
 	compactPadding = false,
 	editorAnalyticsApi,
 	view,
@@ -209,14 +210,12 @@ const HoverLinkOverlay = ({
 		// When a smart link wraps to multiple lines in a constrained container (e.g. table cell),
 		// the hover button can overflow beyond the container bounds. We detect this by comparing
 		// the button's right edge to the container's right edge, and hide the label if it overflows.
-		if (editorExperiment('cc_editor_hover_link_overlay_css_fix', true)) {
-			if (containerRef.current && hoverLinkButtonRef.current) {
-				const containerRight = containerRef.current.getBoundingClientRect().right;
-				const buttonRight = hoverLinkButtonRef.current.getBoundingClientRect().right;
+		if (containerRef.current && hoverLinkButtonRef.current) {
+			const containerRight = containerRef.current.getBoundingClientRect().right;
+			const buttonRight = hoverLinkButtonRef.current.getBoundingClientRect().right;
 
-				if (buttonRight > containerRight) {
-					canShowLabel = false;
-				}
+			if (buttonRight > containerRight) {
+				canShowLabel = false;
 			}
 		}
 
@@ -228,10 +227,8 @@ const HoverLinkOverlay = ({
 
 		// Reset label visibility on hover start so we can measure if it overflows.
 		// Without this, the label stays hidden from a previous hover and won't be re-measured.
-		if (editorExperiment('cc_editor_hover_link_overlay_css_fix', true)) {
-			if (isHovered) {
-				setShowLabel(true);
-			}
+		if (isHovered) {
+			setShowLabel(true);
 		}
 	};
 
@@ -246,7 +243,10 @@ const HoverLinkOverlay = ({
 			sendVisitLinkAnalytics(INPUT_METHOD.DOUBLE_CLICK);
 
 			// Double click opens the link in a new tab
-			window.open(url, '_blank');
+			window.open(
+				fg('platform_smartlink_xpc_url_wrapping') ? (destinationUrl ?? url) : url,
+				'_blank',
+			);
 		}
 	};
 
@@ -300,7 +300,7 @@ const HoverLinkOverlay = ({
 				<Anchor
 					ref={hoverLinkButtonRef}
 					xcss={linkStylesCommon}
-					href={url}
+					href={fg('platform_smartlink_xpc_url_wrapping') ? (destinationUrl ?? url) : url}
 					target="_blank"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic paddingBlock value based on experiment flags
 					style={hoverLinkStyles}

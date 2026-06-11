@@ -1,5 +1,25 @@
 # @atlaskit/editor-statsig-tmp
 
+## 95.0.0
+
+### Major Changes
+
+- [`086ba910930e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/086ba910930e9) -
+  FFCLEANUP-96543 - cleanup fg platform_editor_remove_important_in_render_ext
+
+## 94.0.0
+
+### Major Changes
+
+- [`809a7bb620a33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/809a7bb620a33) -
+  [ux] Cleanup feature gate `cc_editor_hover_link_overlay_css_fix`. The hover link overlay overflow
+  handling is now always active, so labels reset on hover and hide when the button would overflow
+  its container.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 93.0.1
 
 ### Patch Changes

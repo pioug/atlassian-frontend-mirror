@@ -34,6 +34,7 @@ function NestedPopover({ forceFallbackPositioning }: { forceFallbackPositioning:
 		popoverRef,
 		placement: { axis: 'inline', edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (
@@ -87,6 +88,7 @@ function OuterPopover({
 		popoverRef,
 		placement: { edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (

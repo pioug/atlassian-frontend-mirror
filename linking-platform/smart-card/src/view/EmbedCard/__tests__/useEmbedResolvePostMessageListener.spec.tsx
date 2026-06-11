@@ -39,7 +39,7 @@ describe('useEmbedResolvePostMessageListener', () => {
 			source: ref.current.contentWindow,
 		});
 		window.dispatchEvent(messageEvent);
-		expect(mockFetchData).toHaveBeenCalledWith(url, true);
+		expect(mockFetchData).toHaveBeenCalledWith(url, true, undefined);
 	});
 
 	it('should not re-resolve when a different message is posted', () => {

@@ -41,7 +41,6 @@ export const blockContentGroup: ADFNodeGroup = adfNodeGroup(
 		mediaSingle.use('caption'),
 		mediaSingle.use('full'),
 		codeBlock,
-		codeBlock.use('with_extended_attributes'),
 		taskList,
 		bulletList,
 		orderedList,

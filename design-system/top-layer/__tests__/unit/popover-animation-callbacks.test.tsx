@@ -284,6 +284,29 @@ describe('onExitFinish - Popover with animate=true', () => {
 
 		expect(onExitFinish).not.toHaveBeenCalled();
 	});
+
+	// Regression: consumers reading the popover host element inside
+	// `onExitFinish` must still see it attached to the DOM. The phase
+	// transition to `closed` (which triggers the unmount) must happen after
+	// the callback is invoked, not before.
+	it('fires onExitFinish while the popover host element is still in the DOM', () => {
+		let hostAttachedWhenCallbackFired: boolean | null = null;
+		const onExitFinish = jest.fn(() => {
+			const host = screen.queryByRole('dialog', { name: 'test-popover' });
+			hostAttachedWhenCallbackFired = host !== null && document.body.contains(host);
+		});
+
+		const { rerender } = render(<TestPopover isOpen={true} onExitFinish={onExitFinish} animated />);
+
+		rerender(<TestPopover isOpen={false} onExitFinish={onExitFinish} animated />);
+
+		act(() => {
+			jest.runAllTimers();
+		});
+
+		expect(onExitFinish).toHaveBeenCalledTimes(1);
+		expect(hostAttachedWhenCallbackFired).toBe(true);
+	});
 });
 
 describe('onExitFinish - StrictMode double-fire guard (Popover with animate=false)', () => {

@@ -7,6 +7,7 @@ import ThumbsDownIcon from '@atlaskit/icon/core/thumbs-down';
 import ThumbsUpIcon from '@atlaskit/icon/core/thumbs-up';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';
 
@@ -28,10 +29,25 @@ const CustomFeedbackFields = () => {
 
 	return (
 		<>
-			<Field name="rating" label="Rate your experience" isRequired validate={validateRating}>
+			<Field name="rating" id="rating" label="Rate your experience" isRequired validate={validateRating}>
 				{({ fieldProps, error }) => (
 					<>
 						<Box paddingBlock="space.200">
+							{/* Visually-hidden input acts as a focus target for final-form-focus when
+							    the field is rendered with custom controls instead of a real <input>. */}
+							<VisuallyHidden>
+								<input
+									type="text"
+									id="rating"
+									tabIndex={-1}
+									readOnly
+									aria-label="Rate your experience"
+									aria-invalid={error ? true : undefined}
+									aria-describedby={error ? 'rating-error' : undefined}
+									value={fieldProps.value ?? ''}
+									onChange={() => {}}
+								/>
+							</VisuallyHidden>
 							<Inline space="space.100" alignBlock="center">
 								{[
 									{ value: 1, icon: ThumbsDownIcon, label: 'Thumbs down' },
@@ -64,7 +80,13 @@ const CustomFeedbackFields = () => {
 				)}
 			</Field>
 
-			<Field name="projectName" label="Project Name" isRequired validate={validateProjectName}>
+			<Field
+				name="projectName"
+				id="projectName"
+				label="Project Name"
+				isRequired
+				validate={validateProjectName}
+			>
 				{({ fieldProps, error }) => (
 					<>
 						<Box paddingBlock="space.200">

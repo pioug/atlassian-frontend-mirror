@@ -7,8 +7,9 @@ import {
 	type LifecycleAction,
 	type CardStore,
 } from './types';
-import { getDomainFromUrl, mergeAttributes } from './utils';
-import { resolveAttributes } from './utils';
+import { getDomainFromUrl } from './utils/get-domain-from-url';
+import { mergeAttributes } from './utils/process-attributes';
+import { resolveAttributes } from './utils/resolve-attributes';
 import { EVENT_CHANNEL } from './common/utils/constants';
 import type { LinkCreatedAttributesType } from './common/utils/analytics/analytics.types';
 import createEventPayload from './common/utils/analytics/create-event-payload';

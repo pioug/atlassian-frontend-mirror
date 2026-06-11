@@ -49,6 +49,7 @@ function HintPopover(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -98,6 +99,7 @@ export default function TestingHintNoCloseAuto(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

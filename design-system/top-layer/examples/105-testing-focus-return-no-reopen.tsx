@@ -28,6 +28,7 @@ export default function TestingFocusReturnNoReopen(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

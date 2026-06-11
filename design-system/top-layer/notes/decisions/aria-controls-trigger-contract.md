@@ -2,27 +2,34 @@
 
 ## Status
 
-**Decision recorded 2026-06-04**
+**Decision recorded 2026-06-04, revised 2026-06-09**
 
-`getAriaForTrigger()` always returns `aria-controls`.
+`getAriaForTrigger()` returns `aria-controls` whenever the trigger controls a
+popover whose host element is in the DOM. It is set to `undefined` (key
+present, value `undefined`) while the popover is closed, because the
+`Popover` and `Dialog` primitives no longer keep their host element mounted
+between opens (see `host-element-unmount-when-hidden.md`).
 
 ## Context
 
-After deleting the `Popup` compound, trigger wiring is owned by consumers using
-`usePopoverId()` and `getAriaForTrigger()`. The helper needs one clear contract
-for the relationship between a trigger and the `Popover` it controls.
+After deleting the `Popup` compound, trigger wiring is owned by consumers
+using `usePopoverId()` and `getAriaForTrigger()`. The helper needs one clear
+contract for the relationship between a trigger and the `Popover` it
+controls.
 
 The competing shapes were:
 
 - emit `aria-controls` only while the popover is open,
 - emit `aria-controls` whenever the trigger controls a mounted popover.
 
-`Popover` stays mounted while closed, so the referenced element exists even
-when it is not visible.
+Originally `Popover` stayed mounted while closed, so the referenced element
+existed even when not visible and `aria-controls` could be stable. With the
+unmount-when-hidden contract, the referenced element only exists while open
+(or exit-animating), so a closed-state `aria-controls` would dangle.
 
 ## Decision
 
-Keep `aria-controls` stable and let `aria-expanded` describe visibility.
+`aria-controls` mirrors the host element's lifecycle.
 
 ```tsx
 const popoverId = usePopoverId();
@@ -37,39 +44,50 @@ const triggerAria = getAriaForTrigger({ role: 'menu', isOpen, popoverId });
 </Popover>
 ```
 
-This gives assistive technology a stable trigger-to-popover relationship and a
-separate dynamic state:
-
-- `aria-controls`: this trigger controls that popover element.
-- `aria-expanded`: that popover element is currently visible or hidden.
+- `aria-controls`: this trigger controls that popover element whenever it
+  exists. Spread renders no attribute on the trigger while the popover is
+  closed.
+- `aria-expanded`: mirrors `isOpen`.
 - `aria-haspopup`: activating this trigger opens a popup of the given role.
+
+`getAriaForTrigger()` always returns the `aria-controls` key (typed
+`string | undefined`) so that the JSX spread will remove a previously set
+attribute when the popover closes; it never omits the key.
 
 ## Rationale
 
-- WAI-ARIA defines `aria-controls` as the relationship to the element whose
-  contents or presence are controlled by the current element. It does not limit
-  that relationship to the visible state.
-- WAI-ARIA says that when an expandable controlled container is not owned by the
-  element with `aria-expanded`, authors should identify the relationship using
-  `aria-controls`.
-- APG combobox guidance says `aria-controls` only needs to be set when the
-  popup is visible, but that referencing a non-visible element is valid.
-- APG accordion guidance keeps `aria-controls` present while `aria-expanded`
-  changes between `true` and `false`.
-- APG menu button guidance treats `aria-controls` as optional. Always emitting
-  it is a valid top-layer convention, not a broader conformance requirement.
-- Top-layer accessibility goals list missing trigger-to-popup relationships as
-  a WCAG 1.3.1 / 4.1.2 gap. A stable `aria-controls` relationship directly
-  addresses that gap.
+- WAI-ARIA `aria-controls` is defined as the relationship to the element
+  whose contents or presence are controlled by the current element. A
+  reference to a non-existent id has no target to act on and is flagged by
+  a11y tooling (axe `aria-valid-attr-value` does not flag it today, but
+  bespoke linters and reviewers commonly do).
+- The unmount-when-hidden contract removes the only reason the relationship
+  could stay live across a closed window: the target node no longer exists,
+  so the relationship has nothing to point at.
+- Always returning the key (with `undefined`) keeps the consumer code a
+  single JSX spread. Spread of `aria-controls: undefined` removes the
+  attribute from the DOM, so a previously-set value does not leak across
+  a re-render.
+- APG combobox guidance allows `aria-controls` to be set only when the
+  popup is visible.
+- APG accordion and menu button patterns are not affected because their
+  controlled regions stay mounted, so a stable `aria-controls` would still
+  be the right call there. This decision is specific to the top-layer
+  primitives whose host element is now lifecycle-managed.
 
 ## Consequences
 
-- `getAriaForTrigger()` has no option to gate `aria-controls` on open state.
-- README and architecture examples should show `usePopoverId()` plus
-  `getAriaForTrigger()` rather than hand-written, open-only `aria-controls`.
-- Legacy adapter packages can still reshape trigger props locally when their
-  public API requires legacy compatibility, but that is not the top-layer
-  helper contract.
+- `TAriaForTrigger['aria-controls']` is `string | undefined`, not optional.
+  Consumers can spread the result directly without per-key guarding.
+- For consumers that wire `aria-controls` manually on a trigger (rather
+  than via `getAriaForTrigger`), the same pattern applies: pass
+  `aria-controls={isOpen ? popoverId : undefined}` so the attribute does
+  not dangle. The `inline-dialog/src/inline-dialog-top-layer.tsx` adapter
+  follows this pattern via an explicit `setAttribute` / `removeAttribute`
+  pass on each render.
+- README and architecture examples should continue to show
+  `usePopoverId()` plus `getAriaForTrigger()` and may briefly call out the
+  closed-state behaviour.
 
 ## References
 
@@ -78,3 +96,4 @@ separate dynamic state:
 - [WAI-ARIA APG: Menu Button Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/)
 - [WAI-ARIA APG: Combobox Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/)
 - [WAI-ARIA APG: Accordion Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/)
+- `notes/decisions/host-element-unmount-when-hidden.md`

@@ -54,7 +54,7 @@ export const AddColumnLeftItem = ({ api }: TableMenuComponentsParams): React.JSX
 			shouldUseIncreasedScalingPercent,
 			isCommentEditor,
 		)(INPUT_METHOD.TABLE_CONTEXT_MENU, index)(editorView.state, editorView.dispatch, editorView);
-		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.execute(closeActiveTableMenu(api));
 		api?.core.actions.focus();
 	};
 

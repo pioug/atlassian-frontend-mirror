@@ -47,6 +47,7 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 		popoverRef,
 		placement: { edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (

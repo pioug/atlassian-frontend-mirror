@@ -2,6 +2,7 @@ import { matchers } from '@emotion/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { messages } from '../../../../components/i18n';
 import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
@@ -32,12 +33,21 @@ expect.extend(matchers);
 
 describe('<EmojiPickerList />', () => {
 	mockReactDomWarningGlobal();
+	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+
 	beforeEach(() => {
 		jest
 			.spyOn(utils, 'scrollToRow')
 			.mockImplementation((listRef?: any, index?: number) =>
 				helperTestingLibrary.scrollToIndex(index || 0),
 			);
+		getExperimentValueSpy = jest.spyOn(FeatureGates, 'getExperimentValue').mockImplementation(
+			(_experimentName, _parameterName, defaultValue) => defaultValue,
+		);
+	});
+
+	afterEach(() => {
+		getExperimentValueSpy.mockRestore();
 	});
 
 	const emojis = [imageEmoji];
@@ -184,6 +194,55 @@ describe('<EmojiPickerList />', () => {
 
 			expect(images[1]).toHaveAttribute('alt', atlassianEmojis[1].name);
 			expect(images[1]).toHaveAttribute('data-emoji-id', atlassianEmojis[1].id);
+		});
+
+		it('should keep frequent category before atlassian subcategories when teamoji experiment is enabled', async () => {
+			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+				(experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
+						? true
+						: defaultValue,
+			);
+			const frequentAtlassianEmoji: EmojiDescription = {
+				...atlassianEmojis[0],
+				id: 'frequent-atlassian',
+				name: 'Frequent Atlassian',
+				shortName: ':frequent_atlassian:',
+				type: 'ATLASSIAN',
+				category: 'FREQUENT',
+				order: 10,
+			};
+			const handsAtlassianEmoji: EmojiDescription = {
+				...atlassianEmojis[1],
+				id: 'hands-atlassian',
+				name: 'Hands Atlassian',
+				shortName: ':hands_atlassian:',
+				type: 'ATLASSIAN',
+				category: 'HANDS',
+				order: 2,
+			};
+			const facesAtlassianEmoji: EmojiDescription = {
+				...atlassianEmojis[2],
+				id: 'faces-atlassian',
+				name: 'Faces Atlassian',
+				shortName: ':faces_atlassian:',
+				type: 'ATLASSIAN',
+				category: 'FACES',
+				order: 1,
+			};
+
+			renderEmojiPickerList({
+				emojis: [handsAtlassianEmoji, frequentAtlassianEmoji, facesAtlassianEmoji],
+			});
+
+			const headingItems = await screen.findAllByTestId(
+				RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID,
+			);
+			expect(headingItems.map((headingItem) => headingItem.textContent)).toEqual([
+				messages.frequentCategory.defaultMessage,
+				'Faces',
+				'Hands',
+			]);
 		});
 	});
 

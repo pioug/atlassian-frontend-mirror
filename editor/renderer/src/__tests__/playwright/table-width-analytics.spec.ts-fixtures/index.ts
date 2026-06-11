@@ -1,26 +1,26 @@
 export const basicTableAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			isNumberColumnEnabled: boolean;
 			layout: string;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				content: {
-					type: string;
 					content: {
-						type: string;
 						text: string;
+						type: string;
 					}[];
+					type: string;
 				}[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -84,51 +84,51 @@ export const basicTableAdf: {
 };
 
 export const nestedTablesInHeaderAndCellAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			isNumberColumnEnabled: boolean;
 			layout: string;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				content: (
 					| {
-							type: string;
-							content: {
-								type: string;
-								text: string;
-							}[];
 							attrs?: undefined;
+							content: {
+								text: string;
+								type: string;
+							}[];
+							type: string;
 					  }
 					| {
-							type: string;
 							attrs: {
 								isNumberColumnEnabled: boolean;
 								layout: string;
 							};
 							content: {
-								type: string;
 								content: {
-									type: string;
 									content: {
-										type: string;
 										content: {
-											type: string;
 											text: string;
+											type: string;
 										}[];
+										type: string;
 									}[];
+									type: string;
 								}[];
+								type: string;
 							}[];
+							type: string;
 					  }
 				)[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -279,28 +279,31 @@ export const nestedTablesInHeaderAndCellAdf: {
 };
 
 export const tableWithScrollbarAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			isNumberColumnEnabled: boolean;
 			layout: string;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				attrs: {
 					colwidth: number[];
 				};
 				content: {
+					content: {
+						text: string;
+						type: string;
+					}[];
 					type: string;
-					content: never[];
 				}[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -323,7 +326,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'a' }],
 								},
 							],
 						},
@@ -335,7 +338,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'b' }],
 								},
 							],
 						},
@@ -347,7 +350,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'c' }],
 								},
 							],
 						},
@@ -359,7 +362,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'd' }],
 								},
 							],
 						},
@@ -371,7 +374,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'e' }],
 								},
 							],
 						},
@@ -383,7 +386,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'f' }],
 								},
 							],
 						},
@@ -395,7 +398,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'g' }],
 								},
 							],
 						},
@@ -407,7 +410,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'h' }],
 								},
 							],
 						},
@@ -419,7 +422,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'i' }],
 								},
 							],
 						},
@@ -431,7 +434,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'j' }],
 								},
 							],
 						},
@@ -443,7 +446,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'k' }],
 								},
 							],
 						},
@@ -455,7 +458,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'l' }],
 								},
 							],
 						},
@@ -467,7 +470,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'm' }],
 								},
 							],
 						},
@@ -479,7 +482,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'n' }],
 								},
 							],
 						},
@@ -491,7 +494,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'o' }],
 								},
 							],
 						},
@@ -503,7 +506,7 @@ export const tableWithScrollbarAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'p' }],
 								},
 							],
 						},

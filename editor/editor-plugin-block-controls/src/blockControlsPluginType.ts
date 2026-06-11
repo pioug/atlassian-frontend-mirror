@@ -25,7 +25,7 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
-import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type ActiveNode = {
 	anchorName: string;
@@ -187,6 +187,17 @@ export type BlockControlsPlugin = NextEditorPlugin<
 	'blockControls',
 	{
 		actions: {
+			/**
+			 * Returns the text length of the block(s) that triggered the block menu.
+			 *
+			 * When a preserved (multi-block) selection exists the character count spans
+			 * all selected blocks; otherwise the single node at `menuTriggerByNode.pos`
+			 * is used.
+			 *
+			 * @param editorView – the current editor view.
+			 * @returns The text length, or `null` when the context cannot be determined.
+			 */
+			getTextLength: (editorView: EditorView) => number | null;
 			registerNodeDecoration: (factory: NodeDecorationFactory) => void;
 			unregisterNodeDecoration: (type: string) => void;
 		};

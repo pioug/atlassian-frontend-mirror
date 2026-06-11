@@ -1,6 +1,5 @@
 import {
 	codeBlock,
-	codeBlockWithExtendedAttributes,
 	codeBlockWithLocalId,
 } from '@atlaskit/adf-schema';
 import { areCodeBlockLineNumbersHidden } from '@atlaskit/editor-common/code-block';
@@ -170,7 +169,7 @@ const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutpu
 export const codeBlockNodeWithFixedToDOM = (config: Config): NodeSpec => {
 	return {
 		...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)
-			? codeBlockWithExtendedAttributes
+			? codeBlock
 			: fg('platform_editor_adf_with_localid')
 				? codeBlockWithLocalId
 				: codeBlock),

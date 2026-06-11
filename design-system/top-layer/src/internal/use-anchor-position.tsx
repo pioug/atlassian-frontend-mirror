@@ -198,6 +198,7 @@ export function useAnchorPosition({
 	placement = {},
 	forceFallbackPositioning = false,
 	isEnabled = true,
+	isOpen,
 }: {
 	/**
 	 * Element to position relative to.
@@ -205,6 +206,12 @@ export function useAnchorPosition({
 	anchorRef: RefObject<HTMLElement | null>;
 	/**
 	 * Element being positioned (typically a popover).
+	 *
+	 * The popover host may be unmounted between opens (the `Popover`
+	 * primitive unmounts after its exit animation). Pass `isOpen` so the
+	 * positioning effect re-runs against the freshly mounted element on
+	 * the next open. Without it, the effect's bound listeners and styles
+	 * would target the previous (detached) element.
 	 */
 	popoverRef: RefObject<HTMLElement | null>;
 	/**
@@ -239,6 +246,13 @@ export function useAnchorPosition({
 	 * Defaults to `true`.
 	 */
 	isEnabled?: boolean;
+	/**
+	 * Whether the popover is currently open. Drives a re-run of the
+	 * positioning effect when the popover host element is unmounted
+	 * and remounted across open cycles, so listeners and styles are
+	 * always wired to the live host element.
+	 */
+	isOpen: boolean;
 }): void {
 	const id = useId();
 	// Stabilize `placement` object so the same object literal
@@ -489,5 +503,5 @@ export function useAnchorPosition({
 		);
 
 		return undoPositioning;
-	}, [anchorRef, popoverRef, stablePlacement, forceFallbackPositioning, isEnabled, id]);
+	}, [anchorRef, popoverRef, stablePlacement, forceFallbackPositioning, isEnabled, id, isOpen]);
 }

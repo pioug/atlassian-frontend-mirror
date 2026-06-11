@@ -18,6 +18,7 @@ function PopoverInDialog(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

@@ -37,16 +37,18 @@ export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 		);
 
 		const tableMenuContext = useMemo(() => {
-			if (!selection || !tableNode) {
-				return { editorView };
+			// rely on selection plugins state to re-render the row/column menu, but use editorView.selection
+			// for cell menu state as the selection plugin won't update when text selection changes within cells
+			if (!tableNode || !editorView || !selection) {
+				return undefined;
 			}
 
 			const tableMap = TableMap.get(tableNode);
-			const selectionRect = getSelectionRect(selection);
+			const selectionRect = getSelectionRect(editorView.state.selection);
 			const cellOps = {
 				editorView,
-				canMergeCells: canMergeCellSelection(selection),
-				canSplitCell: canSplitCellSelection(selection),
+				canMergeCells: canMergeCellSelection(editorView.state.selection),
+				canSplitCell: canSplitCellSelection(editorView.state.selection),
 				hasMergedCellsInTable: tableMap.hasMergedCells(),
 			};
 
@@ -63,7 +65,7 @@ export const TableMenu: React.NamedExoticComponent<TableMenuProps> = memo(
 				isLastColumn: selectionRect.right === tableMap.width,
 				selectedColumnCount: selectionRect.right - selectionRect.left,
 			};
-		}, [editorView, selection, tableNode]);
+		}, [editorView, tableNode, selection]);
 
 		if (components.length === 0) {
 			return null;

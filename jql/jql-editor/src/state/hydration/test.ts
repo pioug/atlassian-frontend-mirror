@@ -164,3 +164,140 @@ describe('normaliseHydrationKey', () => {
 		expect(fromApi).toBe(fromEditor);
 	});
 });
+
+// function-argument hydration queries when gate is ON
+const functionArgQueriesFlagOn = [
+	{
+		// UNDER function with ARI argument
+		original: 'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
+		valid: 'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
+	},
+	{
+		// UNDER function in an AND query
+		original:
+			'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123") and assignee = user-1',
+		valid:
+			'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123") and assignee = user-1',
+	},
+	{
+		// UNDER function with incomplete query
+		original:
+			'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123") and reporter in',
+		valid: 'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
+	},
+	{
+		// multiple of the same function name in an AND query
+		original:
+			'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-345")',
+		valid:
+			'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-345")',
+	},
+	{
+		// Custom function with arguments
+		original: 'project = customFunction("some-arg")',
+		valid: 'project = customFunction("some-arg")',
+	},
+];
+
+// function-argument hydration queries when gate is OFF - UNDER should be excluded
+const functionArgQueriesFlagOff = [
+	{
+		// UNDER function should be excluded when gate is off
+		original: 'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
+		valid: '',
+	},
+	{
+		// Only the direct value part of a combined query is kept
+		original:
+			'focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123") and assignee = user-1',
+		valid: 'assignee = user-1',
+	},
+];
+
+// Functions with no arguments are always excluded (no hydration possible)
+const noArgFunctionQueries = [
+	{
+		original: 'assignee = currentUser()',
+		valid: '',
+	},
+	{
+		original: 'assignee is EMPTY',
+		valid: '',
+	},
+];
+
+describe('ValidQueryVisitor - function-argument hydration', () => {
+	describe('generic gate supersedes membersOf gate', () => {
+		ffTest.on(
+			'jql-function-arg-hydration',
+			'generic function-arg gate is enabled',
+			() => {
+				ffTest.off(
+					'jira-membersof-team-support',
+					'membersOf legacy gate is disabled',
+					() => {
+						it('includes membersOf via the generic gate even when the legacy gate is off', () => {
+							const ast = new JastBuilder().build(
+								'assignee in membersOf("team-1") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
+							);
+							expect(ast.query).toBeDefined();
+							if (ast.query) {
+								expect(ast.query.accept(visitor)).toEqual(
+									'assignee in membersOf("team-1") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
+								);
+							}
+						});
+					},
+				);
+			},
+		);
+	});
+
+	describe('with gate ON', () => {
+		ffTest.on(
+			'jql-function-arg-hydration',
+			'function operands with arguments are included in hydration query',
+			() => {
+				functionArgQueriesFlagOn.forEach(({ original, valid }) => {
+					it(`generates valid query for ${original}`, () => {
+						const ast = new JastBuilder().build(original);
+						expect(ast.query).toBeDefined();
+						if (ast.query) {
+							expect(ast.query.accept(visitor)).toEqual(valid);
+						}
+					});
+				});
+			},
+		);
+	});
+
+	describe('with gate OFF', () => {
+		ffTest.off(
+			'jql-function-arg-hydration',
+			'function operands with arguments are excluded from hydration query',
+			() => {
+				functionArgQueriesFlagOff.forEach(({ original, valid }) => {
+					it(`excludes function operands for ${original}`, () => {
+						const ast = new JastBuilder().build(original);
+						expect(ast.query).toBeDefined();
+						if (ast.query) {
+							expect(ast.query.accept(visitor)).toEqual(valid);
+						}
+					});
+				});
+			},
+		);
+	});
+
+	describe('no-argument functions are excluded', () => {
+		noArgFunctionQueries.forEach(({ original, valid }) => {
+			it(`excludes ${original}`, () => {
+				const ast = new JastBuilder().build(original);
+				expect(ast.query).toBeDefined();
+				if (ast.query) {
+					expect(ast.query.accept(visitor)).toEqual(valid);
+				}
+			});
+		});
+	});
+});

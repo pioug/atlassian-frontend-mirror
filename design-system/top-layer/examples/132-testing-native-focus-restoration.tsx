@@ -40,6 +40,7 @@ function PopoverAutoDialog() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -75,6 +76,7 @@ function PopoverAutoMenu() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -105,6 +107,7 @@ function ProgrammaticClose() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	const handleProgrammaticClose = useCallback(() => {

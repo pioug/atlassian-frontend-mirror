@@ -1,5 +1,11 @@
 # @atlaskit/custom-steps
 
+## 0.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.17.0
 
 ### Minor Changes

@@ -161,17 +161,13 @@ function ElementList({
 				data-testid="element-items"
 				id={selectedCategory ? `browse-category-${selectedCategory}-tab` : 'browse-category-tab'}
 				aria-labelledby={
-					!hasTabListContext && fg('platform_editor_ally_remove_role_tabpanel')
+					!hasTabListContext
 						? undefined
 						: selectedCategory
 							? `browse-category--${selectedCategory}-button`
 							: 'browse-category-button'
 				}
-				role={
-					!hasTabListContext && fg('platform_editor_ally_remove_role_tabpanel')
-						? undefined
-						: 'tabpanel'
-				}
+				role={!hasTabListContext ? undefined : 'tabpanel'}
 				tabIndex={items.length === 0 ? 0 : undefined}
 			>
 				{!items.length ? (

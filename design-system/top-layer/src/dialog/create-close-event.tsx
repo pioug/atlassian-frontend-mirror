@@ -12,8 +12,7 @@ import type { TDialogCloseReason } from './types';
  *
  * @example
  * ```tsx
- * import { createCloseEvent } from '@atlaskit/top-layer/create-close-event';
- * import { type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
+ * import { createCloseEvent, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
  *
  * function onDialogClose({ reason }: { reason: TDialogCloseReason }) {
  *   legacyOnClose(createCloseEvent({ reason }));

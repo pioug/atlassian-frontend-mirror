@@ -7,6 +7,7 @@ import {
 	ACTION_RESOLVING,
 	ACTION_UPDATE_METADATA_STATUS,
 	cardAction,
+	type CardAppearance,
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
 import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
@@ -26,7 +27,7 @@ import { startUfoExperience } from '../analytics';
 import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from '../helpers';
 import useActionFlags from '../hooks/use-action-flags';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
-import useResolve from '../hooks/use-resolve';
+import useResolve, { type ResolveUrlParams } from '../hooks/use-resolve';
 
 const POST_AUTH_CHAT_EXTENSION_KEY = 'google-object-provider';
 
@@ -98,8 +99,8 @@ export const useSmartCardActions = (
 		appearance: CardInnerAppearance,
 	) => Promise<JsonLd.Response | void>;
 	loadMetadata: () => Promise<void> | undefined;
-	register: () => Promise<void>;
-	reload: () => void;
+	register: (appearance?: CardAppearance) => Promise<void>;
+	reload: (appearance?: CardAppearance) => void;
 } => {
 	const resolveUrl = useResolve();
 	const invokeClientAction = useInvokeClientAction({});
@@ -133,39 +134,97 @@ export const useSmartCardActions = (
 		[dispatch, url],
 	);
 
+	// Original resolve function — signature kept intact for maximum safety when FG is off.
 	const resolve = useCallback(
-		async (resourceUrl = url, isReloading = false, isMetadataRequest = false) =>
-			resolveUrl(resourceUrl, isReloading, isMetadataRequest, id),
+		async (resourceUrl: string = url, isReloading: boolean = false, isMetadataRequest: boolean = false) =>
+			resolveUrl({ url: resourceUrl, isReloading, isMetadataRequest, id }),
 		[id, resolveUrl, url],
 	);
 
-	const register = useCallback(() => {
-		const { details } = getSmartLinkState();
-		if (!details) {
-			dispatch(cardAction(ACTION_RESOLVING, { url }));
-			setMetadataStatus('pending');
-		}
-		return resolve();
-	}, [getSmartLinkState, resolve, dispatch, url, setMetadataStatus]);
+	// New resolve function accepting ResolveUrlParams (minus 'id' which is closed over).
+	// Used when FG is enabled to pass appearance to ORS.
+	const resolveNew = useCallback(
+		async (params: Partial<Omit<ResolveUrlParams, 'id'>> = {}) => {
+			const {
+				url: resourceUrl = url,
+				isReloading = false,
+				isMetadataRequest = false,
+				appearance,
+			} = params;
+			return resolveUrl({ url: resourceUrl, isReloading, isMetadataRequest, id, appearance });
+		},
+		[id, resolveUrl, url],
+	);
 
-	const reload = useCallback(() => {
-		const { details } = getSmartLinkState();
-		const definitionId = getDefinitionId(details);
-		if (definitionId) {
-			getByDefinitionId(definitionId, getState()).map((url) => resolve(url, true));
-		} else {
-			resolve(url, true);
-		}
-	}, [getSmartLinkState, url, getState, resolve]);
+	/**
+	 * Register a smart link for resolution.
+	 * @param appearance - Card appearance hint for ORS to optimize response payload.
+	 *                     When 'inline', ORS returns minimal data (title, status).
+	 *                     When 'block' or 'embed', ORS returns full data including summary.
+	 */
+	const register = useCallback(
+		(appearance?: CardAppearance) => {
+			const { details } = getSmartLinkState();
+			if (!details) {
+				dispatch(cardAction(ACTION_RESOLVING, { url }));
+				// Always set metadataStatus to 'pending' during registration to prevent
+				// loadMetadata from firing a duplicate concurrent fetch if a hover card
+				// mounts while registration is in-flight. This matches pre-PR behaviour.
+				setMetadataStatus('pending');
+			}
+			if (fg('platform_smartlink_inline_resolve_optimization')) {
+				return resolveNew({ url, appearance });
+			}
+			return resolve(url);
+		},
+		[getSmartLinkState, resolve, resolveNew, dispatch, url, setMetadataStatus],
+	);
 
+	const reload = useCallback(
+		(appearance?: CardAppearance) => {
+			const { details } = getSmartLinkState();
+			const definitionId = getDefinitionId(details);
+			if (fg('platform_smartlink_inline_resolve_optimization')) {
+				if (definitionId) {
+					getByDefinitionId(definitionId, getState()).map((reloadUrl) =>
+						resolveNew({ url: reloadUrl, isReloading: true, appearance }),
+					);
+				} else {
+					resolveNew({ url, isReloading: true, appearance });
+				}
+			} else {
+				if (definitionId) {
+					getByDefinitionId(definitionId, getState()).map((reloadUrl) =>
+						resolve(reloadUrl, true),
+					);
+				} else {
+					resolve(url, true);
+				}
+			}
+		},
+		[getSmartLinkState, url, getState, resolve, resolveNew],
+	);
+
+	/**
+	 * Load metadata for hover card preview.
+	 * This always requests 'block' appearance to get full data including summary.
+	 *
+	 * Inline optimized and SSR-resolved links keep metadataStatus pending until hover
+	 * requests the full block response.
+	 */
 	const loadMetadata = useCallback(() => {
 		const { metadataStatus } = getSmartLinkState();
-		//metadataStatus will be undefined for SSR links only
-		if (metadataStatus === undefined) {
+		const needsBlockData = metadataStatus === undefined || (metadataStatus === 'pending' && fg('platform_smartlink_inline_resolve_optimization'));
+
+		if (needsBlockData) {
 			setMetadataStatus('pending');
+			if (fg('platform_smartlink_inline_resolve_optimization')) {
+				// Always request 'block' appearance for hover card metadata to get full data
+				return resolveNew({ url, isMetadataRequest: true, appearance: 'block' });
+			}
 			return resolve(url, false, true);
 		}
-	}, [getSmartLinkState, resolve, setMetadataStatus, url]);
+	}, [getSmartLinkState, resolve, resolveNew, setMetadataStatus, url]);
 
 	const authorize = useCallback(
 		(appearance: CardInnerAppearance) => {

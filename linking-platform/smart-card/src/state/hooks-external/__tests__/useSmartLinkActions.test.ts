@@ -532,7 +532,7 @@ describe(useSmartLinkActions.name, () => {
 				'cohort',
 				'test',
 			);
-			expect(mockResolve).toHaveBeenCalledWith(url);
+			expect(mockResolve).toHaveBeenCalledWith({ url });
 		});
 
 		it('should not call resolve when experiment is disabled even if prefetch is true and linkState.details is not available', () => {
@@ -692,7 +692,7 @@ describe(useSmartLinkActions.name, () => {
 				'cohort',
 				'test',
 			);
-			expect(mockResolve).toHaveBeenCalledWith(url);
+			expect(mockResolve).toHaveBeenCalledWith({ url });
 		});
 
 		it('should not call resolve when experiment is true but prefetch is true and linkState.details is already available', () => {

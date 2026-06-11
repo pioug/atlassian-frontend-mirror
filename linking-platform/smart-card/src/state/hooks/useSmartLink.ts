@@ -6,7 +6,8 @@ import {
 	type CardAuthFlowOpts,
 	type CardProviderRenderers,
 } from '@atlaskit/link-provider';
-import type { CardState } from '@atlaskit/linking-common';
+import type { CardAppearance, CardState } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import type { CardInnerAppearance } from '../../view/Card/types';
@@ -15,23 +16,26 @@ import { useSmartLinkConfig } from '../config';
 import { useSmartLinkRenderers } from '../renderers';
 import { useSmartCardState as useSmartLinkState } from '../store';
 
-export function useSmartLink(
-	id: string,
-	url: string,
-): {
-	state: CardState;
+/**
+ * Hook for smart link state and actions.
+ * @param id - Unique identifier for the smart link
+ * @param url - The URL to resolve
+ * @param appearance - Card appearance hint for ORS to optimize response payload.
+ *                     When 'inline', ORS returns minimal data (title, status).
+ *                     When 'block' or 'embed', ORS returns full data including summary.
+ */
+export function useSmartLink(id: string, url: string, appearance?: CardAppearance): {
 	actions: {
-		register: () => Promise<void>;
-		reload: () => void;
 		authorize: (appearance: CardInnerAppearance) => void;
 		invoke: (
 			opts: InvokeClientOpts | InvokeServerOpts,
 			appearance: CardInnerAppearance,
 		) => Promise<JsonLd.Response | void>;
 		loadMetadata: () => Promise<void> | undefined;
+		register: () => Promise<void>;
+		reload: (appearance?: CardAppearance) => void;
 	};
 	config: CardAuthFlowOpts | undefined;
-	renderers: CardProviderRenderers | undefined;
 	error: Error | null;
 	isPreviewPanelAvailable: ((props: { ari: string }) => boolean) | undefined;
 	openPreviewPanel:
@@ -45,6 +49,8 @@ export function useSmartLink(
 				url: string;
 		  }) => void)
 		| undefined;
+	renderers: CardProviderRenderers | undefined;
+	state: CardState;
 } {
 	const state = useSmartLinkState(url);
 	const { store, isPreviewPanelAvailable, openPreviewPanel } = useSmartLinkContext();
@@ -54,9 +60,11 @@ export function useSmartLink(
 
 	// NB: used to propagate errors from hooks to error boundaries.
 	const [error, setError] = useState<Error | null>(null);
-	// Register the current card.
+	// Register the current card with appearance hint for optimized ORS response.
 	const register = () => {
-		actions.register().catch((err) => setError(err));
+		actions.register(
+			fg('platform_smartlink_inline_resolve_optimization') ? appearance : undefined,
+		).catch((err) => setError(err));
 	};
 	// AFP-2511 TODO: Fix automatic suppressions below
 	// eslint-disable-next-line react-hooks/exhaustive-deps

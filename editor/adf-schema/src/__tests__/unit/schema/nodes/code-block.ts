@@ -1,7 +1,6 @@
 import { createSchema } from '../../../../schema/create-schema';
 import {
 	codeBlock,
-	codeBlockWithExtendedAttributes,
 	toJSON as codeBlockToJSON,
 } from '../../../../schema/nodes/code-block';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
@@ -15,6 +14,9 @@ describe(`${packageName}/schema codeBlock node`, () => {
 	it('should return correct node spec', () => {
 		expect(codeBlock).toStrictEqual({
 			attrs: {
+				hideLineNumbers: {
+					default: false,
+				},
 				language: {
 					default: null,
 				},
@@ -22,6 +24,9 @@ describe(`${packageName}/schema codeBlock node`, () => {
 					default: null,
 				},
 				localId: {
+					default: null,
+				},
+				wrap: {
 					default: null,
 				},
 			},
@@ -293,112 +298,106 @@ describe(`${packageName}/schema codeBlock node`, () => {
 });
 
 // eslint-disable-next-line jest/no-identical-title
-describe(`${packageName}/schema: codeBlock_with_extended_attributes node (stage-0)`, () => {
-	const stage0Schema = makeStage0Schema();
+describe(`${packageName}/schema: promoted codeBlock wrap and line-number attrs`, () => {
+	const schema = makeSchema();
 
-	it('base codeBlock node definition is unchanged (backward compat)', () => {
-		// The base codeBlock spec should not include wrap or hideLineNumbers
-		expect(codeBlock.attrs).not.toHaveProperty('wrap');
-		expect(codeBlock.attrs).not.toHaveProperty('hideLineNumbers');
-	});
-
-	it('variant node spec has wrap and hideLineNumbers attrs with correct defaults', () => {
-		expect(codeBlockWithExtendedAttributes.attrs).toMatchObject({
+	it('base codeBlock node spec has wrap and hideLineNumbers attrs with correct defaults', () => {
+		expect(codeBlock.attrs).toMatchObject({
 			wrap: { default: null },
 			hideLineNumbers: { default: false },
 		});
 	});
 
 	it('creates codeBlock with wrap null when wrap is omitted', () => {
-		const node = stage0Schema.nodes.codeBlock.create();
+		const node = schema.nodes.codeBlock.create();
 		expect(node.attrs.wrap).toBeNull();
 		expect(Boolean(node.attrs.wrap)).toBe(false);
 	});
 
-	it('variant node spec includes language attr (full attr set)', () => {
-		expect(codeBlockWithExtendedAttributes.attrs).toMatchObject({
+	it('base node spec includes language attr', () => {
+		expect(codeBlock.attrs).toMatchObject({
 			language: { default: null },
 		});
 	});
 
-	describe('stage-0: convert to JSON', () => {
+	describe('convert to JSON', () => {
 		it('does not serialize wrap when wrap is null', () => {
-			const node = stage0Schema.nodes.codeBlock.create({ wrap: null });
+			const node = schema.nodes.codeBlock.create({ wrap: null });
 			expect(codeBlockToJSON(node).attrs).not.toHaveProperty('wrap');
 		});
 
 		it('serializes wrap when wrap is false', () => {
-			const node = stage0Schema.nodes.codeBlock.create({ wrap: false });
+			const node = schema.nodes.codeBlock.create({ wrap: false });
 			expect(codeBlockToJSON(node).attrs).toMatchObject({ wrap: false });
 		});
 
 		it('serializes wrap when wrap is true', () => {
-			const node = stage0Schema.nodes.codeBlock.create({ wrap: true });
+			const node = schema.nodes.codeBlock.create({ wrap: true });
 			expect(codeBlockToJSON(node).attrs).toMatchObject({ wrap: true });
 		});
 	});
 
-	describe('stage-0: convert to HTML', () => {
+	describe('convert to HTML', () => {
 		it('adds data-wrap="false" when wrap is false', () => {
-			const node = stage0Schema.nodes.codeBlock.create({ wrap: false });
-			expect(toHTML(node, stage0Schema)).toContain('data-wrap="false"');
+			const node = schema.nodes.codeBlock.create({ wrap: false });
+			expect(toHTML(node, schema)).toContain('data-wrap="false"');
 		});
 
 		it('adds data-wrap="true" when wrap is true', () => {
-			const node = stage0Schema.nodes.codeBlock.create({ wrap: true });
-			expect(toHTML(node, stage0Schema)).toContain('data-wrap="true"');
+			const node = schema.nodes.codeBlock.create({ wrap: true });
+			expect(toHTML(node, schema)).toContain('data-wrap="true"');
 		});
 
 		it('does not add data-hide-line-numbers when hideLineNumbers is false (default)', () => {
-			const node = stage0Schema.nodes.codeBlock.create({
+			const node = schema.nodes.codeBlock.create({
 				hideLineNumbers: false,
 			});
-			expect(toHTML(node, stage0Schema)).not.toContain('data-hide-line-numbers');
+			expect(toHTML(node, schema)).not.toContain('data-hide-line-numbers');
 		});
 
 		it('adds data-hide-line-numbers="true" when hideLineNumbers is true', () => {
-			const node = stage0Schema.nodes.codeBlock.create({
+			const node = schema.nodes.codeBlock.create({
 				hideLineNumbers: true,
 			});
-			expect(toHTML(node, stage0Schema)).toContain('data-hide-line-numbers="true"');
+			expect(toHTML(node, schema)).toContain('data-hide-line-numbers="true"');
 		});
 
 		it('sets data-language when language is set', () => {
-			const node = stage0Schema.nodes.codeBlock.create({
+			const node = schema.nodes.codeBlock.create({
 				language: 'typescript',
 			});
-			expect(toHTML(node, stage0Schema)).toContain('data-language="typescript"');
+			expect(toHTML(node, schema)).toContain('data-language="typescript"');
 		});
 	});
 
-	describe('stage-0: parse from HTML', () => {
+	describe('parse from HTML', () => {
 		it('parses wrap=true from data-wrap attribute', () => {
 			const doc = fromHTML(
 				'<pre data-language="javascript" data-wrap="true"><code>hello</code></pre>',
-				stage0Schema,
+				schema,
 			);
 			expect(doc.firstChild!.attrs.wrap).toBe(true);
 		});
 
 		it('parses wrap=true when data-wrap is absent (defaults to wrapped for external HTML paste)', () => {
-			const doc = fromHTML('<pre><code>hello</code></pre>', stage0Schema);
+			const doc = fromHTML('<pre><code>hello</code></pre>', schema);
 			expect(doc.firstChild!.attrs.wrap).toBe(true);
 		});
 
 		it('parses wrap=false when data-wrap is absent from Fabric editor paste', () => {
-			const doc = fromHTML('<pre data-pm-slice="0 0 []"><code>hello</code></pre>', stage0Schema);
+			const doc = fromHTML('<pre data-pm-slice="0 0 []"><code>hello</code></pre>', schema);
 			expect(doc.firstChild!.attrs.wrap).toBe(false);
 		});
 
 		it('parses wrap=false when data-wrap="false" is explicit (preserves intentional unwrap)', () => {
-			const doc = fromHTML('<pre data-wrap="false"><code>hello</code></pre>', stage0Schema);
+			const doc = fromHTML('<pre data-wrap="false"><code>hello</code></pre>', schema);
 			expect(doc.firstChild!.attrs.wrap).toBe(false);
 		});
 
 		it('parses wrap=true from VS Code/Android Studio style div code blocks', () => {
 			const doc = fromHTML(
 				'<div style="font-family: Menlo, Monaco, monospace;">hello</div>',
-				stage0Schema,
+				schema,
 			);
 			expect(doc.firstChild!.attrs.wrap).toBe(true);
 		});
@@ -406,26 +405,26 @@ describe(`${packageName}/schema: codeBlock_with_extended_attributes node (stage-
 		it('parses wrap=true from GitHub/Gist code tables', () => {
 			const doc = fromHTML(
 				'<table style="border-collapse: collapse;"><tbody><tr><td class="blob-code">hello</td></tr></tbody></table>',
-				stage0Schema,
+				schema,
 			);
 			expect(doc.firstChild!.attrs.wrap).toBe(true);
 		});
 
 		it('parses wrap=true from react-syntax-highlighter code blocks', () => {
-			const doc = fromHTML('<div class="code-block">hello</div>', stage0Schema);
+			const doc = fromHTML('<div class="code-block">hello</div>', schema);
 			expect(doc.firstChild!.attrs.wrap).toBe(true);
 		});
 
 		it('parses hideLineNumbers=true from data-hide-line-numbers="true"', () => {
 			const doc = fromHTML(
 				'<pre data-hide-line-numbers="true"><code>hello</code></pre>',
-				stage0Schema,
+				schema,
 			);
 			expect(doc.firstChild!.attrs.hideLineNumbers).toBe(true);
 		});
 
 		it('parses hideLineNumbers=false when data-hide-line-numbers is absent (default behaviour preserved)', () => {
-			const doc = fromHTML('<pre><code>hello</code></pre>', stage0Schema);
+			const doc = fromHTML('<pre><code>hello</code></pre>', schema);
 			expect(doc.firstChild!.attrs.hideLineNumbers).toBe(false);
 		});
 	});
@@ -435,15 +434,5 @@ function makeSchema() {
 	return createSchema({
 		nodes: ['doc', 'paragraph', 'text', 'codeBlock', 'unsupportedInline'],
 		marks: ['unsupportedMark', 'unsupportedNodeAttribute'],
-	});
-}
-
-function makeStage0Schema() {
-	return createSchema({
-		nodes: ['doc', 'paragraph', 'text', 'codeBlock', 'unsupportedInline'],
-		marks: ['unsupportedMark', 'unsupportedNodeAttribute'],
-		customNodeSpecs: {
-			codeBlock: codeBlockWithExtendedAttributes,
-		},
 	});
 }

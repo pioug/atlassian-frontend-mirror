@@ -74,8 +74,19 @@ type TPopoverBaseProps = {
 	 *   animation plays (via `allow-discrete`) before the popover becomes logically closed.
 	 *   Otherwise hides instantly.
 	 *
-	 * The element stays mounted in the DOM at all times. The consumer does not
-	 * conditionally render it. Visibility is driven by this prop.
+	 * The consumer does not conditionally render the `Popover` — visibility is driven
+	 * by this prop.
+	 *
+	 * **Lifecycle observable to consumers:**
+	 *
+	 * - The host element is in the DOM only while the popover is open or its exit
+	 *   animation is playing. After exit completes the element is unmounted so it
+	 *   does not leave an empty `role` / `popover` element in the accessibility tree.
+	 *   The exact unmount timing is private and may change.
+	 * - The `id` (supplied or generated via `usePopoverId()`) is stable across opens.
+	 * - The `ref` is populated only while the host element is rendered. Consumers
+	 *   that read from the ref outside of `onOpenChange` / `onEnterFinish` should
+	 *   gate the read on `isOpen` being `true`.
 	 *
 	 * **Important:** For `mode="auto"` popovers, the browser can dismiss the popover
 	 * via light dismiss (Escape, click outside) independently of this prop. When that

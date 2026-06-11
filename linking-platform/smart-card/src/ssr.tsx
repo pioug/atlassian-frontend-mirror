@@ -10,6 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CardProps } from './types';
 import { context } from './utils/analytics/analytics';
+import { isFlexibleUiCard } from './utils/flexible';
 import CardErrorBoundary from './view/CardWithUrl/card-error-boundary';
 import { CardWithUrl, CardWithUrlContent } from './view/CardWithUrl/component';
 import { LoadingCardLink } from './view/CardWithUrl/component-lazy/LoadingCardLink';
@@ -26,9 +27,19 @@ export type CardSSRProps = CardProps & {
 const CardSSROld = (props: CardSSRProps): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => props.id ?? uuid());
+	// FlexibleCards always need full ORS data regardless of appearance prop,
+	// because they render custom blocks (TitleBlock etc.) requiring a complete response.
+	// Override appearance to 'block' for FlexibleCards when FG is enabled.
+	const effectiveAppearance =
+		isFlexibleUiCard(props.children, props.ui) &&
+		fg('platform_smartlink_inline_resolve_optimization')
+			? 'block'
+			: props.appearance;
+
 	const cardProps = {
 		...props,
 		id,
+		appearance: effectiveAppearance,
 	};
 
 	const ErrorFallbackComponent = cardProps.fallbackComponent;
@@ -41,7 +52,7 @@ const CardSSROld = (props: CardSSRProps): React.JSX.Element => {
 		return <LoadingCardLink {...cardProps} />;
 	};
 
-	const Component = cardProps.appearance === 'inline' ? 'span' : 'div';
+	const Component = effectiveAppearance === 'inline' ? 'span' : 'div';
 
 	return (
 		<AnalyticsContext data={context}>
@@ -61,7 +72,15 @@ const CardSSROld = (props: CardSSRProps): React.JSX.Element => {
 const CardSSRNew = (props: CardSSRProps): React.JSX.Element => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	const [id] = useState(() => props.id ?? uuid());
-	const propsWithId = { ...props, id };
+	// FlexibleCards always need full ORS data regardless of appearance prop,
+	// because they render custom blocks (TitleBlock etc.) requiring a complete response.
+	// Override appearance to 'block' for FlexibleCards when FG is enabled.
+	const effectiveAppearance =
+		isFlexibleUiCard(props.children, props.ui) &&
+		fg('platform_smartlink_inline_resolve_optimization')
+			? 'block'
+			: props.appearance;
+	const propsWithId = { ...props, id, appearance: effectiveAppearance };
 
 	return (
 		<AnalyticsContext data={context}>

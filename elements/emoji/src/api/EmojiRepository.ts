@@ -16,6 +16,7 @@ import {
 } from './internal/Comparators';
 import { UsageFrequencyTracker } from './internal/UsageFrequencyTracker';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 type Token = {
 	start: number;
@@ -133,6 +134,8 @@ const findEmojiIndex = (emojis: EmojiDescription[], toFind: EmojiDescription): n
 	return match;
 };
 
+const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+
 export default class EmojiRepository {
 	private emojis: EmojiDescription[];
 	private fullSearch!: Search;
@@ -222,6 +225,11 @@ export default class EmojiRepository {
 	findInCategory(categoryId: CategoryId): EmojiDescription[] {
 		if (categoryId === frequentCategory) {
 			return this.getFrequentlyUsed();
+		} else if (
+			expVal(teamojiRefreshExperimentName, 'isEnabled', false) &&
+			categoryId === 'ATLASSIAN'
+		) {
+			return this.all().emojis.filter((emoji) => emoji.type === 'ATLASSIAN');
 		} else {
 			return this.all().emojis.filter((emoji) => emoji.category === categoryId);
 		}
@@ -363,7 +371,12 @@ export default class EmojiRepository {
 		const categorySet = new Set<CategoryId>();
 
 		this.emojis.forEach((emoji) => {
-			categorySet.add(emoji.category as CategoryId);
+			categorySet.add(
+				this.getDynamicCategoryForEmoji(
+					emoji,
+					expVal(teamojiRefreshExperimentName, 'isEnabled', false),
+				),
+			);
 			this.addToMaps(emoji);
 		});
 
@@ -414,12 +427,26 @@ export default class EmojiRepository {
 	}
 
 	private addToDynamicCategories(emoji: EmojiDescription): void {
-		const category = getCategoryId(emoji);
+		const category = this.getDynamicCategoryForEmoji(
+			emoji,
+			expVal(teamojiRefreshExperimentName, 'isEnabled', false),
+		);
 		if (
 			defaultCategories.indexOf(category) === -1 &&
 			this.dynamicCategoryList.indexOf(category) === -1
 		) {
 			this.dynamicCategoryList.push(category);
 		}
+	}
+
+	private getDynamicCategoryForEmoji(
+		emoji: EmojiDescription,
+		isTeamojiRefreshEnabled: boolean,
+	): CategoryId {
+		const category = getCategoryId(emoji);
+		if (isTeamojiRefreshEnabled && emoji.type === 'ATLASSIAN' && category !== frequentCategory) {
+			return 'ATLASSIAN';
+		}
+		return category;
 	}
 }

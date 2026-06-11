@@ -490,32 +490,12 @@ const rendererFullPageStylesWithReducedPadding = css({
 	},
 });
 
-const oldRendererFullWidthStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	maxWidth: `${akEditorFullWidthLayoutWidth}px`,
-	margin: `0 auto`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.fabric-editor-breakout-mark:not([data-has-width="true"]), .ak-renderer-extension': {
-		width: '100% !important',
-	},
-});
-
 const rendererFullWidthStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	maxWidth: `${akEditorFullWidthLayoutWidth}px`,
 	margin: `0 auto`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.fabric-editor-breakout-mark:not([data-has-width="true"])': {
-		width: '100% !important',
-	},
-});
-
-const oldRendererMaxWidthStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	maxWidth: `${akEditorMaxWidthLayoutWidth}px`,
-	margin: `0 auto`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.fabric-editor-breakout-mark:not([data-has-width="true"]), .ak-renderer-extension': {
 		width: '100% !important',
 	},
 });
@@ -1134,29 +1114,6 @@ const extensionStyle = css({
 		{
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			fontSize: 'var(--ak-renderer-base-font-size)',
-		},
-});
-
-const oldExtensionAsInlineStyle = css({
-	[`.${RendererCssClassName.DOCUMENT} [data-as-inline="on"]`]: {
-		display: 'inline-block',
-	},
-	[`.${RendererCssClassName.DOCUMENT} .${RendererCssClassName.EXTENSION_AS_INLINE}`]: {
-		display: 'inline-block',
-		// use !important here because the current width has !important applied to it and it's not working when used in React style prop
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-		width: 'auto !important',
-		marginTop: 0,
-	},
-	[`.${RendererCssClassName.EXTENSION_AS_INLINE} .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`]:
-		{
-			display: 'inline-block',
-			overflowX: 'visible',
-			containerType: 'normal',
-		},
-	[`.${RendererCssClassName.EXTENSION_AS_INLINE} .${RendererCssClassName.EXTENSION_INNER_WRAPPER}`]:
-		{
-			display: 'inline-block',
 		},
 });
 
@@ -3244,10 +3201,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					isPreviewPanelResponsivenessOn &&
 					rendererFullPageStylesWithReducedPadding,
 				appearance === 'full-page' && !isPreviewPanelResponsivenessOn && rendererFullPageStyles,
-				appearance === 'full-width' &&
-					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-						? rendererFullWidthStyles
-						: oldRendererFullWidthStyles),
+				appearance === 'full-width' && rendererFullWidthStyles,
 				(appearance === 'full-width' ||
 					(appearance === 'max' &&
 						(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
@@ -3257,9 +3211,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				appearance === 'max' &&
 					(expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
 						expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)) &&
-					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-						? rendererMaxWidthStyles
-						: oldRendererMaxWidthStyles),
+					rendererMaxWidthStyles,
 
 				rovoTelepointerStyles,
 				whitespaceSharedStyles,
@@ -3317,9 +3269,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					extensionCenterAlignLegacyStyles,
 				// this should be placed after baseOtherStyles
 				expValEquals('platform_editor_render_bodied_extension_as_inline', 'isEnabled', true) &&
-					(expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
-						? extensionAsInlineStyle
-						: oldExtensionAsInlineStyle),
+					extensionAsInlineStyle,
 				inlineExtensionRendererMarginFix,
 				allowNestedHeaderLinks &&
 					(expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)

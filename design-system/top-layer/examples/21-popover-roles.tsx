@@ -132,6 +132,7 @@ function RoleDemo({
 		popoverRef,
 		placement: { edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (

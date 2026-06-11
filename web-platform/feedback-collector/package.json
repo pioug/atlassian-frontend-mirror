@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "15.5.0",
+	"version": "15.6.0",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
 		"./FeedbackForm": "./src/entry-points/FeedbackForm.tsx"
 	},
 	"atlassian": {
-		"team": "Belugas: Feedback Collector",
+		"team": "Cloud Readiness: Otter",
 		"website": {
 			"name": "Feedback Collector"
 		}
@@ -57,6 +57,7 @@
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/visually-hidden": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

@@ -26,6 +26,7 @@ function InnerManualPopover(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -69,6 +70,7 @@ export default function TestingNestedFocusScope(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

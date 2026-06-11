@@ -146,7 +146,7 @@ const LozengeAction = ({
 					});
 
 					if (url) {
-						await reload(url, true, undefined, linkId);
+						await reload({ url, isReloading: true, id: linkId });
 					}
 				}
 			} catch (err: any) {

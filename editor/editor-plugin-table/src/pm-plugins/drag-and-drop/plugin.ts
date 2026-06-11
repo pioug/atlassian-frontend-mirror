@@ -112,7 +112,7 @@ const destroyFn = (
 
 				if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
 					api?.core.actions.execute(({ tr }) => {
-						closeActiveTableMenu()({ tr });
+						closeActiveTableMenu(api)({ tr });
 						api?.userIntent?.commands.setCurrentUserIntent('dragging')({ tr });
 						return tr;
 					});

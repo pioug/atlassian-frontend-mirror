@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "115.7.5",
+	"version": "115.10.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -875,9 +875,6 @@
 		"ally_30205_accessibility_label_fix": {
 			"type": "boolean"
 		},
-		"platform_editor_ally_remove_role_tabpanel": {
-			"type": "boolean"
-		},
 		"platform_editor_native_anchor_patch_3": {
 			"type": "boolean"
 		},
@@ -898,6 +895,10 @@
 		},
 		"people-teams_migrate-user-profile-card": {
 			"type": "boolean"
+		},
+		"platform_smartlink_xpc_url_wrapping": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform_editor_ai_selection_local_ids": {
 			"type": "boolean"

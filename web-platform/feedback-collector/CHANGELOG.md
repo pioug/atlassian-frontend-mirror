@@ -1,5 +1,18 @@
 # @atlaskit/feedback-collector
 
+## 15.6.0
+
+### Minor Changes
+
+- [`fcbbf3c80f95a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcbbf3c80f95a) -
+  [ux] AX-2068 — Announce feedback collector validation errors to screen readers and move focus to
+  the first invalid field on failed submit by delegating validation to @atlaskit/form's built-in
+  Field validate API.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.5.0
 
 ### Minor Changes

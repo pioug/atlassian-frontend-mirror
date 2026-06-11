@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.7.3
+
+### Patch Changes
+
+- [`e3addc9eaa36a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3addc9eaa36a) -
+  Bypass timing name length trim for GraphQL URLs behind a feature gate
+
 ## 6.7.2
 
 ### Patch Changes

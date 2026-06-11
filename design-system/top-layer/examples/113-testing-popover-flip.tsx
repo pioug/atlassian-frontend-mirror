@@ -52,6 +52,7 @@ export default function TestingPopoverFlip(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

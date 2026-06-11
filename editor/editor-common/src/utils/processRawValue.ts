@@ -69,6 +69,48 @@ const transformNestedTablesWithAnalytics = (
 	return { transformedAdf: node, isTransformed: false };
 };
 
+const transformContainerNodesWithAnalytics = (
+	node: ADFEntity,
+	schema: Schema,
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+): { isTransformed: boolean; transformedAdf: ADFEntity } => {
+	try {
+		const { transformedAdf, isTransformed, transformedNodeTypes } = transformContainerNodes(
+			node,
+			schema,
+		);
+
+		if (isTransformed && transformedAdf) {
+			if (dispatchAnalyticsEvent) {
+				dispatchAnalyticsEvent({
+					action: ACTION.CONTAINER_NODE_TRANSFORMED,
+					actionSubject: ACTION_SUBJECT.EDITOR,
+					eventType: EVENT_TYPE.OPERATIONAL,
+					attributes: {
+						transformedNodeTypes,
+					},
+				});
+			}
+			return { transformedAdf, isTransformed };
+		}
+	} catch (e) {
+		// eslint-disable-next-line no-console
+		console.error('Failed to transform one or more panels to panel_c1');
+		if (dispatchAnalyticsEvent) {
+			dispatchAnalyticsEvent({
+				action: ACTION.DOCUMENT_PROCESSING_ERROR,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: {
+					errorMessage: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to transform panel to panel_c1' : undefined}`,
+				},
+			});
+		}
+	}
+
+	return { transformedAdf: node, isTransformed: false };
+};
+
 export function processRawValueWithoutValidation(
 	schema: Schema,
 	value?: ReplaceRawValue,
@@ -302,11 +344,12 @@ export function processRawValue(
 		entity = transformedAdf;
 
 		if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
-			({ transformedAdf, isTransformed } = transformContainerNodes(entity as ADFEntity, schema));
-			if (isTransformed) {
-				// TODO: EDITOR-7175 - Add analytics
-				entity = transformedAdf as ADFEntity;
-			}
+			({ transformedAdf } = transformContainerNodesWithAnalytics(
+				entity as ADFEntity,
+				schema,
+				dispatchAnalyticsEvent,
+			));
+			entity = transformedAdf as ADFEntity;
 		}
 
 		const newEntity = maySanitizePrivateContent(

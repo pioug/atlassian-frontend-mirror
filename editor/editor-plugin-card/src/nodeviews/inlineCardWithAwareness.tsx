@@ -15,6 +15,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
 import { isWithinPreviewPanelIFrame } from '@atlaskit/linking-common/utils';
 import { getObjectAri, getObjectName, getObjectIconUrl } from '@atlaskit/smart-card';
+import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -83,6 +84,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 		const [isInserted, setIsInserted] = useState(false);
 		const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 		const editorAppearance = pluginInjectionApi?.card.sharedState.currentState()?.editorAppearance;
+		const destinationUrl = useSmartLinkDestinationUrl(node.attrs.url);
 
 		const onResolve = useCallback((tr: Transaction, title?: string): void => {
 			const metadata = tr.getMeta(pluginKey);
@@ -131,6 +133,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 				<HoverLinkOverlay
 					isVisible={isResolvedViewRendered}
 					url={node.attrs.url}
+					destinationUrl={destinationUrl}
 					compactPadding={editorAppearance === 'comment' || editorAppearance === 'chromeless'}
 					editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 					view={view}
@@ -167,6 +170,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 				isPageSSRed,
 				provider,
 				pluginInjectionApi,
+				destinationUrl,
 			],
 		);
 
@@ -274,6 +278,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 									<HoverLinkOverlay
 										isVisible={isResolvedViewRendered}
 										url={url}
+										destinationUrl={destinationUrl}
 										compactPadding={
 											editorAppearance === 'comment' || editorAppearance === 'chromeless'
 										}

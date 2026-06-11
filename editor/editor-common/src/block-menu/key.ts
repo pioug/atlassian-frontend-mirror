@@ -178,6 +178,12 @@ export const AI_MENU_SECTION = {
 	key: 'ai-menu-section',
 };
 
+/**
+ * Minimum text length (in characters) for AI block menu actions
+ * (e.g. "Improve formatting", "Remix") to be visible.
+ */
+export const AI_BLOCK_MENU_LARGE_TEXT_THRESHOLD = 300;
+
 export const AI_ASK_ROVO_MENU_ITEM = {
 	key: 'block-menu-ai-ask-rovo-menu-item',
 };

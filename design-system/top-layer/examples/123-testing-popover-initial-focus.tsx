@@ -17,6 +17,7 @@ import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
  * - role="dialog" with autofocus → respects autofocus attribute
  * - role="menu" → auto-focuses first menu item
  * - role="tooltip" → does NOT move focus
+ * - no role → does NOT move focus (catch-out branch)
  */
 function DialogPopup() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +31,7 @@ function DialogPopup() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: {},
+		isOpen,
 	});
 
 	return (
@@ -63,6 +65,7 @@ function DialogWithAutofocusPopup() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: {},
+		isOpen,
 	});
 
 	// Set the native HTML autofocus attribute via a ref callback.
@@ -116,6 +119,7 @@ function MenuPopup() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: {},
+		isOpen,
 	});
 
 	return (
@@ -137,6 +141,60 @@ function MenuPopup() {
 	);
 }
 
+// Popover opened WITHOUT a `role` prop. Verifies the top-layer
+// catch-out for "no role" (and unrecognised roles): initial focus
+// should NOT be moved away from the trigger. Higher-level consumers
+// that always pass a role (e.g. by defaulting a missing `role` to
+// `dialog`) will not exercise this branch.
+function NoRolePopup() {
+	const [isOpen, setIsOpen] = useState(false);
+	const triggerRef = useRef<HTMLButtonElement>(null);
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const popoverId = usePopoverId();
+	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
+	const close = useCallback(() => setIsOpen(false), []);
+
+	useAnchorPosition({
+		anchorRef: triggerRef,
+		popoverRef,
+		placement: {},
+		isOpen,
+	});
+
+	return (
+		<>
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				type="button"
+				data-testid="no-role-trigger"
+				aria-expanded={isOpen}
+				// `aria-controls` is gated on `isOpen` because the Popover host element
+				// unmounts when closed. A dangling reference to a missing ID is flagged
+				// by axe (`aria-valid-attr-value`). See `getAriaForTrigger` for the
+				// canonical pattern this case mirrors.
+				aria-controls={isOpen ? popoverId : undefined}
+			>
+				Open no-role popover
+			</button>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				label="No-role popover initial focus test"
+				testId="no-role-popup"
+			>
+				<PopoverSurface>
+					<button type="button" data-testid="no-role-first-button">
+						First button (should NOT be focused)
+					</button>
+				</PopoverSurface>
+			</Popover>
+		</>
+	);
+}
+
 // Tooltip stays hand-wired (no aria-haspopup, hover/focus driven).
 function TooltipPopup() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -148,6 +206,7 @@ function TooltipPopup() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: {},
+		isOpen,
 	});
 
 	return (
@@ -156,7 +215,10 @@ function TooltipPopup() {
 				ref={triggerRef}
 				type="button"
 				data-testid="tooltip-trigger"
-				aria-describedby={popoverId}
+				// `aria-describedby` is gated on `isOpen` because the tooltip Popover
+				// host element unmounts when closed. A dangling reference to a missing
+				// ID is flagged by axe (`aria-valid-attr-value`).
+				aria-describedby={isOpen ? popoverId : undefined}
 				onMouseEnter={() => setIsOpen(true)}
 				onMouseLeave={() => setIsOpen(false)}
 				onFocus={() => setIsOpen(true)}
@@ -187,6 +249,7 @@ export default function TestingPopoverInitialFocus(): React.ReactNode {
 			<DialogWithAutofocusPopup />
 			<MenuPopup />
 			<TooltipPopup />
+			<NoRolePopup />
 		</div>
 	);
 }

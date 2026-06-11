@@ -72,6 +72,7 @@ function PopoverInDialog({ forceFallbackPositioning }: { forceFallbackPositionin
 		popoverRef,
 		placement: { edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (

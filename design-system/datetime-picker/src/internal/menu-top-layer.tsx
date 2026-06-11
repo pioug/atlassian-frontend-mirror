@@ -72,6 +72,10 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: popupPlacement,
+		// The Popover is rendered with `isOpen` always true while this
+		// component is mounted (react-select conditionally mounts/unmounts
+		// the menu), so positioning is always active.
+		isOpen: true,
 	});
 
 	const onMenuMouseDown: MouseEventHandler<HTMLDivElement> = (event) => {

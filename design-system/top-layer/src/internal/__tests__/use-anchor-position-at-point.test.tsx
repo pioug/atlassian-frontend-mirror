@@ -36,6 +36,7 @@ function TestComponent({
 		placement: { axis: 'block', align: 'start' },
 		isEnabled,
 		getPoint,
+		isOpen: true,
 	});
 
 	return (

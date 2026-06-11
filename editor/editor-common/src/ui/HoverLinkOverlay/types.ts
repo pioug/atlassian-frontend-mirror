@@ -4,6 +4,7 @@ import type { EditorAnalyticsAPI } from '../../analytics';
 
 export type HoverLinkOverlayProps = React.HTMLAttributes<HTMLSpanElement> & {
 	compactPadding?: boolean;
+	destinationUrl?: string;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	isVisible?: boolean;
 	onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;

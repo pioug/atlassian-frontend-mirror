@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 220.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.2.4
+
+### Patch Changes
+
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+- Updated dependencies
+
 ## 220.2.3
 
 ### Patch Changes

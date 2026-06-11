@@ -142,7 +142,7 @@ items are medium/low severity and tracked below.
 | **aria-controls** on trigger    | Pass   | References popover ID                                                                |
 | **aria-haspopup** on trigger    | Pass   | Now shows `"menu"` — fixed by `Popup.Content` syncing role to trigger context        |
 | **aria-label** on menu          | Pass   | Uses `menuLabel` / `label` / trigger text fallback                                   |
-| **Focus to first item on open** | Pass   | `getFirstFocusable` + `requestAnimationFrame` when keyboard-triggered or `autoFocus` |
+| **Focus to first item on open** | Pass   | `getFirstFocusable` fired synchronously on the `closed → entering` phase transition when keyboard-triggered or `autoFocus` |
 | **Focus return on close**       | Pass   | Escape returns to trigger; `returnFocusRef` supported                                |
 | **Tab exits menu**              | Pass   | `useArrowNavigation` calls `onClose` without `preventDefault`                        |
 | **Arrow navigation**            | Pass   | ArrowDown/Up with wrap, Home/End, skip disabled                                      |

@@ -22,15 +22,14 @@ type FieldAttributes =
 	  }
 	| {
 			field: 'agenticSkills';
+			operation: 'remove' | 'change';
 			skillCount: number;
 	  }
 	| {
-			field: 'tools' | 'actions';
+			field: 'tools';
+			operation: 'remove' | 'change';
 			toolsCount: number;
-	  }
-	| {
-			field: 'actionsAndMcpServers';
-			toolsCount: number;
+			toolsList: string;
 			mcpServersCount: number;
 			mcpToolsCount: number;
 	  }

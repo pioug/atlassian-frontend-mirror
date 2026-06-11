@@ -147,6 +147,23 @@ export const denormaliseServiceAltRepresentation = (
 		: denormaliseServiceRepresentation(getAltRepresentation(altReps), meta);
 };
 
+const denormaliseStandardRepresentation = (
+	emoji: EmojiServiceDescription,
+	meta?: EmojiMeta,
+): EmojiRepresentation => {
+	const unicodeEmoji = emojiIdToEmoji(emoji.id);
+	const useUnicodeRepresentation: boolean = !!(
+		emoji.id &&
+		emoji.type === ProviderTypes.STANDARD &&
+		unicodeEmoji &&
+		fg('platform_twemoji_removal_unicode_emojis')
+	);
+
+	return useUnicodeRepresentation
+		? ({ unicodeEmoji } as UnicodeRepresentation)
+		: denormaliseServiceRepresentation(emoji.representation, meta);
+};
+
 export const denormaliseSkinEmoji = (
 	emoji: EmojiServiceDescriptionWithVariations,
 	meta?: EmojiMeta,
@@ -159,10 +176,10 @@ export const denormaliseSkinEmoji = (
 	const baseId = emoji.id;
 
 	return skinEmoji.map((skin): EmojiVariationDescription => {
-		const { representation, altRepresentations, ...other } = skin;
+		const { representation: _representation, altRepresentations, ...other } = skin;
 		return {
 			baseId: baseId,
-			representation: denormaliseServiceRepresentation(representation, meta),
+			representation: denormaliseStandardRepresentation(skin, meta),
 			altRepresentation: denormaliseServiceAltRepresentation(altRepresentations, meta),
 			...other,
 		};
@@ -176,16 +193,7 @@ export const denormaliseSkinEmoji = (
 export const denormaliseEmojiServiceResponse = (emojiData: EmojiServiceResponse): EmojiResponse => {
 	const emojis: EmojiDescription[] = emojiData.emojis.map(
 		(emoji: EmojiServiceDescriptionWithVariations): EmojiDescriptionWithVariations => {
-			const unicodeEmoji = emojiIdToEmoji(emoji.id);
-			const useUnicodeRepresentation: boolean = !!(
-				emoji.id &&
-				emoji.type === ProviderTypes.STANDARD &&
-				unicodeEmoji &&
-				fg('platform_twemoji_removal_unicode_emojis')
-			);
-			const newRepresentation = useUnicodeRepresentation
-				? ({ unicodeEmoji } as UnicodeRepresentation)
-				: denormaliseServiceRepresentation(emoji.representation, emojiData.meta);
+			const newRepresentation = denormaliseStandardRepresentation(emoji, emojiData.meta);
 			const altRepresentation = denormaliseServiceAltRepresentation(
 				emoji.altRepresentations,
 				emojiData.meta,

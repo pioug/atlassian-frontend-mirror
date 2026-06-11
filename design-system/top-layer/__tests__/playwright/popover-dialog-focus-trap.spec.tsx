@@ -168,3 +168,4 @@ test.describe('Popover non-dialog role — no focus trap', () => {
 		expect(focusedInNote).toBe(false);
 	});
 });
+

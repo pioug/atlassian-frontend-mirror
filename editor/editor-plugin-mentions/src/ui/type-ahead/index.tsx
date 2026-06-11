@@ -443,9 +443,19 @@ export const createTypeAheadConfig = ({
 				...contextIdentifierProvider,
 				sessionId,
 			};
+			const isAgentMentionsExperimentEnabled = expVal(
+				'platform_editor_agent_mentions',
+				'isEnabled',
+				false,
+			);
 			const shouldSuppressInviteForAgentMention =
-				expVal('platform_editor_agent_mentions', 'isEnabled', false) &&
-				isAgentMention(item.mention);
+				isAgentMentionsExperimentEnabled && isAgentMention(item.mention);
+			// userType can be missing for provider-only agent mentions. Copy/paste cannot
+			// see appType, so persist APP only when there is no explicit userType.
+			const persistedUserType =
+				isAgentMentionsExperimentEnabled && isAgentMention(item.mention) && userType == null
+					? 'APP'
+					: userType;
 
 			if (mentionProvider && !isInviteItem(item.mention)) {
 				mentionProvider.recordMentionSelection(item.mention, mentionContext);
@@ -577,7 +587,7 @@ export const createTypeAheadConfig = ({
 				})({
 					name,
 					id,
-					userType,
+					userType: persistedUserType,
 					nickname,
 					localId: mentionLocalId,
 					accessLevel,

@@ -47,6 +47,7 @@ export default function TestingPopoverPositioning(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis, edge },
+		isOpen,
 	});
 
 	return (

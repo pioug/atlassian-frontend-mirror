@@ -16,6 +16,7 @@ import {
 	getStatus,
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../../constants';
 import { getUnauthorizedJsonLd } from '../../../utils/jsonld';
@@ -37,6 +38,7 @@ const useResponse = (): {
 		response: JsonLd.Response | undefined,
 		isReloading?: boolean,
 		isMetadataRequest?: boolean,
+		metadataStatus?: MetadataStatus,
 	) => void;
 } => {
 	// Takes in the JSON-LD response and dispatch the resolved action for the card.
@@ -106,9 +108,13 @@ const useResponse = (): {
 			response: JsonLd.Response,
 			isReloading: boolean,
 			isMetadataRequest?: boolean,
+			metadataStatus: MetadataStatus = 'resolved',
 		) => {
-			//if a link resolves normally, metadata will also always be resolved
-			setMetadataStatus(resourceUrl, 'resolved');
+			// Some optimized resolves intentionally leave metadata pending so hover can fetch it.
+			setMetadataStatus(
+				resourceUrl,
+				fg('platform_smartlink_inline_resolve_optimization') ? metadataStatus : 'resolved',
+			);
 			// Dispatch Analytics and resolved card action - including unauthorized states.
 			if (isReloading) {
 				dispatch(cardAction(ACTION_RELOADING, { url: resourceUrl }, response));
@@ -134,7 +140,9 @@ const useResponse = (): {
 			response: JsonLd.Response | undefined,
 			isReloading = false,
 			isMetadataRequest?: boolean,
+			metadataStatus?: MetadataStatus,
 		) => {
+			if (!resourceUrl) { return; }
 			const hostname = new URL(resourceUrl).hostname;
 			const nextStatus = response ? getStatus(response) : 'fatal';
 
@@ -179,7 +187,13 @@ const useResponse = (): {
 			 * https://react-redux.js.org/api/batch
 			 */
 			unstable_batchedUpdates(() => {
-				handleResolvedLinkSuccess(resourceUrl, response, isReloading, isMetadataRequest);
+				handleResolvedLinkSuccess(
+					resourceUrl,
+					response,
+					isReloading,
+					isMetadataRequest,
+					metadataStatus,
+				);
 			});
 		},
 		[handleResolvedLinkError, handleResolvedLinkSuccess, hasAuthFlowSupported],

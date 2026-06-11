@@ -38,7 +38,14 @@ type TAriaHasPopupForTrigger = Exclude<TAriaHasPopupValue, undefined>;
 type TAriaForTrigger = {
 	'aria-haspopup': TAriaHasPopupForTrigger;
 	'aria-expanded': boolean;
-	'aria-controls': string;
+	/**
+	 * `aria-controls` is `undefined` while the popover is closed, because
+	 * the popover host element is only rendered in the DOM while open. A
+	 * dangling `aria-controls` reference (pointing at a missing ID) is
+	 * tolerated by assistive tech but flagged by some a11y tooling, so
+	 * we leave it unset until the target exists.
+	 */
+	'aria-controls': string | undefined;
 };
 
 /**
@@ -98,11 +105,16 @@ export function getAriaForTrigger({
 	// the returned value is guaranteed to be a defined string. The cast narrows
 	// the wider helper signature to match.
 	const ariaHasPopup = roleToAriaHasPopup({ role }) as TAriaHasPopupForTrigger;
+	// `aria-controls` is set to `undefined` while closed. The `Popover` /
+	// `Dialog` primitives unmount their host element after the exit
+	// animation finishes, so a closed-state `aria-controls` would point
+	// at a node that is not in the DOM. Returning `undefined` here means
+	// JSX spread renders no `aria-controls` attribute on the trigger
+	// until the target exists, avoiding the dangling reference while
+	// keeping the relationship live whenever it is meaningful.
 	return {
 		'aria-haspopup': ariaHasPopup,
 		'aria-expanded': isOpen,
-		// Keep the trigger-to-popover relationship stable. `aria-expanded`
-		// tells assistive technology whether the controlled popover is visible.
-		'aria-controls': popoverId,
+		'aria-controls': isOpen ? popoverId : undefined,
 	};
 }

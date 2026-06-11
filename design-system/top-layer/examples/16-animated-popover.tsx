@@ -77,6 +77,7 @@ function AnimatedPopoverDemo({
 		popoverRef,
 		placement: { edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (

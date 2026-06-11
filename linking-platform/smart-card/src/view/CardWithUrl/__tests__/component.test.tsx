@@ -269,12 +269,22 @@ describe('CardWithUrl', () => {
 		let openSpy: jest.SpyInstance;
 		let wrapUrl: jest.Mock;
 
-		const renderInlineCard = ({ onClick }: { onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void } = {}) => {
+		const renderInlineCard = ({
+			onClick,
+			isFirstParty = false,
+			shouldMockUseCrossProductUrlWrapper = true,
+		}: {
+			isFirstParty?: boolean;
+			onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
+			shouldMockUseCrossProductUrlWrapper?: boolean;
+		} = {}) => {
 			(useSmartLink as jest.Mock).mockReturnValue(
-				createUseSmartLinkResult(createSmartLinkDetails()),
+				createUseSmartLinkResult(createSmartLinkDetails(isFirstParty || undefined)),
 			);
-			// Reset wrapUrl to identity so URL decoration does not affect navigation assertions
-			(useCrossProductUrlWrapper as jest.Mock).mockReturnValue((url: string) => url);
+			if (shouldMockUseCrossProductUrlWrapper) {
+				// Reset wrapUrl to identity so URL decoration does not affect navigation assertions
+				(useCrossProductUrlWrapper as jest.Mock).mockReturnValue((url: string) => url);
+			}
 
 			return render(
 				<IntlProvider locale="en">
@@ -329,6 +339,61 @@ describe('CardWithUrl', () => {
 
 				expect(onClick).toHaveBeenCalled();
 				expect(openSpy).not.toHaveBeenCalled();
+			});
+
+			it('updates anchor href to decorated URL on click when href differs', () => {
+				const { container } = renderInlineCard({
+					isFirstParty: true,
+					shouldMockUseCrossProductUrlWrapper: false,
+				});
+				const anchor = container.querySelector('a')!;
+
+				expect(anchor.href).toBe('https://example.com/');
+
+				fireEvent.click(anchor);
+
+				expect(anchor.href).toBe('https://example.com/?xpis=wrapped');
+			});
+
+			it('does not update anchor href when href already equals decorated URL', () => {
+				const { container } = renderInlineCard();
+				const anchor = container.querySelector('a')!;
+				const hrefBefore = anchor.href;
+
+				fireEvent.click(anchor);
+
+				expect(anchor.href).toBe(hrefBefore);
+			});
+
+			it('updates anchor href to decorated URL on middle-click', () => {
+				const { container } = renderInlineCard({
+					isFirstParty: true,
+					shouldMockUseCrossProductUrlWrapper: false,
+				});
+				const anchor = container.querySelector('a')!;
+
+				expect(anchor.href).toBe('https://example.com/');
+
+				fireEvent(
+					anchor,
+					new MouseEvent('auxclick', { button: 1, bubbles: true, cancelable: true }),
+				);
+
+				expect(anchor.href).toBe('https://example.com/?xpis=wrapped');
+			});
+
+			it('updates anchor href to decorated URL on right-click (context menu)', () => {
+				const { container } = renderInlineCard({
+					isFirstParty: true,
+					shouldMockUseCrossProductUrlWrapper: false,
+				});
+				const anchor = container.querySelector('a')!;
+
+				expect(anchor.href).toBe('https://example.com/');
+
+				fireEvent.contextMenu(anchor);
+
+				expect(anchor.href).toBe('https://example.com/?xpis=wrapped');
 			});
 
 			describe('cross-product URL wrapping', () => {
@@ -405,6 +470,15 @@ describe('CardWithUrl', () => {
 
 				expect(onClick).toHaveBeenCalled();
 				expect(openSpy).not.toHaveBeenCalled();
+			});
+
+			it('does not update anchor href', () => {
+				const { container } = renderInlineCard();
+				const anchor = container.querySelector('a')!;
+
+				fireEvent.click(anchor);
+
+				expect(anchor.href).toBe('https://example.com/');
 			});
 
 			describe('cross-product URL wrapping', () => {

@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 18.7.1
+
+### Patch Changes
+
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+
 ## 18.7.0
 
 ### Minor Changes

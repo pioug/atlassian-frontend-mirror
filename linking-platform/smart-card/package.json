@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.24.2",
+	"version": "44.26.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -237,6 +237,7 @@
 		"./flexible/view-count-element": "./src/entry-points/flexible-view-count-element.tsx",
 		"./flexible/vote-count-element": "./src/entry-points/flexible-vote-count-element.tsx",
 		"./hook/use-smart-link-actions": "./src/entry-points/hook-use-smart-link-actions.ts",
+		"./hook/use-smart-link-destination-url": "./src/entry-points/hook-use-smart-link-destination-url.ts",
 		"./hook/use-smart-link-events": "./src/entry-points/hook-use-smart-link-events.ts",
 		"./hook/use-smart-link-reload": "./src/entry-points/hook-use-smart-link-reload.ts",
 		"./hover": "./src/entry-points/hover.ts",
@@ -322,6 +323,9 @@
 		"platform_sl_3p_preauth_soc_proof_inline_killswitch": {
 			"type": "boolean"
 		},
+		"platform_lp_social_proof_inline_overflow_bug": {
+			"type": "boolean"
+		},
 		"platform_navx_smart_link_icon_label_a11y": {
 			"type": "boolean"
 		},
@@ -359,6 +363,9 @@
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_inline_tailored_cta_killswitch": {
+			"type": "boolean"
+		},
+		"platform_smartlink_inline_resolve_optimization": {
 			"type": "boolean"
 		}
 	},

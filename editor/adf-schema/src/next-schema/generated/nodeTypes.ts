@@ -174,7 +174,6 @@ export interface BodiedExtensionDefinition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -375,7 +374,13 @@ export const caption: PMNodeSpecFactoryInstance<CaptionNode> =
 export interface CodeBlockDefinition {
   type: 'codeBlock';
   content: Array<TextWithNoMarksDefinition | UnsupportedInlineDefinition>;
-  attrs: { language?: string; uniqueId?: string; localId?: string };
+  attrs: {
+    language?: string;
+    uniqueId?: string;
+    localId?: string;
+    wrap?: boolean;
+    hideLineNumbers?: boolean;
+  };
 }
 
 export type CodeBlockNode = PMNode & CodeBlockDefinition;
@@ -389,6 +394,8 @@ export const codeBlock: PMNodeSpecFactoryInstance<CodeBlockNode> =
       language: { default: null },
       uniqueId: { default: null },
       localId: { default: null },
+      wrap: { default: null },
+      hideLineNumbers: { default: false },
     },
     code: true,
     defining: true,
@@ -400,7 +407,13 @@ export interface CodeBlockRootOnlyDefinition {
   marks: Array<
     BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
   >;
-  attrs: { language?: string; uniqueId?: string; localId?: string };
+  attrs: {
+    language?: string;
+    uniqueId?: string;
+    localId?: string;
+    wrap?: boolean;
+    hideLineNumbers?: boolean;
+  };
 }
 
 export type CodeBlockRootOnlyNode = PMNode & CodeBlockRootOnlyDefinition;
@@ -409,68 +422,6 @@ export const codeBlockRootOnly: PMNodeSpecFactoryInstance<CodeBlockRootOnlyNode>
   createPMNodeSpecFactory<CodeBlockRootOnlyNode>({
     content: '(text | unsupportedInline)*',
     marks: 'unsupportedMark unsupportedNodeAttribute',
-    attrs: {
-      language: { default: null },
-      uniqueId: { default: null },
-      localId: { default: null },
-    },
-    code: true,
-    defining: true,
-  });
-
-export interface CodeBlockRootOnlyWithExtendedAttributesStage0Definition {
-  type: 'codeBlock';
-  content: Array<TextWithNoMarksDefinition | UnsupportedInlineDefinition>;
-  marks: Array<
-    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
-  >;
-  attrs: {
-    language?: string;
-    uniqueId?: string;
-    localId?: string;
-    wrap?: boolean;
-    hideLineNumbers?: boolean;
-  };
-}
-
-export type CodeBlockRootOnlyWithExtendedAttributesStage0Node = PMNode &
-  CodeBlockRootOnlyWithExtendedAttributesStage0Definition;
-
-export const codeBlockRootOnlyWithExtendedAttributesStage0: PMNodeSpecFactoryInstance<CodeBlockRootOnlyWithExtendedAttributesStage0Node> =
-  createPMNodeSpecFactory<CodeBlockRootOnlyWithExtendedAttributesStage0Node>({
-    content: '(text | unsupportedInline)*',
-    marks: 'unsupportedMark unsupportedNodeAttribute',
-    attrs: {
-      language: { default: null },
-      uniqueId: { default: null },
-      localId: { default: null },
-      wrap: { default: null },
-      hideLineNumbers: { default: false },
-    },
-    code: true,
-    defining: true,
-  });
-
-export interface CodeBlockWithExtendedAttributesStage0Definition {
-  type: 'codeBlock';
-  content: Array<TextWithNoMarksDefinition | UnsupportedInlineDefinition>;
-  attrs: {
-    language?: string;
-    uniqueId?: string;
-    localId?: string;
-    wrap?: boolean;
-    hideLineNumbers?: boolean;
-  };
-}
-
-export type CodeBlockWithExtendedAttributesStage0Node = PMNode &
-  CodeBlockWithExtendedAttributesStage0Definition;
-
-export const codeBlockWithExtendedAttributesStage0: PMNodeSpecFactoryInstance<CodeBlockWithExtendedAttributesStage0Node> =
-  createPMNodeSpecFactory<CodeBlockWithExtendedAttributesStage0Node>({
-    content: '(text | unsupportedInline)*',
-    marks: 'unsupportedMark unsupportedNodeAttribute',
-    group: 'block',
     attrs: {
       language: { default: null },
       uniqueId: { default: null },
@@ -616,7 +567,6 @@ export interface DocDefinition {
     | BlockRootOnlyDefinition
     | BodiedSyncBlockDefinition
     | CodeBlockRootOnlyDefinition
-    | CodeBlockRootOnlyWithExtendedAttributesStage0Definition
     | ExpandRootOnlyDefinition
     | LayoutSectionDefinition
     | LayoutSectionFullDefinition
@@ -722,7 +672,6 @@ export interface ExpandDefinition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -769,7 +718,6 @@ export interface ExpandRootOnlyDefinition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -2223,7 +2171,6 @@ export interface TableCellDefinition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -2279,7 +2226,6 @@ export interface TableCellStage0Definition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -2337,7 +2283,6 @@ export interface TableCellWithNestedTableDefinition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -2395,7 +2340,6 @@ export interface TableCellWithNestedTableStage0Definition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -2455,7 +2399,6 @@ export interface TableHeaderDefinition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -2511,7 +2454,6 @@ export interface TableHeaderStage0Definition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -2569,7 +2511,6 @@ export interface TableHeaderWithNestedTableDefinition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition
@@ -2627,7 +2568,6 @@ export interface TableHeaderWithNestedTableStage0Definition {
     | BlockquoteDefinition
     | BulletListDefinition
     | CodeBlockDefinition
-    | CodeBlockWithExtendedAttributesStage0Definition
     | DecisionListDefinition
     | EmbedCardDefinition
     | ExtensionWithMarksDefinition

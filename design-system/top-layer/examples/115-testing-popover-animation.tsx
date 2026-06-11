@@ -44,6 +44,7 @@ export default function TestingPopoverAnimation(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

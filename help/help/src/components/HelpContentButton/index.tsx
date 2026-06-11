@@ -84,7 +84,7 @@ const HelpContentButton = ({
 						<NotificationIndicator
 							notificationLogProvider={notificationLogProvider}
 							max={notificationMax}
-							appearance="primary"
+							appearance="informationBold"
 						/>
 					</HelpContentButtonExternalNotificationIcon>
 				)}

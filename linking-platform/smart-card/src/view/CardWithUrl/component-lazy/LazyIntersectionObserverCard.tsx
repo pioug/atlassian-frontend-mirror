@@ -26,7 +26,7 @@ function LazyIntersectionObserverCardOld(props: CardWithUrlContentProps): React.
 	const [isIntersecting, setIsIntersecting] = useState(false);
 	const [shouldSendRenderedUFOEvent] = useState(shouldSample());
 	const { appearance, url, id } = props;
-	const prefetch = usePrefetch(url);
+	const prefetch = usePrefetch(url, appearance);
 
 	const Component = appearance === 'inline' ? 'span' : 'div';
 	const ComponentObserver = Component;

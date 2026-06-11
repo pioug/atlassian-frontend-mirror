@@ -3,7 +3,7 @@
  * @jsx jsx
  * @jsxFrag
  */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -42,23 +42,20 @@ const styles = cssMap({
 function PopoverWidthFromAnchor({ mode }: { mode: 'none' | 'match-anchor' | 'min-anchor' }) {
 	const anchorRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(true);
 
 	// Position the popover below the anchor (block-end).
 	useAnchorPosition({
 		anchorRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	// Apply the width mode relative to the anchor.
-	useWidthFromAnchor({ mode, popoverRef, anchorRef });
+	useWidthFromAnchor({ mode, popoverRef, anchorRef, isOpen });
 
 	// Auto-open on mount so the VR snapshot captures the open state.
-	useEffect(() => {
-		setIsOpen(true);
-	}, []);
-
 	return (
 		<>
 			<div css={styles.buttonWrapper}>

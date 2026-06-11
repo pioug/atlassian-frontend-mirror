@@ -237,7 +237,7 @@ describe('EmbedCard Views', () => {
 				}),
 			);
 
-			expect(mockResolve).toHaveBeenCalledWith(props.link, true);
+			expect(mockResolve).toHaveBeenCalledWith({ url: props.link, isReloading: true });
 
 			await expect(document.body).toBeAccessible();
 		});

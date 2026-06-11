@@ -1,5 +1,24 @@
 # @atlaskit/rovo-agent-analytics
 
+## 2.4.0
+
+### Minor Changes
+
+- [`a220a9993d915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a220a9993d915) -
+  Consolidate tools and skills variants of the `rovoAgent updated` event payload: removed the legacy
+  `'tools' | 'actions'` and `'actionsAndMcpServers'` field variants in favour of a single `'tools'`
+  variant discriminated by `operation: 'remove' | 'change'`. The `'agenticSkills'` variant now also
+  requires `operation: 'remove' | 'change'`. `mcpServersCount` and `mcpToolsCount` are required on
+  the `'tools'` variant.
+
+## 2.3.2
+
+### Patch Changes
+
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+
 ## 2.3.1
 
 ### Patch Changes

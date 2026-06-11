@@ -200,6 +200,10 @@ export function isExternalUrl(url: string): boolean {
 type CardNode = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
 type SupportedUrlFilter = (url: string) => boolean;
 
+function getAppearanceForNode(node: CardNode): CardAppearance {
+	return node.type === 'blockCard' ? 'block' : node.type === 'embedCard' ? 'embed' : 'inline';
+}
+
 function isCardNode(node: JSONNode): node is CardNode {
 	return (
 		['inlineCard', 'blockCard', 'embedCard'].includes(node.type) &&
@@ -304,16 +308,21 @@ export class EditorCardProvider
 	}
 
 	override nodeDataKey(node: CardNode): string {
-		// We can use URL as a key here, because CardClient returns the same data for the same URL
-		// regardless of the type of card (inline, block, embed).
-		return node.attrs.url;
+		if (!fg('platform_smartlink_inline_resolve_optimization')) {
+			return node.attrs.url;
+		}
+
+		return `${node.attrs.url}|${getAppearanceForNode(node)}`;
 	}
 
 	override fetchNodesData(nodes: CardNode[]): Promise<JsonLd.Response[]> {
 		const promises = nodes.map((node) => {
 			const url = node.attrs.url;
+			const appearance = fg('platform_smartlink_inline_resolve_optimization')
+				? getAppearanceForNode(node)
+				: undefined;
 
-			return this.cardClient.fetchData(url);
+			return this.cardClient.fetchData(url, false, appearance);
 		});
 
 		return Promise.all(promises);

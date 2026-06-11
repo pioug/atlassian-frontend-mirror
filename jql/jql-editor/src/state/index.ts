@@ -64,6 +64,7 @@ import {
 	type HydratedDeprecatedField,
 	type HydratedProject,
 	type HydratedGoal,
+	type HydratedLozengeWithAvatar,
 	type HydratedTeam,
 	type HydratedUser,
 	type HydratedValue,
@@ -95,6 +96,7 @@ import {
 	sendDebugMessage,
 	tokensToAutocompleteOptions,
 } from './util';
+
 
 const initialIntl = createIntl({ locale: 'en' });
 
@@ -1234,6 +1236,27 @@ export const useHydratedGoal: HookFunction<
 			normaliseJqlString(id),
 		);
 		return goal && goal.type === 'goal' ? goal : undefined;
+	},
+});
+
+export const useHydratedLozengeWithAvatar: HookFunction<
+	HydratedLozengeWithAvatar | undefined,
+	BoundActions<State, Actions>,
+	{
+		fieldName: string;
+		id: string;
+	}
+> = createHook<
+	State,
+	Actions,
+	HydratedLozengeWithAvatar | undefined,
+	{ fieldName: string; id: string }
+>(Store, {
+	selector: (state, { id, fieldName }) => {
+		const value = state.hydratedValues[normaliseHydrationKey(fieldName)]?.get(
+			normaliseJqlString(id),
+		);
+		return value && value.type === 'lozengeWithAvatar' ? value : undefined;
 	},
 });
 

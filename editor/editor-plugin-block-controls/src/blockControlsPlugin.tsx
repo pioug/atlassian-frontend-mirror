@@ -48,6 +48,23 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 		name: 'blockControls',
 
 		actions: {
+			getTextLength: (editorView) => {
+				const blockControlsState = api?.blockControls?.sharedState.currentState();
+
+				const preservedSelection = blockControlsState?.preservedSelection;
+				if (preservedSelection && preservedSelection.from !== preservedSelection.to) {
+					const { from, to } = preservedSelection;
+					return editorView.state.doc.textBetween(from, to, '\n').length;
+				}
+
+				const pos = blockControlsState?.menuTriggerByNode?.pos;
+				if (pos === null || pos === undefined) {
+					return null;
+				}
+
+				const node = editorView.state.doc.nodeAt(pos);
+				return node ? node.textContent.length : null;
+			},
 			registerNodeDecoration: (factory: NodeDecorationFactory) => {
 				nodeDecorationRegistry.push(factory);
 			},

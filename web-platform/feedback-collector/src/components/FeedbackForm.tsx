@@ -131,12 +131,22 @@ const FeedbackForm = ({
 		useState<FormFields['enrollInResearchGroup']>(false);
 	const [type, setType] = useState<FormFields['type']>('empty');
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [validationErrors, setValidationErrors] = useState<{
-		type?: string;
-		description?: string;
-	}>({});
 	const { formatMessage } = useIntl();
 	const isTypeSelected = () => type !== 'empty';
+
+	const validateType = (value: SelectValue | undefined): string | undefined =>
+		showTypeField && (!value || value === 'empty')
+			? formatMessage(messages.validationErrorTypeRequired)
+			: undefined;
+
+	const validateDescription = (value: string | undefined): string | undefined => {
+		if (!showDefaultTextFields || hasDescriptionDefaultValue) {
+			return undefined;
+		}
+		return !value || !value.trim()
+			? formatMessage(messages.validationErrorDescriptionRequired)
+			: undefined;
+	};
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleCancel = (...args: any[]) => {
@@ -148,25 +158,7 @@ const FeedbackForm = ({
 
 	const canShowTextField = isTypeSelected() || !showTypeField;
 
-	const hasDescription = description || hasDescriptionDefaultValue;
-
 	const isDisabled = isSubmitting || disableSubmitButton;
-
-	const getValidationErrors = () => {
-		const errors: { type?: string; description?: string } = {};
-
-		// Validate type selection if showTypeField is true
-		if (showTypeField && !isTypeSelected()) {
-			errors.type = formatMessage(messages.validationErrorTypeRequired);
-		}
-
-		// Validate description if showDefaultTextFields is true
-		if (showDefaultTextFields && !hasDescription) {
-			errors.description = formatMessage(messages.validationErrorDescriptionRequired);
-		}
-
-		return errors;
-	};
 
 	const getFieldLabels = (
 		record?: Partial<Record<SelectValue, SelectOptionDetails>>,
@@ -266,13 +258,6 @@ const FeedbackForm = ({
 			{fg('platform-design_system_team-form_conversion') ? (
 				<Form
 					onSubmit={async () => {
-						const errors = getValidationErrors();
-
-						if (Object.keys(errors).length > 0) {
-							setValidationErrors(errors);
-							return;
-						}
-
 						setIsSubmitting(true);
 						try {
 							await onSubmit({
@@ -300,21 +285,22 @@ const FeedbackForm = ({
 						{showTypeField ? (
 							<Field
 								name="topic"
+								id="topic"
 								label={selectLabel || formatMessage(messages.selectionOptionDefaultLabel)}
 								isRequired
+								validate={validateType}
 							>
-								{({ fieldProps: { id, ...restProps } }) => (
+								{({ fieldProps: { id, ...restProps }, error }) => (
 									<>
 										<Select<OptionType>
 											{...restProps}
+											value={selectOptions.find((opt) => opt.value === type) ?? null}
 											onChange={(option) => {
 												if (!option || option instanceof Array) {
 													return;
 												}
 												setType(option.value);
-												if (validationErrors.type) {
-													setValidationErrors((prev) => ({ ...prev, type: undefined }));
-												}
+												restProps.onChange?.(option.value);
 											}}
 											menuPosition="fixed"
 											options={selectOptions}
@@ -322,8 +308,9 @@ const FeedbackForm = ({
 											ref={focusRef}
 											placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
 											inputId={id}
+											isInvalid={!!error}
 										/>
-										{validationErrors.type && <ErrorMessage>{validationErrors.type}</ErrorMessage>}
+										{error && <ErrorMessage>{error}</ErrorMessage>}
 									</>
 								)}
 							</Field>
@@ -338,8 +325,10 @@ const FeedbackForm = ({
 									}
 									isRequired
 									name="description"
+									id="description"
+									validate={validateDescription}
 								>
-									{({ fieldProps }) => (
+									{({ fieldProps, error }) => (
 										<>
 											<TextArea
 												{...fieldProps}
@@ -348,15 +337,11 @@ const FeedbackForm = ({
 												placeholder={summaryPlaceholder || undefined}
 												onChange={(e) => {
 													setDescription(e.target.value);
-													if (validationErrors.description) {
-														setValidationErrors((prev) => ({ ...prev, description: undefined }));
-													}
+													fieldProps.onChange(e.target.value);
 												}}
 												value={description}
 											/>
-											{validationErrors.description && (
-												<ErrorMessage>{validationErrors.description}</ErrorMessage>
-											)}
+											{error && <ErrorMessage>{error}</ErrorMessage>}
 										</>
 									)}
 								</Field>
@@ -470,13 +455,6 @@ const FeedbackForm = ({
 			) : (
 				<Form
 					onSubmit={async () => {
-						const errors = getValidationErrors();
-
-						if (Object.keys(errors).length > 0) {
-							setValidationErrors(errors);
-							return;
-						}
-
 						setIsSubmitting(true);
 						try {
 							await onSubmit({
@@ -506,21 +484,24 @@ const FeedbackForm = ({
 								{showTypeField ? (
 									<Field
 										name="topic"
+										id="topic"
 										label={selectLabel || formatMessage(messages.selectionOptionDefaultLabel)}
 										isRequired
+										validate={validateType}
 									>
-										{({ fieldProps: { id, ...restProps } }) => (
+										{({ fieldProps: { id, ...restProps }, error }) => (
 											<>
 												<Select<OptionType>
 													{...restProps}
+													value={
+														selectOptions.find((opt) => opt.value === type) ?? null
+													}
 													onChange={(option) => {
 														if (!option || option instanceof Array) {
 															return;
 														}
 														setType(option.value);
-														if (validationErrors.type) {
-															setValidationErrors((prev) => ({ ...prev, type: undefined }));
-														}
+														restProps.onChange?.(option.value);
 													}}
 													menuPosition="fixed"
 													options={selectOptions}
@@ -528,10 +509,9 @@ const FeedbackForm = ({
 													ref={focusRef}
 													placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
 													inputId={id}
+													isInvalid={!!error}
 												/>
-												{validationErrors.type && (
-													<ErrorMessage>{validationErrors.type}</ErrorMessage>
-												)}
+												{error && <ErrorMessage>{error}</ErrorMessage>}
 											</>
 										)}
 									</Field>
@@ -547,8 +527,10 @@ const FeedbackForm = ({
 											}
 											isRequired
 											name="description"
+											id="description"
+											validate={validateDescription}
 										>
-											{({ fieldProps }) => (
+											{({ fieldProps, error }) => (
 												<>
 													<TextArea
 														{...fieldProps}
@@ -557,18 +539,11 @@ const FeedbackForm = ({
 														placeholder={summaryPlaceholder || undefined}
 														onChange={(e) => {
 															setDescription(e.target.value);
-															if (validationErrors.description) {
-																setValidationErrors((prev) => ({
-																	...prev,
-																	description: undefined,
-																}));
-															}
+															fieldProps.onChange(e.target.value);
 														}}
 														value={description}
 													/>
-													{validationErrors.description && (
-														<ErrorMessage>{validationErrors.description}</ErrorMessage>
-													)}
+													{error && <ErrorMessage>{error}</ErrorMessage>}
 												</>
 											)}
 										</Field>

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 3.5.0
+
+### Minor Changes
+
+- [`52c7f5f973025`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52c7f5f973025) -
+  Switch the CTC autocomplete debug toggle off `localStorage` and onto a storage-free mechanism.
+  Debug logging is now enabled via the `__atlCtcDebug__.enable()` / `.disable()` console API for the
+  current session, or by appending `?atlCtcDebug=1` to the URL to have it active from initial load
+  (and survive reloads). This avoids browser-storage consent controls (BSC) that can block
+  uncategorized `localStorage` writes in some products. The `isAutocompleteDebugEnabled()` API is
+  unchanged for callers.
+
+## 3.4.1
+
+### Patch Changes
+
+- [`4129a00a1ae04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4129a00a1ae04) -
+  Add `completionSource` attribute to contextual typeahead analytics events to distinguish between
+  cold (frequency-only), server slow-lane, and on-device local LLM scoring paths
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

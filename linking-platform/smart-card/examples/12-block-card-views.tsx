@@ -10,6 +10,7 @@ import { token } from '@atlaskit/tokens';
 
 import CardViewExample from './card-view';
 import ExampleContainer from './utils/example-container';
+import { useLocalStorageState } from './utils/use-local-storage-state';
 const STORAGE_KEY = 'atlaskit-examples-lp-block-card-views-width-percentage';
 
 const styles = cssMap({
@@ -23,20 +24,11 @@ const styles = cssMap({
 });
 
 export default (): React.JSX.Element => {
-	const [widthPercentage, setWidthPercentage] = React.useState<number>(() => {
-		const stored = localStorage.getItem(STORAGE_KEY);
-		if (stored !== null) {
-			const parsed = Number.parseInt(stored, 10);
-			if (!Number.isNaN(parsed)) {
-				return parsed;
-			}
-		}
-		return 100;
+	const [widthPercentage, setWidthPercentage] = useLocalStorageState<number>({
+		storageKey: STORAGE_KEY,
+		defaultValue: 100,
+		type: 'number',
 	});
-
-	React.useEffect(() => {
-		localStorage.setItem(STORAGE_KEY, widthPercentage.toString());
-	}, [widthPercentage]);
 
 	return (
 		<ExampleContainer title="BlockCard Views">

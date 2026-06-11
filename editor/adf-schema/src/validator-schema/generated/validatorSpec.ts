@@ -108,7 +108,6 @@ export const block_content: string[] = [
   'mediaSingle_caption',
   'mediaSingle_full',
   'codeBlock',
-  'codeBlock_with_extended_attributes',
   'taskList',
   'bulletList',
   'orderedList',
@@ -845,6 +844,10 @@ export const codeBlock: {
     attrs: {
       optional: boolean;
       props: {
+        hideLineNumbers: {
+          optional: boolean;
+          type: string;
+        };
         language: {
           optional: boolean;
           type: string;
@@ -854,6 +857,10 @@ export const codeBlock: {
           type: string;
         };
         uniqueId: {
+          optional: boolean;
+          type: string;
+        };
+        wrap: {
           optional: boolean;
           type: string;
         };
@@ -875,6 +882,10 @@ export const codeBlock: {
     attrs: {
       optional: true,
       props: {
+        hideLineNumbers: {
+          optional: true,
+          type: 'boolean',
+        },
         language: {
           optional: true,
           type: 'string',
@@ -886,6 +897,10 @@ export const codeBlock: {
         uniqueId: {
           optional: true,
           type: 'string',
+        },
+        wrap: {
+          optional: true,
+          type: 'boolean',
         },
       },
     },
@@ -921,144 +936,6 @@ export const codeBlock_root_only: (
         items: ['breakout'],
         optional: true,
         type: 'array',
-      },
-    },
-  },
-];
-
-export const codeBlock_root_only_with_extended_attributes: (
-  | string
-  | {
-      props: {
-        attrs: {
-          optional: boolean;
-          props: {
-            hideLineNumbers: {
-              optional: boolean;
-              type: string;
-            };
-            language: {
-              optional: boolean;
-              type: string;
-            };
-            localId: {
-              optional: boolean;
-              type: string;
-            };
-            uniqueId: {
-              optional: boolean;
-              type: string;
-            };
-            wrap: {
-              optional: boolean;
-              type: string;
-            };
-          };
-        };
-        marks: {
-          items: string[];
-          optional: boolean;
-          type: string;
-        };
-      };
-    }
-)[] = [
-  'codeBlock',
-  {
-    props: {
-      attrs: {
-        optional: true,
-        props: {
-          hideLineNumbers: {
-            optional: true,
-            type: 'boolean',
-          },
-          language: {
-            optional: true,
-            type: 'string',
-          },
-          localId: {
-            optional: true,
-            type: 'string',
-          },
-          uniqueId: {
-            optional: true,
-            type: 'string',
-          },
-          wrap: {
-            optional: true,
-            type: 'boolean',
-          },
-        },
-      },
-      marks: {
-        items: ['breakout'],
-        optional: true,
-        type: 'array',
-      },
-    },
-  },
-];
-
-export const codeBlock_with_extended_attributes: (
-  | string
-  | {
-      props: {
-        attrs: {
-          optional: boolean;
-          props: {
-            hideLineNumbers: {
-              optional: boolean;
-              type: string;
-            };
-            language: {
-              optional: boolean;
-              type: string;
-            };
-            localId: {
-              optional: boolean;
-              type: string;
-            };
-            uniqueId: {
-              optional: boolean;
-              type: string;
-            };
-            wrap: {
-              optional: boolean;
-              type: string;
-            };
-          };
-        };
-      };
-    }
-)[] = [
-  'codeBlock',
-  {
-    props: {
-      attrs: {
-        optional: true,
-        props: {
-          hideLineNumbers: {
-            optional: true,
-            type: 'boolean',
-          },
-          language: {
-            optional: true,
-            type: 'string',
-          },
-          localId: {
-            optional: true,
-            type: 'string',
-          },
-          uniqueId: {
-            optional: true,
-            type: 'string',
-          },
-          wrap: {
-            optional: true,
-            type: 'boolean',
-          },
-        },
       },
     },
   },
@@ -1303,7 +1180,6 @@ export const doc: {
           'mediaSingle_caption',
           'mediaSingle_full',
           'codeBlock',
-          'codeBlock_with_extended_attributes',
           'taskList',
           'bulletList',
           'orderedList',
@@ -1321,7 +1197,6 @@ export const doc: {
           'expand',
           'bodiedExtension_with_marks',
           'codeBlock_root_only',
-          'codeBlock_root_only_with_extended_attributes',
           'layoutSection_with_single_column',
           'layoutSection_full',
           'multiBodiedExtension',
@@ -1561,7 +1436,6 @@ export const expand: {
           'rule',
           'heading_with_no_marks',
           'codeBlock',
-          'codeBlock_with_extended_attributes',
           'mediaGroup',
           'mediaSingle_caption',
           'mediaSingle_full',
@@ -3411,7 +3285,6 @@ export const non_nestable_block_content: string[] = [
   'rule',
   'heading_with_no_marks',
   'codeBlock',
-  'codeBlock_with_extended_attributes',
   'mediaGroup',
   'mediaSingle_caption',
   'mediaSingle_full',
@@ -4186,7 +4059,6 @@ export const tableCell: {
           'heading_with_alignment',
           'heading_with_indentation',
           'codeBlock',
-          'codeBlock_with_extended_attributes',
           'mediaSingle_caption',
           'mediaSingle_full',
           'mediaGroup',
@@ -4306,7 +4178,6 @@ export const tableHeader: {
           'heading_with_alignment',
           'heading_with_indentation',
           'codeBlock',
-          'codeBlock_with_extended_attributes',
           'mediaSingle_caption',
           'mediaSingle_full',
           'mediaGroup',

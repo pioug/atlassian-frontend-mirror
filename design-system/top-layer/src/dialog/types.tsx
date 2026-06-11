@@ -29,7 +29,15 @@ type TDialogBaseProps = {
 	 * - `false`: calls `close()`. When an `animate` preset is provided, the exit
 	 *   animation plays (via `allow-discrete`) before the dialog becomes logically closed.
 	 *
-	 * The element stays mounted in the DOM. Visibility is controlled declaratively.
+	 * **Lifecycle observable to consumers:**
+	 *
+	 * - The `<dialog>` host element is in the DOM only while open or its exit
+	 *   animation is playing. After exit completes the element is unmounted so
+	 *   it does not leave an empty `role="dialog"` element in the accessibility
+	 *   tree. The exact unmount timing is private and may change.
+	 * - The `id` (supplied or generated) is stable across opens.
+	 * - The `ref` is populated only while the host element is rendered. Consumers
+	 *   that read from the ref should gate the read on `isOpen` being `true`.
 	 */
 	isOpen: boolean;
 	/**

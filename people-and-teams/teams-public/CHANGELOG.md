@@ -1,5 +1,20 @@
 # @atlaskit/teams-public
 
+## 1.5.0
+
+### Minor Changes
+
+- [`e4c5ae488aad4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4c5ae488aad4) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+## 1.4.4
+
+### Patch Changes
+
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+
 ## 1.4.3
 
 ### Patch Changes

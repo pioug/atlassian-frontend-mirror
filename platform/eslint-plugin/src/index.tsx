@@ -33,7 +33,6 @@ import useMotionTokenValues from './rules/compiled/use-motion-token-values';
 import expandMotionShorthand from './rules/compiled/expand-motion-shorthand';
 import noSparseCheckout from './rules/no-sparse-checkout';
 import noDirectDocumentUsage from './rules/no-direct-document-usage';
-import noDirectWebStorageUsage from './rules/no-direct-web-storage-usage';
 import noSetImmediate from './rules/no-set-immediate';
 import preferCryptoRandomUuid from './rules/prefer-crypto-random-uuid';
 import noRestrictedFedrampImports from './rules/no-restricted-fedramp-imports';
@@ -107,7 +106,6 @@ const rules: {
 		'no-unsafe-no-exposure': Rule.RuleModule;
 	'no-sparse-checkout': Rule.RuleModule;
 	'no-direct-document-usage': Rule.RuleModule;
-	'no-direct-web-storage-usage': Rule.RuleModule;
 	'no-set-immediate': Rule.RuleModule;
 	'prefer-crypto-random-uuid': Rule.RuleModule;
 	'no-restricted-fedramp-imports': Rule.RuleModule;
@@ -154,7 +152,6 @@ const rules: {
 	'no-unsafe-no-exposure': noUnsafeNoExposure,
 	'no-sparse-checkout': noSparseCheckout,
 	'no-direct-document-usage': noDirectDocumentUsage,
-	'no-direct-web-storage-usage': noDirectWebStorageUsage,
 	'no-set-immediate': noSetImmediate,
 	'prefer-crypto-random-uuid': preferCryptoRandomUuid,
 	'no-restricted-fedramp-imports': noRestrictedFedrampImports,
@@ -181,7 +178,6 @@ const commonConfig = {
 	'@atlaskit/platform/ensure-atlassian-team': 'error',
 	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 	'@atlaskit/platform/no-direct-document-usage': 'warn',
-	'@atlaskit/platform/no-direct-web-storage-usage': 'warn',
 	'@atlaskit/platform/no-set-immediate': 'error',
 	'@atlaskit/platform/no-xcss-in-cx': 'error',
 	// Compiled: rules that are not included via `@compiled/recommended
@@ -262,7 +258,6 @@ const plugin: {
 	'no-unsafe-no-exposure': Rule.RuleModule;
 		'no-sparse-checkout': Rule.RuleModule;
 		'no-direct-document-usage': Rule.RuleModule;
-		'no-direct-web-storage-usage': Rule.RuleModule;
 		'no-set-immediate': Rule.RuleModule;
 		'prefer-crypto-random-uuid': Rule.RuleModule;
 		'no-restricted-fedramp-imports': Rule.RuleModule;
@@ -301,7 +296,6 @@ const plugin: {
 				'@atlaskit/platform/ensure-atlassian-team': 'error';
 				'@atlaskit/platform/no-module-level-eval-nav4': 'error';
 				'@atlaskit/platform/no-direct-document-usage': 'warn';
-				'@atlaskit/platform/no-direct-web-storage-usage': 'warn';
 				'@atlaskit/platform/no-set-immediate': 'error';
 				// Compiled: rules that are not included via `@compiled/recommended
 				'@atlaskit/platform/expand-border-shorthand': 'error';
@@ -343,7 +337,6 @@ const plugin: {
 				'@atlaskit/platform/ensure-atlassian-team': 'error';
 				'@atlaskit/platform/no-module-level-eval-nav4': 'error';
 				'@atlaskit/platform/no-direct-document-usage': 'warn';
-				'@atlaskit/platform/no-direct-web-storage-usage': 'warn';
 				'@atlaskit/platform/no-set-immediate': 'error';
 				// Compiled: rules that are not included via `@compiled/recommended
 				'@atlaskit/platform/expand-border-shorthand': 'error';
@@ -371,7 +364,6 @@ const plugin: {
 				'@atlaskit/platform/ensure-atlassian-team': 'error';
 				'@atlaskit/platform/no-module-level-eval-nav4': 'error';
 				'@atlaskit/platform/no-direct-document-usage': 'warn';
-				'@atlaskit/platform/no-direct-web-storage-usage': 'warn';
 				'@atlaskit/platform/no-set-immediate': 'error';
 				// Compiled: rules that are not included via `@compiled/recommended
 				'@atlaskit/platform/expand-border-shorthand': 'error';
@@ -402,7 +394,6 @@ const plugin: {
 				'@atlaskit/platform/ensure-atlassian-team': 'error';
 				'@atlaskit/platform/no-module-level-eval-nav4': 'error';
 				'@atlaskit/platform/no-direct-document-usage': 'warn';
-				'@atlaskit/platform/no-direct-web-storage-usage': 'warn';
 				'@atlaskit/platform/no-set-immediate': 'error';
 				// Compiled: rules that are not included via `@compiled/recommended
 				'@atlaskit/platform/expand-border-shorthand': 'error';
@@ -555,7 +546,6 @@ const configs: {
 			'@atlaskit/platform/ensure-atlassian-team': 'error';
 			'@atlaskit/platform/no-module-level-eval-nav4': 'error';
 			'@atlaskit/platform/no-direct-document-usage': 'warn';
-			'@atlaskit/platform/no-direct-web-storage-usage': 'warn';
 			'@atlaskit/platform/no-set-immediate': 'error';
 			// Compiled: rules that are not included via `@compiled/recommended
 			'@atlaskit/platform/expand-border-shorthand': 'error';
@@ -597,7 +587,6 @@ const configs: {
 			'@atlaskit/platform/ensure-atlassian-team': 'error';
 			'@atlaskit/platform/no-module-level-eval-nav4': 'error';
 			'@atlaskit/platform/no-direct-document-usage': 'warn';
-			'@atlaskit/platform/no-direct-web-storage-usage': 'warn';
 			'@atlaskit/platform/no-set-immediate': 'error';
 			// Compiled: rules that are not included via `@compiled/recommended
 			'@atlaskit/platform/expand-border-shorthand': 'error';
@@ -625,7 +614,6 @@ const configs: {
 			'@atlaskit/platform/ensure-atlassian-team': 'error';
 			'@atlaskit/platform/no-module-level-eval-nav4': 'error';
 			'@atlaskit/platform/no-direct-document-usage': 'warn';
-			'@atlaskit/platform/no-direct-web-storage-usage': 'warn';
 			'@atlaskit/platform/no-set-immediate': 'error';
 			// Compiled: rules that are not included via `@compiled/recommended
 			'@atlaskit/platform/expand-border-shorthand': 'error';
@@ -656,7 +644,6 @@ const configs: {
 			'@atlaskit/platform/ensure-atlassian-team': 'error';
 			'@atlaskit/platform/no-module-level-eval-nav4': 'error';
 			'@atlaskit/platform/no-direct-document-usage': 'warn';
-			'@atlaskit/platform/no-direct-web-storage-usage': 'warn';
 			'@atlaskit/platform/no-set-immediate': 'error';
 			// Compiled: rules that are not included via `@compiled/recommended
 			'@atlaskit/platform/expand-border-shorthand': 'error';

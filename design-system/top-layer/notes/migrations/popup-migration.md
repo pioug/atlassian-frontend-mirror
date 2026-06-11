@@ -157,8 +157,8 @@ The legacy `onClose(event)` callback receives a DOM event. The top-layer path re
 `onClose({ reason: TPopoverCloseReason })` where reason is `'escape' | 'light-dismiss'`.
 
 `PopupTopLayer` and `PopupContentTopLayer` map reasons through **`createPopoverCloseEvent`** from
-`@atlaskit/top-layer/create-close-event` (same helper as `@atlaskit/inline-dialog`). See that module
-for the exact `KeyboardEvent` / `MouseEvent` / `Event` shapes and options (e.g. `bubbles`).
+`@atlaskit/top-layer/popover` (same helper as `@atlaskit/inline-dialog`). See that module for the
+exact `KeyboardEvent` / `MouseEvent` / `Event` shapes and options (e.g. `bubbles`).
 
 After Escape, if `shouldReturnFocus` is true, focus returns to the trigger via
 `requestAnimationFrame(() => triggerRef.current?.focus())`.

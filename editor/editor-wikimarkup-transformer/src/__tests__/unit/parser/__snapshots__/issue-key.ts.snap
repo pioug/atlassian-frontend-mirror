@@ -122,9 +122,11 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
     },
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "java",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {
@@ -220,9 +222,11 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
     },
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": null,
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {

@@ -42,7 +42,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_sl_3p_auth_rovo_action: false,
 	platform_sl_3p_preauth_better_hovercard: true,
 	cwr_blank_object_experiment: false,
-	cc_editor_hover_link_overlay_css_fix: false,
 	platform_editor_feedback_mandatory_rating: false,
 	platform_editor_preview_panel_responsiveness: false,
 	platform_editor_toolbar_aifc: false,

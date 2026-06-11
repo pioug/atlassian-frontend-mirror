@@ -1,5 +1,20 @@
 # @atlaskit/media-card
 
+## 80.8.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 80.8.5
+
+### Patch Changes
+
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+- Updated dependencies
+
 ## 80.8.4
 
 ### Patch Changes

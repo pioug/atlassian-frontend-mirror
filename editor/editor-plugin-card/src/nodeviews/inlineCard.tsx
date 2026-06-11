@@ -23,6 +23,7 @@ import {
 } from '@atlaskit/editor-smart-link-draggable';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
+import type { OnClickCallback } from '@atlaskit/smart-card/card/types';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -150,8 +151,8 @@ export const InlineCard: React.MemoExoticComponent<
 			[onResolve],
 		);
 
-		const handleOnClick = useCallback(
-			(event: React.MouseEvent<HTMLSpanElement>) => {
+		const handleOnClick: OnClickCallback = useCallback(
+			(event, data) => {
 				if (event.metaKey || event.ctrlKey) {
 					const { actions: editorAnalyticsApi } = pluginInjectionApi?.analytics ?? {};
 
@@ -160,7 +161,12 @@ export const InlineCard: React.MemoExoticComponent<
 						view.dispatch,
 					);
 
-					window.open(url, '_blank');
+					window.open(
+						fg('platform_smartlink_xpc_url_wrapping')
+							? (data?.destinationUrl ?? url)
+							: url,
+						'_blank',
+					);
 				} else {
 					// only trigger the provided onClick callback if the meta key or ctrl key is not pressed
 					propsOnClick?.(event);

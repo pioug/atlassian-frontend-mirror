@@ -30,7 +30,6 @@ export const tableCellContentNodes: Array<ADFNode<any, any>> = [
 	heading.use('with_alignment'),
 	heading.use('with_indentation'),
 	codeBlock,
-	codeBlock.use('with_extended_attributes'),
 	mediaSingle.use('caption'),
 	mediaSingle.use('full'),
 	mediaGroup,

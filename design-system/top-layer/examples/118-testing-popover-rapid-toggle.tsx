@@ -42,6 +42,7 @@ export default function TestingPopoverRapidToggle(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

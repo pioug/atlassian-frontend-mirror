@@ -93,18 +93,31 @@ export const Dialog: React.ForwardRefExoticComponent<
 	const combinedRef = mergeRefs([ownRef, ref as Ref<HTMLDialogElement>]);
 
 	// Animation lifecycle
-	const { showChildren, preset } = useAnimatedVisibility({
+	const { phase, preset } = useAnimatedVisibility({
 		isOpen,
 		animate,
 		elementRef: ownRef,
 		onExitFinish,
 	});
 
+	// Pre-computed phase predicate. `isVisible` means "host element is
+	// mounted and on screen" (any phase except `closed`), used as a dep
+	// signal for the backdrop-click rebind effect so it re-attaches to
+	// the fresh <dialog> element after a close → reopen unmount/remount
+	// cycle.
+	const isVisible = phase !== 'closed';
+
 	// Focus wrap
 	// Native <dialog>.showModal() traps focus but wraps through <body> at
 	// the boundary (A → B → C → body → A). This hook intercepts Tab to
 	// wrap directly (A → B → C → A), matching the WAI-ARIA APG pattern.
-	useFocusWrap({ elementRef: ownRef, role: 'dialog' });
+	//
+	// Takes `phase` directly: the listener stays attached while
+	// `phase !== 'closed'`, i.e. through the animated-exit window.
+	// Gating on `isOpen` would unbind the listener at the start of an
+	// exit animation while the dialog is still visible, letting focus
+	// escape (WCAG 2.4.3 Focus Order regression).
+	useFocusWrap({ elementRef: ownRef, role: 'dialog', phase });
 
 	// Open layer observer registration
 	// Notifies the open layer observer so app-coordination features
@@ -152,6 +165,8 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// Attached via bind-event-listener rather than a React prop so we avoid
 	// a11y lint suppressions on the <dialog> element.
 	// Keyboard dismiss is already handled natively (Escape → onCancel above).
+	// `isVisible` is in deps so the listener re-binds to the new <dialog>
+	// element after a host unmount / remount cycle.
 	useEffect(() => {
 		const dialog = ownRef.current;
 		if (!dialog) {
@@ -166,13 +181,26 @@ export const Dialog: React.ForwardRefExoticComponent<
 				}
 			},
 		});
-	}, [onClose]);
+	}, [onClose, isVisible]);
 
 	// Atomic CSS (Compiled) deduplicates ::backdrop { background-color }
 	// into a single class, making it impossible to toggle between two values
 	// via cssMap entries. An ID-scoped <style> has higher specificity than
 	// any atomic class, so the override always wins.
 	const escapedId = CSS.escape(dialogId);
+
+	// The `<dialog>` host element is only rendered while open or its exit
+	// animation is playing. After exit completes the phase returns to
+	// `closed` and we unmount the dialog entirely so it does not leave an
+	// empty `role="dialog"` element in the accessibility tree. The element
+	// re-mounts on the next `isOpen=true` commit; `showModal()` is called
+	// from the existing `useLayoutEffect([isOpen])` on that same commit,
+	// and listeners (cancel, click) re-bind via the `[onClose, isVisible]`
+	// effect re-running after remount (React clears the ref on unmount, so
+	// we need the listener effect to re-run with the fresh element).
+	if (!isVisible) {
+		return null;
+	}
 
 	return (
 		<dialog
@@ -200,7 +228,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
 				<style>{`#${escapedId}::backdrop{background-color:transparent}`}</style>
 			)}
-			{showChildren ? children : null}
+			{children}
 		</dialog>
 	);
 });

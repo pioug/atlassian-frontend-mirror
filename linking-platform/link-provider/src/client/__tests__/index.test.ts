@@ -480,6 +480,70 @@ describe('Smart Card: Client', () => {
 			});
 		});
 
+		ffTest.on('platform_smartlink_inline_resolve_optimization', '', () => {
+			ffTest.on('platform_linking_force_no_cache_smart_card_client', '', () => {
+				it('should pass appearance to request body when appearance is provided', async () => {
+					mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+					const client = new SmartCardClient();
+					const resourceUrl = 'https://i.love.cheese';
+					const response = await client.fetchData(resourceUrl, false, 'inline');
+					expect(mockRequest).toHaveBeenCalled();
+					expect(mockRequest).toHaveBeenCalledWith(
+						'post',
+						expectedDefaultResolveBatchUrl,
+						[
+							{
+								resourceUrl,
+								ignoreCachedValue: undefined,
+								appearance: 'inline',
+							},
+						],
+						expect.anything(),
+					);
+					expect(response).toBe(mocks.success);
+				});
+
+				it('should pass block appearance for hover card metadata', async () => {
+					mockRequest.mockImplementationOnce(async () => [successfulResponse]);
+					const client = new SmartCardClient();
+					const resourceUrl = 'https://i.love.cheese';
+					const response = await client.fetchData(resourceUrl, false, 'block');
+					expect(mockRequest).toHaveBeenCalled();
+					expect(mockRequest).toHaveBeenCalledWith(
+						'post',
+						expectedDefaultResolveBatchUrl,
+						[
+							{
+								resourceUrl,
+								ignoreCachedValue: undefined,
+								appearance: 'block',
+							},
+						],
+						expect.anything(),
+					);
+					expect(response).toBe(mocks.success);
+				});
+
+				it('should use different cache keys for different appearances', async () => {
+					mockRequest.mockImplementation(async () => [successfulResponse]);
+					const client = new SmartCardClient();
+					const resourceUrl = 'https://i.love.cheese';
+
+					// First call with inline appearance
+					await client.fetchData(resourceUrl, false, 'inline');
+					expect(mockRequest).toHaveBeenCalledTimes(1);
+
+					// Second call with same URL but block appearance should make new request
+					await client.fetchData(resourceUrl, false, 'block');
+					expect(mockRequest).toHaveBeenCalledTimes(2);
+
+					// Third call with inline appearance should use cached response
+					await client.fetchData(resourceUrl, false, 'inline');
+					expect(mockRequest).toHaveBeenCalledTimes(2);
+				});
+			});
+		});
+
 		it('should support setting custom headers to the request', async () => {
 			mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 

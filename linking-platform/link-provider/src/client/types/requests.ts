@@ -1,4 +1,4 @@
-import { type ServerActionOpts } from '@atlaskit/linking-common';
+import { type CardAppearance, type ServerActionOpts } from '@atlaskit/linking-common';
 
 export interface ResolveRequest {
 	context?: string;
@@ -17,7 +17,16 @@ export interface SearchInvokeRequest {
 	query: string;
 }
 
-type ResourcePayloadUrl = { ignoreCachedValue?: boolean; resourceUrl: string };
+type ResourcePayloadUrl = {
+	/**
+	 * Card appearance hint for ORS to optimize response payload.
+	 * When 'inline', ORS returns minimal data (title, status).
+	 * When 'block' or 'embed', ORS returns full data including summary.
+	 */
+	appearance?: CardAppearance;
+	ignoreCachedValue?: boolean;
+	resourceUrl: string;
+};
 type ResourcePayloadAri = { ari: string };
 
 export type ResourceType = 'URL' | 'ARI';

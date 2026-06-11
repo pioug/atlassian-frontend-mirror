@@ -75,14 +75,17 @@ export class ValidQueryVisitor extends AbstractJastVisitor<string> {
 	};
 
 	visitFunctionOperand = (functionOperand: FunctionOperand): string => {
-		// Only include membersOf function as it has arguments that need hydration
-		// Other functions like currentUser() don't have hydratable arguments
 		const functionName = functionOperand.function.value.toLowerCase();
-		if (functionName !== 'membersof' || !fg('jira-membersof-team-support')) {
-			return '';
-		}
 		const args = functionOperand.arguments.map((arg) => arg.text).join(', ');
-		return `${functionOperand.function.text}(${args})`;
+
+		// The generic gate supersedes the legacy membersOf-specific gate: when
+		// jql-function-arg-hydration is on, any function with arguments is included (covering
+		// membersOf and all others). Otherwise fall back to the legacy membersOf-only path.
+		const shouldIncludeFunction = fg('jql-function-arg-hydration')
+			? functionOperand.arguments.length > 0
+			: functionName === 'membersof' && fg('jira-membersof-team-support');
+
+		return shouldIncludeFunction ? `${functionOperand.function.text}(${args})` : '';
 	};
 
 	protected defaultResult(): string {

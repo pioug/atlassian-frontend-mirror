@@ -33,7 +33,19 @@ export const replaceRichInlineNodes = (
 
 	Object.entries(hydratedValues).forEach(([fieldName, values]) => {
 		values.forEach((value) => {
-			if (
+			if (fg('jql-function-arg-hydration')) {
+				// Skip deprecated fields
+				if (value.type === 'deprecated-field') {
+					return;
+				}
+				// When the gate is on, collect both direct value operands and function argument
+				// operands for all node types
+				const astNodes: Array<ValueOperand | Argument> = [
+					...getValueNodes(ast, fieldName, value.id),
+					...getFunctionArgumentNodes(ast, fieldName, value.id),
+				];
+				replaceAstNodesWithRichInlineNodes(transaction, astNodes, fieldName, value);
+			} else if (
 				value.type === 'user' ||
 				value.type === 'team' ||
 				(value.type === 'goal' &&
@@ -49,30 +61,36 @@ export const replaceRichInlineNodes = (
 						-1,
 					) >= 1)
 			) {
-				// First try to find as direct value operand (e.g., Team[Team] = uuid)
+				// Legacy path: direct value operands only, with membersOf fallback for teams.
 				let astNodes: Array<ValueOperand | Argument> = getValueNodes(ast, fieldName, value.id);
-
-				// If not found as direct value and it's a team, try to find in membersOf function arguments
 				if (astNodes.length === 0 && value.type === 'team' && fg('jira-membersof-team-support')) {
 					astNodes = getMembersOfArgumentNodes(ast, value.id);
 				}
-
-				astNodes.forEach((astNode) => {
-					if (astNode.position) {
-						const [from, to] = astNode.position;
-						const documentFrom = getDocumentPosition(transaction.doc, from);
-						if (!isRichInlineNode(transaction.doc, documentFrom)) {
-							const documentTo = getDocumentPosition(transaction.doc, to);
-							const node = getRichInlineNode(fieldName, value, astNode.text);
-							transaction.replaceWith(documentFrom, documentTo, node);
-						}
-					}
-				});
+				replaceAstNodesWithRichInlineNodes(transaction, astNodes, fieldName, value);
 			}
 		});
 	});
 
 	return transaction;
+};
+
+const replaceAstNodesWithRichInlineNodes = (
+	transaction: Transaction,
+	astNodes: Array<ValueOperand | Argument>,
+	fieldName: string,
+	value: HydratedValue,
+): void => {
+	astNodes.forEach((astNode) => {
+		if (astNode.position) {
+			const [from, to] = astNode.position;
+			const documentFrom = getDocumentPosition(transaction.doc, from);
+			if (!isRichInlineNode(transaction.doc, documentFrom)) {
+				const documentTo = getDocumentPosition(transaction.doc, to);
+				const node = getRichInlineNode(fieldName, value, astNode.text);
+				transaction.replaceWith(documentFrom, documentTo, node);
+			}
+		}
+	});
 };
 
 const getRichInlineNode = (fieldName: string, value: HydratedValue, text: string) => {
@@ -92,6 +110,13 @@ const getRichInlineNode = (fieldName: string, value: HydratedValue, text: string
 		case 'goal': {
 			const textContent = JQLEditorSchema.text(text);
 			return JQLEditorSchema.nodes.goal.create({ ...value, fieldName }, textContent);
+		}
+		case 'lozengeWithAvatar': {
+			const textContent = JQLEditorSchema.text(text);
+			return JQLEditorSchema.nodes.lozengeWithAvatar.create(
+				{ ...value, fieldName },
+				textContent,
+			);
 		}
 		default: {
 			throw new Error(`Unsupported hydrated value type ${value.type}`);
@@ -115,6 +140,17 @@ const getMembersOfArgumentNodes = (ast: Jast, teamId: string): Argument[] => {
 		return [];
 	}
 	return ast.query.accept(new FindMembersOfArgumentsVisitor(teamId));
+};
+
+const getFunctionArgumentNodes = (
+	ast: Jast,
+	fieldName: string,
+	valueId: string,
+): Argument[] => {
+	if (!ast.query) {
+		return [];
+	}
+	return ast.query.accept(new FindFunctionArgumentsVisitor(fieldName, valueId));
 };
 
 /**
@@ -187,6 +223,37 @@ class FindValuesVisitor extends BaseAstNodeFinder<ValueOperand> {
 			return [];
 		}
 		return [valueOperand];
+	};
+}
+
+/**
+ * Visitor that finds function arguments for a specific field matching a target value id.
+ * This visitor is field-aware: it processes clauses for the given field and matches arguments by their raw value.
+ */
+class FindFunctionArgumentsVisitor extends BaseAstNodeFinder<Argument> {
+	private readonly fieldName: string;
+	private readonly targetValueId: string;
+
+	constructor(fieldName: string, targetValueId: string) {
+		super();
+		this.fieldName = fieldName;
+		this.targetValueId = targetValueId.trim();
+	}
+
+	visitTerminalClause = (terminalClause: TerminalClause): Argument[] => {
+		if (!this.equalsIgnoreCase(terminalClause.field.value, this.fieldName)) {
+			return [];
+		}
+		if (terminalClause.operand === undefined) {
+			return [];
+		}
+		return terminalClause.operand.accept(this);
+	};
+
+	visitFunctionOperand = (functionOperand: FunctionOperand): Argument[] => {
+		return functionOperand.arguments.filter((arg) =>
+			this.equalsIgnoreCase(arg.value.trim(), this.targetValueId),
+		);
 	};
 }
 

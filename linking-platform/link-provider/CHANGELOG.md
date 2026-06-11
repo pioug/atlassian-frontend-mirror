@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 4.7.0
+
+### Minor Changes
+
+- [`fdea0f8bc06c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdea0f8bc06c4) -
+  Add optional appearance parameter to CardClient.fetchData and prefetchData, and extend
+  ResourcePayloadUrl type to include appearance for ORS optimized response payloads.
+
 ## 4.6.0
 
 ### Minor Changes

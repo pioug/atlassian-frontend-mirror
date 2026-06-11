@@ -25,6 +25,7 @@ function DialogPopover() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: {},
+		isOpen,
 	});
 
 	const handleOpenChange = useCallback(
@@ -85,6 +86,7 @@ function NotePopover() {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: {},
+		isOpen,
 	});
 
 	return (
@@ -95,8 +97,10 @@ function NotePopover() {
 				data-testid="note-trigger"
 				onClick={toggle}
 				// role="note" is informational — no aria-haspopup or aria-expanded on the trigger.
-				// aria-controls links the trigger to the note content.
-				aria-controls={popoverId}
+				// `aria-controls` is only set while the popover host element is in the
+				// DOM (i.e. while open or exit-animating). Setting it while the target
+				// ID is missing produces an axe `aria-valid-attr-value` violation.
+				aria-controls={isOpen ? popoverId : undefined}
 			>
 				Open note popover
 			</button>

@@ -61,7 +61,7 @@ The `Dialog` component was enhanced to support modal-dialog's requirements:
   title.
 - **`style` prop on `Dialog`** -- allows inline CSS custom properties on the `<dialog>` element.
   Used for custom widths, heights, and fullscreen overrides.
-- **`createCloseEvent` helper** (`@atlaskit/top-layer/create-close-event`) -- bridges Dialog's
+- **`createCloseEvent` helper** (`@atlaskit/top-layer/dialog`) -- bridges Dialog's
   `onClose({ reason })` callback to a synthetic DOM event (`KeyboardEvent` for `'escape'`,
   `MouseEvent` for `'overlay-click'`). Useful when a consumer's `onClose` contract expects a DOM
   event (e.g. modal-dialog's `onClose(event, analyticsEvent)`).
@@ -539,7 +539,6 @@ All 44 existing legacy tests pass, plus 2 skipped (unchanged).
 | `src/dialog/dialog.tsx`                   | `DialogRoot` accepts and passes `titleId`, `label` through context                                        |
 | `src/dialog/dialog-content.tsx`           | Conditional `aria-label` / `aria-labelledby`; merges `style` prop; `hideBackdrop` via ID-scoped `<style>` |
 | `src/dialog/create-close-event.tsx`       | New: `createCloseEvent({ reason })` helper for bridging close reasons to DOM events                       |
-| `src/entry-points/create-close-event.tsx` | New entry point: `@atlaskit/top-layer/create-close-event`                                                 |
 | `src/popup/types.tsx`                     | `PopupContentProps.role` narrowed to `PopupRole` union; type-level enforcement                            |
 | `src/popup/popup-content.tsx`             | Removed runtime `console.warn` (replaced by type-level enforcement)                                       |
 | `src/popup/index.tsx`                     | Exported `PopupRole` type                                                                                 |
@@ -556,7 +555,7 @@ All 44 existing legacy tests pass, plus 2 skipped (unchanged).
 
 ## Update: `isOpen` + `onExitFinish` replaces ExitingPersistence glue
 
-`isOpen` is now **required** on `Dialog`. The dialog element stays mounted — consumers don't
+`isOpen` is now **required** on `Dialog`. Consumers should keep the `<Dialog>` React component rendered across opens — they don't
 conditionally render it. The ExitingPersistence glue code (manual `dialog.close()` + `transitionend`
 listener + `bind()` + fallback timeout) has been fully replaced by two features on `Dialog`:
 
@@ -627,8 +626,7 @@ for details.
 ## Update: `createCloseEvent` helper extracted to top-layer
 
 Modal-dialog's `syntheticCloseEvent` function has been replaced by `createCloseEvent({ reason })`
-from `@atlaskit/top-layer/create-close-event`. This is a standalone entry point — separate from the
-`dialog` entry point — so consumers can import it independently.
+from `@atlaskit/top-layer/dialog`.
 
 The helper converts a `DialogCloseReason` (`'escape'` | `'overlay-click'`) into a synthetic DOM
 event, bridging Dialog's `onClose({ reason })` callback to legacy APIs that expect a `KeyboardEvent`

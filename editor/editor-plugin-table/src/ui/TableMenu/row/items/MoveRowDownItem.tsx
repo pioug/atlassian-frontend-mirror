@@ -53,7 +53,7 @@ export const MoveRowDownItem = (props: TableMenuComponentsParams): React.JSX.Ele
 			getSelectedRowIndexes(selectionRect),
 			selectionRect.bottom,
 		)(editorView.state, editorView.dispatch);
-		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.execute(closeActiveTableMenu(api));
 		api?.core.actions.focus();
 	};
 

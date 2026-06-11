@@ -26,6 +26,7 @@ import type { BlockMenuEventPayload, ElementTransformErrorAEP } from './block-me
 import type { BreakoutEventPayload } from './breakout-events';
 import type { TextColorEventPayload } from './color-events';
 import type { ConfigPanelEventPayload } from './config-panel-events';
+import type { ContainerNodeActionsEventPayload } from './container-node-events';
 import type { ContextualTypeaheadEventPayload } from './contextual-typeahead-events';
 import type { CutCopyEventPayload } from './cut-copy-events';
 import type { DatasourceClickedPayload } from './datasource-clicked-events';
@@ -143,6 +144,7 @@ export type AnalyticsEventPayload<T = void> =
 	| MentionEventPayload
 	| EngagementPlatformEventPayload
 	| NestedTableActionsEventPayload
+	| ContainerNodeActionsEventPayload
 	| AICommandPaletteEventPayload
 	| AIDefinitionsEventPayload
 	| AIEventPayload

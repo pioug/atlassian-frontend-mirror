@@ -2,7 +2,6 @@
 export {
 	codeBlock,
 	codeBlockWithLocalId,
-	codeBlockWithExtendedAttributes,
 	toJSON as codeBlockToJSON,
 } from '../schema/nodes/code-block';
 export type {

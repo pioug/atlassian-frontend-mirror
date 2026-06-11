@@ -1,5 +1,28 @@
 # @atlaskit/adf-schema
 
+## 53.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 53.0.0
+
+### Major Changes
+
+- [`38d753a24e9ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38d753a24e9ad) -
+  Promote code block wrap and line number attrs to the full ADF schema
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.16.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.16.5
 
 ### Patch Changes

@@ -14,8 +14,7 @@ import type { TPopoverCloseReason } from './types';
  *
  * @example
  * ```tsx
- * import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
- * import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+ * import { createPopoverCloseEvent, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
  *
  * function onPopoverClose({ reason }: { reason: TPopoverCloseReason }) {
  *   legacyOnClose(createPopoverCloseEvent({ reason }));

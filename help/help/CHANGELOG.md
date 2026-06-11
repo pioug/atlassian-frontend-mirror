@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 10.1.2
+
+### Patch Changes
+
+- [`4b547dfb10894`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b547dfb10894) -
+  Updated `NotificationIndicator` appearance from `'primary'` to `'informationBold'` to use the new
+  semantic bold Badge appearance, improving visual prominence of the notification count.
+
 ## 10.1.1
 
 ### Patch Changes

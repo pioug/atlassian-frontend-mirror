@@ -1,5 +1,20 @@
 # @atlaskit/task-decision
 
+## 20.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.18
+
+### Patch Changes
+
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+- Updated dependencies
+
 ## 20.1.17
 
 ### Patch Changes

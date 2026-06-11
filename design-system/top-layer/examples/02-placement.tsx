@@ -116,6 +116,7 @@ export default function PlacementExample(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement,
+		isOpen,
 	});
 
 	return (

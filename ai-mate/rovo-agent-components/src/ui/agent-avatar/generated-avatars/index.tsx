@@ -239,6 +239,13 @@ const JiraWorkAgentAvatar = lazy(
 		),
 );
 
+const JiraCodingAgentAvatar = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-rovo-avatar-JiraCodingAgentAvatar"*/ './assets/jira-coding-agent'
+		),
+);
+
 const JiraIntelligentTriageAgentAvatar = lazy(
 	() =>
 		import(
@@ -547,6 +554,12 @@ const outOfTheBoxAgentAvatar: {
 	jira_intelligent_triage_agent: {
 		getRender: (size: SizeType) => (
 			<JiraIntelligentTriageAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		color: blueColor,
+	},
+	jira_coding_agent: {
+		getRender: (size: SizeType) => (
+			<JiraCodingAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
 		),
 		color: blueColor,
 	},

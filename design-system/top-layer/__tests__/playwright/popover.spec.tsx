@@ -195,21 +195,56 @@ test.describe('Popup - ARIA attributes', () => {
 
 		const trigger = page.getByTestId('popover-trigger');
 
-		// Before open: trigger should have aria-expanded=false and aria-controls
+		// Before open: trigger has aria-expanded=false and NO aria-controls.
+		// The popover host element is unmounted while closed, so a stale
+		// aria-controls reference would point at a missing ID (an axe
+		// `aria-valid-attr-value` violation).
 		await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-		/* eslint-disable playwright/prefer-web-first-assertions -- need actual value for CSS selector */
-		const ariaControls = await trigger.getAttribute('aria-controls');
-		expect(ariaControls).toBeTruthy();
-		/* eslint-enable playwright/prefer-web-first-assertions */
+		await expect(trigger).not.toHaveAttribute('aria-controls', /.*/);
 
 		// Open
 		await trigger.click();
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// After open: aria-expanded=true, popover element accessible
+		// After open: aria-expanded=true and aria-controls points at the popover.
 		await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+		/* eslint-disable playwright/prefer-web-first-assertions -- need actual value for CSS selector */
+		const ariaControls = await trigger.getAttribute('aria-controls');
+		expect(ariaControls).toBeTruthy();
+		/* eslint-enable playwright/prefer-web-first-assertions */
 		const popoverEl = page.locator(`#${ariaControls}`);
 		await expect(popoverEl).toBeVisible();
+	});
+
+	test('non-animated popover: host element is removed from the DOM after close', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../examples/90-testing-popover-basic.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-basic',
+		);
+
+		const trigger = page.getByTestId('popover-trigger');
+		const hostLocator = page.locator('[popover]');
+
+		// Closed initially: no host element in the DOM.
+		await expect(hostLocator).toHaveCount(0);
+
+		// Open: host element exists and is visible.
+		await trigger.click();
+		await expect(hostLocator).toHaveCount(1);
+		await expect(page.getByTestId('popover-content')).toBeVisible();
+
+		// Non-animated close (this example does not pass `animate`).
+		// Verifies the safety-net `setTimeout(unmount, 0)` in
+		// `useAnimatedVisibility` actually unmounts the host: in a real
+		// browser the `toggle` event is queued as a microtask, so our
+		// listener (bound in `useEffect`, after the layout effect that
+		// calls `hidePopover()`) misses the initial dispatch. The
+		// trailing `setTimeout` is what drives the unmount.
+		await trigger.click();
+		await expect(hostLocator).toHaveCount(0);
 	});
 });
 

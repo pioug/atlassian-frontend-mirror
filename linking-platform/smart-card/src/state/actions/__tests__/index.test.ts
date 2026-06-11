@@ -62,13 +62,41 @@ describe('Smart Card: Actions', () => {
 			});
 			await result.current.register();
 
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith({
 				payload: undefined,
 				type: ACTION_RESOLVING,
 				url: 'https://some/url',
 			});
 		});
+
+		ffTest.on(
+			'platform_smartlink_inline_resolve_optimization',
+			'when FG is on, register passes appearance to fetchData',
+			() => {
+				it('passes appearance parameter to fetchData when provided', async () => {
+					mockFetchData(Promise.resolve(mocks.success));
+
+					const result = renderHook(() => {
+						return useSmartCardActions(id, url);
+					});
+					await result.current.register('inline');
+
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'inline');
+				});
+
+				it('passes block appearance for block cards', async () => {
+					mockFetchData(Promise.resolve(mocks.success));
+
+					const result = renderHook(() => {
+						return useSmartCardActions(id, url);
+					});
+					await result.current.register('block');
+
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+				});
+			},
+		);
 	});
 
 	describe('resolve()', () => {
@@ -87,7 +115,7 @@ describe('Smart Card: Actions', () => {
 			await expect(promise).rejects.toThrow(Error);
 			await expect(promise).rejects.toHaveProperty('kind', 'fatal');
 
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith({
 				payload: undefined,
@@ -140,7 +168,7 @@ describe('Smart Card: Actions', () => {
 			await deferrable.promise;
 			await deferrable.flush();
 
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true);
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, undefined);
 		});
 
 		it('dispatches reloading action when reload API invoked', async () => {
@@ -183,7 +211,7 @@ describe('Smart Card: Actions', () => {
 			const promise = result.current.register();
 			await expect(promise).resolves.toBeUndefined();
 
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
 			expect(mockContext.store.dispatch).toHaveBeenCalledWith({
 				payload: {
@@ -228,7 +256,7 @@ describe('Smart Card: Actions', () => {
 			const promise = result.current.register();
 			await expect(promise).resolves.toBeUndefined();
 
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
 			expect(mockContext.store.dispatch).nthCalledWith(3, {
 				type: 'fallback',
@@ -259,7 +287,7 @@ describe('Smart Card: Actions', () => {
 			const promise = result.current.register();
 			await expect(promise).resolves.toBeUndefined();
 
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
 			expect(mockContext.store.dispatch).nthCalledWith(3, {
 				type: 'fallback',
@@ -281,7 +309,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const promise = result.current.register();
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 			await expect(promise).rejects.toBeInstanceOf(Error);
 			await expect(promise).rejects.toHaveProperty('kind', 'fatal');
 
@@ -302,6 +330,28 @@ describe('Smart Card: Actions', () => {
 			});
 		});
 
+		it('does not fetch when metadataStatus is already resolved', async () => {
+			mockState({
+				status: 'resolved',
+				details: mocks.success,
+				metadataStatus: 'resolved',
+			});
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => {
+				return useSmartCardActions(id, url);
+			});
+
+			result.current.loadMetadata();
+
+			expect(mockContext.connections.client.fetchData).not.toHaveBeenCalled();
+		});
+
+		ffTest.on(
+			'platform_smartlink_inline_resolve_optimization',
+			'when FG is on, loadMetadata uses resolveNew with block appearance',
+			() => {
+
 		it('dispatches resolved metadata state for a success response', async () => {
 			mockFetchData(Promise.resolve(mocks.success));
 
@@ -312,7 +362,8 @@ describe('Smart Card: Actions', () => {
 			const promise = result.current.loadMetadata();
 			await expect(promise).resolves.toBeUndefined();
 
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			// loadMetadata always requests 'block' appearance to get full data including summary
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
 			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
 				payload: undefined,
@@ -352,7 +403,8 @@ describe('Smart Card: Actions', () => {
 				const promise = result.current.loadMetadata();
 
 				await expect(promise).resolves.toBeUndefined();
-				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+				// loadMetadata always requests 'block' appearance to get full data including summary
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
 				expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
 					payload: undefined,
@@ -388,7 +440,8 @@ describe('Smart Card: Actions', () => {
 				const promise = result.current.loadMetadata();
 
 				await expect(promise).resolves.toBeUndefined();
-				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+				// loadMetadata always requests 'block' appearance to get full data including summary
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
 				expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
 					payload: undefined,
@@ -417,7 +470,8 @@ describe('Smart Card: Actions', () => {
 			const promise = result.current.loadMetadata();
 
 			await expect(promise).resolves.toBeUndefined();
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+			// loadMetadata always requests 'block' appearance to get full data including summary
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
 			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
 				payload: undefined,
@@ -434,6 +488,46 @@ describe('Smart Card: Actions', () => {
 				metadataStatus: 'errored',
 			});
 		});
+
+		it('fetches with block appearance when metadataStatus is pending', async () => {
+			mockState({
+				status: 'resolved',
+				details: mocks.success,
+				metadataStatus: 'pending',
+			});
+			mockFetchData(Promise.resolve(mocks.success));
+
+			const result = renderHook(() => {
+				return useSmartCardActions(id, url);
+			});
+
+			const promise = result.current.loadMetadata();
+			await expect(promise).resolves.toBeUndefined();
+
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+		});
+
+			}, // end ffTest.on callback
+		); // end ffTest.on
+
+		ffTest.off(
+			'platform_smartlink_inline_resolve_optimization',
+			'when FG is off, loadMetadata uses original resolve without appearance',
+			() => {
+				it('does not pass appearance when FG is off', async () => {
+					mockFetchData(Promise.resolve(mocks.success));
+
+					const result = renderHook(() => {
+						return useSmartCardActions(id, url);
+					});
+
+					const promise = result.current.loadMetadata();
+					await expect(promise).resolves.toBeUndefined();
+
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
+				});
+			},
+		);
 	});
 
 	describe('authorize()', () => {

@@ -51,7 +51,7 @@ export const MoveColumnLeftItem = (props: TableMenuComponentsParams): React.JSX.
 			getSelectedColumnIndexes(selectionRect),
 			selectionRect.left - 1,
 		)(editorView.state, editorView.dispatch);
-		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.execute(closeActiveTableMenu(api));
 		api?.core.actions.focus();
 	};
 

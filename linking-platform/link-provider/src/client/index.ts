@@ -13,6 +13,7 @@ import {
 	NetworkError,
 	getStatus,
 	type ProductType,
+	type CardAppearance,
 } from '@atlaskit/linking-common';
 import { type CardClient as CardClientInterface } from './types';
 import {
@@ -317,24 +318,31 @@ export default class CardClient implements CardClientInterface {
 		}
 	}
 
-	private async resolveUrl(url: string, force: boolean = false) {
+	private async resolveUrl(url: string, force: boolean = false, appearance?: CardAppearance) {
 		const hostname = this.getHostName(url);
 		const loader = this.getLoader(hostname);
+		const isInlineOptEnabled =
+			appearance !== undefined && fg('platform_smartlink_inline_resolve_optimization');
+
+		// Include appearance in cache key when feature flag is enabled and appearance is specified
+		const cacheKey = isInlineOptEnabled ? `${url}|${appearance}` : url;
 
 		let responsePromise: Promise<SuccessResponse | ErrorResponse> | undefined;
 
-		responsePromise = urlResponsePromiseCache.get(url);
+		responsePromise = urlResponsePromiseCache.get(cacheKey);
 		if (!responsePromise || force) {
 			if (fg('platform_linking_force_no_cache_smart_card_client')) {
 				const urlLoader = this.getUrlLoader(hostname);
 				responsePromise = urlLoader.load({
 					resourceUrl: url,
 					ignoreCachedValue: force || undefined,
+					// Pass appearance to ORS when feature flag is enabled
+					...(isInlineOptEnabled ? { appearance } : {}),
 				});
 			} else {
 				responsePromise = loader.load(url);
 			}
-			urlResponsePromiseCache.set(url, responsePromise);
+			urlResponsePromiseCache.set(cacheKey, responsePromise);
 		}
 
 		let response: SuccessResponse | ErrorResponse;
@@ -351,15 +359,15 @@ export default class CardClient implements CardClientInterface {
 			!isSuccessfulResponse(response) || getStatus(response.body) !== 'resolved';
 		if (isUnresolvedLink) {
 			// We want consequent calls for fetchData() to cause actual http call
-			urlResponsePromiseCache.delete(url);
+			urlResponsePromiseCache.delete(cacheKey);
 		}
 
 		return response;
 	}
 
-	public async prefetchData(url: string): Promise<JsonLd.Response | undefined> {
+	public async prefetchData(url: string, appearance?: CardAppearance): Promise<JsonLd.Response | undefined> {
 		// 1. Queue the URL as part of a dataloader batch.
-		const response = await this.resolveUrl(url, false);
+		const response = await this.resolveUrl(url, false, appearance);
 
 		if (isSuccessfulResponse(response)) {
 			// 2. If the URL resolves, send it back.
@@ -375,7 +383,7 @@ export default class CardClient implements CardClientInterface {
 					// This cascades <retryCount> times after which it is handled like a normal
 					// 'error', returning `undefined`.
 					if (!this.resolvedCache[url]) {
-						const response = await this.resolveUrl(url, false);
+						const response = await this.resolveUrl(url, false, appearance);
 						if (isSuccessfulResponse(response)) {
 							return response;
 						} else {
@@ -403,13 +411,20 @@ export default class CardClient implements CardClientInterface {
 		return isErrorResponse(response) && response.error.status === 429;
 	}
 
-	// Fetch data from URL
-	public async fetchData(url: string, force?: boolean): Promise<JsonLd.Response> {
-		let response = await this.resolveUrl(url, force);
+	/**
+	 * Fetch data from URL
+	 * @param url - The URL to fetch data for
+	 * @param force - Whether to force a fresh fetch, bypassing cache
+	 * @param appearance - Card appearance hint for ORS to optimize response payload.
+	 *                     When 'inline', ORS returns minimal data (title, status).
+	 *                     When 'block' or 'embed', ORS returns full data including summary.
+	 */
+	public async fetchData(url: string, force?: boolean, appearance?: CardAppearance): Promise<JsonLd.Response> {
+		let response = await this.resolveUrl(url, force, appearance);
 
 		if (this.isRateLimitError(response)) {
 			response = await retry(async () => {
-				const retryResponse = await this.resolveUrl(url, false);
+				const retryResponse = await this.resolveUrl(url, false, appearance);
 				if (this.isRateLimitError(retryResponse)) {
 					throw this.mapErrorResponse(retryResponse, new URL(url).hostname);
 				}

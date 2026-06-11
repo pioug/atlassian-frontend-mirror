@@ -113,13 +113,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
-	// Added 2025-12-09
-	cc_editor_hover_link_overlay_css_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-08
 	cc_integrations_editor_open_link_click_analytics: {
 		defaultValue: boolean;
@@ -306,13 +299,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-03
 	editor_tinymce_full_width_mode: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-16
-	platform_editor_remove_important_in_render_ext: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1374,6 +1360,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-11
+	platform_teamoji_26_refresh_emoji_picker: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-26
 	platform_editor_toolbar_update_jira_config: {
 		defaultValue: boolean;
@@ -2112,14 +2105,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-16
-	platform_editor_remove_important_in_render_ext: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_remove_important_in_render_ext',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-12-10
 	confluence_max_width_content_appearance: createBooleanExperiment({
 		productKeys: {
@@ -2208,14 +2193,6 @@ export const editorExperimentsConfig: {
 		defaultValue: 'control',
 	}),
 
-	// Added 2025-12-09
-	cc_editor_hover_link_overlay_css_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_hover_link_overlay_css_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-08
 	cc_integrations_editor_open_link_click_analytics: createBooleanExperiment({
 		productKeys: {
@@ -3490,6 +3467,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_emoji_default_scale',
 			jira: 'platform_editor_emoji_default_scale',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-11
+	platform_teamoji_26_refresh_emoji_picker: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_teamoji_26_refresh_emoji_picker',
+			jira: 'platform_teamoji_26_refresh_emoji_picker',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

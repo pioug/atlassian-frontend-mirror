@@ -26,8 +26,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { layers } from '@atlaskit/theme/constants';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 import { dialogSlideUpAndFade } from '@atlaskit/top-layer/animations';
-import { createCloseEvent, type TDialogCloseReason } from '@atlaskit/top-layer/create-close-event';
-import { Dialog } from '@atlaskit/top-layer/dialog';
+import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
 import type { KeyboardOrMouseEvent, ModalDialogProps } from '../../types';
@@ -416,8 +415,21 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={dialogStyle as CSSProperties}
 			>
-				{/* Prevent background scroll (native inertness only blocks focus/click). */}
-				<DialogScrollLock />
+				{/*
+				 * Prevent background scroll (native inertness only blocks focus/click).
+				 *
+				 * `isOpen={true}` (rather than `!isExiting`) so the lock is held for the
+				 * full visible lifetime of the modal. `DialogScrollLock` is rendered
+				 * inside `<Dialog>`, which is conditionally mounted by
+				 * `ExitingPersistence` — when the consumer closes the modal,
+				 * `isExiting` flips to `true` and Dialog's exit animation plays for
+				 * hundreds of milliseconds while the dialog is still visible. Tying
+				 * the lock to `!isExiting` would release scroll lock at the start of
+				 * that animation, allowing the background to scroll while the modal
+				 * is still on screen. The lock is released naturally when
+				 * `ExitingPersistence` unmounts this subtree after the exit settles.
+				 */}
+				<DialogScrollLock isOpen={true} />
 				{/* ID-scoped responsive positioning (overrides atomic margin: auto). */}
 				{dialogPositionStyles && (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles

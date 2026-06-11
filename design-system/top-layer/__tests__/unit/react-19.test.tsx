@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
 import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
-import { render, screen } from '@atlassian/testing-library';
+import { render, screen, waitFor } from '@atlassian/testing-library';
 
 import {
 	dialogFade,
@@ -10,11 +10,7 @@ import {
 	scaleAndFade,
 	slideAndFade,
 } from '../../src/entry-points/animations';
-import {
-	createCloseEvent,
-	createPopoverCloseEvent,
-} from '../../src/entry-points/create-close-event';
-import { Dialog } from '../../src/entry-points/dialog';
+import { createCloseEvent, Dialog } from '../../src/entry-points/dialog';
 import { DialogScrollLock } from '../../src/entry-points/dialog-scroll-lock';
 import {
 	getFirstFocusable,
@@ -23,7 +19,7 @@ import {
 } from '../../src/entry-points/focus';
 import { getAriaForTrigger } from '../../src/entry-points/get-aria-for-trigger';
 import { fromLegacyPlacement } from '../../src/entry-points/placement-map';
-import { Popover } from '../../src/entry-points/popover';
+import { createPopoverCloseEvent, Popover } from '../../src/entry-points/popover';
 import { PopoverSurface } from '../../src/entry-points/popover-surface';
 import { useAnchorPosition } from '../../src/entry-points/use-anchor-position';
 import {
@@ -146,7 +142,7 @@ describe('React 19 readiness (top-layer)', () => {
 			const { unmount } = render(
 				<React.StrictMode>
 					<Dialog isOpen={true} onClose={noop} label="scroll-lock">
-						<DialogScrollLock />
+						<DialogScrollLock isOpen={true} />
 						<span>locked</span>
 					</Dialog>
 				</React.StrictMode>,
@@ -179,6 +175,7 @@ describe('React 19 readiness (top-layer)', () => {
 				popoverRef,
 				placement: { edge: 'end' },
 				forceFallbackPositioning: true,
+				isOpen: true,
 			});
 			return (
 				<>
@@ -300,7 +297,7 @@ describe('React 19 readiness (top-layer)', () => {
 		it('Dialog with DialogScrollLock passes strict mode', async () => {
 			await expect(() => (
 				<Dialog isOpen={true} onClose={noop} label="strict-dialog">
-					<DialogScrollLock />
+					<DialogScrollLock isOpen={true} />
 					<span>x</span>
 				</Dialog>
 			)).toPassStrictMode();
@@ -329,6 +326,7 @@ describe('React 19 readiness (top-layer)', () => {
 					popoverRef,
 					placement: { edge: 'end' },
 					forceFallbackPositioning: true,
+					isOpen: true,
 				});
 				return (
 					<>
@@ -345,57 +343,57 @@ describe('React 19 readiness (top-layer)', () => {
 	});
 
 	describe('Open→close→open lifecycle', () => {
-		it('Popover handles open→close→open without errors', () => {
+		it('Popover handles open→close→open without errors', async () => {
 			const onClose = jest.fn();
 			const { rerender } = render(
 				<Popover isOpen={true} onClose={onClose} role="dialog" label="lifecycle">
 					body
 				</Popover>,
 			);
-			const popover = screen.getByRole('dialog', { name: 'lifecycle' });
-			expect(popover).toBeVisible();
+			expect(screen.getByRole('dialog', { name: 'lifecycle' })).toBeVisible();
 
 			rerender(
 				<Popover isOpen={false} onClose={onClose} role="dialog" label="lifecycle">
 					body
 				</Popover>,
 			);
-			expect(popover).not.toBeVisible();
+			// Host element unmounts when closed, so the dialog is no longer in the DOM.
+			await waitFor(() => expect(screen.queryByRole('dialog', { name: 'lifecycle' })).not.toBeInTheDocument());
 
 			rerender(
 				<Popover isOpen={true} onClose={onClose} role="dialog" label="lifecycle">
 					body
 				</Popover>,
 			);
-			expect(popover).toBeVisible();
+			expect(screen.getByRole('dialog', { name: 'lifecycle' })).toBeVisible();
 		});
 
-		it('Dialog handles open→close→open without errors', () => {
+		it('Dialog handles open→close→open without errors', async () => {
 			const onClose = jest.fn<void, [{ reason: 'escape' | 'overlay-click' }]>();
 			const { rerender } = render(
 				<Dialog isOpen={true} onClose={onClose} label="lifecycle">
 					content
 				</Dialog>,
 			);
-			const dialog = screen.getByRole('dialog', { hidden: true });
-			expect(dialog).toBeVisible();
+			expect(screen.getByRole('dialog', { hidden: true })).toBeVisible();
 
 			rerender(
 				<Dialog isOpen={false} onClose={onClose} label="lifecycle">
 					content
 				</Dialog>,
 			);
-			expect(dialog).not.toBeVisible();
+			// Host element unmounts when closed.
+			await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
 
 			rerender(
 				<Dialog isOpen={true} onClose={onClose} label="lifecycle">
 					content
 				</Dialog>,
 			);
-			expect(dialog).toBeVisible();
+			expect(screen.getByRole('dialog', { hidden: true })).toBeVisible();
 		});
 
-		it('Popover handles open→close→open under StrictMode without onClose firing', () => {
+		it('Popover handles open→close→open under StrictMode without onClose firing', async () => {
 			const onClose = jest.fn();
 			const { rerender } = render(
 				<React.StrictMode>
@@ -404,8 +402,7 @@ describe('React 19 readiness (top-layer)', () => {
 					</Popover>
 				</React.StrictMode>,
 			);
-			const popover = screen.getByRole('dialog', { name: 'sm-lifecycle' });
-			expect(popover).toBeVisible();
+			expect(screen.getByRole('dialog', { name: 'sm-lifecycle' })).toBeVisible();
 
 			rerender(
 				<React.StrictMode>
@@ -414,7 +411,7 @@ describe('React 19 readiness (top-layer)', () => {
 					</Popover>
 				</React.StrictMode>,
 			);
-			expect(popover).not.toBeVisible();
+			await waitFor(() => expect(screen.queryByRole('dialog', { name: 'sm-lifecycle' })).not.toBeInTheDocument());
 
 			rerender(
 				<React.StrictMode>
@@ -423,11 +420,11 @@ describe('React 19 readiness (top-layer)', () => {
 					</Popover>
 				</React.StrictMode>,
 			);
-			expect(popover).toBeVisible();
+			expect(screen.getByRole('dialog', { name: 'sm-lifecycle' })).toBeVisible();
 			expect(onClose).not.toHaveBeenCalled();
 		});
 
-		it('Dialog handles open→close→open under StrictMode without onClose firing', () => {
+		it('Dialog handles open→close→open under StrictMode without onClose firing', async () => {
 			const onClose = jest.fn<void, [{ reason: 'escape' | 'overlay-click' }]>();
 			const { rerender } = render(
 				<React.StrictMode>
@@ -436,8 +433,7 @@ describe('React 19 readiness (top-layer)', () => {
 					</Dialog>
 				</React.StrictMode>,
 			);
-			const dialog = screen.getByRole('dialog', { hidden: true });
-			expect(dialog).toBeVisible();
+			expect(screen.getByRole('dialog', { hidden: true })).toBeVisible();
 
 			rerender(
 				<React.StrictMode>
@@ -446,7 +442,7 @@ describe('React 19 readiness (top-layer)', () => {
 					</Dialog>
 				</React.StrictMode>,
 			);
-			expect(dialog).not.toBeVisible();
+			await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
 
 			rerender(
 				<React.StrictMode>
@@ -455,16 +451,16 @@ describe('React 19 readiness (top-layer)', () => {
 					</Dialog>
 				</React.StrictMode>,
 			);
-			expect(dialog).toBeVisible();
+			expect(screen.getByRole('dialog', { hidden: true })).toBeVisible();
 			expect(onClose).not.toHaveBeenCalled();
 		});
 	});
 
 	describe('Ref forwarding', () => {
-		it('forwards ref to Popover div element', () => {
+		it('forwards ref to Popover div element while open', () => {
 			const ref = React.createRef<HTMLDivElement>();
 			render(
-				<Popover ref={ref} isOpen={false} onClose={noop} role="dialog" label="ref-test">
+				<Popover ref={ref} isOpen={true} onClose={noop} role="dialog" label="ref-test">
 					ref body
 				</Popover>,
 			);
@@ -472,14 +468,34 @@ describe('React 19 readiness (top-layer)', () => {
 			expect(ref.current).toHaveAttribute('role', 'dialog');
 		});
 
-		it('forwards ref to Dialog element', () => {
+		it('ref is null when Popover is closed (host element is not rendered)', () => {
+			const ref = React.createRef<HTMLDivElement>();
+			render(
+				<Popover ref={ref} isOpen={false} onClose={noop} role="dialog" label="ref-test">
+					ref body
+				</Popover>,
+			);
+			expect(ref.current).toBeNull();
+		});
+
+		it('forwards ref to Dialog element while open', () => {
+			const ref = React.createRef<HTMLDialogElement>();
+			render(
+				<Dialog ref={ref} isOpen={true} onClose={noop} label="ref-test">
+					ref body
+				</Dialog>,
+			);
+			expect(ref.current).toBeInstanceOf(HTMLDialogElement);
+		});
+
+		it('ref is null when Dialog is closed (host element is not rendered)', () => {
 			const ref = React.createRef<HTMLDialogElement>();
 			render(
 				<Dialog ref={ref} isOpen={false} onClose={noop} label="ref-test">
 					ref body
 				</Dialog>,
 			);
-			expect(ref.current).toBeInstanceOf(HTMLDialogElement);
+			expect(ref.current).toBeNull();
 		});
 	});
 
@@ -559,21 +575,22 @@ describe('React 19 readiness (top-layer)', () => {
 	});
 
 	describe('Popover core behaviors', () => {
-		it('is visible when open and hidden when closed', () => {
+		it('is visible when open and unmounted when closed', async () => {
 			const { rerender } = render(
 				<Popover isOpen={true} onClose={noop} role="dialog" label="api">
 					content
 				</Popover>,
 			);
-			const popover = screen.getByRole('dialog', { name: 'api' });
-			expect(popover).toBeVisible();
+			expect(screen.getByRole('dialog', { name: 'api' })).toBeVisible();
 
 			rerender(
 				<Popover isOpen={false} onClose={noop} role="dialog" label="api">
 					content
 				</Popover>,
 			);
-			expect(popover).not.toBeVisible();
+			// Host element unmounts after close so no empty role-bearing
+			// element is left in the accessibility tree.
+			await waitFor(() => expect(screen.queryByRole('dialog', { name: 'api' })).not.toBeInTheDocument());
 		});
 
 		it('renders the popover element with the native popover attribute and id', () => {
@@ -589,21 +606,21 @@ describe('React 19 readiness (top-layer)', () => {
 	});
 
 	describe('Dialog core behaviors', () => {
-		it('is visible when open and hidden when closed', () => {
+		it('is visible when open and unmounted when closed', async () => {
 			const { rerender } = render(
 				<Dialog isOpen={true} onClose={noop} label="api">
 					content
 				</Dialog>,
 			);
-			const dialog = screen.getByRole('dialog', { hidden: true });
-			expect(dialog).toBeVisible();
+			expect(screen.getByRole('dialog', { hidden: true })).toBeVisible();
 
 			rerender(
 				<Dialog isOpen={false} onClose={noop} label="api">
 					content
 				</Dialog>,
 			);
-			expect(dialog).not.toBeVisible();
+			// Host element unmounts after close.
+			await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
 		});
 
 		it('uses the native dialog element', () => {
@@ -622,7 +639,7 @@ describe('React 19 readiness (top-layer)', () => {
 			document.body.style.overflow = 'visible';
 			render(
 				<Dialog isOpen={false} onClose={noop} label="no-lock">
-					<DialogScrollLock />
+					<DialogScrollLock isOpen={false} />
 					<span>not locked</span>
 				</Dialog>,
 			);
@@ -700,7 +717,7 @@ describe('React 19 readiness (top-layer)', () => {
 			await expect(
 				doesRenderWithSsr(
 					<Dialog isOpen={false} onClose={noop} label="ssr-lock">
-						<DialogScrollLock />
+						<DialogScrollLock isOpen={false} />
 						<span>locked</span>
 					</Dialog>,
 				),

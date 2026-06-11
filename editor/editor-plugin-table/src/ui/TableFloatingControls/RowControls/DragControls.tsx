@@ -2,6 +2,12 @@
 import type { MouseEvent } from 'react';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
+import {
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+	TABLE_ACTION,
+} from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -12,8 +18,11 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/ad
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import { clearHoverSelection } from '../../../pm-plugins/commands';
-import { toggleActiveTableMenuWithAnalytics } from '../../../pm-plugins/commands/commands-with-analytics';
+import {
+	clearHoverSelection,
+	closeActiveTableMenu,
+	toggleActiveTableMenu,
+} from '../../../pm-plugins/commands';
 import { toggleDragMenuWithAnalytics } from '../../../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import { getPluginState as getTablePluginState } from '../../../pm-plugins/plugin-factory';
@@ -113,15 +122,45 @@ export const DragControls = ({
 			event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent> | undefined,
 		) => {
 			if (event?.shiftKey) {
+				// Shift-click extends the selection rather than toggling the menu, but the
+				// open drag menu would otherwise stay anchored to a stale row. Close it here
+				// for the updated menu (legacy menu closes via outside-click on its dropdown).
+				if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+					api?.core.actions.execute(closeActiveTableMenu(api));
+				}
 				return;
 			}
 			const rowIndex = hoveredCell?.rowIndex;
 			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-				if (rowIndex !== undefined) {
-					toggleActiveTableMenuWithAnalytics(api?.analytics?.actions)('row', rowIndex, trigger)(
+				if (rowIndex !== undefined && api) {
+					const { activeTableMenu: currentActiveTableMenu } = getTablePluginState(
 						editorView.state,
-						editorView.dispatch,
 					);
+					const isSameActiveMenu =
+						currentActiveTableMenu?.type === 'row' && currentActiveTableMenu.index === rowIndex;
+
+					api.core.actions.execute(({ tr }) => {
+						if (!isSameActiveMenu) {
+							api.analytics?.actions?.attachAnalyticsEvent({
+								action: TABLE_ACTION.DRAG_MENU_OPENED,
+								actionSubject: ACTION_SUBJECT.TABLE,
+								actionSubjectId: null,
+								eventType: EVENT_TYPE.TRACK,
+								attributes: {
+									inputMethod:
+										trigger === 'keyboard' ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
+									direction: 'row',
+								},
+							})(tr);
+						}
+
+						toggleActiveTableMenu(
+							{ type: 'row', index: rowIndex, openedBy: trigger },
+							currentActiveTableMenu,
+							api,
+						)({ tr });
+						return tr;
+					});
 				}
 				return;
 			}
@@ -131,7 +170,7 @@ export const DragControls = ({
 				editorView.dispatch,
 			);
 		},
-		[editorView, hoveredCell?.rowIndex, api?.analytics?.actions],
+		[editorView, hoveredCell?.rowIndex, api],
 	);
 
 	const rowIndex = hoveredCell?.rowIndex;

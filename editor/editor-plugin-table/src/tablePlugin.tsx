@@ -804,6 +804,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							attributes: {
 								inputMethod: INPUT_METHOD.QUICK_INSERT,
 								localId: tableNode.attrs.localId,
+								...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? { parentNode: tr.selection.$from.node(-1)?.type.name } : {}),
 							},
 							eventType: EVENT_TYPE.TRACK,
 						})(tr);

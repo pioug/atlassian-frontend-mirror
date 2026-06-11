@@ -445,7 +445,7 @@ describe('LozengeAction', () => {
 
 		// making sure the reload was called with correct parameters
 		expect(mockResolve).toHaveBeenCalledTimes(1);
-		expect(mockResolve).toHaveBeenCalledWith(url, true, undefined, id);
+		expect(mockResolve).toHaveBeenCalledWith({ url, isReloading: true, id });
 	});
 
 	it('renders error with a default message when update fails for an unknown reason', async () => {

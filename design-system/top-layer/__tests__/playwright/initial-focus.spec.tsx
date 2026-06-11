@@ -57,6 +57,32 @@ test.describe('Popover - role-based initial focus', () => {
 		await expect(page.getByTestId('menu-first-item')).toBeFocused();
 	});
 
+	// Top-layer "no role" catch-out: when a popover opens without a
+	// `role` prop (and is therefore not a dialog/menu/listbox/tooltip),
+	// the initial-focus hook must not move focus. The trigger keeps
+	// focus. Higher-level consumers that always pass a role (e.g. by
+	// defaulting a missing role to `dialog`) will not exercise this
+	// branch, so it must be tested at the primitive layer.
+	test('no role: does NOT move focus (catch-out branch)', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/123-testing-popover-initial-focus.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-initial-focus',
+		);
+
+		const trigger = page.getByTestId('no-role-trigger');
+		// Use keyboard activation so the trigger reliably has focus
+		// before the popover opens (Chromium does not focus a <button>
+		// on mouse click for parity with other browsers).
+		await trigger.focus();
+		await page.keyboard.press('Enter');
+
+		await expect(page.getByTestId('no-role-popup')).toBeVisible();
+
+		await expect(trigger).toBeFocused();
+		await expect(page.getByTestId('no-role-first-button')).not.toBeFocused();
+	});
+
 	// WCAG 2.4.3 Focus Order
 	// Tooltip popovers should NOT move focus — they are informational overlays.
 	test('role="tooltip": does NOT move focus', async ({ page }) => {

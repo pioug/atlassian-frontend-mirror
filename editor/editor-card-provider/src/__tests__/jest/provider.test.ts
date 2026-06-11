@@ -416,7 +416,7 @@ describe('EditorCardProvider', () => {
 		});
 
 	describe('nodeDataKey', () => {
-		it('should return the url from the node attributes', () => {
+		it('should return the url from the node attributes when inline resolve optimization is off', () => {
 			const url = 'https://atlassian.com/test';
 			const node: InlineCardAdf = {
 				type: 'inlineCard',
@@ -425,10 +425,36 @@ describe('EditorCardProvider', () => {
 
 			expect(provider.nodeDataKey(node)).toBe(url);
 		});
+
+		it('should include card appearance when inline resolve optimization is on', () => {
+			setBooleanFeatureFlagResolver(
+				(flag) =>
+					flag === 'avp_unfurl_shared_charts_embed_by_default_2' ||
+					flag === 'platform_smartlink_inline_resolve_optimization',
+			);
+
+			const url = 'https://atlassian.com/test';
+			const inlineNode: InlineCardAdf = {
+				type: 'inlineCard',
+				attrs: { url },
+			};
+			const blockNode: BlockCardAdf = {
+				type: 'blockCard',
+				attrs: { url },
+			};
+			const embedNode: EmbedCardAdf = {
+				type: 'embedCard',
+				attrs: { url, layout: 'wide' },
+			};
+
+			expect(provider.nodeDataKey(inlineNode)).toBe(`${url}|inline`);
+			expect(provider.nodeDataKey(blockNode)).toBe(`${url}|block`);
+			expect(provider.nodeDataKey(embedNode)).toBe(`${url}|embed`);
+		});
 	});
 
 	describe('fetchNodesData', () => {
-		it('should call cardClient.fetchData for each node and return the results', async () => {
+		it('should call cardClient.fetchData without appearance when inline resolve optimization is off', async () => {
 			const nodes: (InlineCardAdf | BlockCardAdf | EmbedCardAdf)[] = [
 				{ type: 'inlineCard', attrs: { url: 'https://url1.com' } },
 				{ type: 'blockCard', attrs: { url: 'https://url2.com' } },
@@ -448,8 +474,39 @@ describe('EditorCardProvider', () => {
 			const results = await provider.fetchNodesData(nodes);
 
 			expect(mockCardClient.fetchData).toHaveBeenCalledTimes(2);
-			expect(mockCardClient.fetchData).toHaveBeenCalledWith('https://url1.com');
-			expect(mockCardClient.fetchData).toHaveBeenCalledWith('https://url2.com');
+			expect(mockCardClient.fetchData).toHaveBeenCalledWith('https://url1.com', false, undefined);
+			expect(mockCardClient.fetchData).toHaveBeenCalledWith('https://url2.com', false, undefined);
+			expect(results).toEqual(mockResponses);
+		});
+
+		it('should call cardClient.fetchData with appearance when inline resolve optimization is on', async () => {
+			setBooleanFeatureFlagResolver(
+				(flag) =>
+					flag === 'avp_unfurl_shared_charts_embed_by_default_2' ||
+					flag === 'platform_smartlink_inline_resolve_optimization',
+			);
+
+			const nodes: (InlineCardAdf | BlockCardAdf | EmbedCardAdf)[] = [
+				{ type: 'inlineCard', attrs: { url: 'https://url1.com' } },
+				{ type: 'blockCard', attrs: { url: 'https://url2.com' } },
+			];
+			const mockResponses = [
+				{ data: { url: 'https://url1.com' } },
+				{ data: { url: 'https://url2.com' } },
+			];
+
+			jest
+				.spyOn(CardClient.prototype, 'fetchData')
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				.mockResolvedValueOnce(mockResponses[0] as any)
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				.mockResolvedValueOnce(mockResponses[1] as any);
+
+			const results = await provider.fetchNodesData(nodes);
+
+			expect(mockCardClient.fetchData).toHaveBeenCalledTimes(2);
+			expect(mockCardClient.fetchData).toHaveBeenCalledWith('https://url1.com', false, 'inline');
+			expect(mockCardClient.fetchData).toHaveBeenCalledWith('https://url2.com', false, 'block');
 			expect(results).toEqual(mockResponses);
 		});
 
@@ -463,6 +520,12 @@ describe('EditorCardProvider', () => {
 	});
 
 	it('should allow to pass custom CardClient', async () => {
+		setBooleanFeatureFlagResolver(
+			(flag) =>
+				flag === 'avp_unfurl_shared_charts_embed_by_default_2' ||
+				flag === 'platform_smartlink_inline_resolve_optimization',
+		);
+
 		const customCardClient = new CardClient();
 		jest.spyOn(customCardClient, 'fetchData').mockResolvedValue({
 			data: {
@@ -492,7 +555,7 @@ describe('EditorCardProvider', () => {
 			{ type: 'inlineCard', attrs: { url: 'https://example.com' } },
 		]);
 
-		expect(customCardClient.fetchData).toHaveBeenCalledWith('https://example.com');
+		expect(customCardClient.fetchData).toHaveBeenCalledWith('https://example.com', false, 'inline');
 	});
 
 	it('should not set product to custom CardClient', async () => {

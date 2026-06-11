@@ -77,9 +77,11 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should correctly parse color macro 
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -330,9 +332,11 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should not have emphasis mark along
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -386,9 +390,11 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse codeblock inside a col
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -430,9 +436,11 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse codeblock inside a nof
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": null,
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -500,9 +508,11 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse color and code macro w
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -579,9 +589,11 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse color and code macro w
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -681,9 +693,11 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse image macro inside a n
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": null,
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -725,9 +739,11 @@ exports[`JIRA wiki markup - Lists ADFEXP-371 should parse invalid ADF macro insi
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": null,
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -3208,9 +3224,11 @@ exports[`JIRA wiki markup - Lists should jump over empty lines in macro successf
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {
@@ -3707,9 +3725,11 @@ exports[`JIRA wiki markup - Lists should support codeBlock in listItem now 1`] =
             },
             {
               "attrs": {
+                "hideLineNumbers": false,
                 "language": "java",
                 "localId": null,
                 "uniqueId": null,
+                "wrap": null,
               },
               "content": [
                 {

@@ -1,5 +1,4 @@
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { normalizeUrl } from '@atlaskit/linking-common/url';
 
 import {
 	type LinkCreatedAttributesType,
@@ -117,13 +116,13 @@ export const mergeAttributes = (
 	attributes?: Record<string, unknown>,
 ):
 	| {
-			smartLinkId: string | undefined;
 			creationMethod: string;
+			smartLinkId: string | undefined;
 			sourceEvent: string | null;
 	  }
 	| {
-			smartLinkId: string | undefined;
 			deleteMethod: string;
+			smartLinkId: string | undefined;
 			sourceEvent: string | null;
 	  }
 	| {
@@ -140,17 +139,4 @@ export const mergeAttributes = (
 		...derivedAttributes,
 		smartLinkId: details.smartLinkId,
 	};
-};
-
-export const getDomainFromUrl = (url: string): string | null => {
-	try {
-		const normalizedUrl = normalizeUrl(url);
-		if (!normalizedUrl) {
-			return null;
-		}
-
-		return new URL(normalizedUrl).hostname;
-	} catch {
-		return null;
-	}
 };

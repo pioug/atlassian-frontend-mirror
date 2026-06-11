@@ -76,7 +76,7 @@ export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.J
 				color,
 				editorView,
 			)(editorView.state, editorView.dispatch);
-			api?.core.actions.execute(closeActiveTableMenu());
+			api?.core.actions.execute(closeActiveTableMenu(api));
 			api?.core.actions.focus();
 		},
 		[api, editorView],

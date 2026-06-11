@@ -9,6 +9,13 @@ test.describe('DialogScrollLock', () => {
 			'testing-dialog-scroll-lock',
 		);
 
+		// Reset body overflow to a known scrollable value so the test does not
+		// depend on whatever the example page or a prior test leaked into the
+		// document.
+		await page.evaluate(() => {
+			document.body.style.overflow = '';
+		});
+
 		// Body should be scrollable before dialog opens
 		const overflowBefore = await page.evaluate(() => document.body.style.overflow);
 		expect(overflowBefore).not.toBe('hidden');
@@ -28,7 +35,10 @@ test.describe('DialogScrollLock', () => {
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 
-		// Body should be scrollable again after dialog closes
+		// Body should be scrollable again after dialog closes.
+		// `DialogScrollLock` releases the lock synchronously on the dialog's
+		// `close` event, so the value is observable immediately after the
+		// dialog is hidden.
 		const overflowAfter = await page.evaluate(() => document.body.style.overflow);
 		expect(overflowAfter).not.toBe('hidden');
 	});
@@ -60,7 +70,7 @@ test.describe('DialogScrollLock', () => {
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('dialog-body')).toBeHidden();
 
-		// Should restore original 'scroll' value, not empty string
+		// Should restore original 'scroll' value, not empty string.
 		const overflowAfter = await page.evaluate(() => document.body.style.overflow);
 		expect(overflowAfter).toBe('scroll');
 	});

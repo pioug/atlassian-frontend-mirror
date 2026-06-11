@@ -39,7 +39,7 @@ export default function TestingDialogScrollLock(): ReactNode {
 			</div>
 
 			<Dialog onClose={handleClose} isOpen={isOpen} labelledBy="dialog-title" testId="dialog">
-				<DialogScrollLock />
+				<DialogScrollLock isOpen={isOpen} />
 				<Heading size="large" id="dialog-title">
 					Scroll lock test
 				</Heading>

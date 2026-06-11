@@ -15,15 +15,19 @@ import { InlineCardUnauthorizedView } from '../../src/view/InlineCard/Unauthoris
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 type InlineCardUnauthorisedSocialProofExampleProps = {
+	containerWidth?: React.CSSProperties['width'];
 	includeContext?: boolean;
 	providerPercentage?: number;
+	url?: string;
 };
 
 const bodyFontTokens = [token('font.body'), token('font.body.large')];
 
 export const InlineCardUnauthorisedSocialProofExample = ({
+	containerWidth,
 	providerPercentage,
 	includeContext = true,
+	url = 'https://www.figma.com/file/aK9mJ2pLqrX5vW',
 }: InlineCardUnauthorisedSocialProofExampleProps): React.JSX.Element => {
 	const mockGetProviderPctMapSync = injectable(getCachedProviderPctMapAndRefresh, () =>
 		providerPercentage === undefined ? {} : { 'figma-object-provider': providerPercentage },
@@ -33,7 +37,7 @@ export const InlineCardUnauthorisedSocialProofExample = ({
 
 	const renderInlineCard = () => (
 		<InlineCardUnauthorizedView
-			url="https://www.figma.com/file/aK9mJ2pLqrX5vW"
+			url={url}
 			context={includeContext ? 'Figma' : undefined}
 			extensionKey="figma-object-provider"
 			onAuthorise={() => {}}
@@ -41,16 +45,20 @@ export const InlineCardUnauthorisedSocialProofExample = ({
 		/>
 	);
 
+	const inlineCards = (
+		<Stack space="space.100">
+			{bodyFontTokens.map((bodyFontToken) => (
+				<Box key={bodyFontToken} style={{ font: bodyFontToken }}>
+					{renderInlineCard()}
+				</Box>
+			))}
+		</Stack>
+	);
+
 	return (
 		<DiProvider use={socialProofDi}>
 			<VRTestWrapper>
-				<Stack space="space.100">
-					{bodyFontTokens.map((bodyFontToken) => (
-						<Box key={bodyFontToken} style={{ font: bodyFontToken }}>
-							{renderInlineCard()}
-						</Box>
-					))}
-				</Stack>
+				{containerWidth ? <Box style={{ width: containerWidth }}>{inlineCards}</Box> : inlineCards}
 			</VRTestWrapper>
 		</DiProvider>
 	);

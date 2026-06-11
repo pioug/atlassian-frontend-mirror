@@ -66,9 +66,11 @@ exports[`JIRA wiki markup - blockquote Blockquote macro with nested codeblock 1`
       "content": [
         {
           "attrs": {
+            "hideLineNumbers": false,
             "language": "javascript",
             "localId": null,
             "uniqueId": null,
+            "wrap": null,
           },
           "content": [
             {
@@ -207,9 +209,11 @@ exports[`JIRA wiki markup - blockquote Blockquote with nested codeblock 1`] = `
       "content": [
         {
           "attrs": {
+            "hideLineNumbers": false,
             "language": "javascript",
             "localId": null,
             "uniqueId": null,
+            "wrap": null,
           },
           "content": [
             {

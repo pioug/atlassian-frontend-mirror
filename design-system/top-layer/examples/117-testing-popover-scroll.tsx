@@ -50,6 +50,7 @@ export default function TestingPopoverScroll(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

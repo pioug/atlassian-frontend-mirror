@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';
@@ -32,6 +32,7 @@ import HoverCardContent from '../src/view/HoverCard/components/HoverCardContent'
 
 import ExampleContainer from './utils/example-container';
 import HoverCardBox from './utils/hover-card-box';
+import { useLocalStorageState } from './utils/use-local-storage-state';
 
 const styles = cssMap({
 	triggerWrapper: {
@@ -101,7 +102,11 @@ const options: OptionsPropType = [
 const LOCAL_STORAGE_KEY = 'smart-card-example-hover-card-view-type';
 
 export default (): React.JSX.Element => {
-	const [type, setType] = useState(() => localStorage.getItem(LOCAL_STORAGE_KEY) || 'standalone');
+	const [type, setType] = useLocalStorageState<string>({
+		storageKey: LOCAL_STORAGE_KEY,
+		defaultValue: 'standalone',
+		type: 'string',
+	});
 
 	const content = useMemo(() => {
 		const url = 'https://some.url';
@@ -129,9 +134,8 @@ export default (): React.JSX.Element => {
 
 	const onTypeChange = useCallback((event: React.SyntheticEvent<HTMLInputElement>) => {
 		const value = event.currentTarget.value;
-		localStorage.setItem(LOCAL_STORAGE_KEY, value);
 		setType(value);
-	}, []);
+	}, [setType]);
 
 	return (
 		<ExampleContainer title="HoverCard Views">

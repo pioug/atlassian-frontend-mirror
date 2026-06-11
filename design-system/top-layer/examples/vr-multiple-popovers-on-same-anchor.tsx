@@ -57,24 +57,28 @@ export default function VrMultiplePopoversOnSameAnchor(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef: popoverAboveRef,
 		placement: { axis: 'block', edge: 'start' },
+		isOpen: true,
 	});
 
 	useAnchorPosition({
 		anchorRef: triggerRef,
 		popoverRef: popoverBelowRef,
 		placement: { axis: 'block', edge: 'end' },
+		isOpen: true,
 	});
 
 	useAnchorPosition({
 		anchorRef: triggerRef,
 		popoverRef: popoverLeftRef,
 		placement: { axis: 'inline', edge: 'start' },
+		isOpen: true,
 	});
 
 	useAnchorPosition({
 		anchorRef: triggerRef,
 		popoverRef: popoverRightRef,
 		placement: { axis: 'inline', edge: 'end' },
+		isOpen: true,
 	});
 
 	return (

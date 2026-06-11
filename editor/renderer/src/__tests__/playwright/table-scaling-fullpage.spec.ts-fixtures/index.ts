@@ -1,24 +1,27 @@
 export const numberedColumnTableWithWidthAdf: {
-	version: number;
-	type: string;
 	content: {
-		type: string;
 		attrs: {
 			isNumberColumnEnabled: boolean;
 			width: number;
 		};
 		content: {
-			type: string;
 			content: {
-				type: string;
 				attrs: {};
 				content: {
+					content: {
+						text: string;
+						type: string;
+					}[];
 					type: string;
-					content: never[];
 				}[];
+				type: string;
 			}[];
+			type: string;
 		}[];
+		type: string;
 	}[];
+	type: string;
+	version: number;
 } = {
 	version: 1,
 	type: 'doc',
@@ -39,7 +42,7 @@ export const numberedColumnTableWithWidthAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'Cell 1' }],
 								},
 							],
 						},
@@ -49,7 +52,7 @@ export const numberedColumnTableWithWidthAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'Cell 2' }],
 								},
 							],
 						},
@@ -59,7 +62,7 @@ export const numberedColumnTableWithWidthAdf: {
 							content: [
 								{
 									type: 'paragraph',
-									content: [],
+									content: [{ type: 'text', text: 'Cell 3' }],
 								},
 							],
 						},

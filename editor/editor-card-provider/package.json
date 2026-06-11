@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "6.8.12",
+	"version": "6.8.15",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -65,6 +65,9 @@
 			"type": "boolean"
 		},
 		"avp_unfurl_shared_charts_embed_by_default_2": {
+			"type": "boolean"
+		},
+		"platform_smartlink_inline_resolve_optimization": {
 			"type": "boolean"
 		},
 		"loom-support-screenshot-sl-resolution": {

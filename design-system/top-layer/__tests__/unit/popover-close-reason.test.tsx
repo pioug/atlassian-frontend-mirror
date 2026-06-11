@@ -76,20 +76,22 @@ describe('Popover closeReasonRef — race condition between Escape keydown and p
 		// onClose should NOT have been called for the programmatic close
 		expect(onClose).not.toHaveBeenCalled();
 
-		// Reopen for the next cycle
+		// Reopen for the next cycle. The Popover unmounts its host element on
+		// close, so re-query for the freshly mounted element.
 		rerender(
 			<Popover isOpen={true} onClose={onClose} role="dialog" label="race-test">
 				content
 			</Popover>,
 		);
+		const reopenedPopover = screen.getByRole('dialog', { name: 'race-test' });
 
 		act(() => {
-			fireOpenToggle(popover);
+			fireOpenToggle(reopenedPopover);
 		});
 
 		// Now trigger a genuine light-dismiss (no Escape keydown this time)
 		act(() => {
-			fireLightDismissToggle(popover);
+			fireLightDismissToggle(reopenedPopover);
 		});
 
 		// The subsequent light-dismiss must report 'light-dismiss', not the stale 'escape'

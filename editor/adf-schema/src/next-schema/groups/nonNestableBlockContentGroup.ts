@@ -31,7 +31,6 @@ export const nonNestableBlockContent: Array<ADFNode<any, any>> = [
 	rule,
 	heading.use('with_no_marks'),
 	codeBlock,
-	codeBlock.use('with_extended_attributes'),
 	mediaGroup,
 	mediaSingle.use('caption'),
 	mediaSingle.use('full'),

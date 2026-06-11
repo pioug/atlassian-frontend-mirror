@@ -140,10 +140,10 @@ Light dismiss handler for manual popovers that need click-outside and Escape key
 `dialogFade()`) that configure CSS entry/exit transitions. See [animations.md](./animations.md) for
 how the animation system works.
 
-### `createPopoverCloseEvent`
+### Close event helpers
 
-`@atlaskit/top-layer/create-close-event` exports a helper for bridging legacy `onClose` signatures
-during migration.
+`@atlaskit/top-layer/dialog` and `@atlaskit/top-layer/popover` export helpers for bridging legacy
+`onClose` signatures during migration.
 
 ### `PopoverSurface`
 
@@ -189,15 +189,14 @@ Dialog                = <dialog> element + isOpen + animate + onExitFinish
 
 | Entry Point                                    | Purpose                                          |
 | ---------------------------------------------- | ------------------------------------------------ |
-| `@atlaskit/top-layer/popover`                  | Top-layer primitive — visibility, animation, focus |
+| `@atlaskit/top-layer/popover`                  | Top-layer primitive and legacy `onClose` bridge |
 | `@atlaskit/top-layer/popover-surface`          | Presentational surface (background, radius, shadow) |
-| `@atlaskit/top-layer/dialog`                   | Modal dialog — `<dialog>` with `showModal()`     |
+| `@atlaskit/top-layer/dialog`                   | Modal dialog and legacy `onClose` bridge         |
 | `@atlaskit/top-layer/animations`               | Animation presets (`slideAndFade`, `fade`, etc.) |
 | `@atlaskit/top-layer/use-anchor-position`      | CSS anchor positioning hook                      |
 | `@atlaskit/top-layer/use-width-from-anchor`    | Match popover width to anchor                    |
 | `@atlaskit/top-layer/use-arrow-navigation`     | Arrow key navigation hook for composite widgets  |
 | `@atlaskit/top-layer/use-simple-light-dismiss` | Light dismiss for manual popovers                |
-| `@atlaskit/top-layer/create-close-event`       | Legacy `onClose` bridge                          |
 | `@atlaskit/top-layer/placement-map`            | Legacy placement string conversion               |
 | `@atlaskit/top-layer/dialog-scroll-lock`       | Background scroll prevention for modals          |
 | `@atlaskit/top-layer/focus`                    | Focus utilities (focus wrapping, initial focus)  |

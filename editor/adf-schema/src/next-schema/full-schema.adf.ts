@@ -24,7 +24,6 @@ const doc: ADFNode<[string], ADFCommonNodeSpec> = adfNode('doc').define({
 				blockGroup,
 				blockContentGroup,
 				codeBlock.use('root_only'),
-				codeBlock.use('root_only_with_extended_attributes'),
 				layoutSection,
 				layoutSection.use('with_single_column'),
 				layoutSection.use('full'),

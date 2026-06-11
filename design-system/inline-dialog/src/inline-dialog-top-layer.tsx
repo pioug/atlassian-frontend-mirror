@@ -10,10 +10,13 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import { token } from '@atlaskit/tokens';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
-import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import {
+	createPopoverCloseEvent,
+	Popover,
+	type TPopoverCloseReason,
+} from '@atlaskit/top-layer/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
@@ -44,7 +47,10 @@ const styles = cssMap({
 const animation = slideAndFade();
 
 type TAriaAttributes = {
-	'aria-controls': string;
+	// `aria-controls` is `undefined` while the popover host is unmounted
+	// (i.e. while the popover is closed). The trigger should not retain a
+	// dangling reference to a removed ID.
+	'aria-controls': string | undefined;
 	'aria-expanded': boolean;
 	'aria-haspopup': boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid';
 };
@@ -67,9 +73,13 @@ function TriggerWrapper({
 		if (!trigger) {
 			return;
 		}
+		// Apply each attribute. When a value is `undefined` (e.g.
+		// `aria-controls` while the popover host is not in the DOM),
+		// remove the attribute so the trigger does not retain a stale
+		// reference from a previous open.
 		Object.entries(ariaAttributes).forEach(([key, value]) => {
-			// Skip undefined entries (e.g. aria-haspopup may be undefined for non-popup roles).
 			if (value === undefined) {
+				trigger.removeAttribute(key);
 				return;
 			}
 			trigger.setAttribute(key, String(value));
@@ -142,10 +152,13 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 		[placement],
 	);
 
+	// `isOpen` is included so the anchor positioning effect re-runs when
+	// the Popover host element is unmounted/remounted across open cycles.
 	useAnchorPosition({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,
+		isOpen,
 	});
 
 	// onClose bridge.

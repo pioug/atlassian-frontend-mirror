@@ -277,12 +277,24 @@ export const createAutocompletePlugin = (
 	let lastSuggestionTypedLength = 0;
 	let lastSuggestionLength = 0;
 
+	/**
+	 * cold  → no slow-lane vector received yet; frequency-only trie scoring
+	 * server → server slow-lane API returned the context vector
+	 * localLlm → on-device WebGPU/MLC model returned the context vector
+	 */
+	const getCompletionSource = (): 'cold' | 'server' | 'localLlm' => {
+		if (!slowLaneClient.getContextVector()) {
+			return 'cold';
+		}
+		return options?.useLocalModel ? 'localLlm' : 'server';
+	};
+
 	const fireSuggestionDismissedAnalytics = (reason: 'escape' | 'blur'): void => {
 		api?.analytics?.actions.fireAnalyticsEvent({
 			action: ACTION.SUGGESTION_DISMISSED,
 			actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
 			eventType: EVENT_TYPE.TRACK,
-			attributes: { reason },
+			attributes: { completionSource: getCompletionSource(), reason },
 		});
 	};
 
@@ -296,6 +308,7 @@ export const createAutocompletePlugin = (
 			actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
 			eventType: EVENT_TYPE.TRACK,
 			attributes: {
+				completionSource: getCompletionSource(),
 				suggestionLength,
 				typedLength,
 				kssDelta,
@@ -484,6 +497,7 @@ export const createAutocompletePlugin = (
 							action: ACTION.SUGGESTION_VIEWED,
 							actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
 							eventType: EVENT_TYPE.TRACK,
+							attributes: { completionSource: getCompletionSource() },
 						});
 					}
 				}

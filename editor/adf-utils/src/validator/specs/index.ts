@@ -17,8 +17,6 @@ export {
 	code,
 	codeBlock,
 	codeBlock_root_only,
-	codeBlock_with_extended_attributes,
-	codeBlock_root_only_with_extended_attributes,
 	text_with_no_marks,
 	confluenceInlineComment,
 	dataConsumer,

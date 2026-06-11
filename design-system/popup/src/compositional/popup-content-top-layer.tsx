@@ -20,9 +20,12 @@ import { ax } from '@compiled/react/runtime';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
-import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import {
+	createPopoverCloseEvent,
+	Popover,
+	type TPopoverCloseReason,
+} from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
@@ -143,16 +146,20 @@ export function PopupContentTopLayer({
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const anchorRef = useContext(TriggerRefObjectContext);
 
+	// `isOpen` is included so the anchor positioning effect re-runs when
+	// the Popover host element is unmounted/remounted across open cycles.
 	useAnchorPosition({
 		anchorRef,
 		popoverRef,
 		placement: topLayerPlacement,
+		isOpen,
 	});
 
 	useWidthFromAnchor({
 		mode: shouldFitContainer ? 'match-anchor' : 'none',
 		popoverRef,
 		anchorRef,
+		isOpen,
 	});
 
 	// Narrow to ForwardRefExoticComponent so JSX accepts the ref prop.

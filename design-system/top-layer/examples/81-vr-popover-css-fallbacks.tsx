@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
+import { Fragment, type ReactNode, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -72,15 +72,9 @@ function PopupAtEdge({ placement }: { placement: TPlacementOptions }) {
 	const label = placementLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setIsOpen] = useState(true);
 
-	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement });
-
-	// Auto-open the popover on mount so the VR snapshot captures the
-	// positioned popover rather than just the closed trigger button.
-	useEffect(() => {
-		setIsOpen(true);
-	}, []);
+	useAnchorPosition({ anchorRef: triggerRef, popoverRef, placement, isOpen });
 
 	return (
 		<Fragment>

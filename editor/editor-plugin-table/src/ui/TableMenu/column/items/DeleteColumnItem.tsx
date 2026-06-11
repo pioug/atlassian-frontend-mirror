@@ -87,7 +87,7 @@ export const DeleteColumnItem = ({ api }: TableMenuComponentsParams): React.JSX.
 			editorView.dispatch,
 			editorView,
 		);
-		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.execute(closeActiveTableMenu(api));
 		api?.core.actions.focus();
 	};
 

@@ -112,27 +112,6 @@ it('should extract the expected additional codeBlock specs', () => {
 				},
 			],
 		],
-		[
-			[
-				'codeBlock',
-				{
-					props: {
-						attrs: expect.any(Object),
-						marks: expect.any(Object),
-					},
-				},
-			],
-		],
-		[
-			[
-				'codeBlock',
-				{
-					props: {
-						attrs: expect.any(Object),
-					},
-				},
-			],
-		],
 	]);
 });
 

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -140,7 +141,12 @@ export const HoverCardComponent = ({
 	// to minimize the loading state
 	const initResolve = useCallback(() => {
 		// this check covers both non-SSR (status) & SSR case (metadataStatus)
-		const isLinkUnresolved = linkState.status === 'pending' || !linkState.metadataStatus;
+		const isLinkUnresolved =
+			linkState.status === 'pending' ||
+			!linkState.metadataStatus ||
+			(linkState.status === 'resolved' &&
+				linkState.metadataStatus === 'pending' &&
+				fg('platform_smartlink_inline_resolve_optimization'));
 
 		if (!resolveTimeOutId.current && isLinkUnresolved) {
 			resolveTimeOutId.current = setTimeout(() => {
@@ -272,7 +278,17 @@ export const HoverCardComponent = ({
 	);
 
 	const trigger = useCallback(
-		({ 'aria-haspopup': _ariaHasPopup, 'aria-expanded': _ariaExpanded, ...triggerProps }: any) => (
+		({
+			'aria-haspopup': _ariaHasPopup,
+			'aria-expanded': _ariaExpanded,
+			// `aria-controls` is also stripped because the trigger wrapper renders
+			// with `role="none"`. axe's `aria-valid-attr-value` rule flags any
+			// `aria-controls` value sitting on a presentational element, since the
+			// element has no semantic role to control. Removing the attribute
+			// keeps the trigger semantically inert without losing functionality.
+			'aria-controls': _ariaControls,
+			...triggerProps
+		}: any) => (
 			<span ref={parentSpan}>
 				<span
 					{...triggerProps}

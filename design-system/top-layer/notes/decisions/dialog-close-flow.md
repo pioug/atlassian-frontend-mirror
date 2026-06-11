@@ -11,9 +11,7 @@ How closing works for `@atlaskit/top-layer` Dialog: who triggers it, who actuall
 The dialog **does not close itself**. The browser does not close it on Escape (we call
 `preventDefault()`), and there is no native "close on backdrop click" for `<dialog>`. The dialog
 closes when the **consumer sets `isOpen={false}`**, which causes `Dialog` to call `dialog.close()`
-internally. The `Dialog` element stays mounted in the DOM — it is never unmounted to close the
-dialog. Children unmount after the exit animation completes (or immediately for non-animated
-closes).
+internally. The consumer does not unmount the `Dialog` to close it. The `<dialog>` host element itself is, however, lifecycle-managed by the primitive: it is rendered only while open or exit-animating, and unmounts after exit completes (see `host-element-unmount-when-hidden.md`). What stays mounted is the consumer's `<Dialog>` React component; the underlying DOM node comes and goes with the open cycle. Children unmount after the exit animation completes (or immediately for non-animated closes).
 
 Top-layer **always** calls `onClose({ reason })` when Escape or backdrop click happens. The consumer
 decides whether to set `isOpen={false}` in response. So "closing" is: **trigger → top-layer calls
@@ -88,7 +86,7 @@ the order is:
 4. **Exit animation plays** (if `animate` is provided) → `transitionend` fires (with fallback
    timeout)
 5. **`onExitFinish` fires** → consumer can coordinate external lifecycle (e.g. `onCloseComplete`)
-6. **Children unmount** — the `<dialog>` element stays in the DOM
+6. **Children unmount and then the `<dialog>` host element unmounts** — see `host-element-unmount-when-hidden.md`. Non-animated closes defer the host unmount via the toggle/close event so the close-reason and native focus restoration paths run against the still-attached element.
 
 When `isOpen` transitions back to `true`, children re-mount, `showModal()` is called, and the entry
-animation plays. The consumer never unmounts the `Dialog` element itself to close the dialog.
+animation plays. The consumer never unmounts the `Dialog` React component to close the dialog — the primitive owns the lifecycle of the underlying `<dialog>` DOM node and unmounts it once exit completes.

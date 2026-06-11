@@ -28,6 +28,7 @@ function OnePopoverOnAnchor({
 		placement,
 		// Force JS fallback so the test does not depend on CSS.supports
 		forceFallbackPositioning: true,
+		isOpen: true,
 	});
 
 	return (
@@ -51,12 +52,14 @@ function MultiplePopoversOnSameAnchor() {
 		anchorRef,
 		popoverRef: popoverAboveRef,
 		placement: { axis: 'block', edge: 'start' },
+		isOpen: true,
 	});
 
 	useAnchorPosition({
 		anchorRef,
 		popoverRef: popoverBelowRef,
 		placement: { axis: 'block', edge: 'end' },
+		isOpen: true,
 	});
 
 	return (
@@ -102,6 +105,7 @@ function PopoverWithAnchorPosition({
 		anchorRef,
 		popoverRef,
 		placement: stablePlacement,
+		isOpen: true,
 	});
 
 	return (
@@ -410,6 +414,7 @@ describe('useAnchorPosition', () => {
 				popoverRef,
 				placement,
 				forceFallbackPositioning: true,
+				isOpen: true,
 			});
 
 			onRender();

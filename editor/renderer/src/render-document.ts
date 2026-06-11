@@ -146,14 +146,32 @@ const _validation = (
 	// Upgrade panel → panel_c1 where the schema allows it
 	if (result && expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
 		try {
-			const { transformedAdf, isTransformed } = transformContainerNodes(result, schema);
+			const { transformedAdf, isTransformed, transformedNodeTypes } = transformContainerNodes(
+				result,
+				schema,
+			);
 			if (isTransformed && transformedAdf) {
-				// TODO: EDITOR-7175 - Add analytics
+				dispatchAnalyticsEvent?.({
+					action: ACTION.CONTAINER_NODE_TRANSFORMED,
+					actionSubject: ACTION_SUBJECT.RENDERER,
+					eventType: EVENT_TYPE.OPERATIONAL,
+					attributes: {
+						transformedNodeTypes,
+					},
+				});
 
 				result = transformedAdf;
 			}
 		} catch (e) {
-			// TODO: EDITOR-7175 - Add analytics
+			dispatchAnalyticsEvent?.({
+				action: ACTION.INVALID_PROSEMIRROR_DOCUMENT,
+				actionSubject: ACTION_SUBJECT.RENDERER,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: {
+					platform: PLATFORM.WEB,
+					errorStack: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to transform panel to panel_c1' : undefined}`,
+				},
+			});
 		}
 	}
 

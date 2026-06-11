@@ -105,6 +105,7 @@ type InsertTableAEP = InsertAEP<
 			| INPUT_METHOD.PICKER
 			| INPUT_METHOD.SHORTCUT;
 		localId?: string;
+		parentNode?: string;
 		totalColumnCount?: number;
 		totalRowCount?: number;
 	},

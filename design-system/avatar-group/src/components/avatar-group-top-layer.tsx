@@ -119,6 +119,7 @@ export function MoreDropdownTopLayer({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,
+		isOpen,
 	});
 
 	// Arrow key navigation inside the open menu

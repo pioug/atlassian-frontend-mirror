@@ -45,12 +45,20 @@ export type HydratedDeprecatedField = {
 	type: 'deprecated-field';
 };
 
+export type HydratedLozengeWithAvatar = {
+	avatarUrl?: string;
+	id: string;
+	name: string;
+	type: 'lozengeWithAvatar';
+};
+
 export type HydratedValue =
 	| HydratedUser
 	| HydratedTeam
 	| HydratedProject
 	| HydratedGoal
-	| HydratedDeprecatedField;
+	| HydratedDeprecatedField
+	| HydratedLozengeWithAvatar;
 
 export type HydratedValues = {
 	[fieldName: string]: HydratedValue[];

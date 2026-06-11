@@ -2019,9 +2019,11 @@ exports[`JIRA wiki markup - Text effects should not search for monospace text in
     },
     {
       "attrs": {
+        "hideLineNumbers": false,
         "language": "java",
         "localId": null,
         "uniqueId": null,
+        "wrap": null,
       },
       "content": [
         {

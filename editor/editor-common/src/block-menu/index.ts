@@ -48,6 +48,7 @@ export {
 	AI_IMPROVE_WRITING_MENU_ITEM,
 	AI_POLISH_MENU_ITEM,
 	AI_REMIX_MENU_ITEM,
+	AI_BLOCK_MENU_LARGE_TEXT_THRESHOLD,
 } from './key';
 
 export {
@@ -123,3 +124,4 @@ export { expandAllParentsThenScroll, findParentExpands, findNodeWithExpandParent
 export type { NodeWithExpandParents } from './scroll-to-block-utils';
 
 export type { BlockMenuPlacement } from './placement';
+

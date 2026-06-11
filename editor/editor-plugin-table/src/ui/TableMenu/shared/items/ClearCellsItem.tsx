@@ -35,7 +35,7 @@ export const ClearCellsItem = ({ api }: TableMenuComponentsParams): React.JSX.El
 			INPUT_METHOD.TABLE_CONTEXT_MENU,
 			targetCellPosition,
 		)(editorView.state, editorView.dispatch);
-		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.execute(closeActiveTableMenu(api));
 		api?.core.actions.focus();
 	};
 

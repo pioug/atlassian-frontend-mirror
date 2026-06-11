@@ -21,10 +21,12 @@ export function useWidthFromAnchor({
 	mode,
 	popoverRef,
 	anchorRef,
+	isOpen,
 }: {
 	mode: TWidthFromAnchorMode;
 	popoverRef: RefObject<HTMLElement | null>;
-	anchorRef: RefObject<HTMLElement | null> | undefined;
+	anchorRef: RefObject<HTMLElement | null>;
+	isOpen: boolean;
 }): void {
 	useLayoutEffect(() => {
 		const node = popoverRef.current;
@@ -49,7 +51,7 @@ export function useWidthFromAnchor({
 			}
 
 			// JS fallback: one-off read of the anchor's width.
-			const anchor = anchorRef?.current;
+			const anchor = anchorRef.current;
 			if (anchor) {
 				return setStyle({
 					el: node,
@@ -75,7 +77,7 @@ export function useWidthFromAnchor({
 				});
 			}
 
-			const anchor = anchorRef?.current;
+			const anchor = anchorRef.current;
 			if (anchor) {
 				return setStyle({
 					el: node,
@@ -89,5 +91,5 @@ export function useWidthFromAnchor({
 
 		// 'none' mode: no explicit width, but still apply `min-inline-size: max-content`.
 		return setStyle({ el: node, styles: [minInlineSizeStyle] });
-	}, [mode, popoverRef, anchorRef]);
+	}, [mode, popoverRef, anchorRef, isOpen]);
 }

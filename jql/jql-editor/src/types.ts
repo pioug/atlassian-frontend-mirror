@@ -9,6 +9,7 @@ export type {
 	HydratedTeam,
 	HydratedProject,
 	HydratedGoal,
+	HydratedLozengeWithAvatar,
 } from './ui/types';
 
 export type {

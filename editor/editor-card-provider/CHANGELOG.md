@@ -1,5 +1,32 @@
 # @atlaskit/editor-card-provider
 
+## 6.8.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.8.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.8.13
+
+### Patch Changes
+
+- [`fdea0f8bc06c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdea0f8bc06c4) -
+  Thread appearance parameter through provider to support ORS optimized response payloads for smart
+  card inline resolve optimization.
+- [`fdea0f8bc06c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdea0f8bc06c4) -
+  Gate the appearance argument in fetchNodesData behind the
+  platform_smartlink_inline_resolve_optimization flag. Previously, appearance was unconditionally
+  passed to cardClient.fetchData, causing shouldUseParentFetchData to always be true via this path
+  and bypassing the editorCardProvider SSR cache and Confluence-specific optimizations when the flag
+  was off.
+- Updated dependencies
+
 ## 6.8.12
 
 ### Patch Changes

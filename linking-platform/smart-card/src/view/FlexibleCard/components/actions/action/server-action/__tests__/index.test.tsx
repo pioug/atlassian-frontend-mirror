@@ -109,7 +109,11 @@ describe('ServerAction', () => {
 		await flushPromises();
 
 		expect(mockResolve).toHaveBeenCalledTimes(1);
-		expect(mockResolve).toHaveBeenCalledWith(action.reload.url, true, undefined, action.reload.id);
+		expect(mockResolve).toHaveBeenCalledWith({
+			url: action.reload.url,
+			isReloading: true,
+			id: action.reload.id,
+		});
 	});
 
 	it('does not reloads the url after invoke fails', async () => {

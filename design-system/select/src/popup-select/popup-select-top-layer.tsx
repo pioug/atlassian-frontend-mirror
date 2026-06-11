@@ -148,6 +148,7 @@ export function PopupSelectTopLayer<
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,
+		isOpen,
 	});
 
 	// Merged components.

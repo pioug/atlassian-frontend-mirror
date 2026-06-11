@@ -1268,9 +1268,11 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
               "content": [
                 {
                   "attrs": {
+                    "hideLineNumbers": false,
                     "language": "java",
                     "localId": null,
                     "uniqueId": null,
+                    "wrap": null,
                   },
                   "content": [
                     {
@@ -1323,9 +1325,11 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
               "content": [
                 {
                   "attrs": {
+                    "hideLineNumbers": false,
                     "language": "json",
                     "localId": null,
                     "uniqueId": null,
+                    "wrap": null,
                   },
                   "content": [
                     {
@@ -1378,9 +1382,11 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
               "content": [
                 {
                   "attrs": {
+                    "hideLineNumbers": false,
                     "language": null,
                     "localId": null,
                     "uniqueId": null,
+                    "wrap": null,
                   },
                   "content": [
                     {
@@ -1688,9 +1694,11 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                         },
                         {
                           "attrs": {
+                            "hideLineNumbers": false,
                             "language": null,
                             "localId": null,
                             "uniqueId": null,
+                            "wrap": null,
                           },
                           "content": [
                             {
@@ -3360,9 +3368,11 @@ exports[`JIRA wiki markup - Tables macros should parse code 1`] = `
               "content": [
                 {
                   "attrs": {
+                    "hideLineNumbers": false,
                     "language": "javascript",
                     "localId": null,
                     "uniqueId": null,
+                    "wrap": null,
                   },
                   "content": [
                     {
@@ -3487,9 +3497,11 @@ exports[`JIRA wiki markup - Tables macros should parse noformat 1`] = `
               "content": [
                 {
                   "attrs": {
+                    "hideLineNumbers": false,
                     "language": null,
                     "localId": null,
                     "uniqueId": null,
+                    "wrap": null,
                   },
                   "content": [
                     {

@@ -1025,6 +1025,51 @@ We have some formatting here
 				expect(screen.getByText('Please select a feedback type')).toBeInTheDocument();
 			});
 		});
+
+		const renderForm = () =>
+			render(
+				<FeedbackForm
+					locale="en"
+					onClose={() => {}}
+					onSubmit={async () => {}}
+					showTypeField
+					showDefaultTextFields
+				/>,
+			);
+		const submit = () => fireEvent.click(screen.getByTestId('feedbackCollectorSubmitBtn'));
+		const getCombobox = () => screen.getByRole('combobox', { name: 'Select feedback' });
+		const describedText = (el: Element) =>
+			(el.getAttribute('aria-describedby') ?? '')
+				.split(/\s+/)
+				.map((id) => document.getElementById(id)?.textContent ?? '')
+				.join(' ');
+
+		it('marks the field aria-invalid and links aria-describedby to the error text on failed submit', async () => {
+			renderForm();
+			submit();
+			await waitFor(() => {
+				expect(getCombobox()).toHaveAttribute('aria-invalid', 'true');
+				expect(describedText(getCombobox())).toContain('Please select a feedback type');
+			});
+		});
+
+		it('moves focus to the first invalid field on failed submit', async () => {
+			renderForm();
+			submit();
+			await waitFor(() => expect(document.activeElement).toBe(getCombobox()));
+		});
+
+		it('clears aria-invalid once the user selects a valid feedback type', async () => {
+			renderForm();
+			submit();
+			await waitFor(() => expect(getCombobox()).toHaveAttribute('aria-invalid', 'true'));
+			fireEvent.keyDown(getCombobox(), { key: 'ArrowDown', code: 40 });
+			fireEvent.keyDown(getCombobox(), { key: 'Enter', code: 13 });
+			await waitFor(() => {
+				expect(getCombobox()).not.toHaveAttribute('aria-invalid', 'true');
+				expect(describedText(getCombobox())).not.toContain('Please select a feedback type');
+			});
+		});
 	});
 
 	describe('Form submission behavior', () => {

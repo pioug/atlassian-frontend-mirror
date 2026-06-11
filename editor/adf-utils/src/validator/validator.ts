@@ -33,7 +33,6 @@ import type {
 } from '../types/validatorTypes';
 import { extractAllowedContent } from './extractAllowedContent';
 import { validatorFnMap } from './rules';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -404,13 +403,7 @@ const unsupportedNodeAttributesContent = (
  * under the base spec must also be valid under the variant.
  */
 const getVariantSpecOverrides = (): Record<string, string> => {
-	const overrides: Record<string, string> = {};
-
-	if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
-		overrides.codeBlock = 'codeBlock_with_extended_attributes';
-	}
-
-	return overrides;
+	return {};
 };
 
 /**

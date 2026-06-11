@@ -459,6 +459,7 @@ function PlacementCell({
 		popoverRef,
 		placement,
 		forceFallbackPositioning,
+		isOpen: isPopupOpen,
 	});
 
 	return (

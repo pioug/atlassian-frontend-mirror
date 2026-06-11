@@ -90,6 +90,7 @@ function FocusCapturingNestedScenario({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'inline', edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -129,6 +130,7 @@ function TooltipNestedScenario({ testIdPrefix }: { testIdPrefix: string }): Reac
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'inline', edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -173,6 +175,7 @@ function OuterDialog({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

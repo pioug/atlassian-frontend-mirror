@@ -1,6 +1,7 @@
 import { mention } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 const isSSR = Boolean(process.env.REACT_SSR);
@@ -27,6 +28,10 @@ export const mentionNodeSpec = (): NodeSpec => {
 				'data-prosemirror-content-type': 'node',
 				'data-prosemirror-node-inline': 'true',
 				'data-prosemirror-node-name': 'mention',
+				'data-user-type':
+					expVal('platform_editor_agent_mentions', 'isEnabled', false) && node.attrs.userType
+						? node.attrs.userType
+						: undefined,
 				style: convertToInlineCss({
 					display: 'inline',
 					border: `1px solid transparent`,

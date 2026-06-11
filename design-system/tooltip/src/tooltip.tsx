@@ -763,6 +763,7 @@ function TopLayerTooltipPopup({
 		popoverRef,
 		placement,
 		isEnabled: !isMouseStrategyActive,
+		isOpen,
 	});
 
 	// Mouse anchor strategy: the hook calls `getPoint()` exactly once
@@ -781,6 +782,7 @@ function TopLayerTooltipPopup({
 		popoverRef,
 		placement,
 		isEnabled: isMouseStrategyActive,
+		isOpen,
 		getPoint: () => {
 			if (!mousePos || !targetRef.current || !isMousePosition) {
 				return null;

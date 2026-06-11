@@ -79,8 +79,10 @@ const updateTargetCellPosition: BuilderTablePluginState =
 			const hasTargetCellChanged = pluginState.targetCellPosition !== targetCellPosition;
 			const hasActiveTableMenu =
 				pluginState.activeTableMenu != null && pluginState.activeTableMenu.type !== 'none';
+
 			const shouldCloseMenu =
 				hasActiveTableMenu &&
+				tr.selectionSet &&
 				(!tableNode || hasTargetCellChanged || !(tr.selection instanceof CellSelection));
 
 			if (!hasTargetCellChanged && !shouldCloseMenu) {
@@ -228,6 +230,7 @@ const buildPluginState =
 				? { ...pluginState, targetCellPosition: undefined }
 				: pluginState;
 		}
+
 		return builders.reduce(
 			(_pluginState, transform) => transform(props)(_pluginState),
 			pluginState,

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-table
 
+## 23.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.3.7
+
+### Patch Changes
+
+- [`1df102e80b904`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1df102e80b904) -
+  Add parentNode field in insert table events to track panel_c1 -> table
+- Updated dependencies
+
+## 23.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.3.5
+
+### Patch Changes
+
+- [`473e6619e9af8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/473e6619e9af8) -
+  Fix shift selection + state update in table menu
+
 ## 23.3.4
 
 ### Patch Changes

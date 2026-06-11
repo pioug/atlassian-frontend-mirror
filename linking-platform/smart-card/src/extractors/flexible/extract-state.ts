@@ -96,7 +96,7 @@ const extractAction = (
 				appearance,
 				fireEvent,
 				id,
-				onClose: resolve ? () => url && resolve(url, true) : undefined,
+				onClose: resolve ? () => url && resolve({ url, isReloading: true }) : undefined,
 				origin,
 				response,
 				isPreviewPanelAvailable,

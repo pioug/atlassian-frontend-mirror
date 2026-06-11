@@ -1,25 +1,24 @@
 import React, { useCallback, useState } from 'react';
 
-import '@atlaskit/link-test-helpers/jest';
-
-import { IntlProvider } from 'react-intl';
-import userEvent from '@testing-library/user-event';
 import { act, fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
-import { LinkPicker, type LinkPickerProps } from '@atlaskit/link-picker';
-
-import { EVENT_CHANNEL } from './common/utils/constants';
-import { useSmartLinkLifecycleAnalytics } from './lifecycle';
-import { runWhenIdle } from './utils';
-import { fakeFactory, mocks } from './__fixtures__/mocks';
-import { type LifecycleAction } from './types';
-import { icon } from '@atlaskit/link-test-helpers/images';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import { LinkPicker, type LinkPickerProps } from '@atlaskit/link-picker';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { icon } from '@atlaskit/link-test-helpers/images';
+import '@atlaskit/link-test-helpers/jest';
 
-jest.mock('./utils', () => {
-	const originalModule = jest.requireActual('./utils');
+import { fakeFactory, mocks } from './__fixtures__/mocks';
+import { EVENT_CHANNEL } from './common/utils/constants';
+import { type LifecycleAction } from './types';
+import { useSmartLinkLifecycleAnalytics } from './use-smart-link-lifecycle-analytics';
+import { runWhenIdle } from './utils/run-when-idle';
+
+jest.mock('./utils/run-when-idle', () => {
+	const originalModule = jest.requireActual('./utils/run-when-idle');
 	return {
 		...originalModule,
 		runWhenIdle: jest.fn(),

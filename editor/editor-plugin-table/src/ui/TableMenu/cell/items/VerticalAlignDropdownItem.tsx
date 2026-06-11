@@ -39,7 +39,7 @@ export const VerticalAlignDropdownItem = ({
 		const { targetCellPosition } = getPluginState(editorView.state);
 		api.core.actions.execute(({ tr }) => {
 			setMultipleCellAttrsEditorCommand({ valign: value }, targetCellPosition)({ tr });
-			closeActiveTableMenu()({ tr });
+			closeActiveTableMenu(api)({ tr });
 			return tr;
 		});
 		api.core.actions.focus();

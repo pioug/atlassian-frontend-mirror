@@ -33,6 +33,7 @@ import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-in
 import InlineCardUnauthorisedSocialProofLoaded from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-loaded';
 import InlineCardUnauthorisedSocialProofLowExplore from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-explore';
 import InlineCardUnauthorisedSocialProofLowNoContext from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-low-no-context';
+import InlineCardUnauthorisedSocialProofNarrow from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-narrow';
 import InlineCardUnauthorisedSocialProofNoContext from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-social-proof-no-context';
 import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-truncate';
 import {
@@ -282,6 +283,16 @@ snapshot(InlineCardUnauthorisedSocialProofLoaded, {
 	featureFlags: {
 		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
 		platform_sl_3p_preauth_social_proof_inline_cta: [true, false],
+	},
+	mockRequests: [...mockEdgeTenantInfoRequests],
+});
+
+snapshot(InlineCardUnauthorisedSocialProofNarrow, {
+	description: 'inline card unauthorised with social proof in narrow container',
+	featureFlags: {
+		platform_sl_3p_preauth_soc_proof_inline_killswitch: true,
+		platform_sl_3p_preauth_social_proof_inline_cta: true,
+		platform_lp_social_proof_inline_overflow_bug: [true, false],
 	},
 	mockRequests: [...mockEdgeTenantInfoRequests],
 });

@@ -1,5 +1,30 @@
 # @atlaskit/adf-utils
 
+## 19.33.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.33.0
+
+### Minor Changes
+
+- [`38d753a24e9ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38d753a24e9ad) -
+  Promote code block wrap and line number attrs to the full ADF schema
+
+### Patch Changes
+
+- [`8f894bdeea3a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f894bdeea3a0) -
+  Add analytics event for panel_c1 transformation
+- Updated dependencies
+
+## 19.32.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.32.9
 
 ### Patch Changes

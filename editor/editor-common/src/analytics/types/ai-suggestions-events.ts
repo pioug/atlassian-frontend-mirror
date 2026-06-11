@@ -40,4 +40,24 @@ type DiscardSuggestionAEP = TrackAEP<
 	undefined
 >;
 
-export type AiSuggestionsEventPayload = NoDiffSuggestionAEP | AcceptSuggestionAEP | DiscardSuggestionAEP;
+type ViewSuggestionAEP = TrackAEP<
+	ACTION.VIEWED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		affectedBlocks: number;
+		blockTypes: string[];
+		charactersToAdd: number;
+		charactersToRemove: number;
+		entryPoint: 'sidebar' | 'card';
+		suggestionCardCharacterCount: number;
+		suggestionType: string;
+	},
+	undefined
+>;
+
+export type AiSuggestionsEventPayload =
+	| NoDiffSuggestionAEP
+	| AcceptSuggestionAEP
+	| DiscardSuggestionAEP
+	| ViewSuggestionAEP;

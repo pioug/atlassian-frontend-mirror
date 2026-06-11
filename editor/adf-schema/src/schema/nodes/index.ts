@@ -17,7 +17,6 @@ export type { BulletListDefinition } from './types/list';
 export {
 	codeBlock,
 	codeBlockWithLocalId,
-	codeBlockWithExtendedAttributes,
 	toJSON as codeBlockToJSON,
 } from './code-block';
 export type {

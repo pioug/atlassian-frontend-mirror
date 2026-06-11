@@ -1,5 +1,16 @@
 # @atlaskit/jql-editor
 
+## 6.5.0
+
+### Minor Changes
+
+- [`9ead91bedc94b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ead91bedc94b) -
+  [ux] Add function argument hydration support behind feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.4.7
 
 ### Patch Changes

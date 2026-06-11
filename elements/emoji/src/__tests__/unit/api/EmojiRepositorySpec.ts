@@ -1,6 +1,8 @@
 import pWaitFor from 'p-wait-for';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import EmojiRepository, { getEmojiVariation } from '../../../api/EmojiRepository';
-import { customCategory, customType } from '../../../util/constants';
+import { customCategory, customType, frequentCategory } from '../../../util/constants';
 import { containsEmojiId, toEmojiId } from '../../../util/type-helpers';
 import { type EmojiDescription, SearchSort } from '../../../types';
 import {
@@ -142,6 +144,8 @@ const allNumberTest: EmojiDescription = {
 	searchable: true,
 };
 
+const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+
 const frequentTest: EmojiDescription = {
 	id: '1f43c',
 	name: 'panda face',
@@ -167,21 +171,21 @@ const frequentTest: EmojiDescription = {
 };
 
 export const siteEmojiChinese1: {
+	category: string;
+	creatorUserId: string;
+	fallback: string;
 	id: string;
 	name: string;
-	fallback: string;
-	type: string;
-	category: string;
 	order: number;
-	searchable: boolean;
-	shortName: string;
-	creatorUserId: string;
 	representation: {
 		height: number;
-		width: number;
 		imagePath: string;
+		width: number;
 	};
+	searchable: boolean;
+	shortName: string;
 	skinVariations: never[];
+	type: string;
 } = {
 	id: 'chinese1',
 	name: '我想你',
@@ -202,21 +206,21 @@ export const siteEmojiChinese1: {
 };
 
 export const siteEmojiChinese2: {
+	category: string;
+	creatorUserId: string;
+	fallback: string;
 	id: string;
 	name: string;
-	fallback: string;
-	type: string;
-	category: string;
 	order: number;
-	searchable: boolean;
-	shortName: string;
-	creatorUserId: string;
 	representation: {
 		height: number;
-		width: number;
 		imagePath: string;
+		width: number;
 	};
+	searchable: boolean;
+	shortName: string;
 	skinVariations: never[];
+	type: string;
 } = {
 	id: 'chinese2',
 	name: '象形字',
@@ -237,21 +241,21 @@ export const siteEmojiChinese2: {
 };
 
 export const siteEmojiChinese3: {
+	category: string;
+	creatorUserId: string;
+	fallback: string;
 	id: string;
 	name: string;
-	fallback: string;
-	type: string;
-	category: string;
 	order: number;
-	searchable: boolean;
-	shortName: string;
-	creatorUserId: string;
 	representation: {
 		height: number;
-		width: number;
 		imagePath: string;
+		width: number;
 	};
+	searchable: boolean;
+	shortName: string;
 	skinVariations: never[];
+	type: string;
 } = {
 	id: 'chinese3',
 	name: '我字',
@@ -272,21 +276,21 @@ export const siteEmojiChinese3: {
 };
 
 export const siteEmojiGreek1: {
+	category: string;
+	creatorUserId: string;
+	fallback: string;
 	id: string;
 	name: string;
-	fallback: string;
-	type: string;
-	category: string;
 	order: number;
-	searchable: boolean;
-	shortName: string;
-	creatorUserId: string;
 	representation: {
 		height: number;
-		width: number;
 		imagePath: string;
+		width: number;
 	};
+	searchable: boolean;
+	shortName: string;
 	skinVariations: never[];
+	type: string;
 } = {
 	id: 'greek1',
 	name: 'ΦΏϖϘώ',
@@ -307,21 +311,21 @@ export const siteEmojiGreek1: {
 };
 
 export const siteEmojiGreek2: {
+	category: string;
+	creatorUserId: string;
+	fallback: string;
 	id: string;
 	name: string;
-	fallback: string;
-	type: string;
-	category: string;
 	order: number;
-	searchable: boolean;
-	shortName: string;
-	creatorUserId: string;
 	representation: {
 		height: number;
-		width: number;
 		imagePath: string;
+		width: number;
 	};
+	searchable: boolean;
+	shortName: string;
 	skinVariations: never[];
+	type: string;
 } = {
 	id: 'greek2',
 	name: 'ϪϮϼϠ',
@@ -342,21 +346,21 @@ export const siteEmojiGreek2: {
 };
 
 export const siteEmojiGreek3: {
+	category: string;
+	creatorUserId: string;
+	fallback: string;
 	id: string;
 	name: string;
-	fallback: string;
-	type: string;
-	category: string;
 	order: number;
-	searchable: boolean;
-	shortName: string;
-	creatorUserId: string;
 	representation: {
 		height: number;
-		width: number;
 		imagePath: string;
+		width: number;
 	};
+	searchable: boolean;
+	shortName: string;
 	skinVariations: never[];
+	type: string;
 } = {
 	id: 'greek3',
 	name: 'ϪϮϘώ',
@@ -378,11 +382,31 @@ export const siteEmojiGreek3: {
 
 describe('EmojiRepository', () => {
 	let emojiRepository: EmojiRepository;
+	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+	let initializeCompletedSpy: jest.SpiedFunction<typeof FeatureGates.initializeCompleted>;
 
 	beforeEach(() => {
+		setupEditorExperiments('confluence');
+		initializeCompletedSpy = jest
+			.spyOn(FeatureGates, 'initializeCompleted')
+			.mockReturnValue(true);
+		getExperimentValueSpy = jest.spyOn(FeatureGates, 'getExperimentValue').mockImplementation(
+			(_experimentName, _parameterName, defaultValue) => defaultValue,
+		);
 		// emojiRepository has state that can influence search results so make it fresh for each test.
 		emojiRepository = newEmojiRepository();
 	});
+
+	afterEach(() => {
+		getExperimentValueSpy.mockRestore();
+		initializeCompletedSpy.mockRestore();
+	});
+
+	const enableTeamojiRefreshExperiment = () => {
+		getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
+			experimentName === teamojiRefreshExperimentName ? true : defaultValue,
+		);
+	};
 
 	describe('Search with non standard characters', () => {
 		it('one match expected when searching emoji with chinese characters', () => {
@@ -739,6 +763,75 @@ describe('EmojiRepository', () => {
 			const allCategoryEmojis = [...allEmojis, frequentTest];
 			const repository = new EmojiRepository(allCategoryEmojis);
 			expect(repository.getDynamicCategoryList()).toEqual(['ATLASSIAN', 'CUSTOM', 'FREQUENT']);
+		});
+
+		it('keeps atlassian subcategory values separate when teamoji experiment is disabled', () => {
+			const atlassianFaces: EmojiDescription = {
+				...atlassianTest,
+				id: 'atlassian-faces',
+				category: 'FACES',
+			};
+			const frequentAtlassian: EmojiDescription = {
+				...atlassianTest,
+				id: 'frequent-atlassian',
+				category: frequentCategory,
+			};
+			const repository = new EmojiRepository([atlassianFaces, frequentAtlassian]);
+
+			expect(repository.getDynamicCategoryList()).toEqual(['FACES', 'FREQUENT']);
+		});
+
+		it('groups atlassian subcategory values under ATLASSIAN but preserves FREQUENT when teamoji experiment is enabled', () => {
+			enableTeamojiRefreshExperiment();
+			const atlassianFaces: EmojiDescription = {
+				...atlassianTest,
+				id: 'atlassian-faces',
+				category: 'FACES',
+			};
+			const frequentAtlassian: EmojiDescription = {
+				...atlassianTest,
+				id: 'frequent-atlassian',
+				category: frequentCategory,
+			};
+			const repository = new EmojiRepository([atlassianFaces, frequentAtlassian]);
+
+			expect(repository.getDynamicCategoryList()).toEqual(['ATLASSIAN', 'FREQUENT']);
+		});
+
+		it('does not find atlassian subcategory emojis by top-level ATLASSIAN category when teamoji experiment is disabled', () => {
+			const atlassianFaces: EmojiDescription = {
+				...atlassianTest,
+				id: 'atlassian-faces',
+				category: 'FACES',
+			};
+			const atlassianHands: EmojiDescription = {
+				...atlassianTest,
+				id: 'atlassian-hands',
+				category: 'HANDS',
+			};
+			const repository = new EmojiRepository([atlassianFaces, atlassianHands, standardTest]);
+
+			expect(repository.findInCategory('ATLASSIAN')).toEqual([]);
+		});
+
+		it('finds atlassian subcategory emojis by top-level ATLASSIAN category when teamoji experiment is enabled', () => {
+			enableTeamojiRefreshExperiment();
+			const atlassianFaces: EmojiDescription = {
+				...atlassianTest,
+				id: 'atlassian-faces',
+				category: 'FACES',
+			};
+			const atlassianHands: EmojiDescription = {
+				...atlassianTest,
+				id: 'atlassian-hands',
+				category: 'HANDS',
+			};
+			const repository = new EmojiRepository([atlassianFaces, atlassianHands, standardTest]);
+
+			expect(repository.findInCategory('ATLASSIAN').map((emoji) => emoji.id)).toEqual([
+				atlassianFaces.id,
+				atlassianHands.id,
+			]);
 		});
 
 		it('should return FREQUENT as a category if there is emoji use tracked', (done) => {

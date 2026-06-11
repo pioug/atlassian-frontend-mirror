@@ -7,7 +7,7 @@ import { text } from './text';
 import { unsupportedInline } from './unsupportedInline';
 
 export const codeBlock: ADFNode<
-	[string, 'root_only', 'with_extended_attributes', 'root_only_with_extended_attributes'],
+	[string, 'root_only'],
 	ADFCommonNodeSpec & {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		marks: any[];
@@ -22,6 +22,8 @@ export const codeBlock: ADFNode<
 			language: { type: 'string', default: null, optional: true },
 			uniqueId: { type: 'string', default: null, optional: true },
 			localId: { type: 'string', default: null, optional: true },
+			wrap: { type: 'boolean', default: null, optional: true },
+			hideLineNumbers: { type: 'boolean', default: false, optional: true },
 		},
 		noMarks: true,
 		content: [$zeroPlus($or(text.use('with_no_marks'), unsupportedInline))],
@@ -31,29 +33,4 @@ export const codeBlock: ADFNode<
 		marks: [breakout, unsupportedMark, unsupportedNodeAttribute],
 		noMarks: false,
 		noExtend: true,
-	})
-	// Stage-0 variant: adds wrap and hideLineNumbers attributes (ADF Change 101)
-	.variant('with_extended_attributes', {
-		attrs: {
-			language: { type: 'string', default: null, optional: true },
-			uniqueId: { type: 'string', default: null, optional: true },
-			localId: { type: 'string', default: null, optional: true },
-			wrap: { type: 'boolean', default: null, optional: true },
-			hideLineNumbers: { type: 'boolean', default: false, optional: true },
-		},
-		stage0: true,
-	})
-	// Stage-0 variant: root_only marks + extended attributes (ADF Change 101)
-	.variant('root_only_with_extended_attributes', {
-		marks: [breakout, unsupportedMark, unsupportedNodeAttribute],
-		noMarks: false,
-		noExtend: true,
-		attrs: {
-			language: { type: 'string', default: null, optional: true },
-			uniqueId: { type: 'string', default: null, optional: true },
-			localId: { type: 'string', default: null, optional: true },
-			wrap: { type: 'boolean', default: null, optional: true },
-			hideLineNumbers: { type: 'boolean', default: false, optional: true },
-		},
-		stage0: true,
 	});

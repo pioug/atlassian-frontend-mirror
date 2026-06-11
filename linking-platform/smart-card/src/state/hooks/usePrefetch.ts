@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { ACTION_UPDATE_METADATA_STATUS, cardAction } from '@atlaskit/linking-common';
+import { ACTION_UPDATE_METADATA_STATUS, cardAction, type CardAppearance } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-export function usePrefetch(url: string): () => Promise<void> {
+export function usePrefetch(url: string, appearance?: CardAppearance): () => Promise<void> {
 	const { store, prefetchStore, connections } = useSmartLinkContext();
 	const { dispatch, getState } = store || {};
 	const { client } = connections || {};
@@ -35,24 +36,32 @@ export function usePrefetch(url: string): () => Promise<void> {
 			// requests by domain (as usual) to ensure we minimize the amount of connections
 			// we create between browser -> ORS when making network requests.
 			try {
-				const response = await client.prefetchData(url);
+				const response = await client.prefetchData(url, appearance);
 				// Once the data comes back, we put the link in the `resolved` status. This ensures
 				// that when the link enters the viewport and is rendered, we immediately show it as
 				// a Smart Link, rather than rendering a loading spinner -> immediate Smart Link.
 				if (response) {
 					dispatch({ type: 'resolved', url, payload: response });
-					// Put the metadata in resolved state, theres no need for a pending or errored state as
-					// we are following the same render flow as described by the comments above and below.
+					// Put the metadata status: 'pending' for inline appearance when FG is on, so HoverCard
+					// can upgrade to full block data. Otherwise 'resolved' preserves existing behaviour.
 					dispatch(
-						cardAction(ACTION_UPDATE_METADATA_STATUS, { url }, undefined, undefined, 'resolved'),
+						cardAction(
+							ACTION_UPDATE_METADATA_STATUS,
+							{ url },
+							undefined,
+							undefined,
+							appearance === 'inline' && fg('platform_smartlink_inline_resolve_optimization')
+								? 'pending'
+								: 'resolved',
+						),
 					);
 				}
-			} catch (_err) {
+			} catch {
 				// Do nothing, link will be retried under the hood with exponential backoff.
 				// If it does not succeed even after those retries, the normal resolve flow
 				// will start when the link is in view. Since we have not performed any store
 				// mutations yet, the link will behave like a 'brand new' link.
 			}
 		}
-	}, [store, prefetchStore, connections, url, getState, client, dispatch]);
+	}, [store, prefetchStore, connections, url, getState, client, dispatch, appearance]);
 }

@@ -226,7 +226,10 @@ export class EmojiNodeView implements NodeView {
 	): representation is Exclude<EmojiRepresentation, undefined> {
 		return (
 			!!representation &&
-			('sprite' in representation || 'imagePath' in representation || 'mediaPath' in representation)
+			('sprite' in representation ||
+				'imagePath' in representation ||
+				'mediaPath' in representation ||
+				'unicodeEmoji' in representation)
 		);
 	}
 
@@ -267,7 +270,12 @@ export class EmojiNodeView implements NodeView {
 		this.renderingFallback = false;
 		this.cleanUpAndRenderCommonAttributes();
 
-		const emojiType = 'sprite' in representation ? 'sprite' : 'image';
+		const emojiType =
+			'unicodeEmoji' in representation
+				? 'unicode'
+				: 'sprite' in representation
+					? 'sprite'
+					: 'image';
 
 		let doc = getDocument();
 		if (!doc) {

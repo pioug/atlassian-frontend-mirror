@@ -1,17 +1,32 @@
 import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { ActiveTableMenu } from '../../types';
+import type { ActiveTableMenu, PluginInjectionAPI } from '../../types';
 import { pluginKey } from '../plugin-key';
 
+const applyMenuUserIntent = (
+	tr: Transaction,
+	api: PluginInjectionAPI | undefined | null,
+	nextActiveTableMenu: ActiveTableMenu,
+) => {
+	const isRowOrColumnMenuOpen =
+		nextActiveTableMenu.type === 'row' || nextActiveTableMenu.type === 'column';
+	api?.userIntent?.commands.setCurrentUserIntent(
+		isRowOrColumnMenuOpen ? 'tableDragMenuPopupOpen' : 'default',
+	)({ tr });
+};
+
 export const closeActiveTableMenu =
-	(): EditorCommand =>
+	(api?: PluginInjectionAPI | null): EditorCommand =>
 	({ tr }) => {
+		const nextActiveTableMenu: ActiveTableMenu = { type: 'none' };
 		tr.setMeta(pluginKey, {
 			type: 'SET_ACTIVE_TABLE_MENU',
 			data: {
-				activeTableMenu: { type: 'none' },
+				activeTableMenu: nextActiveTableMenu,
 			},
 		});
+		applyMenuUserIntent(tr, api, nextActiveTableMenu);
 		if (!tr.docChanged) {
 			tr.setMeta('addToHistory', false);
 		}
@@ -34,16 +49,22 @@ export const toggleActiveTableMenu =
 	(
 		activeTableMenu: Exclude<ActiveTableMenu, { type: 'none' }>,
 		currentActiveTableMenu: ActiveTableMenu | undefined,
+		api?: PluginInjectionAPI | null,
 	): EditorCommand =>
 	({ tr }) => {
+		const nextActiveTableMenu: ActiveTableMenu = isSameActiveTableMenu(
+			currentActiveTableMenu,
+			activeTableMenu,
+		)
+			? { type: 'none' }
+			: activeTableMenu;
 		tr.setMeta(pluginKey, {
 			type: 'SET_ACTIVE_TABLE_MENU',
 			data: {
-				activeTableMenu: isSameActiveTableMenu(currentActiveTableMenu, activeTableMenu)
-					? { type: 'none' }
-					: activeTableMenu,
+				activeTableMenu: nextActiveTableMenu,
 			},
 		});
+		applyMenuUserIntent(tr, api, nextActiveTableMenu);
 		tr.setMeta('addToHistory', false);
 		return tr;
 	};

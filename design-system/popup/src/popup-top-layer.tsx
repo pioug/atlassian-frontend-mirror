@@ -20,10 +20,13 @@ import { cssMap, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
-import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
-import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
+import {
+	createPopoverCloseEvent,
+	Popover,
+	type TPopoverCloseReason,
+} from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
@@ -132,12 +135,14 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,
+		isOpen,
 	});
 
 	useWidthFromAnchor({
 		mode: shouldFitContainer ? 'match-anchor' : 'none',
 		popoverRef,
 		anchorRef: triggerRef,
+		isOpen,
 	});
 
 	// onClose bridge.

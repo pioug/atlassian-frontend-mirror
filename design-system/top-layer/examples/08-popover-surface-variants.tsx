@@ -74,6 +74,7 @@ function CustomStyledPopoverDemo({
 		popoverRef,
 		placement: { edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (
@@ -117,6 +118,7 @@ function WithSurfacePopoverDemo({
 		popoverRef,
 		placement: { edge: 'end' },
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (

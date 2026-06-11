@@ -205,6 +205,7 @@ function AnimatedPopoverDemo({
 		popoverRef,
 		placement,
 		forceFallbackPositioning,
+		isOpen,
 	});
 
 	return (

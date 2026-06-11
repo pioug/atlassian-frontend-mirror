@@ -4,6 +4,7 @@ import * as testMocks from '../../use-resolve/__tests__/index.test.mock';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../../utils/mocks';
@@ -79,6 +80,25 @@ describe('useResponse', () => {
 				}),
 			);
 		});
+
+		ffTest.on(
+			'platform_smartlink_inline_resolve_optimization',
+			'should use provided metadata status on link success',
+			() => {
+				it('should use provided metadata status on link success', () => {
+					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
+					handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+
+					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+						expect.objectContaining({
+							type: 'metadata',
+							url: 'https://some/url',
+							metadataStatus: 'pending',
+						}),
+					);
+				});
+			},
+		);
 
 		it('should dispatch fallback error for forbidden responses when authFlow is disabled', () => {
 			mockContext = {

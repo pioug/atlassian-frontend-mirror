@@ -7,7 +7,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { di } from 'react-magnetic-di';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Pressable } from '@atlaskit/primitives/compiled';
@@ -62,10 +62,6 @@ const socialProofPillStyles = cssMap({
 	strong: {
 		fontWeight: token('font.weight.bold'),
 	},
-	inlineContainer: {
-		display: 'inline-flex',
-		alignItems: 'center',
-	},
 	root: {
 		display: 'inline',
 		alignItems: 'center',
@@ -95,12 +91,24 @@ const socialProofPillStyles = cssMap({
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 	},
+	wrappingLabel: {
+		overflow: 'visible',
+		textOverflow: 'clip',
+		whiteSpace: 'break-spaces',
+		wordBreak: 'break-all',
+	},
 	button: {
 		backgroundColor: 'transparent',
 		paddingRight: token('space.0'),
 		paddingLeft: token('space.0'),
 		paddingTop: token('space.0'),
 		paddingBottom: token('space.0'),
+	},
+	pressableContents: {
+		display: 'contents',
+	},
+	inlineGroup: {
+		display: 'inline',
 	},
 });
 
@@ -183,7 +191,10 @@ const UnauthorisedConnectWithSocialProof = ({
 		<React.Fragment>
 			{showSocialProofPill ? (
 				<Box as="span" xcss={socialProofPillStyles.root} testId={`${testId}-social-proof-tag`}>
-					<Box as="span" xcss={socialProofPillStyles.label}>
+					<Box as="span" xcss={cx(
+						socialProofPillStyles.label,
+						fg('platform_lp_social_proof_inline_overflow_bug') && socialProofPillStyles.wrappingLabel,
+					)}>
 						{socialProofPillContent}
 					</Box>
 				</Box>
@@ -207,9 +218,15 @@ const UnauthorisedConnectWithSocialProof = ({
 		<Pressable
 			onClick={onConnectClick}
 			style={{ font: `inherit` }}
-			xcss={socialProofPillStyles.button}
+			xcss={cx(
+				socialProofPillStyles.button,
+				fg('platform_lp_social_proof_inline_overflow_bug') && socialProofPillStyles.pressableContents,
+			)}
 		>
-			{buttonContent}
+			{fg('platform_lp_social_proof_inline_overflow_bug') ? 
+				<Box as="span" xcss={socialProofPillStyles.inlineGroup}>
+					{buttonContent}
+				</Box> : buttonContent}
 		</Pressable>
 	) : (
 		buttonContent
@@ -286,11 +303,7 @@ export const InlineCardUnauthorizedView = ({
 	);
 
 	if (onAuthorise && showHoverPreview) {
-		return (
-			<HoverCard url={url} id={id}>
-				{inlineCardUnauthenticatedView}
-			</HoverCard>
-		);
+		return <HoverCard url={url} id={id}>{inlineCardUnauthenticatedView}</HoverCard>;
 	}
 
 	return inlineCardUnauthenticatedView;

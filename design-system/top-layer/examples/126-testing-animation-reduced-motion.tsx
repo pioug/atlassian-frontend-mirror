@@ -44,6 +44,7 @@ export default function TestingAnimationReducedMotion(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

@@ -5,8 +5,4 @@ export {
 	dialogSlideUpAndFade,
 	dialogFade,
 } from '../animations/presets';
-export type {
-	TAnimationPreset,
-	TPopoverAnimationPreset,
-	TDialogAnimationPreset,
-} from '../animations/types';
+export type { TAnimationPreset } from '../animations/types';

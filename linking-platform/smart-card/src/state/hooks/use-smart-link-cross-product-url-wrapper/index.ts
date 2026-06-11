@@ -25,7 +25,7 @@ const useSmartLinkCrossProductUrlWrapperFallback = (
 	_args: UseSmartLinkCrossProductUrlWrapperArgs,
 ): ((url: string) => string) => identityUrlWrapper;
 
-const useSmartLinkCrossProductUrlWrapper = ({
+export const useSmartLinkCrossProductUrlWrapper = ({
 	details,
 }: UseSmartLinkCrossProductUrlWrapperArgs): ((url: string) => string) => {
 	const { product, bridgeProduct, xpcProduct, xpcSubProduct } = useSmartLinkContext();

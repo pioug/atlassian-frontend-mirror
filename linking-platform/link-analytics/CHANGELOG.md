@@ -1,5 +1,14 @@
 # @atlaskit/link-analytics
 
+## 11.1.1
+
+### Patch Changes
+
+- [`40955aaf55c32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40955aaf55c32) -
+  Volt OEPF migration: split multi-export files into one export per file using the volt-codemods
+  crate (volt-no-multi-exports-super-safe + volt-flatten-barrel-files + volt-remove-unused-imports).
+  Mechanical refactor with no intended runtime change.
+
 ## 11.1.0
 
 ### Minor Changes

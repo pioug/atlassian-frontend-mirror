@@ -153,12 +153,14 @@ function DropdownMenuTopLayer({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: topLayerPlacement,
+		isOpen: isLocalOpen,
 	});
 
 	useWidthFromAnchor({
 		mode: shouldFitContainer ? 'min-anchor' : 'none',
 		popoverRef,
 		anchorRef: triggerRef,
+		isOpen: isLocalOpen,
 	});
 
 	// Close handling.

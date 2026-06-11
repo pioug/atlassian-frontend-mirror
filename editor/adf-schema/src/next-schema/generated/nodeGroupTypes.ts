@@ -12,7 +12,6 @@ import type {
   BodiedExtensionWithMarksDefinition,
   BulletListDefinition,
   CodeBlockDefinition,
-  CodeBlockWithExtendedAttributesStage0Definition,
   ConfluenceJiraIssueDefinition,
   ConfluenceUnsupportedBlockDefinition,
   ConfluenceUnsupportedInlineDefinition,
@@ -69,7 +68,6 @@ import type {
 export type BlockDefinition = Array<
   | BlockCardDefinition
   | CodeBlockDefinition
-  | CodeBlockWithExtendedAttributesStage0Definition
   | MediaSingleDefinition
   | MediaSingleCaptionDefinition
   | MediaSingleFullDefinition
@@ -142,7 +140,6 @@ export type NonNestableBlockContentDefinition = Array<
   | RuleDefinition
   | HeadingWithNoMarksDefinition
   | CodeBlockDefinition
-  | CodeBlockWithExtendedAttributesStage0Definition
   | MediaGroupDefinition
   | MediaSingleCaptionDefinition
   | MediaSingleFullDefinition

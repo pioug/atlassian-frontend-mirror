@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -35,9 +35,7 @@ import type {
 	InsertRowOptions,
 	PluginInjectionAPI,
 	RowInsertPosition,
-	TableDirection,
 } from '../../types';
-import type { TriggerType } from '../drag-and-drop/types';
 import { getPluginState } from '../plugin-factory';
 import { distributeColumnsWidths } from '../table-resizing/commands';
 import type { ResizeStateWithAnalytics } from '../table-resizing/utils/types';
@@ -50,7 +48,6 @@ import {
 } from '../utils/analytics';
 import { checkIfNumberColumnEnabled } from '../utils/nodes';
 
-import { toggleActiveTableMenu } from './active-table-menu';
 import { clearMultipleCells } from './clear';
 import { wrapTableInExpand } from './collapse';
 import { changeColumnWidthByStep } from './column-resize';
@@ -68,43 +65,6 @@ import {
 import { sortByColumn } from './sort';
 import { splitCell } from './split-cell';
 import { toggleHeaderColumn, toggleHeaderRow, toggleNumberColumn } from './toggle';
-
-export const toggleActiveTableMenuWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
-	(direction: TableDirection, index: number, trigger: TriggerType = 'mouse'): Command => {
-		return withEditorAnalyticsAPI((state: EditorState) => {
-			const { activeTableMenu: previousActiveTableMenu } = getPluginState(state);
-			const isSameActiveMenu =
-				previousActiveTableMenu?.type === direction && previousActiveTableMenu.index === index;
-
-			if (isSameActiveMenu) {
-				return undefined;
-			}
-
-			return {
-				action: TABLE_ACTION.DRAG_MENU_OPENED,
-				actionSubject: ACTION_SUBJECT.TABLE,
-				actionSubjectId: null,
-				eventType: EVENT_TYPE.TRACK,
-				attributes: {
-					inputMethod: trigger === 'keyboard' ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
-					direction,
-				},
-			};
-		})(editorAnalyticsAPI)((state, dispatch) => {
-			if (dispatch) {
-				const { activeTableMenu: currentActiveTableMenu } = getPluginState(state);
-				const newTr = toggleActiveTableMenu(
-					{ type: direction, index, openedBy: trigger },
-					currentActiveTableMenu,
-				)({ tr: state.tr });
-				if (newTr) {
-					dispatch(newTr);
-				}
-			}
-			return true;
-		});
-	};
 
 export const emptyMultipleCellsWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>

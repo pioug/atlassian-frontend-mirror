@@ -1,5 +1,25 @@
 # @atlaskit/flag
 
+## 17.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.13.2
+
+### Patch Changes
+
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+
+## 17.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.13.0
 
 ### Minor Changes

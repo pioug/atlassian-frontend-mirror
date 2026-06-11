@@ -1,18 +1,65 @@
 /**
  * Contextual Typeahead Completions (CTC) debug logging utility.
  *
- * Logs are silent by default. To enable in any environment (dev, staging, prod):
+ * Logs are silent by default. Enable in any environment (dev, staging, prod):
  *
- *   localStorage.setItem('atl-ctc-dbg', '1')
+ *   // Live, for the current session (no reload required):
+ *   __atlCtcDebug__.enable()
  *
- * Then reload the page. To disable:
+ *   // To disable:
+ *   __atlCtcDebug__.disable()
  *
- *   localStorage.removeItem('atl-ctc-dbg')
+ *   // From initial page load (survives reload) — append to the URL:
+ *   ?atlCtcDebug=1
+ *
+ * Storage-free by design: avoids browser-storage consent controls (BSC), which can
+ * block uncategorized localStorage/sessionStorage/cookie writes in some products.
  */
-export const isAutocompleteDebugEnabled = (): boolean => {
+
+declare global {
+	interface Window {
+		__atlCtcDebug__?: {
+			enable: () => void;
+			disable: () => void;
+			isEnabled: () => boolean;
+		};
+	}
+}
+
+const hasUrlDebugFlag = (): boolean => {
+	if (typeof window === 'undefined') {
+		return false;
+	}
 	try {
-		return typeof localStorage !== 'undefined' && localStorage.getItem('atl-ctc-dbg') === '1';
+		return new URLSearchParams(window.location.search).get('atlCtcDebug') === '1';
 	} catch {
 		return false;
 	}
 };
+
+// State lives on the window object (not a module closure) so duplicate copies of this
+// module across separate bundles/realms share one source of truth and the console API
+// controls them all. In-memory only; persisted across reload via the URL flag.
+const getDebugApi = (): Window['__atlCtcDebug__'] => {
+	if (typeof window === 'undefined') {
+		return undefined;
+	}
+	if (!window.__atlCtcDebug__) {
+		let debugEnabled = hasUrlDebugFlag();
+		window.__atlCtcDebug__ = {
+			enable: () => {
+				debugEnabled = true;
+			},
+			disable: () => {
+				debugEnabled = false;
+			},
+			isEnabled: () => debugEnabled,
+		};
+	}
+	return window.__atlCtcDebug__;
+};
+
+export const isAutocompleteDebugEnabled = (): boolean => getDebugApi()?.isEnabled() ?? false;
+
+// Eagerly install so the console API is available on load, regardless of call order.
+getDebugApi();

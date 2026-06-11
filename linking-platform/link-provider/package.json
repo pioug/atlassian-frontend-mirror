@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "4.6.0",
+	"version": "4.7.0",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -79,6 +79,9 @@
 			"type": "boolean"
 		},
 		"navx-smartcard-auth-event-listener-killswitch-fg": {
+			"type": "boolean"
+		},
+		"platform_smartlink_inline_resolve_optimization": {
 			"type": "boolean"
 		}
 	},

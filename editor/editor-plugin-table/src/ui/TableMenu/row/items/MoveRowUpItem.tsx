@@ -53,7 +53,7 @@ export const MoveRowUpItem = (props: TableMenuComponentsParams): React.JSX.Eleme
 			getSelectedRowIndexes(selectionRect),
 			selectionRect.top - 1,
 		)(editorView.state, editorView.dispatch);
-		api?.core.actions.execute(closeActiveTableMenu());
+		api?.core.actions.execute(closeActiveTableMenu(api));
 		api?.core.actions.focus();
 	};
 

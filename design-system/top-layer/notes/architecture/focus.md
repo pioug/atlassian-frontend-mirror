@@ -176,8 +176,57 @@ dialog focusing steps look for the HTML `autofocus` attribute.
   - `menu`: first focusable (menu item)
   - `listbox`: `[aria-selected="true"]` option, or first focusable
   - `tooltip` / no role: no focus movement
-- Uses `requestAnimationFrame` to avoid racing with the popover show sequence
-- Only used in `Popover`, not `Dialog`
+- Combobox carve-out (for `menu` and `listbox`): if the popup is owned by a focused combobox-like
+  textbox, focus stays on the textbox and the popup surfaces the active option via
+  `aria-activedescendant`. A single predicate (`isComboboxControllingPopup`) covers both layouts:
+  - **In-popup combobox**: the focused textbox lives inside the popup `container` (the popup is
+    rendered as a child of the combobox wrapper).
+  - **External combobox**: the focused textbox is rendered OUTSIDE the popup (`react-select`
+    pattern, where the listbox is portalled separately from the textbox).
+
+  Acceptance criteria for the focused element:
+  - Role / element-type filter: `role="combobox"`, `role="textbox"`, `TEXTAREA`, `contentEditable`,
+    or `INPUT` of text-like type (`text`, `search`, `email`, `url`, `tel`, `password`, or
+    unspecified). Non-text input types (`button`, `checkbox`, etc.) are rejected.
+  - Reference filter: `aria-controls` (or legacy `aria-owns`) IDREFS must resolve to an element
+    that IS or CONTAINS the popup container.
+
+  Without this carve-out, moving focus into the listbox would blur the external textbox and cause
+  libraries like `react-select` to close the menu on the same interaction that opened it.
+- Fires on transitions into a visible phase, tracked via a `prevPhase` ref. Three transitions
+  qualify:
+  - `closed → entering` (animated path, fresh open).
+  - `closed → open` (non-animated path, fresh open).
+  - `exiting → entering` (mid-exit reopen). When a user dismisses the popup (Escape, close button,
+    light dismiss) the browser natively restores focus to the trigger as part of `hidePopover()` /
+    `<dialog>.close()`. If the consumer reopens before the exit transition has settled, the phase
+    machine jumps `exiting → entering` without passing through `closed`. Without this branch the
+    popup would be visible again with focus stranded on the trigger — a keyboard usability gap for
+    menu / dialog / listbox roles.
+  - Pure `entering → exiting → entering` stutters where the consumer toggles `isOpen` in the same
+    frame are still collapsed: any transition whose previous phase was neither `closed` nor
+    `exiting` is rejected.
+- Focus moves the instant the host element first becomes visible — not after the entry transition
+  settles. APG expects keyboard focus to land on the new menu / dialog the moment it opens, so a
+  `transitionend`-gated focus call (~150ms late on a typical entry animation) is a focus-stealing
+  hazard: subsequent user input (e.g. an arrow-left to back out of a nested submenu) can land
+  before the deferred `focus()` fires, snapping focus back to a now-stale element.
+- Synchronous inside `useEffect` — no `requestAnimationFrame` wrapper. The host element is already in
+  the top layer when the effect runs (the show layout effect calls `showPopover()` / `showModal()`
+  first), so focus and screen-reader announcement land together.
+- Only used in `Popover`, not `Dialog`.
+
+#### Known limitation: programmatic reopen with consumer-managed focus
+
+There is a rare programmatic path where a consumer flips `isOpen` false → true mid-exit without any
+user-initiated close gesture, and had previously moved focus to a non-default target inside the
+popup. In that case the `exiting → entering` branch will re-focus the role-appropriate default
+(e.g. first menu item) rather than preserving the consumer-chosen target. This matches the
+documented `closed → entering` behavior and is considered acceptable: the alternative (a
+`document.activeElement` heuristic) is unreliable across shadow DOM, iframes, and mid-restoration
+timing races, and a more correct phase-machine `exitCommitted` design adds significant surface area
+for a scenario that has not been observed in practice. Consumers that need to preserve focus across
+a programmatic reopen should manage focus themselves after the popup opens.
 
 ---
 
@@ -271,9 +320,9 @@ internal - no API surface change for consumers.
 
 1. **Snapshot on open.** A `beforetoggle` listener fires synchronously before `showPopover()` runs.
    When `newState === 'open'`, Popover captures `document.activeElement` into an internal ref. This
-   happens before `useInitialFocus` moves focus into the popover (`useInitialFocus` runs inside a
-   `requestAnimationFrame`, which is later than the synchronous `beforetoggle`), so the snapshot
-   reliably captures the trigger.
+   happens before `useInitialFocus` moves focus into the popover (`beforetoggle` runs during the
+   synchronous `showPopover()` call inside the host-mount layout effect; `useInitialFocus` runs in
+   the subsequent `useEffect` pass), so the snapshot reliably captures the trigger.
 
 2. **Restore on close.** In the `toggle` handler (`newState === 'closed'`), Popover restores focus
    to the snapshotted element when ALL of these are true:

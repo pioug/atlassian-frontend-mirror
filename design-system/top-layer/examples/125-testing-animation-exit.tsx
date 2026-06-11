@@ -44,6 +44,7 @@ export default function TestingAnimationExit(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

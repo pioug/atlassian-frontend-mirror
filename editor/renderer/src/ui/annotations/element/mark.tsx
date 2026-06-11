@@ -119,26 +119,6 @@ const isMobile = () => {
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
 
-const accessibilityStylesOld = css({
-	'&::before, &::after': {
-		clipPath: 'inset(100%)',
-		clip: 'rect(1px, 1px, 1px, 1px)',
-		height: '1px',
-		overflow: 'hidden',
-		position: 'absolute',
-		whiteSpace: 'nowrap',
-		width: '1px',
-	},
-	'&::before': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		content: `' [var(--ak-renderer-annotation-startmarker)] '`,
-	},
-	'&::after': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		content: `' [var(--ak-renderer-annotation-endmarker)] '`,
-	},
-});
-
 const accessibilityStylesNew = css({
 	'&::before, &::after': {
 		clipPath: 'inset(100%)',
@@ -422,28 +402,16 @@ export const MarkComponent = ({
 					markStylesLayeringFix,
 					fg('editor_inline_comments_on_inline_nodes') && markStylesWithInlineComments,
 					markStylesWithCommentsPanel,
-					!isMobile() &&
-						(fg('platform_renderer_a11y_inline_comment_fix')
-							? accessibilityStylesNew
-							: accessibilityStylesOld),
+					!isMobile() && accessibilityStylesNew,
 					markStylesWithUpdatedShadow,
 				],
-				style: fg('platform_renderer_a11y_inline_comment_fix')
-					? {
+				style: {
 							'--ak-renderer-annotation-startmarker': `"${intl.formatMessage(
 								inlineCommentMessages.contentRendererInlineCommentMarkerStart,
 							)}"`,
 							'--ak-renderer-annotation-endmarker': `"${intl.formatMessage(
 								inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
 							)}"`,
-						}
-					: {
-							'--ak-renderer-annotation-startmarker': intl.formatMessage(
-								inlineCommentMessages.contentRendererInlineCommentMarkerStart,
-							),
-							'--ak-renderer-annotation-endmarker': intl.formatMessage(
-								inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
-							),
 						},
 			}),
 		},

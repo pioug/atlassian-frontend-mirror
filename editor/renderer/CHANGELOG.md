@@ -1,5 +1,44 @@
 # @atlaskit/renderer
 
+## 132.2.0
+
+### Minor Changes
+
+- [`3a3311c8f547b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a3311c8f547b) -
+  Removed stale feature gate `platform_renderer_a11y_inline_comment_fix` (final value: true).
+  Cleaned up flag-gated ternaries and removed dead `accessibilityStylesOld` constant.
+
+### Patch Changes
+
+- [`086ba910930e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/086ba910930e9) -
+  FFCLEANUP-96543 - cleanup fg platform_editor_remove_important_in_render_ext
+- Updated dependencies
+
+## 132.1.5
+
+### Patch Changes
+
+- [`8f894bdeea3a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f894bdeea3a0) -
+  Add analytics event for panel_c1 transformation
+- Updated dependencies
+
+## 132.1.4
+
+### Patch Changes
+
+- [`8e9672992b873`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e9672992b873) -
+  Fixes A11Y violations and restores missing A11Y test coverage.
+- Updated dependencies
+
+## 132.1.3
+
+### Patch Changes
+
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+- Updated dependencies
+
 ## 132.1.2
 
 ### Patch Changes

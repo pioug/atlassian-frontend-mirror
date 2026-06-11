@@ -13,6 +13,7 @@ import type { MentionDisabledState, MentionDisabledStateInput } from '@atlaskit/
 import { isRestricted } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import type { MentionPluginOptions } from '../types';
@@ -46,6 +47,10 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 
 	if (fg('platform_editor_adf_with_localid')) {
 		mentionAttrs = { ...mentionAttrs, 'data-local-id': node.attrs.localId };
+	}
+
+	if (expVal('platform_editor_agent_mentions', 'isEnabled', false) && node.attrs.userType) {
+		mentionAttrs = { ...mentionAttrs, 'data-user-type': node.attrs.userType };
 	}
 
 	const browser = getBrowserInfo();

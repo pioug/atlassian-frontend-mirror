@@ -14,6 +14,8 @@ import { useIntl } from 'react-intl';
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 import { token } from '@atlaskit/tokens';
 
 import type { InlineCardOverlayProps } from './types';
@@ -234,6 +236,7 @@ const InlineCardOverlay = ({
 		};
 	}, [isVisible, setVisibility]);
 
+	const destinationUrl = useSmartLinkDestinationUrl(url) ?? url;
 	const intl = useIntl();
 	const label: string = intl.formatMessage(messages.inlineOverlay);
 
@@ -257,7 +260,7 @@ const InlineCardOverlay = ({
 							width: availableWidth,
 						}}
 						data-testid={testId}
-						href={url}
+						href={fg('platform_smartlink_xpc_url_wrapping') ? destinationUrl : url}
 						onClick={(e) => e.preventDefault()}
 						tabIndex={-1}
 					>

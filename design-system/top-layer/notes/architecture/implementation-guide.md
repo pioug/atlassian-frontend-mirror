@@ -72,8 +72,9 @@ layered UI:
 
 1. **Browser-native first.** Use the Popover API and `<dialog>` element instead of portals, z-index,
    and custom layering.
-2. **Declarative visibility.** `isOpen` prop controls show/hide. The element stays mounted in the
-   DOM — never conditionally rendered.
+2. **Declarative visibility.** `isOpen` prop controls show/hide. The host element is rendered
+   only while open or exit-animating and unmounts after exit completes (see
+   `notes/decisions/host-element-unmount-when-hidden.md`).
 3. **CSS-first positioning.** CSS Anchor Positioning (`position-anchor`, `position-area`,
    `position-try-fallbacks`) with a JS fallback for older browsers.
 4. **CSS-first animation.** `@starting-style` for entry, `transition-behavior: allow-discrete` for
@@ -227,7 +228,6 @@ consumers always import from sub-paths:
 	"./popup": "./src/entry-points/popup.tsx",
 	"./popup-surface": "./src/entry-points/popup-surface.tsx",
 	"./dialog": "./src/entry-points/dialog.tsx",
-	"./create-close-event": "./src/entry-points/create-close-event.tsx",
 	"./dialog-scroll-lock": "./src/entry-points/dialog-scroll-lock.tsx",
 	"./placement-map": "./src/entry-points/placement-map.tsx",
 	"./animations": "./src/entry-points/animations.tsx",
@@ -935,8 +935,15 @@ Moves focus into the popover when it opens, based on role:
 
 > Note: `alertdialog` is intentionally unsupported in top-layer — use `dialog` instead.
 
-**Timing:** Uses `requestAnimationFrame` to ensure the popover is fully rendered and visible in the
-top layer before focusing. The RAF is cancelled on cleanup.
+**Timing:** Fires synchronously inside `useEffect` on the transition out of `'closed'` (`closed →
+entering` on the animated path, `closed → open` on the non-animated path). By the time the effect
+runs, the host-mount layout effect has already called `showPopover()` / `showModal()`, so the
+element is in the top layer and reliably focusable. A `prevPhase` ref ensures we only focus once per
+real open cycle (rapid `entering → exiting → entering` interrupts are collapsed). See
+`notes/architecture/focus.md` for the full rationale — earlier versions wrapped the call in
+`requestAnimationFrame` (and previously waited for `phase === 'open'`); both were removed because
+APG expects focus to land on the new menu / dialog the instant it opens, not after the entry
+animation finishes.
 
 ### `useFocusWrap`
 
@@ -1247,7 +1254,7 @@ Converts `TDialogCloseReason` to a synthetic DOM event for legacy APIs that expe
 or `MouseEvent`:
 
 ```typescript
-import { createCloseEvent } from '@atlaskit/top-layer/create-close-event';
+import { createCloseEvent } from '@atlaskit/top-layer/dialog';
 
 // 'escape' → new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })
 // 'overlay-click' → new MouseEvent('click', { bubbles: true, cancelable: true })
@@ -1261,7 +1268,7 @@ primitive's `onClose({ reason })`.
 Converts `TPopoverCloseReason` to a synthetic DOM event:
 
 ```typescript
-import { createPopoverCloseEvent } from '@atlaskit/top-layer/create-close-event';
+import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover';
 
 // 'escape' → new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })
 // 'light-dismiss' → new MouseEvent('click', { bubbles: true, cancelable: true })

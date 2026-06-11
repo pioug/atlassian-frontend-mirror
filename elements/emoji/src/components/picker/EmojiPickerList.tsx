@@ -63,6 +63,16 @@ import { messages } from '../i18n';
 export const RENDER_EMOJI_PICKER_LIST_TESTID = 'render-emoji-picker-list';
 
 const categoryClassname = 'emoji-category';
+const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+const atlassianCategory = 'ATLASSIAN' as CategoryGroupKey;
+const atlassianSubcategoryOrder = [
+	'Faces',
+	'Hands',
+	'Reactions',
+	'Objects',
+	'Productivity',
+	'Logos',
+];
 
 type CategoryKeyToGroup = { [key in CategoryGroupKey]: EmojiGroup };
 
@@ -113,10 +123,16 @@ export type PickerListRef = {
 /**
  * Emoji grouped by a category title ie. Frequent, Your Uploads, All Uploads
  */
+interface EmojiSubcategory {
+	emojis: EmojiDescription[];
+	title: string;
+}
+
 interface EmojiGroup {
 	category: CategoryGroupKey;
 	emojis: EmojiDescription[];
 	order: number;
+	subcategories?: EmojiSubcategory[];
 	title: string;
 }
 
@@ -127,18 +143,27 @@ type Orderable = {
 const byOrder = (orderableA: Orderable, orderableB: Orderable) =>
 	(orderableA.order || 0) - (orderableB.order || 0);
 
+const noop = () => {};
+
+const getAtlassianSubcategoryTitle = (category?: string) => {
+	if (!category) {
+		return 'Other';
+	}
+	return category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+};
+
 export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	Props & React.RefAttributes<PickerListRef>
 > = React.forwardRef<PickerListRef, Props>((props, ref) => {
 	const {
 		emojis,
 		currentUser,
-		onEmojiSelected = () => {},
-		onEmojiActive = () => {},
+		onEmojiSelected = noop,
+		onEmojiActive = noop,
 		onEmojiLeave,
-		onEmojiDelete = () => {},
-		onCategoryActivated = () => {},
-		onSearch = () => {},
+		onEmojiDelete = noop,
+		onCategoryActivated = noop,
+		onSearch = noop,
 		size = defaultEmojiPickerSize,
 		query,
 		loading,
@@ -169,11 +194,62 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	const [lastYourUploadsRow, setLastYourUploadsRow] = useState(0);
 	const categoryTracker = useMemo(() => new CategoryTracker(), []);
 	const [categoriesChanged, setCategoriesChanged] = useState(false);
+	const isTeamojiExperimentEnabled = FeatureGates.getExperimentValue(
+		teamojiRefreshExperimentName,
+		'isEnabled',
+		false,
+	);
+
+	const addToCategoryMap = useCallback(
+		(
+			categoryToGroupMap: CategoryKeyToGroup,
+			emoji: EmojiDescription,
+			category: CategoryGroupKey,
+		) => {
+			if (!categoryToGroupMap[category]) {
+				const categoryDefinition = isTeamojiExperimentEnabled
+					? CategoryDescriptionMapNew[category]
+					: CategoryDescriptionMap[category];
+				categoryToGroupMap[category] = {
+					emojis: [],
+					title: categoryDefinition.name,
+					category,
+					order: categoryDefinition.order,
+				};
+			}
+			categoryToGroupMap[category].emojis.push(emoji);
+			return categoryToGroupMap;
+		},
+		[isTeamojiExperimentEnabled],
+	);
 
 	const groupByCategory = useCallback(
 		(currentUser?: User) =>
 			(categoryToGroupMap: CategoryKeyToGroup, emoji: EmojiDescription): CategoryKeyToGroup => {
-				addToCategoryMap(categoryToGroupMap, emoji, emoji.category as CategoryId);
+				if (
+					isTeamojiExperimentEnabled &&
+					emoji.type === 'ATLASSIAN' &&
+					emoji.category !== frequentCategory
+				) {
+					addToCategoryMap(categoryToGroupMap, emoji, atlassianCategory);
+					const group = categoryToGroupMap[atlassianCategory];
+					if (group) {
+						if (!group.subcategories) {
+							group.subcategories = [];
+						}
+						const subcategoryTitle = getAtlassianSubcategoryTitle(emoji.category);
+						let subcategory = group.subcategories.find(
+							(existingSubcategory) => existingSubcategory.title === subcategoryTitle,
+						);
+						if (!subcategory) {
+							subcategory = { title: subcategoryTitle, emojis: [] };
+							group.subcategories.push(subcategory);
+						}
+						subcategory.emojis.push(emoji);
+					}
+				} else {
+					addToCategoryMap(categoryToGroupMap, emoji, emoji.category as CategoryId);
+				}
 				// separate user emojis
 				if (
 					emoji.category === customCategory &&
@@ -184,7 +260,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				}
 				return categoryToGroupMap;
 			},
-		[],
+		[addToCategoryMap, isTeamojiExperimentEnabled],
 	);
 
 	/**
@@ -234,6 +310,9 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 					.map((group) => {
 						if (group.category !== frequentCategory) {
 							group.emojis.sort(byOrder);
+							group.subcategories?.forEach((subcategory) => {
+								subcategory.emojis.sort(byOrder);
+							});
 						}
 						return group;
 					})
@@ -243,61 +322,101 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		[groupByCategory],
 	);
 
-	const addToCategoryMap = (
-		categoryToGroupMap: CategoryKeyToGroup,
-		emoji: EmojiDescription,
-		category: CategoryGroupKey,
-	) => {
-		if (!categoryToGroupMap[category]) {
-			const categoryDefinition = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-				? CategoryDescriptionMapNew[category]
-				: CategoryDescriptionMap[category];
-			categoryToGroupMap[category] = {
-				emojis: [],
-				title: categoryDefinition.name,
-				category,
-				order: categoryDefinition.order,
-			};
-		}
-		categoryToGroupMap[category].emojis.push(emoji);
-		return categoryToGroupMap;
-	};
-
-	const buildVirtualItemFromGroup = useCallback(
-		(group: EmojiGroup) => {
-			const items: VirtualItem<CategoryHeadingProps | EmojiRowProps>[] = [];
-
-			items.push(
-				new CategoryHeadingItem({
-					id: group.category,
-					title: group.title,
-					className: categoryClassname,
-				}),
-			);
-
-			let remainingEmojis = group.emojis;
+	const buildEmojiRows = useCallback(
+		(
+			items: VirtualItem<CategoryHeadingProps | EmojiRowProps>[],
+			category: CategoryGroupKey,
+			title: string,
+			emojis: EmojiDescription[],
+			showDelete: boolean,
+		) => {
+			let remainingEmojis = emojis;
 			while (remainingEmojis.length > 0) {
 				const rowEmojis = remainingEmojis.slice(0, sizes.emojiPerRow);
 				remainingEmojis = remainingEmojis.slice(sizes.emojiPerRow);
 
 				items.push(
 					new EmojisRowItem({
-						category: group.category,
+						category,
 						emojis: rowEmojis,
-						title: group.title,
-						showDelete: group.title === userCustomTitle,
+						title,
+						showDelete,
 						onSelected: onEmojiSelected,
 						onDelete: onEmojiDelete,
 						onMouseMove: onEmojiActive,
 						onFocus: onEmojiActive,
-						onMouseLeave: FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? onEmojiLeave : undefined,
+						onMouseLeave: isTeamojiExperimentEnabled ? onEmojiLeave : undefined,
 					}),
+				);
+			}
+		},
+		[
+			isTeamojiExperimentEnabled,
+			onEmojiActive,
+			onEmojiDelete,
+			onEmojiLeave,
+			onEmojiSelected,
+		],
+	);
+
+	const buildVirtualItemFromGroup = useCallback(
+		(group: EmojiGroup) => {
+			const items: VirtualItem<CategoryHeadingProps | EmojiRowProps>[] = [];
+			const hasAtlassianSubcategories =
+				isTeamojiExperimentEnabled &&
+				group.category === atlassianCategory &&
+				!!group.subcategories?.length;
+
+			if (!hasAtlassianSubcategories) {
+				items.push(
+					new CategoryHeadingItem({
+						id: group.category,
+						title: group.title,
+						className: categoryClassname,
+					}),
+				);
+			}
+
+			if (hasAtlassianSubcategories && group.subcategories) {
+				const sortedSubcategories = [...group.subcategories].sort((a, b) => {
+					const aIndex = atlassianSubcategoryOrder.indexOf(a.title);
+					const bIndex = atlassianSubcategoryOrder.indexOf(b.title);
+
+					if (aIndex !== -1 && bIndex !== -1) {
+						return aIndex - bIndex;
+					}
+					if (aIndex !== -1) {
+						return -1;
+					}
+					if (bIndex !== -1) {
+						return 1;
+					}
+					return a.title.localeCompare(b.title);
+				});
+
+				sortedSubcategories.forEach((subcategory) => {
+					items.push(
+						new CategoryHeadingItem({
+							id: group.category,
+							title: subcategory.title,
+							className: categoryClassname,
+						}),
+					);
+					buildEmojiRows(items, group.category, subcategory.title, subcategory.emojis, false);
+				});
+			} else {
+				buildEmojiRows(
+					items,
+					group.category,
+					group.title,
+					group.emojis,
+					group.title === userCustomTitle,
 				);
 			}
 
 			return items;
 		},
-		[onEmojiSelected, onEmojiDelete, onEmojiActive, onEmojiLeave],
+		[buildEmojiRows, isTeamojiExperimentEnabled],
 	);
 
 	const buildVirtualItems = useCallback(() => {
@@ -311,10 +430,10 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			items.push(new LoadingItem());
 		} else {
 			if (query) {
-				const search = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+				const search = isTeamojiExperimentEnabled
 					? CategoryDescriptionMapNew.SEARCH
 					: CategoryDescriptionMap.SEARCH;
-				if (emojis.length === 0 && FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+				if (emojis.length === 0 && isTeamojiExperimentEnabled) {
 					// Show a "No results" category heading, then a no-results illustration below it
 					items.push(
 						new CategoryHeadingItem({
@@ -348,7 +467,12 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				allEmojiGroups.forEach((group) => {
 					// Optimisation - avoid re-rendering unaffected groups for the current selectedShortcut
 					// by not passing it to irrelevant groups
-					categoryTracker.add(group.emojis[0].category as CategoryId, items.length);
+					categoryTracker.add(
+						isTeamojiExperimentEnabled
+							? (group.category as CategoryId)
+							: (group.emojis[0].category as CategoryId),
+						items.length,
+					);
 
 					items = [...items, ...buildVirtualItemFromGroup(group)];
 
@@ -367,7 +491,17 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			}
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [allEmojiGroups, loading, query, emojis, onOpenUpload, uploadEnabled, formatMessage]);
+	}, [
+		allEmojiGroups,
+		buildVirtualItemFromGroup,
+		emojis,
+		formatMessage,
+		isTeamojiExperimentEnabled,
+		loading,
+		onOpenUpload,
+		query,
+		uploadEnabled,
+	]);
 
 	const findCategoryToActivate = (row: VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>) => {
 		let category: CategoryGroupKey | null = null;
@@ -478,14 +612,14 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	}, [virtualItems, categoriesChanged]);
 
 	const virtualListHeight = useMemo(() => {
-		if (query && emojis.length === 0 && FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+		if (query && emojis.length === 0 && isTeamojiExperimentEnabled) {
 			// No-results state: expand the list height to fit heading + illustration without scrolling
 			return sizes.categoryHeadingHeight + sizes.noResultsHeight + emojiPickerHeightOffset(size);
 		}
-		return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+		return isTeamojiExperimentEnabled
 			? sizes.listHeightNew + emojiPickerHeightOffset(size)
 			: sizes.listHeight + emojiPickerHeightOffset(size);
-	}, [size, query, emojis.length]);
+	}, [size, query, emojis.length, isTeamojiExperimentEnabled]);
 
 	return (
 		<EmojiPickerTabPanel showSearchResults={!!query}>

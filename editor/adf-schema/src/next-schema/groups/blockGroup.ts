@@ -25,7 +25,6 @@ export const blockGroup: ADFNodeGroup = adfNodeGroup(
 	[
 		blockCard,
 		codeBlock,
-		codeBlock.use('with_extended_attributes'),
 		mediaSingle,
 		mediaSingle.use('caption'),
 		mediaSingle.use('full'),

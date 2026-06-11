@@ -2,17 +2,22 @@ import { useCallback } from 'react';
 
 import { isEntityPresent } from '@atlaskit/link-extractors';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import type { CardState } from '@atlaskit/linking-common';
+import type { CardAppearance, CardState } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../../constants';
 import { addMetadataToExperience } from '../../analytics';
 import useResponse from '../use-response';
 
-const useResolve = (): ((
-	url: string,
-	isReloading?: boolean,
-	isMetadataRequest?: boolean,
-	id?: string,
+export interface ResolveUrlParams {
+	appearance?: CardAppearance;
+	id?: string;
+	isMetadataRequest?: boolean;
+	isReloading?: boolean;
+	url: string;
+}
+
+const useResolve = (): ((params: ResolveUrlParams
 ) => Promise<void>) => {
 	// Request JSON-LD data for the card from ORS, if it has extended
 	// its cache lifespan OR there is no data for it currently. Once the data
@@ -23,7 +28,15 @@ const useResolve = (): ((
 	const { handleResolvedLinkResponse, handleResolvedLinkError } = useResponse();
 
 	return useCallback(
-		async (url: string, isReloading = false, isMetadataRequest = false, id = '') => {
+		async (params: ResolveUrlParams) => {
+			const {
+				url,
+				isReloading = false,
+				isMetadataRequest = false,
+				id = '',
+				appearance,
+			} = params;
+
 			const { details } =
 				getState()[url] ||
 				({
@@ -34,10 +47,23 @@ const useResolve = (): ((
 			const hasData = !!((details && details.data) || isEntityPresent(details));
 
 			if (isReloading || !hasData || isMetadataRequest) {
+				const metadataStatus =
+					appearance === 'inline' &&
+					!isMetadataRequest &&
+					fg('platform_smartlink_inline_resolve_optimization')
+						? 'pending'
+						: undefined;
+
 				return connections.client
-					.fetchData(url, isReloading)
+					.fetchData(url, isReloading, appearance)
 					.then((response) =>
-						handleResolvedLinkResponse(url, response, isReloading, isMetadataRequest),
+						handleResolvedLinkResponse(
+							url,
+							response,
+							isReloading,
+							isMetadataRequest,
+							metadataStatus,
+						),
 					)
 					.catch((error) => handleResolvedLinkError(url, error, undefined, isMetadataRequest));
 			} else {

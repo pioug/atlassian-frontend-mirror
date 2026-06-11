@@ -31,8 +31,10 @@ export const transformContainerNodes = (
 ): {
 	isTransformed: boolean;
 	transformedAdf: ADFEntity | false;
+	transformedNodeTypes: string[];
 } => {
 	let isTransformed: boolean = false;
+	const transformedNodeTypes = new Set<string>();
 
 	const panelC1AllowedParents = getPanelC1AllowedParentTypes(schema);
 
@@ -41,6 +43,7 @@ export const transformContainerNodes = (
 			const parentType = parent.node?.type;
 			if (parentType && panelC1AllowedParents.has(parentType)) {
 				isTransformed = true;
+				transformedNodeTypes.add('panel_c1');
 				return { ...node, type: 'panel_c1' };
 			}
 			return;
@@ -50,5 +53,6 @@ export const transformContainerNodes = (
 	return {
 		transformedAdf,
 		isTransformed,
+		transformedNodeTypes: Array.from(transformedNodeTypes),
 	};
 };

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
+import { Fragment, type ReactNode, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -37,18 +37,20 @@ function VrPopupFallback({ placement }: { placement: TPlacementOptions }) {
 	const label = placementLabel(placement);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
-	const [isOpen, setIsOpen] = useState(false);
+	// Start open so the VR snapshot captures the positioned popover.
+	// The Popover primitive does not render its host element while
+	// `isOpen=false`, so an effect-based open would race the snapshot:
+	// the snapshot would land before `useAnchorPosition` has a populated
+	// `popoverRef.current` and the popover would render at (0, 0).
+	const [isOpen, setIsOpen] = useState(true);
 
 	useAnchorPosition({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement,
 		forceFallbackPositioning: true,
+		isOpen,
 	});
-
-	useEffect(() => {
-		setIsOpen(true);
-	}, []);
 
 	return (
 		<div css={styles.center}>

@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-mentions
 
+## 13.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.5
+
+### Patch Changes
+
+- [`f7b906dfd7043`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7b906dfd7043) -
+  Persist Rovo agent mentions as APP mentions and preserve mention userType in copied HTML behind
+  platform_editor_agent_mentions so pasted agent mentions can trigger agent mention nudges.
+- [`5dd8cc218e393`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd8cc218e393) -
+  Release packages affected by an issue blocking you from installing <@compiled>/react due to a yarn
+  patch.
+- Updated dependencies
+
 ## 13.3.4
 
 ### Patch Changes

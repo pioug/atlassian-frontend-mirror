@@ -24,6 +24,7 @@ export default function TestingPopoverProgrammaticClose(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	const handleProgrammaticClose = useCallback(() => {

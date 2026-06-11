@@ -58,6 +58,10 @@ const styles = cssMap({
 		whiteSpace: 'break-spaces',
 		wordBreak: 'break-all',
 	},
+	innerContainerNoWrap: {
+		whiteSpace: 'nowrap',
+		wordBreak: 'normal',
+	},
 	enabled: {
 		color: token('color.text'),
 		cursor: 'pointer',
@@ -130,7 +134,16 @@ export const ActionButton: ForwardRefExoticComponent<
 			const { onClick, ...boxProps } = props;
 			return (
 				<Box {...boxProps} ref={ref} style={{ font: `inherit` }} xcss={styles.button}>
-					<span css={styles.innerContainerSocialProofConnect}>{children}</span>
+					<span
+						css={[
+							styles.innerContainerSocialProofConnect,
+							fg('platform_lp_social_proof_inline_overflow_bug')
+								? styles.innerContainerNoWrap
+								: undefined,
+						]}
+					>
+						{children}
+					</span>
 				</Box>
 			);
 		}

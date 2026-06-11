@@ -5,6 +5,7 @@ import { type JsonLd } from '@atlaskit/json-ld-types';
 import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderHook } from '@atlassian/testing-library';
 
 import { mocks } from '../../../../utils/mocks';
@@ -49,9 +50,9 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		await resolve(url, false, false, id);
+		await resolve({ url, isReloading: false, isMetadataRequest: false, id });
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 
 		expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
@@ -84,42 +85,9 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		await resolve(url, false, false, id);
+		await resolve({ url, isReloading: false, isMetadataRequest: false, id });
 
-		expect(mockContext.connections.client.fetchData).not.toHaveBeenCalledWith(url, false);
-	});
-
-	it('should call fetch when there is no data in the store', async () => {
-		mockFetchData(Promise.resolve(mocks.success));
-		mockState({
-			status: 'pending',
-			details: undefined,
-		});
-
-		const resolve = renderHook(() => useResolve()).current;
-		await resolve(url, false, false, id);
-
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
-
-		expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-			expect.objectContaining({
-				type: 'metadata',
-				url: 'https://some/url',
-				payload: undefined,
-				error: undefined,
-				metadataStatus: 'resolved',
-			}),
-		);
-		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-			expect.objectContaining({
-				type: 'resolved',
-				url: 'https://some/url',
-				payload: mocks.success,
-				error: undefined,
-				metadataStatus: undefined,
-			}),
-		);
+		expect(mockContext.connections.client.fetchData).not.toHaveBeenCalledWith(url, false, undefined);
 	});
 
 	it('should call fetch when isReloading flag is true', async () => {
@@ -130,9 +98,9 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		await resolve(url, true, false, id);
+		await resolve({ url, isReloading: true, isMetadataRequest: false, id });
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, true, undefined);
 		expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 			expect.objectContaining({
@@ -160,9 +128,9 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		await resolve(url, false, true, id);
+		await resolve({ url, isReloading: false, isMetadataRequest: true, id });
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 		expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
 		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
 			expect.objectContaining({
@@ -185,6 +153,38 @@ describe('useResolve', () => {
 		);
 	});
 
+	ffTest.on(
+		'platform_smartlink_inline_resolve_optimization',
+		'sets metadata pending for optimized inline responses',
+		() => {
+			it('should leave metadata pending when inline optimized data resolves', async () => {
+				mockFetchData(Promise.resolve(mocks.success));
+				mockState({
+					status: 'pending',
+					details: undefined,
+				});
+
+				const resolve = renderHook(() => useResolve()).current;
+				await resolve({
+					url,
+					isReloading: false,
+					isMetadataRequest: false,
+					id,
+					appearance: 'inline',
+				});
+
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'inline');
+				expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+					expect.objectContaining({
+						type: 'metadata',
+						url: 'https://some/url',
+						metadataStatus: 'pending',
+					}),
+				);
+			});
+		},
+	);
+
 	it('throws (allowing editor to handle) if resolving fails and there is no previous data', async () => {
 		const mockError = new APIError('fatal', 'https://my.url', '0xBAADF00D');
 		mockFetchData(Promise.reject(mockError));
@@ -194,11 +194,11 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		const promise = resolve(url, false, false, id);
+		const promise = resolve({ url, isReloading: false, isMetadataRequest: false, id });
 		await expect(promise).rejects.toThrow(Error);
 		await expect(promise).rejects.toHaveProperty('kind', 'fatal');
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 
 		// Assert that we dispatch an action to update card state to fatally errored
 		expect(mockContext.store.dispatch).toHaveBeenCalledTimes(1);
@@ -219,10 +219,10 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		const promise = resolve(url, false, false, id);
+		const promise = resolve({ url, isReloading: false, isMetadataRequest: false, id });
 		await expect(promise).resolves.toBeUndefined();
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 		expect(mockContext.store.dispatch).toHaveBeenCalledWith({
 			payload: {
 				meta: {
@@ -260,10 +260,10 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		const promise = resolve(url, false, false, id);
+		const promise = resolve({ url, isReloading: false, isMetadataRequest: false, id });
 		await expect(promise).resolves.toBeUndefined();
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 		expect(mockContext.store.dispatch).toHaveBeenCalledWith({
 			type: 'fallback',
 			url: 'https://some/url',
@@ -287,10 +287,10 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		const promise = resolve(url, false, false, id);
+		const promise = resolve({ url, isReloading: false, isMetadataRequest: false, id });
 		await expect(promise).resolves.toBeUndefined();
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 		expect(mockContext.store.dispatch).toHaveBeenCalledWith({
 			type: 'fallback',
 			url: 'https://some/url',
@@ -307,9 +307,9 @@ describe('useResolve', () => {
 		});
 
 		const resolve = renderHook(() => useResolve()).current;
-		const promise = resolve(url, false, false, id);
+		const promise = resolve({ url, isReloading: false, isMetadataRequest: false, id });
 
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false);
+		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
 		await expect(promise).rejects.toBeInstanceOf(Error);
 		await expect(promise).rejects.toHaveProperty('kind', 'fatal');
 

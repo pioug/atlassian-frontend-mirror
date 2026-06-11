@@ -11,7 +11,6 @@ import {
 	tableCellWithNestedTableStage0,
 	tableHeaderWithNestedTableStage0,
 	layoutColumnStage0,
-	codeBlockWithExtendedAttributes,
 } from './nodes';
 import type { SchemaConfig } from './create-schema';
 import { createSchema } from './create-schema';
@@ -197,7 +196,6 @@ export const getSchemaBasedOnStage: MemoizedFn<
 				tableRow: tableRowWithNestedTable,
 				tableCell: tableCellWithNestedTableStage0,
 				tableHeader: tableHeaderWithNestedTableStage0,
-				codeBlock: codeBlockWithExtendedAttributes,
 			};
 		}
 

@@ -97,7 +97,7 @@ export function useSmartLinkActions({
 		prefetch &&
 		!linkState.details
 	) {
-		resolve(url);
+		resolve({ url });
 	}
 
 	if (linkState.details && !actionOptions?.hide) {

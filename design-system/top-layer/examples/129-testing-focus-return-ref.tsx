@@ -31,6 +31,7 @@ function PopoverWithRemovableTrigger({
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

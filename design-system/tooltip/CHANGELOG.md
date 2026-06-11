@@ -1,5 +1,20 @@
 # @atlaskit/tooltip
 
+## 22.6.3
+
+### Patch Changes
+
+- [`6d0485dce81c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d0485dce81c4) -
+  Internal: updated to the new `@atlaskit/top-layer` `Popover`/`Dialog` behaviour where the host
+  element unmounts after the exit animation completes. No consumer action required.
+- Updated dependencies
+
+## 22.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.6.1
 
 ### Patch Changes

@@ -1,5 +1,57 @@
 # @atlaskit/smart-card
 
+## 44.26.1
+
+### Patch Changes
+
+- [`299e30381fd33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/299e30381fd33) -
+  Update anchor href with cross-product analytics
+- [`6d0485dce81c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d0485dce81c4) -
+  Internal: updated to the new `@atlaskit/top-layer` `Popover`/`Dialog` behaviour where the host
+  element unmounts after the exit animation completes. No consumer action required.
+- Updated dependencies
+
+## 44.26.0
+
+### Minor Changes
+
+- [`92da883bae00d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92da883bae00d) -
+  Add `useSmartLinkDestinationUrl` hook via new entry point
+  `@atlaskit/smart-card/hook/use-smart-link-destination-url`.
+
+  The hook resolves the XPC-wrapped destination URL for a given Smart Link URL behind the
+  `platform_smartlink_xpc_url_wrapping` feature gate. When the gate is off or the link has not yet
+  resolved, it falls back gracefully to the original URL. This enables consumers (e.g. editor
+  toolbar and overlays) to open the cross-product-parameter-enriched URL without re-implementing
+  SmartCard's internal URL resolution logic.
+
+### Patch Changes
+
+- [`9b6eb080bfa56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b6eb080bfa56) -
+  Keep inline Smart Link social proof CTAs together in narrow containers.
+
+  All changes behind feature gate: platform_lp_social_proof_inline_overflow_bug. No public API
+  change.
+
+## 44.25.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.25.0
+
+### Minor Changes
+
+- [`fdea0f8bc06c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdea0f8bc06c4) -
+  Pass card appearance to ORS for optimized response payload. When
+  platform_smartlink_inline_resolve_optimization is enabled, inline cards request minimal data on
+  initial load and fetch full block data on hover.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.24.2
 
 ### Patch Changes

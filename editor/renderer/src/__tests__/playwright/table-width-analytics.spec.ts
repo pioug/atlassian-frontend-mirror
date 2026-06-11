@@ -1,5 +1,4 @@
 import type { Page } from '@af/integration-testing';
-import { skipAutoA11yFile } from '@atlassian/a11y-playwright-testing';
 import { rendererTestCase as test, expect } from './not-libra';
 import type { RendererPageInterface } from './not-libra';
 import {
@@ -9,10 +8,6 @@ import {
 } from './table-width-analytics.spec.ts-fixtures';
 
 test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
-// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
-// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
-// the next line and associated import. For more information, see go/afm-a11y-tooling:playwright
-skipAutoA11yFile();
 
 test.describe('table width information analytics', () => {
 	const waitForTableWidthInformationEvent = async (renderer: RendererPageInterface, page: Page) => {
@@ -63,6 +58,8 @@ test.describe('table width information analytics', () => {
 					}),
 				}),
 			);
+
+			await expect(page).toBeAccessible();
 		});
 	});
 
@@ -106,6 +103,8 @@ test.describe('table width information analytics', () => {
 					}),
 				}),
 			);
+
+			await expect(page).toBeAccessible();
 		});
 	});
 
@@ -139,6 +138,8 @@ test.describe('table width information analytics', () => {
 					}),
 				}),
 			);
+
+			await expect(page).toBeAccessible();
 		});
 	});
 });

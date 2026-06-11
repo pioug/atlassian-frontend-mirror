@@ -328,66 +328,22 @@ const styles = cssMapUnbound({
 });
 
 /* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-important-styles */
-// Border color style - gray only for AvatarTag
+// Border color style - gray only for AvatarTag.
+// Uses the new color.border.accent.gray.subtle token directly so no OKLCH/color-mix
+// runtime transforms are needed.
 const borderColorStyles = cssMapUnbound({
 	root: {
-		'--tag-border-token': token('color.border.accent.gray'),
+		'--tag-border-token': token('color.border.accent.gray.subtle'),
 	},
 });
 
 // Border filter styles - base state
 const borderFilterStyles = cssMapUnbound({
 	root: {
-		borderColor:
-			'color-mix(in oklch, var(--tag-border-token) 100%, var(--cm-border-color) var(--cm-border-value))',
-		'--border-l-factor': '1.33',
-		'--cm-border-color': 'white',
-		'--cm-border-value': '45%',
-		'[data-color-mode="dark"] &': {
-			'--border-l-factor': '0.7',
-			'--cm-border-color': 'black',
-		},
-		'@supports (color: oklch(from white l c h))': {
-			borderColor: 'oklch(from var(--tag-border-token) calc(l * var(--border-l-factor)) c h)',
-		},
+		borderColor: 'var(--tag-border-token)',
 	},
 });
 
-// Border filter styles - interactive states (hover/pressed)
-const borderInteractiveFilterStyles = cssMapUnbound({
-	root: {
-		'--border-hovered-l-factor': '1.2',
-		'--border-pressed-l-factor': '1.08',
-		'--cm-border-hovered-value': '30%',
-		'--cm-border-pressed-value': '10%',
-
-		'[data-color-mode="dark"] &': {
-			'--border-hovered-l-factor': '0.8',
-			'--border-pressed-l-factor': '0.9',
-		},
-
-		'&:hover': {
-			borderColor:
-				'color-mix(in oklch, var(--tag-border-token) 100%, var(--cm-border-color) var(--cm-border-hovered-value))',
-		},
-
-		'&:active': {
-			borderColor:
-				'color-mix(in oklch, var(--tag-border-token) 100%, var(--cm-border-color) var(--cm-border-pressed-value))',
-		},
-
-		'@supports (color: oklch(from white l c h))': {
-			'&:hover': {
-				borderColor:
-					'oklch(from var(--tag-border-token) calc(l * var(--border-hovered-l-factor)) c h)',
-			},
-			'&:active': {
-				borderColor:
-					'oklch(from var(--tag-border-token) calc(l * var(--border-pressed-l-factor)) c h)',
-			},
-		},
-	},
-});
 /* eslint-enable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-important-styles */
 
 /**
@@ -486,7 +442,6 @@ const AvatarTagComponent = forwardRef<HTMLSpanElement, AvatarTagProps>(function 
 				isLink && styles.interactiveBaseStyles,
 				isLink && styles.focusRingStyles,
 				// Only apply hover/active styles when link is hovered but NOT over the button
-				isLink && isLinkHovered && !isOverButton && borderInteractiveFilterStyles.root,
 				isLink && isLinkHovered && !isOverButton && styles.interactiveHoverStyles,
 				isRemovable && !isUserType && styles.removableStyles,
 				isRemovable && isUserType && styles.userRemovableStyles,

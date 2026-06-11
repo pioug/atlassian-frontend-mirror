@@ -1,5 +1,50 @@
 # @atlaskit/editor-plugin-card
 
+## 17.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.4.2
+
+### Patch Changes
+
+- [`92da883bae00d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92da883bae00d) -
+  Use XPC-wrapped destination URL for link navigation behind `platform_smartlink_xpc_url_wrapping`.
+
+  When the feature gate is enabled, the following link-opening locations now use the cross-product
+  analytics parameter-enriched URL provided by SmartCard instead of the raw node URL:
+  - **Toolbar "Open Link" button** (both smart card and datasource paths) — uses the new
+    `useSmartLinkDestinationUrl` hook from
+    `@atlaskit/smart-card/hook/use-smart-link-destination-url` via a new `OpenLinkToolbarButton`
+    custom toolbar component.
+  - **Inline card overlay anchor** (`InlineCardOverlay`) — `href` updated to use
+    `useSmartLinkDestinationUrl`.
+  - **Hover link overlay** (`HoverLinkOverlay`) — accepts a new optional `destinationUrl` prop; when
+    provided and the gate is on, uses it for both the anchor `href` and double-click `window.open`.
+    The `destinationUrl` is computed by `inlineCardWithAwareness` using `useSmartLinkDestinationUrl`
+    and passed down — keeping `editor-common` free of any SmartCard provider dependency.
+  - **Inline card Cmd/Ctrl+click** — reads `data.destinationUrl` from SmartCard's `onClick` callback
+    (typed as `OnClickCallback` from `@atlaskit/smart-card/card/types`).
+
+  All changes gracefully fall back to the raw URL when the gate is off or the link has not yet
+  resolved.
+
+- Updated dependencies
+
+## 17.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.4.0
 
 ### Minor Changes

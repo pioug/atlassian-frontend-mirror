@@ -55,6 +55,7 @@ export default function TestingAnimationCallbacks(): ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	const handleEnterFinish = useCallback(() => {

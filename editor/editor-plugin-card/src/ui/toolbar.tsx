@@ -60,6 +60,7 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import CogIcon from '@atlaskit/icon/core/settings';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -87,6 +88,7 @@ import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
 import { getCustomHyperlinkAppearanceDropdown } from './HyperlinkToolbarAppearanceDropdown';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 import { getLinkAppearanceDropdown } from './LinkToolbarAppearanceDropdown';
+import { OpenLinkToolbarButton } from './OpenLinkToolbarButton';
 import { OpenPreviewPanelToolbarButton } from './OpenPreviewButton';
 import { ToolbarViewedEvent } from './ToolbarViewedEvent';
 
@@ -613,7 +615,7 @@ const generateToolbarItems =
 				? (pluginState?.resolvedToolbarAttributesByUrl[url] ?? {})
 				: {};
 
-			const openLinkToolbarItem: FloatingToolbarItem<Command> = {
+			const openLinkToolbarItemFallback: FloatingToolbarItem<Command> = {
 				id: 'editor.link.openLink',
 				type: 'button',
 				icon: LinkExternalIcon,
@@ -629,6 +631,28 @@ const generateToolbarItems =
 				href: url,
 				target: '_blank',
 			};
+			const openLinkToolbarItem: FloatingToolbarItem<Command> = fg(
+				'platform_smartlink_xpc_url_wrapping',
+			)
+				? {
+						type: 'custom',
+						fallback: [openLinkToolbarItemFallback],
+						render: (editorView) =>
+							editorView && url ? (
+								<OpenLinkToolbarButton
+									url={url}
+									title={intl.formatMessage(linkMessages.openLink)}
+									editorView={editorView}
+									onClick={fireOpenLinkToolbarAnalytics(
+										editorAnalyticsApi,
+										openLinkInputMethod,
+										resolvedToolbarAttributes,
+									)}
+									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
+								/>
+							) : null,
+					}
+				: openLinkToolbarItemFallback;
 
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = areAllNewToolbarFlagsDisabled
 				? [
@@ -993,7 +1017,7 @@ const getDatasourceButtonGroup = (
 	});
 
 	if (node?.attrs?.url) {
-		toolbarItems.push({
+		const openLinkToolbarItemFallback: FloatingToolbarItem<Command> = {
 			id: 'editor.link.openLink',
 			type: 'button',
 			icon: LinkExternalIcon,
@@ -1008,7 +1032,29 @@ const getDatasourceButtonGroup = (
 			),
 			href: node.attrs.url,
 			target: '_blank',
-		});
+		};
+		toolbarItems.push(
+			fg('platform_smartlink_xpc_url_wrapping')
+				? {
+						type: 'custom',
+						fallback: [openLinkToolbarItemFallback],
+						render: (editorView) =>
+							editorView ? (
+								<OpenLinkToolbarButton
+									url={node.attrs.url}
+									title={intl.formatMessage(linkMessages.openLink)}
+									editorView={editorView}
+									onClick={fireOpenLinkToolbarAnalytics(
+										editorAnalyticsApi,
+										openLinkInputMethod,
+										pluginState?.resolvedToolbarAttributesByUrl[node.attrs.url] ?? {},
+									)}
+									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
+								/>
+							) : null,
+					}
+				: openLinkToolbarItemFallback,
+		);
 		if (areAllNewToolbarFlagsDisabled) {
 			toolbarItems.push({ type: 'separator' });
 		}

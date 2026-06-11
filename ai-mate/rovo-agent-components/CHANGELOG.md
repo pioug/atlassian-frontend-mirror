@@ -1,5 +1,24 @@
 # @atlaskit/rovo-agent-components
 
+## 5.2.2
+
+### Patch Changes
+
+- [`6b637cd3a7ff3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b637cd3a7ff3) -
+  Fix Jira Coding Agent profilecard showing old green Rovo Dev avatar and banner.
+
+  The `creator_type` field for the Jira Coding Agent is still `'ROVO_DEV'` (not updated at the
+  source), which caused `isRovoDev` to be `true` and the profilecard to render the legacy green
+  avatar and banner header.
+
+  When the `devai-rdij-to-jira-coding-agent` gate is enabled, the `isRovoDev` check now also
+  verifies the agent name is `'rovo dev'` (case-insensitive). If the name is anything else (e.g.
+  `'Jira Coding Agent'`), `isRovoDev` is `false` and the agent falls through to the named-avatar
+  lookup via `external_config_reference`.
+
+  A new `jira_coding_agent` entry has been added to `outOfTheBoxAgentAvatar` with a Jira icon on a
+  blue hexagon background, matching the backfilled identity avatar.
+
 ## 5.2.1
 
 ### Patch Changes

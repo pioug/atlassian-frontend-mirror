@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer/open-layer-observer';
 import { useOpenLayerObserver } from '@atlaskit/layering/experimental/use-open-layer-observer';
-import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
+import { fireEvent, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 import { Dialog } from '../../src/entry-points/dialog';
 
@@ -67,15 +67,16 @@ describe('Dialog primitive', () => {
 		expect(dialogEl).toHaveAttribute('open');
 	});
 
-	it('does not open dialog when isOpen is false', () => {
+	it('does not render the dialog element when isOpen is false', async () => {
 		render(
 			<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
 				<p>Content</p>
 			</Dialog>,
 		);
 
-		const dialogEl = screen.getByRole('dialog', { hidden: true });
-		expect(dialogEl).not.toHaveAttribute('open');
+		// Host element is unmounted when not open so it does not leave an
+		// empty role="dialog" in the accessibility tree.
+		await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
 	});
 
 	it('closes dialog on unmount when dialog is open', () => {
@@ -93,15 +94,14 @@ describe('Dialog primitive', () => {
 		expect(dialogEl).not.toHaveAttribute('open');
 	});
 
-	it('closes dialog when isOpen transitions to false', () => {
+	it('closes dialog when isOpen transitions to false', async () => {
 		const { rerender } = render(
 			<Dialog onClose={() => {}} isOpen={true} label="Test dialog">
 				<p>Content</p>
 			</Dialog>,
 		);
 
-		const dialogEl = screen.getByRole('dialog', { hidden: true });
-		expect(dialogEl).toHaveAttribute('open');
+		expect(screen.getByRole('dialog', { hidden: true })).toHaveAttribute('open');
 
 		rerender(
 			<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
@@ -109,18 +109,19 @@ describe('Dialog primitive', () => {
 			</Dialog>,
 		);
 
-		expect(dialogEl).not.toHaveAttribute('open');
+		// Without an animation preset, the host element unmounts synchronously
+		// when isOpen flips to false.
+		await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
 	});
 
-	it('opens dialog when isOpen transitions from false to true', () => {
+	it('opens dialog when isOpen transitions from false to true', async () => {
 		const { rerender } = render(
 			<Dialog onClose={() => {}} isOpen={false} label="Test dialog">
 				<p>Content</p>
 			</Dialog>,
 		);
 
-		const dialogEl = screen.getByRole('dialog', { hidden: true });
-		expect(dialogEl).not.toHaveAttribute('open');
+		await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
 
 		rerender(
 			<Dialog onClose={() => {}} isOpen={true} label="Test dialog">
@@ -128,7 +129,7 @@ describe('Dialog primitive', () => {
 			</Dialog>,
 		);
 
-		expect(dialogEl).toHaveAttribute('open');
+		expect(screen.getByRole('dialog', { hidden: true })).toHaveAttribute('open');
 	});
 
 	it('fires onClose with reason "overlay-click" when dialog element itself is clicked', () => {

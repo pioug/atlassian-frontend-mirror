@@ -35,13 +35,3 @@ export type TAnimationPreset = {
 	 */
 	exitDurationMs: number;
 };
-
-/**
- * @deprecated Use `TAnimationPreset` instead.
- */
-export type TPopoverAnimationPreset = TAnimationPreset;
-
-/**
- * @deprecated Use `TAnimationPreset` instead.
- */
-export type TDialogAnimationPreset = TAnimationPreset;

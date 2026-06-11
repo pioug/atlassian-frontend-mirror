@@ -17,6 +17,7 @@ function SecondPopover(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { axis: 'inline', edge: 'end' },
+		isOpen,
 	});
 
 	return (
@@ -43,6 +44,7 @@ export default function TestingNestedPopovers(): React.ReactNode {
 		anchorRef: triggerRef,
 		popoverRef,
 		placement: { edge: 'end' },
+		isOpen,
 	});
 
 	return (

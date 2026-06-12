@@ -76,4 +76,5 @@ export class CaptionComponent extends React.Component<Props & WrappedComponentPr
 const _default_1: React.FC<WithIntlProps<Props & WrappedComponentProps>> & {
 	WrappedComponent: React.ComponentType<Props & WrappedComponentProps>;
 } = injectIntl(CaptionComponent);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default _default_1;

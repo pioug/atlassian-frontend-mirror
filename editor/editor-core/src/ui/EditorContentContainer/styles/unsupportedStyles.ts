@@ -30,6 +30,7 @@ export const UnsupportedSharedCssClassName = {
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const unsupportedStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors,@atlaskit/ui-styling-standard/no-unsafe-values
 	[`.${UnsupportedSharedCssClassName.BLOCK_CONTAINER} > div, .${UnsupportedSharedCssClassName.INLINE_CONTAINER} > span:nth-of-type(2)`]:

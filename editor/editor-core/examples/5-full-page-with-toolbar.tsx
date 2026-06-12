@@ -146,6 +146,7 @@ export class ExampleEditor extends React.Component<Props> {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function Example(defaultValue: string | object): jsx.JSX.Element {
 	return (
 		<EditorContext>

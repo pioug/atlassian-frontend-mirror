@@ -190,6 +190,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 															? !!props.featureFlags?.toolbarMinWidthOverflow
 															: props.allowUndoRedoButtons
 													}
+													isEditorModernisationEnabled={props.isEditorModernisationEnabled}
 													useStickyToolbar={props.useStickyToolbar}
 													featureFlags={featureFlags}
 													pluginHooks={config.pluginHooks}

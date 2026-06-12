@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-code-block
 
+## 13.1.13
+
+### Patch Changes
+
+- [`ff0d47c808e14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff0d47c808e14) -
+  Add provider-based opt-in for the code block formatting button.
+
+## 13.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.8
 
 ### Patch Changes

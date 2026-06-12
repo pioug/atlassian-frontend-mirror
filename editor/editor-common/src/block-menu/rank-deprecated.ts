@@ -68,6 +68,7 @@ export const FORMAT_NESTED_MENU_RANK: {
  * @private
  * @deprecated
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const FORMAT_NESTED_MENU_RANK_REVISED: {
 	[FORMAT_PARAGRAPH_MENU_ITEM.key]: number;
 	[FORMAT_QUOTE_MENU_ITEM.key]: number;
@@ -106,6 +107,7 @@ export const FORMAT_NESTED_MENU_RANK_REVISED: {
  * @private
  * @deprecated
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const BLOCK_MENU_SECTION_RANK: {
 	[PRIMARY_MENU_SECTION.key]: number;
 	[ADD_BLOCKS_MENU_SECTION.key]: number;
@@ -124,6 +126,7 @@ export const BLOCK_MENU_SECTION_RANK: {
  * @private
  * @deprecated
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const PRIMARY_MENU_SECTION_RANK: {
 	[FORMAT_MENU_ITEM.key]: number;
 	[TRANSFORM_MENU_ITEM.key]: number;
@@ -136,6 +139,7 @@ export const PRIMARY_MENU_SECTION_RANK: {
  * @private
  * @deprecated
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ADD_BLOCKS_MENU_SECTION_RANK: {
 	[CREATE_SYNCED_BLOCK_MENU_ITEM.key]: number;
 } = {
@@ -146,6 +150,7 @@ export const ADD_BLOCKS_MENU_SECTION_RANK: {
  * @private
  * @deprecated
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const COPY_MENU_SECTION_RANK: {
 	[COPY_LINK_MENU_ITEM.key]: number;
 } = {
@@ -156,6 +161,7 @@ export const COPY_MENU_SECTION_RANK: {
  * @private
  * @deprecated
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MOVE_BLOCK_SECTION_RANK: {
 	[MOVE_UP_MENU_ITEM.key]: number;
 	[MOVE_DOWN_MENU_ITEM.key]: number;
@@ -168,6 +174,7 @@ export const MOVE_BLOCK_SECTION_RANK: {
  * @private
  * @deprecated
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const DELETE_SECTION_RANK: {
 	[DELETE_MENU_ITEM.key]: number;
 } = {

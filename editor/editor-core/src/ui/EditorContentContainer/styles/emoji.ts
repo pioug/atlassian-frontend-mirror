@@ -80,6 +80,7 @@ export const emojiStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const scaledEmojiStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror .${EmojiSharedCssClassName.EMOJI_CONTAINER}`]: {
@@ -164,6 +165,7 @@ export const scaledEmojiStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getScaledDenseEmojiStyles = (baseFontSize?: number): SerializedStyles => {
 	if (!baseFontSize || baseFontSize === akEditorFullPageDefaultFontSize) {
 		return css({});
@@ -282,6 +284,7 @@ export const getScaledDenseEmojiStyles = (baseFontSize?: number): SerializedStyl
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getDenseEmojiStyles = (baseFontSize?: number): SerializedStyles => {
 	if (!baseFontSize || baseFontSize === akEditorFullPageDefaultFontSize) {
 		return css({});
@@ -326,6 +329,7 @@ export const getDenseEmojiStyles = (baseFontSize?: number): SerializedStyles => 
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const emojiDangerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 	[`.ProseMirror .${akEditorSelectedNodeClassName}.danger`]: {

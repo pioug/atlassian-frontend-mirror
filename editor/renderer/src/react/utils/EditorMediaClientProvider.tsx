@@ -1,10 +1,24 @@
 import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { MediaClientContext, getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { useProviderFactory, useProviderLayout } from '@atlaskit/editor-common/provider-factory';
+import {
+	useProviderFactory,
+	useProviderLayout,
+	type MediaProvider as EditorMediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaSSR } from '../../types/mediaOptions';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+const getMediaClientConfigForRenderer = (provider: EditorMediaProvider): MediaClientConfig => {
+	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+	return provider.viewAndUploadMediaClientConfig &&
+		fg('platform_media_video_captions') &&
+		fg('platform_editor_video_caption_commit')
+		? provider.viewAndUploadMediaClientConfig
+		: provider.viewMediaClientConfig;
+};
 
 export const EditorMediaClientProvider = ({
 	children,
@@ -81,7 +95,7 @@ export const EditorMediaClientProvider = ({
 			// and a catch handler would be a no-op anyway.
 			mediaProvider.then((provider) => {
 				if (!cancelled) {
-					setMediaClientConfig(provider.viewMediaClientConfig);
+					setMediaClientConfig(getMediaClientConfigForRenderer(provider));
 				}
 			});
 			return () => {
@@ -100,7 +114,7 @@ export const EditorMediaClientProvider = ({
 			setMediaClientConfig(ssr.config);
 		} else if (mediaProvider) {
 			mediaProvider.then((provider) => {
-				setMediaClientConfig(provider.viewMediaClientConfig);
+				setMediaClientConfig(getMediaClientConfigForRenderer(provider));
 			});
 		}
 	}, [mediaProvider, ssr?.config]);

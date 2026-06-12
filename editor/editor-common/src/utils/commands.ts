@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';

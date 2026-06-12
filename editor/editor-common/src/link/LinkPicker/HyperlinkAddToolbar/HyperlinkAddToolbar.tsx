@@ -68,6 +68,7 @@ export const visuallyHiddenStyles: SerializedStyles = css({
 	position: 'absolute',
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
 const clearTextButtonStyles = xcss({
@@ -178,7 +179,7 @@ const mapSearchProviderResultToLinkSearchItemData = ({
 });
 
 // Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components, @atlaskit/volt-strict-mode/no-multiple-exports
 export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	/* To prevent double submit */
 	private submitted: boolean = false;
@@ -929,7 +930,7 @@ function limit<T>(items: Array<T>) {
 	return items.slice(0, RECENT_SEARCH_LIST_SIZE);
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types, @atlaskit/volt-strict-mode/no-multiple-exports
 export const HyperlinkLinkAddToolbarWithIntl: React.FC<
 	WithIntlProps<HyperlinkLinkAddToolbarProps>
 > & {
@@ -944,6 +945,7 @@ const _default_1: React.ForwardRefExoticComponent<
 	> &
 		React.RefAttributes<unknown>
 > = withAnalyticsEvents()(HyperlinkLinkAddToolbarWithIntl);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default _default_1;
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { messages } from './messages';

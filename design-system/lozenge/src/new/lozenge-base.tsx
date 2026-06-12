@@ -4,7 +4,7 @@
  */
 import { forwardRef, memo, type Ref, useLayoutEffect, useRef, useState } from 'react';
 
-import Badge, { type BadgeNewProps } from '@atlaskit/badge';
+import Badge, { type BadgeNewProps } from '@atlaskit/badge/new';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { useResizing } from '@atlaskit/motion/resizing';
@@ -114,163 +114,101 @@ const styles = cssMap({
 		display: 'flex',
 	},
 
-	// Trailing metric badge appearance variables (can be overridden independently from the lozenge appearance)
-	'metric.semantic.success': {
-		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--badge-background-color': token('color.background.success.subtler.pressed'),
-		'--badge-background-color-pressed': token('color.background.success.pressed'),
-	},
-	'metric.semantic.warning': {
-		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--badge-background-color': token('color.background.warning.subtler.pressed'),
-		'--badge-background-color-pressed': token('color.background.warning.pressed'),
-	},
-	'metric.semantic.danger': {
-		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--badge-background-color': token('color.background.danger.subtler.pressed'),
-		'--badge-background-color-pressed': token('color.background.danger.pressed'),
-	},
-	'metric.semantic.information': {
-		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--badge-background-color': token('color.background.information.subtler.pressed'),
-		'--badge-background-color-pressed': token('color.background.information.pressed'),
-	},
-	'metric.semantic.neutral': {
-		// Neutral400
-		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--badge-background-color': '#B7B9BE',
-		// Neutral300
-		'--badge-background-color-pressed': '#DDDEE1',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-color-mode="dark"] &': {
-			// DarkNeutral400
-			'--badge-background-color': '#4B4D51',
-			// DarkNeutral350
-			'--badge-background-color-pressed': '#3D3F43',
-		},
-	},
-	'metric.semantic.discovery': {
-		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--badge-background-color': token('color.background.discovery.subtler.pressed'),
-		'--badge-background-color-pressed': token('color.background.discovery.pressed'),
-	},
-	'metric.inverse': {
-		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--badge-background-color': token('elevation.surface'),
-		'--badge-background-color-pressed': token('elevation.surface'),
-	},
-
 	// Semantic colors
 	'semantic.success': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.success'),
-		'--border-color': token('color.border.success'),
+		'--border-color': token('color.border.success.subtle'),
 		backgroundColor: token('color.background.success.subtler'),
 		color: token('color.text.success.bolder'),
 	},
 	'semantic.warning': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.warning'),
-		'--border-color': token('color.border.warning'),
+		'--border-color': token('color.border.warning.subtle'),
 		backgroundColor: token('color.background.warning.subtler'),
 		color: token('color.text.warning.bolder'),
 	},
 	'semantic.danger': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.danger'),
-		'--border-color': token('color.border.danger'),
+		'--border-color': token('color.border.danger.subtle'),
 		backgroundColor: token('color.background.danger.subtler'),
 		color: token('color.text.danger.bolder'),
 	},
 	'semantic.information': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.information'),
-		'--border-color': token('color.border.information'),
+		'--border-color': token('color.border.information.subtle'),
 		backgroundColor: token('color.background.information.subtler'),
 		color: token('color.text.information.bolder'),
 	},
 	'semantic.neutral': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.subtlest'),
-		'--border-color': token('color.border.bold'),
+		'--border-color': token('color.border'),
 		backgroundColor: token('color.background.neutral'),
 		color: token('color.text'),
 	},
 	'semantic.discovery': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.discovery'),
-		'--border-color': token('color.border.discovery'),
+		'--border-color': token('color.border.discovery.subtle'),
 		backgroundColor: token('color.background.discovery.subtler'),
 		color: token('color.text.discovery.bolder'),
 	},
 	// Accent colors
 	'accent.red': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.red'),
-		'--border-color': token('color.border.accent.red'),
+		'--border-color': token('color.border.accent.red.subtle'),
 		backgroundColor: token('color.background.accent.red.subtler'),
 		color: token('color.text.accent.red.bolder'),
 	},
 	'accent.orange': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.orange'),
-		'--border-color': token('color.border.accent.orange'),
+		'--border-color': token('color.border.accent.orange.subtle'),
 		backgroundColor: token('color.background.accent.orange.subtler'),
 		color: token('color.text.accent.orange.bolder'),
 	},
 	'accent.yellow': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.yellow'),
-		'--border-color': token('color.border.accent.yellow'),
+		'--border-color': token('color.border.accent.yellow.subtle'),
 		backgroundColor: token('color.background.accent.yellow.subtler'),
 		color: token('color.text.accent.yellow.bolder'),
 	},
 	'accent.lime': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.lime'),
-		'--border-color': token('color.border.accent.lime'),
+		'--border-color': token('color.border.accent.lime.subtle'),
 		backgroundColor: token('color.background.accent.lime.subtler'),
 		color: token('color.text.accent.lime.bolder'),
 	},
 	'accent.green': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.green'),
-		'--border-color': token('color.border.accent.green'),
+		'--border-color': token('color.border.accent.green.subtle'),
 		backgroundColor: token('color.background.accent.green.subtler'),
 		color: token('color.text.accent.green.bolder'),
 	},
 	'accent.teal': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.teal'),
-		'--border-color': token('color.border.accent.teal'),
+		'--border-color': token('color.border.accent.teal.subtle'),
 		backgroundColor: token('color.background.accent.teal.subtler'),
 		color: token('color.text.accent.teal.bolder'),
 	},
 	'accent.blue': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.blue'),
-		'--border-color': token('color.border.accent.blue'),
+		'--border-color': token('color.border.accent.blue.subtle'),
 		backgroundColor: token('color.background.accent.blue.subtler'),
 		color: token('color.text.accent.blue.bolder'),
 	},
 	'accent.purple': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.purple'),
-		'--border-color': token('color.border.accent.purple'),
+		'--border-color': token('color.border.accent.purple.subtle'),
 		backgroundColor: token('color.background.accent.purple.subtler'),
 		color: token('color.text.accent.purple.bolder'),
 	},
 	'accent.magenta': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.magenta'),
-		'--border-color': token('color.border.accent.magenta'),
+		'--border-color': token('color.border.accent.magenta.subtle'),
 		backgroundColor: token('color.background.accent.magenta.subtler'),
 		color: token('color.text.accent.magenta.bolder'),
 	},
 	'accent.gray': {
 		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'--icon-color': token('color.icon.accent.gray'),
-		'--border-color': token('color.border.accent.gray'),
+		'--border-color': token('color.border'),
 		backgroundColor: token('color.background.accent.gray.subtlest'),
 		color: token('color.text.accent.gray.bolder'),
 	},
@@ -407,110 +345,9 @@ const styles = cssMap({
 	// Icon and border filter for darkening or lightening the icon color and border color
 	/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-important-styles */
 	iconBorderFilter: {
-		// ---OKLCH Factors (light theme) ---
-		'--icon-l-factor': '0.88',
-		'--border-l-factor': '1.33',
-		// --- Color Mix Fallbacks (light theme) ---
-		'--cm-icon-color': 'black',
-		'--cm-border-color': 'white',
-		'--cm-icon-value': '20%',
-		'--cm-border-value': '45%',
-
-		'[data-color-mode="dark"] &': {
-			// --- OKLCH Factors (dark theme) ---
-			'--icon-l-factor': '1',
-			'--border-l-factor': '0.7',
-			// --- Color Mix Fallbacks (dark theme) ---
-			'--cm-icon-color': 'white',
-			'--cm-border-color': 'black',
-			'--cm-icon-value': '0%',
-		},
-
-		'& > span:first-of-type > svg': {
-			// Fallback using color-mix for browsers without OKLCH relative color syntax
-			color:
-				'color-mix(in oklch, var(--icon-color) 100%, var(--cm-icon-color) var(--cm-icon-value))',
-		},
+		// Border now uses color.border.*.subtle tokens directly (Color400)
 		// @ts-expect-error
-		borderColor:
-			'color-mix(in oklch, var(--border-color) 100%, var(--cm-border-color) var(--cm-border-value)) !important',
-
-		'@supports (color: oklch(from white l c h))': {
-			'& > span:first-of-type > svg': {
-				color: 'oklch(from var(--icon-color) calc(l * var(--icon-l-factor)) c h)',
-			},
-			borderColor:
-				'oklch(from var(--border-color) calc(l * var(--border-l-factor)) c h) !important',
-		},
-	},
-	iconBorderInteractiveFilter: {
-		// ---OKLCH Factors (light theme) ---
-		'--icon-hovered-l-factor': '0.8',
-		'--icon-pressed-l-factor': '0.7',
-		'--border-hovered-l-factor': '1.2',
-		'--border-pressed-l-factor': '1.08',
-		// --- Color Mix Fallbacks (light theme) ---
-		'--cm-icon-hovered-value': '30%',
-		'--cm-icon-pressed-value': '40%',
-		'--cm-border-hovered-value': '30%',
-		'--cm-border-pressed-value': '10%',
-
-		'[data-color-mode="dark"] &': {
-			// --- OKLCH Factors (dark theme) ---
-			'--icon-hovered-l-factor': '1.15',
-			'--icon-pressed-l-factor': '1.37',
-			'--border-hovered-l-factor': '0.8',
-			'--border-pressed-l-factor': '0.9',
-			// --- Color Mix Fallbacks (dark theme) ---
-			'--cm-icon-hovered-value': '30%',
-			'--cm-icon-pressed-value': '70%',
-		},
-
-		'&:hover': {
-			'& > span:first-of-type > svg': {
-				// Fallback using color-mix for browsers without OKLCH relative color syntax
-				color:
-					'color-mix(in oklch, var(--icon-color) 100%, var(--cm-icon-color) var(--cm-icon-hovered-value))',
-			},
-			// @ts-expect-error
-			borderColor:
-				'color-mix(in oklch, var(--border-color) 100%, var(--cm-border-color) var(--cm-border-hovered-value)) !important',
-		},
-		'&:active': {
-			'& > span:first-of-type > svg': {
-				// Fallback using color-mix for browsers without OKLCH relative color syntax
-				color:
-					'color-mix(in oklch, var(--icon-color) 100%, var(--cm-icon-color) var(--cm-icon-pressed-value))',
-			},
-			// @ts-expect-error
-			borderColor:
-				'color-mix(in oklch, var(--border-color) 100%, var(--cm-border-color) var(--cm-border-pressed-value)) !important',
-		},
-
-		'@supports (color: oklch(from white l c h))': {
-			'&:hover': {
-				'& > span:first-of-type > svg': {
-					color: 'oklch(from var(--icon-color) calc(l * var(--icon-hovered-l-factor)) c h)',
-				},
-				borderColor:
-					'oklch(from var(--border-color) calc(l * var(--border-hovered-l-factor)) c h) !important',
-			},
-			'&:active': {
-				'& > span:first-of-type > svg': {
-					color: 'oklch(from var(--icon-color) calc(l * var(--icon-pressed-l-factor)) c h)',
-				},
-				borderColor:
-					'oklch(from var(--border-color) calc(l * var(--border-pressed-l-factor)) c h) !important',
-			},
-		},
-	},
-	// Selected state icons should retain semantic/accent colors.
-	// We treat "selected" as "pressed" for the current appearance.
-	containerSelected: {
-		// @ts-expect-error -- CSS variables not valid in cssMap types
-		'& > span:first-of-type > svg': {
-			color: 'oklch(from var(--icon-color) calc(l * var(--icon-pressed-l-factor)) c h) !important',
-		},
+		borderColor: 'var(--border-color) !important',
 	},
 	content: {
 		gap: token('space.050'),
@@ -526,19 +363,32 @@ const styles = cssMap({
 	loadingContent: {
 		opacity: 0,
 	},
-	containerBadge: {
+	// In the pressed/selected state the lozenge background darkens, so override the
+	// badge background to `color.background.neutral` to keep it distinguishable.
+	// Applied via `:active` (mouse-down) and `data-selected` (dropdown open).
+	// Note: the neutral appearance overrides this with `neutral.hovered` via
+	// `containerBadgeNeutralAppearance`, which is applied last in xcss order
+	// (equal specificity, so source order wins).
+	containerBadgePressed: {
 		// @ts-expect-error - nested selector for metric badge not in cssMap schema
-		'& [data-lozenge-metric-wrapper] > span:first-of-type': {
-			backgroundColor: 'var(--badge-background-color)',
-		},
-	},
-	containerBadgeInteractive: {
-		'&:active': {
-			// @ts-expect-error - nested selector for metric badge not in cssMap schema
-			'& [data-lozenge-metric-wrapper] > span:first-of-type': {
-				backgroundColor: 'var(--badge-background-color-pressed)',
+		'&:active [data-lozenge-metric-wrapper] > span:first-of-type, &[data-selected="true"] [data-lozenge-metric-wrapper] > span:first-of-type':
+			{
+				backgroundColor: `${token('color.background.neutral')} !important`,
 			},
-		},
+	},
+	// For the **neutral** lozenge appearance, the default `neutral` badge
+	// background is the same alpha-grey as the lozenge background, so it
+	// visually blends in. Override the badge background to
+	// `color.background.neutral.hovered` (a slightly darker alpha grey) in
+	// all states (default, hovered, and pressed) so the badge stays
+	// distinguishable. Using the same value across all states keeps the
+	// neutral badge stable rather than going lighter on press.
+	containerBadgeNeutralAppearance: {
+		// @ts-expect-error - nested selector for metric badge not in cssMap schema
+		'& [data-lozenge-metric-wrapper] > span:first-of-type, &:active [data-lozenge-metric-wrapper] > span:first-of-type, &[data-selected="true"] [data-lozenge-metric-wrapper] > span:first-of-type':
+			{
+				backgroundColor: `${token('color.background.neutral.hovered')} !important`,
+			},
 	},
 });
 
@@ -604,22 +454,37 @@ const LozengeBase: import('react').MemoExoticComponent<
 					: resolveLozengeColor(trailingMetricAppearance)
 				: resolvedColor;
 
-			const metricBadgeAppearance = (
-				resolvedTrailingMetricAppearance === 'inverse'
-					? 'inverse'
-					: resolvedTrailingMetricAppearance != null &&
-						  resolvedTrailingMetricAppearance.startsWith('accent-')
-						? 'neutral'
-						: (resolvedTrailingMetricAppearance ?? 'neutral')
-			) as BadgeNewProps['appearance'];
-
-			const metricStyleKey =
-				resolvedTrailingMetricAppearance === 'inverse'
-					? ('metric.inverse' as keyof typeof styles)
-					: resolvedTrailingMetricAppearance != null &&
-						  !resolvedTrailingMetricAppearance.startsWith('accent-')
-						? (`metric.semantic.${getThemeStyles(resolvedTrailingMetricAppearance).key}` as keyof typeof styles)
-						: ('metric.semantic.neutral' as keyof typeof styles);
+			// Map the resolved trailing metric appearance to a Badge appearance.
+			// Semantic colors map to their new bold variants (e.g. successBold),
+			// which provide sufficient color emphasis on top of the subtler
+			// lozenge background. Accent colors and unknown values fall back to
+			// the neutral appearance.
+			const metricBadgeAppearance = ((): BadgeNewProps['appearance'] => {
+				if (resolvedTrailingMetricAppearance === 'inverse') {
+					return 'inverse';
+				}
+				if (resolvedTrailingMetricAppearance == null) {
+					return 'neutral';
+				}
+				if (resolvedTrailingMetricAppearance.startsWith('accent-')) {
+					return 'neutral';
+				}
+				switch (resolvedTrailingMetricAppearance) {
+					case 'success':
+						return 'successBold';
+					case 'warning':
+						return 'warningBold';
+					case 'danger':
+						return 'dangerBold';
+					case 'information':
+						return 'informationBold';
+					case 'discovery':
+						return 'discoveryBold';
+					case 'neutral':
+					default:
+						return 'neutral';
+				}
+			})();
 
 			const commonStyleOverrides = {
 				backgroundColor: style?.backgroundColor,
@@ -712,13 +577,12 @@ const LozengeBase: import('react').MemoExoticComponent<
 							fg('platform-dst-motion-uplift') && styles.motionContainer,
 							spacing === 'spacious' && styles.containerSpacious,
 							!isSelected && styles.iconBorderFilter,
-							!isLoading && styles.iconBorderInteractiveFilter,
 							styles[colorStyleKey],
 							!isLoading && styles[interactiveStyleKey],
-							isSelected && styles.containerSelected,
-							hasTrailingMetric && styles.containerBadge,
-							hasTrailingMetric && styles.containerBadgeInteractive,
-							hasTrailingMetric && styles[metricStyleKey],
+							hasTrailingMetric && styles.containerBadgePressed,
+							hasTrailingMetric &&
+								resolvedTrailingMetricAppearance === 'neutral' &&
+								styles.containerBadgeNeutralAppearance,
 						)}
 						{...(isLoading && { 'aria-busy': true, 'aria-disabled': true, isDisabled: true })}
 						aria-label={isLoading ? 'Loading' : ariaLabel}
@@ -732,9 +596,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 							// Specified because Pressable has a default border:none which overrides the border specified on the container
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							border: `solid ${token('border.width')} ${
-								isSelected
-									? 'oklch(from var(--border-color) calc(l * var(--border-pressed-l-factor)) c h) !important'
-									: 'transparent'
+								isSelected ? 'var(--border-color) !important' : 'transparent'
 							}`,
 							backgroundColor: isSelected ? pressedBackgroundMapping[resolvedColor] : undefined,
 							cursor: isLoading ? 'progress' : 'pointer',
@@ -743,6 +605,9 @@ const LozengeBase: import('react').MemoExoticComponent<
 						analyticsContext={analyticsContext}
 						interactionName={interactionName}
 						componentName="LozengeDropdownTrigger"
+						// `data-selected` mirrors the `isSelected` prop so CSS can target the
+						// pressed-state badge override via attribute selector.
+						{...(isSelected && { 'data-selected': 'true' })}
 					>
 						{innerContent}
 						{isLoading && (
@@ -766,9 +631,10 @@ const LozengeBase: import('react').MemoExoticComponent<
 						spacing === 'spacious' && styles.containerSpacious,
 						spacing !== 'spacious' && hasTrailingMetric && styles.containerBadgePadding,
 						styles[colorStyleKey],
-						hasTrailingMetric && styles[metricStyleKey],
 						styles.iconBorderFilter,
-						styles.containerBadge,
+						hasTrailingMetric &&
+							resolvedTrailingMetricAppearance === 'neutral' &&
+							styles.containerBadgeNeutralAppearance,
 					]}
 					style={commonStyleOverrides}
 					data-testid={testId}

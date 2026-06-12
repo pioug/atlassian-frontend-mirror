@@ -87,6 +87,14 @@ const mainToolbarRadius = css({
 	borderRadius: `${token('radius.medium', '6px')} ${token('radius.medium', '6px')} 0 0`,
 });
 
+const editorModernisationToolbarStyle = css({
+	borderRadius: `${token('radius.xlarge', '12px')} ${token('radius.xlarge', '12px')} 0 0`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&.show-keyline': {
+		boxShadow: 'none',
+	},
+});
+
 const stickyToolbarWrapperStyleNew = css({
 	position: 'sticky',
 	paddingBottom: token('space.100'),
@@ -101,6 +109,7 @@ const stickyToolbarWrapperStyleNew = css({
 type StickyToolbarProps = {
 	children?: React.ReactNode;
 	externalToolbarRef?: RefObject<HTMLElement>;
+	isEditorModernisationEnabled?: boolean;
 	isNewToolbarEnabled?: boolean;
 	offsetTop?: number;
 	twoLineEditorToolbar?: boolean;
@@ -129,13 +138,12 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 				mainToolbarWrapperStylesVisualRefresh,
 				stickyToolbarWrapperStyleNew,
 				props.isNewToolbarEnabled && mainToolbarWithPadding,
-				expValEquals('platform_editor_fix_comment_border', 'isEnabled', true) &&
-					expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
+				expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
 					mainToolbarRadius,
-				expValEquals('platform_editor_fix_comment_border', 'isEnabled', true) &&
-					!expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
+				!expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
 					fg('platform_editor_comments_border_radius') &&
 					mainToolbarWithRadiusStyle,
+				props.isEditorModernisationEnabled && editorModernisationToolbarStyle,
 			]}
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 			style={{ top: `${top}px` }}
@@ -150,6 +158,7 @@ const StickyToolbar = (props: StickyToolbarProps) => {
 
 type FixedToolbarProps = {
 	children?: React.ReactNode;
+	isEditorModernisationEnabled?: boolean;
 	isNewToolbarEnabled?: boolean;
 	twoLineEditorToolbar?: boolean;
 };
@@ -167,6 +176,7 @@ const FixedToolbar = (props: FixedToolbarProps) => (
 				mainToolbarWithRadiusStyle,
 			expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true) &&
 				mainToolbarRadius,
+			props.isEditorModernisationEnabled && editorModernisationToolbarStyle,
 		]}
 		data-testid="ak-editor-main-toolbar"
 	>
@@ -200,6 +210,7 @@ const getStickyParameters = (configuration: UseStickyToolbarType) => {
 
 type MainToolbarProps = {
 	children?: React.ReactNode;
+	isEditorModernisationEnabled?: boolean;
 	isNewToolbarEnabled?: boolean;
 	twoLineEditorToolbar?: boolean;
 	useStickyToolbar?: UseStickyToolbarType;
@@ -209,6 +220,7 @@ export const MainToolbar = ({
 	useStickyToolbar,
 	twoLineEditorToolbar,
 	children,
+	isEditorModernisationEnabled,
 	isNewToolbarEnabled,
 }: MainToolbarProps): jsx.JSX.Element => {
 	if (useStickyToolbar) {
@@ -217,6 +229,7 @@ export const MainToolbar = ({
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getStickyParameters(useStickyToolbar)}
+				isEditorModernisationEnabled={isEditorModernisationEnabled}
 				twoLineEditorToolbar={twoLineEditorToolbar}
 				isNewToolbarEnabled={isNewToolbarEnabled}
 			>
@@ -226,6 +239,7 @@ export const MainToolbar = ({
 	}
 	return (
 		<FixedToolbar
+			isEditorModernisationEnabled={isEditorModernisationEnabled}
 			twoLineEditorToolbar={twoLineEditorToolbar}
 			isNewToolbarEnabled={isNewToolbarEnabled}
 		>

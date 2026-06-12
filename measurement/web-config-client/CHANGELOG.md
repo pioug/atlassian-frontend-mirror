@@ -1,5 +1,12 @@
 # @atlaskit/web-config-client
 
+## 0.9.0
+
+### Minor Changes
+
+- [`adb4e7777d502`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/adb4e7777d502) -
+  Add new identifiers for customerAccountId and csmAccountId
+
 ## 0.8.0
 
 ### Minor Changes

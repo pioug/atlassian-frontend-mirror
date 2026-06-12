@@ -53,7 +53,7 @@ export const providers: any = {
 };
 
 // Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components, @atlaskit/volt-strict-mode/no-multiple-exports
 export default class Example extends React.Component<{}, AdfState> {
 	private editorActions?: EditorActions;
 	private adfTextArea?: HTMLTextAreaElement;

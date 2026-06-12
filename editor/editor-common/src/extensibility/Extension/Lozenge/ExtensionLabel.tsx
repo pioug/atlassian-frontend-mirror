@@ -150,6 +150,7 @@ type ExtensionLabelProps = {
 	text: string;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ExtensionLabel = ({
 	text,
 	extensionName,

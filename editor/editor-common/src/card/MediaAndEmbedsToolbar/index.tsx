@@ -114,6 +114,7 @@ const alignmentIconsControls: LayoutIcon[] = [
 	},
 ];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const wrappingIcons: LayoutIcon[] = [
 	{
 		id: 'editor.media.wrapLeft',
@@ -145,7 +146,7 @@ const breakoutIcons: LayoutIcon[] = [
 ];
 
 // Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/volt-strict-mode/no-multiple-exports
 export const layoutToMessages: Record<string, any> = {
 	'wrap-left': toolbarMessages.wrapLeft,
 	center: commonMessages.alignImageCenter,
@@ -415,6 +416,7 @@ const buildLayoutButtons = (
 	return items;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const buildLayoutDropdown = (
 	state: EditorState,
 	intl: IntlShape,
@@ -510,4 +512,5 @@ const getSeparatorBeforeBreakoutItems = (
 		? [{ type: 'separator' } as FloatingToolbarSeparator]
 		: [];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default buildLayoutButtons;

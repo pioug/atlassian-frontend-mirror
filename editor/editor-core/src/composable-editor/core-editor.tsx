@@ -199,7 +199,7 @@ export function CoreEditor(props: EditorNextProps & WithAppearanceComponent): Re
 		</FabricEditorAnalyticsContext>
 	);
 }
-// eslint-disable-next-line @typescript-eslint/no-namespace
+// eslint-disable-next-line @typescript-eslint/no-namespace, @atlaskit/volt-strict-mode/no-multiple-exports
 export declare namespace CoreEditor {
 	// eslint-disable-next-line no-var
 	export var propTypes: {
@@ -221,4 +221,5 @@ CoreEditor.propTypes = {
 	},
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default CoreEditor;

@@ -48,7 +48,7 @@ export const mbeExtensionWrapperCSSStyles: SerializedStyles = css(wrapperDefault
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const mbeExtensionWrapperCSSStylesOld: SerializedStyles = css(wrapperDefault, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
@@ -87,7 +87,7 @@ export const mbeExtensionWrapperCSSStylesOld: SerializedStyles = css(wrapperDefa
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const overlayStyles: SerializedStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	position: 'absolute',
@@ -104,7 +104,7 @@ export const overlayStyles: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const overlayStylesOld: SerializedStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	position: 'absolute',

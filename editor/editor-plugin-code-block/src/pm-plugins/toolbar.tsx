@@ -39,6 +39,7 @@ import {
 	toggleWordWrapStateForCodeBlockNode,
 } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
+import type { CodeBlockFormatProvider } from '../types';
 import { CodeBlockLanguagePicker } from '../ui/CodeBlockLanguagePicker';
 import { WrapIcon } from '../ui/icons/WrapIcon';
 import {
@@ -46,10 +47,7 @@ import {
 	PLAIN_TEXT_LANGUAGE_VALUE,
 	type LanguagePickerOption,
 } from '../ui/language-picker-options';
-import {
-	isSupportedFormatLanguage,
-	preloadFormatterOnIntent,
-} from '../utils/format-code/formatter';
+import { preloadFormatterOnIntent } from '../utils/format-code/formatter';
 
 import { autoDetectPluginKey, type AutoDetectEntry } from './auto-detect-state';
 import {
@@ -112,6 +110,7 @@ export const getToolbarConfig = (
 	allowCopyToClipboard: boolean = false,
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
 	overrideLanguageName: ((name: Language['name']) => string) | undefined = undefined,
+	formatCodeProvider: CodeBlockFormatProvider | undefined = undefined,
 ): FloatingToolbarHandler => {
 	const languageList = createLanguageList(
 		overrideLanguageName
@@ -353,16 +352,23 @@ export const getToolbarConfig = (
 			selected: areLineNumbersVisible,
 		};
 
-		const canFormatCode = node.textContent.length > 0 && isSupportedFormatLanguage(language);
+		const formatLanguage = formatCodeProvider?.isSupportedLanguage(language)
+			? language
+			: undefined;
+		const canFormatCode = node.textContent.length > 0 && Boolean(formatLanguage);
 		const formatCodeButton: FloatingToolbarButton<Command> = {
 			id: 'editor.codeBlock.formatCode',
 			type: 'button',
 			supportsViewMode: false,
 			disabled: !canFormatCode || isFormatCodePending,
 			icon: AngleBracketsIcon,
-			onClick: createFormatCodeOnClick({ api, editorAnalyticsAPI }),
-			onFocus: preloadFormatterOnIntent(),
-			onMouseEnter: preloadFormatterOnIntent(),
+			onClick: createFormatCodeOnClick({
+				api,
+				editorAnalyticsAPI,
+				formatCodeProvider,
+			}),
+			onFocus: preloadFormatterOnIntent(formatCodeProvider, formatLanguage),
+			onMouseEnter: preloadFormatterOnIntent(formatCodeProvider, formatLanguage),
 			title: formatMessage(
 				canFormatCode
 					? codeBlockButtonMessages.formatCode
@@ -381,13 +387,10 @@ export const getToolbarConfig = (
 				codeBlockWrapButton,
 				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 				fg('platform_editor_code_block_add_line_number_button')
-					? [codeBlockLineNumbersButton]
-					: []),
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
-				fg('platform_editor_code_block_add_line_number_button') &&
-				fg('platform_editor_code_block_formatting')
-					? [formatCodeButton]
+					? [
+							codeBlockLineNumbersButton,
+							...(formatCodeProvider ? [formatCodeButton] : []),
+						]
 					: []),
 				...copyAndDeleteButtonMenuItems,
 			],

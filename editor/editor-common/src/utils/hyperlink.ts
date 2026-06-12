@@ -23,6 +23,7 @@ export const DONTLINKIFY_REGEXP: RegExp = /^(\$|\{)/;
 /**
  * Linkify content in a slice (eg. after a rich text paste)
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
 	return (slice: Slice): Slice =>
 		mapSlice(slice, (node, parent) => {
@@ -65,7 +66,7 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
 		});
 }
 
-// eslint-disable-next-line jsdoc/require-jsdoc
+// eslint-disable-next-line jsdoc/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export function isFromCurrentDomain(url: string): boolean {
 	if (!window || !window.location) {
 		return false;
@@ -92,6 +93,7 @@ interface filepathMatch {
 	startIndex: number;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const findFilepaths = (text: string, offset: number = 0): Array<filepathMatch> => {
 	// Creation of a copy of the RegExp is necessary as lastIndex is stored on it when we run .exec()
 	// Ignored via go/ees005
@@ -116,6 +118,7 @@ export const findFilepaths = (text: string, offset: number = 0): Array<filepathM
 	return matchesList;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isLinkInMatches = (linkStart: number, matchesList: Array<filepathMatch>): boolean => {
 	for (let i = 0; i < matchesList.length; i++) {
 		if (linkStart >= matchesList[i].startIndex && linkStart < matchesList[i].endIndex) {
@@ -125,7 +128,7 @@ export const isLinkInMatches = (linkStart: number, matchesList: Array<filepathMa
 	return false;
 };
 
-// eslint-disable-next-line jsdoc/require-jsdoc
+// eslint-disable-next-line jsdoc/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export function getLinkCreationAnalyticsEvent(
 	inputMethod: InputMethodInsertLink,
 	url: string,

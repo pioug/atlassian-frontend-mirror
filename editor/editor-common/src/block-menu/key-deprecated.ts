@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 /**
  * @private
  * @deprecated https://hello.jira.atlassian.cloud/browse/EDITOR-2872

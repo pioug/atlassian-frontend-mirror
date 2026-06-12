@@ -1,5 +1,4 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TableMap } from '../table-map';
 
@@ -23,11 +22,6 @@ export function determineTableHeaderStateFromTableNode(
 	// bit: 1 = Identifies if the cell at (0, n) is a header cell or not
 	// bit: 2 = Identifies if the cell at (n, 0) is a header cell or not
 	let mask = 0;
-	const isExperimentEnabled = expValEquals(
-		'platform_editor_analyse_table_with_merged_cells',
-		'isEnabled',
-		true,
-	);
 
 	// At minimum we should have 1 cell in the table.
 	const topLeftCell = table.nodeAt(tableMap.map[0]);
@@ -35,9 +29,7 @@ export function determineTableHeaderStateFromTableNode(
 	mask |= topLeftCell && topLeftCell.type === types.header_cell ? 1 : 0;
 
 	if (tableMap.width > 1) {
-		const cell = isExperimentEnabled
-			? table.nodeAt(tableMap.map[tableMap.width - 1])
-			: table.nodeAt(tableMap.map[1]);
+		const cell = table.nodeAt(tableMap.map[tableMap.width - 1]);
 		// If the cell at (0, n) is a header then we set the bit flag to indicate row headers are enabled, otherwise if it's
 		// not then we will set the col headers enabled flag (and vice versa in the branch below) only if the cell at (0,0)
 		// was a header cell.
@@ -45,9 +37,7 @@ export function determineTableHeaderStateFromTableNode(
 	}
 
 	if (tableMap.height > 1) {
-		const cell = isExperimentEnabled
-			? table.nodeAt(tableMap.map[tableMap.width * (tableMap.height - 1)])
-			: table.nodeAt(tableMap.map[tableMap.width]);
+		const cell = table.nodeAt(tableMap.map[tableMap.width * (tableMap.height - 1)]);
 		mask |= cell && cell.type === types.header_cell ? 4 : 2 * (mask & 1);
 	}
 

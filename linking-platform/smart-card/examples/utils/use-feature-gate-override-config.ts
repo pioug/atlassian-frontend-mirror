@@ -21,6 +21,9 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	platform_sl_3p_auth_rovo_block_card_confluence: {
 		isEnabled: true,
 	},
+	platform_sl_3p_auth_inline_tailored_cta: {
+		isEnabled: true,
+	},
 };
 
 const enabledGates = [
@@ -30,6 +33,7 @@ const enabledGates = [
 	'platform_sl_3p_preauth_soc_proof_inline_killswitch',
 	'platform_sl_3p_auth_rovo_block_card_kill_switch',
 	'social-proof-3p-unauth-block-fg',
+	'platform_sl_3p_auth_inline_tailored_cta_killswitch'
 ];
 
 const emptyConfig = {};

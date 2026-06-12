@@ -31,6 +31,7 @@ export const textHighlightPaddingStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const backgroundColorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark': {

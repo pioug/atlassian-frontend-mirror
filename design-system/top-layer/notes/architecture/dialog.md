@@ -87,6 +87,12 @@ The dialog focusing steps run when a dialog is shown:
 Always use `autofocus` on the element the user is expected to interact with first. This makes intent
 explicit and keeps behaviour stable as the dialog's DOM changes over time.
 
+## Server-side rendering
+
+For details on how `<dialog>` is rendered server-side, how `showModal()` is invoked after
+hydration, and how this compares with the legacy `@atlaskit/modal-dialog` (pre-top-layer) SSR
+flow, see [ssr.md](./ssr.md).
+
 ## Spec references
 
 - Dialog element:

@@ -7,6 +7,7 @@ import { resolveOrder } from './resolveOrder';
 export const DEFAULT_ORDER = 1;
 
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getOrderFromOrderedListNode = (orderedListNode: Node): number => {
 	const order = orderedListNode?.attrs?.order;
 	return resolveOrder(order) ?? DEFAULT_ORDER;
@@ -17,6 +18,7 @@ interface GetItemCounterDigitsSize {
 	order?: number;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getItemCounterDigitsSize = (options: GetItemCounterDigitsSize): number | undefined => {
 	const order = resolveOrder(options.order) ?? DEFAULT_ORDER;
 	const itemsCount = typeof options.itemsCount === 'number' ? options.itemsCount : 0;

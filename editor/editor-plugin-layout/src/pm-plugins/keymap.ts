@@ -38,27 +38,43 @@ function keymapPlugin({ api }: { api: ExtractInjectionAPI<LayoutPlugin> | undefi
 
 	bindLayoutColumnShortcut(
 		addColumnBefore.common,
-		insertLayoutColumn('left', api?.analytics?.actions, api, INPUT_METHOD.KEYBOARD),
+		insertLayoutColumn(
+			{ side: 'left', inputMethod: INPUT_METHOD.SHORTCUT },
+			api?.analytics?.actions,
+			api,
+		),
 		list,
 	);
 	bindLayoutColumnShortcut(
 		addColumnBeforeVO.common,
-		insertLayoutColumn('left', api?.analytics?.actions, api, INPUT_METHOD.KEYBOARD),
+		insertLayoutColumn(
+			{ side: 'left', inputMethod: INPUT_METHOD.SHORTCUT },
+			api?.analytics?.actions,
+			api,
+		),
 		list,
 	);
 	bindLayoutColumnShortcut(
 		addColumnAfter.common,
-		insertLayoutColumn('right', api?.analytics?.actions, api, INPUT_METHOD.KEYBOARD),
+		insertLayoutColumn(
+			{ side: 'right', inputMethod: INPUT_METHOD.SHORTCUT },
+			api?.analytics?.actions,
+			api,
+		),
 		list,
 	);
 	bindLayoutColumnShortcut(
 		addColumnAfterVO.common,
-		insertLayoutColumn('right', api?.analytics?.actions, api, INPUT_METHOD.KEYBOARD),
+		insertLayoutColumn(
+			{ side: 'right', inputMethod: INPUT_METHOD.SHORTCUT },
+			api?.analytics?.actions,
+			api,
+		),
 		list,
 	);
 	bindLayoutColumnShortcut(
 		deleteColumn.common,
-		deleteLayoutColumn(api?.analytics?.actions, api, INPUT_METHOD.KEYBOARD),
+		deleteLayoutColumn({ inputMethod: INPUT_METHOD.SHORTCUT }, api?.analytics?.actions, api),
 		list,
 	);
 

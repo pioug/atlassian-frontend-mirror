@@ -1591,6 +1591,9 @@
             },
             "localId": {
               "type": "string"
+            },
+            "valign": {
+              "enum": ["top", "middle", "bottom"]
             }
           },
           "required": ["width"],

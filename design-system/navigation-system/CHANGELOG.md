@@ -1,5 +1,15 @@
 # @atlassian/navigation-system
 
+## 9.4.3
+
+### Patch Changes
+
+- [`f9eceea16e433`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9eceea16e433) -
+  Fix `Root` safety-rail selector hiding native top-layer elements (`<dialog>` and elements with the
+  `popover` attribute) rendered as direct children of `Root`. These elements are now excluded from
+  the `display: none !important` rule so the browser can promote them into the top layer when
+  opened. Adds VR coverage for both cases.
+
 ## 9.4.2
 
 ### Patch Changes

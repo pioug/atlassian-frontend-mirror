@@ -1,5 +1,25 @@
 # @atlaskit/rovo-triggers
 
+## 7.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.0
+
+### Minor Changes
+
+- [`8f6e8fce75e2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f6e8fce75e2c) -
+  [ux] Show Smart Link post-auth custom action UI in the Rovo Chat mini-modal, guarded by the
+  post-auth chat feature gate. Includes the dedicated Smart Link launch payload, Conversation
+  Assistant mini-modal UI integration, post-auth action chips, and native context banner support for
+  the clicked Smart Link context without enabling current page context.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.2
 
 ### Patch Changes

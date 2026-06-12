@@ -14,7 +14,9 @@
 // At time of writting prettier would strip the extend here.
 // prettier-ignore
 export function parsePx<PXString extends `${number}px`>(pxStr: PXString): number;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function parsePx<PXString extends string>(pxStr: PXString): number | undefined;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function parsePx(pxStr: string): number | undefined {
 	if (!pxStr.endsWith('px')) {
 		return undefined;

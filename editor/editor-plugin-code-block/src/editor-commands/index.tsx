@@ -51,16 +51,13 @@ import type {
 } from '../pm-plugins/main-state';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { transformToCodeBlockAction } from '../pm-plugins/transform-to-code-block';
+import type { CodeBlockFormatProvider } from '../types';
 import type { LanguagePickerSelectionSource } from '../ui/language-picker-options';
 import {
 	createAutoDetectEntry,
 	getLocalId,
 	hasEnoughTextForAutoDetection,
 } from '../utils/auto-detect-state';
-import {
-	formatCode,
-	isSupportedFormatLanguage,
-} from '../utils/format-code/formatter';
 import type {
 	FormatCodeResult,
 	LanguageSource,
@@ -354,12 +351,18 @@ export const createFormatCodeOnClick =
 		{
 			api,
 			editorAnalyticsAPI,
+			formatCodeProvider,
 		}: {
 			api?: ExtractInjectionAPI<CodeBlockPlugin>;
 			editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+			formatCodeProvider: CodeBlockFormatProvider | undefined;
 		},
 	): Command =>
 	(state, dispatch) => {
+		if (!formatCodeProvider) {
+			return false;
+		}
+
 		const currentCodeBlockState = pluginKey.getState(state);
 		const currentPos = currentCodeBlockState?.pos;
 
@@ -372,10 +375,7 @@ export const createFormatCodeOnClick =
 			return false;
 		}
 
-		const currentLanguage = currentNode.attrs.language;
-		if (!isSupportedFormatLanguage(currentLanguage)) {
-			return true;
-		}
+		const currentLanguage = currentNode.attrs.language ?? '';
 
 		const currentLocalId = currentNode.attrs.localId;
 		if (currentCodeBlockState.pendingFormats[currentLocalId]) {
@@ -402,24 +402,33 @@ export const createFormatCodeOnClick =
 			}),
 		);
 
-		void formatCode({ content, language: currentLanguage }).then((result) => {
-			const pendingFormat =
-				api?.codeBlock?.sharedState.currentState()?.pendingFormats[currentLocalId];
-
-			if (!pendingFormat || pendingFormat.requestId !== requestId) {
-				return;
-			}
-
-			api?.core?.actions.execute(({ tr }) =>
-				createResolveFormatCodeTransaction({
-					editorAnalyticsAPI,
-					localId: currentLocalId,
-					pendingFormat,
-					result,
-					tr,
+		void formatCodeProvider
+			.formatCode({ content, language: currentLanguage })
+			.catch(
+				(): FormatCodeResult => ({
+					errorType: 'formatter-execution-failed',
+					language: currentLanguage,
+					status: 'failed',
 				}),
-			);
-		});
+			)
+			.then((result) => {
+				const pendingFormat =
+					api?.codeBlock?.sharedState.currentState()?.pendingFormats[currentLocalId];
+
+				if (!pendingFormat || pendingFormat.requestId !== requestId) {
+					return;
+				}
+
+				api?.core?.actions.execute(({ tr }) =>
+					createResolveFormatCodeTransaction({
+						editorAnalyticsAPI,
+						localId: currentLocalId,
+						pendingFormat,
+						result,
+						tr,
+					}),
+				);
+			});
 
 		return true;
 	};

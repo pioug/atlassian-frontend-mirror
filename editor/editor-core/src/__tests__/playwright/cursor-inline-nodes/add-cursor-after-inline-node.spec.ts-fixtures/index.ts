@@ -76,6 +76,7 @@ export const statusADF: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const dateADF: {
 	version: number;
 	type: string;
@@ -148,6 +149,7 @@ export const dateADF: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const emojiADF: {
 	version: number;
 	type: string;
@@ -224,6 +226,7 @@ export const emojiADF: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const inlineExtensionADF: {
 	version: number;
 	type: string;
@@ -324,6 +327,7 @@ export const inlineExtensionADF: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const mentionADF: {
 	version: number;
 	type: string;
@@ -402,6 +406,7 @@ export const mentionADF: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const multipleMentionsADF: {
 	version: number;
 	type: string;

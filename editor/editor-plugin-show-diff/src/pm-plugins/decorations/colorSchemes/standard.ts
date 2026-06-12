@@ -69,8 +69,10 @@ export const deletedContentStyleNew: string = convertToInlineCss({
 /**
  * Merge into existing styles when cleaning up
  */
-export const deletedInlineContentBackground: string = convertToInlineCss({
+export const deletedInlineContentStyleExtended: string = convertToInlineCss({
 	backgroundColor: token('color.background.accent.gray.subtlest'),
+	borderBottom: `2px solid ${token('color.border.accent.gray')}`,
+	padding: `1px 0 2px`,
 });
 
 export const deletedContentStyleUnbounded: string = convertToInlineCss({

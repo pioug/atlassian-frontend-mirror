@@ -122,6 +122,7 @@ export enum SELECTION_TYPE {
 	GAP_CURSOR = 'gapCursor',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum SELECTION_POSITION {
 	START = 'start',
 	MIDDLE = 'middle',

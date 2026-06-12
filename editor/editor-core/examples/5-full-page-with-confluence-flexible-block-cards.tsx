@@ -86,4 +86,5 @@ export function Example(): React.JSX.Element {
 	);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Example;

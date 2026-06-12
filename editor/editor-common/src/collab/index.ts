@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled -- Pre-existing lint debt surfaced by this mechanical type-import-only PR. */
 import type { ReactElement } from 'react';
 

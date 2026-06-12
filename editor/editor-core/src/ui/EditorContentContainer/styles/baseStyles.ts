@@ -80,6 +80,7 @@ export const baseStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const maxModeReizeFixStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.fabric-editor--max-width-mode': {
@@ -96,6 +97,7 @@ export const maxModeReizeFixStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const baseStylesMaxContainerWidthFixes: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
@@ -110,6 +112,7 @@ export const baseStylesMaxContainerWidthFixes: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const editorLargeGutterPuddingBaseStyles: SerializedStyles = css({
 	'--ak-editor--large-gutter-padding': '52px',
 });
@@ -121,6 +124,7 @@ export const editorLargeGutterPuddingBaseStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const editorLargeGutterPuddingBaseStylesEditorControls: SerializedStyles = css({
 	'--ak-editor--large-gutter-padding': '72px',
 });
@@ -130,6 +134,7 @@ export const editorLargeGutterPuddingBaseStylesEditorControls: SerializedStyles 
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const editorLargeGutterPuddingReducedBaseStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values
 	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {

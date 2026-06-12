@@ -41,10 +41,12 @@ export function getBreakpoint(width: number = 0): Breakpoints {
 	return 'S';
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function createWidthContext(width: number = 0): WidthConsumerContext {
 	return { width, breakpoint: getBreakpoint(width) };
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const WidthContext: React.Context<WidthConsumerContext> =
 	React.createContext(createWidthContext());
 
@@ -73,10 +75,12 @@ type WidthProviderProps = {
  *
  * @returns {number} The width of the document body or 0 if the document is undefined.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getBodyWidth: MemoizedFn<() => number> = memoizeOne((): number => {
 	return isSSR() ? 0 : (document.body?.offsetWidth ?? 0);
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const WidthProvider = ({
 	className,
 	shouldCheckExistingValue,
@@ -132,4 +136,5 @@ export const WidthProvider = ({
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export { Consumer as WidthConsumer };

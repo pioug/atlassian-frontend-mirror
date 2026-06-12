@@ -9,7 +9,6 @@
 import React from 'react';
 
 import { typeAheadQuery } from '@atlaskit/adf-schema';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -46,7 +45,6 @@ import type { OpenTypeAheadProps, PopupMountPointReference, TypeAheadHandler } f
 import { ContentComponent } from './ui/ContentComponent';
 
 const createOpenAtTransaction =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(props: OpenTypeAheadProps) =>
 	(tr: Transaction): boolean => {
 		const { triggerHandler, inputMethod, query, removePrefixTriggerOnCancel } = props;
@@ -55,22 +53,6 @@ const createOpenAtTransaction =
 			tr,
 		});
 
-		// This function is called from the editor-plugin-emoji and editor-plugin-type-ahead
-		// createOpenAtTransaction <- createOpenTypeAhead <- actions.open
-		// 	<- emoji-plugin (Not used)
-		//  <- type-ahead-plugin (Used)
-		// and this caused the analytics event to be fired twice, as other places are relying on the
-		// `onEditorViewStateUpdated` method to fire the analytics event
-		// We want to disable this event
-		if (!fg('platform_editor_controls_patch_analytics_3')) {
-			editorAnalyticsAPI?.attachAnalyticsEvent({
-				action: ACTION.INVOKED,
-				actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-				actionSubjectId: triggerHandler.id,
-				attributes: { inputMethod },
-				eventType: EVENT_TYPE.UI,
-			})(tr);
-		}
 
 		return true;
 	};
@@ -78,7 +60,7 @@ const createOpenAtTransaction =
 type EditorViewRef = Record<'current', EditorView | null>;
 
 const createOpenTypeAhead =
-	(editorViewRef: EditorViewRef, editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(editorViewRef: EditorViewRef) =>
 	(props: OpenTypeAheadProps): boolean => {
 		if (!editorViewRef.current) {
 			return false;
@@ -87,7 +69,7 @@ const createOpenTypeAhead =
 		const { current: view } = editorViewRef;
 		const { tr } = view.state;
 
-		createOpenAtTransaction(editorAnalyticsAPI)(props)(tr);
+		createOpenAtTransaction(props)(tr);
 
 		view.dispatch(tr);
 
@@ -292,8 +274,8 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 		actions: {
 			isOpen: isTypeAheadOpen,
 			isAllowed: isTypeAheadAllowed,
-			open: createOpenTypeAhead(editorViewRef, api?.analytics?.actions),
-			openAtTransaction: createOpenAtTransaction(api?.analytics?.actions),
+			open: createOpenTypeAhead(editorViewRef),
+			openAtTransaction: createOpenAtTransaction,
 			findHandlerByTrigger: createFindHandlerByTrigger(editorViewRef),
 			insert: createInsertTypeAheadItem(editorViewRef),
 			close: createCloseTypeAhead(editorViewRef),
@@ -367,26 +349,8 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 					);
 
 				if (!isDuplicateInvokedEvent) {
-					if (fg('platform_editor_controls_patch_analytics_3')) {
-						api?.analytics?.actions?.fireAnalyticsEvent(
-							{
-								action: ACTION.INVOKED,
-								actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-								actionSubjectId: newTriggerHandler.id || 'not_set',
-								attributes: {
-									inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
-								},
-								eventType: EVENT_TYPE.UI,
-							},
-							undefined,
-							{
-								context: {
-									selection: newEditorState.selection,
-								},
-							},
-						);
-					} else {
-						api?.analytics?.actions?.fireAnalyticsEvent({
+					api?.analytics?.actions?.fireAnalyticsEvent(
+						{
 							action: ACTION.INVOKED,
 							actionSubject: ACTION_SUBJECT.TYPEAHEAD,
 							actionSubjectId: newTriggerHandler.id || 'not_set',
@@ -394,8 +358,14 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 								inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
 							},
 							eventType: EVENT_TYPE.UI,
-						});
-					}
+						},
+						undefined,
+						{
+							context: {
+								selection: newEditorState.selection,
+							},
+						},
+					);
 				}
 			} else if (oldIsOpen && !newIsOpen && fg('platform_editor_ease_of_use_metrics')) {
 				api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());

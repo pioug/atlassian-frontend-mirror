@@ -120,4 +120,5 @@ const Example: (() => React.JSX.Element) & { decorators: Decorator[] } = Object.
 	},
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Example;

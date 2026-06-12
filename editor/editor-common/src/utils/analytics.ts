@@ -5,6 +5,7 @@ import { SEVERITY } from './SEVERITY';
 export const getAnalyticsEditorAppearance = (editorAppearance?: string): string =>
 	editorAppearance ? `editor_${getAnalyticsAppearance(editorAppearance)}` : '_unknown';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getAnalyticsEventSeverity = (
 	duration: number,
 	normalThreshold: number,
@@ -20,6 +21,7 @@ export const getAnalyticsEventSeverity = (
 	return SEVERITY.NORMAL;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const analyticsEventKey = 'EDITOR_ANALYTICS_EVENT';
 
 const EDITOR_BREAKPOINT_WIDTH: {
@@ -36,6 +38,7 @@ export type EditorBreakpointKey = keyof typeof EDITOR_BREAKPOINT_WIDTH;
 
 const TABLE_BREAKPOINT_KEYS = Object.keys(EDITOR_BREAKPOINT_WIDTH) as EditorBreakpointKey[];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getBreakpointKey = (width: number): EditorBreakpointKey => {
 	return TABLE_BREAKPOINT_KEYS.find((key) => width <= EDITOR_BREAKPOINT_WIDTH[key]) || 'L';
 };

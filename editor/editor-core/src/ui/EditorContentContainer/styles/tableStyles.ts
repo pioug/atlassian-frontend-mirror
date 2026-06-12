@@ -31,6 +31,7 @@ export const tableLayoutFixes: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableLayoutFixesWithFontSize: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.pm-table-header-content-wrap :not(.fabric-editor-alignment, .fabric-editor-font-size), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
@@ -51,6 +52,7 @@ export const tableLayoutFixesWithFontSize: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableCommentEditorMarginOverride: SerializedStyles = css({
 	marginLeft: 0,
 	marginRight: 0,
@@ -61,6 +63,7 @@ export const tableCommentEditorMarginOverride: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableCommentEditorStyles: SerializedStyles = css({
 	// TODO: ED-28075 - refactor array include to unblock Compiled CSS migration
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -72,6 +75,7 @@ export const tableCommentEditorStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableContainerStyles: SerializedStyles = css({
 	/* Fix for HOT-119925: Ensure table containers have proper width constraints and overflow handling */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -104,6 +108,7 @@ export const tableContainerStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableEmptyRowStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror .pm-table-wrapper': {
@@ -123,6 +128,7 @@ export const tableEmptyRowStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableContentModeStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.pm-table-resizer-container:has(table[data-initial-width-mode="content"])': {

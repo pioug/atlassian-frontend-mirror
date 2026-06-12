@@ -214,6 +214,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
  * @param props
  * @example
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useDefaultPreset(props: DefaultPresetPluginOptions): DefaultPresetBuilder[] {
 	const preset = createDefaultPreset(props);
 	return [preset];

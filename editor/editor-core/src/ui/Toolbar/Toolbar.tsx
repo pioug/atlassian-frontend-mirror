@@ -92,6 +92,7 @@ const usePluginState = (api?: PublicPluginAPI<[ToolbarPlugin]>) => {
  *
  * The majority of components UI should use `@atlaskit/editor-toolbar` components.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ToolbarNext = ({
 	toolbar,
 	components,

@@ -18,7 +18,7 @@ import {
 	deletedContentStyleActive,
 	deletedContentStyleNew,
 	deletedContentStyleUnbounded,
-	deletedInlineContentBackground,
+	deletedInlineContentStyleExtended,
 } from './colorSchemes/standard';
 import {
 	traditionalInsertStyle,
@@ -66,9 +66,9 @@ const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = f
 	// Merge into existing styles when cleaning up
 	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 		if (isActive) {
-			return deletedContentStyleActive + deletedInlineContentBackground;
+			return deletedContentStyleActive + deletedInlineContentStyleExtended;
 		}
-		return deletedContentStyleNew + deletedInlineContentBackground;
+		return deletedContentStyleNew + deletedInlineContentStyleExtended;
 	}
 	if (isActive) {
 		return deletedContentStyleActive;

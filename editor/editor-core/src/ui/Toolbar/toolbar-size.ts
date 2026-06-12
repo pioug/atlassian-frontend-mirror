@@ -75,6 +75,7 @@ export const toolbarSizeToWidth = (
 	).width;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const widthToToolbarSize = (
 	toolbarWidth: number,
 	appearance?: EditorAppearance,

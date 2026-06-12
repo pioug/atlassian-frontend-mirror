@@ -42,6 +42,7 @@ export class JiraCardProvider extends EditorCardProvider {
 /**
  * A Client is responsible for resolving URL to JSON-LD with metadata
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class JiraCardClient extends CardClient {
 	fetchData(url: string): ReturnType<CardClient['fetchData']> {
 		if (!url.match(jiraUrlMatch)) {
@@ -87,6 +88,7 @@ export class JiraCardClient extends CardClient {
 const jiraClient = new JiraCardClient();
 const cardProvider = new JiraCardProvider();
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function CommentWithJiraCardsExample(): React.JSX.Element {
 	return (
 		<EditorContext>

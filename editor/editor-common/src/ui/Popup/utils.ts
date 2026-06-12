@@ -17,15 +17,24 @@ export interface CalculatePositionParams {
 	placement: [string, string];
 	popup?: HTMLElement;
 	rect?: DOMRect;
+	scrollableElement?: HTMLElement | false;
 	stick?: boolean;
 	target?: HTMLElement;
-	scrollableElement?: HTMLElement | false;
 }
 
 
 
 /**
+ * Determines the optimal vertical placement ('top' or 'bottom') for a popup relative to a target element.
  * Decides if given fitHeight fits below or above the target taking boundaries into account.
+ * 
+ * @param target - The target element to position the popup relative to
+ * @param boundariesElement - The boundaries element that constrains the popup positioning
+ * @param fitHeight - The desired height of the popup content
+ * @param alignY - Forced alignment direction ('top' or 'bottom')
+ * @param forcePlacement - Whether to force the placement to the alignY value
+ * @param preventOverflow - Whether to prevent overflow by forcing bottom placement when space above is insufficient
+ * @returns The optimal placement direction ('top' or 'bottom')
  */
 export function getVerticalPlacement(
 	target: HTMLElement,
@@ -64,16 +73,23 @@ export function getVerticalPlacement(
 		}
 	}
 
-	if (spaceBelow >= fitHeight || spaceBelow >= spaceAbove) {
+	if (spaceBelow >= fitHeight) {
 		return 'bottom';
 	}
-
-	return 'top';
+	
+	if (spaceAbove >= fitHeight) {
+		return 'top';
+	}
+	
+	// If neither space can accommodate the full height, prefer the one with more space
+	// When spaces are equal, prefer 'top' to show the top portion of the popup
+	return spaceAbove >= spaceBelow ? 'top' : 'bottom';
 }
 
 /**
  * Decides if given fitWidth fits to the left or to the right of the target taking boundaries into account.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getHorizontalPlacement(
 	target: HTMLElement,
 	boundariesElement: HTMLElement,
@@ -111,6 +127,20 @@ export function getHorizontalPlacement(
 	return 'right';
 }
 
+/**
+ * Calculates the optimal placement for a popup element in both vertical and horizontal directions.
+ * 
+ * @param target - The target element to position the popup relative to
+ * @param boundariesElement - The boundaries element that constrains the popup positioning
+ * @param fitWidth - The desired width of the popup content
+ * @param fitHeight - The desired height of the popup content
+ * @param alignX - Forced horizontal alignment direction
+ * @param alignY - Forced vertical alignment direction
+ * @param forcePlacement - Whether to force the placement to the specified alignment values
+ * @param preventOverflow - Whether to prevent overflow by adjusting placement
+ * @returns A tuple containing the vertical and horizontal placement directions
+ */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calculatePlacement(
 	target: HTMLElement,
 	boundariesElement: HTMLElement,
@@ -262,10 +292,10 @@ const calculateVerticalStickBottom = ({
 	popup: HTMLElement;
 
 	position: Position;
+	scrollableElement?: HTMLElement | false;
 	target: HTMLElement;
 	targetHeight: number;
 	targetTop: number;
-	scrollableElement?: HTMLElement | false;
 }): Position => {
 	const scrollParent = scrollableElement || findOverflowScrollParent(target) || boundariesElement;
 	const newPos = { ...position };
@@ -309,10 +339,10 @@ const calculateVerticalStickTop = ({
 
 	popupOffsetParentHeight: number;
 	position: Position;
+	scrollableElement?: HTMLElement | false;
 	target: HTMLElement;
 	targetHeight: number;
 	targetTop: number;
-	scrollableElement?: HTMLElement | false;
 }): Position => {
 	const scrollParent = scrollableElement || findOverflowScrollParent(target) || boundariesElement;
 	const newPos = { ...position };
@@ -411,6 +441,7 @@ const calculateVerticalPlacement = ({
  * Calculates relative coordinates for placing popup along with the target.
  * Uses placement from calculatePlacement.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calculatePosition({
 	placement,
 	target,
@@ -533,6 +564,7 @@ export function calculatePosition({
 /**
  * Traverse DOM Tree upwards looking for popup parents with "overflow: scroll".
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function findOverflowScrollParent(popup: HTMLElement | null): HTMLElement | false {
 	let parent: HTMLElement | null = popup;
 

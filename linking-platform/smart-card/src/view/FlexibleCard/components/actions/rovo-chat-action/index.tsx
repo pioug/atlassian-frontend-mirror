@@ -63,14 +63,14 @@ const RovoChatAction = ({
 				content,
 				tooltipMessage,
 				data: promptData,
-			} = getPromptAction(
-				promptKey,
-				intl,
-				data?.url,
-				data?.product,
-				props.iconSize,
-				props.cardAppearance,
-			) || {};
+			} = getPromptAction({
+					promptKey,
+					intl,
+					url: data?.url,
+					product: data?.product,
+					iconSize: props.iconSize,
+					cardAppearance: props.cardAppearance,
+			}) || {};
 
 			return promptData ? (
 				<Action

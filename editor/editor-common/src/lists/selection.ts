@@ -23,6 +23,7 @@ export const getListItemAttributes = (
 };
 
 type NormalizeListItemsSelection = (props: { doc: PMNode; selection: Selection }) => Selection;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const normalizeListItemsSelection: NormalizeListItemsSelection = ({ selection, doc }) => {
 	if (selection.empty) {
 		return selection;

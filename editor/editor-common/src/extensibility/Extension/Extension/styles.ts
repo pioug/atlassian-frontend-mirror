@@ -39,7 +39,7 @@ const wrapperStyleWithoutCursor = css(wrapperDefault, {
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const wrapperStyleInheritedCursor: SerializedStyles = css(wrapperStyleWithoutCursor, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.extension-overflow-wrapper:has(.extension-editable-area)': {
@@ -51,7 +51,7 @@ export const wrapperStyleInheritedCursor: SerializedStyles = css(wrapperStyleWit
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const header: SerializedStyles = css({
 	padding: `${token('space.050')} ${token('space.050')} 0px`,
 	verticalAlign: 'middle',
@@ -65,7 +65,7 @@ export const header: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const content: SerializedStyles = css({
 	padding: token('space.100'),
 	background: token('elevation.surface'),
@@ -83,7 +83,7 @@ export const content: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const extensionContent: SerializedStyles = css({
 	boxSizing: 'border-box',
 	paddingTop: token('space.100'),
@@ -103,7 +103,7 @@ export const extensionContent: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const contentWrapper: SerializedStyles = css({
 	padding: `0 ${token('space.100')} ${token('space.100')}`,
 	display: 'flex',
@@ -118,7 +118,7 @@ export const contentWrapper: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const overflowWrapperStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {

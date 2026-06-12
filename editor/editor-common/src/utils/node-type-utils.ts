@@ -23,6 +23,7 @@ export function getBaseNodeTypeName(nodeType: NodeType): string {
  * Useful for comparing nodes that may exist as schema variants
  * (e.g. `panel` and `panel_c1` are considered the same base type).
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isNodeOfSameBaseType(a: NodeType, b: NodeType): boolean {
 	return getBaseNodeTypeName(a) === getBaseNodeTypeName(b);
 }
@@ -32,6 +33,7 @@ export function isNodeOfSameBaseType(a: NodeType, b: NodeType): boolean {
  * instance and validating it against the parent's content expression. Unlike ProseMirror's
  * canReplaceWith, this checks general type compatibility without requiring a specific insertion index.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isNodeTypeValidChildOf(
 	childTypeName: string,
 	parentNode: PMNode,
@@ -55,6 +57,7 @@ export function isNodeTypeValidChildOf(
  * Prefers `panel_c1` when the parent can accept it (e.g. when table-in-panel
  * is supported), falls back to `panel` otherwise or at isolating boundaries.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function pickPanelTypeForInsertion($from: ResolvedPos): NodeType {
 	const schema = $from.doc.type.schema;
 	const { panel, panel_c1 } = schema.nodes;

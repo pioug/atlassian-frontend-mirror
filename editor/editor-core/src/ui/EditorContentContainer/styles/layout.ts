@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled,
 	@repo/internal/deprecations/deprecation-ticket-required,
 	@atlaskit/ui-styling-standard/no-exported-styles */

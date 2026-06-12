@@ -54,6 +54,7 @@ export const twoDatesAdf: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableAdf: {
 	version: number;
 	type: string;

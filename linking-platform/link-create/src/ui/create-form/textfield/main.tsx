@@ -2,7 +2,7 @@ import React from 'react';
 
 import AkTextfield from '@atlaskit/textfield';
 
-import { CreateField } from '../../../controllers/create-field';
+import { CreateField } from '../../../controllers/create-field/main';
 
 import { type TextFieldProps } from './types';
 

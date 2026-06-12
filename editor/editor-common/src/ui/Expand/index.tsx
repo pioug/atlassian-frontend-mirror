@@ -92,6 +92,7 @@ export const messages: {
 	},
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ExpandIconWrapper = ({
 	children,
 	expanded,
@@ -134,12 +135,13 @@ const expandIconWrapperExpandedStyle = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const expandLayoutWrapperStyle: SerializedStyles = css({
 	width: token('space.300'),
 	height: token('space.300'),
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ExpandLayoutWrapperWithRef: React.ForwardRefExoticComponent<
 	React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<unknown>
 > = forwardRef(

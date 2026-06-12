@@ -176,6 +176,7 @@ export const telepointerColorAndCommonStyle: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const telepointerStyle: SerializedStyles = css({
 	'.ProseMirror .telepointer': {
 		'&.telepointer-selection-badge': {

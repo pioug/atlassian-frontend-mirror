@@ -17,6 +17,7 @@ export function sortByOrder(item: 'plugins' | 'nodes' | 'marks') {
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 // @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function sortByOrderWithTypeName(item: 'plugins' | 'nodes' | 'marks') {
 	return function (a: { type: { name: string } }, b: { type: { name: string } }): number {
 		return (

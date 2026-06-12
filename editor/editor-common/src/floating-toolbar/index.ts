@@ -42,7 +42,7 @@ export const shallowEqual = (objA?: Object, objB?: Object): boolean => {
 };
 
 // Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/volt-strict-mode/no-multiple-exports
 export const compareArrays = <T extends Array<any>>(
 	left: Array<T>,
 	right: Array<T>,
@@ -78,6 +78,7 @@ const compareItemWithKeys = <T extends Object, U extends keyof T>(
 				: leftItem[key] === rightItem[key],
 		);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isSameItem = (leftItem: Item, rightItem: Item): boolean => {
 	if (leftItem.type !== rightItem.type) {
 		return false;
@@ -143,6 +144,7 @@ export const isSameItem = (leftItem: Item, rightItem: Item): boolean => {
 	}
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const areSameItems = (leftArr?: Array<Item>, rightArr?: Array<Item>): boolean => {
 	if (leftArr === undefined && rightArr === undefined) {
 		return true;

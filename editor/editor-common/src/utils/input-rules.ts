@@ -51,6 +51,7 @@ type WrappingRuleProps = {
 	nodeType: NodeType;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const createWrappingJoinRule = ({
 	match,
 	nodeType,

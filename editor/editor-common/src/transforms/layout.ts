@@ -17,10 +17,12 @@ export function unwrapContentFromLayout(maybeLayoutSection: Node): Node | Node[]
 	return nodes;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function removeLayoutFromFirstChild(node: Node, i: number): Node | Node[] {
 	return i === 0 ? unwrapContentFromLayout(node) : node;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function removeLayoutFromLastChild(
 	node: Node,
 	i: number,
@@ -40,6 +42,7 @@ export function removeLayoutFromLastChild(
  * We only care about slices with non-zero openStart / openEnd's here
  * as we're totally fine for people to copy/paste a full layoutSection
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function transformSliceToRemoveOpenLayoutNodes(slice: Slice, schema: Schema): Slice {
 	// Case 1: A slice entirely within a single layoutSection
 	if (slice.openStart && slice.openEnd && slice.content.childCount === 1) {

@@ -16,7 +16,6 @@ import { CardClient, SmartCardProvider, useSmartCardContext } from '@atlaskit/li
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { Store } from '../../state';
@@ -1450,90 +1449,5 @@ describe('useDatasourceTableState', () => {
 				expect(captureException).toHaveBeenCalledTimes(0);
 			});
 		});
-	});
-
-	describe('SLLV column fallback (fallback_to_default_columns_to_display_in_sllv)', () => {
-		const buildSchemaResponse = (propertyKeys: string[], defaultProperties?: string[]) => {
-			const properties = propertyKeys.map((key) => ({
-				key,
-				title: key,
-				type: 'string' as const,
-			}));
-			return {
-				...mockDatasourceDataResponseWithSchema,
-				data: {
-					...mockDatasourceDataResponseWithSchema.data,
-					schema: {
-						properties,
-						...(defaultProperties ? { defaultProperties } : {}),
-					},
-				},
-			};
-		};
-
-		ffTest.on(
-			'fallback_to_default_columns_to_display_in_sllv',
-			'when no stored fieldKeys overlap with response schema',
-			() => {
-				it('falls back to schema.defaultProperties when present', async () => {
-					asMock(getDatasourceData).mockResolvedValue(
-						buildSchemaResponse(
-							['issuekey', 'issuetype', 'summary', 'customfield_10004'],
-							['issuekey', 'summary', 'customfield_10004'],
-						),
-					);
-
-					const { result } = setup(['Story Points']);
-
-					await waitFor(() => {
-						expect(result.current.columns.map((col) => col.key)).toEqual([
-							'issuekey',
-							'summary',
-							'customfield_10004',
-						]);
-					});
-					expect(result.current.defaultVisibleColumnKeys).toEqual([
-						'issuekey',
-						'summary',
-						'customfield_10004',
-					]);
-				});
-
-				it('does NOT fall back when schema.defaultProperties is missing or empty', async () => {
-					asMock(getDatasourceData).mockResolvedValue(
-						buildSchemaResponse(['issuekey', 'issuetype', 'summary', 'assignee']),
-					);
-
-					const { result } = setup(['Story Points']);
-
-					await waitFor(() => {
-						expect(getDatasourceData).toHaveBeenCalled();
-					});
-					await flushPromises();
-					expect(result.current.columns).toEqual([]);
-				});
-			},
-		);
-
-		ffTest.off(
-			'fallback_to_default_columns_to_display_in_sllv',
-			'when the feature gate is off',
-			() => {
-				it('does not fall back, leaving columns empty (stuck-on-loading bug behaviour)', async () => {
-					asMock(getDatasourceData).mockResolvedValue(
-						buildSchemaResponse(['issuekey', 'issuetype', 'summary'], ['issuekey', 'summary']),
-					);
-
-					const { result } = setup(['Story Points']);
-
-					await waitFor(() => {
-						expect(getDatasourceData).toHaveBeenCalled();
-					});
-					await flushPromises();
-
-					expect(result.current.columns).toEqual([]);
-				});
-			},
-		);
 	});
 });

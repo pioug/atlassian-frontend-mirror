@@ -46,6 +46,7 @@ export const waitForAllPromises = <T>(
  * Find all fullfilled promises and return their values
  * @param results
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getOnlyFulfilled = <T>(results: (FulfiledResult<T> | RejectedResult)[]): T[] =>
 	results.filter(isFullfilled).map((result) => result.value);
 // eslint-disable-next-line @atlaskit/editor/no-re-export

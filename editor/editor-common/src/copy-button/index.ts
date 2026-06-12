@@ -22,10 +22,12 @@ export function getSelectedNodeOrNodeParentByNodeType({
 	return node;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const toDOM = (node: PMNode, schema: Schema): Node => {
 	return DOMSerializer.fromSchema(schema).serializeNode(node);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const copyDomNode = (domNode: Node, nodeType: NodeType, selection: Selection): void => {
 	if (domNode) {
 		const div = document.createElement('div');

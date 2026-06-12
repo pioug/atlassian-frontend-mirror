@@ -54,6 +54,7 @@ export const getKeysAddedRemovedCommon = <T>(
 };
 
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getPropsDifference = <T>(
 	object1: T,
 	object2: T,
@@ -110,6 +111,7 @@ export const getPropsDifference = <T>(
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getShallowPropsDifference = <T>(object1: T, object2: T): ShallowPropsDifference<T> => {
 	const { added, common, removed } = getKeysAddedRemovedCommon(object1, object2);
 

@@ -12,7 +12,7 @@ import AkSelect, {
 import { layers } from '@atlaskit/theme/constants';
 
 import { UrlIcon } from '../../../common/ui/icon';
-import { CreateField } from '../../../controllers/create-field';
+import { CreateField } from '../../../controllers/create-field/main';
 
 import { messages } from './messages';
 import { type SelectProps, type SitePickerOptionType } from './types';

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-highlight
 
+## 11.0.13
+
+### Patch Changes
+
+- [`94d24f07a0482`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94d24f07a0482) -
+  [ux] [EDITOR-7451] keep color palette open after applying text or highlight changes or clearing
+  the text color
+- Updated dependencies
+
+## 11.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.9
 
 ### Patch Changes

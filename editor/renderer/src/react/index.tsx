@@ -593,7 +593,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 				'cohort',
 				'test_with_overflow',
 			) &&
-			expValEquals('platform_editor_table_sticky_header_patch_11', 'isEnabled', true) &&
 			insideBreakoutExpand(path);
 		const stickyHeaders = isStickySafeCenteringEnabled
 			? !isInsideOfTable

@@ -3,6 +3,7 @@ import type { PaletteColor } from './Palettes/type';
 
 export const DEFAULT_COLOR_PICKER_COLUMNS = 7;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getColorsPerRowFromPalette(
 	palette: PaletteColor[],
 	cols: number = DEFAULT_COLOR_PICKER_COLUMNS,
@@ -17,6 +18,7 @@ export function getColorsPerRowFromPalette(
 	}, []);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getSelectedRowAndColumnFromPalette(
 	palette: PaletteColor[],
 	selectedColor: string | null,
@@ -29,6 +31,7 @@ export function getSelectedRowAndColumnFromPalette(
 	return getSelectedRowAndColumn(colorsPerRow, selectedColor);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getTokenCSSVariableValue = (variableExpression: string): string => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp

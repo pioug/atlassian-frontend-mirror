@@ -63,6 +63,7 @@ export async function getExtensionModuleNode(
 	return getNodeFromManifest(manifest, extKey, nodeKey, extensionType, extensionKey);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getExtensionModuleNodeMaybePreloaded(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,
@@ -85,6 +86,7 @@ export function getExtensionModuleNodeMaybePreloaded(
 /**
  * Gets `__` prefixed properties from an extension node module definition
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export async function getExtensionModuleNodePrivateProps(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,
@@ -151,6 +153,7 @@ function ExtensionLoading(props: ExtensionLoadingProps) {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getNodeRenderer<T extends Parameters>(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,

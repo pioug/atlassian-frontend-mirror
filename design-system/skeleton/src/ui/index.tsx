@@ -7,7 +7,13 @@ import { css, jsx, keyframes } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 type SkeletonProps = {
+	/**
+	 * Width of the skeleton.
+	 */
 	width: string | number;
+	/**
+	 * Height of the skeleton.
+	 */
 	height: string | number;
 	/**
 	 * Controls the border radius, or rounding of the skeleton's corners.
@@ -32,6 +38,9 @@ type SkeletonProps = {
 	 * ```
 	 */
 	groupName?: string;
+	/**
+	 * A test id for automated testing.
+	 */
 	testId?: string;
 };
 

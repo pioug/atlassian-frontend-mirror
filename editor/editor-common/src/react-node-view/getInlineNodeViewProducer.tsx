@@ -480,6 +480,7 @@ type NodeViewParams = {
 const counterPerEditorViewMap = new WeakMap();
 // This return of this function is intended to be the value of a key
 // in a ProseMirror nodeViews object.
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getInlineNodeViewProducer<ExtraComponentProps>({
 	pmPluginFactoryParams,
 	Component,

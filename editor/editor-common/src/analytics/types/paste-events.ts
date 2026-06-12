@@ -10,6 +10,7 @@ export const PasteTypes: { [type: string]: PasteType } = {
 
 export type PasteType = 'richText' | 'plain' | 'markdown' | 'binary';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const PasteSources: { [type: string]: PasteSource } = {
 	fabricEditor: 'fabric-editor',
 	applePages: 'apple-pages',
@@ -32,6 +33,7 @@ export type PasteSource =
 	| 'dropbox-paper'
 	| 'uncategorized';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const PasteContents: { [P in PasteContent]: P } = {
 	text: 'text',
 	url: 'url',

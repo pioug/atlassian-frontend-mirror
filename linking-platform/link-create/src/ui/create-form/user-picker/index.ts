@@ -1,1 +1,0 @@
-export { UserPicker } from './main';

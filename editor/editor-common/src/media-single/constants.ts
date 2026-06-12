@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
 export const MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH = 24;

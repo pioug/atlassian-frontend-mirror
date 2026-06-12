@@ -1,5 +1,16 @@
 # @atlaskit/side-nav-items
 
+## 1.14.0
+
+### Minor Changes
+
+- [`bbc3cac269586`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbc3cac269586) -
+  Add an accessible label to the Universal Create menu group for screen readers.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.13.9
 
 ### Patch Changes

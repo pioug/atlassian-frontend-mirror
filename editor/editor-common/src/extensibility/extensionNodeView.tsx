@@ -393,6 +393,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function ExtensionNodeView(
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,

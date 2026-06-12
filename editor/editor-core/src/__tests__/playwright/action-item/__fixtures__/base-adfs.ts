@@ -72,6 +72,7 @@ export const simpleActionList: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const simpleActionListWithShortText: {
 	version: number;
 	type: string;
@@ -146,6 +147,7 @@ export const simpleActionListWithShortText: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const simpleActionListWithShortTextAndNestedItemsList: {
 	version: number;
 	type: string;

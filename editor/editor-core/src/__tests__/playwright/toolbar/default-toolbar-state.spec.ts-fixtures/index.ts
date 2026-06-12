@@ -22,6 +22,7 @@ export const headingAndFormattingAdf: DocNode = {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const rightAlignedAdf: DocNode = {
 	version: 1,
 	type: 'doc',
@@ -34,6 +35,7 @@ export const rightAlignedAdf: DocNode = {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const highlightAdf: DocNode = {
 	version: 1,
 	type: 'doc',
@@ -55,6 +57,7 @@ export const highlightAdf: DocNode = {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const taskListAdf: DocNode = {
 	version: 1,
 	type: 'doc',

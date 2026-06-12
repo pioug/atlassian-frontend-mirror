@@ -40,6 +40,7 @@ export const rainbow: string = createSteppedRainbow([
 	token('color.background.accent.red.bolder'),
 ]);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const disabledRainbow: string = createSteppedRainbow([
 	token('color.background.accent.gray.subtle'),
 	token('color.background.accent.gray.subtle.hovered'),
@@ -78,6 +79,7 @@ const getBackground = (selectedColor?: string | null, disabled?: boolean) => {
 	return rainbow;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const SteppedRainbowIconDecoration = ({
 	selectedColor,
 	disabled,

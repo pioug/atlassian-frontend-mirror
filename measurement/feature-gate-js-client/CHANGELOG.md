@@ -1,5 +1,18 @@
 # @atlaskit/feature-gate-js-client
 
+## 5.8.0
+
+### Minor Changes
+
+- [`adb4e7777d502`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/adb4e7777d502) -
+  Add new identifiers for customerAccountId and csmAccountId
+
+## 5.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.7.2
 
 ### Patch Changes

@@ -4,17 +4,17 @@ import { Box } from '@atlaskit/primitives/compiled';
 
 import { DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
 import type { LinkCreateProps } from '../../common/types';
-import { ConfirmDismissDialog } from '../../common/ui/confirm-dismiss-dialog';
+import { ConfirmDismissDialog } from '../../common/ui/confirm-dismiss-dialog/main';
 import { EditModal } from '../../common/ui/edit-modal';
 import { ErrorBoundary } from '../../common/ui/error-boundary';
 import { LinkCreateContent } from '../../common/ui/link-create-content';
-import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
+import { LinkCreateCallbackProvider } from '../../controllers/callback-context/main';
 import {
 	EditPostCreateModalProvider,
 	useEditPostCreateModal,
 } from '../../controllers/edit-post-create-context';
 import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
-import { FormContextProvider } from '../../controllers/form-context';
+import { FormContextProvider } from '../../controllers/form-context/main';
 import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controllers/plugin-context';
 
 import { InlineAnalytics } from './inline-analytics';

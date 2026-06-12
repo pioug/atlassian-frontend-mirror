@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Skeleton',
 			description: 'A skeleton acts as a placeholder for content, usually while the content loads.',
-			status: 'early-access',
+			status: 'general-availability',
 			import: {
 				name: 'Skeleton',
 				package: '@atlaskit/skeleton',

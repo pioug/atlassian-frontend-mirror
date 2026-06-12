@@ -1,5 +1,11 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.3
 
 ### Patch Changes

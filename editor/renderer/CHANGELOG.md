@@ -1,5 +1,50 @@
 # @atlaskit/renderer
 
+## 132.5.0
+
+### Minor Changes
+
+- [`47803a1a50692`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47803a1a50692) -
+  [ux] Enable renderer media video captions behind feature gates
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.4.0
+
+### Minor Changes
+
+- [`1d7eb738bd45c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d7eb738bd45c) -
+  Cleaned up stale experiment platform_editor_table_sticky_header_patch_11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.3.0
+
+### Minor Changes
+
+- [`6e5305ed556df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e5305ed556df) -
+  revert removal of FG platform_editor_remove_important_in_render_ext
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 132.2.0
 
 ### Minor Changes

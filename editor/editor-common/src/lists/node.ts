@@ -161,6 +161,7 @@ const findNestedTaskListsIndexAtSameLevel = (tr: Transaction, $from: ResolvedPos
 	return nestedTaskListsIndexes;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const processNestedTaskListsInSameLevel = (tr: Transaction): void => {
 	const { $from } = tr.selection;
 

@@ -41,6 +41,7 @@ type Callback<T> = T extends keyof AnnotationUpdateEventPayloads
 	? (payload: AnnotationUpdateEventPayloads[T]) => void
 	: () => void;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class AnnotationUpdateEmitter {
 	private emitter: EventEmitter = new EventEmitter();
 

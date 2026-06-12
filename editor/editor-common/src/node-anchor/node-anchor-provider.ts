@@ -140,6 +140,7 @@ const isLimitedModeEnabled = (editorView: EditorView): boolean => {
 
 // Get the NodeIdProvider for a specific EditorView instance.
 // This allows access to the node ids anywhere.
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getNodeIdProvider: (editorView: EditorView) => NodeAnchorProvider = (editorView) => {
 	if (!nodeIdProviderMap.has(editorView)) {
 		// if the limited mode flag is on, enable limited mode based on the threshold

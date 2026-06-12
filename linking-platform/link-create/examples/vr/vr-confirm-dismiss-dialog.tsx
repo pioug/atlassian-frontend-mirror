@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
-import { ConfirmDismissDialog } from '../../src/common/ui/confirm-dismiss-dialog';
+import { ConfirmDismissDialog } from '../../src/common/ui/confirm-dismiss-dialog/main';
 
 const createExample = (): React.ComponentType => {
 	return function Example() {

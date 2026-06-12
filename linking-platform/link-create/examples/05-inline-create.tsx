@@ -19,7 +19,7 @@ import {
 	type Validator,
 } from '../src';
 import { type CreatePayload } from '../src/common/types';
-import { InlineCreate } from '../src/ui';
+import { default as InlineCreate } from '../src/ui/inline-create';
 
 const fetchMockNetworkRequest = () => {
 	const search = new URLSearchParams(window.location.search);

@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-text-color
 
+## 11.1.0
+
+### Minor Changes
+
+- [`b7790a8e32b47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7790a8e32b47) -
+  Update the clear color button UI
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.12
+
+### Patch Changes
+
+- [`94d24f07a0482`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94d24f07a0482) -
+  [ux] [EDITOR-7451] keep color palette open after applying text or highlight changes or clearing
+  the text color
+- Updated dependencies
+
+## 11.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.8
 
 ### Patch Changes

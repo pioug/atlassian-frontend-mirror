@@ -47,6 +47,7 @@ export const useMemoEditorProps = (
 			extensionProviders: passedProps.extensionProviders,
 			UNSAFE_useAnalyticsContext: passedProps.UNSAFE_useAnalyticsContext,
 			useStickyToolbar: passedProps.useStickyToolbar,
+			isEditorModernisationEnabled: passedProps.isEditorModernisationEnabled,
 			featureFlags: passedProps.featureFlags,
 			onSave: passedProps.onSave,
 			sanitizePrivateContent: passedProps.sanitizePrivateContent,
@@ -163,6 +164,7 @@ export const useMemoEditorProps = (
 		passedProps.extensionProviders,
 		passedProps.UNSAFE_useAnalyticsContext,
 		passedProps.useStickyToolbar,
+		passedProps.isEditorModernisationEnabled,
 		passedProps.featureFlags,
 		passedProps.onSave,
 		passedProps.sanitizePrivateContent,
@@ -232,4 +234,5 @@ export const useMemoEditorProps = (
 	return memodProps;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default useMemoEditorProps;

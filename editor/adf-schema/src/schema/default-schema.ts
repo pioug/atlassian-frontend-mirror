@@ -10,7 +10,6 @@ import {
 	tableRowWithNestedTable,
 	tableCellWithNestedTableStage0,
 	tableHeaderWithNestedTableStage0,
-	layoutColumnStage0,
 } from './nodes';
 import type { SchemaConfig } from './create-schema';
 import { createSchema } from './create-schema';
@@ -188,7 +187,6 @@ export const getSchemaBasedOnStage: MemoizedFn<
 		if (stage === 'stage0') {
 			defaultSchemaConfig.customNodeSpecs = {
 				layoutSection: layoutSectionWithSingleColumn,
-				layoutColumn: layoutColumnStage0,
 				multiBodiedExtension: multiBodiedExtension,
 				extensionFrame: extensionFrame,
 				expand: expandWithNestedExpand,

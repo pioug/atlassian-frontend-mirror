@@ -43,6 +43,7 @@ export const transformSliceToRemoveOpenBodiedExtension = (slice: Slice, schema: 
  * Lift content out of "open" top-level multiBodiedExtensions.
  * Will not work if multiBodiedExtensions are nested, or when multiBodiedExtensions are not in the top level, which should never happen
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const transformSliceToRemoveOpenMultiBodiedExtension = (
 	slice: Slice,
 	schema: Schema,
@@ -103,6 +104,7 @@ const isLegacyContentMacroExtension = (extensionNode: PMNode) =>
 	extensionNode.attrs?.extensionType === LEGACY_CONTENT_MACRO_EXTENSION_TYPE &&
 	extensionNode.attrs?.extensionKey === LEGACY_CONTENT_MACRO_EXTENSION_KEY;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const transformSliceToRemoveLegacyContentMacro = (slice: Slice, schema: Schema): Slice => {
 	const { extension } = schema.nodes;
 

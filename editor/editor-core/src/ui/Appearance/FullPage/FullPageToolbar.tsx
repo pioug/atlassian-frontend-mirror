@@ -215,7 +215,7 @@ export const EditorToolbar: React.MemoExoticComponent<
 	);
 });
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/ban-types, @atlaskit/volt-strict-mode/no-multiple-exports
 export const FullPageToolbar: React.FC<
 	WithIntlProps<FullPageToolbarProps & WrappedComponentProps>
 > & {

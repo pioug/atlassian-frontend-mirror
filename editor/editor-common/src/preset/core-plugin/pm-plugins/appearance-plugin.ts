@@ -12,6 +12,7 @@ export const appearancePluginKey: PluginKey<AppearancePluginState> =
 
 const DEFAULT_APPEARANCE: EditorAppearance = 'comment';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function createAppearancePlugin(
 	initialAppearance: EditorAppearance | undefined,
 ): SafePlugin<AppearancePluginState> {

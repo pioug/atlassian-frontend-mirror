@@ -1,8 +1,5 @@
 import type { BlockContent } from './types/block-content';
-import {
-	layoutColumn as layoutColumnFactory,
-	layoutColumnStage0 as layoutColumnStage0Factory,
-} from '../../next-schema/generated/nodeTypes';
+import { layoutColumn as layoutColumnFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -11,12 +8,11 @@ import type { Valign } from './types/valign';
 
 interface ColumnOptions {
 	withLocalId?: boolean;
-	withValign?: boolean;
 }
 
 const setColumnAttributes = (
 	node: Parameters<NonNullable<NodeSpec['toDOM']>>[0],
-	{ withLocalId = false, withValign = false }: ColumnOptions = {},
+	{ withLocalId = false }: ColumnOptions = {},
 ) => {
 	const attrs: Record<string, string> = {
 		'data-layout-column': 'true',
@@ -30,7 +26,7 @@ const setColumnAttributes = (
 		attrs['style'] = baseStyle + columnWidthVar;
 		attrs['data-column-width'] = `${width}`;
 	}
-	if (withValign && valign) {
+	if (valign) {
 		attrs['data-valign'] = valign;
 	}
 	if (withLocalId && localId) {
@@ -40,7 +36,7 @@ const setColumnAttributes = (
 };
 
 const getColumnAttrs =
-	({ withLocalId = false, withValign = false }: ColumnOptions = {}) =>
+	({ withLocalId = false }: ColumnOptions = {}) =>
 	(domNode: Node | string) => {
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const dom = domNode as HTMLElement;
@@ -49,7 +45,7 @@ const getColumnAttrs =
 			...(withLocalId && { localId: uuid.generate() }),
 		};
 		const valign = parseValign(dom.getAttribute('data-valign'));
-		return withValign && valign ? { ...base, valign } : base;
+		return valign ? { ...base, valign } : base;
 	};
 
 // We need to apply an attribute to the innermost child to help ProseMirror
@@ -62,10 +58,6 @@ const LAYOUT_CONTENT_ATTRS = { 'data-layout-content': 'true' } as const;
 export interface LayoutColumnDefinition {
 	attrs: {
 		localId?: string;
-		/**
-		 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
-		 * @stage 0
-		 */
 		valign?: Valign;
 		/**
 		 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
@@ -92,29 +84,15 @@ export const layoutColumn: NodeSpec = layoutColumnFactory({
 			tag: 'div[data-layout-column]',
 			skip: true,
 		},
-		{ tag: 'div[data-layout-column]', getAttrs: getColumnAttrs() },
-	],
-	toDOM(node) {
-		return ['div', setColumnAttributes(node), ['div', LAYOUT_CONTENT_ATTRS, 0]];
-	},
-});
-
-export const layoutColumnStage0: NodeSpec = layoutColumnStage0Factory({
-	parseDOM: [
-		{
-			context: 'layoutColumn//',
-			tag: 'div[data-layout-column]',
-			skip: true,
-		},
 		{
 			tag: 'div[data-layout-column]',
-			getAttrs: getColumnAttrs({ withLocalId: true, withValign: true }),
+			getAttrs: getColumnAttrs(),
 		},
 	],
 	toDOM(node) {
 		return [
 			'div',
-			setColumnAttributes(node, { withLocalId: true, withValign: true }),
+			setColumnAttributes(node),
 			['div', LAYOUT_CONTENT_ATTRS, 0],
 		];
 	},
@@ -140,3 +118,5 @@ export const layoutColumnWithLocalId: NodeSpec = layoutColumnFactory({
 		];
 	},
 });
+
+export const layoutColumnStage0: NodeSpec = layoutColumnWithLocalId;

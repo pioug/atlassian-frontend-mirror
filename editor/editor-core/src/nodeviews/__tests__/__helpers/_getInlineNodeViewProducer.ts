@@ -47,6 +47,7 @@ export const buildAdfTrailingSpaces = ({
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const buildAdfNoTrailingSpaces = ({
 	node,
 }: {
@@ -74,6 +75,7 @@ export const buildAdfNoTrailingSpaces = ({
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const buildAdfMultipleNodesAcrossLines = ({
 	node,
 }: {
@@ -117,6 +119,7 @@ export const buildAdfMultipleNodesAcrossLines = ({
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const buildAdfMultiline = ({
 	node,
 }: {

@@ -26,6 +26,7 @@ export interface OverflowShadowOptions {
 	useShadowObserver?: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function overflowShadow<P>(
 	Component: React.ComponentType<React.PropsWithChildren<P & OverflowShadowProps>>,
 	options: OverflowShadowOptions,

@@ -41,6 +41,7 @@ export const layoutToWidth: {
  * Calculates width of parent node of a nested node (inside layouts, extension)
  * If current node selection is not nested will return undefined
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getParentNodeWidth = (
 	pos: number | undefined,
 	state: EditorState,
@@ -146,6 +147,7 @@ export const getParentNodeWidth = (
 	return parentWidth;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getNestedParentNode = (tablePos: number, state: EditorState): PMNode | null => {
 	if (tablePos === undefined) {
 		return null;
@@ -187,6 +189,7 @@ const calcBreakoutNodeWidth = (
 		: absoluteBreakoutWidth(layout, containerWidth.width);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getTableContainerWidth = (node?: PMNode): number => {
 	if (node?.attrs.width) {
 		return node.attrs.width;
@@ -198,6 +201,7 @@ export const getTableContainerWidth = (node?: PMNode): number => {
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getTableWidthWithNumberColumn = (node: PMNode, offset: number): number => {
 	const isNumberColumnEnabled = node.attrs.isNumberColumnEnabled;
 	if (isNumberColumnEnabled && offset > 0) {

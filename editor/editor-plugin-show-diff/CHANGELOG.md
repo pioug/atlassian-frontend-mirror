@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 9.0.16
+
+### Patch Changes
+
+- [`3effa9ec1b6b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3effa9ec1b6b3) -
+  Add borderBottom and padding to removed inline diffs to match the height of added inline diffs
+- Updated dependencies
+
+## 9.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.11
 
 ### Patch Changes

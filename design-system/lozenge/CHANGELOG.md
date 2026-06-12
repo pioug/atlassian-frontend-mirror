@@ -1,5 +1,25 @@
 # @atlaskit/lozenge
 
+## 13.9.0
+
+### Minor Changes
+
+- [`3806011c04923`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3806011c04923) -
+  Removed all OKLCH and `color-mix()` runtime color transformations from the new Lozenge component
+  (behind the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate).
+  - Borders now use the new `color.border.accent.*.subtle` / `color.border.*.subtle` tokens
+    (introduced in `@atlaskit/tokens@13.2.0`) instead of being derived via OKLCH transforms.
+  - Icons use `color.text.*` tokens for guaranteed 3:1 contrast on coloured backgrounds across
+    default, hover, and pressed states. Neutral and accent-gray icons use `color.text.subtle`.
+  - The trailing metric Badge uses the new bold semantic Badge appearances (`successBold`,
+    `warningBold`, `dangerBold`, `informationBold`, `discoveryBold`) so the badge no longer reaches
+    into Lozenge styling. In the lozenge's pressed/selected state the badge overlays
+    `color.background.neutral` to remain distinguishable. The neutral lozenge uses
+    `color.background.neutral.hovered` in default/hovered states (no `neutralBold` appearance
+    exists).
+  - Removed Lozenge-specific accent.gray `.subtle` border in favour of the default `color.border`
+    (since gray decorative borders look the same as the neutral default).
+
 ## 13.8.4
 
 ### Patch Changes

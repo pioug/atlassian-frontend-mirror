@@ -1,3 +1,4 @@
+// eslint-disable-file @atlaskit/volt-strict-mode/no-multiple-exports
 import { createMockInlineCard } from './createMockInlineCard';
 
 /**

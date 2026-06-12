@@ -29,9 +29,7 @@ export class DecisionItemNodeView implements NodeView {
 		if (currentlyHasChildren !== this.hasChildren) {
 			this.hasChildren = currentlyHasChildren;
 			this.contentDOM?.toggleAttribute('data-empty', !currentlyHasChildren);
-			if (expValEquals('editor_a11y_decision_aria_label', 'isEnabled', true)) {
-				this.setIconAriaLabel(!currentlyHasChildren);
-			}
+			this.setIconAriaLabel(!currentlyHasChildren);
 		}
 		return this.hasChildren;
 	}
@@ -73,10 +71,8 @@ export class DecisionItemNodeView implements NodeView {
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, spec);
 		this.dom = dom;
 		this.contentDOM = contentDOM;
-		if (expValEquals('editor_a11y_decision_aria_label', 'isEnabled', true)) {
-			this.setIcon(this.dom);
-			this.intl = intl;
-		}
+		this.setIcon(this.dom);
+		this.intl = intl;
 	}
 
 	/**

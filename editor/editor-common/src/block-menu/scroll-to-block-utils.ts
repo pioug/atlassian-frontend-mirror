@@ -88,6 +88,7 @@ export function findNodeWithExpandParents(
  *          For example, if element is inside expand B which is inside expand A,
  *          this returns [expandA, expandB].
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const findParentExpands = (
 	element: HTMLElement,
 	maxDepth: number = SCROLL_TO_BLOCK_TIMING.MAX_EXPAND_DEPTH,
@@ -136,6 +137,7 @@ export const findParentExpands = (
  * @returns A cleanup function that cancels any pending timeouts. Call this when the operation
  *          should be aborted (e.g., component unmount, navigation, or new scroll request).
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandAllParentsThenScroll = (
 	element: HTMLElement,
 	attempt: number = 0,

@@ -36,6 +36,7 @@ const customToolbarWrapperCompiledStyles = cssMap({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const CustomToolbarWrapperCompiled = ({
 	children,
 }: {
@@ -58,6 +59,7 @@ const mainToolbarIconBeforeCompiledStyles = cssMap({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MainToolbarIconBeforeCompiled = ({
 	children,
 }: {

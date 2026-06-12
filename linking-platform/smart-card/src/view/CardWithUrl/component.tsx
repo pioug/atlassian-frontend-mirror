@@ -1,11 +1,4 @@
-import React, {
-	type KeyboardEvent,
-	type MouseEvent,
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-} from 'react';
+import React, { type MouseEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
@@ -38,7 +31,11 @@ import { isSpecialClick, isSpecialEvent, isSpecialKey } from '../../utils';
 import { combineActionOptions } from '../../utils/actions/combine-action-options';
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
 import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
-import { getAnchorAttributesFromEvent, isAuxClick } from '../../utils/click-helpers';
+import {
+	getAnchorAttributesFromEvent,
+	isAuxClick,
+	updateAnchorHref,
+} from '../../utils/click-helpers';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import * as measure from '../../utils/performance';
 import { BlockCard } from '../BlockCard';
@@ -128,23 +125,10 @@ function Component({
 		fg('platform_smartlink_3pclick_analytics');
 
 	const getDestinationUrl = useCallback(() => {
+		// FIXME: destinationUrl should be rendered in the DOM anchor href instead of derived at click time
 		const preferredUrl = getClickUrl(url, state.details) ?? url;
 		return appendCrossProductAnalyticsParams(preferredUrl) ?? preferredUrl;
 	}, [appendCrossProductAnalyticsParams, state.details, url]);
-
-	const updateAnchorHref = useCallback(
-		(event: MouseEvent | KeyboardEvent, destinationUrl: string) => {
-			if (!(event.currentTarget instanceof HTMLAnchorElement)) {
-				return;
-			}
-
-			// FIXME: destinationUrl should be rendered in the DOM anchor href instead of derived at click time
-			// href is only defined when currentTarget is an anchor element.
-			// Update the anchor href so the browser context menu uses the decorated URL.
-			event.currentTarget.href = destinationUrl;
-		},
-		[],
-	);
 
 	// Setup UI handlers.
 	const handleClickWrapper = useCallback(
@@ -311,7 +295,6 @@ function Component({
 			getDestinationUrl,
 			onClick,
 			url,
-			updateAnchorHref,
 			state.details,
 			ari,
 			name,
@@ -349,7 +332,7 @@ function Component({
 				fire3PClickEvent?.({ isAuxClick: true });
 			}
 		},
-		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent, updateAnchorHref],
+		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent],
 	);
 
 	// Right-click handler to trigger fire3PClickEvent on right-clicks.
@@ -368,7 +351,7 @@ function Component({
 				fire3PClickEvent?.({ isContextMenu: true });
 			}
 		},
-		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent, updateAnchorHref],
+		[fire3PClickEvent, getDestinationUrl, shouldFire3PClickEvent],
 	);
 
 	const { reload } = actions;

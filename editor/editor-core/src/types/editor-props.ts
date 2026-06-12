@@ -108,6 +108,9 @@ interface EditorBaseProps {
 	// React components declared in this prop will be inserted into the editor content area
 	contentComponents?: ContentComponents;
 
+	// Enables modernised comment editor chrome and spacing styles.
+	isEditorModernisationEnabled?: boolean;
+
 	// Note: this comment is replicated in packages/editor/renderer/src/ui/renderer-props.ts
 	// any changes should be made in both locations
 	/**

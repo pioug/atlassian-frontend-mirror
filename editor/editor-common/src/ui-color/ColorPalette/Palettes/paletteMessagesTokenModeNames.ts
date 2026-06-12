@@ -124,6 +124,7 @@ export const darkTextPaletteTooltipMessages: {
 	...darkModeTextPaletteOverrides,
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const textPaletteTooltipMessages: {
 	light: {
 		'#FFFFFF': {
@@ -360,6 +361,7 @@ const darkModeBackgroundPaletteOverrides = defineMessages({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const darkBackgroundPaletteTooltipMessages: {
 	'#FFFFFF': {
 		id: string;
@@ -471,6 +473,7 @@ export const darkBackgroundPaletteTooltipMessages: {
 	...darkModeBackgroundPaletteOverrides,
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const backgroundPaletteTooltipMessages: {
 	light: {
 		'#DEEBFF': {
@@ -696,6 +699,7 @@ const darkChartsColorPaletteTooltipMessages = {
 	...lightChartsColorPaletteTooltipMessages,
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const chartsColorPaletteTooltipMessages: {
 	light: {
 		// Blue color
@@ -1110,6 +1114,7 @@ const darkBorderPaletteTooltipMessages = {
 	...lightBorderPaletteTooltipMessages,
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const borderPaletteTooltipMessages: {
 	light: {
 		'#091E4224': {

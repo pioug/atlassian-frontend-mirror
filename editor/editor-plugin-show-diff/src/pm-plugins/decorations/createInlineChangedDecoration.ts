@@ -11,7 +11,7 @@ import {
 	editingStyleActiveExtended,
 	deletedContentStyle,
 	deletedContentStyleActive,
-	deletedInlineContentBackground,
+	deletedInlineContentStyleExtended,
 } from './colorSchemes/standard';
 import {
 	traditionalInsertStyle,
@@ -69,7 +69,7 @@ export const createInlineChangedDecoration = ({
 				 * Merge into existing styles when cleaning up
 				 */
 				if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-					style += deletedInlineContentBackground;
+					style += deletedInlineContentStyleExtended;
 				}
 			}
 		}

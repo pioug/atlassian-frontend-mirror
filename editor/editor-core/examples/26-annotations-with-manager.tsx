@@ -574,6 +574,7 @@ export function ComposableEditorWrapper(): JSX.Element {
 	);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function ExampleAnnotationWithManager(): JSX.Element {
 	return (
 		<EditorContext>

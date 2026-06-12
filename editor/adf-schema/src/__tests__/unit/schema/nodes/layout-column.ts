@@ -23,6 +23,9 @@ describe(`${packageName}/schema layout-column node`, () => {
 					localId: {
 						default: null,
 					},
+					valign: {
+						default: null,
+					},
 				},
 				content: '(block | unsupportedBlock)+',
 				isolating: true,
@@ -56,38 +59,45 @@ describe(`${packageName}/schema layout-column node`, () => {
 		expect(node.type.name).toEqual('layoutColumn');
 	});
 
-	it('serializes valign in stage-0 schema', () => {
-		const html = toHTML(stage0Schema.nodes.layoutColumn.create({ valign: 'middle' }), stage0Schema);
+	it('serializes valign', () => {
+		const html = toHTML(schema.nodes.layoutColumn.create({ valign: 'middle' }), schema);
+
 		expect(html).toContain('data-valign="middle"');
+		expect(html).not.toContain('data-local-id=');
 	});
 
-	it('matches data-valign and generates localId in stage-0 schema', () => {
+	it('matches data-valign without generating localId', () => {
 		const doc = fromHTML(
 			'<div data-layout-section="true"><div data-layout-column data-valign="bottom" /></div>',
-			stage0Schema,
+			schema,
 		);
 		const node = doc.firstChild!.firstChild!;
+
 		expect(node.attrs.valign).toEqual('bottom');
-		expect(node.attrs.localId).toEqual(expect.any(String));
+		expect(node.attrs.localId).toBeNull();
 	});
 
-	it('omits valign when data-valign is absent in stage-0 schema', () => {
+	it('omits valign when data-valign is absent', () => {
 		const doc = fromHTML(
 			'<div data-layout-section="true"><div data-layout-column /></div>',
-			stage0Schema,
+			schema,
 		);
 		const node = doc.firstChild!.firstChild!;
+
 		expect(node.attrs.valign).toBeNull();
 		expect(node.attrs).not.toHaveProperty('valign', undefined);
 	});
 
-	it('serializes localId in stage-0 schema', () => {
+	it('keeps stage-0 compatibility alias for localId plus valign consumers', () => {
 		const doc = fromHTML(
 			'<div data-layout-section="true"><div data-layout-column data-valign="bottom" /></div>',
 			stage0Schema,
 		);
 		const node = doc.firstChild!.firstChild!;
 		const html = toHTML(node, stage0Schema);
+
+		expect(node.attrs.valign).toEqual('bottom');
+		expect(node.attrs.localId).toEqual(expect.any(String));
 		expect(html).toContain('data-valign="bottom"');
 		expect(html).toContain('data-local-id=');
 	});

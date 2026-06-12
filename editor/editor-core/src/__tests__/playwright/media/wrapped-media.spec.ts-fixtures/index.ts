@@ -48,6 +48,7 @@ export const adfMediaSingle: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const wrappedMediaInsideTable: {
 	version: number;
 	type: string;

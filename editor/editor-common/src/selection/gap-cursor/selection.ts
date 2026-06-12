@@ -8,6 +8,7 @@ import { isValidTargetNode } from './utils/is-valid-target-node';
 
 export const JSON_ID = 'gapcursor';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class GapCursorSelection extends Selection {
 	public readonly visible: boolean = false;
 
@@ -131,6 +132,7 @@ export class GapCursorSelection extends Selection {
 
 Selection.jsonID(JSON_ID, GapCursorSelection);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class GapBookmark {
 	constructor(private readonly pos: number) {}
 

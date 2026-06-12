@@ -19,6 +19,7 @@ const validWidthModes: MediaSingleLayout[] = [
 export const layoutSupportsWidth = (layout: MediaSingleLayout): boolean =>
 	validWidthModes.indexOf(layout) > -1;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const calcPctWidth = (
 	containerWidth: EditorContainerWidth,
 	pctWidth?: number,
@@ -30,6 +31,7 @@ export const calcPctWidth = (
 	origHeight &&
 	Math.ceil(calcPxFromPct(pctWidth / 100, containerWidth.lineLength || containerWidth.width));
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const calcMediaPxWidth = (opts: {
 	containerWidth: EditorContainerWidth;
 	isFullWidthModeEnabled?: boolean;
@@ -90,6 +92,7 @@ export const calcMediaPxWidth = (opts: {
 	return origWidth;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const snapToGrid = (
 	gridWidth: number,
 	width: number,

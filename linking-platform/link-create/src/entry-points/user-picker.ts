@@ -1,1 +1,1 @@
-export { UserPicker } from '../ui/create-form/user-picker';
+export { UserPicker } from '../ui/create-form/user-picker/main';

@@ -70,6 +70,7 @@ export const getMarksByOrder = (marks: readonly PMMark[]): PMMark[] => {
 	return [...marks].sort((a, b) => markOrder.indexOf(a.type.name) - markOrder.indexOf(b.type.name));
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getValidDocument = (
 	doc: ADDoc,
 	schema: Schema = defaultSchema,
@@ -91,6 +92,7 @@ const wrapInlineNodes = (nodes: ADNode[] = []): ADNode[] => {
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getValidContent = (
 	content: ADNode[],
 	schema: Schema = defaultSchema,
@@ -150,6 +152,7 @@ const flattenUnknownBlockTree = (
  *
  * @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/11174043/Document+structure#Documentstructure-ImplementationdetailsforHCNGwebrenderer
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getValidUnknownNode = (node: ADNode): ADNode => {
 	const { attrs = {}, content, text, type } = node;
 
@@ -211,6 +214,7 @@ const getValidMarks = (
  * If a node is not recognized or is missing required attributes, we should return 'unknown'
  *
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getValidNode = (
 	originalNode: ADNode,
 	schema: Schema = defaultSchema,
@@ -884,6 +888,7 @@ export const getValidNode = (
  * If a node is not recognized or is missing required attributes, we should return null
  *
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getValidMark = (mark: ADMark, adfStage: ADFStage = 'final'): ADMark | null => {
 	const { attrs, type } = mark;
 

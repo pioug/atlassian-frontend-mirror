@@ -44,6 +44,7 @@ export function createWrapSelectionTransaction({
 
 	return tr;
 }
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getWrappingOptions(
 	state: EditorState,
 	type: NodeType,

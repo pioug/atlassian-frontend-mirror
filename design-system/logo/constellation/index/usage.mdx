@@ -4,10 +4,22 @@ order: 2
 
 import SectionMessage from '@atlaskit/section-message';
 import Link from '@atlaskit/link';
+import { Stack, Text } from '@atlaskit/primitives';
 
 <SectionMessage appearance="information">
-	To use these logos outside of Atlassian apps, you can{' '}
-	<Link href="/resources/logo-library">download the logos</Link> here.
+	<Stack space="space.100">
+		<Text>
+			To use these logos outside of Atlassian apps, you can{' '}
+			<Link href="/resources/logo-library">download the logos</Link> here.
+		</Text>
+		<Text>
+			Logos used to represent third-party integrations are available in{' '}
+			<Link href="https://atlaskit.stg.atlassian.com/packages/platform-labs/logo-third-party">
+				Atlaskit staging (Atlassians only)
+			</Link>
+			.
+		</Text>
+	</Stack>
 </SectionMessage>
 
 ## Usage

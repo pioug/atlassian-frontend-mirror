@@ -59,6 +59,7 @@ export function getNodeSelectionAnalyticsPayload(
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getAllSelectionAnalyticsPayload(
 	selection: Selection,
 ): AnalyticsEventPayload | undefined {
@@ -72,6 +73,7 @@ export function getAllSelectionAnalyticsPayload(
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getCellSelectionAnalyticsPayload(
 	state: EditorState,
 ): AnalyticsEventPayload | undefined {
@@ -92,6 +94,7 @@ export function getCellSelectionAnalyticsPayload(
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getRangeSelectionAnalyticsPayload(
 	selection: Selection,
 	doc: PmNode,
@@ -133,6 +136,7 @@ export function getRangeSelectionAnalyticsPayload(
  * @param deletions the ranges to delete
  */
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const selectNode =
 	(pos: number): Command =>
 	(state, dispatch) => {
@@ -141,6 +145,7 @@ export const selectNode =
 		}
 		return true;
 	};
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function createSelectionClickHandler(
 	nodes: string[],
 	isValidTarget: (target: HTMLElement) => boolean,

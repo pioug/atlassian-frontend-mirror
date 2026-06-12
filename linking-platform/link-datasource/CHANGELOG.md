@@ -1,5 +1,26 @@
 # @atlaskit/link-datasource
 
+## 5.6.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.6
+
+### Patch Changes
+
+- [`0da2911694dd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0da2911694dd8) -
+  Cleanup the temporary SLLV column fallback workaround that was previously gated behind the
+  `fallback_to_default_columns_to_display_in_sllv` feature gate.
+- Updated dependencies
+
+## 5.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.4
 
 ### Patch Changes

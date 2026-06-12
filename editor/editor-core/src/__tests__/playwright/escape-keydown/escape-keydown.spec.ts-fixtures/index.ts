@@ -44,6 +44,7 @@ export const adfDate: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const emptyDocument: {
 	version: number;
 	type: string;

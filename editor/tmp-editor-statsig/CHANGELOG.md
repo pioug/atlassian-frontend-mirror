@@ -1,5 +1,56 @@
 # @atlaskit/editor-statsig-tmp
 
+## 99.0.0
+
+### Major Changes
+
+- [`7f8f275864fb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f8f275864fb6) -
+  Cleanup experiment `platform_editor_analyse_table_with_merged_cells`.
+
+### Minor Changes
+
+- [`62bea93a6f5eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62bea93a6f5eb) -
+  Add the `platform_editor_external_embed_grid_fix` experiment and use it to align editor grid
+  guidelines to the editor viewport while resizing external embeds.
+
+## 98.0.0
+
+### Major Changes
+
+- [`f89de6a3f94b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f89de6a3f94b5) -
+  Clean up stale experiment editor_a11y_decision_aria_label. Decision items now always render
+  dynamic aria-labels based on empty/filled state.
+
+### Minor Changes
+
+- [`1d7eb738bd45c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d7eb738bd45c) -
+  Cleaned up stale experiment platform_editor_table_sticky_header_patch_11
+
+## 97.0.0
+
+### Major Changes
+
+- [`390501e03bc0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/390501e03bc0a) -
+  Cleanup experiment `platform_editor_fix_comment_border` (shipped with isEnabled=true). Removed
+  experiment guards and config entries.
+
+### Minor Changes
+
+- [`6e5305ed556df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e5305ed556df) -
+  revert removal of FG platform_editor_remove_important_in_render_ext
+
+## 96.0.0
+
+### Major Changes
+
+- [`c6797e45d5bae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6797e45d5bae) -
+  Cleaned up stale experiment platform_editor_user_highlight_contrast. Merged userHighlightTextColor
+  styles into userHighlightBackgroundColor and removed experiment configuration.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 95.0.0
 
 ### Major Changes

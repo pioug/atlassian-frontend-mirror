@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@atlassian/testing-library';
 
-import { getAnchorAttributesFromEvent } from '../click-helpers';
+import { getAnchorAttributesFromEvent, updateAnchorHref } from '../click-helpers';
 
 const RESOLVED_HREF = 'https://example.com/';
 
@@ -176,6 +176,149 @@ describe('getAnchorAttributesFromEvent', () => {
 				href: undefined,
 				target: '_self',
 			});
+		});
+	});
+});
+
+describe('updateAnchorHref', () => {
+	const DECORATED_HREF = 'https://example.com/?xpis=wrapped';
+
+	describe('when currentTarget is an anchor element', () => {
+		it('updates the anchor href to the provided decorated URL on click', () => {
+			const { getByRole } = render(
+				<a
+					href="https://example.com"
+					onClick={(event) => {
+						updateAnchorHref(event, DECORATED_HREF);
+					}}
+				>
+					link
+				</a>,
+			);
+
+			const anchor = getByRole('link') as HTMLAnchorElement;
+			expect(anchor.href).toBe(RESOLVED_HREF);
+
+			fireEvent.click(anchor);
+
+			expect(anchor.href).toBe(DECORATED_HREF);
+		});
+
+		it('updates the anchor href to the provided decorated URL on middle-click (auxclick)', () => {
+			const { getByRole } = render(
+				<a
+					href="https://example.com"
+					onAuxClick={(event) => {
+						updateAnchorHref(event, DECORATED_HREF);
+					}}
+				>
+					link
+				</a>,
+			);
+
+			const anchor = getByRole('link') as HTMLAnchorElement;
+			expect(anchor.href).toBe(RESOLVED_HREF);
+
+			fireEvent(anchor, new MouseEvent('auxclick', { button: 1, bubbles: true, cancelable: true }));
+
+			expect(anchor.href).toBe(DECORATED_HREF);
+		});
+
+		it('updates the anchor href to the provided decorated URL on right-click (contextmenu)', () => {
+			const { getByRole } = render(
+				<a
+					href="https://example.com"
+					onContextMenu={(event) => {
+						updateAnchorHref(event, DECORATED_HREF);
+					}}
+				>
+					link
+				</a>,
+			);
+
+			const anchor = getByRole('link') as HTMLAnchorElement;
+			expect(anchor.href).toBe(RESOLVED_HREF);
+
+			fireEvent.contextMenu(anchor);
+
+			expect(anchor.href).toBe(DECORATED_HREF);
+		});
+
+		it('updates the anchor href on keyboard event (Enter key)', () => {
+			const { getByRole } = render(
+				<a
+					href="https://example.com"
+					onKeyDown={(event) => {
+						updateAnchorHref(event, DECORATED_HREF);
+					}}
+				>
+					link
+				</a>,
+			);
+
+			const anchor = getByRole('link') as HTMLAnchorElement;
+			expect(anchor.href).toBe(RESOLVED_HREF);
+
+			fireEvent.keyDown(anchor, { key: 'Enter' });
+
+			expect(anchor.href).toBe(DECORATED_HREF);
+		});
+	});
+
+	describe('when currentTarget is not an anchor element', () => {
+		it('does nothing when currentTarget is a button', () => {
+			const mockHandler = jest.fn((event: React.MouseEvent<HTMLButtonElement>) => {
+				updateAnchorHref(event as unknown as React.MouseEvent, DECORATED_HREF);
+			});
+
+			const { getByRole } = render(
+				<button onClick={mockHandler}>click me</button>,
+			);
+
+			// Should not throw
+			fireEvent.click(getByRole('button'));
+
+			expect(mockHandler).toHaveBeenCalledTimes(1);
+		});
+
+		it('does nothing when currentTarget is a div', () => {
+			const mockHandler = jest.fn((event: React.MouseEvent<HTMLDivElement>) => {
+				updateAnchorHref(event as unknown as React.MouseEvent, DECORATED_HREF);
+			});
+
+			const { getByRole } = render(
+				<div role="presentation" onClick={mockHandler}>click me</div>,
+			);
+
+			// Should not throw
+			fireEvent.click(getByRole('presentation'));
+
+			expect(mockHandler).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('when called multiple times', () => {
+		it('overwrites the href with the latest decorated URL on repeated clicks', () => {
+			let callCount = 0;
+			const { getByRole } = render(
+				<a
+					href="https://example.com"
+					onClick={(event) => {
+						callCount++;
+						updateAnchorHref(event, `${DECORATED_HREF}&count=${callCount}`);
+					}}
+				>
+					link
+				</a>,
+			);
+
+			const anchor = getByRole('link') as HTMLAnchorElement;
+
+			fireEvent.click(anchor);
+			expect(anchor.href).toBe(`${DECORATED_HREF}&count=1`);
+
+			fireEvent.click(anchor);
+			expect(anchor.href).toBe(`${DECORATED_HREF}&count=2`);
 		});
 	});
 });

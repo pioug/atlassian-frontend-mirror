@@ -5,11 +5,16 @@ import type { TransactionTracking } from '@atlaskit/editor-common/types';
 import { getTimeSince } from './getTimeSince';
 
 export const EVENT_NAME_STATE_APPLY = `🦉 EditorView::state::apply`;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EVENT_NAME_UPDATE_STATE = `🦉 EditorView::updateState`;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EVENT_NAME_VIEW_STATE_UPDATED = `🦉 EditorView::onEditorViewStateUpdated`;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EVENT_NAME_ON_CHANGE = `🦉 ReactEditorView::onChange`;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EVENT_NAME_DISPATCH_TRANSACTION = `🦉 ReactEditorView::dispatchTransaction`;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const DEFAULT_USE_PERFORMANCE_MARK = false;
 const DEFAULT_SAMPLING_RATE = 100;
 
@@ -30,6 +35,7 @@ interface SimpleEntry {
 
 type MeasureListener = (entry: SimpleEntry) => void;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class TransactionTracker {
 	// Counter so we can rate limit the transaction performance tracking
 	private dispatchCallCounter = 0;

@@ -31,7 +31,7 @@ export const container: SerializedStyles = css({
 	marginTop: 0,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const containerSelected: SerializedStyles = css({
 	backgroundColor: token('color.background.neutral.subtle.hovered'),
 });
@@ -40,7 +40,7 @@ const nameWrapper = css({
 	overflow: 'hidden',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const nameStyle: SerializedStyles = css({
 	color: token('color.text'),
 	overflow: 'hidden',
@@ -50,7 +50,7 @@ export const nameStyle: SerializedStyles = css({
 	lineHeight: '20px',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const containerName: SerializedStyles = css({
 	color: token('color.text.subtlest'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -204,6 +204,7 @@ const ForwardedLinkSearchListItem = forwardRef<HTMLDivElement, Props & WrappedCo
 	LinkSearchListItem,
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ForwardedLinkSearchListItemWithIntl: React.ForwardRefExoticComponent<
 	Omit<
 		WithIntlProps<
@@ -221,4 +222,5 @@ export const ForwardedLinkSearchListItemWithIntl: React.ForwardRefExoticComponen
 	forwardRef: true,
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default ForwardedLinkSearchListItemWithIntl;

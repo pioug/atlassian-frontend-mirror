@@ -7,7 +7,7 @@ import { PACKAGE_DATA } from '../../common/constants';
 import type { LinkCreateProps } from '../../common/types';
 import { ErrorBoundary } from '../../common/ui/error-boundary';
 import { Experience } from '../../common/ui/experience-tracker';
-import { withLinkCreateAnalyticsContext } from '../../common/utils/analytics';
+import { withLinkCreateAnalyticsContext } from '../../common/utils/analytics/context';
 import { fetchMessagesForLocale } from '../../common/utils/locale/fetch-messages-for-locale';
 import i18nEN from '../../i18n/en';
 

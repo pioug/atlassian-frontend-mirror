@@ -7,8 +7,6 @@ import { useIntl } from 'react-intl';
 
 import DecisionIcon from '@atlaskit/icon/core/decision';
 import { token } from '@atlaskit/tokens';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { type Appearance, type ContentRef } from '../types';
 import Item from './Item';
 import { messages } from './i18n';
@@ -55,11 +53,9 @@ const DecisionItem = ({
 		<span contentEditable={false} css={[iconStyles, showPlaceholder && iconStylesWithPlaceholder]}>
 			<DecisionIcon
 				label={
-					expValEquals('editor_a11y_decision_aria_label', 'isEnabled', true)
-						? showPlaceholder && children === undefined
-							? formatMessage(messages.undefinedDecisionAriaLabel)
-							: formatMessage(messages.decisionAriaLabel)
-						: 'Decision'
+					showPlaceholder && children === undefined
+						? formatMessage(messages.undefinedDecisionAriaLabel)
+						: formatMessage(messages.decisionAriaLabel)
 				}
 				spacing="spacious"
 				color="currentColor"

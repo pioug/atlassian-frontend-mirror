@@ -35,6 +35,8 @@ import {
 } from '../../../../../examples/page-layout-panel-aside-default-widths';
 import { SideNavContentScrollWithStickyVR } from '../../../../../examples/page-layout-side-nav-content-scroll-with-sticky';
 import SideNavSlotsExample from '../../../../../examples/page-layout-side-nav-slots';
+import PageLayoutTopLayerDialogAsDirectChild from '../../../../../examples/page-layout-top-layer-dialog-as-direct-child';
+import PageLayoutTopLayerPopoverAsDirectChild from '../../../../../examples/page-layout-top-layer-popover-as-direct-child';
 import RibbonExample from '../../../../../examples/ribbon';
 import RibbonWithoutSideNavExample from '../../../../../examples/ribbon-without-side-nav';
 
@@ -278,4 +280,24 @@ snapshot(RibbonExample, {
 snapshot(RibbonWithoutSideNavExample, {
 	...defaultOptions,
 	description: 'Ribbon without side nav',
+});
+
+// Regression coverage: native top-layer elements rendered as direct children of Root must paint.
+// Gated behind `platform-dst-top-layer`.
+snapshot(PageLayoutTopLayerDialogAsDirectChild, {
+	...desktopOnly,
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-dst-top-layer': true,
+	},
+	description: 'Top-layer <dialog> rendered as a direct child of Root',
+});
+
+snapshot(PageLayoutTopLayerPopoverAsDirectChild, {
+	...desktopOnly,
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-dst-top-layer': true,
+	},
+	description: 'Top-layer [popover] rendered as a direct child of Root',
 });

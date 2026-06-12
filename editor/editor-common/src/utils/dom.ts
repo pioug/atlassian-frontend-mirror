@@ -34,6 +34,7 @@ export function closest(node: HTMLElement | null | undefined, s: string): HTMLEl
 /*
  * @deprecated - Use HTMLElement.protoype.closest instead
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function closestElement(
 	node: HTMLElement | null | undefined,
 	s: string,
@@ -45,6 +46,7 @@ export type MapCallback<T, S> = (elem: S, idx: number, parent: Element) => T;
 
 // does typescript have function templates yet?
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function mapElem<T>(elem: Element, callback: MapCallback<T, Element>): Array<T> {
 	const array: Array<T> = [];
 
@@ -55,6 +57,7 @@ export function mapElem<T>(elem: Element, callback: MapCallback<T, Element>): Ar
 	return array;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function maphElem<T, U extends HTMLElement>(elem: U, callback: MapCallback<T, U>): Array<T> {
 	return mapElem(elem, callback as MapCallback<T, Element>) as Array<T>;
 }

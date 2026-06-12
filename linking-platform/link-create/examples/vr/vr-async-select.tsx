@@ -4,7 +4,7 @@ import { Form } from 'react-final-form';
 
 import { AsyncSelect } from '@atlaskit/link-create';
 
-import { FormContextProvider } from '../../src/controllers/form-context';
+import { FormContextProvider } from '../../src/controllers/form-context/main';
 import { type AsyncSelectProps } from '../../src/ui/create-form/async-select/types';
 
 const createExample = (props: Partial<AsyncSelectProps> = {}): React.ComponentType => {

@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import { useIntl, type MessageDescriptor } from 'react-intl';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	addColumnAfter,
 	addColumnBefore,
@@ -61,7 +62,10 @@ export const InsertColumnDropdownItem = ({
 	const maxColumnCount = getEffectiveMaxLayoutColumns();
 	const canInsertColumn = selectedLayoutColumns !== undefined && columnCount < maxColumnCount;
 	const onClick = useCallback(() => {
-		const insertCommand = api?.layout?.commands.insertLayoutColumn(side);
+		const insertCommand = api?.layout?.commands.insertLayoutColumn({
+			side,
+			inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU,
+		});
 
 		api?.core?.actions.execute((props) => {
 			const tr = insertCommand?.(props);

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import { PanelType } from '@atlaskit/adf-schema';
 import type { DocNode } from '@atlaskit/adf-schema';
 

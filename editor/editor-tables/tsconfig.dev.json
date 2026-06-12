@@ -55,9 +55,6 @@
 			"path": "../editor-test-helpers/tsconfig.app.json"
 		},
 		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
-		},
-		{
 			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
 		},
 		{

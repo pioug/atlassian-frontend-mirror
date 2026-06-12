@@ -36,7 +36,7 @@ export type ContextPanelProviderState = {
 };
 
 // Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any, @atlaskit/volt-strict-mode/no-multiple-exports
 export class ContextPanelWidthProvider extends React.Component<any, ContextPanelProviderState> {
 	state = { width: 0, positionedOverEditor: false };
 
@@ -84,4 +84,5 @@ export class ContextPanelWidthProvider extends React.Component<any, ContextPanel
 const Provider: React.Provider<ContextPanelContext> = ContextPanel.Provider;
 const Consumer: React.Consumer<ContextPanelContext> = ContextPanel.Consumer;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export { Provider as ContextPanelProvider, Consumer as ContextPanelConsumer };

@@ -288,6 +288,7 @@ const ComposableEditorWrapper = ({
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function CommentExample(props?: Props): React.JSX.Element {
 	return (
 		<CommentEditorJiraBento

@@ -63,6 +63,7 @@ export function computeSelectionOffsets({
  *
  * Handles NodeSelection, GapCursorSelection, and TextSelection.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function restoreSelection({
 	tr,
 	originalSelection,

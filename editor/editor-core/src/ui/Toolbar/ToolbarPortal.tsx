@@ -30,6 +30,7 @@ export const ToolbarPortalContextProvider = ({
 // NOTE: This doesn't throw on undefined context on purpose, as it is likely that
 // the outer toolbar _won't_ have a context provider as it is unlikely to portal
 // anywhere
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useToolbarPortal = (): ToolbarPortalContextValue | undefined => {
 	return React.useContext(ToolbarPortalContext);
 };
@@ -44,6 +45,7 @@ const toolbarPortalStyles = cssMap({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ToolbarPortalMountPoint = (): JSX.Element | null => {
 	const portal = useToolbarPortal();
 

@@ -1,0 +1,19 @@
+---
+order: 1
+---
+
+## Usage
+
+Use skeletons to reserve space for content while data is loading. Match the size and shape of the
+expected content so the page does not jump when loading completes.
+
+Use shimmering skeletons when loading may take noticeable time. Avoid using shimmer for very short
+loading states, repeated dense lists, or places where the motion would distract from nearby content.
+
+Use design tokens for custom colors. Keep custom colors subtle so the placeholder reads as loading
+content instead of a status, chart, or interactive element. To customize shimmering skeleton colors,
+provide both `color` and `ShimmeringEndColor`; setting only `color` has no visible effect while the
+shimmer animation is active.
+
+Remove skeletons as soon as content is ready. If progress or completion state matters, use a loading
+or progress pattern instead.

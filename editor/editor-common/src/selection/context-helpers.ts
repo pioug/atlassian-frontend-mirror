@@ -36,6 +36,7 @@ export const selectionCoversAllListItems = ($from: ResolvedPos, $to: ResolvedPos
  * @param selection The selection to get the slice for.
  * @returns The slice of the document corresponding to the selection.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getSliceFromSelection = (selection: Selection): Fragment => {
 	const { from, to } = selection;
 	if (from === to) {

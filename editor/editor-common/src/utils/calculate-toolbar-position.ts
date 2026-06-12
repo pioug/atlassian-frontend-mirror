@@ -82,6 +82,7 @@ export const calculateToolbarPositionAboveSelection =
 		};
 	};
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const calculateToolbarPositionTrackHead =
 	(toolbarTitle: string) =>
 	(editorView: EditorView, nextPos: Position): Position => {
@@ -180,6 +181,7 @@ export type CoordsAtPos = {
 const cellSelectionToolbarOffsetTop = 10;
 const scrollbarWidth = 20;
 const offsetTopOnColumnSelection = 4;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const calculateToolbarPositionOnCellSelection =
 	(toolbarTitle: string) =>
 	(editorView: EditorView, nextPos: Position): Position => {

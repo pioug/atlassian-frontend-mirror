@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Form } from 'react-final-form';
 
-import { FormContextProvider } from '../../../controllers/form-context';
+import { FormContextProvider } from '../../../controllers/form-context/main';
 
 import { Select, TEST_ID } from './main';
 

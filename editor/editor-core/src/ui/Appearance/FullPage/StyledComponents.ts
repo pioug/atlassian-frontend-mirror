@@ -11,7 +11,7 @@ export const fullPageEditorWrapper: SerializedStyles = css({
 	boxSizing: 'border-box',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const contentAreaWrapper: SerializedStyles = css({
 	width: '100%',
 	containerType: 'inline-size',
@@ -24,7 +24,7 @@ export const contentAreaWrapper: SerializedStyles = css({
 	contain: 'layout style inline-size',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const sidebarArea: SerializedStyles = css({
 	height: '100%',
 	boxSizing: 'border-box',
@@ -44,7 +44,7 @@ export const sidebarArea: SerializedStyles = css({
 
 // initially hide until we have a containerWidth and can properly size them,
 // otherwise they can cause the editor width to extend which is non-recoverable
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const editorContentAreaHideContainer: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-editor--full-width-mode': {

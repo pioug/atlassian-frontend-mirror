@@ -84,7 +84,13 @@ const MultiBodiedExtensionWrapperLegacy = ({
 }>) => {
 	const isTopLevel = path.length < 1;
 	// we should only use custom layout for full-page appearance
-	const canUseCustomLayout = rendererAppearance === 'full-page';
+	const canUseCustomLayout = expValEquals(
+		'platform_editor_remove_important_in_render_ext',
+		'isEnabled',
+		true,
+	)
+		? rendererAppearance === 'full-page'
+		: true;
 	const isCustomLayout =
 		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
 	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
@@ -95,10 +101,16 @@ const MultiBodiedExtensionWrapperLegacy = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
 			style={{
-				width: isCustomLayout
+				width: (
+					expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? isCustomLayout
+						: isTopLevel
+				)
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						calcBreakoutWidth(layout, width)
-					: undefined,
+					: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? undefined
+						: '100%',
 			}}
 			data-layout={layout}
 			data-testid="multiBodiedExtension--wrapper-renderer"
@@ -125,7 +137,13 @@ const MultiBodiedExtensionWrapperNext = ({
 }>) => {
 	const isTopLevel = path.length < 1;
 	// we should only use custom layout for full-page appearance
-	const canUseCustomLayout = rendererAppearance === 'full-page';
+	const canUseCustomLayout = expValEquals(
+		'platform_editor_remove_important_in_render_ext',
+		'isEnabled',
+		true,
+	)
+		? rendererAppearance === 'full-page'
+		: true;
 	const isCustomLayout =
 		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
 	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
@@ -136,10 +154,16 @@ const MultiBodiedExtensionWrapperNext = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
 			style={{
-				width: isCustomLayout
+				width: (
+					expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? isCustomLayout
+						: isTopLevel
+				)
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						calcBreakoutWidthCss(layout)
-					: undefined,
+					: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+						? undefined
+						: '100%',
 			}}
 			data-layout={layout}
 			data-testid="multiBodiedExtension--wrapper-renderer"

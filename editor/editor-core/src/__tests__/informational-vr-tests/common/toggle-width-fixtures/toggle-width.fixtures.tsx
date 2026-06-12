@@ -28,6 +28,7 @@ export function EditorFullWidth(): React.JSX.Element {
 	);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function EditorFullPage(): React.JSX.Element {
 	const [appearance, setApperance] = useState('full-width');
 

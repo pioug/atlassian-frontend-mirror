@@ -21,6 +21,7 @@ export const timestampToUTCDate = (timestamp: string | number): Date => {
 	return { day, month, year };
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const todayTimestampInUTC = (timeZone?: string): string => {
 	const today = new Date(Date.now());
 	if (timeZone) {
@@ -51,6 +52,7 @@ const capitalizeFirstLetter = (str: string): string => {
 };
 
 // example: "23 Jan 2018"
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const timestampToString = (
 	timestamp: string | number,
 	intl: IntlShape | null,
@@ -72,6 +74,7 @@ export const timestampToString = (
 };
 
 // example: "2018-01-23"
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const timestampToIsoFormat = (timestamp: string | number): string => {
 	const date = new Date(Number(timestamp));
 	return `${date.getUTCFullYear()}-${addLeadingZero(
@@ -79,10 +82,12 @@ export const timestampToIsoFormat = (timestamp: string | number): string => {
 	)}-${addLeadingZero(date.getUTCDate())}`;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isPastDate = (timestamp: string | number, timeZone?: string): boolean => {
 	return isBefore(new Date(Number(timestamp)), new Date(Number(todayTimestampInUTC(timeZone))));
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const timestampToTaskContext = (
 	timestamp: string | number,
 	intl: IntlShape,

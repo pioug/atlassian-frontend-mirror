@@ -66,6 +66,7 @@ const options = {
  * @param {QuickInsertItem[]} items - An array of QuickInsertItems to be searched.
  * @returns {QuickInsertItem[]} - Returns a sorted array of QuickInsertItems based on the priority. If the query string is empty, it will return the array sorted by priority. If a query string is provided, it will return an array of QuickInsertItems that match the query string, sorted by relevance to the query.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function find(
 	query: string,
 	items: QuickInsertItem[],

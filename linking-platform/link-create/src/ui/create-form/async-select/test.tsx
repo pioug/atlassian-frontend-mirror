@@ -7,8 +7,8 @@ import { IntlProvider } from 'react-intl';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { AsyncSelect as AkAsyncSelect } from '@atlaskit/select';
 
-import { LinkCreateCallbackProvider } from '../../../controllers/callback-context';
-import { FormContextProvider } from '../../../controllers/form-context';
+import { LinkCreateCallbackProvider } from '../../../controllers/callback-context/main';
+import { FormContextProvider } from '../../../controllers/form-context/main';
 
 import { AsyncSelect, TEST_ID } from './main';
 

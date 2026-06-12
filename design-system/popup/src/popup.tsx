@@ -164,7 +164,7 @@ export const Popup: FC<PopupProps> = memo((props: PopupProps) => {
 					<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
 				))}
 			{fg('platform-dst-motion-uplift-popup') && (
-				<ExitingPersistence>
+				<ExitingPersistence appear>
 					{isOpen &&
 						(shouldRenderToParent || shouldFitContainer ? (
 							renderPopperWrapper

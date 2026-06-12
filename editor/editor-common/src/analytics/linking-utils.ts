@@ -44,6 +44,7 @@ const mapLinkTypeToCardAppearance = (type: LinkType): CardAppearance | 'url' => 
 	}
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const buildVisitedLinkPayload = (type: LinkType): AnalyticsEventPayload => {
 	return type === ACTION_SUBJECT_ID.HYPERLINK
 		? buildVisitedHyperLinkPayload()
@@ -62,6 +63,7 @@ const buildVisitedHyperLinkPayload = (): AnalyticsEventPayload => {
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const buildVisitedNonHyperLinkPayload = (
 	type: LinkType,
 	inputMethod:
@@ -94,6 +96,7 @@ export const buildVisitedNonHyperLinkPayload = (
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const buildOpenedSettingsPayload = (type: LinkType): AnalyticsEventPayload => {
 	return {
 		action: ACTION.CLICKED,
@@ -108,6 +111,7 @@ export const buildOpenedSettingsPayload = (type: LinkType): AnalyticsEventPayloa
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const unlinkPayload = (
 	type: LinkType,
 ): {

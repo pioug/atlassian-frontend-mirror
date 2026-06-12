@@ -16,6 +16,7 @@ export const DEFAULT_BLOCK_LINK_HASH_PREFIX = 'block-';
  * @param prefix - The prefix to look for (default is 'block-').
  * @returns True if the hash matches the block link pattern, false otherwise.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isBlockLinkHash = (
 	hash: string,
 	prefix: string = DEFAULT_BLOCK_LINK_HASH_PREFIX,
@@ -42,6 +43,7 @@ export const isBlockLinkHash = (
  * @param prefix - The prefix to look for (default is 'block-').
  * @returns The extracted block ID if the hash is valid, null otherwise.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const extractBlockIdFromLinkHash = (
 	hash: string,
 	prefix: string = DEFAULT_BLOCK_LINK_HASH_PREFIX,
@@ -61,6 +63,7 @@ export const extractBlockIdFromLinkHash = (
  * @param prefix - The prefix to use (default is 'block-').
  * @returns The constructed block link hash value (e.g., 'block-123e4567-e89b-12d3-a456-426614174000').
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const createBlockLinkHashValue = (
 	blockId: string,
 	prefix: string = DEFAULT_BLOCK_LINK_HASH_PREFIX,

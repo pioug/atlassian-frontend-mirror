@@ -34,7 +34,7 @@ import {
 	MENTION_PLACEHOLDER_ACTIONS,
 } from '../../pm-plugins/mentionPlaceholder';
 import { getMentionPluginState } from '../../pm-plugins/utils';
-import type { FireElementsChannelEvent, TeamInfoAttrAnalytics } from '../../types';
+import type { FireElementsChannelEvent, MentionChange, TeamInfoAttrAnalytics } from '../../types';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../InviteItem';
 import InviteItemWithEmailDomain from '../InviteItem/InviteItemWithEmailDomain';
 
@@ -287,16 +287,7 @@ const buildNodesForTeamMention = (
 type Props = {
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 	fireEvent: FireElementsChannelEvent;
-	handleMentionsChanged?: (
-		mentionChanges: {
-			id: string;
-			localId: string;
-			method?: 'pasted' | 'typed';
-			shouldSuppressMentionNotification?: boolean;
-			taskLocalId?: string;
-			type: 'added' | 'deleted';
-		}[],
-	) => void;
+	handleMentionsChanged?: (mentionChanges: MentionChange[]) => void;
 	HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
 	mentionInsertDisplayName?: boolean;
 	sanitizePrivateContent?: boolean;

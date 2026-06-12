@@ -131,21 +131,25 @@ export const absoluteBreakoutWidth = (
 	return parseInt(breakoutWidth, 10);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export { breakoutConsts };
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const calcWideWidth: (
 	containerWidth?: number,
 	maxWidth?: number,
 	fallback?: string,
 	padding?: number,
 ) => string = breakoutConsts.calcWideWidth(breakoutConsts);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/volt-strict-mode/no-multiple-exports
 export const calcBreakoutWidth: any = breakoutConsts.calcBreakoutWidth(breakoutConsts);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const calcBreakoutWithCustomWidth: (
 	mode: 'full-width' | 'wide',
 	width: number | null,
 	editorContainerWidth: number,
 ) => string = breakoutConsts.calcBreakoutWithCustomWidth(breakoutConsts);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calculateBreakoutStyles({
 	mode,
 	widthStateLineLength,
@@ -226,6 +230,7 @@ export function calculateBreakoutStyles({
 	};
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calcBreakoutWidthPx(
 	mode: BreakoutMarkAttrs['mode'],
 	widthStateWidth?: number,

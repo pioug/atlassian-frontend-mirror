@@ -7,11 +7,13 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 export const expandedState: WeakMap<PmNode, boolean> = new WeakMap<PmNode, boolean>();
 
 // used to determine if the expand is expanded or collapsed
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isExpandCollapsed = (node: PmNode): boolean => {
 	// @ts-ignore - TS2869 TypeScript 5.9.2 upgrade
 	return !expandedState.get(node) ?? false;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getNextNodeExpandPos = (
 	editorView: EditorView,
 	selection: Selection,

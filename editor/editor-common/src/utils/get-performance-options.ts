@@ -45,6 +45,7 @@ export function getPerformanceOptions(view: EditorView): {
 	};
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function stopMeasureReactNodeViewRendered({
 	nodeTypeName,
 	dispatchAnalyticsEvent,

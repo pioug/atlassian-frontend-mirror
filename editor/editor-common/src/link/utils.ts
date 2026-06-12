@@ -41,6 +41,7 @@ const isSelectionAroundLink = (state: EditorState | Transaction) => {
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getActiveLinkMark = (
 	state: EditorState | Transaction,
 ): { node: Node; pos: number } | undefined => {

@@ -53,6 +53,7 @@ export function getCustomFieldResolver(
 }
 
 /** attempt to get the serializer for this field, or throw */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getFieldSerializer(
 	manifest: ExtensionManifest,
 	handlerLink: FieldHandlerLink,
@@ -62,6 +63,7 @@ export function getFieldSerializer(
 }
 
 /** attempt to get the deserializer for this field, or throw */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getFieldDeserializer(
 	manifest: ExtensionManifest,
 	handlerLink: FieldHandlerLink,
@@ -71,6 +73,7 @@ export function getFieldDeserializer(
 }
 
 /** attempt to get the user field context provider for this field, or throw */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getUserFieldContextProvider(
 	manifest: ExtensionManifest,
 	handlerLink: FieldHandlerLink,

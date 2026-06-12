@@ -10,6 +10,7 @@ export function startMeasure(measureName: string): void {
 	measureMap.set(measureName, performance.now());
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function stopMeasure(
 	measureName: string,
 	onMeasureComplete?: (duration: number, startTime: number) => void,
@@ -35,6 +36,7 @@ export function stopMeasure(
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function clearMeasure(measureName: string): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;
@@ -46,6 +48,7 @@ export function clearMeasure(measureName: string): void {
 	performance.clearMeasures(measureName);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isMeasuring(measureName: string): boolean {
 	if (!isPerformanceAPIAvailable()) {
 		return false;

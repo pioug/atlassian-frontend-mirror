@@ -62,6 +62,19 @@ describe('MenuSection', () => {
 		expect(screen.getByRole('group', { name: 'Test title' })).toBeVisible();
 	});
 
+	it('should use aria-label when provided', () => {
+		render(
+			<MenuSection ariaLabel="Section label">
+				<MenuSectionHeading>Test title</MenuSectionHeading>
+			</MenuSection>,
+		);
+
+		const group = screen.getByRole('group', { name: 'Test title' });
+
+		expect(group).toHaveAttribute('aria-label', 'Section label');
+		expect(group).toHaveAttribute('aria-labelledby');
+	});
+
 	describe('isMenuListItem', () => {
 		it('should not be a list item when false', () => {
 			render(

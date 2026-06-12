@@ -14,7 +14,7 @@ export const useEditorContext = (): EditorContextProps =>
 	React.useContext<EditorContextProps>(EditorContext);
 
 // Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function
+// eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function, @atlaskit/volt-strict-mode/no-multiple-exports
 export class LegacyEditorContext extends React.Component<EditorContextProps, Object> {
 	constructor(props: EditorContextProps) {
 		super(props);
@@ -33,6 +33,7 @@ export class LegacyEditorContext extends React.Component<EditorContextProps, Obj
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default (props: EditorContextProps): React.JSX.Element => (
 	<LegacyEditorContext editorActions={props.editorActions}>{props.children}</LegacyEditorContext>
 );

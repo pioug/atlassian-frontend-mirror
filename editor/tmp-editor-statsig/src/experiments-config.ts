@@ -155,13 +155,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-20
-	editor_a11y_decision_aria_label: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-05-01
 	platform_editor_ai_normalized_telemetry: {
 		defaultValue: boolean;
@@ -299,6 +292,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-03
 	editor_tinymce_full_width_mode: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-02-16
+	platform_editor_remove_important_in_render_ext: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1025,13 +1025,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-12
-	platform_editor_table_sticky_header_patch_11: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-01-21
 	platform_editor_copy_link_a11y_inconsistency_fix: {
 		defaultValue: boolean;
@@ -1187,13 +1180,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-19
 	platform_editor_comment_editor_border_radius: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-26
-	platform_editor_fix_comment_border: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1512,13 +1498,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-10
-	platform_editor_analyse_table_with_merged_cells: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-20
 	cc_editor_ttvc_media_hold_fix: {
 		defaultValue: boolean;
@@ -1592,6 +1571,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-11
+	platform_editor_external_embed_grid_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-30
 	platform_editor_stricter_panelcolor_typecheck: {
 		defaultValue: boolean;
@@ -1615,13 +1601,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-06
 	confluence_fe_create_page_suggestion: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-04
-	platform_editor_user_highlight_contrast: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2072,15 +2051,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-20
-	editor_a11y_decision_aria_label: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_a11y_decision_aria_label',
-			jira: 'editor_a11y_decision_aria_label',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 03-09-2025
 	cc_editor_interactivity_monitoring: createBooleanExperiment({
 		productKeys: {
@@ -2101,6 +2071,14 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_headingautocomplete: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_headingautocomplete',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-02-16
+	platform_editor_remove_important_in_render_ext: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_remove_important_in_render_ext',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3146,14 +3124,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-01-12
-	platform_editor_table_sticky_header_patch_11: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_sticky_header_patch_11',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-02-16
 	platform_editor_ai_fix_insert_after_selection: createBooleanExperiment({
 		productKeys: {
@@ -3636,14 +3606,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-10
-	platform_editor_analyse_table_with_merged_cells: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_analyse_table_with_merged_cells',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	cc_editor_ttvc_media_hold_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_ttvc_media_hold_fix',
@@ -3787,14 +3749,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-004
-	platform_editor_user_highlight_contrast: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_user_highlight_contrast',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-25
 	platform_editor_improve_preset_builder_logging: createBooleanExperiment({
 		productKeys: {
@@ -3807,14 +3761,6 @@ export const editorExperimentsConfig: {
 	platform_editor_user_preference_override: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_user_preference_override',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-26
-	platform_editor_fix_comment_border: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_comment_border',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3913,6 +3859,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_fix_selection_wrapped_media_embed',
 			jira: 'platform_editor_fix_selection_wrapped_media_embed',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-11
+	platform_editor_external_embed_grid_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_external_embed_grid_fix',
+			jira: 'platform_editor_external_embed_grid_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

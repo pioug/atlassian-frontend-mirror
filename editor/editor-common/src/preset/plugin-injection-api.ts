@@ -322,6 +322,7 @@ type GenericAPIWithCore = {
 };
 const editorAPICache = new WeakMap<EditorPluginInjectionAPI, GenericAPIWithCore>();
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 	private sharedStateAPI: SharedStateAPI;
 	private actionsAPI: ActionsAPI;

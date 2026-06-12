@@ -266,6 +266,31 @@ export type JiraCreateContextPayload = PayloadCore<'jira-create-context-payload'
 
 export type ChatDraftPayload = PayloadCore<'chat-draft'>;
 
+export type SmartLink3PProjectContext = {
+	projectId: string;
+	projectName: string;
+	projectUrl: string;
+};
+
+export type SmartLink3PPostAuthProvider = 'Google Drive';
+
+/**
+ * Experiment-scoped Smart Link post-auth launch event for
+ * platform_sl_3p_post_auth_chat_open_fg / platform_sl_3p_post_auth_chat_open_exp.
+ *
+ * This opens Rovo Chat in mini-modal mode with custom post-auth UI, without sending
+ * a prompt. If the experiment does not become permanent, remove this event type as
+ * part of the experiment cleanup.
+ */
+export type ChatSmartLink3PPostAuthLaunchPayload = PayloadCore<
+	'chat-smartlink-3p-post-auth-launch',
+	{
+		extensionKey: string;
+		provider: SmartLink3PPostAuthProvider;
+		projectContext: SmartLink3PProjectContext;
+	}
+>;
+
 export type OpenBrowseAgentPayload = PayloadCore<'open-browse-agent-modal'>;
 
 export type OpenBrowseAgentSidebarPayload = PayloadCore<'open-browse-agent-sidebar'>;
@@ -614,6 +639,7 @@ export type Payload =
 	| SmartCreationModalOpenPayload
 	| ChatNewPayload
 	| ChatDraftPayload
+	| ChatSmartLink3PPostAuthLaunchPayload
 	| EditorContextPayload
 	| ChatOpenPayload
 	| OpenBrowseAgentPayload

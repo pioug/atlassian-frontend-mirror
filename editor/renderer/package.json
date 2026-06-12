@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "132.2.0",
+	"version": "132.5.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -246,6 +246,13 @@
 			"type": "boolean"
 		},
 		"platform_editor_media_border_radius_fix": {
+			"type": "boolean"
+		},
+		"platform_media_video_captions": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_video_caption_commit": {
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_v2_patch_4": {

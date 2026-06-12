@@ -1,0 +1,176 @@
+---
+title: Date label
+description:
+  Date label is a non-interactive label that displays a date and optionally, visually communicates
+  its status.
+order: 2
+---
+
+import Image from '@atlaskit/image';
+
+import dateLabelAnatomyLight from './images/date-label-anatomy-light.png';
+import dateLabelAnatomyDark from './images/date-label-anatomy-dark.png';
+import dateLabelDo1Light from './images/date-label-do-1-light.png';
+import dateLabelDo1Dark from './images/date-label-do-1-dark.png';
+import dateLabelDont1Light from './images/date-label-dont-1-light.png';
+import dateLabelDont1Dark from './images/date-label-dont-1-dark.png';
+import dateLabelDo2Light from './images/date-label-do-2-light.png';
+import dateLabelDo2Dark from './images/date-label-do-2-dark.png';
+import dateLabelDont2Light from './images/date-label-dont-2-light.png';
+import dateLabelDont2Dark from './images/date-label-dont-2-dark.png';
+import dateLabelDo3Light from './images/date-label-do-3-light.png';
+import dateLabelDo3Dark from './images/date-label-do-3-dark.png';
+import dateLabelDont3Light from './images/date-label-dont-3-light.png';
+import dateLabelDont3Dark from './images/date-label-dont-3-dark.png';
+import dateLabelDo4Light from './images/date-label-do-4-light.png';
+import dateLabelDo4Dark from './images/date-label-do-4-dark.png';
+import dateLabelDont4Light from './images/date-label-dont-4-light.png';
+import dateLabelDont4Dark from './images/date-label-dont-4-dark.png';
+
+## Usage
+
+Use a date label to visually distinguish dates from surrounding content. Date label also supports
+semantic appearances with color and icon, making it easy to scan and display its status at a glance.
+
+## Parts
+
+<Image
+	src={dateLabelAnatomyLight}
+	srcDark={dateLabelAnatomyDark}
+	alt="The anatomy of the date label component, showing two parts: a Label and an optional icon"
+/>
+
+1. **Label:** Text displaying the date.
+2. **Icon (optional):** An icon that corresponds to the appearance. Each appearance has a designated
+   icon that displays automatically when enabled.
+
+## Best practices
+
+### Only use date label to communicate dates and their status
+
+Date label should only be used to display dates. To label other things, such as the status of an
+item, consider using [Lozenge](/components/lozenge/lozenge).
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: dateLabelDo1Light,
+			urlDarkMode: dateLabelDo1Dark,
+			alt: 'Use date label to display dates or communicate the status of a date.',
+		}}
+	>
+		Use date label to display dates or communicate the status of a date.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: dateLabelDont1Light,
+			urlDarkMode: dateLabelDont1Dark,
+			alt: 'Don’t use date label for any other types of information',
+		}}
+	>
+		Don’t use date label for any other types of information.
+	</DoDont>
+</DoDontGrid>
+
+### Use date label dropdown trigger when interactivity is required
+
+Date labels are non-interactive. If you require an interactive date label that opens a dropdown for
+example a calendar picker, use
+[date label dropdown trigger](/components/date-label/date-label-dropdown-trigger).
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: dateLabelDo2Light,
+			urlDarkMode: dateLabelDo2Dark,
+			alt: 'Use a date label dropdown trigger if interactivity is required.',
+		}}
+	>
+		Use a date label dropdown trigger if interactivity is required.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: dateLabelDont2Light,
+			urlDarkMode: dateLabelDont2Dark,
+			alt: 'Don’t add custom functionality to the date label.',
+		}}
+	>
+		Don’t add custom functionality to the date label.
+	</DoDont>
+</DoDontGrid>
+
+### Don't use date labels inline with body text
+
+Date labels are designed for labelling in structured UI contexts, and not for use inline with body
+text, such as in editor.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: dateLabelDo3Light,
+			urlDarkMode: dateLabelDo3Dark,
+			alt: 'Use date label to display dates for quick recognition.',
+		}}
+	>
+		Use date label to display dates for quick recognition.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: dateLabelDont3Light,
+			urlDarkMode: dateLabelDont3Dark,
+			alt: 'Don’t use date labels in line with user generated text.',
+		}}
+	>
+		Don’t use date labels in line with user generated text.
+	</DoDont>
+</DoDontGrid>
+
+## Accessibility
+
+### Use icons that carry appropriate meaning for semantic states
+
+Date labels come with designated icons for each of its semantic states. These icons are essential
+for accessibility. Without them, users must rely solely on color to distinguish states, which may
+not be perceivable to everyone.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: dateLabelDo4Light,
+			urlDarkMode: dateLabelDo4Dark,
+			alt: 'Use the assigned icons for semantic appearances like an overdue date.',
+		}}
+	>
+		Use the assigned icons for semantic appearances like an overdue date.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: dateLabelDont4Light,
+			urlDarkMode: dateLabelDont4Dark,
+			alt: 'Don’t remove icons for semantic appearances or use icons that don’t carry appropriate meaning.',
+		}}
+	>
+		Don’t remove icons for semantic appearances or use icons that don’t carry appropriate meaning.
+	</DoDont>
+</DoDontGrid>
+
+## Data Center apps
+
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+
+## Related
+
+- For status information, use a [lozenge](/components/lozenge/lozenge).
+- For tallies or counts, use a [badge](/components/badge/badge).
+- To visually label content such as categories and attributes, use a [tag](/components/tag/tag).
+- For tagging people, team, space, or projects, use an [avatar tag](/components/tag/avatar-tag).

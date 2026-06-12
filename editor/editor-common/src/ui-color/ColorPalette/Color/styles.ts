@@ -22,7 +22,7 @@ export const buttonStyle: SerializedStyles = css({
 
 /** this is not new usage - old code extracted from editor-core */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const buttonWrapperStyle: SerializedStyles = css({
 	border: '1px solid transparent',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography

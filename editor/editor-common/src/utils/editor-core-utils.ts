@@ -27,6 +27,7 @@ export function stepAddsOneOf(step: Step, nodeTypes: Set<NodeType>): boolean {
 	return adds;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const removeBlockMarks = (
 	state: EditorState,
 	marks: Array<MarkType | undefined>,

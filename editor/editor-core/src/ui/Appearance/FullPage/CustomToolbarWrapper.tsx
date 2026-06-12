@@ -28,6 +28,7 @@ export const MainToolbarForFirstChildWrapper: FC<ChildWrapperProps> = componentW
 );
 
 // ---------------- Second child wrapper ----------------
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MainToolbarForSecondChildWrapper: FC<ChildWrapperProps> = componentWithCondition(
 	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
 	MainToolbarForSecondChildWrapperCompiled,

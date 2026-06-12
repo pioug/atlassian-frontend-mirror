@@ -19,6 +19,7 @@ export function toJSON(node: PMNode): JSONDocNode {
 /**
  * This throttles the callback with requestIdleCallback.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function createThrottleSchedule<
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -71,7 +72,7 @@ export function createThrottleSchedule<
 	return wrapperFn;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/volt-strict-mode/no-multiple-exports
 export function returnDocumentRequest<GenericTransformer extends Transformer<any> | undefined>(
 	editorView: EditorView | null,
 	callback: GenericTransformer extends undefined
@@ -114,6 +115,7 @@ export function returnDocumentRequest<GenericTransformer extends Transformer<any
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function returnDocumentRequestNoThrowError<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	GenericTransformer extends Transformer<any> | undefined,

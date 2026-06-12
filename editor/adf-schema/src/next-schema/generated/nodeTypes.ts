@@ -1110,25 +1110,6 @@ export interface LayoutColumnDefinition {
   type: 'layoutColumn';
   content: Array<BlockDefinition | UnsupportedBlockDefinition>;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-  attrs: { width: number; localId?: string };
-}
-
-export type LayoutColumnNode = PMNode & LayoutColumnDefinition;
-
-export const layoutColumn: PMNodeSpecFactoryInstance<LayoutColumnNode> =
-  createPMNodeSpecFactory<LayoutColumnNode>({
-    content: '(block | unsupportedBlock)+',
-    marks:
-      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment',
-    attrs: { width: { default: undefined }, localId: { default: null } },
-    selectable: false,
-    isolating: true,
-  });
-
-export interface LayoutColumnStage0Definition {
-  type: 'layoutColumn';
-  content: Array<BlockDefinition | UnsupportedBlockDefinition>;
-  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: {
     width: number;
     localId?: string;
@@ -1136,10 +1117,10 @@ export interface LayoutColumnStage0Definition {
   };
 }
 
-export type LayoutColumnStage0Node = PMNode & LayoutColumnStage0Definition;
+export type LayoutColumnNode = PMNode & LayoutColumnDefinition;
 
-export const layoutColumnStage0: PMNodeSpecFactoryInstance<LayoutColumnStage0Node> =
-  createPMNodeSpecFactory<LayoutColumnStage0Node>({
+export const layoutColumn: PMNodeSpecFactoryInstance<LayoutColumnNode> =
+  createPMNodeSpecFactory<LayoutColumnNode>({
     content: '(block | unsupportedBlock)+',
     marks:
       'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment',
@@ -1156,7 +1137,6 @@ export interface LayoutSectionDefinition {
   type: 'layoutSection';
   content: Array<
     | LayoutColumnDefinition
-    | LayoutColumnStage0Definition
     | UnsupportedBlockDefinition
     | UnsupportedBlockDefinition
   >;
@@ -1178,11 +1158,7 @@ export const layoutSection: PMNodeSpecFactoryInstance<LayoutSectionNode> =
 
 export interface LayoutSectionFullDefinition {
   type: 'layoutSection';
-  content: Array<
-    | LayoutColumnDefinition
-    | LayoutColumnStage0Definition
-    | UnsupportedBlockDefinition
-  >;
+  content: Array<LayoutColumnDefinition | UnsupportedBlockDefinition>;
   marks: Array<
     BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
   >;
@@ -1203,7 +1179,6 @@ export interface LayoutSectionWithSingleColumnStage0Definition {
   type: 'layoutSection';
   content: Array<
     | LayoutColumnDefinition
-    | LayoutColumnStage0Definition
     | UnsupportedBlockDefinition
     | UnsupportedBlockDefinition
   >;

@@ -31,7 +31,7 @@ export const VerticalAlignDropdownItem = ({
 		) ?? false;
 	const Icon = VERTICAL_ALIGN_ICONS[value];
 	const onClick = useCallback(() => {
-		api?.core?.actions.execute(api?.layout?.commands.setLayoutColumnValign(value));
+		api?.core?.actions.execute(api?.layout?.commands.setLayoutColumnValign({ valign: value }));
 	}, [api, value]);
 
 	return (

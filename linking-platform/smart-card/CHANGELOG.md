@@ -1,5 +1,47 @@
 # @atlaskit/smart-card
 
+## 44.28.2
+
+### Patch Changes
+
+- [`85a6df19d005b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85a6df19d005b) -
+  Update anchor href with cross-product analytics params on middle-click and context menu for
+  HoverCard.
+
+## 44.28.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.28.0
+
+### Minor Changes
+
+- [`5efd60bd04eb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5efd60bd04eb3) -
+  NAVX-5109 Implementing provider specific logic for new inline cta
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.27.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.27.0
+
+### Minor Changes
+
+- [`ed3587ea908e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed3587ea908e3) -
+  [ux] Clean up platform apps same-tab link behavior experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.26.1
 
 ### Patch Changes

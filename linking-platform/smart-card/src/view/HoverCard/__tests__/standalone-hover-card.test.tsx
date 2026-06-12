@@ -12,7 +12,6 @@ import {
 	HoverCard as StandaloneHoverCard,
 } from '@atlaskit/smart-card/hover-card';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import * as useSmartCardActions from '../../../state/actions';
@@ -831,7 +830,7 @@ describe('standalone hover card', () => {
 	});
 });
 
-ffTest.on('townsquare-same-tab-alignment-gcko-849', 'hover card', () => {
+describe('link functionality in Atlas', () => {
 	beforeEach(() => {
 		jest.useFakeTimers({ legacyFakeTimers: true });
 	});

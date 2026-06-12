@@ -20,6 +20,7 @@ export enum LookDirection {
 	After = 'after',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const normaliseNestedLayout = (
 	{ selection, doc }: EditorState | Transaction,
 	node: Node,
@@ -112,6 +113,7 @@ const shouldSplit = (nodeType: NodeType, schemaNodes: any) => {
 	return [schemaNodes.bulletList, schemaNodes.orderedList, schemaNodes.panel].includes(nodeType);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const safeInsert =
 	(content: InsertableContent, position?: number) =>
 	(tr: Transaction): Transaction | null => {
@@ -257,6 +259,7 @@ const finaliseInsert = (tr: Transaction, nodeLength: number) => {
 /**
  * Method extracted from typeahead plugin to be shared with the element browser on handling element insertion.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const insertSelectedItem =
 	(maybeNode?: Node | Object | string | Fragment, opts: { selectInlineNode?: boolean } = {}) =>
 	(state: EditorState, tr: Transaction, start: number): Transaction => {
@@ -340,6 +343,7 @@ export const insertSelectedItem =
  * content being inserted is a valid child of the grandparent node.
  * In this case, the destination node should split
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const shouldSplitSelectedNodeOnNodeInsertion = ({
 	parentNodeType,
 	grandParentNodeType,
@@ -364,6 +368,7 @@ export const shouldSplitSelectedNodeOnNodeInsertion = ({
  * as codeBlock child nodes. Note that this allows paragraphs and inline nodes
  * as we extract their text content.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function contentAllowedInCodeBlock(state: EditorState): boolean {
 	const { $from, $to } = state.selection;
 	let isAllowedChild = true;
@@ -396,6 +401,7 @@ export function contentAllowedInCodeBlock(state: EditorState): boolean {
  *  If the node type is found will stop looking and return true.
  *  If the node type is not found, it will return false.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function fragmentContainsNodeType(fragment: Fragment, nodeType: NodeType): boolean {
 	let doesContainNodeType = false;
 	fragment.descendants((node) => {

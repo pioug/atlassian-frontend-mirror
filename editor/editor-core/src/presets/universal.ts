@@ -607,6 +607,7 @@ interface ExpandEditorProps {
 	allowExpand?: EditorProps['allowExpand'];
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isExpandInsertionEnabled({ allowExpand }: ExpandEditorProps): boolean {
 	if (
 		allowExpand === true &&

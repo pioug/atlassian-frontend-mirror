@@ -103,6 +103,7 @@ export const setSelectionTopLevelBlocks = (
 	}
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const setGapCursorAtPos =
 	(position: number, side: Side = Side.LEFT): Command =>
 	(state, dispatch) => {

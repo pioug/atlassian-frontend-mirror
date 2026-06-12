@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 export const GRID_SIZE = 8;
 
 export const DEVICE_BREAKPOINT_NUMBERS: {

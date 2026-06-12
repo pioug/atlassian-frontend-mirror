@@ -52,6 +52,7 @@ export enum RESOLVE_METHOD {
 	ORPHANED = 'orphaned',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum VIEW_METHOD {
 	BADGE = 'badge',
 	COMMENT_BUTTON = 'commentButton',

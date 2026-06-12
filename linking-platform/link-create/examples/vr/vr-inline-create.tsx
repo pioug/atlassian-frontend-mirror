@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { EditViewProps, LinkCreateProps } from '../../src';
-import { InlineCreate } from '../../src/ui';
+import { default as InlineCreate } from '../../src/ui/inline-create';
 
 const styles = cssMap({
 	container: {

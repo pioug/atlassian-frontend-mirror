@@ -273,4 +273,5 @@ const ComposableEditorWrapper = (props: EditorProps) => {
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default CommentEditorWithFeedback;

@@ -42,6 +42,7 @@ const CURRENT_LAYOUT_KEYS: SnappingWidthsKeyMapping = {
 const roundToNearest = (value: number, interval: number = 0.5): number =>
 	Math.round(value / interval) * interval;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useBreakoutGuidelines(
 	getEditorWidth: () => EditorContainerWidth | undefined,
 	isResizing: boolean,

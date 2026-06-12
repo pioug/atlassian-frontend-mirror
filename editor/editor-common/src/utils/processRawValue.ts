@@ -158,6 +158,7 @@ export function processRawValueWithoutValidation(
 	return Node.fromJSON(schema, transformedAdf);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function processRawValue(
 	schema: Schema,
 	value?: ReplaceRawValue,

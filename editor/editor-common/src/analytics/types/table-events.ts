@@ -54,12 +54,14 @@ export enum TABLE_ACTION {
 	FIT_TO_CONTENT_ON_DEMAND = 'fitToContentOnDemand',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum TABLE_BREAKOUT {
 	WIDE = 'wide',
 	FULL_WIDTH = 'fullWidth',
 	NORMAL = 'normal',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum TABLE_OVERFLOW_CHANGE_TRIGGER {
 	EXTERNAL = 'external',
 	ADDED_COLUMN = 'addedColumn',
@@ -71,6 +73,7 @@ export enum TABLE_OVERFLOW_CHANGE_TRIGGER {
 	RESIZED = 'resizedTable',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum TABLE_STATUS {
 	SUCCESS = 'success',
 	CANCELLED = 'cancelled',
@@ -352,6 +355,7 @@ type TableClonedRowOrColumnAEP = TableAEP<
 	undefined
 >;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum TABLE_DISPLAY_MODE {
 	FIXED = 'fixed',
 	DEFAULT = 'default',
@@ -372,6 +376,7 @@ type TableChangedDisplayModeAEP = TableAEP<
 // currently duplicated in editor-plugin-table/src/types.ts
 type AlignmentOptions = 'center' | 'align-start';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum CHANGE_ALIGNMENT_REASON {
 	TABLE_RESIZING = 'tableResizing',
 	TABLE_COLUMN_RESIZED = 'tableColumnResized',

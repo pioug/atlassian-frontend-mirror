@@ -13,13 +13,15 @@ import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { LinkCreatePlugin, LinkCreateProps, LinkCreateWithModalProps } from '../common/types';
-import { useLinkCreateCallback } from '../controllers/callback-context';
+import { useLinkCreateCallback } from '../controllers/callback-context/main';
 import {
 	ExitWarningModalProvider,
 	useExitWarningModal,
 } from '../controllers/exit-warning-modal-context';
 
-import LinkCreate, { CreateForm, InlineCreate } from './index';
+import { CreateForm } from './create-form/main';
+import { default as InlineCreate } from './inline-create';
+import { default as LinkCreate } from './modal-create';
 
 import '@atlaskit/link-test-helpers/jest';
 

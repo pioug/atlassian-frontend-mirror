@@ -27,6 +27,7 @@ export const EXPERIENCE_FAILURE_REASON = {
  * These may be used by various ExperienceCheck implementations to
  * provide consistent, well-known abort reasons for analytics and debugging.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EXPERIENCE_ABORT_REASON = {
 	/**
 	 * Experience was aborted because it was restarted while already in progress
@@ -44,8 +45,10 @@ export const EXPERIENCE_ABORT_REASON = {
  * The expectation is that measurements will be gathered after initial
  * instrumentation, then the sample rate can be tuned up to a safe threshold.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const DEFAULT_EXPERIENCE_SAMPLE_RATE = 0.001;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EXPERIENCE_ID = {
 	ASYNC_OPERATION: 'asyncOperation',
 	MENU_ACTION: 'menuAction',

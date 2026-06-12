@@ -115,7 +115,7 @@ export function InlineCardResolvedViewFunctionalWithRovoActions({
 				hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 			/>
 			{renderLozenge(lozenge)}
-			{isInlineTailoredRovoActionEnabled && <InlineRovoActionButton testId={`${testId}-rovo-actions-cta`} url={link} />}
+			{isInlineTailoredRovoActionEnabled && <InlineRovoActionButton testId={`${testId}-rovo-actions-cta`} url={link} actionOptions={actionOptions} />}
 		</Frame>
 	);
 
@@ -135,7 +135,6 @@ export function InlineCardResolvedViewFunctionalWithRovoActions({
 	);
 }
 
-// Todo: replace with platform_sl_3p_auth_inline_tailored_cta_killswitch after cleanup of rovogrowth-640-inline-action-nudge-fg
 export const InlineCardResolvedViewFunctional: React.FC<InlineCardResolvedViewFunctionalProps> =
 	componentWithFG(
 		'platform_sl_3p_auth_inline_tailored_cta_killswitch',

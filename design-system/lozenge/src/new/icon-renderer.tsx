@@ -4,7 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import type { IconColor } from '@atlaskit/tokens/css-type-schema';
+import type { IconColor, TextColor } from '@atlaskit/tokens/css-type-schema';
 
 import { type ThemeAppearance } from '../lozenge';
 
@@ -29,45 +29,57 @@ export interface IconRendererProps {
 	size?: 'small' | 'medium';
 }
 
-// Map lozenge colors to appropriate icon colors
-const getIconColor = (color: LozengeColor | ThemeAppearance): IconColor => {
-	// For semantic colors, use corresponding semantic icon colors
+// Map lozenge colors to appropriate icon colors.
+//
+// We intentionally use `color.text.*.bolder` tokens for icons across all
+// colored lozenges (semantic + accent). Text tokens use higher-stop palette
+// values (Color700+) which pass 3:1 contrast against subtler backgrounds in
+// every interactive state — including pressed where icon Color600 fails for
+// most hues. Using text tokens uniformly:
+//   - avoids global changes to the `color.icon.*` token ramps
+//   - keeps icon and text visually aligned in the lozenge
+//   - guarantees ≥3:1 contrast across default/hover/pressed states
+//
+// Neutral lozenges use `color.text.subtle` to match the neutral text styling
+// and remain consistent with their alpha-based backgrounds.
+const getIconColor = (color: LozengeColor | ThemeAppearance): IconColor | TextColor => {
 	switch (color) {
+		// Semantic
 		case 'success':
-			return token('color.icon.success');
+			return token('color.text.success');
 		case 'warning':
-			return token('color.icon.warning');
+			return token('color.text.warning');
 		case 'danger':
-			return token('color.icon.danger');
+			return token('color.text.danger');
 		case 'information':
-			return token('color.icon.information');
-		case 'neutral':
-			return token('color.icon.subtlest');
+			return token('color.text.information');
 		case 'discovery':
-			return token('color.icon.discovery');
-		// For accent colors, use corresponding accent icon colors
+			return token('color.text.discovery');
+		case 'neutral':
+			return token('color.text.subtle');
+		// Accent
 		case 'accent-red':
-			return token('color.icon.accent.red');
+			return token('color.text.accent.red');
 		case 'accent-orange':
-			return token('color.icon.accent.orange');
+			return token('color.text.accent.orange');
 		case 'accent-yellow':
-			return token('color.icon.accent.yellow');
+			return token('color.text.accent.yellow');
 		case 'accent-lime':
-			return token('color.icon.accent.lime');
+			return token('color.text.accent.lime');
 		case 'accent-green':
-			return token('color.icon.accent.green');
+			return token('color.text.accent.green');
 		case 'accent-teal':
-			return token('color.icon.accent.teal');
+			return token('color.text.accent.teal');
 		case 'accent-blue':
-			return token('color.icon.accent.blue');
+			return token('color.text.accent.blue');
 		case 'accent-purple':
-			return token('color.icon.accent.purple');
+			return token('color.text.accent.purple');
 		case 'accent-magenta':
-			return token('color.icon.accent.magenta');
+			return token('color.text.accent.magenta');
 		case 'accent-gray':
-			return token('color.icon.accent.gray');
+			return token('color.text.subtle');
 		default:
-			return token('color.icon.subtlest');
+			return token('color.text.subtle');
 	}
 };
 
@@ -96,7 +108,12 @@ const IconRenderer: (props: IconRendererProps) => React.JSX.Element = ({
 			<Icon label="" size={size} testId={testId} />
 		</Box>
 	) : (
-		<Icon color={iconColor} label="" size={size} testId={testId} />
+		// Cast required because the lozenge intentionally uses some
+		// `color.text.*.bolder` tokens for icons that don't pass 3:1 contrast
+		// at their default `color.icon.*` stop. The Icon component types only
+		// accept `IconColor`, but text tokens are valid CSS color values and
+		// render correctly at runtime.
+		<Icon color={iconColor as IconColor} label="" size={size} testId={testId} />
 	);
 };
 

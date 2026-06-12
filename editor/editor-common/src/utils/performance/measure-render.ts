@@ -64,6 +64,7 @@ export const getDistortedDurationMonitor = (): DistortedDurationMonitor => {
  * | javascript (framework)           | style | layout | paint | composite | javascript  | ...
  *  | startMark + scheduling rAF |                                                       | rAF callback, endMark
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function measureRender(
 	/**
 	 * Unique name for the measurement

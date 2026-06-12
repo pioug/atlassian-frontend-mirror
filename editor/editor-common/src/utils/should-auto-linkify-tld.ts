@@ -89,6 +89,7 @@ export function shouldAutoLinkifyTld(url: string): boolean {
  * @param match Linkify Match
  * @returns True if should auto linkify, false otherwise
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function shouldAutoLinkifyMatch(match: Match): boolean {
 	return shouldAutoLinkifyTld(match.raw);
 }

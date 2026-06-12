@@ -1,5 +1,6 @@
 export const FEDRAMP_MODERATE = 'fedramp-moderate';
 export const COMMERCIAL = 'commercial';
+export const ISOLATED_CLOUD = 'isolated-cloud';
 
 export const STAGING = 'staging';
 export const PRODUCTION = 'prod';

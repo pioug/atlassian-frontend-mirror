@@ -7,6 +7,7 @@ export enum TypeAheadAvailableNodes {
 	QUICK_INSERT = 'quickInsertTypeAhead',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum SelectItemMode {
 	SHIFT_ENTER = 'shift-enter',
 	ENTER = 'enter',

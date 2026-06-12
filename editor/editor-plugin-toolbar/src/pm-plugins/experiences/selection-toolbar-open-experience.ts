@@ -100,10 +100,7 @@ export const getSelectionToolbarOpenExperiencePlugin = ({
 			// when target is not found, skip the experience start
 			return true;
 		}
-		return (
-			isSelectionToolbarWithinNode(target) ||
-			(isBlockMenuWithinNode(target) && fg('platform_editor_toolbar_open_experience_fix'))
-		);
+		return isSelectionToolbarWithinNode(target) || isBlockMenuWithinNode(target);
 	};
 
 	return new SafePlugin({

@@ -8,6 +8,11 @@ import { MenuSectionContext } from './menu-section-context';
 
 type MenuSectionProps = {
 	/**
+	 * Accessible label for the grouped section content.
+	 * When provided, this is applied via `aria-label`
+	 */
+	ariaLabel?: string;
+	/**
 	 * The contents of the menu section.
 	 * Should contain a `MenuSectionHeading`, and a `Divider` if appropriate.
 	 */
@@ -18,7 +23,6 @@ type MenuSectionProps = {
 	 * In the future this will become the default behavior, and the prop will be removed.
 	 */
 	isMenuListItem?: boolean;
-
 	/**
 	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 *
@@ -49,13 +53,14 @@ type MenuSectionProps = {
 export const MenuSection = ({
 	children,
 	testId,
+	ariaLabel,
 	isMenuListItem = false,
 }: MenuSectionProps): JSX.Element => {
 	const id = useId();
 
 	const content = (
 		<MenuSectionContext.Provider value={id}>
-			<div role="group" aria-labelledby={`${id}-heading`}>
+			<div role="group" aria-labelledby={`${id}-heading`} aria-label={ariaLabel}>
 				{children}
 			</div>
 		</MenuSectionContext.Provider>

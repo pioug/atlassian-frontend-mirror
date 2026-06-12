@@ -1,4 +1,3 @@
-import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import type {
 	Command,
 	EditorCommand,
@@ -19,10 +18,11 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type {
+	DeleteLayoutColumnOptions,
 	DistributeLayoutColumnsOptions,
-	InsertLayoutColumnSide,
+	InsertLayoutColumnOptions,
 	InsertLayoutColumnsInputMethod,
-	LayoutColumnActionInputMethod,
+	SetLayoutColumnValignOptions,
 	ToggleLayoutColumnMenuOptions,
 } from './pm-plugins/actions';
 import type { LayoutState } from './pm-plugins/types';
@@ -50,14 +50,11 @@ export type LayoutPlugin = NextEditorPlugin<
 			insertLayoutColumns: (inputMethod: InsertLayoutColumnsInputMethod) => Command;
 		};
 		commands: {
-			deleteLayoutColumn: (inputMethod?: LayoutColumnActionInputMethod) => EditorCommand;
+			deleteLayoutColumn: (options?: DeleteLayoutColumnOptions) => EditorCommand;
 			distributeLayoutColumns: (options?: DistributeLayoutColumnsOptions) => EditorCommand;
-			insertLayoutColumn: (
-				side: InsertLayoutColumnSide,
-				inputMethod?: LayoutColumnActionInputMethod,
-			) => EditorCommand;
+			insertLayoutColumn: (options: InsertLayoutColumnOptions) => EditorCommand;
 			setLayoutColumnDangerPreview: (show: boolean) => EditorCommand;
-			setLayoutColumnValign: (valign: Valign) => EditorCommand;
+			setLayoutColumnValign: (options: SetLayoutColumnValignOptions) => EditorCommand;
 			toggleLayoutColumnMenu: (options: ToggleLayoutColumnMenuOptions) => EditorCommand;
 		};
 		dependencies: LayoutPluginDependencies;

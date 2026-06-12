@@ -8,6 +8,7 @@ export enum GAP_CURSOR_POSITION {
 	RIGHT = 'right',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum TARGET_SELECTION_SOURCE {
 	CURRENT_SELECTION = 'currentSelection',
 	HTML_ELEMENT = 'htmlElement',

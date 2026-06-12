@@ -117,6 +117,7 @@ export function calcLegacyWidth(
  * @param isResized
  * @example
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calcLegacyWidthForInline(
 	layout: MediaSingleLayout,
 	width: number,
@@ -212,6 +213,7 @@ export interface MediaSingleWrapperProps {
  * @param root0.isInRenderer
  * @example
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediaSingleDimensionHelper = ({
 	containerWidth = 0,
 	fullWidthMode,
@@ -340,7 +342,7 @@ const RenderFallbackContainer = ({
 			: ''}
 	`;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/volt-strict-mode/no-multiple-exports -- Needs manual remediation
 export const mediaWrapperStyle = (props: MediaWrapperProps): SerializedStyles => css`
 	position: relative;
 
@@ -382,6 +384,7 @@ export const mediaWrapperStyle = (props: MediaWrapperProps): SerializedStyles =>
 	}
 `;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediaWrapper: {
 	({
 		children,
@@ -409,6 +412,7 @@ type MediaBorderGapFillerProps = {
 	borderColor: string;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediaBorderGapFiller = ({
 	borderColor,
 }: MediaBorderGapFillerProps): jsx.JSX.Element => {

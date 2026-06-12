@@ -1,5 +1,34 @@
 # @atlaskit/adf-schema
 
+## 54.0.0
+
+### Major Changes
+
+- [`f95240aab2e55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f95240aab2e55) -
+  Promote layout column vertical alignment in ADF schema
+
+### Patch Changes
+
+- Updated dependencies
+
+## 53.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 53.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 53.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 53.0.1
 
 ### Patch Changes

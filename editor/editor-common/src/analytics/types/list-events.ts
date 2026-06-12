@@ -6,6 +6,7 @@ export enum DELETE_DIRECTION {
 	FORWARD = 'forward',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum LIST_TEXT_SCENARIOS {
 	JOIN_SIBLINGS = 'joinSiblings',
 	JOIN_DESCENDANT_TO_PARENT = 'joinDescendantToParent',
@@ -15,12 +16,14 @@ export enum LIST_TEXT_SCENARIOS {
 	JOIN_LIST_ITEM_WITH_PARAGRAPH = 'joinListItemWithParagraph',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST {
 	NO_JOIN = 'noJoin',
 	JOINED_TO_LIST_ABOVE = 'joinedToListAbove',
 	JOINED_TO_LIST_BELOW = 'joinedToListBelow',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum OUTDENT_SCENARIOS {
 	SPLIT_LIST = 'splitList',
 }

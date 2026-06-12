@@ -27,6 +27,7 @@ export { LazyNodeView };
  *
  * Communication channel between LazyNodeView loader and LazyNodeViewDecorationPlugin.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const lazyNodeViewDecorationPluginKey: PluginKey = new PluginKey('lazyNodeViewDecoration');
 
 /**
@@ -106,6 +107,7 @@ const testOnlyIgnoreLazyNodeViewSet = new WeakSet<EditorView>();
  *
  * @deprecated DO NOT USE THIS OUTSIDE TESTS.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function testOnlyIgnoreLazyNodeView(view: EditorView): void {
 	testOnlyIgnoreLazyNodeViewSet.add(view);
 }
@@ -151,6 +153,7 @@ export function testOnlyIgnoreLazyNodeView(view: EditorView): void {
  * // Then, use `lazyTableView` in ProseMirror editor setup to enhance 'table' nodes with lazy loading
  */
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const withLazyLoading = <Options>({
 	nodeName,
 	loader,

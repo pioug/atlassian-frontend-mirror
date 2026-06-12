@@ -93,6 +93,7 @@ export const ContextPanelWrapperCompiled = ({
 	</div>
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ContextPanelContentCompiled = ({
 	children,
 	customWidth,

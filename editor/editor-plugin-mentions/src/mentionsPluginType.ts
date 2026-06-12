@@ -12,19 +12,11 @@ import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plu
 import type { MentionProvider } from '@atlaskit/mention/resource';
 
 import type { InsertMentionParameters } from './editor-commands';
-import type { MentionPluginOptions, MentionSharedState } from './types';
+import type { MentionChange, MentionPluginOptions, MentionSharedState } from './types';
 
 export type MentionActionOpenTypeAhead = (inputMethod: TypeAheadInputMethod) => boolean;
 
-export type MentionActionAnnounceMentionsInsertion = (
-	mentionIds: {
-		id: string;
-		localId: string;
-		shouldSuppressMentionNotification?: boolean;
-		taskLocalId?: string;
-		type: 'added' | 'deleted';
-	}[],
-) => void;
+export type MentionActionAnnounceMentionsInsertion = (mentionIds: MentionChange[]) => void;
 
 export type MentionActionSetProvider = (provider: Promise<MentionProvider>) => Promise<boolean>;
 

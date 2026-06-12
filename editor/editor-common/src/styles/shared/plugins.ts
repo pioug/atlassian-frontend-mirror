@@ -30,7 +30,7 @@ export const buttonGroupStyleBeforeVisualRefresh: SerializedStyles = css({
  * @private
  * @deprecated use `import { ToolbarButtonGroup } from '@atlaskit/editor-common/ui';` instead
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const buttonGroupStyle: SerializedStyles = css({
 	display: 'inline-flex',
 	alignItems: 'center',
@@ -57,7 +57,7 @@ export const buttonGroupStyle: SerializedStyles = css({
  * @deprecated use `import { ToolbarSeparator } from '@atlaskit/editor-common/ui';` instead
  */
 // If you make change here, change in above file as well.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const separatorStyles: SerializedStyles = css({
 	background: token('color.border'),
 	width: '1px',
@@ -72,7 +72,7 @@ export const separatorStyles: SerializedStyles = css({
  * @deprecated use `import { ToolbarDropdownWrapper } from '@atlaskit/editor-common/ui';` instead
  */
 // If you make change here, change in above file as well.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const wrapperStyle: SerializedStyles = css({
 	display: 'flex',
 	alignItems: 'center',
@@ -99,7 +99,7 @@ export const wrapperStyle: SerializedStyles = css({
  * @private
  * @deprecated use `import { ToolbarDropdownTriggerWrapper } from '@atlaskit/editor-common/ui';` instead
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const triggerWrapperStyles: SerializedStyles = css({
 	display: 'flex',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -115,7 +115,7 @@ export const triggerWrapperStyles: SerializedStyles = css({
  * @private
  * @deprecated use `import { ToolbarDropdownTriggerWrapper } from '@atlaskit/editor-common/ui';` instead
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const triggerWrapperStylesWithPadding: SerializedStyles = css({
 	display: 'flex',
 	paddingRight: token('space.025'),
@@ -128,7 +128,7 @@ export const triggerWrapperStylesWithPadding: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const disableBlueBorderStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:not([disabled])::after': {

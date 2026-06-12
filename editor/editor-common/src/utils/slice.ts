@@ -27,6 +27,7 @@ export function mapFragment(
 	return Fragment.fromArray(children);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function mapSlice(
 	slice: Slice,
 	callback: (node: Node, parent: Node | null, index: number) => Node | Node[] | Fragment | null,
@@ -37,6 +38,7 @@ export function mapSlice(
 
 export type FlatMapCallback = (node: Node, index: number, fragment: Fragment) => Node | Node[];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function flatmap(fragment: Fragment, callback: FlatMapCallback): Fragment {
 	const fragmentContent = [] as Node[];
 	for (let i = 0; i < fragment.childCount; i++) {
@@ -52,6 +54,7 @@ export function flatmap(fragment: Fragment, callback: FlatMapCallback): Fragment
 
 export type MapWithCallback<T> = (node: Node, index: number, fragment: Fragment) => T;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function mapChildren<T>(node: Node | Fragment, callback: MapWithCallback<T>): Array<T> {
 	const array: Array<T> = [];
 	for (let i = 0; i < node.childCount; i++) {
@@ -75,6 +78,7 @@ const findNode =
 		return foundNode;
 	};
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const hasNode =
 	(predicate: (node: Node) => boolean) =>
 	(slice: Slice): boolean => {

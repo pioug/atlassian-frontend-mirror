@@ -7,6 +7,7 @@ export const ignoreAttribute = 'data-editor-content-component';
 /**
  * Wraps content components in a data attribute to ignore
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const contentComponentClickWrapper = (
 	reactComponents: ReactComponents | undefined,
 ): ReactComponents | undefined => {

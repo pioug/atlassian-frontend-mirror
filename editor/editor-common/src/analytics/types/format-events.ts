@@ -7,6 +7,7 @@ export enum INDENT_DIRECTION {
 	OUTDENT = 'outdent',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum INDENT_TYPE {
 	PARAGRAPH = 'paragraph',
 	LIST = 'list',

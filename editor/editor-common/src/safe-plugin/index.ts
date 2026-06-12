@@ -157,7 +157,7 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 };
 
 // Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/volt-strict-mode/no-multiple-exports
 export class SafePlugin<T = any> extends Plugin<T> {
 	// This variable isn't (and shouldn't) be used anywhere. Its purpose is
 	// to distinguish Plugin from SafePlugin, thus ensuring that an 'unsafe'

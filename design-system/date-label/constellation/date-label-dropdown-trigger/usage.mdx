@@ -1,0 +1,176 @@
+---
+order: 2
+title: Date label dropdown trigger
+description:
+  Date label dropdown trigger is an interactive date label that opens a dropdown for date selection.
+---
+
+import Image from '@atlaskit/image';
+
+import dateLabelDropdownAnatomyLight from './images/datelabel-dropdown-anatomy-light.png';
+import dateLabelDropdownAnatomyDark from './images/datelabel-dropdown-anatomy-dark.png';
+import dateLabelDropdownDo1Light from './images/datelabel-dropdown-do-1-light.png';
+import dateLabelDropdownDo1Dark from './images/datelabel-dropdown-do-1-dark.png';
+import dateLabelDropdownDont1Light from './images/datelabel-dropdown-dont-1-light.png';
+import dateLabelDropdownDont1Dark from './images/datelabel-dropdown-dont-1-dark.png';
+import dateLabelDropdownDo2Light from './images/datelabel-dropdown-do-2-light.png';
+import dateLabelDropdownDo2Dark from './images/datelabel-dropdown-do-2-dark.png';
+import dateLabelDropdownDont2Light from './images/datelabel-dropdown-dont-2-light.png';
+import dateLabelDropdownDont2Dark from './images/datelabel-dropdown-dont-2-dark.png';
+import dateLabelDropdownDo3Light from './images/datelabel-dropdown-do-3-light.png';
+import dateLabelDropdownDo3Dark from './images/datelabel-dropdown-do-3-dark.png';
+import dateLabelDropdownDont3Light from './images/datelabel-dropdown-dont-3-light.png';
+import dateLabelDropdownDont3Dark from './images/datelabel-dropdown-dont-3-dark.png';
+import dateLabelDropdownDo4Light from './images/datelabel-dropdown-do-4-light.png';
+import dateLabelDropdownDo4Dark from './images/datelabel-dropdown-do-4-dark.png';
+import dateLabelDropdownDont4Light from './images/datelabel-dropdown-dont-4-light.png';
+import dateLabelDropdownDont4Dark from './images/datelabel-dropdown-dont-4-dark.png';
+
+## Usage
+
+Date label dropdown trigger displays dates and provides a trigger to open a dropdown for date
+selection. They differ from date labels in that they contain interactivity to trigger a dropdown,
+making it ideal for workflows that require date picking.
+
+## Parts
+
+<Image
+	src={dateLabelDropdownAnatomyLight}
+	srcDark={dateLabelDropdownAnatomyDark}
+	alt="The anatomy of the date label dropdown trigger component, showing three parts: an optional icon, a label, and a dropdown chevron icon"
+/>
+
+1. **Label:** Text displaying the date.
+2. **Icon (optional):** An icon that corresponds to the appearance. Each appearance has a designated
+   icon that displays automatically when enabled.
+3. **Dropdown icon:** Indicates that this date label can be selected to open a dropdown.
+
+## Best practices
+
+### Use date label dropdown trigger for date selection
+
+Date label dropdown trigger should only open a dropdown to allow for switching between dates.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: dateLabelDropdownDo1Light,
+			urlDarkMode: dateLabelDropdownDo1Dark,
+			alt: 'Use date label dropdown trigger to open a dropdown for date selection.',
+		}}
+	>
+		Use date label dropdown trigger to open a dropdown for date selection.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: dateLabelDropdownDont1Light,
+			urlDarkMode: dateLabelDropdownDont1Dark,
+			alt: "Don't use date label dropdown trigger to open menus unrelated to date selection.",
+		}}
+	>
+		Don't use date label dropdown trigger to open menus unrelated to date selection.
+	</DoDont>
+</DoDontGrid>
+
+### Use the spacing property appropriately
+
+Use the spacing prop to adjust the date label dropdown trigger so its size aligns with surrounding
+elements, such as when it appears alongside other buttons.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: dateLabelDropdownDo2Light,
+			urlDarkMode: dateLabelDropdownDo2Dark,
+			alt: 'Use the spacious variant when the date label dropdown trigger appears alongside other buttons.',
+		}}
+	>
+		Use the spacious variant when the date label dropdown trigger appears alongside other buttons.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: dateLabelDropdownDont2Light,
+			urlDarkMode: dateLabelDropdownDont2Dark,
+			alt: "Don't use the default size alongside larger interactive elements.",
+		}}
+	>
+		Don't use the default size alongside larger interactive elements.
+	</DoDont>
+</DoDontGrid>
+
+### Use date time picker for date entry in forms
+
+Date label dropdown trigger is designed to sit alongside other labels like lozenge and tag. It is
+not a form input. For date entry in forms, use a date time picker.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: dateLabelDropdownDo3Light,
+			urlDarkMode: dateLabelDropdownDo3Dark,
+			alt: 'Use date label dropdown trigger alongside other labels in structured UI contexts.',
+		}}
+	>
+		Use date label dropdown trigger alongside other labels in structured UI contexts.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: dateLabelDropdownDont3Light,
+			urlDarkMode: dateLabelDropdownDont3Dark,
+			alt: "Don't use date label dropdown trigger as a form input for date entry.",
+		}}
+	>
+		Don't use date label dropdown trigger as a form input for date entry.
+	</DoDont>
+</DoDontGrid>
+
+## Accessibility
+
+### Use icons that carry appropriate meaning for semantic states
+
+Date labels come with designated icons for each of its semantic states. These icons are essential
+for accessibility. Without them, users must rely solely on color to distinguish states, which may
+not be perceivable to everyone.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: dateLabelDropdownDo4Light,
+			urlDarkMode: dateLabelDropdownDo4Dark,
+			alt: 'Use the assigned icons for semantic appearances like an overdue date.',
+		}}
+	>
+		Use the assigned icons for semantic appearances like an overdue date.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: dateLabelDropdownDont4Light,
+			urlDarkMode: dateLabelDropdownDont4Dark,
+			alt: "Don't remove icons for semantic appearances or use icons that don't carry appropriate meaning.",
+		}}
+	>
+		Don't remove icons for semantic appearances or use icons that don't carry appropriate meaning.
+	</DoDont>
+</DoDontGrid>
+
+## Data Center apps
+
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+
+## Related
+
+- For status information, use a [lozenge](/components/lozenge/lozenge).
+- For lozenges requiring dropdown interactivity, use
+  [lozenge dropdown trigger](/components/lozenge/lozenge-dropdown-trigger).
+- For counts or tallies, use a [badge](/components/badge/badge).
+- To visually label content such as categories and attributes, use a [tag](/components/tag/tag).

@@ -61,6 +61,7 @@ export const copyToClipboard = async (textToCopy: string): Promise<void> => {
 	}
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const copyHTMLToClipboard = async (
 	elementToCopy: HTMLElement,
 	plainTextToCopy?: string,
@@ -95,6 +96,7 @@ export const copyHTMLToClipboard = async (
 
 // At the time of development, Firefox doesn't support ClipboardItem API
 // Hence of use of this polyfill
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const copyHTMLToClipboardPolyfill = async (
 	elementToCopy: HTMLElement,
 	plainTextToCopy?: string,
@@ -106,6 +108,7 @@ export const copyHTMLToClipboardPolyfill = async (
 	await clipboard.write([dt]);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getAnalyticsPayload = (
 	state: EditorState,
 	action: ACTION.CUT | ACTION.COPIED,
@@ -186,6 +189,7 @@ export const getAnalyticsPayload = (
 	}
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getNodeCopiedAnalyticsPayload = (
 	node: PMNode,
 	inputMethod?: INPUT_METHOD,

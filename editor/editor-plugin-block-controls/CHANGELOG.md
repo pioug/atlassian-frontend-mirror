@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 12.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.3
+
+### Patch Changes
+
+- [`993241a125f8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/993241a125f8a) -
+  [EDITOR-7652] Configure blockControl action getTextLength to return textLength and textContent and
+  renaming it to getTextInfo
+- Updated dependencies
+
+## 12.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.1
 
 ### Patch Changes

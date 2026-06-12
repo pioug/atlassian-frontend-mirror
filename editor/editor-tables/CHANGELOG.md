@@ -1,5 +1,31 @@
 # @atlaskit/editor-tables
 
+## 2.10.19
+
+### Patch Changes
+
+- [`7f8f275864fb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f8f275864fb6) -
+  Cleanup experiment `platform_editor_analyse_table_with_merged_cells`.
+- Updated dependencies
+
+## 2.10.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.10.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.10.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.10.15
 
 ### Patch Changes

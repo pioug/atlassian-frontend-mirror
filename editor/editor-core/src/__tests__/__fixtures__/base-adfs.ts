@@ -26,6 +26,7 @@ export const onlyOneChar: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const spaceAtEnd: {
 	version: number;
 	type: string;
@@ -52,6 +53,7 @@ export const spaceAtEnd: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const spaceBeforeText: {
 	version: number;
 	type: string;
@@ -78,6 +80,7 @@ export const spaceBeforeText: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const textAndStatusAtFirstParagraph: {
 	version: number;
 	type: string;
@@ -139,6 +142,7 @@ export const textAndStatusAtFirstParagraph: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const tableWithPlaceholders: {
 	type: string;
 	content: {
@@ -250,6 +254,7 @@ export const tableWithPlaceholders: {
 };
 
 /** An info panel with empty paragraphs before and after */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const infoPanel: {
 	version: number;
 	type: string;
@@ -297,6 +302,7 @@ export const infoPanel: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const numberedListDocument: {
 	version: number;
 	type: string;
@@ -373,6 +379,7 @@ export const numberedListDocument: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const nestedNumberedListDocument: {
 	version: number;
 	type: string;
@@ -490,6 +497,7 @@ export const nestedNumberedListDocument: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const emptyAdf: {
 	version: number;
 	type: string;

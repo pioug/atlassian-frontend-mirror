@@ -82,4 +82,5 @@ const Template = (args: EditorProps): React.JSX.Element => (
 	/>
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EditorExample: (args: EditorProps) => React.JSX.Element = Template.bind({});

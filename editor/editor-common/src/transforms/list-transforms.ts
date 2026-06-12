@@ -182,6 +182,7 @@ export const transformListRecursively = (
 /**
  * Transform between different list types
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const transformBetweenListTypes = (context: TransformContext): Transaction | null => {
 	const { tr, sourceNode, sourcePos, targetNodeType } = context;
 	const { nodes } = tr.doc.type.schema;
@@ -238,6 +239,7 @@ export const transformBetweenListTypes = (context: TransformContext): Transactio
  * Transform selection to task list
  * Handles the special structure where taskItem contains text directly (no paragraph wrapper)
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const transformToTaskList = (
 	tr: Transaction,
 	range: { end: number; start: number },

@@ -86,6 +86,7 @@ export function measureTTI(
 
 
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getTTISeverity(
 	tti: number,
 	ttiFromInvocation: number,

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import {
 	BLOCK_ACTIONS_FEATURED_EXTENSION_SLOT_MENU_ITEM,
 	BLOCK_ACTIONS_TEMPLATE_SECTION,

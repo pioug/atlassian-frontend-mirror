@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-mentions
 
+## 13.3.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.8
+
+### Patch Changes
+
+- [`ebfe7dee1573c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebfe7dee1573c) -
+  Suppress pasted agent mention notifications
+- Updated dependencies
+
 ## 13.3.7
 
 ### Patch Changes

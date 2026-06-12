@@ -151,7 +151,13 @@ export const renderExtension = (
 	// by default, we assume the extension is at top level, (direct child of doc node)
 	const { isTopLevel = true, rendererAppearance, fireAnalyticsEvent } = options || {};
 	// we should only use custom layout for full-page appearance
-	const canUseCustomLayout = rendererAppearance === 'full-page';
+	const canUseCustomLayout = expValEquals(
+		'platform_editor_remove_important_in_render_ext',
+		'isEnabled',
+		true,
+	)
+		? rendererAppearance === 'full-page'
+		: true;
 	const isCustomLayout =
 		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
 	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
@@ -185,10 +191,16 @@ export const renderExtension = (
 				style={{
 					width: isInline
 						? undefined
-						: isCustomLayout
+						: (
+									expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+										? isCustomLayout
+										: isTopLevel
+							  )
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 								calcBreakoutWidthCss(layout as ExtensionLayout)
-							: undefined,
+							: expValEquals('platform_editor_remove_important_in_render_ext', 'isEnabled', true)
+								? undefined
+								: '100%',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					minHeight: isInline ? undefined : extensionHeight && `${extensionHeight}px`,
 				}}
@@ -241,10 +253,24 @@ export const renderExtension = (
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							width: isInline
 								? undefined
-								: isCustomLayout
+								: (
+											expValEquals(
+												'platform_editor_remove_important_in_render_ext',
+												'isEnabled',
+												true,
+											)
+												? isCustomLayout
+												: isTopLevel
+									  )
 									? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										calcBreakoutWidth(layout, width)
-									: undefined,
+									: expValEquals(
+												'platform_editor_remove_important_in_render_ext',
+												'isEnabled',
+												true,
+										  )
+										? undefined
+										: '100%',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							minHeight: isInline ? undefined : `${extensionHeight}px`,
 						}}

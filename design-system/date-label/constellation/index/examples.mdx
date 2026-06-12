@@ -1,0 +1,66 @@
+---
+title: Date label
+description:
+  Date label is a non-interactive label that displays a date and optionally, visually communicates
+  its status.
+order: 0
+---
+
+import DateLabelNeutral from '../../examples/constellation/date-label-neutral';
+import DateLabelWarning from '../../examples/constellation/date-label-warning';
+import DateLabelDanger from '../../examples/constellation/date-label-danger';
+import DateLabelNoIcon from '../../examples/constellation/date-label-no-icon';
+import DateLabelMaxWidth from '../../examples/constellation/date-label-max-width';
+import DateLabelSpacious from '../../examples/constellation/date-label-spacious';
+
+## Appearance
+
+Date labels use three appearances to communicate the status of a date at a glance.
+
+### Neutral
+
+Use `neutral` for standard dates with no urgency. For example, a future date that is well within the
+deadline.
+
+<Example Component={DateLabelNeutral} packageName="@atlaskit/date-label" />
+
+### Warning
+
+Use `warning` for dates that are approaching and require attention. For example, a due date that is
+coming up soon.
+
+<Example Component={DateLabelWarning} packageName="@atlaskit/date-label" />
+
+### Danger
+
+Use `danger` for dates that are overdue or past the deadline.
+
+<Example Component={DateLabelDanger} packageName="@atlaskit/date-label" />
+
+## Icon
+
+By default, each appearance shows a contextual icon before the label:
+
+- `neutral` → calendar icon
+- `warning` → clock icon
+- `danger` → warning icon
+
+Set `hasIconBefore={false}` to hide the icon.
+
+<Example Component={DateLabelNoIcon} packageName="@atlaskit/date-label" />
+
+## Spacious
+
+Use `isSpacious` for more spacious layouts such as forms or detail views. This increases the height
+to 32px, uses `radius.medium` for the border radius, and switches the label to the body font size.
+
+<Example Component={DateLabelSpacious} packageName="@atlaskit/date-label" />
+
+## Max width
+
+When the label text exceeds the maximum width it will be truncated with an ellipsis. The default
+maximum width is `180px`. Use the `maxWidth` prop to customise this.
+
+Avoid truncation wherever possible by using concise date strings.
+
+<Example Component={DateLabelMaxWidth} packageName="@atlaskit/date-label" />

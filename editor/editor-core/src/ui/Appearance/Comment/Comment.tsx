@@ -81,6 +81,10 @@ const commentEditorStyles = css({
 	wordWrap: 'break-word',
 });
 
+const modernisedEditorStyles = css({
+	borderRadius: token('radius.xlarge', '12px'),
+});
+
 const secondaryToolbarStyles = css({
 	boxSizing: 'border-box',
 	justifyContent: 'flex-end',
@@ -175,7 +179,9 @@ export const CommentEditorWithIntl: {
 		pluginHooks,
 		featureFlags,
 		innerRef,
+		isEditorModernisationEnabled,
 	} = props;
+
 
 	const showSecondaryToolbar = !!onSave || !!onCancel || !!customSecondaryToolbarComponents;
 	const containerElement = React.useRef<HTMLDivElement>(null);
@@ -284,6 +290,7 @@ export const CommentEditorWithIntl: {
 						expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true)
 							? commentEditorStyles
 							: commentEditorStylesOld,
+						isEditorModernisationEnabled && modernisedEditorStyles,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css({
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -295,6 +302,7 @@ export const CommentEditorWithIntl: {
 					ref={wrapperElementRef}
 				>
 					<MainToolbar
+						isEditorModernisationEnabled={isEditorModernisationEnabled}
 						useStickyToolbar={useStickyToolbar}
 						twoLineEditorToolbar={isTwoLineToolbarEnabled}
 						isNewToolbarEnabled={isToolbarAIFCEnabled}

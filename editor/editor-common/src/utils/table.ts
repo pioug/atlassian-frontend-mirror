@@ -53,6 +53,7 @@ export function getColumnWidths(node: PmNode): number[] {
  * ```
  * @returns Array<number>
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calcTableColumnWidths(node: PmNode): number[] {
 	const firstRow = node.firstChild;
 	const tableColumnWidths: Array<number> = [];

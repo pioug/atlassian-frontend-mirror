@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 // Transformation
 
 export const TRANSFORM_MENU_SECTION = {

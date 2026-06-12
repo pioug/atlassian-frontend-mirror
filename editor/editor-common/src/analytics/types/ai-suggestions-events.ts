@@ -1,6 +1,8 @@
 import type { ACTION, ACTION_SUBJECT } from './enums';
 import type { OperationalAEP, TrackAEP } from './utils';
 
+export type AiSuggestionsEntryPoint = 'primaryToolbar' | 'commentsEmptyState';
+
 type NoDiffSuggestionAEP = OperationalAEP<
 	ACTION.NO_DIFF_FOUND,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
@@ -13,6 +15,16 @@ type NoDiffSuggestionAEP = OperationalAEP<
 			nodeTypes: string[];
 		}[];
 	}
+>;
+
+type EntryPointClickedAEP = TrackAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		entryPoint: AiSuggestionsEntryPoint;
+	},
+	undefined
 >;
 
 type AcceptSuggestionAEP = TrackAEP<
@@ -34,6 +46,7 @@ type DiscardSuggestionAEP = TrackAEP<
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
 	{
+		affectedBlocks: number;
 		entryPoint: 'sidebar' | 'card';
 		suggestionType: string;
 	},
@@ -58,6 +71,7 @@ type ViewSuggestionAEP = TrackAEP<
 
 export type AiSuggestionsEventPayload =
 	| NoDiffSuggestionAEP
+	| EntryPointClickedAEP
 	| AcceptSuggestionAEP
 	| DiscardSuggestionAEP
 	| ViewSuggestionAEP;

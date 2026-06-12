@@ -7,6 +7,8 @@ export const IdentifierEnum = {
 	BitbucketConnectAppId: 'bitbucketConnectAppId',
 	BitbucketRepositoryId: 'bitbucketRepositoryId',
 	BitbucketWorkspaceId: 'bitbucketWorkspaceId',
+	CSMAccountId: 'csmAccountId',
+	CustomerAccountId: 'customerAccountId',
 	GsacIssueId: 'gsacIssueId',
 	IntercomConversationId: 'intercomConversationId',
 	MarketplaceAnonymousId: 'marketplaceAnonymousId',

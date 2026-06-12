@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import { uuid, type CodeBlockAttrs } from '@atlaskit/adf-schema';
 import type { Node as PmNode, NodeType, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';

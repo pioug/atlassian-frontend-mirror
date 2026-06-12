@@ -18,6 +18,7 @@ interface EditorAPIProviderProps {
 	children: React.ReactNode;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const PresetContextProvider = ({ children }: EditorAPIProviderProps): React.JSX.Element => {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [editorApi, setEditorApi] = useState<PublicPluginAPI<any> | undefined>();
@@ -27,6 +28,7 @@ export const PresetContextProvider = ({ children }: EditorAPIProviderProps): Rea
 	return <EditorAPIContext.Provider value={contextValue}>{children}</EditorAPIContext.Provider>;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function usePresetContext<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugins extends NextEditorPlugin<any, any>[],
@@ -35,6 +37,7 @@ export function usePresetContext<
 	return editorApi as PublicPluginAPI<Plugins>;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useSetPresetContext = (): SetEditorAPI | undefined => {
 	const { setEditorApi } = useContext(EditorAPIContext);
 	return setEditorApi;

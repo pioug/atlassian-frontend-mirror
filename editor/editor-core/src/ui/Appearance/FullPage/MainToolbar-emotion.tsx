@@ -33,6 +33,7 @@ const customToolbarWrapperEmotionStyles = css({
 	display: 'flex',
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const CustomToolbarWrapperEmotion = ({
 	children,
 }: {
@@ -50,6 +51,7 @@ const mainToolbarIconBeforeEmotionStyles = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MainToolbarIconBeforeEmotion = ({
 	children,
 }: {

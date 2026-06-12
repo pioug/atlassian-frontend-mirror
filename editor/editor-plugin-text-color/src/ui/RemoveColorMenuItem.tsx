@@ -12,7 +12,9 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
 import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import ColourNoneIcon from '@atlaskit/icon-lab/core/colour-none';
 import { Text } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { TextColorPlugin } from '../textColorPluginType';
@@ -25,6 +27,12 @@ const styles = cssMap({
 		borderStyle: 'solid',
 		borderColor: token('color.border'),
 		borderRadius: token('radius.small'),
+	},
+	iconContainer: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		gap: token('space.075'),
 	},
 });
 
@@ -65,8 +73,23 @@ export const RemoveColorMenuItem = ({
 			return tr;
 		});
 
-		closeMenu?.(event);
+		if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+			closeMenu?.(event);
+		}
 	};
+
+	if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+		return (
+			<div css={styles.removeColorButton}>
+				<Button shouldFitContainer appearance="subtle" onClick={onClick}>
+					<span css={styles.iconContainer}>
+						<ColourNoneIcon size="medium" label="" />
+						<Text weight="medium">{formatMessage(messages.clearColors)}</Text>
+					</span>
+				</Button>
+			</div>
+		);
+	}
 
 	return (
 		<div css={styles.removeColorButton}>

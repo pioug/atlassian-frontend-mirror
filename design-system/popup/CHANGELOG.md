@@ -1,5 +1,12 @@
 # @atlaskit/popup
 
+## 4.24.0
+
+### Minor Changes
+
+- [`4df99aae5125e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4df99aae5125e) -
+  Fixed remounting of auto placed popups with new motion
+
 ## 4.23.4
 
 ### Patch Changes

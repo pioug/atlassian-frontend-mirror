@@ -246,3 +246,29 @@ import { getUrlForDomainInContext } from '@atlaskit/atlassian-context';
 
 getUrlForDomainInContext('design', 'staging') // --> returns "https://design.atlassian.com"
 ```
+
+### resolveProvidedUrlByBoundary(urls)
+Given a user-provided map of boundary keys to URLs, returns the URL associated with the current boundary. Unlike `getUrlForDomainInContext(subdomain, environment)`, which constructs a URL from a known Atlassian subdomain pattern, `resolveProvidedUrlByBoundary` is intended for cases where you have fully-formed, arbitrary URLs that may completely differ per boundary (for example, third-party service endpoints or custom backend URLs).
+
+The only parameter is `urls`, a map of boundary keys to `URL` objects. The `default` key is **required** as a guaranteed fallback; all boundary-specific keys are optional.
+Valid keys are `'isolated-cloud'` | `'fedramp-moderate'` | `'commercial'` | `'default'` (required)
+
+Resolution order:
+
+1. Specific boundary key (`'isolated-cloud'`, `'fedramp-moderate'`, or `'commercial'`)
+
+2. `'default'`
+
+Pass `null` for a boundary key to explicitly return `null` for that boundary (i.e. opt out of returning a URL).
+
+> **Note:** URL values are constructed by the caller using `new URL(...)`. Passing an invalid URL string to `new URL()` will throw a `TypeError` before `resolveProvidedUrlByBoundary` is invoked.
+
+```js
+import { resolveProvidedUrlByBoundary } from '@atlaskit/atlassian-context/resolve-provided-url-by-boundary';
+
+const url = resolveProvidedUrlByBoundary({
+  'isolated-cloud':   new URL('https://ic.example.com'),  // returned in Isolated Cloud
+  'fedramp-moderate': null,                                // explicitly no URL in FedRAMP to represent FedRAMP unavailability
+  default:            new URL('https://example.com'),      // returned in all other boundaries
+});
+```

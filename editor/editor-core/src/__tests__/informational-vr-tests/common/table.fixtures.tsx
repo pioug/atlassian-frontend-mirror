@@ -16,7 +16,7 @@ export function EditorWithTable(): React.JSX.Element {
 	);
 }
 
-// eslint-disable-next-line jsdoc/require-jsdoc
+// eslint-disable-next-line jsdoc/require-jsdoc, @atlaskit/volt-strict-mode/no-multiple-exports
 export function EditorWithNestedTable(): React.JSX.Element {
 	return (
 		<Editor

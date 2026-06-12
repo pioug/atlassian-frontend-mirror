@@ -855,6 +855,7 @@ describe(name, () => {
 									attrs: {
 										width: 50,
 										localId: null,
+										valign: null,
 									},
 									content: [
 										{
@@ -961,6 +962,7 @@ describe(name, () => {
 									attrs: {
 										width: 33.33,
 										localId: null,
+										valign: null,
 									},
 								},
 								{
@@ -982,6 +984,7 @@ describe(name, () => {
 									attrs: {
 										width: 33.33,
 										localId: null,
+										valign: null,
 									},
 								},
 								{
@@ -1003,6 +1006,7 @@ describe(name, () => {
 									attrs: {
 										width: 33.33,
 										localId: null,
+										valign: null,
 									},
 								},
 								{
@@ -1024,6 +1028,7 @@ describe(name, () => {
 									attrs: {
 										width: 33.33,
 										localId: null,
+										valign: null,
 									},
 								},
 								{
@@ -1045,6 +1050,7 @@ describe(name, () => {
 									attrs: {
 										width: 33.33,
 										localId: null,
+										valign: null,
 									},
 								},
 								{
@@ -1238,6 +1244,7 @@ describe(name, () => {
 									attrs: {
 										width: 50,
 										localId: null,
+										valign: null,
 									},
 									content: [
 										{
@@ -1256,6 +1263,7 @@ describe(name, () => {
 									attrs: {
 										width: 50,
 										localId: null,
+										valign: null,
 									},
 									content: [
 										{
@@ -1983,7 +1991,7 @@ describe(name, () => {
 							content: [
 								{
 									type: 'layoutColumn',
-									attrs: { width: 50, localId: null },
+									attrs: { width: 50, localId: null, valign: null },
 									content: [
 										{
 											attrs: {
@@ -1995,7 +2003,7 @@ describe(name, () => {
 								},
 								{
 									type: 'layoutColumn',
-									attrs: { width: 50, localId: null },
+									attrs: { width: 50, localId: null, valign: null },
 									content: [
 										{
 											attrs: {
@@ -2092,7 +2100,7 @@ describe(name, () => {
 								content: [
 									{
 										type: 'layoutColumn',
-										attrs: { width: 50, localId: null },
+										attrs: { width: 50, localId: null, valign: null },
 										content: [
 											{
 												attrs: {
@@ -2104,7 +2112,7 @@ describe(name, () => {
 									},
 									{
 										type: 'layoutColumn',
-										attrs: { width: 50, localId: null },
+										attrs: { width: 50, localId: null, valign: null },
 										content: [
 											{
 												attrs: {
@@ -2201,6 +2209,8 @@ describe(name, () => {
 											type: 'layoutColumn',
 											attrs: {
 												localId: null,
+												width: undefined,
+												valign: null,
 											},
 											content: [
 												{
@@ -2225,14 +2235,14 @@ describe(name, () => {
 													type: 'unsupportedNodeAttribute',
 													attrs: {
 														type: { nodeType: 'layoutColumn' },
-														unsupported: { newAttribute1: 'someVal' },
+														unsupported: { width: undefined, newAttribute1: 'someVal' },
 													},
 												},
 											],
 										},
 										{
 											type: 'layoutColumn',
-											attrs: { width: 50, localId: null },
+											attrs: { width: 50, localId: null, valign: null },
 											content: [
 												{
 													attrs: {

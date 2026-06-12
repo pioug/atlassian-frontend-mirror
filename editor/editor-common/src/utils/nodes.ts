@@ -10,17 +10,21 @@ export const validateNodes = (nodes: PMNode[]): boolean => nodes.every(validNode
 
 type PMEntities = PMNode | PMMark | null | undefined;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isType = (
 	node: PMEntities,
 	type: NodeType | MarkType | undefined,
 ): boolean | null | undefined => type && node && node.type === type;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isParagraph = (node: PMEntities, schema: Schema): boolean | null | undefined =>
 	isType(node, schema.nodes.paragraph);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isText = (node: PMEntities, schema: Schema): boolean | null | undefined =>
 	isType(node, schema.nodes.text);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isLinkMark = (node: PMEntities, schema: Schema): boolean | null | undefined =>
 	isType(node, schema.marks.link);
 
@@ -30,6 +34,7 @@ export const isLinkMark = (node: PMEntities, schema: Schema): boolean | null | u
  * If the node is selected then an enum is returned that describes weather the node
  * is fully selected by a range or if the "inside" of the node has been selected or clicked.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isNodeSelectedOrInRange = (
 	anchorPosition: number,
 	headPosition: number,
@@ -60,10 +65,12 @@ export const isNodeSelectedOrInRange = (
 };
 
 const transformer = new JSONTransformer();
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function toJSON(node: PMNode): JSONDocNode {
 	return transformer.encode(node);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function nodeToJSON(node: PMNode): JSONNode {
 	return transformer.encodeNode(node);
 }

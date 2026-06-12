@@ -345,6 +345,7 @@ const DropdownMenuItemCustomComponent = React.forwardRef<
 	);
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function DropdownMenuItem({
 	item,
 	onItemActivated,
@@ -481,6 +482,7 @@ export function DropdownMenuItem({
 	return dropListItem;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const DropdownMenuWithKeyboardNavigation: React.MemoExoticComponent<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Ignored via go/ees005
 	({ ...props }: React.PropsWithChildren<any>) => jsx.JSX.Element

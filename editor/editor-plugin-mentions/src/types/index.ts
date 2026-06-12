@@ -20,14 +20,16 @@ export interface MentionPluginConfig {
 	profilecardProvider?: Promise<ProfilecardProvider>;
 }
 
-export type MentionsChangedHandler = (
-	changes: {
-		id: string;
-		localId: string;
-		taskLocalId?: string;
-		type: 'added' | 'deleted';
-	}[],
-) => void;
+export type MentionChange = {
+	id: string;
+	localId: string;
+	method?: 'pasted' | 'typed';
+	shouldSuppressMentionNotification?: boolean;
+	taskLocalId?: string;
+	type: 'added' | 'deleted';
+};
+
+export type MentionsChangedHandler = (changes: MentionChange[]) => void;
 
 export interface MentionsPluginOptions extends MentionPluginConfig {
 	allowZeroWidthSpaceAfter?: boolean;

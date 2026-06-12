@@ -14,6 +14,7 @@ const hasCssSupport = memoizeOne(() => {
 	return false;
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isCSSAttrAnchorSupported: MemoizedFn<() => boolean> = memoizeOne((): boolean => {
 	if (hasCssSupport()) {
 		return CSS.supports('anchor-name', 'attr(data-anchor-name type(<custom-ident>))');
@@ -21,6 +22,7 @@ export const isCSSAttrAnchorSupported: MemoizedFn<() => boolean> = memoizeOne(()
 	return false;
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isCSSAnchorSupported: MemoizedFn<() => boolean | undefined> = memoizeOne(
 	(): boolean | undefined => {
 		if (hasCssSupport()) {
@@ -29,7 +31,7 @@ export const isCSSAnchorSupported: MemoizedFn<() => boolean | undefined> = memoi
 	},
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const nativeAnchorStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {

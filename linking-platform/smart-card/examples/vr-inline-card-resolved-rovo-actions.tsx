@@ -2,25 +2,59 @@ import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { SlackMessage } from '@atlaskit/link-test-helpers';
+import { SlackMessage, GithubFile, GoogleDoc, GoogleDocUrl, iconGoogleDrive } from '@atlaskit/link-test-helpers';
 
 import { Card } from '../src';
 
 import ExampleContainer from './utils/example-container';
 
-const slackMessageResponse = {
-	...SlackMessage,
-	meta: {
-		...SlackMessage.meta,
-		supportedFeature: ['RovoActions'],
-	},
-} as JsonLd.Response<JsonLd.Data.BaseData>;
-
 class ProviderClient extends CardClient {
+	protected providerResponse: JsonLd.Response<JsonLd.Data.BaseData>
+	constructor(response: JsonLd.Response<JsonLd.Data.BaseData>) {
+		super();
+		this.providerResponse = response
+	}
 	fetchData(_: string) {
-		return Promise.resolve(slackMessageResponse);
+		return Promise.resolve(this.providerResponse);
 	}
 }
+
+const providers = [
+	{
+		url: SlackMessage.data.url,
+		response: {
+			...SlackMessage,
+			meta: {
+				...SlackMessage.meta,
+				supportedFeature: ['RovoActions'],
+			}
+		} as JsonLd.Response<JsonLd.Data.BaseData>
+	},
+	{
+		url: 'https://github.com/tuser/test-repo/blob/tuser-patch-1/test.txt',
+		response: {
+			...GithubFile,
+			meta: {
+				...GithubFile.meta,
+				supportedFeature: ['RovoActions'],
+			}
+		} as JsonLd.Response<JsonLd.Data.BaseData>
+	},
+	{
+		url: GoogleDocUrl,
+		response: {
+			...GoogleDoc,
+			data: {
+				...GoogleDoc.data,
+				icon: iconGoogleDrive
+			},
+			meta: {
+				...GoogleDoc.meta,
+				supportedFeature: ['RovoActions'],
+			}
+		} as JsonLd.Response<JsonLd.Data.BaseData>
+	}
+]
 
 /**
  * VR snapshot for the inline card treatment cohort of
@@ -35,17 +69,19 @@ const VRInlineCardResolvedRovoActions: {
 } = (): JSX.Element => {
 	return (
 		<ExampleContainer title="Inline Card with Rovo Actions CTA">
-			<SmartCardProvider
-				client={new ProviderClient()}
-				rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
-			>
-				<Card
-					appearance="inline"
-					url={SlackMessage.data.url}
-					showHoverPreview={true}
-					actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
-				/>
-			</SmartCardProvider>
+			{providers.map(provider => (
+				<SmartCardProvider
+					client={new ProviderClient(provider.response)}
+					rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
+				>
+					<Card
+						appearance="inline"
+						url={provider.url}
+						showHoverPreview={true}
+						actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
+					/>
+				</SmartCardProvider>
+			))}
 		</ExampleContainer>
 	);
 };

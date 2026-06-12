@@ -55,6 +55,7 @@ const allComposableEditorProps: Complete<EditorNextProps> = {
 	extensionProviders: undefined,
 	UNSAFE_useAnalyticsContext: undefined,
 	useStickyToolbar: undefined,
+	isEditorModernisationEnabled: undefined,
 	featureFlags: undefined,
 	__livePage: undefined,
 	onSave: undefined,

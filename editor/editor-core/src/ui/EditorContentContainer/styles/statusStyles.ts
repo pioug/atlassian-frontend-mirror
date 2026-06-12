@@ -90,6 +90,7 @@ export const statusStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const statusStylesMixin_fg_platform_component_visual_refresh: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.statusView-content-wrap': {
@@ -141,6 +142,7 @@ export const statusStylesMixin_fg_platform_component_visual_refresh: SerializedS
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const statusStylesMixin_fg_platform_component_visual_refresh_with_search_match: SerializedStyles =
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -193,6 +195,7 @@ export const statusStylesMixin_fg_platform_component_visual_refresh_with_search_
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const statusDangerStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'.statusView-content-wrap:not(.search-match-block)': {
@@ -209,6 +212,7 @@ export const statusDangerStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const statusStylesMixin_without_fg_platform_component_visual_refresh: SerializedStyles = css(
 	{
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -286,6 +290,7 @@ export const statusStylesMixin_without_fg_platform_component_visual_refresh: Ser
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match: SerializedStyles =
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -362,6 +367,7 @@ export const statusStylesMixin_without_fg_platform_component_visual_refresh_with
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const statusStylesTeam26: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-prosemirror-node-name="status"] .lozenge-wrapper': {

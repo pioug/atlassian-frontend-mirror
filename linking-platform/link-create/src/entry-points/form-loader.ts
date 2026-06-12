@@ -1,1 +1,1 @@
-export { CreateFormLoader } from '../ui/create-form/form-loader';
+export { CreateFormLoader } from '../ui/create-form/form-loader/main';

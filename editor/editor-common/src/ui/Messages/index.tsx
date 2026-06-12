@@ -52,6 +52,7 @@ export const HelperMessage = ({ children }: Props): jsx.JSX.Element => (
 	<div css={messageStyle}>{children}</div>
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ErrorMessage = ({ children }: Props): jsx.JSX.Element => {
 	const intl = useIntl();
 	return (
@@ -68,6 +69,7 @@ export const ErrorMessage = ({ children }: Props): jsx.JSX.Element => {
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ValidMessage = ({ children }: Props): jsx.JSX.Element => {
 	const intl = useIntl();
 	return (

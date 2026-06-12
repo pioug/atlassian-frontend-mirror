@@ -34,6 +34,7 @@ export function bracketTyped(state: EditorState): boolean {
 	return false;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function nodesBetweenChanged(
 	tr: Transaction | ReadonlyTransaction,
 	f: ChangedFn,
@@ -71,6 +72,7 @@ function getChangedNodesIn({
 	return nodes;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getChangedNodes(
 	tr: ReadonlyTransaction | Transaction,
 ): { node: Node; pos: number }[] {
@@ -89,6 +91,7 @@ type __ReplaceStep = ReplaceStep & {
 // When document first load in Confluence, initially it is an empty document
 // and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
 // isReplaceDocumentOperation is checking if the transaction is the one that replace the empty document with the real document
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isReplaceDocOperation = (
 	transactions: readonly Transaction[],
 	oldState: EditorState,
@@ -149,6 +152,7 @@ function marksEqualIgnoringOrder(m1: readonly Mark[], m2: readonly Mark[]): bool
  * @returns boolean
  */
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function areNodesEqualIgnoreAttrs(
 	node1: Node,
 	node2: Node,

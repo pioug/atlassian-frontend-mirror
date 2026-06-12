@@ -15,12 +15,12 @@ import { token } from '@atlaskit/tokens';
 
 import { LINK_CREATE_FORM_POST_CREATE_FIELD } from '../../common/constants';
 import messages from '../../common/messages';
-import { useLinkCreateCallback } from '../../controllers/callback-context';
+import { useLinkCreateCallback } from '../../controllers/callback-context/main';
 import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
-import { useFormContext } from '../../controllers/form-context';
+import { useFormContext } from '../../controllers/form-context/main';
 
-import { CreateFormFooter } from './form-footer';
-import { CreateFormLoader } from './form-loader';
+import { CreateFormFooter } from './form-footer/main';
+import { CreateFormLoader } from './form-loader/main';
 
 const formStyles = css({
 	maxWidth: `480px`,

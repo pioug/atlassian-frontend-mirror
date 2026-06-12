@@ -23,6 +23,7 @@ export const getNodeSelectionForPos = (doc: PMNode, start: number): NodeSelectio
 };
 
 /** Applies a CellSelection to `tr` for the table node at `tableNodePos`. */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const selectTableNodeAtPos = (tr: Transaction, tableNodePos: number): Transaction => {
 	selectTableClosestToPos(tr, tr.doc.resolve(tableNodePos + 1));
 	return tr;
@@ -32,6 +33,7 @@ export const selectTableNodeAtPos = (tr: Transaction, tableNodePos: number): Tra
  * Selects the node at `nodePos` without any plugin-API dependency.
  * Tables use CellSelection; all other nodes use NodeSelection.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const selectNodeAtPos = (
 	tr: Transaction,
 	nodePos: number,

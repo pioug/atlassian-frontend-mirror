@@ -7,6 +7,7 @@ export enum SYMBOL {
 	ARROW_DOUBLE = 'doubleArrow',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum PUNC {
 	DASH = 'emDash',
 	ELLIPSIS = 'ellipsis',

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 export const TOOLBARS = {
 	INLINE_TEXT_TOOLBAR: 'inline-text-toolbar',
 	PRIMARY_TOOLBAR: 'primary-toolbar',

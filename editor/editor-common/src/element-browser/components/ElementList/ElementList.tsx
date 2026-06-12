@@ -45,9 +45,10 @@ import { getColumnCount } from './getColumnCount';
 import { getScrollbarWidth } from './utils';
 
 export const ICON_HEIGHT = 40;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ICON_WIDTH = 40;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const itemIcon: SerializedStyles = css({
 	width: `${ICON_WIDTH}px`,
 	height: `${ICON_HEIGHT}px`,
@@ -523,6 +524,7 @@ type ElementItemType = {
 const MemoizedElementItem = memo(ElementItem);
 MemoizedElementItem.displayName = 'MemoizedElementItem';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function ElementItem({
 	inlineMode,
 	selected,
@@ -820,4 +822,5 @@ const MemoizedElementListWithAnalytics: React.MemoExoticComponent<
 	>
 > = memo(withAnalyticsContext({ component: 'ElementList' })(ElementList));
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default MemoizedElementListWithAnalytics;

@@ -5,7 +5,7 @@ import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 
 import { ANALYTICS_CHANNEL } from '../../constants';
 
-import { withLinkCreateAnalyticsContext } from './index';
+import { withLinkCreateAnalyticsContext } from './context';
 describe('withLinkCreateAnalyticsContext', () => {
 	const EVENT_PAYLOAD = {
 		action: 'fired',

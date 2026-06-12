@@ -185,6 +185,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class ErrorBoundaryWithEditorViewWithAnalyticsReactContext extends ErrorBoundaryWithEditorView {
 	static contextType: React.Context<AnalyticsReactContextInterface> = AnalyticsReactContext;
 	context!: React.ContextType<typeof AnalyticsReactContext>;
@@ -211,4 +212,5 @@ const _default_1: React.FC<
 	WithEditorView(ErrorBoundaryWithEditorViewWithAnalyticsReactContext),
 	WithEditorView(ErrorBoundaryWithEditorView),
 );
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default _default_1;

@@ -1,4 +1,10 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
@@ -30,6 +36,7 @@ import { pluginKey } from './plugin-key';
 import { pluginKey as layoutResizingPluginKey } from './resizing';
 import type { Change, LayoutState } from './types';
 import { getMaybeLayoutSection } from './utils';
+import { getSelectedLayoutColumnsFromSelection } from './utils/layout-column-selection';
 
 export const DEFAULT_LAYOUT = 'two_equal';
 
@@ -111,6 +118,32 @@ type ToggleLayoutColumnMenuMeta = {
 	anchorPos?: number;
 	isOpen?: boolean;
 	openedViaKeyboard?: boolean;
+};
+
+const fireLayoutColumnMenuOpenedAnalytics = (
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	state: EditorState,
+	openedViaKeyboard: boolean | undefined,
+) => {
+	const selectedLayoutColumnsResult = getSelectedLayoutColumnsFromSelection(state.selection);
+	if (!selectedLayoutColumnsResult) {
+		return;
+	}
+
+	const { layoutSectionNode, selectedLayoutColumns, startIndex, endIndex } =
+		selectedLayoutColumnsResult;
+	editorAnalyticsAPI?.fireAnalyticsEvent({
+		action: ACTION.OPENED,
+		actionSubject: ACTION_SUBJECT.LAYOUT_COLUMN_MENU,
+		attributes: {
+			columnCount: layoutSectionNode.childCount,
+			endIndex,
+			inputMethod: openedViaKeyboard ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
+			selectedCount: selectedLayoutColumns.length,
+			startIndex,
+		},
+		eventType: EVENT_TYPE.UI,
+	});
 };
 
 type LayoutColumnMenuStateAction =
@@ -248,10 +281,18 @@ export default (
 					| undefined;
 
 				if (columnMenuMeta) {
+					const wasLayoutColumnMenuOpen = nextPluginState.isLayoutColumnMenuOpen;
 					nextPluginState = reduceLayoutColumnMenuState(nextPluginState, {
 						meta: columnMenuMeta,
 						type: 'toggleLayoutColumnMenu',
 					});
+					if (!wasLayoutColumnMenuOpen && nextPluginState.isLayoutColumnMenuOpen) {
+						fireLayoutColumnMenuOpenedAnalytics(
+							editorAnalyticsAPI,
+							newState,
+							columnMenuMeta.openedViaKeyboard,
+						);
+					}
 				}
 
 				if (tr.getMeta('layoutColumnDangerPreview') !== undefined) {
@@ -296,7 +337,11 @@ export default (
 					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
 					isLayoutResizingPluginAvailable
 				) {
-					const dividerDecorations = getColumnDividerDecorations(state, editorViewRef, editorAnalyticsAPI);
+					const dividerDecorations = getColumnDividerDecorations(
+						state,
+						editorViewRef,
+						editorAnalyticsAPI,
+					);
 					const selectedDecorations =
 						layoutState.pos !== null
 							? getNodeDecoration(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)

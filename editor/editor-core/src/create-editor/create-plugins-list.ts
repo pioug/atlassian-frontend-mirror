@@ -102,6 +102,7 @@ export function getDefaultPresetOptionsFromEditorProps(
  * Note: The order that presets are added determines
  * their placement in the editor toolbar.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function createPluginsList(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	preset: EditorPresetBuilder<any, any>,

@@ -189,6 +189,7 @@ export function ComposableEditorWithToolbar(): jsx.JSX.Element {
 	);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function ComposableEditorExample(): jsx.JSX.Element {
 	return (
 		<EditorContext>

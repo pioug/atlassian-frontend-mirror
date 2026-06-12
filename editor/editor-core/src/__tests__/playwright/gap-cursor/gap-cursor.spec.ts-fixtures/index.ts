@@ -127,6 +127,7 @@ export const connectedExtensionADF: {
 		},
 	],
 };
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const infoPanelADF: {
 	version: number;
 	type: string;
@@ -169,6 +170,7 @@ export const infoPanelADF: {
 		},
 	],
 };
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const listWithCodeBlockADF: {
 	version: number;
 	type: string;

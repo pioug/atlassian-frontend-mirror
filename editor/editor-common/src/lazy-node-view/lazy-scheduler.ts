@@ -6,6 +6,7 @@ export const scheduleCallback = (cb: () => unknown, options?: IdleRequestOptions
 		: requestAnimationFrame(cb);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const cancelCallback = (id: number): void => {
 	return hasIdleCallback ? cancelIdleCallback(id) : cancelAnimationFrame(id);
 };

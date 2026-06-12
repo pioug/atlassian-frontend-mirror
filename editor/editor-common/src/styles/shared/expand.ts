@@ -14,7 +14,7 @@ export const expandIconWrapperStyle: SerializedStyles = css({
  * @private
  * @deprecated use `import { ToolbarExpandIcon } from '@atlaskit/editor-common/ui';` instead
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const expandIconContainerStyle: SerializedStyles = css({
 	display: 'flex',
 	alignItems: 'center',
@@ -22,18 +22,19 @@ export const expandIconContainerStyle: SerializedStyles = css({
 
 const prefix = 'ak-editor-expand';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandClassNames: {
-	prefix: string;
-	expanded: string;
-	titleContainer: string;
-	inputContainer: string;
-	iconContainer: string;
-	icon: string;
-	iconButton: string;
-	iconSvg: string;
-	titleInput: string;
 	content: string;
 	contentCollapsed: string;
+	expanded: string;
+	icon: string;
+	iconButton: string;
+	iconContainer: string;
+	iconSvg: string;
+	inputContainer: string;
+	prefix: string;
+	titleContainer: string;
+	titleInput: string;
 	type: (type: string) => string;
 } = {
 	prefix,

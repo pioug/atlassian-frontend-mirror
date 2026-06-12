@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef } from 'react';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
+import { extractSmartLinkProvider, extractSmartLinkTitle } from '@atlaskit/link-extractors';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
 	ACTION_RESOLVING,
@@ -14,7 +14,7 @@ import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { functionWithFG } from '@atlaskit/platform-feature-flags-react';
 import { ROVO_POST_MESSAGE_EVENT_TYPE } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
-import { type ChatNewPayload } from '@atlaskit/rovo-triggers/types';
+import { type ChatSmartLink3PPostAuthLaunchPayload } from '@atlaskit/rovo-triggers/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
@@ -30,8 +30,10 @@ import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve, { type ResolveUrlParams } from '../hooks/use-resolve';
 
 const POST_AUTH_CHAT_EXTENSION_KEY = 'google-object-provider';
+// Smart Card resolver key differs from the consumer-facing Rovo payload key.
+const POST_AUTH_CHAT_PAYLOAD_EXTENSION_KEY = 'google-drive';
 
-const SMART_LINK_TO_ROVO_SOURCE = 'smart-link';
+const SMART_LINK_3P_POST_AUTH_SOURCE = 'smart-link-3p-post-auth';
 
 const getPostAuthChatPayloadId = () => {
 	if (typeof crypto !== 'undefined') {
@@ -52,31 +54,25 @@ const getPostAuthChatPayloadId = () => {
 	return `smart-link-post-auth-chat-${Date.now()}`;
 };
 
-const sendPostAuthChatOpenMessage = (url: string) => {
+const sendPostAuthChatOpenMessage = (url: string, documentTitle?: string) => {
 	if (typeof window === 'undefined' || typeof window.parent?.postMessage !== 'function') {
 		return;
 	}
 
-	const payload: ChatNewPayload = {
-		type: 'chat-new',
-		source: SMART_LINK_TO_ROVO_SOURCE,
-		data: {
-			dialogues: [],
-			mode: {
-				useCurrentPageContext: false,
-			},
-			aiFeatureContext: {
-				projectContext: {
-					projectId: url,
-					// Use the URL as projectName to avoid introducing a hardcoded
-					// user-facing provider label in Smart Card.
-					projectName: url,
-					projectUrl: url,
-				},
-			},
-		},
+	const payload: ChatSmartLink3PPostAuthLaunchPayload = {
+		type: 'chat-smartlink-3p-post-auth-launch',
+		source: SMART_LINK_3P_POST_AUTH_SOURCE,
 		openChat: true,
 		openChatMode: 'mini-modal',
+		data: {
+			extensionKey: POST_AUTH_CHAT_PAYLOAD_EXTENSION_KEY,
+			provider: 'Google Drive',
+			projectContext: {
+				projectId: url,
+				projectName: documentTitle ?? 'Google Drive',
+				projectUrl: url,
+			},
+		},
 	};
 
 	window.parent.postMessage(
@@ -231,8 +227,7 @@ export const useSmartCardActions = (
 			const { details, status } = getSmartLinkState();
 			const definitionId = getDefinitionId(details);
 			const extensionKey = getExtensionKey(details);
-			const isSupportedPostAuthChatExtensionKey =
-				extensionKey === POST_AUTH_CHAT_EXTENSION_KEY;
+			const isSupportedPostAuthChatExtensionKey = extensionKey === POST_AUTH_CHAT_EXTENSION_KEY;
 			const services = getServices(details);
 			// When authentication is triggered, let GAS know!
 			if (status === 'unauthorized') {
@@ -294,7 +289,7 @@ export const useSmartCardActions = (
 						reload();
 
 						if (isPostAuthChatTreatment) {
-							sendPostAuthChatOpenMessage(url);
+							sendPostAuthChatOpenMessage(url, extractSmartLinkTitle(details));
 						}
 					},
 					(err: AuthError) => {
@@ -317,14 +312,7 @@ export const useSmartCardActions = (
 				);
 			}
 		},
-		[
-			getSmartLinkState,
-			id,
-			reload,
-			fireEvent,
-			flags,
-			url,
-		],
+		[getSmartLinkState, id, reload, fireEvent, flags, url],
 	);
 
 	const invoke = useCallback(

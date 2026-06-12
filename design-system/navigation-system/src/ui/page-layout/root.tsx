@@ -54,11 +54,24 @@ const styles = cssMap({
 			gridTemplateRows: 'auto auto 3fr',
 			gridTemplateColumns: 'auto auto minmax(0,1fr) auto auto',
 		},
+	},
+	// Hides any non-layout components that would otherwise be added to an implicit grid track and
+	// break the page layout grid in unexpected and hilarious ways. Adding anything as a child to
+	// page layout that is not a layout component is not supported.
+	safetyRail: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'> :not([data-layout-slot])': {
-			// This hides any non-layout components that would otherwise be added to an implicit grid
-			// track and break the page layout grid in unexpected and hilarious ways. Adding anything
-			// as a child to page layout that is not a layout component is not supported.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			display: 'none !important',
+		},
+	},
+	// Used when the `platform-dst-top-layer` feature gate is on. Widens the safety-rail guard to
+	// allow `dialog` and `[popover]` as direct children of Root. They do not impact the CSS grid
+	// of Root because they are rendered in the top layer when open, and are `display: none` per
+	// the UA stylesheet when closed.
+	safetyRailWithTopLayer: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'> :not([data-layout-slot]):not(dialog):not([popover])': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			display: 'none !important',
 		},
@@ -145,11 +158,19 @@ export function Root({
 		if (process.env.NODE_ENV !== 'production') {
 			const IGNORED_ELEMENTS = ['SCRIPT', 'STYLE'];
 
+			const topLayerGateOn = fg('platform-dst-top-layer');
+
 			if (ref.current) {
 				Array.from(ref.current.children).forEach((child) => {
+					// Top-layer elements are allowed as direct children when the gate is on.
+					const isTopLayerElement =
+						topLayerGateOn &&
+						(child.tagName.toLowerCase() === 'dialog' || child.hasAttribute('popover'));
+
 					if (
 						!IGNORED_ELEMENTS.includes(child.tagName) &&
-						!child.hasAttribute('data-layout-slot')
+						!child.hasAttribute('data-layout-slot') &&
+						!isTopLayerElement
 					) {
 						// eslint-disable-next-line no-console
 						console.error(
@@ -187,7 +208,12 @@ This message will not be displayed in production.
 									>
 										<div
 											ref={ref}
-											css={styles.root}
+											css={[
+												styles.root,
+												fg('platform-dst-top-layer')
+													? styles.safetyRailWithTopLayer
+													: styles.safetyRail,
+											]}
 											className={xcss}
 											id={gridRootId}
 											data-testid={testId}

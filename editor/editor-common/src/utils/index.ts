@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 

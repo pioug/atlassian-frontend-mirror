@@ -290,6 +290,7 @@ export const MediaInlineImageCardInternal = ({
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MediaInlineImageCard: React.ComponentType<
 	React.PropsWithChildren<MediaInlineImageCardProps & MediaInlineAttrs>
 > = injectIntl(MediaInlineImageCardInternal, { enforceContext: false });

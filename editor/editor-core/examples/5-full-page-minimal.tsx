@@ -15,7 +15,7 @@ export const wrapper: any = css({
 	height: '500px',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const content: any = css({
 	padding: `0 ${token('space.250')}`,
 	height: '100%',
@@ -39,6 +39,7 @@ export const content: any = css({
 export type Props = {};
 export type State = { disabled: boolean };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function Example(): jsx.JSX.Element {
 	return (
 		<div css={wrapper}>

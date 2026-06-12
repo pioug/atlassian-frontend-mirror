@@ -602,6 +602,7 @@ describe('Smart Card: Actions', () => {
 			data: {
 				'@context': { '@vocab': 'https://www.w3.org/ns/activitystreams#' },
 				'@type': 'Object',
+				name: 'Q3 Planning Notes',
 			},
 		};
 
@@ -638,19 +639,15 @@ describe('Smart Card: Actions', () => {
 					{
 						eventType: 'rovo-post-message',
 						payload: {
-							type: 'chat-new',
-							source: 'smart-link',
+							type: 'chat-smartlink-3p-post-auth-launch',
+							source: 'smart-link-3p-post-auth',
 							data: {
-								dialogues: [],
-								mode: {
-									useCurrentPageContext: false,
-								},
-								aiFeatureContext: {
-									projectContext: {
-										projectId: url,
-										projectName: url,
-										projectUrl: url,
-									},
+								extensionKey: 'google-drive',
+								provider: 'Google Drive',
+								projectContext: {
+									projectId: url,
+									projectName: 'Q3 Planning Notes',
+									projectUrl: url,
 								},
 							},
 							openChat: true,
@@ -761,7 +758,7 @@ describe('Smart Card: Actions', () => {
 			expect(mockShowConnectFlag).not.toHaveBeenCalled();
 		});
 
-		it('does NOT post chat-new message on auth failure', async () => {
+		it('does NOT post Smart Link post-auth launch message on auth failure', async () => {
 			const { mockPostMessage } = setupPostAuthTest();
 			url = 'https://docs.google.com/document/d/abc123/edit';
 			asMockFunction(auth).mockRejectedValue({ type: 'auth_window_closed' });

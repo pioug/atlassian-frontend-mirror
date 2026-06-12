@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-context
 
+## 0.11.0
+
+### Minor Changes
+
+- [`6470a26220eb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6470a26220eb0) -
+  Add resolveProvidedUrlByBoundary(urls) utility
+
 ## 0.10.0
 
 ### Minor Changes

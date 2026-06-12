@@ -64,6 +64,7 @@ export const MainToolbarForFirstChildWrapperCompiled = ({
 );
 
 // ---------------- Second child wrapper ----------------
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MainToolbarForSecondChildWrapperCompiled = ({
 	twoLineEditorToolbar,
 	children,

@@ -22,6 +22,7 @@ export const getBlockMarkAttrs = <T extends BlockMarkAttrs = BlockMarkAttrs>(
 	return blockMark ? (blockMark.attrs as T) : false;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getFirstParagraphBlockMarkAttrs = <T extends BlockMarkAttrs = BlockMarkAttrs>(
 	node: PMNode | null | undefined,
 	markType?: MarkType,
@@ -53,6 +54,7 @@ export const getFirstParagraphBlockMarkAttrs = <T extends BlockMarkAttrs = Block
 	return findFirstParagraphBlockMarkAttrs(node);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const reconcileBlockMarkInRange = <T extends BlockMarkAttrs = BlockMarkAttrs>(
 	tr: Transaction,
 	from: number,
@@ -68,6 +70,7 @@ export const reconcileBlockMarkInRange = <T extends BlockMarkAttrs = BlockMarkAt
 	return createToggleBlockMarkOnRangeNext(markType, () => markAttrs, blockNodeTypes)(from, to, tr);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const reconcileBlockMarkForContainerAtPos = <T extends BlockMarkAttrs = BlockMarkAttrs>(
 	tr: Transaction,
 	containerPos: number,
@@ -90,6 +93,7 @@ export const reconcileBlockMarkForContainerAtPos = <T extends BlockMarkAttrs = B
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const reconcileBlockMarkForParagraphAtPos = <T extends BlockMarkAttrs = BlockMarkAttrs>(
 	tr: Transaction,
 	pos: number,

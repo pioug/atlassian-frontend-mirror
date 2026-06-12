@@ -27,6 +27,7 @@ export function generateVirtualizedContainerDatum(
 
 let CALCULATED_SCROLLBAR_WIDTH: number;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getScrollbarWidth(): number {
 	if (!CALCULATED_SCROLLBAR_WIDTH) {
 		const container = document.createElement('div');

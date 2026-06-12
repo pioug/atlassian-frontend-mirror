@@ -505,4 +505,5 @@ const exampleDocument = {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default (): React.JSX.Element => Example(exampleDocument);

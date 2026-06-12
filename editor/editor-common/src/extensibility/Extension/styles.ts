@@ -25,7 +25,7 @@ export const wrapperDefault: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const overlay: SerializedStyles = css({
 	borderRadius: token('radius.small', '3px'),
 	position: 'absolute',
@@ -38,7 +38,7 @@ export const overlay: SerializedStyles = css({
 	left: 0,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const placeholderFallback: SerializedStyles = css({
 	display: 'inline-flex',
 	alignItems: 'center',
@@ -51,7 +51,7 @@ export const placeholderFallback: SerializedStyles = css({
 	label: 'placeholder-fallback',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const placeholderFallbackParams: SerializedStyles = css({
 	display: 'inline-block',
 	maxWidth: '200px',
@@ -62,7 +62,7 @@ export const placeholderFallbackParams: SerializedStyles = css({
 	overflow: 'hidden',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const styledImage: SerializedStyles = css({
 	maxHeight: '16px',
 	maxWidth: '16px',

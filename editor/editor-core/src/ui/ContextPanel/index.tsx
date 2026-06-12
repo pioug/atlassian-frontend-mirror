@@ -194,6 +194,7 @@ export const SwappableContentArea: React.FC<WithIntlProps<SwappableContentAreaPr
 	WrappedComponent: React.ComponentType<SwappableContentAreaProps>;
 } = injectIntl(SwappableContentAreaInner);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function ContextPanel(props: Props): React.JSX.Element {
 	const contextPanelContents = useSharedPluginStateWithSelector(
 		props.editorAPI,

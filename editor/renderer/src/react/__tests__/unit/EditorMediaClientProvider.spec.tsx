@@ -1,11 +1,16 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { screen } from '@testing-library/react';
 
-import { ProviderFactory, ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory';
+import {
+	ProviderFactory,
+	ProviderFactoryProvider,
+	type MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { MediaClientContext } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EditorMediaClientProvider } from '../../utils/EditorMediaClientProvider';
 
@@ -41,6 +46,13 @@ function createMediaClientConfig(token: string): MediaClientConfig {
 function createMediaProvider(token: string) {
 	return Promise.resolve({
 		viewMediaClientConfig: createMediaClientConfig(token),
+	});
+}
+
+function createMediaProviderWithViewAndUploadConfig() {
+	return Promise.resolve({
+		viewMediaClientConfig: createMediaClientConfig('view-token'),
+		viewAndUploadMediaClientConfig: createMediaClientConfig('view-and-upload-token'),
 	});
 }
 
@@ -312,3 +324,57 @@ describe('child MediaClientContext should not inherit parent mediaClient on firs
 		},
 	});
 });
+
+eeTest
+	.describe('platform_editor_media_reliability_enhancements', 'video captions media client config')
+	.variant(true, () => {
+		function renderWithCaptionProvider(
+			mediaProvider: Promise<MediaProvider> = createMediaProviderWithViewAndUploadConfig(),
+		) {
+			const providerFactory = ProviderFactory.create({
+				mediaProvider,
+			});
+
+			renderWithIntl(
+				<ProviderFactoryProvider value={providerFactory}>
+					<EditorMediaClientProvider>
+						<MediaClientConsumer testIdPrefix="consumer" />
+					</EditorMediaClientProvider>
+				</ProviderFactoryProvider>,
+			);
+		}
+
+		it('uses viewAndUploadMediaClientConfig when both caption gates are on', async () => {
+			passGate('platform_media_video_captions');
+			passGate('platform_editor_video_caption_commit');
+
+			renderWithCaptionProvider();
+
+			expect(await screen.findByTestId('consumer-token')).toHaveTextContent(
+				'view-and-upload-token',
+			);
+		});
+
+		it('uses viewMediaClientConfig when viewAndUploadMediaClientConfig is absent', async () => {
+			renderWithCaptionProvider(createMediaProvider('view-only-token'));
+
+			expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-only-token');
+		});
+
+		it('uses viewMediaClientConfig when the media captions gate is off', async () => {
+			failGate('platform_media_video_captions');
+
+			renderWithCaptionProvider();
+
+			expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-token');
+		});
+
+		it('uses viewMediaClientConfig when the editor caption commit gate is off', async () => {
+			passGate('platform_media_video_captions');
+			failGate('platform_editor_video_caption_commit');
+
+			renderWithCaptionProvider();
+
+			expect(await screen.findByTestId('consumer-token')).toHaveTextContent('view-token');
+		});
+	});

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/skeleton",
-	"version": "2.1.10",
+	"version": "2.2.0",
 	"description": "A skeleton acts as a placeholder for content, usually while the content loads.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,10 +27,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Skeleton",
-			"category": "Loading",
-			"status": {
-				"type": "alpha"
-			}
+			"category": "Loading"
 		}
 	},
 	"dependencies": {

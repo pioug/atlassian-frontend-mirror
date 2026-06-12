@@ -438,4 +438,5 @@ const BreakoutResizer = ({
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export { BreakoutResizer };

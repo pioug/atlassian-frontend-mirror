@@ -62,6 +62,7 @@ function getEventFromEventName(eventName: EventName): string {
  * Creates a dispatch function that can be called inside ProseMirror Plugin
  * to notify listeners about that plugin's state change.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function createDispatch<T>(eventDispatcher: EventDispatcher<T>): Dispatch<T> {
 	return (eventName: PluginKey | string, data: T) => {
 		if (!eventName) {

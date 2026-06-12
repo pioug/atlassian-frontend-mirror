@@ -39,6 +39,7 @@ export const trailingSpacesWithEmoji: ADFEntity = {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const noTrailingSpacesWithEmoji: ADFEntity = {
 	version: 1,
 	type: 'doc',
@@ -75,6 +76,7 @@ export const noTrailingSpacesWithEmoji: ADFEntity = {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const multipleNodesAcrossLinesWithEmoji: ADFEntity = {
 	version: 1,
 	type: 'doc',
@@ -177,6 +179,7 @@ export const multipleNodesAcrossLinesWithEmoji: ADFEntity = {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const multilineWithEmoji: ADFEntity = {
 	version: 1,
 	type: 'doc',

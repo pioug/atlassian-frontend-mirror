@@ -76,6 +76,7 @@ export class CustomReplaceStep extends ReplaceStep {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const collabCustomStepPlugin: NextEditorPlugin<'collab-malformed-plugin'> = ({ api }) => {
 	return {
 		name: 'collab-malformed-plugin',
@@ -100,13 +101,14 @@ export const collabCustomStepPlugin: NextEditorPlugin<'collab-malformed-plugin'>
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getRandomUser = (): string => {
 	return Math.floor(Math.random() * 10000).toString();
 };
 
 const defaultCollabUrl = 'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/ccollab';
 
-// eslint-disable-next-line
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const content: any = css({
 	padding: `0 ${token('space.250')}`,
 	height: '50%',
@@ -258,7 +260,7 @@ const FullPageComposableEditor = (props: EditorProps & { viewMode: 'view' | 'edi
 	);
 };
 // Ignored via go/ees005
-// eslint-disable-next-line @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components, @atlaskit/volt-strict-mode/no-multiple-exports
 export default class Example extends React.Component<Props, State> {
 	state: {
 		__livePage: boolean;

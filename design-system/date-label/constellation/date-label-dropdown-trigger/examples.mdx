@@ -1,0 +1,48 @@
+---
+order: 0
+title: Date label dropdown trigger
+description:
+  Date label dropdown trigger is an interactive date label that opens a dropdown for date selection.
+---
+
+import DateLabelDropdownTriggerExample from '../../examples/constellation/date-label-dropdown-trigger';
+import DateLabelDropdownTriggerSpacious from '../../examples/constellation/date-label-dropdown-trigger-spacious';
+import DateLabelDropdownTriggerSelected from '../../examples/constellation/date-label-dropdown-trigger-selected';
+import DateLabelDropdownTriggerLoading from '../../examples/constellation/date-label-dropdown-trigger-loading';
+import DateLabelDropdownTriggerNoIcon from '../../examples/constellation/date-label-dropdown-trigger-no-icon';
+
+## Basic
+
+Use `DateLabelDropdownTrigger` when the date label should open a picker or menu. It renders as a
+`<button>` with hover, pressed, and focus-ring states, and a chevron icon on the right to signal
+interactivity.
+
+<Example Component={DateLabelDropdownTriggerExample} packageName="@atlaskit/date-label" />
+
+## Spacious
+
+Use `isSpacious` for more spacious layouts such as forms or detail views. This increases the height
+to 32px and uses the body font size.
+
+<Example Component={DateLabelDropdownTriggerSpacious} packageName="@atlaskit/date-label" />
+
+## Selected
+
+Use `isSelected` to indicate that the dropdown is currently open. This applies a pressed background
+to the trigger. Pair with `aria-expanded` to communicate the open state to assistive technology.
+
+<Example Component={DateLabelDropdownTriggerSelected} packageName="@atlaskit/date-label" />
+
+## Loading
+
+Use `isLoading` to indicate that an async operation is in progress, such as saving a date selection.
+When loading, the chevron is replaced with a spinner, clicks are suppressed, and `aria-busy` is set
+on the button.
+
+<Example Component={DateLabelDropdownTriggerLoading} packageName="@atlaskit/date-label" />
+
+## Without icon
+
+Set `hasIconBefore={false}` to hide the leading contextual icon.
+
+<Example Component={DateLabelDropdownTriggerNoIcon} packageName="@atlaskit/date-label" />

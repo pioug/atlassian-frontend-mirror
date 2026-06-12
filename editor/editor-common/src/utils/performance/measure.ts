@@ -18,6 +18,7 @@ export function startMeasure(measureName: string): void {
 /**
  * @deprecated use 'stopMeasure' from '@atlaskit/editor-common/performance-measures'
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function stopMeasure(
 	measureName: string,
 	onMeasureComplete?: (duration: number, startTime: number) => void,
@@ -47,6 +48,7 @@ export function stopMeasure(
 /**
  * @deprecated use 'clearMeasure' from '@atlaskit/editor-common/performance-measures'
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function clearMeasure(measureName: string): void {
 	if (!isPerformanceAPIAvailable()) {
 		return;

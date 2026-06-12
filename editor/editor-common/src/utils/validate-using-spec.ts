@@ -41,6 +41,7 @@ const errorCallbackFor = (
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const validationErrorHandler = (
 	entity: ADFEntity,
 	error: ValidationError,
@@ -216,6 +217,7 @@ function trackValidationError(
 	);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const validateADFEntity = (
 	schema: Schema,
 	node: ADFEntity,

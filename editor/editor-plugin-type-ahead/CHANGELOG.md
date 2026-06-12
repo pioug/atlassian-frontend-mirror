@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 11.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.3.0
+
+### Minor Changes
+
+- [`443921a488044`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/443921a488044) -
+  Cleaned up stale feature gate `platform_editor_controls_patch_analytics_3`. Removed gated
+  analytics code paths and kept the enabled path.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.2.3
 
 ### Patch Changes

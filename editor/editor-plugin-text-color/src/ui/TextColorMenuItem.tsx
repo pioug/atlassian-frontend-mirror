@@ -13,6 +13,7 @@ import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
 import { Stack } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { TextColorPlugin } from '../textColorPluginType';
@@ -53,7 +54,9 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 					editorView.dispatch,
 				);
 
-				closeMenu?.(event);
+				if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+					closeMenu?.(event);
+				}
 			}
 		},
 		[editorView?.state, editorView?.dispatch, api?.textColor.actions, parents, closeMenu],

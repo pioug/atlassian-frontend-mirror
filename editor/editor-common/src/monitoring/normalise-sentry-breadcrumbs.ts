@@ -16,6 +16,7 @@ const sanitiseUiBreadcrumbMessage = (message: string): string =>
  * appropriately cleaned before being logged by Sentry. This helps in maintaining
  * privacy and security by preventing sensitive data exposure.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const normaliseSentryBreadcrumbs = (breadcrumb: Breadcrumb): Breadcrumb => {
 	const { category } = breadcrumb || {};
 

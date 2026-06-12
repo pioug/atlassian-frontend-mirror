@@ -18,6 +18,7 @@ import { toolbarInsertBlockMessages as messages } from '../../messages';
 import { OutsideClickTargetRefContext } from '../../ui-react';
 
 export const TABLE_SELECTOR_BUTTON_GAP = 2;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const TABLE_SELECTOR_BUTTON_SIZE = 17;
 
 const MULTIPLICATION_SYMBOL = '×';
@@ -198,4 +199,5 @@ const TableSelectorPopup = ({
 const _default_1: FC<WithIntlProps<TableSelectorPopupProps & WrappedComponentProps>> & {
 	WrappedComponent: ComponentType<TableSelectorPopupProps & WrappedComponentProps>;
 } = injectIntl(TableSelectorPopup);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default _default_1;

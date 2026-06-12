@@ -203,20 +203,22 @@ export type FieldDefinition = NestedFieldDefinition | Fieldset | GroupingField;
 export const isFieldset = (field: FieldDefinition): field is Fieldset => {
 	return field.type === 'fieldset';
 };
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isTabGroup = (field: FieldDefinition): field is TabGroupField => {
 	return field.type === 'tab-group';
 };
 // Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/volt-strict-mode/no-multiple-exports
 export const isTabField = (field: any): field is TabField => {
 	return 'type' in field && field.type === 'tab';
 };
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isExpand = (field: FieldDefinition): field is ExpandField => {
 	return field.type === 'expand';
 };
 
 // Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @atlaskit/volt-strict-mode/no-multiple-exports
 export const isDateRange = (value: any): value is DateRangeResult => {
 	return value && value.hasOwnProperty('type') && value.type === 'date-range';
 };

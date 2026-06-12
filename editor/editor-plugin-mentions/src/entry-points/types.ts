@@ -2,6 +2,7 @@
 export type {
 	MentionPluginConfig,
 	MentionPluginOptions,
+	MentionChange,
 	MentionsPluginOptions,
 	MentionSharedState,
 	MentionsChangedHandler,

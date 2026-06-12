@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "44.26.1",
+	"version": "44.28.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -294,9 +294,6 @@
 			"type": "boolean"
 		},
 		"jfp-magma-platform-lozenge-jump-fix": {
-			"type": "boolean"
-		},
-		"townsquare-same-tab-alignment-gcko-849": {
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_action_kill_switch": {

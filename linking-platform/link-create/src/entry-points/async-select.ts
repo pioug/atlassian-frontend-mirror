@@ -1,1 +1,1 @@
-export { AsyncSelect } from '../ui/create-form/async-select';
+export { AsyncSelect } from '../ui/create-form/async-select/main';

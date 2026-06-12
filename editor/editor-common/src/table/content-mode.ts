@@ -26,6 +26,7 @@ export const hasTableBeenResized = (tableNode: PMNode): boolean =>
  * 5. The table has not been explicitly resized (`width === null` and no `colwidth` on cells)
  * 6. The table's layout is `'align-start'`
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isTableInContentMode = ({
 	tableNode,
 	isSupported,

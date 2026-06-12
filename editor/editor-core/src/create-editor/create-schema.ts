@@ -54,6 +54,7 @@ export const wrapToDOMProxy = (toDOM: toDOMType): toDOMType => {
  * @returns {T} A proxied NodeSpec or MarkSpec object where the `toDOM` method is enhanced
  * with metadata attributes.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const wrapNodeSpecProxy = <T extends NodeSpec | MarkSpec>(spec: T): T => {
 	return new Proxy<T>(spec, {
 		get(target, prop, receiver) {
@@ -68,6 +69,7 @@ export const wrapNodeSpecProxy = <T extends NodeSpec | MarkSpec>(spec: T): T => 
 	});
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function createSchema(editorConfig: {
 	marks: MarkConfig[];
 	nodes: NodeConfig[];

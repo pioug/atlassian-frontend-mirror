@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { deleteColumn, getAriaKeyshortcuts, tooltip } from '@atlaskit/editor-common/keymaps';
 import { layoutMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -41,7 +42,9 @@ const DeleteColumnDropdownItem = ({
 	}, [setDangerPreview]);
 
 	const onClick = useCallback(() => {
-		const deleteCommand = api?.layout?.commands.deleteLayoutColumn();
+		const deleteCommand = api?.layout?.commands.deleteLayoutColumn({
+			inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU,
+		});
 
 		api?.core?.actions.execute((props) => {
 			const tr = deleteCommand?.(props);

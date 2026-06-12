@@ -38,6 +38,7 @@ type EditorToolbarProviderProps = {
 	children: React.ReactNode;
 } & EditorToolbarContextType;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EditorToolbarProvider = ({
 	children,
 	editorView,

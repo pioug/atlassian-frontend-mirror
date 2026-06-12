@@ -72,6 +72,7 @@ export function transformNonTextNodesToText(from: number, to: number, tr: Transa
 	});
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const applyMarkOnRange = (
 	from: number,
 	to: number,
@@ -166,6 +167,7 @@ const toggleMarkInRange =
  * @param markType
  * @param attrs
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const toggleMark =
 	(
 		markType: MarkType,

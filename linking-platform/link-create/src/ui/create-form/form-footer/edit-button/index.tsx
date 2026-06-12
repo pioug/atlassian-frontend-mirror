@@ -11,7 +11,7 @@ import {
 	LINK_CREATE_FORM_POST_CREATE_FIELD,
 } from '../../../../common/constants';
 import createEventPayload from '../../../../common/utils/analytics/analytics.codegen';
-import { useFormContext } from '../../../../controllers/form-context';
+import { useFormContext } from '../../../../controllers/form-context/main';
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { FormSpy } from '../../form-spy';
 

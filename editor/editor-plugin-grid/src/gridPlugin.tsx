@@ -26,6 +26,8 @@ import type { GridPlugin } from './gridPluginType';
 import type { CreateDisplayGrid, GridPluginOptions, GridPluginState, Highlights } from './types';
 
 export const GRID_SIZE = 12;
+// Matches the existing `.gridParent` 12px left + 12px right gutter expansion.
+const GRID_GUTTER_WIDTH = 24;
 
 const key = new PluginKey<GridPluginState>('gridPlugin');
 
@@ -139,6 +141,7 @@ type Props = {
 	editorWidth: number;
 	gridType: GridType;
 	highlight: Highlights;
+	overlayWidth?: number;
 
 	shouldCalcBreakoutGridLines?: boolean;
 	// Ignored via go/ees005
@@ -154,6 +157,7 @@ const GridLegacy = ({
 	containerElement,
 	editorWidth,
 	gridType,
+	overlayWidth,
 	visible,
 }: Props) => {
 	const editorMaxWidth = theme.layoutMaxWidth;
@@ -171,6 +175,7 @@ const GridLegacy = ({
 				style={{
 					height: `${containerElement.scrollHeight}px`,
 					display: visible ? 'block' : 'none',
+					width: overlayWidth === undefined ? undefined : `${overlayWidth}px`,
 				}}
 				data-testid="gridContainer"
 			>
@@ -186,6 +191,7 @@ const GridNext = ({
 	containerElement,
 	editorWidth,
 	gridType,
+	overlayWidth,
 	visible,
 }: Props) => {
 	const editorMaxWidth = akEditorDefaultLayoutWidth;
@@ -202,6 +208,7 @@ const GridNext = ({
 				style={{
 					height: `${containerElement.scrollHeight}px`,
 					display: visible ? 'block' : 'none',
+					width: overlayWidth === undefined ? undefined : `${overlayWidth}px`,
 				}}
 				data-testid="gridContainer"
 			>
@@ -247,6 +254,14 @@ const ContentComponent = ({ api, editorView, options }: ContentComponentProps) =
 		['width', 'grid'],
 		selector,
 	);
+	const overlayWidth = React.useMemo(
+		() =>
+			expValEquals('platform_editor_external_embed_grid_fix', 'isEnabled', true)
+				? (editorView.dom.getBoundingClientRect().width || width || akEditorFullPageMaxWidth) +
+					GRID_GUTTER_WIDTH
+				: undefined,
+		[editorView.dom, width],
+	);
 
 	if (!visible || !highlight) {
 		return null;
@@ -262,6 +277,7 @@ const ContentComponent = ({ api, editorView, options }: ContentComponentProps) =
 			visible={visible}
 			gridType={gridType ?? 'full'}
 			highlight={highlight}
+			overlayWidth={overlayWidth}
 		/>
 	);
 };

@@ -14,6 +14,7 @@ interface FreezeUnsafeTransactionOptions {
 	pluginKey?: string;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const freezeUnsafeTransactionProperties = <TrType extends object>({
 	dispatchAnalyticsEvent,
 	pluginKey,

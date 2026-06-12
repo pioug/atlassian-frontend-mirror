@@ -126,6 +126,7 @@ export function createNormalizeTextParser(): NormalizeTextParser {
 	};
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function extractMetaFromTextNode(
 	textNode: PMNode,
 	normalizeTextParser: NormalizeTextParser,
@@ -268,6 +269,7 @@ function compareValue(valueA: string | number, valueB: string | number): 1 | 0 |
  * If no order is provided the method defaults to Ascending order,
  * like a regular JS sort method.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const createCompareNodes = (
 	options: CompareOptions,
 	order: SortOrder = SortOrder.ASC,

@@ -40,6 +40,7 @@ const DiagonalLineGlyph = (props: ComponentProps<'svg'>) => (
 	</svg>
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EditorDiagonalLineIcon = (): jsx.JSX.Element => {
 	const { colorMode } = useThemeObserver();
 	const primaryColor =
@@ -52,6 +53,7 @@ export const EditorDiagonalLineIcon = (): jsx.JSX.Element => {
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const highlightColorPalette: Array<PaletteColor> = [
 	{
 		value: REMOVE_HIGHLIGHT_COLOR,

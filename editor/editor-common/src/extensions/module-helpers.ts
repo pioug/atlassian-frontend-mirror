@@ -33,6 +33,7 @@ export const getQuickInsertItemsFromModule = <T extends Parameters>(
 	return flatItems.map(transformFunction);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export async function getExtensionAutoConvertersFromProvider(
 	extensionProviderPromise: Promise<ExtensionProvider>,
 ): Promise<ExtensionAutoConvertHandler> {
@@ -128,6 +129,7 @@ const hasDuplicateContext = (
 	}
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getContextualToolbarItemsFromModule = (
 	extensions: ExtensionManifest[],
 	node: ADFEntity,

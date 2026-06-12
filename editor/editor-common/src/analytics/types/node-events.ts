@@ -1,7 +1,7 @@
 import type { PanelType } from '@atlaskit/adf-schema';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
-import type { ChangeTypeAEP, TrackAEP } from './utils';
+import type { ChangeTypeAEP, TrackAEP, UIAEP } from './utils';
 
 export enum LAYOUT_TYPE {
 	SINGLE_COL = 'singleColumn',
@@ -14,6 +14,7 @@ export enum LAYOUT_TYPE {
 	FIVE_COLS_EQUAL = 'fiveColumnsEqual',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum SMART_LINK_TYPE {
 	INLINE_CARD = 'inline',
 	BLOCK_CARD = 'block',
@@ -126,14 +127,30 @@ type DeletedLayoutAEP = TrackAEP<
 	undefined
 >;
 
+type OpenedLayoutColumnMenuAEP = UIAEP<
+	ACTION.OPENED,
+	ACTION_SUBJECT.LAYOUT_COLUMN_MENU,
+	undefined,
+	{
+		columnCount: number;
+		endIndex: number;
+		inputMethod: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD;
+		selectedCount: number;
+		startIndex: number;
+	},
+	undefined
+>;
+
 type DeletedLayoutColumnAEP = TrackAEP<
 	ACTION.DELETED,
 	ACTION_SUBJECT.DOCUMENT,
 	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
 	{
-		columnCount: number;
 		endIndex: number;
-		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.KEYBOARD;
+		hadContent: boolean;
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.SHORTCUT;
+		newColumnCount: number;
+		previousColumnCount: number;
 		selectedCount: number;
 		startIndex: number;
 	},
@@ -145,8 +162,10 @@ type UpdatedLayoutColumnVerticalAlignmentAEP = TrackAEP<
 	ACTION_SUBJECT.DOCUMENT,
 	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
 	{
+		columnCount: number;
 		endIndex: number;
 		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU;
+		previousValign: 'top' | 'middle' | 'bottom' | 'mixed';
 		selectedCount: number;
 		startIndex: number;
 		updatedCount: number;
@@ -165,6 +184,7 @@ type DistributedLayoutColumnAEP = TrackAEP<
 		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.FLOATING_TB;
 		selectedCount: number;
 		startIndex: number;
+		target: 'selectedColumns' | 'allColumns';
 	},
 	undefined
 >;
@@ -221,6 +241,7 @@ export type NodeEventPayload =
 	| VisitedHyperlink
 	| ChangedLayoutAEP
 	| DeletedLayoutAEP
+	| OpenedLayoutColumnMenuAEP
 	| DeletedLayoutColumnAEP
 	| UpdatedLayoutColumnVerticalAlignmentAEP
 	| DistributedLayoutColumnAEP

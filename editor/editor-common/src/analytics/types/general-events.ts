@@ -14,16 +14,19 @@ export enum PLATFORMS {
 	WEB = 'web',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum MODE {
 	RENDERER = 'renderer',
 	EDITOR = 'editor',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum FULL_WIDTH_MODE {
 	FIXED_WIDTH = 'fixedWidth',
 	FULL_WIDTH = 'fullWidth',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum BROWSER_FREEZE_INTERACTION_TYPE {
 	LOADING = 'loading',
 	TYPING = 'typing',

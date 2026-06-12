@@ -23,6 +23,7 @@ export const PanelSharedCssClassName: {
 	noIcon: `${prefix}__no-icon`,
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const PanelSharedSelectors = {
 	infoPanel: `.${prefix}[data-panel-type=${PanelType.INFO}]`,
 	notePanel: `.${prefix}[data-panel-type=${PanelType.NOTE}]`,
@@ -48,9 +49,11 @@ export const PanelSharedSelectors = {
 };
 
 // Provides the color without tokens, used when converting to a custom panel
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getPanelTypeBackgroundNoTokens = (
 	panelType: Exclude<PanelType, PanelType.CUSTOM>,
 ): string => lightPanelColors[panelType] || 'none';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getPanelTypeBackground = (panelType: Exclude<PanelType, PanelType.CUSTOM>): string =>
 	hexToEditorBackgroundPaletteColor(lightPanelColors[panelType]) || 'none';

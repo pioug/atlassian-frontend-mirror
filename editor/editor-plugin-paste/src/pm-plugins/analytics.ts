@@ -24,6 +24,7 @@ import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state'
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { PastePlugin } from '../index';
 
@@ -44,6 +45,12 @@ import {
 	handleSelectedTable,
 	handleNestedTablePaste,
 } from './util/handlers';
+
+const isAgentUserType = (userType: unknown): boolean => userType === 'APP' || userType === 'AGENT';
+
+const shouldSuppressPastedMentionNotification = (node: Node) =>
+	expVal('platform_editor_agent_mentions', 'isEnabled', false) &&
+	isAgentUserType(node.attrs.userType);
 
 type PasteContext = {
 	asPlain?: boolean;
@@ -311,6 +318,7 @@ function createPasteAnalyticsPayloadBySelection(
 				id: string;
 				localId: string;
 				method?: 'pasted' | 'typed';
+				shouldSuppressMentionNotification?: boolean;
 				taskLocalId?: string;
 				type: 'added';
 			}[] = [];
@@ -321,6 +329,9 @@ function createPasteAnalyticsPayloadBySelection(
 						id: node.attrs.id,
 						localId: node.attrs.localId,
 						method: 'pasted',
+						...(shouldSuppressPastedMentionNotification(node)
+							? { shouldSuppressMentionNotification: true }
+							: {}),
 					});
 				}
 				if (node.type.name === 'taskItem') {
@@ -332,6 +343,9 @@ function createPasteAnalyticsPayloadBySelection(
 								id: nodeContent.attrs.id,
 								taskLocalId: node.attrs.localId,
 								method: 'pasted',
+								...(shouldSuppressPastedMentionNotification(nodeContent)
+									? { shouldSuppressMentionNotification: true }
+									: {}),
 							});
 						}
 					});

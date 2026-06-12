@@ -1,0 +1,18 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__editor-code-format-provider/dev",
+		"isolatedDeclarations": true
+	},
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-code-block/tsconfig.app.json"
+		}
+	]
+}

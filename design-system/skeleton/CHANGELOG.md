@@ -1,5 +1,12 @@
 # @atlaskit/skeleton
 
+## 2.2.0
+
+### Minor Changes
+
+- [`455d238d83ce3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/455d238d83ce3) -
+  Promote `@atlaskit/skeleton` to general availability and add usage and props documentation.
+
 ## 2.1.10
 
 ### Patch Changes

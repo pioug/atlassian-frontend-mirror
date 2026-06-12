@@ -136,7 +136,7 @@ export const removeMarginsAndBorder: SerializedStyles = css({
 	border: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const sharedMultiBodiedExtensionStyles: {
 	extensionFrameContent: SerializedStyles;
 	mbeExtensionContainer: SerializedStyles;

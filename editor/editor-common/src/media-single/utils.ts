@@ -101,6 +101,7 @@ const calcParentPadding = (view: EditorView, resolvedPos: ResolvedPos) => {
  * @param pos node position
  * @param forInsertion for insertion
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getMaxWidthForNestedNodeNext = (
 	view: EditorView,
 	pos: number | undefined,
@@ -125,6 +126,7 @@ export const getMaxWidthForNestedNodeNext = (
  * @param view editor view
  * @returns parent content width for nested node
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getParentWidthForNestedMediaSingleNode = (
 	resolvedPos: ResolvedPos,
 	view: EditorView,
@@ -155,6 +157,7 @@ export const getParentWidthForNestedMediaSingleNode = (
  * @param view editor view
  * @returns parent width used for media single initial width on insertion
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getParentWidthForNestedMediaSingleNodeForInsertion = (
 	resolvedPos: ResolvedPos,
 	view: EditorView,

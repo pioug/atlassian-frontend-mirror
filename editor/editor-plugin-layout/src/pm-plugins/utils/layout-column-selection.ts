@@ -3,6 +3,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Selection } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
+import { DEFAULT_LAYOUT_COLUMN_VALIGN } from '../consts';
+
 const findLayoutSectionFromSelection = (selection: Selection) => {
 	const { layoutSection } = selection.$from.doc.type.schema.nodes;
 	// NodeSelection on the layoutSection node itself
@@ -131,7 +133,9 @@ export const getAllLayoutColumnsFromSelection = (
 };
 
 export const getLayoutColumnValign = (layoutColumn: PMNode | undefined): Valign | undefined =>
-	layoutColumn ? ((layoutColumn.attrs.valign as Valign | undefined) ?? 'top') : undefined;
+	layoutColumn
+		? (layoutColumn.attrs.valign as Valign | undefined) ?? DEFAULT_LAYOUT_COLUMN_VALIGN
+		: undefined;
 
 export const getLayoutColumnMenuAnchorPos = (
 	selection: Selection,

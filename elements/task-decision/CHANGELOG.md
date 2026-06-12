@@ -1,5 +1,35 @@
 # @atlaskit/task-decision
 
+## 20.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.2.0
+
+### Minor Changes
+
+- [`f89de6a3f94b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f89de6a3f94b5) -
+  Clean up stale experiment editor_a11y_decision_aria_label. Decision items now always render
+  dynamic aria-labels based on empty/filled state.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.19
 
 ### Patch Changes

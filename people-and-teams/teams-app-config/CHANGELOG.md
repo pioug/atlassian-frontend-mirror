@@ -1,5 +1,11 @@
 # @atlaskit/teams-app-config
 
+## 1.12.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.12.20
 
 ### Patch Changes

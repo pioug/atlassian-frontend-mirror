@@ -7,9 +7,9 @@ import { useIntl } from 'react-intl';
 import { AsyncSelect as AkAsyncSelect, type GroupType, type OptionType } from '@atlaskit/select';
 
 import messages from '../../../common/messages';
-import { useLinkCreateCallback } from '../../../controllers/callback-context';
-import { CreateField } from '../../../controllers/create-field';
-import { useFormContext } from '../../../controllers/form-context';
+import { useLinkCreateCallback } from '../../../controllers/callback-context/main';
+import { CreateField } from '../../../controllers/create-field/main';
+import { useFormContext } from '../../../controllers/form-context/main';
 
 import { type AsyncSelectProps } from './types';
 

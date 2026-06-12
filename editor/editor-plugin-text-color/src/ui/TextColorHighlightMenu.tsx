@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -128,12 +128,31 @@ export const TextColorHighlightMenu = ({
 		[api?.textColor?.commands, api?.core.actions],
 	);
 
+	// use isPaletteOpenRef to "close" the palette on unmount, and not on state changes
+	const isPaletteOpenRef = useRef(isPaletteOpen);
+	isPaletteOpenRef.current = isPaletteOpen;
+
 	useEffect(() => {
 		return () => {
+			if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+				if (isPaletteOpenRef.current) {
+					setIsPaletteOpen(false);
+				}
+			}
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		return () => {
+			if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+				return;
+			}
 			if (isPaletteOpen) {
 				setIsPaletteOpen(false);
 			}
 		};
+
 	}, [setIsPaletteOpen, isPaletteOpen]);
 
 	const iconColor = getIconColor(textColor, defaultColor, highlightColor);

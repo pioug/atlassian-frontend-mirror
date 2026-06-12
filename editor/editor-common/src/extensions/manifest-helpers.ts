@@ -15,11 +15,15 @@ import type { Parameters } from './types/extension-parameters';
 
 export const FORGE_EXTENSION_TYPE = 'com.atlassian.ecosystem';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const NATIVE_EMBED_EXTENSION_TYPE = 'com.atlassian.confluence.macro.core';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const NATIVE_EMBED_EXTENSION_KEY = 'native-embed';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const AGENT_MANAGED_EXTENSION_KEY = 'agent-managed-block';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getExtensionKeyAndNodeKey = (
 	extensionKey: ExtensionKey,
 	extensionType: ExtensionType,
@@ -35,6 +39,7 @@ export const getExtensionKeyAndNodeKey = (
 	return [extKey, nodeKey];
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function buildAction<T extends Parameters>(
 	action: ExtensionModuleAction<T>,
 	manifest: ExtensionManifest<T>,
@@ -58,12 +63,14 @@ type Extension = {
 	type: ExtensionType;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const resolveImport = async <T extends Parameters>(
 	importPromise: Promise<Module<T>> | Module<T>,
 ): Promise<T> => {
 	return resolveImportSync(await importPromise);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function buildNode<T extends Parameters>(
 	action: ExtensionModuleActionObject<T>,
 	manifest: ExtensionManifest<T>,

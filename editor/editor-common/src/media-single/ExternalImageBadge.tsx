@@ -67,6 +67,7 @@ export const isUnbadgedUrl = (url: string | undefined): boolean => {
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ExternalImageBadge = ({
 	type,
 	url,

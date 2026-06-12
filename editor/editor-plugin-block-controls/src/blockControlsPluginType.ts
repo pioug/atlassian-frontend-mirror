@@ -188,16 +188,17 @@ export type BlockControlsPlugin = NextEditorPlugin<
 	{
 		actions: {
 			/**
-			 * Returns the text length of the block(s) that triggered the block menu.
+			 * Returns the text info (length and content) of the block(s) that triggered
+			 * the block menu.
 			 *
-			 * When a preserved (multi-block) selection exists the character count spans
-			 * all selected blocks; otherwise the single node at `menuTriggerByNode.pos`
-			 * is used.
+			 * When a preserved (multi-block) selection exists the text spans all selected
+			 * blocks; otherwise the single node at `menuTriggerByNode.pos` is used.
 			 *
 			 * @param editorView – the current editor view.
-			 * @returns The text length, or `null` when the context cannot be determined.
+			 * @returns An object with `textLength` and `textContent`, or `null` when the
+			 *          context cannot be determined.
 			 */
-			getTextLength: (editorView: EditorView) => number | null;
+			getTextInfo: (editorView: EditorView) => { textContent: string; textLength: number; } | null;
 			registerNodeDecoration: (factory: NodeDecorationFactory) => void;
 			unregisterNodeDecoration: (type: string) => void;
 		};

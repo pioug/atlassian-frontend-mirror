@@ -5,6 +5,7 @@ export enum EVENT_TYPE {
 	UI = 'ui',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum ACTION {
 	ACTIONED = 'actioned',
 	ACTIVATED = 'activated',
@@ -228,6 +229,7 @@ export enum ACTION {
 	SUPPRESSED = 'suppressed',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum INPUT_METHOD {
 	ASCII = 'ascii',
 	AUTO = 'auto',
@@ -273,12 +275,14 @@ export enum INPUT_METHOD {
 	REMIX_FROM_MEDIA_INSERTS = 'remixFromMediaInserts',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum INSERT_MEDIA_VIA {
 	LOCAL_UPLOAD = 'localUpload',
 	EXTERNAL_URL = 'externalUrl',
 	EXTERNAL_UPLOAD = 'externalUpload',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum TRIGGER_METHOD {
 	BUTTON = 'button',
 	KEYBOARD = 'keyboard', // single key, e.g. Esc, Enter
@@ -287,6 +291,7 @@ export enum TRIGGER_METHOD {
 	EXTERNAL = 'external',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum ACTION_SUBJECT {
 	AI_INTERACTION = 'aiInteraction',
 	AI_RESULT = 'aiResult',
@@ -316,6 +321,7 @@ export enum ACTION_SUBJECT {
 	HELP = 'help',
 	INVITE_ITEM = 'inviteItem',
 	LAYOUT = 'layout',
+	LAYOUT_COLUMN_MENU = 'layoutColumnMenu',
 	LIST = 'list',
 	MEDIA = 'media',
 	MEDIA_GROUP = 'mediaGroup',
@@ -380,6 +386,7 @@ export enum ACTION_SUBJECT {
 	NATIVE_EMBED_FALLBACK = 'nativeEmbedFallback',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum ACTION_SUBJECT_ID {
 	ACTION = 'action',
 	ACTIVITY = 'activity',
@@ -591,6 +598,7 @@ export enum ACTION_SUBJECT_ID {
 	SNIPPET = 'snippet',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum FLOATING_CONTROLS_TITLE {
 	CODE_BLOCK = 'codeBlockFloatingControls',
 	EXTENSION = 'extensionFloatingControls',
@@ -601,6 +609,7 @@ export enum FLOATING_CONTROLS_TITLE {
 	EXPAND = 'expandToolbar',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum CONTENT_COMPONENT {
 	INLINE_COMMENT = 'inlineComment',
 	FLOATING_CONTEXTUAL_BUTTON = 'floatingContextualButton',

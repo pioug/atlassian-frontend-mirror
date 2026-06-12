@@ -349,4 +349,5 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps): jsx.JSX.Elem
 	);
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default TableSelectorPopup;

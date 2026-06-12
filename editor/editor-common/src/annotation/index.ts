@@ -255,6 +255,7 @@ export type AnnotationManager = AnnotationManagerMethods & {
  * @example
  * const annotationManager: AnnotationManager = createAnnotationManager();
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function createAnnotationManager(): AnnotationManager {
 	return new SharedAnnotationManager();
 }

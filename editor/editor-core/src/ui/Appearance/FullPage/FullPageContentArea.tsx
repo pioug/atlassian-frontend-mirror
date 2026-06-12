@@ -295,6 +295,7 @@ interface FullPageEditorContentAreaProps {
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EDITOR_CONTAINER = 'ak-editor-container';
 
 const Content = React.forwardRef<
@@ -493,6 +494,7 @@ const Content = React.forwardRef<
 	);
 });
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const FullPageContentArea: React.ForwardRefExoticComponent<
 	Omit<
 		WithIntlProps<

@@ -170,6 +170,7 @@ const supportedDetectors: DetectorRegistration[] = [
 export function sniffUserBrowserExtensions<O extends Options>(
 	options: O,
 ): O extends AsyncOptions ? Promise<UserBrowserExtensionResults> : UserBrowserExtensionResults;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function sniffUserBrowserExtensions(
 	options: Options,
 ): Promise<UserBrowserExtensionResults> | UserBrowserExtensionResults {

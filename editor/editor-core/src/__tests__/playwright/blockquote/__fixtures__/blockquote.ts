@@ -24,6 +24,7 @@ export const blockquoteAdf: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const blockquoteInsideTableAdf: {
 	version: number;
 	type: string;
@@ -96,6 +97,7 @@ export const blockquoteInsideTableAdf: {
 	],
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const blockquoteInsideExpandAdf: {
 	version: number;
 	type: string;

@@ -38,6 +38,7 @@ export const editorUGCTokens: EditorUGCTokens = {
 	'editor.font.weight.heading.h6.bold': '700',
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const editorUGCTokensModernized: EditorUGCTokens = {
 	'editor.font.heading.h1':
 		'normal 600 1.71429em/1.16667 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
@@ -64,6 +65,7 @@ export const editorUGCTokensModernized: EditorUGCTokens = {
 /**
  * These styles are duplicated in packages/editor/editor-plugin-block-type/src/pm-plugins/ui/ToolbarBlockType/HeadingButton.tsx
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const editorUGCTokensRefreshed: EditorUGCTokens = {
 	'editor.font.heading.h1':
 		'normal 600 1.71429em/1.16667 "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',

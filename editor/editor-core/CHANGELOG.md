@@ -1,5 +1,46 @@
 # @atlaskit/editor-core
 
+## 220.4.0
+
+### Minor Changes
+
+- [`3300f270bc8ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3300f270bc8ea) -
+  Update comment editor modernisation styling
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.3.0
+
+### Minor Changes
+
+- [`390501e03bc0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/390501e03bc0a) -
+  Cleanup experiment `platform_editor_fix_comment_border` (shipped with isEnabled=true). Removed
+  experiment guards and config entries.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 220.2.6
 
 ### Patch Changes

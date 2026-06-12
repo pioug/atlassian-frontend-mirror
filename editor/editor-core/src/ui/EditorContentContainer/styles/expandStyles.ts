@@ -280,6 +280,7 @@ export const expandStylesBase: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandStyles: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror > .ak-editor-expand__type-expand, .fabric-editor-breakout-mark-dom > .ak-editor-expand__type-expand':
@@ -301,6 +302,7 @@ export const expandStyles: SerializedStyles = css({
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getDenseExpandTitleStyles = (baseFontSize?: number): SerializedStyles => {
 	if (!baseFontSize || baseFontSize === akEditorFullPageDefaultFontSize) {
 		return css({});
@@ -325,6 +327,7 @@ export const getDenseExpandTitleStyles = (baseFontSize?: number): SerializedStyl
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandStylesMixin_fg_platform_visual_refresh_icons: SerializedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ak-editor-expand__title-input': {
@@ -339,6 +342,7 @@ export const expandStylesMixin_fg_platform_visual_refresh_icons: SerializedStyle
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles = css(
 	{
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -371,6 +375,7 @@ export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Ser
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandStylesMixin_experiment_platform_editor_chromeless_expand_fix: SerializedStyles =
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -385,6 +390,7 @@ export const expandStylesMixin_experiment_platform_editor_chromeless_expand_fix:
  * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes: SerializedStyles =
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

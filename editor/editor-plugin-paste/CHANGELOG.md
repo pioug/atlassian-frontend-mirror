@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-paste
 
+## 12.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.9
+
+### Patch Changes
+
+- [`ebfe7dee1573c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ebfe7dee1573c) -
+  Suppress pasted agent mention notifications
+- Updated dependencies
+
 ## 12.1.8
 
 ### Patch Changes

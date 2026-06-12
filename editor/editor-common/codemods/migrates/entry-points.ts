@@ -16,6 +16,7 @@ export const validatorExports: ((j: JSCodeshift, root: Collection<Node>) => void
 	'ADFStages',
 ].map((name) => changeImportEntryPoint(`${PACKAGE_NAME}/utils`, name, `${PACKAGE_NAME}/validator`));
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const validatorTypes: ((j: JSCodeshift, root: Collection<Node>) => void)[] = [
 	'ADDoc',
 	'ADFStage',

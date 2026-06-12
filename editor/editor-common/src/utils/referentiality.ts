@@ -54,6 +54,7 @@ export const isReferencedSource = (state: EditorState, node?: PMNode): boolean =
 	return found;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getConnections = (state: EditorState): Record<string, NodeAndTargetLinkages> => {
 	const result: Record<LocalId, NodeAndTargetLinkages> = {};
 
@@ -138,6 +139,7 @@ export const getConnections = (state: EditorState): Record<string, NodeAndTarget
 	return result;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const removeConnectedNodes = (state: EditorState, node?: PMNode): Transaction => {
 	if (!node) {
 		return state.tr;
@@ -193,6 +195,7 @@ const getIdsToBeDeleted = (
 };
 
 // for get children info for confirmation dialog
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getChildrenInfo = (state: EditorState, node?: PMNode): ConfirmDialogChildInfo[] => {
 	let allChildrenHadName = true;
 

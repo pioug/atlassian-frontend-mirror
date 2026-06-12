@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 /*
   Styles in this file are based on
   packages/editor/editor-core/src/plugins/media/styles.ts

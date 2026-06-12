@@ -1,1 +1,1 @@
-export { LinkCreateCallbackProvider, useLinkCreateCallback } from '../controllers/callback-context';
+export { LinkCreateCallbackProvider, useLinkCreateCallback } from '../controllers/callback-context/main';

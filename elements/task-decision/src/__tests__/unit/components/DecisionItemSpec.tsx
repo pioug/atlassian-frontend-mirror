@@ -2,8 +2,6 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { mount } from 'enzyme';
 
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-
 import DecisionIcon from '@atlaskit/icon/core/decision';
 import { DecisionItem } from '../../../';
 
@@ -58,7 +56,7 @@ describe('<DecisionItem/>', () => {
 		});
 	});
 
-	eeTest.describe('editor_a11y_decision_aria_label', 'Image labels').variant(true, () => {
+	describe('Image labels', () => {
 		it('should render aria-label as Undefined decision when the placeholder is showing', () => {
 			const component = mount(
 				<IntlProvider locale="en">

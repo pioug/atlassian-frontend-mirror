@@ -20,6 +20,7 @@ type RenderCountProfilerInstanceParams = {
 	store: Object;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class RenderCountProfiler {
 	/**
 	 * The singleton/cached instance of RenderCountProfiler that will be shared

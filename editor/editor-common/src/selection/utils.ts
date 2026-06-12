@@ -27,11 +27,13 @@ export function atTheEndOfBlock(state: EditorState): boolean {
 	return endPositionOfParent($to) === $to.pos + 1;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function atTheBeginningOfBlock(state: EditorState): boolean {
 	const { selection } = state;
 	return selectionIsAtTheBeginningOfBlock(selection);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function selectionIsAtTheBeginningOfBlock(selection: Selection): boolean {
 	const { $from } = selection;
 	if (selection instanceof GapCursorSelection) {
@@ -49,6 +51,7 @@ export function selectionIsAtTheBeginningOfBlock(selection: Selection): boolean 
  * @param selectionToUse optional selection to delete instead of the transaction's current selection
  * @returns the updated transaction
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const deleteSelectedRange = (tr: Transaction, selectionToUse?: Selection): Transaction => {
 	const selection = selectionToUse || tr.selection;
 	let from = selection.$from.pos;
@@ -106,6 +109,7 @@ const getDefaultPredicate = ({ nodes }: Schema) => {
  * @param predicate A predicate to determine if parent node is acceptable (see prosemirror-model/blockRange)
  * @returns An object containing the expanded $from and $to resolved positions
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandToBlockRange = (
 	$from: ResolvedPos,
 	$to: ResolvedPos,
@@ -146,6 +150,7 @@ export const expandToBlockRange = (
  * @param selection The selection to expand
  * @returns The expanded selection
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const expandSelectionToBlockRange = ({
 	$from,
 	$to,
@@ -166,6 +171,7 @@ export const expandSelectionToBlockRange = ({
 /**
  * Determines if a selection contains multiple block nodes.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isMultiBlockSelection(selection: Selection): boolean {
 	const { range } = expandSelectionToBlockRange(selection);
 	if (!range) {
@@ -192,6 +198,7 @@ export function isMultiBlockSelection(selection: Selection): boolean {
  * // nodes will contain all block-level nodes in the selection
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getSourceNodesFromSelectionRange(tr: Transaction, selection: Selection): PMNode[] {
 	const { $from, $to } = expandSelectionToBlockRange(selection);
 

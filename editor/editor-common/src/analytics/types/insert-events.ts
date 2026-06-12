@@ -16,11 +16,13 @@ export enum USER_CONTEXT {
 	NEW = 'new',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum LINK_STATUS {
 	RESOLVED = 'resolved',
 	UNRESOLVED = 'unresolved',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum LINK_REPRESENTATION {
 	TEXT = 'text',
 	INLINE_CARD = 'inlineCard',
@@ -28,6 +30,7 @@ export enum LINK_REPRESENTATION {
 	EMBED = 'embed',
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum LINK_RESOURCE {
 	JIRA = 'jiraIssue',
 	CONFLUENCE = 'confluencePage',
@@ -290,9 +293,10 @@ type InsertLayoutAEP = InsertAEP<
 type InsertLayoutColumnAEP = InsertAEP<
 	ACTION_SUBJECT_ID.LAYOUT_COLUMN,
 	{
-		columnCount: number;
 		endIndex: number;
-		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.KEYBOARD;
+		inputMethod: INPUT_METHOD.LAYOUT_COLUMN_MENU | INPUT_METHOD.SHORTCUT;
+		newColumnCount: number;
+		previousColumnCount: number;
 		selectedCount: number;
 		side: 'left' | 'right';
 		startIndex: number;

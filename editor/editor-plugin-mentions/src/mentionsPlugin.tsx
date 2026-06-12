@@ -28,7 +28,7 @@ import { mentionNodeSpec } from './nodeviews/mentionNodeSpec';
 import { mentionPluginKey } from './pm-plugins/key';
 import { ACTIONS, createMentionPlugin } from './pm-plugins/main';
 import { createMentionPlaceholderPlugin } from './pm-plugins/mentionPlaceholder';
-import type { FireElementsChannelEvent, MentionSharedState } from './types';
+import type { FireElementsChannelEvent, MentionChange, MentionSharedState } from './types';
 import { InlineInviteRecaptchaContainer } from './ui/InlineInviteRecaptchaContainer';
 import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
 import { createTypeAheadConfig } from './ui/type-ahead';
@@ -202,14 +202,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 					}),
 				);
 			},
-			announceMentionsInsertion: (
-				mentionChanges: {
-					id: string;
-					localId: string;
-					taskLocalId?: string;
-					type: 'added' | 'deleted';
-				}[],
-			) => {
+			announceMentionsInsertion: (mentionChanges: MentionChange[]) => {
 				if (options?.handleMentionsChanged) {
 					options.handleMentionsChanged(mentionChanges);
 				}

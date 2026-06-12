@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-grid
 
+## 11.0.12
+
+### Patch Changes
+
+- [`62bea93a6f5eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62bea93a6f5eb) -
+  Add the `platform_editor_external_embed_grid_fix` experiment and use it to align editor grid
+  guidelines to the editor viewport while resizing external embeds.
+- Updated dependencies
+
+## 11.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.8
 
 ### Patch Changes

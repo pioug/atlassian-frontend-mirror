@@ -1,5 +1,59 @@
 # @atlaskit/editor-common
 
+## 115.14.0
+
+### Minor Changes
+
+- [`b7790a8e32b47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7790a8e32b47) -
+  Update the clear color button UI
+
+## 115.13.0
+
+### Minor Changes
+
+- [`19c2b7d1cbc13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19c2b7d1cbc13) -
+  Add analytics for layout column menu interactions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.12.0
+
+### Minor Changes
+
+- [`a812261b9c644`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a812261b9c644) -
+  Added analytics for clicking Suggested Edits entry points
+
+### Patch Changes
+
+- [`8430991dd8eb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8430991dd8eb6) -
+  follow up pr to add affectedBlocks as an attribute to discard analytics
+- Updated dependencies
+
+## 115.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.11.0
+
+### Minor Changes
+
+- [`1dc602ab5b6ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1dc602ab5b6ec) -
+  Bug Fix for pop up rendering on the bottom instead of top of pop up modal
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 115.10.2
 
 ### Patch Changes

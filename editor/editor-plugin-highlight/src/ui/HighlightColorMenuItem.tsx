@@ -21,6 +21,7 @@ import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';
 import { Stack, Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { HighlightPlugin } from '../highlightPluginType';
@@ -83,7 +84,9 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					}),
 				);
 
-				closeMenu?.(event);
+				if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+					closeMenu?.(event);
+				}
 			}
 		},
 		[api, closeMenu, parents],

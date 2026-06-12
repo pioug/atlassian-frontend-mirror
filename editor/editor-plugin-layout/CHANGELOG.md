@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-layout
 
+## 12.0.0
+
+### Major Changes
+
+- [`19c2b7d1cbc13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19c2b7d1cbc13) -
+  Add analytics for layout column menu interactions
+
+### Minor Changes
+
+- [`f95240aab2e55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f95240aab2e55) -
+  Promote layout column vertical alignment in ADF schema
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.7
 
 ### Patch Changes

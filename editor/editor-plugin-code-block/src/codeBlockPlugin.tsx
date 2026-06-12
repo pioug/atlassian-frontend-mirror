@@ -180,6 +180,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 				options?.allowCopyToClipboard,
 				api,
 				options?.overrideLanguageName,
+				options?.formatCodeProvider,
 			),
 		},
 

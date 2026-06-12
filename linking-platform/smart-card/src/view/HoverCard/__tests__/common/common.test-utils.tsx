@@ -8,6 +8,7 @@ import { act, fireEvent, screen, within } from '@atlassian/testing-library';
 import { closeEmbedModal } from '../../../../__tests__/__utils__/unit-helpers';
 import { CardAction } from '../../../../constants';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
+import * as UseSmartLinkCrossProductUrlWrapperExport from '../../../../state/hooks/use-smart-link-cross-product-url-wrapper';
 import * as analytics from '../../../../utils/analytics/analytics';
 import { type InternalCardActionOptions as CardActionOptions } from '../../../../view/Card/types';
 import {
@@ -671,7 +672,7 @@ export const runCommonHoverCardTests = (
 	});
 
 	describe('link click behaviour', () => {
-
+		const wrappedUrl = mockUrl + '?xpis=wrapped';
 		let openSpy: jest.SpyInstance;
 
 		beforeEach(() => {
@@ -679,73 +680,106 @@ export const runCommonHoverCardTests = (
 		});
 
 		afterEach(() => {
-			openSpy.mockRestore();
+			jest.restoreAllMocks();
 		});
 
-		ffTest.on(
-			'platform_smartlink_xpc_url_wrapping',
-			'when gate is on',
-			() => {
-				it('opens the link via window.open when the title link is clicked', async () => {
-					const { event } = await setup();
+		ffTest.on('platform_smartlink_xpc_url_wrapping', 'when gate is on', () => {
+			it('opens the link via window.open when the title link is clicked', async () => {
+				const { event } = await setup();
 
-					const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
-					const titleLink = titleBlock.querySelector('a');
+				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+				const titleLink = titleBlock.querySelector('a');
 
-					expect(titleLink).not.toBeNull();
+				expect(titleLink).not.toBeNull();
 
-					await act(async () => {
-						await event.click(titleLink!);
-					});
-
-					expect(openSpy).toHaveBeenCalledWith(
-						expect.stringContaining('some.url'),
-						expect.any(String),
-					);
+				await act(async () => {
+					await event.click(titleLink!);
 				});
 
-				it('opens in a new tab on modifier+click', async () => {
-					const { event } = await setup();
+				expect(openSpy).toHaveBeenCalledWith(
+					expect.stringContaining('some.url'),
+					expect.any(String),
+				);
+			});
 
-					const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
-					const titleLink = titleBlock.querySelector('a');
+			it('opens in a new tab on modifier+click', async () => {
+				const { event } = await setup();
 
-					expect(titleLink).not.toBeNull();
+				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+				const titleLink = titleBlock.querySelector('a');
 
-					await act(async () => {
-						await event.keyboard('{Meta>}');
-						await event.click(titleLink!);
-						await event.keyboard('{/Meta}');
-					});
+				expect(titleLink).not.toBeNull();
 
-					expect(openSpy).toHaveBeenCalledWith(
-						expect.stringContaining('some.url'),
-						'_blank',
-					);
+				await act(async () => {
+					await event.keyboard('{Meta>}');
+					await event.click(titleLink!);
+					await event.keyboard('{/Meta}');
 				});
-			},
-		);
 
-		ffTest.off(
-			'platform_smartlink_xpc_url_wrapping',
-			'when gate is off',
-			() => {
-				it('does not call window.open when the title link is clicked (native anchor navigation)', async () => {
-					const { event } = await setup();
+				expect(openSpy).toHaveBeenCalledWith(expect.stringContaining('some.url'), '_blank');
+			});
 
-					const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
-					const titleLink = titleBlock.querySelector('a');
+			it('calls updateAnchorHref with decorated URL on middle-click (auxclick)', async () => {
+				jest
+					.spyOn(
+						UseSmartLinkCrossProductUrlWrapperExport,
+						'useSmartLinkCrossProductUrlWrapperGated',
+					)
+					.mockImplementation(() => (url) => url + '?xpis=wrapped');
+				await setup({ mock: mockConfluenceResponse });
+				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+				const titleLink = titleBlock.querySelector('a');
 
-					expect(titleLink).not.toBeNull();
+				expect(titleLink).not.toBeNull();
 
-					await act(async () => {
-						await event.click(titleLink!);
-					});
+				fireEvent(
+					titleLink!,
+					new MouseEvent('auxclick', { button: 1, bubbles: true, cancelable: true }),
+				);
 
-					// Legacy path: window.open is not called; native anchor navigation is used
-					expect(openSpy).not.toHaveBeenCalled();
+				const updatedTitleLink = titleBlock.querySelector('a');
+
+				expect(updatedTitleLink).toHaveAttribute('href', wrappedUrl);
+			});
+
+			it('calls updateAnchorHref with decorated URL on right-click (contextmenu)', async () => {
+				jest
+					.spyOn(
+						UseSmartLinkCrossProductUrlWrapperExport,
+						'useSmartLinkCrossProductUrlWrapperGated',
+					)
+					.mockImplementation(() => (url) => url + '?xpis=wrapped');
+
+				await setup({ mock: mockConfluenceResponse });
+				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+				const titleLink = titleBlock.querySelector('a');
+
+				expect(titleLink).not.toBeNull();
+
+				fireEvent.contextMenu(titleLink!);
+
+				const updatedTitleLink = titleBlock.querySelector('a');
+
+				expect(updatedTitleLink).toHaveAttribute('href', wrappedUrl);
+			});
+		});
+
+		ffTest.off('platform_smartlink_xpc_url_wrapping', 'when gate is off', () => {
+			it('does not call window.open when the title link is clicked (native anchor navigation)', async () => {
+				const { event } = await setup();
+
+				const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');
+				const titleLink = titleBlock.querySelector('a');
+
+				expect(titleLink).not.toBeNull();
+
+				await act(async () => {
+					await event.click(titleLink!);
 				});
-			},
-		);
+
+				// Legacy path: window.open is not called; native anchor navigation is used
+				expect(openSpy).not.toHaveBeenCalled();
+			});
+		});
 	});
 };

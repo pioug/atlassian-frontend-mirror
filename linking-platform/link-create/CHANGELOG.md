@@ -1,5 +1,20 @@
 # @atlaskit/link-create
 
+## 5.3.3
+
+### Patch Changes
+
+- [`0d58130f46a39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d58130f46a39) -
+  Volt OEPF migration: split multi-export files into one export per file using the volt-codemods
+  crate (volt-no-multi-exports-super-safe + volt-flatten-barrel-files + volt-remove-unused-imports).
+  Mechanical refactor with no intended runtime change.
+
+## 5.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.1
 
 ### Patch Changes

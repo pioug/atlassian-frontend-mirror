@@ -42,7 +42,15 @@ export type RovoChatActionMessageKey =
 	| 'rovo_prompt_button_find_open_questions'
 	| 'rovo_prompt_message_find_open_questions'
 	| 'rovo_prompt_button_key_highlights'
-	| 'rovo_prompt_message_key_highlights';
+	| 'rovo_prompt_message_key_highlights'
+	| 'rovo_prompt_message_summarize_document'
+	| 'rovo_prompt_message_summarize_presentation'
+	| 'rovo_prompt_button_explain_code'
+	| 'rovo_prompt_message_explain_code'
+	| 'rovo_prompt_button_catch_up'
+	| 'rovo_prompt_message_catch_up'
+	| 'rovo_prompt_button_salesforce_prep'
+	| 'rovo_prompt_message_salesforce_prep';
 export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
@@ -1467,6 +1475,54 @@ export const messages: Messages = defineMessages({
 		defaultMessage: `Show me what's relevant`,
 		description:
 			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_summarize_document: {
+		id: 'fabric.linking.rovo_prompt_message_summarize_document.non-final',
+		defaultMessage: `Summarize this doc {url} into a concise, easy-to-scan overview. Adapt to whatever the content is and focus on the main ideas, important decisions, key updates, and next steps, only include these if they exist; don't mention their absence. Avoid unnecessary detail, repetition, or formatting commentary. Write in plain language and optimize for a quick 5–10 second read`,
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from.',
+	},
+	rovo_prompt_message_summarize_presentation: {
+		id: 'fabric.linking.rovo_prompt_message_summarize_presentation.non-final',
+		defaultMessage: `Summarize this Google Slides deck {url} into a concise executive overview. Focus on the tldr, key findings, decisions, metrics, risks, and next steps, if there are any. Use a short executive summary followed by 2-3 bullet points. Avoid slide-by-slide narration, design details, repetition, and filler.`,
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from.',
+	},
+	rovo_prompt_button_explain_code: {
+		id: 'fabric.linking.rovo_prompt_button_explain_code.non-final',
+		defaultMessage: `Explain`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_explain_code: {
+		id: 'fabric.linking.rovo_prompt_message_explain_code.non-final',
+		defaultMessage: `<p>Explain this code, pull request, or commit {url} in clear, plain language for a non-technical audience.</p><p>Cover:</p><ol><li><strong>Purpose</strong> — What problem does it solve or what goal does it achieve?</li><li><strong>How it works</strong> — High-level mechanics (no implementation detail unless critical to understanding).</li><li><strong>Why</strong> — Motivation for the change or design choice.</li><li><strong>Impact</strong> — Key behavior changes, risks, or downstream effects worth noting.</li></ol><p>Constraints:</p><ul><li>3–5 sentences or 100–150 words max.</li><li>Omit sections with nothing meaningful to say.</li><li>Prefer concrete language over abstract descriptions (e.g., "speeds up page load by caching results" over "improves performance").</li></ul>`,
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_button_catch_up: {
+		id: 'fabric.linking.rovo_prompt_button_catch_up.non-final',
+		defaultMessage: `Catch up`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_catch_up: {
+		id: 'fabric.linking.rovo_prompt_message_catch_up.non-final',
+		defaultMessage: `Catch me up on the latest {provider} conversations or channel activity in {url} from the last two weeks. If there's no activity in the past two weeks, expand the window to the most recent 30 days (or until meaningful activity is found). Summarize the most important updates, decisions, and discussions so the user can quickly understand what they missed. Focus on key changes, unresolved questions, and any action items or follow-ups. Prioritize recent messages with the most activity. Keep the response concise — ideally 80–150 words or a short set of 3–5 key bullets.`,
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. {provider} is the 3P app name (Please make sure all html tags remain the same.)',
+	},
+	rovo_prompt_button_salesforce_prep: {
+		id: 'fabric.linking.rovo_prompt_button_salesforce_prep.non-final',
+		defaultMessage: `Prep`,
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_salesforce_prep: {
+		id: 'fabric.linking.rovo_prompt_message_salesforce_prep.non-final',
+		defaultMessage: `Prep me for this Salesforce record {url}. What's the current state, what's the recent activity, what risks or opportunities should I be aware of, and what would be useful to know before a conversation about it?`,
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from',
 	},
 	// TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
 	pre_auth_block_social_proof_not_low: {

@@ -51,8 +51,7 @@ export class SyncBlockBatchFetcher {
 				.fetchSyncBlocksData(syncBlockNodes)
 				.catch((error) => {
 					logException(error, {
-						location:
-							'editor-synced-block-provider/syncBlockBatchFetcher/batchedFetchSyncBlocks',
+						location: 'editor-synced-block-provider/syncBlockBatchFetcher/batchedFetchSyncBlocks',
 					});
 					resourceIds.forEach((resId) => {
 						this.deps.getFireAnalyticsEvent()?.(

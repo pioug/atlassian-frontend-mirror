@@ -188,11 +188,12 @@ dialog focusing steps look for the HTML `autofocus` attribute.
   - Role / element-type filter: `role="combobox"`, `role="textbox"`, `TEXTAREA`, `contentEditable`,
     or `INPUT` of text-like type (`text`, `search`, `email`, `url`, `tel`, `password`, or
     unspecified). Non-text input types (`button`, `checkbox`, etc.) are rejected.
-  - Reference filter: `aria-controls` (or legacy `aria-owns`) IDREFS must resolve to an element
-    that IS or CONTAINS the popup container.
+  - Reference filter: `aria-controls` (or legacy `aria-owns`) IDREFS must resolve to an element that
+    IS or CONTAINS the popup container.
 
   Without this carve-out, moving focus into the listbox would blur the external textbox and cause
   libraries like `react-select` to close the menu on the same interaction that opened it.
+
 - Fires on transitions into a visible phase, tracked via a `prevPhase` ref. Three transitions
   qualify:
   - `closed → entering` (animated path, fresh open).
@@ -209,20 +210,20 @@ dialog focusing steps look for the HTML `autofocus` attribute.
 - Focus moves the instant the host element first becomes visible — not after the entry transition
   settles. APG expects keyboard focus to land on the new menu / dialog the moment it opens, so a
   `transitionend`-gated focus call (~150ms late on a typical entry animation) is a focus-stealing
-  hazard: subsequent user input (e.g. an arrow-left to back out of a nested submenu) can land
-  before the deferred `focus()` fires, snapping focus back to a now-stale element.
-- Synchronous inside `useEffect` — no `requestAnimationFrame` wrapper. The host element is already in
-  the top layer when the effect runs (the show layout effect calls `showPopover()` / `showModal()`
-  first), so focus and screen-reader announcement land together.
+  hazard: subsequent user input (e.g. an arrow-left to back out of a nested submenu) can land before
+  the deferred `focus()` fires, snapping focus back to a now-stale element.
+- Synchronous inside `useEffect` — no `requestAnimationFrame` wrapper. The host element is already
+  in the top layer when the effect runs (the show layout effect calls `showPopover()` /
+  `showModal()` first), so focus and screen-reader announcement land together.
 - Only used in `Popover`, not `Dialog`.
 
 #### Known limitation: programmatic reopen with consumer-managed focus
 
 There is a rare programmatic path where a consumer flips `isOpen` false → true mid-exit without any
 user-initiated close gesture, and had previously moved focus to a non-default target inside the
-popup. In that case the `exiting → entering` branch will re-focus the role-appropriate default
-(e.g. first menu item) rather than preserving the consumer-chosen target. This matches the
-documented `closed → entering` behavior and is considered acceptable: the alternative (a
+popup. In that case the `exiting → entering` branch will re-focus the role-appropriate default (e.g.
+first menu item) rather than preserving the consumer-chosen target. This matches the documented
+`closed → entering` behavior and is considered acceptable: the alternative (a
 `document.activeElement` heuristic) is unreliable across shadow DOM, iframes, and mid-restoration
 timing races, and a more correct phase-machine `exitCommitted` design adds significant surface area
 for a scenario that has not been observed in practice. Consumers that need to preserve focus across
@@ -309,9 +310,9 @@ after the close (typically `<body>`, since the closing popover's focused descend
 focusable).
 
 This is a real WCAG 2.4.3 hazard for nested focus-capturing roles: a keyboard user who opens an
-inner `role="dialog"` / `menu` / `listbox` / `alertdialog` inside an outer dialog and presses
-Escape would end up on `<body>` instead of returning to the inner trigger. Their next Tab would jump
-to the document start, not the next element after the trigger.
+inner `role="dialog"` / `menu` / `listbox` / `alertdialog` inside an outer dialog and presses Escape
+would end up on `<body>` instead of returning to the inner trigger. Their next Tab would jump to the
+document start, not the next element after the trigger.
 
 To close the gap, `Popover` runs an internal fallback restoration for nested popovers. It is fully
 internal - no API surface change for consumers.
@@ -330,8 +331,8 @@ internal - no API surface change for consumers.
    - The role moved focus into the popover on open (`shouldFocusIntoPopover({ role })` is `true`).
      This filters out passive roles like `tooltip` / `note` / `status`, where there is nothing to
      restore.
-   - The close reason was `escape` or `programmatic`. Light dismiss (click-outside) is
-     intentionally skipped to match native `focusPreviousElement=false` semantics.
+   - The close reason was `escape` or `programmatic`. Light dismiss (click-outside) is intentionally
+     skipped to match native `focusPreviousElement=false` semantics.
 
 3. **No-op when not needed.** For outermost popovers, the browser has already restored focus by the
    time the `toggle` event fires, so the manual restore lands harmlessly on the already-focused
@@ -352,12 +353,12 @@ inner:toggle:closed         active = inner-trigger
 ```
 
 - **Chromium**: between `beforetoggle:closed` and `toggle:closed`, focus migrates from the inner
-  popover descendant → `body` → restored trigger. Our fallback fires in the `toggle:closed`
-  handler and the trigger is correctly focused.
+  popover descendant → `body` → restored trigger. Our fallback fires in the `toggle:closed` handler
+  and the trigger is correctly focused.
 - **Firefox**: `beforetoggle:closed` fires with active already on `body`. Firefox does not natively
   restore for nested popovers at all. Our fallback fires in `toggle:closed` and is the only reason
-  focus returns to the trigger. **Without this fallback, every nested dismiss on Firefox would
-  leave focus on `<body>`.**
+  focus returns to the trigger. **Without this fallback, every nested dismiss on Firefox would leave
+  focus on `<body>`.**
 
 Event order for click-outside (light dismiss) on a nested popover:
 
@@ -381,9 +382,9 @@ outer:toggle:closed           active = body
 #### Roles covered
 
 The fallback runs for any role where `shouldFocusIntoPopover` returns `true`: `dialog`,
-`alertdialog`, `menu`, `listbox`, `tree`, `grid`. In practice `useInitialFocus` only moves focus
-for `dialog` / `alertdialog` / `menu` / `listbox` today, so the restore is meaningful for those
-four. `tree` and `grid` are in the role set but `useInitialFocus` does not yet implement them - the
+`alertdialog`, `menu`, `listbox`, `tree`, `grid`. In practice `useInitialFocus` only moves focus for
+`dialog` / `alertdialog` / `menu` / `listbox` today, so the restore is meaningful for those four.
+`tree` and `grid` are in the role set but `useInitialFocus` does not yet implement them - the
 restore is harmless (the trigger keeps focus naturally if nothing moved it). Closing that gap is
 tracked separately.
 
@@ -392,9 +393,8 @@ tracked separately.
 **The browser handles restoration for outermost popovers; Popover handles restoration for nested
 ones.** Both paths are internal - consumers do not opt in, opt out, or wire any prop.
 
-**Consumers should not manually restore focus.** Consumers should **not** call
-`trigger.focus()` in their `onClose` handlers. Either the browser or Popover handles it. Manual
-focus calls will either:
+**Consumers should not manually restore focus.** Consumers should **not** call `trigger.focus()` in
+their `onClose` handlers. Either the browser or Popover handles it. Manual focus calls will either:
 
 1. **Double-focus** the trigger (if the browser already restored).
 2. **Incorrectly restore** on click-outside (both the browser and Popover deliberately do not
@@ -416,14 +416,14 @@ internal fallback, and effectively overrides whatever they did.
 
 ### By role (Popover primitive)
 
-| Role            | Initial Focus           | Focus Wrapping              | Restoration (Escape, outermost)   | Restoration (Escape, nested)              | Restoration (click-outside) |
-| --------------- | ----------------------- | --------------------------- | --------------------------------- | ----------------------------------------- | --------------------------- |
-| `dialog`        | First focusable element | Tab wraps within content    | ✅ Browser restores               | ✅ Popover internal fallback              | ❌ No restoration           |
-| `alertdialog`   | First focusable element | Tab wraps within content    | ✅ Browser restores               | ✅ Popover internal fallback              | ❌ No restoration           |
-| `menu`          | First menu item         | No Tab wrapping (Tab exits) | ✅ Browser restores               | ✅ Popover internal fallback              | ❌ No restoration           |
-| `listbox`       | First/selected option   | No Tab wrapping (Tab exits) | ✅ Browser restores               | ✅ Popover internal fallback              | ❌ No restoration           |
+| Role            | Initial Focus           | Focus Wrapping              | Restoration (Escape, outermost)   | Restoration (Escape, nested)               | Restoration (click-outside) |
+| --------------- | ----------------------- | --------------------------- | --------------------------------- | ------------------------------------------ | --------------------------- |
+| `dialog`        | First focusable element | Tab wraps within content    | ✅ Browser restores               | ✅ Popover internal fallback               | ❌ No restoration           |
+| `alertdialog`   | First focusable element | Tab wraps within content    | ✅ Browser restores               | ✅ Popover internal fallback               | ❌ No restoration           |
+| `menu`          | First menu item         | No Tab wrapping (Tab exits) | ✅ Browser restores               | ✅ Popover internal fallback               | ❌ No restoration           |
+| `listbox`       | First/selected option   | No Tab wrapping (Tab exits) | ✅ Browser restores               | ✅ Popover internal fallback               | ❌ No restoration           |
 | `tree` / `grid` | Not yet implemented     | No wrapping                 | ✅ Browser restores               | ⚠️ Fallback runs but `useInitialFocus` gap | ❌ No restoration           |
-| `tooltip`       | No focus change         | No wrapping                 | ❌ No restoration (nothing moved) | ❌ No restoration (nothing moved)         | ❌ No restoration           |
+| `tooltip`       | No focus change         | No wrapping                 | ❌ No restoration (nothing moved) | ❌ No restoration (nothing moved)          | ❌ No restoration           |
 
 ### Dialog primitive (`<dialog>.showModal()`)
 
@@ -469,8 +469,7 @@ All current engines (Chrome, Firefox, Safari) implement the Popover API focus re
 **outermost** popover identically. For **nested** popovers, Chromium follows the spec
 (`shouldRestoreFocus: false`, browser does nothing), and Firefox does the same - but in both cases
 the nested popover would be left without focus restoration if we did nothing. Popover's internal
-fallback covers both browsers and was verified via Playwright diagnostic (see Browser timing
-above).
+fallback covers both browsers and was verified via Playwright diagnostic (see Browser timing above).
 
 ## Related files
 
@@ -483,5 +482,5 @@ above).
 - `examples/140-testing-nested-focus-restoration.tsx` — nested restoration fixture covering
   dialog/alertdialog/menu/listbox/tooltip roles
 - `__tests__/playwright/native-focus-restoration.spec.tsx` — outermost browser tests
-- `__tests__/playwright/nested-focus-restoration.spec.tsx` — nested browser tests
-  (Escape / programmatic / click-outside per role, Chromium + Firefox)
+- `__tests__/playwright/nested-focus-restoration.spec.tsx` — nested browser tests (Escape /
+  programmatic / click-outside per role, Chromium + Firefox)

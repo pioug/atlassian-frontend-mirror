@@ -21,11 +21,7 @@ import {
 } from '@atlaskit/editor-common/insert';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { findCodeBlock } from '@atlaskit/editor-common/transforms';
-import type {
-	Command,
-	EditorCommand,
-	ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
+import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -58,10 +54,7 @@ import {
 	getLocalId,
 	hasEnoughTextForAutoDetection,
 } from '../utils/auto-detect-state';
-import type {
-	FormatCodeResult,
-	LanguageSource,
-} from '../utils/format-code/formatter';
+import type { FormatCodeResult, LanguageSource } from '../utils/format-code/formatter';
 
 export const removeCodeBlockWithAnalytics = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -347,17 +340,15 @@ const createResolveFormatCodeTransaction = ({
 };
 
 export const createFormatCodeOnClick =
-	(
-		{
-			api,
-			editorAnalyticsAPI,
-			formatCodeProvider,
-		}: {
-			api?: ExtractInjectionAPI<CodeBlockPlugin>;
-			editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-			formatCodeProvider: CodeBlockFormatProvider | undefined;
-		},
-	): Command =>
+	({
+		api,
+		editorAnalyticsAPI,
+		formatCodeProvider,
+	}: {
+		api?: ExtractInjectionAPI<CodeBlockPlugin>;
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+		formatCodeProvider: CodeBlockFormatProvider | undefined;
+	}): Command =>
 	(state, dispatch) => {
 		if (!formatCodeProvider) {
 			return false;
@@ -384,9 +375,8 @@ export const createFormatCodeOnClick =
 
 		const autoDetectEntry =
 			autoDetectPluginKey.getState(state)?.languageDetectionMap[currentLocalId];
-		const languageSource = autoDetectEntry?.autoDetectedLanguage === currentLanguage
-			? 'auto-detected'
-			: 'selected';
+		const languageSource =
+			autoDetectEntry?.autoDetectedLanguage === currentLanguage ? 'auto-detected' : 'selected';
 		const content = currentNode.textContent;
 		const requestId = crypto.randomUUID();
 

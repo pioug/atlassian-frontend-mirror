@@ -174,11 +174,25 @@ const addNewCategories = (
 			newCategories.filter(
 				(category) =>
 					!!(
-						FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? CategoryDescriptionMapNew : CategoryDescriptionMap
+						FeatureGates.getExperimentValue(
+							'platform_teamoji_26_refresh_emoji_picker',
+							'isEnabled',
+							false,
+						)
+							? CategoryDescriptionMapNew
+							: CategoryDescriptionMap
 					)[category],
 			),
 		)
-		.sort(FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? sortCategoriesNew : sortCategories);
+		.sort(
+			FeatureGates.getExperimentValue(
+				'platform_teamoji_26_refresh_emoji_picker',
+				'isEnabled',
+				false,
+			)
+				? sortCategoriesNew
+				: sortCategories,
+		);
 };
 
 export const categorySelectorComponentTestId = 'category-selector-component';
@@ -256,7 +270,11 @@ const CategorySelector = (props: Props): JSX.Element => {
 
 	let categoriesSection;
 	if (categories) {
-		categoriesSection = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+		categoriesSection = FeatureGates.getExperimentValue(
+			'platform_teamoji_26_refresh_emoji_picker',
+			'isEnabled',
+			false,
+		) ? (
 			<div
 				role="tablist"
 				aria-label={formatMessage(messages.categoriesSelectorLabel)}
@@ -265,7 +283,11 @@ const CategorySelector = (props: Props): JSX.Element => {
 				css={categorySelectorTablistNew}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
-					const category = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+					const category = FeatureGates.getExperimentValue(
+						'platform_teamoji_26_refresh_emoji_picker',
+						'isEnabled',
+						false,
+					)
 						? CategoryDescriptionMapNew[categoryId]
 						: CategoryDescriptionMap[categoryId];
 
@@ -307,7 +329,11 @@ const CategorySelector = (props: Props): JSX.Element => {
 				css={categorySelectorTablist}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
-					const category = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+					const category = FeatureGates.getExperimentValue(
+						'platform_teamoji_26_refresh_emoji_picker',
+						'isEnabled',
+						false,
+					)
 						? CategoryDescriptionMapNew[categoryId]
 						: CategoryDescriptionMap[categoryId];
 
@@ -342,7 +368,11 @@ const CategorySelector = (props: Props): JSX.Element => {
 			</div>
 		);
 	}
-	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	) ? (
 		<div css={categorySelectorNew}>{categoriesSection}</div>
 	) : (
 		<div css={categorySelector}>{categoriesSection}</div>

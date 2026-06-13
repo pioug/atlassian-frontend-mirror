@@ -3,9 +3,9 @@ import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 describe('getAriaForTrigger', () => {
 	describe('aria-haspopup (role mapping)', () => {
 		it('returns "dialog" for dialog role', () => {
-			expect(getAriaForTrigger({ role: 'dialog', isOpen: false, popoverId: 'x' })['aria-haspopup']).toBe(
-				'dialog',
-			);
+			expect(
+				getAriaForTrigger({ role: 'dialog', isOpen: false, popoverId: 'x' })['aria-haspopup'],
+			).toBe('dialog');
 		});
 
 		it('returns "dialog" for alertdialog role', () => {
@@ -15,9 +15,9 @@ describe('getAriaForTrigger', () => {
 		});
 
 		it('returns "menu" for menu role', () => {
-			expect(getAriaForTrigger({ role: 'menu', isOpen: false, popoverId: 'x' })['aria-haspopup']).toBe(
-				'menu',
-			);
+			expect(
+				getAriaForTrigger({ role: 'menu', isOpen: false, popoverId: 'x' })['aria-haspopup'],
+			).toBe('menu');
 		});
 
 		it('returns "listbox" for listbox role', () => {
@@ -27,32 +27,38 @@ describe('getAriaForTrigger', () => {
 		});
 
 		it('returns "tree" for tree role', () => {
-			expect(getAriaForTrigger({ role: 'tree', isOpen: false, popoverId: 'x' })['aria-haspopup']).toBe(
-				'tree',
-			);
+			expect(
+				getAriaForTrigger({ role: 'tree', isOpen: false, popoverId: 'x' })['aria-haspopup'],
+			).toBe('tree');
 		});
 
 		it('returns "grid" for grid role', () => {
-			expect(getAriaForTrigger({ role: 'grid', isOpen: false, popoverId: 'x' })['aria-haspopup']).toBe(
-				'grid',
-			);
+			expect(
+				getAriaForTrigger({ role: 'grid', isOpen: false, popoverId: 'x' })['aria-haspopup'],
+			).toBe('grid');
 		});
 	});
 
 	describe('aria-expanded', () => {
 		it('returns false when isOpen is false', () => {
-			expect(getAriaForTrigger({ role: 'dialog', isOpen: false, popoverId: 'x' })['aria-expanded']).toBe(false);
+			expect(
+				getAriaForTrigger({ role: 'dialog', isOpen: false, popoverId: 'x' })['aria-expanded'],
+			).toBe(false);
 		});
 
 		it('returns true when isOpen is true', () => {
-			expect(getAriaForTrigger({ role: 'dialog', isOpen: true, popoverId: 'x' })['aria-expanded']).toBe(true);
+			expect(
+				getAriaForTrigger({ role: 'dialog', isOpen: true, popoverId: 'x' })['aria-expanded'],
+			).toBe(true);
 		});
 	});
 
 	describe('aria-controls', () => {
 		it('returns the popoverId when open', () => {
 			expect(
-				getAriaForTrigger({ role: 'dialog', isOpen: true, popoverId: 'my-popover' })['aria-controls'],
+				getAriaForTrigger({ role: 'dialog', isOpen: true, popoverId: 'my-popover' })[
+					'aria-controls'
+				],
 			).toBe('my-popover');
 		});
 

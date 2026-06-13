@@ -5,10 +5,7 @@ import { type SmartLinkResponse } from '@atlaskit/linking-types';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library';
 
-import {
-	getIsFirstPartyLink,
-	useSmartLinkCrossProductUrlWrapperGated,
-} from '../index';
+import { getIsFirstPartyLink, useSmartLinkCrossProductUrlWrapperGated } from '../index';
 
 const FEATURE_GATE = 'platform_smartlink_xpc_url_wrapping';
 
@@ -144,9 +141,7 @@ describe('useSmartLinkCrossProductUrlWrapperGated', () => {
 		expect(urlWrapper('https://example.com/page?xpis=existing')).toBe(
 			'https://example.com/page?xpis=existing',
 		);
-		expect(urlWrapper('/wiki/spaces/ABC?xpis=existing')).toBe(
-			'/wiki/spaces/ABC?xpis=existing',
-		);
+		expect(urlWrapper('/wiki/spaces/ABC?xpis=existing')).toBe('/wiki/spaces/ABC?xpis=existing');
 		expect(wrapUrl).not.toHaveBeenCalled();
 	});
 

@@ -289,7 +289,7 @@ export const defaultValue: {
 						}[];
 						type: string;
 					}[];
-					type: "extensionFrame";
+					type: 'extensionFrame';
 				}[];
 				type: string;
 		  }
@@ -865,13 +865,15 @@ export const defaultValue: {
 				parameters: {
 					macroParams: {},
 					macroMetadata: {
-						placeholder: [{
-							data: {
-								url: '',
+						placeholder: [
+							{
+								data: {
+									url: '',
+								},
+								type: 'icon',
 							},
-							type: 'icon',
-						}],
-					}
+						],
+					},
 				},
 				layout: 'default',
 				localId: 'mbe-test-id',
@@ -879,17 +881,21 @@ export const defaultValue: {
 			content: [
 				{
 					type: 'extensionFrame',
-					content: [{
-						type: 'paragraph',
-						content: [],
-					}],
+					content: [
+						{
+							type: 'paragraph',
+							content: [],
+						},
+					],
 				},
 				{
 					type: 'extensionFrame',
-					content: [{
-						type: 'paragraph',
-						content: [],
-					}],
+					content: [
+						{
+							type: 'paragraph',
+							content: [],
+						},
+					],
 				},
 			],
 		},

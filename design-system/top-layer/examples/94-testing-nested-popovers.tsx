@@ -22,10 +22,23 @@ function SecondPopover(): React.ReactNode {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen: isOpen, popoverId: popoverId })} type="button" data-testid="second-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen: isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="second-trigger"
+			>
 				Open second
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Second">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="Second"
+			>
 				<div data-testid="second-popover">Second popover</div>
 			</Popover>
 		</>
@@ -49,10 +62,23 @@ export default function TestingNestedPopovers(): React.ReactNode {
 
 	return (
 		<div>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen: isOpen, popoverId: popoverId })} type="button" data-testid="first-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen: isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="first-trigger"
+			>
 				Open first
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="First">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="First"
+			>
 				<div data-testid="first-popover">
 					First popover
 					<SecondPopover />

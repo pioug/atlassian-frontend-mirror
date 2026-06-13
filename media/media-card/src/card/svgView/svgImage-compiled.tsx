@@ -87,7 +87,11 @@ export const SvgView = ({
 			data-source={source}
 			src={svgUrl}
 			alt={alt}
-			css={[svgRendererBaseStyles, !backgroundColor && svgRendererWhiteBgStyles, !width && !height && svgRendererMaxDimensionStyles]}
+			css={[
+				svgRendererBaseStyles,
+				!backgroundColor && svgRendererWhiteBgStyles,
+				!width && !height && svgRendererMaxDimensionStyles,
+			]}
 			style={{
 				backgroundColor,
 				visibility: didSvgRender ? 'visible' : 'hidden',

@@ -553,7 +553,11 @@ const outOfTheBoxAgentAvatar: {
 	},
 	jira_intelligent_triage_agent: {
 		getRender: (size: SizeType) => (
-			<JiraIntelligentTriageAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+			<JiraIntelligentTriageAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor=""
+				secondaryColor=""
+			/>
 		),
 		color: blueColor,
 	},

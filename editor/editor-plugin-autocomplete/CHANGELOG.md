@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 3.6.1
+
+### Patch Changes
+
+- [`2d57d65205edd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d57d65205edd) -
+  [ASIMO] Add `isLocalLLM` attribute to `load-vectors` and `load-vocabulary` UFO experiences.
+
+  Both experiences now include an `isLocalLLM: boolean` attribute on every event (start, succeed,
+  fail) so analysts can segment loading performance and reliability by whether the user is on the
+  local on-device model setup vs the standard network-based slow-lane backend.
+
+## 3.6.0
+
+### Minor Changes
+
+- [`9f6b6c9fffc50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f6b6c9fffc50) -
+  Add analytics for the on-device (local LLM) autocomplete slow lane: fire a `localModelLoaded`
+  track event when the engine initialises successfully (with load duration and GPU info) and a
+  `localModelLoadFailed` track event when it fails, categorising the reason and capturing WebGPU
+  capability diagnostics to surface user-machine limitations.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

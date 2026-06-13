@@ -71,10 +71,7 @@ export const FormatCodeErrorFlag = ({
 	return (
 		<FlagGroup onDismissed={onFlagGroupDismissed}>
 			{activeFormatCodeErrors.map((formatCodeError) => (
-				<FormatCodeErrorFlagItem
-					formatCodeError={formatCodeError}
-					key={formatCodeError.localId}
-				/>
+				<FormatCodeErrorFlagItem formatCodeError={formatCodeError} key={formatCodeError.localId} />
 			))}
 		</FlagGroup>
 	);

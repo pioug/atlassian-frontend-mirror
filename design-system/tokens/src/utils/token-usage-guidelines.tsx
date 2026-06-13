@@ -11,6 +11,10 @@ const getTokenCategoryId = (tokenId: string): string => {
 		return tokenId.replace('color.rovo.icon.', 'color.icon.');
 	}
 
+	if (tokenId.startsWith('elevation.rovo.surface.')) {
+		return tokenId.replace('elevation.rovo.surface.', 'elevation.surface.');
+	}
+
 	return tokenId;
 };
 

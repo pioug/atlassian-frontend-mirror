@@ -124,7 +124,11 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 		};
 		ufoExperiences['emoji-picker-opened'].markFMP();
 
-		return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+		return FeatureGates.getExperimentValue(
+			'platform_teamoji_26_refresh_emoji_picker',
+			'isEnabled',
+			false,
+		) ? (
 			<div css={emojiPickerNew} ref={handlePickerRef}>
 				{item.renderItem()}
 			</div>

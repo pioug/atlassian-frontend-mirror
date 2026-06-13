@@ -108,8 +108,8 @@ instead to preserve the keyboard-vs-mouse detection logic for auto-focus behavio
 
 **Auto-focus:** When opened via keyboard (or `autoFocus={true}`), the first non-disabled menu item
 is focused synchronously by `useInitialFocus` on the `closed → entering` phase transition (the
-instant the host element mounts and `showPopover()` has run). See
-`notes/architecture/focus.md` for the timing rationale.
+instant the host element mounts and `showPopover()` has run). See `notes/architecture/focus.md` for
+the timing rationale.
 
 **Arrow navigation:** `useArrowNavigation` binds on the menu container (`menuRef`). ArrowDown/Up
 cycle through focusable items, Home/End jump to first/last, Tab triggers close.

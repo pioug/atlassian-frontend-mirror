@@ -1,8 +1,5 @@
 import { createSchema } from '../../../../schema/create-schema';
-import {
-	codeBlock,
-	toJSON as codeBlockToJSON,
-} from '../../../../schema/nodes/code-block';
+import { codeBlock, toJSON as codeBlockToJSON } from '../../../../schema/nodes/code-block';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
 
 const packageName = process.env.npm_package_name as string;
@@ -416,10 +413,7 @@ describe(`${packageName}/schema: promoted codeBlock wrap and line-number attrs`,
 		});
 
 		it('parses hideLineNumbers=true from data-hide-line-numbers="true"', () => {
-			const doc = fromHTML(
-				'<pre data-hide-line-numbers="true"><code>hello</code></pre>',
-				schema,
-			);
+			const doc = fromHTML('<pre data-hide-line-numbers="true"><code>hello</code></pre>', schema);
 			expect(doc.firstChild!.attrs.hideLineNumbers).toBe(true);
 		});
 

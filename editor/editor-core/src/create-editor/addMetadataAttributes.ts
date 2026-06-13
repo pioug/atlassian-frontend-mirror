@@ -1,5 +1,9 @@
 import { createProseMirrorMetadata } from '@atlaskit/editor-common/prosemirror-dom-metadata';
-import type { DOMOutputSpec, Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+	DOMOutputSpec,
+	Mark as PMMark,
+	Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 
 /**
  * 🧱 Internal Helper Function: Editor FE Platform

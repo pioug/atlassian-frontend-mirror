@@ -38,7 +38,6 @@ const commentBadgeEditorOverrides = (badgeOffsetRight?: string) =>
 		zIndex: 100,
 	});
 
-
 export type CommentBadgeProps = {
 	badgeOffsetRight?: string;
 	height?: number;

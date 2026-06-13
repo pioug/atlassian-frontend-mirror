@@ -65,10 +65,15 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 				return [{ name: 'backgroundColor', mark: backgroundColor }];
 			}
 			// color is defined in platform/packages/editor/adf-schema/src/next-schema/marks/color.ts
-			return [{ name: 'backgroundColor', mark: {
-				...backgroundColor,
-				excludes: 'color'
-			} }];
+			return [
+				{
+					name: 'backgroundColor',
+					mark: {
+						...backgroundColor,
+						excludes: 'color',
+					},
+				},
+			];
 		},
 
 		commands: {

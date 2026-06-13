@@ -4,8 +4,8 @@
 
 **Decision recorded 2026-06-04**
 
-Do not add a public `usePopoverTrigger` hook yet. Keep `usePopoverId()` and
-`getAriaForTrigger()` as the low-level trigger wiring helpers.
+Do not add a public `usePopoverTrigger` hook yet. Keep `usePopoverId()` and `getAriaForTrigger()` as
+the low-level trigger wiring helpers.
 
 ---
 
@@ -20,8 +20,8 @@ The `Popup` compound deletion leaves adopters composing lower-level primitives:
 
 A proposed `usePopoverTrigger` hook could bundle the id, trigger ref, popover ref, trigger ARIA, and
 `Popover` pairing props. This is attractive for examples and greenfield button-triggered popovers,
-but the current rollout evidence comes from feature-flagged migration adapters, not greenfield
-call sites.
+but the current rollout evidence comes from feature-flagged migration adapters, not greenfield call
+sites.
 
 ---
 
@@ -51,17 +51,17 @@ useAnchorPosition({
 
 ## Consumer audit
 
-| Consumer | Hook value | Notes |
-| --- | --- | --- |
-| `@atlaskit/popup` | Low | Must preserve legacy `TriggerProps`, optional consumer-provided ids, role bridging, and width-from-anchor compatibility. |
-| `@atlaskit/dropdown-menu` | Low | Trigger wiring is small compared with controlled state, keyboard-open detection, focus binding, custom trigger render-prop support, menu click close rules, and type narrowing. |
-| `@atlaskit/inline-dialog` | Low | Trigger is arbitrary `children`; the adapter applies ARIA to `firstElementChild` through an effect. A returned `triggerProps` object does not fit naturally. |
-| `@atlaskit/avatar-group` | Low | Could reuse refs/id/ARIA, but the focus wrapper, `renderMoreButton` bridge, ArrowDown-to-open behavior, and menu navigation remain local. |
-| `@atlaskit/select` | None | Preserves legacy `'aria-haspopup': 'true'` for compatibility, so the hook's main ARIA value would be bypassed. |
-| `@atlaskit/datetime-picker` | None | React Select owns the trigger lifecycle and open state. The top-layer menus are `mode="manual"` and always open while mounted, with external trigger refs. |
-| `@atlaskit/tooltip` | None | Tooltip triggers use `aria-describedby`, hover/mouse lifecycle, and sometimes point anchoring. This is intentionally outside `getAriaForTrigger`. |
-| `@atlaskit/spotlight` | None | Programmatic/manual lifecycle with context-owned target refs and `useSimpleLightDismiss`. |
-| `@atlaskit/flag` | None | Triggerless manual popover used only for top-layer stacking. |
+| Consumer                    | Hook value | Notes                                                                                                                                                                           |
+| --------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@atlaskit/popup`           | Low        | Must preserve legacy `TriggerProps`, optional consumer-provided ids, role bridging, and width-from-anchor compatibility.                                                        |
+| `@atlaskit/dropdown-menu`   | Low        | Trigger wiring is small compared with controlled state, keyboard-open detection, focus binding, custom trigger render-prop support, menu click close rules, and type narrowing. |
+| `@atlaskit/inline-dialog`   | Low        | Trigger is arbitrary `children`; the adapter applies ARIA to `firstElementChild` through an effect. A returned `triggerProps` object does not fit naturally.                    |
+| `@atlaskit/avatar-group`    | Low        | Could reuse refs/id/ARIA, but the focus wrapper, `renderMoreButton` bridge, ArrowDown-to-open behavior, and menu navigation remain local.                                       |
+| `@atlaskit/select`          | None       | Preserves legacy `'aria-haspopup': 'true'` for compatibility, so the hook's main ARIA value would be bypassed.                                                                  |
+| `@atlaskit/datetime-picker` | None       | React Select owns the trigger lifecycle and open state. The top-layer menus are `mode="manual"` and always open while mounted, with external trigger refs.                      |
+| `@atlaskit/tooltip`         | None       | Tooltip triggers use `aria-describedby`, hover/mouse lifecycle, and sometimes point anchoring. This is intentionally outside `getAriaForTrigger`.                               |
+| `@atlaskit/spotlight`       | None       | Programmatic/manual lifecycle with context-owned target refs and `useSimpleLightDismiss`.                                                                                       |
+| `@atlaskit/flag`            | None       | Triggerless manual popover used only for top-layer stacking.                                                                                                                    |
 
 ---
 
@@ -116,8 +116,8 @@ If the hook cannot own refs, id, ARIA, and `Popover` pairing props together, pre
 - `notes/README.md` - current matrix of packages behind `platform-dst-top-layer`.
 - `notes/decisions/audit-decisions.md` - records that standalone trigger lifecycles own their own
   `aria-controls` wiring.
-- `notes/decisions/aria-controls-trigger-contract.md` - records the stable `aria-controls`
-  contract for `getAriaForTrigger`.
+- `notes/decisions/aria-controls-trigger-contract.md` - records the stable `aria-controls` contract
+  for `getAriaForTrigger`.
 - `packages/design-system/top-layer/src/internal/get-aria-for-trigger.tsx` - current low-level ARIA
   helper.
 - `packages/design-system/top-layer/src/entry-points/use-popover-id.tsx` - current id helper.

@@ -155,18 +155,32 @@ const MockedProvider = ({
 
 	return (
 		<MockedMediaClientProvider>
-			<Example identifiers={identifiers} disableOverlay={disableOverlay} backgroundColor={backgroundColor} />
+			<Example
+				identifiers={identifiers}
+				disableOverlay={disableOverlay}
+				backgroundColor={backgroundColor}
+			/>
 		</MockedMediaClientProvider>
 	);
 };
 
-const BackendProvider = ({ disableOverlay, backgroundColor }: { disableOverlay: boolean; backgroundColor?: string }) => {
+const BackendProvider = ({
+	disableOverlay,
+	backgroundColor,
+}: {
+	disableOverlay: boolean;
+	backgroundColor?: string;
+}) => {
 	const mediaClientConfig = createStorybookMediaClientConfig();
 	const identifiers = Object.values(svgFileIds);
 
 	return (
 		<MediaClientProvider clientConfig={mediaClientConfig}>
-			<Example identifiers={identifiers} disableOverlay={disableOverlay} backgroundColor={backgroundColor} />
+			<Example
+				identifiers={identifiers}
+				disableOverlay={disableOverlay}
+				backgroundColor={backgroundColor}
+			/>
 		</MediaClientProvider>
 	);
 };
@@ -260,7 +274,11 @@ export default function (): React.JSX.Element {
 					backgroundColor={backgroundColor}
 				/>
 			) : (
-				<BackendProvider key={`${reloadKey}`} disableOverlay={disableOverlay} backgroundColor={backgroundColor} />
+				<BackendProvider
+					key={`${reloadKey}`}
+					disableOverlay={disableOverlay}
+					backgroundColor={backgroundColor}
+				/>
 			)}
 		</MainWrapper>
 	);

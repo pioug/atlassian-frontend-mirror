@@ -90,11 +90,7 @@ export const layoutColumn: NodeSpec = layoutColumnFactory({
 		},
 	],
 	toDOM(node) {
-		return [
-			'div',
-			setColumnAttributes(node),
-			['div', LAYOUT_CONTENT_ATTRS, 0],
-		];
+		return ['div', setColumnAttributes(node), ['div', LAYOUT_CONTENT_ATTRS, 0]];
 	},
 });
 

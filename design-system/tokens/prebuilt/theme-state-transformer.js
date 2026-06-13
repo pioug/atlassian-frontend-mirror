@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.themeStringToObject = exports.themeObjectToString = void 0;
 var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-var _themeIds = require("./theme-ids");
+var _themeConfig = require("./theme-config");
 var themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape', 'motion'];
 var customThemeOptions = 'UNSAFE_themeOptions';
 var isThemeKind = function isThemeKind(themeKind) {
@@ -16,7 +16,7 @@ var isThemeKind = function isThemeKind(themeKind) {
   }) !== undefined;
 };
 var isThemeIds = function isThemeIds(themeId) {
-  return _themeIds.themeIds.find(function (id) {
+  return _themeConfig.themeIds.find(function (id) {
     return id === themeId;
   }) !== undefined;
 };
@@ -73,7 +73,6 @@ var themeStringToObject = exports.themeStringToObject = function themeStringToOb
  * // returns 'dark:dark light:light spacing:spacing'
  * ```
  */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var themeObjectToString = exports.themeObjectToString = function themeObjectToString(themeState) {
   return Object.entries(themeState).reduce(function (themeString, _ref3) {
     var _ref4 = (0, _slicedToArray2.default)(_ref3, 2),

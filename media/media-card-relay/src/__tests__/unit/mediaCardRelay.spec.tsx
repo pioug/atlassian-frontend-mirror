@@ -29,9 +29,7 @@ jest.mock('react-relay', () => ({
 
 // ─── Mock @atlaskit/media-card ───────────────────────────────────────────────
 jest.mock('@atlaskit/media-card', () => ({
-	Card: jest.fn(({ testId }: { testId?: string }) => (
-		<div data-testid={testId ?? 'mock-card'} />
-	)),
+	Card: jest.fn(({ testId }: { testId?: string }) => <div data-testid={testId ?? 'mock-card'} />),
 	MediaInlineCard: jest.fn(({ testId }: { testId?: string }) => (
 		<div data-testid={testId ?? 'mock-inline-card'} />
 	)),

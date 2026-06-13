@@ -177,8 +177,10 @@ const emojiUnicodeContainer = css({
 	},
 });
 
-export interface Props
-	extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'onMouseMove' | 'onFocus'> {
+export interface Props extends Omit<
+	React.HTMLAttributes<HTMLSpanElement>,
+	'onMouseMove' | 'onFocus'
+> {
 	/**
 	 * Auto Width takes the constraint of height and enables native scaling based on the emojis image.
 	 * This is primarily used when rendering emojis for SSR as the component does not know the width and height

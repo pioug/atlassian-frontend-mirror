@@ -50,13 +50,7 @@ const extendAndCachePreview = (
  * These are the standard CloudFront signed-URL params; if the upstream
  * adds a new one, this list needs updating.
  */
-const SIGNING_PARAM_NAMES = [
-	'token',
-	'Policy',
-	'Key-Pair-Id',
-	'Signature',
-	'Expires',
-] as const;
+const SIGNING_PARAM_NAMES = ['token', 'Policy', 'Key-Pair-Id', 'Signature', 'Expires'] as const;
 
 /**
  * Pull the CDN-signing query params (token / Policy / Key-Pair-Id / Signature
@@ -84,10 +78,7 @@ export const extractCdnSigningParams = (cdnUrl: string): Record<string, string> 
 	}
 };
 
-const applyCdnSigningParams = (
-	url: string,
-	cdnSigningParams?: Record<string, string>,
-): string => {
+const applyCdnSigningParams = (url: string, cdnSigningParams?: Record<string, string>): string => {
 	if (!cdnSigningParams || Object.keys(cdnSigningParams).length === 0) {
 		return url;
 	}

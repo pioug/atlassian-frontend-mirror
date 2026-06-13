@@ -88,7 +88,11 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 	const { emoji, selectOnHover, ariaLabelText, ariaExpanded, onSelected, isVisible = true } = props;
 	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
 
-	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	) ? (
 		<button
 			ref={ref}
 			css={[emojiButton, !isVisible && hidden, emojiButtonOutline]}

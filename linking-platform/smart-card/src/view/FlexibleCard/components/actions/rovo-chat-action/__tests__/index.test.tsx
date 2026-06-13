@@ -13,7 +13,7 @@ import { FlexibleCardContext } from '../../../../../../state/flexible-ui-context
 import * as useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
 import * as useRovoChat from '../../../../../../state/hooks/use-rovo-chat';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
-import { RovoChatPromptKey } from "../../../../../common/rovo-chat-utils";
+import { RovoChatPromptKey } from '../../../../../common/rovo-chat-utils';
 import RovoChatAction from '../index';
 
 describe('RovoChatAction', () => {

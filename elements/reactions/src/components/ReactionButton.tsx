@@ -143,7 +143,9 @@ export const ReactionButton = ({
 			onFocus={onFocus}
 			aria-label={ariaLabel}
 			aria-pressed={ariaPressed}
-			aria-expanded={expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true) ? ariaExpanded : undefined}
+			aria-expanded={
+				expValEquals('a11y-fixes-week4-may-2026', 'isEnabled', true) ? ariaExpanded : undefined
+			}
 			testId={testId}
 			xcss={cx(
 				styles.reactionButton,

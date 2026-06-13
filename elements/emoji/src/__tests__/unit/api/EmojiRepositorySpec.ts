@@ -387,12 +387,10 @@ describe('EmojiRepository', () => {
 
 	beforeEach(() => {
 		setupEditorExperiments('confluence');
-		initializeCompletedSpy = jest
-			.spyOn(FeatureGates, 'initializeCompleted')
-			.mockReturnValue(true);
-		getExperimentValueSpy = jest.spyOn(FeatureGates, 'getExperimentValue').mockImplementation(
-			(_experimentName, _parameterName, defaultValue) => defaultValue,
-		);
+		initializeCompletedSpy = jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
+		getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 		// emojiRepository has state that can influence search results so make it fresh for each test.
 		emojiRepository = newEmojiRepository();
 	});

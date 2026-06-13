@@ -50,7 +50,70 @@ type ContextualTypeaheadDismissedAEP = TrackAEP<
 	undefined
 >;
 
+type ContextualTypeaheadLocalModelLoadedAttributes = {
+	/** Semantic embedder loaded alongside the causal LM (loads atomically). */
+	embeddingModelId: string;
+	/** GPU architecture reported by the adapter (e.g. "metal-3"). */
+	gpuArchitecture?: string;
+	/** GPU vendor reported by the adapter (e.g. "apple", "intel"). */
+	gpuVendor?: string;
+	/** Model engine load time in ms (excludes the WebGPU capability probe). */
+	loadDurationMs: number;
+	/** Causal LM identifier that loaded. */
+	modelId: string;
+};
+
+type ContextualTypeaheadLocalModelLoadedAEP = TrackAEP<
+	ACTION.LOCAL_MODEL_LOADED,
+	ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+	undefined,
+	ContextualTypeaheadLocalModelLoadedAttributes,
+	undefined
+>;
+
+type ContextualTypeaheadLocalModelLoadFailedAttributes = {
+	/** Whether a usable WebGPU adapter was found on the machine. */
+	adapterAvailable?: boolean;
+	/** Semantic embedder loaded alongside the causal LM (loads atomically). */
+	embeddingModelId: string;
+	/** GPU architecture reported by the adapter (e.g. "metal-3"). */
+	gpuArchitecture?: string;
+	/** GPU vendor reported by the adapter (e.g. "apple", "intel"). */
+	gpuVendor?: string;
+	/** Largest single GPU buffer the adapter allows, in MB. */
+	maxBufferSizeMB?: number;
+	/** Largest storage-buffer binding the adapter allows, in MB. */
+	maxStorageBufferBindingSizeMB?: number;
+	/** Canonical, controlled failure description — derived from `reason`, never raw error text. */
+	message: string;
+	/** Causal LM identifier that failed to load. */
+	modelId: string;
+	/** Coarse, controlled failure category — never free-form. */
+	reason:
+		| 'webgpu_unavailable'
+		| 'webgpu_no_adapter'
+		| 'missing_shader_f16'
+		| 'insufficient_memory'
+		| 'model_download_failed'
+		| 'module_load_failed'
+		| 'init_failed';
+	/** Whether the GPU supports the shader-f16 feature the model requires. */
+	shaderF16Supported?: boolean;
+	/** Whether navigator.gpu exists at all. */
+	webgpuAvailable?: boolean;
+};
+
+type ContextualTypeaheadLocalModelLoadFailedAEP = TrackAEP<
+	ACTION.LOCAL_MODEL_LOAD_FAILED,
+	ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+	undefined,
+	ContextualTypeaheadLocalModelLoadFailedAttributes,
+	undefined
+>;
+
 export type ContextualTypeaheadEventPayload =
 	| ContextualTypeaheadViewedAEP
 	| ContextualTypeaheadAcceptedAEP
-	| ContextualTypeaheadDismissedAEP;
+	| ContextualTypeaheadDismissedAEP
+	| ContextualTypeaheadLocalModelLoadedAEP
+	| ContextualTypeaheadLocalModelLoadFailedAEP;

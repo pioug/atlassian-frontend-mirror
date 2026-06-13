@@ -1,27 +1,23 @@
 # @atlaskit/top-layer — Complete Rebuild Guide
 
-> **⚠️ Historical snapshot:** This document captures the package as it stood before two
-> structural cleanups. It is preserved verbatim because the lower-level mechanics it
-> describes (anchor positioning, animation, focus, ARIA) are still accurate. Two top-level
-> concerns have since moved:
+> **⚠️ Historical snapshot:** This document captures the package as it stood before two structural
+> cleanups. It is preserved verbatim because the lower-level mechanics it describes (anchor
+> positioning, animation, focus, ARIA) are still accurate. Two top-level concerns have since moved:
 >
-> 1. **`Popup` compound removed.** Sections 3 (`./popup`, `./popup-surface` entry points),
->    6 (Popup compound component), and 11 (the `Popup.Trigger` ARIA wiring discussion)
->    no longer reflect the public API. Use `Popover` + `useAnchorPosition`
->    (+ `PopoverSurface` / `getAriaForTrigger` / `usePopoverId`) directly. See
->    `notes/decisions/delete-popup-compound.md` (status: **Executed**) and the package
->    `README.md` for the current story.
-> 2. **Arrow moved to `@atlaskit/spotlight`.** Section 12 (Arrow System) and the
->    `./arrow` entry point in section 3 no longer live in `@atlaskit/top-layer`. The
->    arrow was only ever consumed by Spotlight and shipped a Spotlight-specific
->    experience (the named `@position-try` rules and CSS variables described in
->    section 12 are tightly coupled to Spotlight's visual semantics). Co-locating it
->    with its only adopter removes a public surface from `top-layer` that no other
->    package needed and lets Spotlight evolve the arrow without coordinating a
->    cross-package change.
+> 1. **`Popup` compound removed.** Sections 3 (`./popup`, `./popup-surface` entry points), 6 (Popup
+>    compound component), and 11 (the `Popup.Trigger` ARIA wiring discussion) no longer reflect the
+>    public API. Use `Popover` + `useAnchorPosition` (+ `PopoverSurface` / `getAriaForTrigger` /
+>    `usePopoverId`) directly. See `notes/decisions/delete-popup-compound.md` (status: **Executed**)
+>    and the package `README.md` for the current story.
+> 2. **Arrow moved to `@atlaskit/spotlight`.** Section 12 (Arrow System) and the `./arrow` entry
+>    point in section 3 no longer live in `@atlaskit/top-layer`. The arrow was only ever consumed by
+>    Spotlight and shipped a Spotlight-specific experience (the named `@position-try` rules and CSS
+>    variables described in section 12 are tightly coupled to Spotlight's visual semantics).
+>    Co-locating it with its only adopter removes a public surface from `top-layer` that no other
+>    package needed and lets Spotlight evolve the arrow without coordinating a cross-package change.
 >
-> Treat sections covering still-shipping primitives (Popover, Dialog, animation, focus,
-> anchor positioning, light dismiss, scroll lock, placement) as authoritative.
+> Treat sections covering still-shipping primitives (Popover, Dialog, animation, focus, anchor
+> positioning, light dismiss, scroll lock, placement) as authoritative.
 
 > **Purpose:** This document contains every detail needed to recreate the `@atlaskit/top-layer`
 > package from scratch. It covers architecture, APIs, props, event flows, animation timings,
@@ -72,8 +68,8 @@ layered UI:
 
 1. **Browser-native first.** Use the Popover API and `<dialog>` element instead of portals, z-index,
    and custom layering.
-2. **Declarative visibility.** `isOpen` prop controls show/hide. The host element is rendered
-   only while open or exit-animating and unmounts after exit completes (see
+2. **Declarative visibility.** `isOpen` prop controls show/hide. The host element is rendered only
+   while open or exit-animating and unmounts after exit completes (see
    `notes/decisions/host-element-unmount-when-hidden.md`).
 3. **CSS-first positioning.** CSS Anchor Positioning (`position-anchor`, `position-area`,
    `position-try-fallbacks`) with a JS fallback for older browsers.
@@ -935,11 +931,11 @@ Moves focus into the popover when it opens, based on role:
 
 > Note: `alertdialog` is intentionally unsupported in top-layer — use `dialog` instead.
 
-**Timing:** Fires synchronously inside `useEffect` on the transition out of `'closed'` (`closed →
-entering` on the animated path, `closed → open` on the non-animated path). By the time the effect
-runs, the host-mount layout effect has already called `showPopover()` / `showModal()`, so the
-element is in the top layer and reliably focusable. A `prevPhase` ref ensures we only focus once per
-real open cycle (rapid `entering → exiting → entering` interrupts are collapsed). See
+**Timing:** Fires synchronously inside `useEffect` on the transition out of `'closed'`
+(`closed → entering` on the animated path, `closed → open` on the non-animated path). By the time
+the effect runs, the host-mount layout effect has already called `showPopover()` / `showModal()`, so
+the element is in the top layer and reliably focusable. A `prevPhase` ref ensures we only focus once
+per real open cycle (rapid `entering → exiting → entering` interrupts are collapsed). See
 `notes/architecture/focus.md` for the full rationale — earlier versions wrapped the call in
 `requestAnimationFrame` (and previously waited for `phase === 'open'`); both were removed because
 APG expects focus to land on the new menu / dialog the instant it opens, not after the entry

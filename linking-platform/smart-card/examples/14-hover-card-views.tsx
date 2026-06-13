@@ -132,10 +132,13 @@ export default (): React.JSX.Element => {
 		}
 	}, [type]);
 
-	const onTypeChange = useCallback((event: React.SyntheticEvent<HTMLInputElement>) => {
-		const value = event.currentTarget.value;
-		setType(value);
-	}, [setType]);
+	const onTypeChange = useCallback(
+		(event: React.SyntheticEvent<HTMLInputElement>) => {
+			const value = event.currentTarget.value;
+			setType(value);
+		},
+		[setType],
+	);
 
 	return (
 		<ExampleContainer title="HoverCard Views">

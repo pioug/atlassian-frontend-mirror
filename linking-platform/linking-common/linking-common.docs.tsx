@@ -73,7 +73,7 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [
-				'Use for Smart Card / Datasource loading states — not as a general-purpose `<Skeleton>` primitive (the design system\'s `@atlaskit/skeleton` package owns that).',
+				"Use for Smart Card / Datasource loading states — not as a general-purpose `<Skeleton>` primitive (the design system's `@atlaskit/skeleton` package owns that).",
 				'Match the skeleton dimensions to the eventual content to avoid layout shift on resolve.',
 			],
 			accessibilityGuidelines: [
@@ -171,7 +171,7 @@ const documentation: StructuredContentSource = {
 			returns: { type: '(...args: Args) => Promise<ResolveType>' },
 			usageGuidelines: [
 				'Use for "search-as-you-type" against the resolver — each keystroke gets a promise, but only the last keystroke actually hits the network.',
-				'Earlier callers\' promises **stay pending forever** — do not `await` them in a context where you also depend on them rejecting (e.g. with `Promise.race`).',
+				"Earlier callers' promises **stay pending forever** — do not `await` them in a context where you also depend on them rejecting (e.g. with `Promise.race`).",
 				'Only one timeout is tracked per wrapped function; calls from different callers share the same debounce window.',
 			],
 			keywords: ['utility', 'promiseDebounce', 'debounce', 'linking-common'],
@@ -184,8 +184,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'Derives a `CardType` (Smart Card lifecycle status) from the JSON-LD response meta returned by the resolver. Maps `access: "forbidden"` + `visibility: "not_found"` to either `"not_found"` or `"forbidden"` based on the `requestAccess.accessType`, `access: "unauthorized"` to `"unauthorized"`, and everything else to `"resolved"`.',
 			status: 'general-availability',
-			signature:
-				"({ meta }: { meta: JsonLd.Response['meta'] }) => CardType",
+			signature: "({ meta }: { meta: JsonLd.Response['meta'] }) => CardType",
 			parameters: [
 				{
 					name: 'meta',
@@ -290,13 +289,7 @@ const documentation: StructuredContentSource = {
 				'Test both branches with `passGate` / `failGate` from `@atlassian/feature-flags-test-utils/mock-gates`.',
 				'Keep both implementations source-compatible — props must be the same shape, or the swap will break call sites.',
 			],
-			keywords: [
-				'utility',
-				'withFeatureFlaggedComponent',
-				'feature-flag',
-				'hoc',
-				'linking-common',
-			],
+			keywords: ['utility', 'withFeatureFlaggedComponent', 'feature-flag', 'hoc', 'linking-common'],
 			categories: ['linking', 'utilities', 'feature-flags'],
 			examples: [],
 		},

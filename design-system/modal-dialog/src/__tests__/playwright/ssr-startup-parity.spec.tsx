@@ -2,9 +2,7 @@
 import { expect, test } from '@af/integration-testing';
 
 test.describe('Modal - SSR startup parity', () => {
-	test('opens as part of initial render with feature flag off (legacy path)', async ({
-		page,
-	}) => {
+	test('opens as part of initial render with feature flag off (legacy path)', async ({ page }) => {
 		await page.visitExample<typeof import('../../../examples/103-ssr-initial-open.tsx')>(
 			'design-system',
 			'modal-dialog',

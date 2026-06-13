@@ -7,14 +7,12 @@ import { getAnchorAttributesFromEvent, updateAnchorHref } from '../click-helpers
 const RESOLVED_HREF = 'https://example.com/';
 
 describe('getAnchorAttributesFromEvent', () => {
-
 	it('should capture and report a11y violations', async () => {
-		const { container } = render(<a
-			href="https://example.com"
-			target="_blank"
-		>
-			link
-		</a>);
+		const { container } = render(
+			<a href="https://example.com" target="_blank">
+				link
+			</a>,
+		);
 		await expect(container).toBeAccessible();
 	});
 
@@ -271,9 +269,7 @@ describe('updateAnchorHref', () => {
 				updateAnchorHref(event as unknown as React.MouseEvent, DECORATED_HREF);
 			});
 
-			const { getByRole } = render(
-				<button onClick={mockHandler}>click me</button>,
-			);
+			const { getByRole } = render(<button onClick={mockHandler}>click me</button>);
 
 			// Should not throw
 			fireEvent.click(getByRole('button'));
@@ -287,7 +283,9 @@ describe('updateAnchorHref', () => {
 			});
 
 			const { getByRole } = render(
-				<div role="presentation" onClick={mockHandler}>click me</div>,
+				<div role="presentation" onClick={mockHandler}>
+					click me
+				</div>,
 			);
 
 			// Should not throw

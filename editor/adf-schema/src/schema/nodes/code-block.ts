@@ -1,7 +1,4 @@
-import type {
-	NodeSpec,
-	Node as PMNode,
-} from '@atlaskit/editor-prosemirror/model';
+import type { NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { TextDefinition as Text } from './text';
 import type { BreakoutMarkDefinition } from '../marks/breakout';
@@ -46,9 +43,7 @@ const getLanguageFromEditorStyle = (dom: HTMLElement): string | undefined => {
 
 // example of BB style:
 // <div class="codehilite language-javascript"><pre><span>hello world</span><span>\n</span></pre></div>
-const getLanguageFromBitbucketStyle = (
-	dom: HTMLElement,
-): string | undefined => {
+const getLanguageFromBitbucketStyle = (dom: HTMLElement): string | undefined => {
 	if (dom && dom.classList.contains('codehilite')) {
 		// code block html from Bitbucket always contains an extra new line
 		return extractLanguageFromClass(dom.className);
@@ -90,10 +85,7 @@ function parseCodeFromHtml(node: Node) {
 		if (child.nodeType === Node.TEXT_NODE) {
 			// append text
 			code += child.nodeValue;
-		} else if (
-			child.nodeType === Node.ELEMENT_NODE &&
-			child instanceof Element
-		) {
+		} else if (child.nodeType === Node.ELEMENT_NODE && child instanceof Element) {
 			const tagName = child.tagName.toLowerCase();
 			if (tagName === 'div' || tagName === 'p') {
 				// add a newline before its content, unless it's the first child to avoid leading newlines
@@ -134,10 +126,8 @@ export const codeBlock: NodeSpec = codeBlockFactory({
 				);
 				// Default external HTML paste to wrapped when data-wrap is absent, but preserve
 				// unwrapped editor-origin paste when copied content has data-pm-slice.
-				const wrap =
-					wrapAttr === null ? !isCopiedFromEditor : wrapAttr !== 'false';
-				const hideLineNumbers =
-					dom.getAttribute('data-hide-line-numbers') === 'true';
+				const wrap = wrapAttr === null ? !isCopiedFromEditor : wrapAttr !== 'false';
+				const hideLineNumbers = dom.getAttribute('data-hide-line-numbers') === 'true';
 				return { language, wrap, hideLineNumbers, localId: uuid.generate() };
 			},
 		},
@@ -151,8 +141,7 @@ export const codeBlock: NodeSpec = codeBlockFactory({
 				const dom = domNode as HTMLElement;
 				if (
 					dom.style.whiteSpace === 'pre' ||
-					(dom.style.fontFamily &&
-						dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
+					(dom.style.fontFamily && dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
 				) {
 					return { wrap: true };
 				}
@@ -183,9 +172,7 @@ export const codeBlock: NodeSpec = codeBlockFactory({
 				const dom = domNode as HTMLElement;
 				// TODO: ED-5604 - Fix it inside `react-syntax-highlighter`
 				// Remove line numbers
-				const lineNumber = dom.querySelectorAll(
-					'.react-syntax-highlighter-line-number',
-				);
+				const lineNumber = dom.querySelectorAll('.react-syntax-highlighter-line-number');
 
 				if (lineNumber.length > 0) {
 					// It's possible to copy without the line numbers too hence this
@@ -211,11 +198,7 @@ export const codeBlock: NodeSpec = codeBlockFactory({
 			attrs['data-hide-line-numbers'] = 'true';
 		}
 
-		return [
-			'pre',
-			attrs,
-			['code', { 'data-language': node.attrs.language }, 0],
-		];
+		return ['pre', attrs, ['code', { 'data-language': node.attrs.language }, 0]];
 	},
 });
 
@@ -278,8 +261,7 @@ export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 				const dom = domNode as HTMLElement;
 				if (
 					dom.style.whiteSpace === 'pre' ||
-					(dom.style.fontFamily &&
-						dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
+					(dom.style.fontFamily && dom.style.fontFamily.toLowerCase().indexOf('monospace') > -1)
 				) {
 					return {};
 				}
@@ -310,9 +292,7 @@ export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 				const dom = domNode as HTMLElement;
 				// TODO: ED-5604 - Fix it inside `react-syntax-highlighter`
 				// Remove line numbers
-				const lineNumber = dom.querySelectorAll(
-					'.react-syntax-highlighter-line-number',
-				);
+				const lineNumber = dom.querySelectorAll('.react-syntax-highlighter-line-number');
 
 				if (lineNumber.length > 0) {
 					// It's possible to copy without the line numbers too hence this
@@ -328,10 +308,6 @@ export const codeBlockWithLocalId: NodeSpec = codeBlockFactory({
 		if (node?.attrs?.localId !== undefined) {
 			attrs['data-local-id'] = node.attrs.localId;
 		}
-		return [
-			'pre',
-			attrs,
-			['code', { 'data-language': node.attrs.language }, 0],
-		];
+		return ['pre', attrs, ['code', { 'data-language': node.attrs.language }, 0]];
 	},
 });

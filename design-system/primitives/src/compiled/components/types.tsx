@@ -80,6 +80,7 @@ export type GapToken = PositiveSpaceToken;
 export type SurfaceColorToken =
 	| 'utility.elevation.surface.current'
 	| 'elevation.surface'
+	| 'elevation.surface.container'
 	| 'elevation.surface.overlay'
 	| 'elevation.surface.raised'
 	| 'elevation.surface.sunken';

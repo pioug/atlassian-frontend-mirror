@@ -97,7 +97,9 @@ const getStickyNodes = memoizeOne(() => [
 ]);
 
 export const shouldBeSticky = (nodeType: string): boolean => {
-	return editorExperiment('platform_editor_controls', 'variant1') && getStickyNodes().includes(nodeType);
+	return (
+		editorExperiment('platform_editor_controls', 'variant1') && getStickyNodes().includes(nodeType)
+	);
 };
 
 export const getControlBottomCSSValue = (

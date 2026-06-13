@@ -32,11 +32,14 @@ test.describe('DatePicker top-layer — initial focus matrix', () => {
 	test('opening the calendar (role="dialog") focuses the first focusable inside the dialog, not the combobox input', async ({
 		page,
 	}) => {
-		await page.visitExample<
-			typeof import('../../../../../../examples/10-date-picker-states.tsx')
-		>('design-system', 'datetime-picker', 'date-picker-states', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/10-date-picker-states.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'date-picker-states',
+			{
+				featureFlag,
+			},
+		);
 
 		const container = page.getByTestId('datepicker-1--container');
 		const calendar = page.locator('[role="dialog"][aria-label="calendar"]');
@@ -64,11 +67,14 @@ test.describe('TimePicker top-layer — initial focus matrix', () => {
 	test('opening the listbox keeps focus on the combobox input (APG Combobox Pattern)', async ({
 		page,
 	}) => {
-		await page.visitExample<
-			typeof import('../../../../../../examples/30-time-picker-states.tsx')
-		>('design-system', 'datetime-picker', 'time-picker-states', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../../../../../examples/30-time-picker-states.tsx')>(
+			'design-system',
+			'datetime-picker',
+			'time-picker-states',
+			{
+				featureFlag,
+			},
+		);
 
 		// Open the first TimePicker on the page via its combobox input.
 		const combobox = page.getByRole('combobox').first();

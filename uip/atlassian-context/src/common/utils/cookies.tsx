@@ -1,4 +1,4 @@
-import type {  AtlCtxCookieName, BIFROST_ATL_CTX_CLOUD_SERVICE_PROVIDER  } from '../constants';
+import type { AtlCtxCookieName, BIFROST_ATL_CTX_CLOUD_SERVICE_PROVIDER } from '../constants';
 
 type KnownCookieName = AtlCtxCookieName | typeof BIFROST_ATL_CTX_CLOUD_SERVICE_PROVIDER;
 
@@ -8,7 +8,10 @@ type KnownCookieName = AtlCtxCookieName | typeof BIFROST_ATL_CTX_CLOUD_SERVICE_P
  * @param {string} cookieString - The full cookie string (e.g. document.cookie)
  * @returns {string | undefined} - The cookie value if present, undefined otherwise
  */
-export function getRawCookieValue(cookieName: KnownCookieName, cookieString: string): string | undefined {
+export function getRawCookieValue(
+	cookieName: KnownCookieName,
+	cookieString: string,
+): string | undefined {
 	if (!cookieString) {
 		return undefined;
 	}

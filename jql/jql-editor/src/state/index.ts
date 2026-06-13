@@ -97,7 +97,6 @@ import {
 	tokensToAutocompleteOptions,
 } from './util';
 
-
 const initialIntl = createIntl({ locale: 'en' });
 
 const defaultAutocompleteOptions: AutocompleteOptionGroup = {

@@ -99,9 +99,7 @@ const ActionButton = ({
 			testId={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style}
-			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
-				? { 'aria-label': ariaLabel }
-				: {})}
+			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { 'aria-label': ariaLabel } : {})}
 		>
 			<Inline alignBlock="center" grow="fill" space={space}>
 				{icon}

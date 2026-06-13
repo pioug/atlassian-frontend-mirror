@@ -1,4 +1,7 @@
-import { MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH, MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH } from './constants';
+import {
+	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
+	MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
+} from './constants';
 
 /**
  * Retuns minimum value for media single node

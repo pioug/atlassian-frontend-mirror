@@ -4,7 +4,7 @@ import { useCallback, useEffect, useReducer, useRef } from 'react';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ACTIONS } from './ACTIONS';
-import { ensureSafeIndex } from './ensureSafeIndex';/**
+import { ensureSafeIndex } from './ensureSafeIndex'; /**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
  * given listSize, and a step (for up and down arrows).
  *

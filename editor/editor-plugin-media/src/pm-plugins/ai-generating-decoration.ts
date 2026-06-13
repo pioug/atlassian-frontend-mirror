@@ -152,8 +152,11 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 							const ids = new Map(pluginState.generatingMediaIds);
 							ids.set(meta.mediaId, meta.source ?? 'maui');
 							const hasCwrIds =
-								expValEquals('aifc_page_create_with_rovo_include_infographics', 'isEnabled', true) &&
-								[...ids.values()].some((s) => s === 'cwr');
+								expValEquals(
+									'aifc_page_create_with_rovo_include_infographics',
+									'isEnabled',
+									true,
+								) && [...ids.values()].some((s) => s === 'cwr');
 							const newDecoSet = buildDecorationSet(newState.doc, ids);
 
 							if (hasCwrIds && newDecoSet.find().length === 0 && ids.size > 0) {
@@ -168,8 +171,11 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 							ids.delete(meta.mediaId);
 
 							const hasCwrIds =
-								expValEquals('aifc_page_create_with_rovo_include_infographics', 'isEnabled', true) &&
-								[...ids.values()].some((s) => s === 'cwr');
+								expValEquals(
+									'aifc_page_create_with_rovo_include_infographics',
+									'isEnabled',
+									true,
+								) && [...ids.values()].some((s) => s === 'cwr');
 							const newDecoSet = buildDecorationSet(newState.doc, ids);
 
 							if (hasCwrIds && newDecoSet.find().length === 0) {

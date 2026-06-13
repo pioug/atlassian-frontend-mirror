@@ -3,7 +3,7 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from "@atlassian/feature-flags-test-utils";
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderHook } from '@atlassian/testing-library';
 
 import useInlineTailoredActionExperiment from '../index';
@@ -162,7 +162,7 @@ describe('useInlineTailoredActionExperiment', () => {
 					expect(result.current.isEnabled).toBe(false);
 				});
 			});
-	})
+	});
 
 	ffTest.off('platform_sl_3p_auth_inline_tailored_cta_killswitch', '', () => {
 		eeTest
@@ -237,5 +237,5 @@ describe('useInlineTailoredActionExperiment', () => {
 					expect(result.current.isEnabled).toBe(false);
 				});
 			});
-	})
+	});
 });

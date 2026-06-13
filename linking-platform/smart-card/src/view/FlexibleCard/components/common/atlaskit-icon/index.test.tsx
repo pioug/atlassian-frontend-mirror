@@ -60,7 +60,9 @@ describe('AtlaskitIcon', () => {
 	});
 
 	it('keeps synchronous rendering for document-like icon types', () => {
-		render(<AtlaskitIcon icon={IconType.Document} testId="document-icon" size={SmartLinkSize.Medium} />);
+		render(
+			<AtlaskitIcon icon={IconType.Document} testId="document-icon" size={SmartLinkSize.Medium} />,
+		);
 		render(<AtlaskitIcon icon={IconType.Blog} testId="blog-icon" size={SmartLinkSize.Medium} />);
 		render(
 			<AtlaskitIcon

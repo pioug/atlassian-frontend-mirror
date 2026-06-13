@@ -323,7 +323,8 @@ function PopperWrapper({
 						</RepositionOnUpdate>
 					</PopupContainer>
 				);
-				const isAutoPlacement = placement === 'auto' || placement === 'auto-start' || placement === 'auto-end';
+				const isAutoPlacement =
+					placement === 'auto' || placement === 'auto-start' || placement === 'auto-end';
 				const container = (
 					<div
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -344,7 +345,7 @@ function PopperWrapper({
 						data-testid={`${testId}--container`}
 					>
 						{/* Don't apply motion to auto placements */}
-	
+
 						<Motion
 							enteringAnimation={!isAutoPlacement ? placementMap[placement].enter : undefined}
 							exitingAnimation={!isAutoPlacement ? placementMap[placement].exit : undefined}

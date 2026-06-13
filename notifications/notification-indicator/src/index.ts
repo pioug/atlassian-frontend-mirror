@@ -10,8 +10,7 @@ import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/an
 
 const NotificationIndicatorWithAnalytics: ForwardRefExoticComponent<
 	Pick<Omit<Props, keyof WithAnalyticsEventsProps>, never> & {
-		appearance?:
-			// Legacy Badge appearances (still supported for backwards compatibility):
+		appearance?: // Legacy Badge appearances (still supported for backwards compatibility):
 			| 'added'
 			| 'default'
 			| 'important'

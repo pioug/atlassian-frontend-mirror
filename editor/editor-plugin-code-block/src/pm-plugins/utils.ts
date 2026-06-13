@@ -23,9 +23,7 @@ export function getAllCodeBlockNodesInDoc(state: EditorState): NodeWithPos[] {
 	return codeBlockNodes;
 }
 
-export function getAllChangedCodeBlocksInTransaction(
-	tr: ReadonlyTransaction,
-): NodeWithPos[] {
+export function getAllChangedCodeBlocksInTransaction(tr: ReadonlyTransaction): NodeWithPos[] {
 	const changedCodeBlocks: NodeWithPos[] = [];
 	const nodePositions = new Set();
 	tr.steps.forEach((step) => {

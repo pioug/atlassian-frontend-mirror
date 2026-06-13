@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::21f6b05cf2f9de04ab13466ff1436ddb>>
+ * @codegen <<SignedSource::1f64d7a1e3392b669ad5c7bfd53c7403>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -488,6 +488,7 @@ const tokens = {
 	'elevation.surface': '--ds-surface',
 	'elevation.surface.hovered': '--ds-surface-hovered',
 	'elevation.surface.pressed': '--ds-surface-pressed',
+	'elevation.surface.container': '--ds-surface-container',
 	'elevation.surface.overlay': '--ds-surface-overlay',
 	'elevation.surface.overlay.hovered': '--ds-surface-overlay-hovered',
 	'elevation.surface.overlay.pressed': '--ds-surface-overlay-pressed',
@@ -495,6 +496,9 @@ const tokens = {
 	'elevation.surface.raised.hovered': '--ds-surface-raised-hovered',
 	'elevation.surface.raised.pressed': '--ds-surface-raised-pressed',
 	'elevation.surface.sunken': '--ds-surface-sunken',
+	'elevation.rovo.surface.overlay': '--ds-rovo-surface-overlay',
+	'elevation.rovo.surface.overlay.hovered': '--ds-rovo-surface-overlay-hovered',
+	'elevation.rovo.surface.overlay.pressed': '--ds-rovo-surface-overlay-pressed',
 	'elevation.shadow.overflow': '--ds-shadow-overflow',
 	'elevation.shadow.overflow.perimeter': '--ds-shadow-overflow-perimeter',
 	'elevation.shadow.overflow.spread': '--ds-shadow-overflow-spread',
@@ -1038,6 +1042,7 @@ export type CSSTokenMap = {
 	'elevation.surface': 'var(--ds-surface)';
 	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
 	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
+	'elevation.surface.container': 'var(--ds-surface-container)';
 	'elevation.surface.overlay': 'var(--ds-surface-overlay)';
 	'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
 	'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
@@ -1045,6 +1050,9 @@ export type CSSTokenMap = {
 	'elevation.surface.raised.hovered': 'var(--ds-surface-raised-hovered)';
 	'elevation.surface.raised.pressed': 'var(--ds-surface-raised-pressed)';
 	'elevation.surface.sunken': 'var(--ds-surface-sunken)';
+	'elevation.rovo.surface.overlay': 'var(--ds-rovo-surface-overlay)';
+	'elevation.rovo.surface.overlay.hovered': 'var(--ds-rovo-surface-overlay-hovered)';
+	'elevation.rovo.surface.overlay.pressed': 'var(--ds-rovo-surface-overlay-pressed)';
 	'elevation.shadow.overflow': 'var(--ds-shadow-overflow)';
 	'elevation.shadow.overflow.perimeter': 'var(--ds-shadow-overflow-perimeter)';
 	'elevation.shadow.overflow.spread': 'var(--ds-shadow-overflow-spread)';

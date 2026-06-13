@@ -747,6 +747,7 @@ const unwrapJsonModule = <T>(mod: unknown, shape: 'object' | 'array'): T | null 
 
 export const loadVectorsAsync = async (options?: {
 	getBinaryUrl?: () => Promise<string>;
+	isLocalLLM?: boolean;
 }): Promise<void> => {
 	if (vectorStore || vectorsLoadStarted) {
 		return;
@@ -758,15 +759,16 @@ export const loadVectorsAsync = async (options?: {
 		);
 		return;
 	}
+	const isLocalLLM = options?.isLocalLLM ?? false;
 	vectorsLoadStarted = true;
-	startExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton');
+	startExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { isLocalLLM });
 
 	let url: string;
 	try {
 		url = await options.getBinaryUrl();
 	} catch (e) {
 		vectorsLoadStarted = false;
-		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { errorType: 'resolve_url' });
+		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { isLocalLLM, errorType: 'resolve_url' });
 		// eslint-disable-next-line no-console
 		console.warn('[text-predictor] Failed to resolve vectors URL:', e);
 		return;
@@ -777,6 +779,7 @@ export const loadVectorsAsync = async (options?: {
 		if (!res.ok) {
 			vectorsLoadStarted = false;
 			failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', {
+				isLocalLLM,
 				status: res.status,
 				errorType: 'http_error',
 			});
@@ -809,6 +812,7 @@ export const loadVectorsAsync = async (options?: {
 
 		vectorStore = { float32, wordIndex, dim };
 		succeedExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', {
+			isLocalLLM,
 			wordCount: nWords,
 			dim,
 			sizeBytes: float32.byteLength,
@@ -823,7 +827,7 @@ export const loadVectorsAsync = async (options?: {
 		}
 	} catch (e) {
 		vectorsLoadStarted = false;
-		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { errorType: 'network' });
+		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { isLocalLLM, errorType: 'network' });
 		// eslint-disable-next-line no-console
 		console.warn('[text-predictor] Failed to load vectors:', e);
 	}
@@ -835,7 +839,7 @@ export const initVectors = (store: VectorStore): void => {
 
 let vocabularyLoadPromise: Promise<void> | undefined;
 
-export const loadDefaultVocabulary = (): Promise<void> => {
+export const loadDefaultVocabulary = (options?: { isLocalLLM?: boolean }): Promise<void> => {
 	if (isInitialized) {
 		return Promise.resolve();
 	}
@@ -843,8 +847,9 @@ export const loadDefaultVocabulary = (): Promise<void> => {
 		return vocabularyLoadPromise;
 	}
 
+	const isLocalLLM = options?.isLocalLLM ?? false;
 	vocabularyLoadPromise = (async () => {
-		startExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton');
+		startExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', { isLocalLLM });
 
 		try {
 			// The L2 vocabulary and L3 word list are code-split into their own async
@@ -879,11 +884,15 @@ export const loadDefaultVocabulary = (): Promise<void> => {
 			initVocabulary({ terms });
 
 			succeedExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', {
+				isLocalLLM,
 				l2WordCount: terms.length,
 				l3WordCount: l3VocabularyData.length,
 			});
 		} catch (e) {
-			failExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', { errorType: 'parse_error' });
+			failExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', {
+				isLocalLLM,
+				errorType: 'parse_error',
+			});
 			// Allow a later call to retry the load rather than caching the failure.
 			vocabularyLoadPromise = undefined;
 			throw e;

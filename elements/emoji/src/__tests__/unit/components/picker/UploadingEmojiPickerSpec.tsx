@@ -72,9 +72,9 @@ describe('<UploadingEmojiPicker />', () => {
 		ufoStartSpy = jest.spyOn(experience, 'start');
 		ufoSuccessSpy = jest.spyOn(experience, 'success');
 		ufoFailureSpy = jest.spyOn(experience, 'failure');
-		getExperimentValueSpy = jest.spyOn(FeatureGates, 'getExperimentValue').mockImplementation(
-			(_experimentName, _parameterName, defaultValue) => defaultValue,
-		);
+		getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 	});
 
 	afterEach(() => {
@@ -377,10 +377,11 @@ describe('<UploadingEmojiPicker />', () => {
 		});
 
 		it('shows unsupported file type error in refresh upload flow', async () => {
-			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-				(experimentName, _parameterName, defaultValue) =>
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
 					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-			);
+				);
 
 			await helper.setupPicker({
 				emojiProvider,

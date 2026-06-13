@@ -532,16 +532,16 @@ All 44 existing legacy tests pass, plus 2 skipped (unchanged).
 
 ### `@atlaskit/top-layer`
 
-| File                                      | Change                                                                                                    |
-| ----------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `src/dialog/types.tsx`                    | Added `titleId`, `label`, `hideBackdrop`, `onExitFinish` to `DialogProps`                                 |
-| `src/dialog/dialog-context.tsx`           | Added `label` to `DialogContextValue`                                                                     |
-| `src/dialog/dialog.tsx`                   | `DialogRoot` accepts and passes `titleId`, `label` through context                                        |
-| `src/dialog/dialog-content.tsx`           | Conditional `aria-label` / `aria-labelledby`; merges `style` prop; `hideBackdrop` via ID-scoped `<style>` |
-| `src/dialog/create-close-event.tsx`       | New: `createCloseEvent({ reason })` helper for bridging close reasons to DOM events                       |
-| `src/popup/types.tsx`                     | `PopupContentProps.role` narrowed to `PopupRole` union; type-level enforcement                            |
-| `src/popup/popup-content.tsx`             | Removed runtime `console.warn` (replaced by type-level enforcement)                                       |
-| `src/popup/index.tsx`                     | Exported `PopupRole` type                                                                                 |
+| File                                | Change                                                                                                    |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `src/dialog/types.tsx`              | Added `titleId`, `label`, `hideBackdrop`, `onExitFinish` to `DialogProps`                                 |
+| `src/dialog/dialog-context.tsx`     | Added `label` to `DialogContextValue`                                                                     |
+| `src/dialog/dialog.tsx`             | `DialogRoot` accepts and passes `titleId`, `label` through context                                        |
+| `src/dialog/dialog-content.tsx`     | Conditional `aria-label` / `aria-labelledby`; merges `style` prop; `hideBackdrop` via ID-scoped `<style>` |
+| `src/dialog/create-close-event.tsx` | New: `createCloseEvent({ reason })` helper for bridging close reasons to DOM events                       |
+| `src/popup/types.tsx`               | `PopupContentProps.role` narrowed to `PopupRole` union; type-level enforcement                            |
+| `src/popup/popup-content.tsx`       | Removed runtime `console.warn` (replaced by type-level enforcement)                                       |
+| `src/popup/index.tsx`               | Exported `PopupRole` type                                                                                 |
 
 ### `@atlaskit/modal-dialog`
 
@@ -555,9 +555,10 @@ All 44 existing legacy tests pass, plus 2 skipped (unchanged).
 
 ## Update: `isOpen` + `onExitFinish` replaces ExitingPersistence glue
 
-`isOpen` is now **required** on `Dialog`. Consumers should keep the `<Dialog>` React component rendered across opens — they don't
-conditionally render it. The ExitingPersistence glue code (manual `dialog.close()` + `transitionend`
-listener + `bind()` + fallback timeout) has been fully replaced by two features on `Dialog`:
+`isOpen` is now **required** on `Dialog`. Consumers should keep the `<Dialog>` React component
+rendered across opens — they don't conditionally render it. The ExitingPersistence glue code (manual
+`dialog.close()` + `transitionend` listener + `bind()` + fallback timeout) has been fully replaced
+by two features on `Dialog`:
 
 1. **`isOpen` prop**: The modal-dialog passes `isOpen={!isExiting}` to `Dialog`, which handles
    calling `dialog.close()` internally when `isOpen` transitions to `false`. The CSS exit animation

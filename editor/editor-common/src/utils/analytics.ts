@@ -1,4 +1,3 @@
-
 import { getAnalyticsAppearance } from './getAnalyticsAppearance';
 import { SEVERITY } from './SEVERITY';
 

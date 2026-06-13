@@ -84,8 +84,6 @@ export function measureTTI(
 	setTimeout(checkIdle, idleThreshold);
 }
 
-
-
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getTTISeverity(
 	tti: number,

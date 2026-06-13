@@ -11,8 +11,7 @@ needed.
 
 `Popover` covers three usage patterns:
 
-1. **Button opens anchored content** — pair with `useAnchorPosition` and own the
-   trigger yourself.
+1. **Button opens anchored content** — pair with `useAnchorPosition` and own the trigger yourself.
 2. **Custom trigger lifecycle** — hover, timers, external state (e.g. tooltip).
 3. **No anchor at all** — flags, toasts, fixed-position layers.
 
@@ -67,12 +66,12 @@ function MyDropdown() {
 
 Notes:
 
-- Focus restoration is automatic. The browser handles it for outermost popovers; for nested
-  popovers with focus-capturing roles (dialog, menu, listbox, tree, grid, alertdialog), `Popover`
-  snapshots `document.activeElement` on open (via `beforetoggle`) and restores it on close.
-  Consumers do not need to wire a ref or call `.focus()` themselves.
-- For trigger-less or custom-positioned UI, skip `useAnchorPosition` and write the trigger
-  lifecycle directly. Example:
+- Focus restoration is automatic. The browser handles it for outermost popovers; for nested popovers
+  with focus-capturing roles (dialog, menu, listbox, tree, grid, alertdialog), `Popover` snapshots
+  `document.activeElement` on open (via `beforetoggle`) and restores it on close. Consumers do not
+  need to wire a ref or call `.focus()` themselves.
+- For trigger-less or custom-positioned UI, skip `useAnchorPosition` and write the trigger lifecycle
+  directly. Example:
 
 ```tsx
 <Popover ref={popoverRef} role="tooltip" isOpen={isVisible} mode="hint">
@@ -164,13 +163,13 @@ a modal dialog is open.
 
 ## When to use what
 
-| Scenario                                               | Component                       | `isOpen`?              | Focus Management                |
-| ------------------------------------------------------ | ------------------------------- | ---------------------- | ------------------------------- |
+| Scenario                                               | Component                       | `isOpen`?              | Focus Management                            |
+| ------------------------------------------------------ | ------------------------------- | ---------------------- | ------------------------------------------- |
 | Button opens dropdown/menu                             | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (role-based, browser Popover API) |
-| Hover/focus shows tooltip                              | `Popover` + `useAnchorPosition` | Yes — consumer manages | No focus changes (`tooltip`)    |
-| Toast/flag notification                                | `Popover`                       | Yes — `mode="manual"`  | No focus changes                |
-| Modal dialog                                           | `Dialog`                        | Yes — on `Dialog`      | Native `<dialog>` focus trap    |
-| Custom trigger (timer, external)                       | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (browser Popover API) |
+| Hover/focus shows tooltip                              | `Popover` + `useAnchorPosition` | Yes — consumer manages | No focus changes (`tooltip`)                |
+| Toast/flag notification                                | `Popover`                       | Yes — `mode="manual"`  | No focus changes                            |
+| Modal dialog                                           | `Dialog`                        | Yes — on `Dialog`      | Native `<dialog>` focus trap                |
+| Custom trigger (timer, external)                       | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (browser Popover API)             |
 | Button opens anchored content with no custom lifecycle | `Popover` + `useAnchorPosition` | Yes — consumer manages | Automatic (role-based, browser Popover API) |
 
 ---
@@ -187,19 +186,19 @@ Dialog                = <dialog> element + isOpen + animate + onExitFinish
 
 ### Entry points
 
-| Entry Point                                    | Purpose                                          |
-| ---------------------------------------------- | ------------------------------------------------ |
-| `@atlaskit/top-layer/popover`                  | Top-layer primitive and legacy `onClose` bridge |
+| Entry Point                                    | Purpose                                             |
+| ---------------------------------------------- | --------------------------------------------------- |
+| `@atlaskit/top-layer/popover`                  | Top-layer primitive and legacy `onClose` bridge     |
 | `@atlaskit/top-layer/popover-surface`          | Presentational surface (background, radius, shadow) |
-| `@atlaskit/top-layer/dialog`                   | Modal dialog and legacy `onClose` bridge         |
-| `@atlaskit/top-layer/animations`               | Animation presets (`slideAndFade`, `fade`, etc.) |
-| `@atlaskit/top-layer/use-anchor-position`      | CSS anchor positioning hook                      |
-| `@atlaskit/top-layer/use-width-from-anchor`    | Match popover width to anchor                    |
-| `@atlaskit/top-layer/use-arrow-navigation`     | Arrow key navigation hook for composite widgets  |
-| `@atlaskit/top-layer/use-simple-light-dismiss` | Light dismiss for manual popovers                |
-| `@atlaskit/top-layer/placement-map`            | Legacy placement string conversion               |
-| `@atlaskit/top-layer/dialog-scroll-lock`       | Background scroll prevention for modals          |
-| `@atlaskit/top-layer/focus`                    | Focus utilities (focus wrapping, initial focus)  |
+| `@atlaskit/top-layer/dialog`                   | Modal dialog and legacy `onClose` bridge            |
+| `@atlaskit/top-layer/animations`               | Animation presets (`slideAndFade`, `fade`, etc.)    |
+| `@atlaskit/top-layer/use-anchor-position`      | CSS anchor positioning hook                         |
+| `@atlaskit/top-layer/use-width-from-anchor`    | Match popover width to anchor                       |
+| `@atlaskit/top-layer/use-arrow-navigation`     | Arrow key navigation hook for composite widgets     |
+| `@atlaskit/top-layer/use-simple-light-dismiss` | Light dismiss for manual popovers                   |
+| `@atlaskit/top-layer/placement-map`            | Legacy placement string conversion                  |
+| `@atlaskit/top-layer/dialog-scroll-lock`       | Background scroll prevention for modals             |
+| `@atlaskit/top-layer/focus`                    | Focus utilities (focus wrapping, initial focus)     |
 
 ### Focus management
 

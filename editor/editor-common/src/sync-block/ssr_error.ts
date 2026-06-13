@@ -8,7 +8,6 @@ type BlockNodeIdentifiers = {
 	resourceId: string;
 };
 
-
 export type SyncedBlocksSSRErrorCode =
 	(typeof SyncedBlocksSSRErrorCodeMap)[keyof typeof SyncedBlocksSSRErrorCodeMap];
 

@@ -675,7 +675,11 @@ export const ResponsiveContainer = ({
 }: ResponsiveContainerProps): React.JSX.Element => {
 	const isUpdatedConfig = (() => {
 		if (breakpointPreset === 'fullpage') {
-			return expValEqualsNoExposure('platform_editor_ai_improve_formatting_toolbar', 'isEnabled', true);
+			return expValEqualsNoExposure(
+				'platform_editor_ai_improve_formatting_toolbar',
+				'isEnabled',
+				true,
+			);
 		}
 		return (
 			expValEquals('platform_editor_toolbar_update_jira_config', 'isEnabled', true) &&

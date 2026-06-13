@@ -1,10 +1,12 @@
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 
-import type { DatasourceTableSortDirection, DatasourceTableSortState } from '../issue-like-table/types';
+import type {
+	DatasourceTableSortDirection,
+	DatasourceTableSortState,
+} from '../issue-like-table/types';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '../jira-issues-modal';
 
 export type { DatasourceTableSortState } from '../issue-like-table/types';
-
 
 const getNextSortDirection = (
 	columnKey: string,

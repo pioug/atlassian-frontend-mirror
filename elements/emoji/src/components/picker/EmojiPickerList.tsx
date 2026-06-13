@@ -350,13 +350,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				);
 			}
 		},
-		[
-			isTeamojiExperimentEnabled,
-			onEmojiActive,
-			onEmojiDelete,
-			onEmojiLeave,
-			onEmojiSelected,
-		],
+		[isTeamojiExperimentEnabled, onEmojiActive, onEmojiDelete, onEmojiLeave, onEmojiSelected],
 	);
 
 	const buildVirtualItemFromGroup = useCallback(

@@ -44,7 +44,11 @@ const refreshedDeleteButton = css({
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
 const DeleteButton = (props: ButtonProps): JSX.Element => {
-	const isRefreshEnabled = FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
+	const isRefreshEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
 
 	return (
 		<span

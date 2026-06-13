@@ -20,11 +20,14 @@ test.describe('Spotlight top-layer — initial focus matrix', () => {
 	test('default spotlight focuses the first focusable element (dismiss control)', async ({
 		page,
 	}) => {
-		await page.visitExample<
-			typeof import('../../examples/testing-initial-focus-matrix.tsx')
-		>('design-system', 'spotlight', 'testing-initial-focus-matrix', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../examples/testing-initial-focus-matrix.tsx')>(
+			'design-system',
+			'spotlight',
+			'testing-initial-focus-matrix',
+			{
+				featureFlag,
+			},
+		);
 
 		await page.getByTestId('default-spotlight-trigger').click();
 
@@ -36,11 +39,14 @@ test.describe('Spotlight top-layer — initial focus matrix', () => {
 	});
 
 	test('spotlight with native [autofocus] element focuses that element', async ({ page }) => {
-		await page.visitExample<
-			typeof import('../../examples/testing-initial-focus-matrix.tsx')
-		>('design-system', 'spotlight', 'testing-initial-focus-matrix', {
-			featureFlag,
-		});
+		await page.visitExample<typeof import('../../examples/testing-initial-focus-matrix.tsx')>(
+			'design-system',
+			'spotlight',
+			'testing-initial-focus-matrix',
+			{
+				featureFlag,
+			},
+		);
 
 		await page.getByTestId('autofocus-spotlight-trigger').click();
 

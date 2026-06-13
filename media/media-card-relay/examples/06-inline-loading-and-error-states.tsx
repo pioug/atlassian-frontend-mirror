@@ -30,9 +30,9 @@ import { useMockMediaConfig } from './utils/useMockMediaConfig';
 const styles = cssMap({
 	root: {
 		paddingTop: token('space.300'),
-	paddingRight: token('space.300'),
-	paddingBottom: token('space.300'),
-	paddingLeft: token('space.300'),
+		paddingRight: token('space.300'),
+		paddingBottom: token('space.300'),
+		paddingLeft: token('space.300'),
 	},
 	row: {
 		paddingTop: token('space.150'),

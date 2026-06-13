@@ -14,6 +14,9 @@ var getTokenCategoryId = function getTokenCategoryId(tokenId) {
   if (tokenId.startsWith('color.rovo.icon.')) {
     return tokenId.replace('color.rovo.icon.', 'color.icon.');
   }
+  if (tokenId.startsWith('elevation.rovo.surface.')) {
+    return tokenId.replace('elevation.rovo.surface.', 'elevation.surface.');
+  }
   return tokenId;
 };
 var getTokenUsageGuidelines = exports.getTokenUsageGuidelines = function getTokenUsageGuidelines(tokenId) {

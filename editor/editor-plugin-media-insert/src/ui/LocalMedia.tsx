@@ -172,7 +172,13 @@ export const LocalMedia: React.ForwardRefExoticComponent<
 			[erroredFileIds, onUploadFailureAnalytics],
 		);
 
-		const buttonText = expValEqualsNoExposure('cc_page_experiences_editor_image_generation', 'isEnabled', true) ? strings.chooseFile : strings.upload;
+		const buttonText = expValEqualsNoExposure(
+			'cc_page_experiences_editor_image_generation',
+			'isEnabled',
+			true,
+		)
+			? strings.chooseFile
+			: strings.upload;
 
 		return (
 			<Stack grow="fill" space="space.200">

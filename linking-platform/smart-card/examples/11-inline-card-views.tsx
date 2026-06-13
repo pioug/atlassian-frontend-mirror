@@ -66,7 +66,9 @@ export default (): React.JSX.Element => {
 					<Box xcss={styles.boxStyles}>
 						<Select<FontOptions>
 							options={FONT_OPTIONS}
-							onChange={(newValue: FontOptions | null) => setFontOptionLabel(newValue?.label ?? 'none')}
+							onChange={(newValue: FontOptions | null) =>
+								setFontOptionLabel(newValue?.label ?? 'none')
+							}
 							value={fontOption}
 						/>
 						<HelperMessage>Set parent container font token.</HelperMessage>

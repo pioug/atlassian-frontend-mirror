@@ -24,9 +24,9 @@ describe('File Chooser', () => {
 	beforeEach(() => {
 		user = userEvent.setup();
 		jest.clearAllMocks();
-		getExperimentValueSpy = jest.spyOn(FeatureGates, 'getExperimentValue').mockImplementation(
-			(_experimentName, _parameterName, defaultValue) => defaultValue,
-		);
+		getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 	});
 
 	afterEach(() => {
@@ -62,10 +62,11 @@ describe('File Chooser', () => {
 	});
 
 	it('cancels native file drag events on the dropzone', async () => {
-		jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-			(experimentName, _parameterName, defaultValue) =>
+		jest
+			.mocked(FeatureGates.getExperimentValue)
+			.mockImplementation((experimentName, _parameterName, defaultValue) =>
 				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-		);
+			);
 
 		render(<FileChooser label="drop a file" />);
 
@@ -86,10 +87,11 @@ describe('File Chooser', () => {
 	});
 
 	it('passes dropped files to onChange via the existing synthetic input event shape', async () => {
-		jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-			(experimentName, _parameterName, defaultValue) =>
+		jest
+			.mocked(FeatureGates.getExperimentValue)
+			.mockImplementation((experimentName, _parameterName, defaultValue) =>
 				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-		);
+			);
 
 		const file = new File(['hello'], 'emoji.png', { type: 'image/png' });
 		const onChange = jest.fn();

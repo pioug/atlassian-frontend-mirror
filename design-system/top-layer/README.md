@@ -55,8 +55,8 @@ function MyPopup({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
 }
 ```
 
-- Focus restoration is automatic. The browser handles it for outermost popovers; `Popover`
-  snapshots `document.activeElement` on open and restores it on close for nested cases.
+- Focus restoration is automatic. The browser handles it for outermost popovers; `Popover` snapshots
+  `document.activeElement` on open and restores it on close for nested cases.
 - For default overlay styling (background, shadow, border-radius), wrap content in `PopoverSurface`
   from `@atlaskit/top-layer/popover-surface`.
 - For trigger-less or custom-positioned UI (flag, tooltip, react-select menu portal), use `Popover`
@@ -88,8 +88,8 @@ Compound component for modal dialogs using the native `<dialog>` element with `.
 ## Animations
 
 Both `Popover` and `Dialog` support CSS-based entry/exit animations via the `animate` prop.
-Animations use
-[`@starting-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style) for entry and
+Animations use [`@starting-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style)
+for entry and
 [`allow-discrete`](https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior) on
 `display`/`overlay` for exit — no JavaScript animation coordination required.
 

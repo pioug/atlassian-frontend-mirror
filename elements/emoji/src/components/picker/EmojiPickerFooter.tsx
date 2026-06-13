@@ -45,7 +45,11 @@ export const emojiPickerFooterTestId = 'emoji-picker-footer';
 
 const EmojiPickerFooter = ({ selectedEmoji, onOpenUpload, uploadEnabled }: Props): JSX.Element => {
 	const intl = useIntl();
-	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	) ? (
 		<div
 			css={[emojiPickerFooter, emojiPickerFooterWithTopShadowNew]}
 			data-testid={emojiPickerFooterTestId}

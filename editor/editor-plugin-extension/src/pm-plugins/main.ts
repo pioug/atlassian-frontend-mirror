@@ -357,9 +357,7 @@ export const createPlugin = (
 					undefined,
 					undefined,
 					undefined,
-					isSSRStreaming()
-						? intl
-						: undefined,
+					isSSRStreaming() ? intl : undefined,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
 				bodiedExtension: lazyExtensionNodeView(
@@ -374,9 +372,7 @@ export const createPlugin = (
 					showLivePagesBodiedMacrosRendererView,
 					__rendererExtensionOptions?.showUpdated1PBodiedExtensionUI,
 					__rendererExtensionOptions?.rendererExtensionHandlers,
-					isSSRStreaming()
-						? intl
-						: undefined,
+					isSSRStreaming() ? intl : undefined,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
 				inlineExtension: lazyExtensionNodeView(
@@ -391,9 +387,7 @@ export const createPlugin = (
 					undefined,
 					undefined,
 					undefined,
-					isSSRStreaming()
-						? intl
-						: undefined,
+					isSSRStreaming() ? intl : undefined,
 				),
 				multiBodiedExtension: lazyExtensionNodeView(
 					'multiBodiedExtension',

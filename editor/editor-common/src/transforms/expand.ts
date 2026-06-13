@@ -1,4 +1,3 @@
-
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { findExpand } from './findExpand';
 // eslint-disable-next-line @atlaskit/editor/no-re-export

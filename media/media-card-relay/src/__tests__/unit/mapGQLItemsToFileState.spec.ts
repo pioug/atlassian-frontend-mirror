@@ -138,9 +138,7 @@ describe('mapGQLItemsToFileState', () => {
 
 	describe('representations', () => {
 		it('returns empty representations when image is absent', () => {
-			const result = mapGQLItemsToFileState(
-				buildFragment({ details: { representations: null } }),
-			);
+			const result = mapGQLItemsToFileState(buildFragment({ details: { representations: null } }));
 			expect(result).toBeDefined();
 			expect((result as { representations: object }).representations).toEqual({});
 		});
@@ -160,9 +158,7 @@ describe('mapGQLItemsToFileState', () => {
 				buildFragment({ details: { mediaMetadata: { duration: null } } }),
 			);
 			expect(result).toBeDefined();
-			expect(
-				(result as { mediaMetadata?: { duration: number } }).mediaMetadata,
-			).toBeUndefined();
+			expect((result as { mediaMetadata?: { duration: number } }).mediaMetadata).toBeUndefined();
 		});
 
 		it('forwards duration when present', () => {
@@ -184,9 +180,7 @@ describe('mapGQLItemsToFileState', () => {
 				}),
 			);
 			expect(result).toBeDefined();
-			expect(
-				(result as { abuseClassification?: object }).abuseClassification,
-			).toBeUndefined();
+			expect((result as { abuseClassification?: object }).abuseClassification).toBeUndefined();
 		});
 
 		it('leaves abuseClassification undefined when classification is missing', () => {
@@ -196,9 +190,7 @@ describe('mapGQLItemsToFileState', () => {
 				}),
 			);
 			expect(result).toBeDefined();
-			expect(
-				(result as { abuseClassification?: object }).abuseClassification,
-			).toBeUndefined();
+			expect((result as { abuseClassification?: object }).abuseClassification).toBeUndefined();
 		});
 
 		it('leaves abuseClassification undefined when confidence is missing', () => {
@@ -210,9 +202,7 @@ describe('mapGQLItemsToFileState', () => {
 				}),
 			);
 			expect(result).toBeDefined();
-			expect(
-				(result as { abuseClassification?: object }).abuseClassification,
-			).toBeUndefined();
+			expect((result as { abuseClassification?: object }).abuseClassification).toBeUndefined();
 		});
 
 		it('forwards abuseClassification when both fields are present', () => {
@@ -224,9 +214,10 @@ describe('mapGQLItemsToFileState', () => {
 				}),
 			);
 			expect(result).toBeDefined();
-			expect(
-				(result as { abuseClassification?: object }).abuseClassification,
-			).toEqual({ classification: 'MALICIOUS', confidence: 'HIGH' });
+			expect((result as { abuseClassification?: object }).abuseClassification).toEqual({
+				classification: 'MALICIOUS',
+				confidence: 'HIGH',
+			});
 		});
 	});
 
@@ -304,33 +295,33 @@ describe('mapGQLItemsToFileState', () => {
 			['name', { name: '' as unknown as string }],
 			['url', { url: null }],
 			['processingStatus', { processingStatus: null }],
-		])(
-			'drops artifact entries that are missing %s',
-			(_field, partial: Record<string, unknown>) => {
-				const result = mapGQLItemsToFileState(
-					buildFragment({
-						details: {
-							artifactsList: [
-								{
-									name: 'image.jpg',
-									url: 'https://cdn.example.com/image.jpg',
-									processingStatus: 'succeeded',
-									mimeType: null,
-									size: null,
-									createdAt: null,
-									...partial,
-								} as FragmentDetails['artifactsList'] extends ReadonlyArray<infer T> | null | undefined
-									? T
-									: never,
-							],
-						},
-					}),
-				);
+		])('drops artifact entries that are missing %s', (_field, partial: Record<string, unknown>) => {
+			const result = mapGQLItemsToFileState(
+				buildFragment({
+					details: {
+						artifactsList: [
+							{
+								name: 'image.jpg',
+								url: 'https://cdn.example.com/image.jpg',
+								processingStatus: 'succeeded',
+								mimeType: null,
+								size: null,
+								createdAt: null,
+								...partial,
+							} as FragmentDetails['artifactsList'] extends
+								| ReadonlyArray<infer T>
+								| null
+								| undefined
+								? T
+								: never,
+						],
+					},
+				}),
+			);
 
-				expect(result).toBeDefined();
-				expect((result as { artifacts: Record<string, unknown> }).artifacts).toEqual({});
-			},
-		);
+			expect(result).toBeDefined();
+			expect((result as { artifacts: Record<string, unknown> }).artifacts).toEqual({});
+		});
 
 		it('keeps valid entries while dropping invalid siblings in the same list', () => {
 			const result = mapGQLItemsToFileState(

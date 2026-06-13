@@ -2,17 +2,23 @@ import React from 'react';
 
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { SlackMessage, GithubFile, GoogleDoc, GoogleDocUrl, iconGoogleDrive } from '@atlaskit/link-test-helpers';
+import {
+	SlackMessage,
+	GithubFile,
+	GoogleDoc,
+	GoogleDocUrl,
+	iconGoogleDrive,
+} from '@atlaskit/link-test-helpers';
 
 import { Card } from '../src';
 
 import ExampleContainer from './utils/example-container';
 
 class ProviderClient extends CardClient {
-	protected providerResponse: JsonLd.Response<JsonLd.Data.BaseData>
+	protected providerResponse: JsonLd.Response<JsonLd.Data.BaseData>;
 	constructor(response: JsonLd.Response<JsonLd.Data.BaseData>) {
 		super();
-		this.providerResponse = response
+		this.providerResponse = response;
 	}
 	fetchData(_: string) {
 		return Promise.resolve(this.providerResponse);
@@ -27,8 +33,8 @@ const providers = [
 			meta: {
 				...SlackMessage.meta,
 				supportedFeature: ['RovoActions'],
-			}
-		} as JsonLd.Response<JsonLd.Data.BaseData>
+			},
+		} as JsonLd.Response<JsonLd.Data.BaseData>,
 	},
 	{
 		url: 'https://github.com/tuser/test-repo/blob/tuser-patch-1/test.txt',
@@ -37,8 +43,8 @@ const providers = [
 			meta: {
 				...GithubFile.meta,
 				supportedFeature: ['RovoActions'],
-			}
-		} as JsonLd.Response<JsonLd.Data.BaseData>
+			},
+		} as JsonLd.Response<JsonLd.Data.BaseData>,
 	},
 	{
 		url: GoogleDocUrl,
@@ -46,15 +52,15 @@ const providers = [
 			...GoogleDoc,
 			data: {
 				...GoogleDoc.data,
-				icon: iconGoogleDrive
+				icon: iconGoogleDrive,
 			},
 			meta: {
 				...GoogleDoc.meta,
 				supportedFeature: ['RovoActions'],
-			}
-		} as JsonLd.Response<JsonLd.Data.BaseData>
-	}
-]
+			},
+		} as JsonLd.Response<JsonLd.Data.BaseData>,
+	},
+];
 
 /**
  * VR snapshot for the inline card treatment cohort of
@@ -69,7 +75,7 @@ const VRInlineCardResolvedRovoActions: {
 } = (): JSX.Element => {
 	return (
 		<ExampleContainer title="Inline Card with Rovo Actions CTA">
-			{providers.map(provider => (
+			{providers.map((provider) => (
 				<SmartCardProvider
 					client={new ProviderClient(provider.response)}
 					rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}

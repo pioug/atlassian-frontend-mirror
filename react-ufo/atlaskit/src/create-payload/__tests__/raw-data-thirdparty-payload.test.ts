@@ -426,7 +426,9 @@ describe('Payload Creation with Third-Party Holds', () => {
 
 			expect(properties?.['ufo:vc:raw:removed']).toBe(true);
 			expect(properties?.['ufo:vc:raw:preservedOverBudget']).toBeUndefined();
-			expect(properties?.['ufo:vc:rev']?.find((rev: any) => rev.revision === 'raw-handler')).toBeUndefined();
+			expect(
+				properties?.['ufo:vc:rev']?.find((rev: any) => rev.revision === 'raw-handler'),
+			).toBeUndefined();
 		});
 
 		it('should preserve raw-handler when payload is over budget and always emit raw-handler gate is on', async () => {
@@ -443,7 +445,9 @@ describe('Payload Creation with Third-Party Holds', () => {
 
 			expect(properties?.['ufo:vc:raw:removed']).toBeUndefined();
 			expect(properties?.['ufo:vc:raw:preservedOverBudget']).toBe(true);
-			expect(properties?.['ufo:vc:rev']?.find((rev: any) => rev.revision === 'raw-handler')).toBeDefined();
+			expect(
+				properties?.['ufo:vc:rev']?.find((rev: any) => rev.revision === 'raw-handler'),
+			).toBeDefined();
 		});
 	});
 });

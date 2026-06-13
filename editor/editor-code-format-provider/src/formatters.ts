@@ -1,5 +1,5 @@
 type PrettierParser = 'babel' | 'json';
-type SqlFormatter = typeof import('sql-formatter')['format'];
+type SqlFormatter = (typeof import('sql-formatter'))['format'];
 
 type FormatCode = (content: string) => Promise<string> | string;
 type FormatCodeLanguage = 'javascript' | 'json' | 'jsx' | 'sql';
@@ -88,8 +88,7 @@ const languageFormatters: Record<FormatCodeLanguage, LoadFormatter> = {
 
 export const isSupportedLanguage = (
 	language: string | null | undefined,
-): language is FormatCodeLanguage =>
-	typeof language === 'string' && language in languageFormatters;
+): language is FormatCodeLanguage => typeof language === 'string' && language in languageFormatters;
 
 export const loadFormatter = (language: FormatCodeLanguage): Promise<FormatCode> =>
 	languageFormatters[language]();

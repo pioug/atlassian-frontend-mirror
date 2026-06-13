@@ -1,4 +1,5 @@
 import type { DocNode } from '@atlaskit/adf-schema';
+import type { CreationContextParams } from '@atlassian/conversation-assistant-external-context/types';
 
 import type { SolutionDraftAgentUpdatePayload } from './common/types/agent';
 import type { JsmJourneyBuilderActionsPayload } from './common/types/jsm-journey-builder';
@@ -103,6 +104,7 @@ export type ChatNewPayload = PayloadCore<
 		}>;
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
+		creationContextParams?: CreationContextParams;
 		// Used to indicate if the prompt is a placeholder, only works if `prompt` is a string
 		isPromptPlaceholder?: boolean;
 		files?: UploadedFile[];

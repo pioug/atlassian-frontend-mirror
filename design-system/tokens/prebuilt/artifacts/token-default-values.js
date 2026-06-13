@@ -13,7 +13,7 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::c8b26b5734109e5c2550e8825c3e6531>>
+ * @codegen <<SignedSource::e565c3f624eeb0efb91263e41340d5a8>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {
@@ -491,6 +491,7 @@ var defaultTokenValues = {
   'elevation.surface': '#FFFFFF',
   'elevation.surface.hovered': '#F0F1F2',
   'elevation.surface.pressed': '#DDDEE1',
+  'elevation.surface.container': '#F0F1F2',
   'elevation.surface.overlay': '#FFFFFF',
   'elevation.surface.overlay.hovered': '#F0F1F2',
   'elevation.surface.overlay.pressed': '#DDDEE1',
@@ -498,6 +499,9 @@ var defaultTokenValues = {
   'elevation.surface.raised.hovered': '#F0F1F2',
   'elevation.surface.raised.pressed': '#DDDEE1',
   'elevation.surface.sunken': '#F8F8F8',
+  'elevation.rovo.surface.overlay': '#F8F8F8',
+  'elevation.rovo.surface.overlay.hovered': '#F0F1F2',
+  'elevation.rovo.surface.overlay.pressed': '#DDDEE1',
   'elevation.shadow.overflow': '0px 0px 8px #1E1F2129, 0px 0px 1px #1E1F211F',
   'elevation.shadow.overflow.perimeter': '#1E1F211f',
   'elevation.shadow.overflow.spread': '#1E1F2129',

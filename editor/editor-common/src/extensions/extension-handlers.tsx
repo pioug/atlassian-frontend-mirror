@@ -51,7 +51,6 @@ function getNodeFromManifest(
 	return node;
 }
 
-
 export async function getExtensionModuleNode(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,

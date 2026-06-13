@@ -77,7 +77,6 @@ const applySectionTitleUpdates = ({
 		};
 	});
 
-
 	return updatedSections;
 };
 

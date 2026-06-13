@@ -4,13 +4,7 @@
  */
 import type { NewAppearance } from './types';
 
-type OldAppearance =
-	| 'added'
-	| 'removed'
-	| 'default'
-	| 'primary'
-	| 'primaryInverted'
-	| 'important';
+type OldAppearance = 'added' | 'removed' | 'default' | 'primary' | 'primaryInverted' | 'important';
 
 export const appearanceMappingToOld: Record<NewAppearance, OldAppearance> & {
 	added: OldAppearance;

@@ -296,7 +296,8 @@ export interface FlexibleProps extends ActionProps, HoverPreviewProps {
 }
 
 export interface CardProps
-	extends BaseCardProps,
+	extends
+		BaseCardProps,
 		CardEventProps,
 		InlineProps,
 		BlockProps,

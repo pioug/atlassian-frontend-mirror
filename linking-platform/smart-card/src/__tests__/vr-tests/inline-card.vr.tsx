@@ -478,6 +478,6 @@ snapshot(VRInlineCardResolvedRovoActions, {
 	description: 'inline card resolved view with Rovo actions CTA (treatment)',
 	featureFlags: {
 		'smart-card-inline-resolved-view-refactor': true,
-		'platform_sl_3p_auth_inline_tailored_cta_killswitch': true,
+		platform_sl_3p_auth_inline_tailored_cta_killswitch: true,
 	},
 });

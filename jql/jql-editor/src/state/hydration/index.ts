@@ -57,9 +57,9 @@ export const hydrateQuery =
 							? normaliseHydrationKey(fieldName)
 							: fieldName;
 					const valueMap = new Map(oldHydratedValues[fieldNameToUse]);
-				values.forEach((value) => {
-					valueMap.set(value.id, value);
-				});
+					values.forEach((value) => {
+						valueMap.set(value.id, value);
+					});
 					return {
 						...map,
 						[fieldNameToUse]: valueMap,

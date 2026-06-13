@@ -138,7 +138,7 @@ export default (
 					? {
 							layoutColumn: (node: PMNode, view: EditorView, getPos: () => number | undefined) =>
 								new LayoutColumnView(node, view, getPos),
-					  }
+						}
 					: {}),
 			},
 		},

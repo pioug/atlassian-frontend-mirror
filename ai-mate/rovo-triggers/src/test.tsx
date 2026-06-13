@@ -342,5 +342,4 @@ describe('PubSub', () => {
 			unmountB();
 		});
 	});
-
 });

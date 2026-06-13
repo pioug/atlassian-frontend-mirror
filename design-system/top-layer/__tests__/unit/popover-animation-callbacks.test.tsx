@@ -435,13 +435,19 @@ describe('aria-expanded during exit animation', () => {
 			render(<ControlledPopoverWithAriaExpanded animate={false} />);
 			const trigger = screen.getByTestId('trigger');
 
-			act(() => { trigger.click(); });
+			act(() => {
+				trigger.click();
+			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
-			act(() => { trigger.click(); });
+			act(() => {
+				trigger.click();
+			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'false');
 
-			act(() => { trigger.click(); });
+			act(() => {
+				trigger.click();
+			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 		});
 	});
@@ -459,11 +465,15 @@ describe('aria-expanded during exit animation', () => {
 			render(<ControlledPopoverWithAriaExpanded animate={true} />);
 			const trigger = screen.getByTestId('trigger');
 
-			act(() => { trigger.click(); });
+			act(() => {
+				trigger.click();
+			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
 			// Trigger close — animation starts but has not finished
-			act(() => { trigger.click(); });
+			act(() => {
+				trigger.click();
+			});
 
 			// aria-expanded must stay true while exit animation runs
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
@@ -473,14 +483,20 @@ describe('aria-expanded during exit animation', () => {
 			render(<ControlledPopoverWithAriaExpanded animate={true} />);
 			const trigger = screen.getByTestId('trigger');
 
-			act(() => { trigger.click(); });
-			act(() => { trigger.click(); });
+			act(() => {
+				trigger.click();
+			});
+			act(() => {
+				trigger.click();
+			});
 
 			// Still true during animation
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
 			// Let the fallback timeout fire (simulates transitionend completing)
-			act(() => { jest.runAllTimers(); });
+			act(() => {
+				jest.runAllTimers();
+			});
 
 			// Now aria-expanded should be false
 			expect(trigger).toHaveAttribute('aria-expanded', 'false');
@@ -491,23 +507,34 @@ describe('aria-expanded during exit animation', () => {
 			const trigger = screen.getByTestId('trigger');
 
 			// Open
-			act(() => { trigger.click(); });
-			act(() => { jest.runAllTimers(); });
+			act(() => {
+				trigger.click();
+			});
+			act(() => {
+				jest.runAllTimers();
+			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
 			// Close — stays true during animation
-			act(() => { trigger.click(); });
+			act(() => {
+				trigger.click();
+			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
 			// Animation completes
-			act(() => { jest.runAllTimers(); });
+			act(() => {
+				jest.runAllTimers();
+			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'false');
 
 			// Open again
-			act(() => { trigger.click(); });
-			act(() => { jest.runAllTimers(); });
+			act(() => {
+				trigger.click();
+			});
+			act(() => {
+				jest.runAllTimers();
+			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 		});
 	});
 });
-

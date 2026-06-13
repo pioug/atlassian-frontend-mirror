@@ -6,7 +6,7 @@ import { ActionName } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import useRovoChat, { type SendPromptMessageData } from '../../../../../state/hooks/use-rovo-chat';
-import { getPromptAction, RovoChatPromptKey } from "../../../../common/rovo-chat-utils";
+import { getPromptAction, RovoChatPromptKey } from '../../../../common/rovo-chat-utils';
 import Action from '../action';
 import { type LinkActionProps } from '../types';
 
@@ -15,7 +15,6 @@ const GOOGLE_PROMPTS = [
 	RovoChatPromptKey.SHOW_OTHER_MENTIONS,
 	RovoChatPromptKey.SUGGEST_IMPROVEMENT,
 ];
-
 
 const DEFAULT_PROMPTS = GOOGLE_PROMPTS;
 
@@ -64,12 +63,12 @@ const RovoChatAction = ({
 				tooltipMessage,
 				data: promptData,
 			} = getPromptAction({
-					promptKey,
-					intl,
-					url: data?.url,
-					product: data?.product,
-					iconSize: props.iconSize,
-					cardAppearance: props.cardAppearance,
+				promptKey,
+				intl,
+				url: data?.url,
+				product: data?.product,
+				iconSize: props.iconSize,
+				cardAppearance: props.cardAppearance,
 			}) || {};
 
 			return promptData ? (

@@ -163,7 +163,6 @@ const notifyListenersThrottled = throttle(
 	THROTTLE_CALLS_FOR_MILLISECONDS,
 );
 
-
 class ActionsAPI {
 	createAPI(
 		// Ignored via go/ees005

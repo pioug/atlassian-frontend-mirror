@@ -13,16 +13,16 @@ focus-capturing roles:
 - `grid`
 
 `useInitialFocus` (in `src/internal/use-initial-focus.tsx`) currently only implements focus movement
-for the first four. `tree` and `grid` fall through to a no-op: focus is never moved into the
-popover on open.
+for the first four. `tree` and `grid` fall through to a no-op: focus is never moved into the popover
+on open.
 
 ## Consequence
 
 For a `Popover` with `role="tree"` or `role="grid"`:
 
 - **Initial focus**: not moved into the popover. The trigger keeps focus and the user must Tab into
-  the popover content. This violates the WAI-ARIA APG patterns for both roles, which expect focus
-  to land on a navigable child (typically the active tree item or grid cell).
+  the popover content. This violates the WAI-ARIA APG patterns for both roles, which expect focus to
+  land on a navigable child (typically the active tree item or grid cell).
 - **Focus restoration**: harmless. The nested-popover fallback restoration runs but the snapshotted
   element (the trigger) already has focus, so the restore is a no-op.
 
@@ -40,8 +40,8 @@ Add `tree` and `grid` cases to `getInitialFocusTarget` in `use-initial-focus.tsx
   the selected item if one exists.
 - **`grid`**: focus the first `[role="gridcell"][tabindex="0"]`; fall back to the first
   `[role="row"] > [role="gridcell"]`. Per the
-  [APG Grid pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/), the grid uses roving
-  tabindex with `tabindex="0"` on the active cell.
+  [APG Grid pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/), the grid uses roving tabindex
+  with `tabindex="0"` on the active cell.
 
 ## Test coverage to add
 

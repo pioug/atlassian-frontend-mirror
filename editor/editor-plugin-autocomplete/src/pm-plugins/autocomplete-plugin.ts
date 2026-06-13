@@ -16,7 +16,12 @@ import type { AutocompletePlugin } from '../autocompletePluginType';
 
 import { isAutocompleteDebugEnabled } from './debug-mode';
 import { createGhostTextDecorationSet } from './ghost-text-decoration';
-import { createLocalSlowLaneClient, type LocalSlowLaneClient } from './local-slow-lane-client';
+import {
+	createLocalSlowLaneClient,
+	type LocalSlowLaneClient,
+	type LocalSlowLaneLoadError,
+	type LocalSlowLaneLoadSuccess,
+} from './local-slow-lane-client';
 import { createSlowLaneClient, setDefaultSlowLaneClient, isWordBoundary } from './slow-lane-client';
 import {
 	predict,
@@ -298,6 +303,43 @@ export const createAutocompletePlugin = (
 		});
 	};
 
+	const fireLocalModelLoadedAnalytics = (info: LocalSlowLaneLoadSuccess): void => {
+		api?.analytics?.actions.fireAnalyticsEvent({
+			action: ACTION.LOCAL_MODEL_LOADED,
+			actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+			eventType: EVENT_TYPE.TRACK,
+			attributes: {
+				modelId: info.modelId,
+				embeddingModelId: info.embeddingModelId,
+				loadDurationMs: info.loadDurationMs,
+				gpuVendor: info.capabilities.vendor,
+				gpuArchitecture: info.capabilities.architecture,
+			},
+		});
+	};
+
+	const fireLocalModelLoadFailedAnalytics = (error: LocalSlowLaneLoadError): void => {
+		const { capabilities } = error;
+		api?.analytics?.actions.fireAnalyticsEvent({
+			action: ACTION.LOCAL_MODEL_LOAD_FAILED,
+			actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
+			eventType: EVENT_TYPE.TRACK,
+			attributes: {
+				reason: error.reason,
+				message: error.message,
+				modelId: error.modelId,
+				embeddingModelId: error.embeddingModelId,
+				webgpuAvailable: capabilities.available,
+				adapterAvailable: capabilities.adapterAvailable,
+				shaderF16Supported: capabilities.shaderF16Supported,
+				maxBufferSizeMB: capabilities.maxBufferSizeMB,
+				maxStorageBufferBindingSizeMB: capabilities.maxStorageBufferBindingSizeMB,
+				gpuVendor: capabilities.vendor,
+				gpuArchitecture: capabilities.architecture,
+			},
+		});
+	};
+
 	const fireSuggestionInsertedAnalytics = (ghostText: string): void => {
 		const typedLength = lastSuggestionTypedLength;
 		const suggestionLength = lastSuggestionLength || typedLength + ghostText.length;
@@ -319,6 +361,8 @@ export const createAutocompletePlugin = (
 	const slowLaneClient = options?.useLocalModel
 		? createLocalSlowLaneClient({
 				debounceMs: LOCAL_SLOW_LANE_DEBOUNCE_MS,
+				onLoadSuccess: fireLocalModelLoadedAnalytics,
+				onLoadError: fireLocalModelLoadFailedAnalytics,
 			})
 		: createSlowLaneClient({
 				baseUrl: '',
@@ -637,12 +681,15 @@ export const createAutocompletePlugin = (
 					return false;
 				},
 				focus: () => {
-					loadDefaultVocabulary().catch((error) => {
+					loadDefaultVocabulary({ isLocalLLM: options?.useLocalModel ?? false }).catch((error) => {
 						logException(error as Error, {
 							location: 'editor-plugin-autocomplete/loadDefaultVocabulary',
 						});
 					});
-					loadVectorsAsync({ getBinaryUrl: options?.getVectorsBinaryUrl }).catch((error) => {
+					loadVectorsAsync({
+						getBinaryUrl: options?.getVectorsBinaryUrl,
+						isLocalLLM: options?.useLocalModel ?? false,
+					}).catch((error) => {
 						logException(error as Error, {
 							location: 'editor-plugin-autocomplete/loadVectorsAsync',
 						});

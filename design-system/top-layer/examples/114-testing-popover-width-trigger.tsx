@@ -55,7 +55,9 @@ export default function TestingPopoverWidthTrigger(): ReactNode {
 	return (
 		<div css={styles.wrapper}>
 			<div
-				ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
 				role="button"
 				tabIndex={0}
 				data-testid="popover-trigger"
@@ -68,7 +70,14 @@ export default function TestingPopoverWidthTrigger(): ReactNode {
 			>
 				Wide trigger element
 			</div>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Width test">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="Width test"
+			>
 				<div data-testid="popover-content" css={styles.content}>
 					This popover should match the trigger width
 				</div>

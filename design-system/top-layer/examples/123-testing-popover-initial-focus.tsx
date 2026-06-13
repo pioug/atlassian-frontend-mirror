@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
@@ -36,10 +36,23 @@ function DialogPopup() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="dialog-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="dialog-trigger"
+			>
 				Open dialog
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Dialog initial focus test">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="Dialog initial focus test"
+			>
 				<PopoverSurface>
 					<button type="button" data-testid="dialog-first-button">
 						First button
@@ -82,11 +95,20 @@ function DialogWithAutofocusPopup() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="autofocus-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="autofocus-trigger"
+			>
 				Open dialog with autofocus
 			</button>
 			<Popover
-				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
 				role="dialog"
 				label="Dialog autofocus test"
 				testId="autofocus-popup"
@@ -124,10 +146,23 @@ function MenuPopup() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'menu', isOpen, popoverId: popoverId })} type="button" data-testid="menu-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'menu', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="menu-trigger"
+			>
 				Open menu
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="menu" label="Menu initial focus test">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="menu"
+				label="Menu initial focus test"
+			>
 				<PopoverSurface>
 					<div role="menuitem" tabIndex={0} data-testid="menu-first-item">
 						First menu item

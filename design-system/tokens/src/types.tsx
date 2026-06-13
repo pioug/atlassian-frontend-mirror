@@ -243,13 +243,8 @@ export interface LetterSpacingScaleTokenSchema<ScaleValues extends string> {
 	letterSpacing: Record<ScaleValues, BaseToken<string, 'letterSpacing'>>;
 }
 
-export interface BackgroundColorTokenSchema<BaseToken> {
+export interface RovoBackgroundColorTokenSchema<BaseToken> {
 	color: {
-		blanket: {
-			'[default]': PaintToken<BaseToken>;
-			selected: PaintToken<BaseToken>;
-			danger: PaintToken<BaseToken>;
-		};
 		rovo: {
 			background: {
 				brand: {
@@ -272,6 +267,18 @@ export interface BackgroundColorTokenSchema<BaseToken> {
 				purple: PaintToken<BaseToken>;
 				saffron: PaintToken<BaseToken>;
 			};
+		};
+	};
+}
+
+export interface BackgroundColorTokenSchema<
+	BaseToken,
+> extends RovoBackgroundColorTokenSchema<BaseToken> {
+	color: RovoBackgroundColorTokenSchema<BaseToken>['color'] & {
+		blanket: {
+			'[default]': PaintToken<BaseToken>;
+			selected: PaintToken<BaseToken>;
+			danger: PaintToken<BaseToken>;
 		};
 		background: {
 			disabled: PaintToken<BaseToken>;
@@ -1158,6 +1165,21 @@ export interface SurfaceTokenSchema<BaseToken> {
 				'[default]': PaintToken<BaseToken>;
 				hovered: PaintToken<BaseToken>;
 				pressed: PaintToken<BaseToken>;
+			};
+			container: PaintToken<BaseToken>;
+		};
+	};
+}
+
+export interface RovoSurfaceTokenSchema<BaseToken> {
+	elevation: {
+		rovo: {
+			surface: {
+				overlay: {
+					'[default]': PaintToken<BaseToken>;
+					hovered: PaintToken<BaseToken>;
+					pressed: PaintToken<BaseToken>;
+				};
 			};
 		};
 	};

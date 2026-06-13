@@ -4,7 +4,7 @@
  * Auto-generated list of token pairings that may need to have sufficient contrast.
  * Not currently used by tests, but is used by the custom theme contrast checker example
  *
- * @codegen <<SignedSource::75f39b72b7bd80c2210d4b67ff6701bf>>
+ * @codegen <<SignedSource::682e81f04ffba60e01ca346c30b835af>>
  * @codegenCommand yarn build tokens
  */
 export const generatedPairs: {
@@ -11033,6 +11033,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.background.accent.lime.bolder',
+		background: 'elevation.surface.container',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.lime.bolder',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -11081,6 +11087,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.background.accent.lime.bolder.hovered',
+		background: 'elevation.surface.container',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.lime.bolder.hovered',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -11129,6 +11141,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.background.accent.lime.bolder.pressed',
+		background: 'elevation.surface.container',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.lime.bolder.pressed',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -11172,6 +11190,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.red.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.red.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11220,6 +11244,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.red.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.red.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11268,6 +11298,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.red.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.red.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11316,6 +11352,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.orange.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.orange.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11364,6 +11406,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.orange.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.orange.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11412,6 +11460,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.orange.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.orange.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11460,6 +11514,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.yellow.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.yellow.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11508,6 +11568,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.yellow.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.yellow.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11556,6 +11622,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.yellow.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.yellow.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11604,6 +11676,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.green.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.green.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11652,6 +11730,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.green.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.green.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11700,6 +11784,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.green.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.green.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11748,6 +11838,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.teal.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.teal.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11796,6 +11892,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.teal.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.teal.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11844,6 +11946,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.teal.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.teal.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11892,6 +12000,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.blue.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.blue.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11940,6 +12054,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.blue.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.blue.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -11988,6 +12108,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.blue.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.blue.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12036,6 +12162,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.purple.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.purple.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12084,6 +12216,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.purple.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.purple.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12132,6 +12270,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.purple.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.purple.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12180,6 +12324,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.magenta.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.magenta.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12228,6 +12378,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.magenta.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.magenta.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12276,6 +12432,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.magenta.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.magenta.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12324,6 +12486,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.gray.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.gray.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12372,6 +12540,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.gray.bolder.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.gray.bolder.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12420,6 +12594,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.accent.gray.bolder.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.accent.gray.bolder.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12468,6 +12648,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.neutral.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.neutral.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12516,6 +12702,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.neutral.bold.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.neutral.bold.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12564,6 +12756,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.neutral.bold.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.neutral.bold.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12612,6 +12810,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.selected.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.selected.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12660,6 +12864,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.selected.bold.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.selected.bold.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12708,6 +12918,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.selected.bold.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.selected.bold.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12756,6 +12972,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.brand.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.brand.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12804,6 +13026,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.brand.bold.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.brand.bold.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12852,6 +13080,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.brand.bold.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.brand.bold.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12900,6 +13134,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.brand.boldest',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.brand.boldest',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12948,6 +13188,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.brand.boldest.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.brand.boldest.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -12996,6 +13242,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.brand.boldest.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.brand.boldest.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13044,6 +13296,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.danger.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.danger.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13092,6 +13350,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.danger.bold.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.danger.bold.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13140,6 +13404,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.danger.bold.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.danger.bold.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13188,6 +13458,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.warning.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.warning.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13236,6 +13512,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.warning.bold.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.warning.bold.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13284,6 +13566,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.warning.bold.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.warning.bold.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13332,6 +13620,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.success.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.success.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13380,6 +13674,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.success.bold.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.success.bold.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13428,6 +13728,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.success.bold.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.success.bold.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13476,6 +13782,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.discovery.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.discovery.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13524,6 +13836,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.discovery.bold.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.discovery.bold.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13572,6 +13890,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.discovery.bold.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.discovery.bold.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13620,6 +13944,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.information.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.information.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13668,6 +13998,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.information.bold.hovered',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.information.bold.hovered',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13716,6 +14052,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.background.information.bold.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.background.information.bold.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13764,6 +14106,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -13829,6 +14177,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.text.accent.lime',
+		background: 'elevation.surface.container',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.lime',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -13877,6 +14231,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.text.accent.lime.bolder',
+		background: 'elevation.surface.container',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.lime.bolder',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -13925,6 +14285,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.text.accent.red',
+		background: 'elevation.surface.container',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.red',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -13968,6 +14334,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.red.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.red.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14016,6 +14388,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.orange',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.orange',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14064,6 +14442,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.orange.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.orange.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14112,6 +14496,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.yellow',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.yellow',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14160,6 +14550,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.yellow.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.yellow.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14208,6 +14604,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.green',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.green',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14256,6 +14658,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.green.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.green.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14304,6 +14712,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.teal',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.teal',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14352,6 +14766,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.teal.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.teal.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14400,6 +14820,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.blue',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.blue',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14448,6 +14874,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.blue.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.blue.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14496,6 +14928,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.purple',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.purple',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14544,6 +14982,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.purple.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.purple.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14592,6 +15036,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.magenta',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.magenta',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14640,6 +15090,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.magenta.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.magenta.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14688,6 +15144,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.gray',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.gray',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14736,6 +15198,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.accent.gray.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.accent.gray.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14784,6 +15252,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.selected',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.selected',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14832,6 +15306,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.brand',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.brand',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14880,6 +15360,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.danger',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.danger',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14928,6 +15414,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.danger.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.danger.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -14976,6 +15468,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.warning',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.warning',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15024,6 +15522,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.warning.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.warning.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15072,6 +15576,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.success',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.success',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15120,6 +15630,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.success.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.success.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15168,6 +15684,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.discovery',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.discovery',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15216,6 +15738,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.discovery.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.discovery.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15264,6 +15792,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.information',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.information',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15312,6 +15846,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.information.bolder',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.information.bolder',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15360,6 +15900,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.subtlest',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.subtlest',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15408,6 +15954,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15456,6 +16008,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.link',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15504,6 +16062,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.link.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15552,6 +16116,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.link.visited',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.visited',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15600,6 +16170,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.link.visited.pressed',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.visited.pressed',
+		background: 'elevation.surface.container',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15648,6 +16224,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15713,6 +16295,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.icon.accent.lime',
+		background: 'elevation.surface.container',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.lime',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -15761,6 +16349,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.icon.accent.red',
+		background: 'elevation.surface.container',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.red',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -15809,6 +16403,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.icon.accent.orange',
+		background: 'elevation.surface.container',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.orange',
 		background: 'elevation.surface.overlay',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -15852,6 +16452,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.accent.yellow',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.yellow',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15900,6 +16506,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.accent.green',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.green',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15948,6 +16560,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.accent.teal',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.teal',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -15996,6 +16614,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.accent.blue',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.blue',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16044,6 +16668,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.accent.purple',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.purple',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16092,6 +16722,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.accent.magenta',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.magenta',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16140,6 +16776,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.accent.gray',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.accent.gray',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16188,6 +16830,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.selected',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.selected',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16236,6 +16884,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.brand',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.brand',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16284,6 +16938,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.danger',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.danger',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16332,6 +16992,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.warning',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.warning',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16380,6 +17046,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.success',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.success',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16428,6 +17100,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.discovery',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.discovery',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16476,6 +17154,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.information',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.information',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16524,6 +17208,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.subtlest',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.subtlest',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16572,6 +17262,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16620,6 +17316,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.lime',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.lime',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16668,6 +17370,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.lime.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16716,6 +17424,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.red',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.red',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16764,6 +17478,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.red.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16812,6 +17532,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.orange',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.orange',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16860,6 +17586,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.orange.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16908,6 +17640,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.yellow',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.yellow',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -16956,6 +17694,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.yellow.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17004,6 +17748,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.green',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.green',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17052,6 +17802,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.green.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17100,6 +17856,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.teal',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.teal',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17148,6 +17910,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.teal.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17196,6 +17964,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.blue',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.blue',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17244,6 +18018,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.blue.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17292,6 +18072,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.purple',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.purple',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17340,6 +18126,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.purple.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17388,6 +18180,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.magenta',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.magenta',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17436,6 +18234,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.magenta.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17484,6 +18288,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.gray',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.gray',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17532,6 +18342,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.accent.gray.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17580,6 +18396,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.focused',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.focused',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17628,6 +18450,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.input',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.input',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17676,6 +18504,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.selected',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.selected',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17724,6 +18558,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.brand',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.brand',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17772,6 +18612,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.danger',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.danger',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17820,6 +18666,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.danger.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17868,6 +18720,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.warning',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.warning',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17916,6 +18774,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.warning.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -17964,6 +18828,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.success',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.success',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -18012,6 +18882,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.success.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -18060,6 +18936,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.discovery',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.discovery',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -18108,6 +18990,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.discovery.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -18156,6 +19044,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.information',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.information',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -18204,6 +19098,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.information.subtle',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -18252,6 +19152,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.bold',
 		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'elevation.surface.container',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},

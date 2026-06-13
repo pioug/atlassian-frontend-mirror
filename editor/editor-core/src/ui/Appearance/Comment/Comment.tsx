@@ -182,7 +182,6 @@ export const CommentEditorWithIntl: {
 		isEditorModernisationEnabled,
 	} = props;
 
-
 	const showSecondaryToolbar = !!onSave || !!onCancel || !!customSecondaryToolbarComponents;
 	const containerElement = React.useRef<HTMLDivElement>(null);
 

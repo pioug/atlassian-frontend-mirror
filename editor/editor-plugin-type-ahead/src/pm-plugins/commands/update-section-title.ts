@@ -4,7 +4,11 @@ import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { ACTIONS } from '../actions';
 import { pluginKey as typeAheadPluginKey } from '../key';
 
-export const updateSectionTitle = ({ id, title, showTitleWhenOnlySection }: TypeAheadSectionTitleUpdate): Command => {
+export const updateSectionTitle = ({
+	id,
+	title,
+	showTitleWhenOnlySection,
+}: TypeAheadSectionTitleUpdate): Command => {
 	return (state, dispatch) => {
 		if (!expVal('platform_editor_agent_mentions', 'isEnabled', false) || !dispatch) {
 			return false;

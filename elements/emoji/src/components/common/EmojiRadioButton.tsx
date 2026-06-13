@@ -122,7 +122,15 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 				defaultChecked={defaultChecked}
 				onClick={() => props.onSelected?.()}
 				onKeyDown={(event) => handleKeyDown(props, event)}
-				onChange={FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (e) => e.preventDefault() : undefined}
+				onChange={
+					FeatureGates.getExperimentValue(
+						'platform_teamoji_26_refresh_emoji_picker',
+						'isEnabled',
+						false,
+					)
+						? (e) => e.preventDefault()
+						: undefined
+				}
 			/>
 			<Emoji
 				emoji={emoji}

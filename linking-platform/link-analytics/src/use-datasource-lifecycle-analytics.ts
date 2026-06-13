@@ -5,7 +5,11 @@ import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
 
 import createEventPayload from './common/utils/analytics/create-event-payload';
 import { EVENT_CHANNEL } from './common/utils/constants';
-import { type DatasourceLifecycleEventCallback, type DatasourceLifecycleMethods, type LifecycleAction } from './types';
+import {
+	type DatasourceLifecycleEventCallback,
+	type DatasourceLifecycleMethods,
+	type LifecycleAction,
+} from './types';
 import { runWhenIdle } from './utils/run-when-idle';
 
 export const useDatasourceLifecycleAnalytics = (): DatasourceLifecycleMethods => {

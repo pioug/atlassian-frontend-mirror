@@ -41,9 +41,9 @@ import { useMockMediaConfig } from './utils/useMockMediaConfig';
 const styles = cssMap({
 	root: {
 		paddingTop: token('space.200'),
-	paddingRight: token('space.200'),
-	paddingBottom: token('space.200'),
-	paddingLeft: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
 	},
 	row: {
 		paddingTop: token('space.100'),
@@ -96,9 +96,9 @@ const InlineBasicExample = (): React.JSX.Element => {
 		<Box xcss={styles.root}>
 			<h2>MediaInlineCardRelay Basic Example</h2>
 			<p>
-				Rendering MediaInlineCardRelay with mock fragment refs. Each row is seeded with SSR
-				metadata from a fixture; the underlying MediaInlineCard resolves real metadata via the
-				storybook MSW backend using the identifier.
+				Rendering MediaInlineCardRelay with mock fragment refs. Each row is seeded with SSR metadata
+				from a fixture; the underlying MediaInlineCard resolves real metadata via the storybook MSW
+				backend using the identifier.
 			</p>
 
 			<MediaProvider mediaClientConfig={mediaClientConfig}>

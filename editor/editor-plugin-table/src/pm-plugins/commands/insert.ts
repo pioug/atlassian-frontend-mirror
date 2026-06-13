@@ -297,7 +297,9 @@ export const createTable =
 					actionSubjectId: ACTION_SUBJECT_ID.TABLE,
 					attributes: {
 						inputMethod: INPUT_METHOD.SHORTCUT,
-						...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? { parentNode: state.selection.$from.node(-1)?.type.name } : {}),
+						...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+							? { parentNode: state.selection.$from.node(-1)?.type.name }
+							: {}),
 					},
 					eventType: EVENT_TYPE.TRACK,
 				})(tr);
@@ -348,7 +350,9 @@ export const insertTableWithSize =
 						inputMethod: inputMethod,
 						totalRowCount: rowsCount,
 						totalColumnCount: colsCount,
-						...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? { parentNode: tr.selection.$from.node(-1)?.type.name } : {}),
+						...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+							? { parentNode: tr.selection.$from.node(-1)?.type.name }
+							: {}),
 					},
 					eventType: EVENT_TYPE.TRACK,
 				})(newTr);
@@ -432,7 +436,9 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 							attributes: {
 								...analyticsPayload.attributes,
 								localId: node.attrs.localId,
-								...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? { parentNode: tr.selection.$from.node(-1)?.type.name } : {}),
+								...(expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+									? { parentNode: tr.selection.$from.node(-1)?.type.name }
+									: {}),
 							},
 						}
 					: undefined,

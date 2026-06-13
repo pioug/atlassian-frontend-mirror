@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import { syncBlock, bodiedSyncBlock } from '@atlaskit/adf-schema';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type {

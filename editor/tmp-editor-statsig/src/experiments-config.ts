@@ -1283,6 +1283,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-12
+	prompt_tile_content_type_localizaiton: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-01
 	confluence_fe_cwr_outcome_picker_prompt_autoselect: {
 		defaultValue: boolean;
@@ -3363,6 +3370,14 @@ export const editorExperimentsConfig: {
 	cfe_cwr_outcome_picker_respect_site_settings: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cfe_cwr_outcome_picker_respect_site_settings',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-12
+	prompt_tile_content_type_localizaiton: createBooleanExperiment({
+		productKeys: {
+			confluence: 'prompt_tile_content_type_localizaiton',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

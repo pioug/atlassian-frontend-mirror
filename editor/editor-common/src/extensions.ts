@@ -11,7 +11,11 @@ export {
 
 export { buildMenuItem } from './extensions/buildMenuItem';
 export { createAutoConverterRunner } from './extensions/createAutoConverterRunner';
-export { getExtensionAutoConvertersFromProvider, getQuickInsertItemsFromModule, getContextualToolbarItemsFromModule } from './extensions/module-helpers';
+export {
+	getExtensionAutoConvertersFromProvider,
+	getQuickInsertItemsFromModule,
+	getContextualToolbarItemsFromModule,
+} from './extensions/module-helpers';
 
 export { default as DefaultExtensionProvider } from './extensions/default-extension-provider';
 
@@ -25,7 +29,11 @@ export {
 	resolveImport,
 } from './extensions/manifest-helpers';
 
-export { getExtensionModuleNode, getNodeRenderer, getExtensionModuleNodePrivateProps } from './extensions/extension-handlers';
+export {
+	getExtensionModuleNode,
+	getNodeRenderer,
+	getExtensionModuleNodePrivateProps,
+} from './extensions/extension-handlers';
 export { getExtensionManifest } from './extensions/getExtensionManifest';
 
 export {

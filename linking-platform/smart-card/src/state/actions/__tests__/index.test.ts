@@ -82,7 +82,11 @@ describe('Smart Card: Actions', () => {
 					});
 					await result.current.register('inline');
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'inline');
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'inline',
+					);
 				});
 
 				it('passes block appearance for block cards', async () => {
@@ -93,7 +97,11 @@ describe('Smart Card: Actions', () => {
 					});
 					await result.current.register('block');
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'block',
+					);
 				});
 			},
 		);
@@ -351,162 +359,180 @@ describe('Smart Card: Actions', () => {
 			'platform_smartlink_inline_resolve_optimization',
 			'when FG is on, loadMetadata uses resolveNew with block appearance',
 			() => {
+				it('dispatches resolved metadata state for a success response', async () => {
+					mockFetchData(Promise.resolve(mocks.success));
 
-		it('dispatches resolved metadata state for a success response', async () => {
-			mockFetchData(Promise.resolve(mocks.success));
+					const result = renderHook(() => {
+						return useSmartCardActions(id, url);
+					});
 
-			const result = renderHook(() => {
-				return useSmartCardActions(id, url);
-			});
+					const promise = result.current.loadMetadata();
+					await expect(promise).resolves.toBeUndefined();
 
-			const promise = result.current.loadMetadata();
-			await expect(promise).resolves.toBeUndefined();
-
-			// loadMetadata always requests 'block' appearance to get full data including summary
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
-			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
-			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
-				payload: undefined,
-				type: 'metadata',
-				url: url,
-				error: undefined,
-				metadataStatus: 'pending',
-			});
-			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
-				payload: undefined,
-				type: 'metadata',
-				url: url,
-				error: undefined,
-				metadataStatus: 'resolved',
-			});
-			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(3, {
-				payload: mocks.success,
-				type: 'resolved',
-				url: url,
-				error: undefined,
-				metadataStatus: undefined,
-				ignoreStatusCheck: true,
-			});
-		});
-
-		const errorKinds: APIErrorKind[] = ['fatal', 'auth', 'error', 'fallback'];
-		it.each(errorKinds)(
-			'dispatches error metadata state if response is a %s error',
-			async (errorKind) => {
-				const mockError = new APIError(errorKind, url, 'error-message');
-				mockFetchData(Promise.reject(mockError));
-
-				const result = renderHook(() => {
-					return useSmartCardActions(id, url);
+					// loadMetadata always requests 'block' appearance to get full data including summary
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'block',
+					);
+					expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
+					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+						payload: undefined,
+						type: 'metadata',
+						url: url,
+						error: undefined,
+						metadataStatus: 'pending',
+					});
+					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+						payload: undefined,
+						type: 'metadata',
+						url: url,
+						error: undefined,
+						metadataStatus: 'resolved',
+					});
+					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(3, {
+						payload: mocks.success,
+						type: 'resolved',
+						url: url,
+						error: undefined,
+						metadataStatus: undefined,
+						ignoreStatusCheck: true,
+					});
 				});
 
-				const promise = result.current.loadMetadata();
+				const errorKinds: APIErrorKind[] = ['fatal', 'auth', 'error', 'fallback'];
+				it.each(errorKinds)(
+					'dispatches error metadata state if response is a %s error',
+					async (errorKind) => {
+						const mockError = new APIError(errorKind, url, 'error-message');
+						mockFetchData(Promise.reject(mockError));
 
-				await expect(promise).resolves.toBeUndefined();
-				// loadMetadata always requests 'block' appearance to get full data including summary
-				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
-				expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
-					payload: undefined,
-					type: 'metadata',
-					url: url,
-					error: undefined,
-					metadataStatus: 'pending',
+						const result = renderHook(() => {
+							return useSmartCardActions(id, url);
+						});
+
+						const promise = result.current.loadMetadata();
+
+						await expect(promise).resolves.toBeUndefined();
+						// loadMetadata always requests 'block' appearance to get full data including summary
+						expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+							url,
+							false,
+							'block',
+						);
+						expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+						expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+							payload: undefined,
+							type: 'metadata',
+							url: url,
+							error: undefined,
+							metadataStatus: 'pending',
+						});
+						expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+							payload: undefined,
+							type: 'metadata',
+							url: url,
+							error: undefined,
+							metadataStatus: 'errored',
+						});
+					},
+				);
+
+				const responseKinds: Array<[string, JsonLd.Response]> = [
+					['forbidden', mocks.forbidden],
+					['unauthorized', mocks.unauthorized],
+					['notFound', mocks.notFound],
+				];
+				it.each(responseKinds)(
+					'dispatches error metadata state if response is a %s response',
+					async (name, responseKind) => {
+						mockFetchData(Promise.resolve(responseKind));
+
+						const result = renderHook(() => {
+							return useSmartCardActions(id, url);
+						});
+
+						const promise = result.current.loadMetadata();
+
+						await expect(promise).resolves.toBeUndefined();
+						// loadMetadata always requests 'block' appearance to get full data including summary
+						expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+							url,
+							false,
+							'block',
+						);
+						expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+						expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+							payload: undefined,
+							type: 'metadata',
+							url: url,
+							error: undefined,
+							metadataStatus: 'pending',
+						});
+						expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+							payload: undefined,
+							type: 'metadata',
+							url: url,
+							error: undefined,
+							metadataStatus: 'errored',
+						});
+					},
+				);
+
+				it('dispatches error metadata status if response is undefined', async () => {
+					mockFetchData(Promise.resolve(undefined));
+
+					const result = renderHook(() => {
+						return useSmartCardActions(id, url);
+					});
+
+					const promise = result.current.loadMetadata();
+
+					await expect(promise).resolves.toBeUndefined();
+					// loadMetadata always requests 'block' appearance to get full data including summary
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'block',
+					);
+					expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+						payload: undefined,
+						type: 'metadata',
+						url: url,
+						error: undefined,
+						metadataStatus: 'pending',
+					});
+					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+						payload: undefined,
+						type: 'metadata',
+						url: url,
+						error: undefined,
+						metadataStatus: 'errored',
+					});
 				});
-				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
-					payload: undefined,
-					type: 'metadata',
-					url: url,
-					error: undefined,
-					metadataStatus: 'errored',
+
+				it('fetches with block appearance when metadataStatus is pending', async () => {
+					mockState({
+						status: 'resolved',
+						details: mocks.success,
+						metadataStatus: 'pending',
+					});
+					mockFetchData(Promise.resolve(mocks.success));
+
+					const result = renderHook(() => {
+						return useSmartCardActions(id, url);
+					});
+
+					const promise = result.current.loadMetadata();
+					await expect(promise).resolves.toBeUndefined();
+
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						'block',
+					);
 				});
-			},
-		);
-
-		const responseKinds: Array<[string, JsonLd.Response]> = [
-			['forbidden', mocks.forbidden],
-			['unauthorized', mocks.unauthorized],
-			['notFound', mocks.notFound],
-		];
-		it.each(responseKinds)(
-			'dispatches error metadata state if response is a %s response',
-			async (name, responseKind) => {
-				mockFetchData(Promise.resolve(responseKind));
-
-				const result = renderHook(() => {
-					return useSmartCardActions(id, url);
-				});
-
-				const promise = result.current.loadMetadata();
-
-				await expect(promise).resolves.toBeUndefined();
-				// loadMetadata always requests 'block' appearance to get full data including summary
-				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
-				expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
-					payload: undefined,
-					type: 'metadata',
-					url: url,
-					error: undefined,
-					metadataStatus: 'pending',
-				});
-				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
-					payload: undefined,
-					type: 'metadata',
-					url: url,
-					error: undefined,
-					metadataStatus: 'errored',
-				});
-			},
-		);
-
-		it('dispatches error metadata status if response is undefined', async () => {
-			mockFetchData(Promise.resolve(undefined));
-
-			const result = renderHook(() => {
-				return useSmartCardActions(id, url);
-			});
-
-			const promise = result.current.loadMetadata();
-
-			await expect(promise).resolves.toBeUndefined();
-			// loadMetadata always requests 'block' appearance to get full data including summary
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
-			expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
-				payload: undefined,
-				type: 'metadata',
-				url: url,
-				error: undefined,
-				metadataStatus: 'pending',
-			});
-			expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
-				payload: undefined,
-				type: 'metadata',
-				url: url,
-				error: undefined,
-				metadataStatus: 'errored',
-			});
-		});
-
-		it('fetches with block appearance when metadataStatus is pending', async () => {
-			mockState({
-				status: 'resolved',
-				details: mocks.success,
-				metadataStatus: 'pending',
-			});
-			mockFetchData(Promise.resolve(mocks.success));
-
-			const result = renderHook(() => {
-				return useSmartCardActions(id, url);
-			});
-
-			const promise = result.current.loadMetadata();
-			await expect(promise).resolves.toBeUndefined();
-
-			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
-		});
-
 			}, // end ffTest.on callback
 		); // end ffTest.on
 
@@ -524,7 +550,11 @@ describe('Smart Card: Actions', () => {
 					const promise = result.current.loadMetadata();
 					await expect(promise).resolves.toBeUndefined();
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, undefined);
+					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+						url,
+						false,
+						undefined,
+					);
 				});
 			},
 		);

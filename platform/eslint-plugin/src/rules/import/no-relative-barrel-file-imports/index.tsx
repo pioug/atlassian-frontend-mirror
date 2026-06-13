@@ -232,8 +232,7 @@ function buildImportStatement({
 		// syntax error (TS1363). Rebind the default as `{ default as <local> }` so
 		// the type-only import is legal.
 		if (isTypeImport && defaultName !== undefined) {
-			const defaultAsNamed =
-				defaultName === 'default' ? 'default' : `default as ${defaultName}`;
+			const defaultAsNamed = defaultName === 'default' ? 'default' : `default as ${defaultName}`;
 			return `import ${typeKeyword}{ ${namedImports}, ${defaultAsNamed} } from ${quoteChar}${path}${quoteChar};`;
 		}
 

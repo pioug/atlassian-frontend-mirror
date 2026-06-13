@@ -141,7 +141,7 @@ export const MediaInsertPicker = ({
 	)
 		? intl.formatMessage(mediaInsertMessages.uploadTabTitle)
 		: intl.formatMessage(mediaInsertMessages.fileTabTitle);
-		
+
 	return (
 		<PopupWithListeners
 			ariaLabel={intl.formatMessage(mediaInsertMessages.mediaPickerPopupAriaLabel)}

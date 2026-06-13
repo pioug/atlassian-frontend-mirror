@@ -92,33 +92,29 @@ describe('accessibility', () => {
 });
 
 describe('FullPageContentArea - scroll gutter rendering', () => {
-	eeTest
-		.describe('platform_editor_blocks', 'when experiment is enabled')
-		.variant(true, () => {
-			it('renders scroll gutter with data-editor-scroll-gutter attribute', () => {
-				renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
-				expect(document.querySelector('[data-editor-scroll-gutter]')).toBeTruthy();
-			});
-
-			it('does not render scroll gutter when allowScrollGutter is falsy', () => {
-				renderComponent({ editorAPI: undefined });
-				expect(document.querySelector('[data-editor-scroll-gutter]')).toBeNull();
-			});
+	eeTest.describe('platform_editor_blocks', 'when experiment is enabled').variant(true, () => {
+		it('renders scroll gutter with data-editor-scroll-gutter attribute', () => {
+			renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
+			expect(document.querySelector('[data-editor-scroll-gutter]')).toBeTruthy();
 		});
 
-	eeTest
-		.describe('platform_editor_blocks', 'when experiment is disabled')
-		.variant(false, () => {
-			it('renders scroll gutter without data-editor-scroll-gutter attribute', () => {
-				renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
-				const gutter = document.querySelector('#editor-scroll-gutter');
-				expect(gutter).toBeTruthy();
-				expect(gutter?.getAttribute('data-editor-scroll-gutter')).toBeNull();
-			});
-
-			it('does not render scroll gutter when allowScrollGutter is falsy', () => {
-				renderComponent({ editorAPI: undefined });
-				expect(document.querySelector('#editor-scroll-gutter')).toBeNull();
-			});
+		it('does not render scroll gutter when allowScrollGutter is falsy', () => {
+			renderComponent({ editorAPI: undefined });
+			expect(document.querySelector('[data-editor-scroll-gutter]')).toBeNull();
 		});
+	});
+
+	eeTest.describe('platform_editor_blocks', 'when experiment is disabled').variant(false, () => {
+		it('renders scroll gutter without data-editor-scroll-gutter attribute', () => {
+			renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });
+			const gutter = document.querySelector('#editor-scroll-gutter');
+			expect(gutter).toBeTruthy();
+			expect(gutter?.getAttribute('data-editor-scroll-gutter')).toBeNull();
+		});
+
+		it('does not render scroll gutter when allowScrollGutter is falsy', () => {
+			renderComponent({ editorAPI: undefined });
+			expect(document.querySelector('#editor-scroll-gutter')).toBeNull();
+		});
+	});
 });

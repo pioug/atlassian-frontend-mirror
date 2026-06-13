@@ -76,11 +76,20 @@ export default function TestingAnimationCallbacks(): ReactNode {
 					Exit count: <span data-testid="exit-count">{exitCount}</span>
 				</Text>
 			</div>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="popover-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="popover-trigger"
+			>
 				Toggle
 			</button>
 			<Popover
-				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
 				role="dialog"
 				label="Animation callback test"
 				animate={animation}

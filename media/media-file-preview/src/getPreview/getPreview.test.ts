@@ -1,7 +1,4 @@
-import {
-	type MediaClient,
-	type MediaStoreGetFileImageParams,
-} from '@atlaskit/media-client';
+import { type MediaClient, type MediaStoreGetFileImageParams } from '@atlaskit/media-client';
 
 import { extractCdnSigningParams, getSSRPreview } from './getPreview';
 
@@ -73,14 +70,7 @@ describe('getSSRPreview — cdnSigningParams overlay', () => {
 			Signature: 'SIG',
 		};
 
-		const preview = getSSRPreview(
-			'server',
-			mediaClient,
-			id,
-			params,
-			undefined,
-			cdnSigningParams,
-		);
+		const preview = getSSRPreview('server', mediaClient, id, params, undefined, cdnSigningParams);
 
 		const url = new URL(preview.dataURI);
 		// Signing params overwrite the auth token (set-on-collision).
@@ -100,14 +90,9 @@ describe('getSSRPreview — cdnSigningParams overlay', () => {
 				`https://media-cdn.atlassian.com/file/file-id/image?width=${p.width}&height=${p.height}&token=auth-token`,
 		);
 
-		const preview = getSSRPreview(
-			'server',
-			mediaClient,
-			id,
-			params,
-			undefined,
-			{ token: 'cdn-signed-token' },
-		);
+		const preview = getSSRPreview('server', mediaClient, id, params, undefined, {
+			token: 'cdn-signed-token',
+		});
 
 		expect(preview.srcSet).toBeDefined();
 		const [oneX, twoX] = (preview.srcSet as string).split(', ');
@@ -142,11 +127,11 @@ describe('getSSRPreview — cdnSigningParams overlay', () => {
 	it("tags source 'ssr-client' when ssr === 'client', else 'ssr-server' (unchanged)", () => {
 		const mediaClient = buildClient();
 
-		expect(
-			getSSRPreview('client', mediaClient, id, params, undefined, { token: 't' }).source,
-		).toBe('ssr-client');
-		expect(
-			getSSRPreview('server', mediaClient, id, params, undefined, { token: 't' }).source,
-		).toBe('ssr-server');
+		expect(getSSRPreview('client', mediaClient, id, params, undefined, { token: 't' }).source).toBe(
+			'ssr-client',
+		);
+		expect(getSSRPreview('server', mediaClient, id, params, undefined, { token: 't' }).source).toBe(
+			'ssr-server',
+		);
 	});
 });

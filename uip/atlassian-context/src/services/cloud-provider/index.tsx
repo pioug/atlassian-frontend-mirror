@@ -20,10 +20,7 @@ export function isGoogleCloudPlatform(): boolean {
 
 	try {
 		const cookies = globalThis.document.cookie;
-		const cloudServiceProvider = getRawCookieValue(
-			BIFROST_ATL_CTX_CLOUD_SERVICE_PROVIDER,
-			cookies,
-		);
+		const cloudServiceProvider = getRawCookieValue(BIFROST_ATL_CTX_CLOUD_SERVICE_PROVIDER, cookies);
 
 		return cloudServiceProvider === CLOUD_SERVICE_PROVIDER_GCP;
 	} catch (e) {

@@ -80,10 +80,7 @@ export default function TestingFocusReturnRef(): React.ReactNode {
 			<div data-testid="close-count">{closeCount}</div>
 			<div data-testid="trigger-visible">{showTrigger ? 'yes' : 'no'}</div>
 			{showTrigger ? (
-				<PopoverWithRemovableTrigger
-					onCloseCount={handleCloseCount}
-					onRemove={handleRemove}
-				/>
+				<PopoverWithRemovableTrigger onCloseCount={handleCloseCount} onRemove={handleRemove} />
 			) : null}
 			<button type="button" data-testid="fallback-target">
 				Fallback focus target

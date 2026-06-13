@@ -103,7 +103,7 @@ const rules: {
 	'use-entrypoints-in-examples': Rule.RuleModule;
 	'use-recommended-utils': Rule.RuleModule;
 	'valid-gate-name': Rule.RuleModule;
-		'no-unsafe-no-exposure': Rule.RuleModule;
+	'no-unsafe-no-exposure': Rule.RuleModule;
 	'no-sparse-checkout': Rule.RuleModule;
 	'no-direct-document-usage': Rule.RuleModule;
 	'no-set-immediate': Rule.RuleModule;
@@ -255,7 +255,7 @@ const plugin: {
 		'use-entrypoints-in-examples': Rule.RuleModule;
 		'use-recommended-utils': Rule.RuleModule;
 		'valid-gate-name': Rule.RuleModule;
-	'no-unsafe-no-exposure': Rule.RuleModule;
+		'no-unsafe-no-exposure': Rule.RuleModule;
 		'no-sparse-checkout': Rule.RuleModule;
 		'no-direct-document-usage': Rule.RuleModule;
 		'no-set-immediate': Rule.RuleModule;

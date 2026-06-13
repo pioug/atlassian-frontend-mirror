@@ -265,7 +265,7 @@ export const insertMediaAsMediaSingle = (
 				widthType: 'pixel',
 				width: getMediaSingleInitialWidth(node.attrs.width ?? DEFAULT_IMAGE_WIDTH),
 				layout: 'center',
-		  }
+			}
 		: {};
 
 	const mediaSingleNode = mediaSingle.create(mediaSingleAttrs, node);
@@ -307,16 +307,17 @@ export const createInsertMediaAsMediaSingleCommand = (
 					widthType: 'pixel',
 					width: getMediaSingleInitialWidth(mediaAttrs.width ?? DEFAULT_IMAGE_WIDTH),
 					layout: 'center',
-			  }
+				}
 			: {};
 
-		const dataConsumerMarkType =
-			dataConsumerSource ? tr.doc.type.schema.marks.dataConsumer : undefined;
+		const dataConsumerMarkType = dataConsumerSource
+			? tr.doc.type.schema.marks.dataConsumer
+			: undefined;
 		const mediaNode =
 			dataConsumerSource && dataConsumerMarkType
 				? media.create(mediaAttrs, undefined, [
 						dataConsumerMarkType.create({ sources: [dataConsumerSource] }),
-				  ])
+					])
 				: media.create(mediaAttrs);
 
 		const mediaSingleNode = mediaSingle.create(mediaSingleAttrs, mediaNode);
@@ -326,7 +327,7 @@ export const createInsertMediaAsMediaSingleCommand = (
 			// External images have no file extension
 			fileExtension:
 				mediaAttrs.type !== 'external' && mediaAttrs.__fileMimeType
-					? mediaAttrs.__fileMimeType ?? undefined
+					? (mediaAttrs.__fileMimeType ?? undefined)
 					: undefined,
 		};
 		return insertNodesWithOptionalParagraphCommand({
@@ -537,7 +538,7 @@ const createMediaSingleNode =
 					width: getMediaSingleInitialWidth(scaledWidth, maxWidth, minWidth),
 					// TODO: ED-26962 - change to use enum
 					widthType: 'pixel',
-			  }
+				}
 			: mediaSingleAttrs;
 
 		copyOptionalAttrsFromMediaState(mediaState, mediaNode);
@@ -562,7 +563,7 @@ const replaceWithMediaSingleNode =
 			? {
 					width: getMediaSingleInitialWidth(width, maxWidth, minWidth),
 					widthType: 'pixel',
-			  }
+				}
 			: {};
 		return mediaSingle.createChecked(extendedMediaSingleAttrs, copiedMediaNode);
 	};

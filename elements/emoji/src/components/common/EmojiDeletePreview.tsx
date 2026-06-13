@@ -170,7 +170,13 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		const { loading, error } = this.state;
 		const { formatMessage } = intl;
 
-		if (FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+		if (
+			FeatureGates.getExperimentValue(
+				'platform_teamoji_26_refresh_emoji_picker',
+				'isEnabled',
+				false,
+			)
+		) {
 			return (
 				<FocusLock noFocusGuards>
 					<div css={deletePreviewNew} data-testid={emojiDeletePreviewTestId}>

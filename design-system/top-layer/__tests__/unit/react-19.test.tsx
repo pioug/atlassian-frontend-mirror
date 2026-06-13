@@ -358,7 +358,9 @@ describe('React 19 readiness (top-layer)', () => {
 				</Popover>,
 			);
 			// Host element unmounts when closed, so the dialog is no longer in the DOM.
-			await waitFor(() => expect(screen.queryByRole('dialog', { name: 'lifecycle' })).not.toBeInTheDocument());
+			await waitFor(() =>
+				expect(screen.queryByRole('dialog', { name: 'lifecycle' })).not.toBeInTheDocument(),
+			);
 
 			rerender(
 				<Popover isOpen={true} onClose={onClose} role="dialog" label="lifecycle">
@@ -383,7 +385,9 @@ describe('React 19 readiness (top-layer)', () => {
 				</Dialog>,
 			);
 			// Host element unmounts when closed.
-			await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
+			await waitFor(() =>
+				expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument(),
+			);
 
 			rerender(
 				<Dialog isOpen={true} onClose={onClose} label="lifecycle">
@@ -411,7 +415,9 @@ describe('React 19 readiness (top-layer)', () => {
 					</Popover>
 				</React.StrictMode>,
 			);
-			await waitFor(() => expect(screen.queryByRole('dialog', { name: 'sm-lifecycle' })).not.toBeInTheDocument());
+			await waitFor(() =>
+				expect(screen.queryByRole('dialog', { name: 'sm-lifecycle' })).not.toBeInTheDocument(),
+			);
 
 			rerender(
 				<React.StrictMode>
@@ -442,7 +448,9 @@ describe('React 19 readiness (top-layer)', () => {
 					</Dialog>
 				</React.StrictMode>,
 			);
-			await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
+			await waitFor(() =>
+				expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument(),
+			);
 
 			rerender(
 				<React.StrictMode>
@@ -590,7 +598,9 @@ describe('React 19 readiness (top-layer)', () => {
 			);
 			// Host element unmounts after close so no empty role-bearing
 			// element is left in the accessibility tree.
-			await waitFor(() => expect(screen.queryByRole('dialog', { name: 'api' })).not.toBeInTheDocument());
+			await waitFor(() =>
+				expect(screen.queryByRole('dialog', { name: 'api' })).not.toBeInTheDocument(),
+			);
 		});
 
 		it('renders the popover element with the native popover attribute and id', () => {
@@ -620,7 +630,9 @@ describe('React 19 readiness (top-layer)', () => {
 				</Dialog>,
 			);
 			// Host element unmounts after close.
-			await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
+			await waitFor(() =>
+				expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument(),
+			);
 		});
 
 		it('uses the native dialog element', () => {

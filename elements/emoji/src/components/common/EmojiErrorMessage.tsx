@@ -67,7 +67,11 @@ const EmojiErrorMessage = (props: Props): JSX.Element => {
 				/>
 			</Tooltip>
 		</div>
-	) : FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	) : FeatureGates.getExperimentValue(
+			'platform_teamoji_26_refresh_emoji_picker',
+			'isEnabled',
+			false,
+	  ) ? (
 		<div data-testid={emojiErrorMessageTestId}>
 			<ErrorMessage>{message}</ErrorMessage>
 		</div>

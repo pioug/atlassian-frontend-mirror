@@ -58,7 +58,11 @@ const styles = cssMap({
  * The popover renders in the top layer above the dialog.
  * Escape closes the popover first (if open), then the dialog.
  */
-function PopoverInDialog({ forceFallbackPositioning }: { forceFallbackPositioning: boolean }): ReactNode {
+function PopoverInDialog({
+	forceFallbackPositioning,
+}: {
+	forceFallbackPositioning: boolean;
+}): ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
@@ -132,8 +136,8 @@ export default function PopoverInsideDialogExample(): ReactNode {
 							<div css={styles.dialogBody}>
 								<Stack space="space.200">
 									<Text>
-										This dialog contains a popover trigger. The popover renders above the dialog in the
-										top layer.
+										This dialog contains a popover trigger. The popover renders above the dialog in
+										the top layer.
 									</Text>
 									<Box>
 										<PopoverInDialog forceFallbackPositioning={forceFallbackPositioning} />

@@ -1,6 +1,12 @@
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
-import type { MarkType, NodeType, Mark as PMMark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+	MarkType,
+	NodeType,
+	Mark as PMMark,
+	Node as PMNode,
+	Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
 import { SelectedState } from './SelectedState';
 import { validNode } from './validNode';

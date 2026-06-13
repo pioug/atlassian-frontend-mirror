@@ -22,12 +22,10 @@ export interface CalculatePositionParams {
 	target?: HTMLElement;
 }
 
-
-
 /**
  * Determines the optimal vertical placement ('top' or 'bottom') for a popup relative to a target element.
  * Decides if given fitHeight fits below or above the target taking boundaries into account.
- * 
+ *
  * @param target - The target element to position the popup relative to
  * @param boundariesElement - The boundaries element that constrains the popup positioning
  * @param fitHeight - The desired height of the popup content
@@ -76,11 +74,11 @@ export function getVerticalPlacement(
 	if (spaceBelow >= fitHeight) {
 		return 'bottom';
 	}
-	
+
 	if (spaceAbove >= fitHeight) {
 		return 'top';
 	}
-	
+
 	// If neither space can accommodate the full height, prefer the one with more space
 	// When spaces are equal, prefer 'top' to show the top portion of the popup
 	return spaceAbove >= spaceBelow ? 'top' : 'bottom';
@@ -129,7 +127,7 @@ export function getHorizontalPlacement(
 
 /**
  * Calculates the optimal placement for a popup element in both vertical and horizontal directions.
- * 
+ *
  * @param target - The target element to position the popup relative to
  * @param boundariesElement - The boundaries element that constrains the popup positioning
  * @param fitWidth - The desired width of the popup content
@@ -559,7 +557,6 @@ export function calculatePosition({
 
 	return position;
 }
-
 
 /**
  * Traverse DOM Tree upwards looking for popup parents with "overflow: scroll".

@@ -44,6 +44,7 @@
 | bg-blue-50     | #EFF6FF      | color.background.accent.blue.subtlest   | #E9F2FF   |
 | bg-blue-100    | #DBEAFE      | color.background.accent.blue.subtlest   | #E9F2FF   |
 | bg-gray-100    | #F3F4F6      | elevation.surface.sunken                | #F1F2F4   |
+| bg-gray-100    | #F3F4F6      | elevation.surface.container             | #F0F1F2   |
 | bg-gray-200    | #E5E7EB      | color.background.accent.gray.subtlest   | #F1F2F4   |
 | bg-gray-800    | #1F2937      | color.background.brand.boldest          | #1C2B41   |
 | bg-green-100   | #DCFCE7      | color.background.accent.green.subtlest  | #DCFFF1   |
@@ -54,6 +55,11 @@
 | bg-yellow-100  | #FEF9C3      | color.background.accent.yellow.subtlest | #FFF7D6   |
 | bg-white       | #FFFFFF      | elevation.surface                       | #FFFFFF   |
 | bg-white       | #FFFFFF      | elevation.surface.raised                | #FFFFFF   |
+
+For Atlassian app surfaces, use `elevation.surface` for the page surface,
+`elevation.surface.container` for neutral containers on top of the page surface, and
+`elevation.surface.sunken` for recessed grouping. Use Rovo-specific overlay tokens, such as
+`elevation.rovo.surface.overlay`, only for Rovo overlay surfaces.
 
 ## Text colors (`text-`)
 

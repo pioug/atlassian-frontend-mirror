@@ -246,11 +246,22 @@ const _default: () => JSX.Element = () => (
 		{/* Trailing metric — new Tag only */}
 		<Heading size="medium">Trailing metric (new Tag)</Heading>
 		<div css={avatarTagContainerStyles}>
-			{(['gray', 'blue', 'red', 'yellow', 'green', 'teal', 'purple', 'lime', 'orange', 'magenta'] as NewTagColor[]).map(
-				(color) => (
-					<TagNew key={color} text={color} color={color} trailingMetric={4} isRemovable={false} />
-				),
-			)}
+			{(
+				[
+					'gray',
+					'blue',
+					'red',
+					'yellow',
+					'green',
+					'teal',
+					'purple',
+					'lime',
+					'orange',
+					'magenta',
+				] as NewTagColor[]
+			).map((color) => (
+				<TagNew key={color} text={color} color={color} trailingMetric={4} isRemovable={false} />
+			))}
 		</div>
 	</div>
 );

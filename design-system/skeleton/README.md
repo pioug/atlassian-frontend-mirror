@@ -10,5 +10,4 @@ This package is supported for production use.
 
 `import Skeleton from '@atlaskit/skeleton';`
 
-Detailed docs and example usage can be found
-[here](https://atlassian.design/components/skeleton).
+Detailed docs and example usage can be found [here](https://atlassian.design/components/skeleton).

@@ -7,22 +7,19 @@ import { snapshotInformational } from '@af/visual-regression';
 import { SortableJiraIssuesTableNoLatency } from '../../examples/sortable-jira-issues-table';
 
 const waitForTableLoaded = async (page: Page, expectedFirstKey: string) => {
-	await page.waitForFunction(
-		(firstKey) => {
-			const table = document.querySelector('[data-testid="datasource-table-view"]');
-			if (!table) {
-				return false;
-			}
+	await page.waitForFunction((firstKey) => {
+		const table = document.querySelector('[data-testid="datasource-table-view"]');
+		if (!table) {
+			return false;
+		}
 
-			const hasNoLoadingRows =
-				table.querySelector('[data-testid^="datasource-table-view--row-loading"]') === null;
-			const hasExpectedFirstRow =
-				table.querySelector(`tbody tr:first-of-type a[href$="/browse/${firstKey}"]`) !== null;
+		const hasNoLoadingRows =
+			table.querySelector('[data-testid^="datasource-table-view--row-loading"]') === null;
+		const hasExpectedFirstRow =
+			table.querySelector(`tbody tr:first-of-type a[href$="/browse/${firstKey}"]`) !== null;
 
-			return hasNoLoadingRows && hasExpectedFirstRow;
-		},
-		expectedFirstKey,
-	);
+		return hasNoLoadingRows && hasExpectedFirstRow;
+	}, expectedFirstKey);
 };
 
 snapshotInformational(SortableJiraIssuesTableNoLatency, {
@@ -58,4 +55,3 @@ snapshotInformational(SortableJiraIssuesTableNoLatency, {
 	},
 	featureFlags: {},
 });
-

@@ -113,9 +113,7 @@ function isComboboxControllingPopup({ container }: { container: HTMLElement }): 
 			return false;
 		}
 		return (
-			referenced === container ||
-			referenced.contains(container) ||
-			container.contains(referenced)
+			referenced === container || referenced.contains(container) || container.contains(referenced)
 		);
 	});
 }

@@ -132,22 +132,22 @@ items are medium/low severity and tracked below.
 **Entry points used:** `Popup`, `useArrowNavigation`, `getFirstFocusable`, `slideAndFade`,
 `fromLegacyPlacement`
 
-| Criterion                       | Status | Details                                                                              |
-| ------------------------------- | ------ | ------------------------------------------------------------------------------------ |
-| **role="menu"** on content      | Pass   | Set on `Popup.Content`                                                               |
-| **role="menuitem"** on items    | Pass   | Set on `ButtonItem` and `LinkItem`                                                   |
-| **role="menuitemcheckbox"**     | Pass   | Correct with `aria-checked`                                                          |
-| **role="menuitemradio"**        | Pass   | Correct with `aria-checked` and `aria-describedby`                                   |
-| **aria-expanded** on trigger    | Pass   | Reflects open state                                                                  |
-| **aria-controls** on trigger    | Pass   | References popover ID                                                                |
-| **aria-haspopup** on trigger    | Pass   | Now shows `"menu"` — fixed by `Popup.Content` syncing role to trigger context        |
-| **aria-label** on menu          | Pass   | Uses `menuLabel` / `label` / trigger text fallback                                   |
+| Criterion                       | Status | Details                                                                                                                    |
+| ------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------- |
+| **role="menu"** on content      | Pass   | Set on `Popup.Content`                                                                                                     |
+| **role="menuitem"** on items    | Pass   | Set on `ButtonItem` and `LinkItem`                                                                                         |
+| **role="menuitemcheckbox"**     | Pass   | Correct with `aria-checked`                                                                                                |
+| **role="menuitemradio"**        | Pass   | Correct with `aria-checked` and `aria-describedby`                                                                         |
+| **aria-expanded** on trigger    | Pass   | Reflects open state                                                                                                        |
+| **aria-controls** on trigger    | Pass   | References popover ID                                                                                                      |
+| **aria-haspopup** on trigger    | Pass   | Now shows `"menu"` — fixed by `Popup.Content` syncing role to trigger context                                              |
+| **aria-label** on menu          | Pass   | Uses `menuLabel` / `label` / trigger text fallback                                                                         |
 | **Focus to first item on open** | Pass   | `getFirstFocusable` fired synchronously on the `closed → entering` phase transition when keyboard-triggered or `autoFocus` |
-| **Focus return on close**       | Pass   | Escape returns to trigger; `returnFocusRef` supported                                |
-| **Tab exits menu**              | Pass   | `useArrowNavigation` calls `onClose` without `preventDefault`                        |
-| **Arrow navigation**            | Pass   | ArrowDown/Up with wrap, Home/End, skip disabled                                      |
-| **Escape dismisses**            | Pass   | Native Popover API                                                                   |
-| **DOM order**                   | Pass   | No portal; content near trigger                                                      |
+| **Focus return on close**       | Pass   | Escape returns to trigger; `returnFocusRef` supported                                                                      |
+| **Tab exits menu**              | Pass   | `useArrowNavigation` calls `onClose` without `preventDefault`                                                              |
+| **Arrow navigation**            | Pass   | ArrowDown/Up with wrap, Home/End, skip disabled                                                                            |
+| **Escape dismisses**            | Pass   | Native Popover API                                                                                                         |
+| **DOM order**                   | Pass   | No portal; content near trigger                                                                                            |
 
 **Pre-existing issues (out of scope for top-layer):**
 

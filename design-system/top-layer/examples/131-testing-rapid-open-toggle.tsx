@@ -41,10 +41,23 @@ export default function TestingRapidOpenToggle(): React.ReactNode {
 			<button type="button" data-testid="rapid-toggle" onClick={rapidToggle}>
 				Rapid toggle
 			</button>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="popover-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="popover-trigger"
+			>
 				Open popover
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label={`Rapid toggle ${seq}`}>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label={`Rapid toggle ${seq}`}
+			>
 				<div data-testid="popover-content">
 					<button type="button" data-testid="popover-button">
 						Inner action

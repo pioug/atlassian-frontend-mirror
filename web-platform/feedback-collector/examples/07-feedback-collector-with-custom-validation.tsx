@@ -29,7 +29,13 @@ const CustomFeedbackFields = () => {
 
 	return (
 		<>
-			<Field name="rating" id="rating" label="Rate your experience" isRequired validate={validateRating}>
+			<Field
+				name="rating"
+				id="rating"
+				label="Rate your experience"
+				isRequired
+				validate={validateRating}
+			>
 				{({ fieldProps, error }) => (
 					<>
 						<Box paddingBlock="space.200">

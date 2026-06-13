@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::385061141691039424c731ba496ba96a>>
+ * @codegen <<SignedSource::76e1dd603e3d16fcba336ed6a84f67c5>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -75,7 +75,8 @@ export type BackgroundColorHovered =
 	| 'var(--ds-rovo-background-brand-bold-hovered)'
 	| 'var(--ds-surface-hovered)'
 	| 'var(--ds-surface-overlay-hovered)'
-	| 'var(--ds-surface-raised-hovered)';
+	| 'var(--ds-surface-raised-hovered)'
+	| 'var(--ds-rovo-surface-overlay-hovered)';
 export type BackgroundColorPressed =
 	| 'var(--ds-background-accent-lime-subtlest-pressed)'
 	| 'var(--ds-background-accent-lime-subtler-pressed)'
@@ -145,7 +146,8 @@ export type BackgroundColorPressed =
 	| 'var(--ds-rovo-background-brand-bold-pressed)'
 	| 'var(--ds-surface-pressed)'
 	| 'var(--ds-surface-overlay-pressed)'
-	| 'var(--ds-surface-raised-pressed)';
+	| 'var(--ds-surface-raised-pressed)'
+	| 'var(--ds-rovo-surface-overlay-pressed)';
 export type BackgroundColor =
 	| 'transparent'
 	| 'currentcolor'
@@ -226,9 +228,11 @@ export type BackgroundColor =
 	| 'var(--ds-skeleton-subtle)'
 	| 'var(--ds-rovo-background-brand-bold)'
 	| 'var(--ds-surface)'
+	| 'var(--ds-surface-container)'
 	| 'var(--ds-surface-overlay)'
 	| 'var(--ds-surface-raised)'
 	| 'var(--ds-surface-sunken)'
+	| 'var(--ds-rovo-surface-overlay)'
 	| 'var(--ds-elevation-surface-current)';
 export type FontShorthand =
 	| 'var(--ds-font-heading-xxlarge)'

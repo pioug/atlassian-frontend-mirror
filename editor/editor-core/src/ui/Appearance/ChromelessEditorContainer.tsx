@@ -4,7 +4,10 @@ import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ChromelessEditorContainerCompiled } from './Chromeless-compiled';
-import { ChromelessEditorContainerEmotion, type ChromelessEditorContainerProps } from './Chromeless-emotion';
+import {
+	ChromelessEditorContainerEmotion,
+	type ChromelessEditorContainerProps,
+} from './Chromeless-emotion';
 
 /**
  * Container for the chromeless editor appearance. This is used to set the max and min height

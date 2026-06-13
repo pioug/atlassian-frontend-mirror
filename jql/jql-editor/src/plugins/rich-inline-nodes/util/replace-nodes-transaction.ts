@@ -113,10 +113,7 @@ const getRichInlineNode = (fieldName: string, value: HydratedValue, text: string
 		}
 		case 'lozengeWithAvatar': {
 			const textContent = JQLEditorSchema.text(text);
-			return JQLEditorSchema.nodes.lozengeWithAvatar.create(
-				{ ...value, fieldName },
-				textContent,
-			);
+			return JQLEditorSchema.nodes.lozengeWithAvatar.create({ ...value, fieldName }, textContent);
 		}
 		default: {
 			throw new Error(`Unsupported hydrated value type ${value.type}`);
@@ -142,11 +139,7 @@ const getMembersOfArgumentNodes = (ast: Jast, teamId: string): Argument[] => {
 	return ast.query.accept(new FindMembersOfArgumentsVisitor(teamId));
 };
 
-const getFunctionArgumentNodes = (
-	ast: Jast,
-	fieldName: string,
-	valueId: string,
-): Argument[] => {
+const getFunctionArgumentNodes = (ast: Jast, fieldName: string, valueId: string): Argument[] => {
 	if (!ast.query) {
 		return [];
 	}

@@ -45,11 +45,20 @@ function PopoverAutoDialog() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="auto-dialog-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="auto-dialog-trigger"
+			>
 				Open auto dialog
 			</button>
 			<Popover
-				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
 				role="dialog"
 				label="Auto dialog popup"
 				testId="auto-dialog-popup"
@@ -81,10 +90,24 @@ function PopoverAutoMenu() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'menu', isOpen, popoverId: popoverId })} type="button" data-testid="auto-menu-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'menu', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="auto-menu-trigger"
+			>
 				Open auto menu
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="menu" label="Auto menu popup" testId="auto-menu-popup">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="menu"
+				label="Auto menu popup"
+				testId="auto-menu-popup"
+			>
 				<div>
 					<button type="button" role="menuitem" data-testid="auto-menu-item">
 						Menu item
@@ -116,11 +139,20 @@ function ProgrammaticClose() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="programmatic-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="programmatic-trigger"
+			>
 				Open programmatic popup
 			</button>
 			<Popover
-				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
 				role="dialog"
 				label="Programmatic close popup"
 				testId="programmatic-popup"

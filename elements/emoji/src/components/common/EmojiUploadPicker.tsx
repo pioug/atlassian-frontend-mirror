@@ -192,7 +192,9 @@ const toEmojiName = (uploadName: string): string => {
 };
 
 const isSupportedEmojiUploadFileType = (file: File): boolean => {
-	if (!FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+	if (
+		!FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+	) {
 		return true;
 	}
 
@@ -261,7 +263,11 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	const isUploading = uploadStatus === UploadStatus.Uploading;
 	const addEmojiDisabled = !previewImage || !name || isUploading;
 
-	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	) ? (
 		<div css={emojiUploadNew} data-testid={uploadEmojiComponentTestId}>
 			<div css={emojiUploadTopNew}>
 				<label css={[uploadChooseFileMessage, labelStylesNew]} htmlFor="new-emoji-name-input">
@@ -278,7 +284,11 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						{() => (
 							<FileChooser
 								label={
-									FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+									FeatureGates.getExperimentValue(
+										'platform_teamoji_26_refresh_emoji_picker',
+										'isEnabled',
+										false,
+									)
 										? emojiChooseFileTitleNew
 										: emojiChooseFileTitle
 								}
@@ -380,7 +390,11 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						{() => (
 							<FileChooser
 								label={
-									FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+									FeatureGates.getExperimentValue(
+										'platform_teamoji_26_refresh_emoji_picker',
+										'isEnabled',
+										false,
+									)
 										? emojiChooseFileTitleNew
 										: emojiChooseFileTitle
 								}
@@ -588,10 +602,18 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 	};
 
 	const isDuplicateNameError =
-		errorMessage !== null && errorMessage !== undefined && FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
+		errorMessage !== null &&
+		errorMessage !== undefined &&
+		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
 
 	const content =
-		name && previewImage && !FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+		name &&
+		previewImage &&
+		!FeatureGates.getExperimentValue(
+			'platform_teamoji_26_refresh_emoji_picker',
+			'isEnabled',
+			false,
+		) ? (
 			<EmojiUploadPreview
 				errorMessage={errorMessage}
 				name={name}
@@ -616,7 +638,12 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			/>
 		);
 
-	return disableFocusLock || FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return disableFocusLock ||
+		FeatureGates.getExperimentValue(
+			'platform_teamoji_26_refresh_emoji_picker',
+			'isEnabled',
+			false,
+		) ? (
 		content
 	) : (
 		<FocusLock noFocusGuards>{content}</FocusLock>

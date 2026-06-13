@@ -41,12 +41,8 @@ export default function TestingDefaultOpenComboboxTrigger(): React.ReactNode {
 				)}
 			>
 				<DropdownItemGroup>
-					<DropdownItem testId="combobox-default-open-item-1">
-						Create non-project work
-					</DropdownItem>
-					<DropdownItem testId="combobox-default-open-item-2">
-						Create paid time off
-					</DropdownItem>
+					<DropdownItem testId="combobox-default-open-item-1">Create non-project work</DropdownItem>
+					<DropdownItem testId="combobox-default-open-item-2">Create paid time off</DropdownItem>
 				</DropdownItemGroup>
 			</DropdownMenu>
 			<div data-testid="combobox-default-open-state">{isOpen ? 'open' : 'closed'}</div>

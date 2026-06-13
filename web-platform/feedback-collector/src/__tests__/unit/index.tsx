@@ -1102,13 +1102,7 @@ We have some formatting here
 			it('should call onClose when cancel button is clicked and onCancel is not provided', () => {
 				const mockOnClose = jest.fn();
 
-				render(
-					<FeedbackForm
-						locale={'en'}
-						onClose={mockOnClose}
-						onSubmit={async () => {}}
-					/>,
-				);
+				render(<FeedbackForm locale={'en'} onClose={mockOnClose} onSubmit={async () => {}} />);
 
 				const cancelBtn = screen.getByRole('button', { name: /cancel/i });
 				fireEvent.click(cancelBtn);

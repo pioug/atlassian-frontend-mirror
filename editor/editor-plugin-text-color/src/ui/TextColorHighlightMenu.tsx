@@ -152,7 +152,6 @@ export const TextColorHighlightMenu = ({
 				setIsPaletteOpen(false);
 			}
 		};
-
 	}, [setIsPaletteOpen, isPaletteOpen]);
 
 	const iconColor = getIconColor(textColor, defaultColor, highlightColor);

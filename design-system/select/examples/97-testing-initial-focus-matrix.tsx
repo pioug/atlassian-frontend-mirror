@@ -24,11 +24,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 				options={options}
 				testId="initial-focus-popup-select"
 				target={({ isOpen, ...triggerProps }) => (
-					<Button
-						{...triggerProps}
-						isSelected={isOpen}
-						testId="initial-focus-popup-select-trigger"
-					>
+					<Button {...triggerProps} isSelected={isOpen} testId="initial-focus-popup-select-trigger">
 						Open popup select
 					</Button>
 				)}

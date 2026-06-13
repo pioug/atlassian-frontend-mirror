@@ -118,8 +118,8 @@ const TrailingMetricExample = () => (
 			Trailing metric
 		</Heading>
 		<Text as="p" size="small" color="color.text.subtlest">
-			Use <code>trailingMetric</code> to render a trailing metric after the tag text. It matches
-			the tag's border color.
+			Use <code>trailingMetric</code> to render a trailing metric after the tag text. It matches the
+			tag's border color.
 		</Text>
 		<Inline space="space.100">
 			<TagDropdownTrigger text="Comments" trailingMetric={24} />

@@ -2,14 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, {
-	forwardRef,
-	type Ref,
-	useCallback,
-	useId,
-	useLayoutEffect,
-	useRef,
-} from 'react';
+import React, { forwardRef, type Ref, useCallback, useId, useLayoutEffect, useRef } from 'react';
 
 import { jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';

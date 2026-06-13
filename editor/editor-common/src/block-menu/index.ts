@@ -119,9 +119,12 @@ export { SCROLL_TO_BLOCK_TIMING } from './SCROLL_TO_BLOCK_TIMING';
 export { expandElement } from './expandElement';
 export { getLocalIdSelector } from './getLocalIdSelector';
 export { isExpandCollapsed } from './isExpandCollapsed';
-export { expandAllParentsThenScroll, findParentExpands, findNodeWithExpandParents } from './scroll-to-block-utils';
+export {
+	expandAllParentsThenScroll,
+	findParentExpands,
+	findNodeWithExpandParents,
+} from './scroll-to-block-utils';
 
 export type { NodeWithExpandParents } from './scroll-to-block-utils';
 
 export type { BlockMenuPlacement } from './placement';
-

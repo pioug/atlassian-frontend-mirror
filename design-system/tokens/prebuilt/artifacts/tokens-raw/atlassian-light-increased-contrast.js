@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1650a0fd98bac1f1de3e3c7e4dd3de58>>
+ * @codegen <<SignedSource::64ea7d47282565d7455a13230e33ce8b>>
  * @codegenCommand yarn build tokens
  */
 
@@ -9361,6 +9361,28 @@ var tokens = [{
   "path": ["elevation", "surface", "[default]", "pressed"],
   "cleanName": "elevation.surface.pressed"
 }, {
+  "value": "#F0F1F2",
+  "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "13.3.0",
+    "description": "Use as a neutral container surface background."
+  },
+  "original": {
+    "value": "Neutral200",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.3.0",
+      "description": "Use as a neutral container surface background."
+    }
+  },
+  "name": "elevation.surface.container",
+  "path": ["elevation", "surface", "container"],
+  "cleanName": "elevation.surface.container"
+}, {
   "value": "#FFFFFF",
   "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
   "isSource": false,
@@ -9514,6 +9536,72 @@ var tokens = [{
   "name": "elevation.surface.sunken",
   "path": ["elevation", "surface", "sunken"],
   "cleanName": "elevation.surface.sunken"
+}, {
+  "value": "#F8F8F8",
+  "filePath": "schema/themes/atlassian-light-increased-contrast/elevation/rovo/surface.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "13.3.0",
+    "description": "Use for Rovo overlay surface backgrounds."
+  },
+  "original": {
+    "value": "Neutral100",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.3.0",
+      "description": "Use for Rovo overlay surface backgrounds."
+    }
+  },
+  "name": "elevation.rovo.surface.overlay.[default]",
+  "path": ["elevation", "rovo", "surface", "overlay", "[default]"],
+  "cleanName": "elevation.rovo.surface.overlay"
+}, {
+  "value": "#F0F1F2",
+  "filePath": "schema/themes/atlassian-light-increased-contrast/elevation/rovo/surface.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "13.3.0",
+    "description": "Hovered state of elevation.rovo.surface.overlay."
+  },
+  "original": {
+    "value": "Neutral200",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.3.0",
+      "description": "Hovered state of elevation.rovo.surface.overlay."
+    }
+  },
+  "name": "elevation.rovo.surface.overlay.hovered",
+  "path": ["elevation", "rovo", "surface", "overlay", "hovered"],
+  "cleanName": "elevation.rovo.surface.overlay.hovered"
+}, {
+  "value": "#DDDEE1",
+  "filePath": "schema/themes/atlassian-light-increased-contrast/elevation/rovo/surface.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "13.3.0",
+    "description": "Pressed state of elevation.rovo.surface.overlay."
+  },
+  "original": {
+    "value": "Neutral300",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.3.0",
+      "description": "Pressed state of elevation.rovo.surface.overlay."
+    }
+  },
+  "name": "elevation.rovo.surface.overlay.pressed",
+  "path": ["elevation", "rovo", "surface", "overlay", "pressed"],
+  "cleanName": "elevation.rovo.surface.overlay.pressed"
 }, {
   "value": [{
     "radius": 8,

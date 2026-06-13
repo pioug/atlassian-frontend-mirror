@@ -3826,6 +3826,15 @@
         "description": "Pressed state of elevation.surface"
       }
     },
+    "Dark increased-contrast/elevation.surface.container": {
+      "value": "#303134",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.3.0",
+        "description": "Use as a neutral container surface background."
+      }
+    },
     "Dark increased-contrast/elevation.surface.overlay": {
       "value": "#2B2C2F",
       "attributes": {
@@ -3887,6 +3896,33 @@
         "state": "active",
         "introduced": "0.6.0",
         "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
+      }
+    },
+    "Dark increased-contrast/elevation.rovo.surface.overlay": {
+      "value": "#242528",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.3.0",
+        "description": "Use for Rovo overlay surface backgrounds."
+      }
+    },
+    "Dark increased-contrast/elevation.rovo.surface.overlay.hovered": {
+      "value": "#2B2C2F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.3.0",
+        "description": "Hovered state of elevation.rovo.surface.overlay."
+      }
+    },
+    "Dark increased-contrast/elevation.rovo.surface.overlay.pressed": {
+      "value": "#303134",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.3.0",
+        "description": "Pressed state of elevation.rovo.surface.overlay."
       }
     },
     "Dark increased-contrast/elevation.shadow.overflow": {

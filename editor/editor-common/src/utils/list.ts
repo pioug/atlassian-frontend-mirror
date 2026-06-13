@@ -6,7 +6,6 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { resolveOrder } from './resolveOrder';
 export const DEFAULT_ORDER = 1;
 
-
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getOrderFromOrderedListNode = (orderedListNode: Node): number => {
 	const order = orderedListNode?.attrs?.order;

@@ -4,10 +4,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { CodeBlockPlugin } from '../index';
 import { ACTIONS } from '../pm-plugins/actions';
-import {
-	autoDetectPluginKey,
-	type AutoDetectEntry,
-} from '../pm-plugins/auto-detect-state';
+import { autoDetectPluginKey, type AutoDetectEntry } from '../pm-plugins/auto-detect-state';
 
 import { createAutoDetectEntry } from './auto-detect-state';
 import { detectLanguage } from './language-detect';
@@ -20,11 +17,7 @@ export type AutoDetectTimer = {
 const AUTO_DETECT_DEBOUNCE_MS = 500;
 
 // Stored positions are mapped through transactions; verify the localId before using them.
-const getCodeBlockFromEntry = (
-	view: EditorView,
-	localId: string,
-	entry: AutoDetectEntry,
-) => {
+const getCodeBlockFromEntry = (view: EditorView, localId: string, entry: AutoDetectEntry) => {
 	const node = view.state.doc.nodeAt(entry.pos);
 	const codeBlockType = view.state.schema.nodes.codeBlock;
 
@@ -69,8 +62,7 @@ const runPendingDetection = (
 
 	// If there is no confident detection, record the result without clearing user-visible language.
 	const shouldOnlyUpdateDetectionState =
-		!detectedLanguage &&
-		(!found.node.attrs.language || shouldPreserveAutoDetectedLanguage);
+		!detectedLanguage && (!found.node.attrs.language || shouldPreserveAutoDetectedLanguage);
 
 	api?.core?.actions.execute(({ tr }) => {
 		if (!shouldOnlyUpdateDetectionState) {

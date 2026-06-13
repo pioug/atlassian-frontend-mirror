@@ -29,8 +29,7 @@ export default (): React.JSX.Element => (
 	<VRTestWrapper>
 		<Provider client={new ThirdPartyClient('staging')}>
 			<p>
-				Inline:{' '}
-				<Card url={SHARED_THIRD_PARTY_URL} appearance="inline" showHoverPreview={false} />
+				Inline: <Card url={SHARED_THIRD_PARTY_URL} appearance="inline" showHoverPreview={false} />
 			</p>
 			<Card url={SHARED_THIRD_PARTY_URL} appearance="block" />
 		</Provider>

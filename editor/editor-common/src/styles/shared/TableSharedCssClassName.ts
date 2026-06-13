@@ -1,4 +1,9 @@
-import { tableCellContentDomSelector, tableCellSelector, tableHeaderSelector, tablePrefixSelector } from '@atlaskit/adf-schema';
+import {
+	tableCellContentDomSelector,
+	tableCellSelector,
+	tableHeaderSelector,
+	tablePrefixSelector,
+} from '@atlaskit/adf-schema';
 
 export const TableSharedCssClassName: {
 	// eslint-disable-next-line @atlaskit/editor/no-re-export

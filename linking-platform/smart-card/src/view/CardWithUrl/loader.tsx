@@ -128,9 +128,7 @@ export function CardWithURLRenderer(props: CardProps): React.JSX.Element {
 	// because they render custom blocks (TitleBlock etc.) requiring complete response.
 	// Override appearance to 'block' for all FlexibleCards when FG is enabled.
 	const effectiveAppearance =
-		isFlexibleUi && fg('platform_smartlink_inline_resolve_optimization')
-			? 'block'
-			: appearance;
+		isFlexibleUi && fg('platform_smartlink_inline_resolve_optimization') ? 'block' : appearance;
 
 	const cardWithUrlProps: CardWithUrlContentProps = {
 		id,

@@ -142,7 +142,9 @@ const useResponse = (): {
 			isMetadataRequest?: boolean,
 			metadataStatus?: MetadataStatus,
 		) => {
-			if (!resourceUrl) { return; }
+			if (!resourceUrl) {
+				return;
+			}
 			const hostname = new URL(resourceUrl).hostname;
 			const nextStatus = response ? getStatus(response) : 'fatal';
 

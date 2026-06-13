@@ -144,7 +144,11 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 							})
 					: null}
 			</VisuallyHidden>
-			{FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+			{FeatureGates.getExperimentValue(
+				'platform_teamoji_26_refresh_emoji_picker',
+				'isEnabled',
+				false,
+			) ? (
 				<div css={textFieldWrapperNew}>
 					<TextField
 						role="searchbox"

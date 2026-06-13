@@ -76,7 +76,9 @@ describe('Dialog primitive', () => {
 
 		// Host element is unmounted when not open so it does not leave an
 		// empty role="dialog" in the accessibility tree.
-		await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
+		await waitFor(() =>
+			expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument(),
+		);
 	});
 
 	it('closes dialog on unmount when dialog is open', () => {
@@ -111,7 +113,9 @@ describe('Dialog primitive', () => {
 
 		// Without an animation preset, the host element unmounts synchronously
 		// when isOpen flips to false.
-		await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
+		await waitFor(() =>
+			expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument(),
+		);
 	});
 
 	it('opens dialog when isOpen transitions from false to true', async () => {
@@ -121,7 +125,9 @@ describe('Dialog primitive', () => {
 			</Dialog>,
 		);
 
-		await waitFor(() => expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument());
+		await waitFor(() =>
+			expect(screen.queryByRole('dialog', { hidden: true })).not.toBeInTheDocument(),
+		);
 
 		rerender(
 			<Dialog onClose={() => {}} isOpen={true} label="Test dialog">

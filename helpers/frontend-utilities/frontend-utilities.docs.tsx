@@ -190,7 +190,7 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use locally while debugging; remove before shipping. The hook short-circuits in production (`NODE_ENV === "production"`) but the import and call still ship.',
 				'Pass the same array shape you would pass to `useEffect` deps for the comparison to mean anything.',
-				'Prefer `useWhyDidUpdateShallow` when you want to mirror React\'s own re-render trigger.',
+				"Prefer `useWhyDidUpdateShallow` when you want to mirror React's own re-render trigger.",
 			],
 			keywords: ['hook', 'useWhyDidUpdate', 'debug', 'rerender', 'frontend-utilities'],
 			categories: ['hooks', 'debugging'],
@@ -265,8 +265,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'Retries an async `invokeOperation` while the most recent error is in the `retryOn` allow-list, sleeping between attempts per `intervalsMS`. The sleep schedule defines both the number of retries and the delays between them — `intervalsMS: [0, 50, 100]` means "try once, then up to three retries at 0 ms, 50 ms, and 100 ms".',
 			status: 'general-availability',
-			signature:
-				'<T>(invokeOperation: () => Promise<T>, config: RetryConfig) => Promise<T>',
+			signature: '<T>(invokeOperation: () => Promise<T>, config: RetryConfig) => Promise<T>',
 			parameters: [
 				{
 					name: 'invokeOperation',

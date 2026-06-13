@@ -221,11 +221,7 @@ describe('ImageRendererV2', () => {
 describe('ImageRenderer - backgroundColor prop', () => {
 	it('should apply backgroundColor as inline style when provided', () => {
 		render(
-			<ImageRenderer
-				{...defaultProps}
-				cardPreview={cardPreview}
-				backgroundColor="transparent"
-			/>,
+			<ImageRenderer {...defaultProps} cardPreview={cardPreview} backgroundColor="transparent" />,
 		);
 		const img = screen.getByTestId(testId);
 		expect(img.style.backgroundColor).toBe('transparent');
@@ -238,9 +234,7 @@ describe('ImageRenderer - backgroundColor prop', () => {
 	});
 
 	it('should apply white background CSS class when useWhiteBackground is true and no backgroundColor', () => {
-		render(
-			<ImageRenderer {...defaultProps} cardPreview={cardPreview} useWhiteBackground={true} />,
-		);
+		render(<ImageRenderer {...defaultProps} cardPreview={cardPreview} useWhiteBackground={true} />);
 		const img = screen.getByTestId(testId);
 		// The white background is applied via CSS class, not inline style
 		expect(img.style.backgroundColor).toBe('');
@@ -262,9 +256,7 @@ describe('ImageRenderer - backgroundColor prop', () => {
 	it('should apply backgroundColor on raster media when useWhiteBackground is not provided (cardView wiring path)', () => {
 		// Mirrors the new cardView wiring where raster media receives `backgroundColor`
 		// without an explicit `useWhiteBackground` prop.
-		render(
-			<ImageRenderer {...defaultProps} cardPreview={cardPreview} backgroundColor="blue" />,
-		);
+		render(<ImageRenderer {...defaultProps} cardPreview={cardPreview} backgroundColor="blue" />);
 		const img = screen.getByTestId(testId);
 		expect(img.style.backgroundColor).toBe('blue');
 	});

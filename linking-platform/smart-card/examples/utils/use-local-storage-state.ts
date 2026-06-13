@@ -13,8 +13,13 @@ type UseLocalStorageStateOptions<T> = {
 export function useLocalStorageState<T>(
 	options: UseLocalStorageStateOptions<T>,
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
-	const { storageKey, defaultValue, type = 'string', deserialize: customDeserialize, serialize: customSerialize } =
-		options;
+	const {
+		storageKey,
+		defaultValue,
+		type = 'string',
+		deserialize: customDeserialize,
+		serialize: customSerialize,
+	} = options;
 	const valueType = type;
 	const deserialize = React.useCallback(
 		(storedValue: string): T => {

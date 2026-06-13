@@ -27,9 +27,7 @@ import Modal, {
  * See: `platform/packages/design-system/top-layer/notes/architecture/focus.md`.
  */
 export default function TestingInitialFocusMatrix(): React.ReactNode {
-	const [openVariant, setOpenVariant] = useState<'none' | 'default' | 'native-autofocus'>(
-		'none',
-	);
+	const [openVariant, setOpenVariant] = useState<'none' | 'default' | 'native-autofocus'>('none');
 
 	const close = useCallback(() => setOpenVariant('none'), []);
 

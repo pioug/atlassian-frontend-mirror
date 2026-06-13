@@ -117,9 +117,7 @@ describe('Heading Anchor', () => {
 				expect(copyLinkButton).toBeVisible();
 
 				await userEvent.hover(copyLinkButton);
-				await waitFor(() =>
-					expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })),
-				);
+				await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })));
 			});
 
 			it('should update the tooltip message after copy without unmounting the button', async () => {
@@ -134,9 +132,7 @@ describe('Heading Anchor', () => {
 				await waitFor(() => expect(copiedButton).toBeVisible());
 
 				await userEvent.hover(copiedButton);
-				await waitFor(() =>
-					expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible(),
-				);
+				await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible());
 			});
 		});
 
@@ -158,9 +154,7 @@ describe('Heading Anchor', () => {
 				expect(copyLinkButton).toBeVisible();
 
 				await userEvent.hover(copyLinkButton);
-				await waitFor(() =>
-					expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })),
-				);
+				await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })));
 			});
 
 			it('should remount the button on copy and not retain focus', async () => {
@@ -182,9 +176,7 @@ describe('Heading Anchor', () => {
 				expect(document.activeElement).not.toBe(copiedButton);
 
 				await userEvent.hover(copiedButton);
-				await waitFor(() =>
-					expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible(),
-				);
+				await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible());
 			});
 		});
 	});

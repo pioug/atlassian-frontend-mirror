@@ -778,14 +778,16 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			oldEditorState,
 			newEditorState,
 		}: EditorViewStateUpdatedCallbackProps) => {
-			config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry: EditorConfig['onEditorViewStateUpdatedCallbacks'][number]) => {
-				entry.callback({
-					originalTransaction,
-					transactions,
-					oldEditorState,
-					newEditorState,
-				});
-			});
+			config.current?.onEditorViewStateUpdatedCallbacks.forEach(
+				(entry: EditorConfig['onEditorViewStateUpdatedCallbacks'][number]) => {
+					entry.callback({
+						originalTransaction,
+						transactions,
+						oldEditorState,
+						newEditorState,
+					});
+				},
+			);
 		},
 		[],
 	);

@@ -30,10 +30,23 @@ export default function TestingClickOutsidePassthrough(): React.ReactNode {
 		<div>
 			<div data-testid="close-count">{closeCount}</div>
 			<div data-testid="outside-click-count">{outsideClickCount}</div>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="popover-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="popover-trigger"
+			>
 				Open
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Click passthrough test">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="Click passthrough test"
+			>
 				<div data-testid="popover-content">Popover content</div>
 			</Popover>
 			<button

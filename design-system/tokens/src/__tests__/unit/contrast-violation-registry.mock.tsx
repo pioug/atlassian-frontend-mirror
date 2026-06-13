@@ -571,6 +571,10 @@ export const lightViolationsVisualRefresh: {
 	},
 	{
 		foreground: 'color.background.warning.bold',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.background.warning.bold',
 		background: 'elevation.surface.overlay',
 	},
 	{
@@ -582,8 +586,44 @@ export const lightViolationsVisualRefresh: {
 		background: 'elevation.surface.sunken',
 	},
 	{
+		foreground: 'color.icon.accent.lime',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.icon.accent.orange',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.icon.accent.yellow',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.icon.accent.green',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.icon.accent.teal',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.icon.warning',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.icon.success',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.border.accent.lime',
+		background: 'elevation.surface.container',
+	},
+	{
 		foreground: 'color.border.accent.lime.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.lime.subtle',
@@ -603,6 +643,10 @@ export const lightViolationsVisualRefresh: {
 	},
 	{
 		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
 		background: 'elevation.surface.overlay',
 	},
 	{
@@ -614,8 +658,16 @@ export const lightViolationsVisualRefresh: {
 		background: 'elevation.surface.sunken',
 	},
 	{
+		foreground: 'color.border.accent.orange',
+		background: 'elevation.surface.container',
+	},
+	{
 		foreground: 'color.border.accent.orange.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.orange.subtle',
@@ -630,8 +682,16 @@ export const lightViolationsVisualRefresh: {
 		background: 'elevation.surface.sunken',
 	},
 	{
+		foreground: 'color.border.accent.yellow',
+		background: 'elevation.surface.container',
+	},
+	{
 		foreground: 'color.border.accent.yellow.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.yellow.subtle',
@@ -646,8 +706,16 @@ export const lightViolationsVisualRefresh: {
 		background: 'elevation.surface.sunken',
 	},
 	{
+		foreground: 'color.border.accent.green',
+		background: 'elevation.surface.container',
+	},
+	{
 		foreground: 'color.border.accent.green.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.green.subtle',
@@ -660,10 +728,18 @@ export const lightViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.green.subtle',
 		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.accent.teal',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.teal.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.teal.subtle',
@@ -683,6 +759,10 @@ export const lightViolationsVisualRefresh: {
 	},
 	{
 		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
 		background: 'elevation.surface.overlay',
 	},
 	{
@@ -699,6 +779,10 @@ export const lightViolationsVisualRefresh: {
 	},
 	{
 		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
 		background: 'elevation.surface.overlay',
 	},
 	{
@@ -715,6 +799,10 @@ export const lightViolationsVisualRefresh: {
 	},
 	{
 		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
 		background: 'elevation.surface.overlay',
 	},
 	{
@@ -731,6 +819,10 @@ export const lightViolationsVisualRefresh: {
 	},
 	{
 		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
 		background: 'elevation.surface.overlay',
 	},
 	{
@@ -742,8 +834,16 @@ export const lightViolationsVisualRefresh: {
 		background: 'elevation.surface.sunken',
 	},
 	{
+		foreground: 'color.border.input',
+		background: 'elevation.surface.container',
+	},
+	{
 		foreground: 'color.border.danger.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.danger.subtle',
@@ -758,8 +858,16 @@ export const lightViolationsVisualRefresh: {
 		background: 'elevation.surface.sunken',
 	},
 	{
+		foreground: 'color.border.warning',
+		background: 'elevation.surface.container',
+	},
+	{
 		foreground: 'color.border.warning.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.warning.subtle',
@@ -772,10 +880,18 @@ export const lightViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.warning.subtle',
 		background: 'elevation.surface.sunken',
+	},
+	{
+		foreground: 'color.border.success',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.success.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.success.subtle',
@@ -792,6 +908,10 @@ export const lightViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.discovery.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.discovery.subtle',
@@ -808,6 +928,10 @@ export const lightViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.information.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.information.subtle',
@@ -1196,6 +1320,10 @@ export const darkViolationsVisualRefresh: {
 	},
 	{
 		foreground: 'color.border.accent.lime.subtle',
+		background: 'elevation.surface.container',
+	},
+	{
+		foreground: 'color.border.accent.lime.subtle',
 		background: 'elevation.surface.overlay',
 	},
 	{
@@ -1209,6 +1337,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.red.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.red.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.red.subtle',
@@ -1225,6 +1357,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.orange.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.orange.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.orange.subtle',
@@ -1241,6 +1377,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.yellow.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.yellow.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.yellow.subtle',
@@ -1257,6 +1397,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.green.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.green.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.green.subtle',
@@ -1273,6 +1417,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.teal.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.teal.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.teal.subtle',
@@ -1289,6 +1437,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.blue.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.blue.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.blue.subtle',
@@ -1305,6 +1457,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.purple.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.purple.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.purple.subtle',
@@ -1321,6 +1477,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.magenta.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.magenta.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.magenta.subtle',
@@ -1337,6 +1497,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.accent.gray.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.accent.gray.subtle',
@@ -1353,6 +1517,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.danger.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.danger.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.danger.subtle',
@@ -1369,6 +1537,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.warning.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.warning.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.warning.subtle',
@@ -1385,6 +1557,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.success.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.success.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.success.subtle',
@@ -1401,6 +1577,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.discovery.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.discovery.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.discovery.subtle',
@@ -1417,6 +1597,10 @@ export const darkViolationsVisualRefresh: {
 	{
 		foreground: 'color.border.information.subtle',
 		background: 'elevation.surface',
+	},
+	{
+		foreground: 'color.border.information.subtle',
+		background: 'elevation.surface.container',
 	},
 	{
 		foreground: 'color.border.information.subtle',

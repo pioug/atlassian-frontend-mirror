@@ -42,7 +42,6 @@ export const findPanel = (
 	);
 };
 
-
 export const panelAttrsToDom = (
 	attrs: PanelAttributes,
 	allowCustomPanel: boolean,

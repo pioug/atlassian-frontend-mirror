@@ -71,6 +71,10 @@ export interface LocalSlowLaneClientConfig {
 	 * `customModelConfig` with the model URL and WASM library URL.
 	 */
 	modelId?: string;
+	/** Callback fired when the engine fails to load/start. */
+	onLoadError?: (error: LocalSlowLaneLoadError) => void;
+	/** Callback fired when the engine successfully loads and is ready. */
+	onLoadSuccess?: (info: LocalSlowLaneLoadSuccess) => void;
 	/** Callback fired with status messages (model loading progress, etc.). */
 	onStatus?: (message: string) => void;
 	/** Callback fired when inference returns new results. */
@@ -89,6 +93,80 @@ export interface LocalSlowLaneClient {
 	setContextVector: (vector: Float32Array | null) => void;
 	setLmLogits: (logits: Record<string, number> | null) => void;
 	updateContext: (text: string) => void;
+}
+
+/**
+ * Why the local engine failed to load/start.
+ *
+ * The first three are user-machine limitations (WebGPU missing, no compatible
+ * GPU adapter, GPU lacks the `shader-f16` feature the model needs);
+ * `insufficient_memory` is hit when weights don't fit in VRAM. The rest cover
+ * delivery/runtime failures unrelated to hardware.
+ */
+export type LocalSlowLaneLoadErrorReason =
+	| 'webgpu_unavailable'
+	| 'webgpu_no_adapter'
+	| 'missing_shader_f16'
+	| 'insufficient_memory'
+	| 'model_download_failed'
+	| 'module_load_failed'
+	| 'init_failed';
+
+/** Snapshot of the machine's WebGPU support, used to explain hardware limits. */
+export interface WebGpuCapabilities {
+	/** Whether `navigator.gpu.requestAdapter()` returned a usable adapter. */
+	adapterAvailable?: boolean;
+	/** GPU architecture reported by the adapter (e.g. "metal-3", "rdna2"). */
+	architecture?: string;
+	/** Whether `navigator.gpu` exists at all. */
+	available: boolean;
+	/** Largest single GPU buffer the adapter allows, in MB. */
+	maxBufferSizeMB?: number;
+	/** Largest storage-buffer binding the adapter allows, in MB. */
+	maxStorageBufferBindingSizeMB?: number;
+	/** Whether the adapter exposes the `shader-f16` feature the model requires. */
+	shaderF16Supported?: boolean;
+	/** GPU vendor reported by the adapter (e.g. "apple", "intel"). */
+	vendor?: string;
+}
+
+export interface LocalSlowLaneLoadError {
+	/** WebGPU support snapshot — explains hardware limitations behind the failure. */
+	capabilities: WebGpuCapabilities;
+	/** Semantic embedder loaded alongside the causal LM (loads atomically). */
+	embeddingModelId: string;
+	/** Canonical, controlled failure description (never raw error text). */
+	message: string;
+	/** Causal LM identifier that failed to load. */
+	modelId: string;
+	/** Coarse, privacy-safe failure category. */
+	reason: LocalSlowLaneLoadErrorReason;
+}
+
+export interface LocalSlowLaneLoadSuccess {
+	/** WebGPU support snapshot for the machine that loaded the model. */
+	capabilities: WebGpuCapabilities;
+	/** Semantic embedder loaded alongside the causal LM (loads atomically). */
+	embeddingModelId: string;
+	/** Model engine load time in ms (excludes the WebGPU capability probe). */
+	loadDurationMs: number;
+	/** Causal LM identifier that loaded. */
+	modelId: string;
+}
+
+// Minimal WebGPU shape: lib.dom types aren't guaranteed in this build target.
+interface MinimalGpuAdapterInfo {
+	architecture?: string;
+	vendor?: string;
+}
+interface MinimalGpuAdapter {
+	features: { has: (feature: string) => boolean };
+	info?: MinimalGpuAdapterInfo;
+	limits?: { maxBufferSize?: number; maxStorageBufferBindingSize?: number };
+	requestAdapterInfo?: () => Promise<MinimalGpuAdapterInfo>;
+}
+interface MinimalGpu {
+	requestAdapter: () => Promise<MinimalGpuAdapter | null>;
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -289,16 +367,14 @@ let bePayloadDataPromise: Promise<void> | undefined;
  * :param shape: `'object'` if the source JSON is `{...}`, `'array'` if `[...]`.
  * :returns: The parsed JSON value, or `null` if neither interop mode applies.
  */
-const unwrapJsonModule = <T,>(mod: unknown, shape: 'object' | 'array'): T | null => {
+const unwrapJsonModule = <T>(mod: unknown, shape: 'object' | 'array'): T | null => {
 	if (mod == null || typeof mod !== 'object') {
 		return null;
 	}
 	const namespace = mod as Record<string, unknown> & { default?: unknown };
 
 	// Compute the named-export own-keys (strip synthetic markers).
-	const ownKeys = Object.keys(namespace).filter(
-		(k) => k !== 'default' && k !== '__esModule',
-	);
+	const ownKeys = Object.keys(namespace).filter((k) => k !== 'default' && k !== '__esModule');
 
 	// PREFER named exports when present — they always reflect the JSON's real
 	// top-level keys / indices, regardless of what `default` happens to be.
@@ -378,10 +454,7 @@ const loadBePayloadData = (): Promise<void> => {
 			}
 
 			firstTokenToWords = new Map(
-				Object.entries(firstTokenToWordsData).map(([tokenId, words]) => [
-					Number(tokenId),
-					words,
-				]),
+				Object.entries(firstTokenToWordsData).map(([tokenId, words]) => [Number(tokenId), words]),
 			);
 			l2Words = new Set(Object.keys(vocabularyData.words));
 			prefixMapTokenIds = Array.from(firstTokenToWords.keys());
@@ -441,7 +514,6 @@ export const computeBePayload = (
 	 */
 	validTokenIds: number[] = prefixMapTokenIds,
 ): Record<string, number> => {
-
 	// 1. Numerically-stable masked softmax over validTokenIds only.
 	let maxLogit = -Infinity;
 	for (const id of validTokenIds) {
@@ -584,6 +656,8 @@ export const createLocalSlowLaneClient = (
 		debounceMs = DEFAULT_DEBOUNCE_MS,
 		onUpdate,
 		onStatus,
+		onLoadError,
+		onLoadSuccess,
 		modelId = LOCAL_MLC_CAUSAL_MODEL_ID,
 		customModelConfig,
 	} = config;
@@ -641,7 +715,143 @@ export const createLocalSlowLaneClient = (
 		onStatus?.(message);
 	};
 
+	const bytesToMB = (bytes?: number): number | undefined =>
+		typeof bytes === 'number' ? Math.round(bytes / (1024 * 1024)) : undefined;
+
+	/**
+	 * Inspect the machine's WebGPU support so a load failure can be attributed
+	 * to a concrete hardware/browser limitation rather than a generic error.
+	 */
+	const probeWebGpuCapabilities = async (): Promise<WebGpuCapabilities> => {
+		const gpu = (navigator as Navigator & { gpu?: MinimalGpu }).gpu;
+		if (!gpu) {
+			return { available: false };
+		}
+		try {
+			const adapter = await gpu.requestAdapter();
+			if (!adapter) {
+				return { available: true, adapterAvailable: false };
+			}
+			let vendor: string | undefined;
+			let architecture: string | undefined;
+			try {
+				const info = adapter.info ?? (await adapter.requestAdapterInfo?.());
+				vendor = info?.vendor || undefined;
+				architecture = info?.architecture || undefined;
+			} catch {
+				// adapter info is best-effort
+			}
+			return {
+				available: true,
+				adapterAvailable: true,
+				shaderF16Supported: adapter.features.has('shader-f16'),
+				maxBufferSizeMB: bytesToMB(adapter.limits?.maxBufferSize),
+				maxStorageBufferBindingSizeMB: bytesToMB(adapter.limits?.maxStorageBufferBindingSize),
+				vendor,
+				architecture,
+			};
+		} catch {
+			return { available: true, adapterAvailable: false };
+		}
+	};
+
+	/** Map an MLC/WebLLM engine-creation error message to a coarse reason. */
+	const classifyEngineError = (message: string): LocalSlowLaneLoadErrorReason => {
+		const lower = message.toLowerCase();
+		if (
+			lower.includes('loading chunk') ||
+			lower.includes('dynamically imported module') ||
+			lower.includes('dynamic import')
+		) {
+			return 'module_load_failed';
+		}
+		if (
+			lower.includes('out of memory') ||
+			// eslint-disable-next-line require-unicode-regexp
+			/\boom\b/.test(lower) ||
+			lower.includes('allocation') ||
+			lower.includes('exceeds') ||
+			lower.includes('buffer size') ||
+			lower.includes('not enough memory')
+		) {
+			return 'insufficient_memory';
+		}
+		// Pre-flight already returns missing_shader_f16 when the feature is absent,
+		// so only match the exact feature token here — not bare 'shader' (compile
+		// errors) or bare 'f16' (present in model ids like q0f16-MLC).
+		if (lower.includes('shader-f16') || lower.includes('shader_f16')) {
+			return 'missing_shader_f16';
+		}
+		if (
+			lower.includes('fetch') ||
+			lower.includes('network') ||
+			lower.includes('download') ||
+			lower.includes('http') ||
+			lower.includes('cache')
+		) {
+			return 'model_download_failed';
+		}
+		return 'init_failed';
+	};
+
+	// Canonical, controlled failure descriptions. We never emit the raw engine
+	// error into analytics — it can embed customer-context URLs/paths (HOT-120175)
+	// — so the analytics `message` is always one of these fixed strings.
+	const LOAD_FAILURE_MESSAGE: Record<LocalSlowLaneLoadErrorReason, string> = {
+		webgpu_unavailable: 'WebGPU is not available in this browser',
+		webgpu_no_adapter: 'No compatible WebGPU adapter found',
+		missing_shader_f16: 'GPU does not support the shader-f16 feature',
+		insufficient_memory: 'Insufficient GPU memory to load the model',
+		model_download_failed: 'Failed to download model assets',
+		module_load_failed: 'Failed to load the web-llm runtime module',
+		init_failed: 'Model engine failed to initialise',
+	};
+
+	const handleLoadFailure = (
+		reason: LocalSlowLaneLoadErrorReason,
+		capabilities: WebGpuCapabilities,
+		// Raw engine error — local debug logging only, never sent to analytics.
+		debugDetail?: string,
+	): void => {
+		ready = false;
+		const message = LOAD_FAILURE_MESSAGE[reason];
+		if (isAutocompleteDebugEnabled()) {
+			// eslint-disable-next-line no-console
+			console.log(
+				`[LocalSlowLane] Engine initialisation failed (${reason}): ${debugDetail ?? message}`,
+			);
+		}
+		onStatus?.(`Engine initialisation failed: ${message}`);
+		onLoadError?.({
+			reason,
+			message,
+			modelId,
+			embeddingModelId: LOCAL_MLC_EMBEDDING_MODEL_ID,
+			capabilities,
+		});
+		engineInitPromise = null;
+		initFailed = true;
+	};
+
 	const initEngine = async (): Promise<void> => {
+		const capabilities = await probeWebGpuCapabilities();
+
+		// ── Pre-flight: machine limitations short-circuit before the expensive load ──
+		if (!capabilities.available) {
+			handleLoadFailure('webgpu_unavailable', capabilities);
+			return;
+		}
+		if (capabilities.adapterAvailable === false) {
+			handleLoadFailure('webgpu_no_adapter', capabilities);
+			return;
+		}
+		if (capabilities.shaderF16Supported === false) {
+			handleLoadFailure('missing_shader_f16', capabilities);
+			return;
+		}
+
+		const startTime = performance.now();
+
 		try {
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
@@ -652,10 +862,6 @@ export const createLocalSlowLaneClient = (
 				);
 			}
 			onStatus?.(`Initialising models: ${modelId} + ${LOCAL_MLC_EMBEDDING_MODEL_ID}…`);
-
-			if (!('gpu' in navigator)) {
-				throw new Error('WebGPU not supported');
-			}
 
 			// Fetch the web-llm runtime and the BE-parity lookup tables in parallel;
 			// both are dynamically imported so they stay out of the main editor chunk.
@@ -714,6 +920,7 @@ export const createLocalSlowLaneClient = (
 
 			engine = newEngine;
 			ready = true;
+			const loadDurationMs = Math.round(performance.now() - startTime);
 
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
@@ -740,16 +947,15 @@ export const createLocalSlowLaneClient = (
 				);
 			}
 			onStatus?.('Model loaded and ready.');
+			onLoadSuccess?.({
+				modelId,
+				embeddingModelId: LOCAL_MLC_EMBEDDING_MODEL_ID,
+				loadDurationMs,
+				capabilities,
+			});
 		} catch (err) {
 			const errorMsg = err instanceof Error ? err.message : String(err);
-			ready = false;
-			if (isAutocompleteDebugEnabled()) {
-				// eslint-disable-next-line no-console
-				console.log(`[LocalSlowLane] Engine initialisation failed: ${errorMsg}`);
-			}
-			onStatus?.(`Engine initialisation failed: ${errorMsg}`);
-			engineInitPromise = null;
-			initFailed = true;
+			handleLoadFailure(classifyEngineError(errorMsg), capabilities, errorMsg);
 		}
 	};
 
@@ -794,7 +1000,7 @@ export const createLocalSlowLaneClient = (
 		const lmText = truncateToLastNWords(text, BE_PARITY.MAX_CONTEXT_TOKENS);
 		const semanticText = truncateToLastNWords(text, BE_PARITY.MAX_CONTEXT_WORDS);
 		const arcticInput = wrapForArctic(semanticText);
-		const captureCompletionTime = <T,>(
+		const captureCompletionTime = <T>(
 			promise: Promise<T>,
 			onResolved: (resolvedAt: number) => void,
 		): Promise<T> =>
@@ -831,8 +1037,7 @@ export const createLocalSlowLaneClient = (
 						max_tokens: 1,
 						temperature: 0,
 						logprobs: false,
-					})
-					,
+					}),
 					(resolvedAt) => {
 						tLmDone = resolvedAt;
 					},
@@ -841,8 +1046,7 @@ export const createLocalSlowLaneClient = (
 					engine.embeddings.create({
 						model: LOCAL_MLC_EMBEDDING_MODEL_ID,
 						input: arcticInput,
-					})
-					,
+					}),
 					(resolvedAt) => {
 						tEmbDone = resolvedAt;
 					},

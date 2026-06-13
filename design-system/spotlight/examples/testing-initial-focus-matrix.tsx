@@ -49,10 +49,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 				<Button testId="default-spotlight-trigger" onClick={() => setVariant('default')}>
 					Open default spotlight
 				</Button>
-				<Button
-					testId="autofocus-spotlight-trigger"
-					onClick={() => setVariant('autofocus')}
-				>
+				<Button testId="autofocus-spotlight-trigger" onClick={() => setVariant('autofocus')}>
 					Open autofocus spotlight
 				</Button>
 
@@ -62,21 +59,13 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							<Text>Spotlight target</Text>
 						</Box>
 					</PopoverTarget>
-					<PopoverContent
-						dismiss={dismiss}
-						placement="bottom-end"
-						isVisible={variant !== 'none'}
-					>
+					<PopoverContent dismiss={dismiss} placement="bottom-end" isVisible={variant !== 'none'}>
 						<SpotlightCard
-							testId={
-								variant === 'autofocus' ? 'autofocus-spotlight' : 'default-spotlight'
-							}
+							testId={variant === 'autofocus' ? 'autofocus-spotlight' : 'default-spotlight'}
 						>
 							<SpotlightHeader>
 								<SpotlightHeadline>
-									{variant === 'autofocus'
-										? 'Autofocus spotlight'
-										: 'Default spotlight'}
+									{variant === 'autofocus' ? 'Autofocus spotlight' : 'Default spotlight'}
 								</SpotlightHeadline>
 								<SpotlightControls>
 									<SpotlightDismissControl />
@@ -94,9 +83,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 										/>
 									</>
 								) : (
-									<Text>
-										No autofocus inside; first focusable should win.
-									</Text>
+									<Text>No autofocus inside; first focusable should win.</Text>
 								)}
 							</SpotlightBody>
 							<SpotlightFooter>

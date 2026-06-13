@@ -46,8 +46,7 @@ const PreviewAction = ({
 					color="currentColor"
 					spacing="spacious"
 					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview panel'}
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					isRovoBlockCardExperimentEnabled
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }
 						: {})}
 				/>
@@ -58,8 +57,7 @@ const PreviewAction = ({
 				color="currentColor"
 				spacing="spacious"
 				label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview'}
-				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-				isRovoBlockCardExperimentEnabled
+				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 					? { size: props.iconSize }
 					: {})}
 			/>

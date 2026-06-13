@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 13.4.0
+
+### Minor Changes
+
+- [`28d6bdf2c3456`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28d6bdf2c3456) -
+  Add Rovo elevation surface overlay tokens for default, hovered, and pressed states. These tokens
+  provide dedicated Rovo overlay surface backgrounds across light, dark, and increased-contrast
+  themes.
+
 ## 13.3.1
 
 ### Patch Changes

@@ -237,7 +237,7 @@ const ExitingPersistence: React.MemoExoticComponent<
 								setChildren([null, children]);
 								setExitingChildren([]);
 							}
-					  }
+						}
 					: undefined,
 			});
 		}) as ElementWithKey[];

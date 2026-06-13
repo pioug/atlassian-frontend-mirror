@@ -3,7 +3,20 @@
 
 export { TableSharedCssClassName } from './shared/TableSharedCssClassName';
 export { calcTableWidth } from './shared/calcTableWidth';
-export { tableSharedStyle, tableMarginTop, tableMarginBottom, tableMarginSides, tableCellMinWidth, tableNewColumnMinWidth, tableCellBorderWidth, tableResizeHandleWidth, tableCellPadding, tableMarginTopWithControl, tableControlsSpacing, tablePadding } from './shared/table';
+export {
+	tableSharedStyle,
+	tableMarginTop,
+	tableMarginBottom,
+	tableMarginSides,
+	tableCellMinWidth,
+	tableNewColumnMinWidth,
+	tableCellBorderWidth,
+	tableResizeHandleWidth,
+	tableCellPadding,
+	tableMarginTopWithControl,
+	tableControlsSpacing,
+	tablePadding,
+} from './shared/table';
 
 export { AnnotationSharedClassNames, BlockAnnotationSharedClassNames } from './shared/annotation';
 export {

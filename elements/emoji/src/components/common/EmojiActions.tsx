@@ -268,7 +268,11 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}, [showToneSelector, onToneSelectorCancelled]);
 
 	if (uploading) {
-		return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+		return FeatureGates.getExperimentValue(
+			'platform_teamoji_26_refresh_emoji_picker',
+			'isEnabled',
+			false,
+		) ? (
 			<div css={previewFooterNew}>
 				<EmojiUploadPicker
 					onUploadCancelled={onUploadCancelled}
@@ -292,7 +296,11 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}
 
 	if (emojiToDelete) {
-		return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+		return FeatureGates.getExperimentValue(
+			'platform_teamoji_26_refresh_emoji_picker',
+			'isEnabled',
+			false,
+		) ? (
 			<div css={previewFooterNew}>
 				<EmojiDeletePreview
 					emoji={emojiToDelete}
@@ -311,7 +319,11 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		);
 	}
 
-	return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	) ? (
 		<div
 			data-testid={emojiActionsTestId}
 			css={previewFooterNew}

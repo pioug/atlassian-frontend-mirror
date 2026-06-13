@@ -252,7 +252,7 @@ export const FileCard = ({
 		collectionName: identifier.collectionName,
 		occurrenceKey: identifier.occurrenceKey,
 		includeHashForDuplicateFiles,
-		initialFileState
+		initialFileState,
 	});
 
 	const prevFileState: NonErrorFileState | undefined = usePrevious(

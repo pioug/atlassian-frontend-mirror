@@ -49,10 +49,7 @@ type QuickInsertButtonDecorationParams = {
  * The CSS in staticControlsAnchorStyles applies `anchor-name` to this attribute directly,
  * replacing the unreliable adjacency selector `[block-ctrl-quick-insert-button] + *`.
  */
-export const createActiveQuickInsertNodeDecoration = (
-	pos: number,
-	nodeSize: number,
-): Decoration =>
+export const createActiveQuickInsertNodeDecoration = (pos: number, nodeSize: number): Decoration =>
 	Decoration.node(
 		pos,
 		pos + nodeSize,
@@ -64,7 +61,8 @@ export const findActiveQuickInsertNodeDec = (
 	decorations: DecorationSet,
 	from?: number,
 	to?: number,
-): Decoration[] => decorations.find(from, to, (spec) => spec.type === TYPE_ACTIVE_QUICK_INSERT_NODE);
+): Decoration[] =>
+	decorations.find(from, to, (spec) => spec.type === TYPE_ACTIVE_QUICK_INSERT_NODE);
 
 export const quickInsertButtonDecoration = ({
 	api,

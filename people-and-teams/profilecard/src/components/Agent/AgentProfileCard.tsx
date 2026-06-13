@@ -265,11 +265,7 @@ const AgentProfileCard = ({
 								intent="reference"
 								appearance="subtle"
 							>
-								<InformationCircleIcon
-									color={token('color.icon.subtlest')}
-									label=""
-									size="small"
-								/>
+								<InformationCircleIcon color={token('color.icon.subtlest')} label="" size="small" />
 								{` `}
 								<Text size="small" color="color.text.subtlest">
 									{formatMessage(messages.aiDisclaimer)}

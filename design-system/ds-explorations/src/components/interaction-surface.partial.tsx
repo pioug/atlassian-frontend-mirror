@@ -74,11 +74,11 @@ export default InteractionSurface;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::072097c2b92380db7f3cf1d799dc9d12>>
+ * @codegen <<SignedSource::0ff9aeb6f16692cf0df0aa962fbac810>>
  * @codegenId interactions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["background"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::b9b97209317e10ecda0bca62c4191312>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::89430472c8668e635450d1233437a9ca>>
  */
 type InteractionBackgroundColor =
 	| 'accent.lime.subtlest'

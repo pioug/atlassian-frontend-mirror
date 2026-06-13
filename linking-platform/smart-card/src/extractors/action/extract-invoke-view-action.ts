@@ -13,7 +13,7 @@ import { type ExtractClientActionsParam, type TransformUrlFn } from './types';
 
 export type ExtractInvokeViewActionParam = ExtractClientActionsParam & {
 	transformUrl?: TransformUrlFn;
-}
+};
 export const extractInvokeViewAction = (
 	{ actionOptions, appearance, transformUrl, id, response }: ExtractInvokeViewActionParam,
 	force?: boolean,

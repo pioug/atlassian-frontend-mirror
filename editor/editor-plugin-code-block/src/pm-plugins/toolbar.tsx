@@ -352,9 +352,7 @@ export const getToolbarConfig = (
 			selected: areLineNumbersVisible,
 		};
 
-		const formatLanguage = formatCodeProvider?.isSupportedLanguage(language)
-			? language
-			: undefined;
+		const formatLanguage = formatCodeProvider?.isSupportedLanguage(language) ? language : undefined;
 		const canFormatCode = node.textContent.length > 0 && Boolean(formatLanguage);
 		const formatCodeButton: FloatingToolbarButton<Command> = {
 			id: 'editor.codeBlock.formatCode',
@@ -387,10 +385,7 @@ export const getToolbarConfig = (
 				codeBlockWrapButton,
 				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 				fg('platform_editor_code_block_add_line_number_button')
-					? [
-							codeBlockLineNumbersButton,
-							...(formatCodeProvider ? [formatCodeButton] : []),
-						]
+					? [codeBlockLineNumbersButton, ...(formatCodeProvider ? [formatCodeButton] : [])]
 					: []),
 				...copyAndDeleteButtonMenuItems,
 			],

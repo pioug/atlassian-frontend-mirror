@@ -60,7 +60,7 @@ const shouldCloseLegacyContextualMenu = ({
 }): boolean =>
 	Boolean(
 		pluginState.isContextualMenuOpen &&
-			(targetCellPositionChanged || (tr.selectionSet && !(tr.selection instanceof CellSelection))),
+		(targetCellPositionChanged || (tr.selectionSet && !(tr.selection instanceof CellSelection))),
 	);
 
 const updateTargetCellPosition: BuilderTablePluginState =

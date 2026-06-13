@@ -1,5 +1,9 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { type CardAppearance, type InvokePayload, type ServerActionOpts } from '@atlaskit/linking-common';
+import {
+	type CardAppearance,
+	type InvokePayload,
+	type ServerActionOpts,
+} from '@atlaskit/linking-common';
 import { type BatchResponse } from './responses';
 
 export interface CardClient {

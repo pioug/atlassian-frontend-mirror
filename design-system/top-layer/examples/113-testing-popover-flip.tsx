@@ -59,10 +59,23 @@ export default function TestingPopoverFlip(): ReactNode {
 		<div css={styles.tall}>
 			<div css={styles.spacer} />
 			<div data-testid="trigger-wrapper" css={styles.triggerWrapper}>
-				<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="popover-trigger">
+				<button
+					ref={triggerRef}
+					onClick={toggle}
+					{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+					type="button"
+					data-testid="popover-trigger"
+				>
 					Open
 				</button>
-				<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Flip test">
+				<Popover
+					ref={popoverRef}
+					id={popoverId}
+					isOpen={isOpen}
+					onClose={close}
+					role="dialog"
+					label="Flip test"
+				>
 					<div data-testid="popover-content" css={styles.content}>
 						Should flip above trigger when near bottom
 					</div>

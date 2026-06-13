@@ -1,5 +1,9 @@
 import type { TableLayout } from '@atlaskit/adf-schema';
-import { akEditorBreakoutPadding, akEditorFullWidthLayoutWidth, akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorBreakoutPadding,
+	akEditorFullWidthLayoutWidth,
+	akEditorWideLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 
 export const calcTableWidth = (
 	layout: TableLayout,

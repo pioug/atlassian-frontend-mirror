@@ -49,8 +49,8 @@ server emits `<dialog open>`:
 This is why the SSR HTML for a top-layer modal dialog must omit the `open` attribute entirely.
 Rendering it open server-side is not just an animation issue — it is a spec-level dead end that
 breaks modal semantics. The contract is therefore: render `<dialog>` closed during SSR, then call
-`showModal()` in a layout effect on the client. The browser only places the element in the top
-layer when `showModal()` runs.
+`showModal()` in a layout effect on the client. The browser only places the element in the top layer
+when `showModal()` runs.
 
 ### Spec references
 
@@ -93,9 +93,9 @@ The dialog is invisible because:
 ### Why the animation plays on first mount
 
 `useAnimatedVisibility` starts `showChildren` equal to `isOpen`, so children mount with the dialog
-on the first render. The browser's `@starting-style` rule fires whenever an element transitions
-from `display: none` (or out of the top layer) to its rendered state — including the very first
-time `showModal()` is called after hydration. No special-case code is needed for "first mount with
+on the first render. The browser's `@starting-style` rule fires whenever an element transitions from
+`display: none` (or out of the top layer) to its rendered state — including the very first time
+`showModal()` is called after hydration. No special-case code is needed for "first mount with
 `isOpen=true` vs subsequent opens"; both go through the same code path.
 
 ### Pre-hydration: is there a window where the user sees something wrong?
@@ -106,9 +106,9 @@ before any JavaScript runs. There is no flash of an unstyled dialog and no flash
 ### Hydration mismatch surface
 
 The `<dialog>` element itself is the only added surface. React does emit warnings about its limited
-support for the native `popover` attribute and certain dialog events during SSR — these are
-filtered out in `__tests__/unit/ssr.tsx` and are expected to resolve as React improves support for
-these primitives.
+support for the native `popover` attribute and certain dialog events during SSR — these are filtered
+out in `__tests__/unit/ssr.tsx` and are expected to resolve as React improves support for these
+primitives.
 
 ---
 
@@ -131,10 +131,10 @@ Either way, **no modal markup is present in the server-rendered HTML**.
 ### What hydration does
 
 1. React hydrates the page. The portal's mount effect runs.
-2. The portal creates a container element under `document.body` (via
-   `createAtlaskitPortal` / `appendPortalContainerIfNotAppended`).
-3. The portal re-renders with the container available; `createPortal` mounts the modal subtree
-   into the new container.
+2. The portal creates a container element under `document.body` (via `createAtlaskitPortal` /
+   `appendPortalContainerIfNotAppended`).
+3. The portal re-renders with the container available; `createPortal` mounts the modal subtree into
+   the new container.
 4. `FadeIn` (or the `Motion` component on the motion-uplift path) plays the entry animation via
    JS-driven CSS class toggling.
 5. `FocusLock` traps focus inside the modal.
@@ -148,19 +148,19 @@ the page without the modal until JavaScript runs and the portal mounts.
 
 ## Side-by-side comparison
 
-| Concern                              | Legacy modal (flag off)                                | Top-layer dialog (flag on)                                                |
-| ------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------------------------- |
-| Server HTML for modal                | `null` (portal renders nothing)                        | `<dialog>` element, no `open` attribute                                   |
-| Why invisible pre-hydration          | No markup at all                                       | UA stylesheet: closed `<dialog>` is `display: none`                       |
-| Stacking escape                      | Portal under `document.body` + `z-index`               | Browser top layer (native, no portal)                                     |
-| Animation driver                     | JS (`FadeIn` / `Motion`) toggling CSS classes          | Pure CSS (`@starting-style` + `transition-behavior: allow-discrete`)      |
-| First-paint trigger                  | Mount effect inside `Portal`                           | `useLayoutEffect` calling `showModal()`                                   |
-| Modal becomes visible after          | Portal container appended + modal subtree rendered     | `dialog.showModal()` runs                                                 |
-| Focus trap                           | `react-focus-lock`                                     | Native `<dialog>` focusing steps                                          |
-| Background inert                     | `aria-hidden` siblings + `react-focus-lock` allowlist  | Native `inert` on document outside the dialog                             |
-| Backdrop                             | `<Blanket>` component                                  | `::backdrop` pseudo-element                                               |
-| Hydration mismatch surface           | None (no SSR markup)                                   | `<dialog>` element (React filters expected warnings)                      |
-| `dialog.showModal()` timing          | n/a                                                    | First `useLayoutEffect` after hydrate                                     |
+| Concern                     | Legacy modal (flag off)                               | Top-layer dialog (flag on)                                           |
+| --------------------------- | ----------------------------------------------------- | -------------------------------------------------------------------- |
+| Server HTML for modal       | `null` (portal renders nothing)                       | `<dialog>` element, no `open` attribute                              |
+| Why invisible pre-hydration | No markup at all                                      | UA stylesheet: closed `<dialog>` is `display: none`                  |
+| Stacking escape             | Portal under `document.body` + `z-index`              | Browser top layer (native, no portal)                                |
+| Animation driver            | JS (`FadeIn` / `Motion`) toggling CSS classes         | Pure CSS (`@starting-style` + `transition-behavior: allow-discrete`) |
+| First-paint trigger         | Mount effect inside `Portal`                          | `useLayoutEffect` calling `showModal()`                              |
+| Modal becomes visible after | Portal container appended + modal subtree rendered    | `dialog.showModal()` runs                                            |
+| Focus trap                  | `react-focus-lock`                                    | Native `<dialog>` focusing steps                                     |
+| Background inert            | `aria-hidden` siblings + `react-focus-lock` allowlist | Native `inert` on document outside the dialog                        |
+| Backdrop                    | `<Blanket>` component                                 | `::backdrop` pseudo-element                                          |
+| Hydration mismatch surface  | None (no SSR markup)                                  | `<dialog>` element (React filters expected warnings)                 |
+| `dialog.showModal()` timing | n/a                                                   | First `useLayoutEffect` after hydrate                                |
 
 ## Why both arrive at the same UX
 
@@ -171,8 +171,8 @@ Both flows guarantee:
 - The consumer API is `isOpen={true}` on initial render — no extra calls or refs required.
 
 The differences are pure implementation: portal-and-JS-classes vs native-dialog-and-CSS. From a
-user's perspective, the modal is invisible on first paint and animates in shortly afterwards in
-both cases.
+user's perspective, the modal is invisible on first paint and animates in shortly afterwards in both
+cases.
 
 ---
 
@@ -184,11 +184,11 @@ both cases.
   warnings (existing).
 - `__tests__/unit/dialog-hydration.test.tsx` — Hydrate an `isOpen={true}` dialog and assert it is
   open after hydration without any consumer action.
-- `__tests__/playwright/ssr-dialog.spec.tsx` — Full SSR string → hydrate → assert `<dialog>`
-  becomes open as part of the initial render (next frame is acceptable).
+- `__tests__/playwright/ssr-dialog.spec.tsx` — Full SSR string → hydrate → assert `<dialog>` becomes
+  open as part of the initial render (next frame is acceptable).
 - `__tests__/informational-vr-tests/ssr-dialog.vr.tsx` — Informational VR fixture with two
-  post-hydration snapshots: the animated-in dialog, and the same example after the consumer
-  closes it via the Close button.
+  post-hydration snapshots: the animated-in dialog, and the same example after the consumer closes
+  it via the Close button.
 
 ### `@atlaskit/modal-dialog`
 
@@ -202,42 +202,34 @@ both cases.
 
 ## VR coverage limitations
 
-The informational VR fixtures (`ssr-dialog.vr.tsx` and the modal-dialog
-`ssr-startup-parity.vr.tsx`) only capture **post-hydration** snapshots. They
-do not capture the "pre-hydration" frame the user would see in the brief
-window between the SSR'd HTML painting and the first client layout effect
+The informational VR fixtures (`ssr-dialog.vr.tsx` and the modal-dialog `ssr-startup-parity.vr.tsx`)
+only capture **post-hydration** snapshots. They do not capture the "pre-hydration" frame the user
+would see in the brief window between the SSR'd HTML painting and the first client layout effect
 calling `showModal()`.
 
 This is a deliberate trade-off, not an oversight:
 
-- The VR runner (`@atlassian/gemini`) navigates to the example URL and lets
-  the page hydrate before invoking the snapshot. There is no public
-  `noHydrate` or `routes`-on-navigation hook to intercept the response and
-  serve raw SSR HTML.
-- Working around it inside the example (e.g. baking a "hydration latch"
-  prop into the test fixture that delays setting `isOpen={true}`) would no
-  longer exercise the `isOpen={true}` on-initial-render code path the
-  fixture is meant to prove. The latched state is just "modal closed,"
-  which adds no new coverage over a hypothetical `isOpen={false}` example.
-- Adding a closed-modal companion snapshot would produce a near-blank PNG
-  that diffs poorly and adds little signal beyond the post-hydration shot.
+- The VR runner (`@atlassian/gemini`) navigates to the example URL and lets the page hydrate before
+  invoking the snapshot. There is no public `noHydrate` or `routes`-on-navigation hook to intercept
+  the response and serve raw SSR HTML.
+- Working around it inside the example (e.g. baking a "hydration latch" prop into the test fixture
+  that delays setting `isOpen={true}`) would no longer exercise the `isOpen={true}`
+  on-initial-render code path the fixture is meant to prove. The latched state is just "modal
+  closed," which adds no new coverage over a hypothetical `isOpen={false}` example.
+- Adding a closed-modal companion snapshot would produce a near-blank PNG that diffs poorly and adds
+  little signal beyond the post-hydration shot.
 
-The pre-hydration / no-action-required side of the contract is instead
-covered by:
+The pre-hydration / no-action-required side of the contract is instead covered by:
 
-- **Jest hydration test** (`__tests__/unit/dialog-hydration.test.tsx`) —
-  hydrates an `isOpen={true}` example and asserts no unexpected React
-  warnings.
-- **Playwright behavioural spec**
-  (`__tests__/playwright/ssr-dialog.spec.tsx`) — asserts the dialog opens
-  and gains focus as part of the initial render in a real browser.
-- **Inspection of source** — `@atlaskit/portal` uses
-  `useIsSubsequentRender()` to gate rendering to `null` on the server,
-  documented above in the legacy modal flow section.
+- **Jest hydration test** (`__tests__/unit/dialog-hydration.test.tsx`) — hydrates an `isOpen={true}`
+  example and asserts no unexpected React warnings.
+- **Playwright behavioural spec** (`__tests__/playwright/ssr-dialog.spec.tsx`) — asserts the dialog
+  opens and gains focus as part of the initial render in a real browser.
+- **Inspection of source** — `@atlaskit/portal` uses `useIsSubsequentRender()` to gate rendering to
+  `null` on the server, documented above in the legacy modal flow section.
 
-If a future change to `@atlassian/gemini` exposes a way to snapshot before
-React mount, the VR fixtures should be updated to add the pre-hydration
-snapshot then.
+If a future change to `@atlassian/gemini` exposes a way to snapshot before React mount, the VR
+fixtures should be updated to add the pre-hydration snapshot then.
 
 ## Alternatives considered
 
@@ -245,20 +237,20 @@ snapshot then.
 
 Would match the legacy modal's SSR output byte-for-byte (nothing rendered server-side). Rejected:
 the whole point of native `<dialog>` is that it escapes stacking contexts via the browser's top
-layer; reintroducing a portal undoes that and adds a hydration tick before the dialog is even in
-the DOM.
+layer; reintroducing a portal undoes that and adds a hydration tick before the dialog is even in the
+DOM.
 
 ### Client-only mount gate (`useSyncExternalStore` / `useIsomorphicLayoutEffect`)
 
 Would render no `<dialog>` markup on the server and avoid any SSR/CSR markup divergence. Rejected:
 defers all dialog markup to a second paint and removes the chance for assistive technology to see
-the `<dialog>` element synchronously after hydration. The current approach already produces the
-same user-visible behaviour without these costs.
+the `<dialog>` element synchronously after hydration. The current approach already produces the same
+user-visible behaviour without these costs.
 
 ### Explicit `display: none` in our own stylesheet
 
-Would survive an upstream consumer override of the UA `dialog { display: none }` rule. Rejected
-for now: no consumer is known to override that rule, and adding the CSS slightly contradicts the
+Would survive an upstream consumer override of the UA `dialog { display: none }` rule. Rejected for
+now: no consumer is known to override that rule, and adding the CSS slightly contradicts the
 "primitive has no visual opinions" stance. Revisit if a real consumer breakage occurs.
 
 ### Render `<dialog open>` on the server

@@ -104,10 +104,23 @@ export default function TestingHintNoCloseAuto(): ReactNode {
 
 	return (
 		<div css={styles.wrapper}>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="auto-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="auto-trigger"
+			>
 				Toggle auto popover
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Auto popover">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="Auto popover"
+			>
 				<div data-testid="auto-popover" css={styles.popoverContent}>
 					Auto popover content
 					<HintPopover />

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import { type IntlShape } from 'react-intl';
 
@@ -9,16 +9,16 @@ import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
 import type { ProductType } from '@atlaskit/linking-common';
 import { RovoIcon } from '@atlaskit/logo';
 
-import { CardDisplay } from "../../../constants";
-import { messages } from "../../../messages";
-import { isBlockCardRovoActionExperimentEnabled } from "../../../state/hooks/use-block-card-rovo-action-experiment";
-import type { SendPromptMessageData } from "../../../state/hooks/use-rovo-chat";
-import AiChapterIcon from "../../FlexibleCard/assets/ai-chapter-icon";
-import AIEditIcon from "../../FlexibleCard/assets/ai-edit-icon";
-import AISearchIcon from "../../FlexibleCard/assets/ai-search-icon";
-import type Action from "../../FlexibleCard/components/actions/action";
-import type { ActionProps } from "../../FlexibleCard/components/actions/action/types";
-import htmlToAdf from "../../FlexibleCard/components/actions/rovo-chat-action/html-to-adf";
+import { CardDisplay } from '../../../constants';
+import { messages } from '../../../messages';
+import { isBlockCardRovoActionExperimentEnabled } from '../../../state/hooks/use-block-card-rovo-action-experiment';
+import type { SendPromptMessageData } from '../../../state/hooks/use-rovo-chat';
+import AiChapterIcon from '../../FlexibleCard/assets/ai-chapter-icon';
+import AIEditIcon from '../../FlexibleCard/assets/ai-edit-icon';
+import AISearchIcon from '../../FlexibleCard/assets/ai-search-icon';
+import type Action from '../../FlexibleCard/components/actions/action';
+import type { ActionProps } from '../../FlexibleCard/components/actions/action/types';
+import htmlToAdf from '../../FlexibleCard/components/actions/rovo-chat-action/html-to-adf';
 
 export enum RovoChatPromptKey {
 	RECOMMEND_OTHER_SOURCES = 'recommend-other-sources',
@@ -47,14 +47,14 @@ type CurrentContextType = {
 };
 
 type PromptActionProps = {
-	cardAppearance?: CardDisplay,
-	iconSize?: ActionProps['iconSize'],
-	intl: IntlShape,
-	product?: ProductType,
-	promptKey: RovoChatPromptKey,
-	provider?: string
-	url?: string,
-}
+	cardAppearance?: CardDisplay;
+	iconSize?: ActionProps['iconSize'];
+	intl: IntlShape;
+	product?: ProductType;
+	promptKey: RovoChatPromptKey;
+	provider?: string;
+	url?: string;
+};
 
 const getContext = (intl: IntlShape, product?: ProductType): CurrentContextType | undefined => {
 	switch (product) {
@@ -81,10 +81,12 @@ export const getPromptAction = ({
 	product,
 	iconSize,
 	cardAppearance,
-	provider
-}: PromptActionProps): (
-	Pick<React.ComponentProps<typeof Action>, 'content' | 'icon' | 'tooltipMessage'> & { data: SendPromptMessageData; }
-	) | undefined => {
+	provider,
+}: PromptActionProps):
+	| (Pick<React.ComponentProps<typeof Action>, 'content' | 'icon' | 'tooltipMessage'> & {
+			data: SendPromptMessageData;
+	  })
+	| undefined => {
 	const { contextLong, contextShort } = getContext(intl, product) ?? {
 		contextLong: intl.formatMessage(messages.rovo_prompt_context_generic),
 		contextShort: intl.formatMessage(messages.rovo_prompt_context_generic),
@@ -159,11 +161,12 @@ export const getPromptAction = ({
 				{ ignoreTag: true },
 			);
 			return {
-				icon: cardAppearance === CardDisplay.Block && isBlockCard3PExperimentEnabled ? (
-					<AiChatIcon label={label_summarize} size={iconSize} />
-				) : (
-					<AIEditIcon />
-				),
+				icon:
+					cardAppearance === CardDisplay.Block && isBlockCard3PExperimentEnabled ? (
+						<AiChatIcon label={label_summarize} size={iconSize} />
+					) : (
+						<AIEditIcon />
+					),
 				content: label_summarize,
 				tooltipMessage: label_summarize,
 				data: {
@@ -186,17 +189,17 @@ export const getPromptAction = ({
 			);
 			return {
 				icon: <AiGenerativeTextSummaryIcon label={label_summarize_this_for_me} />,
-			content: label_summarize_this_for_me,
+				content: label_summarize_this_for_me,
 				tooltipMessage: label_summarize_this_for_me,
 				data: {
-				name: label_summarize_this_for_me,
+					name: label_summarize_this_for_me,
 					dialogues: [],
 					prompt: htmlToAdf(html_summarize_this_for_me),
 					mode: {
-					fastModeEnabled: true,
+						fastModeEnabled: true,
+					},
 				},
-			},
-		};
+			};
 		case RovoChatPromptKey.HIGHLIGHT_RELEVANT_CONTENT:
 			const label_highlight_relevant_content = intl.formatMessage(
 				messages.rovo_prompt_button_highlight_relevant_content,
@@ -228,9 +231,12 @@ export const getPromptAction = ({
 				{ url },
 			);
 			return {
-				icon: cardAppearance === CardDisplay.Block && isBlockCard3PExperimentEnabled ? (
-					<RovoIcon label={label_ask_rovo_anything} size={'xxsmall'} shouldUseHexLogo />
-				) : ( <AISearchIcon /> ),
+				icon:
+					cardAppearance === CardDisplay.Block && isBlockCard3PExperimentEnabled ? (
+						<RovoIcon label={label_ask_rovo_anything} size={'xxsmall'} shouldUseHexLogo />
+					) : (
+						<AISearchIcon />
+					),
 				content: label_ask_rovo_anything,
 				tooltipMessage: label_ask_rovo_anything,
 				data: {
@@ -355,9 +361,7 @@ export const getPromptAction = ({
 				},
 			};
 		case RovoChatPromptKey.SUMMARIZE_DOCUMENT:
-			const label_summarize_document = intl.formatMessage(
-				messages.ai_summarize,
-			);
+			const label_summarize_document = intl.formatMessage(messages.ai_summarize);
 			const html_summarize_document = intl.formatMessage(
 				messages.rovo_prompt_message_summarize_document,
 				{ url },
@@ -371,12 +375,10 @@ export const getPromptAction = ({
 					dialogues: [],
 					prompt: htmlToAdf(html_summarize_document),
 				},
-				icon: <AiGenerativeTextSummaryIcon label={label_summarize_document} size={iconSize} />
+				icon: <AiGenerativeTextSummaryIcon label={label_summarize_document} size={iconSize} />,
 			};
 		case RovoChatPromptKey.SUMMARIZE_PRESENTATION:
-			const label_summarize_presentation = intl.formatMessage(
-				messages.ai_summarize,
-			);
+			const label_summarize_presentation = intl.formatMessage(messages.ai_summarize);
 			const html_summarize_presentation = intl.formatMessage(
 				messages.rovo_prompt_message_summarize_presentation,
 				{ url },
@@ -390,12 +392,10 @@ export const getPromptAction = ({
 					dialogues: [],
 					prompt: htmlToAdf(html_summarize_presentation),
 				},
-				icon: <AiGenerativeTextSummaryIcon label={label_summarize_presentation} size={iconSize} />
+				icon: <AiGenerativeTextSummaryIcon label={label_summarize_presentation} size={iconSize} />,
 			};
 		case RovoChatPromptKey.EXPLAIN_CODE:
-			const label_explain_code = intl.formatMessage(
-				messages.rovo_prompt_button_explain_code,
-			);
+			const label_explain_code = intl.formatMessage(messages.rovo_prompt_button_explain_code);
 			const html_explain_code = intl.formatMessage(
 				messages.rovo_prompt_message_explain_code,
 				{ url },
@@ -409,12 +409,10 @@ export const getPromptAction = ({
 					dialogues: [],
 					prompt: htmlToAdf(html_explain_code),
 				},
-				icon: <AiGenerativeTextSummaryIcon label={label_explain_code} size={iconSize} />
+				icon: <AiGenerativeTextSummaryIcon label={label_explain_code} size={iconSize} />,
 			};
 		case RovoChatPromptKey.CATCH_UP:
-			const label_catch_up = intl.formatMessage(
-				messages.rovo_prompt_button_catch_up,
-			);
+			const label_catch_up = intl.formatMessage(messages.rovo_prompt_button_catch_up);
 			const html_catch_up = intl.formatMessage(
 				messages.rovo_prompt_message_catch_up,
 				{ url, provider },
@@ -428,12 +426,10 @@ export const getPromptAction = ({
 					dialogues: [],
 					prompt: htmlToAdf(html_catch_up),
 				},
-				icon: <AiGenerativeTextSummaryIcon label={label_catch_up} size={iconSize} />
+				icon: <AiGenerativeTextSummaryIcon label={label_catch_up} size={iconSize} />,
 			};
 		case RovoChatPromptKey.SALESFORCE_PREP:
-			const label_overview = intl.formatMessage(
-				messages.rovo_prompt_button_salesforce_prep,
-			);
+			const label_overview = intl.formatMessage(messages.rovo_prompt_button_salesforce_prep);
 			const html_overview = intl.formatMessage(
 				messages.rovo_prompt_message_salesforce_prep,
 				{ url },
@@ -447,7 +443,7 @@ export const getPromptAction = ({
 					dialogues: [],
 					prompt: htmlToAdf(html_overview),
 				},
-				icon: <AiGenerativeTextSummaryIcon label={label_overview} size={iconSize} />
+				icon: <AiGenerativeTextSummaryIcon label={label_overview} size={iconSize} />,
 			};
 	}
 };

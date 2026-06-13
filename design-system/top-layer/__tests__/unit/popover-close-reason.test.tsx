@@ -9,7 +9,9 @@ import { Popover } from '../../src/entry-points/popover';
  * This mirrors what the browser does when the user presses Escape.
  */
 function fireEscapeKeydown(element: HTMLElement) {
-	element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }));
+	element.dispatchEvent(
+		new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }),
+	);
 }
 
 /**

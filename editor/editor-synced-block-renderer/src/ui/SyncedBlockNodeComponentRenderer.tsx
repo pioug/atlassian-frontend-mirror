@@ -51,7 +51,9 @@ export const SyncedBlockNodeComponentRenderer = ({
 			// handleSSRErrorsAnalytics expects only `SyncedBlockSSRErrorAEP` — the
 			// generic `fireAnalyticsEvent` from NodeProps is a superset, so the
 			// cast is safe (the handler only ever calls back with that one AEP).
-			handleSSRErrorsAnalytics(fireAnalyticsEvent as Parameters<typeof handleSSRErrorsAnalytics>[0]);
+			handleSSRErrorsAnalytics(
+				fireAnalyticsEvent as Parameters<typeof handleSSRErrorsAnalytics>[0],
+			);
 		}, 0);
 
 		return () => {
@@ -61,9 +63,7 @@ export const SyncedBlockNodeComponentRenderer = ({
 	}, []);
 
 	useEffect(() => {
-		syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(
-			syncBlockFireAnalyticsEvent,
-		);
+		syncBlockStoreManager.referenceManager.updateFireAnalyticsEvent(syncBlockFireAnalyticsEvent);
 	}, [syncBlockStoreManager.referenceManager, syncBlockFireAnalyticsEvent]);
 
 	const { syncBlockInstance, isLoading, reloadData, providerFactory, ssrProviders } =

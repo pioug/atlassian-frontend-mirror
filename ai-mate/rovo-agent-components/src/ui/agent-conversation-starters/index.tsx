@@ -160,7 +160,7 @@ export const ConversationStarters = ({
 	starters,
 	onConversationStarterClick,
 	showReloadButton = false,
-	onReloadButtonClick = () => { },
+	onReloadButtonClick = () => {},
 	onBrowseAgentsClick,
 	refreshDesignEnabled = false,
 }: ConversationStartersProps): React.JSX.Element => {
@@ -177,7 +177,11 @@ export const ConversationStarters = ({
 				const isLastStarter = index === starters.length - 1;
 
 				const chatPill = (
-					<Box as="li" key={starter.message} xcss={refreshDesignEnabled && styles.conversationStaterItem}>
+					<Box
+						as="li"
+						key={starter.message}
+						xcss={refreshDesignEnabled && styles.conversationStaterItem}
+					>
 						<Pressable
 							xcss={styles.button}
 							onClick={() => onConversationStarterClick(starter)}

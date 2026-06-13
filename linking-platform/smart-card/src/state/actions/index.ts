@@ -132,8 +132,11 @@ export const useSmartCardActions = (
 
 	// Original resolve function — signature kept intact for maximum safety when FG is off.
 	const resolve = useCallback(
-		async (resourceUrl: string = url, isReloading: boolean = false, isMetadataRequest: boolean = false) =>
-			resolveUrl({ url: resourceUrl, isReloading, isMetadataRequest, id }),
+		async (
+			resourceUrl: string = url,
+			isReloading: boolean = false,
+			isMetadataRequest: boolean = false,
+		) => resolveUrl({ url: resourceUrl, isReloading, isMetadataRequest, id }),
 		[id, resolveUrl, url],
 	);
 
@@ -190,9 +193,7 @@ export const useSmartCardActions = (
 				}
 			} else {
 				if (definitionId) {
-					getByDefinitionId(definitionId, getState()).map((reloadUrl) =>
-						resolve(reloadUrl, true),
-					);
+					getByDefinitionId(definitionId, getState()).map((reloadUrl) => resolve(reloadUrl, true));
 				} else {
 					resolve(url, true);
 				}
@@ -210,7 +211,9 @@ export const useSmartCardActions = (
 	 */
 	const loadMetadata = useCallback(() => {
 		const { metadataStatus } = getSmartLinkState();
-		const needsBlockData = metadataStatus === undefined || (metadataStatus === 'pending' && fg('platform_smartlink_inline_resolve_optimization'));
+		const needsBlockData =
+			metadataStatus === undefined ||
+			(metadataStatus === 'pending' && fg('platform_smartlink_inline_resolve_optimization'));
 
 		if (needsBlockData) {
 			setMetadataStatus('pending');

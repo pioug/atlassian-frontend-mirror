@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { fg } from "@atlaskit/platform-feature-flags";
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
@@ -65,7 +65,9 @@ const useInlineTailoredActionExperiment = (
 			return NOT_ENABLED_RESULT;
 		}
 
-		const isEnabled = fg('platform_sl_3p_auth_inline_tailored_cta_killswitch') && expValEquals('platform_sl_3p_auth_inline_tailored_cta', 'isEnabled', true);
+		const isEnabled =
+			fg('platform_sl_3p_auth_inline_tailored_cta_killswitch') &&
+			expValEquals('platform_sl_3p_auth_inline_tailored_cta', 'isEnabled', true);
 
 		return { isEnabled };
 	}, [isRovoChatEnabled, extensionKey, showHoverPreview, url, isRovoChatActionOptedIn]);

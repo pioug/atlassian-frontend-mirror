@@ -189,7 +189,9 @@ import { slideAndFade, fade } from '@atlaskit/top-layer/animations';
 - `isOpen: true` → calls `showPopover()` / `showModal()`, entry animation plays via
   `@starting-style`
 - `isOpen: false` → calls `hidePopover()` / `close()`, exit animation plays via `allow-discrete`
-- The element stays mounted while open or exit-animating; it unmounts after exit completes so it does not leave an empty role-bearing element in the accessibility tree (see `notes/decisions/host-element-unmount-when-hidden.md`)
+- The element stays mounted while open or exit-animating; it unmounts after exit completes so it
+  does not leave an empty role-bearing element in the accessibility tree (see
+  `notes/decisions/host-element-unmount-when-hidden.md`)
 - No mount/unmount lifecycle — the consumer never conditionally renders the primitive
 
 ### `Popup.Content` (thin context wrapper)

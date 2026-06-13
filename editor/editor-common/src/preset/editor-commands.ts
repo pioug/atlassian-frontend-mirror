@@ -1,8 +1,7 @@
-
 import type { Command } from '../types/command';
 import type { EditorCommand } from '../types/editor-command';
 
-import { PassiveTransaction } from './PassiveTransaction';/**
+import { PassiveTransaction } from './PassiveTransaction'; /**
  * Convert a EditorCommand to a standard Prosemirror Command.
  * The preferred approach to dispatching a `EditorCommand` is via the
  * `core.actions.execute` on `pluginInjectionAPI`. In some cases

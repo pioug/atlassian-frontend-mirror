@@ -27,16 +27,10 @@ export default function SsrInitialOpenModal(): React.JSX.Element {
 							<ModalTitle>Initially open modal</ModalTitle>
 						</ModalHeader>
 						<ModalBody>
-							<p data-testid="ssr-initial-open-modal-body">
-								This modal is open on initial render.
-							</p>
+							<p data-testid="ssr-initial-open-modal-body">This modal is open on initial render.</p>
 						</ModalBody>
 						<ModalFooter>
-							<Button
-								appearance="subtle"
-								onClick={close}
-								testId="ssr-initial-open-modal-close"
-							>
+							<Button appearance="subtle" onClick={close} testId="ssr-initial-open-modal-close">
 								Close
 							</Button>
 						</ModalFooter>

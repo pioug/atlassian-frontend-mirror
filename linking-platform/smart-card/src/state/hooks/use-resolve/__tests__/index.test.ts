@@ -87,7 +87,11 @@ describe('useResolve', () => {
 		const resolve = renderHook(() => useResolve()).current;
 		await resolve({ url, isReloading: false, isMetadataRequest: false, id });
 
-		expect(mockContext.connections.client.fetchData).not.toHaveBeenCalledWith(url, false, undefined);
+		expect(mockContext.connections.client.fetchData).not.toHaveBeenCalledWith(
+			url,
+			false,
+			undefined,
+		);
 	});
 
 	it('should call fetch when isReloading flag is true', async () => {

@@ -73,8 +73,7 @@ export function AISummariseAction({
 					spacing="spacious"
 					color="currentColor"
 					label="Summarise with AI"
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					isRovoBlockCardExperimentEnabled
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }
 						: {})}
 				/>

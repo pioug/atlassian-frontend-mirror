@@ -7,7 +7,6 @@ export type ShadowsStates = {
 	[ShadowKey in ShadowKeys]: boolean;
 };
 
-
 const requestIdleCallback = (fn: FrameRequestCallback) => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

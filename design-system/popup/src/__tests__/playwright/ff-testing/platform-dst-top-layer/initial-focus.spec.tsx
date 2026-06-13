@@ -38,9 +38,7 @@ test.describe('Popup top-layer — initial focus matrix', () => {
 		await expect(page.getByTestId('dialog-popup-first-button')).toBeFocused();
 	});
 
-	test('popup with no role defaults to dialog and moves focus into the popup', async ({
-		page,
-	}) => {
+	test('popup with no role defaults to dialog and moves focus into the popup', async ({ page }) => {
 		// `@atlaskit/popup` does not expose a "no role" path: when a
 		// consumer omits `role`, `useRoleProps` defaults it to `dialog`.
 		// This test pins that contract: omitting `role` should still

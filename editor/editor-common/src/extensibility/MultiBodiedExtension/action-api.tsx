@@ -155,7 +155,11 @@ export const useMultiBodiedExtensionActions = ({
 			},
 			reorderChildren(fromIndex: number, toIndex: number): boolean {
 				const pos = getPos();
-				if (typeof pos !== 'number' || typeof fromIndex !== 'number' || typeof toIndex !== 'number') {
+				if (
+					typeof pos !== 'number' ||
+					typeof fromIndex !== 'number' ||
+					typeof toIndex !== 'number'
+				) {
 					throw new Error('Position or index not valid');
 				}
 				if (fromIndex === toIndex) {

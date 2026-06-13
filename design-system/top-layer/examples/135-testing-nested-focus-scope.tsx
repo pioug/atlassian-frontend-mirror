@@ -75,10 +75,23 @@ export default function TestingNestedFocusScope(): React.ReactNode {
 
 	return (
 		<div>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="outer-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="outer-trigger"
+			>
 				Open outer
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Outer">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="Outer"
+			>
 				<div data-testid="outer-popover">
 					<button type="button" data-testid="outer-button-a">
 						Outer A

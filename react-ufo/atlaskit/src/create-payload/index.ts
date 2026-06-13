@@ -174,7 +174,7 @@ function getPPSMetrics(interaction: InteractionMetrics) {
 			? getLighthouseMetrics({
 					start,
 					stop: interaction.end,
-			  })
+				})
 			: null;
 
 	if (fg('platform_ufo_remove_deprecated_config_fields')) {
@@ -206,12 +206,12 @@ function getSSRProperties(type: InteractionType) {
 		...(ssrPhases?.earlyFlush != null
 			? {
 					'ssr:earlyflush:success': ssrPhases.earlyFlush,
-			  }
+				}
 			: null),
 		...(ssrPhases?.prefetch != null
 			? {
 					'ssr:prefetch:success': ssrPhases.prefetch,
-			  }
+				}
 			: null),
 	};
 }
@@ -345,14 +345,17 @@ function optimizeRedirects(redirects: InteractionMetrics['redirects'], interacti
 }
 
 function objectToArray(obj: Record<string, any> = {}) {
-	return Object.keys(obj).reduce((result, key) => {
-		result.push({
-			label: key,
-			data: obj[key],
-		});
+	return Object.keys(obj).reduce(
+		(result, key) => {
+			result.push({
+				label: key,
+				data: obj[key],
+			});
 
-		return result;
-	}, [] as { label: string; data: any }[]);
+			return result;
+		},
+		[] as { label: string; data: any }[],
+	);
 }
 
 function getResourceTimingsPayload(resourceTimings: ResourceTimings) {
@@ -603,7 +606,7 @@ async function createInteractionMetricsPayload(
 					reactUFOVersion,
 					registry,
 				),
-		  }
+			}
 		: {};
 	// Page Load
 	const getInitialPageLoadSSRMetrics: () => PageLoadInitialSSRMetrics = () => {
@@ -663,7 +666,7 @@ async function createInteractionMetricsPayload(
 											...window,
 											start: Math.round(window.start),
 											end: Math.round(window.end),
-									  }
+										}
 									: window,
 							]),
 						),
@@ -673,9 +676,9 @@ async function createInteractionMetricsPayload(
 										...observation,
 										timestamp: Math.round(observation.timestamp),
 									})),
-							  }
+								}
 							: {}),
-				  }
+					}
 				: {}
 			: {};
 
@@ -707,7 +710,7 @@ async function createInteractionMetricsPayload(
 							}
 							// B1+B2: apply soft/hard budget cap with suffix-level drop order
 							return { segment3pData: applySegment3pDataBudget(grouped) };
-					  })()
+						})()
 					: (() => {
 							const grouped = buildSegment3pData(
 								interaction.segment3pTimings,
@@ -717,7 +720,7 @@ async function createInteractionMetricsPayload(
 								return {};
 							}
 							return getSegment3pDataSizes(grouped);
-					  })()
+						})()
 				: {}),
 			// Always include abort markers regardless of the ecosystem data flag so they can be
 			// queried in analytics even when the full segment3pData payload is disabled.
@@ -766,7 +769,7 @@ async function createInteractionMetricsPayload(
 		? getReactProfilerTimingsForWindow(
 				interaction.reactProfilerTimings,
 				interaction.metricWindows?.standard,
-		  )
+			)
 		: interaction.reactProfilerTimings;
 
 	const [finalVCMetrics, paintMetrics, batteryInfo] = await Promise.all([
@@ -817,7 +820,7 @@ async function createInteractionMetricsPayload(
 					? {
 							'ufo:multipayload': true,
 							'ufo:criticalPayloadCount': criticalPayloadCount,
-					  }
+						}
 					: {}),
 
 				'ufo:pageVisibilityHiddenTimestamp': getEarliestHiddenTiming(
@@ -836,7 +839,7 @@ async function createInteractionMetricsPayload(
 				...(fg('ufo_detect_aborting_interaction_during_ssr')
 					? {
 							'ufo:hasAbortingInteractionDuringSSR': getHasAbortingEventDuringSSR(),
-					  }
+						}
 					: {}),
 
 				// root

@@ -74,8 +74,7 @@ const FloatingTableMenu: FloatingTableMenuFunction = ({
 		activeTableMenu: (states.tableState as TableSharedStateInternal | undefined)?.activeTableMenu,
 	}));
 
-	const isDragMenuOpen =
-		activeTableMenu?.type === 'row' || activeTableMenu?.type === 'column';
+	const isDragMenuOpen = activeTableMenu?.type === 'row' || activeTableMenu?.type === 'column';
 	const dragMenuDirection = isDragMenuOpen ? activeTableMenu.type : undefined;
 	const isOpenedByKeyboard = isDragMenuOpen && activeTableMenu.openedBy === 'keyboard';
 

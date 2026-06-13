@@ -436,10 +436,7 @@ const FeedbackForm = ({
 						)}
 					</ModalBody>
 					<ModalFooter>
-						<Button
-							appearance="subtle"
-							onClick={handleCancel}
-						>
+						<Button appearance="subtle" onClick={handleCancel}>
 							{cancelButtonLabel || <FormattedMessage {...messages.cancelButtonLabel} />}
 						</Button>
 						<Button
@@ -493,9 +490,7 @@ const FeedbackForm = ({
 											<>
 												<Select<OptionType>
 													{...restProps}
-													value={
-														selectOptions.find((opt) => opt.value === type) ?? null
-													}
+													value={selectOptions.find((opt) => opt.value === type) ?? null}
 													onChange={(option) => {
 														if (!option || option instanceof Array) {
 															return;
@@ -641,10 +636,7 @@ const FeedbackForm = ({
 								)}
 							</ModalBody>
 							<ModalFooter>
-								<Button
-									appearance="subtle"
-									onClick={handleCancel}
-								>
+								<Button appearance="subtle" onClick={handleCancel}>
 									{cancelButtonLabel || <FormattedMessage {...messages.cancelButtonLabel} />}
 								</Button>
 								<Button

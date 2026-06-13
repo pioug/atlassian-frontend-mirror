@@ -50,11 +50,20 @@ export default function TestingAnimationReducedMotion(): ReactNode {
 	return (
 		<div css={styles.wrapper}>
 			<div data-testid="status">{isOpen ? 'open' : 'closed'}</div>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="popover-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="popover-trigger"
+			>
 				Toggle
 			</button>
 			<Popover
-				ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close}
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
 				role="dialog"
 				label="Animation reduced motion test"
 				animate={animation}

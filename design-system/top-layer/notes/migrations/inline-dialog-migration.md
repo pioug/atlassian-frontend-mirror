@@ -24,8 +24,7 @@ instead of the legacy **Popper.js + `@atlaskit/layering`** pipeline.
 - `@atlaskit/top-layer/popup` — `Popup`, `Popup.TriggerFunction`, `Popup.Content`
 - `@atlaskit/top-layer/animations` — `slideAndFade()`
 - `@atlaskit/top-layer/placement-map` — `fromLegacyPlacement`
-- `@atlaskit/top-layer/popover` — `createPopoverCloseEvent` → legacy
-  `onClose({ isOpen, event })`
+- `@atlaskit/top-layer/popover` — `createPopoverCloseEvent` → legacy `onClose({ isOpen, event })`
 
 ### Trigger and anchor
 

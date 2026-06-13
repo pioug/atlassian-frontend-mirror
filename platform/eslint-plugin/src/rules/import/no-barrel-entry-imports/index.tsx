@@ -167,7 +167,7 @@ function buildImportStatement({
 				range: spec.range,
 				loc: spec.loc,
 				parent: spec.parent,
-			} as TSESTree.ImportSpecifier as AugmentedSpecifier),
+			}) as TSESTree.ImportSpecifier as AugmentedSpecifier,
 	);
 	const namedSpecs = [...namedSpecsFromInput, ...rebindAsNamed];
 
@@ -1000,14 +1000,14 @@ function buildSyntheticImportFromRequireAccess(
 						type: 'ImportDefaultSpecifier',
 						local: { type: 'Identifier', name: '_r' },
 					},
-			  ] as TSESTree.ImportDefaultSpecifier[])
+				] as TSESTree.ImportDefaultSpecifier[])
 			: ([
 					{
 						type: 'ImportSpecifier',
 						imported: { type: 'Identifier', name: exportPropertyName },
 						local: { type: 'Identifier', name: exportPropertyName },
 					},
-			  ] as TSESTree.ImportSpecifier[]);
+				] as TSESTree.ImportSpecifier[]);
 
 	return {
 		type: 'ImportDeclaration',

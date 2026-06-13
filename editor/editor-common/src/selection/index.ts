@@ -39,7 +39,16 @@ export { isMultiBlockRange } from './isMultiBlockRange';
 export { isSelectionAtEndOfNode } from './isSelectionAtEndOfNode';
 export { isSelectionAtStartOfNode } from './isSelectionAtStartOfNode';
 export { startPositionOfParent } from './startPositionOfParent';
-export { atTheBeginningOfBlock, atTheEndOfBlock, deleteSelectedRange, expandSelectionToBlockRange, expandToBlockRange, getSourceNodesFromSelectionRange, isMultiBlockSelection, selectionIsAtTheBeginningOfBlock } from './utils';
+export {
+	atTheBeginningOfBlock,
+	atTheEndOfBlock,
+	deleteSelectedRange,
+	expandSelectionToBlockRange,
+	expandToBlockRange,
+	getSourceNodesFromSelectionRange,
+	isMultiBlockSelection,
+	selectionIsAtTheBeginningOfBlock,
+} from './utils';
 
 export { getSliceFromSelection } from './context-helpers';
 export { getFragmentsFromSelection } from './getFragmentsFromSelection';

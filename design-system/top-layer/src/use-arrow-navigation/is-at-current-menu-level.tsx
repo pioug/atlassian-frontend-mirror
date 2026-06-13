@@ -8,10 +8,7 @@ const menuScope = '[role="menu"]';
  * `closestMenu` is owned by the wrapper container directly. Recursion
  * avoids a mutable `let parent` walk and keeps the function body linear.
  */
-function reachesContainerWithoutNestedMenu(
-	node: Element | null,
-	container: HTMLElement,
-): boolean {
+function reachesContainerWithoutNestedMenu(node: Element | null, container: HTMLElement): boolean {
 	if (!node || node === container) {
 		return node === container;
 	}

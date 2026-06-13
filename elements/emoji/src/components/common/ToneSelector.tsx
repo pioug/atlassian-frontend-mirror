@@ -141,7 +141,11 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 			css={!isVisible && hidden}
 		>
 			{emojiToneCollection.map((tone, renderIndex) => {
-				return FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+				return FeatureGates.getExperimentValue(
+					'platform_teamoji_26_refresh_emoji_picker',
+					'isEnabled',
+					false,
+				) ? (
 					<EmojiRadioButton
 						ref={(el) => {
 							radioRefs.current[renderIndex] = el;

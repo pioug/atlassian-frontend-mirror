@@ -133,9 +133,7 @@ export const DragControls = ({
 			const rowIndex = hoveredCell?.rowIndex;
 			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
 				if (rowIndex !== undefined && api) {
-					const { activeTableMenu: currentActiveTableMenu } = getTablePluginState(
-						editorView.state,
-					);
+					const { activeTableMenu: currentActiveTableMenu } = getTablePluginState(editorView.state);
 					const isSameActiveMenu =
 						currentActiveTableMenu?.type === 'row' && currentActiveTableMenu.index === rowIndex;
 
@@ -147,8 +145,7 @@ export const DragControls = ({
 								actionSubjectId: null,
 								eventType: EVENT_TYPE.TRACK,
 								attributes: {
-									inputMethod:
-										trigger === 'keyboard' ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
+									inputMethod: trigger === 'keyboard' ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
 									direction: 'row',
 								},
 							})(tr);

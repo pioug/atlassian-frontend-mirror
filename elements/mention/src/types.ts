@@ -188,7 +188,8 @@ export type MentionContextIdentifier = {
 };
 
 export interface MentionProvider
-	extends ResourceProvider<MentionDescription[]>,
+	extends
+		ResourceProvider<MentionDescription[]>,
 		InviteFromMentionProvider,
 		XProductInviteMentionProvider {
 	filter(query?: string, contextIdentifier?: MentionContextIdentifier): void;

@@ -23,10 +23,23 @@ function PopoverInDialog(): React.ReactNode {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'menu', isOpen: isOpen, popoverId: popoverId })} type="button" data-testid="popover-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'menu', isOpen: isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="popover-trigger"
+			>
 				Open popover
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="menu" label="Actions">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="menu"
+				label="Actions"
+			>
 				<div data-testid="popover-content">
 					<button type="button" role="menuitem">
 						Action one

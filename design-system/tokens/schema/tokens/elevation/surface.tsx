@@ -92,6 +92,14 @@ const surface: AttributeSchema<SurfaceTokenSchema<BaseToken>> = {
 					},
 				},
 			},
+			container: {
+				attributes: {
+					group: 'paint',
+					state: 'active',
+					introduced: '13.3.0',
+					description: 'Use as a neutral container surface background.',
+				},
+			},
 		},
 	},
 };

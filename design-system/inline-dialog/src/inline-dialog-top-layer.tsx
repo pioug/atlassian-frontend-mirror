@@ -2,7 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, Fragment, memo, type ReactNode, useCallback, useEffect, useMemo, useRef } from 'react';
+import {
+	type FC,
+	Fragment,
+	memo,
+	type ReactNode,
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+} from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 

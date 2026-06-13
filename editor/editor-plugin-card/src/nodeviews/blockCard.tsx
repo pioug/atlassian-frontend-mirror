@@ -332,14 +332,8 @@ export const blockCardNodeView =
 			CompetitorPrompt,
 			isPageSSRed,
 			provider,
-			intl:
-				isSSRStreaming()
-					? intl
-					: undefined,
-			smartCardContext:
-				isSSRStreaming()
-					? smartCardContext
-					: undefined,
+			intl: isSSRStreaming() ? intl : undefined,
+			smartCardContext: isSSRStreaming() ? smartCardContext : undefined,
 		};
 		const isDatasource = isDatasourceNode(node);
 

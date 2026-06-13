@@ -30,7 +30,6 @@ export type ShallowPropsDifference<T> = {
 	removed: Array<keyof T>;
 };
 
-
 export const getKeysAddedRemovedCommon = <T>(
 	object1: T,
 	object2: T,
@@ -52,7 +51,6 @@ export const getKeysAddedRemovedCommon = <T>(
 		removed,
 	};
 };
-
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getPropsDifference = <T>(

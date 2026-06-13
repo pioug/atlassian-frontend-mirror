@@ -43,7 +43,8 @@ const styles = cssMap({
 		boxShadow: `${token('elevation.shadow.overflow')}`,
 	},
 	twoLine: {
-		'@media (max-width: 868px)': { // value from MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT
+		'@media (max-width: 868px)': {
+			// value from MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT
 			flexWrap: 'wrap',
 			height: `calc(var(--ak-editor-fullpage-toolbar-height) * 2)`,
 		},

@@ -36,12 +36,12 @@ and branches on the flag). It is not the same as “every example in the package
 
 ## Infrastructure / primitives
 
-| Package        | Role                                                                                                                                                            |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `portal`       | Legacy stacking; new stack avoids portals for top-layer surfaces                                                                                                |
-| `layering`     | Legacy coordination; browser handles nesting for native popovers / dialog                                                                                       |
-| `popper`       | Legacy positioning; replaced by CSS Anchor Positioning (+ JS fallback in top-layer). Deprecation plan: [popper-migration.md](../migrations/popper-migration.md) |
-| `top-layer`    | **Target primitive** — Popover API, `<dialog>`, hooks, placement map, animations                                                                                |
+| Package     | Role                                                                                                                                                            |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `portal`    | Legacy stacking; new stack avoids portals for top-layer surfaces                                                                                                |
+| `layering`  | Legacy coordination; browser handles nesting for native popovers / dialog                                                                                       |
+| `popper`    | Legacy positioning; replaced by CSS Anchor Positioning (+ JS fallback in top-layer). Deprecation plan: [popper-migration.md](../migrations/popper-migration.md) |
+| `top-layer` | **Target primitive** — Popover API, `<dialog>`, hooks, placement map, animations                                                                                |
 
 ## Open API decisions deferred to a follow-up PR
 

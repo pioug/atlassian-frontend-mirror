@@ -13,18 +13,18 @@ here), see **[migration-roadmap.md](./decisions/migration-roadmap.md)**.
 **Packages with a feature-flagged top-layer rendering path in source** (non-exhaustive; see
 roadmap):
 
-| Package                     | Role                                                         |
-| --------------------------- | ------------------------------------------------------------ |
-| `@atlaskit/popup`           | `Popup` compound                                             |
-| `@atlaskit/dropdown-menu`   | `Popup` + `useArrowNavigation`                               |
-| `@atlaskit/tooltip`         | `Popover` + `useAnchorPosition`                              |
-| `@atlaskit/modal-dialog`    | `Dialog` + `DialogScrollLock` + `createCloseEvent`           |
-| `@atlaskit/flag`            | `Popover` (`manual`) for stacking                            |
-| `@atlaskit/spotlight`       | `Popover` + `useAnchorPosition` + `useSimpleLightDismiss`    |
-| `@atlaskit/select`          | `Popup` for `PopupSelect`                                    |
-| `@atlaskit/datetime-picker` | `Popup` for calendar / menu surfaces                         |
-| `@atlaskit/inline-dialog`   | `Popup` compound                                             |
-| `@atlaskit/avatar-group`    | `Popup` + `useArrowNavigation` (overflow menu)               |
+| Package                     | Role                                                      |
+| --------------------------- | --------------------------------------------------------- |
+| `@atlaskit/popup`           | `Popup` compound                                          |
+| `@atlaskit/dropdown-menu`   | `Popup` + `useArrowNavigation`                            |
+| `@atlaskit/tooltip`         | `Popover` + `useAnchorPosition`                           |
+| `@atlaskit/modal-dialog`    | `Dialog` + `DialogScrollLock` + `createCloseEvent`        |
+| `@atlaskit/flag`            | `Popover` (`manual`) for stacking                         |
+| `@atlaskit/spotlight`       | `Popover` + `useAnchorPosition` + `useSimpleLightDismiss` |
+| `@atlaskit/select`          | `Popup` for `PopupSelect`                                 |
+| `@atlaskit/datetime-picker` | `Popup` for calendar / menu surfaces                      |
+| `@atlaskit/inline-dialog`   | `Popup` compound                                          |
+| `@atlaskit/avatar-group`    | `Popup` + `useArrowNavigation` (overflow menu)            |
 
 Some packages run **Playwright / VR examples with the flag** for regression coverage without owning
 `@atlaskit/top-layer` directly (e.g. `@atlaskit/menu`, `@atlaskit/inline-message`).
@@ -67,8 +67,8 @@ Architectural decisions, design rationale, and decision logs.
   backdrop click, programmatic, consumer gating)
 - **[menu-keyboard.md](./decisions/menu-keyboard.md)** — Decision: menu keyboard behavior (arrow
   keys, type-ahead) is the consumer's responsibility
-- **[aria-controls-trigger-contract.md](./decisions/aria-controls-trigger-contract.md)** —
-  Decision: `getAriaForTrigger` always emits stable `aria-controls`
+- **[aria-controls-trigger-contract.md](./decisions/aria-controls-trigger-contract.md)** — Decision:
+  `getAriaForTrigger` always emits stable `aria-controls`
 - **[popover-trigger-hook.md](./decisions/popover-trigger-hook.md)** — Decision: defer
   `usePopoverTrigger`; keep `usePopoverId` and `getAriaForTrigger` as low-level primitives
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration

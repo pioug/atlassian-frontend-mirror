@@ -553,10 +553,10 @@ function getLayoutChange(node: Node, pos: number, schema: Schema): Change | unde
 		const presetLayout = editorExperiment('advanced_layouts', true)
 			? getDefaultPresetLayout(node)
 			: node.childCount === 2
-			? 'two_equal'
-			: node.childCount === 3
-			? 'three_equal'
-			: 'single';
+				? 'two_equal'
+				: node.childCount === 3
+					? 'three_equal'
+					: 'single';
 
 		const fixedColumns = columnWidth(node, schema, getWidthsForPreset(presetLayout));
 
@@ -718,7 +718,7 @@ const getPreviousLayoutColumnValign = (
 		({ node }) => getLayoutColumnValign(node) !== firstValign,
 	);
 
-	return hasMixedValign ? 'mixed' : firstValign ?? DEFAULT_LAYOUT_COLUMN_VALIGN;
+	return hasMixedValign ? 'mixed' : (firstValign ?? DEFAULT_LAYOUT_COLUMN_VALIGN);
 };
 
 const hasLayoutColumnContent = (node: Node): boolean => !isEmptyDocument(node);
@@ -730,7 +730,7 @@ const mapLayoutColumnPreservedSelection = (tr: Transaction, api: LayoutPluginAPI
 			insertMeta.side === 'left'
 				? new Mapping([
 						new StepMap([insertMeta.insertedColumnPos, 0, insertMeta.insertedColumnNodeSize]),
-				  ])
+					])
 				: new Mapping();
 		api?.blockControls?.commands.mapPreservedSelection(mapping)({ tr });
 		return;
@@ -1032,7 +1032,7 @@ export const setLayoutColumnDangerPreview =
 	({ tr }) => {
 		const selectedLayoutColumnsResult = getSelectedLayoutColumnsFromSelection(tr.selection);
 		const positions = show
-			? selectedLayoutColumnsResult?.selectedLayoutColumns.map(({ pos }) => pos) ?? []
+			? (selectedLayoutColumnsResult?.selectedLayoutColumns.map(({ pos }) => pos) ?? [])
 			: null;
 
 		tr.setMeta('layoutColumnDangerPreview', positions);

@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 115.15.0
+
+### Minor Changes
+
+- [`9f6b6c9fffc50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f6b6c9fffc50) -
+  Add analytics for the on-device (local LLM) autocomplete slow lane: fire a `localModelLoaded`
+  track event when the engine initialises successfully (with load duration and GPU info) and a
+  `localModelLoadFailed` track event when it fails, categorising the reason and capturing WebGPU
+  capability diagnostics to surface user-machine limitations.
+
 ## 115.14.0
 
 ### Minor Changes

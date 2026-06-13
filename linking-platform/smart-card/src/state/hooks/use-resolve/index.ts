@@ -17,8 +17,7 @@ export interface ResolveUrlParams {
 	url: string;
 }
 
-const useResolve = (): ((params: ResolveUrlParams
-) => Promise<void>) => {
+const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 	// Request JSON-LD data for the card from ORS, if it has extended
 	// its cache lifespan OR there is no data for it currently. Once the data
 	// has come back asynchronously, call the useResponse callback to
@@ -29,13 +28,7 @@ const useResolve = (): ((params: ResolveUrlParams
 
 	return useCallback(
 		async (params: ResolveUrlParams) => {
-			const {
-				url,
-				isReloading = false,
-				isMetadataRequest = false,
-				id = '',
-				appearance,
-			} = params;
+			const { url, isReloading = false, isMetadataRequest = false, id = '', appearance } = params;
 
 			const { details } =
 				getState()[url] ||

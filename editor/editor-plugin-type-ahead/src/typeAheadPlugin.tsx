@@ -53,7 +53,6 @@ const createOpenAtTransaction =
 			tr,
 		});
 
-
 		return true;
 	};
 

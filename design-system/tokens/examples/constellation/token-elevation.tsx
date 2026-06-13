@@ -13,12 +13,21 @@ label: 'Default',
 backgroundColor: token('elevation.surface'),
 border: \`1px solid \${token('color.border')}\`,
 
+// Container
+label: 'Container',
+backgroundColor: token('elevation.surface.container'),
+shadow: 'none',
+
 // Raised
 backgroundColor: token('elevation.surface.raised'),
 shadow: token('elevation.shadow.raised'),
 
 // Overlay
 backgroundColor: token('elevation.surface.overlay'),
+shadow: token('elevation.shadow.overlay'),
+
+// Rovo overlay
+backgroundColor: token('elevation.rovo.surface.overlay'),
 shadow: token('elevation.shadow.overlay'),
 `;
 
@@ -34,6 +43,11 @@ const elevationStyles = {
 		backgroundColor: token('elevation.surface'),
 		shadow: 'none',
 	},
+	container: {
+		label: 'Container',
+		backgroundColor: token('elevation.surface.container'),
+		shadow: 'none',
+	},
 	raised: {
 		label: 'Raised',
 		backgroundColor: token('elevation.surface.raised'),
@@ -42,6 +56,11 @@ const elevationStyles = {
 	overlay: {
 		label: 'Overlay',
 		backgroundColor: token('elevation.surface.overlay'),
+		shadow: token('elevation.shadow.overlay'),
+	},
+	rovoOverlay: {
+		label: 'Rovo overlay',
+		backgroundColor: token('elevation.rovo.surface.overlay'),
 		shadow: token('elevation.shadow.overlay'),
 	},
 };

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::626270da3aba9831e4c843e6a816c2a0>>
+ * @codegen <<SignedSource::a1882f4b4e3305935325d612a706f4d0>>
  * @codegenCommand yarn build tokens
  */
 
@@ -12386,6 +12386,33 @@ const tokens: Token[] = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "13.3.0",
+      "description": "Use as a neutral container surface background."
+    },
+    "value": "#F0F1F2",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.3.0",
+        "description": "Use as a neutral container surface background."
+      },
+      "value": "Neutral200"
+    },
+    "name": "elevation.surface.container",
+    "path": [
+      "elevation",
+      "surface",
+      "container"
+    ],
+    "cleanName": "elevation.surface.container"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "introduced": "0.6.0",
       "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
     },
@@ -12576,6 +12603,93 @@ const tokens: Token[] = [
       "sunken"
     ],
     "cleanName": "elevation.surface.sunken"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.3.0",
+      "description": "Use for Rovo overlay surface backgrounds."
+    },
+    "value": "#F8F8F8",
+    "filePath": "schema/themes/atlassian-light/elevation/rovo/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.3.0",
+        "description": "Use for Rovo overlay surface backgrounds."
+      },
+      "value": "Neutral100"
+    },
+    "name": "elevation.rovo.surface.overlay.[default]",
+    "path": [
+      "elevation",
+      "rovo",
+      "surface",
+      "overlay",
+      "[default]"
+    ],
+    "cleanName": "elevation.rovo.surface.overlay"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.3.0",
+      "description": "Hovered state of elevation.rovo.surface.overlay."
+    },
+    "value": "#F0F1F2",
+    "filePath": "schema/themes/atlassian-light/elevation/rovo/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.3.0",
+        "description": "Hovered state of elevation.rovo.surface.overlay."
+      },
+      "value": "Neutral200"
+    },
+    "name": "elevation.rovo.surface.overlay.hovered",
+    "path": [
+      "elevation",
+      "rovo",
+      "surface",
+      "overlay",
+      "hovered"
+    ],
+    "cleanName": "elevation.rovo.surface.overlay.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "13.3.0",
+      "description": "Pressed state of elevation.rovo.surface.overlay."
+    },
+    "value": "#DDDEE1",
+    "filePath": "schema/themes/atlassian-light/elevation/rovo/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "13.3.0",
+        "description": "Pressed state of elevation.rovo.surface.overlay."
+      },
+      "value": "Neutral300"
+    },
+    "name": "elevation.rovo.surface.overlay.pressed",
+    "path": [
+      "elevation",
+      "rovo",
+      "surface",
+      "overlay",
+      "pressed"
+    ],
+    "cleanName": "elevation.rovo.surface.overlay.pressed"
   },
   {
     "attributes": {

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
@@ -48,10 +48,24 @@ function DialogPopup() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid="dialog-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="dialog-trigger"
+			>
 				Open dialog
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label="Dialog popup" testId="dialog-popup">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label="Dialog popup"
+				testId="dialog-popup"
+			>
 				<div>
 					<button type="button" data-testid="dialog-inner-button">
 						Button inside dialog
@@ -79,10 +93,24 @@ function MenuPopup() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'menu', isOpen, popoverId: popoverId })} type="button" data-testid="menu-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'menu', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="menu-trigger"
+			>
 				Open menu
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="menu" label="Menu popup" testId="menu-popup">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="menu"
+				label="Menu popup"
+				testId="menu-popup"
+			>
 				<div>
 					<button type="button" role="menuitem" data-testid="menu-item">
 						Menu item
@@ -110,10 +138,24 @@ function ListboxPopup() {
 
 	return (
 		<>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'listbox', isOpen, popoverId: popoverId })} type="button" data-testid="listbox-trigger">
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'listbox', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid="listbox-trigger"
+			>
 				Open listbox
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="listbox" label="Listbox popup" testId="listbox-popup">
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="listbox"
+				label="Listbox popup"
+				testId="listbox-popup"
+			>
 				<div role="option" aria-selected="false" data-testid="listbox-option">
 					Option 1
 				</div>

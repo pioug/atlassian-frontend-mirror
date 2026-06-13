@@ -49,7 +49,7 @@ const createResourceClient = (): ProfileClient =>
 				AGENT_DEACTIVATE: { permitted: true },
 			},
 		}),
-	} as unknown as ProfileClient);
+	}) as unknown as ProfileClient;
 
 const renderCard = (resourceClient: ProfileClient, accountId = 'agent-account-id') =>
 	render(
@@ -72,9 +72,7 @@ describe('AgentProfileCardResourced', () => {
 			const resourceClient = createResourceClient();
 			const { rerender } = renderCard(resourceClient);
 
-			await waitFor(() =>
-				expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1),
-			);
+			await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
 
 			rerender(
 				<IntlProvider locale="en">
@@ -86,9 +84,7 @@ describe('AgentProfileCardResourced', () => {
 				</IntlProvider>,
 			);
 
-			await waitFor(() =>
-				expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1),
-			);
+			await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
 		});
 	});
 
@@ -97,9 +93,7 @@ describe('AgentProfileCardResourced', () => {
 			const resourceClient = createResourceClient();
 			const { rerender } = renderCard(resourceClient);
 
-			await waitFor(() =>
-				expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1),
-			);
+			await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
 
 			rerender(
 				<IntlProvider locale="en">
@@ -111,9 +105,7 @@ describe('AgentProfileCardResourced', () => {
 				</IntlProvider>,
 			);
 
-			await waitFor(() =>
-				expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1),
-			);
+			await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
 		});
 	});
 });

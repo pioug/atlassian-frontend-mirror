@@ -3,50 +3,35 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "HSLToRGB", {
-  enumerable: true,
-  get: function get() {
-    return _hslToRgb.HSLToRGB;
-  }
-});
+exports.HSLToRGB = HSLToRGB;
 exports.deltaE = deltaE;
-Object.defineProperty(exports, "getAlpha", {
-  enumerable: true,
-  get: function get() {
-    return _getAlpha.getAlpha;
-  }
-});
+exports.getAlpha = getAlpha;
 exports.getContrastRatio = getContrastRatio;
 exports.hexToHSL = hexToHSL;
 exports.hexToRgb = hexToRgb;
 exports.hexToRgbA = hexToRgbA;
-Object.defineProperty(exports, "isValidBrandHex", {
-  enumerable: true,
-  get: function get() {
-    return _isValidBrandHex.isValidBrandHex;
-  }
-});
-Object.defineProperty(exports, "relativeLuminanceW3C", {
-  enumerable: true,
-  get: function get() {
-    return _relativeLuminanceW3C.relativeLuminanceW3C;
-  }
-});
-Object.defineProperty(exports, "rgbToHex", {
-  enumerable: true,
-  get: function get() {
-    return _rgbToHex.rgbToHex;
-  }
-});
-var _getAlpha = require("./get-alpha");
-var _relativeLuminanceW3C = require("./relative-luminance-w3-c");
-var _isValidBrandHex = require("./is-valid-brand-hex");
-var _rgbToHex = require("./rgb-to-hex");
-var _hslToRgb = require("./hsl-to-rgb");
+exports.isValidBrandHex = void 0;
+exports.relativeLuminanceW3C = relativeLuminanceW3C;
+exports.rgbToHex = rgbToHex;
+// valid hex color with 6 digits
+var isValidBrandHex = exports.isValidBrandHex = function isValidBrandHex(hex) {
+  return /^#[0-9A-F]{6}$/i.test(hex);
+};
+
 // valid hex color with 4, 6 or 8 digits
 var isValidHex = function isValidHex(hex) {
   return /^#([A-Fa-f0-9]{3,4}){1,2}$/.test(hex);
 };
+function rgbToHex(r, g, b) {
+  return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+function getAlpha(hex) {
+  if (hex.length === 9) {
+    var int = parseInt(hex.slice(7, 9), 16) / 255;
+    return Number(parseFloat(int.toString()).toFixed(2));
+  }
+  return 1;
+}
 function hexToRgbA(hex) {
   if (!isValidHex(hex)) {
     throw new Error('Invalid HEX');
@@ -57,10 +42,8 @@ function hexToRgbA(hex) {
     c = [c[0], c[0], c[1], c[1], c[2], c[2]];
   }
   c = '0x' + c.join('');
-  return [c >> 16 & 255, c >> 8 & 255, c & 255, (0, _getAlpha.getAlpha)(hex)];
+  return [c >> 16 & 255, c >> 8 & 255, c & 255, getAlpha(hex)];
 }
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function hexToRgb(hex) {
   if (!isValidHex(hex)) {
     throw new Error('Invalid HEX');
@@ -73,8 +56,6 @@ function hexToRgb(hex) {
   c = '0x' + c.join('');
   return [c >> 16 & 255, c >> 8 & 255, c & 255];
 }
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function hexToHSL(hex) {
   if (!isValidHex(hex)) {
     throw new Error('Invalid HEX');
@@ -120,23 +101,43 @@ function hexToHSL(hex) {
   l = +(l * 100).toFixed(1);
   return [h, s, l];
 }
+function HSLToRGB(h, s, l) {
+  s /= 100;
+  l /= 100;
+  var k = function k(n) {
+    return (n + h / 30) % 12;
+  };
+  var a = s * Math.min(l, 1 - l);
+  var f = function f(n) {
+    return l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  };
+  return [255 * f(0), 255 * f(8), 255 * f(4)];
+}
+function relativeLuminanceW3C(r, g, b) {
+  var RsRGB = r / 255;
+  var GsRGB = g / 255;
+  var BsRGB = b / 255;
+  var R = RsRGB <= 0.03928 ? RsRGB / 12.92 : Math.pow((RsRGB + 0.055) / 1.055, 2.4);
+  var G = GsRGB <= 0.03928 ? GsRGB / 12.92 : Math.pow((GsRGB + 0.055) / 1.055, 2.4);
+  var B = BsRGB <= 0.03928 ? BsRGB / 12.92 : Math.pow((BsRGB + 0.055) / 1.055, 2.4);
 
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+  // For the sRGB colorspace, the relative luminance of a color is defined as:
+  var L = 0.2126 * R + 0.7152 * G + 0.0722 * B;
+  return L;
+}
 function getContrastRatio(foreground, background) {
   if (!isValidHex(foreground) || !isValidHex(background)) {
     throw new Error('Invalid HEX');
   }
   var foregroundRgb = hexToRgb(foreground);
   var backgroundRgb = hexToRgb(background);
-  var foregroundLuminance = (0, _relativeLuminanceW3C.relativeLuminanceW3C)(foregroundRgb[0], foregroundRgb[1], foregroundRgb[2]);
-  var backgroundLuminance = (0, _relativeLuminanceW3C.relativeLuminanceW3C)(backgroundRgb[0], backgroundRgb[1], backgroundRgb[2]);
+  var foregroundLuminance = relativeLuminanceW3C(foregroundRgb[0], foregroundRgb[1], foregroundRgb[2]);
+  var backgroundLuminance = relativeLuminanceW3C(backgroundRgb[0], backgroundRgb[1], backgroundRgb[2]);
   // calculate the color contrast ratio
   var brightest = Math.max(foregroundLuminance, backgroundLuminance);
   var darkest = Math.min(foregroundLuminance, backgroundLuminance);
   return (brightest + 0.05) / (darkest + 0.05);
 }
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 function deltaE(rgbA, rgbB) {
   var labA = rgbToLab(rgbA);
   var labB = rgbToLab(rgbB);

@@ -41,9 +41,9 @@ describe('<EmojiPickerList />', () => {
 			.mockImplementation((listRef?: any, index?: number) =>
 				helperTestingLibrary.scrollToIndex(index || 0),
 			);
-		getExperimentValueSpy = jest.spyOn(FeatureGates, 'getExperimentValue').mockImplementation(
-			(_experimentName, _parameterName, defaultValue) => defaultValue,
-		);
+		getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 	});
 
 	afterEach(() => {
@@ -197,12 +197,11 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should keep frequent category before atlassian subcategories when teamoji experiment is enabled', async () => {
-			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-				(experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
-						? true
-						: defaultValue,
-			);
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
 			const frequentAtlassianEmoji: EmojiDescription = {
 				...atlassianEmojis[0],
 				id: 'frequent-atlassian',

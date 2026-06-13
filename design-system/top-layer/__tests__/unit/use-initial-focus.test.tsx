@@ -425,12 +425,7 @@ describe('useInitialFocus (via Popover)', () => {
 			return (
 				<div>
 					<input type="checkbox" aria-controls={popupId} data-testid="checkbox-input" />
-					<Popover
-						isOpen={isOpen}
-						role="listbox"
-						label="non-text-input-listbox"
-						id={popupId}
-					>
+					<Popover isOpen={isOpen} role="listbox" label="non-text-input-listbox" id={popupId}>
 						<div role="option" aria-selected="true" tabIndex={-1} data-testid="option-1">
 							One
 						</div>
@@ -504,12 +499,7 @@ describe('useInitialFocus (via Popover)', () => {
 					>
 						editable
 					</div>
-					<Popover
-						isOpen={isOpen}
-						role="listbox"
-						label="contenteditable-listbox"
-						id={popupId}
-					>
+					<Popover isOpen={isOpen} role="listbox" label="contenteditable-listbox" id={popupId}>
 						<div role="option" aria-selected="true" tabIndex={-1} data-testid="option-1">
 							One
 						</div>
@@ -542,15 +532,10 @@ describe('useInitialFocus (via Popover)', () => {
 			expect(screen.getByTestId('option-1')).not.toHaveFocus();
 		} finally {
 			if (originalDescriptor) {
-				Object.defineProperty(
-					HTMLElement.prototype,
-					'isContentEditable',
-					originalDescriptor,
-				);
+				Object.defineProperty(HTMLElement.prototype, 'isContentEditable', originalDescriptor);
 			} else {
 				// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-				delete (HTMLElement.prototype as unknown as Record<string, unknown>)
-					.isContentEditable;
+				delete (HTMLElement.prototype as unknown as Record<string, unknown>).isContentEditable;
 			}
 		}
 	});

@@ -24,8 +24,7 @@ export interface ValueUpdatedParams {
 }
 
 export interface Props {
-	appearance?:
-		// Legacy Badge appearances (still supported for backwards compatibility):
+	appearance?: // Legacy Badge appearances (still supported for backwards compatibility):
 		| 'added'
 		| 'default'
 		| 'important'

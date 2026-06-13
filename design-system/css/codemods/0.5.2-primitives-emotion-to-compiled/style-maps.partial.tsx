@@ -125,10 +125,10 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6524c541d5294ec03cd1d164733db0ce>>
+ * @codegen <<SignedSource::e8d2ee8bd083c5b6e6d3b0bec7a275a5>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::b9b97209317e10ecda0bca62c4191312>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::89430472c8668e635450d1233437a9ca>>
  */
 export const inverseColorMap: {
 	'color.background.neutral.bold': 'color.text.inverse';
@@ -200,11 +200,11 @@ export const inverseColorMap: {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::94036d439d77871376e18679c1677546>>
+ * @codegen <<SignedSource::617e401f8358136781549b9d42338882>>
  * @codegenId elevation
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::b9b97209317e10ecda0bca62c4191312>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::89430472c8668e635450d1233437a9ca>>
  */
 export const opacityMap: {
 	'opacity.disabled': 'var(--ds-opacity-disabled)';
@@ -245,6 +245,7 @@ export const surfaceColorMap: {
 	'elevation.surface': 'var(--ds-surface)';
 	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
 	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
+	'elevation.surface.container': 'var(--ds-surface-container)';
 	'elevation.surface.overlay': 'var(--ds-surface-overlay)';
 	'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
 	'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
@@ -256,6 +257,7 @@ export const surfaceColorMap: {
 	'elevation.surface': token('elevation.surface', '#FFFFFF'),
 	'elevation.surface.hovered': token('elevation.surface.hovered', '#F0F1F2'),
 	'elevation.surface.pressed': token('elevation.surface.pressed', '#DDDEE1'),
+	'elevation.surface.container': token('elevation.surface.container', '#F0F1F2'),
 	'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
 	'elevation.surface.overlay.hovered': token('elevation.surface.overlay.hovered', '#F0F1F2'),
 	'elevation.surface.overlay.pressed': token('elevation.surface.overlay.pressed', '#DDDEE1'),
@@ -273,11 +275,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cc0212dd78868f08f12bd3ce7f767e82>>
+ * @codegen <<SignedSource::ca867a1010665c5ed92cd318dcf507ae>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::b9b97209317e10ecda0bca62c4191312>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::89430472c8668e635450d1233437a9ca>>
  */
 export const borderColorMap: {
 	'color.border': 'var(--ds-border)';
@@ -574,6 +576,7 @@ export const backgroundColorMap: {
 	'elevation.surface': 'var(--ds-surface)';
 	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
 	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
+	'elevation.surface.container': 'var(--ds-surface-container)';
 	'elevation.surface.overlay': 'var(--ds-surface-overlay)';
 	'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
 	'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
@@ -1197,6 +1200,7 @@ export const backgroundColorMap: {
 	'elevation.surface': token('elevation.surface', '#FFFFFF'),
 	'elevation.surface.hovered': token('elevation.surface.hovered', '#F0F1F2'),
 	'elevation.surface.pressed': token('elevation.surface.pressed', '#DDDEE1'),
+	'elevation.surface.container': token('elevation.surface.container', '#F0F1F2'),
 	'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
 	'elevation.surface.overlay.hovered': token('elevation.surface.overlay.hovered', '#F0F1F2'),
 	'elevation.surface.overlay.pressed': token('elevation.surface.overlay.pressed', '#DDDEE1'),

@@ -598,9 +598,7 @@ export const IssueLikeDataTableView = ({
 	const rows = useMemo(() => {
 		if (fg('platform_lp_jira_sllv_renderer_column_sorting')) {
 			const hasPreviousRealRows = !!previousRealRowsCountRef.current;
-			const isLoadingState =
-				status === 'loading' ||
-				(status === 'empty' && hasPreviousRealRows);
+			const isLoadingState = status === 'loading' || (status === 'empty' && hasPreviousRealRows);
 			if (!isLoadingState) {
 				return tableRows;
 			}
@@ -744,7 +742,9 @@ export const IssueLikeDataTableView = ({
 											shouldFitContainer
 											testId={`${key}-column-sort-button`}
 											aria-label={sortButtonAriaLabel}
-											{...(SortIcon ? { iconAfter: (iconProps) => <SortIcon {...iconProps} size="small" /> } : {})}
+											{...(SortIcon
+												? { iconAfter: (iconProps) => <SortIcon {...iconProps} size="small" /> }
+												: {})}
 											onClick={() => onColumnSort?.(key)}
 										>
 											{heading}
@@ -837,9 +837,7 @@ export const IssueLikeDataTableView = ({
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 										style={loadingRowStyle}
 										css={[
-											wrappedColumnKeys?.includes(cellKey)
-												? wrappedStyles
-												: truncateStyles,
+											wrappedColumnKeys?.includes(cellKey) ? wrappedStyles : truncateStyles,
 											cellType === 'richtext' &&
 												fg('platform_lp_sllv_richtext_margin_reset') &&
 												richTextCellStyles,

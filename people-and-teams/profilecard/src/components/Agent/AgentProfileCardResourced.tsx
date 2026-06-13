@@ -44,8 +44,7 @@ export const AgentProfileCardResourced = (
 	// Initialize as true when fix is enabled since we fetch immediately on mount,
 	// avoiding a brief error screen flash before the useEffect fires.
 	const [isLoading, setIsLoading] = useState<boolean>(
-		fg('jira_ai_fix_agent_profile_card_flashing') ||
-			fg('confluence_fix_agent_profile_card_flash'),
+		fg('jira_ai_fix_agent_profile_card_flashing') || fg('confluence_fix_agent_profile_card_flash'),
 	);
 	const [error, setError] = useState();
 

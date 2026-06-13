@@ -14,7 +14,7 @@ var tokenOrder = exports.tokenOrder = [{
   'accent', 'iconBorder', 'overlay']
 }, {
   path: 'elevation',
-  subpaths: ['surface', 'shadow']
+  subpaths: ['surface', 'rovo', 'shadow']
 }, {
   path: 'opacity',
   subpaths: []

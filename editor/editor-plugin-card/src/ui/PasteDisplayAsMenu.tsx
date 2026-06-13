@@ -82,13 +82,13 @@ const styles = cssMap({
 	appearanceBox: {
 		backgroundColor: token('elevation.surface.sunken'),
 		marginTop: token('space.100'),
-	marginRight: token('space.100'),
-	marginBottom: token('space.100'),
-	marginLeft: token('space.100'),
+		marginRight: token('space.100'),
+		marginBottom: token('space.100'),
+		marginLeft: token('space.100'),
 		paddingTop: token('space.050'),
-	paddingRight: token('space.050'),
-	paddingBottom: token('space.050'),
-	paddingLeft: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
 		borderRadius: token('radius.medium'),
 	},
 	iconWrapper: {
@@ -271,7 +271,7 @@ const getCardUrlAtPasteRange = ({
 	const maybeUrl = maybeAttrs?.url ?? maybeAttrs?.data?.url;
 
 	return typeof maybeUrl === 'string' ? maybeUrl : undefined;
-}; 
+};
 
 export const setAppearanceSelection = ({
 	editorView,
@@ -397,13 +397,13 @@ const PasteDisplayAsMenuHorizontalView = ({
 					pasteEndPos: pasteRange.pasteEndPos,
 				})
 			: undefined;
-			
+
 	const pastedLinkUrl = pastedLinkUrlFromSlice ?? pastedLinkUrlFromCard;
 	const pastedLinkUrlState = pastedLinkUrl
 		? smartCardContext.value?.store?.getState()?.[pastedLinkUrl]
 		: undefined;
 	const hasResolvedSmartLinkData = Boolean(pastedLinkUrlState?.details);
-	
+
 	const currentAppearance: PasteDisplayAppearance | undefined =
 		editorView && pasteRange
 			? (getCardAtPasteRange(editorView.state, pasteRange.pasteStartPos, pasteRange.pasteEndPos)

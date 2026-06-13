@@ -34,7 +34,9 @@ export function shapePaintTimingData(data: Record<string, unknown>): Record<stri
  * Mirrors the bridge's own emission shape: { startTime, size }.
  * Drops: elapsed, envelope name — no other fields are sent by the bridge.
  */
-export function shapeLargestContentfulPaintData(data: Record<string, unknown>): Record<string, unknown> {
+export function shapeLargestContentfulPaintData(
+	data: Record<string, unknown>,
+): Record<string, unknown> {
 	const payload = extractPayload(data);
 	return {
 		startTime: num(payload.startTime),

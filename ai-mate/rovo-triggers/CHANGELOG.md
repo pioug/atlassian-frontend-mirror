@@ -1,5 +1,16 @@
 # @atlaskit/rovo-triggers
 
+## 7.6.0
+
+### Minor Changes
+
+- [`d66774d06a208`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d66774d06a208) -
+  Added "experience": "inline_view", "contentTypes": ["page"] to creationContext object.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.5.1
 
 ### Patch Changes

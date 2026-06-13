@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::b26e4203c4b2d7818ff4ff30fb0f40cf>>
+ * @codegen <<SignedSource::ae4acbb8ddfe6f3a0c28dc3479fd9d0d>>
  * @codegenCommand yarn build tokens
  */
 
@@ -4271,6 +4271,15 @@ var tokens = exports.tokens = [{
     cssProperties: ['background-color']
   }
 }, {
+  name: 'elevation.surface.container',
+  path: ['elevation', 'surface', 'container'],
+  description: 'Use as a neutral container surface background.',
+  exampleValue: '#F0F1F2',
+  usageGuidelines: {
+    usage: 'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',
+    cssProperties: ['background-color']
+  }
+}, {
   name: 'elevation.surface.overlay',
   path: ['elevation', 'surface', 'overlay', '[default]'],
   description: 'Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay.',
@@ -4329,6 +4338,33 @@ var tokens = exports.tokens = [{
   path: ['elevation', 'surface', 'sunken'],
   description: 'A secondary background for the UI commonly used for grouping items, such as Jira cards in columns.',
   exampleValue: '#F8F8F8',
+  usageGuidelines: {
+    usage: 'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',
+    cssProperties: ['background-color']
+  }
+}, {
+  name: 'elevation.rovo.surface.overlay',
+  path: ['elevation', 'rovo', 'surface', 'overlay', '[default]'],
+  description: 'Use for Rovo overlay surface backgrounds.',
+  exampleValue: '#F8F8F8',
+  usageGuidelines: {
+    usage: 'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',
+    cssProperties: ['background-color']
+  }
+}, {
+  name: 'elevation.rovo.surface.overlay.hovered',
+  path: ['elevation', 'rovo', 'surface', 'overlay', 'hovered'],
+  description: 'Hovered state of elevation.rovo.surface.overlay.',
+  exampleValue: '#F0F1F2',
+  usageGuidelines: {
+    usage: 'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',
+    cssProperties: ['background-color']
+  }
+}, {
+  name: 'elevation.rovo.surface.overlay.pressed',
+  path: ['elevation', 'rovo', 'surface', 'overlay', 'pressed'],
+  description: 'Pressed state of elevation.rovo.surface.overlay.',
+  exampleValue: '#DDDEE1',
   usageGuidelines: {
     usage: 'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',
     cssProperties: ['background-color']

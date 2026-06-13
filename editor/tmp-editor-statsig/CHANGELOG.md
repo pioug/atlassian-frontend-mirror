@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 99.1.0
+
+### Minor Changes
+
+- [`36d8b2815146e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36d8b2815146e) -
+  Localize personalized prompt tile footer labels.
+
 ## 99.0.0
 
 ### Major Changes

@@ -134,7 +134,7 @@ export const getAllLayoutColumnsFromSelection = (
 
 export const getLayoutColumnValign = (layoutColumn: PMNode | undefined): Valign | undefined =>
 	layoutColumn
-		? (layoutColumn.attrs.valign as Valign | undefined) ?? DEFAULT_LAYOUT_COLUMN_VALIGN
+		? ((layoutColumn.attrs.valign as Valign | undefined) ?? DEFAULT_LAYOUT_COLUMN_VALIGN)
 		: undefined;
 
 export const getLayoutColumnMenuAnchorPos = (

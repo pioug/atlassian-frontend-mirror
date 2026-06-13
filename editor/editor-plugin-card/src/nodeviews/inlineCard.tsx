@@ -162,9 +162,7 @@ export const InlineCard: React.MemoExoticComponent<
 					);
 
 					window.open(
-						fg('platform_smartlink_xpc_url_wrapping')
-							? (data?.destinationUrl ?? url)
-							: url,
+						fg('platform_smartlink_xpc_url_wrapping') ? (data?.destinationUrl ?? url) : url,
 						'_blank',
 					);
 				} else {

@@ -622,13 +622,12 @@ export const TableResizer = ({
 			const pos = getPos();
 			const currentTableNodeLocalId = node?.attrs?.localId ?? '';
 
-			const tableMaxWidth =
-				!isFullPageAppearance
-					? undefined // Table's full-width in comment appearance inherit the width of the Editor/Renderer
-					: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
-						  expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
-						? TABLE_MAX_WIDTH
-						: TABLE_FULL_WIDTH;
+			const tableMaxWidth = !isFullPageAppearance
+				? undefined // Table's full-width in comment appearance inherit the width of the Editor/Renderer
+				: expValEquals('editor_tinymce_full_width_mode', 'isEnabled', true) ||
+					  expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)
+					? TABLE_MAX_WIDTH
+					: TABLE_FULL_WIDTH;
 
 			newWidth =
 				widthToWidest && currentTableNodeLocalId && widthToWidest[currentTableNodeLocalId]

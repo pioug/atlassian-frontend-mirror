@@ -44,8 +44,11 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 	let instanceEmbedCardTransformers = options.embedCardTransformers;
 	let editorViewForPasteMenu: EditorView | undefined;
 
-
-	const pasteMenuVariant = expValNoExposure('platform_editor_paste_actions_menu_v2', 'variant', 'control');
+	const pasteMenuVariant = expValNoExposure(
+		'platform_editor_paste_actions_menu_v2',
+		'variant',
+		'control',
+	);
 	const shouldRegisterPasteDisplayAsMenu =
 		options.enablePasteDisplayAsMenu &&
 		['hasSpellingAndGrammar', 'hasAltAiActions'].includes(pasteMenuVariant);

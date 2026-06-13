@@ -401,7 +401,10 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 				// Show focus ring when link is focused (but not when button is focused)
 				isLinkFocused && !isButtonFocused && styles.childFocusRingStyles,
 				// Reduce end padding when trailing metric is the last element (non-removable)
-				!isRemovable && trailingMetric != null && trailingMetric !== '' && styles.trailingMetricEndPadding,
+				!isRemovable &&
+					trailingMetric != null &&
+					trailingMetric !== '' &&
+					styles.trailingMetricEndPadding,
 			]}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -425,10 +428,7 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 					{normalizedText}
 				</span>
 				{trailingMetric != null && trailingMetric !== '' && (
-					<span
-						css={styles.trailingMetric}
-						data-testid={testId && `${testId}--metric`}
-					>
+					<span css={styles.trailingMetric} data-testid={testId && `${testId}--metric`}>
 						{trailingMetric}
 					</span>
 				)}
@@ -493,7 +493,10 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 				borderIconInteractiveFilterStyles.root,
 				isSelected && dropdownStyles.selected,
 				// Reduce end padding when trailing metric is the last element (no chevron)
-				!hasChevron && trailingMetric != null && trailingMetric !== '' && styles.trailingMetricEndPadding,
+				!hasChevron &&
+					trailingMetric != null &&
+					trailingMetric !== '' &&
+					styles.trailingMetricEndPadding,
 			)}
 			onClick={isLoading ? undefined : onClick}
 			style={{
@@ -516,10 +519,7 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 					{getTagText(text)}
 				</span>
 				{trailingMetric != null && trailingMetric !== '' && (
-					<span
-						css={styles.trailingMetric}
-						data-testid={testId && `${testId}--metric`}
-					>
+					<span css={styles.trailingMetric} data-testid={testId && `${testId}--metric`}>
 						{trailingMetric}
 					</span>
 				)}

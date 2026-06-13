@@ -14,7 +14,6 @@ import {
 import { css, jsx } from '@compiled/react';
 import isEqual from 'lodash/isEqual';
 
-
 import { withAnalyticsContext, type WithContextProps } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
@@ -277,7 +276,9 @@ const DatasourceTableViewWithoutAnalytics = ({
 						onVisibleColumnKeysChange={onVisibleColumnKeysChange}
 						columnCustomSizes={columnCustomSizes}
 						onColumnResize={onColumnResize}
-						{...(shouldEnableColumnSort && fg('platform_lp_jira_sllv_renderer_column_sorting') ? { onColumnSort, sortState } : {})}
+						{...(shouldEnableColumnSort && fg('platform_lp_jira_sllv_renderer_column_sorting')
+							? { onColumnSort, sortState }
+							: {})}
 						wrappedColumnKeys={wrappedColumnKeys}
 						onWrappedColumnChange={onWrappedColumnChange}
 						scrollableContainerHeight={

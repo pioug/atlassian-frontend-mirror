@@ -191,10 +191,14 @@ const UnauthorisedConnectWithSocialProof = ({
 		<React.Fragment>
 			{showSocialProofPill ? (
 				<Box as="span" xcss={socialProofPillStyles.root} testId={`${testId}-social-proof-tag`}>
-					<Box as="span" xcss={cx(
-						socialProofPillStyles.label,
-						fg('platform_lp_social_proof_inline_overflow_bug') && socialProofPillStyles.wrappingLabel,
-					)}>
+					<Box
+						as="span"
+						xcss={cx(
+							socialProofPillStyles.label,
+							fg('platform_lp_social_proof_inline_overflow_bug') &&
+								socialProofPillStyles.wrappingLabel,
+						)}
+					>
 						{socialProofPillContent}
 					</Box>
 				</Box>
@@ -220,13 +224,17 @@ const UnauthorisedConnectWithSocialProof = ({
 			style={{ font: `inherit` }}
 			xcss={cx(
 				socialProofPillStyles.button,
-				fg('platform_lp_social_proof_inline_overflow_bug') && socialProofPillStyles.pressableContents,
+				fg('platform_lp_social_proof_inline_overflow_bug') &&
+					socialProofPillStyles.pressableContents,
 			)}
 		>
-			{fg('platform_lp_social_proof_inline_overflow_bug') ? 
+			{fg('platform_lp_social_proof_inline_overflow_bug') ? (
 				<Box as="span" xcss={socialProofPillStyles.inlineGroup}>
 					{buttonContent}
-				</Box> : buttonContent}
+				</Box>
+			) : (
+				buttonContent
+			)}
 		</Pressable>
 	) : (
 		buttonContent
@@ -303,7 +311,11 @@ export const InlineCardUnauthorizedView = ({
 	);
 
 	if (onAuthorise && showHoverPreview) {
-		return <HoverCard url={url} id={id}>{inlineCardUnauthenticatedView}</HoverCard>;
+		return (
+			<HoverCard url={url} id={id}>
+				{inlineCardUnauthenticatedView}
+			</HoverCard>
+		);
 	}
 
 	return inlineCardUnauthenticatedView;

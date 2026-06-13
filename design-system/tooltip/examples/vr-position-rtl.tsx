@@ -17,14 +17,14 @@ import Tooltip from '@atlaskit/tooltip';
  * proving inline-end placement flips correctly in RTL.
  */
 const layoutStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  gap: token('space.200'),
-  flexDirection: 'column',
-  paddingBlockEnd: token('space.200'),
-  paddingBlockStart: token('space.200'),
-  paddingInlineEnd: token('space.200'),
-  paddingInlineStart: token('space.200')
+	display: 'flex',
+	alignItems: 'center',
+	gap: token('space.200'),
+	flexDirection: 'column',
+	paddingBlockEnd: token('space.200'),
+	paddingBlockStart: token('space.200'),
+	paddingInlineEnd: token('space.200'),
+	paddingInlineStart: token('space.200'),
 });
 
 export default function VrPositionRtlExample(): React.JSX.Element {

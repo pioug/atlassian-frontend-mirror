@@ -31,7 +31,6 @@ export function removeLayoutFromLastChild(
 	return i === fragment.childCount - 1 ? unwrapContentFromLayout(node) : node;
 }
 
-
 /**
  * When we have a slice that cuts across a layoutSection/layoutColumn
  * we can end up with unexpected behaviour on paste/drop where a user

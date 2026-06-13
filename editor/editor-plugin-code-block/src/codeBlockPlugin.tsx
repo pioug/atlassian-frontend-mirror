@@ -1,9 +1,6 @@
 import React from 'react';
 
-import {
-	codeBlock,
-	codeBlockWithLocalId,
-} from '@atlaskit/adf-schema';
+import { codeBlock, codeBlockWithLocalId } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -70,12 +67,12 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 		nodes() {
 			return [
 				{
-						name: 'codeBlock',
-						node: expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)
-							? codeBlock
-							: fg('platform_editor_adf_with_localid')
-								? codeBlockWithLocalId
-								: codeBlock,
+					name: 'codeBlock',
+					node: expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)
+						? codeBlock
+						: fg('platform_editor_adf_with_localid')
+							? codeBlockWithLocalId
+							: codeBlock,
 				},
 			];
 		},

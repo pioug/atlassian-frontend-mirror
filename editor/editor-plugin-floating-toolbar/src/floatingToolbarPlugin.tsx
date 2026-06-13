@@ -223,7 +223,7 @@ export const floatingToolbarPlugin: FloatingToolbarPlugin = ({ api }) => {
 
 			const configWithNodeInfo =
 				interactionState !== 'hasNotHadInteraction'
-					? pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined
+					? (pluginKey.getState(editorState)?.getConfigWithNodeInfo?.(editorState) ?? undefined)
 					: undefined;
 
 			return {
@@ -691,7 +691,7 @@ export function floatingToolbarPluginFactory(options: {
 						};
 
 						return newPluginState;
-				  }
+					}
 				: apply,
 		},
 		view: expValEquals('platform_editor_lovability_suppress_toolbar_event', 'isEnabled', true)
@@ -711,7 +711,7 @@ export function floatingToolbarPluginFactory(options: {
 							}
 						},
 					};
-			  }
+				}
 			: undefined,
 	});
 }

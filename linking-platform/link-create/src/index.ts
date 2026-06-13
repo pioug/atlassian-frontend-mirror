@@ -38,7 +38,10 @@ export { UserPicker } from './ui/create-form/user-picker/main';
 export { default } from './ui/modal-create';
 
 /** @deprecated Use @atlaskit/link-create/callback-context */
-export { LinkCreateCallbackProvider, useLinkCreateCallback } from './controllers/callback-context/main';
+export {
+	LinkCreateCallbackProvider,
+	useLinkCreateCallback,
+} from './controllers/callback-context/main';
 /** @deprecated Use @atlaskit/link-create/exit-warning-modal */
 export {
 	ExitWarningModalProvider as LinkCreateExitWarningProvider,

@@ -22,10 +22,7 @@ import { ignoreFollowingMutations, resetShouldIgnoreFollowingMutations } from '.
 import type { CodeBlockPlugin } from '../index';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { codeBlockClassNames } from '../ui/class-names';
-import {
-	applyFormatCodeMeta,
-	mapPendingFormats,
-} from '../utils/format-code/format-code-state';
+import { applyFormatCodeMeta, mapPendingFormats } from '../utils/format-code/format-code-state';
 
 import { ACTIONS } from './actions';
 import {
@@ -196,11 +193,7 @@ export const createPlugin = ({
 					return {
 						...formatCodePluginState,
 						// Pending format requests can outlive unrelated document edits.
-						pendingFormats: mapPendingFormats(
-							formatCodePluginState.pendingFormats,
-							tr,
-							newState,
-						),
+						pendingFormats: mapPendingFormats(formatCodePluginState.pendingFormats, tr, newState),
 					};
 				}
 

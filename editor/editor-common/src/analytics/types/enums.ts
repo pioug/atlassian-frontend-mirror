@@ -225,6 +225,10 @@ export enum ACTION {
 	SUGGESTION_INSERTED = 'suggestionInserted',
 	SUGGESTION_DISMISSED = 'suggestionDismissed',
 	SUGGESTION_VIEWED = 'suggestionViewed',
+	// fired when the on-device autocomplete LLM finishes loading/starting
+	LOCAL_MODEL_LOADED = 'localModelLoaded',
+	// fired when the on-device autocomplete LLM fails to load/start
+	LOCAL_MODEL_LOAD_FAILED = 'localModelLoadFailed',
 	TABLE_WIDTH_INFO = 'tableWidthInformation',
 	SUPPRESSED = 'suppressed',
 }

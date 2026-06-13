@@ -1,7 +1,4 @@
-import {
-	codeBlock,
-	codeBlockWithLocalId,
-} from '@atlaskit/adf-schema';
+import { codeBlock, codeBlockWithLocalId } from '@atlaskit/adf-schema';
 import { areCodeBlockLineNumbersHidden } from '@atlaskit/editor-common/code-block';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';

@@ -462,10 +462,7 @@ export const PasteActionsMenu = ({
 			handleEscapeKeydown={handleDismiss}
 		>
 			<EditorToolbarProvider editorView={editorView}>
-				<ToolbarDropdownMenuProvider
-					isOpen={isToolbarShown}
-					setIsOpen={handleSetIsOpen}
-				>
+				<ToolbarDropdownMenuProvider isOpen={isToolbarShown} setIsOpen={handleSetIsOpen}>
 					<PasteActionsMenuContent
 						onMouseDown={preventEditorFocusLoss}
 						onMouseEnter={handleMouseEnter}

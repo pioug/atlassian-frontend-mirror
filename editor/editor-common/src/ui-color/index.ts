@@ -4,7 +4,11 @@
 export { default as ColorPalette } from './ColorPalette';
 export { default as Color } from './ColorPalette/Color';
 export { getSelectedRowAndColumn } from './ColorPalette/getSelectedRowAndColumn';
-export { DEFAULT_COLOR_PICKER_COLUMNS, getColorsPerRowFromPalette, getSelectedRowAndColumnFromPalette } from './ColorPalette/utils';
+export {
+	DEFAULT_COLOR_PICKER_COLUMNS,
+	getColorsPerRowFromPalette,
+	getSelectedRowAndColumnFromPalette,
+} from './ColorPalette/utils';
 export { default as cellBackgroundColorPalette } from './ColorPalette/Palettes/cellBackgroundColorPalette';
 export { default as colorPaletteMessages } from './ColorPalette/Palettes/paletteMessages';
 export { panelBackgroundPalette } from './ColorPalette/Palettes/panelBackgroundPalette';

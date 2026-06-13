@@ -72,11 +72,7 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 	isCommentEditor,
 	tableWrapper,
 }) => {
-	if (
-		!isOpen ||
-		!targetCellPosition ||
-		editorView.state.doc.nodeSize <= targetCellPosition
-	) {
+	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
 	}
 	const inStickyMode =

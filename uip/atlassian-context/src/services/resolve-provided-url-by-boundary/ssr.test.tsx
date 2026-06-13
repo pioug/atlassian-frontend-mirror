@@ -74,7 +74,6 @@ describe('resolveProvidedUrlByBoundary (SSR)', () => {
 		});
 
 		it('returns default when commercial key is not provided', () => {
-
 			expect(
 				resolveProvidedUrlByBoundary({
 					'isolated-cloud': new URL('https://ic.example.com'),

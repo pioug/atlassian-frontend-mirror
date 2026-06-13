@@ -107,7 +107,14 @@ const FileChooser = (props: Props): React.JSX.Element => {
 
 	useEffect(() => {
 		const element = dropzoneRef.current;
-		if (!element || !FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+		if (
+			!element ||
+			!FeatureGates.getExperimentValue(
+				'platform_teamoji_26_refresh_emoji_picker',
+				'isEnabled',
+				false,
+			)
+		) {
 			return;
 		}
 
@@ -166,7 +173,9 @@ const FileChooser = (props: Props): React.JSX.Element => {
 		/>
 	);
 
-	if (FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+	if (
+		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+	) {
 		return (
 			<div
 				ref={dropzoneRef}

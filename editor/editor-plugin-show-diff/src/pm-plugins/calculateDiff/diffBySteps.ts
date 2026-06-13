@@ -193,7 +193,7 @@ const createSpans = (length: number) =>
 					length,
 					data: null,
 				},
-		  ]
+			]
 		: [];
 
 const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {

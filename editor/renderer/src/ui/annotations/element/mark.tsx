@@ -406,13 +406,13 @@ export const MarkComponent = ({
 					markStylesWithUpdatedShadow,
 				],
 				style: {
-							'--ak-renderer-annotation-startmarker': `"${intl.formatMessage(
-								inlineCommentMessages.contentRendererInlineCommentMarkerStart,
-							)}"`,
-							'--ak-renderer-annotation-endmarker': `"${intl.formatMessage(
-								inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
-							)}"`,
-						},
+					'--ak-renderer-annotation-startmarker': `"${intl.formatMessage(
+						inlineCommentMessages.contentRendererInlineCommentMarkerStart,
+					)}"`,
+					'--ak-renderer-annotation-endmarker': `"${intl.formatMessage(
+						inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
+					)}"`,
+				},
 			}),
 		},
 		children,

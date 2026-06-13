@@ -21,7 +21,6 @@ import type { ExtensionAPI, ExtensionProvider } from '../extensions';
 import { messages } from '../floating-toolbar';
 import type { DropdownOptionT, FloatingToolbarOverflowDropdownOptions } from '../types';
 
-
 const labelStyles = css({
 	display: 'inline-block',
 	width: '100%',

@@ -74,14 +74,8 @@ export const applyFormatCodeMeta = (
 			};
 
 		case ACTIONS.RESOLVE_FORMAT_CODE: {
-			const pendingFormats = removeRecordEntry(
-				pluginState.pendingFormats,
-				meta.data.localId,
-			);
-			const formatCodeErrors = removeRecordEntry(
-				pluginState.formatCodeErrors,
-				meta.data.localId,
-			);
+			const pendingFormats = removeRecordEntry(pluginState.pendingFormats, meta.data.localId);
+			const formatCodeErrors = removeRecordEntry(pluginState.formatCodeErrors, meta.data.localId);
 
 			return {
 				...pluginState,
@@ -103,10 +97,7 @@ export const applyFormatCodeMeta = (
 		case ACTIONS.CLEAR_FORMAT_CODE_ERROR:
 			return {
 				...pluginState,
-				formatCodeErrors: removeRecordEntry(
-					pluginState.formatCodeErrors,
-					meta.data.localId,
-				),
+				formatCodeErrors: removeRecordEntry(pluginState.formatCodeErrors, meta.data.localId),
 			};
 
 		default:

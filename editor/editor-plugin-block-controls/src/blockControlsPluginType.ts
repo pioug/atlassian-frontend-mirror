@@ -198,7 +198,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			 * @returns An object with `textLength` and `textContent`, or `null` when the
 			 *          context cannot be determined.
 			 */
-			getTextInfo: (editorView: EditorView) => { textContent: string; textLength: number; } | null;
+			getTextInfo: (editorView: EditorView) => { textContent: string; textLength: number } | null;
 			registerNodeDecoration: (factory: NodeDecorationFactory) => void;
 			unregisterNodeDecoration: (type: string) => void;
 		};

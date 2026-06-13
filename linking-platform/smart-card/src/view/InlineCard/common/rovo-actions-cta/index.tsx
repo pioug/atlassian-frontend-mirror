@@ -4,7 +4,7 @@
  */
 import React, { useCallback, useMemo } from 'react';
 
-import { useIntl } from "react-intl";
+import { useIntl } from 'react-intl';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
@@ -12,15 +12,15 @@ import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import extractRovoChatAction from "../../../../extractors/flexible/actions/extract-rovo-chat-action";
-import { getExtensionKey } from "../../../../state/helpers";
-import useInvokeClientAction from "../../../../state/hooks/use-invoke-client-action";
-import useRovoChat from "../../../../state/hooks/use-rovo-chat";
-import useRovoConfig from "../../../../state/hooks/use-rovo-config";
-import { useSmartCardState } from "../../../../state/store";
-import type { InternalCardActionOptions as CardActionOptions } from "../../../Card/types";
-import { getPromptAction, RovoChatPromptKey } from "../../../common/rovo-chat-utils";
-import { ActionButton } from "../action-button";
+import extractRovoChatAction from '../../../../extractors/flexible/actions/extract-rovo-chat-action';
+import { getExtensionKey } from '../../../../state/helpers';
+import useInvokeClientAction from '../../../../state/hooks/use-invoke-client-action';
+import useRovoChat from '../../../../state/hooks/use-rovo-chat';
+import useRovoConfig from '../../../../state/hooks/use-rovo-config';
+import { useSmartCardState } from '../../../../state/store';
+import type { InternalCardActionOptions as CardActionOptions } from '../../../Card/types';
+import { getPromptAction, RovoChatPromptKey } from '../../../common/rovo-chat-utils';
+import { ActionButton } from '../action-button';
 
 const styles = cssMap({
 	innerContainer: {
@@ -42,7 +42,7 @@ const styles = cssMap({
 	text: {
 		display: 'inline',
 		paddingLeft: token('space.075'),
-	}
+	},
 });
 
 export const RovoActionsCta = ({ testId }: { testId?: string }): JSX.Element => {
@@ -53,7 +53,15 @@ export const RovoActionsCta = ({ testId }: { testId?: string }): JSX.Element => 
 	);
 };
 
-export const InlineRovoActionButton = ({ testId, url, actionOptions }: { actionOptions?: CardActionOptions; testId?: string, url?: string, }): JSX.Element | null => {
+export const InlineRovoActionButton = ({
+	testId,
+	url,
+	actionOptions,
+}: {
+	actionOptions?: CardActionOptions;
+	testId?: string;
+	url?: string;
+}): JSX.Element | null => {
 	const { sendPromptMessage, isRovoChatEnabled } = useRovoChat();
 	const intl = useIntl();
 	const cardState = useSmartCardState(url ?? '');
@@ -61,8 +69,11 @@ export const InlineRovoActionButton = ({ testId, url, actionOptions }: { actionO
 	const rovoConfig = useRovoConfig();
 
 	const rovoChatAction = useMemo(() => {
-		return cardState.details && extractRovoChatAction({ response: cardState.details, actionOptions, rovoConfig });
-	}, [cardState.details, rovoConfig, actionOptions])
+		return (
+			cardState.details &&
+			extractRovoChatAction({ response: cardState.details, actionOptions, rovoConfig })
+		);
+	}, [cardState.details, rovoConfig, actionOptions]);
 
 	const provider = useMemo(() => {
 		return cardState.details && extractSmartLinkProvider(cardState.details);
@@ -71,8 +82,11 @@ export const InlineRovoActionButton = ({ testId, url, actionOptions }: { actionO
 	const invoke = useInvokeClientAction({});
 
 	const promptKey = useMemo(() => {
-		if (extensionKey === 'google-object-provider' && cardState.details?.data?.['@type']?.includes('schema:SpreadsheetDigitalDocument')) {
-			return
+		if (
+			extensionKey === 'google-object-provider' &&
+			cardState.details?.data?.['@type']?.includes('schema:SpreadsheetDigitalDocument')
+		) {
+			return;
 		}
 
 		switch (extensionKey) {
@@ -92,28 +106,37 @@ export const InlineRovoActionButton = ({ testId, url, actionOptions }: { actionO
 			case 'salesforce-object-provider':
 				return RovoChatPromptKey.SALESFORCE_PREP;
 		}
-	}, [extensionKey, cardState])
+	}, [extensionKey, cardState]);
 
-	const { data: promptData, content, icon } = promptKey ? getPromptAction({
-		promptKey,
-		intl,
-		url,
-		iconSize: 'small',
-		provider: provider?.text
-	}) || {} : {}
+	const {
+		data: promptData,
+		content,
+		icon,
+	} = promptKey
+		? getPromptAction({
+				promptKey,
+				intl,
+				url,
+				iconSize: 'small',
+				provider: provider?.text,
+			}) || {}
+		: {};
 
-	const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
-		event.preventDefault();
-		event.stopPropagation();
+	const handleClick = useCallback(
+		(event: React.MouseEvent<HTMLElement>) => {
+			event.preventDefault();
+			event.stopPropagation();
 
-		if (isRovoChatEnabled && promptData && rovoChatAction?.invokeAction) {
-			invoke({
-				...rovoChatAction?.invokeAction,
-				actionFn: async () => sendPromptMessage(promptData),
-				prompt: promptKey,
-			});
-		}
-	}, [sendPromptMessage, isRovoChatEnabled, promptData, rovoChatAction, promptKey, invoke])
+			if (isRovoChatEnabled && promptData && rovoChatAction?.invokeAction) {
+				invoke({
+					...rovoChatAction?.invokeAction,
+					actionFn: async () => sendPromptMessage(promptData),
+					prompt: promptKey,
+				});
+			}
+		},
+		[sendPromptMessage, isRovoChatEnabled, promptData, rovoChatAction, promptKey, invoke],
+	);
 
 	return promptData && content ? (
 		<ActionButton onClick={handleClick} testId={testId}>

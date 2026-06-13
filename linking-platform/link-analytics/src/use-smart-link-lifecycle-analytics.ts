@@ -5,7 +5,11 @@ import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import createEventPayload from './common/utils/analytics/create-event-payload';
 import { EVENT_CHANNEL } from './common/utils/constants';
-import { type LifecycleAction, type LinkLifecycleEventCallback, type SmartLinkLifecycleMethods } from './types';
+import {
+	type LifecycleAction,
+	type LinkLifecycleEventCallback,
+	type SmartLinkLifecycleMethods,
+} from './types';
 import { runWhenIdle } from './utils/run-when-idle';
 
 /**

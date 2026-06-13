@@ -202,8 +202,7 @@ export const ColumnControls = ({
 								actionSubjectId: null,
 								eventType: EVENT_TYPE.TRACK,
 								attributes: {
-									inputMethod:
-										trigger === 'keyboard' ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
+									inputMethod: trigger === 'keyboard' ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
 									direction: 'column',
 								},
 							})(tr);

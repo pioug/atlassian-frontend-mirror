@@ -102,8 +102,12 @@ const documentation: StructuredContentSource = {
 			examples: [
 				{
 					name: 'Error boundary with fallback',
-					description: 'Render a fallback component and fire an analytics event when a child throws.',
-					source: path.resolve(packagePath, './examples/11-error-boundary-with-error-component.tsx'),
+					description:
+						'Render a fallback component and fire an analytics event when a child throws.',
+					source: path.resolve(
+						packagePath,
+						'./examples/11-error-boundary-with-error-component.tsx',
+					),
 				},
 			],
 		},
@@ -145,7 +149,12 @@ const documentation: StructuredContentSource = {
 			signature:
 				'(channel?: string) => (payload: AnalyticsEventPayload) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent',
 			parameters: [
-				{ name: 'channel', type: 'string', description: 'Optional channel to fire on.', isOptional: true },
+				{
+					name: 'channel',
+					type: 'string',
+					description: 'Optional channel to fire on.',
+					isOptional: true,
+				},
 				{ name: 'payload', type: 'AnalyticsEventPayload' },
 				{
 					name: 'createAnalyticsEvent',
@@ -155,7 +164,8 @@ const documentation: StructuredContentSource = {
 			],
 			returns: {
 				type: 'UIAnalyticsEvent',
-				description: 'The original (un-cloned) consumer event so callers can attach further context.',
+				description:
+					'The original (un-cloned) consumer event so callers can attach further context.',
 			},
 			usageGuidelines: [
 				'Reach for `createAndFireEvent` when you want a one-liner inside an event handler. For more complex flows, build and fire the event explicitly.',

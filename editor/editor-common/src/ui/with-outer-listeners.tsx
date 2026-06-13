@@ -9,7 +9,6 @@ export interface WithOutsideClickProps {
 	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
 }
 
-
 export default function withOuterListeners<P>(
 	Component: React.ComponentType<React.PropsWithChildren<P>>,
 ): ComponentClass<P & WithOutsideClickProps> {

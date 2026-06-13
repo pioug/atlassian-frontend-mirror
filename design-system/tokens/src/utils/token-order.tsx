@@ -26,7 +26,7 @@ export const tokenOrder: {
 	},
 	{
 		path: 'elevation',
-		subpaths: ['surface', 'shadow'],
+		subpaths: ['surface', 'rovo', 'shadow'],
 	},
 	{
 		path: 'opacity',

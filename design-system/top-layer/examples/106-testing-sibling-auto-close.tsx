@@ -49,10 +49,23 @@ function SiblingPopover({
 
 	return (
 		<Fragment>
-			<button ref={triggerRef} onClick={toggle} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })} type="button" data-testid={triggerTestId}>
+			<button
+				ref={triggerRef}
+				onClick={toggle}
+				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
+				type="button"
+				data-testid={triggerTestId}
+			>
 				{triggerLabel}
 			</button>
-			<Popover ref={popoverRef} id={popoverId} isOpen={isOpen} onClose={close} role="dialog" label={label}>
+			<Popover
+				ref={popoverRef}
+				id={popoverId}
+				isOpen={isOpen}
+				onClose={close}
+				role="dialog"
+				label={label}
+			>
 				<div data-testid={contentTestId}>{label} content</div>
 			</Popover>
 		</Fragment>

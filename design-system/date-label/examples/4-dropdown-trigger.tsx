@@ -8,7 +8,6 @@ import { DateLabelDropdownTrigger } from '@atlaskit/date-label';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-
 const styles = cssMap({
 	column: {
 		display: 'flex',

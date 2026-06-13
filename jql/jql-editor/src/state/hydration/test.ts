@@ -228,29 +228,21 @@ const noArgFunctionQueries = [
 
 describe('ValidQueryVisitor - function-argument hydration', () => {
 	describe('generic gate supersedes membersOf gate', () => {
-		ffTest.on(
-			'jql-function-arg-hydration',
-			'generic function-arg gate is enabled',
-			() => {
-				ffTest.off(
-					'jira-membersof-team-support',
-					'membersOf legacy gate is disabled',
-					() => {
-						it('includes membersOf via the generic gate even when the legacy gate is off', () => {
-							const ast = new JastBuilder().build(
-								'assignee in membersOf("team-1") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
-							);
-							expect(ast.query).toBeDefined();
-							if (ast.query) {
-								expect(ast.query.accept(visitor)).toEqual(
-									'assignee in membersOf("team-1") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
-								);
-							}
-						});
-					},
-				);
-			},
-		);
+		ffTest.on('jql-function-arg-hydration', 'generic function-arg gate is enabled', () => {
+			ffTest.off('jira-membersof-team-support', 'membersOf legacy gate is disabled', () => {
+				it('includes membersOf via the generic gate even when the legacy gate is off', () => {
+					const ast = new JastBuilder().build(
+						'assignee in membersOf("team-1") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
+					);
+					expect(ast.query).toBeDefined();
+					if (ast.query) {
+						expect(ast.query.accept(visitor)).toEqual(
+							'assignee in membersOf("team-1") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
+						);
+					}
+				});
+			});
+		});
 	});
 
 	describe('with gate ON', () => {

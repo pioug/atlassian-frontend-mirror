@@ -37,6 +37,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../conversation-assistant-external-context/tsconfig.app.json"
 		}
 	],
 	"files": []

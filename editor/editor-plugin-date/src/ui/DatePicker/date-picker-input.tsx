@@ -118,10 +118,9 @@ class DatePickerInput extends React.Component<InputProps & WrappedComponentProps
 			this.setInputSelectionPos = undefined;
 		}
 
-		const shouldFocusInput =
-			fg('platform_editor_datepicker_focus_fix')
-				? !prevProps.autoFocus && this.props.autoFocus
-				: this.props.autoFocus;
+		const shouldFocusInput = fg('platform_editor_datepicker_focus_fix')
+			? !prevProps.autoFocus && this.props.autoFocus
+			: this.props.autoFocus;
 
 		if (this.inputRef && shouldFocusInput) {
 			this.focusInput();

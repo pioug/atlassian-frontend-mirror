@@ -20,7 +20,11 @@ import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
  * - Pressing Escape closes only the topmost (innermost) popover
  * - Light dismiss (clicking outside) closes the entire stack
  */
-function NestedPopover({ forceFallbackPositioning }: { forceFallbackPositioning: boolean }): React.ReactNode {
+function NestedPopover({
+	forceFallbackPositioning,
+}: {
+	forceFallbackPositioning: boolean;
+}): React.ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);

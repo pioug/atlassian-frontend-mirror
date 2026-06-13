@@ -84,12 +84,16 @@ const issues: MockIssue[] = [
 	},
 ];
 
-const getOrderBy = (jql: unknown): { direction: 'ASC' | 'DESC'; field: keyof MockIssue } | undefined => {
+const getOrderBy = (
+	jql: unknown,
+): { direction: 'ASC' | 'DESC'; field: keyof MockIssue } | undefined => {
 	if (typeof jql !== 'string') {
 		return undefined;
 	}
 
-	const match = jql.match(/ORDER\s+BY\s+(issuetype|key|summary|status|assignee|priority)\s+(ASC|DESC)/i);
+	const match = jql.match(
+		/ORDER\s+BY\s+(issuetype|key|summary|status|assignee|priority)\s+(ASC|DESC)/i,
+	);
 	if (!match) {
 		return undefined;
 	}

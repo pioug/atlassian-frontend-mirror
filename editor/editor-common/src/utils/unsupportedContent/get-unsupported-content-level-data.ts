@@ -17,7 +17,6 @@ export type UnsupportedContentLevelsTracking = {
 	thresholds?: Partial<UnsupportedContentLevelThresholds>;
 };
 
-
 const buildUnsupportedContentLevelThresholds = (
 	customThresholds?: UnsupportedContentLevelsTracking['thresholds'],
 ): UnsupportedContentLevelThresholds => {

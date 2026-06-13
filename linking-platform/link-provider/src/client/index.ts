@@ -365,7 +365,10 @@ export default class CardClient implements CardClientInterface {
 		return response;
 	}
 
-	public async prefetchData(url: string, appearance?: CardAppearance): Promise<JsonLd.Response | undefined> {
+	public async prefetchData(
+		url: string,
+		appearance?: CardAppearance,
+	): Promise<JsonLd.Response | undefined> {
 		// 1. Queue the URL as part of a dataloader batch.
 		const response = await this.resolveUrl(url, false, appearance);
 
@@ -419,7 +422,11 @@ export default class CardClient implements CardClientInterface {
 	 *                     When 'inline', ORS returns minimal data (title, status).
 	 *                     When 'block' or 'embed', ORS returns full data including summary.
 	 */
-	public async fetchData(url: string, force?: boolean, appearance?: CardAppearance): Promise<JsonLd.Response> {
+	public async fetchData(
+		url: string,
+		force?: boolean,
+		appearance?: CardAppearance,
+	): Promise<JsonLd.Response> {
 		let response = await this.resolveUrl(url, force, appearance);
 
 		if (this.isRateLimitError(response)) {

@@ -1,4 +1,10 @@
-import { akEditorFullWidthLayoutWidth, akEditorGutterPadding, akEditorGutterPaddingDynamic, akEditorGutterPaddingReduced, akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
+import {
+	akEditorFullWidthLayoutWidth,
+	akEditorGutterPadding,
+	akEditorGutterPaddingDynamic,
+	akEditorGutterPaddingReduced,
+	akEditorFullPageNarrowBreakout,
+} from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorAppearance } from '../types';

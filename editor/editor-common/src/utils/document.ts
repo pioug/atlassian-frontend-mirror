@@ -1,4 +1,3 @@
-
 import type { Node, Fragment, Mark } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,

@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 12.0.16
+
+### Patch Changes
+
+- [`fd3ef8de291ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd3ef8de291ba) -
+  Cleanup feature gate `platform_editor_nov_a11y_fixes`
+- Updated dependencies
+
+## 12.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.14
+
+### Patch Changes
+
+- [`db6cfe6d842ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db6cfe6d842ac) -
+  Cleaned up stale experiment platform_editor_fix_media_picker_hidden. Removed experiment gating in
+  MediaButton, keeping the shipped (true) code path. Removed experiment type definition and config
+  entry.
+- Updated dependencies
+
+## 12.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.11
 
 ### Patch Changes

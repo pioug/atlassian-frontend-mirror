@@ -15,7 +15,7 @@ test.describe('useSimpleLightDismiss', () => {
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// useSimpleLightDismiss handles Escape at document level — trial click on trigger
+		// useSimpleLightDismiss handles Escape at document level - trial click on trigger
 		await trigger.click({ trial: true });
 		await page.keyboard.press('Escape');
 
@@ -66,7 +66,7 @@ test.describe('useSimpleLightDismiss', () => {
 			'testing-simple-light-dismiss',
 		);
 
-		// Don't open the popover — just press Escape and click outside
+		// Do not open the popover - just press Escape and click outside
 		await page.keyboard.press('Escape');
 		await page.getByTestId('outside-button').click();
 
@@ -82,7 +82,7 @@ test.describe('useSimpleLightDismiss', () => {
 
 		const trigger = page.getByTestId('trigger');
 
-		// Open and dismiss with Escape — trial click on trigger (interactive button, always stable)
+		// Open and dismiss with Escape - trial click on trigger (interactive button, always stable)
 		await trigger.click();
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 		await trigger.click({ trial: true });
@@ -110,7 +110,7 @@ test.describe('useSimpleLightDismiss', () => {
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// These keys must NOT dismiss — trial click on trigger (interactive button)
+		// These keys must NOT dismiss - trial click on trigger (interactive button)
 		await trigger.click({ trial: true });
 		await page.keyboard.press('Enter');
 		await page.keyboard.press('Tab');

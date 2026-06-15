@@ -4,6 +4,7 @@ export type OnFields = AutocompleteProvider['onFields'];
 export type OnOperators = AutocompleteProvider['onOperators'];
 export type OnFunctions = AutocompleteProvider['onFunctions'];
 export type OnValues = AutocompleteProvider['onValues'];
+export type OnFunctionArguments = NonNullable<AutocompleteProvider['onFunctionArguments']>;
 
 export type FieldValuesCache = {
 	[key: string]: AutocompleteOptions;

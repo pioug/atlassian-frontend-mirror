@@ -34,6 +34,10 @@ type FieldAttributes =
 			mcpToolsCount: number;
 	  }
 	| {
+			field: 'toolConfiguration';
+			toolId: string;
+	  }
+	| {
 			field: 'knowledgeSources';
 			knowledgeSourcesCount: number;
 	  }

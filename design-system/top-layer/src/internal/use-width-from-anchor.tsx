@@ -47,14 +47,14 @@ export function useWidthFromAnchor({
 			// `min-inline-size` is intentionally NOT set here - it would override the
 			// explicit width constraint, allowing the popover to grow past the anchor's width.
 			if (supportsAnchorSize) {
-				return setStyle({ el: node, styles: [{ property: 'width', value: 'anchor-size(width)' }] });
+				return setStyle({ element: node, styles: [{ property: 'width', value: 'anchor-size(width)' }] });
 			}
 
 			// JS fallback: one-off read of the anchor's width.
 			const anchor = anchorRef.current;
 			if (anchor) {
 				return setStyle({
-					el: node,
+					element: node,
 					styles: [{ property: 'width', value: `${anchor.offsetWidth}px` }],
 				});
 			}
@@ -72,7 +72,7 @@ export function useWidthFromAnchor({
 			// if its content requires it.
 			if (supportsAnchorSize) {
 				return setStyle({
-					el: node,
+					element: node,
 					styles: [minInlineSizeStyle, { property: 'min-width', value: 'anchor-size(width)' }],
 				});
 			}
@@ -80,16 +80,16 @@ export function useWidthFromAnchor({
 			const anchor = anchorRef.current;
 			if (anchor) {
 				return setStyle({
-					el: node,
+					element: node,
 					styles: [minInlineSizeStyle, { property: 'min-width', value: `${anchor.offsetWidth}px` }],
 				});
 			}
 
 			// No anchor available in JS fallback - still apply min-inline-size.
-			return setStyle({ el: node, styles: [minInlineSizeStyle] });
+			return setStyle({ element: node, styles: [minInlineSizeStyle] });
 		}
 
 		// 'none' mode: no explicit width, but still apply `min-inline-size: max-content`.
-		return setStyle({ el: node, styles: [minInlineSizeStyle] });
+		return setStyle({ element: node, styles: [minInlineSizeStyle] });
 	}, [mode, popoverRef, anchorRef, isOpen]);
 }

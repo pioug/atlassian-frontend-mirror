@@ -483,6 +483,7 @@ export const TableCssClassName: {
 	TABLE_CHROMELESS: string;
 	TABLE_COLUMN_CONTROLS_DECORATIONS: 'pm-table-column-controls-decoration';
 	TABLE_CONTAINER: 'pm-table-container';
+	TABLE_CORNER_MASK: 'pm-table-corner-mask';
 	TABLE_HEADER_CELL: 'pm-table-header-content-wrap';
 	TABLE_HEADER_CELL_WRAPPER: 'pm-table-header-content-wrap';
 	TABLE_LEFT_BORDER: 'pm-table-left-border';
@@ -634,6 +635,7 @@ export const TableCssClassName: {
 
 	TABLE_SELECTED: `${tablePrefixSelector}-table__selected`,
 	TABLE_CELL: tableCellSelector,
+	TABLE_CORNER_MASK: `${tablePrefixSelector}-corner-mask`,
 	TABLE_HEADER_CELL: tableHeaderSelector,
 	TABLE_STICKY: `${tablePrefixSelector}-sticky`,
 	TABLE_CHROMELESS: `${tablePrefixSelector}-chromeless`,

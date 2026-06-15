@@ -11,6 +11,10 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandler } from '../EventHandlers';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const AT_PREFIX_REGEX = /^@/;
+
 export interface Props {
 	accessLevel?: string;
 	autoFocus?: boolean;
@@ -92,9 +96,7 @@ export default function MentionWithProfileCard({
 			trigger="click"
 			position="bottom-end"
 			testId="mention-with-profilecard-trigger"
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			ariaLabel={text.replace(/^@/, '')}
+			ariaLabel={text.replace(AT_PREFIX_REGEX, '')}
 			ssrPlaceholderId={ssrPlaceholderId}
 			isRenderedInPortal={expValEquals(
 				'editor_a11y_7152_profile_card_tab_order',

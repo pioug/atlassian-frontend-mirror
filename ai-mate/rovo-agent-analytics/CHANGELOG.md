@@ -1,5 +1,15 @@
 # @atlaskit/rovo-agent-analytics
 
+## 3.0.0
+
+### Major Changes
+
+- [`f56e7f95fadad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f56e7f95fadad) -
+  Remove redundant `rovoAgent` interaction events `editTools`, `subagentEditTools`,
+  `editToolConfiguration`, `subagentEditToolConfiguration` — these are fully covered by the typed
+  `rovoAgent updated` events. Add a new `field: 'toolConfiguration'` variant to the
+  `rovoAgent updated` event payload, with a required `toolId: string` attribute.
+
 ## 2.4.0
 
 ### Minor Changes

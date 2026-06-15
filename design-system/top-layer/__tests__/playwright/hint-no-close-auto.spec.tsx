@@ -9,11 +9,11 @@ test.describe('Stacking - hint popover does not close auto popover', () => {
 
 	test('mode="hint" popover does not close mode="auto" popover', async ({ page, browserName }) => {
 		// popover="hint" is not yet supported in all browsers.
-		// In browsers that don't support it, the fallback behavior may differ.
+		// In browsers that do not support it, the fallback behavior may differ.
 		// This test validates the behavior in browsers that support it.
 		test.fixme(
 			browserName === 'webkit' || browserName === 'firefox',
-			'popover="hint" is not supported in webkit/firefox — fallback behavior differs',
+			'popover="hint" is not supported in webkit/firefox - fallback behavior differs',
 		);
 
 		await page.visitExample<typeof import('../../examples/139-testing-hint-no-close-auto.tsx')>(
@@ -32,14 +32,14 @@ test.describe('Stacking - hint popover does not close auto popover', () => {
 		// Wait for hint to appear
 		await expect(page.getByTestId('hint-popover')).toBeVisible();
 
-		// The auto popover should STILL be open — hint must not close it
+		// The auto popover should STILL be open - hint must not close it
 		await expect(page.getByTestId('auto-popover')).toBeVisible();
 	});
 
 	test('hint popover closes without affecting auto popover', async ({ page, browserName }) => {
 		test.fixme(
 			browserName === 'webkit' || browserName === 'firefox',
-			'popover="hint" is not supported in webkit/firefox — fallback behavior differs',
+			'popover="hint" is not supported in webkit/firefox - fallback behavior differs',
 		);
 
 		await page.visitExample<typeof import('../../examples/139-testing-hint-no-close-auto.tsx')>(

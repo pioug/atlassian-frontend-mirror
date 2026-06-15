@@ -16,6 +16,7 @@ export type UserIntent =
 	| 'resizing'
 	| 'commenting'
 	| 'aiStreaming'
+	| 'viewingDiff'
 	| 'dragHandleSelected'
 	| 'overlayOpen'
 	| PopupUserIntent;

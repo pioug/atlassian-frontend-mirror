@@ -23,12 +23,10 @@ export type TPopoverCloseReason = 'escape' | 'light-dismiss' | 'programmatic';
 /**
  * Flat (non-discriminated) props accepted by the Popover component internally.
  *
- * TypeScript limitation: when PopupContent destructures props from a
- * discriminated union (role, label, labelledBy) and re-passes them individually
- * to Popover, TypeScript cannot prove the individual fields still satisfy the
- * union constraint. This flat type accepts all role/label combinations without
- * the union, since ARIA correctness is enforced at the TPopupContentProps
- * boundary where consumers interact.
+ * Used by wrappers like `PopupContent` that destructure props from a
+ * discriminated union and re-pass the individual fields: TypeScript cannot
+ * prove the fields still satisfy the union. ARIA correctness is enforced at
+ * the `TPopupContentProps` boundary where consumers interact.
  */
 export type TPopoverForwardedProps = TPopoverBaseProps & {
 	mode?: 'auto' | 'hint' | 'manual';
@@ -74,7 +72,7 @@ type TPopoverBaseProps = {
 	 *   animation plays (via `allow-discrete`) before the popover becomes logically closed.
 	 *   Otherwise hides instantly.
 	 *
-	 * The consumer does not conditionally render the `Popover` — visibility is driven
+	 * The consumer does not conditionally render the `Popover` - visibility is driven
 	 * by this prop.
 	 *
 	 * **Lifecycle observable to consumers:**

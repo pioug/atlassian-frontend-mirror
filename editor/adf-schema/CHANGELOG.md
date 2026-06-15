@@ -1,5 +1,31 @@
 # @atlaskit/adf-schema
 
+## 54.0.4
+
+### Patch Changes
+
+- [`efa53c18d822f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efa53c18d822f) -
+  editor-common and adf-schema cleanup to prefer static regex as part of ees019
+- Updated dependencies
+
+## 54.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.0.0
 
 ### Major Changes

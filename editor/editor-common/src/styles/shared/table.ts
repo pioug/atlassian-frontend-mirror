@@ -166,9 +166,9 @@ const tableSharedStyle = (): SerializedStyles => {
 			&::after {
 				content: '';
 				position: absolute;
-				inset: 0;
+				inset: -0.5px;
 				border: ${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')};
-				border-radius: ${token('radius.medium')};
+				border-radius: ${token('radius.xlarge')};
 				pointer-events: none;
 				z-index: 1;
 			}`
@@ -249,6 +249,16 @@ const tableSharedStyle = (): SerializedStyles => {
 				> tbody > tr > td[data-reaches-bottom]::after,
 				> tbody > tr > th[data-reaches-bottom]::after {
 					border-bottom-color: transparent;
+				}
+
+				/* The rounded-table overlay owns transparent perimeter borders.
+				   Paint edge cell backgrounds into that reserved border area so coloured
+				   first/last rows do not show the page background through 1px seams. */
+				> tbody > tr > th[data-reaches-top],
+				> tbody > tr > td[data-reaches-top],
+				> tbody > tr > th[data-reaches-bottom],
+				> tbody > tr > td[data-reaches-bottom] {
+					background-clip: border-box;
 				}`
 					: ''}
 				th {

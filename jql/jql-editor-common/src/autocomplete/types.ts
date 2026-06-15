@@ -44,6 +44,16 @@ export type AutocompleteOptions = AutocompleteOption[];
 
 export type AutocompleteProvider = {
 	onFields: (query?: string, clause?: JQLClause) => Observable<AutocompleteOptions>;
+	/**
+	 * Called unconditionally when a function argument is being typed, with the field name, current
+	 * field value (the typed argument text), and the function name. Use this to provide autocomplete
+	 * suggestions for arguments of JQL functions (e.g. membersOf("...")).
+	 */
+	onFunctionArguments?: (
+		fieldName: string,
+		fieldValue: string,
+		functionName: string,
+	) => Observable<AutocompleteOptions>;
 	onFunctions: (
 		query?: string,
 		field?: string,

@@ -43,7 +43,7 @@ export default function TestingDialogScrollLock(): ReactNode {
 				<Heading size="large" id="dialog-title">
 					Scroll lock test
 				</Heading>
-				<div data-testid="dialog-body">Dialog is open — body should not scroll.</div>
+				<div data-testid="dialog-body">Dialog is open - body should not scroll.</div>
 				<button type="button" aria-label="Close" onClick={handleClose}>
 					&#x2715;
 				</button>

@@ -235,6 +235,7 @@ const selector = (
 	>,
 ) => {
 	return {
+		lineLength: states.widthState?.lineLength,
 		width: states.widthState?.width,
 		visible: states.gridState?.visible,
 		gridType: states.gridState?.gridType,
@@ -249,19 +250,15 @@ interface ContentComponentProps {
 }
 
 const ContentComponent = ({ api, editorView, options }: ContentComponentProps) => {
-	const { width, visible, gridType, highlight } = useSharedPluginStateWithSelector(
+	const { lineLength, width, visible, gridType, highlight } = useSharedPluginStateWithSelector(
 		api,
 		['width', 'grid'],
 		selector,
 	);
-	const overlayWidth = React.useMemo(
-		() =>
-			expValEquals('platform_editor_external_embed_grid_fix', 'isEnabled', true)
-				? (editorView.dom.getBoundingClientRect().width || width || akEditorFullPageMaxWidth) +
-					GRID_GUTTER_WIDTH
-				: undefined,
-		[editorView.dom, width],
-	);
+	const overlayWidth =
+		expValEquals('platform_editor_external_embed_grid_fix', 'isEnabled', true)
+			? (lineLength || width || akEditorFullPageMaxWidth) + GRID_GUTTER_WIDTH
+			: undefined;
 
 	if (!visible || !highlight) {
 		return null;

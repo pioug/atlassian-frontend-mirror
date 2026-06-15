@@ -2,6 +2,10 @@
 
 An image component with additional features, such as support for themes.
 
+## Release stage: General availability
+
+This package is supported for production use.
+
 ## Installation
 
 ```sh

@@ -3,5 +3,5 @@ export const selectors = {
 	draftAnnotation: `mark[data-annotation-draft-mark=true]`,
 	activeAnnotation: `mark[data-mark-annotation-state=active]`,
 	commentButton: `button[data-testid=createInlineCommentButton]`,
-	commentPopup: `[aria-label="Popup"]`,
+	commentPopup: `[data-testid="popup-wrapper"]`,
 };

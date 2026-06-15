@@ -1,5 +1,52 @@
 # @atlaskit/renderer
 
+## 132.6.1
+
+### Patch Changes
+
+- [`0f79b5238fada`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f79b5238fada) -
+  Cleaned up stale feature gate \_editor_a11y_aria_label_removal_popup (FFCLEANUP-90178). Removed
+  gate checks and always use the enabled path: nullish coalescing for popup ariaLabel, localized
+  labels for color picker and status picker popups. Replaced obsolete `[aria-label="Popup"]`
+  selectors with `[data-testid="popup-wrapper"]` in dependent tests and page-models. Guarded the
+  search-common ESLint test helper so it loads correctly outside Jest.
+- Updated dependencies
+
+## 132.6.0
+
+### Minor Changes
+
+- [`f0ba9072fb20c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0ba9072fb20c) -
+  [ux] Add feature gate `platform_editor_custom_emoji_unicode_fallback` to render the Unicode
+  Replacement Character (U+FFFD) instead of the shortName text when a custom emoji image cannot be
+  rendered. Applies to both the editor (EmojiNodeView fallback) and the renderer (plain-span
+  fallback when no emoji provider is configured). Standard emojis continue to fall back to their
+  Unicode text representation. When the gate is off, behavior is unchanged in both surfaces.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.5.1
+
+### Patch Changes
+
+- [`edeed2f3314cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edeed2f3314cd) -
+  Fix rounded table edge interaction overlays
+- Updated dependencies
+
 ## 132.5.0
 
 ### Minor Changes

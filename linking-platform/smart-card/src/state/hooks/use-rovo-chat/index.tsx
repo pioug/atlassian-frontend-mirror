@@ -1,14 +1,11 @@
 import { useCallback, useMemo } from 'react';
 
 import type { ProductType } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import type { ChatNewPayload } from '@atlaskit/rovo-triggers/types';
 
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import useRovoConfig from '../use-rovo-config';
-
-import { JIRA_PRODUCTS } from './constants';
 
 const SMART_LINK_TO_ROVO_SOURCE = 'smart-link';
 
@@ -18,11 +15,10 @@ const useRovoChat = (): {
 	isRovoChatEnabled: boolean;
 	sendPromptMessage: (data: SendPromptMessageData, product?: ProductType) => void;
 } => {
-	const { rovoOptions: config, product } = useRovoConfig();
+	const { rovoOptions: config } = useRovoConfig();
 	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
 
 	const isRovoChatEnabled = getIsRovoChatEnabled(config);
-	const isJiraProduct = product && JIRA_PRODUCTS.includes(product);
 
 	const sendPromptMessage = useCallback(
 		(data: SendPromptMessageData) => {
@@ -37,17 +33,14 @@ const useRovoChat = (): {
 						agentId: undefined,
 					},
 					openChat: true,
-					openChatMode:
-						isJiraProduct && fg('platform_sl_3p_auth_rovo_block_jira_kill_switch')
-							? 'mini-modal'
-							: 'sidebar',
+					openChatMode: 'sidebar',
 				},
 				onAcknowledgeTimeout: () => {
 					// NAVX-3599: Add analytics event
 				},
 			});
 		},
-		[publishWithPostMessage, isJiraProduct],
+		[publishWithPostMessage],
 	);
 
 	return useMemo(

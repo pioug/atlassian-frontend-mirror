@@ -61,7 +61,7 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		super(node, view, getPos, eventDispatcher);
 
 		if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
-			this.updateTableEdgeAttrs(node);
+			this.updateTableEdgeAttrs();
 		}
 
 		// CONFCLOUD-78239: Previously we had a bug which tried to invert the heading colour of a table
@@ -115,7 +115,7 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 	 * (accounting for rowspan/colspan) and sets data attributes so CSS can apply
 	 * rounded corners and transparent borders to merged cells that span to the table edges.
 	 */
-	private updateTableEdgeAttrs(node: PMNode): void {
+	private updateTableEdgeAttrs(): void {
 		const pos = this.getPos();
 		if (pos === undefined) {
 			return;
@@ -205,11 +205,6 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		if (addedAttrs.length || removedAttrs.length) {
 			addedAttrs.forEach(([key, value]) => this.dom.setAttribute(key, value || ''));
 			removedAttrs.forEach((key) => this.dom.removeAttribute(key));
-
-			if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
-				this.updateTableEdgeAttrs(node);
-			}
-
 			return true;
 		}
 

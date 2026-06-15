@@ -104,6 +104,9 @@ export interface CellAttributes {
 
 export const tablePrefixSelector = 'pm-table';
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const COL_WIDTH_ATTR_REGEX = /^\d+(,\d+)*$/u;
+
 export const tableCellSelector: 'pm-table-cell-content-wrap' = `${tablePrefixSelector}-cell-content-wrap`;
 export const tableHeaderSelector: 'pm-table-header-content-wrap' = `${tablePrefixSelector}-header-content-wrap`;
 export const tableCellContentWrapperSelector: 'pm-table-cell-nodeview-wrapper' = `${tablePrefixSelector}-cell-nodeview-wrapper`;
@@ -123,8 +126,7 @@ export const getCellAttrs: (
 } = (dom: HTMLElement, defaultValues: CellAttributes = {}) => {
 	const widthAttr = dom.getAttribute('data-colwidth');
 	const width =
-		// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-		widthAttr && /^\d+(,\d+)*$/u.test(widthAttr)
+		widthAttr && COL_WIDTH_ATTR_REGEX.test(widthAttr)
 			? widthAttr.split(',').map((str) => Number(str))
 			: null;
 	const colspan = Number(dom.getAttribute('colspan') || 1);

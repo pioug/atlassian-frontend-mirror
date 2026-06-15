@@ -3025,6 +3025,16 @@ const metadata: IconMetadata = {
 		usage: 'Reserved for when there is limited link permissions',
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
+	loom: {
+		keywords: ['loom'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Design System',
+		status: 'published',
+		id: '68927:21191',
+		usage: "Used only for representing the object type of 'a Loom'",
+		createdAt: '2026-06-15T02:06:29.172Z',
+	},
 	lozenge: {
 		keywords: ['insert', 'status', 'badge'],
 		categorization: 'single-purpose',

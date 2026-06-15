@@ -10,7 +10,7 @@ import { expect, test } from '@af/integration-testing';
  *   - Click-outside (light dismiss) → does NOT restore focus
  *   - hidePopover() → restores focus to the previously focused element
  *
- * These tests assert browser-native behavior — no custom focus hooks are involved.
+ * These tests assert browser-native behavior - no custom focus hooks are involved.
  * See: notes/architecture/focus-restoration.md
  */
 test.describe('Native Popover API focus restoration', () => {
@@ -32,7 +32,7 @@ test.describe('Native Popover API focus restoration', () => {
 		await innerButton.focus();
 		await expect(innerButton).toBeFocused();
 
-		// Dismiss via Escape — browser restores focus
+		// Dismiss via Escape - browser restores focus
 		await page.keyboard.press('Escape');
 
 		await expect(page.getByTestId('auto-dialog-popup')).toBeHidden();
@@ -53,7 +53,7 @@ test.describe('Native Popover API focus restoration', () => {
 		await menuItem.focus();
 		await expect(menuItem).toBeFocused();
 
-		// Dismiss via Escape — browser restores focus
+		// Dismiss via Escape - browser restores focus
 		await page.keyboard.press('Escape');
 
 		await expect(page.getByTestId('auto-menu-popup')).toBeHidden();
@@ -80,7 +80,7 @@ test.describe('Native Popover API focus restoration', () => {
 		await innerButton.focus();
 		await expect(innerButton).toBeFocused();
 
-		// Click outside the popup — use body's bottom-right area to avoid
+		// Click outside the popup - use body's bottom-right area to avoid
 		// hitting the trigger (which would toggle the popup back open).
 		const viewport = page.viewportSize();
 		invariant(viewport, 'Playwright viewport size should be defined');
@@ -99,7 +99,7 @@ test.describe('Native Popover API focus restoration', () => {
 		await trigger.click();
 		await expect(page.getByTestId('auto-menu-popup')).toBeVisible();
 
-		// Dismiss via click outside — browser does NOT restore focus
+		// Dismiss via click outside - browser does NOT restore focus
 		await page.mouse.click(0, 0);
 
 		await expect(page.getByTestId('auto-menu-popup')).toBeHidden();
@@ -132,7 +132,7 @@ test.describe('Native Popover API focus restoration', () => {
 		await innerButton.focus();
 		await expect(innerButton).toBeFocused();
 
-		// Dismiss via Escape — browser calls hidePopover() and restores focus
+		// Dismiss via Escape - browser calls hidePopover() and restores focus
 		await page.keyboard.press('Escape');
 
 		await expect(page.getByTestId('programmatic-popup')).toBeHidden();

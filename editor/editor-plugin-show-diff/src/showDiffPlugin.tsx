@@ -1,4 +1,5 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getScrollableDecorations } from './pm-plugins/getScrollableDecorations';
 import { createPlugin, showDiffPluginKey } from './pm-plugins/main';
@@ -10,9 +11,15 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 		showDiff:
 			(params?: PMDiffParams) =>
 			({ tr }) => {
+				if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+					api?.userIntent?.commands.setCurrentUserIntent('viewingDiff')({ tr });
+				}
 				return tr.setMeta(showDiffPluginKey, { ...params, action: 'SHOW_DIFF' });
 			},
 		hideDiff: ({ tr }) => {
+			if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+				api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+			}
 			return tr.setMeta(showDiffPluginKey, { steps: [], action: 'HIDE_DIFF' });
 		},
 		scrollToNext: ({ tr }) => {

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Modal, {
@@ -24,10 +24,18 @@ import Modal, {
  *   reflect the JSX `autoFocus` prop onto the DOM attribute). Focus must
  *   land on that input, not the close button.
  *
+ * - `auto-focus-ref-modal`: the `Modal` `autoFocus` prop points at a ref
+ *   that resolves to an interior `<input>`. Focus must land on the
+ *   ref target on open, even though the close button is the first
+ *   focusable in source order.
+ *
  * See: `platform/packages/design-system/top-layer/notes/architecture/focus.md`.
  */
 export default function TestingInitialFocusMatrix(): React.ReactNode {
-	const [openVariant, setOpenVariant] = useState<'none' | 'default' | 'native-autofocus'>('none');
+	const [openVariant, setOpenVariant] = useState<
+		'none' | 'default' | 'native-autofocus' | 'auto-focus-ref'
+	>('none');
+	const autoFocusRef = useRef<HTMLInputElement>(null);
 
 	const close = useCallback(() => setOpenVariant('none'), []);
 
@@ -58,6 +66,14 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 				testId="native-autofocus-modal-trigger"
 			>
 				Open modal with native autofocus
+			</Button>
+
+			<Button
+				aria-haspopup="dialog"
+				onClick={() => setOpenVariant('auto-focus-ref')}
+				testId="auto-focus-ref-modal-trigger"
+			>
+				Open modal with autoFocus ref
 			</Button>
 
 			<ModalTransition>
@@ -96,6 +112,28 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 						</ModalBody>
 						<ModalFooter>
 							<Button testId="native-autofocus-modal-close" onClick={close}>
+								Close
+							</Button>
+						</ModalFooter>
+					</Modal>
+				)}
+
+				{openVariant === 'auto-focus-ref' && (
+					<Modal onClose={close} testId="auto-focus-ref-modal" autoFocus={autoFocusRef}>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal with autoFocus ref</ModalTitle>
+						</ModalHeader>
+						<ModalBody>
+							<label htmlFor="auto-focus-ref-input">Name</label>
+							<input
+								id="auto-focus-ref-input"
+								data-testid="auto-focus-ref-input"
+								ref={autoFocusRef}
+								type="text"
+							/>
+						</ModalBody>
+						<ModalFooter>
+							<Button testId="auto-focus-ref-modal-close" onClick={close}>
 								Close
 							</Button>
 						</ModalFooter>

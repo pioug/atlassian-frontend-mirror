@@ -38,13 +38,14 @@ test.describe('Popup top-layer — initial focus matrix', () => {
 		await expect(page.getByTestId('dialog-popup-first-button')).toBeFocused();
 	});
 
-	test('popup with no role defaults to dialog and moves focus into the popup', async ({ page }) => {
-		// `@atlaskit/popup` does not expose a "no role" path: when a
-		// consumer omits `role`, `useRoleProps` defaults it to `dialog`.
-		// This test pins that contract: omitting `role` should still
-		// produce dialog initial-focus behaviour (focus the first
-		// focusable element inside the popup), not leave focus on the
-		// trigger.
+	test('popup with no `role` keeps focus on the trigger', async ({ page }) => {
+		/**
+		 * Restores the legacy `Popup` contract on the top-layer adapter:
+		 * when a consumer omits `role`, the popup is left role-less and
+		 * no role-based initial focus is applied. Focus stays on the
+		 * trigger, which keeps parity with the legacy `Popup`
+		 * implementation that real consumers (gate off) experience.
+		 */
 		await page.visitExample<
 			typeof import('../../../../../examples/97-testing-initial-focus-matrix.tsx')
 		>('design-system', 'popup', 'testing-initial-focus-matrix', {
@@ -56,7 +57,7 @@ test.describe('Popup top-layer — initial focus matrix', () => {
 		await page.keyboard.press('Enter');
 
 		await expect(page.getByTestId('no-role-popup-content')).toBeVisible();
-		await expect(page.getByTestId('no-role-popup-first-button')).toBeFocused();
+		await expect(trigger).toBeFocused();
 	});
 
 	test('combobox trigger that controls the popup retains focus on the textbox', async ({

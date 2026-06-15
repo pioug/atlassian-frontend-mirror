@@ -84,7 +84,7 @@ test.describe('Popover - role-based initial focus', () => {
 	});
 
 	// WCAG 2.4.3 Focus Order
-	// Tooltip popovers should NOT move focus — they are informational overlays.
+	// Tooltip popovers should NOT move focus - they are informational overlays.
 	test('role="tooltip": does NOT move focus', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/123-testing-popover-initial-focus.tsx')>(
 			'design-system',
@@ -104,7 +104,7 @@ test.describe('Popover - role-based initial focus', () => {
 		// Wait for tooltip to appear
 		await expect(page.getByTestId('tooltip-popup')).toBeVisible();
 
-		// Focus should NOT have moved — tooltip never moves focus
+		// Focus should NOT have moved - tooltip never moves focus
 		// Focus should still be on the external input
 		await expect(externalInput).toBeFocused();
 	});

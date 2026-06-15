@@ -12,7 +12,7 @@ import Heading from '@atlaskit/heading';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { dialogSlideUpAndFade } from '@atlaskit/top-layer/animations';
+import { dialogMotion } from '@atlaskit/top-layer/animations';
 import { Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 
 const styles = cssMap({
@@ -54,7 +54,7 @@ const reasonAppearance: Record<TDialogCloseReason, 'moved' | 'inprogress'> = {
 /**
  * Basic dialog using the native `<dialog>` element with `showModal()`.
  *
- * `Dialog` is a bare primitive — it provides the `<dialog>` lifecycle,
+ * `Dialog` is a bare primitive - it provides the `<dialog>` lifecycle,
  * Escape handling, and backdrop click detection. All visual styling
  * is the consumer's responsibility.
  *
@@ -102,7 +102,7 @@ export default function BasicDialogExample(): ReactNode {
 					onClose={handleClose}
 					isOpen={isOpen}
 					label="Basic dialog"
-					animate={dialogSlideUpAndFade()}
+					animate={dialogMotion()}
 				>
 					<div css={styles.dialogCard}>
 						<div css={styles.dialogHeader}>

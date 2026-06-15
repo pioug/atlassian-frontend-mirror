@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 115.16.0
+
+### Minor Changes
+
+- [`3a59e88cfd890`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a59e88cfd890) -
+  [ux] [EDITOR-7589] update icon colors for highlight color palette and toolbar icon
+
+### Patch Changes
+
+- [`0f79b5238fada`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f79b5238fada) -
+  Cleaned up stale feature gate \_editor_a11y_aria_label_removal_popup (FFCLEANUP-90178). Removed
+  gate checks and always use the enabled path: nullish coalescing for popup ariaLabel, localized
+  labels for color picker and status picker popups. Replaced obsolete `[aria-label="Popup"]`
+  selectors with `[data-testid="popup-wrapper"]` in dependent tests and page-models. Guarded the
+  search-common ESLint test helper so it loads correctly outside Jest.
+
+## 115.15.4
+
+### Patch Changes
+
+- [`c8b43a215bca9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8b43a215bca9) -
+  Extracted the Suggested Edits interaction entry point strings into a shared type
+- [`efa53c18d822f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efa53c18d822f) -
+  editor-common and adf-schema cleanup to prefer static regex as part of ees019
+- Updated dependencies
+
+## 115.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 115.15.1
+
+### Patch Changes
+
+- [`edeed2f3314cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edeed2f3314cd) -
+  Fix rounded table edge interaction overlays
+- Updated dependencies
+
 ## 115.15.0
 
 ### Minor Changes

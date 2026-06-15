@@ -9,7 +9,6 @@ import { getIsRovoChatEnabled } from '../../../utils/rovo';
 import type { CardActionOptions } from '../../../view/Card/types';
 import { getExtensionKey } from '../../helpers';
 import { useSmartCardState } from '../../store';
-import { JIRA_PRODUCTS } from '../use-rovo-chat/constants';
 import useRovoConfig from '../use-rovo-config';
 
 export interface BlockCardRovoActionExperiment {
@@ -35,7 +34,7 @@ const NOT_ENABLED_RESULT: BlockCardRovoActionExperiment = {
 };
 
 /**
- * Returns whether the platform_sl_3p_auth_rovo_block_card_jira or platform_sl_3p_auth_rovo_block_card_confluence experiment
+ * Returns whether the platform_sl_3p_auth_rovo_block_card_confluence experiment
  * is enabled for the current user and link context.
  *
  * All eligibility criteria are consolidated here:
@@ -67,36 +66,21 @@ const useBlockCardRovoActionExperiment = (
 			return NOT_ENABLED_RESULT;
 		}
 
-		const isJiraEnabled =
-			!!product &&
-			JIRA_PRODUCTS.includes(product) &&
-			fg('platform_sl_3p_auth_rovo_block_jira_kill_switch') &&
-			expValEquals('platform_sl_3p_auth_rovo_block_card_jira', 'isEnabled', true);
-
 		const isConfluenceEnabled =
 			!!product &&
 			product === 'CONFLUENCE' &&
 			fg('platform_sl_3p_auth_rovo_block_card_kill_switch') &&
 			expValEquals('platform_sl_3p_auth_rovo_block_card_confluence', 'isEnabled', true);
 
-		return { isEnabled: isJiraEnabled || isConfluenceEnabled };
+		return { isEnabled: isConfluenceEnabled };
 	}, [isRovoChatEnabled, extensionKey, url, isRovoChatActionOptedIn, product]);
 };
 
 export const isBlockCardRovoActionExperimentEnabled = (product?: ProductType): boolean => {
-	const isJiraEnabled =
-		!!product &&
-		JIRA_PRODUCTS.includes(product) &&
-		fg('platform_sl_3p_auth_rovo_block_jira_kill_switch') &&
-		expValEqualsNoExposure('platform_sl_3p_auth_rovo_block_card_jira', 'isEnabled', true);
-
-	const isConfluenceEnabled =
-		!!product &&
+	return !!product &&
 		product === 'CONFLUENCE' &&
 		fg('platform_sl_3p_auth_rovo_block_card_kill_switch') &&
 		expValEqualsNoExposure('platform_sl_3p_auth_rovo_block_card_confluence', 'isEnabled', true);
-
-	return isJiraEnabled || isConfluenceEnabled;
 };
 
 export const useBlockCardRovoActionExperimentNoExposure = (): boolean => {

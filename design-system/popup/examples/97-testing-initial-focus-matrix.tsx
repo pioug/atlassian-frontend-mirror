@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Popup from '@atlaskit/popup';
@@ -36,6 +36,31 @@ import Textfield from '@atlaskit/textfield';
  *   Expectation: focus stays on the external combobox input (focus is
  *   not moved into the listbox).
  *
+ * - `autofocus-dialog-popup`: a button trigger opens a `role="dialog"` popup
+ *   that contains an `<input>` carrying the native HTML `autofocus`
+ *   attribute. The first focusable in the popup is a button, but
+ *   `getInitialFocusTarget` must prefer the `[autofocus]` element for the
+ *   `dialog` role.
+ *   Expectation: focus lands on the autofocus input, not the first button.
+ *
+ * - `selected-option-listbox-popup`: a button trigger opens a
+ *   `role="listbox"` popup that contains two options where the second is
+ *   `aria-selected="true"`. `getInitialFocusTarget` must prefer the
+ *   selected option over the first option for the `listbox` role.
+ *   Expectation: focus lands on the selected (second) option.
+ *
+ * - `auto-focus-disabled-popup`: a button trigger opens a `role="dialog"`
+ *   popup configured with the `Popup` `autoFocus={false}` prop. The popup
+ *   disables its initial-focus behaviour, so focus must stay on the
+ *   trigger.
+ *   Expectation: focus stays on the trigger button.
+ *
+ * - `set-initial-focus-ref-popup`: a button trigger opens a `role="dialog"`
+ *   popup whose content render prop wires `setInitialFocusRef` to the
+ *   second button. The first button is the natural first focusable.
+ *   Expectation: focus lands on the consumer-chosen second button, not
+ *   the first focusable.
+ *
  * See: `platform/packages/design-system/top-layer/notes/architecture/focus.md`.
  */
 export default function TestingInitialFocusMatrix(): React.ReactNode {
@@ -44,6 +69,20 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 	const [openComboboxControls, setOpenComboboxControls] = useState(false);
 	const [openUnrelatedComboboxPopup, setOpenUnrelatedComboboxPopup] = useState(false);
 	const [openExternalComboboxPopup, setOpenExternalComboboxPopup] = useState(false);
+	const [openAutofocusDialogPopup, setOpenAutofocusDialogPopup] = useState(false);
+	const [openSelectedOptionListboxPopup, setOpenSelectedOptionListboxPopup] = useState(false);
+	const [openAutoFocusDisabledPopup, setOpenAutoFocusDisabledPopup] = useState(false);
+	const [openSetInitialFocusRefPopup, setOpenSetInitialFocusRefPopup] = useState(false);
+
+	// React 18 does not reflect the JSX `autoFocus` prop as the HTML
+	// `autofocus` attribute. `getInitialFocusTarget` queries `[autofocus]`
+	// against the DOM, so set the attribute imperatively via a ref callback.
+	const setNativeAutofocus = useCallback((node: HTMLInputElement | null) => {
+		if (node === null) {
+			return;
+		}
+		node.setAttribute('autofocus', '');
+	}, []);
 
 	return (
 		<div>
@@ -109,6 +148,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 					isOpen={openComboboxControls}
 					onClose={() => setOpenComboboxControls(false)}
 					role="listbox"
+					label="Combobox controls listbox"
 					id="initial-focus-combobox-listbox"
 					placement="bottom-start"
 					content={() => (
@@ -168,6 +208,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 					isOpen={openUnrelatedComboboxPopup}
 					onClose={() => setOpenUnrelatedComboboxPopup(false)}
 					role="listbox"
+					label="Unrelated combobox listbox"
 					id="initial-focus-unrelated-combobox-listbox"
 					placement="bottom-start"
 					content={() => (
@@ -225,6 +266,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 					isOpen={openExternalComboboxPopup}
 					onClose={() => setOpenExternalComboboxPopup(false)}
 					role="listbox"
+					label="External combobox listbox"
 					id="initial-focus-external-combobox-listbox"
 					placement="bottom-start"
 					content={() => (
@@ -256,6 +298,148 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							aria-hidden="true"
 							data-testid="external-combobox-popup-anchor"
 						/>
+					)}
+				/>
+			</section>
+
+			<section>
+				<h3>dialog popup with native [autofocus] element</h3>
+				<Popup
+					isOpen={openAutofocusDialogPopup}
+					onClose={() => setOpenAutofocusDialogPopup(false)}
+					role="dialog"
+					id="initial-focus-autofocus-dialog-popup"
+					placement="bottom-start"
+					content={() => (
+						<div data-testid="autofocus-dialog-popup-content">
+							<Button testId="autofocus-dialog-popup-first-button" onClick={() => {}}>
+								First action
+							</Button>
+							<label htmlFor="autofocus-dialog-popup-input">Name</label>
+							<input
+								id="autofocus-dialog-popup-input"
+								data-testid="autofocus-dialog-popup-input"
+								ref={setNativeAutofocus}
+								type="text"
+							/>
+						</div>
+					)}
+					trigger={(triggerProps) => (
+						<Button
+							{...triggerProps}
+							testId="autofocus-dialog-popup-trigger"
+							onClick={() => setOpenAutofocusDialogPopup((prev) => !prev)}
+						>
+							Open autofocus dialog popup
+						</Button>
+					)}
+				/>
+			</section>
+
+			<section>
+				<h3>listbox popup with aria-selected option</h3>
+				<Popup
+					isOpen={openSelectedOptionListboxPopup}
+					onClose={() => setOpenSelectedOptionListboxPopup(false)}
+					role="listbox"
+					label="Selected-option listbox example"
+					id="initial-focus-selected-option-listbox-popup"
+					placement="bottom-start"
+					content={() => (
+						<div data-testid="selected-option-listbox-popup-content">
+							<div
+								role="option"
+								aria-selected={false}
+								tabIndex={-1}
+								data-testid="selected-option-listbox-option-1"
+							>
+								Option 1
+							</div>
+							<div
+								role="option"
+								aria-selected={true}
+								tabIndex={-1}
+								data-testid="selected-option-listbox-option-2"
+							>
+								Option 2 (selected)
+							</div>
+						</div>
+					)}
+					trigger={(triggerProps) => (
+						<Button
+							{...triggerProps}
+							testId="selected-option-listbox-popup-trigger"
+							onClick={() => setOpenSelectedOptionListboxPopup((prev) => !prev)}
+						>
+							Open selected-option listbox popup
+						</Button>
+					)}
+				/>
+			</section>
+
+			<section>
+				<h3>dialog popup with autoFocus disabled</h3>
+				<Popup
+					isOpen={openAutoFocusDisabledPopup}
+					onClose={() => setOpenAutoFocusDisabledPopup(false)}
+					role="dialog"
+					id="initial-focus-auto-focus-disabled-popup"
+					autoFocus={false}
+					placement="bottom-start"
+					content={() => (
+						<div data-testid="auto-focus-disabled-popup-content">
+							<Button testId="auto-focus-disabled-popup-first-button" onClick={() => {}}>
+								First action
+							</Button>
+						</div>
+					)}
+					trigger={(triggerProps) => (
+						<Button
+							{...triggerProps}
+							testId="auto-focus-disabled-popup-trigger"
+							onClick={() => setOpenAutoFocusDisabledPopup((prev) => !prev)}
+						>
+							Open autoFocus-disabled popup
+						</Button>
+					)}
+				/>
+			</section>
+
+			<section>
+				<h3>dialog popup with consumer-provided setInitialFocusRef</h3>
+				<Popup
+					isOpen={openSetInitialFocusRefPopup}
+					onClose={() => setOpenSetInitialFocusRefPopup(false)}
+					role="dialog"
+					id="initial-focus-set-initial-focus-ref-popup"
+					placement="bottom-start"
+					content={({ setInitialFocusRef }) => (
+						<div data-testid="set-initial-focus-ref-popup-content">
+							<Button testId="set-initial-focus-ref-popup-first-button" onClick={() => {}}>
+								First action
+							</Button>
+							<Button
+								testId="set-initial-focus-ref-popup-second-button"
+								ref={(node) => {
+									// Pointing `setInitialFocusRef` at this button tells
+									// the popup to focus it on open instead of the first
+									// focusable.
+									setInitialFocusRef(node);
+								}}
+								onClick={() => {}}
+							>
+								Second action
+							</Button>
+						</div>
+					)}
+					trigger={(triggerProps) => (
+						<Button
+							{...triggerProps}
+							testId="set-initial-focus-ref-popup-trigger"
+							onClick={() => setOpenSetInitialFocusRefPopup((prev) => !prev)}
+						>
+							Open setInitialFocusRef popup
+						</Button>
 					)}
 				/>
 			</section>

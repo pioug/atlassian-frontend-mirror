@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { act, render } from '@atlassian/testing-library';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { act, render, screen } from '@atlassian/testing-library';
 
 import UFOInteractionContext from '../../interaction-context';
 import UFOInteractionIDContext, { DefaultInteractionID } from '../../interaction-id-context';
@@ -20,9 +21,14 @@ jest.mock('../segment', () => {
 	};
 });
 
-// Mock feature flags
+// Mock feature flags. `platform_ufo_3p_segment_resize_event` defaults to ON
+// so the existing `resized` ingestion tests exercise the happy path. The gate
+// is overridden to OFF in the dedicated gating tests below.
 jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(() => {
+	fg: jest.fn((key: string) => {
+		if (key === 'platform_ufo_3p_segment_resize_event') {
+			return true;
+		}
 		return false;
 	}),
 }));
@@ -73,17 +79,17 @@ describe('UFOThirdPartySegment', () => {
 	});
 
 	it('should render children within UFOSegment', async () => {
-		const { getByTestId, getByText } = render(
+		render(
 			<UFOThirdPartySegment name="test-segment">
 				<div>Test content</div>
 			</UFOThirdPartySegment>,
 		);
 
 		// Verify UFOSegment was rendered
-		expect(getByTestId('mock-ufo-segment')).toBeInTheDocument();
+		expect(screen.getByTestId('mock-ufo-segment')).toBeInTheDocument();
 
 		// Verify children were rendered
-		expect(getByText('Test content')).toBeInTheDocument();
+		expect(screen.getByText('Test content')).toBeInTheDocument();
 
 		await expect(document.body).toBeAccessible();
 	});
@@ -877,6 +883,329 @@ describe('UFOThirdPartySegment', () => {
 				expect.anything(),
 				expect.objectContaining({ label: 'segment-timing-abort' }),
 			);
+		});
+
+		describe('resized event ingestion (from useResizeAnalytics)', () => {
+			it('forwards a resized event with only { height, elapsed }', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({
+						type: 'resized',
+						height: 384,
+						measuredHeight: null,
+						viewportHeight: null,
+						elapsed: 850,
+					});
+				});
+
+				expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
+					'test-interaction-id',
+					expect.anything(),
+					expect.objectContaining({
+						label: 'resized',
+						data: { height: 384, elapsed: 850 },
+					}),
+				);
+			});
+
+			it('forwards multiple resized events as separate timeline entries', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({ type: 'resized', height: 0, elapsed: 102 });
+					getListener()({ type: 'resized', height: 384, elapsed: 850 });
+					getListener()({ type: 'resized', height: 412, elapsed: 1245 });
+				});
+
+				const resizedCalls = mockAddIframeSegmentData.mock.calls.filter(
+					(call) => call[2]?.label === 'resized',
+				);
+				expect(resizedCalls).toHaveLength(3);
+				expect(resizedCalls[0][2].data).toEqual({ height: 0, elapsed: 102 });
+				expect(resizedCalls[1][2].data).toEqual({ height: 384, elapsed: 850 });
+				expect(resizedCalls[2][2].data).toEqual({ height: 412, elapsed: 1245 });
+			});
+
+			it('ignores resized events with malformed payload (missing height)', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({ type: 'resized', elapsed: 500 });
+				});
+
+				expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
+					expect.anything(),
+					expect.anything(),
+					expect.objectContaining({ label: 'resized' }),
+				);
+			});
+
+			it('caps resized entries per segment at the defence-in-depth limit', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				// Fire 60 resized events; only the first 50 should be forwarded
+				// (MAX_RESIZED_ENTRIES_PER_SEGMENT = 50).
+				act(() => {
+					for (let i = 0; i < 60; i++) {
+						getListener()({ type: 'resized', height: 100 + i, elapsed: 100 + i });
+					}
+				});
+
+				const resizedCalls = mockAddIframeSegmentData.mock.calls.filter(
+					(call) => call[2]?.label === 'resized',
+				);
+				expect(resizedCalls).toHaveLength(50);
+				// First entry preserved; entry 51..60 dropped.
+				expect(resizedCalls[0][2].data).toEqual({ height: 100, elapsed: 100 });
+				expect(resizedCalls[49][2].data).toEqual({ height: 149, elapsed: 149 });
+			});
+
+			it('resets the per-segment cap when segmentId changes (SPA navigation)', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				const { rerender } = render(
+					<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
+						<UFOInteractionContext.Provider value={mockInteractionContext}>
+							<UFOThirdPartySegment
+								name="test-segment"
+								onRegisterIframeEventListener={onRegisterIframeEventListener}
+								extraData={{ appType: 'CustomUI' }}
+							>
+								<div>Test content</div>
+							</UFOThirdPartySegment>
+						</UFOInteractionContext.Provider>
+					</UFOInteractionIDContext.Provider>,
+				);
+
+				// Burn through the full 50-event budget on segment A.
+				act(() => {
+					for (let i = 0; i < 50; i++) {
+						getListener()({ type: 'resized', height: 100 + i, elapsed: 100 + i });
+					}
+				});
+
+				// Confirm a further event on segment A is dropped (cap hit).
+				act(() => {
+					getListener()({ type: 'resized', height: 999, elapsed: 999 });
+				});
+
+				const beforeNav = mockAddIframeSegmentData.mock.calls.filter(
+					(call) => call[2]?.label === 'resized',
+				);
+				expect(beforeNav).toHaveLength(50);
+
+				// Simulate an SPA navigation: swap the active segmentId via the
+				// labelStack and re-render. This causes IframeSegmentIdReader to
+				// update segmentIdRef.current to the new value.
+				const swappedContext = {
+					...mockInteractionContext,
+					labelStack: [{ name: 'test-segment', segmentId: 'segment-B' }],
+				};
+
+				rerender(
+					<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
+						<UFOInteractionContext.Provider value={swappedContext}>
+							<UFOThirdPartySegment
+								name="test-segment"
+								onRegisterIframeEventListener={onRegisterIframeEventListener}
+								extraData={{ appType: 'CustomUI' }}
+							>
+								<div>Test content</div>
+							</UFOThirdPartySegment>
+						</UFOInteractionContext.Provider>
+					</UFOInteractionIDContext.Provider>,
+				);
+
+				// On the new segment, a fresh budget should apply: 50 more events forward.
+				act(() => {
+					for (let i = 0; i < 50; i++) {
+						getListener()({ type: 'resized', height: 200 + i, elapsed: 200 + i });
+					}
+				});
+
+				const afterNav = mockAddIframeSegmentData.mock.calls.filter(
+					(call) => call[2]?.label === 'resized',
+				);
+				expect(afterNav).toHaveLength(100);
+				// New entries went to segment-B.
+				expect(afterNav[50][1]).toBe('segment-B');
+				expect(afterNav[99][2].data).toEqual({ height: 249, elapsed: 249 });
+			});
+
+			it('ignores resized events with negative elapsed values', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({ type: 'resized', height: 240, elapsed: -100 });
+				});
+
+				expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
+					expect.anything(),
+					expect.anything(),
+					expect.objectContaining({ label: 'resized' }),
+				);
+			});
+
+			it('drops resized events that arrive before segmentIdRef is populated', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				// Render with a context whose labelStack has no segmentId yet,
+				// so IframeSegmentIdReader cannot populate segmentIdRef.current.
+				const emptyContext = {
+					...mockInteractionContext,
+					labelStack: [],
+				};
+
+				render(
+					<UFOInteractionIDContext.Provider value={DefaultInteractionID}>
+						<UFOInteractionContext.Provider value={emptyContext}>
+							<UFOThirdPartySegment
+								name="test-segment"
+								onRegisterIframeEventListener={onRegisterIframeEventListener}
+								extraData={{ appType: 'CustomUI' }}
+							>
+								<div>Test content</div>
+							</UFOThirdPartySegment>
+						</UFOInteractionContext.Provider>
+					</UFOInteractionIDContext.Provider>,
+				);
+
+				// Fire a well-formed resized event before any segmentId is set.
+				act(() => {
+					getListener()({ type: 'resized', height: 240, elapsed: 100 });
+				});
+
+				// Guard should silently drop it: no addIframeSegmentData call for this event.
+				expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
+					expect.anything(),
+					expect.anything(),
+					expect.objectContaining({ label: 'resized' }),
+				);
+			});
+
+			it('ignores resized events with malformed payload (missing elapsed)', () => {
+				const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+				renderWithContext(
+					<UFOThirdPartySegment
+						name="test-segment"
+						onRegisterIframeEventListener={onRegisterIframeEventListener}
+						extraData={{ appType: 'CustomUI' }}
+					>
+						<div>Test content</div>
+					</UFOThirdPartySegment>,
+				);
+
+				act(() => {
+					getListener()({ type: 'resized', height: 240 } as any);
+				});
+
+				expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
+					expect.anything(),
+					expect.anything(),
+					expect.objectContaining({ label: 'resized' }),
+				);
+			});
+
+			it('does not forward resized events when platform_ufo_3p_segment_resize_event is OFF', () => {
+				// Temporarily flip the gate to OFF for this test only. Use a scoped
+				// `mockImplementation` keyed on the specific gate (rather than
+				// `mockImplementationOnce`) so the override is robust against any
+				// other `fg()` calls that might happen during render or effects —
+				// each consults the gate by key, so unrelated keys still return
+				// their default (true).
+				const fgMock = fg as jest.Mock;
+				const originalImpl = fgMock.getMockImplementation();
+				fgMock.mockImplementation((key: string) => {
+					if (key === 'platform_ufo_3p_segment_resize_event') {
+						return false;
+					}
+					return true;
+				});
+
+				try {
+					const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
+
+					renderWithContext(
+						<UFOThirdPartySegment
+							name="test-segment"
+							onRegisterIframeEventListener={onRegisterIframeEventListener}
+							extraData={{ appType: 'CustomUI' }}
+						>
+							<div>Test content</div>
+						</UFOThirdPartySegment>,
+					);
+
+					act(() => {
+						getListener()({ type: 'resized', height: 240, elapsed: 100 });
+					});
+
+					// Gate is OFF, so the event must not be forwarded as a `resized` entry.
+					expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
+						expect.anything(),
+						expect.anything(),
+						expect.objectContaining({ label: 'resized' }),
+					);
+				} finally {
+					// Restore the default mock so subsequent tests are unaffected.
+					if (originalImpl) {
+						fgMock.mockImplementation(originalImpl);
+					} else {
+						fgMock.mockReset();
+					}
+				}
+			});
 		});
 	});
 });

@@ -1,5 +1,22 @@
 # @atlaskit/modal-dialog
 
+## 15.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.0
+
+### Minor Changes
+
+- [`2fd74328732bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fd74328732bf) -
+  Updated to use new motion in top layer dialog
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.8
 
 ### Patch Changes

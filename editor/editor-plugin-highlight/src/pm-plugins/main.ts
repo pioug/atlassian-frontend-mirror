@@ -21,8 +21,6 @@ export enum HighlightPluginAction {
 	SET_PALETTE,
 }
 
-export const overrideMarks: string[] = ['textColor'];
-
 export const createPlugin = ({
 	api,
 }: {

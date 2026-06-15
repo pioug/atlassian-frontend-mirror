@@ -20,6 +20,7 @@ export const defaultAutocompleteProvider: AutocompleteProvider = {
 	onOperators: () => empty(),
 	onValues: () => empty(),
 	onFunctions: () => empty(),
+	onFunctionArguments: () => empty(),
 };
 
 export const JQLAutocompletePluginKey: PluginKey<void> = new PluginKey<void>(

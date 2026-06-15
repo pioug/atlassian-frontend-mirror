@@ -1,5 +1,7 @@
 import React, { useEffect, useLayoutEffect, useContext, useRef, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import type { EnhancedUFOInteractionContextType } from '../common';
 import UFOInteractionContext from '../interaction-context';
 import UFOInteractionIDContext from '../interaction-id-context';
@@ -37,6 +39,13 @@ const GRACE_PERIOD_MS = 2_000;
 // this window, the hold is force-released and an abort marker is logged. This protects
 // metric quality during progressive rollouts where old-cohort iframes never emit events.
 const ABORT_TIMEOUT_INITIAL_MS = 6_000;
+
+// Per-segment cap on the number of `resized` entries forwarded to addIframeSegmentData.
+// useResizeAnalytics already limits emissions to a 10s tracking window, but a chatty
+// app could still produce dozens of resizes; combined with many Forge apps on one
+// page this could push segment3pData toward the 60 KB soft limit. The cap provides
+// defence-in-depth without affecting realistic apps (typical <20 resizes per segment).
+const MAX_RESIZED_ENTRIES_PER_SEGMENT = 50;
 
 // Extended abort timeout (ms from mount). Once any recognised iframe event is received
 // we know the iframe is on the new rollout cohort and actively sending data, so we extend
@@ -96,6 +105,11 @@ function IframeSegment({
 		UFOInteractionContext,
 	) as EnhancedUFOInteractionContextType | null;
 	const segmentIdRef = useRef<string | undefined>(undefined);
+	// Per-segment counter for `resized` entries (defence-in-depth payload cap).
+	// Tracks both the count AND the segmentId it was last incremented under, so
+	// SPA navigations that swap segmentId reset the budget for the new segment.
+	const resizedCountRef = useRef(0);
+	const resizedCounterSegmentIdRef = useRef<string | undefined>(undefined);
 	const isUiKit = appType === 'UIKit';
 
 	// Released on the first navigation-timing event from the iframe.
@@ -210,6 +224,63 @@ function IframeSegment({
 		};
 
 		const handleEvent = (event: IframeSegmentEvent) => {
+			// Host-side `resized` events come from useResizeAnalytics (forge-ui).
+			// They are emitted whenever the iframe container height changes during
+			// the 10s tracking window after mount. We forward only the reliable
+			// fields (height, elapsed). The `measuredHeight` and `viewportHeight`
+			// fields are intentionally excluded because they require a vendor
+			// config that is rarely populated in practice (almost always null).
+			if (event.type === 'resized') {
+				// Gated by feature flag. When OFF, host-side `resized` events are
+				// ignored entirely so segment3pData and the abort timer behave as if
+				// this code path did not exist.
+				if (!fg('platform_ufo_3p_segment_resize_event')) {
+					return;
+				}
+				// Guard against malformed payloads (height is required and must be
+				// a non-negative number; useResizeAnalytics emits Math.trunc'd ints).
+				// `IframeSegmentEvent` already declares `[key: string]: unknown`, so
+				// no `as` cast is needed — the typeof guards handle runtime safety.
+				const { height, elapsed } = event;
+				// Reset the per-segment counter when the active segmentId changes
+				// (SPA navigations swap segments; each gets a fresh budget).
+				if (
+					segmentIdRef.current &&
+					segmentIdRef.current !== resizedCounterSegmentIdRef.current
+				) {
+					resizedCountRef.current = 0;
+					resizedCounterSegmentIdRef.current = segmentIdRef.current;
+				}
+				if (
+					typeof height === 'number' &&
+					Number.isFinite(height) &&
+					height >= 0 &&
+					typeof elapsed === 'number' &&
+					Number.isFinite(elapsed) &&
+					elapsed >= 0 &&
+					resizedCountRef.current < MAX_RESIZED_ENTRIES_PER_SEGMENT &&
+					interactionId.current &&
+					segmentIdRef.current
+				) {
+					resizedCountRef.current += 1;
+					addIframeSegmentData(interactionId.current, segmentIdRef.current, {
+						label: 'resized',
+						data: {
+							height,
+							elapsed,
+						},
+					});
+				}
+				// NOTE: we deliberately do NOT set iframeEventsReceived = true here.
+				// The 6s abort timer exists to detect old-cohort iframes that won't
+				// emit bridge events. `resized` is a host-side signal (forge-ui's
+				// ResizeObserver) and fires regardless of which bridge version the
+				// iframe is serving, so it cannot confirm new-cohort membership.
+				// Only bridge-emitted `ufo-forge-*` events (esp. `ufo-forge-init`)
+				// are valid proof, and they extend the abort timeout below.
+				return;
+			}
+
 			if (
 				event.type !== 'ufo-event' ||
 				typeof event.name !== 'string' ||

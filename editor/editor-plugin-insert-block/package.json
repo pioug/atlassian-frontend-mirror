@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "12.0.11",
+	"version": "12.0.16",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -133,9 +133,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ease_of_use_metrics": {
-			"type": "boolean"
-		},
-		"platform_editor_nov_a11y_fixes": {
 			"type": "boolean"
 		},
 		"platform_editor_experience_tracking_toolbar_button": {

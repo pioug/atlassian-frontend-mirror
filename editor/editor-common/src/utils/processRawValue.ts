@@ -403,15 +403,17 @@ export function processRawValue(
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const INVALID_MARKS_REGEX = /^Invalid collection of marks for node/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const INVALID_CONTENT_REGEX = /^Invalid content for node/;
+
 function isProseMirrorSchemaCheckError(error: unknown): boolean {
 	return (
 		error instanceof RangeError &&
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		(!!error.message.match(/^Invalid collection of marks for node/) ||
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			!!error.message.match(/^Invalid content for node/))
+		(!!error.message.match(INVALID_MARKS_REGEX) || !!error.message.match(INVALID_CONTENT_REGEX))
 	);
 }
 

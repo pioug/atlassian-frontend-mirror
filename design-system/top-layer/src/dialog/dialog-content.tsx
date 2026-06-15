@@ -92,7 +92,6 @@ export const Dialog: React.ForwardRefExoticComponent<
 	const ownRef = useRef<HTMLDialogElement>(null);
 	const combinedRef = mergeRefs([ownRef, ref as Ref<HTMLDialogElement>]);
 
-	// Animation lifecycle
 	const { phase, preset } = useAnimatedVisibility({
 		isOpen,
 		animate,
@@ -100,27 +99,18 @@ export const Dialog: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// Pre-computed phase predicate. `isVisible` means "host element is
-	// mounted and on screen" (any phase except `closed`), used as a dep
-	// signal for the backdrop-click rebind effect so it re-attaches to
-	// the fresh <dialog> element after a close → reopen unmount/remount
-	// cycle.
+	// True while the host element is mounted (any phase except `closed`).
+	// Used as a dep so listener-rebind effects re-attach after a remount.
 	const isVisible = phase !== 'closed';
 
-	// Focus wrap
-	// Native <dialog>.showModal() traps focus but wraps through <body> at
-	// the boundary (A → B → C → body → A). This hook intercepts Tab to
-	// wrap directly (A → B → C → A), matching the WAI-ARIA APG pattern.
-	//
-	// Takes `phase` directly: the listener stays attached while
-	// `phase !== 'closed'`, i.e. through the animated-exit window.
-	// Gating on `isOpen` would unbind the listener at the start of an
-	// exit animation while the dialog is still visible, letting focus
-	// escape (WCAG 2.4.3 Focus Order regression).
+	// Native `<dialog>.showModal()` traps focus but wraps through `<body>` at
+	// the boundary (A → B → C → body → A). This hook intercepts Tab to wrap
+	// directly (A → B → C → A), matching the WAI-ARIA APG pattern. Passing
+	// `phase` keeps the listener attached through the animated-exit window
+	// (WCAG 2.4.3 Focus Order regression guard).
 	useFocusWrap({ elementRef: ownRef, role: 'dialog', phase });
 
-	// Open layer observer registration
-	// Notifies the open layer observer so app-coordination features
+	// Notify the open layer observer so app-coordination features
 	// (open-count subscriptions) work with top-layer dialogs.
 	useNotifyOpenLayerObserver({
 		type: 'modal',
@@ -129,7 +119,6 @@ export const Dialog: React.ForwardRefExoticComponent<
 		onClose: noop,
 	});
 
-	// Show/hide the dialog in response to isOpen changes.
 	useLayoutEffect(() => {
 		const dialog = ownRef.current;
 		if (!dialog) {
@@ -189,15 +178,10 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// any atomic class, so the override always wins.
 	const escapedId = CSS.escape(dialogId);
 
-	// The `<dialog>` host element is only rendered while open or its exit
-	// animation is playing. After exit completes the phase returns to
-	// `closed` and we unmount the dialog entirely so it does not leave an
-	// empty `role="dialog"` element in the accessibility tree. The element
-	// re-mounts on the next `isOpen=true` commit; `showModal()` is called
-	// from the existing `useLayoutEffect([isOpen])` on that same commit,
-	// and listeners (cancel, click) re-bind via the `[onClose, isVisible]`
-	// effect re-running after remount (React clears the ref on unmount, so
-	// we need the listener effect to re-run with the fresh element).
+	// Unmount the `<dialog>` once exit completes so it does not leave an
+	// empty `role="dialog"` element in the accessibility tree. On the next
+	// open the element remounts and the `[isOpen]` and `[onClose, isVisible]`
+	// effects re-run against the fresh element.
 	if (!isVisible) {
 		return null;
 	}

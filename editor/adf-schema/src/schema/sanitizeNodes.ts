@@ -35,17 +35,20 @@ function sanitizeNodeSpecContent(nodes: { [key: string]: NodeSpec }, rawContent:
 	);
 }
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const WORD_CHAR_REGEX = /\w/u;
+
 function sanitizedContent(content: string | undefined, invalidContent: string): string {
 	if (!invalidContent.length) {
 		return content || '';
 	}
 
-	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-	if (!content || !content.match(/\w/u)) {
+	if (!content || !content.match(WORD_CHAR_REGEX)) {
 		return '';
 	}
 
 	const pattern = `(${invalidContent}((\\s)*\\|)+)|((\\|(\\s)*)+${invalidContent}(\\+|\\*)?)|(${invalidContent}$)|(${invalidContent}(\\+|\\*))`;
+	// Ignored via go/ees019
 	return content.replace(new RegExp(pattern, 'gu'), '').replace('  ', ' ').trim();
 }
 

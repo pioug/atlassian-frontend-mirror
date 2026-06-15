@@ -27,8 +27,8 @@ export const getUser = (
 	id: string,
 	displayName: string,
 ): {
-	id: string;
 	displayName: string;
+	id: string;
 	profilePicture: {
 		path: string;
 	};

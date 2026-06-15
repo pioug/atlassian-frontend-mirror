@@ -15,7 +15,6 @@ import { TOOLBAR_BUTTON_TEST_ID } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import { ToolbarButton, ToolbarTooltip, ImageIcon, useToolbarUI } from '@atlaskit/editor-toolbar';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 
@@ -50,23 +49,12 @@ export const MediaButton = ({ api }: MediaButtonProps): React.JSX.Element | null
 
 		if (api?.mediaInsert?.commands?.showMediaInsertPopup) {
 			const ref = mediaButtonRef.current;
-			const mountInfoOld = ref
-				? {
-						ref,
-						mountPoint: ref,
-					}
-				: undefined;
-			const mountInfo = ref?.parentElement
+			const resolvedMountInfo = ref?.parentElement
 				? {
 						ref,
 						mountPoint: popupsMountPoint ?? ref.parentElement,
 					}
 				: undefined;
-			const resolvedMountInfo = editorExperiment('platform_editor_fix_media_picker_hidden', true, {
-				exposure: true,
-			})
-				? mountInfo
-				: mountInfoOld;
 
 			api?.core?.actions.execute(
 				api?.mediaInsert?.commands.showMediaInsertPopup(resolvedMountInfo),

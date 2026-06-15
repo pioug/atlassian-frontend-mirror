@@ -260,6 +260,13 @@ const contentAreaHeightNoToolbar = css({
 	height: '100%',
 });
 
+// When the markdown source view is shown (markdown mode toggled on and not in
+// the WYSIWYG "preview" view) we tint the whole editor container with the
+// sunken surface so the source editor reads as a distinct, inset surface.
+const markdownModeContainerBackgroundStyle = css({
+	backgroundColor: token('elevation.surface.sunken'),
+});
+
 type EditorAPI = PublicPluginAPI<
 	[
 		OptionalPlugin<ContextPanelPlugin>,
@@ -365,10 +372,13 @@ const Content = React.forwardRef<
 			ref={containerRef}
 		>
 			<div
-				css={
+				css={[
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-					contentAreaWrapper
-				}
+					contentAreaWrapper,
+					shouldHideProseMirrorForMarkdownMode &&
+						fg('platform_editor_md_mvp_layout') &&
+						markdownModeContainerBackgroundStyle,
+				]}
 				data-testid={EDITOR_CONTAINER}
 				data-editor-container={'true'}
 			>

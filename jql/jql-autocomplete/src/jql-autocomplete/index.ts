@@ -7,8 +7,8 @@ import { BaseAutocomplete } from '../base-autocomplete';
 import { type RuleSuggestionsWithRuleList, type Suggestions } from '../base-autocomplete/types';
 import { type Position } from '../common/types';
 
-import { rulesWithContext, unclosedStringTokens } from './constants';
-import { defaultDelimiterTokens, defaultIgnoredTokens, defaultPreferredRules } from './defaults';
+import { isRuleWithContext, unclosedStringTokens } from './constants';
+import { defaultDelimiterTokens, defaultIgnoredTokens, getDefaultPreferredRules } from './defaults';
 import { RuleContextVisitor } from './rule-context-visitor';
 import { type JQLRuleContext, type JQLRuleSuggestions, type JQLSuggestions } from './types';
 import { isPredicateOperand } from './util';
@@ -25,7 +25,7 @@ export class JQLAutocomplete extends BaseAutocomplete<JQLRuleContext> {
 	private constructor(
 		parser: JQLParser,
 		ignoredTokens: Set<number> = defaultIgnoredTokens,
-		preferredRules: Set<number> = defaultPreferredRules,
+		preferredRules: Set<number> = getDefaultPreferredRules(),
 		delimiterTokens: Set<number> = defaultDelimiterTokens,
 		tree?: ParseTree,
 	) {
@@ -39,7 +39,7 @@ export class JQLAutocomplete extends BaseAutocomplete<JQLRuleContext> {
 	 *
 	 * @param text Text to compute suggestions for.
 	 * @param ignoredTokens Tokens which we do not want to return as suggestions. When not provided, {@link defaultIgnoredTokens} will be used.
-	 * @param preferredRules Rules we want to return as suggestions. When not provided, {@link defaultPreferredRules} will be used.
+	 * @param preferredRules Rules we want to return as suggestions. When not provided, {@link getDefaultPreferredRules} will be used.
 	 * @param delimiterTokens Tokens to use as delimiters. When not provided, {@link defaultDelimiterTokens} will be used.
 	 */
 	static fromText(
@@ -69,7 +69,7 @@ export class JQLAutocomplete extends BaseAutocomplete<JQLRuleContext> {
 	 *
 	 * @param parser Parser instance to compute suggestions for.
 	 * @param ignoredTokens Tokens which we do not want to return as suggestions. When not provided, {@link defaultIgnoredTokens} will be used.
-	 * @param preferredRules Rules we want to return as suggestions. When not provided, {@link defaultPreferredRules} will be used.
+	 * @param preferredRules Rules we want to return as suggestions. When not provided, {@link getDefaultPreferredRules} will be used.
 	 * @param delimiterTokens Tokens to use as delimiters. When not provided, {@link defaultDelimiterTokens} will be used.
 	 */
 	static fromParser(
@@ -95,7 +95,7 @@ export class JQLAutocomplete extends BaseAutocomplete<JQLRuleContext> {
 		}
 
 		rules.forEach(([ruleSuggestion, ruleList], ruleNumber) => {
-			if (rulesWithContext.includes(ruleNumber)) {
+			if (isRuleWithContext(ruleNumber)) {
 				const ruleContextVisitor = new RuleContextVisitor(
 					ruleSuggestion,
 					ruleList,

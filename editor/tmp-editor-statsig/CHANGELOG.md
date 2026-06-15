@@ -1,5 +1,50 @@
 # @atlaskit/editor-statsig-tmp
 
+## 103.0.0
+
+### Major Changes
+
+- [`d6c0ba39b44b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6c0ba39b44b2) -
+  Clean up experiment `platform_editor_outdated_browser_update`
+- [`18c3f1c09a80c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18c3f1c09a80c) -
+  Clean up experiment `platform_editor_rovo_inline_chat_aria_label`
+
+## 102.0.0
+
+### Major Changes
+
+- [`db6cfe6d842ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db6cfe6d842ac) -
+  Cleaned up stale experiment platform_editor_fix_media_picker_hidden. Removed experiment gating in
+  MediaButton, keeping the shipped (true) code path. Removed experiment type definition and config
+  entry.
+- [`258fd5f8909fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/258fd5f8909fd) -
+  Cleaning up and abandoning the block card post-auth 3P experiment for Jira
+
+### Minor Changes
+
+- [`4d71a7433de62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d71a7433de62) -
+  Use Teamoji default reaction IDs behind the emoji picker refresh experiment.
+
+## 101.0.0
+
+### Major Changes
+
+- [`01c0f76dfce1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01c0f76dfce1e) -
+  Cleanup experiment `platform_editor_media_vc_fixes_patch1`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 100.0.0
+
+### Major Changes
+
+- [`643d0f8f77dff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/643d0f8f77dff) -
+  Clean up stale experiment platform_editor_pasting_text_in_panel (FFCLEANUP-104459)
+- [`c70fd1e57edcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c70fd1e57edcf) -
+  Cleaned up stale feature flag `platform_editor_lovability_select_all_shortcut`
+
 ## 99.1.0
 
 ### Minor Changes

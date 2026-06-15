@@ -7,7 +7,6 @@ import rafSchedule from 'raf-schd';
 import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -415,11 +414,7 @@ export default class Popup extends React.Component<Props, State> {
 		 * We set aria-label to undefined if it's null, no more 'Popup' fallback.
 		 * It is meaningless for screen readers and causes confusion.
 		 */
-		const ariaLabel = fg('_editor_a11y_aria_label_removal_popup')
-			? (this.props.ariaLabel ?? undefined)
-			: this.props.ariaLabel === null
-				? undefined
-				: this.props.ariaLabel || 'Popup';
+		const ariaLabel = this.props.ariaLabel ?? undefined;
 		const getRole = () => {
 			// Provide a valid role only when aria-label is present to satisfy a11y rules, as when aria-label is present, role is required
 			// use role = dialog as default role, as dialog role itself is not a parent role that requires specific children to function as some other ARIA roles(menu) do

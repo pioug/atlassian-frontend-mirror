@@ -473,7 +473,7 @@ export function VrJsFallbackBlockEndShiftBackwards(): ReactNode {
 }
 
 // JS fallback: align: 'end' + shift forwards. Locks in the per-align sign
-// flip in `applyShift` — without it, the END-anchored popover does not shift.
+// flip in `applyShift` - without it, the END-anchored popover does not shift.
 export function VrJsFallbackBlockEndAlignEndShiftForwards(): ReactNode {
 	return (
 		<VrPopoverJsFallback

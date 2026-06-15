@@ -9,17 +9,20 @@ type XYZ = { x: number; y: number; z: number };
 // https://en.wikipedia.org/wiki/CIELAB_color_space
 type LAB = { a: number; b: number; l: number };
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const SHORTHAND_HEX_REGEX = /^#?([a-f\d])([a-f\d])([a-f\d])$/iu;
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const FULL_HEX_REGEX = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/iu;
+
 const clamp = (i: number, min: number, max: number): number =>
 	Math.round(Math.min(Math.max(i, min), max));
 
 const expandShorthandHex = (input: string): string =>
-	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-	input.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/iu, (m, r, g, b) => r + r + g + g + b + b);
+	input.replace(SHORTHAND_HEX_REGEX, (m, r, g, b) => r + r + g + g + b + b);
 
 const rgbFromHex = (input: string): RGB | null => {
 	const fullHex = expandShorthandHex(input);
-	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/iu.exec(fullHex);
+	const result = FULL_HEX_REGEX.exec(fullHex);
 	return result === null
 		? null
 		: {

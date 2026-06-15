@@ -10,7 +10,8 @@ import ImageThemed from '../../examples/constellation/image-themed';
 ### Default
 
 The image component works exactly like a native `img` element. It recognizes and accepts all `img`
-props, but future versions will have limitations to exclude unsafe props like `className` and `css`.
+props, including `className`. Treat `className` and `css` as escape hatches only; style the image's
+container where possible.
 
 <Example Component={ImageDefault} packageName="@atlaskit/image" />
 

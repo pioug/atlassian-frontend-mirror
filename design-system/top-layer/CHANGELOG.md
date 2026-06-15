@@ -1,5 +1,19 @@
 # @atlaskit/top-layer
 
+## 0.18.0
+
+### Minor Changes
+
+- [`b7ed2b39d3ef8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7ed2b39d3ef8) -
+  Internal: align code with package conventions. No functional changes
+
+## 0.17.0
+
+### Minor Changes
+
+- [`2fd74328732bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fd74328732bf) -
+  Add dialogMotion animation preset with token-based motion values and backdrop animation
+
 ## 0.16.0
 
 ### Minor Changes

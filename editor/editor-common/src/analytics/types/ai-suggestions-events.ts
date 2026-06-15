@@ -2,6 +2,7 @@ import type { ACTION, ACTION_SUBJECT } from './enums';
 import type { OperationalAEP, TrackAEP } from './utils';
 
 export type AiSuggestionsEntryPoint = 'primaryToolbar' | 'commentsEmptyState';
+export type AiSuggestionInteractionPoint = 'sidebar' | 'card';
 
 type NoDiffSuggestionAEP = OperationalAEP<
 	ACTION.NO_DIFF_FOUND,
@@ -35,7 +36,7 @@ type AcceptSuggestionAEP = TrackAEP<
 		affectedBlocks: number;
 		charactersAdded: number;
 		charactersRemoved: number;
-		entryPoint: 'sidebar' | 'card';
+		interactionPoint: AiSuggestionInteractionPoint;
 		suggestionType: string;
 	},
 	undefined
@@ -47,7 +48,7 @@ type DiscardSuggestionAEP = TrackAEP<
 	undefined,
 	{
 		affectedBlocks: number;
-		entryPoint: 'sidebar' | 'card';
+		interactionPoint: AiSuggestionInteractionPoint;
 		suggestionType: string;
 	},
 	undefined
@@ -62,7 +63,7 @@ type ViewSuggestionAEP = TrackAEP<
 		blockTypes: string[];
 		charactersToAdd: number;
 		charactersToRemove: number;
-		entryPoint: 'sidebar' | 'card';
+		interactionPoint: AiSuggestionInteractionPoint;
 		suggestionCardCharacterCount: number;
 		suggestionType: string;
 	},

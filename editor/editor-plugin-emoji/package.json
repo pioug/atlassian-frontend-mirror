@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "12.0.12",
+	"version": "12.1.0",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -115,6 +115,9 @@
 			"type": "boolean"
 		},
 		"platform_twemoji_removal_unicode_emojis": {
+			"type": "boolean"
+		},
+		"platform_editor_custom_emoji_unicode_fallback": {
 			"type": "boolean"
 		}
 	}

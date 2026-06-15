@@ -10,6 +10,16 @@ import {
 	SERIALIZABLE_ATTRIBUTES,
 } from './normalise-sentry-breadcrumbs';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const NETWORK_ERROR_REGEX = /^network error/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const NETWORK_FAILURE_REGEX = /^network failure/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const RESIZE_OBSERVER_LOOP_REGEX = /ResizeObserver loop completed with undelivered notifications/;
+
 const SENTRY_DSN =
 	'https://0b10c8e02fb44d8796c047b102c9bee8@o55978.ingest.sentry.io/4505129224110080';
 
@@ -72,18 +82,12 @@ export const logException = async (
 				: undefined,
 			ignoreErrors: [
 				// Network issues
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				/^network error/i,
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				/^network failure/i,
+				NETWORK_ERROR_REGEX,
+				NETWORK_FAILURE_REGEX,
 				'TypeError: Failed to fetch',
 				// A benign error, see https://stackoverflow.com/a/50387233/2645305
 				'ResizeObserver loop limit exceeded',
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				/ResizeObserver loop completed with undelivered notifications/,
+				RESIZE_OBSERVER_LOOP_REGEX,
 			],
 			autoSessionTracking: false,
 			integrations: (_integrations: Integration[]): Integration[] => [

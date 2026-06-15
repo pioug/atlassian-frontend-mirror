@@ -96,7 +96,7 @@ function NotePopover() {
 				type="button"
 				data-testid="note-trigger"
 				onClick={toggle}
-				// role="note" is informational — no aria-haspopup or aria-expanded on the trigger.
+				// role="note" is informational - no aria-haspopup or aria-expanded on the trigger.
 				// `aria-controls` is only set while the popover host element is in the
 				// DOM (i.e. while open or exit-animating). Setting it while the target
 				// ID is missing produces an axe `aria-valid-attr-value` violation.

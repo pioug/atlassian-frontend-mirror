@@ -41,7 +41,6 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
@@ -683,10 +682,7 @@ export const MediaSingleNodeNext = (
 		</figure>
 	);
 
-	if (
-		widthType !== 'pixel' &&
-		expValEquals('platform_editor_media_vc_fixes_patch1', 'isEnabled', true)
-	) {
+	if (widthType !== 'pixel') {
 		return (
 			<Fragment>
 				{canResize ? (

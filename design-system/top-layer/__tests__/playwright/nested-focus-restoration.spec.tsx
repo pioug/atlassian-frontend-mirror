@@ -149,7 +149,7 @@ test.describe('Nested popover focus restoration - passive roles', () => {
 		await tooltipTrigger.click();
 		await expect(page.getByTestId('inner-tooltip-popover')).toBeVisible();
 
-		// Focus must remain on the trigger — tooltip never moves focus into itself.
+		// Focus must remain on the trigger - tooltip never moves focus into itself.
 		await expect(tooltipTrigger).toBeFocused();
 
 		// Close via Escape and verify the trigger still has focus.

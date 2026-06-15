@@ -16,6 +16,31 @@ import type { Command } from '../types/command';
 import type { EditorCommand } from '../types/editor-command';
 import { getBrowserInfo } from '../utils/browser';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const MOD_REGEX = /Mod/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const CMD_REGEX = /Cmd/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const SHIFT_REGEX = /Shift/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const CTRL_REGEX = /Ctrl/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ALT_REGEX = /Alt/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const BACKSPACE_REGEX = /Backspace/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ENTER_REGEX = /Enter/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const UPPERCASE_START_REGEX = /^[A-Z]/;
+
 export const addAltText: Keymap = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
 export const toggleMarkdownView: Keymap = makeKeyMapWithCommon('Toggle markdown view', 'Mod-e');
 export const toggleViewChanges: Keymap = makeKeyMapWithCommon('View changes', 'Mod-Alt-z');
@@ -232,28 +257,14 @@ export function formatShortcut(keymap: Keymap): string | undefined {
 	if (browser.mac) {
 		// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
 		shortcut = keymap.mac
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			.replace(/Cmd/i, '\u2318')
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			.replace(/Shift/i, '\u21E7')
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			.replace(/Ctrl/i, '\u2303')
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			.replace(/Alt/i, '\u2325')
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			.replace(/Backspace/i, '\u232B')
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			.replace(/Enter/i, '\u23CE');
+			.replace(CMD_REGEX, '\u2318')
+			.replace(SHIFT_REGEX, '\u21E7')
+			.replace(CTRL_REGEX, '\u2303')
+			.replace(ALT_REGEX, '\u2325')
+			.replace(BACKSPACE_REGEX, '\u232B')
+			.replace(ENTER_REGEX, '\u23CE');
 	} else {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		shortcut = keymap.windows.replace(/Backspace/i, '\u232B');
+		shortcut = keymap.windows.replace(BACKSPACE_REGEX, '\u232B');
 	}
 	// If there are two - keys side by side preserve it's place so we can add it back
 	const keys = shortcut.split('-');
@@ -457,23 +468,15 @@ export function makeKeymap(
 ): Keymap {
 	return {
 		description: description,
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		windows: windows.replace(/Mod/i, 'Ctrl'),
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		mac: mac.replace(/Mod/i, 'Cmd'),
+		windows: windows.replace(MOD_REGEX, 'Ctrl'),
+		mac: mac.replace(MOD_REGEX, 'Cmd'),
 		common: common,
 	};
 }
 
 export function makeKeyMapWithCommon(description: string, common: string): Keymap {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	const windows = common.replace(/Mod/i, 'Ctrl');
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	const mac = common.replace(/Mod/i, 'Cmd');
+	const windows = common.replace(MOD_REGEX, 'Ctrl');
+	const mac = common.replace(MOD_REGEX, 'Cmd');
 	return makeKeymap(description, windows, mac, common);
 }
 
@@ -553,9 +556,7 @@ export function isCapsLockOnAndModifyKeyboardEvent(event: KeyboardEvent): Keyboa
 		event.getModifierState('CapsLock') &&
 		!event.getModifierState('Shift') &&
 		name.length === 1 &&
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		/^[A-Z]/.test(name)
+		UPPERCASE_START_REGEX.test(name)
 	) {
 		keyboardEvent = new KeyboardEvent('keydown', {
 			key: base[event.keyCode].toLowerCase(),

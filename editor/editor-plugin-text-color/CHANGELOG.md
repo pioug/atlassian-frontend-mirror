@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugin-text-color
 
+## 11.2.0
+
+### Minor Changes
+
+- [`b26d59f2d7dbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b26d59f2d7dbf) -
+  [ux] [EDITOR-7589] combine text color highlight color behind experiment
+
+### Patch Changes
+
+- [`3a59e88cfd890`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a59e88cfd890) -
+  [ux] [EDITOR-7589] update icon colors for highlight color palette and toolbar icon
+- Updated dependencies
+
+## 11.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.0
 
 ### Minor Changes

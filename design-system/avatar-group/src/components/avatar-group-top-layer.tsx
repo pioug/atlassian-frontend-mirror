@@ -3,7 +3,6 @@ import React, { type MouseEventHandler, useCallback, useEffect, useRef } from 'r
 import { bind } from 'bind-event-listener';
 
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
-import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import { MenuGroup, Section } from '@atlaskit/menu';
 import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
@@ -131,26 +130,28 @@ export function MoreDropdownTopLayer({
 
 	// ArrowDown-to-open: when the trigger is focused and the menu is closed,
 	// pressing ArrowDown opens the menu (WAI-ARIA menu button pattern).
-	// We track focus on the trigger wrapper to avoid threading onFocus/onBlur
-	// through the renderMoreButton/MoreIndicator prop plumbing.
-	const triggerWrapperRef = useRef<HTMLSpanElement>(null);
-	const { isFocused, bindFocus: triggerFocusBind } = useFocus();
+	//
+	// Bind the keydown listener directly to the trigger element via its ref so
+	// that opening the menu does not trigger a focus-driven re-render of the
+	// host component, which would unmount and remount the menu items and drop
+	// menuitem focus.
 	useEffect(() => {
-		if (!isFocused || isOpen) {
+		const trigger = triggerRef.current;
+		if (!trigger || isOpen) {
 			return;
 		}
 
-		return bind(window, {
+		return bind(trigger, {
 			type: 'keydown',
-			listener: function openOnArrowDown(e: KeyboardEvent) {
-				if (e.key === KEY_DOWN) {
+			listener: function openOnArrowDown(event: KeyboardEvent) {
+				if (event.key === KEY_DOWN) {
 					// Prevent page scroll when opening the menu via ArrowDown.
-					e.preventDefault();
-					handleTriggerClicked(e);
+					event.preventDefault();
+					handleTriggerClicked(event);
 				}
 			},
 		});
-	}, [isFocused, isOpen, handleTriggerClicked]);
+	}, [isOpen, handleTriggerClicked]);
 
 	const triggerAria = getAriaForTrigger({ role: 'menu', isOpen, popoverId });
 
@@ -160,35 +161,11 @@ export function MoreDropdownTopLayer({
 
 	return (
 		<>
-			{/*
-			 * Workaround: wrapping span to track trigger focus for ArrowDown-to-open.
-			 *
-			 * The `useFocus` hook needs onFocus/onBlur on the trigger element,
-			 * but we cannot thread those through the renderMoreButton → MoreIndicator
-			 * prop plumbing without changing those APIs (onFocus/onBlur would need
-			 * to go into MoreIndicator's `buttonProps`, but renderMoreButton does not
-			 * expose that).
-			 *
-			 * Using `display: contents` so the span does not affect layout — the
-			 * button renders as if the span were not there. Focus events from the
-			 * button bubble up to this span, allowing useFocus to track state.
-			 *
-			 * If MoreIndicator's API is refactored to accept focus handlers via
-			 * buttonProps, this wrapper can be removed.
-			 */}
-			<span
-				ref={triggerWrapperRef}
-				onFocus={triggerFocusBind.onFocus}
-				onBlur={triggerFocusBind.onBlur}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- display: contents is a layout-neutral wrapper; it cannot affect visual output.
-				style={{ display: 'contents' }}
-			>
-				{renderMoreButton({
-					ref: setTriggerRef,
-					...triggerAria,
-					onClick: handleTriggerClicked,
-				})}
-			</span>
+			{renderMoreButton({
+				ref: setTriggerRef,
+				...triggerAria,
+				onClick: handleTriggerClicked,
+			})}
 			<Popover
 				ref={popoverRef}
 				id={popoverId}

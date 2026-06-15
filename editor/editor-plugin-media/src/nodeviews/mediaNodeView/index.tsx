@@ -30,7 +30,6 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { hasAIGeneratingDecoration } from '../../pm-plugins/ai-generating-decoration';
@@ -258,22 +257,13 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 			return flexibleDimensions;
 		}
 
-		if (expValEquals('platform_editor_media_vc_fixes_patch1', 'isEnabled', true)) {
-			if (this.hasPxWidthType(mediaSingleNodeParent)) {
-				return {
-					width: `${mediaSingleNodeParent.attrs.width}px`,
-					height: '100%',
-				};
-			}
-			return flexibleDimensions;
+		if (this.hasPxWidthType(mediaSingleNodeParent)) {
+			return {
+				width: `${mediaSingleNodeParent.attrs.width}px`,
+				height: '100%',
+			};
 		}
-
-		// Compute normal dimensions
-		const maxWidth = this.getMaxWidthFromMediaSingleNode(mediaSingleNodeParent);
-		return {
-			width: `${maxWidth}px`,
-			height: '100%',
-		};
+		return flexibleDimensions;
 	};
 
 	getMediaProviderToUse = (

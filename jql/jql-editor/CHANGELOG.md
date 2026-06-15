@@ -1,5 +1,16 @@
 # @atlaskit/jql-editor
 
+## 6.6.0
+
+### Minor Changes
+
+- [`506238c0247fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/506238c0247fd) -
+  PTC-16709: Added changes to show autocomplete for membersOf function to fetch Teams
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.5.0
 
 ### Minor Changes

@@ -1,5 +1,31 @@
 # @atlaskit/reactions
 
+## 34.4.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.4.12
+
+### Patch Changes
+
+- [`4d71a7433de62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d71a7433de62) -
+  Use Teamoji default reaction IDs behind the emoji picker refresh experiment.
+- Updated dependencies
+
+## 34.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.4.9
 
 ### Patch Changes

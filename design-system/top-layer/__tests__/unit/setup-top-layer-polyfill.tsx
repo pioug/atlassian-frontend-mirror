@@ -51,8 +51,7 @@ function createDialog(): HTMLDialogElement {
 	return document.createElement('dialog');
 }
 
-// ─── showPopover() ──────────────────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
+// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
 
 describe('showPopover()', () => {
 	it('should throw NotSupportedError when element has no popover attribute', () => {
@@ -118,8 +117,7 @@ describe('showPopover()', () => {
 	});
 });
 
-// ─── hidePopover() ──────────────────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/popover.html#dom-hidepopover
+// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-hidepopover
 
 describe('hidePopover()', () => {
 	it('should throw NotSupportedError when element has no popover attribute', () => {
@@ -173,8 +171,7 @@ describe('hidePopover()', () => {
 	});
 });
 
-// ─── popover beforetoggle event ─────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/popover.html#popover-toggle-event-task
+// Spec: https://html.spec.whatwg.org/multipage/popover.html#popover-toggle-event-task
 
 describe('popover beforetoggle event', () => {
 	it('should fire synchronously during showPopover()', () => {
@@ -330,9 +327,7 @@ describe('popover beforetoggle event', () => {
 	});
 });
 
-// ─── popover toggle event ───────────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/popover.html#queue-a-popover-toggle-event-task
-
+// Spec: https://html.spec.whatwg.org/multipage/popover.html#queue-a-popover-toggle-event-task
 describe('popover toggle event', () => {
 	it('should fire as a task, after microtasks drain', async () => {
 		jest.useFakeTimers();
@@ -442,9 +437,7 @@ describe('popover toggle event', () => {
 	});
 });
 
-// ─── popover toggle event coalescing ────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/popover.html#queue-a-popover-toggle-event-task
-
+// Spec: https://html.spec.whatwg.org/multipage/popover.html#queue-a-popover-toggle-event-task
 describe('popover toggle event coalescing', () => {
 	it('should coalesce show+hide into one toggle event', () => {
 		jest.useFakeTimers();
@@ -517,9 +510,7 @@ describe('popover toggle event coalescing', () => {
 	});
 });
 
-// ─── togglePopover() ────────────────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/popover.html#dom-togglepopover
-
+// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-togglepopover
 describe('togglePopover()', () => {
 	it('should open a closed popover and return true', () => {
 		const popover = createPopover({ mode: 'manual' });
@@ -597,9 +588,7 @@ describe('togglePopover()', () => {
 	});
 });
 
-// ─── dialog.showModal() ─────────────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-showmodal
-
+// Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-showmodal
 describe('dialog.showModal()', () => {
 	it('should throw InvalidStateError when dialog is not connected', () => {
 		const dialog = document.createElement('dialog');
@@ -717,9 +706,7 @@ describe('dialog.showModal()', () => {
 	});
 });
 
-// ─── dialog.show() ──────────────────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-show
-
+// Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-show
 describe('dialog.show()', () => {
 	it('should not throw when dialog is disconnected', () => {
 		const dialog = document.createElement('dialog');
@@ -802,9 +789,7 @@ describe('dialog.show()', () => {
 	});
 });
 
-// ─── dialog.close() ─────────────────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-close
-
+// Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-close
 describe('dialog.close()', () => {
 	it('should be a no-op when already closed', () => {
 		jest.useFakeTimers();
@@ -977,9 +962,7 @@ describe('dialog.close()', () => {
 	});
 });
 
-// ─── dialog.returnValue ─────────────────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-returnvalue
-
+// Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#dom-dialog-returnvalue
 describe('dialog.returnValue', () => {
 	it('should default to empty string', () => {
 		const dialog = createDialog();
@@ -1026,9 +1009,6 @@ describe('dialog.returnValue', () => {
 		cleanup();
 	});
 });
-
-// ─── auto popover stack & dismissal ─────────────────────────────────────────
-// https://html.spec.whatwg.org/multipage/popover.html#popover-light-dismiss
 
 // Spec: https://html.spec.whatwg.org/multipage/popover.html#hide-all-popovers-until
 describe('popover="auto" stack and light-dismiss', () => {
@@ -1152,13 +1132,10 @@ describe('popover="auto" stack and light-dismiss', () => {
 	});
 });
 
-// ─── popover opacity-clear on open ──────────────────────────────────────────
-// In jsdom there is no real layout, so any caller that uses a
-// `ResizeObserver`-driven reveal pattern (e.g. `use-anchor-position`) would
-// otherwise leave the popover at `opacity: 0`. The polyfill clears any inline
+// Polyfill-only behaviour: jsdom does not deliver ResizeObserver callbacks, so
+// callers using a ResizeObserver-driven reveal (e.g. `use-anchor-position`)
+// would leave the popover at `opacity: 0`. The polyfill clears any inline
 // `opacity` set before its own toggle listener runs.
-
-// Polyfill-only behaviour to compensate for jsdom not delivering ResizeObserver callbacks.
 describe('popover opacity guard cleanup', () => {
 	it('clears inline opacity:0 set before showPopover after the open toggle fires', () => {
 		jest.useFakeTimers();
@@ -1215,8 +1192,6 @@ describe('popover opacity guard cleanup', () => {
 	});
 });
 
-// ─── togglePopover() return value after cancel ──────────────────────────────
-
 // Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-togglepopover
 describe('togglePopover() return value after beforetoggle cancellation', () => {
 	it('returns false when beforetoggle is cancelled on show (no force)', () => {
@@ -1267,8 +1242,6 @@ describe('togglePopover() return value after beforetoggle cancellation', () => {
 		cleanup();
 	});
 });
-
-// ─── auto-stack membership ──────────────────────────────────────────────────
 
 // Spec: https://html.spec.whatwg.org/multipage/popover.html#showing-auto-popover-list
 describe('auto-stack membership', () => {
@@ -1350,8 +1323,6 @@ describe('auto-stack membership', () => {
 	});
 });
 
-// ─── opacity-clear one-shot semantics ───────────────────────────────────────
-
 // Polyfill-only behaviour: only clears opacity on the open toggle, never after.
 describe('opacity-clear listener is one-shot', () => {
 	it('does not clear opacity set after the open toggle has fired', () => {
@@ -1370,8 +1341,6 @@ describe('opacity-clear listener is one-shot', () => {
 		cleanup();
 	});
 });
-
-// ─── popover attribute mode parsing ─────────────────────────────────────────
 
 // Spec: https://html.spec.whatwg.org/multipage/popover.html#attr-popover
 describe('popover attribute mode parsing', () => {
@@ -1396,8 +1365,6 @@ describe('popover attribute mode parsing', () => {
 		cleanup();
 	});
 });
-
-// ─── light-dismiss capture-phase semantics ──────────────────────────────────
 
 // Defensive against application handlers that call event.stopPropagation in bubble phase.
 describe('light-dismiss runs in the capture phase', () => {
@@ -1428,8 +1395,6 @@ describe('light-dismiss runs in the capture phase', () => {
 		cleanup();
 	});
 });
-
-// ─── dialog open+close coalescing ───────────────────────────────────────────
 
 // Spec: https://html.spec.whatwg.org/multipage/interactive-elements.html#the-dialog-element
 describe('dialog open+close coalescing', () => {
@@ -1464,8 +1429,6 @@ describe('dialog open+close coalescing', () => {
 		cleanup();
 	});
 });
-
-// ─── consecutive Escape presses ─────────────────────────────────────────────
 
 // Spec: https://html.spec.whatwg.org/multipage/popover.html#close-watcher (Escape closes the topmost popover)
 describe('Escape stacking', () => {

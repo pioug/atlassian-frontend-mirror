@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-grid
 
+## 11.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.15
+
+### Patch Changes
+
+- [`0117f2bf00eb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0117f2bf00eb2) -
+  Use editor line length rather than editor DOM width for the external embed grid guideline fix so
+  guidelines stay aligned in wide editor layouts.
+- Updated dependencies
+
+## 11.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.12
 
 ### Patch Changes

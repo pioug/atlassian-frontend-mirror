@@ -1,5 +1,12 @@
 # @atlaskit/image
 
+## 3.1.0
+
+### Minor Changes
+
+- [`afbd895691509`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afbd895691509) -
+  Promote `@atlaskit/image` to general availability.
+
 ## 3.0.10
 
 ### Patch Changes

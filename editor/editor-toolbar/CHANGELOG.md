@@ -1,5 +1,29 @@
 # @atlaskit/editor-toolbar
 
+## 1.10.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.10.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.10.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.10.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.11
 
 ### Patch Changes

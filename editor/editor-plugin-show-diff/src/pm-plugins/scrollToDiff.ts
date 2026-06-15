@@ -1,5 +1,7 @@
 import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 
+import { DiffDecorationKey } from './decorations/decorationKeys';
+
 /**
  * Extra space above the scrolled-to element so it does not sit flush under the
  * viewport edge (helps with sticky table headers, toolbars, etc.).
@@ -55,7 +57,7 @@ export const scrollToFirstDecoration = (
 	let rafId: number | null = requestAnimationFrame(() => {
 		rafId = null;
 		// @ts-expect-error - decoration.type is not typed public API
-		if (decoration.spec?.key?.startsWith('diff-widget') && decoration?.type?.toDOM) {
+		if (decoration.spec?.key?.startsWith(DiffDecorationKey.widget) && decoration?.type?.toDOM) {
 			// @ts-expect-error - decoration.type is not typed public API
 			const widgetDom = decoration.type.toDOM;
 			// Always scroll to the top of this decoration even if it's in view already
@@ -96,7 +98,7 @@ export const scrollToActiveDecoration = (
 
 	let rafId: number | null = requestAnimationFrame(() => {
 		rafId = null;
-		if (decoration.spec?.key === 'diff-widget-active') {
+		if (decoration.spec?.key?.startsWith(DiffDecorationKey.widget)) {
 			// @ts-expect-error - decoration.type is not typed public API
 			const widgetDom = decoration?.type?.toDOM;
 			scrollToSelection(widgetDom);

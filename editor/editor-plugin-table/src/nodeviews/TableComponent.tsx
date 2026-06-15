@@ -42,7 +42,7 @@ import {
 	TABLE_EDITOR_MARGIN,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 } from '../pm-plugins/table-resizing/utils/consts';
-import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
+import { syncStickyRowToTable, updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import {
 	getLayoutSize,
 	getScalingPercentForTableWithoutWidth,
@@ -942,6 +942,24 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					className={classnames(ClassName.TABLE_NODE_WRAPPER)}
 					ref={this.setWrapperRef}
 				>
+					{expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) && (
+						<>
+							<div
+								contentEditable={false}
+								aria-hidden="true"
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className={ClassName.TABLE_CORNER_MASK}
+								data-corner="left"
+							/>
+							<div
+								contentEditable={false}
+								aria-hidden="true"
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className={ClassName.TABLE_CORNER_MASK}
+								data-corner="right"
+							/>
+						</>
+					)}
 					{allowControls && colControls}
 				</NodeViewContentHole>
 				{!this.isNestedInTable ? (
@@ -1025,6 +1043,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 				header.scrollLeft = this.wrapper.scrollLeft;
 				header.style.marginRight = '2px';
+			}
+			if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+				syncStickyRowToTable(this.table);
 			}
 		}
 

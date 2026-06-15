@@ -25,10 +25,12 @@ export const isBlockLinkHash = (
 		return false;
 	}
 	// Match either UUID format (8-4-4-4-12) or short hex ID format (exactly 12 hex chars without dashes).
+	// Ignored via go/ees019
 	const uuidRegex = new RegExp(
 		`^#?${prefix}[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$`,
 		'iu',
 	);
+	// Ignored via go/ees019
 	const shortIdRegex = new RegExp(`^#?${prefix}[0-9a-f]{12}$`, 'iu');
 	return uuidRegex.test(hash) || shortIdRegex.test(hash);
 };

@@ -14,6 +14,7 @@ import {
 	useJqlSearchableFieldsObservable,
 } from '../../state';
 import useOnFields from '../use-on-fields';
+import useOnFunctionArguments from '../use-on-function-arguments';
 import useOnFunctions from '../use-on-functions';
 import useOnOperators from '../use-on-operators';
 import useOnValues from '../use-on-values';
@@ -46,6 +47,7 @@ export const useAutocompleteProvider = (
 	const onOperators = useOnOperators(jqlSearchableFields$);
 	const onFunctions = useOnFunctions(jqlSearchableFields$, jqlFunctions$);
 	const onValues = useOnValues(jqlSearchableFields$, getSuggestions, createAndFireAnalyticsEvent);
+	const onFunctionArguments = useOnFunctionArguments(onValues);
 
 	useEffect(() => {
 		// Load autocomplete data on mount
@@ -53,7 +55,7 @@ export const useAutocompleteProvider = (
 	}, [createAndFireAnalyticsEvent, getInitialData, load]);
 
 	return useMemo(
-		() => ({ onFields, onOperators, onFunctions, onValues }),
-		[onFields, onOperators, onFunctions, onValues],
+		() => ({ onFields, onOperators, onFunctions, onValues, onFunctionArguments }),
+		[onFields, onOperators, onFunctions, onValues, onFunctionArguments],
 	);
 };

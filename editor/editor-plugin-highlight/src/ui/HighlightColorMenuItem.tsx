@@ -11,10 +11,17 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import { REMOVE_HIGHLIGHT_COLOR, highlightColorPalette } from '@atlaskit/editor-common/ui-color';
+import {
+	REMOVE_HIGHLIGHT_COLOR,
+	highlightColorPalette,
+	type PaletteColor,
+	useSelectedTextColor,
+} from '@atlaskit/editor-common/ui-color';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
-import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import {
+	hexToEditorTextBackgroundPaletteColor,
+	hexToEditorTextPaletteColor,
+} from '@atlaskit/editor-palette';
 import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
@@ -23,6 +30,7 @@ import Icon from '@atlaskit/icon/core/text-style';
 import { Stack, Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
+import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
 import type { HighlightPlugin } from '../highlightPluginType';
 
@@ -51,15 +59,37 @@ const styles = cssMap({
 	},
 });
 
-const TextColorIconDecorator = ({ label, isSelected }: { isSelected: boolean; label: string }) => {
-	const iconColor = token('color.icon');
+const getTextColorIconColor = (
+	defaultColor: string | null | undefined,
+	textColor: string | null | undefined,
+) => {
+	if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+		return token('color.icon');
+	}
+
+	if (!textColor || (defaultColor && textColor === defaultColor)) {
+		return token('color.icon');
+	}
+
+	return hexToEditorTextPaletteColor(textColor) || token('color.icon');
+};
+
+const TextColorIconDecorator = ({
+	label,
+	isSelected,
+	iconColor,
+}: {
+	iconColor: string;
+	isSelected: boolean;
+	label: string;
+}) => {
 	return isSelected ? (
-		<EditorDoneIcon color={iconColor} label={label} />
+		<EditorDoneIcon color={token('color.icon')} label={label} />
 	) : (
 		<Box as="span" xcss={styles.icon}>
 			<Icon
 				label={label}
-				color={iconColor}
+				color={iconColor as IconColor}
 				shouldRecommendSmallIcon
 				spacing="spacious"
 				size="small"
@@ -72,6 +102,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 	const { formatMessage } = useIntl();
 	const activeColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
 	const context = useToolbarDropdownMenu();
+	const { textColor, defaultColor } = useSelectedTextColor();
 	const closeMenu = context?.closeMenu;
 
 	const handleHighlightColorChange = useCallback(
@@ -94,13 +125,20 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 
 	const colorPalette: PaletteColor[] = useMemo(() => {
 		const isSelected = (color: PaletteColor) => color.value === activeColor;
+		const iconColor = getTextColorIconColor(defaultColor, textColor);
 		return highlightColorPalette
 			.filter((color) => color.value !== REMOVE_HIGHLIGHT_COLOR)
 			.map((color) => ({
 				...color,
-				decorator: <TextColorIconDecorator label={color.label} isSelected={isSelected(color)} />,
+				decorator: (
+					<TextColorIconDecorator
+						label={color.label}
+						isSelected={isSelected(color)}
+						iconColor={iconColor}
+					/>
+				),
 			}));
-	}, [activeColor]);
+	}, [activeColor, defaultColor, textColor]);
 
 	return (
 		<Stack xcss={styles.container} testId="highlight-color-menu-item">

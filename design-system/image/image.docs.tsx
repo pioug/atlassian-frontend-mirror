@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Image',
 			description: 'A component for displaying images with theme support.',
-			status: 'open-beta',
+			status: 'general-availability',
 			import: {
 				name: 'Image',
 				package: '@atlaskit/image',

@@ -1,5 +1,17 @@
 # @atlaskit/icon-lab
 
+## 6.14.0
+
+### Minor Changes
+
+- [`1cf6739aac60c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cf6739aac60c) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `loom`
+
 ## 6.13.0
 
 ### Minor Changes

@@ -25,7 +25,6 @@ import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
 
 import { DragCornerControlsWithSelection } from './CornerControls/DragCornerControls';
-import { FloatingControlsWithSelection } from './FloatingControlsWithSelection';
 import NumberColumn from './NumberColumn';
 import { DragControlsWithSelection } from './RowControls/DragControls';
 
@@ -69,8 +68,6 @@ export const TableFloatingControls = ({
 	isInDanger,
 	isResizing,
 	isNumberColumnEnabled,
-	isHeaderRowEnabled,
-	isHeaderColumnEnabled,
 	isDragAndDropEnabled,
 	tableActive,
 	hasHeaderRow,
@@ -189,52 +186,33 @@ export const TableFloatingControls = ({
 
 				{tableActive && (
 					<Fragment>
-						{isDragAndDropEnabled ? (
-							<Fragment>
-								{shouldShowCornerControls && (
-									<DragCornerControlsWithSelection
-										editorView={editorView}
-										tableRef={tableRef}
-										isInDanger={isInDanger}
-										isResizing={isResizing}
-										api={api}
-									/>
-								)}
-								<DragControlsWithSelection
-									tableRef={tableRef}
-									tableNode={tableNode}
-									hoveredCell={hoveredCell}
-									isTableHovered={isTableHovered}
-									editorView={editorView}
-									tableActive={tableActive}
-									isInDanger={isInDanger}
-									isResizing={isResizing}
-									// Ignored via go/ees005
-									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-									tableWidth={tableWrapperWidth!}
-									hoverRows={_hoverRows}
-									selectRow={_selectRow}
-									selectRows={_selectRows}
-									updateCellHoverLocation={updateCellHoverLocation}
-									api={api}
-								/>
-							</Fragment>
-						) : (
-							<FloatingControlsWithSelection
+						{shouldShowCornerControls && (
+							<DragCornerControlsWithSelection
 								editorView={editorView}
 								tableRef={tableRef}
 								isInDanger={isInDanger}
 								isResizing={isResizing}
-								isHeaderRowEnabled={isHeaderRowEnabled}
-								isHeaderColumnEnabled={isHeaderColumnEnabled}
-								hoveredRows={hoveredRows}
-								stickyTop={tableActive ? stickyTop : undefined}
-								tableActive={tableActive}
-								hoverRows={_hoverRows}
-								selectRow={_selectRow}
 								api={api}
 							/>
 						)}
+						<DragControlsWithSelection
+							tableRef={tableRef}
+							tableNode={tableNode}
+							hoveredCell={hoveredCell}
+							isTableHovered={isTableHovered}
+							editorView={editorView}
+							tableActive={tableActive}
+							isInDanger={isInDanger}
+							isResizing={isResizing}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							tableWidth={tableWrapperWidth!}
+							hoverRows={_hoverRows}
+							selectRow={_selectRow}
+							selectRows={_selectRows}
+							updateCellHoverLocation={updateCellHoverLocation}
+							api={api}
+						/>
 					</Fragment>
 				)}
 			</div>

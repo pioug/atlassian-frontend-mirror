@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-paste
 
+## 12.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.13
+
+### Patch Changes
+
+- [`643d0f8f77dff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/643d0f8f77dff) -
+  Clean up stale experiment platform_editor_pasting_text_in_panel (FFCLEANUP-104459)
+- Updated dependencies
+
 ## 12.1.12
 
 ### Patch Changes

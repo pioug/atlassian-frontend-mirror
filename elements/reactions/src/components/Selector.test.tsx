@@ -1,7 +1,8 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
-import { type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
+import { type EmojiId, type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
 	mockReactDomWarningGlobal,
@@ -9,7 +10,7 @@ import {
 	useFakeTimers,
 } from '../__tests__/_testing-library';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
-import { DefaultReactions } from '../shared/constants';
+import { DefaultReactions, TeamojiDefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { Selector } from './Selector';
 
@@ -23,6 +24,7 @@ const renderSelector = (
 	showMore = false,
 	onMoreClick = () => {},
 	hoverableReactionPickerSelector = false,
+	pickerQuickReactionEmojiIds?: EmojiId[],
 ) => {
 	return (
 		<Selector
@@ -31,6 +33,7 @@ const renderSelector = (
 			showMore={showMore}
 			onMoreClick={onMoreClick}
 			hoverableReactionPickerSelector={hoverableReactionPickerSelector}
+			pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
 		/>
 	);
 };
@@ -38,6 +41,15 @@ const renderSelector = (
 describe('@atlaskit/reactions/components/selector', () => {
 	mockReactDomWarningGlobal();
 	useFakeTimers();
+
+	beforeEach(() => {
+		// Default the Teamoji picker refresh experiment to off so the legacy reactions are rendered.
+		setupEditorExperiments('test', { platform_teamoji_26_refresh_emoji_picker: false });
+	});
+
+	afterEach(() => {
+		setupEditorExperiments('test', { platform_teamoji_26_refresh_emoji_picker: false });
+	});
 
 	it('should have no accessibility violations', async () => {
 		const { container } = renderWithIntl(renderSelector());
@@ -51,6 +63,20 @@ describe('@atlaskit/reactions/components/selector', () => {
 		expect(emojiWrappers.length).toEqual(DefaultReactions.length);
 
 		DefaultReactions.forEach(({ shortName }) => {
+			const elem = screen.getByLabelText(shortName, { selector: 'button', exact: false });
+			expect(elem).toBeInTheDocument();
+		});
+	});
+
+	it('should render teamoji default reactions when the experiment is enabled', async () => {
+		setupEditorExperiments('test', { platform_teamoji_26_refresh_emoji_picker: true });
+
+		renderWithIntl(renderSelector());
+
+		const emojiWrappers = screen.getAllByRole('presentation');
+		expect(emojiWrappers.length).toEqual(TeamojiDefaultReactions.length);
+
+		TeamojiDefaultReactions.forEach(({ shortName }) => {
 			const elem = screen.getByLabelText(shortName, { selector: 'button', exact: false });
 			expect(elem).toBeInTheDocument();
 		});

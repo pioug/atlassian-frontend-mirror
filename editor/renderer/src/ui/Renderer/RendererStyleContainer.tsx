@@ -2135,51 +2135,119 @@ const roundedTableOuterBorderOverlayStyles = css({
 		'&::after': {
 			content: "''",
 			position: 'absolute',
-			inset: 0,
+			inset: '-0.5px',
 			border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
-			borderRadius: token('radius.medium'),
+			borderRadius: token('radius.xlarge'),
 			pointerEvents: 'none',
 			zIndex: 1,
 		},
 
-		'> tbody > tr:first-of-type > th, > tbody > tr:first-of-type > td, > tbody > tr > th[data-reaches-top], > tbody > tr > td[data-reaches-top]':
+		'> tbody > tr > th[data-reaches-top], > tbody > tr > td[data-reaches-top]': {
+			borderTopColor: 'transparent',
+		},
+
+		'> tbody > tr > th[data-reaches-bottom], > tbody > tr > td[data-reaches-bottom]':
 			{
-				borderTopColor: 'transparent',
+				borderBottomColor: 'transparent',
 			},
 
-		'> tbody > tr > th:first-child, > tbody > tr > td:first-child, > tbody > tr > th[data-reaches-left], > tbody > tr > td[data-reaches-left]':
-			{
-				borderLeftColor: 'transparent',
-			},
+		'> tbody > tr > th[data-reaches-left], > tbody > tr > td[data-reaches-left]': {
+			borderLeftColor: 'transparent',
+		},
 
 		'> tbody > tr > th[data-reaches-right], > tbody > tr > td[data-reaches-right]': {
 			borderRightColor: 'transparent',
 		},
 
-		'> tbody > tr > th[data-reaches-bottom], > tbody > tr > td[data-reaches-bottom]': {
-			borderBottomColor: 'transparent',
-		},
-
 		'> tbody > tr > th[data-reaches-top][data-reaches-left], > tbody > tr > td[data-reaches-top][data-reaches-left]':
 			{
-				borderTopLeftRadius: token('radius.medium'),
+				borderTopLeftRadius: token('radius.xlarge'),
+				backgroundClip: 'border-box',
+				clipPath: `inset(0 round ${token('radius.xlarge')} 0 0 0)`,
 			},
 
 		'> tbody > tr > th[data-reaches-top][data-reaches-right], > tbody > tr > td[data-reaches-top][data-reaches-right]':
 			{
-				borderTopRightRadius: token('radius.medium'),
+				borderTopRightRadius: token('radius.xlarge'),
+				backgroundClip: 'border-box',
+				clipPath: `inset(0 round 0 ${token('radius.xlarge')} 0 0)`,
 			},
 
 		'> tbody > tr > th[data-reaches-bottom][data-reaches-left], > tbody > tr > td[data-reaches-bottom][data-reaches-left]':
 			{
-				borderBottomLeftRadius: token('radius.medium'),
+				borderBottomLeftRadius: token('radius.xlarge'),
+				backgroundClip: 'border-box',
+				clipPath: `inset(0 round 0 0 0 ${token('radius.xlarge')})`,
 			},
 
 		'> tbody > tr > th[data-reaches-bottom][data-reaches-right], > tbody > tr > td[data-reaches-bottom][data-reaches-right]':
 			{
-				borderBottomRightRadius: token('radius.medium'),
+				borderBottomRightRadius: token('radius.xlarge'),
+				backgroundClip: 'border-box',
+				clipPath: `inset(0 round 0 0 ${token('radius.xlarge')} 0)`,
 			},
 	},
+
+	[`.${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky > .${TableSharedCssClassName.TABLE_STICKY_WRAPPER}`]:
+		{
+			borderTopLeftRadius: token('radius.xlarge'),
+			borderTopRightRadius: token('radius.xlarge'),
+			borderBottomLeftRadius: 0,
+			borderBottomRightRadius: 0,
+		},
+
+	// Keep the cloned sticky header rounded at the top while preserving a square bottom edge.
+	[`.${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky > .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
+		{
+			'&::after': {
+				borderBottomLeftRadius: 0,
+				borderBottomRightRadius: 0,
+			},
+
+			'> tbody > tr': {
+				// The sticky table clone sets a row background locally; force it off so
+				// the rounded header cells, not a square row box, own the visible fill.
+				background: 'transparent !important',
+			},
+
+			'> tbody > tr > th, > tbody > tr > td': {
+				backgroundClip: 'border-box',
+			},
+
+			'> tbody > tr > th[data-reaches-left], > tbody > tr > td[data-reaches-left]':
+				{
+					borderTopLeftRadius: token('radius.xlarge'),
+					borderBottomLeftRadius: 0,
+					clipPath: `inset(0 round ${token('radius.xlarge')} 0 0 0)`,
+				},
+
+			'> tbody > tr > th[data-reaches-right], > tbody > tr > td[data-reaches-right]':
+				{
+					borderTopRightRadius: token('radius.xlarge'),
+					borderBottomRightRadius: 0,
+					clipPath: `inset(0 round 0 ${token('radius.xlarge')} 0 0)`,
+				},
+
+			'> tbody > tr > th[data-reaches-left][data-reaches-bottom], > tbody > tr > td[data-reaches-left][data-reaches-bottom]':
+				{
+					borderBottomLeftRadius: 0,
+				},
+
+			'> tbody > tr > th[data-reaches-right][data-reaches-bottom], > tbody > tr > td[data-reaches-right][data-reaches-bottom]':
+				{
+					borderBottomRightRadius: 0,
+				},
+
+			'> tbody > tr > th[data-reaches-left]::after, > tbody > tr > td[data-reaches-left]::after':
+				{
+					borderBottomLeftRadius: 0,
+				},
+
+			'> tbody > tr > th[data-reaches-right]::after, > tbody > tr > td[data-reaches-right]::after':
+				{
+					borderBottomRightRadius: 0,
+				},
+		},
 });
 
 const tableContentModeStyles = css({

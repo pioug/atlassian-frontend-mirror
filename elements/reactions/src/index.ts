@@ -67,10 +67,10 @@ export const UFO: {
 	ComponentName: typeof ComponentName;
 	ExperienceName: typeof ExperienceName;
 	PickerRender: UFOExperience;
-	ReactionsAdd: ConcurrentExperience;
 	ReactionDetailsFetch: ConcurrentExperience;
 	ReactionDialogOpened: UFOExperience;
 	ReactionDialogSelectedReactionChanged: UFOExperience;
+	ReactionsAdd: ConcurrentExperience;
 	ReactionsRemove: ConcurrentExperience;
 	ReactionsRendered: ConcurrentExperience;
 	sampledReactionsRendered: (instanceId: string) => WithSamplingUFOExperience;

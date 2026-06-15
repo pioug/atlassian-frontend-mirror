@@ -9,11 +9,13 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
 import { updateStickyState } from '../pm-plugins/sticky-headers/commands';
 import {
+	clearStickyCornerMaskPositions,
 	syncStickyRowToTable,
 	updateStickyMargins as updateTableMargin,
 } from '../pm-plugins/table-resizing/utils/dom';
@@ -787,6 +789,9 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 
 		this.dom.style.removeProperty('width');
+		if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+			clearStickyCornerMaskPositions(table);
+		}
 		this.dom.classList.remove('sticky');
 		table.classList.remove(ClassName.TABLE_STICKY);
 

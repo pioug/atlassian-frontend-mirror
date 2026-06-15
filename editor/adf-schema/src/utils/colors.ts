@@ -181,12 +181,15 @@ export function rgbToHex(value: string): string | null {
 	return null;
 }
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const IS_RGB_REGEX = /rgba?\(/u;
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const IS_HEX_REGEX = /^#([A-Fa-f0-9]{3}){1,2}$/u;
+
 export function isRgb(color: string): boolean {
-	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-	return /rgba?\(/u.test(color);
+	return IS_RGB_REGEX.test(color);
 }
 
 export function isHex(color: string): boolean {
-	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-	return /^#([A-Fa-f0-9]{3}){1,2}$/u.test(color);
+	return IS_HEX_REGEX.test(color);
 }

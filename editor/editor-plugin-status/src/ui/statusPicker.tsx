@@ -302,11 +302,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		return (
 			target && (
 				<PopupWithListeners
-					ariaLabel={
-						fg('_editor_a11y_aria_label_removal_popup')
-							? intl.formatMessage(messages.statusEditorLabel)
-							: undefined
-					}
+					ariaLabel={intl.formatMessage(messages.statusEditorLabel)}
 					target={target}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					offset={[0, 8]}

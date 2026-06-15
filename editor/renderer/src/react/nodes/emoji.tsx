@@ -4,6 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { messages } from '@atlaskit/editor-common/emoji';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
@@ -15,6 +16,20 @@ import type { EmojiId } from '@atlaskit/emoji/types';
 import { useInlineAnnotationProps } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { MarkDataAttributes } from '../../ui/annotations/element/useInlineAnnotationProps';
 import type { EmojiAttributes } from '@atlaskit/adf-schema';
+
+/**
+ * Check if the supplied fallback text is a single standard Unicode emoji.
+ *
+ * Mirrors `isSingleEmoji` from `@atlaskit/editor-plugin-emoji` so the renderer
+ * can apply the same custom-emoji fallback heuristic without depending on a
+ * plugin package.
+ */
+function isSingleEmoji(fallbackText: string): boolean {
+	const emojiRegex =
+		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+		/^(\p{Emoji_Presentation}(?:[\u{1F3FB}-\u{1F3FF}])?|\p{Extended_Pictographic}\u{FE0F}(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)*|\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
+	return emojiRegex.test(fallbackText);
+}
 
 export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes {
 	allowTextFallback?: boolean;
@@ -51,13 +66,27 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 			this.props;
 
 		if (allowTextFallback && !providers.emojiProvider) {
+			// When the gate is enabled and the fallback text is not a single
+			// standard Unicode emoji (i.e. this is a custom emoji whose fallback
+			// is a `:shortname:`-style string), render the Unicode Replacement
+			// Character (U+FFFD) instead of the shortName text. Standard emojis
+			// continue to fall back to their Unicode text representation.
+			const fallbackText = fallback || shortName;
+			const useReplacementChar =
+				fg('platform_editor_custom_emoji_unicode_fallback') && !isSingleEmoji(fallbackText);
+			const renderedFallbackText = useReplacementChar ? '\uFFFD' : fallbackText;
+			const accessibleLabel = `${messages.emojiNodeLabel.defaultMessage} ${shortName}`;
+
 			return (
 				<span
+					aria-label={useReplacementChar ? accessibleLabel : undefined}
 					data-emoji-id={id}
 					data-emoji-short-name={shortName}
-					data-emoji-text={fallback || shortName}
+					data-emoji-text={renderedFallbackText}
+					role={useReplacementChar ? 'img' : undefined}
+					title={useReplacementChar ? shortName : undefined}
 				>
-					{fallback || shortName}
+					{renderedFallbackText}
 				</span>
 			);
 		}

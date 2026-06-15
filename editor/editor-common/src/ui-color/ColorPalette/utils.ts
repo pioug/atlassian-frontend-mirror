@@ -3,6 +3,10 @@ import type { PaletteColor } from './Palettes/type';
 
 export const DEFAULT_COLOR_PICKER_COLUMNS = 7;
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const CSS_VAR_EXPRESSION_REGEX = /var\(([^,\)]+)(,.*)?\)/;
+
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getColorsPerRowFromPalette(
 	palette: PaletteColor[],
@@ -24,8 +28,8 @@ export function getSelectedRowAndColumnFromPalette(
 	selectedColor: string | null,
 	cols: number = DEFAULT_COLOR_PICKER_COLUMNS,
 ): {
-	selectedRowIndex: number;
 	selectedColumnIndex: number;
+	selectedRowIndex: number;
 } {
 	const colorsPerRow = getColorsPerRowFromPalette(palette, cols);
 	return getSelectedRowAndColumn(colorsPerRow, selectedColor);
@@ -33,9 +37,7 @@ export function getSelectedRowAndColumnFromPalette(
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getTokenCSSVariableValue = (variableExpression: string): string => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	const matcher = variableExpression.match(/var\(([^,\)]+)(,.*)?\)/);
+	const matcher = variableExpression.match(CSS_VAR_EXPRESSION_REGEX);
 	if (matcher) {
 		const variable = matcher[1].trim();
 		const fallback = matcher[2] ? matcher[2].replace(',', '').trim() : '';

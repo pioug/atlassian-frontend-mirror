@@ -682,8 +682,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 					'platform_editor_table_sticky_header_improvements',
 					'cohort',
 					'test_with_overflow',
-				) &&
-				fg('platform_editor_table_sticky_header_patch_2')
+				)
 			) {
 				plugins.push({
 					name: 'tableAnchorNames',

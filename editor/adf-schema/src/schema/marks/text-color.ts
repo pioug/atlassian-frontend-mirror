@@ -135,6 +135,9 @@ export const getGlobalTheme = (): {
 	return { colorMode };
 };
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const RGB_PREFIX_TEXT_COLOR_REGEX = /^rgb/iu;
+
 export const textColor: MarkSpec = textColorFactory({
 	parseDOM: [
 		{
@@ -142,8 +145,7 @@ export const textColor: MarkSpec = textColorFactory({
 			getAttrs: (maybeValue) => {
 				const value = maybeValue as string;
 				let hexColor;
-				// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-				if (value.match(/^rgb/iu)) {
+				if (value.match(RGB_PREFIX_TEXT_COLOR_REGEX)) {
 					hexColor = rgbToHex(value);
 				} else if (value[0] === '#') {
 					hexColor = value.toLowerCase();

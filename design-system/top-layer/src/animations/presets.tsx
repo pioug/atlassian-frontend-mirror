@@ -1,8 +1,82 @@
+import { token } from '@atlaskit/tokens';
+
 import { getPlacement, type TPlacementOptions } from '../internal/resolve-placement';
 
 import { type TAnimationPreset } from './types';
 
-// slideAndFade
+// ══════════════════════════════════════════════════════════════════════════════
+// Popover presets
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ── popupMotion ──
+
+const POPUP_MOTION_CSS = `
+  [data-ds-popover-popup-motion] {
+    animation: var(--ds-popover-motion-exit);
+    animation-fill-mode: forwards;
+    transition:
+      overlay 150ms allow-discrete,
+      display 150ms allow-discrete;
+  }
+
+  [data-ds-popover-popup-motion]:popover-open {
+    animation: var(--ds-popover-motion-enter);
+    animation-fill-mode: backwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-ds-popover-popup-motion],
+    [data-ds-popover-popup-motion]:popover-open {
+      animation: none;
+      transition-duration: 0s;
+    }
+  }
+`;
+
+function getPopupMotionProperties({
+	placement,
+}: {
+	placement: TPlacementOptions;
+}): Record<string, string> {
+	const { axis, edge } = getPlacement({ placement });
+
+	if (axis === 'block' && edge === 'start') {
+		return {
+			'--ds-popover-motion-enter': token('motion.popup.enter.top'),
+			'--ds-popover-motion-exit': token('motion.popup.exit.top'),
+		};
+	}
+	if (axis === 'inline' && edge === 'start') {
+		return {
+			'--ds-popover-motion-enter': token('motion.popup.enter.left'),
+			'--ds-popover-motion-exit': token('motion.popup.exit.left'),
+		};
+	}
+	if (axis === 'inline' && edge === 'end') {
+		return {
+			'--ds-popover-motion-enter': token('motion.popup.enter.right'),
+			'--ds-popover-motion-exit': token('motion.popup.exit.right'),
+		};
+	}
+	// Default: block/end (popover below trigger)
+	return {
+		'--ds-popover-motion-enter': token('motion.popup.enter.bottom'),
+		'--ds-popover-motion-exit': token('motion.popup.exit.bottom'),
+	};
+}
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export function popupMotion(): TAnimationPreset {
+	return {
+		name: 'popup-motion',
+		css: POPUP_MOTION_CSS,
+		enterDurationMs: 150,
+		exitDurationMs: 100,
+		getProperties: ({ placement }) => getPopupMotionProperties({ placement }),
+	};
+}
+
+// ── slideAndFade ──
 
 type TSlideAndFadeOptions = {
 	/**
@@ -100,6 +174,7 @@ const SLIDE_AND_FADE_CSS = `
  * <Popover animate={slideAndFade({ distance: 8 })} />
  * ```
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function slideAndFade(options?: TSlideAndFadeOptions): TAnimationPreset {
 	const distance = options?.distance ?? 4;
 
@@ -225,7 +300,73 @@ export function scaleAndFade(): TAnimationPreset {
 // Dialog presets
 // ══════════════════════════════════════════════════════════════════════════════
 
-// dialogSlideUpAndFade
+// ── dialogMotion ──
+
+const DIALOG_MOTION_CSS = `
+  [data-ds-dialog-motion] {
+    animation: ${token('motion.modal.exit')};
+    animation-fill-mode: forwards;
+    transition:
+      overlay 200ms allow-discrete,
+      display 200ms allow-discrete;
+  }
+
+  [data-ds-dialog-motion][open] {
+    animation: ${token('motion.modal.enter')};
+    animation-fill-mode: backwards;
+  }
+
+  [data-ds-dialog-motion]::backdrop {
+    animation: ${token('motion.blanket.exit')};
+    animation-fill-mode: forwards;
+    background-color: var(--ds-blanket, #050C1F75);
+    transition:
+      overlay 200ms allow-discrete,
+      display 200ms allow-discrete;
+  }
+
+  [data-ds-dialog-motion][open]::backdrop {
+    animation: ${token('motion.blanket.enter')};
+    animation-fill-mode: backwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-ds-dialog-motion],
+    [data-ds-dialog-motion][open],
+    [data-ds-dialog-motion]::backdrop,
+    [data-ds-dialog-motion][open]::backdrop {
+      animation: none;
+      transition-duration: 0s;
+    }
+  }
+`;
+
+/**
+ * Dialog motion animation.
+ *
+ * Includes backdrop fade animation.
+ *
+ * @example
+ * ```tsx
+ * import { dialogMotion } from '@atlaskit/top-layer/animations';
+ *
+ * <Dialog animate={dialogMotion()} isOpen={isOpen} onClose={handleClose} label="...">
+ *   ...
+ * </Dialog>
+ * ```
+ */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export function dialogMotion(): TAnimationPreset {
+	// Bare preset name; `Dialog` prefixes it via `data-ds-dialog-{name}`.
+	return {
+		name: 'motion',
+		css: DIALOG_MOTION_CSS,
+		enterDurationMs: 250,
+		exitDurationMs: 200,
+	};
+}
+
+// ── dialogSlideUpAndFade ──
 
 type TDialogSlideUpAndFadeOptions = {
 	/**

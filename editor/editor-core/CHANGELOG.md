@@ -1,5 +1,47 @@
 # @atlaskit/editor-core
 
+## 220.4.5
+
+### Patch Changes
+
+- [`0f79b5238fada`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f79b5238fada) -
+  Cleaned up stale feature gate \_editor_a11y_aria_label_removal_popup (FFCLEANUP-90178). Removed
+  gate checks and always use the enabled path: nullish coalescing for popup ariaLabel, localized
+  labels for color picker and status picker popups. Replaced obsolete `[aria-label="Popup"]`
+  selectors with `[data-testid="popup-wrapper"]` in dependent tests and page-models. Guarded the
+  search-common ESLint test helper so it loads correctly outside Jest.
+- [`fd3ef8de291ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd3ef8de291ba) -
+  Cleanup feature gate `platform_editor_nov_a11y_fixes`
+- Updated dependencies
+
+## 220.4.4
+
+### Patch Changes
+
+- [`d6c0ba39b44b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6c0ba39b44b2) -
+  Clean up experiment `platform_editor_outdated_browser_update`
+- Updated dependencies
+
+## 220.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 220.4.1
+
+### Patch Changes
+
+- [`edeed2f3314cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edeed2f3314cd) -
+  Fix rounded table edge interaction overlays
+- Updated dependencies
+
 ## 220.4.0
 
 ### Minor Changes

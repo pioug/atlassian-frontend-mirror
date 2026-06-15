@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "13.1.11",
+	"version": "13.1.15",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

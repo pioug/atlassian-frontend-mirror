@@ -105,7 +105,7 @@ test.describe('Native popover="manual" focus behavior', () => {
 
 		await expect(page.getByTestId('manual-restore-content')).toBeHidden();
 
-		// Manual popovers don't participate in the auto/hint stack,
+		// Manual popovers do not participate in the auto/hint stack,
 		// so shouldRestoreFocus is not set. Focus should NOT return to trigger.
 		await expect(trigger).not.toBeFocused();
 	});
@@ -126,7 +126,7 @@ test.describe('Native popover="manual" focus behavior', () => {
 		const innerButton = page.getByTestId('auto-restore-inner');
 		await expect(innerButton).toBeFocused();
 
-		// Dismiss via Escape — close watcher passes focusPreviousElement=true
+		// Dismiss via Escape - close watcher passes focusPreviousElement=true
 		await page.keyboard.press('Escape');
 
 		await expect(page.getByTestId('auto-restore-content')).toBeHidden();

@@ -79,14 +79,15 @@ test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 		await expect(page.getByTestId('popup--content')).toBeHidden();
 	});
 
-	test('Tab does not trap focus inside the popup (escape via Escape key)', async ({ page }) => {
-		// In the FF-on top-layer path, Popups default to `role="dialog"`
-		// (the bridge in `internal/top-layer-bridge.tsx` defaults the role
-		// when none is provided), which intentionally **does** wrap Tab to
-		// match the WAI-ARIA dialog pattern. So this test asserts WCAG
-		// 2.1.2 ("no keyboard trap") in the way that's actually correct
-		// for that pattern: Escape always provides an escape route, even
-		// when Tab is wrapped.
+	test('Escape always exits the popup (WCAG 2.1.2 escape route)', async ({ page }) => {
+		/**
+		 * Under the legacy `Popup` contract restored on the top-layer
+		 * adapter, popups without a `role` prop do not wrap Tab and do
+		 * not trap focus. The escape-route guarantee that WCAG 2.1.2
+		 * cares about is still provided by `Escape`, which closes the
+		 * popup and returns focus to the trigger. This test pins that
+		 * guarantee.
+		 */
 		await page.visitExample<
 			typeof import('../../../../../examples/21-popup-should-render-to-parent.tsx')
 		>('design-system', 'popup', 'popup-should-render-to-parent', {
@@ -99,21 +100,21 @@ test.describe('Popup top-layer — WCAG 2.1.2 No Keyboard Trap', () => {
 
 		await expect(page.getByTestId('popup--content')).toBeVisible();
 
-		// Tab a few times — focus stays inside the popup (correct for
-		// dialog-pattern wrapping).
-		await page.keyboard.press('Tab');
-		await page.keyboard.press('Tab');
-		await page.keyboard.press('Tab');
-		await expect(page.getByTestId('popup--content')).toBeVisible();
-
-		// Escape always exits — that's the WCAG 2.1.2 escape route.
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('popup--content')).toBeHidden();
 		await expect(trigger).toBeFocused();
 	});
 });
 test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
-	test('focus moves into popup content when opened', async ({ page }) => {
+	test('focus stays on the trigger when popup has no `role`', async ({ page }) => {
+		/**
+		 * The `10-popup.tsx` example does not pass a `role` prop. Under
+		 * the legacy `Popup` contract (restored on the top-layer adapter)
+		 * a role-less popup applies no role-based initial focus, so the
+		 * trigger keeps focus. Consumers that need focus to move into
+		 * the popup must explicitly pass `role="dialog"` (or another
+		 * focus-moving role).
+		 */
 		await page.visitExample<typeof import('../../../../../examples/10-popup.tsx')>(
 			'design-system',
 			'popup',
@@ -124,11 +125,11 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 		);
 
 		const trigger = page.getByTestId('popup-trigger');
+		await trigger.focus();
 		await trigger.click();
 
 		await expect(page.getByTestId('popup--content')).toBeVisible();
-		// Focus should have moved off the trigger into the popup
-		await expect(trigger).not.toBeFocused();
+		await expect(trigger).toBeFocused();
 	});
 
 	test('focus returns to trigger after Escape', async ({ page }) => {
@@ -647,6 +648,87 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 
 		// Escape should still close the popup (light dismiss is preserved)
 		await page.keyboard.press('Escape');
+		await expect(dialog).toBeHidden();
+	});
+
+	test('initial focus moves into the dialog (off the trigger) on open', async ({ page }) => {
+		/**
+		 * For `role="dialog"`, the underlying `Popover` runs
+		 * `useInitialFocus` which moves focus to the first focusable
+		 * element inside the popup. This test pins that the trigger
+		 * loses focus and the first dialog button receives it.
+		 */
+		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
+			'design-system',
+			'popup',
+			'popup-role-dialog',
+			{
+				featureFlag,
+			},
+		);
+
+		const trigger = page.getByTestId('popup-trigger');
+		await trigger.focus();
+		await expect(trigger).toBeFocused();
+
+		await trigger.click();
+
+		await expect(page.getByRole('dialog')).toBeVisible();
+		await expect(trigger).not.toBeFocused();
+		await expect(page.getByTestId('popup-button-0')).toBeFocused();
+	});
+
+	test('focus returns to the trigger after the dialog closes via Escape', async ({ page }) => {
+		/**
+		 * Round-trip: opening moves focus into the dialog, Escape closes
+		 * the dialog and restores focus to the trigger. Important for
+		 * WCAG 2.4.3 (Focus Order) on dialog-pattern popups.
+		 */
+		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
+			'design-system',
+			'popup',
+			'popup-role-dialog',
+			{
+				featureFlag,
+			},
+		);
+
+		const trigger = page.getByTestId('popup-trigger');
+		await trigger.focus();
+		await trigger.click();
+
+		const dialog = page.getByRole('dialog');
+		await expect(dialog).toBeVisible();
+		await expect(page.getByTestId('popup-button-0')).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(dialog).toBeHidden();
+		await expect(trigger).toBeFocused();
+	});
+
+	test('dialog popup closes on outside click (light dismiss)', async ({ page }) => {
+		/**
+		 * Light dismiss must still work for dialog-role popups. Clicking
+		 * an unrelated element outside the popup should close it. We
+		 * click the second background button rather than empty page
+		 * space so the test does not rely on layout coordinates.
+		 */
+		await page.visitExample<typeof import('../../../../../examples/19-popup-role-dialog.tsx')>(
+			'design-system',
+			'popup',
+			'popup-role-dialog',
+			{
+				featureFlag,
+			},
+		);
+
+		const trigger = page.getByTestId('popup-trigger');
+		await trigger.click();
+
+		const dialog = page.getByRole('dialog');
+		await expect(dialog).toBeVisible();
+
+		await page.getByTestId('button-1').click();
 		await expect(dialog).toBeHidden();
 	});
 });

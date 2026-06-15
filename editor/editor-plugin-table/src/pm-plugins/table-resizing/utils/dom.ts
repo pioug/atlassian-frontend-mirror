@@ -2,6 +2,7 @@ import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/st
 import { closestElement, containsClassName, parsePx } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { TableCssClassName as ClassName } from '../../../types';
 import { getPluginState as getMainPluginState } from '../../plugin-factory';
@@ -130,5 +131,45 @@ const applyTableWidthToStickyRow = (tableRef: HTMLElement, headerRow: HTMLTableR
 
 		headerRow.style.width = `${newWidth}px`;
 		headerRow.scrollLeft = wrapper.scrollLeft;
+		if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+			syncCornerMasksToStickyRow(tableRef, headerRow, wrapper);
+		}
 	}
+};
+
+export const clearStickyCornerMaskPositions = (tableRef?: HTMLElement | null): void => {
+	const wrapper = tableRef?.parentElement;
+	if (!wrapper) {
+		return;
+	}
+
+	wrapper.querySelectorAll<HTMLElement>(`.${ClassName.TABLE_CORNER_MASK}`).forEach((mask) => {
+		mask.style.removeProperty('left');
+	});
+};
+
+const syncCornerMasksToStickyRow = (
+	tableRef: HTMLElement,
+	headerRow: HTMLTableRowElement,
+	wrapper: HTMLElement,
+) => {
+	const cornerMasks = wrapper.querySelectorAll<HTMLElement>(`.${ClassName.TABLE_CORNER_MASK}`);
+	if (!cornerMasks.length) {
+		return;
+	}
+
+	const isLegacySticky =
+		tableRef.classList.contains(ClassName.TABLE_STICKY) && headerRow.classList.contains('sticky');
+
+	if (!isLegacySticky) {
+		clearStickyCornerMaskPositions(tableRef);
+		return;
+	}
+
+	const stickyRowRect = headerRow.getBoundingClientRect();
+	cornerMasks.forEach((mask) => {
+		const corner = mask.dataset.corner;
+		const left = corner === 'right' ? stickyRowRect.right - 11 : stickyRowRect.left - 1;
+		mask.style.left = `${left}px`;
+	});
 };

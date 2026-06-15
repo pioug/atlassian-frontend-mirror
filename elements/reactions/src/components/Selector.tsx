@@ -2,10 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { keyframes } from '@compiled/react';
 
 import { css, jsx, cssMap } from '@atlaskit/css';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
@@ -13,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { messages } from '../shared/i18n';
-import { DefaultReactions } from '../shared/constants';
+import { getDefaultReactions } from '../shared/constants';
 import { EmojiButton } from './EmojiButton';
 import { ShowMore } from './ShowMore';
 import { Trigger } from './Trigger';
@@ -127,9 +128,20 @@ export const Selector = ({
 	onMoreClick,
 	onSelection,
 	showMore,
-	pickerQuickReactionEmojiIds = DefaultReactions,
+	pickerQuickReactionEmojiIds,
 	hoverableReactionPickerSelector = false,
 }: SelectorProps): JSX.Element => {
+	const [isTeamojiPickerRefreshEnabled, setIsTeamojiPickerRefreshEnabled] = useState(false);
+
+	useEffect(() => {
+		setIsTeamojiPickerRefreshEnabled(
+			expValEquals('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true),
+		);
+	}, []);
+
+	const quickReactionEmojiIds =
+		pickerQuickReactionEmojiIds ?? getDefaultReactions(isTeamojiPickerRefreshEnabled);
+
 	/**
 	 * Render the default emoji icon
 	 * @param emoji emoji item
@@ -137,7 +149,7 @@ export const Selector = ({
 	 */
 	const renderEmoji = (emoji: EmojiId, index: number) => {
 		const emojiButtonAndTooltip = (
-			<Tooltip content={emoji.shortName}>
+			<Tooltip key={emoji.id ?? emoji.shortName} content={emoji.shortName}>
 				<EmojiButton
 					emojiId={emoji}
 					emojiProvider={emojiProvider}
@@ -174,7 +186,7 @@ export const Selector = ({
 							: styles.container
 					}
 				>
-					{pickerQuickReactionEmojiIds ? pickerQuickReactionEmojiIds.map(renderEmoji) : null}
+					{quickReactionEmojiIds.map(renderEmoji)}
 				</Inline>
 			</Box>
 		);
@@ -182,7 +194,7 @@ export const Selector = ({
 
 	return (
 		<Inline alignBlock="center" xcss={styles.container} as="ul">
-			{pickerQuickReactionEmojiIds ? pickerQuickReactionEmojiIds.map(renderEmoji) : null}
+			{quickReactionEmojiIds.map(renderEmoji)}
 			{showMore ? (
 				<Fragment>
 					<Box as="li" xcss={styles.separator} />

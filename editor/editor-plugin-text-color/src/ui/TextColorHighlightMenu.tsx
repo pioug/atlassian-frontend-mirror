@@ -6,6 +6,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks'
 import { toggleHighlightPalette, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { SelectedTextColorProvider } from '@atlaskit/editor-common/ui-color';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import {
 	hexToEditorTextPaletteColor,
@@ -36,6 +37,14 @@ const getIconColor = (
 	defaultColor: string | null | undefined,
 	highlightColor: string | null | undefined,
 ): string => {
+	if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+		if (!textColor || (textColor === defaultColor && defaultColor)) {
+			return token('color.text');
+		}
+
+		return hexToEditorTextPaletteColor(textColor) || token('color.text');
+	}
+
 	if (highlightColor || !textColor || (textColor === defaultColor && defaultColor)) {
 		return token('color.text');
 	}
@@ -155,6 +164,48 @@ export const TextColorHighlightMenu = ({
 	}, [setIsPaletteOpen, isPaletteOpen]);
 
 	const iconColor = getIconColor(textColor, defaultColor, highlightColor);
+
+	if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+		return (
+			<ToolbarDropdownMenuProvider isOpen={isPaletteOpen} setIsOpen={setIsPaletteOpen}>
+				<ToolbarDropdownMenu
+					iconBefore={
+						<ToolbarColorSwatch highlightColor={getHighlightColorIcon(highlightColor)}>
+							<TextColorIcon
+								label={formatMessage(messages.textColorTooltip)}
+								iconColor={iconColor as IconColor}
+								shouldRecommendSmallIcon
+								size={'small'}
+								isDisabled={isDisabled}
+								spacing={'compact'}
+							/>
+						</ToolbarColorSwatch>
+					}
+					isDisabled={isDisabled}
+					testId="text-color-highlight-menu"
+					hasSectionMargin={false}
+					tooltipComponent={
+						<ToolbarTooltip
+							content={
+								<ToolTipContent
+									description={formatMessage(
+										isHighlightPluginExisted
+											? messages.textColorHighlightTooltip
+											: messages.textColorTooltip,
+									)}
+									keymap={toggleHighlightPalette}
+								/>
+							}
+						/>
+					}
+				>
+					<SelectedTextColorProvider textColor={textColor} defaultColor={defaultColor}>
+						{children}
+					</SelectedTextColorProvider>
+				</ToolbarDropdownMenu>
+			</ToolbarDropdownMenuProvider>
+		);
+	}
 
 	return (
 		<ToolbarDropdownMenuProvider isOpen={isPaletteOpen} setIsOpen={setIsPaletteOpen}>

@@ -109,6 +109,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props.maxDimensions.width !== nextProps.maxDimensions.width ||
 			this.props.contextIdentifierProvider !== nextProps.contextIdentifierProvider ||
 			this.props.isLoading !== nextProps.isLoading ||
+			this.props.isViewOnly !== nextProps.isViewOnly ||
 			this.props.mediaProvider !== nextProps.mediaProvider ||
 			this.props.syncProvider !== nextProps.syncProvider ||
 			hasNewViewMediaClientConfig ||
@@ -263,11 +264,15 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	};
 
 	private getMediaSettings = memoizeOne(
-		(viewAndUploadMediaClientConfig: MediaClientConfig | undefined) => ({
-			canUpdateVideoCaptions: fg('platform_media_video_captions')
-				? !!viewAndUploadMediaClientConfig
-				: false,
-		}),
+		(viewAndUploadMediaClientConfig: MediaClientConfig | undefined, isViewOnly?: boolean) => {
+			return {
+				canUpdateVideoCaptions: fg('platform_media_video_captions')
+					? fg('platform_editor_video_caption_commit')
+						? !!viewAndUploadMediaClientConfig && !isViewOnly
+						: !!viewAndUploadMediaClientConfig
+					: false,
+			};
+		},
 	);
 
 	private onPreviewRender = (fileId: string) => {
@@ -404,7 +409,10 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						alt={alt}
 						videoControlsWrapperRef={this.videoControlsWrapperRef}
 						ssr={ssr}
-						mediaSettings={this.getMediaSettings(viewAndUploadMediaClientConfig)}
+						mediaSettings={this.getMediaSettings(
+							viewAndUploadMediaClientConfig,
+							this.props.isViewOnly,
+						)}
 						isAIGenerating={!!this.props.isAIGenerating}
 						onPreviewRender={this.onPreviewRender}
 						onError={

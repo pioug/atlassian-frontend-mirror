@@ -4,6 +4,10 @@ import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 
 import { SafePlugin } from '../safe-plugin';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const NON_LATIN_KEY_REGEX = /[^\u0000-\u007f]/;
+
 /**
  * A workaround for mostly Cyrillic but should have a positive affect
  * on other languages / layouts. Attempts a similar approach to OS X.
@@ -26,9 +30,7 @@ export function keymap(bindings: { [key: string]: any }): SafePlugin {
 
 				// Check the unicode of the character to assert that it's not an ASCII character.
 				// These are characters outside latin's range.
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				const isNonLatinKey = name.length === 1 && /[^\u0000-\u007f]/.test(name);
+				const isNonLatinKey = name.length === 1 && NON_LATIN_KEY_REGEX.test(name);
 
 				// The `Dead` key is a key that combines with a following key to produce a combined character.
 				// It will have `even.key === 'Dead'` in some browsers but the `keyCode` will be the same as in a qwerty-keyboard.

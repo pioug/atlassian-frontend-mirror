@@ -255,6 +255,7 @@ export type {
 } from './types/sync-block-events';
 
 export type {
+	AiSuggestionInteractionPoint,
 	AiSuggestionsEntryPoint,
 	AiSuggestionsEventPayload,
 } from './types/ai-suggestions-events';

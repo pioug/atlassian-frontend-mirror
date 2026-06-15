@@ -45,7 +45,7 @@ it('should capture and report a11y violations', async () => {
 	await expect(container).toBeAccessible();
 });
 
-describe('Popover closeReasonRef — race condition between Escape keydown and programmatic close', () => {
+describe('Popover closeReasonRef - race condition between Escape keydown and programmatic close', () => {
 	it('reports reason "light-dismiss" after a prior Escape+programmatic-close race', () => {
 		// Arrange
 		const onClose = jest.fn();
@@ -61,7 +61,7 @@ describe('Popover closeReasonRef — race condition between Escape keydown and p
 			fireEscapeKeydown(popover);
 		});
 
-		// Simulate: programmatic close wins the race — rerender with isOpen=false
+		// Simulate: programmatic close wins the race - rerender with isOpen=false
 		// This calls hidePopover() with programmaticCloseRef=true, then the toggle
 		// handler fires with programmaticCloseRef.current===true and returns early.
 		// Before the fix, closeReasonRef stayed 'escape' after this early return.

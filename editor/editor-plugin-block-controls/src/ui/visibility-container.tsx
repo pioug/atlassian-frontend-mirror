@@ -12,6 +12,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { akEditorFullPageNarrowBreakout } from '@atlaskit/editor-shared-styles';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -106,6 +107,8 @@ export const VisibilityContainer = ({
 		isEditing ||
 		shouldHideWhenMouseOut ||
 		userIntent === 'aiStreaming' ||
+		(userIntent === 'viewingDiff' &&
+			expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) ||
 		sideHidden;
 
 	// Delay hiding the right control in view mode to reduce flickering when moving from block

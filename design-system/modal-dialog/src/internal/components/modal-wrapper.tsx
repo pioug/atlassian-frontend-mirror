@@ -25,7 +25,7 @@ import Portal from '@atlaskit/portal';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { layers } from '@atlaskit/theme/constants';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
-import { dialogSlideUpAndFade } from '@atlaskit/top-layer/animations';
+import { dialogMotion } from '@atlaskit/top-layer/animations';
 import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
@@ -42,7 +42,7 @@ import { dialogHeight } from './dialog-height';
 import { dialogWidth as getDialogWidth } from './dialog-width';
 import ModalDialog from './modal-dialog';
 
-const modalAnimation = dialogSlideUpAndFade();
+const modalAnimation = dialogMotion();
 
 export type { ModalDialogProps };
 

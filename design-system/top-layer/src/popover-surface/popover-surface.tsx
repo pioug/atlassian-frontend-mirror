@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { jsx } from '@compiled/react';
 
@@ -34,6 +34,6 @@ const styles = cssMap({
  * `Popover` instead. `PopoverSurface` is the no-config "give me the default
  * ADS overlay look" surface, nothing more.
  */
-export function PopoverSurface({ children }: TPopoverSurfaceProps): React.ReactElement {
+export function PopoverSurface({ children }: TPopoverSurfaceProps): ReactNode {
 	return <div css={styles.root}>{children}</div>;
 }

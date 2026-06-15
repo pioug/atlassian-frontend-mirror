@@ -10,6 +10,22 @@ import { linkifyMatch } from '@atlaskit/adf-schema';
 
 import { findFilepaths, isLinkInMatches, shouldAutoLinkifyMatch } from '../../utils';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const LINK_OPEN_REGEX = /^<a[>\s]/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const LINK_CLOSE_REGEX = /^<\/a\s*>/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const HTTP_PREFIX_REGEX = /^http:\/\//;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const MAILTO_CASE_INSENSITIVE_REGEX = /^mailto:/i;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const MAILTO_REGEX = /^mailto:/;
+
 // modified version of the original markdown-it Linkify plugin
 // https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js
 // Ignored via go/ees005
@@ -21,15 +37,11 @@ const arrayReplaceAt = (src: Array<any>, pos: number, newElements: Array<any>) =
 };
 
 const isLinkOpen = (str: string) => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return /^<a[>\s]/i.test(str);
+	return LINK_OPEN_REGEX.test(str);
 };
 
 const isLinkClose = (str: string) => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return /^<\/a\s*>/i.test(str);
+	return LINK_CLOSE_REGEX.test(str);
 };
 
 // Ignored via go/ees005
@@ -106,15 +118,11 @@ const linkify = (state: any) => {
 					// and remove it afterwards.
 					//
 					if (!links[ln].schema) {
-						// Ignored via go/ees005
-						// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
-						urlText = state.md.normalizeLinkText('http://' + urlText).replace(/^http:\/\//, '');
-						// Ignored via go/ees005
-						// eslint-disable-next-line require-unicode-regexp
-					} else if (links[ln].schema === 'mailto:' && !/^mailto:/i.test(urlText)) {
-						// Ignored via go/ees005
-						// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
-						urlText = state.md.normalizeLinkText('mailto:' + urlText).replace(/^mailto:/, '');
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
+						urlText = state.md.normalizeLinkText('http://' + urlText).replace(HTTP_PREFIX_REGEX, '');
+					} else if (links[ln].schema === 'mailto:' && !MAILTO_CASE_INSENSITIVE_REGEX.test(urlText)) {
+						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
+						urlText = state.md.normalizeLinkText('mailto:' + urlText).replace(MAILTO_REGEX, '');
 					} else {
 						urlText = state.md.normalizeLinkText(urlText);
 					}

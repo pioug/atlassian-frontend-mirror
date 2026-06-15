@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 44.29.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.29.0
+
+### Minor Changes
+
+- [`258fd5f8909fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/258fd5f8909fd) -
+  Cleaning up and abandoning the block card post-auth 3P experiment for Jira
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.28.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 44.28.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 44.28.2
 
 ### Patch Changes

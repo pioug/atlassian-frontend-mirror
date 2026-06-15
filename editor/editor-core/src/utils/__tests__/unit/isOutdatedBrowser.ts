@@ -1,5 +1,3 @@
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-
 import { isOutdatedBrowser } from '../../outdatedBrowsers';
 
 // To see the database of the available userAgent - https://developers.whatismybrowser.com/useragents/explore/
@@ -32,19 +30,17 @@ const unsupportedUserAgents = [
 	'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36 OPR/84.0.4316.14', // Opera 84 on Windows 10
 ];
 
-eeTest
-	.describe('platform_editor_outdated_browser_update', 'outdated-browsers')
-	.variant(true, () => {
-		it('should isOutdatedBrowser return false if userAgent matches the supported browser defined', () => {
-			expect(typeof isOutdatedBrowser).toBe('function');
-			supportedUserAgents.forEach((supportedUserAgent) => {
-				expect(isOutdatedBrowser(supportedUserAgent)).toBeFalsy();
-			});
-		});
-		it('should isOutdatedBrowser return true if userAgent does not match the supported browser defined', () => {
-			expect(typeof isOutdatedBrowser).toBe('function');
-			unsupportedUserAgents.forEach((unsupportedUserAgent) => {
-				expect(isOutdatedBrowser(unsupportedUserAgent)).toBeTruthy();
-			});
+describe('outdated-browsers', () => {
+	it('should isOutdatedBrowser return false if userAgent matches the supported browser defined', () => {
+		expect(typeof isOutdatedBrowser).toBe('function');
+		supportedUserAgents.forEach((supportedUserAgent) => {
+			expect(isOutdatedBrowser(supportedUserAgent)).toBeFalsy();
 		});
 	});
+	it('should isOutdatedBrowser return true if userAgent does not match the supported browser defined', () => {
+		expect(typeof isOutdatedBrowser).toBe('function');
+		unsupportedUserAgents.forEach((unsupportedUserAgent) => {
+			expect(isOutdatedBrowser(unsupportedUserAgent)).toBeTruthy();
+		});
+	});
+});

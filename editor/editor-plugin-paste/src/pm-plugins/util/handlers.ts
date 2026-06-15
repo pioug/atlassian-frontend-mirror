@@ -194,10 +194,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 		// Return false to avoid handling this situation when pasted into list in panel and let `handlePastePanelOrDecisionContentIntoList` handle it
 		if (
 			selectionIsPanel &&
-			(selectionIsCodeBlock ||
-				(selectionIsListItem &&
-					!isSliceWholePanel &&
-					expValEquals('platform_editor_pasting_text_in_panel', 'isEnabled', true)))
+			(selectionIsCodeBlock || (selectionIsListItem && !isSliceWholePanel))
 		) {
 			return false;
 		}

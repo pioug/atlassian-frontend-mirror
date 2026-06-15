@@ -8,7 +8,7 @@ import { useAnchorPosition } from './use-anchor-position';
  * anchor should be placed.
  *
  * Axis-named (`x`/`y`) rather than edge-named (`left`/`top`) so the
- * shape is unambiguous in RTL writing modes — there is no ambiguity
+ * shape is unambiguous in RTL writing modes - there is no ambiguity
  * about whether a coordinate is logical (`inline-start`/`block-start`)
  * or physical (`left`/`top`). Viewport coordinates are always
  * physical, so we name them with the physical axis labels.
@@ -23,19 +23,19 @@ export type TAnchorPoint = {
  * Dynamic `inset-*` overrides are written by the positioning effect.
  *
  * Uses `Object.assign` rather than Compiled CSS (element is outside the React tree)
- * or the internal `setStyle` helper (we own this element entirely — it is created
- * and removed by this hook — so the snapshot/restore semantics `setStyle`
+ * or the internal `setStyle` helper (we own this element entirely - it is created
+ * and removed by this hook - so the snapshot/restore semantics `setStyle`
  * provides for caller-owned elements would be dead work here).
  */
-function applyStaticAnchorStyles(el: HTMLElement): void {
-	Object.assign(el.style, {
+function applyStaticAnchorStyles(element: HTMLElement): void {
+	Object.assign(element.style, {
 		position: 'fixed',
 		// `top`/`left` rather than `inset-block-start`/`inset-inline-start`
 		// for consistency with the dynamic positioning effect below, which
 		// uses physical properties (see comment there for the rationale).
 		top: '0',
 		left: '0',
-		// Zero size — placement decides which side the popover sits on.
+		// Zero size - placement decides which side the popover sits on.
 		width: '0',
 		height: '0',
 		// Prevent the overlay from intercepting pointer events.
@@ -91,7 +91,7 @@ export function useAnchorPositionAtPoint({
 	 * Called once per activation (every `isEnabled: false → true`
 	 * transition); the result is latched and not re-read.
 	 *
-	 * Return `null` to signal "no point yet" — the hook stays in a
+	 * Return `null` to signal "no point yet" - the hook stays in a
 	 * no-DOM state so another positioning strategy can own the popover.
 	 *
 	 * Read from a ref, so it does not need to be memoized.
@@ -111,7 +111,7 @@ export function useAnchorPositionAtPoint({
 	const syntheticAnchorRef = useRef<HTMLDivElement | null>(null);
 
 	// `getPoint` is kept in a ref so the layout effect can call the
-	// latest version without listing it as a dep — that would re-fire
+	// latest version without listing it as a dep - that would re-fire
 	// on every render and re-latch the point.
 	const getPointRef = useRef(getPoint);
 	getPointRef.current = getPoint;
@@ -150,7 +150,7 @@ export function useAnchorPositionAtPoint({
 		};
 	}, [isEnabled]);
 
-	// Mirror `isEnabled` so both hooks stay in sync — when disabled,
+	// Mirror `isEnabled` so both hooks stay in sync - when disabled,
 	// neither this hook nor the inner one touches the popover, leaving
 	// any other positioning the consumer has set up free to take effect.
 	useAnchorPosition({

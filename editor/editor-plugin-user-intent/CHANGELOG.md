@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-user-intent
 
+## 9.1.0
+
+### Minor Changes
+
+- [`a3a227e567efe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3a227e567efe) -
+  [ux] [EDITOR-7662] disabled block controls when viewing diffs
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.0
 
 ### Patch Changes

@@ -14,11 +14,19 @@ type TWcagSupplementalRole =
 
 /**
  * Props shape passed from legacy `role` / `label` / `titleId` into `@atlaskit/top-layer` `Popup.Content`.
+ *
+ * The `{ role: undefined }` variant covers the legacy contract where a
+ * consumer omits `role` to opt out of any popup semantics (and the
+ * associated role-based initial-focus movement). Legacy `Popup` left the
+ * popup element role-less in that case; we preserve that behaviour here
+ * rather than defaulting to `'dialog'`, which would move focus into the
+ * popup on open.
  */
 export type TUseRolePropsResult =
 	| { role: TRestrictedDialogRole; labelledBy: string }
 	| { role: TRestrictedDialogRole; label: string }
-	| { role: TWcagSupplementalRole; label: string | undefined };
+	| { role: TWcagSupplementalRole; label: string | undefined }
+	| { role: undefined; label: string | undefined };
 
 /**
  * Maps legacy popup role/label/titleId props to the discriminated union
@@ -27,6 +35,10 @@ export type TUseRolePropsResult =
  * `Popup.Content` enforces at the type level that dialog/alertdialog/menu
  * roles must have `label` or `labelledBy`. This hook bridges the legacy
  * flat-prop API (`role`, `label`, `titleId`) to that shape.
+ *
+ * When `role` is omitted entirely, the result carries `role: undefined`
+ * (no implicit default). This matches the legacy `Popup` contract and
+ * keeps the underlying `Popover` from running role-based initial focus.
  */
 export function useRoleProps({
 	role,
@@ -53,13 +65,7 @@ export function useRoleProps({
 				label,
 			};
 		}
-		// Default: dialog role with label or labelledBy
-		if (titleId) {
-			return { role: 'dialog' as const, labelledBy: titleId };
-		}
-		return {
-			role: 'dialog' as const,
-			label: label ?? 'Popup',
-		};
+		// No role supplied: preserve the legacy "no popup semantics" contract.
+		return { role: undefined, label };
 	}, [role, label, titleId]);
 }

@@ -11,7 +11,7 @@ describe('setStyle() - snapshot and restore', () => {
 		const element = makeElement();
 
 		setStyle({
-			el: element,
+			element,
 			styles: [
 				{ property: 'color', value: 'red' },
 				{ property: 'margin-left', value: '8px' },
@@ -26,7 +26,7 @@ describe('setStyle() - snapshot and restore', () => {
 		const element = makeElement();
 
 		const cleanup = setStyle({
-			el: element,
+			element,
 			styles: [{ property: 'color', value: 'red' }],
 		});
 
@@ -42,7 +42,7 @@ describe('setStyle() - snapshot and restore', () => {
 		element.style.setProperty('color', 'blue');
 
 		const cleanup = setStyle({
-			el: element,
+			element,
 			styles: [{ property: 'color', value: 'red' }],
 		});
 
@@ -60,7 +60,7 @@ describe('setStyle() - snapshot and restore', () => {
 		element.style.setProperty('color', 'blue');
 
 		const cleanup = setStyle({
-			el: element,
+			element,
 			styles: [
 				{ property: 'color', value: 'red' },
 				{ property: 'margin-left', value: '12px' },

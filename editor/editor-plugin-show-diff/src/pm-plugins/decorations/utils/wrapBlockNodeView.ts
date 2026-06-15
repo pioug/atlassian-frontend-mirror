@@ -432,10 +432,20 @@ const createBlockNodeContentWrapper = ({
 		? getBaseNodeTypeName(targetNode.type)
 		: targetNode.type.name;
 	const nodeStyle = getChangedNodeStyle(targetNodeName, colorScheme, isInserted, isActive);
-	contentWrapper.setAttribute(
-		'style',
-		`${getChangedContentStyle(colorScheme, isActive, isInserted)}${nodeStyle || ''}`,
-	);
+
+	// When the extended experiment is enabled and the content is inserted,
+	// block widget nodes that already have dedicated node-level styling (e.g. boxShadow outline)
+	// should not also get the inline content style (borderBottom underline) on their container.
+	const shouldSkipContentStyle =
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) &&
+		isInserted &&
+		nodeStyle !== undefined;
+
+	const contentStyle = shouldSkipContentStyle
+		? ''
+		: getChangedContentStyle(colorScheme, isActive, isInserted);
+
+	contentWrapper.setAttribute('style', `${contentStyle}${nodeStyle || ''}`);
 	contentWrapper.append(nodeView);
 	return contentWrapper;
 };

@@ -13,6 +13,7 @@ import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { token } from '@atlaskit/tokens';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Table } from './table';
 import { recursivelyInjectProps } from '../../utils/inject-props';
@@ -40,20 +41,28 @@ const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
 	}),
 };
 
+// increasing specificity to override external renderer wrapper styles targeting div[mode='stick']
+const suppressExternalStickStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Override external renderer wrapper styles targeting div[mode='stick']
+	"&.fixed-table-div-custom-table-resizing[mode='stick']": {
+		background: token('elevation.surface.overlay'),
+	},
+});
+
 // refactored based on fixedTableDivStaticStyles
 // TODO: DSP-4123 - Quality ticket
 const fixedTableDivStaticStyles = css({
 	zIndex: 'var(--ak-renderer-sticky-header-zindex)',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${TableSharedCssClassName.TABLE_CONTAINER}, & .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-		{
-			marginTop: 0,
-			marginBottom: 0,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			tr: {
-				background: token('elevation.surface'),
-			},
+	{
+		marginTop: 0,
+		marginBottom: 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		tr: {
+			background: token('elevation.surface'),
 		},
+	},
 	borderTop: `${tableStickyPadding}px solid ${token('elevation.surface')}`,
 	background: token('elevation.surface.overlay'),
 	boxShadow: `0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')}`,
@@ -63,10 +72,10 @@ const fixedTableDivStaticStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`& .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.right-shadow::after, & .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.left-shadow::before`]:
-		{
-			top: '0px',
-			height: '100%',
-		},
+	{
+		top: '0px',
+		height: '100%',
+	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"&.fixed-table-div-custom-table-resizing[mode='stick']": {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -93,7 +102,15 @@ const FixedTableDiv = (props: FixedProps) => {
 			data-testid="sticky-table-fixed"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={allowTableResizing ? 'fixed-table-div-custom-table-resizing' : ''}
-			css={[fixedTableDivStaticStyles, modeSpecficStyles?.[mode]]}
+			css={[
+				fixedTableDivStaticStyles,
+				modeSpecficStyles?.[mode],
+				expValEquals(
+					'platform_editor_table_q4_loveability',
+					'isEnabled',
+					true,
+				) && suppressExternalStickStyles,
+			]}
 			style={
 				{
 					'--ak-renderer-sticky-header-zindex': stickyHeaderZIndex,
@@ -177,9 +194,8 @@ export const StickyTable = ({
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={`${TableSharedCssClassName.TABLE_CONTAINER} is-sticky ${
-						shadowClassNames || ''
-					}`}
+					className={`${TableSharedCssClassName.TABLE_CONTAINER} is-sticky ${shadowClassNames || ''
+						}`}
 					data-layout={layout}
 					style={{
 						width: tableWidth,

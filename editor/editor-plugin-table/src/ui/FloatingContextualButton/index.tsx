@@ -47,7 +47,6 @@ export interface Props {
 	editorView: EditorView;
 	isCellMenuOpenByKeyboard?: boolean;
 	isContextualMenuOpen?: boolean;
-	isDragAndDropEnabled?: boolean;
 	isNumberColumnEnabled?: boolean;
 	mountPoint?: HTMLElement;
 	scrollableElement?: HTMLElement;

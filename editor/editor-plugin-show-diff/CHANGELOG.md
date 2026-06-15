@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 9.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.1
+
+### Patch Changes
+
+- [`3cd3edf123888`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3cd3edf123888) -
+  Remove purple underline from block widget containers when diffs are inverted with extended
+  experiment enabled
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`a3a227e567efe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3a227e567efe) -
+  [ux] [EDITOR-7662] disabled block controls when viewing diffs
+
+### Patch Changes
+
+- [`281cf98f35fe5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/281cf98f35fe5) -
+  Minor refactor to use a decoration key builder so that it can be extended upon in upcoming work.
+- Updated dependencies
+
+## 9.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.16
 
 ### Patch Changes

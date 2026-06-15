@@ -6663,9 +6663,9 @@ const editorContentStyles = cssMap({
 			'&::after': {
 				content: "''",
 				position: 'absolute',
-				inset: 0,
+				inset: '-0.5px',
 				border: `${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')}`,
-				borderRadius: token('radius.medium'),
+				borderRadius: token('radius.xlarge'),
 				pointerEvents: 'none',
 				zIndex: 1,
 			},
@@ -6687,6 +6687,14 @@ const editorContentStyles = cssMap({
 			'& > tbody > tr > th[data-reaches-bottom]::after, & > tbody > tr > td[data-reaches-bottom]::after':
 				{
 					borderBottomColor: 'transparent',
+				},
+
+			/* The rounded-table overlay owns transparent perimeter borders.
+			   Paint edge cell backgrounds into that reserved border area so coloured
+			   first/last rows do not show the page background through 1px seams. */
+			'& > tbody > tr > th[data-reaches-top], & > tbody > tr > td[data-reaches-top], & > tbody > tr > th[data-reaches-bottom], & > tbody > tr > td[data-reaches-bottom]':
+				{
+					backgroundClip: 'border-box',
 				},
 		},
 		/* When the number column is enabled, the left visual edge belongs to the number column.

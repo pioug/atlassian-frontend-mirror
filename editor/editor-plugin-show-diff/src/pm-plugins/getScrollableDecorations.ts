@@ -1,6 +1,8 @@
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+import { DiffDecorationKey } from './decorations/decorationKeys';
+
 /**
  * True if `fragment` contains at least one inline node (text, hardBreak, emoji, mention, etc.).
  * Block-only subtrees (e.g. empty paragraphs, block cards with no inline children) return false.
@@ -79,14 +81,14 @@ export const getScrollableDecorations = (
 		undefined,
 		undefined,
 		(spec) =>
-			spec.key === 'diff-inline' ||
-			spec.key?.startsWith('diff-widget') ||
-			spec.key === 'diff-block',
+			spec.key?.startsWith(DiffDecorationKey.inline) ||
+			spec.key?.startsWith(DiffDecorationKey.widget) ||
+			spec.key?.startsWith(DiffDecorationKey.block),
 	);
 
 	// First pass: filter out listItem blocks and deduplicates blocks
 	const filtered = allDecorations.filter((dec) => {
-		if (dec.spec?.key === 'diff-block') {
+		if (dec.spec?.key?.startsWith(DiffDecorationKey.block)) {
 			// Skip listItem blocks as they are not scrollable
 			if (dec.spec?.nodeName === 'listItem') return false;
 		}
@@ -98,13 +100,13 @@ export const getScrollableDecorations = (
 	});
 
 	// Separate decorations by type for easier processing
-	const blocks = filtered.filter((d) => d.spec?.key === 'diff-block');
-	const rawInlines = filtered.filter((d) => d.spec?.key === 'diff-inline');
+	const blocks = filtered.filter((d) => d.spec?.key?.startsWith(DiffDecorationKey.block));
+	const rawInlines = filtered.filter((d) => d.spec?.key?.startsWith(DiffDecorationKey.inline));
 	const inlines =
 		doc !== undefined
 			? rawInlines.filter((d) => isInlineDiffDecorationRenderableInDoc(doc, d.from, d.to))
 			: rawInlines;
-	const widgets = filtered.filter((d) => d.spec?.key?.startsWith('diff-widget'));
+	const widgets = filtered.filter((d) => d.spec?.key?.startsWith(DiffDecorationKey.widget));
 
 	// Second pass: exclude overlapping decorations
 	// Rules:

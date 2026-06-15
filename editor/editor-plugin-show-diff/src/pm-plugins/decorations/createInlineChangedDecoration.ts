@@ -18,6 +18,7 @@ import {
 	traditionalInsertStyleActive,
 	getDeletedTraditionalInlineStyle,
 } from './colorSchemes/traditional';
+import { buildDiffDecorationKey, DiffDecorationKey } from './decorationKeys';
 
 const displayNoneStyle = convertToInlineCss({
 	display: 'none',
@@ -47,7 +48,11 @@ export const createInlineChangedDecoration = ({
 			change.fromB,
 			change.toB,
 			{ style: displayNoneStyle },
-			{ key: 'diff-inline' },
+			{
+				key: buildDiffDecorationKey({
+					type: DiffDecorationKey.inline,
+				}),
+			},
 		);
 	}
 
@@ -88,6 +93,6 @@ export const createInlineChangedDecoration = ({
 			style,
 			'data-testid': 'show-diff-changed-decoration',
 		},
-		{ key: 'diff-inline' },
+		{ key: buildDiffDecorationKey({ type: DiffDecorationKey.inline }) },
 	);
 };

@@ -1,5 +1,12 @@
 # @atlaskit/jql-autocomplete
 
+## 2.2.0
+
+### Minor Changes
+
+- [`506238c0247fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/506238c0247fd) -
+  PTC-16709: Added changes to show autocomplete for membersOf function to fetch Teams
+
 ## 2.1.0
 
 ### Minor Changes

@@ -10,7 +10,7 @@ import { type TAnchorPoint, useAnchorPositionAtPoint } from '../use-anchor-posit
  * `div[aria-hidden="true"]` children of `<body>`, so this is a reliable
  * signal that the lazy creation path did (or did not) run.
  *
- * The anchor doesn't have any accessible handles so we cannot use React Testing Library to query it.
+ * The anchor does not have any accessible handles so we cannot use React Testing Library to query it.
  */
 function countSyntheticAnchors(): number {
 	return document.body.querySelectorAll('div[aria-hidden="true"]').length;
@@ -67,7 +67,7 @@ describe('useAnchorPositionAtPoint - lazy element creation', () => {
 		// No `<div aria-hidden="true">` should have been appended.
 		expect(countSyntheticAnchors()).toBe(0);
 
-		// The hook must not even call `getPoint` when disabled —
+		// The hook must not even call `getPoint` when disabled -
 		// `isEnabled` short-circuits before the callback runs.
 		expect(getPoint).not.toHaveBeenCalled();
 	});
@@ -97,7 +97,7 @@ describe('useAnchorPositionAtPoint - lazy element creation', () => {
 
 		render(<TestComponent isEnabled={true} getPoint={getPoint} />);
 
-		// Exactly one anchor — sanity-check we are not double-creating.
+		// Exactly one anchor - sanity-check we are not double-creating.
 		expect(countSyntheticAnchors()).toBe(1);
 		expect(getPoint).toHaveBeenCalledTimes(1);
 	});

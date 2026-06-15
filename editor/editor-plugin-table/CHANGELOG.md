@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-table
 
+## 23.4.3
+
+### Patch Changes
+
+- [`f9b309b6576a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9b309b6576a5) -
+  Remove legacy table controls which are not in use
+- Updated dependencies
+
+## 23.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.4.0
+
+### Minor Changes
+
+- [`26cdaa58ad1b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26cdaa58ad1b5) -
+  Cleaned up stale feature gate platform_editor_table_sticky_header_patch_2. Merged sticky header
+  mask styles and removed gate from tablePlugin plugin registration.
+
+### Patch Changes
+
+- [`c70fd1e57edcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c70fd1e57edcf) -
+  Cleaned up stale feature flag `platform_editor_lovability_select_all_shortcut`
+- [`edeed2f3314cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edeed2f3314cd) -
+  Fix rounded table edge interaction overlays
+- Updated dependencies
+
 ## 23.3.12
 
 ### Patch Changes

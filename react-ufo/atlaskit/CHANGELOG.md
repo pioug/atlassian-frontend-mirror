@@ -1,5 +1,16 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 6.7.5
+
+### Patch Changes
+
+- [`d9b1ae2d72110`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9b1ae2d72110) -
+  Ingest host-side `resized` events from `useResizeAnalytics` into `segment3pData`. Each emission
+  writes a `{ label: 'resized', data: { height, elapsed } }` entry against the active segment so
+  downstream consumers can correlate iframe height changes with TTAI / VC90. `measuredHeight` and
+  `viewportHeight` are intentionally excluded because they require vendor-supplied macro config that
+  is almost always null in practice.
+
 ## 6.7.4
 
 ### Patch Changes

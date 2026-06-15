@@ -646,13 +646,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-24
-	platform_editor_media_vc_fixes_patch1: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-11
 	platform_editor_native_embeds: {
 		defaultValue: boolean;
@@ -684,12 +677,6 @@ export const editorExperimentsConfig: {
 	}; //Added 2025-11-19
 	// Added 2026-05-26
 	platform_editor_agent_mentions: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	platform_editor_pasting_text_in_panel: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -892,13 +879,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links (boolean: isEnabled)
 	platform_sl_3p_preauth_social_proof_inline_cta: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-01 — Block card rovo action  experiment for resolved block card smart links in jira (boolean: isEnabled)
-	platform_sl_3p_auth_rovo_block_card_jira: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1108,13 +1088,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-03
 	platform_editor_enghealth_a11y_jan_fixes: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-16-05
-	platform_editor_outdated_browser_update: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1498,13 +1471,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-24
-	platform_editor_fix_media_picker_hidden: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-20
 	cc_editor_ttvc_media_hold_fix: {
 		defaultValue: boolean;
@@ -1514,12 +1480,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-06
 	platform_editor_single_player_expand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	platform_editor_rovo_inline_chat_aria_label: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1664,13 +1624,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-28
 	platform_editor_expand_content_a11y: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-07
-	platform_editor_lovability_select_all_shortcut: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2203,15 +2156,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 
-	// Added 2026-03-24
-	platform_editor_media_vc_fixes_patch1: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_media_vc_fixes_patch1',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
 	// Added 2026-03-06
 	platform_editor_media_reliability_observability: createBooleanExperiment({
 		productKeys: {
@@ -2735,14 +2679,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	//Added 2025-11-19
-	platform_editor_pasting_text_in_panel: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_pasting_text_in_panel',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-02-19
 	platform_editor_comment_editor_border_radius: createBooleanExperiment({
 		productKeys: {
@@ -3052,14 +2988,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-01 — Block card rovo action on resolved block card smart links in jira
-	platform_sl_3p_auth_rovo_block_card_jira: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_sl_3p_auth_rovo_block_card_jira',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-01-23
 	platform_editor_to_use_pmr_for_collab_edit_none_ic: createBooleanExperiment({
 		productKeys: {
@@ -3231,14 +3159,6 @@ export const editorExperimentsConfig: {
 	platform_editor_enghealth_a11y_jan_fixes: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_enghealth_a11y_jan_fixes',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-16-05
-	platform_editor_outdated_browser_update: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_outdated_browser_update',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3612,15 +3532,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-24
-	platform_editor_fix_media_picker_hidden: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_media_picker_hidden',
-			jira: 'platform_editor_fix_media_picker_hidden',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	cc_editor_ttvc_media_hold_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_ttvc_media_hold_fix',
@@ -3632,14 +3543,6 @@ export const editorExperimentsConfig: {
 	platform_editor_single_player_expand: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_single_player_expand',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-01
-	platform_editor_rovo_inline_chat_aria_label: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_rovo_inline_chat_aria_label',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3891,15 +3794,6 @@ export const editorExperimentsConfig: {
 	cc_fd_wb_jira_quick_insert_experiment: createBooleanExperiment({
 		productKeys: {
 			jira: 'cc_fd_wb_jira_quick_insert_experiment',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-07
-	platform_editor_lovability_select_all_shortcut: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_lovability_select_all_shortcut',
-			jira: 'platform_editor_lovability_select_all_shortcut',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

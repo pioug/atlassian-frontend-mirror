@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "12.0.12",
+	"version": "12.0.17",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -102,9 +102,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"_editor_a11y_aria_label_removal_popup": {
 			"type": "boolean"
 		},
 		"platform-lozenge-custom-letterspacing": {

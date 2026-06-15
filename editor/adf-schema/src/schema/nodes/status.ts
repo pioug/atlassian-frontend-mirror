@@ -3,6 +3,9 @@ import type { AnnotationMarkDefinition } from '../marks/annotation';
 import { status as statusFactory } from '../../next-schema/generated/nodeTypes';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const NEWLINE_REGEX = /\n/u;
+
 /**
  * @name status_node
  */
@@ -36,9 +39,8 @@ export const status: NodeSpec = statusFactory({
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const dom = domNode as HTMLElement;
 
-				// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				const textContent = dom.textContent!.replace(/\n/u, '').trim();
+				const textContent = dom.textContent!.replace(NEWLINE_REGEX, '').trim();
 
 				// Prefer data-text attribute over textContent
 				// When NodeView DOM is copied, inner text content may not be preserved

@@ -32,14 +32,4 @@ export type SubagentInteractionsEventPayload =
 			actionSubject: 'rovoAgent';
 			action: 'subagentDelete';
 			attributes: BaseAgentAnalyticsAttributes;
-	  }
-	| {
-			actionSubject: 'rovoAgent';
-			action: 'subagentEditTools';
-			attributes: BaseAgentAnalyticsAttributes;
-	  }
-	| {
-			actionSubject: 'rovoAgent';
-			action: 'subagentEditToolConfiguration';
-			attributes: BaseAgentAnalyticsAttributes;
 	  };

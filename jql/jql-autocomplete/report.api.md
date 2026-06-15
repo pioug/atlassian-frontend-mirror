@@ -83,6 +83,7 @@ export type JQLClause = typeof ORDER_BY_CLAUSE | typeof WHERE_CLAUSE;
 // @public (undocumented)
 export type JQLRuleContext = {
 	field?: string;
+	functionName?: string;
 	operator?: string;
 	isList?: boolean;
 	clause?: JQLClause;

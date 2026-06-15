@@ -1,7 +1,7 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { expect, test } from '@af/integration-testing';
 
-test.describe('Popover dialog focus trap — Tab wrapping', () => {
+test.describe('Popover dialog focus trap - Tab wrapping', () => {
 	// WCAG 2.4.3 Focus Order: Tab should cycle within role="dialog" popovers.
 	test('Tab wraps forward from last to first focusable element', async ({ page }) => {
 		await page.visitExample<
@@ -70,20 +70,20 @@ test.describe('Popover dialog focus trap — Tab wrapping', () => {
 
 		// Background buttons should never have received focus
 		const outsideBeforeFocused = await page.evaluate(() => {
-			const el = document.querySelector('[data-testid="outside-before"]');
-			return document.activeElement === el;
+			const element = document.querySelector('[data-testid="outside-before"]');
+			return document.activeElement === element;
 		});
 		expect(outsideBeforeFocused).toBe(false);
 
 		const outsideAfterFocused = await page.evaluate(() => {
-			const el = document.querySelector('[data-testid="outside-after"]');
-			return document.activeElement === el;
+			const element = document.querySelector('[data-testid="outside-after"]');
+			return document.activeElement === element;
 		});
 		expect(outsideAfterFocused).toBe(false);
 	});
 });
 
-test.describe('Popover dialog focus trap — dismiss behavior preserved', () => {
+test.describe('Popover dialog focus trap - dismiss behavior preserved', () => {
 	// WCAG 2.1.2 No Keyboard Trap: Escape should always dismiss the popover.
 	test('Escape closes the dialog popover', async ({ page }) => {
 		await page.visitExample<
@@ -138,7 +138,7 @@ test.describe('Popover dialog focus trap — dismiss behavior preserved', () => 
 	});
 });
 
-test.describe('Popover non-dialog role — no focus trap', () => {
+test.describe('Popover non-dialog role - no focus trap', () => {
 	// WCAG 2.1.2 No Keyboard Trap: non-dialog roles should NOT trap Tab.
 	test('Tab moves focus out of a non-dialog popover (role="note")', async ({ page }) => {
 		await page.visitExample<

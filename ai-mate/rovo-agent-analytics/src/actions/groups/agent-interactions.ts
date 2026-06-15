@@ -71,14 +71,4 @@ export type AgentInteractionsEventPayload =
 			actionSubject: 'rovoAgent';
 			action: 'unverify';
 			attributes: BaseAgentAnalyticsAttributes;
-	  }
-	| {
-			actionSubject: 'rovoAgent';
-			action: 'editTools';
-			attributes: BaseAgentAnalyticsAttributes;
-	  }
-	| {
-			actionSubject: 'rovoAgent';
-			action: 'editToolConfiguration';
-			attributes: BaseAgentAnalyticsAttributes;
 	  };

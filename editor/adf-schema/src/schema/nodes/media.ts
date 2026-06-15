@@ -95,6 +95,9 @@ export interface MutableMediaAttributes extends MediaAttributes {
 	[key: string]: string | number | undefined | null | boolean;
 }
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const PRIVATE_ATTR_PREFIX_REGEX = /^__/u;
+
 export const camelCaseToKebabCase = (str: string): string =>
 	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 	str.replace(/([^A-Z]+)([A-Z])/gu, (_, x, y) => `${x}-${y.toLowerCase()}`);
@@ -130,9 +133,8 @@ export const createMediaSpec = (
 
 				if (attributes) {
 					Object.keys(attributes).forEach((k) => {
-						// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
-						const key = camelCaseToKebabCase(k).replace(/^__/u, '');
+						const key = camelCaseToKebabCase(k).replace(PRIVATE_ATTR_PREFIX_REGEX, '');
 						const value =
 							// eslint-disable-next-line @atlaskit/editor/no-as-casting
 							(dom as HTMLElement).getAttribute(`data-${key}`) || '';

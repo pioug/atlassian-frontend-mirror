@@ -135,17 +135,11 @@ function crossAxisShiftMargin({
 }
 
 /**
- * Returns a referentially-stable, fully-resolved `TPlacement`. `useMemo` is
- * keyed on the primitive fields of the input so a fresh inline `placement`
- * object on every render does not produce a fresh resolved object. Both
- * `getPlacement` and the equality check are skipped when the inputs are
- * unchanged.
+ * Returns a referentially-stable, fully-resolved `TPlacement`. The memo is
+ * keyed on the resolved primitive fields so a fresh inline `placement` object
+ * (or undefined fields vs explicit defaults) does not produce a fresh result.
  */
 function useStablePlacement(placement: TPlacementOptions): TPlacement {
-	// Resolve to the fully-defaulted primitives BEFORE the memo so the deps
-	// array sees the same key for `{}`, `undefined` fields, and explicit
-	// defaults. Otherwise `axis: undefined` and `axis: 'block'` would be
-	// treated as different inputs and re-run the downstream effect.
 	const resolved = getPlacement({ placement });
 	const axis = resolved.axis;
 	const edge = resolved.edge;
@@ -153,10 +147,8 @@ function useStablePlacement(placement: TPlacementOptions): TPlacement {
 	const gap = resolved.offset.gap;
 	const shiftValue = resolved.offset.crossAxisShift.value;
 	const shiftDirection = resolved.offset.crossAxisShift.direction;
-	// Rebuild the placement object inside the memo from the resolved primitive
-	// deps so the factory does not close over the (potentially fresh) outer
-	// `resolved` reference, and `react-hooks/exhaustive-deps` can verify the
-	// deps array.
+	// Rebuild inside the memo from primitive deps so the factory does not
+	// close over the outer `resolved` reference and exhaustive-deps can verify.
 	return useMemo(
 		() => ({
 			axis,
@@ -186,10 +178,6 @@ function useStablePlacement(placement: TPlacementOptions): TPlacement {
  * When not supported, it falls back to JavaScript-based positioning using
  * `position: fixed` with measured coordinates, re-running on scroll (capture)
  * and resize events.
- *
- * `placement` may be a fresh inline object on every render: a structural
- * comparison is used internally so re-runs are skipped when the resolved
- * placement shape is unchanged.
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useAnchorPosition({
@@ -255,8 +243,6 @@ export function useAnchorPosition({
 	isOpen: boolean;
 }): void {
 	const id = useId();
-	// Stabilize `placement` object so the same object literal
-	// value returns an object with the same reference
 	const stablePlacement = useStablePlacement(placement);
 
 	useLayoutEffect(() => {
@@ -286,9 +272,9 @@ export function useAnchorPosition({
 				placement: stablePlacement,
 				offset: gapCssValue,
 			});
-			// Hoist crossAxisShift to a single computation; reused below to
-			// populate the active `--ds-cross-axis-shift-margin-*` custom
-			// property for the named arrow @position-try rules.
+			// Computed once; reused below to populate the active
+			// `--ds-cross-axis-shift-margin-*` custom property for the
+			// named arrow @position-try rules.
 			const crossAxisShift = crossAxisShiftMargin({
 				placement: stablePlacement,
 				crossAxisShiftCssValue,
@@ -309,16 +295,13 @@ export function useAnchorPosition({
 				// with anchor positioning (UA: `inset: 0; margin: auto;`)
 				{ property: 'margin', value: '0' },
 				{ property: 'inset', value: 'auto' },
-				// Main-axis gap between the popover and its trigger
 				{ property: gap.property, value: gap.value },
-				// Cross-axis shift
 				{ property: crossAxisShift.property, value: crossAxisShift.value },
 			];
 
-			// Surface the active cross-axis shift value as a custom property so
-			// each named arrow @position-try rule can re-apply it after a flip.
-			// The four properties cover (cross-axis, side); only one is non-zero
-			// at a time.
+			// Expose the active cross-axis shift via custom properties so each
+			// named arrow @position-try rule can re-apply it after a flip.
+			// One of the four (cross-axis, side) properties is non-zero at a time.
 			popoverStyles.push({ property: '--ds-cross-axis-shift-margin-start', value: '0px' });
 			popoverStyles.push({ property: '--ds-cross-axis-shift-margin-end', value: '0px' });
 			popoverStyles.push({
@@ -329,9 +312,8 @@ export function useAnchorPosition({
 				property: '--ds-cross-axis-shift-margin-block-end',
 				value: '0px',
 			});
-			// `crossAxisShift` IS the active margin - reuse instead of recomputing.
+			// `crossAxisShift` IS the active margin; reuse instead of recomputing.
 			const crossAxisShiftActive = crossAxisShift;
-			// Map margin property to its corresponding custom property name.
 			const customPropertyByMarginProperty: Record<string, string> = {
 				'margin-inline-start': '--ds-cross-axis-shift-margin-start',
 				'margin-inline-end': '--ds-cross-axis-shift-margin-end',
@@ -366,17 +348,16 @@ export function useAnchorPosition({
 			 */
 			trigger.style.setProperty('anchor-name', anchorName);
 
-			const undoPositioning = combine(setStyle({ el: popover, styles: popoverStyles }));
+			const undoPositioning = combine(setStyle({ element: popover, styles: popoverStyles }));
 
 			return undoPositioning;
 		}
 
-		// JS fallback
-		// The popover is already in the browser's top layer via popover="auto",
-		// so it does not need position:fixed. We only reset the UA defaults
-		// (inset: 0; margin: auto) and set top/left based on measurements.
+		// JS fallback. The popover is already in the top layer via
+		// popover="auto", so we only reset UA defaults and set top/left
+		// based on measurements.
 		const cleanupBaseStyles = setStyle({
-			el: popover,
+			element: popover,
 			styles: [
 				{ property: 'margin', value: '0' },
 				{ property: 'inset', value: 'auto' },

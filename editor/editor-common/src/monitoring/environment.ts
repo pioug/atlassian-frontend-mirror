@@ -1,5 +1,11 @@
 const FEDRAMP_MODERATE = 'fedramp-moderate';
 
+// Ignored via go/ees005
+/* eslint-disable require-unicode-regexp */
+const FEDRAMP_HOSTNAME_REGEX =
+	/atlassian-us-gov-mod\.(com|net)|atlassian-us-gov\.(com|net)|atlassian-fex\.(com|net)|atlassian-stg-fedm\.(com|net)/;
+/* eslint-enable require-unicode-regexp */
+
 // To determine whether an instance is a FedRAMP instance
 // Copied from platform/packages/uip/atl-context/src/services/is-fedramp/index.tsx
 // We cannot import the same-named function from @atlassian/atl-context due to editor-common being a public package (and atl-context being private)
@@ -17,11 +23,7 @@ export function isFedRamp(): boolean {
 		return env === FEDRAMP_MODERATE;
 	}
 
-	const matches = global.location?.hostname?.match(
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		/atlassian-us-gov-mod\.(com|net)|atlassian-us-gov\.(com|net)|atlassian-fex\.(com|net)|atlassian-stg-fedm\.(com|net)/,
-	);
+	const matches = global.location?.hostname?.match(FEDRAMP_HOSTNAME_REGEX);
 
 	return matches ? matches.length > 0 : false;
 }

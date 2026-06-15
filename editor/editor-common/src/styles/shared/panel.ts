@@ -12,10 +12,10 @@ const lightPanelColors = {
 
 const prefix = 'ak-editor-panel';
 export const PanelSharedCssClassName: {
-	prefix: string;
 	content: string;
 	icon: string;
 	noIcon: string;
+	prefix: string;
 } = {
 	prefix,
 	content: `${prefix}__content`,
@@ -41,7 +41,7 @@ export const PanelSharedSelectors = {
 	addYourOwnEmoji: `#add-custom-emoji`,
 	emojiNameInCustomEmoji: `[aria-label="Enter a name for the new emoji"]`,
 	title: `#editor-title`,
-	emojiPopup: `[aria-label="Popup"]`,
+	emojiPopup: `[data-testid="popup-wrapper"]`,
 	searchEmoji: `[aria-label="Emoji name"]`,
 	orangeWarningIcon: `[aria-label=":warning:"]`,
 	yellowWarningIcon: `[aria-label=":warning:"]  span:nth-child(1)`,

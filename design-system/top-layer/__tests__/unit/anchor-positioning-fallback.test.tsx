@@ -7,10 +7,10 @@ const ZERO_CROSS_AXIS_SHIFT = { value: 0, direction: 'forwards' as const };
 
 describe('anchor positioning fallback', () => {
 	const createMockPopoverElement = (width: number, height: number): HTMLElement => {
-		const el = document.createElement('div');
-		Object.defineProperty(el, 'offsetWidth', { value: width, configurable: true });
-		Object.defineProperty(el, 'offsetHeight', { value: height, configurable: true });
-		return el;
+		const element = document.createElement('div');
+		Object.defineProperty(element, 'offsetWidth', { value: width, configurable: true });
+		Object.defineProperty(element, 'offsetHeight', { value: height, configurable: true });
+		return element;
 	};
 
 	const createTriggerRect = ({

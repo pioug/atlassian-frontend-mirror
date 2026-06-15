@@ -28,6 +28,7 @@ import {
 	deletedTraditionalContentStyleUnboundedActive,
 } from './colorSchemes/traditional';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
+import { buildDiffDecorationKey, DiffDecorationKey } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import { wrapBlockNodeView } from './utils/wrapBlockNodeView';
 
@@ -323,7 +324,7 @@ export const createNodeChangedDecorationWidget = ({
 	const decorations: Decoration[] = [];
 	decorations.push(
 		Decoration.widget(safeInsertPos, dom, {
-			key: `diff-widget-${isActive ? 'active' : 'inactive'}`,
+			key: buildDiffDecorationKey({ type: DiffDecorationKey.widget, isActive }),
 			...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
 				side: -1,
 			}),

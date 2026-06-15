@@ -3,7 +3,7 @@ import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
 // The top-layer polyfill that adds `HTMLDialogElement.prototype.showModal` to
 // jsdom is loaded globally for this package's unit tests. We do not need to
-// import it explicitly here — see `src/testing/polyfill.tsx`.
+// import it explicitly here - see `src/testing/polyfill.tsx`.
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 

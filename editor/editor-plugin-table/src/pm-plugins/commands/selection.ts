@@ -23,7 +23,6 @@ import {
 	isTableSelected,
 	selectedRect,
 } from '@atlaskit/editor-tables/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type tablePlugin from '../../tablePlugin';
 import { getClosestSelectionRect } from '../../ui/toolbar';
@@ -542,10 +541,7 @@ export const modASelectTable =
 		const isCellSelection = selection instanceof CellSelection;
 
 		// if no cells are selected
-		if (
-			!isCellSelection &&
-			expValEquals('platform_editor_lovability_select_all_shortcut', 'isEnabled', true)
-		) {
+		if (!isCellSelection) {
 			return selectTableCell(state, dispatch);
 		}
 		// else if any number of cells are selected but not the full table

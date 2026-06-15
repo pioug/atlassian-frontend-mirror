@@ -7,6 +7,7 @@ import type {
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ExpandPlugin } from '@atlaskit/editor-plugin-expand';
+import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
@@ -53,7 +54,11 @@ export type ShowDiffPlugin = NextEditorPlugin<
 			scrollToPrevious: EditorCommand;
 			showDiff: (config: PMDiffParams) => EditorCommand;
 		};
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<ExpandPlugin>];
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<ExpandPlugin>,
+			OptionalPlugin<UserIntentPlugin>,
+		];
 		pluginConfiguration: DiffParams | undefined;
 		sharedState: {
 			/**

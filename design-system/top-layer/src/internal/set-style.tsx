@@ -3,10 +3,10 @@
  * restores the prior inline values (so we do not stomp consumer styles).
  */
 export function setStyle({
-	el,
+	element,
 	styles,
 }: {
-	el: HTMLElement;
+	element: HTMLElement;
 	styles: Array<{ property: string; value: string }>;
 }): () => void {
 	// Snapshot the prior inline value (NOT the computed style - we only want
@@ -14,20 +14,20 @@ export function setStyle({
 	// string means "no inline value", in which case cleanup uses removeProperty.
 	const priorValues = styles.map(({ property }) => ({
 		property,
-		value: el.style.getPropertyValue(property),
+		value: element.style.getPropertyValue(property),
 	}));
 
 	styles.forEach(({ property, value }) => {
-		el.style.setProperty(property, value);
+		element.style.setProperty(property, value);
 	});
 
 	return function cleanup() {
 		priorValues.forEach(({ property, value }) => {
 			if (value === '') {
-				el.style.removeProperty(property);
+				element.style.removeProperty(property);
 				return;
 			}
-			el.style.setProperty(property, value);
+			element.style.setProperty(property, value);
 		});
 	};
 }

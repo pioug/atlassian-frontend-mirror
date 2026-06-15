@@ -136,8 +136,6 @@ function getInitialFocusTarget({
 	}
 
 	if (role === 'menu') {
-		// ARIA Combobox Pattern: if the popup is owned by a focused combobox,
-		// leave focus on the textbox. Navigation is proxied via the combobox.
 		if (isComboboxControllingPopup({ container })) {
 			return null;
 		}
@@ -151,9 +149,9 @@ function getInitialFocusTarget({
 	}
 
 	if (role === 'listbox') {
-		// ARIA Combobox Pattern: if the popup is owned by a focused
-		// combobox-like textbox (in-popup or external e.g. react-select),
-		// leave focus on the textbox. Navigation is proxied via the combobox.
+		// ARIA Combobox Pattern: if a combobox-like textbox owns the popup
+		// (in-popup or external e.g. react-select), leave focus on the
+		// textbox - navigation is proxied through it.
 		if (isComboboxControllingPopup({ container })) {
 			return null;
 		}
@@ -213,7 +211,7 @@ function getInitialFocusTarget({
  *   `<dialog>.close()`. If the consumer reopens before the exit transition
  *   has settled, the phase machine jumps `exiting → entering` without
  *   passing through `closed`, so without this branch the popup would be
- *   visible again with focus stranded on the trigger — a keyboard usability
+ *   visible again with focus stranded on the trigger - a keyboard usability
  *   gap for menu/dialog/listbox roles.
  *
  * Note: there is a rare programmatic path where a consumer flips `isOpen`
@@ -269,10 +267,8 @@ export function useInitialFocus({
 		const prevPhase = prevPhaseRef.current;
 		prevPhaseRef.current = phase;
 
-		// Skip the `phase === 'closed'` transitions (host is going away,
-		// nothing to focus) and any transition whose previous phase was
-		// neither `'closed'` (fresh open) nor `'exiting'` (mid-exit
-		// reopen, focus already on the trigger).
+		// Only focus on transitions into a visible phase from `'closed'`
+		// (fresh open) or `'exiting'` (mid-exit reopen).
 		if (phase === 'closed') {
 			return;
 		}
@@ -280,11 +276,11 @@ export function useInitialFocus({
 			return;
 		}
 
-		const el = elementRef.current;
-		if (!el) {
+		const element = elementRef.current;
+		if (!element) {
 			return;
 		}
 
-		getInitialFocusTarget({ container: el, role })?.focus();
+		getInitialFocusTarget({ container: element, role })?.focus();
 	}, [elementRef, phase, role]);
 }

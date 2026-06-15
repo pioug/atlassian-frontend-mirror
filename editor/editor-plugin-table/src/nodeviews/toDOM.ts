@@ -9,6 +9,7 @@ import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+
 import {
 	generateColgroupFromNode,
 	getResizerMinWidth,
@@ -20,6 +21,7 @@ import {
 	getTableResizerItemWidthInCSS,
 } from '../pm-plugins/table-resizing/utils/misc';
 import { isContentModeSupported } from '../pm-plugins/utils/tableMode/is-content-mode-supported';
+import { TableCssClassName as ClassName } from '../types';
 
 import { getAlignmentStyle } from './table-container-styles';
 
@@ -101,6 +103,33 @@ export const tableNodeSpecWithFixedToDOM = (
 				];
 			}
 
+			const roundedTableCornerMasks: DOMOutputSpec[] = expValEquals(
+				'platform_editor_table_q4_loveability',
+				'isEnabled',
+				true,
+			)
+				? [
+						[
+							'div',
+							{
+								contenteditable: 'false',
+								'aria-hidden': 'true',
+								class: ClassName.TABLE_CORNER_MASK,
+								'data-corner': 'left',
+							},
+						],
+						[
+							'div',
+							{
+								contenteditable: 'false',
+								'aria-hidden': 'true',
+								class: ClassName.TABLE_CORNER_MASK,
+								'data-corner': 'right',
+							},
+						],
+					]
+				: [];
+
 			const tableContainerDiv = [
 				'div',
 				{
@@ -128,6 +157,7 @@ export const tableNodeSpecWithFixedToDOM = (
 					{
 						class: 'pm-table-wrapper',
 					},
+					...roundedTableCornerMasks,
 					['table', attrs, colgroup, ['tbody', 0]],
 				],
 				[

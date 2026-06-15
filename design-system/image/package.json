@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/image",
-	"version": "3.0.10",
+	"version": "3.1.0",
 	"description": "An image that changes in light or dark themes.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,10 +27,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Image",
-			"category": "Images and icons",
-			"status": {
-				"type": "beta"
-			}
+			"category": "Images and icons"
 		}
 	},
 	"dependencies": {

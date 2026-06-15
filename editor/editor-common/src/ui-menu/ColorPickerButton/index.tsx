@@ -13,7 +13,6 @@ import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext'
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
 import Button from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss, Inline } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -260,11 +259,7 @@ const ColorPickerButton = (props: Props) => {
 				// if the toolbar is scrollable, this will be mounted in the root editor
 				// we need an index of > 500 to display over it
 				zIndex={props.setDisableParentScroll ? 600 : undefined}
-				ariaLabel={
-					fg('_editor_a11y_aria_label_removal_popup')
-						? formatMessage(colorPickerButtonMessages.colorPickerMenuLabel)
-						: 'Color picker popup'
-				}
+				ariaLabel={formatMessage(colorPickerButtonMessages.colorPickerMenuLabel)}
 				onPositionCalculated={onPositionCalculated}
 			>
 				<div css={colorPickerWrapper} data-test-id="color-picker-menu">

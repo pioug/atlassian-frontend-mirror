@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-autocomplete",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "JQL autocomplete engine",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,6 +39,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/jql-parser": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@babel/runtime": "root:*",
 		"antlr4-c3": "root:*",
 		"antlr4ts": "root:*",
@@ -88,6 +89,11 @@
 				"assert",
 				"util"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"enable-jql-membersof-autocomplete": {
+			"type": "boolean"
 		}
 	}
 }

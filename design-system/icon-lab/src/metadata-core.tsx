@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::6e4f234d466ffb878c16d52b801dcea1>>
+ * @codegen <<SignedSource::008bc20aa9b7cbdbfc570d8ba3f1af54>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -4925,6 +4925,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for when there is limited link permissions',
 		team: 'Loom',
+		status: 'published',
+	},
+	loom: {
+		keywords: ['loom', 'icon', 'icon-lab', 'loom'],
+		componentName: 'LoomIcon',
+		package: '@atlaskit/icon-lab/core/loom',
+		categorization: 'single-purpose',
+		usage: "Used only for representing the object type of \'a Loom\'",
+		team: 'Design System',
 		status: 'published',
 	},
 	lozenge: {

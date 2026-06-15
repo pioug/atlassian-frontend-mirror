@@ -23,16 +23,16 @@ function runOnTransitionEndOrTimeout({
 	safetyNetMs,
 	onSettled,
 }: TRunOnTransitionEndArgs): () => void {
-	let isSettled = false;
+	const state = { isSettled: false };
 
 	function teardown() {
-		isSettled = true;
+		state.isSettled = true;
 		clearTimeout(safetyNetId);
 		unbind();
 	}
 
 	function settle() {
-		if (isSettled) {
+		if (state.isSettled) {
 			return;
 		}
 		teardown();
@@ -164,20 +164,14 @@ export function useAnimatedVisibility({
 	onEnterFinish,
 	onExitFinish,
 }: TUseAnimatedVisibilityArgs): TUseAnimatedVisibilityResult {
-	// Resolve the animation preset and inject its CSS (idempotent).
-	// Returns `null` when `animate` is falsy.
 	const preset = usePresetStyles({ preset: animate });
 
-	// Whether we should play CSS transitions. False when there is no preset
-	// or the user has enabled the "prefers reduced motion" OS setting.
+	// False when there is no preset or `prefers-reduced-motion` is set.
 	const willAnimate = Boolean(animate) && !prefersReducedMotion();
 
-	// `phase` is the single source of truth for the visibility lifecycle.
-	// We promote `closed → entering` (animated) or `closed → open`
-	// (non-animated) synchronously during render so the host element mounts
-	// in the same commit as the open intent (React supports a single
-	// setState during render as a synchronous re-render before paint).
-	// All other transitions are driven by phase-specific effects below.
+	// Promote `closed → entering`/`closed → open` synchronously during
+	// render so the host element mounts in the same commit as the open
+	// intent. All other transitions are driven by phase-specific effects.
 	const [phase, setPhase] = useState<TPhase>(() => {
 		if (!isOpen) {
 			return 'closed';
@@ -211,10 +205,8 @@ export function useAnimatedVisibility({
 	const onExitFinishRef = useRef(onExitFinish);
 	onExitFinishRef.current = onExitFinish;
 
-	// `entering` (animation enabled):
-	// Wait for the entry transition to settle, then move to `open` and fire
-	// `onEnterFinish`. A fallback timeout (enterDurationMs + 50ms buffer)
-	// guarantees the settle path runs even if `transitionend` is swallowed
+	// Animated entry: wait for `transitionend` (or a safety-net timeout) and
+	// move to `open`. The fallback guarantees settle on swallowed events
 	// (zero-duration, browser quirk, mid-transition unmount).
 	useEffect(() => {
 		if (phase !== 'entering') {
@@ -240,12 +232,9 @@ export function useAnimatedVisibility({
 		});
 	}, [phase, preset?.enterDurationMs, elementRef]);
 
-	// Non-animated entry callback:
-	// When animation is disabled, the lifecycle goes `closed → open`
-	// directly with no `entering` phase. Fire `onEnterFinish` on the
-	// transition into `open` from the non-animated path. We detect this
-	// via a previous-phase ref to avoid firing on the animated path's
-	// `entering → open` transition (which has its own callback above).
+	// Non-animated entry callback. The lifecycle goes `closed → open`
+	// directly with no `entering` phase; fire `onEnterFinish` on that jump.
+	// A previous-phase ref avoids double-firing on the animated path.
 	const prevPhaseForEntryRef = useRef<TPhase>('closed');
 	useEffect(() => {
 		const prevPhase = prevPhaseForEntryRef.current;
@@ -258,12 +247,8 @@ export function useAnimatedVisibility({
 		}
 	}, [phase]);
 
-	// `exiting` (animation enabled):
-	// Wait for the exit transition to settle, then unmount the host element
-	// (set phase back to `closed`) and fire `onExitFinish`. The fallback
-	// timeout (exitDurationMs + 50ms buffer) guarantees we always unmount
-	// even if `transitionend` is never emitted (element removed from the
-	// top layer, zero-duration transition, interrupted animation).
+	// Animated exit: wait for `transitionend` (or a safety-net timeout),
+	// fire `onExitFinish`, then move to `closed` to unmount the host.
 	useEffect(() => {
 		if (phase !== 'exiting' || !willAnimate) {
 			return;
@@ -290,33 +275,20 @@ export function useAnimatedVisibility({
 		});
 	}, [phase, willAnimate, preset?.exitDurationMs, elementRef]);
 
-	// `exiting` (animation disabled):
-	// Wait for the browser's `toggle` (closed) event (for `<div popover>`)
-	// or `close` event (for `<dialog>`) to fire before unmounting. This
-	// guarantees:
-	//   - the consumer's toggle/close listener (close-reason capture,
-	//     nested focus restoration, `onClose` notification) runs against
-	//     the still-attached element,
-	//   - the browser's native focus restoration triggered by
-	//     `hidePopover()` / `<dialog>.close()` has fired,
-	// before React unmounts the node. A naive `setTimeout(0)` race
-	// occasionally beats the `toggle` task in Chromium, causing focus
-	// restoration to drop (the toggle event arrives at a detached element).
+	// Non-animated exit: wait for the browser's `toggle` (closed) or
+	// `close` event before unmounting, so the consumer's listener (close
+	// reason, nested focus restoration, `onClose`) and the browser's
+	// native focus restoration both run against the still-attached
+	// element. A naive `setTimeout(0)` occasionally beats the `toggle`
+	// task in Chromium and drops focus restoration.
 	//
-	// `useLayoutEffect` (not `useEffect`) so the listener is bound in the
-	// same commit as the consumer's show/hide layout effect that calls
-	// `hidePopover()` / `dialog.close()`. The browser queues the resulting
-	// `toggle`/`close` event as a task, which cannot run until the JS
-	// frame (including all effect flushes) completes, so the listener is
-	// always attached before the event fires. Promotion to layout timing
-	// removes any theoretical gap and future-proofs the ordering against
-	// effect reordering. Safe under SSR: `phase` starts at `'closed'`, so
-	// the body short-circuits and no DOM access happens on the server.
+	// `useLayoutEffect` so the listener binds in the same commit as the
+	// show/hide layout effect that calls `hidePopover()` / `dialog.close()`.
+	// The toggle/close event is queued as a task and cannot run until the
+	// frame completes. SSR-safe: `phase` starts at `'closed'`.
 	//
-	// `onExitFinish` is NOT called here. It is decoupled from the unmount
-	// handshake and fired by the dedicated non-animated exit-callback
-	// effect below, so consumers observe a synchronous "exit finished"
-	// signal that matches `isOpen` flipping to `false`.
+	// `onExitFinish` is fired separately (see effect below) so consumers
+	// observe it the moment `isOpen` flips to `false`.
 	useLayoutEffect(() => {
 		if (phase !== 'exiting' || willAnimate) {
 			return;
@@ -346,13 +318,9 @@ export function useAnimatedVisibility({
 		]);
 	}, [phase, willAnimate, elementRef]);
 
-	// Non-animated exit callback:
-	// When animation is disabled there is no `transitionend` to wait for,
-	// so fire `onExitFinish` on the transition into `exiting`. The actual
-	// host-element unmount is gated on the browser `toggle`/`close` event
-	// by the effect above; `onExitFinish` is observably decoupled from
-	// that handshake so consumers see the callback fire at the same time
-	// `isOpen` flipped to `false`.
+	// Non-animated exit callback. No `transitionend` to wait for, so fire
+	// `onExitFinish` on the transition into `exiting` (the unmount itself
+	// is gated by the toggle/close handshake above).
 	const prevPhaseForExitRef = useRef<TPhase>('closed');
 	useEffect(() => {
 		const prevPhase = prevPhaseForExitRef.current;

@@ -1,3 +1,7 @@
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const MS_PREFIX_REGEX = /^ms/;
+
 /**
  * Converts a camelCased CSS property name to a hyphenated CSS property name.
  *
@@ -6,10 +10,9 @@
  */
 function hyphenate(property: string): string {
 	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(/^ms/, '-ms');
+	/* eslint-disable require-unicode-regexp */
+	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(MS_PREFIX_REGEX, '-ms');
+	/* eslint-enable require-unicode-regexp */
 }
 
 /**

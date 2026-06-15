@@ -86,112 +86,6 @@ describe('useBlockCardRovoActionExperiment', () => {
 
 	eeTest
 		.describe(
-			'platform_sl_3p_auth_rovo_block_card_jira',
-			'block card rovo action experiment jira on',
-		)
-		.variant(true, () => {
-			ffTest.on('platform_sl_3p_auth_rovo_block_jira_kill_switch', '', () => {
-				it('returns isEnabled=true when rovo is enabled, product is Jira and experiment is on', () => {
-					const result = renderHook(
-						() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-						{
-							wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'JSM'),
-						},
-					);
-					expect(result.current.isEnabled).toBe(true);
-				});
-
-				it('returns isEnabled=true for eligible extensionKeys', () => {
-					const result = renderHook(
-						() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-						{
-							wrapper: wrapper(enabledRovoOptions, 'onedrive-object-provider', undefined, 'JSM'),
-						},
-					);
-					expect(result.current.isEnabled).toBe(true);
-				});
-
-				it('returns isEnabled=true for google-object-provider', () => {
-					const result = renderHook(
-						() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-						{
-							wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'JSM'),
-						},
-					);
-					expect(result.current.isEnabled).toBe(true);
-				});
-
-				it('returns isEnabled=false when actionOptions.rovoChatAction.optIn is not true', () => {
-					const result = renderHook(
-						() =>
-							useBlockCardRovoActionExperiment(mockUrl, {
-								hide: false,
-								rovoChatAction: { optIn: false },
-							}),
-						{
-							wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'JSM'),
-						},
-					);
-					expect(result.current.isEnabled).toBe(false);
-				});
-
-				it('returns isEnabled=false when actionOptions is not provided', () => {
-					const result = renderHook(() => useBlockCardRovoActionExperiment(mockUrl), {
-						wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'JSM'),
-					});
-					expect(result.current.isEnabled).toBe(false);
-				});
-
-				it('returns isEnabled=false when rovo is disabled even with experiment on', () => {
-					const result = renderHook(() => useBlockCardRovoActionExperiment(mockUrl), {
-						wrapper: wrapper(disabledRovoOptions),
-					});
-					expect(result.current.isEnabled).toBe(false);
-				});
-			});
-
-			eeTest
-				.describe(
-					'platform_sl_3p_auth_rovo_block_card_confluence',
-					'block card rovo action experiment confluence off',
-				)
-				.variant(false, () => {
-					it('returns isEnabled=false when product is not Jira even with experiment on', () => {
-						const result = renderHook(
-							() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-							{
-								wrapper: wrapper(
-									enabledRovoOptions,
-									'slack-object-provider',
-									undefined,
-									'CONFLUENCE',
-								),
-							},
-						);
-						expect(result.current.isEnabled).toBe(false);
-					});
-				});
-		});
-
-	eeTest
-		.describe(
-			'platform_sl_3p_auth_rovo_block_card_jira',
-			'block card rovo action experiment jira off',
-		)
-		.variant(false, () => {
-			it('returns isEnabled=false when experiment is off', () => {
-				const result = renderHook(
-					() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-					{
-						wrapper: wrapper(),
-					},
-				);
-				expect(result.current.isEnabled).toBe(false);
-			});
-		});
-
-	eeTest
-		.describe(
 			'platform_sl_3p_auth_rovo_block_card_confluence',
 			'block card rovo action experiment confluence on',
 		)
@@ -271,22 +165,16 @@ describe('useBlockCardRovoActionExperiment', () => {
 				});
 			});
 
-			eeTest
-				.describe(
-					'platform_sl_3p_auth_rovo_block_card_jira',
-					'block card rovo action experiment jira off',
-				)
-				.variant(false, () => {
-					it('returns isEnabled=false when product is not Confluence even with experiment on', () => {
-						const result = renderHook(
-							() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-							{
-								wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'JSM'),
-							},
-						);
-						expect(result.current.isEnabled).toBe(false);
-					});
-				});
+
+			it('returns isEnabled=false when product is not Confluence even with experiment on', () => {
+				const result = renderHook(
+					() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
+					{
+						wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'JSM'),
+					},
+				);
+				expect(result.current.isEnabled).toBe(false);
+			});
 		});
 
 	eeTest

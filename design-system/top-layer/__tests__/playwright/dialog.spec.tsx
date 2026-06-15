@@ -27,7 +27,7 @@ test.describe('Dialog - open and close', () => {
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
 
-		// Dialog auto-focuses its first focusable element — run trial click for actionability
+		// Dialog auto-focuses its first focusable element - run trial click for actionability
 		const closeBtn = page.locator('dialog button[aria-label="Close"]');
 		await expect(closeBtn).toBeFocused();
 		await closeBtn.click({ trial: true });
@@ -58,7 +58,7 @@ test.describe('Dialog - open and close', () => {
 		await expect(page.getByTestId('close-reason')).toHaveText('overlay-click');
 	});
 
-	// onClose fires synchronously before the native dialog closes — verified for both dismiss paths.
+	// onClose fires synchronously before the native dialog closes - verified for both dismiss paths.
 	// This timing matters for animation presets that delay unmounting.
 	test('onClose is called before dialog closes (Escape and backdrop click)', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/110-testing-dialog-close-timing.tsx')>(
@@ -70,7 +70,7 @@ test.describe('Dialog - open and close', () => {
 		// Escape path
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.getByTestId('dialog-body')).toBeVisible();
-		// Dialog auto-focuses its first focusable element — trial click for actionability
+		// Dialog auto-focuses its first focusable element - trial click for actionability
 		const timingCloseBtn = page.locator('dialog button[aria-label="Close"]');
 		await expect(timingCloseBtn).toBeFocused();
 		await timingCloseBtn.click({ trial: true });
@@ -247,7 +247,7 @@ test.describe('Dialog - focus', () => {
 		await expect(page.getByTestId('button-c')).toBeFocused();
 
 		// After the last focusable element, Tab wraps directly to the first
-		// focusable element (the Close button) — no <body> intermediate step.
+		// focusable element (the Close button) - no <body> intermediate step.
 		// This matches the WAI-ARIA APG Dialog (Modal) pattern.
 		await page.keyboard.press('Tab');
 		const wrappedToFirst = await page.evaluate(() => {
@@ -278,7 +278,7 @@ test.describe('Dialog - focus', () => {
 		await expect(dialog).toBeVisible();
 
 		// showModal() auto-focuses the Close button (first focusable element).
-		// Shift+Tab wraps directly to the last focusable element — no <body>
+		// Shift+Tab wraps directly to the last focusable element - no <body>
 		// intermediate step. This matches the WAI-ARIA APG Dialog (Modal) pattern.
 		await page.keyboard.press('Shift+Tab');
 		await expect(page.getByTestId('button-c')).toBeFocused();
@@ -335,8 +335,8 @@ test.describe('Dialog - focus', () => {
 		const focusedElement = page.getByTestId('first-button');
 		await expect(focusedElement).toBeFocused();
 
-		const hasFocusVisible = await focusedElement.evaluate((el) => {
-			return el.matches(':focus-visible');
+		const hasFocusVisible = await focusedElement.evaluate((element) => {
+			return element.matches(':focus-visible');
 		});
 
 		expect(hasFocusVisible).toBe(true);
@@ -369,18 +369,18 @@ test.describe('Dialog - focus', () => {
 		await page.keyboard.press('Tab');
 
 		const focusedElementVisible = await page.evaluate(() => {
-			const el = document.activeElement;
-			if (!el) {
+			const element = document.activeElement;
+			if (!element) {
 				return false;
 			}
-			const rect = el.getBoundingClientRect();
+			const rect = element.getBoundingClientRect();
 			if (rect.width === 0 || rect.height === 0) {
 				return false;
 			}
 			const centerX = rect.left + rect.width / 2;
 			const centerY = rect.top + rect.height / 2;
-			const topEl = document.elementFromPoint(centerX, centerY);
-			return el === topEl || el.contains(topEl);
+			const topElement = document.elementFromPoint(centerX, centerY);
+			return element === topElement || element.contains(topElement);
 		});
 
 		expect(focusedElementVisible).toBe(true);
@@ -432,7 +432,7 @@ test.describe('Dialog - autofocus', () => {
 });
 
 test.describe('Dialog - ARIA', () => {
-	// WCAG 4.1.2 Name, Role, Value — all ARIA assertions in one page load.
+	// WCAG 4.1.2 Name, Role, Value - all ARIA assertions in one page load.
 	// Native <dialog> has implicit role="dialog"; aria-labelledby must point to the title;
 	// close button must have an accessible name for screen reader users.
 	test('dialog has correct ARIA role, labelledby, and close button label', async ({ page }) => {
@@ -448,7 +448,7 @@ test.describe('Dialog - ARIA', () => {
 		await expect(dialog).toBeVisible();
 
 		// Role: native <dialog> exposes role="dialog" implicitly (no explicit attr needed)
-		const role = await dialog.evaluate((el) => el.getAttribute('role'));
+		const role = await dialog.evaluate((element) => element.getAttribute('role'));
 		// eslint-disable-next-line playwright/no-conditional-in-test -- native dialog may or may not have explicit role attr
 		expect(role === null || role === 'dialog').toBe(true);
 

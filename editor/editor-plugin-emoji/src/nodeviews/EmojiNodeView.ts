@@ -23,6 +23,7 @@ import type {
 	EmojiRepresentation,
 	OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -49,7 +50,7 @@ export function isSingleEmoji(fallbackText: string): boolean {
 	// Regular expression to match a single emoji character
 	const emojiRegex =
 		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-		/^(\p{Emoji_Presentation}|\p{Extended_Pictographic}\u{FE0F}?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
+		/^(\p{Emoji_Presentation}(?:[\u{1F3FB}-\u{1F3FF}])?|\p{Extended_Pictographic}\u{FE0F}(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)*|\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
 	return emojiRegex.test(fallbackText);
 }
 
@@ -256,8 +257,23 @@ export class EmojiNodeView implements NodeView {
 			doc = document;
 		}
 		const fallbackElement = doc.createElement('span');
-		fallbackElement.innerText = this.node.attrs.text || this.node.attrs.shortName;
-		fallbackElement.setAttribute('data-testid', `fallback-emoji-${this.node.attrs.shortName}`);
+
+		const { text, shortName } = this.node.attrs;
+
+		// When the gate is enabled and the emoji is "custom" (i.e. its fallback
+		// text is not a single standard Unicode emoji), render the Unicode
+		// Replacement Character (U+FFFD) instead of the shortName text. Standard
+		// emojis continue to fall back to their Unicode text representation.
+		const fallbackText = text || shortName;
+		const useReplacementChar =
+			fg('platform_editor_custom_emoji_unicode_fallback') && !isSingleEmoji(fallbackText);
+		const renderedFallbackText = useReplacementChar ? '\uFFFD' : fallbackText;
+
+		fallbackElement.innerText = renderedFallbackText;
+		fallbackElement.setAttribute('role', 'img');
+		fallbackElement.setAttribute('title', shortName);
+		fallbackElement.setAttribute('aria-label', shortName);
+		fallbackElement.setAttribute('data-testid', `fallback-emoji-${shortName}`);
 		fallbackElement.setAttribute('data-emoji-type', 'fallback');
 
 		this.dom.appendChild(fallbackElement);

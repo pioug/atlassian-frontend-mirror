@@ -470,7 +470,7 @@ describe('aria-expanded during exit animation', () => {
 			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
-			// Trigger close — animation starts but has not finished
+			// Trigger close - animation starts but has not finished
 			act(() => {
 				trigger.click();
 			});
@@ -515,7 +515,7 @@ describe('aria-expanded during exit animation', () => {
 			});
 			expect(trigger).toHaveAttribute('aria-expanded', 'true');
 
-			// Close — stays true during animation
+			// Close - stays true during animation
 			act(() => {
 				trigger.click();
 			});

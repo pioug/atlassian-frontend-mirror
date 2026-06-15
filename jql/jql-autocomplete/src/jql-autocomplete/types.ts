@@ -10,6 +10,7 @@ export type JQLClause = typeof WHERE_CLAUSE | typeof ORDER_BY_CLAUSE;
 export type JQLRuleContext = {
 	clause?: JQLClause;
 	field?: string;
+	functionName?: string;
 	isList?: boolean;
 	operator?: string;
 };

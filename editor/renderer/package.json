@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "132.5.0",
+	"version": "132.6.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -196,6 +196,10 @@
 		},
 		"platform_ssr_smartlink_cards": {
 			"type": "boolean"
+		},
+		"platform_editor_custom_emoji_unicode_fallback": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform_editor_renderer_rm_usespecbasedvalidator": {
 			"type": "boolean"

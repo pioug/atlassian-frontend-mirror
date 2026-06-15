@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 24.0.18
+
+### Patch Changes
+
+- [`fd3ef8de291ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd3ef8de291ba) -
+  Cleanup feature gate `platform_editor_nov_a11y_fixes`
+- Updated dependencies
+
+## 24.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.13
 
 ### Patch Changes

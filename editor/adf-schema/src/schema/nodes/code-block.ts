@@ -59,10 +59,13 @@ const getLanguageFromCode = (dom: HTMLElement): string | undefined => {
 	}
 };
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const LANGUAGE_CLASS_REGEX = /(?:^|\s)language-([^\s]+)/u;
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const TRAILING_NEWLINE_REGEX = /\n$/u;
+
 const extractLanguageFromClass = (className: string): string | undefined => {
-	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-	const languageRegex = /(?:^|\s)language-([^\s]+)/u;
-	const result = languageRegex.exec(className);
+	const result = LANGUAGE_CLASS_REGEX.exec(className);
 	if (result && result[1]) {
 		return result[1];
 	}
@@ -72,9 +75,8 @@ const extractLanguageFromClass = (className: string): string | undefined => {
 const removeLastNewLine = (dom: HTMLElement): HTMLElement => {
 	const parent = dom && dom.parentElement;
 	if (parent && parent.classList.contains('codehilite')) {
-		// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		dom.textContent = dom.textContent!.replace(/\n$/u, '');
+		dom.textContent = dom.textContent!.replace(TRAILING_NEWLINE_REGEX, '');
 	}
 	return dom;
 };

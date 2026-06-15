@@ -1,4 +1,6 @@
 export {
+	dialogMotion,
+	popupMotion,
 	slideAndFade,
 	fade,
 	scaleAndFade,

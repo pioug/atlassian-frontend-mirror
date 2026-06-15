@@ -1,4 +1,5 @@
 import { JQLLexer, JQLParser } from '@atlaskit/jql-parser';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const defaultIgnoredTokens: Set<number> = new Set([
 	JQLLexer.EOF,
@@ -70,14 +71,16 @@ const operandRules = [
  *
  * More info at https://github.com/mike-lischke/antlr4-c3#preferred-rules
  */
-export const defaultPreferredRules: Set<number> = new Set([
-	JQLParser.RULE_jqlField,
-	...operatorRules,
-	...operandRules,
-	...unhandledRules,
-	// Disable token suggestions for predicate operands.
-	// To be removed when we build proper autocomplete support.
-	JQLParser.RULE_jqlPredicateOperand,
-]);
+export const getDefaultPreferredRules = (): Set<number> =>
+	new Set([
+		JQLParser.RULE_jqlField,
+		...operatorRules,
+		...operandRules,
+		...(fg('enable-jql-membersof-autocomplete') ? [JQLParser.RULE_jqlArgument] : []),
+		...unhandledRules,
+		// Disable token suggestions for predicate operands.
+		// To be removed when we build proper autocomplete support.
+		JQLParser.RULE_jqlPredicateOperand,
+	]);
 
 export const defaultDelimiterTokens: Set<number> = new Set([JQLLexer.LPAREN, JQLLexer.COMMA]);

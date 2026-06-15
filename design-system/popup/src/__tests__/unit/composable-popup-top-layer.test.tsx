@@ -114,7 +114,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: content renderi
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — role', () => {
-	it('defaults to dialog role', () => {
+	it('does not apply a role when none is supplied (legacy `Popup` contract)', () => {
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -129,7 +129,10 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 		);
 
 		const content = screen.getByTestId(`${testId}--content`);
-		expect(content).toHaveAttribute('role', 'dialog');
+		// Legacy `Popup` left the popup role-less when no `role` was
+		// passed. We preserve that contract: no implicit `dialog`
+		// default, no role-based initial focus movement.
+		expect(content).not.toHaveAttribute('role');
 	});
 
 	it('applies role="menu" when specified', () => {
@@ -152,7 +155,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 		expect(content).toHaveAttribute('role', 'menu');
 	});
 
-	it('applies aria-labelledby when titleId is provided', () => {
+	it('applies aria-labelledby when titleId is provided alongside a dialog role', () => {
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -162,7 +165,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 						</button>
 					)}
 				</PopupTrigger>
-				<PopupContent testId={testId} titleId="popup-title">
+				<PopupContent testId={testId} role="dialog" titleId="popup-title">
 					{() => (
 						<div>
 							<h2 id="popup-title">Title</h2>
@@ -320,7 +323,7 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 		expect(content).toHaveAttribute('aria-label', 'Navigation menu');
 	});
 
-	it('defaults to "Popup" label when no label is provided', () => {
+	it('defaults to "Popup" label when role="dialog" is supplied without a custom label', () => {
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -330,11 +333,15 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 						</button>
 					)}
 				</PopupTrigger>
-				<PopupContent testId={testId}>{() => <div>content</div>}</PopupContent>
+				<PopupContent testId={testId} role="dialog">
+					{() => <div>content</div>}
+				</PopupContent>
 			</Popup>,
 		);
 
 		const content = screen.getByTestId(`${testId}--content`);
+		// `dialog` requires an accessible name. The bridge supplies
+		// "Popup" as a fallback when the consumer does not provide one.
 		expect(content).toHaveAttribute('aria-label', 'Popup');
 	});
 });

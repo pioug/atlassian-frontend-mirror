@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "220.4.0",
+	"version": "220.4.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -179,6 +179,9 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
+		"platform_editor_md_mvp_layout": {
+			"type": "boolean"
+		},
 		"people-teams_migrate-user-profile-card": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -278,10 +281,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"_editor_a11y_aria_label_removal_popup": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_tables_table_selector": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -317,9 +316,6 @@
 			"type": "boolean"
 		},
 		"cc_fd_wb_create_priority_in_slash_menu_enabled": {
-			"type": "boolean"
-		},
-		"platform_editor_nov_a11y_fixes": {
 			"type": "boolean"
 		},
 		"rovo_chat_enable_skills_ui_m1": {

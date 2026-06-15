@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-media
 
+## 13.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.5.0
+
+### Minor Changes
+
+- [`01c0f76dfce1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01c0f76dfce1e) -
+  Cleanup experiment `platform_editor_media_vc_fixes_patch1`.
+
+### Patch Changes
+
+- [`d1b772ec7a247`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1b772ec7a247) -
+  Disable video caption management controls while editor media renders in view mode.
+- Updated dependencies
+
+## 13.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.4.10
 
 ### Patch Changes

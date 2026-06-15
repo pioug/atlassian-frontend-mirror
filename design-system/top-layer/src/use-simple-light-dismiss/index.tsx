@@ -83,13 +83,13 @@ export function useSimpleLightDismiss({
 		const unbindClickOutside = bind(document, {
 			type: 'click',
 			listener: (event: MouseEvent) => {
-				const el = popoverRef.current;
-				if (!el) {
+				const element = popoverRef.current;
+				if (!element) {
 					return;
 				}
 
 				// If the click target is inside the popover, do not dismiss.
-				if (event.target instanceof Node && el.contains(event.target)) {
+				if (event.target instanceof Node && element.contains(event.target)) {
 					return;
 				}
 

@@ -10,6 +10,8 @@ type Props = {
 	children?: React.ReactNode;
 	index?: number;
 	innerRef?: React.Ref<HTMLTableRowElement>;
+	isFirstRow?: boolean;
+	isLastRow?: boolean;
 	isNumberColumnEnabled?: number;
 	onSorting?: (columnIndex?: number, currentSortOrdered?: SortOrder) => void;
 	tableOrderStatus?: {
@@ -69,14 +71,21 @@ export default class TableRow extends React.Component<Props, State> {
 	};
 
 	render(): React.JSX.Element {
-		const { children, innerRef } = this.props;
+		const { children, innerRef, isFirstRow, isLastRow } = this.props;
 
 		const childrenArray = React.Children.toArray(children);
 		return (
 			<tr ref={innerRef}>
 				{this.props.isNumberColumnEnabled && (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					<td className={RendererCssClassName.NUMBER_COLUMN}>{this.props.index}</td>
+					<td
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+						className={RendererCssClassName.NUMBER_COLUMN}
+						data-reaches-left
+						data-reaches-top={isFirstRow || undefined}
+						data-reaches-bottom={isLastRow || undefined}
+					>
+						{this.props.index}
+					</td>
 				)}
 				{compose(this.addSortableColumn, this.addColGroupWidth)(childrenArray)}
 			</tr>

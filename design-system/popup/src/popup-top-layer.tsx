@@ -4,22 +4,25 @@
  */
 import {
 	type CSSProperties,
+	type Dispatch,
 	type FC,
 	type ForwardRefExoticComponent,
 	Fragment,
 	memo,
 	type PropsWithoutRef,
 	type RefAttributes,
+	type SetStateAction,
 	useCallback,
+	useEffect,
 	useMemo,
 	useRef,
-	useState,
 } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { popupMotion } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import {
@@ -45,7 +48,7 @@ const contentOverflowStyles = cssMap({
 	default: {},
 });
 
-const animation = slideAndFade();
+const animation = popupMotion();
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
 const EMPTY_STYLE: CSSProperties = {};
@@ -119,7 +122,70 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const popupContainerRef = useRef<HTMLDivElement>(null);
-	const [, setInitialFocusRef] = useState<HTMLElement | null>(null);
+
+	/**
+	 * Escape hatch for consumer-chosen initial focus target.
+	 *
+	 * The legacy `Popup` surfaced `setInitialFocusRef` on the content
+	 * render prop with a `Dispatch<SetStateAction<HTMLElement | null>>`
+	 * signature so it could be passed as a React `ref` callback. We
+	 * keep the same shape for API compatibility, but store the value in
+	 * a ref rather than component state. Flipping state on every open
+	 * caused a needless re-render and, more importantly, raced the
+	 * initial-focus effect below. The ref is read in the open-side
+	 * effect to override the role-based default focus chosen by
+	 * `useInitialFocus` inside the underlying `Popover`.
+	 */
+	const consumerInitialFocusRef = useRef<HTMLElement | null>(null);
+	const setInitialFocusRef = useCallback<Dispatch<SetStateAction<HTMLElement | null>>>(
+		(value) => {
+			consumerInitialFocusRef.current =
+				typeof value === 'function' ? value(consumerInitialFocusRef.current) : value;
+		},
+		[],
+	);
+
+	/**
+	 * Override the role-based initial focus chosen by the underlying
+	 * `Popover` (its internal `useInitialFocus`).
+	 *
+	 * React flushes child effects before parent effects, so by the time
+	 * this effect runs the role-based default focus has already moved.
+	 * We then apply the legacy `Popup` contract:
+	 *
+	 * 1. If the consumer wired `setInitialFocusRef`, focus that element
+	 *    (escape hatch wins).
+	 * 2. Otherwise, if `autoFocus={false}`, return focus to the trigger.
+	 *    The `autoFocus` prop on `Popup` opts out of any initial-focus
+	 *    movement, even for roles like `dialog`.
+	 *
+	 * When neither applies the role-based default from the underlying
+	 * `Popover` stays in place.
+	 */
+	useEffect(() => {
+		if (!isOpen) {
+			/**
+			 * Clear the consumer-supplied focus target on close so a
+			 * subsequent open does not silently inherit a stale ref from
+			 * the previous open cycle. The next open will re-collect a
+			 * target only if the content render prop re-wires
+			 * `setInitialFocusRef`.
+			 */
+			consumerInitialFocusRef.current = null;
+			return;
+		}
+		const consumerTarget = consumerInitialFocusRef.current;
+		if (consumerTarget && consumerTarget.isConnected) {
+			consumerTarget.focus();
+			return;
+		}
+		if (!autoFocus) {
+			const trigger = triggerRef.current;
+			if (trigger && trigger.isConnected) {
+				trigger.focus();
+			}
+		}
+	}, [isOpen, autoFocus]);
 
 	const popoverId = usePopoverId();
 
@@ -143,6 +209,32 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 		popoverRef,
 		anchorRef: triggerRef,
 		isOpen,
+	});
+
+	/**
+	 * Register with the open-layer observer as a `popup` while open.
+	 *
+	 * The legacy `Popup` registered every open popup with the observer
+	 * regardless of role, and product surfaces such as the side-nav
+	 * panel splitter rely on this signal to detect open popups via
+	 * `getCount({ type: 'popup' }) > 0`. The underlying top-layer
+	 * `Popover` only self-registers when its role is one of
+	 * `menu | listbox | dialog | alertdialog | tree | grid`, which would
+	 * miss role-less popups and silently regress the splitter.
+	 *
+	 * Registering here unconditionally preserves the legacy contract.
+	 * When the role does opt the `Popover` into observer registration
+	 * the count is incremented twice, which is safe because every known
+	 * consumer treats the count as a boolean (`> 0` / `=== 0`).
+	 */
+	const handleObserverClose = useCallback(() => {
+		onClose?.(createPopoverCloseEvent({ reason: 'programmatic' }));
+	}, [onClose]);
+
+	useNotifyOpenLayerObserver({
+		type: 'popup',
+		isOpen,
+		onClose: handleObserverClose,
 	});
 
 	// onClose bridge.
@@ -174,7 +266,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 			onClose,
 			setInitialFocusRef,
 		}),
-		[isOpen, onClose],
+		[isOpen, onClose, setInitialFocusRef],
 	);
 
 	// Role mapping.

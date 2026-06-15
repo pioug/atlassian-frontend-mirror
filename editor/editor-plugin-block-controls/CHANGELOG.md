@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 12.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.4.0
+
+### Minor Changes
+
+- [`a3a227e567efe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3a227e567efe) -
+  [ux] [EDITOR-7662] disabled block controls when viewing diffs
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.5
 
 ### Patch Changes

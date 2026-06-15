@@ -215,13 +215,16 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: popupComponent', () => {
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attribute', () => {
-	it('defaults to dialog role', () => {
+	it('does not apply a role when none is supplied (legacy `Popup` contract)', () => {
 		render(
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
 
 		const content = screen.getByTestId(`${testId}--content`);
-		expect(content).toHaveAttribute('role', 'dialog');
+		// Legacy `Popup` left the popup role-less when no `role` was
+		// passed. We preserve that contract: no implicit `dialog`
+		// default, no role-based initial focus movement.
+		expect(content).not.toHaveAttribute('role');
 	});
 
 	it('applies role="menu" when specified', () => {
@@ -269,10 +272,11 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 		expect(content).toHaveAttribute('aria-label', 'Custom label');
 	});
 
-	it('applies aria-labelledby when titleId is provided', () => {
+	it('applies aria-labelledby when titleId is provided alongside a dialog role', () => {
 		render(
 			<Popup
 				isOpen={true}
+				role="dialog"
 				content={() => (
 					<div>
 						{/* Use a div with explicit aria-level so the test fixture does

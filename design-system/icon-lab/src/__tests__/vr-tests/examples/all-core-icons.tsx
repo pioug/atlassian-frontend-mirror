@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::b5cfefef3e3ee79669c139e274ec8b59>>
+ * @codegen <<SignedSource::26321d272fe6806fe53ef3bac2a5b033>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -314,6 +314,7 @@ import LayoutFourColumnsIcon from '../../../../core/layout-four-columns';
 import LayoutThreeColumnsSidebarsLeftIcon from '../../../../core/layout-three-columns-sidebars-left';
 import LayoutThreeColumnsSidebarsRightIcon from '../../../../core/layout-three-columns-sidebars-right';
 import LinkRestrictedAccessIcon from '../../../../core/link-restricted-access';
+import LoomIcon from '../../../../core/loom';
 import LozengeIcon from '../../../../core/lozenge';
 import MergeQueueIcon from '../../../../core/merge-queue';
 import MicrophoneStrikethroughIcon from '../../../../core/microphone-strikethrough';
@@ -995,6 +996,7 @@ const Icons = [
 	TabsIcon,
 	ArrowUpCircleIcon,
 	CloudFortifiedIcon,
+	LoomIcon,
 ];
 
 const groupSize = 50;

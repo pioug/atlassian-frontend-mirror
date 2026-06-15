@@ -38,7 +38,7 @@ const styles = cssMap({
  * Test fixture for animation callback lifecycle.
  * Exposes `onEnterFinish` and `onExitFinish` call counts via data attributes
  * so Playwright tests can assert that callbacks fire at the right point in the
- * animation lifecycle — after real CSS `transitionend` events in a real browser.
+ * animation lifecycle - after real CSS `transitionend` events in a real browser.
  */
 export default function TestingAnimationCallbacks(): ReactNode {
 	const [enterCount, setEnterCount] = useState(0);

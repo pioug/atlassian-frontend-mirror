@@ -34,6 +34,15 @@ export default class NumberColumn extends Component<Props, any> {
 			this.props;
 		const rowHeights = getRowHeights(tableRef);
 
+		const getMarginTop = () => {
+			if (!hasHeaderRow || this.props.stickyTop === undefined) {
+				return undefined;
+			}
+
+			// with platform_editor_table_q4_loveability enabled, table controls have margin-top of 1px applied. Offset this here.
+			return rowHeights[0] + 1;
+		};
+
 		if (isSSR()) {
 			return (
 				<div
@@ -41,14 +50,13 @@ export default class NumberColumn extends Component<Props, any> {
 					className={ClassName.NUMBERED_COLUMN}
 					style={{
 						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-						marginTop:
-							hasHeaderRow && this.props.stickyTop !== undefined ? rowHeights[0] : undefined,
+						marginTop: expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) ? getMarginTop() : hasHeaderRow && this.props.stickyTop !== undefined ? rowHeights[0] : undefined,
 						borderLeft:
 							isDragAndDropEnabled &&
-							tableActive &&
-							!expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+								tableActive &&
+								!expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 								? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-									`1px solid ${tableBorderColor}`
+								`1px solid ${tableBorderColor}`
 								: undefined,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						visibility: 'hidden', // Ensure the column is not visible during SSR
@@ -64,13 +72,13 @@ export default class NumberColumn extends Component<Props, any> {
 				className={ClassName.NUMBERED_COLUMN}
 				style={{
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-					marginTop: hasHeaderRow && this.props.stickyTop !== undefined ? rowHeights[0] : undefined,
+					marginTop: expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) ? getMarginTop() : hasHeaderRow && this.props.stickyTop !== undefined ? rowHeights[0] : undefined,
 					borderLeft:
 						isDragAndDropEnabled &&
-						tableActive &&
-						!expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+							tableActive &&
+							!expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								`1px solid ${tableBorderColor}`
+							`1px solid ${tableBorderColor}`
 							: undefined,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					visibility: 'visible',

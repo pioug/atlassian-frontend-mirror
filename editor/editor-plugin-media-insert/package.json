@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-insert",
-	"version": "24.0.13",
+	"version": "24.0.18",
 	"description": "Media Insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,6 @@
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",
 		"@atlaskit/media-picker": "workspace:^",
-		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/tabs": "workspace:^",
@@ -92,11 +91,6 @@
 	"stricter": {
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
-		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_nov_a11y_fixes": {
-			"type": "boolean"
 		}
 	},
 	"devDependencies": {

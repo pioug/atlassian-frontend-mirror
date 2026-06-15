@@ -1,5 +1,22 @@
 # @atlaskit/popup
 
+## 4.25.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.25.0
+
+### Minor Changes
+
+- [`2fd74328732bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fd74328732bf) -
+  Updated to use new motion in top layer dialog
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.24.0
 
 ### Minor Changes

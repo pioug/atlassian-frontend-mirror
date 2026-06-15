@@ -3,6 +3,8 @@
 
 export { default as ColorPalette } from './ColorPalette';
 export { default as Color } from './ColorPalette/Color';
+export { SelectedTextColorProvider } from './ColorPalette/SelectedTextColorProvider';
+export { useSelectedTextColor } from './ColorPalette/useSelectedTextColor';
 export { getSelectedRowAndColumn } from './ColorPalette/getSelectedRowAndColumn';
 export {
 	DEFAULT_COLOR_PICKER_COLUMNS,

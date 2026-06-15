@@ -22,22 +22,22 @@ const styles = cssMap({
 	inner: {
 		position: 'absolute',
 	},
-	// Trigger near bottom edge — block-end should flip to block-start
+	// Trigger near bottom edge - block-end should flip to block-start
 	flipBlockEnd: {
 		insetBlockEnd: token('space.200'),
 		insetInlineStart: '50%',
 	},
-	// Trigger near top edge — block-start should flip to block-end
+	// Trigger near top edge - block-start should flip to block-end
 	flipBlockStart: {
 		insetBlockStart: token('space.200'),
 		insetInlineStart: '50%',
 	},
-	// Trigger near right edge — inline-end should flip to inline-start
+	// Trigger near right edge - inline-end should flip to inline-start
 	flipInlineEnd: {
 		insetInlineEnd: token('space.200'),
 		insetBlockStart: '50%',
 	},
-	// Trigger near left edge — inline-start should flip to inline-end
+	// Trigger near left edge - inline-start should flip to inline-end
 	flipInlineStart: {
 		insetInlineStart: token('space.200'),
 		insetBlockStart: '50%',

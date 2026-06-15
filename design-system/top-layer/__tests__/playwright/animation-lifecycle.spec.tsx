@@ -43,13 +43,13 @@ test.describe('Animation lifecycle - exit animation', () => {
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Close via Escape — trial click on trigger (interactive button, always stable)
+		// Close via Escape - trial click on trigger (interactive button, always stable)
 		await trigger.click({ trial: true });
 		await page.keyboard.press('Escape');
 
 		// The popover element should still exist in the DOM immediately after close
 		// (exit animation should be in progress, not instant removal).
-		// We check that the popover element hasn't been removed from DOM yet
+		// We check that the popover element has not been removed from DOM yet
 		// by verifying it still exists right after the close action.
 		const existsImmediatelyAfterClose = await page.evaluate(() => {
 			const popoverEl = document.querySelector('[popover]');
@@ -81,11 +81,11 @@ test.describe('Animation lifecycle - animation callbacks', () => {
 
 		await expect(enterCount).toHaveText('0');
 
-		// Open the popup — entry animation begins
+		// Open the popup - entry animation begins
 		await page.getByTestId('popover-trigger').click();
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Immediately after click the animation has just started — not fired yet
+		// Immediately after click the animation has just started - not fired yet
 		await expect(enterCount).toHaveText('0');
 
 		// Wait for entry animation to complete (slideAndFade: 350ms + CI headroom)
@@ -106,10 +106,10 @@ test.describe('Animation lifecycle - animation callbacks', () => {
 		await trigger.click();
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Close the popup — exit animation begins
+		// Close the popup - exit animation begins
 		await trigger.click();
 
-		// Immediately after close the animation has just started — not fired yet
+		// Immediately after close the animation has just started - not fired yet
 		await expect(exitCount).toHaveText('0');
 
 		// Wait for exit animation to complete (slideAndFade: 350ms + CI headroom)
@@ -144,7 +144,7 @@ test.describe('Animation lifecycle - reduced motion', () => {
 		expect(isOpen).toBe(true);
 	});
 
-	test('prefers-reduced-motion: reduce — popover closes instantly', async ({ page }) => {
+	test('prefers-reduced-motion: reduce - popover closes instantly', async ({ page }) => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
 		await page.visitExample<
 			typeof import('../../examples/126-testing-animation-reduced-motion.tsx')
@@ -155,9 +155,9 @@ test.describe('Animation lifecycle - reduced motion', () => {
 
 		await expect(page.getByTestId('popover-content')).toBeVisible();
 
-		// Close via Escape — trial click on trigger (interactive button, always stable)
+		// Close via Escape - trial click on trigger (interactive button, always stable)
 		await trigger.click({ trial: true });
-		// Close the popover — should close instantly with reduced motion
+		// Close the popover - should close instantly with reduced motion
 		await page.keyboard.press('Escape');
 
 		await expect(page.getByTestId('popover-content')).toBeHidden();

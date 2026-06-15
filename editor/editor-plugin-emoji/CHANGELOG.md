@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-emoji
 
+## 12.1.0
+
+### Minor Changes
+
+- [`f0ba9072fb20c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0ba9072fb20c) -
+  [ux] Add feature gate `platform_editor_custom_emoji_unicode_fallback` to render the Unicode
+  Replacement Character (U+FFFD) instead of the shortName text when a custom emoji image cannot be
+  rendered. Applies to both the editor (EmojiNodeView fallback) and the renderer (plain-span
+  fallback when no emoji provider is configured). Standard emojis continue to fall back to their
+  Unicode text representation. When the gate is off, behavior is unchanged in both surfaces.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.12
 
 ### Patch Changes

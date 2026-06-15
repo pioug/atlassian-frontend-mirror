@@ -302,7 +302,7 @@ export class TableContainer extends React.Component<
 	private _isInsideTableCell: boolean | null = null;
 	// Stores the last computed style values from render() for use by applyNestedRendererTableFix().
 	// This avoids reading from the DOM which can be stale when React removes properties between renders.
-	private lastComputedStyle: { width?: string; left?: string; marginLeft?: string } = {};
+	private lastComputedStyle: { left?: string; marginLeft?: string; width?: string; } = {};
 	private resizeObserver: ResizeObserver | null = null;
 
 	private applyResizerChange: ResizeObserverCallback = (entries) => {
@@ -952,7 +952,10 @@ type TableProcessorState = {
 	tableOrderStatus?: TableOrderStatus;
 };
 
-const getCellEdgePropsByCellOffset = (tableNode: PMNode): Map<number, TableCellEdgeProps> => {
+const getCellEdgePropsByCellOffset = (
+	tableNode: PMNode,
+	isNumberColumnEnabled?: boolean,
+): Map<number, TableCellEdgeProps> => {
 	const cellEdgePropsByCellOffset = new Map<number, TableCellEdgeProps>();
 	const cellRightByCellOffset = new Map<number, number>();
 	const occupiedGrid: boolean[][] = [];
@@ -987,7 +990,8 @@ const getCellEdgePropsByCellOffset = (tableNode: PMNode): Map<number, TableCellE
 			cellRightByCellOffset.set(cellOffset, cellRight);
 			cellEdgePropsByCellOffset.set(cellOffset, {
 				reachesBottom: cellBottom >= tableNode.childCount,
-				reachesLeft: cellLeft === 0,
+				// With number column enabled, PM column 0 is not visually leftmost and must not get `data-reaches-left`.
+				reachesLeft: cellLeft === 0 && !isNumberColumnEnabled,
 				reachesRight: false,
 				reachesTop: cellTop === 0,
 			});
@@ -1013,13 +1017,17 @@ const addTableCellEdgeProps = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rows: React.ReactElement<any>[],
 	tableNode?: PMNode,
+	isNumberColumnEnabled?: boolean,
 ): React.ReactElement[] => {
 	try {
 		if (!tableNode) {
 			return rows;
 		}
 
-		const cellEdgePropsByCellOffset = getCellEdgePropsByCellOffset(tableNode);
+		const cellEdgePropsByCellOffset = getCellEdgePropsByCellOffset(
+			tableNode,
+			isNumberColumnEnabled,
+		);
 		let cellOffset = 0;
 
 		return React.Children.map(rows, (row, rowIndex) => {
@@ -1103,7 +1111,11 @@ export class TableProcessorWithContainerStyles extends React.Component<
 			'isEnabled',
 			true,
 		)
-			? addTableCellEdgeProps(childrenArray as React.ReactElement[], tableNode)
+			? addTableCellEdgeProps(
+					childrenArray as React.ReactElement[],
+					tableNode,
+					isNumberColumnEnabled,
+				)
 			: childrenArray;
 		const orderedChildren = compose(
 			this.addNumberColumnIndexes,
@@ -1175,10 +1187,13 @@ export class TableProcessorWithContainerStyles extends React.Component<
 		const { isNumberColumnEnabled } = this.props;
 
 		const headerRowEnabled = isHeaderRowEnabled(rows);
+		const lastRowIndex = React.Children.count(rows) - 1;
 		return React.Children.map(rows, (row, index) => {
 			return React.cloneElement(React.Children.only(row), {
 				isNumberColumnEnabled,
 				index: headerRowEnabled ? (index === 0 ? '' : index) : index + 1,
+				isFirstRow: index === 0,
+				isLastRow: index === lastRowIndex,
 			});
 		});
 	};

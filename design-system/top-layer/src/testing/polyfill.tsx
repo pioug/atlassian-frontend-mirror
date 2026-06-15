@@ -346,14 +346,12 @@ function hidePopoversInStackNotInChainTo({
 	stack: HTMLElement[];
 	target: Node | null;
 }) {
-	const snapshot = stack.slice();
-	for (let i = snapshot.length - 1; i >= 0; i -= 1) {
-		const popover = snapshot[i];
-		if (isInChainTo({ candidate: popover, target })) {
-			break;
-		}
-		popover.hidePopover();
-	}
+	const snapshot = stack.slice().reverse();
+	const stopIndex = snapshot.findIndex((popover) =>
+		isInChainTo({ candidate: popover, target }),
+	);
+	const toHide = stopIndex === -1 ? snapshot : snapshot.slice(0, stopIndex);
+	toHide.forEach((popover) => popover.hidePopover());
 }
 
 // Two-phase light-dismiss: pointerdown stores the nearest open popover for

@@ -25,7 +25,7 @@ export default function TestingDialogCloseTiming(): React.ReactNode {
 				<button type="button" aria-label="Close" onClick={() => setIsOpen(false)}>
 					&#x2715;
 				</button>
-				<div data-testid="dialog-body">Escape or click backdrop — reason updates before close</div>
+				<div data-testid="dialog-body">Escape or click backdrop - reason updates before close</div>
 			</Dialog>
 		</div>
 	);

@@ -21,14 +21,6 @@
 	"module": "dist/esm/entry-points/date-label.js",
 	"module:es2019": "dist/es2019/entry-points/date-label.js",
 	"types": "dist/types/entry-points/date-label.d.ts",
-	"typesVersions": {
-		">=4.5 <5.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/entry-points/date-label.d.ts"
-			]
-		}
-	},
 	"sideEffects": [
 		"*.compiled.css"
 	],
@@ -99,7 +91,7 @@
 		}
 	},
 	"name": "@atlaskit/date-label",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "A Date label is a label that displays a date and optionally, visually communicates its status. And a Date label dropdown trigger is an interactive date label that opens a dropdown for date selection.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

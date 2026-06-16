@@ -12,6 +12,7 @@ import {
 	getExtraInteractionRate,
 	getInteractionRate,
 	getMostRecentVCRevision,
+	isInteractionExtraMetricsEnabled,
 	getPostInteractionRate,
 	getReactHydrationStats,
 	getTypingPerformanceTracingMethod,
@@ -443,7 +444,7 @@ describe('UFO Configuration Module', () => {
 		});
 	});
 
-	describe('getExtraInteractionRate', () => {
+	describe('extraInteractionMetrics helpers', () => {
 		it('should return the extraInteractionMetrics rate based on configuration', () => {
 			const config = {
 				product: 'testProduct',
@@ -454,7 +455,26 @@ describe('UFO Configuration Module', () => {
 				},
 			};
 			setUFOConfig(config);
+			expect(isInteractionExtraMetricsEnabled()).toBe(true);
 			expect(getExtraInteractionRate('extraEvent', 'page_load')).toBe(0.8);
+		});
+
+		it('should disable extraInteractionMetrics when platform_ufo_disable_interaction_extra_metrics is enabled', () => {
+			const config = {
+				product: 'testProduct',
+				region: 'testRegion',
+				extraInteractionMetrics: {
+					enabled: true,
+					rates: { extraEvent: 0.8 },
+				},
+			};
+			setUFOConfig(config);
+			(fg as jest.Mock).mockImplementation(
+				(flag: string) => flag === 'platform_ufo_disable_interaction_extra_metrics',
+			);
+
+			expect(isInteractionExtraMetricsEnabled()).toBe(false);
+			expect(getExtraInteractionRate('extraEvent', 'page_load')).toBe(0);
 		});
 	});
 

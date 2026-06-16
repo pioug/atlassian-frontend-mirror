@@ -12,6 +12,7 @@ const getTargetNode = (target: string | Element): Element | null => {
 
 export interface Props {
 	children: ReactElement<any>;
+	horizontalAlign?: 'start' | 'end' | 'end-to-start';
 	offsetX?: number;
 	offsetY?: number;
 	relativePosition?: RelativePosition;
@@ -22,6 +23,7 @@ export interface Props {
 const Popup = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 	const {
 		relativePosition = 'auto',
+		horizontalAlign = 'start',
 		offsetX = 0,
 		offsetY = 0,
 		zIndex = 9,
@@ -30,18 +32,30 @@ const Popup = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 	} = props;
 	const popup = useRef<HTMLElement>();
 	const [debounced, setDebounced] = useState<number | null>(null);
+	const getLeftPosition = useCallback(
+		(box: DOMRect): number => {
+			if (horizontalAlign === 'end-to-start') {
+				return box.left - 152;
+			}
+			if (horizontalAlign === 'end') {
+				return box.right - (popup.current?.offsetWidth || 0) + (offsetX || 0);
+			}
+			return box.left + (offsetX || 0);
+		},
+		[horizontalAlign, offsetX],
+	);
 
 	const applyBelowPosition = useCallback(() => {
 		const targetNode = getTargetNode(target);
 		if (targetNode && popup.current) {
 			const box = targetNode.getBoundingClientRect();
 			const top = box.bottom + (offsetY || 0);
-			const left = box.left + (offsetX || 0);
+			const left = getLeftPosition(box);
 			popup.current.style.top = `${top}px`;
 			popup.current.style.bottom = '';
 			popup.current.style.left = `${left}px`;
 		}
-	}, [offsetX, offsetY, target]);
+	}, [getLeftPosition, offsetY, target]);
 
 	const applyAbovePosition = useCallback(() => {
 		if (typeof window === 'undefined') {
@@ -51,12 +65,12 @@ const Popup = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 		if (targetNode && popup.current) {
 			const box = targetNode.getBoundingClientRect();
 			const bottom = window.innerHeight - box.top + (offsetY || 0);
-			const left = box.left + (offsetX || 0);
+			const left = getLeftPosition(box);
 			popup.current.style.top = '';
 			popup.current.style.bottom = `${bottom}px`;
 			popup.current.style.left = `${left}px`;
 		}
-	}, [offsetX, offsetY, target]);
+	}, [getLeftPosition, offsetY, target]);
 
 	const applyAbsolutePosition = useCallback(() => {
 		if (typeof window === 'undefined') {
@@ -116,6 +130,9 @@ const Popup = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 
 		applyAbsolutePosition();
 		renderPopup();
+		if (horizontalAlign !== 'start') {
+			applyAbsolutePosition();
+		}
 
 		return () => {
 			if (typeof window === 'undefined') {
@@ -127,7 +144,7 @@ const Popup = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 				document.body.removeChild(popup.current);
 			}
 		};
-	}, [applyAbsolutePosition, handleResize, renderPopup]);
+	}, [applyAbsolutePosition, handleResize, horizontalAlign, renderPopup]);
 
 	return <div />;
 };

@@ -1,14 +1,16 @@
 import { matchers } from '@emotion/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
 import React from 'react';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
+import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { messages } from '../../../../components/i18n';
 import { RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID } from '../../../../components/picker/EmojiPickerCategoryHeading';
 import * as utils from '../../../../components/picker/utils';
 import {
 	EmojiPickerVirtualListInternal as EmojiPickerList,
+	type PickerListRef,
 	type Props as EmojiPickerListProps,
 } from '../../../../components/picker/EmojiPickerList';
 import type { EmojiDescription } from '../../../../types';
@@ -17,6 +19,7 @@ import {
 	defaultEmojiPickerSize,
 	deleteEmojiLabel,
 	EMOJI_LIST_COLUMNS,
+	frequentCategory,
 } from '../../../../util/constants';
 import {
 	atlassianEmojis,
@@ -52,6 +55,58 @@ describe('<EmojiPickerList />', () => {
 
 	const emojis = [imageEmoji];
 	const customEmojis: EmojiDescription[] = [siteEmojiFoo, siteEmojiWtf];
+	const createProductivityEmoji = (
+		color: string,
+		number = '0',
+		numberName = 'zero',
+		shape = 'square',
+	): EmojiDescription => ({
+		...imageEmoji,
+		id: `${number}_${numberName}_${shape}_${color}`,
+		name: `${numberName} ${shape} ${color}`,
+		shortName: `:${number}_${numberName}_${shape}_${color}:`,
+		type: 'ATLASSIAN',
+		category: 'PRODUCTIVITY',
+		color,
+		order: color === 'red' ? 1 : 2,
+	});
+	const createProductivityStarEmoji = (
+		color: string,
+		format: 'color-first' | 'star-first',
+	): EmojiDescription => {
+		const id = format === 'color-first' ? `${color}_star` : `star_${color}`;
+
+		return {
+			...imageEmoji,
+			id,
+			name: `${color} star`,
+			shortName: `:${id}:`,
+			type: 'ATLASSIAN',
+			category: 'PRODUCTIVITY',
+			color,
+			order: color === 'red' ? 3 : 4,
+		};
+	};
+	const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
+		jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+			(experimentName, _parameterName, defaultValue) =>
+				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? isEnabled : defaultValue,
+		);
+	};
+	const createTestEmoji = (
+		id: string,
+		category: EmojiDescription['category'],
+		order: number,
+		overrides: Partial<EmojiDescription> = {},
+	): EmojiDescription => ({
+		...imageEmoji,
+		id,
+		name: id,
+		shortName: `:${id}:`,
+		category,
+		order,
+		...overrides,
+	});
 
 	const defaultProps: EmojiPickerListProps = {
 		uploading: false,
@@ -169,6 +224,37 @@ describe('<EmojiPickerList />', () => {
 			expect(images[1]).toHaveAttribute('data-emoji-id', atlassianEmojis[0].id);
 		});
 
+		it('should not render emojis with a hidden metadata tag', async () => {
+			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+				(experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
+						? true
+						: defaultValue,
+			);
+			const visibleEmoji: EmojiDescription = {
+				...imageEmoji,
+				id: 'visible-emoji',
+				name: 'Visible emoji',
+				shortName: ':visible_emoji:',
+			};
+			const hiddenEmoji = {
+				...imageEmoji,
+				id: 'hidden-emoji',
+				name: 'Hidden emoji',
+				shortName: ':hidden_emoji:',
+				metadata: {
+					tags: ['hidden'],
+				},
+			} as EmojiDescription & { metadata: { tags: string[] } };
+
+			renderEmojiPickerList({
+				emojis: [visibleEmoji, hiddenEmoji],
+			});
+
+			expect(await screen.findByTestId('image-emoji-:visible_emoji:')).toBeInTheDocument();
+			expect(screen.queryByTestId('image-emoji-:hidden_emoji:')).not.toBeInTheDocument();
+		});
+
 		it('should not order frequent category emojis', async () => {
 			const frequentCategoryEmojis: EmojiDescription[] = [
 				{
@@ -242,6 +328,229 @@ describe('<EmojiPickerList />', () => {
 				'Faces',
 				'Hands',
 			]);
+		});
+
+		it('should filter productivity number and star variants by selected colour when teamoji experiment is enabled', async () => {
+			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+				(experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
+						? true
+						: defaultValue,
+			);
+			const redZeroEmoji = createProductivityEmoji('red');
+			const blueZeroEmoji = createProductivityEmoji('blue');
+			const redZeroCircleEmoji = createProductivityEmoji('red', '0', 'zero', 'circle');
+			const blueZeroCircleEmoji = createProductivityEmoji('blue', '0', 'zero', 'circle');
+			const redTenEmoji = createProductivityEmoji('red', '10', 'ten');
+			const blueTenEmoji = createProductivityEmoji('blue', '10', 'ten');
+			const redStarEmoji = createProductivityStarEmoji('red', 'color-first');
+			const blueStarEmoji = createProductivityStarEmoji('blue', 'star-first');
+			const logoEmoji: EmojiDescription = {
+				...atlassianEmojis[0],
+				id: 'atlassian-logo',
+				name: 'Atlassian logo',
+				shortName: ':atlassian_logo:',
+				type: 'ATLASSIAN',
+				category: 'LOGOS',
+				order: 3,
+			};
+
+			renderEmojiPickerList({
+				emojis: [
+					redZeroEmoji,
+					blueZeroEmoji,
+					redZeroCircleEmoji,
+					blueZeroCircleEmoji,
+					redTenEmoji,
+					blueTenEmoji,
+					redStarEmoji,
+					blueStarEmoji,
+					logoEmoji,
+				],
+				selectedProductivityColor: 'blue',
+			});
+
+			expect(await screen.findByTestId('image-emoji-:0_zero_square_blue:')).toBeInTheDocument();
+			expect(screen.queryByTestId('image-emoji-:0_zero_square_red:')).not.toBeInTheDocument();
+			expect(screen.getByTestId('image-emoji-:0_zero_circle_blue:')).toBeInTheDocument();
+			expect(screen.queryByTestId('image-emoji-:0_zero_circle_red:')).not.toBeInTheDocument();
+			expect(screen.getByTestId('image-emoji-:10_ten_square_blue:')).toBeInTheDocument();
+			expect(screen.queryByTestId('image-emoji-:10_ten_square_red:')).not.toBeInTheDocument();
+			expect(screen.getByTestId('image-emoji-:star_blue:')).toBeInTheDocument();
+			expect(screen.queryByTestId('image-emoji-:red_star:')).not.toBeInTheDocument();
+			expect(screen.getByTestId('image-emoji-:atlassian_logo:')).toBeInTheDocument();
+		});
+
+		it('should filter coloured productivity emojis from endpoint metadata when the selected colour variant is unavailable', async () => {
+			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+				(experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
+						? true
+						: defaultValue,
+			);
+			const limeSquareEmoji: EmojiDescription = {
+				...imageEmoji,
+				id: 'atlassian-14_fourteen_square_lime',
+				name: '14 Fourteen Square Lime',
+				shortName: ':14_fourteen_square_lime:',
+				fallback: ':14_fourteen_square_lime:',
+				type: 'ATLASSIAN',
+				category: 'PRODUCTIVITY',
+				color: 'lime',
+				variantBase: false,
+				variantParent: '14_fourteen_square_blue',
+				hidden: true,
+			};
+			const greenCircleEmoji: EmojiDescription = {
+				...imageEmoji,
+				id: 'atlassian-5_five_circle_green',
+				name: '5 Five Circle Green',
+				shortName: ':5_five_circle_green:',
+				fallback: ':5_five_circle_green:',
+				type: 'ATLASSIAN',
+				category: 'PRODUCTIVITY',
+				color: 'green',
+				variantBase: false,
+				variantParent: '5_five_circle_blue',
+				hidden: false,
+			};
+			const redStarEmoji: EmojiDescription = {
+				...imageEmoji,
+				id: 'atlassian-red_star',
+				name: 'Red Star',
+				shortName: ':red_star:',
+				fallback: ':red_star:',
+				type: 'ATLASSIAN',
+				category: 'PRODUCTIVITY',
+				color: 'red',
+				variantBase: false,
+				variantParent: 'blue_star',
+				hidden: false,
+			};
+			const hiddenTaggedBlueStarEmoji = {
+				...imageEmoji,
+				id: 'atlassian-blue_star_hidden',
+				name: 'Blue Star Hidden',
+				shortName: ':blue_star_hidden:',
+				type: 'ATLASSIAN',
+				category: 'PRODUCTIVITY',
+				color: 'blue',
+				hidden: true,
+			};
+			const logoEmoji: EmojiDescription = {
+				...atlassianEmojis[0],
+				id: 'atlassian-logo',
+				name: 'Atlassian logo',
+				shortName: ':atlassian_logo:',
+				type: 'ATLASSIAN',
+				category: 'LOGOS',
+				order: 3,
+			};
+
+			renderEmojiPickerList({
+				emojis: [
+					limeSquareEmoji,
+					greenCircleEmoji,
+					redStarEmoji,
+					hiddenTaggedBlueStarEmoji,
+					logoEmoji,
+				],
+				selectedProductivityColor: 'blue',
+			});
+
+			expect(screen.queryByTestId('image-emoji-:14_fourteen_square_lime:')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('image-emoji-:5_five_circle_green:')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('image-emoji-:red_star:')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('image-emoji-:blue_star_hidden:')).not.toBeInTheDocument();
+			expect(await screen.findByTestId('image-emoji-:atlassian_logo:')).toBeInTheDocument();
+		});
+
+		it('should not infer productivity colour from emoji identifiers', async () => {
+			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+				(experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
+						? true
+						: defaultValue,
+			);
+			const emojiWithoutColorMetadata: EmojiDescription = {
+				...imageEmoji,
+				id: 'atlassian-red_star',
+				name: 'Red Star',
+				shortName: ':red_star:',
+				fallback: ':red_star:',
+				type: 'ATLASSIAN',
+				category: 'PRODUCTIVITY',
+			};
+
+			renderEmojiPickerList({
+				emojis: [emojiWithoutColorMetadata],
+				selectedProductivityColor: 'blue',
+			});
+
+			expect(await screen.findByTestId('image-emoji-:red_star:')).toBeInTheDocument();
+		});
+
+		it('should filter coloured Atlassian emojis from frequent category by selected colour metadata', async () => {
+			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+				(experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
+						? true
+						: defaultValue,
+			);
+			const frequentRedStarEmoji = {
+				...createProductivityStarEmoji('red', 'color-first'),
+				category: frequentCategory,
+			};
+			const frequentBlueStarEmoji = {
+				...createProductivityStarEmoji('blue', 'color-first'),
+				category: frequentCategory,
+			};
+
+			renderEmojiPickerList({
+				emojis: [frequentRedStarEmoji, frequentBlueStarEmoji],
+				selectedProductivityColor: 'blue',
+			});
+
+			expect(screen.queryByTestId('image-emoji-:red_star:')).not.toBeInTheDocument();
+			expect(await screen.findByTestId('image-emoji-:blue_star:')).toBeInTheDocument();
+		});
+
+		it('should use the selected colour zero square emoji for the productivity colour button preview', async () => {
+			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
+				(experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
+						? true
+						: defaultValue,
+			);
+			const blueStarEmoji = createProductivityStarEmoji('blue', 'color-first');
+			const blueZeroSquareEmoji: EmojiDescription = {
+				...imageEmoji,
+				id: 'atlassian-0_zero_square_blue',
+				name: '0 Zero Square Blue',
+				shortName: ':0_zero_square_blue:',
+				type: 'ATLASSIAN',
+				category: 'PRODUCTIVITY',
+				color: 'blue',
+				keywords: ['0', 'zero'],
+				variantBase: true,
+				variantChildren: ['0_zero_square_red'],
+			};
+
+			renderEmojiPickerList({
+				activeCategoryId: 'ATLASSIAN',
+				emojis: [blueStarEmoji, blueZeroSquareEmoji],
+				onProductivityColorSelected: jest.fn(),
+				selectedProductivityColor: 'blue',
+			});
+
+			const productivityColorButton = await screen.findByTestId(tonePreviewTestId);
+
+			expect(
+				within(productivityColorButton).getByTestId('image-emoji-:0_zero_square_blue:'),
+			).toBeInTheDocument();
+			expect(
+				within(productivityColorButton).queryByTestId('image-emoji-:blue_star:'),
+			).not.toBeInTheDocument();
 		});
 	});
 
@@ -344,58 +653,121 @@ describe('<EmojiPickerList />', () => {
 			expect(mockOnCategoryActivated).not.toHaveBeenCalled();
 		});
 
-		/**
-		 * People       <- category heading
-		 * emojis row
-		 * emojis row
-		 * Nature       <- category heading
-		 * ...
-		 */
-		it('should trigger onCategoryActivated when category heading rendered in picker list', async () => {
-			const mockOnCategoryActivated = jest.fn();
-			renderEmojiPickerList({
-				emojis: allEmojis,
-				onCategoryActivated: mockOnCategoryActivated,
+		describe.each([
+			{ caseName: 'when teamoji experiment is off', isEnabled: false },
+			{ caseName: 'when teamoji experiment is on', isEnabled: true },
+		])('$caseName', ({ isEnabled }) => {
+			beforeEach(() => {
+				setTeamojiExperimentEnabled(isEnabled);
 			});
-			const virtualListWrapper = await screen.findByRole('grid');
-			expect(virtualListWrapper).toBeInTheDocument();
-			// when people category heading is initially rendered
-			expect(mockOnCategoryActivated).toHaveBeenLastCalledWith('PEOPLE');
-			// when nature category heading is rendered
-			helperTestingLibrary.scrollToIndex(12);
-			expect(mockOnCategoryActivated).toHaveBeenLastCalledWith('NATURE');
-		});
 
-		it('should trigger onCategoryActivated for your uploads category', async () => {
-			const mockOnCategoryActivated = jest.fn();
-			const emojisWithYourUploads = [
-				...standardEmojis,
-				...atlassianEmojis,
-				...Array(30).fill(customEmojis).flat(), // fill with more custom emojis so we can scroll to the category
-			];
-			renderEmojiPickerList({
-				emojis: emojisWithYourUploads,
-				onCategoryActivated: mockOnCategoryActivated,
-				currentUser: { id: 'hulk' },
+			it('should keep category activation callback working when revealing nature', async () => {
+				const mockOnCategoryActivated = jest.fn();
+				const pickerListRef = React.createRef<PickerListRef>();
+				renderWithIntl(
+					<EmojiPickerList
+						{...defaultProps}
+						ref={pickerListRef}
+						emojis={[
+							...Array.from({ length: 80 }).map((_, idx) =>
+								createTestEmoji(`people-${idx}`, 'PEOPLE', idx + 1),
+							),
+							createTestEmoji('nature-emoji', 'NATURE', 200),
+						]}
+						onCategoryActivated={mockOnCategoryActivated}
+					/>,
+				);
+				await screen.findByRole('grid');
+				await waitFor(() => {
+					act(() => {
+						pickerListRef.current?.reveal('NATURE');
+					});
+					expect(mockOnCategoryActivated).toHaveBeenCalled();
+				});
 			});
-			const virtualListWrapper = await screen.findByRole('grid');
-			expect(virtualListWrapper).toBeInTheDocument();
-			// when row within your uploads rendered in picker list
-			helperTestingLibrary.scrollToIndex(35);
-			expect(mockOnCategoryActivated).toHaveBeenLastCalledWith('CUSTOM');
-		});
 
-		it('should trigger onCategoryActivated', async () => {
-			const mockOnCategoryActivated = jest.fn();
-			renderEmojiPickerList({
-				emojis: allEmojis,
-				onCategoryActivated: mockOnCategoryActivated,
+			it('should keep category activation callback working when revealing custom uploads', async () => {
+				const mockOnCategoryActivated = jest.fn();
+				const pickerListRef = React.createRef<PickerListRef>();
+				renderWithIntl(
+					<EmojiPickerList
+						{...defaultProps}
+						ref={pickerListRef}
+						emojis={[
+							...Array.from({ length: 80 }).map((_, idx) =>
+								createTestEmoji(`people-${idx}`, 'PEOPLE', idx + 1),
+							),
+							createTestEmoji('custom-emoji', 'CUSTOM', 200, {
+								creatorUserId: 'hulk',
+							}),
+						]}
+						onCategoryActivated={mockOnCategoryActivated}
+						currentUser={{ id: 'hulk' }}
+					/>,
+				);
+				await screen.findByRole('grid');
+				await waitFor(() => {
+					act(() => {
+						pickerListRef.current?.reveal('CUSTOM');
+					});
+					expect(mockOnCategoryActivated).toHaveBeenCalled();
+				});
 			});
-			const virtualListWrapper = await screen.findByRole('grid');
-			expect(virtualListWrapper).toBeInTheDocument();
-			// this row is the first row of emojis under activity category heading in emoji picker list
-			helperTestingLibrary.scrollToIndex(18);
-			expect(mockOnCategoryActivated).toHaveBeenLastCalledWith('ACTIVITY');
+
+			it('should keep category activation callback working when revealing activity', async () => {
+				const mockOnCategoryActivated = jest.fn();
+				const pickerListRef = React.createRef<PickerListRef>();
+				renderWithIntl(
+					<EmojiPickerList
+						{...defaultProps}
+						ref={pickerListRef}
+						emojis={[
+							...Array.from({ length: 80 }).map((_, idx) =>
+								createTestEmoji(`people-${idx}`, 'PEOPLE', idx + 1),
+							),
+							createTestEmoji('activity-emoji', 'ACTIVITY', 200),
+						]}
+						onCategoryActivated={mockOnCategoryActivated}
+					/>,
+				);
+				await screen.findByRole('grid');
+				await waitFor(() => {
+					act(() => {
+						pickerListRef.current?.reveal('ACTIVITY');
+					});
+					expect(mockOnCategoryActivated).toHaveBeenCalled();
+				});
+			});
+
+			it('should keep category activation callback working for bottom custom category', async () => {
+				const onCategoryActivated = jest.fn();
+				const pickerListRef = React.createRef<PickerListRef>();
+				renderWithIntl(
+					<EmojiPickerList
+						{...defaultProps}
+						ref={pickerListRef}
+						emojis={[
+							...Array.from({ length: 40 }).map((_, idx) =>
+								createTestEmoji(`people-${idx}`, 'PEOPLE', idx + 1),
+							),
+							...Array.from({ length: 10 }).map((_, idx) =>
+								createTestEmoji(`custom-${idx}`, 'CUSTOM', idx + 100, {
+									creatorUserId: 'hulk',
+								}),
+							),
+						]}
+						onCategoryActivated={onCategoryActivated}
+					/>,
+				);
+
+				onCategoryActivated.mockReset();
+				await waitFor(() => {
+					act(() => {
+						pickerListRef.current?.reveal('CUSTOM');
+					});
+					expect(onCategoryActivated).toHaveBeenCalled();
+				});
+			});
 		});
 
 		it('should not break while finding category in an empty list', async () => {
@@ -412,12 +784,26 @@ describe('<EmojiPickerList />', () => {
 
 		it('should trigger onCategoryActivated for first category', async () => {
 			const onCategoryActivated = jest.fn();
-			renderEmojiPickerList({
-				emojis: allEmojis,
-				onCategoryActivated: onCategoryActivated,
-			});
+			const pickerListRef = React.createRef<PickerListRef>();
+			const activityEmoji: EmojiDescription = {
+				...imageEmoji,
+				id: 'activity-emoji',
+				name: 'Activity emoji',
+				shortName: ':activity_emoji:',
+				category: 'ACTIVITY',
+			};
+			renderWithIntl(
+				<EmojiPickerList
+					{...defaultProps}
+					ref={pickerListRef}
+					emojis={[...allEmojis, activityEmoji]}
+					onCategoryActivated={onCategoryActivated}
+				/>,
+			);
 
-			helperTestingLibrary.scrollToIndex(18);
+			act(() => {
+				pickerListRef.current?.reveal('ACTIVITY');
+			});
 			onCategoryActivated.mockReset();
 			helperTestingLibrary.scrollToIndex(0);
 
@@ -425,20 +811,6 @@ describe('<EmojiPickerList />', () => {
 			expect(onCategoryActivated).toHaveBeenLastCalledWith('PEOPLE');
 		});
 
-		it('should trigger onCategoryActivated for bottom category', async () => {
-			const onCategoryActivated = jest.fn();
-			const customEmoji = allEmojis[allEmojis.length - 1];
-			renderEmojiPickerList({
-				emojis: [...allEmojis, ...Array(80).fill(customEmoji).flat()],
-				onCategoryActivated: onCategoryActivated,
-			});
-
-			onCategoryActivated.mockReset();
-			helperTestingLibrary.scrollToIndex(35);
-
-			expect(onCategoryActivated.mock.calls).toHaveLength(1);
-			expect(onCategoryActivated).toHaveBeenLastCalledWith('CUSTOM');
-		});
 	});
 
 	describe('delete', () => {

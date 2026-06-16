@@ -33,6 +33,7 @@ const WindowedCodeBlock = ({
 	text,
 	language,
 	allowCopyToClipboard,
+	allowDownloadCodeBlock,
 	allowWrapCodeBlock = false,
 	codeBidiWarningTooltipEnabled,
 	hideLineNumbers = false,
@@ -70,6 +71,8 @@ const WindowedCodeBlock = ({
 				<CodeBlockContainer
 					allowCopyToClipboard={allowCopyToClipboard}
 					allowWrapCodeBlock={allowWrapCodeBlock}
+					allowDownloadCodeBlock={allowDownloadCodeBlock}
+					language={language}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={className}
 					setWrapLongLines={setWrapLongLines}

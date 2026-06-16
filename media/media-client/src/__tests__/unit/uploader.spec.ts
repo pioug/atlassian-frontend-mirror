@@ -128,6 +128,7 @@ describe('Uploader', () => {
 							replaceFileId: 'some-file-id',
 						},
 						{ traceId: 'some-trace-id', spanId: 'some-span-id' },
+						{ expectedFileSize: undefined },
 					);
 					done();
 				},

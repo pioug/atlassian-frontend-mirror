@@ -250,6 +250,7 @@ export interface MediaApi {
 		body: MediaStoreCreateFileFromUploadBody,
 		params: MediaStoreCreateFileFromUploadParams,
 		traceContext?: MediaTraceContext,
+		options?: { expectedFileSize?: number },
 	) => Promise<MediaStoreResponse<MediaFile>>;
 
 	getRejectedResponseFromDescriptor: (
@@ -261,6 +262,7 @@ export interface MediaApi {
 		body: MediaStoreTouchFileBody,
 		params: MediaStoreTouchFileParams,
 		traceContext?: MediaTraceContext,
+		options?: { expectedFileSize?: number },
 	) => Promise<MediaStoreResponse<TouchedFiles>>;
 
 	getFile: (

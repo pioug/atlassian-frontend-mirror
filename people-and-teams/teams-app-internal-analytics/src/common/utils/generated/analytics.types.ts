@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::7ad3e76dd73a38be76ded08eec6229bd>>
+ * @codegen <<SignedSource::9f873993261784578f4c526676204873>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1638,6 +1638,7 @@ export type UserProfilePreviewClickedTabAttributesType = {
 };
 export type UserProfilePreviewClickedRecentWorkSectionAttributesType = undefined;
 export type UserProfilePreviewClickedCollaboratorsSectionAttributesType = undefined;
+export type UserProfilePreviewClickedRecentWorkViewAllAttributesType = undefined;
 export type UserInlinePreviewSucceededRequestAttributesType = undefined;
 export type UserInlinePreviewFailedRequestAttributesType = undefined;
 export type UserInlinePreviewClickedThirdPartyMessageAttributesType = {
@@ -2811,6 +2812,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the Collaborators section is expanded on the compact user profile preview */
 	'ui.userProfilePreview.clicked.collaboratorsSection': UserProfilePreviewClickedCollaboratorsSectionAttributesType;
+	/**
+	 * fired when the View all link is clicked on the Recent Work section on the compact user profile preview */
+	'ui.userProfilePreview.clicked.recentWorkViewAll': UserProfilePreviewClickedRecentWorkViewAllAttributesType;
 	/**
 	 * fired when the user inline preview list data request succeeds */
 	'operational.userInlinePreview.succeeded.request': UserInlinePreviewSucceededRequestAttributesType;

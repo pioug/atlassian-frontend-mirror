@@ -137,6 +137,24 @@ const applyTableWidthToStickyRow = (tableRef: HTMLElement, headerRow: HTMLTableR
 	}
 };
 
+/**
+ * Repositions only the sticky-header corner masks to match the current scroll position.
+ */
+export const syncStickyCornerMasks = (tableRef?: HTMLElement | null): void => {
+	if (!tableRef) {
+		return;
+	}
+
+	const headerRow = tableRef.querySelector('tr[data-header-row]') as HTMLTableRowElement | null;
+	const wrapper = tableRef.parentElement;
+
+	if (!headerRow || !wrapper) {
+		return;
+	}
+
+	syncCornerMasksToStickyRow(tableRef, headerRow, wrapper);
+};
+
 export const clearStickyCornerMaskPositions = (tableRef?: HTMLElement | null): void => {
 	const wrapper = tableRef?.parentElement;
 	if (!wrapper) {

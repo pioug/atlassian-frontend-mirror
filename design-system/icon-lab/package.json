@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "6.14.0",
+	"version": "7.0.0",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -84,14 +84,6 @@
 				"spacing"
 			],
 			"deprecation": "no-deprecated-imports"
-		}
-	},
-	"typesVersions": {
-		">=4.5 <5.4": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
 		}
 	},
 	"exports": {

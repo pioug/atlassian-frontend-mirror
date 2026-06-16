@@ -55,7 +55,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'ExitingPersistence',
 			description:
-				'Keeps elements mounted and plays their exit animation before they are removed from the DOM. Without it, elements are removed immediately and no exit animation plays. Works with both the Motion primitive and legacy entering-motion components.',
+				'Motion helper that keeps elements mounted and plays their exit animation before they are removed from the DOM. Without it, elements are removed immediately and no exit animation plays. Works with both the Motion primitive and legacy entering-motion components.',
 			status: 'general-availability',
 			import: {
 				name: 'ExitingPersistence',
@@ -85,7 +85,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'StaggeredEntrance',
 			description:
-				'Staggers the entering animation of its child motion elements in sequence, creating a cascading effect. Works with both the Motion primitive and legacy entering-motion components.',
+				'Motion helper that staggers the entering animation of its child motion elements in sequence, creating a cascading effect. Works with both the Motion primitive and legacy entering-motion components.',
 			status: 'general-availability',
 			import: {
 				name: 'StaggeredEntrance',

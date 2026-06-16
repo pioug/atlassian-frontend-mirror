@@ -78,6 +78,12 @@ type InsertedCodeBlockTransaction = Pick<Transaction, 'doc' | 'mapping' | 'steps
 const isReplaceStep = (step: unknown): step is ReplaceStep | ReplaceAroundStep =>
 	step instanceof ReplaceStep || step instanceof ReplaceAroundStep;
 
+const isNodeShellReplaceStep = (step: ReplaceStep | ReplaceAroundStep): boolean =>
+	step instanceof ReplaceAroundStep &&
+	// Node shell updates preserve all inner content and only replace the outer node boundary.
+	step.gapFrom === step.from + 1 &&
+	step.gapTo === step.to - 1;
+
 const hasInsertedCodeBlockInStep = (
 	step: ReplaceStep | ReplaceAroundStep,
 	codeBlockType: NodeType,
@@ -134,7 +140,17 @@ export const getInsertedCodeBlocksInTransaction = (
 			return;
 		}
 
-		const insertedCodeBlockByStep = hasInsertedCodeBlockInStep(step, codeBlockType, options.filter);
+		// Attribute/type updates can replace just the node shell while preserving content.
+		// Those should not make an existing code block look newly inserted.
+		if (isNodeShellReplaceStep(step)) {
+			return;
+		}
+
+		const insertedCodeBlockByStep = hasInsertedCodeBlockInStep(
+			step,
+			codeBlockType,
+			options.filter,
+		);
 
 		if (!insertedCodeBlockByStep) {
 			return;

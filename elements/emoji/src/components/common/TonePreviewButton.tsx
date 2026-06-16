@@ -74,6 +74,7 @@ const emojiButtonOutline = css({
 });
 
 export interface Props {
+	ariaControls?: string;
 	ariaExpanded?: boolean;
 	ariaLabelText?: string;
 	emoji: EmojiDescription;
@@ -85,7 +86,15 @@ export interface Props {
 export const TonePreviewButton: ForwardRefExoticComponent<
 	Props & RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, Props>((props: Props, ref) => {
-	const { emoji, selectOnHover, ariaLabelText, ariaExpanded, onSelected, isVisible = true } = props;
+	const {
+		emoji,
+		selectOnHover,
+		ariaControls = 'emoji-picker-tone-selector',
+		ariaLabelText,
+		ariaExpanded,
+		onSelected,
+		isVisible = true,
+	} = props;
 	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
 
 	return FeatureGates.getExperimentValue(
@@ -99,7 +108,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 			onClick={onSelected}
 			aria-label={ariaLabelText}
 			aria-expanded={ariaExpanded}
-			aria-controls="emoji-picker-tone-selector"
+			aria-controls={ariaControls}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ overflow: 'hidden' }}
 			data-testid={tonePreviewTestId}
@@ -120,7 +129,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 			onClick={onSelected}
 			aria-label={ariaLabelText}
 			aria-expanded={ariaExpanded}
-			aria-controls="emoji-picker-tone-selector"
+			aria-controls={ariaControls}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ overflow: 'hidden' }}
 			data-testid={tonePreviewTestId}

@@ -30,6 +30,7 @@ jest.mock('../../config', () => ({
 	// VCObserver applies).
 	getSelectorConfig: jest.fn(() => undefined),
 	getExtraInteractionRate: jest.fn(() => 0),
+	isInteractionExtraMetricsEnabled: jest.fn(() => true),
 	getFinishInteractionOnTransition: jest.fn(() => false),
 	getReactHydrationStats: jest.fn(() => false),
 	shouldUseRawDataThirdPartyBehavior: jest.fn(() => false),

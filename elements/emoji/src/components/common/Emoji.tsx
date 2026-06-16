@@ -7,6 +7,7 @@ import React, {
 	useCallback,
 	useContext,
 	useMemo,
+	useState,
 	type FocusEvent,
 	type MouseEvent,
 	type SyntheticEvent,
@@ -66,6 +67,8 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { getDocument } from '@atlaskit/browser-apis';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { messages } from '../i18n';
+import { isSSR } from '../../util/is-ssr';
+import EmojiPlaceholder from './EmojiPlaceholder';
 
 const emojiSpriteContainer = css({
 	display: 'inline-block',
@@ -248,6 +251,12 @@ export interface Props extends Omit<
 	onSelected?: OnEmojiEvent;
 
 	/**
+	 * Renders unicode emoji through an image representation when a fixed height is supplied.
+	 * Defaults to `true`.
+	 */
+	renderUnicodeEmojiAsImage?: boolean;
+
+	/**
 	 * Show the emoji as selected
 	 */
 	selected?: boolean;
@@ -390,16 +399,145 @@ export const SpriteEmoji = (props: Props): JSX.Element => {
 	);
 };
 
+const unicodeEmojiCanvasSize = 128;
+const unicodeEmojiCanvasFontSize = 124;
+const unicodeEmojiCanvasTopPadding = 8;
+
+type OffscreenCanvasConstructor = new (
+	width: number,
+	height: number,
+) => {
+	convertToBlob: (options?: ImageEncodeOptions) => Promise<Blob>;
+	getContext: (contextId: '2d') => OffscreenCanvasRenderingContext2D | null;
+};
+
+type UnicodeEmojiImageState =
+	| { status: 'loading'; unicodeEmoji?: string }
+	| { imagePath: string; status: 'ready'; unicodeEmoji: string }
+	| { status: 'failed'; unicodeEmoji: string };
+
+const renderUnicodeEmojiToImagePath = async (unicodeEmoji: string): Promise<string | undefined> => {
+	const OffscreenCanvasCtor = (
+		globalThis as typeof globalThis & { 'OffscreenCanvas'?: OffscreenCanvasConstructor }
+	)['OffscreenCanvas'];
+
+	if (isSSR() || !OffscreenCanvasCtor || typeof URL === 'undefined') {
+		return undefined;
+	}
+
+	const canvas = new OffscreenCanvasCtor(unicodeEmojiCanvasSize, unicodeEmojiCanvasSize);
+	const context = canvas.getContext('2d');
+	if (!context) {
+		return undefined;
+	}
+
+	context.clearRect(0, 0, unicodeEmojiCanvasSize, unicodeEmojiCanvasSize);
+	context.textAlign = 'center';
+	context.textBaseline = 'middle';
+	context.font = `${unicodeEmojiCanvasFontSize}px sans-serif`;
+	context.fillText(
+		unicodeEmoji,
+		unicodeEmojiCanvasSize / 2,
+		unicodeEmojiCanvasSize / 2 + unicodeEmojiCanvasTopPadding,
+	);
+
+	const blob = await canvas.convertToBlob({ type: 'image/png' });
+	return URL.createObjectURL(blob);
+};
+
+const useUnicodeEmojiImage = (unicodeEmoji: string): UnicodeEmojiImageState => {
+	const [state, setState] = useState<UnicodeEmojiImageState>({ status: 'loading' });
+
+	useEffect(() => {
+		let cancelled = false;
+		let imagePathToRevoke: string | undefined;
+		setState({ status: 'loading', unicodeEmoji });
+
+		void renderUnicodeEmojiToImagePath(unicodeEmoji)
+			.then((imagePath) => {
+				if (cancelled) {
+					if (imagePath) {
+						URL.revokeObjectURL(imagePath);
+					}
+					return;
+				}
+
+				imagePathToRevoke = imagePath;
+				setState(
+					imagePath
+						? { status: 'ready', unicodeEmoji, imagePath }
+						: { status: 'failed', unicodeEmoji },
+				);
+			})
+			.catch(() => {
+				if (!cancelled) {
+					setState({ status: 'failed', unicodeEmoji });
+				}
+			});
+
+		return () => {
+			cancelled = true;
+			if (imagePathToRevoke) {
+				URL.revokeObjectURL(imagePathToRevoke);
+			}
+		};
+	}, [unicodeEmoji]);
+
+	return state;
+};
+
+const UnicodeEmojiImage = (props: Props): JSX.Element => {
+	const { emoji, fitToHeight, showTooltip } = props;
+	const emojiText = (emoji.representation as UnicodeRepresentation).unicodeEmoji;
+	const unicodeEmojiImage = useUnicodeEmojiImage(emojiText);
+
+	const hasCurrentEmojiImage = unicodeEmojiImage.unicodeEmoji === emojiText;
+
+	if (isSSR() || !hasCurrentEmojiImage || unicodeEmojiImage.status === 'loading') {
+		return (
+			<EmojiPlaceholder
+				shortName={emoji.shortName}
+				showTooltip={showTooltip}
+				size={fitToHeight}
+				loading
+			/>
+		);
+	}
+
+	if (unicodeEmojiImage.status === 'ready') {
+		return (
+			<ImageEmoji
+				{...props}
+				emoji={{
+					...emoji,
+					representation: {
+						imagePath: unicodeEmojiImage.imagePath,
+						width: unicodeEmojiCanvasSize,
+						height: unicodeEmojiCanvasSize,
+					},
+				}}
+			/>
+		);
+	}
+
+	return (
+		<EmojiPlaceholder shortName={emoji.shortName} showTooltip={showTooltip} size={fitToHeight} />
+	);
+};
+
 export const UnicodeEmoji = (props: Props): JSX.Element => {
-	const { emoji, fitToHeight, selected, selectOnHover, className } = props;
+	const { emoji, selected, selectOnHover, className, renderUnicodeEmojiAsImage = true } = props;
+
+	if (renderUnicodeEmojiAsImage) {
+		return <UnicodeEmojiImage {...props} />;
+	}
 
 	const classes = `${emojiNodeStyles} ${selected ? commonSelectedStyles : ''} ${
 		selectOnHover ? selectOnHoverStyles : ''
 	} ${className ? className : ''}`;
 
 	const emojiText = (emoji.representation as UnicodeRepresentation).unicodeEmoji;
-
-	const size = fitToHeight ?? defaultEmojiHeight;
+	const size = props.fitToHeight ?? defaultEmojiHeight;
 
 	const style: React.CSSProperties = {
 		display: 'inline-block',
@@ -617,6 +755,7 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 		children,
 		type,
 		editorEmoji,
+		renderUnicodeEmojiAsImage,
 		...other
 	} = props;
 
@@ -624,7 +763,9 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 
 	const ariaLabel =
 		intl && fg('platform_change_emoji_button_label')
-			? intl.formatMessage(messages.changeEmojiShortnameButtonLabel, { shortName: emoji.shortName })
+			? intl.formatMessage(messages.changeEmojiShortnameButtonLabel, {
+					shortName: emoji.name ?? emoji.shortName,
+				})
 			: editorEmoji
 				? undefined
 				: emoji.shortName;

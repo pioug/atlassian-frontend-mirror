@@ -1,5 +1,40 @@
 # @atlaskit/rovo-agent-components
 
+## 6.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.3.0
+
+### Minor Changes
+
+- [`3c682874dac06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c682874dac06) -
+  [ux] Hide the "Agent by …" creator attribution for `REMOTE_A2A` agents on the agent profile card,
+  thebrowse agents modal view-agent panel, and agent cards.
+  Behind`rovo_hide_remote_a2a_agent_creator`.
+
 ## 5.2.3
 
 ### Patch Changes

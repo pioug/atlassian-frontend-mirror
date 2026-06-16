@@ -22,8 +22,14 @@ type FieldAttributes =
 	  }
 	| {
 			field: 'agenticSkills';
-			operation: 'remove' | 'change';
+			operation: 'remove';
 			skillCount: number;
+	  }
+	| {
+			field: 'agenticSkills';
+			operation: 'change';
+			skillCount: number;
+			skillNames: string[];
 	  }
 	| {
 			field: 'tools';

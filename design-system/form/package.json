@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "15.5.6",
+	"version": "16.0.0",
 	"description": "A form allows people to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -108,14 +108,6 @@
 			],
 			"design-system": "v1",
 			"deprecation": "no-deprecated-imports"
-		}
-	},
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
 		}
 	},
 	"exports": {

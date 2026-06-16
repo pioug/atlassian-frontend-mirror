@@ -28,6 +28,16 @@ type EntryPointClickedAEP = TrackAEP<
 	undefined
 >;
 
+type EntryPointExposureAEP = TrackAEP<
+	ACTION.EXPOSED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		entryPoint: AiSuggestionsEntryPoint;
+	},
+	undefined
+>;
+
 type AcceptSuggestionAEP = TrackAEP<
 	ACTION.ACCEPTED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
@@ -73,6 +83,7 @@ type ViewSuggestionAEP = TrackAEP<
 export type AiSuggestionsEventPayload =
 	| NoDiffSuggestionAEP
 	| EntryPointClickedAEP
+	| EntryPointExposureAEP
 	| AcceptSuggestionAEP
 	| DiscardSuggestionAEP
 	| ViewSuggestionAEP;

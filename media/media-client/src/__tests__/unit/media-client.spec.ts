@@ -438,6 +438,7 @@ describe('MediaClient', () => {
 								collection: 'some-collection',
 							},
 							undefined,
+							{ expectedFileSize: undefined },
 						);
 						const uploadableFileUpfrontIds = mockUploadFile.mock
 							.calls[0][2] as UploadableFileUpfrontIds;

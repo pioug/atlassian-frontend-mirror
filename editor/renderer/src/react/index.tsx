@@ -72,6 +72,7 @@ export interface ReactSerializerInit {
 	allowColumnSorting?: boolean;
 	allowCopyToClipboard?: boolean;
 	allowCustomPanels?: boolean;
+	allowDownloadCodeBlock?: boolean;
 	allowFixedColumnWidthOption?: boolean;
 	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
 	allowMediaLinking?: boolean;
@@ -192,6 +193,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
 	private allowColumnSorting?: boolean;
 	private allowCopyToClipboard?: boolean = false;
+	private allowDownloadCodeBlock?: boolean = false;
 	private allowWrapCodeBlock?: boolean = false;
 	private allowPlaceholderText?: boolean = true;
 	private allowCustomPanels?: boolean = false;
@@ -246,6 +248,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.disableActions = init.disableActions;
 		this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
 		this.allowCopyToClipboard = init.allowCopyToClipboard;
+		this.allowDownloadCodeBlock = init.allowDownloadCodeBlock;
 		this.allowWrapCodeBlock = init.allowWrapCodeBlock;
 		this.allowPlaceholderText = init.allowPlaceholderText;
 		this.allowCustomPanels = init.allowCustomPanels;
@@ -813,6 +816,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			content: node.content ? node.content.toJSON() : undefined,
 			allowHeadingAnchorLinks: this.allowHeadingAnchorLinks,
 			allowCopyToClipboard: this.allowCopyToClipboard,
+			allowDownloadCodeBlock: this.allowDownloadCodeBlock,
 			allowWrapCodeBlock: this.allowWrapCodeBlock,
 			allowPlaceholderText: this.allowPlaceholderText,
 			rendererAppearance: this.appearance,

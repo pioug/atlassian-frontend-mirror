@@ -571,7 +571,18 @@ function getConfigRate(
 	}
 }
 
+export function isInteractionExtraMetricsEnabled(): boolean {
+	return (
+		Boolean(config?.extraInteractionMetrics?.enabled) &&
+		!fg('platform_ufo_disable_interaction_extra_metrics')
+	);
+}
+
 export function getExtraInteractionRate(name: string, interactionType: InteractionType): number {
+	if (!isInteractionExtraMetricsEnabled()) {
+		return 0;
+	}
+
 	return getConfigRate(name, interactionType, 'extraInteractionMetrics');
 }
 

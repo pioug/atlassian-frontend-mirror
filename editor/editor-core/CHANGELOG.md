@@ -1,5 +1,47 @@
 # @atlaskit/editor-core
 
+## 221.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Minor Changes
+
+- [`458ee17c2c8ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/458ee17c2c8ee) -
+  Register layout column vertical alignment rendering experiment and gate renderer layout column
+  vertical alignment styles behind it
+
+### Patch Changes
+
+- [`958a665fe8917`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/958a665fe8917) -
+  Clean up feature gate `platform_editor_breakout_in_universal_preset`
+- [`1110ff714933a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1110ff714933a) -
+  [ux] Updated markdown mode theme to match spec and also added full-width mode to the markdown view
+- Updated dependencies
+
 ## 220.4.5
 
 ### Patch Changes

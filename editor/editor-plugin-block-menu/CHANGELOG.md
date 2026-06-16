@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 11.0.1
+
+### Patch Changes
+
+- [`12f4372b86b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12f4372b86b8d) -
+  Add `platform_editor_menu_radius_update` experiment that bumps the editor menu surface border
+  radius from `radius.small` (4px) to `radius.large` (8px). The block menu and paste actions menu
+  now consume the shared `ToolbarMenuContainer` surface rather than rolling their own, so they
+  inherit the gated radius along with `ToolbarMenuContainer`'s existing consumers (table and layout
+  menus).
+- Updated dependencies
+
+## 11.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.16
 
 ### Patch Changes

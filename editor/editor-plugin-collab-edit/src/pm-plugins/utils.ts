@@ -16,7 +16,6 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { preserveNodeIdentity } from './preserve-node-identity';
@@ -145,11 +144,7 @@ export const replaceDocument = (
 	const hasContent = !!parsedDoc?.childCount;
 	const content = parsedDoc?.content;
 
-	if (
-		hasContent &&
-		content &&
-		editorExperiment('platform_editor_preserve_node_identity', true, { exposure: true })
-	) {
+	if (hasContent && content) {
 		const preservedContent = preserveNodeIdentity(state.doc.content, content);
 
 		// If the entire content is identical, skip the replaceWith entirely
@@ -185,10 +180,7 @@ export const replaceDocument = (
 			const collabState = { version, unconfirmed: [] };
 			tr.setMeta('collab$', collabState);
 		}
-		return tr;
-	}
-
-	if (hasContent) {
+	} else if (hasContent) {
 		tr.setMeta('addToHistory', false);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

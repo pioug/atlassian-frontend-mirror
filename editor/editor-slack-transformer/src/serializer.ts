@@ -13,6 +13,19 @@ import {
 } from './list-utils';
 import { escapeMarkdown } from './util';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const AT_BLANK_REGEX = /(^|\n)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const FLUSH_CLOSE_TRIM_REGEX = /\s+$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const TRAILING_WS_REGEX = /[^\S\n]+$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const NESTED_LIST_TRAILING_WS_REGEX = /\n[ \t]+\n$/;
+
 /* eslint-disable @typescript-eslint/method-signature-style -- ProseMirror serializer `nodes` map uses method signatures in type + implementation */
 export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	nodes: NodeSerializerSpec;
@@ -31,9 +44,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L241
 	 */
 	atBlank(): boolean {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		return /(^|\n)$/.test(this.out);
+		return AT_BLANK_REGEX.test(this.out);
 	}
 
 	/**
@@ -47,9 +58,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			}
 			if (size > 1) {
 				let delimMin = this.delim;
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				const trim = /\s+$/.exec(delimMin);
+				const trim = FLUSH_CLOSE_TRIM_REGEX.exec(delimMin);
 				if (trim) {
 					delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
 				}
@@ -268,9 +277,7 @@ export const nodes: {
 		if (isWrapperListItem(node)) {
 			// Strip parent wrapBlock's pre-written whitespace; delim handles indentation.
 			if (!state.atBlank()) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				const trailingWs = /[^\S\n]+$/.exec(state.out);
+				const trailingWs = TRAILING_WS_REGEX.exec(state.out);
 				if (trailingWs) {
 					state.out = state.out.slice(0, -trailingWs[0].length);
 				}
@@ -282,9 +289,7 @@ export const nodes: {
 			state.delim = prevDelim;
 
 			// Strip trailing whitespace-only line to prevent extra blank lines.
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			state.out = state.out.replace(/\n[ \t]+\n$/, '\n');
+			state.out = state.out.replace(NESTED_LIST_TRAILING_WS_REGEX, '\n');
 			return;
 		}
 

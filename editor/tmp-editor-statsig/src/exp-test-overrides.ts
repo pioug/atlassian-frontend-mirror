@@ -69,7 +69,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	confluence_compact_text_format: false,
 	platform_editor_paste_actions_menu: false,
 	platform_editor_diff_plugin_extended: false,
-	platform_editor_preserve_node_identity: false,
 	platform_editor_ai_rename_add_polish: false,
 	platform_editor_table_fit_to_content_on_demand: false,
 	platform_editor_table_fit_to_content_auto_convert: false,
@@ -77,6 +76,7 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_table_menu_updates: false,
 	platform_editor_core_static_css: false,
 	'cwr-modal-ui-refresh': false,
+	'cwr-reduce-prompt-suggestion-max-chars': false,
 	prompt_tile_content_type_localizaiton: false,
 	// [CCI-15904] New AIFC Editor Experience — AND-gated with
 	// `platform_editor_ai_xstate_migration` (see `isNewAifcExperienceEnabled`

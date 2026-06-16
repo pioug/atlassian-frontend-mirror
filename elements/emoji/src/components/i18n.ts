@@ -166,6 +166,16 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	emojiSelectColorButtonAriaLabelText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiSelectColorListAriaLabelText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	emojiSelectSkinToneListAriaLabelText: {
 		defaultMessage: string;
 		description: string;
@@ -339,6 +349,17 @@ export const messages: {
 		defaultMessage: 'Choose your skin tone, {selectedTone} selected',
 		description:
 			'Message indicating the purpose of the skin tone selection button and the selected tone',
+	},
+	emojiSelectColorButtonAriaLabelText: {
+		id: 'fabric.emoji.select.color.ariaLabel',
+		defaultMessage: 'Productivity emoji color selector',
+		description:
+			'Message indicating the purpose of the color selection button and the selected color',
+	},
+	emojiSelectColorListAriaLabelText: {
+		id: 'fabric.emoji.select.color.list.ariaLabel',
+		defaultMessage: 'Productivity emoji colour selector',
+		description: 'Message indicating the purpose of the productivity emoji color list selector',
 	},
 	emojiSelectSkinToneListAriaLabelText: {
 		id: 'fabric.emoji.select.skin.list.ariaLabel',

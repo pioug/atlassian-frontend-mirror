@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/json-schema-generator",
-	"version": "3.3.13",
+	"version": "4.0.0",
 	"description": "A CLI tool for generating JSON Schema from typescript",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -16,14 +16,6 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"bin": "bin/json-schema-generator.js",
-	"typesVersions": {
-		">=4.0 <4.5": {
-			"*": [
-				"dist/types-ts4.0/*",
-				"dist/types-ts4.0/index.d.ts"
-			]
-		}
-	},
 	"exports": {
 		".": "./src/index.ts"
 	},

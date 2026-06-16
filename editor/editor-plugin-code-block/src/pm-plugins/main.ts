@@ -163,7 +163,7 @@ export const createPlugin = ({
 					// specifically used for updating word wrap node decorators (does not cover drag & drop, validateWordWrappedDecorators does).
 					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
 
-					if (codeBlockNodes) {
+					if (codeBlockNodes.length) {
 						updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
 						// Disabled when using advanced code block for performance reasons
 						// @ts-expect-error Code block advanced cannot depend on code block

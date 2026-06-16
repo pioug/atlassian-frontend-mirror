@@ -1,13 +1,15 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { AddCellArgs, Builder, CellType, Table, TableCell, TableRow } from '../../interfaces';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const TABLE_HEADER_REGEX = /\|\|/;
+
 /**
  * Return the cell type based on the delimeter
  */
 function getType(style: string): CellType {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return /\|\|/.test(style) ? 'tableHeader' : 'tableCell';
+	return TABLE_HEADER_REGEX.test(style) ? 'tableHeader' : 'tableCell';
 }
 
 export class TableBuilder implements Builder {

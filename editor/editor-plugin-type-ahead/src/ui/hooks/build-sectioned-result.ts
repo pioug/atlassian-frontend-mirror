@@ -5,7 +5,7 @@ import type {
 	TypeAheadItem,
 	TypeAheadSection,
 } from '@atlaskit/editor-common/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { TypeAheadResolvedSection } from '../../types';
 
@@ -18,7 +18,7 @@ export const buildSectionedResult = ({
 	items: Array<TypeAheadItem>;
 	triggerHandler: TypeAheadHandler;
 }): { items: Array<TypeAheadItem>; sections: Array<TypeAheadResolvedSection> } => {
-	if (!editorExperiment('platform_editor_agent_mentions', true) || !intl) {
+	if (!expVal('platform_editor_agent_mentions', 'isEnabled', false) || !intl) {
 		return { items, sections: [] };
 	}
 
@@ -76,12 +76,18 @@ export const buildSectionedResult = ({
 		const startIndex = flattenedItems.length;
 		flattenedItems.push(...grouped.indexes.map((i) => items[i]));
 		const endIndex = flattenedItems.length - 1;
-		sections.push({
+		const resolvedSection: TypeAheadResolvedSection = {
 			endIndex,
 			id: section.id,
 			startIndex,
 			title: section.title,
-		});
+		};
+
+		if (section.sectionTitleDisplay) {
+			resolvedSection.sectionTitleDisplay = section.sectionTitleDisplay;
+		}
+
+		sections.push(resolvedSection);
 	}
 
 	// Append items not claimed by any section and not excluded by a limit

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/townsquare-emoji-provider",
-	"version": "1.0.10",
+	"version": "2.0.0",
 	"description": "Townsquare emoji provider",
 	"atlassian": {
 		"react-compiler": {
@@ -17,14 +17,6 @@
 	"module": "dist/esm/provider.js",
 	"module:es2019": "dist/es2019/provider.js",
 	"types": "dist/types/provider.d.ts",
-	"typesVersions": {
-		">=4.5 <5.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
 	"sideEffects": false,
 	"atlaskit:src": "src/provider.ts",
 	"exports": {

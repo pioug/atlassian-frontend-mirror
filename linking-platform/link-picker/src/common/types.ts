@@ -3,6 +3,7 @@ import type { ReactNode, Ref } from 'react';
 import type { MessageDescriptor } from 'react-intl';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CardAppearance } from '@atlaskit/linking-common';
 
 export type LinkInputType = 'manual' | 'typeAhead';
 
@@ -107,6 +108,13 @@ export interface PickerState {
 interface Meta {
 	/** Indicates how the link was picked. */
 	inputMethod: LinkInputType;
+	/**
+	 * Optional hint requesting a specific card appearance for the inserted link.
+	 * The link picker itself never sets this; consumers (e.g. an editor adapter)
+	 * may populate it when calling `onSubmit` to request, for example, an embed
+	 * appearance for a link inserted from a dedicated embed entry point.
+	 */
+	appearance?: CardAppearance;
 }
 
 interface OnSubmitParameter {

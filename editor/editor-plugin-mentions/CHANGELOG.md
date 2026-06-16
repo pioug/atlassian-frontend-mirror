@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.1.0
+
+### Minor Changes
+
+- [`7c0b3e54a4d81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c0b3e54a4d81) -
+  Delay typed agent mention trigger until editor inactivity
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Minor Changes
+
+- [`78adaba64ee33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78adaba64ee33) -
+  Add opt-in section title display controls for typeahead sections
+
+### Patch Changes
+
+- [`94670f6d5975b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94670f6d5975b) -
+  Instrument agent mention analytics and proactive nudge experiment attribution.
+- Updated dependencies
+
 ## 13.3.15
 
 ### Patch Changes

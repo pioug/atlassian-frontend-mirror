@@ -1,12 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { MentionAvatar } from '../../../components/MentionAvatar';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { render, screen } from '@atlassian/testing-library';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { getAppearanceForAppType } from '@atlaskit/avatar';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
+import { MentionAvatar } from '../../../components/MentionAvatar';
 
 jest.mock('@atlaskit/avatar', () => ({
 	default: jest.fn(({ appearance, ...props }: any) => (
@@ -41,6 +37,8 @@ describe('MentionAvatar', () => {
 	});
 
 	it('renders the base avatar when the user type is not TEAM', async () => {
+		failGate('jira_ai_agent_avatar_issue_view_comment_mentions');
+
 		const props = {
 			mention: {
 				id: '0',
@@ -62,7 +60,7 @@ describe('MentionAvatar', () => {
 		});
 
 		it('should not call getAppearanceForAppType to set the avatar appearance when feature gate jira_ai_agent_avatar_issue_view_comment_mentions is disabled', async () => {
-			(fg as jest.Mock).mockReturnValue(false);
+			failGate('jira_ai_agent_avatar_issue_view_comment_mentions');
 
 			const mockGetAppearanceForAppType = getAppearanceForAppType as jest.Mock;
 			mockGetAppearanceForAppType.mockReturnValue('hexagon');
@@ -80,37 +78,79 @@ describe('MentionAvatar', () => {
 
 			const avatar = screen.getByTestId('base-avatar');
 			expect(avatar).toBeInTheDocument();
-
 			expect(mockGetAppearanceForAppType).not.toHaveBeenCalled();
 			expect(avatar).not.toHaveAttribute('data-appearance');
 
 			await expect(document.body).toBeAccessible();
 		});
 
-		it('should call getAppearanceForAppType to set the avatar appearance with appType', async () => {
-			(fg as jest.Mock).mockReturnValue(true);
-
-			const APP_TYPE = 'agent';
-			const APPEARANCE = 'hexagon';
+		it('keeps agent APP mentions on the baseline appearance path when Rovo chat agent selection is disabled', async () => {
+			failGate('rovo_chat_agent_selection');
+			passGate('jira_ai_agent_avatar_issue_view_comment_mentions');
 			const mockGetAppearanceForAppType = getAppearanceForAppType as jest.Mock;
-			mockGetAppearanceForAppType.mockReturnValue(APPEARANCE);
+			mockGetAppearanceForAppType.mockReturnValue('circle');
 
 			const props = {
 				mention: {
 					id: 'agent-123',
 					avatarUrl: 'avatar-url',
 					presence: { status: 'active' },
-					appType: APP_TYPE,
+					userType: 'APP',
+					appType: 'agent',
 				},
 			};
 
 			render(<MentionAvatar {...props} />);
 
 			const avatar = screen.getByTestId('base-avatar');
-			expect(avatar).toBeInTheDocument();
+			expect(avatar).toHaveAttribute('data-appearance', 'circle');
+			expect(mockGetAppearanceForAppType).toHaveBeenCalledWith('agent');
 
-			expect(mockGetAppearanceForAppType).toHaveBeenCalledWith(APP_TYPE);
-			expect(avatar).toHaveAttribute('data-appearance', APPEARANCE);
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('renders agent APP mentions as hexagon avatars when Rovo chat agent selection is enabled', async () => {
+			passGate('rovo_chat_agent_selection');
+
+			const props = {
+				mention: {
+					id: 'agent-123',
+					avatarUrl: 'avatar-url',
+					presence: { status: 'active' },
+					userType: 'APP',
+					appType: 'agent',
+				},
+			};
+
+			render(<MentionAvatar {...props} />);
+
+			const avatar = screen.getByTestId('base-avatar');
+			expect(avatar).toHaveAttribute('data-appearance', 'hexagon');
+			expect(getAppearanceForAppType).not.toHaveBeenCalled();
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('keeps non-agent APP mentions on the baseline appearance path when Rovo chat agent selection is enabled', async () => {
+			passGate('jira_ai_agent_avatar_issue_view_comment_mentions');
+			const mockGetAppearanceForAppType = getAppearanceForAppType as jest.Mock;
+			mockGetAppearanceForAppType.mockReturnValue('circle');
+
+			const props = {
+				mention: {
+					id: 'app-123',
+					avatarUrl: 'avatar-url',
+					presence: { status: 'active' },
+					userType: 'APP',
+					appType: 'other-app',
+				},
+			};
+
+			render(<MentionAvatar {...props} />);
+
+			const avatar = screen.getByTestId('base-avatar');
+			expect(avatar).toHaveAttribute('data-appearance', 'circle');
+			expect(mockGetAppearanceForAppType).toHaveBeenCalledWith('other-app');
 
 			await expect(document.body).toBeAccessible();
 		});

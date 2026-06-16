@@ -133,6 +133,7 @@ const customVideoWrapperStyles = cssMap({
 	},
 });
 
+
 const videoWrapperStyles = cssMap({
 	root: {
 		width: '100%',
@@ -335,7 +336,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		breakpointControls.speedControls(this.state.playerWidth);
 
 	private renderSpeedControls = () => {
-		const { playbackSpeed } = this.state;
+		const { playbackSpeed, isFullScreenEnabled } = this.state;
 		const { originalDimensions } = this.props;
 
 		return (
@@ -344,6 +345,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 				playbackSpeed={playbackSpeed}
 				onPlaybackSpeedChange={this.onPlaybackSpeedChange}
 				onClick={() => this.createAndFireUIEvent('mediaButtonClick', 'playbackSpeedButton')}
+				isFullScreen={isFullScreenEnabled}
 			/>
 		);
 	};
@@ -898,6 +900,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 		const { textTracks } = this.props;
 		const { selectedTrackIndex = -1 } = textTracks?.captions || {};
 		const { areCaptionsEnabled } = this.props;
+		const { isFullScreenEnabled } = this.state;
 
 		return (
 			textTracks && (
@@ -907,6 +910,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					areCaptionsEnabled={!!areCaptionsEnabled}
 					onCaptionsEnabledChange={this.onCaptionsEnabledChange}
 					selectedTracksIndex={selectedTrackIndex}
+					isFullScreen={isFullScreenEnabled}
 				/>
 			)
 		);
@@ -922,7 +926,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 	};
 
 	renderCaptionsAdminControls = () => {
-		const { isArtifactUploaderOpen, artifactToDelete } = this.state;
+		const { isArtifactUploaderOpen, artifactToDelete, isFullScreenEnabled } = this.state;
 		const { textTracks, identifier } = this.props;
 		return (
 			<>
@@ -930,6 +934,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					textTracks={textTracks}
 					onUpload={() => this.setState({ isArtifactUploaderOpen: true })}
 					onDelete={this.onCaptionDelete}
+					isFullScreen={isFullScreenEnabled}
 				/>
 				<CaptionsUploaderBrowser
 					identifier={identifier}

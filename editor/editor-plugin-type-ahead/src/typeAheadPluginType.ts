@@ -51,8 +51,8 @@ export type TypeAheadPlugin = NextEditorPlugin<
 			/**
 			 * Updates the display title for an existing typeahead section in the current typeahead session.
 			 *
-			 * The optional `showTitleWhenOnlySection` flag keeps the title visible when this section is
-			 * the only populated section. It does not render titles for empty sections.
+			 * Optional `sectionTitleDisplay` rules can control whether the title stays visible once
+			 * there is a query, or keep the title visible when this section is the only populated section.
 			 */
 			updateSectionTitle?: (props: TypeAheadSectionTitleUpdate) => boolean;
 		};

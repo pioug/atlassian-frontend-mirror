@@ -1,4 +1,28 @@
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+export const findBodiedSyncBlockByLocalId = (
+	state: EditorState,
+	localId: string,
+): NodeWithPos | undefined => {
+	let result: NodeWithPos | undefined;
+
+	state.doc.descendants((node, pos) => {
+		if (result) {
+			return false;
+		}
+
+		if (node.type === state.schema.nodes.bodiedSyncBlock && node.attrs.localId === localId) {
+			result = { node, pos };
+			return false;
+		}
+
+		return true;
+	});
+
+	return result;
+};
 
 export const pasteSyncBlockHTMLContent = (
 	contentDOM: HTMLElement | DocumentFragment,

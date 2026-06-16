@@ -128,9 +128,33 @@ export const buildAggUserQuery = (
 	},
 });
 
-const queryAGGUser = async (url: string, userId: string): Promise<TeamsUserQueryResponse> => {
+const buildScopedProfileAtlAttributionHeader = (cloudId: string) =>
+	JSON.stringify({
+		tenantId: `ari:cloud:townsquare::site/${cloudId}`,
+		product: 'Atlassian Home',
+		service: 'townsquare-frontend',
+	});
+
+const queryAGGUser = async (
+	url: string,
+	userId: string,
+	cloudId: string,
+): Promise<TeamsUserQueryResponse> => {
 	const query = buildAggUserQuery(userId);
-	const { user } = await AGGQuery<{ user: TeamsUserQueryResponse }>(url, query);
+	const shouldAddScopedProfileAtlAttribution = fg(
+		'profilecard_scoped_profile_atl_attribution',
+	);
+	const { user } = await AGGQuery<{ user: TeamsUserQueryResponse }>(
+		url,
+		query,
+		cloudId && shouldAddScopedProfileAtlAttribution
+			? (headers) => {
+					// Temporary atl-attribution for scoped profiles until AGG attribution is handled upstream.
+					headers.append('atl-attribution', buildScopedProfileAtlAttributionHeader(cloudId));
+					return headers;
+				}
+			: undefined,
+	);
 	return user;
 };
 
@@ -142,10 +166,10 @@ export default class UserProfileCardClient extends CachingClient<any> {
 		this.options = options;
 	}
 
-	async makeRequest(_cloudId: string, userId: string): Promise<ProfileCardClientData> {
+	async makeRequest(cloudId: string, userId: string): Promise<ProfileCardClientData> {
 		const gatewayGraphqlUrl = this.options.gatewayGraphqlUrl || '/gateway/api/graphql';
 		const urlWithOperationName = `${gatewayGraphqlUrl}?operationName=aggUserQuery`;
-		const userQueryPromise = queryAGGUser(urlWithOperationName, userId);
+		const userQueryPromise = queryAGGUser(urlWithOperationName, userId, cloudId);
 
 		const user = await userQueryPromise;
 		let timestring: string | undefined;

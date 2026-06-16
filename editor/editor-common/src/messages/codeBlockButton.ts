@@ -26,6 +26,11 @@ export const codeBlockButtonMessages: {
 		description: string;
 		id: string;
 	};
+	downloadCodeBlock: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	formatCode: {
 		defaultMessage: string;
 		description: string;
@@ -206,5 +211,10 @@ export const codeBlockButtonMessages: {
 		id: 'fabric.editor.codeBlock.all',
 		defaultMessage: 'All',
 		description: 'Section heading for all languages in the code block language picker.',
+	},
+	downloadCodeBlock: {
+		id: 'fabric.editor.codeBlockDownloadButton.downloadCodeBlock',
+		defaultMessage: 'Download',
+		description: 'Download the content of the code block as a file',
 	},
 });

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "3.8.0",
+	"version": "4.0.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -75,13 +75,5 @@
 			]
 		}
 	},
-	"homepage": "https://atlassian.design/components",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	}
+	"homepage": "https://atlassian.design/components"
 }

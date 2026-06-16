@@ -14,7 +14,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { DiffParams, DiffType, ShowDiffPlugin } from '../showDiffPluginType';
+import type { DiffDescriptor, DiffParams, DiffType, ShowDiffPlugin } from '../showDiffPluginType';
 
 import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecorations';
 import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
@@ -30,6 +30,11 @@ export type ShowDiffPluginState = {
 	activeIndex?: number;
 	activeIndexPos?: { from: number; to: number };
 	decorations: DecorationSet;
+	/**
+	 * The diff descriptors of the diff decorations currently being displayed.
+	 * Only set when `platform_editor_diff_plugin_extended` is on.
+	 */
+	diffDescriptors?: DiffDescriptor[];
 	diffType?: DiffType;
 	hideDeletedDiffs?: boolean;
 	isDisplayingChanges: boolean;
@@ -72,7 +77,8 @@ export const createPlugin = (
 								isInverted: false,
 								diffType: 'inline',
 								hideDeletedDiffs: false,
-							}
+								diffDescriptors: [],
+						  }
 						: {}),
 				};
 			},
@@ -95,7 +101,7 @@ export const createPlugin = (
 							activeIndex: undefined,
 						};
 						// Calculate and store decorations in state
-						const decorations = calculateDiffDecorations({
+						const { decorations, diffDescriptors } = calculateDiffDecorations({
 							state: newState,
 							pluginState: newPluginState,
 							nodeViewSerializer,
@@ -108,11 +114,14 @@ export const createPlugin = (
 										isInverted: newPluginState?.isInverted,
 										diffType: newPluginState?.diffType,
 										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
-									}
+								  }
 								: {}),
 						});
-						// Update the decorations
+						// Update the decorations and their ids
 						newPluginState.decorations = decorations;
+						if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+							newPluginState.diffDescriptors = diffDescriptors;
+						}
 					} else if (meta?.action === 'HIDE_DIFF') {
 						newPluginState = {
 							...currentPluginState,
@@ -125,7 +134,12 @@ export const createPlugin = (
 							 * Otherwise this should persist for the diff-showing session
 							 */
 							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-								? { isInverted: false, diffType: 'inline', hideDeletedDiffs: false }
+								? {
+										isInverted: false,
+										diffType: 'inline',
+										hideDeletedDiffs: false,
+										diffDescriptors: [],
+								  }
 								: {}),
 						};
 					} else if (meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS') {
@@ -159,23 +173,27 @@ export const createPlugin = (
 									: undefined,
 							};
 							// Recalculate decorations with the new active index
-							const updatedDecorations = calculateDiffDecorations({
-								state: newState,
-								pluginState: newPluginState,
-								nodeViewSerializer,
-								colorScheme: config?.colorScheme,
-								intl: getIntl(),
-								activeIndexPos: newPluginState.activeIndexPos,
-								api,
-								...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-									? {
-											isInverted: newPluginState.isInverted,
-											diffType: newPluginState.diffType,
-											hideDeletedDiffs: newPluginState.hideDeletedDiffs,
-										}
-									: {}),
-							});
+							const { decorations: updatedDecorations, diffDescriptors: updatedDiffDescriptors } =
+								calculateDiffDecorations({
+									state: newState,
+									pluginState: newPluginState,
+									nodeViewSerializer,
+									colorScheme: config?.colorScheme,
+									intl: getIntl(),
+									activeIndexPos: newPluginState.activeIndexPos,
+									api,
+									...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+										? {
+												isInverted: newPluginState.isInverted,
+												diffType: newPluginState.diffType,
+												hideDeletedDiffs: newPluginState.hideDeletedDiffs,
+										  }
+										: {}),
+								});
 							newPluginState.decorations = updatedDecorations;
+							if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+								newPluginState.diffDescriptors = updatedDiffDescriptors;
+							}
 						}
 					} else {
 						newPluginState = { ...currentPluginState, ...meta };

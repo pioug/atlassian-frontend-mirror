@@ -2,6 +2,10 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import { LINK_TEXT_REGEXP } from '../tokenize/link-text';
 import type { Context } from '../../interfaces';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const WRAPPING_QUOTES_REGEX = /^"(.+)"$/;
+
 const defaultWidth = 200;
 const defaultHeight = 183;
 
@@ -60,17 +64,13 @@ export default function getMediaSingleNodeView(
 	}
 
 	if (attrs.href) {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		const href = attrs.href.replace(/^"(.+)"$/, '$1');
+		const href = attrs.href.replace(WRAPPING_QUOTES_REGEX, '$1');
 		mediaMarks.push(link.create({ href }));
 	}
 
 	if (attrs.alt) {
 		// strip wrapping quotes if they exist
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		const altText = attrs.alt.replace(/^"(.+)"$/, '$1');
+		const altText = attrs.alt.replace(WRAPPING_QUOTES_REGEX, '$1');
 		mediaNodeAttrs.alt = altText;
 	}
 

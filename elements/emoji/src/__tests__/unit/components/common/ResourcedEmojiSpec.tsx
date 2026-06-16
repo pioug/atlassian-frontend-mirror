@@ -19,6 +19,7 @@ import browserSupport from '../../../../util/browser-support';
 import type { EmojiId } from '../../../..';
 import { renderWithIntl } from '../../_testing-library';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 jest.mock('../../../../util/constants', () => {
 	const originalModule = jest.requireActual('../../../../util/constants');
@@ -242,7 +243,9 @@ describe('<ResourcedEmoji />', () => {
 		samplingUfo.clearSampled();
 		jest.clearAllMocks();
 	});
-	afterEach(cleanup);
+	afterEach(() => {
+		cleanup();
+	});
 
 	describe('has an unresolved emoji provider', () => {
 		it('shows ResourcedEmojiComponent placeholder', async () => {
@@ -293,6 +296,45 @@ describe('<ResourcedEmoji />', () => {
 			);
 			const emoji = await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`);
 			expect(emoji).toBeInTheDocument();
+		});
+
+		it('should not render unicode emoji as an image by default when the unicode image gate is disabled', async () => {
+			const resolvedEmojiProvider = await getEmojiResourcePromise();
+
+			renderWithIntl(
+				<ResourcedEmoji
+					emojiProvider={resolvedEmojiProvider}
+					emojiId={{
+						id: grinEmoji.id,
+						shortName: grinEmoji.shortName,
+						fallback: grinEmoji.fallback,
+					}}
+				/>,
+			);
+
+			expect(await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
+			expect(screen.queryByTestId(`image-emoji-${grinEmoji.shortName}`)).not.toBeInTheDocument();
+		});
+
+		it('should render unicode emoji as text for editor emoji when renderUnicodeEmojiAsImage is false', async () => {
+			passGate('platform_twemoji_removal_unicode_emojis');
+			const resolvedEmojiProvider = await getEmojiResourcePromise();
+
+			renderWithIntl(
+				<ResourcedEmoji
+					editorEmoji
+					renderUnicodeEmojiAsImage={false}
+					emojiProvider={resolvedEmojiProvider}
+					emojiId={{
+						id: grinEmoji.id,
+						shortName: grinEmoji.shortName,
+						fallback: grinEmoji.fallback,
+					}}
+				/>,
+			);
+
+			expect(await screen.findByTestId(`unicode-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
+			expect(screen.queryByTestId(`image-emoji-${grinEmoji.shortName}`)).not.toBeInTheDocument();
 		});
 	});
 

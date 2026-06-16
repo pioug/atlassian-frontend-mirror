@@ -43,6 +43,7 @@ import type { CodeBlockFormatProvider } from '../types';
 import { CodeBlockLanguagePicker } from '../ui/CodeBlockLanguagePicker';
 import { WrapIcon } from '../ui/icons/WrapIcon';
 import {
+	DETECT_LANGUAGE_VALUE,
 	NONE_LANGUAGE_VALUE,
 	PLAIN_TEXT_LANGUAGE_VALUE,
 	type LanguagePickerOption,
@@ -59,6 +60,34 @@ import type { Language } from './language-list';
 import type { CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
 
+const getDetectLanguageOption = (
+	formatMessage: IntlShape['formatMessage'],
+): LanguagePickerOption => ({
+	alias: [],
+	label: formatMessage(codeBlockButtonMessages.detectLanguage),
+	value: DETECT_LANGUAGE_VALUE,
+});
+
+const getNoneDetectedOption = (
+	formatMessage: IntlShape['formatMessage'],
+): LanguagePickerOption => ({
+	alias: [],
+	label: formatMessage(codeBlockButtonMessages.noneDetected),
+	value: NONE_LANGUAGE_VALUE,
+});
+
+const getDefaultLanguagePickerValue = (
+	language: string | undefined,
+	languagePickerOptions: LanguagePickerOption[],
+): LanguagePickerOption | undefined =>
+	language
+		? languagePickerOptions.find((option) =>
+				language === NONE_LANGUAGE_VALUE
+					? option.value === PLAIN_TEXT_LANGUAGE_VALUE
+					: option.value === language || option.alias.includes(language),
+			)
+		: undefined;
+
 const getAutoDetectPickerValue = ({
 	autoDetectEntry,
 	formatMessage,
@@ -70,23 +99,17 @@ const getAutoDetectPickerValue = ({
 	language: string | undefined;
 	languagePickerOptions: LanguagePickerOption[];
 }): LanguagePickerOption | undefined => {
-	const defaultPickerValue = language
-		? languagePickerOptions.find((option) =>
-				language === NONE_LANGUAGE_VALUE
-					? option.value === PLAIN_TEXT_LANGUAGE_VALUE
-					: option.value === language || option.alias.includes(language),
-			)
-		: undefined;
+	const defaultPickerValue = getDefaultLanguagePickerValue(language, languagePickerOptions);
 
 	// A weak re-detection records noneDetected but can leave a previously auto-detected
 	// language on the node. Keep showing "(detected)" only while that preserved language
 	// still matches the node language, so manual language changes do not inherit the label.
-	if (
-		defaultPickerValue &&
-		(autoDetectEntry?.detectionResult === 'detected' ||
-			(autoDetectEntry?.detectionResult === 'noneDetected' &&
-				autoDetectEntry.autoDetectedLanguage === language))
-	) {
+	const shouldShowDetectedLabel =
+		Boolean(defaultPickerValue) &&
+		autoDetectEntry?.autoDetectedLanguage === language &&
+		Boolean(autoDetectEntry?.detectionResult);
+
+	if (shouldShowDetectedLabel && defaultPickerValue) {
 		return {
 			...defaultPickerValue,
 			label: formatMessage(codeBlockButtonMessages.detectedLanguage, {
@@ -95,15 +118,19 @@ const getAutoDetectPickerValue = ({
 		};
 	}
 
-	if (autoDetectEntry?.detectionResult === 'noneDetected' && !language) {
-		return {
-			alias: [],
-			label: formatMessage(codeBlockButtonMessages.noneDetected),
-			value: NONE_LANGUAGE_VALUE,
-		};
+	if (language || !autoDetectEntry) {
+		return defaultPickerValue;
 	}
 
-	return defaultPickerValue;
+	if (autoDetectEntry.detectionResult === 'noneDetected') {
+		return getNoneDetectedOption(formatMessage);
+	}
+
+	if (!autoDetectEntry.detectionResult) {
+		return getDetectLanguageOption(formatMessage);
+	}
+
+	return undefined;
 };
 
 export const getToolbarConfig = (

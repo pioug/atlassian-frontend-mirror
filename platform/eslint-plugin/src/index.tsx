@@ -36,6 +36,7 @@ import noDirectDocumentUsage from './rules/no-direct-document-usage';
 import noSetImmediate from './rules/no-set-immediate';
 import preferCryptoRandomUuid from './rules/prefer-crypto-random-uuid';
 import noRestrictedFedrampImports from './rules/no-restricted-fedramp-imports';
+import noDoubleTypeAssertions from './rules/no-double-type-assertions';
 import noBarrelEntryImports from './rules/import/no-barrel-entry-imports';
 import noBarrelEntryJestMock from './rules/import/no-barrel-entry-jest-mock';
 import noJestMockBarrelFiles from './rules/import/no-jest-mock-barrel-files';
@@ -109,6 +110,7 @@ const rules: {
 	'no-set-immediate': Rule.RuleModule;
 	'prefer-crypto-random-uuid': Rule.RuleModule;
 	'no-restricted-fedramp-imports': Rule.RuleModule;
+	'no-double-type-assertions': Rule.RuleModule;
 	'no-barrel-entry-imports': Rule.RuleModule;
 	'no-barrel-entry-jest-mock': Rule.RuleModule;
 	'no-jest-mock-barrel-files': Rule.RuleModule;
@@ -155,6 +157,7 @@ const rules: {
 	'no-set-immediate': noSetImmediate,
 	'prefer-crypto-random-uuid': preferCryptoRandomUuid,
 	'no-restricted-fedramp-imports': noRestrictedFedrampImports,
+	'no-double-type-assertions': noDoubleTypeAssertions,
 	'no-barrel-entry-imports': noBarrelEntryImports,
 	'no-barrel-entry-jest-mock': noBarrelEntryJestMock,
 	'no-jest-mock-barrel-files': noJestMockBarrelFiles,

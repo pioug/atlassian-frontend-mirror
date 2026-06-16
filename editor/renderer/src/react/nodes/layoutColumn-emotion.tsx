@@ -73,6 +73,12 @@ export const LayoutSectionEmotion = (
 		'isEnabled',
 		true,
 	);
+	// Pure rollout gate: no A/B exposure analysis is planned for this rendering switch.
+	const isLayoutColumnValignRenderingEnabled = expValEqualsNoExposure(
+		'platform_editor_layout_column_valign_rendering',
+		'isEnabled',
+		true,
+	);
 
 	return (
 		<div
@@ -83,8 +89,12 @@ export const LayoutSectionEmotion = (
 			style={{ flexBasis: `${props.width}%` }}
 			css={[
 				// Keep separate: Compiled crashes on ternary/object lookup here.
-				isLayoutColumnMenuEnabled && props.valign === 'middle' && verticalAlignMiddleStyles,
-				isLayoutColumnMenuEnabled && props.valign === 'bottom' && verticalAlignBottomStyles,
+				(isLayoutColumnValignRenderingEnabled || isLayoutColumnMenuEnabled) &&
+					props.valign === 'middle' &&
+					verticalAlignMiddleStyles,
+				(isLayoutColumnValignRenderingEnabled || isLayoutColumnMenuEnabled) &&
+					props.valign === 'bottom' &&
+					verticalAlignBottomStyles,
 				fg('platform_editor_fix_media_in_renderer') && multipleWrappedImagesStyle,
 			]}
 		>

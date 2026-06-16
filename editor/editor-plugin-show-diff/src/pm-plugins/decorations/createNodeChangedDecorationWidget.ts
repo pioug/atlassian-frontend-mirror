@@ -28,7 +28,7 @@ import {
 	deletedTraditionalContentStyleUnboundedActive,
 } from './colorSchemes/traditional';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
-import { buildDiffDecorationKey, DiffDecorationKey } from './decorationKeys';
+import { buildDiffDecorationSpec } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import { wrapBlockNodeView } from './utils/wrapBlockNodeView';
 
@@ -166,7 +166,7 @@ export const createNodeChangedDecorationWidget = ({
 	isInserted?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
-}): Decoration[] | undefined => {
+}): Decoration[] => {
 	const slice = doc.slice(change.fromA, change.toA);
 	const shouldSkipDeletedEmptyParagraphDecoration =
 		!isInserted &&
@@ -180,7 +180,7 @@ export const createNodeChangedDecorationWidget = ({
 		activeIndexPos && safeInsertPos === activeIndexPos.from && safeInsertPos === activeIndexPos.to;
 
 	if (slice.content.content.length === 0 || shouldSkipDeletedEmptyParagraphDecoration) {
-		return;
+		return [];
 	}
 
 	const isTableCellContent = slice.content.content.some(() =>
@@ -194,7 +194,7 @@ export const createNodeChangedDecorationWidget = ({
 	);
 
 	if (isTableCellContent) {
-		return;
+		return [];
 	}
 	if (isTableRowContent) {
 		return createChangedRowDecorationWidgets({
@@ -321,14 +321,21 @@ export const createNodeChangedDecorationWidget = ({
 
 	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
 
+	const diffId = crypto.randomUUID();
 	const decorations: Decoration[] = [];
 	decorations.push(
-		Decoration.widget(safeInsertPos, dom, {
-			key: buildDiffDecorationKey({ type: DiffDecorationKey.widget, isActive }),
-			...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
-				side: -1,
+		Decoration.widget(
+			safeInsertPos,
+			dom,
+			buildDiffDecorationSpec({
+				decorationType: 'widget',
+				diffId,
+				isActive,
+				...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+					side: -1,
+				}),
 			}),
-		}),
+		),
 	);
 	return decorations;
 };

@@ -7,14 +7,6 @@
 	"module": "dist/esm/reportError.js",
 	"module:es2019": "dist/es2019/reportError.js",
 	"types": "dist/types/reportError.d.ts",
-	"typesVersions": {
-		">=4.5 <5.4": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
 	"sideEffects": [
 		"*.compiled.css"
 	],
@@ -69,7 +61,7 @@
 		}
 	},
 	"name": "@atlaskit/report-error",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "Platform error reporter",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {

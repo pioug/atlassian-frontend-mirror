@@ -18,6 +18,7 @@ import CodeBlockContainer from './components/codeBlockContainer';
 
 export interface Props {
 	allowCopyToClipboard?: boolean;
+	allowDownloadCodeBlock?: boolean;
 	allowWrapCodeBlock?: boolean;
 	className?: string;
 	codeBidiWarningTooltipEnabled: boolean;
@@ -34,6 +35,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 		language,
 		allowCopyToClipboard = false,
 		allowWrapCodeBlock = false,
+		allowDownloadCodeBlock = false,
 		codeBidiWarningTooltipEnabled,
 		hideLineNumbers = false,
 		localId,
@@ -53,6 +55,8 @@ function CodeBlock(props: Props & WrappedComponentProps) {
 		<CodeBlockContainer
 			allowCopyToClipboard={allowCopyToClipboard}
 			allowWrapCodeBlock={allowWrapCodeBlock}
+			allowDownloadCodeBlock={allowDownloadCodeBlock}
+			language={language}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			localId={localId}

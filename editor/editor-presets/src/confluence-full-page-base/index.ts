@@ -257,7 +257,7 @@ export function confluenceFullPageBasePreset(
 		.maybeAdd(floatingToolbarPlugin, enabledOptionalPlugins.floatingToolbar ?? true)
 		.maybeAdd(interactionPlugin, Boolean(enabledOptionalPlugins.interaction))
 		.add([selectionPlugin, selectionPluginOptions({ options: pluginOptions.selection })])
-		.add([codeBlockPlugin, codeBlockPluginOptions({ options: pluginOptions.codeBlock })])
+		.add([codeBlockPlugin, codeBlockPluginOptions({ providers })])
 		.add(ufoPlugin)
 		.add(dataConsumerPlugin)
 		.add(accessibilityUtilsPlugin)

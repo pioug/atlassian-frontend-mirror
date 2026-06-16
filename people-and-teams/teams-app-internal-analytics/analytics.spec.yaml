@@ -572,7 +572,9 @@ events:
           description: identifies the UI touchpoint that triggered the invite
   - inviteToProject updated:
       type: track
-      description: fired when a per-project invite request completes successfully via the team profile add people to project flow
+      description:
+        fired when a per-project invite request completes successfully via the team profile add
+        people to project flow
       attributes:
         <<: *PackageMetaDataContext
         spaceId:
@@ -598,7 +600,9 @@ events:
           description: total number of invite requests for this project
   - inviteToProject failed:
       type: track
-      description: fired when a per-project invite request has failures via the team profile add people to project flow
+      description:
+        fired when a per-project invite request has failures via the team profile add people to
+        project flow
       attributes:
         <<: *PackageMetaDataContext
         spaceId:
@@ -3777,6 +3781,11 @@ events:
       type: ui
       description:
         fired when the Collaborators section is expanded on the compact user profile preview
+  - userProfilePreview clicked (recentWorkViewAll):
+      type: ui
+      description:
+        fired when the View all link is clicked on the Recent Work section on the compact user
+        profile preview
   - userInlinePreview succeeded (request):
       type: operational
       description: fired when the user inline preview list data request succeeds
@@ -3804,8 +3813,8 @@ events:
           type: string
           required: false
           description: >
-            optional context describing where the UserInlinePreview is rendered.
-            Set to 'collaborator' when rendered inside UserProfilePreview's collaborators list.
+            optional context describing where the UserInlinePreview is rendered. Set to
+            'collaborator' when rendered inside UserProfilePreview's collaborators list.
   - userInlinePreview clicked (viewProfile):
       type: ui
       description: fired when the View Profile button is clicked on the user inline preview
@@ -3815,8 +3824,8 @@ events:
           type: string
           required: false
           description: >
-            optional context describing where the UserInlinePreview is rendered.
-            Set to 'collaborator' when rendered inside UserProfilePreview's collaborators list.
+            optional context describing where the UserInlinePreview is rendered. Set to
+            'collaborator' when rendered inside UserProfilePreview's collaborators list.
 
   - userProfileCard opened:
       type: ui
@@ -3843,7 +3852,8 @@ events:
         <<: *PackageMetaDataContext
   - userProfileCard clicked (thirdPartyMessage):
       type: ui
-      description: fired when the third-party messaging integration button is clicked on the user profile card
+      description:
+        fired when the third-party messaging integration button is clicked on the user profile card
       attributes:
         <<: *PackageMetaDataContext
   - userProfileCard clicked (viewProfile):
@@ -3853,7 +3863,8 @@ events:
         <<: *PackageMetaDataContext
   - userProfileCard triggered (request):
       type: operational
-      description: fired when the user profile card data request begins (paired with succeeded/failed)
+      description:
+        fired when the user profile card data request begins (paired with succeeded/failed)
       attributes:
         <<: *PackageMetaDataContext
   - userProfileCard rendered (spinner):
@@ -3876,7 +3887,9 @@ events:
           description: classification of the error shown to the user (e.g. NotFound, default)
   - userProfileCard rendered (errorBoundary):
       type: ui
-      description: fired when an unexpected error in the user profile card subtree is caught by the error boundary
+      description:
+        fired when an unexpected error in the user profile card subtree is caught by the error
+        boundary
       attributes:
         <<: *PackageMetaDataContext
 
@@ -3902,7 +3915,9 @@ events:
         <<: *PackageMetaDataContext
   - hierarchyChart clicked (viewFullReportingLine):
       type: ui
-      description: fired when the "Full reporting line" call-to-action button is clicked in the hierarchy chart preview
+      description:
+        fired when the "Full reporting line" call-to-action button is clicked in the hierarchy chart
+        preview
       attributes:
         <<: *PackageMetaDataContext
 
@@ -3918,11 +3933,14 @@ events:
         <<: *PackageMetaDataContext
   - interactiveHierarchyModal succeeded (request):
       type: operational
-      description: fired when the hierarchy data request inside the interactive hierarchy modal succeeds
+      description:
+        fired when the hierarchy data request inside the interactive hierarchy modal succeeds
       attributes:
         <<: *PackageMetaDataContext
   - interactiveHierarchyModal failed (request):
       type: operational
-      description: fired when the hierarchy data request inside the interactive hierarchy modal fails or returns an unusable payload
+      description:
+        fired when the hierarchy data request inside the interactive hierarchy modal fails or
+        returns an unusable payload
       attributes:
         <<: *PackageMetaDataContext

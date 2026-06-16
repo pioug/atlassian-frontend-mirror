@@ -105,6 +105,12 @@ export type ChatNewPayload = PayloadCore<
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
 		creationContextParams?: CreationContextParams;
+		/**
+		 * Overrides the default auto-send behavior for prompts.
+		 * Set this to true to insert prompts not containing backticks into the chat input for dynamic
+		 * user completion, rather than sending them immediately.
+		 */
+		overrideAutoSend?: boolean;
 		// Used to indicate if the prompt is a placeholder, only works if `prompt` is a string
 		isPromptPlaceholder?: boolean;
 		files?: UploadedFile[];
@@ -145,6 +151,37 @@ export type ChatNewPayload = PayloadCore<
 		tags?: string[];
 	} & Partial<TargetAgentParam> &
 		PlaceholderParam
+>;
+
+/**
+ * Opens the Rovo conversation assistant and seeds a chat from a Rovo Insight,
+ * reproducing the same experience as clicking an insight inside the in-panel
+ * InsightsFeed (seeded ADF agent message, insight header icon/title, seeded
+ * follow-ups, and a back-to-pulse override).
+ *
+ * Published by surfaces that render insights outside the panel (e.g. the home
+ * insights carousel). All fields are serializable: the icon is carried as the
+ * raw API string keys (`iconKey`/`iconColor`) and re-resolved panel-side via
+ * `resolveInsightIcon`/`resolveInsightIconAppearance`, since React components
+ * cannot cross the event bus. The standardized back-button label is owned
+ * panel-side and is intentionally not part of this payload.
+ */
+export type InsightsOpenInChatPayload = PayloadCore<
+	'insights-open-in-chat',
+	{
+		/** Stringified ADF JSON for the insight detail — seeded as the agent message. */
+		adf: string;
+		/** Conversation name / header title. */
+		conversationTitle: string;
+		/** Raw API `icon` string key (e.g. `'lightbulb'`), re-resolved panel-side. */
+		iconKey: string;
+		/** Raw API `color` string key (e.g. `'blueBold'`), re-resolved panel-side. */
+		iconColor: string;
+		/** Insight category (e.g. group category), used for click analytics attribution. */
+		insightCategory: string;
+		/** Follow-up prompt strings to seed into the conversation. */
+		followUps?: string[] | null;
+	}
 >;
 
 export type EditorContextPayloadData =
@@ -640,6 +677,7 @@ export type Payload =
 	| ChatClosePayload
 	| SmartCreationModalOpenPayload
 	| ChatNewPayload
+	| InsightsOpenInChatPayload
 	| ChatDraftPayload
 	| ChatSmartLink3PPostAuthLaunchPayload
 	| EditorContextPayload

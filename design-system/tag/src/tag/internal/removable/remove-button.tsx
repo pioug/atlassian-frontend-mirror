@@ -6,6 +6,7 @@ import { type FocusEventHandler, type KeyboardEventHandler, type MouseEventHandl
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import CloseIcon from '@atlaskit/icon/core/cross';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -66,10 +67,12 @@ const removeButtonStyles = cssMap({
 			outlineOffset: 0,
 		},
 	},
-});
-
-const removeButtonStylesNewIcon = cssMap({
-	root: {
+	focusRing: {
+		'&:focus-visible': {
+			outlineOffset: token('space.025'),
+		},
+	},
+	newIcon: {
 		insetInlineEnd: token('space.025'),
 	},
 });
@@ -94,7 +97,8 @@ const RemoveButton: (props: RemoveButtonProps) => JSX.Element = ({
 			xcss={cx(
 				removeButtonStyles.root,
 				shape === 'circle' && removeButtonStyles.circle,
-				removeButtonStylesNewIcon.root,
+				removeButtonStyles.newIcon,
+				fg('platform-dst-lozenge-tag-badge-visual-uplifts') && removeButtonStyles.focusRing,
 			)}
 			aria-label={ariaLabel}
 			onClick={onClick}

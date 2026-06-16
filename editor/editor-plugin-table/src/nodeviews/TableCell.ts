@@ -45,12 +45,6 @@ const getCellDomAttrsForTableMenuUpdates = (node: PMNode): CellDomAttrs => {
 export default class TableCell extends TableNodeView<HTMLElement> implements NodeView {
 	private delayHandle: number | undefined;
 
-	/** Cached edge state to avoid redundant DOM writes. */
-	private prevReachesTop = false;
-	private prevReachesBottom = false;
-	private prevReachesLeft = false;
-	private prevReachesRight = false;
-
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -141,28 +135,10 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 			const cellStartInTable = pos - resolvedPos.start(tableDepth);
 			const cellRect = tableMap.findCell(cellStartInTable);
 
-			const reachesTop = cellRect.top === 0;
-			const reachesBottom = cellRect.bottom >= tableMap.height;
-			const reachesLeft = cellRect.left === 0;
-			const reachesRight = cellRect.right >= tableMap.width;
-
-			// Only touch DOM attributes that actually changed
-			if (reachesTop !== this.prevReachesTop) {
-				this.prevReachesTop = reachesTop;
-				this.setDataAttr('data-reaches-top', reachesTop);
-			}
-			if (reachesBottom !== this.prevReachesBottom) {
-				this.prevReachesBottom = reachesBottom;
-				this.setDataAttr('data-reaches-bottom', reachesBottom);
-			}
-			if (reachesLeft !== this.prevReachesLeft) {
-				this.prevReachesLeft = reachesLeft;
-				this.setDataAttr('data-reaches-left', reachesLeft);
-			}
-			if (reachesRight !== this.prevReachesRight) {
-				this.prevReachesRight = reachesRight;
-				this.setDataAttr('data-reaches-right', reachesRight);
-			}
+			this.setDataAttr('data-reaches-top', cellRect.top === 0);
+			this.setDataAttr('data-reaches-bottom', cellRect.bottom >= tableMap.height);
+			this.setDataAttr('data-reaches-left', cellRect.left === 0);
+			this.setDataAttr('data-reaches-right', cellRect.right >= tableMap.width);
 		} catch {
 			// Position may be stale during document mutations; silently ignore.
 		}

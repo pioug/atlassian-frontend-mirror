@@ -10,6 +10,10 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const FAILED_TO_EXECUTE_REGEX = /Failed to execute.*on 'Node'.*/;
+
 interface ErrorBoundaryProps {
 	additionalInfo?: string;
 	children: React.ReactNode;
@@ -63,10 +67,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 			},
 		});
 		logException(error, { location: 'renderer' });
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		const pattern = /Failed to execute.*on 'Node'.*/;
-		const matchesPattern = pattern.test(error.message);
+		const matchesPattern = FAILED_TO_EXECUTE_REGEX.test(error.message);
 
 		if (matchesPattern) {
 			this.fireAnalyticsEvent({

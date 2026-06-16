@@ -54,6 +54,7 @@ const TRACK_NON_PRIMARY_3P_CLICKS_EXPERIMENT = 'linking_platform_track_non_prima
 function Component({
 	id,
 	url,
+	title,
 	isSelected,
 	isHovered,
 	frameStyle,
@@ -533,6 +534,7 @@ function Component({
 				hoverPreviewOptions={hoverPreviewOptions}
 				actionOptions={actionOptions}
 				url={url}
+				title={title}
 				testId={testId}
 				onResolve={onResolve}
 				onError={onError}

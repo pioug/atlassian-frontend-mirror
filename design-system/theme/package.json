@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "25.0.0",
+	"version": "26.0.0",
 	"description": "Theme contains solutions for global theming, colors, and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,14 +81,6 @@
 			],
 			"deprecation": "no-deprecated-imports",
 			"design-system": "v1"
-		}
-	},
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
 		}
 	},
 	"exports": {

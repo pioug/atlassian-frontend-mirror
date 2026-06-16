@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "3.16.2",
+	"version": "4.0.0",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -127,13 +127,5 @@
 			]
 		}
 	},
-	"homepage": "https://atlassian.design/components",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	}
+	"homepage": "https://atlassian.design/components"
 }

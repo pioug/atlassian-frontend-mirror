@@ -1,5 +1,38 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 2.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.33.0
+
+### Minor Changes
+
+- [`1a6c7ba7a76fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a6c7ba7a76fb) -
+  [ux] Update LinkList and people consumers of it to have a viewAll link
+
 ## 1.32.0
 
 ### Minor Changes

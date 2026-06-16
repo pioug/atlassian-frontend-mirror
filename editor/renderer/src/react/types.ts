@@ -29,6 +29,7 @@ export interface NodeMeta {
 	[key: string]: any;
 	allowCopyToClipboard?: boolean;
 	allowCustomPanels?: boolean;
+	allowDownloadCodeBlock?: boolean;
 	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
 	allowPlaceholderText?: boolean;
 	allowWrapCodeBlock?: boolean;

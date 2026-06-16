@@ -242,6 +242,28 @@ describe('FlexibleCard', () => {
 			expect(onResolve).toHaveBeenCalledWith({ title, url });
 		});
 
+		it('uses resolved card title for onResolve even when title prop is provided', async () => {
+			const onResolve = jest.fn();
+			const cardState = {
+				status: SmartLinkStatus.Resolved,
+				details: { meta: {}, data: { name: title, url } },
+			} as CardState;
+
+			render(
+				<FlexibleCard
+					cardState={cardState}
+					onResolve={onResolve}
+					url={url}
+					title="title-from-ssr-prop"
+				>
+					<TitleBlock />
+				</FlexibleCard>,
+				{ wrapper: getCardTestWrapper() },
+			);
+
+			expect(onResolve).toHaveBeenCalledWith({ title, url });
+		});
+
 		it.each([
 			[SmartLinkStatus.Errored],
 			[SmartLinkStatus.Fallback],

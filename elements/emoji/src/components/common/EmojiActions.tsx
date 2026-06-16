@@ -12,6 +12,7 @@ import {
 	type ComponentType,
 	type FC,
 	type MouseEvent,
+	useEffect,
 } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -31,10 +32,15 @@ import type {
 	ToneSelection,
 	ToneValueType,
 } from '../../types';
+import type { CategoryId } from '../picker/categories';
 import EmojiDeletePreview, { type OnDeleteEmoji } from './EmojiDeletePreview';
 import EmojiUploadPicker, { type OnUploadEmoji } from './EmojiUploadPicker';
 import TonePreviewButton from './TonePreviewButton';
 import ToneSelector from './ToneSelector';
+import ProductivityColorSelector, {
+	productivityColorSelectorId,
+} from './ProductivityColorSelector';
+import Popup from './Popup';
 import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
@@ -44,6 +50,7 @@ import { emojiPickerAddEmoji } from './styles';
 import { DEFAULT_TONE } from '../../util/constants';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Box } from '@atlaskit/primitives/compiled';
+import type { ProductivityColor } from '../../util/productivity-colors';
 
 const styles = cssMap({
 	icon: { marginLeft: token('space.negative.050'), marginRight: token('space.negative.025') },
@@ -74,6 +81,17 @@ const emojiToneSelectorContainer = css({
 	padding: '11px 10px 12px 0',
 });
 
+const productivityColorPopup = css({
+	backgroundColor: token('elevation.surface.overlay'),
+	border: `${token('border.width')} solid ${token('color.border')}`,
+	borderRadius: token('radius.small', '3px'),
+	boxShadow: token('elevation.shadow.overlay'),
+	paddingTop: token('space.075'),
+	paddingRight: token('space.075'),
+	paddingBottom: token('space.075'),
+	paddingLeft: token('space.075'),
+});
+
 const previewFooter = css({
 	flex: '0 0 auto',
 	borderBottom: `${token('border.width.selected')} solid ${token('color.border')}`,
@@ -89,6 +107,7 @@ export interface Props {
 	initialUploadName?: string;
 	onChange: (value: string) => void;
 	onCloseDelete: () => void;
+	onProductivityColorSelected?: (color: ProductivityColor) => void;
 	onDeleteEmoji: OnDeleteEmoji;
 	onFileChooserClicked?: () => void;
 	onOpenUpload: () => void;
@@ -98,6 +117,9 @@ export interface Props {
 	onUploadEmoji: OnUploadEmoji;
 	query?: string;
 	resultsCount?: number;
+	activeCategoryId?: CategoryId | null;
+	productivityColorPreviewEmojis?: Partial<Record<ProductivityColor, EmojiDescription>>;
+	selectedProductivityColor?: ProductivityColor;
 	selectedTone?: ToneSelection;
 	toneEmoji?: EmojiDescriptionWithVariations;
 	uploadEnabled: boolean;
@@ -160,10 +182,23 @@ type TonesWrapperProps = PropsWithWrappedComponentPropsType & {
 	onToneClose: () => void;
 	onToneOpen: () => void;
 	onToneSelected: (toneValue: ToneValueType) => void;
+	onToneToggle: () => void;
 	showToneSelector: boolean;
 };
 const TonesWrapper = (props: TonesWrapperProps) => {
-	const { toneEmoji, selectedTone = DEFAULT_TONE, intl, onToneOpen, showToneSelector } = props;
+	const {
+		activeCategoryId,
+		onProductivityColorSelected,
+		productivityColorPreviewEmojis,
+		selectedProductivityColor,
+		toneEmoji,
+		selectedTone = DEFAULT_TONE,
+		intl,
+		onToneClose,
+		onToneOpen,
+		onToneToggle,
+		showToneSelector,
+	} = props;
 	const { formatMessage } = intl;
 	const tonePreviewButtonRef = useRef<HTMLButtonElement>(null);
 	const [focusTonePreviewButton, setFocusTonePreviewButton] = useState(false);
@@ -191,6 +226,64 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 		},
 		[props],
 	);
+
+	const onProductivityColorSelectedHandler = useCallback(
+		(color: ProductivityColor) => {
+			onProductivityColorSelected?.(color);
+			onToneClose();
+			setFocusTonePreviewButton(true);
+		},
+		[onProductivityColorSelected, onToneClose],
+	);
+
+	const shouldShowProductivityColorSelector = !!(
+		activeCategoryId === 'ATLASSIAN' &&
+		productivityColorPreviewEmojis &&
+		selectedProductivityColor &&
+		onProductivityColorSelected &&
+		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+	);
+
+	if (shouldShowProductivityColorSelector) {
+		const previewEmoji =
+			productivityColorPreviewEmojis?.[selectedProductivityColor] ||
+			Object.values(productivityColorPreviewEmojis || {})[0];
+
+		if (!previewEmoji) {
+			return null;
+		}
+
+		return (
+			<div css={emojiToneSelectorContainer}>
+				{showToneSelector && tonePreviewButtonRef.current && (
+					<Popup
+						target={tonePreviewButtonRef.current}
+						relativePosition="below"
+						horizontalAlign="end-to-start"
+						offsetY={4}
+						zIndex={510}
+					>
+						<div css={productivityColorPopup}>
+							<ProductivityColorSelector
+								colorPreviewEmojis={productivityColorPreviewEmojis}
+								selectedColor={selectedProductivityColor}
+								onColorSelected={onProductivityColorSelectedHandler}
+							/>
+						</div>
+					</Popup>
+				)}
+				<TonePreviewButton
+					ref={tonePreviewButtonRef}
+					ariaControls={productivityColorSelectorId}
+					ariaExpanded={showToneSelector}
+					emoji={previewEmoji}
+					selectOnHover
+					onSelected={onToneToggle}
+					ariaLabelText={formatMessage(messages.emojiSelectColorButtonAriaLabelText)}
+				/>
+			</div>
+		);
+	}
 
 	if (!toneEmoji) {
 		return null;
@@ -245,10 +338,23 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		resultsCount = 0,
 	} = props;
 	const [showToneSelector, setShowToneSelector] = useState(false);
+	const wasProductivityColorSelectorOpen = useRef(false);
+
+	const shouldUseProductivityColorControl = !!(
+		props.activeCategoryId === 'ATLASSIAN' &&
+		props.productivityColorPreviewEmojis &&
+		props.selectedProductivityColor &&
+		props.onProductivityColorSelected &&
+		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+	);
 
 	const onToneOpenHandler = useCallback(() => setShowToneSelector(true), []);
 
 	const onToneCloseHandler = useCallback(() => setShowToneSelector(false), []);
+
+	const onToneToggleHandler = useCallback(() => {
+		setShowToneSelector((isOpen) => !isOpen);
+	}, []);
 
 	const onToneSelectedHandler = useCallback(
 		(toneValue: ToneValueType) => {
@@ -261,11 +367,26 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	);
 
 	const onMouseLeaveHandler = useCallback(() => {
+		if (shouldUseProductivityColorControl) {
+			return;
+		}
 		if (showToneSelector && onToneSelectorCancelled) {
 			onToneSelectorCancelled();
 		}
 		setShowToneSelector(false);
-	}, [showToneSelector, onToneSelectorCancelled]);
+	}, [shouldUseProductivityColorControl, showToneSelector, onToneSelectorCancelled]);
+
+	useEffect(() => {
+		if (shouldUseProductivityColorControl && showToneSelector) {
+			wasProductivityColorSelectorOpen.current = true;
+			return;
+		}
+
+		if (!shouldUseProductivityColorControl && wasProductivityColorSelectorOpen.current) {
+			setShowToneSelector(false);
+			wasProductivityColorSelectorOpen.current = false;
+		}
+	}, [shouldUseProductivityColorControl, showToneSelector]);
 
 	if (uploading) {
 		return FeatureGates.getExperimentValue(
@@ -335,13 +456,14 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 					onChange={onChange}
 					query={query}
 					resultsCount={resultsCount}
-					isVisible={!showToneSelector}
+					isVisible={!showToneSelector || shouldUseProductivityColorControl}
 				/>
 				<TonesWrapper
 					{...props}
 					onToneOpen={onToneOpenHandler}
 					onToneClose={onToneCloseHandler}
 					onToneSelected={onToneSelectedHandler}
+					onToneToggle={onToneToggleHandler}
 					showToneSelector={showToneSelector}
 				/>
 			</div>
@@ -365,6 +487,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 					onToneOpen={onToneOpenHandler}
 					onToneClose={onToneCloseHandler}
 					onToneSelected={onToneSelectedHandler}
+					onToneToggle={onToneToggleHandler}
 					showToneSelector={showToneSelector}
 				/>
 			</div>

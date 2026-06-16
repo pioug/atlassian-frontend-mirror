@@ -14,7 +14,13 @@ import Tooltip from '@atlaskit/tooltip';
 import MediaButton from '../MediaButton';
 import { messages } from '../messages';
 import { WidthObserver } from '@atlaskit/width-detector';
-import { popperProps, popupCustomStyles, popupSelectComponents } from './dropdownControlCommon';
+import {
+	popperProps,
+	popupCustomStyles,
+	popupSelectComponents,
+	getPopperPropsForFullscreen,
+} from './dropdownControlCommon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface PlaybackSpeedControlsProps {
 	playbackSpeed: number;
@@ -22,6 +28,7 @@ export interface PlaybackSpeedControlsProps {
 	originalDimensions?: NumericalCardDimensions;
 	onClick?: () => void;
 	onKeyDown?: (event: KeyboardEvent<HTMLElement>) => void;
+	isFullScreen?: boolean;
 }
 
 export interface PlaybackSpeedControlsState {
@@ -80,7 +87,7 @@ export class PlaybackSpeedControls extends Component<
 	};
 
 	render(): React.JSX.Element {
-		const { playbackSpeed, intl, onClick } = this.props;
+		const { playbackSpeed, intl, onClick, isFullScreen = false } = this.props;
 		const { popupHeight } = this.state;
 		const value = this.speedOptions()[0].options.find((option) => option.value === playbackSpeed);
 
@@ -111,7 +118,11 @@ export class PlaybackSpeedControls extends Component<
 						</Tooltip>
 					)}
 					styles={popupCustomStyles}
-					popperProps={popperProps}
+					popperProps={
+						fg('platform_editor_video_caption_commit')
+							? getPopperPropsForFullscreen(isFullScreen)
+							: popperProps
+					}
 				/>
 			</>
 		);

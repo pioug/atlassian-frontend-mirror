@@ -29,6 +29,8 @@ import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { createSingleMentionFragment } from '../../editor-commands';
 import type { MentionsPlugin } from '../../mentionsPluginType';
+import { mentionPluginKey } from '../../pm-plugins/key';
+import { ACTIONS } from '../../pm-plugins/main';
 import {
 	mentionPlaceholderPluginKey,
 	MENTION_PLACEHOLDER_ACTIONS,
@@ -52,6 +54,9 @@ const isAgentUserType = (userType: string | undefined): boolean =>
 
 const isAgentMention = (mention: Pick<MentionDescription, 'appType' | 'userType'>): boolean =>
 	isAgentUserType(mention.userType) || mention.appType === 'agent';
+
+const isAgentTypeAheadItem = (item: TypeAheadItem): boolean =>
+	item.mention ? isAgentMention(item.mention) : false;
 
 const createInviteItem = ({
 	mentionProvider,
@@ -212,7 +217,7 @@ const buildAndSendElementsTypeAheadAnalytics =
 								// Ignored via go/ees005
 								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								memberCount: mention.context!.memberCount,
-							}
+						  }
 						: null,
 				)
 				.filter((m) => !!m) as TeamInfoAttrAnalytics[];
@@ -247,8 +252,8 @@ const buildNodesForTeamMention = (
 	const teamLinkNode = fg('team-mention-inline-smartlink')
 		? schema.nodes.inlineCard.create({ url: teamLink })
 		: // Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			schema.text(name!, [marks.link.create({ href: teamLink })]);
+		  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		  schema.text(name!, [marks.link.create({ href: teamLink })]);
 
 	const openBracketText = schema.text('(');
 	const closeBracketText = schema.text(')');
@@ -374,7 +379,7 @@ export const createTypeAheadConfig = ({
 											? {
 													isInlineInviteMentionsEnabled:
 														mentionProvider.getShouldEnableInlineInvite?.(),
-												}
+											  }
 											: {},
 									),
 								);
@@ -407,14 +412,20 @@ export const createTypeAheadConfig = ({
 				{
 					id: 'people',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionPeople),
-					filter: (item) => !isAgentUserType((item.mention?.userType as string) || ''),
+					filter: (item) => !isAgentTypeAheadItem(item),
 					limit: expVal('platform_editor_agent_mentions', 'isEnabled', false) ? 5 : 6,
+					...(expVal('platform_editor_agent_mentions', 'isEnabled', false)
+						? { sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true } }
+						: {}),
 				},
 				{
 					id: 'agents',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionAgents),
-					filter: (item) => isAgentUserType((item.mention?.userType as string) || ''),
+					filter: (item) => isAgentTypeAheadItem(item),
 					limit: expVal('platform_editor_agent_mentions', 'isEnabled', false) ? 5 : undefined,
+					...(expVal('platform_editor_agent_mentions', 'isEnabled', false)
+						? { sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true } }
+						: {}),
 				},
 			];
 		},
@@ -439,14 +450,11 @@ export const createTypeAheadConfig = ({
 				'isEnabled',
 				false,
 			);
-			const shouldSuppressInviteForAgentMention =
+			const isAgentMentionInsertion =
 				isAgentMentionsExperimentEnabled && isAgentMention(item.mention);
 			// userType can be missing for provider-only agent mentions. Copy/paste cannot
 			// see appType, so persist APP only when there is no explicit userType.
-			const persistedUserType =
-				isAgentMentionsExperimentEnabled && isAgentMention(item.mention) && userType == null
-					? 'APP'
-					: userType;
+			const persistedUserType = isAgentMentionInsertion && userType == null ? 'APP' : userType;
 
 			if (mentionProvider && !isInviteItem(item.mention)) {
 				mentionProvider.recordMentionSelection(item.mention, mentionContext);
@@ -521,9 +529,7 @@ export const createTypeAheadConfig = ({
 					localId: mentionLocalId,
 					method: 'typed' as const,
 					type: 'added' as const,
-					...(shouldSuppressInviteForAgentMention
-						? { shouldSuppressMentionNotification: true }
-						: {}),
+					...(isAgentMentionInsertion ? { shouldSuppressMentionNotification: true } : {}),
 				};
 
 				if (taskItemId) {
@@ -547,6 +553,7 @@ export const createTypeAheadConfig = ({
 					contextIdentifierProvider,
 					taskListId,
 					taskItemId,
+					isAgentMentionInsertion,
 				),
 			);
 
@@ -560,7 +567,7 @@ export const createTypeAheadConfig = ({
 			}
 
 			if (
-				!shouldSuppressInviteForAgentMention &&
+				!isAgentMentionInsertion &&
 				isXProductUser &&
 				mentionProvider &&
 				mentionProvider.inviteXProductUser
@@ -568,13 +575,13 @@ export const createTypeAheadConfig = ({
 				mentionProvider.inviteXProductUser(id, name);
 			}
 
-			return insert(
+			const tr = insert(
 				createSingleMentionFragment({
 					mentionProvider,
 					mentionInsertDisplayName,
 					tr: state.tr,
 					sanitizePrivateContent,
-					suppressInviteXProductUser: shouldSuppressInviteForAgentMention,
+					suppressInviteXProductUser: isAgentMentionInsertion,
 				})({
 					name,
 					id,
@@ -585,6 +592,15 @@ export const createTypeAheadConfig = ({
 					isXProductUser,
 				}),
 			);
+
+			if (isAgentMentionInsertion) {
+				tr.setMeta(mentionPluginKey, {
+					action: ACTIONS.SET_PENDING_TYPED_AGENT_MENTION,
+					params: { localId: mentionLocalId },
+				});
+			}
+
+			return tr;
 		},
 		dismiss({ editorState, query, stats, wasItemInserted }) {
 			firstQueryWithoutResults = null;

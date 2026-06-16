@@ -1,9 +1,8 @@
 import type { Command } from '@atlaskit/editor-common/types';
 
-import type { CodeBlockFormatProvider, FormatResult } from '../../types';
+import type { CodeBlockFormatProvider } from '../../types';
 
 export type LanguageSource = 'auto-detected' | 'selected';
-export type FormatCodeResult = FormatResult;
 
 export const preloadFormatterOnIntent =
 	(

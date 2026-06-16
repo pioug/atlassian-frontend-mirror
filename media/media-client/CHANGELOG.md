@@ -1,5 +1,40 @@
 # @atlaskit/media-client
 
+## 37.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.4.0
+
+### Minor Changes
+
+- [`7eee9ab1ef53b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7eee9ab1ef53b) -
+  Adds the `x-expected-size` header to the create-with-files (`POST /upload/createWithFiles`) and
+  create-file-from-upload (`POST /file/upload`) requests, gated by
+  `platform_media_upload_expected_size_header`. This propagates the expected file size to the upload
+
 ## 36.3.4
 
 ### Patch Changes

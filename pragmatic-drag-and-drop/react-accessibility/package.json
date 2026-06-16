@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pragmatic-drag-and-drop-react-accessibility",
-	"version": "2.2.11",
+	"version": "3.0.0",
 	"description": "An optional package for Pragmatic drag and drop containing react components to assist with setting up accessible experiences",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,14 +27,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
 	"devDependencies": {
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",

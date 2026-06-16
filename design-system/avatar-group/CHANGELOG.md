@@ -1,5 +1,43 @@
 # @atlaskit/avatar-group
 
+## 13.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.11.0
+
+### Minor Changes
+
+- [`032135d12186b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/032135d12186b) -
+  Top-layer: fix initial focus regressions on the top-layer adapters for `@atlaskit/avatar-group`
+  and `@atlaskit/popup`. Behind the `platform-dst-top-layer` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.10.12
 
 ### Patch Changes

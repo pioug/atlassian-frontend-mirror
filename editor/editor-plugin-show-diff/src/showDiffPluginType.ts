@@ -13,6 +13,12 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 export type ColorScheme = 'standard' | 'traditional';
 export type DiffType = 'inline' | 'block' | 'step';
+
+export type DiffDescriptor = {
+	id: string;
+	type: 'inline' | 'block' | 'widget';
+};
+
 export type DiffParams = {
 	/**
 	 * Color scheme to use for displaying diffs.
@@ -65,6 +71,11 @@ export type ShowDiffPlugin = NextEditorPlugin<
 			 * The index of the current diff being viewed.
 			 */
 			activeIndex?: number;
+			/**
+			 * The diff descriptors of the diff decorations currently being displayed.
+			 * Only set when `platform_editor_diff_plugin_extended` is on.
+			 */
+			diffDescriptors?: DiffDescriptor[];
 			/**
 			 * Whether the show diff feature is currently displaying changes.
 			 * Defaults to false.

@@ -85,6 +85,8 @@ import {
 import { useEmoji } from '../../hooks/useEmoji';
 import { useIsMounted } from '../../hooks/useIsMounted';
 import { messages } from '../i18n';
+import { defaultProductivityColor, type ProductivityColor } from '../../util/productivity-colors';
+import { filterHiddenEmojis } from '../../util/hidden-emojis';
 
 const emojiPickerBoxShadow = token('elevation.shadow.overlay');
 const emojiPickerHeight = 295;
@@ -242,6 +244,11 @@ const EmojiPickerComponent = ({
 }: Props): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { emojiProvider, isUploadSupported } = useEmoji();
+	const isTeamojiExperimentEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
 	const [filteredEmojis, setFilteredEmojis] = useState<EmojiDescription[]>([]);
 	const [searchEmojis, setSearchEmojis] = useState<EmojiDescription[]>([]);
 	const [frequentlyUsedEmojis, setFrequentlyUsedEmojis] = useState<EmojiDescription[]>([]);
@@ -250,6 +257,8 @@ const EmojiPickerComponent = ({
 	const [selectedTone, setSelectedTone] = useState(
 		!hideToneSelector ? emojiProvider.getSelectedTone() : undefined,
 	);
+	const [selectedProductivityColor, setSelectedProductivityColor] =
+		useState<ProductivityColor>(defaultProductivityColor);
 	const [loading, setLoading] = useState(true);
 	const [uploading, setUploading] = useState(false);
 	const [selectedEmoji, setSelectedEmoji] = useState<EmojiDescription | undefined>();
@@ -268,18 +277,12 @@ const EmojiPickerComponent = ({
 	const pickerRef = useRef<HTMLDivElement>(null);
 	const setPickerRef = useCallback(
 		(el: HTMLDivElement | null) => {
-			if (
-				FeatureGates.getExperimentValue(
-					'platform_teamoji_26_refresh_emoji_picker',
-					'isEnabled',
-					false,
-				)
-			) {
+			if (isTeamojiExperimentEnabled) {
 				(pickerRef as MutableRefObject<HTMLDivElement | null>).current = el;
 			}
 			onPickerRef?.(el);
 		},
-		[onPickerRef],
+		[isTeamojiExperimentEnabled, onPickerRef],
 	);
 	const currentUser = useMemo(() => {
 		return emojiProvider.getCurrentUser();
@@ -446,7 +449,10 @@ const EmojiPickerComponent = ({
 	const onFrequentEmojiResult = useCallback(
 		(frequentEmoji: EmojiDescription[]): void => {
 			// change the category of each of the featured emoji
-			const recategorised = frequentEmoji.map((emoji) => {
+			const visibleFrequentEmoji = isTeamojiExperimentEnabled
+				? filterHiddenEmojis(frequentEmoji)
+				: frequentEmoji;
+			const recategorised = visibleFrequentEmoji.map((emoji) => {
 				const clone = JSON.parse(JSON.stringify(emoji));
 				clone.category = frequentCategory;
 				return clone;
@@ -456,13 +462,16 @@ const EmojiPickerComponent = ({
 				frequentEmoji: recategorised,
 			});
 		},
-		[setStateAfterEmojiChange],
+		[isTeamojiExperimentEnabled, setStateAfterEmojiChange],
 	);
 
 	const onSearchResult = useCallback(
 		(searchResults: EmojiSearchResult): void => {
 			const frequentlyUsedEmoji = frequentlyUsedEmojis || [];
 			const searchQuery = searchResults.query || '';
+			const visibleSearchEmojis = isTeamojiExperimentEnabled
+				? filterHiddenEmojis(searchResults.emojis)
+				: searchResults.emojis;
 
 			/**
 			 * If there is no user search in the EmojiPicker then it should display all emoji received from the EmojiRepository and should
@@ -471,25 +480,31 @@ const EmojiPickerComponent = ({
 			 */
 			let emojiToRender: EmojiDescription[];
 			if (!frequentlyUsedEmoji.length || query) {
-				emojiToRender = searchResults.emojis;
+				emojiToRender = visibleSearchEmojis;
 			} else {
-				emojiToRender = [...searchResults.emojis, ...frequentlyUsedEmoji];
+				emojiToRender = [...visibleSearchEmojis, ...frequentlyUsedEmoji];
 			}
 
 			setStateAfterEmojiChange({
 				searchQuery,
 				emojiToRender,
-				searchEmoji: searchResults.emojis,
+				searchEmoji: visibleSearchEmojis,
 			});
 
 			fireAnalytics(
 				pickerSearchedEvent({
 					queryLength: searchQuery.length,
-					numMatches: searchResults.emojis.length,
+					numMatches: visibleSearchEmojis.length,
 				}),
 			);
 		},
-		[frequentlyUsedEmojis, query, setStateAfterEmojiChange, fireAnalytics],
+		[
+			frequentlyUsedEmojis,
+			isTeamojiExperimentEnabled,
+			query,
+			setStateAfterEmojiChange,
+			fireAnalytics,
+		],
 	);
 
 	const onProviderChange: OnEmojiProviderChange = useMemo(() => {
@@ -543,6 +558,10 @@ const EmojiPickerComponent = ({
 		fireAnalytics(toneSelectorClosedEvent());
 	}, [fireAnalytics]);
 
+	const onProductivityColorSelected = useCallback((color: ProductivityColor) => {
+		setSelectedProductivityColor(color);
+	}, []);
+
 	const onSelectWrapper = useCallback(
 		(emojiId: EmojiId, emoji: OptionalEmojiDescription, event?: SyntheticEvent<any>): void => {
 			if (onSelection) {
@@ -587,30 +606,21 @@ const EmojiPickerComponent = ({
 			emojiProvider.findInCategory(categoryId).then((emojisInCategory) => {
 				if (!disableCategories) {
 					let newSelectedEmoji: EmojiDescription | undefined;
-					if (emojisInCategory && emojisInCategory.length > 0) {
-						newSelectedEmoji = getEmojiVariation(emojisInCategory[0], {
+					const visibleEmojisInCategory = isTeamojiExperimentEnabled
+						? filterHiddenEmojis(emojisInCategory || [])
+						: emojisInCategory || [];
+					if (visibleEmojisInCategory.length > 0) {
+						newSelectedEmoji = getEmojiVariation(visibleEmojisInCategory[0], {
 							skinTone: selectedTone,
 						});
 					}
 
 					if (emojiPickerList.current) {
-						if (
-							FeatureGates.getExperimentValue(
-								'platform_teamoji_26_refresh_emoji_picker',
-								'isEnabled',
-								false,
-							)
-						) {
+						if (isTeamojiExperimentEnabled) {
 							isProgrammaticScroll.current = true;
 						}
 						emojiPickerList.current.reveal(categoryId);
-						if (
-							FeatureGates.getExperimentValue(
-								'platform_teamoji_26_refresh_emoji_picker',
-								'isEnabled',
-								false,
-							)
-						) {
+						if (isTeamojiExperimentEnabled) {
 							// Clear the flag after the scroll animation has settled.
 							setTimeout(() => {
 								isProgrammaticScroll.current = false;
@@ -631,6 +641,7 @@ const EmojiPickerComponent = ({
 			emojiPickerList,
 			emojiProvider,
 			fireAnalytics,
+			isTeamojiExperimentEnabled,
 			selectedTone,
 			uploading,
 			emojiToDelete,
@@ -999,11 +1010,17 @@ const EmojiPickerComponent = ({
 					onSearch={onSearch}
 					query={query}
 					selectedTone={selectedTone}
+					selectedProductivityColor={
+						isTeamojiExperimentEnabled ? selectedProductivityColor : undefined
+					}
 					loading={loading}
 					ref={emojiPickerList}
 					initialUploadName={query}
 					onToneSelected={onToneSelected}
 					onToneSelectorCancelled={onToneSelectorCancelled}
+					onProductivityColorSelected={
+						isTeamojiExperimentEnabled ? onProductivityColorSelected : undefined
+					}
 					toneEmoji={toneEmoji}
 					uploading={uploading}
 					emojiToDelete={emojiToDelete}

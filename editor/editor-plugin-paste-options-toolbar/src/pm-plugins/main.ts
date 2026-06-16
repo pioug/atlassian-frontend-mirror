@@ -4,7 +4,6 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { checkAndHideToolbar } from '../editor-commands/commands';
 import {
@@ -73,7 +72,7 @@ export function createPlugin(
 			},
 			handleKeyDown: (view, event) => {
 				// Don't hide toolbar when pressing modifier keys alone (Ctrl, Shift, Alt, Meta/Cmd)
-				if (isModifierKey(event) && fg('platform_editor_paste_actions_keypress_fix')) {
+				if (isModifierKey(event)) {
 					return false;
 				}
 				checkAndHideToolbar(view);

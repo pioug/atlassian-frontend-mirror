@@ -57,7 +57,7 @@ const styles = cssMap({
 	},
 
 	trigger: {
-		width: '200px',
+		maxWidth: '200px',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',

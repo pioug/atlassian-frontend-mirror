@@ -5,7 +5,13 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { startLighthouseObserver } from '../additional-payload';
 import { type PostInteractionLogOutput } from '../common';
 import { type VCResult } from '../common/vc/types';
-import { type Config, getSelectorConfig, isUFOEnabled, setUFOConfig } from '../config';
+import {
+	type Config,
+	getSelectorConfig,
+	isInteractionExtraMetricsEnabled,
+	isUFOEnabled,
+	setUFOConfig,
+} from '../config';
 import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload';
 import {
 	setContextManager,
@@ -224,7 +230,7 @@ export function init(
 		};
 
 		postInteractionLog.initializeVCObserver(vcOptions);
-		if (config?.extraInteractionMetrics?.enabled) {
+		if (isInteractionExtraMetricsEnabled()) {
 			interactionExtraMetrics.initializeVCObserver(vcOptions);
 		}
 	}
@@ -245,15 +251,19 @@ export function init(
 		} as PerformanceObserverInit);
 	}
 
+	const extraInteractionMetricsPayloadPackagePromise = isInteractionExtraMetricsEnabled()
+		? import(
+				/* webpackChunkName: "create-interaction-extra-metrics-payload" */ '../create-interaction-extra-metrics-payload'
+		  )
+		: Promise.resolve(undefined);
+
 	Promise.all([
 		analyticsWebClientAsync,
 		import(/* webpackChunkName: "create-payloads" */ '../create-payload'),
 		import(
 			/* webpackChunkName: "create-post-interaction-log-payload" */ '../create-post-interaction-log-payload'
 		),
-		import(
-			/* webpackChunkName: "create-interaction-extra-metrics-payload" */ '../create-interaction-extra-metrics-payload'
-		),
+		extraInteractionMetricsPayloadPackagePromise,
 		import(
 			/* webpackChunkName: "create-terminal-error-payload@atlaskit-internal_terminal_errors" */ '../create-terminal-error-payload'
 		),
@@ -275,7 +285,7 @@ export function init(
 					if (config.postInteractionLog?.enabled) {
 						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
 					}
-					if (config?.extraInteractionMetrics?.enabled) {
+					if (isInteractionExtraMetricsEnabled() && createInteractionExtraMetricsPayloadPackage) {
 						sinkInteractionExtraMetrics(
 							instance,
 							createInteractionExtraMetricsPayloadPackage.default,
@@ -299,7 +309,7 @@ export function init(
 						createPostInteractionLogPayloadPackage.default,
 					);
 				}
-				if (config?.extraInteractionMetrics?.enabled) {
+				if (isInteractionExtraMetricsEnabled() && createInteractionExtraMetricsPayloadPackage) {
 					sinkInteractionExtraMetrics(
 						awc as GenericAnalyticWebClientInstance,
 						createInteractionExtraMetricsPayloadPackage.default,

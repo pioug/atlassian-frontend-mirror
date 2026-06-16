@@ -8,7 +8,13 @@ import { messages } from '../../messages';
 import { formatLocale } from './captions';
 import { PopupSelect, type OptionType, type ValueType } from '@atlaskit/select';
 import MediaButton from '../../MediaButton';
-import { popperProps, popupCustomStyles, popupSelectComponents } from '../dropdownControlCommon';
+import {
+	popperProps,
+	popupCustomStyles,
+	popupSelectComponents,
+	getPopperPropsForFullscreen,
+} from '../dropdownControlCommon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface CaptionsSelectControlsProps {
 	textTracks: VideoTextTracks;
@@ -16,6 +22,7 @@ export interface CaptionsSelectControlsProps {
 	areCaptionsEnabled: boolean;
 	onCaptionsEnabledChange: (areCaptionsEnabled: boolean) => void;
 	selectedTracksIndex: number;
+	isFullScreen?: boolean;
 }
 
 const CaptionsSelectControlsWithIntl = memo(
@@ -26,6 +33,7 @@ const CaptionsSelectControlsWithIntl = memo(
 		areCaptionsEnabled,
 		onCaptionsEnabledChange,
 		selectedTracksIndex,
+		isFullScreen = false,
 	}: CaptionsSelectControlsProps & WrappedComponentProps) => {
 		const closedCaptions = useMemo(
 			() => intl.formatMessage(messages.video_captions_enable),
@@ -97,7 +105,11 @@ const CaptionsSelectControlsWithIntl = memo(
 						</Tooltip>
 					)}
 					styles={popupCustomStyles}
-					popperProps={popperProps}
+					popperProps={
+						fg('platform_editor_video_caption_commit')
+							? getPopperPropsForFullscreen(isFullScreen)
+							: popperProps
+					}
 				/>
 			</SplitButton>
 		);

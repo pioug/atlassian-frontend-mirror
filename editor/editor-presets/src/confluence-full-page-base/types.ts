@@ -34,6 +34,7 @@ import type { ClipboardPlugin } from '@atlaskit/editor-plugin-clipboard';
 import type { CodeBidiWarningPlugin } from '@atlaskit/editor-plugin-code-bidi-warning';
 import type { CodeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import type { CodeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
+import type { CodeBlockFormatProvider } from '@atlaskit/editor-plugin-code-block/types';
 import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
 import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
@@ -472,6 +473,7 @@ export interface ConfluenceFullPageBasePresetOptions {
 		contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
 		emojiNodeDataProvider: EmojiNodeDataProvider | undefined;
 		emojiProvider: Promise<EmojiProvider> | undefined;
+		formatCodeProvider?: CodeBlockFormatProvider;
 		inlineCommentAnnotationProvider: InlineCommentAnnotationProvider | undefined;
 		mediaProvider: Promise<MediaProvider> | undefined;
 		mentionProvider: Promise<MentionProvider> | undefined;

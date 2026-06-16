@@ -6,7 +6,7 @@ import type { LinkPickerProps } from '@atlaskit/link-picker';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { INPUT_METHOD } from '../../../analytics';
-import type { ProviderFactory, Providers } from '../../../provider-factory';
+import type { CardAppearance, ProviderFactory, Providers } from '../../../provider-factory';
 import { WithProviders } from '../../../provider-factory';
 import type { Command, EditorAppearance, LinkInputType, LinkPickerOptions } from '../../../types';
 import type { EditorLinkPickerProps } from '../EditorLinkPicker';
@@ -35,6 +35,7 @@ export interface HyperlinkAddToolbarProps extends Pick<
 		displayText: string | undefined,
 		inputMethod: LinkInputType,
 		analytic?: UIAnalyticsEvent | null | undefined,
+		appearance?: CardAppearance,
 	) => void;
 	providerFactory: ProviderFactory;
 	recentSearchListSize?: number;
@@ -56,6 +57,7 @@ const onSubmitInterface =
 			displayText || undefined,
 			meta.inputMethod === 'manual' ? INPUT_METHOD.MANUAL : INPUT_METHOD.TYPEAHEAD,
 			analytic,
+			meta.appearance,
 		);
 	};
 

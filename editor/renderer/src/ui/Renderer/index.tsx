@@ -335,6 +335,7 @@ export const RendererFunctionalComponent = (
 				extensionViewportSizes: props.extensionViewportSizes,
 				getExtensionHeight: props.getExtensionHeight,
 				allowCopyToClipboard: props.allowCopyToClipboard,
+				allowDownloadCodeBlock: props.allowDownloadCodeBlock,
 				allowWrapCodeBlock: props.allowWrapCodeBlock,
 				allowCustomPanels: props.allowCustomPanels,
 				allowAnnotations: props.allowAnnotations,
@@ -602,6 +603,7 @@ export const RendererFunctionalComponent = (
 									allowNestedHeaderLinks={isNestedHeaderLinksEnabled(props.allowHeadingAnchorLinks)}
 									allowColumnSorting={props.allowColumnSorting}
 									allowCopyToClipboard={props.allowCopyToClipboard}
+									allowDownloadCodeBlock={props.allowDownloadCodeBlock}
 									allowWrapCodeBlock={props.allowWrapCodeBlock}
 									allowCustomPanels={props.allowCustomPanels}
 									allowPlaceholderText={props.allowPlaceholderText}
@@ -658,6 +660,7 @@ export const RendererFunctionalComponent = (
 				appearance={props.appearance}
 				contentMode={props.contentMode || 'standard'}
 				allowCopyToClipboard={props.allowCopyToClipboard}
+				allowDownloadCodeBlock={props.allowDownloadCodeBlock}
 				allowWrapCodeBlock={props.allowWrapCodeBlock}
 				allowPlaceholderText={props.allowPlaceholderText}
 				allowColumnSorting={props.allowColumnSorting}
@@ -768,6 +771,7 @@ export type RendererWrapperProps = {
 	allowColumnSorting?: boolean;
 	allowCopyToClipboard?: boolean;
 	allowCustomPanels?: boolean;
+	allowDownloadCodeBlock?: boolean;
 	allowNestedHeaderLinks: boolean;
 	allowPlaceholderText?: boolean;
 	allowRendererContainerStyles?: boolean;

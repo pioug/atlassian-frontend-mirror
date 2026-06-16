@@ -35,6 +35,7 @@ import { isTableNested, tablesHaveDifferentColumnWidths } from '../pm-plugins/ut
 import { isContentModeSupported } from '../pm-plugins/utils/tableMode/is-content-mode-supported';
 import type { PluginInjectionAPI } from '../types';
 
+import { RoundedTableEdges } from './rounded-table-edges';
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
 import { tableNodeSpecWithFixedToDOM } from './toDOM';
 import type { Props, TableOptions } from './types';
@@ -87,44 +88,11 @@ const handleInlineTableWidth = (table: HTMLElement, width: number | undefined) =
 	table.style.setProperty('width', `${width}px`);
 };
 
-const setDataAttr = (cell: HTMLTableCellElement, attr: string, value: boolean): void => {
-	const hasAttr = cell.hasAttribute(attr);
-	if (value && !hasAttr) {
-		cell.setAttribute(attr, 'true');
-	} else if (!value && hasAttr) {
-		cell.removeAttribute(attr);
-	}
-};
-
-const refreshRoundedTableEdgeAttrs = (table: HTMLTableElement, tableNode: PmNode): void => {
-	try {
-		const tableMap = TableMap.get(tableNode);
-		const cells = Array.from(table.rows).flatMap((row) => Array.from(row.cells));
-		const cellOffsets = Array.from(new Set(tableMap.map));
-
-		cellOffsets.forEach((cellOffset, cellIndex) => {
-			const cell = cells[cellIndex];
-			if (!cell) {
-				return;
-			}
-
-			const cellRect = tableMap.findCell(cellOffset);
-			setDataAttr(cell, 'data-reaches-top', cellRect.top === 0);
-			setDataAttr(cell, 'data-reaches-bottom', cellRect.bottom >= tableMap.height);
-			setDataAttr(cell, 'data-reaches-left', cellRect.left === 0);
-			setDataAttr(cell, 'data-reaches-right', cellRect.right >= tableMap.width);
-		});
-	} catch {
-		// Table structure can be transient while ProseMirror normalises transactions.
-		// Keep existing edge attrs if the current shape cannot be mapped safely.
-	}
-};
-
 export default class TableView extends ReactNodeView<Props> {
 	private table: HTMLElement | undefined;
 	private renderedDOM?: HTMLElement;
 	private resizeObserver?: ResizeObserver;
-	private roundedTableEdgeRefreshHandle: number | undefined;
+	private roundedTableEdges: RoundedTableEdges | undefined;
 	eventDispatcher?: EventDispatcher;
 	getPos: getPosHandlerNode;
 	options: TableOptions | undefined;
@@ -147,6 +115,10 @@ export default class TableView extends ReactNodeView<Props> {
 		this.eventDispatcher = props.eventDispatcher;
 		this.options = props.options;
 		this.getEditorFeatureFlags = props.getEditorFeatureFlags;
+
+		if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+			this.roundedTableEdges = new RoundedTableEdges(() => this.table, props.node);
+		}
 
 		this.handleRef = (node: Element | null) => this._handleTableRef(node);
 	}
@@ -367,49 +339,19 @@ export default class TableView extends ReactNodeView<Props> {
 		return this.node;
 	};
 
-	// Each TableCell node view refreshes its own edge attrs when its cell attrs change.
-	// However, when the table's shape changes (e.g. a new row is inserted below the
-	// last row), ProseMirror may reuse the existing neighbouring cells as-is, so those
-	// cells never get a chance to update their edge attrs on their own.
-	//
-	// To cover those cases, we refresh edge attrs from the table node view here.
-	//
-	// The refresh runs on the next animation frame because ReactNodeView.update()
-	// schedules the table's React render via the portal provider. If we read
-	// `this.table.rows` synchronously, we'd still see the previous DOM.
-	private scheduleRoundedTableEdgeRefresh(node: PmNode): void {
-		if (this.roundedTableEdgeRefreshHandle !== undefined) {
-			cancelAnimationFrame(this.roundedTableEdgeRefreshHandle);
-		}
-
-		this.roundedTableEdgeRefreshHandle = requestAnimationFrame(() => {
-			this.roundedTableEdgeRefreshHandle = undefined;
-
-			if (this.table instanceof HTMLTableElement) {
-				refreshRoundedTableEdgeAttrs(this.table, node);
-			}
-		});
-	}
-
 	update(
 		node: PmNode,
 		decorations: ReadonlyArray<Decoration>,
 		innerDecorations?: DecorationSource,
 		validUpdate?: (currentNode: PmNode, newNode: PmNode) => boolean,
 	): boolean {
-		if (!expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
-			return super.update(node, decorations, innerDecorations, validUpdate);
-		}
-
-		const currentTableMap = TableMap.get(this.node);
-		const nextTableMap = TableMap.get(node);
-		const tableGeometryChanged =
-			currentTableMap.width !== nextTableMap.width ||
-			currentTableMap.height !== nextTableMap.height;
 		const didUpdate = super.update(node, decorations, innerDecorations, validUpdate);
 
-		if (didUpdate && tableGeometryChanged) {
-			this.scheduleRoundedTableEdgeRefresh(node);
+		// Keep the rounded-corner edge attrs in sync with structural changes (rows/columns
+		// added, removed, merged, or reordered via drag-and-drop) that the cells themselves
+		// can miss.
+		if (didUpdate && expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+			this.roundedTableEdges?.handleUpdate(node);
 		}
 
 		return didUpdate;
@@ -450,10 +392,7 @@ export default class TableView extends ReactNodeView<Props> {
 			return true;
 		}
 
-		if (
-			tablesHaveDifferentColumnWidths(node, nextNode) &&
-			expValEquals('platform_editor_lovability_distribute_column_fix', 'isEnabled', true)
-		) {
+		if (tablesHaveDifferentColumnWidths(node, nextNode)) {
 			return true;
 		}
 
@@ -507,9 +446,8 @@ export default class TableView extends ReactNodeView<Props> {
 	}
 
 	destroy(): void {
-		if (this.roundedTableEdgeRefreshHandle !== undefined) {
-			cancelAnimationFrame(this.roundedTableEdgeRefreshHandle);
-			this.roundedTableEdgeRefreshHandle = undefined;
+		if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
+			this.roundedTableEdges?.destroy();
 		}
 
 		if (this.resizeObserver) {

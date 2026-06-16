@@ -105,8 +105,12 @@ const getLayeredLink = (
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
 	onAuxClick?: React.EventHandler<React.MouseEvent>,
 	onContextMenu?: React.EventHandler<React.MouseEvent>,
+	title?: string,
 ): React.ReactNode => {
 	const { linkTitle, url = '' } = context || {};
+	// SSR cannot reliably extract TitleBlock props from children, so `title` is
+	// provided from CardSSR as a stable server/client value to prevent hydration
+	// text mismatches for the clickable container link.
 	const { anchorTarget: target, text } = getTitleBlockProps(children) || {};
 	return (
 		<LayeredLink
@@ -115,7 +119,7 @@ const getLayeredLink = (
 			onContextMenu={onContextMenu}
 			target={target}
 			testId={testId}
-			text={text || linkTitle?.text}
+			text={title || text || linkTitle?.text}
 			url={url}
 		/>
 	);
@@ -269,6 +273,7 @@ const Container = ({
 	size = SmartLinkSize.Medium,
 	status,
 	testId = 'smart-links-container',
+	title,
 }: ContainerProps): JSX.Element => {
 	di(HoverCardControl);
 
@@ -309,7 +314,15 @@ const Container = ({
 			data-testid={testId}
 		>
 			{clickableContainer
-				? getLayeredLink(testId, context, children, onClick, onAuxClick, onContextMenu)
+				? getLayeredLink(
+						testId,
+						context,
+						children,
+						onClick,
+						onAuxClick,
+						onContextMenu,
+						title,
+					)
 				: null}
 			{filterChildren(children, removeBlockRestriction)}
 		</div>

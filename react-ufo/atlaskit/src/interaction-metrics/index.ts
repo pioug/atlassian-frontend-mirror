@@ -36,6 +36,7 @@ import {
 	getFinishInteractionOnTransition,
 	getInteractionTimeout,
 	getPostInteractionRate,
+	isInteractionExtraMetricsEnabled,
 	getReactHydrationStats,
 	getSelectorConfig,
 	shouldUseRawDataThirdPartyBehavior,
@@ -931,7 +932,9 @@ function finishInteraction(
 		postInteractionLog.stopVCObserver();
 	}
 
-	if (!coinflip(getExtraInteractionRate(sanitisedUfoName, data.type))) {
+	if (!isInteractionExtraMetricsEnabled()) {
+		remove(id);
+	} else if (!coinflip(getExtraInteractionRate(sanitisedUfoName, data.type))) {
 		interactionExtraMetrics.stopAll(id);
 	} else if (!data.hold3pActive || data.hold3pActive.size === 0) {
 		remove(id);
@@ -943,7 +946,10 @@ function finishInteraction(
 	PreviousInteractionLog.name = data.ufoName || 'unknown';
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {
-		if (interactionExtraMetrics.finishedInteraction?.id !== id) {
+		if (
+			!isInteractionExtraMetricsEnabled() ||
+			interactionExtraMetrics.finishedInteraction?.id !== id
+		) {
 			// If this same interaction was not already handled, handle it
 			handleInteraction(id, data);
 		}
@@ -1068,7 +1074,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 						interaction,
 						interaction.end !== 0 ? interaction.end : endTime,
 					);
-					if (getConfig()?.extraInteractionMetrics?.enabled) {
+					if (isInteractionExtraMetricsEnabled()) {
 						interactionExtraMetrics.updateFinishedInteraction(interaction);
 					}
 
@@ -1084,8 +1090,8 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 
 				postInteraction();
 			}
-			// Send separated third-party event even when feature flag is active
-			if (noMoreActiveHolds && noMoreActive3pHolds) {
+			// Send separated third-party event when extra interaction metrics is enabled
+			if (isInteractionExtraMetricsEnabled() && noMoreActiveHolds && noMoreActive3pHolds) {
 				const data = {
 					...interaction,
 					end: endTime || interaction.end,
@@ -1094,11 +1100,15 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 			}
 		} else {
 			// Original behavior when feature flag is not active
-			if (noMoreActiveHolds && interactionExtraMetrics.finishedInteraction?.id !== interactionId) {
+			if (
+				noMoreActiveHolds &&
+				(!isInteractionExtraMetricsEnabled() ||
+					interactionExtraMetrics.finishedInteraction?.id !== interactionId)
+			) {
 				// If it's not waiting for extra metrics to complete, finish the interaction as normal
 				if (!activeSubmitted) {
 					finishInteraction(interactionId, interaction, endTime);
-					if (getConfig()?.extraInteractionMetrics?.enabled) {
+					if (isInteractionExtraMetricsEnabled()) {
 						interactionExtraMetrics.updateFinishedInteraction(interaction);
 					}
 
@@ -1113,7 +1123,7 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 
 				postInteraction();
 			}
-			if (noMoreActiveHolds && noMoreActive3pHolds) {
+			if (isInteractionExtraMetricsEnabled() && noMoreActiveHolds && noMoreActive3pHolds) {
 				const data = {
 					...interaction,
 					end: endTime!,
@@ -1154,7 +1164,9 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			interactionExtraMetrics.stopAll(interactionId);
+			if (isInteractionExtraMetricsEnabled()) {
+				interactionExtraMetrics.stopAll(interactionId);
+			}
 			return;
 		}
 
@@ -1169,7 +1181,9 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 
-		interactionExtraMetrics.stopAll(interactionId);
+		if (isInteractionExtraMetricsEnabled()) {
+			interactionExtraMetrics.stopAll(interactionId);
+		}
 	}
 }
 
@@ -1198,7 +1212,9 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			interactionExtraMetrics.stopAll(interactionId);
+			if (isInteractionExtraMetricsEnabled()) {
+				interactionExtraMetrics.stopAll(interactionId);
+			}
 			return;
 		}
 
@@ -1214,7 +1230,9 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 
-		interactionExtraMetrics.stopAll(interactionId);
+		if (isInteractionExtraMetricsEnabled()) {
+			interactionExtraMetrics.stopAll(interactionId);
+		}
 	} else {
 		if (fg('platform_reset_post_interaction_on_new_interaction')) {
 			// post-interaction log is active after interaction is aborted by new one
@@ -1261,7 +1279,9 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			interactionExtraMetrics.stopAll(interactionId);
+			if (isInteractionExtraMetricsEnabled()) {
+				interactionExtraMetrics.stopAll(interactionId);
+			}
 			return;
 		}
 
@@ -1282,7 +1302,9 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
 
-		interactionExtraMetrics.stopAll(interactionId);
+		if (isInteractionExtraMetricsEnabled()) {
+			interactionExtraMetrics.stopAll(interactionId);
+		}
 	});
 }
 
@@ -1302,7 +1324,9 @@ export function addNewInteraction(
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
 ): void {
-	interactionExtraMetrics.reset();
+	if (isInteractionExtraMetricsEnabled()) {
+		interactionExtraMetrics.reset();
+	}
 	postInteractionLog.reset();
 	let vcObserver: VCObserverInterface | undefined;
 	let previousTime = startTime;
@@ -1387,7 +1411,7 @@ export function addNewInteraction(
 			? {
 					prior: priorAccessedFg,
 					during: {},
-				}
+			  }
 			: undefined,
 		knownSegments: [],
 		cleanupCallbacks: [],
@@ -1440,7 +1464,7 @@ export function addNewInteraction(
 		if (getConfig()?.postInteractionLog?.enabled) {
 			postInteractionLog.startVCObserver({ startTime });
 		}
-		if (config?.extraInteractionMetrics?.enabled) {
+		if (isInteractionExtraMetricsEnabled()) {
 			interactionExtraMetrics.startVCObserver({ startTime }, interactionId);
 		}
 	}

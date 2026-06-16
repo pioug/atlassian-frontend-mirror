@@ -457,35 +457,36 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 			>
 				{errorInfo ? (
 					<TypeAheadErrorFallback />
-				) : (
-					<React.Fragment>
-						<Highlight state={editorView.state} triggerHandler={triggerHandler} />
-						<TypeAheadList
-							items={items}
-							sections={sections}
-							emptyItem={emptyItem}
-							selectedIndex={selectedIndex}
-							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-							onItemClick={(mode: SelectItemMode, index: number, inputMethod) => {
-								if (editorExperiment('platform_editor_controls', 'variant1')) {
-									activityStateRef.current = {
-										inputMethod: inputMethod || null,
-										closeAction: ACTION.INSERTED,
-										invocationMethod: activityStateRef.current.invocationMethod,
-									};
-								}
+					) : (
+						<React.Fragment>
+							<Highlight state={editorView.state} triggerHandler={triggerHandler} />
+							<TypeAheadList
+								items={items}
+								isEmptyQuery={isEmptyQuery}
+								sections={sections}
+								emptyItem={emptyItem}
+								selectedIndex={selectedIndex}
+								// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+								onItemClick={(mode: SelectItemMode, index: number, inputMethod) => {
+									if (editorExperiment('platform_editor_controls', 'variant1')) {
+										activityStateRef.current = {
+											inputMethod: inputMethod || null,
+											closeAction: ACTION.INSERTED,
+											invocationMethod: activityStateRef.current.invocationMethod,
+										};
+									}
 
-								onItemInsert(mode, index);
-							}}
-							fitHeight={fitHeightWithViewMore}
-							editorView={editorView}
-							decorationElement={anchorElement}
-							triggerHandler={triggerHandler}
-							moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
-							api={api}
-							showMoreOptionsButton={showMoreOptionsButton}
-							onMoreOptionsClicked={onMoreOptionsClicked}
-						/>
+									onItemInsert(mode, index);
+								}}
+								fitHeight={fitHeightWithViewMore}
+								editorView={editorView}
+								decorationElement={anchorElement}
+								triggerHandler={triggerHandler}
+								moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
+								api={api}
+								showMoreOptionsButton={showMoreOptionsButton}
+								onMoreOptionsClicked={onMoreOptionsClicked}
+							/>
 					</React.Fragment>
 				)}
 			</div>

@@ -455,6 +455,73 @@ describe('MediaStore', () => {
 				});
 			});
 
+			ffTest(
+				'platform_media_upload_expected_size_header',
+				async () => {
+					const body = {
+						uploadId: 'some-upload-id',
+						name: 'some-name',
+						mimeType: 'application/pdf',
+					};
+					const params = { collection: 'some-collection' };
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+					await mediaStore.createFileFromUpload(body, params, undefined, {
+						expectedFileSize: 12345,
+					});
+
+					expect(fetchMock).toHaveBeenCalledWith(
+						`${baseUrl}/file/upload?collection=some-collection`,
+						{
+							method: 'POST',
+							headers: {
+								'X-Client-Id': clientId,
+								Authorization: `Bearer ${token}`,
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+								'x-expected-size': '12345',
+							},
+							body: JSON.stringify(body),
+						},
+					);
+				},
+				async () => {
+					const body = {
+						uploadId: 'some-upload-id',
+						name: 'some-name',
+						mimeType: 'application/pdf',
+					};
+					const params = { collection: 'some-collection' };
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+					await mediaStore.createFileFromUpload(body, params, undefined, {
+						expectedFileSize: 12345,
+					});
+
+					expect(fetchMock).toHaveBeenCalledWith(
+						`${baseUrl}/file/upload?collection=some-collection`,
+						{
+							method: 'POST',
+							headers: {
+								'X-Client-Id': clientId,
+								Authorization: `Bearer ${token}`,
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(body),
+						},
+					);
+				},
+			);
+
 			it('should fail if response is malformed JSON', async () => {
 				const body = {
 					uploadId: 'some-upload-id',
@@ -891,6 +958,71 @@ describe('MediaStore', () => {
 					undefined,
 				);
 			});
+
+			ffTest(
+				'platform_media_upload_expected_size_header',
+				async () => {
+					const data: TouchedFiles = {
+						created: [createdTouchedFile1],
+					};
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+					const body: MediaStoreTouchFileBody = {
+						descriptors: [descriptor1],
+					};
+
+					await mediaStore.touchFiles(body, params, undefined, { expectedFileSize: 12345 });
+
+					expect(fetchMock).toHaveBeenCalledWith(
+						`${baseUrl}/upload/createWithFiles?hashAlgorithm=sha256`,
+						{
+							method: 'POST',
+							headers: {
+								'X-Client-Id': clientId,
+								Authorization: `Bearer ${token}`,
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+								'x-expected-size': '12345',
+							},
+							body: JSON.stringify(body),
+						},
+					);
+				},
+				async () => {
+					const data: TouchedFiles = {
+						created: [createdTouchedFile1],
+					};
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+					const body: MediaStoreTouchFileBody = {
+						descriptors: [descriptor1],
+					};
+
+					await mediaStore.touchFiles(body, params, undefined, { expectedFileSize: 12345 });
+
+					expect(fetchMock).toHaveBeenCalledWith(
+						`${baseUrl}/upload/createWithFiles?hashAlgorithm=sha256`,
+						{
+							method: 'POST',
+							headers: {
+								'X-Client-Id': clientId,
+								Authorization: `Bearer ${token}`,
+								Accept: 'application/json',
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(body),
+						},
+					);
+				},
+			);
 
 			it('should fail if error status is returned', async () => {
 				fetchMock.once('something went wrong', {

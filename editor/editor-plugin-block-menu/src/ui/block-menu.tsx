@@ -27,6 +27,7 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo, undo } from '@atlaskit/prosemirror-history';
@@ -220,6 +221,21 @@ const BlockMenuContent = ({
 
 		return target.closest('[data-toolbar-nested-dropdown-menu]') !== null;
 	};
+
+	if (expValEquals('platform_editor_menu_radius_update', 'isEnabled', true)) {
+		return (
+			<ToolbarMenuContainer testId={BLOCK_MENU_TEST_ID} ref={ref} xcss={styles.maxWidthStyles}>
+				<ArrowKeyNavigationProvider
+					type={ArrowKeyNavigationType.MENU}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					handleClose={(e) => e.preventDefault()}
+					disableArrowKeyNavigation={shouldDisableArrowKeyNavigation}
+				>
+					<BlockMenuRenderer allRegisteredComponents={blockMenuComponents || []} />
+				</ArrowKeyNavigationProvider>
+			</ToolbarMenuContainer>
+		);
+	}
 
 	return (
 		<Box
@@ -418,7 +434,7 @@ const BlockMenu = ({
 				focusTrap={
 					openedViaKeyboard
 						? // Only enable focus trap when opened via keyboard to make sure the focus is on the first focusable menu item
-							{ initialFocus: undefined }
+						{ initialFocus: undefined }
 						: undefined
 				}
 			>

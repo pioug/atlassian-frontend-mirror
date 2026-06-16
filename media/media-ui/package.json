@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "29.3.1",
+	"version": "30.0.1",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,6 +32,7 @@
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-media-media-ui": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/css": "workspace:^",
@@ -58,6 +59,7 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/styled": "root:*",
+		"@popperjs/core": "root:*",
 		"blueimp-load-image": "root:*",
 		"bytes": "root:*",
 		"exenv": "root:*",
@@ -95,6 +97,10 @@
 	"platform-feature-flags": {
 		"platform_media_resume_video_on_token_expiry": {
 			"type": "boolean"
+		},
+		"platform_editor_video_caption_commit": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"techstack": {
@@ -110,14 +116,6 @@
 			],
 			"styling": [
 				"compiled"
-			]
-		}
-	},
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
 			]
 		}
 	},

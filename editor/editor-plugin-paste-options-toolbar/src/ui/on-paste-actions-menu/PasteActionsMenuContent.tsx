@@ -3,9 +3,11 @@ import React, { useCallback, useContext } from 'react';
 import { cssMap } from '@atlaskit/css';
 import { PASTE_MENU } from '@atlaskit/editor-common/toolbar';
 import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
+import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
 import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
 import { Box } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -42,6 +44,14 @@ export const PasteActionsMenuContent = ({
 		},
 		[setOutsideClickTargetRef, contentRef],
 	);
+
+	if (expValEquals('platform_editor_menu_radius_update', 'isEnabled', true)) {
+		return (
+			<ToolbarMenuContainer ref={mergedRef} onMouseDown={onMouseDown} onMouseEnter={onMouseEnter}>
+				<SurfaceRenderer surface={pasteMenuSurface} components={components} />
+			</ToolbarMenuContainer>
+		);
+	}
 
 	return (
 		<Box

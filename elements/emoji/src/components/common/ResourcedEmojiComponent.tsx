@@ -52,7 +52,6 @@ export interface BaseResourcedEmojiProps {
 	 * Defaults to `undefined`.
 	 */
 	optimisticImageURL?: string;
-
 	/**
 	 * Indicates that this emoji is being rendered in a page title context.
 	 * This is used to adjust certain behaviors to reduce TTVC issues.
@@ -64,6 +63,12 @@ export interface BaseResourcedEmojiProps {
 	 * allows custom styling to the placeholder component while the emoji is loading.
 	 */
 	placeholderXcss?: StrictXCSSProp<'backgroundColor', never>;
+
+	/**
+	 * Renders unicode emoji through an image representation when a fixed height is supplied.
+	 * Defaults to `true`.
+	 */
+	renderUnicodeEmojiAsImage?: boolean;
 
 	/**
 	 * Allows to show the tooltip.
@@ -104,6 +109,7 @@ export const ResourcedEmojiComponent = ({
 	optimistic = false,
 	optimisticImageURL = undefined,
 	editorEmoji,
+	renderUnicodeEmojiAsImage = true,
 	pageTitleEmoji = false,
 	placeholderXcss,
 	onEmojiLoadSuccess,
@@ -367,6 +373,7 @@ export const ResourcedEmojiComponent = ({
 							fitToHeight={fitToHeight}
 							autoWidth={autoWidth}
 							editorEmoji={editorEmoji}
+							renderUnicodeEmojiAsImage={renderUnicodeEmojiAsImage}
 						/>
 					)}
 			</span>

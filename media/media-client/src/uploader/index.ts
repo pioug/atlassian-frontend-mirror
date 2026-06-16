@@ -102,6 +102,7 @@ const createFileFromUpload = async (
 			replaceFileId: id,
 		},
 		traceContext,
+		{ expectedFileSize: file.size },
 	);
 };
 

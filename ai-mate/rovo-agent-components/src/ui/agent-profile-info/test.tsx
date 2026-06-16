@@ -353,6 +353,23 @@ describe('AgentProfileCreator', () => {
 		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
 	});
 
+	test('hides the creator line for REMOTE_A2A when rovo_hide_remote_a2a_agent_creator is on', () => {
+		passGate('jira_improve_agent_profile_for_a2a');
+		passGate('rovo_hide_remote_a2a_agent_creator');
+
+		render(
+			<AgentProfileCreator
+				creator={{ type: 'REMOTE_A2A', name: 'Cursor' }}
+				isLoading={false}
+				onCreatorLinkClick={() => {}}
+			/>,
+			{ wrapper },
+		);
+
+		expect(screen.queryByText('Agent by Cursor')).not.toBeInTheDocument();
+		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
+	});
+
 	test('should apply aria-hidden to the decorative rovo icon element', () => {
 		render(
 			<AgentProfileCreator

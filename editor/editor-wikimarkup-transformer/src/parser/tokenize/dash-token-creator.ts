@@ -25,8 +25,10 @@ export const createDashTokenParser =
 		return token;
 	};
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const WHITESPACE_REGEX = /\s/;
+
 const isSpace = (char: string): boolean => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return /\s/.test(char);
+	return WHITESPACE_REGEX.test(char);
 };

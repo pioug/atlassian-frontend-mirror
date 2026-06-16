@@ -1,5 +1,73 @@
 # @atlaskit/editor-statsig-tmp
 
+## 105.0.0
+
+### Major Changes
+
+- [`019b38e3cf00a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/019b38e3cf00a) -
+  Clean up experiment `platform_editor_disable_lcm_copy_button`
+- [`82b4d7793fb01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/82b4d7793fb01) -
+  Clean up experiment `platform_editor_preserve_node_identity`
+- [`11006329a22d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11006329a22d1) -
+  Clean up experiment `platform_editor_lovability_distribute_column_fix`
+- [`bf2fd74fd1221`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf2fd74fd1221) -
+  Cleanup platform_editor_toolbar_split_button_ui
+- [`5331d96345ae9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5331d96345ae9) -
+  Clean up stale experiment platform_editor_insert_location_check
+
+### Minor Changes
+
+- [`12f4372b86b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12f4372b86b8d) -
+  Add `platform_editor_menu_radius_update` experiment that bumps the editor menu surface border
+  radius from `radius.small` (4px) to `radius.large` (8px). The block menu and paste actions menu
+  now consume the shared `ToolbarMenuContainer` surface rather than rolling their own, so they
+  inherit the gated radius along with `ToolbarMenuContainer`'s existing consumers (table and layout
+  menus).
+
+## 104.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Minor Changes
+
+- [`458ee17c2c8ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/458ee17c2c8ee) -
+  Register layout column vertical alignment rendering experiment and gate renderer layout column
+  vertical alignment styles behind it
+
+### Patch Changes
+
+- [`2f16223a8aa3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f16223a8aa3a) -
+  Extend the right-side Remix button hover zone into the empty right margin beside a block, with a
+  reserved gap for the Rovo button on the far right.
+- Updated dependencies
+
+## 103.0.1
+
+### Patch Changes
+
+- [`5c8e58785d629`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c8e58785d629) -
+  Add the `cwr-reduce-prompt-suggestion-max-chars` experiment which lowers the CWR prompt
+  autocomplete suggestion character limit from 80 to 40. When enabled, suggestions stop being
+  requested once the prompt exceeds 40 characters. Default behaviour is unchanged.
+
 ## 103.0.0
 
 ### Major Changes

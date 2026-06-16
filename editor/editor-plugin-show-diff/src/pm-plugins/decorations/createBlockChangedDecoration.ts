@@ -33,7 +33,7 @@ import {
 	traditionalAddedCellOverlayStyle,
 	deletedTraditionalCellOverlayStyle,
 } from './colorSchemes/traditional';
-import { buildDiffDecorationKey, DiffDecorationKey } from './decorationKeys';
+import { buildDiffDecorationSpec } from './decorationKeys';
 
 const displayNoneStyle = convertToInlineCss({
 	display: 'none',
@@ -95,21 +95,21 @@ const getBlockNodeStyle = ({
 				return isTraditional && isActive
 					? traditionalDecorationMarkerVariableActive
 					: isTraditional
-					? traditionalDecorationMarkerVariableNew
-					: standardDecorationMarkerVariable;
+						? traditionalDecorationMarkerVariableNew
+						: standardDecorationMarkerVariable;
 			} else {
 				return isTraditional && isActive
 					? traditionalDeletedDecorationMarkerVariableActive
 					: isTraditional
-					? traditionalDeletedDecorationMarkerVariableNew
-					: deletedContentStyleNew;
+						? traditionalDeletedDecorationMarkerVariableNew
+						: deletedContentStyleNew;
 			}
 		}
 		return isTraditional && isActive
 			? traditionalDecorationMarkerVariableActive
 			: isTraditional
-			? traditionalDecorationMarkerVariableNew
-			: standardDecorationMarkerVariable;
+				? traditionalDecorationMarkerVariableNew
+				: standardDecorationMarkerVariable;
 	}
 	if (nodeName === 'blockquote') {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
@@ -205,6 +205,7 @@ export const createBlockChangedDecoration = ({
 	shouldHideDeleted?: boolean;
 }): Decoration[] => {
 	const decorations: Decoration[] = [];
+	const diffId = crypto.randomUUID();
 
 	if (shouldHideDeleted) {
 		return [
@@ -212,10 +213,12 @@ export const createBlockChangedDecoration = ({
 				change.from,
 				change.to,
 				{ style: displayNoneStyle },
-				{
-					key: buildDiffDecorationKey({ type: DiffDecorationKey.block }),
+				buildDiffDecorationSpec({
+					decorationType: 'block',
+					diffId,
+					isActive,
 					nodeName: change.name,
-				},
+				}),
 			),
 		];
 	}
@@ -232,16 +235,15 @@ export const createBlockChangedDecoration = ({
 				? traditionalAddedCellOverlayStyle
 				: addedCellOverlayStyle
 			: colorScheme === 'traditional'
-			? deletedTraditionalCellOverlayStyle
-			: deletedCellOverlayStyle;
+				? deletedTraditionalCellOverlayStyle
+				: deletedCellOverlayStyle;
 		cellOverlay.setAttribute('style', cellOverlayStyle);
 		decorations.push(
 			// change.to - 1 to position the overlay inside the end of the cell
+			// this key doesn't use the spec / key builder since this is just for
+			// decorating the cells, this is part of a bigger table diff
 			Decoration.widget(change.to - 1, cellOverlay, {
-				key: buildDiffDecorationKey({
-					type: DiffDecorationKey.widget,
-					isActive,
-				}),
+				key: 'cell-overlay-decoration',
 			}),
 		);
 	}
@@ -261,12 +263,12 @@ export const createBlockChangedDecoration = ({
 					'data-testid': 'show-diff-changed-decoration-node',
 					class: className,
 				},
-				{
-					key: buildDiffDecorationKey({
-						type: DiffDecorationKey.block,
-					}),
+				buildDiffDecorationSpec({
+					decorationType: 'block',
+					diffId,
+					isActive,
 					nodeName: change.name,
-				},
+				}),
 			),
 		);
 	}

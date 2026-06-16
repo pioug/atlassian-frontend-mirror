@@ -11,7 +11,6 @@ import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state'
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export function getSelectionType(selection: Selection): {
@@ -68,10 +67,8 @@ function findInsertedLocation(
 	const insertLocationInfo = findParentNode((node) => node.type !== paragraph)(oldSelection);
 
 	let pos = insertLocationInfo?.start || 0;
-	if (expValEquals('platform_editor_insert_location_check', 'isEnabled', true)) {
-		// Map the old document position through the transaction's steps
-		pos = tr.mapping.map(pos);
-	}
+	// Map the old document position through the transaction's steps
+	pos = tr.mapping.map(pos);
 	let parentNodePos = newDoc.resolve(pos);
 
 	// Keep going one level above the attempted insert position till we find a node that contains the current cursor position in it's range

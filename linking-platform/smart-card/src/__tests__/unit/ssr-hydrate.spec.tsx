@@ -25,7 +25,12 @@ const storeOptions: CardProviderStoreOpts = {
 const Example = () => (
 	<Provider storeOptions={storeOptions} client={new Client('stg')}>
 		<CardSSR appearance="inline" url={url} />
-		<CardSSR appearance="block" url={url}>
+		<CardSSR
+			appearance="block"
+			url={url}
+			title="ssr-layered-link-title"
+			ui={{ clickableContainer: true }}
+		>
 			<TitleBlock />
 		</CardSSR>
 	</Provider>
@@ -43,4 +48,6 @@ test('should ssr then hydrate example component correctly', async () => {
 
 	expect(elem.innerHTML).toContain('inline-card-resolved-view');
 	expect(elem.innerHTML).toContain('smart-block-title-resolved-view');
+	expect(elem.innerHTML).toContain('smart-links-container-layered-link');
+	expect(elem.innerHTML).toContain('ssr-layered-link-title');
 });

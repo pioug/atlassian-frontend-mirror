@@ -109,6 +109,7 @@ class EmojiNode extends PureComponent<EmojiProps, object> {
 					shortName,
 				})}
 				editorEmoji={true}
+				renderUnicodeEmojiAsImage={false}
 				onEmojiLoadSuccess={resourceConfig?.onEmojiLoadSuccess}
 				onEmojiLoadFail={resourceConfig?.onEmojiLoadFail}
 			/>

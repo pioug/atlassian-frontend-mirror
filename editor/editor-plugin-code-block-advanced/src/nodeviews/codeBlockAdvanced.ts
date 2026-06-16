@@ -83,6 +83,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private contentMode: EditorContentMode | undefined;
 	private selectionAPI: EditorSelectionAPI | undefined;
 	private maybeTryingToReachNodeSelection = false;
+	private mouseDownInsideCodeMirror = false;
 	private cleanupDisabledState: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
 	private pmFacet = Facet.define<DecorationSource>();
@@ -91,6 +92,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private invisibleAriaDescription?: HTMLSpanElement;
 	private config: ConfigProps;
 	private cleanupBorderAreaClick: (() => void) | undefined;
+	private cleanupBorderAreaMouseDown: (() => void) | undefined;
 
 	constructor(
 		node: PMNode,
@@ -268,6 +270,10 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		}
 
 		if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+			this.cleanupBorderAreaMouseDown = bind(this.cm.scrollDOM, {
+				type: 'mousedown',
+				listener: this.handleBorderAreaMouseDown,
+			});
 			this.cleanupBorderAreaClick = bind(this.cm.scrollDOM, {
 				type: 'click',
 				listener: this.handleBorderAreaClick,
@@ -314,6 +320,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// decorations. When we change the breakout we destroy the node and cleanup these decorations from
 		// codemirror
 		this.clearProseMirrorDecorations();
+		this.cleanupBorderAreaMouseDown?.();
 		this.cleanupBorderAreaClick?.();
 		this.cleanupDisabledState?.();
 		if (expValEquals('confluence_compact_text_format', 'isEnabled', true)) {
@@ -543,10 +550,27 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.updating = false;
 	}
 
+	private handleBorderAreaMouseDown = (event: MouseEvent) => {
+		const isBorderArea = this.isBorderAreaClick(event);
+		// Later click can follow a drag; remember where the interaction began.
+		this.mouseDownInsideCodeMirror = !isBorderArea;
+
+		if (isBorderArea && event.target === this.cm.scrollDOM) {
+			// Stop CodeMirror from restoring stale inner selection before node selection.
+			event.preventDefault();
+		}
+	};
+
 	private handleBorderAreaClick = (event: MouseEvent) => {
-		if (!this.isBorderAreaClick(event)) {
+		// Dragging across lines leaves a CodeMirror selection; keep it instead of selecting the node.
+		if (
+			(this.mouseDownInsideCodeMirror && this.hasCodeMirrorTextSelection()) ||
+			!this.isBorderAreaClick(event)
+		) {
+			this.mouseDownInsideCodeMirror = false;
 			return;
 		}
+		this.mouseDownInsideCodeMirror = false;
 
 		// Prevent CodeMirror from restoring its inner selection after we hand focus and selection
 		// back to ProseMirror
@@ -556,6 +580,10 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.view.focus();
 		this.selectCodeBlockNode(undefined);
 	};
+
+	private hasCodeMirrorTextSelection(): boolean {
+		return this.cm.state.selection.ranges.some((range) => !range.empty);
+	}
 
 	private isBorderAreaClick(event: MouseEvent): boolean {
 		const target = event.target;

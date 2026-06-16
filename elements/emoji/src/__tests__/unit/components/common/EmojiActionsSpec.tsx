@@ -4,8 +4,10 @@ import { screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
+import { productivityColorSelectorTestId } from '../../../../components/common/ProductivityColorSelector';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import type { EmojiDescriptionWithVariations } from '../../../../types';
@@ -43,6 +45,7 @@ const props = {
 };
 
 const keepPickerOpenOnUploadGate = 'platform_emoji_keep_picker_open_on_upload';
+const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -50,7 +53,10 @@ const keepPickerOpenOnUploadGate = 'platform_emoji_keep_picker_open_on_upload';
 skipAutoA11yFile();
 
 describe('<EmojiActions />', () => {
-	afterEach(jest.clearAllMocks);
+	afterEach(() => {
+		jest.clearAllMocks();
+		jest.restoreAllMocks();
+	});
 
 	describe('tone', () => {
 		it('should display tone selector after clicking on the tone button', async () => {
@@ -216,6 +222,186 @@ describe('<EmojiActions />', () => {
 
 			// Validate the tone ui is closed
 			expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
+		});
+
+		describe('when teamoji refresh experiment is on', () => {
+			beforeEach(() => {
+				jest
+					.spyOn(FeatureGates, 'getExperimentValue')
+					.mockImplementation((experimentName, _parameterName, defaultValue) =>
+						experimentName === teamojiRefreshExperimentName ? true : defaultValue,
+					);
+			});
+
+			it('should show productivity colour button before opening selector for Atlassian category', async () => {
+				const handleProductivityColorSelected = jest.fn();
+				const zeroSquareRed = {
+					...baseToneEmoji,
+					id: '0_zero_square_red',
+					shortName: ':0_zero_square_red:',
+					name: 'Zero square red',
+				};
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+
+				await renderWithIntl(
+					<EmojiActions
+						{...props}
+						toneEmoji={toneEmoji}
+						activeCategoryId="ATLASSIAN"
+						selectedProductivityColor="blue"
+						productivityColorPreviewEmojis={{
+							red: zeroSquareRed,
+							blue: zeroSquareBlue,
+						}}
+						onProductivityColorSelected={handleProductivityColorSelected}
+					/>,
+				);
+
+				expect(screen.queryByTestId(productivityColorSelectorTestId)).toBeNull();
+				expect(screen.queryByLabelText('Choose your skin tone', { exact: false })).toBeNull();
+				const productivityColorButton = screen.getByRole('button', {
+					name: 'Productivity emoji color selector',
+				});
+				productivityColorButton.getBoundingClientRect = jest.fn(() => ({
+					bottom: 60,
+					height: 40,
+					left: 10,
+					right: 50,
+					toJSON: jest.fn(),
+					top: 20,
+					width: 40,
+					x: 10,
+					y: 20,
+				}));
+				jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(180);
+				expect(productivityColorButton).toHaveAttribute('aria-expanded', 'false');
+				expect(
+					within(productivityColorButton).getByTestId('image-emoji-:0_zero_square_blue:'),
+				).toBeInTheDocument();
+
+				await userEvent.click(productivityColorButton);
+
+				const productivityColorSelector = screen.getByTestId(productivityColorSelectorTestId);
+				expect(productivityColorSelector).toBeVisible();
+				expect(productivityColorButton).toBeVisible();
+				expect(productivityColorButton).toHaveAttribute('aria-expanded', 'true');
+				expect(productivityColorSelector.parentElement?.parentElement).toHaveStyle({
+					left: '-142px',
+				});
+
+				await userEvent.click(screen.getByTestId('productivity-color-red--radio-input'));
+
+				expect(handleProductivityColorSelected).toHaveBeenCalledWith('red');
+				expect(productivityColorButton).toHaveAttribute('aria-expanded', 'false');
+				expect(screen.queryByTestId(productivityColorSelectorTestId)).toBeNull();
+			});
+
+			it('should not bubble productivity colour selection to document dismiss handlers', async () => {
+				const handleProductivityColorSelected = jest.fn();
+				const handleDocumentMouseDown = jest.fn();
+				const handleDocumentClick = jest.fn();
+				const zeroSquareRed = {
+					...baseToneEmoji,
+					id: '0_zero_square_red',
+					shortName: ':0_zero_square_red:',
+					name: 'Zero square red',
+				};
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+				document.addEventListener('mousedown', handleDocumentMouseDown);
+				document.addEventListener('click', handleDocumentClick);
+
+				try {
+					await renderWithIntl(
+						<EmojiActions
+							{...props}
+							toneEmoji={toneEmoji}
+							activeCategoryId="ATLASSIAN"
+							selectedProductivityColor="blue"
+							productivityColorPreviewEmojis={{
+								red: zeroSquareRed,
+								blue: zeroSquareBlue,
+							}}
+							onProductivityColorSelected={handleProductivityColorSelected}
+						/>,
+					);
+
+					await userEvent.click(
+						screen.getByRole('button', {
+							name: 'Productivity emoji color selector',
+						}),
+					);
+
+					handleDocumentMouseDown.mockClear();
+					handleDocumentClick.mockClear();
+					await userEvent.click(screen.getByTestId('productivity-color-red--radio-input'));
+
+					expect(handleProductivityColorSelected).toHaveBeenCalledWith('red');
+					expect(handleDocumentMouseDown).not.toHaveBeenCalled();
+					expect(handleDocumentClick).not.toHaveBeenCalled();
+				} finally {
+					document.removeEventListener('mousedown', handleDocumentMouseDown);
+					document.removeEventListener('click', handleDocumentClick);
+				}
+			});
+
+			it('should allow keyboard navigation and selection in the productivity colour selector', async () => {
+				const handleProductivityColorSelected = jest.fn();
+				const zeroSquareRed = {
+					...baseToneEmoji,
+					id: '0_zero_square_red',
+					shortName: ':0_zero_square_red:',
+					name: 'Zero square red',
+				};
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+
+				await renderWithIntl(
+					<EmojiActions
+						{...props}
+						toneEmoji={toneEmoji}
+						activeCategoryId="ATLASSIAN"
+						selectedProductivityColor="blue"
+						productivityColorPreviewEmojis={{
+							red: zeroSquareRed,
+							blue: zeroSquareBlue,
+						}}
+						onProductivityColorSelected={handleProductivityColorSelected}
+					/>,
+				);
+
+				await userEvent.click(
+					screen.getByRole('button', {
+						name: 'Productivity emoji color selector',
+					}),
+				);
+
+				const blueRadio = screen.getByTestId('productivity-color-blue--radio-input');
+				const redRadio = screen.getByTestId('productivity-color-red--radio-input');
+
+				expect(blueRadio).toHaveFocus();
+
+				await userEvent.keyboard('{ArrowLeft}');
+
+				expect(redRadio).toHaveFocus();
+
+				await userEvent.keyboard('{Enter}');
+
+				expect(handleProductivityColorSelected).toHaveBeenCalledWith('red');
+			});
 		});
 	});
 

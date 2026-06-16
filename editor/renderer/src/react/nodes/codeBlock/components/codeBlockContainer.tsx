@@ -92,9 +92,11 @@ interface ContainerProps extends CodeBlockButtonContainerProps {
 
 const CodeBlockContainer = ({
 	allowCopyToClipboard,
+	allowDownloadCodeBlock,
 	allowWrapCodeBlock,
 	children,
 	className,
+	language,
 	localId,
 	setWrapLongLines,
 	text,
@@ -115,7 +117,9 @@ const CodeBlockContainer = ({
 		>
 			<CodeBlockButtonContainer
 				allowCopyToClipboard={allowCopyToClipboard}
+				allowDownloadCodeBlock={allowDownloadCodeBlock}
 				allowWrapCodeBlock={allowWrapCodeBlock}
+				language={language}
 				setWrapLongLines={setWrapLongLines}
 				text={text}
 				wrapLongLines={wrapLongLines}

@@ -27,11 +27,11 @@ type MentionTypeaheadInviteItemViewedPayload = UIAEP<
 		childObjectId?: string;
 		componentName: string;
 		containerId: string;
+		isInlineInviteMentionsEnabled?: boolean;
 		objectId: string;
 		sessionId: string;
 		source: string;
 		userRole?: string;
-		isInlineInviteMentionsEnabled?: boolean;
 	},
 	undefined
 >;
@@ -46,6 +46,7 @@ type MentionTypeaheadInviteItemClickedPayload = UIAEP<
 		containerId: string;
 		downKeyCount: number;
 		duration: number;
+		isInlineInviteMentionsEnabled?: boolean;
 		keyboardKey?: string;
 		objectId: string;
 		queryLength?: number;
@@ -53,7 +54,6 @@ type MentionTypeaheadInviteItemClickedPayload = UIAEP<
 		spaceInQuery?: boolean;
 		upKeyCount: number;
 		userRole?: string;
-		isInlineInviteMentionsEnabled?: boolean;
 	},
 	undefined
 >;
@@ -69,6 +69,7 @@ type MentionTypeaheadInsertedPayload = UIAEP<
 		downKeyCount: number;
 		duration: number;
 		includesYou?: boolean | null;
+		isAgent?: boolean;
 		isSpecial: boolean;
 		keyboardKey?: string;
 		localId?: string;

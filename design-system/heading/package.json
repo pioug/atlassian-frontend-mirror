@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/heading",
-	"version": "5.4.2",
+	"version": "6.0.0",
 	"description": "A heading is a typography component used to display text in different sizes and formats.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -74,14 +74,6 @@
 				"spacing"
 			],
 			"deprecation": "no-deprecated-imports"
-		}
-	},
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
 		}
 	},
 	"exports": {

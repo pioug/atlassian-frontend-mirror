@@ -63,15 +63,15 @@ function fallback(input: string, position: number): Token {
 	};
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const BAD_END_CHARS_REGEX = /[.,>)\];}"\'!]*$/;
+
 // removes bad characters from the end of regex match
 function trimBadEndChar(input: string[]): string[] {
 	return [
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		input[0].replace(/[.,>)\];}"\'!]*$/, ''),
+		input[0].replace(BAD_END_CHARS_REGEX, ''),
 		input[1],
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		input[2].replace(/[.,>)\];}"\'!]*$/, ''),
+		input[2].replace(BAD_END_CHARS_REGEX, ''),
 	];
 }

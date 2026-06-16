@@ -1,7 +1,8 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import type { FormatCodeResult, LanguageSource } from '../utils/format-code/formatter';
+import type { FormatResult } from '../types';
+import type { LanguageSource } from '../utils/format-code/formatter';
 
 import { pluginKey } from './plugin-key';
 
@@ -14,7 +15,7 @@ export type PendingFormatRequest = {
 export type ResolveFormatCodeOutcome = 'failed' | 'formatted' | 'unchanged';
 
 export type FormatCodeErrorState = {
-	errorType: Extract<FormatCodeResult, { status: 'failed' }>['errorType'];
+	errorType: Extract<FormatResult, { status: 'failed' }>['errorType'];
 	languageSource: LanguageSource;
 	localId: string;
 };

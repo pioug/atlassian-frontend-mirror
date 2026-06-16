@@ -81,7 +81,8 @@ const withInlineCardFromTextStamp = (issue: Issue): string =>
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
-const isNotAllowedChars = (char: string): boolean => !/\s|\(|\)|!|\.|\,|\/|\:/.test(char);
+const ALLOWED_CHARS_REGEX = /\s|\(|\)|!|\.|\,|\/|\:/;
+const isNotAllowedChars = (char: string): boolean => !ALLOWED_CHARS_REGEX.test(char);
 
 export const buildIssueKeyRegex = (inlineCardConversion?: ConversionMap): RegExp | undefined => {
 	if (!inlineCardConversion) {

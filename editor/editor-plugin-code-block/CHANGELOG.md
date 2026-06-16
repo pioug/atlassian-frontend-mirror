@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-code-block
 
+## 14.0.1
+
+### Patch Changes
+
+- [`4543a53261907`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4543a53261907) -
+  Fix code block language picker behaviour for auto-detection state, cap the picker trigger width,
+  keep detected labels stable across toolbar updates, and avoid selecting the whole code block when
+  dragging across multiple code lines.
+- Updated dependencies
+
+## 14.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- [`81545f4d0e189`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81545f4d0e189) -
+  Add code block format provider plumbing for Confluence editor presets and align code block
+  formatting state with the shared provider result type.
+- Updated dependencies
+
 ## 13.1.17
 
 ### Patch Changes

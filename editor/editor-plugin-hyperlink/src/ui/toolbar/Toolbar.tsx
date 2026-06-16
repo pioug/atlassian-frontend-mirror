@@ -403,7 +403,7 @@ export const getToolbarConfig =
 											onEscapeCallback={onEscapeCallback(editorCardActions)}
 											onClickAwayCallback={onClickAwayCallback}
 											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-											onSubmit={(href, title = '', displayText, inputMethod, analytic) => {
+											onSubmit={(href, title = '', displayText, inputMethod, analytic, appearance) => {
 												const isEdit = isEditLink(activeLinkMark);
 												const action = isEdit ? ACTION.UPDATED : ACTION.INSERTED;
 
@@ -429,6 +429,7 @@ export const getToolbarConfig =
 															displayText,
 															skipAnalytics,
 															analytic,
+															appearance,
 														);
 
 												command(view.state, view.dispatch, view);

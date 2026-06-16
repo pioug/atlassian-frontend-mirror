@@ -57,6 +57,7 @@
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"@types/query-string": "root:*",
@@ -117,6 +118,10 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
+		"rovo_chat_agent_selection": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"jira_ai_agent_avatar_issue_view_comment_mentions": {
 			"type": "boolean"
 		},
@@ -141,13 +146,5 @@
 		}
 	},
 	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
-	"version": "26.2.0"
+	"version": "27.0.0"
 }

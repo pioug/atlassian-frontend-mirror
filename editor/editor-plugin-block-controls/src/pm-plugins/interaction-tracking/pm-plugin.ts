@@ -2,11 +2,15 @@ import { bind } from 'bind-event-listener';
 import type { UnbindFn } from 'bind-event-listener';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import type { BlockControlsPlugin } from '../../blockControlsPluginType';
+
+import { RIGHT_MARGIN_ROVO_GAP_PX } from './constants';
 import { handleKeyDown } from './handle-key-down';
 import { handleMouseEnter, handleMouseLeave, handleMouseMove } from './handle-mouse-move';
 
@@ -16,8 +20,35 @@ const BLOCK_CONTROLS_HOVER_AREA_SELECTOR =
 
 const MOUSE_LEAVE_DEBOUNCE_MS = 200;
 
+/** ClickAreaBlock overlay that wraps the editor content and covers the right margin. */
+const CLICK_AREA_SELECTOR = '[data-editor-click-wrapper]';
+
 const isMovingToBlockControlsArea = (target: EventTarget | null): boolean =>
 	target instanceof Element && !!target.closest(BLOCK_CONTROLS_HOVER_AREA_SELECTOR);
+
+/**
+ * The right margin is covered by the ClickAreaBlock overlay, which sits outside .ak-editor-content-area.
+ * Hovering there should still surface the right-side Remix button, so keep controls alive — but only on
+ * the right (past the content's right edge), and not in the far-right Rovo gap. The left gutter must
+ * dismiss like the experiment-off path, so it is treated as inactive.
+ */
+const isOverActiveClickArea = (target: EventTarget | null, clientX: number): boolean => {
+	if (!(target instanceof Element)) {
+		return false;
+	}
+	const clickArea = target.closest(CLICK_AREA_SELECTOR);
+	if (!clickArea) {
+		return false;
+	}
+	const contentRight = clickArea
+		.querySelector('.ak-editor-content-area')
+		?.getBoundingClientRect().right;
+	if (contentRight !== undefined && clientX <= contentRight) {
+		return false;
+	}
+	const innerWidth = target.ownerDocument.defaultView?.innerWidth ?? Number.POSITIVE_INFINITY;
+	return clientX <= innerWidth - RIGHT_MARGIN_ROVO_GAP_PX;
+};
 
 export type InteractionTrackingPluginState = {
 	/**
@@ -72,6 +103,7 @@ type InteractionTrackingMeta =
 
 export const createInteractionTrackingPlugin = (
 	rightSideControlsEnabled = false,
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ): SafePlugin<InteractionTrackingPluginState> => {
 	return new SafePlugin<InteractionTrackingPluginState>({
 		key: interactionTrackingPluginKey,
@@ -127,7 +159,7 @@ export const createInteractionTrackingPlugin = (
 			handleKeyDown,
 			handleDOMEvents: {
 				mousemove: (view: EditorView, event: Event) =>
-					handleMouseMove(view, event, rightSideControlsEnabled),
+					handleMouseMove(view, event, rightSideControlsEnabled, api),
 			},
 		},
 
@@ -142,23 +174,38 @@ export const createInteractionTrackingPlugin = (
 					let mouseLeaveTimeoutId: ReturnType<typeof setTimeout> | null = null;
 					let lastMousePosition = { x: 0, y: 0 };
 
+					// The active right margin only counts as "still hovering" when our experiment is on;
+					// otherwise leaving the content area (e.g. exiting left) must dismiss as on master.
+					const marginHoverEnabled = editorExperiment('remix_button_right_margin_hover', true);
+
 					const scheduleMouseLeave = (event: MouseEvent) => {
 						if (mouseLeaveTimeoutId) {
 							clearTimeout(mouseLeaveTimeoutId);
 							mouseLeaveTimeoutId = null;
 						}
 
-						// Don't set isMouseOut when moving to block controls (right-edge button, drag handle, etc.)
-						if (rightSideControlsEnabled && isMovingToBlockControlsArea(event.relatedTarget)) {
+						// Keep controls visible when moving to block controls (or, with the experiment on,
+						// the active right margin — the Rovo gap is excluded so controls still clear there).
+						if (
+							rightSideControlsEnabled &&
+							(isMovingToBlockControlsArea(event.relatedTarget) ||
+								(marginHoverEnabled &&
+									isOverActiveClickArea(event.relatedTarget, event.clientX)))
+						) {
 							return;
 						}
 
 						mouseLeaveTimeoutId = setTimeout(() => {
 							mouseLeaveTimeoutId = null;
-							// Before dispatching, check if mouse has moved to block controls (e.g. through empty space)
+							// Re-check after the debounce: keep controls if the cursor landed on block controls
+							// (or, with the experiment on, the active right margin).
 							if (rightSideControlsEnabled && typeof document !== 'undefined') {
 								const el = document.elementFromPoint(lastMousePosition.x, lastMousePosition.y);
-								if (el && isMovingToBlockControlsArea(el)) {
+								if (
+									el &&
+									(isMovingToBlockControlsArea(el) ||
+										(marginHoverEnabled && isOverActiveClickArea(el, lastMousePosition.x)))
+								) {
 									return;
 								}
 							}
@@ -179,14 +226,18 @@ export const createInteractionTrackingPlugin = (
 								type: 'mousemove',
 								listener: (event: MouseEvent) => {
 									lastMousePosition = { x: event.clientX, y: event.clientY };
-									// Use document-level mousemove so we get events when hovering over block
-									// controls (which may be in portals outside the editor DOM). Without this,
-									// handleDOMEvents.mousemove only fires when over the editor content.
+									// Catches block controls in portals that handleDOMEvents.mousemove misses.
+									// The right-margin overlay is only relevant with the experiment on.
+									const overClickArea =
+										marginHoverEnabled &&
+										event.target instanceof Element &&
+										!!event.target.closest(CLICK_AREA_SELECTOR);
 									if (
 										editorContentArea.contains(event.target as Node) ||
-										isMovingToBlockControlsArea(event.target)
+										isMovingToBlockControlsArea(event.target) ||
+										overClickArea
 									) {
-										handleMouseMove(view, event, rightSideControlsEnabled);
+										handleMouseMove(view, event, rightSideControlsEnabled, api);
 									}
 								},
 								options: { passive: true },

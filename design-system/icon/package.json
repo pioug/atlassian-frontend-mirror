@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "35.4.0",
+	"version": "36.0.0",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -109,14 +109,6 @@
 				"spacing"
 			],
 			"deprecation": "no-deprecated-imports"
-		}
-	},
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
 		}
 	},
 	"homepage": "https://atlassian.design/components/icon/",

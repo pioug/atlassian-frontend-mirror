@@ -6,6 +6,7 @@ import type {
 	TypeAheadStats,
 	UiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
+import type { TypeAheadSectionTitleDisplay } from '@atlaskit/editor-common/types/type-ahead';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -48,7 +49,7 @@ export interface TypeAheadStatsMobileModifier extends TypeAheadStatsSerializable
 
 export type TypeAheadSectionTitleUpdateState = Pick<
 	TypeAheadResolvedSection,
-	'showTitleWhenOnlySection' | 'title'
+	'sectionTitleDisplay' | 'title'
 >;
 
 export type TypeAheadPluginState = {
@@ -74,10 +75,9 @@ export type TypeAheadResolvedSection = {
 	endIndex: number;
 	id: string;
 	/**
-	 * Keeps this section's title visible when it is the only section with matching items.
-	 * Does not render the title for an empty section.
+	 * Section title display rules copied from the section definition and optional runtime updates.
 	 */
-	showTitleWhenOnlySection?: boolean;
+	sectionTitleDisplay?: TypeAheadSectionTitleDisplay;
 	startIndex: number;
 	title: string;
 };

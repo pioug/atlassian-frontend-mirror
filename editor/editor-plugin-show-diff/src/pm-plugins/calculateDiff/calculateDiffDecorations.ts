@@ -12,11 +12,17 @@ import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemir
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { ColorScheme, ShowDiffPlugin, DiffType } from '../../showDiffPluginType';
+import type {
+	ColorScheme,
+	DiffDescriptor,
+	DiffType,
+	ShowDiffPlugin,
+} from '../../showDiffPluginType';
 import { areDocsEqualByBlockStructureAndText } from '../areDocsEqualByBlockStructureAndText';
 import { createBlockChangedDecoration } from '../decorations/createBlockChangedDecoration';
 import { createInlineChangedDecoration } from '../decorations/createInlineChangedDecoration';
 import { createNodeChangedDecorationWidget } from '../decorations/createNodeChangedDecorationWidget';
+import { extractDiffDescriptors } from '../decorations/decorationKeys';
 import {
 	getAttrChangeRanges,
 	stepIsValidAttrChange,
@@ -29,6 +35,11 @@ import { diffBySteps } from './diffBySteps';
 import { groupChangesByBlock } from './groupChangesByBlock';
 import { optimizeChanges } from './optimizeChanges';
 import { simplifySteps } from './simplifySteps';
+
+type CalculatedDiffs = {
+	decorations: DecorationSet;
+	diffDescriptors: DiffDescriptor[];
+};
 
 const getChanges = ({
 	changeset,
@@ -90,16 +101,15 @@ const calculateNodesForBlockDecoration = ({
 			const isActive =
 				activeIndexPos && pos === activeIndexPos.from && nodeEnd === activeIndexPos.to;
 
-			const blockChangedDecorations = createBlockChangedDecoration({
-				change: { from: pos, to: nodeEnd, name: node.type.name },
-				colorScheme,
-				isInserted,
-				isActive,
-				shouldHideDeleted,
-			});
-			if (blockChangedDecorations.length) {
-				decorations.push(...blockChangedDecorations);
-			}
+			decorations.push(
+				...createBlockChangedDecoration({
+					change: { from: pos, to: nodeEnd, name: node.type.name },
+					colorScheme,
+					isInserted,
+					isActive,
+					shouldHideDeleted,
+				}),
+			);
 		}
 	});
 
@@ -139,10 +149,10 @@ const calculateDiffDecorationsInner = ({
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 	state: EditorState;
-}): DecorationSet => {
+}): CalculatedDiffs => {
 	const { originalDoc, steps } = pluginState;
 	if (!originalDoc || !pluginState.isDisplayingChanges) {
-		return DecorationSet.empty;
+		return { decorations: DecorationSet.empty, diffDescriptors: [] };
 	}
 
 	const { tr } = state;
@@ -180,7 +190,7 @@ const calculateDiffDecorationsInner = ({
 		});
 
 		if (!recoveredViaContentEquality) {
-			return DecorationSet.empty;
+			return { decorations: DecorationSet.empty, diffDescriptors: [] };
 		}
 	}
 	const changeset = ChangeSet.create(originalDoc).addSteps(steppedDoc, stepMaps, tr.doc);
@@ -209,7 +219,7 @@ const calculateDiffDecorationsInner = ({
 				? isInverted && hideDeletedDiffs
 				: false;
 			decorations.push(
-				createInlineChangedDecoration({
+				...createInlineChangedDecoration({
 					change,
 					colorScheme,
 					isActive,
@@ -219,6 +229,7 @@ const calculateDiffDecorationsInner = ({
 					}),
 				}),
 			);
+
 			decorations.push(
 				...calculateNodesForBlockDecoration({
 					doc: tr.doc,
@@ -243,22 +254,21 @@ const calculateDiffDecorationsInner = ({
 				? !isInverted && hideDeletedDiffs
 				: false;
 			if (!shouldHideDeleted) {
-				const decoration = createNodeChangedDecorationWidget({
-					change,
-					doc: originalDoc,
-					nodeViewSerializer,
-					colorScheme,
-					newDoc: tr.doc,
-					intl,
-					activeIndexPos,
-					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
-						isInserted: !isInserted,
-						diffType,
+				decorations.push(
+					...createNodeChangedDecorationWidget({
+						change,
+						doc: originalDoc,
+						nodeViewSerializer,
+						colorScheme,
+						newDoc: tr.doc,
+						intl,
+						activeIndexPos,
+						...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+							isInserted: !isInserted,
+							diffType,
+						}),
 					}),
-				});
-				if (decoration) {
-					decorations.push(...decoration);
-				}
+				);
 			}
 		}
 	});
@@ -266,7 +276,12 @@ const calculateDiffDecorationsInner = ({
 		const isActive =
 			activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
 		decorations.push(
-			createInlineChangedDecoration({ change, colorScheme, isActive, isInserted: true }),
+			...createInlineChangedDecoration({
+				change,
+				colorScheme,
+				isActive,
+				isInserted: true,
+			}),
 		);
 	});
 	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
@@ -275,7 +290,12 @@ const calculateDiffDecorationsInner = ({
 			const isActive =
 				activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
 			decorations.push(
-				createInlineChangedDecoration({ change, colorScheme, isActive, isInserted: true }),
+				...createInlineChangedDecoration({
+					change,
+					colorScheme,
+					isActive,
+					isInserted: true,
+				}),
 			);
 		} else {
 			decorations.push(
@@ -292,7 +312,12 @@ const calculateDiffDecorationsInner = ({
 		}
 	});
 
-	return DecorationSet.empty.add(tr.doc, decorations);
+	const decorationSet = DecorationSet.empty.add(tr.doc, decorations);
+
+	return {
+		decorations: decorationSet,
+		diffDescriptors: extractDiffDescriptors(decorationSet),
+	};
 };
 
 export const calculateDiffDecorations: MemoizedFn<
@@ -317,7 +342,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		nodeViewSerializer: NodeViewSerializer;
 		pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 		state: EditorState;
-	}) => DecorationSet
+	}) => CalculatedDiffs
 > = memoizeOne(
 	calculateDiffDecorationsInner,
 	// Cache results unless relevant inputs change

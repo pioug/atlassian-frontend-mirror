@@ -42,7 +42,7 @@ import {
 	TABLE_EDITOR_MARGIN,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 } from '../pm-plugins/table-resizing/utils/consts';
-import { syncStickyRowToTable, updateControls } from '../pm-plugins/table-resizing/utils/dom';
+import { syncStickyCornerMasks, updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import {
 	getLayoutSize,
 	getScalingPercentForTableWithoutWidth,
@@ -1045,7 +1045,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				header.style.marginRight = '2px';
 			}
 			if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
-				syncStickyRowToTable(this.table);
+				syncStickyCornerMasks(this.table);
 			}
 		}
 

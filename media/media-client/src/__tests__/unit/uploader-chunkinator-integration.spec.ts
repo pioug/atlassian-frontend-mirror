@@ -81,6 +81,7 @@ describe('Uploader', () => {
 							replaceFileId: 'some-file-id',
 						},
 						undefined,
+						{ expectedFileSize: undefined },
 					);
 					done();
 				},
@@ -117,6 +118,7 @@ describe('Uploader', () => {
 							replaceFileId: 'some-file-id',
 						},
 						undefined,
+						{ expectedFileSize: undefined },
 					);
 					done();
 				},

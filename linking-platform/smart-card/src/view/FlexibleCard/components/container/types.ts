@@ -12,6 +12,7 @@ export type ContainerProps = PropsWithChildren<
 		| 'showHoverPreview'
 		| 'hoverPreviewOptions'
 		| 'actionOptions'
+		| 'title'
 	> &
 		FlexibleUiOptions & {
 			/**

@@ -588,12 +588,9 @@ export const getToolbarConfig =
 		}
 
 		// disable copy button for legacy content macro
-		const isLegacyContentMacro =
+		const shouldHideCopyButton =
 			extensionObj?.node.attrs.extensionType === 'com.atlassian.confluence.migration' &&
 			extensionObj?.node.attrs.extensionKey === 'legacy-content';
-		const shouldHideCopyButton =
-			isLegacyContentMacro &&
-			expValEquals('platform_editor_disable_lcm_copy_button', 'isEnabled', true);
 
 		return {
 			title: 'Extension floating controls',

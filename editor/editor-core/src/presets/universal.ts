@@ -247,8 +247,7 @@ export default function createUniversalPresetInternal({
 								'confluence_max_width_content_appearance',
 								'isEnabled',
 								true,
-							)) &&
-						fg('platform_editor_breakout_in_universal_preset'))),
+							)))),
 			),
 		)
 		.maybeAdd(alignmentPlugin, Boolean(props.allowTextAlignment))

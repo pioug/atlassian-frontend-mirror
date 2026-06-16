@@ -251,6 +251,41 @@ describe('SideNavPanelSplitter', () => {
 			).toBeInTheDocument();
 		});
 
+		ffTest.on('platform-dst-top-layer', 'top layer feature flag on', () => {
+			/**
+			 * Role-less popups have no popup semantics for assistive
+			 * technology, so they intentionally do not register with the
+			 * open-layer observer as `type: 'popup'`. The panel splitter
+			 * follows the same contract and stays visible alongside them.
+			 *
+			 * This is gated to the top-layer path because the legacy
+			 * popup implementation registered every open popup with the
+			 * observer regardless of role; that behaviour predates the
+			 * role-gated contract and is being removed with the gate.
+			 */
+			it('should still render the panel splitter when an open popup has no role', () => {
+				render(
+					<Root>
+						<SideNav testId="sidenav">
+							<Popup
+								shouldRenderToParent
+								isOpen
+								content={() => <div>Content</div>}
+								trigger={({ ref }) => (
+									<button type="button" ref={ref}>
+										Popup trigger
+									</button>
+								)}
+							/>
+							<SideNavPanelSplitter label="Resize or collapse side nav" testId="panel-splitter" />
+						</SideNav>
+					</Root>,
+				);
+
+				expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
+			});
+		});
+
 		ffTest.both('platform-dst-top-layer', 'top layer feature flag', () => {
 			it('should not render the panel splitter when there is an open popup in the side nav', () => {
 				render(
@@ -259,6 +294,8 @@ describe('SideNavPanelSplitter', () => {
 							<Popup
 								shouldRenderToParent
 								isOpen
+								role="dialog"
+								label="Test popup"
 								content={() => <div>Content</div>}
 								trigger={({ ref }) => (
 									<button type="button" ref={ref}>
@@ -282,6 +319,8 @@ describe('SideNavPanelSplitter', () => {
 								<Popup
 									shouldRenderToParent
 									isOpen
+									role="dialog"
+									label="Test popup"
 									content={() => <div>Content</div>}
 									trigger={({ ref }) => (
 										<button type="button" ref={ref}>
@@ -308,6 +347,8 @@ describe('SideNavPanelSplitter', () => {
 								<Popup
 									shouldRenderToParent
 									isOpen
+									role="dialog"
+									label="Test popup"
 									content={() => <div>Content</div>}
 									trigger={({ ref }) => (
 										<button type="button" ref={ref}>
@@ -334,6 +375,8 @@ describe('SideNavPanelSplitter', () => {
 								<Popup
 									shouldRenderToParent
 									isOpen
+									role="dialog"
+									label="Test popup"
 									content={() => <div>Content</div>}
 									trigger={({ ref }) => (
 										<button type="button" ref={ref}>
@@ -364,6 +407,8 @@ describe('SideNavPanelSplitter', () => {
 								<Popup
 									shouldRenderToParent
 									isOpen={isPopupOpen}
+									role="dialog"
+									label="Test popup"
 									onClose={() => setIsPopupOpen(false)}
 									content={() => <div>Content</div>}
 									trigger={({ ref }) => (
@@ -447,6 +492,7 @@ describe('SideNavPanelSplitter', () => {
 
 				expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
 			});
+
 		});
 	});
 });

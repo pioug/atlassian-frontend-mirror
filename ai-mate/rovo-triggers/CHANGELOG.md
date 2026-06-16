@@ -1,5 +1,66 @@
 # @atlaskit/rovo-triggers
 
+## 8.1.0
+
+### Minor Changes
+
+- [`8e4dd14523e4b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e4dd14523e4b) -
+  Add a Test button to the custom skill view that opens a new Rovo chat with the skill's slash
+  command pre-populated as an editable draft. Adds an `overrideAutoSend` option to the `chat-new`
+  trigger payload so a new chat can be opened with the input drafted instead of sent.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- [`590fb0a5ecf3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/590fb0a5ecf3e) -
+  EDITOR-7664: allow chat-new to override auto send
+- Updated dependencies
+
+## 7.7.0
+
+### Minor Changes
+
+- [`fabc8bad29d1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fabc8bad29d1e) -
+  Add an `insights-open-in-chat` rovo-trigger so Rovo Insights opened from outside the conversation
+  assistant panel (e.g. the home insights carousel) reuse the same seeded-chat experience as
+  clicking an insight inside the in-panel insights feed.
+  - `@atlaskit/rovo-triggers`: add the `InsightsOpenInChatPayload` event type (carries the insight
+    ADF, conversation title, serializable icon string keys, and follow-ups).
+  - `@atlassian/rovo-growth-pulse`: extract the insight icon/appearance resolvers into a shared
+    `ui/insights-feed/resolveInsightIcon` module (new subpath export) and add optional
+    `iconKey`/`iconColor` raw API string fields to `InsightItem` so consumers can re-resolve icons.
+    `InsightReadyHostMeta.backButtonLabel` is now optional (the host supplies the standardized
+    label).
+  - `@atlassian/conversation-assistant`: extract the insight seeding logic into a shared
+    `useSeedInsightConversation` hook (used by both the in-panel feed and the new trigger) and
+    handle the `insights-open-in-chat` trigger in `PubSubListener`, gated behind the
+    `rovo_growth_chat_pulse` experiment.
+
 ## 7.6.0
 
 ### Minor Changes

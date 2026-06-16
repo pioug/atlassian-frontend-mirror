@@ -1,5 +1,33 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- [`a6df5a37d02d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6df5a37d02d5) -
+  Reduce the extended abort timeout for third-party (Forge iframe) UFO segments from 60 s to 30 s.
+- Updated dependencies
+
 ## 6.7.5
 
 ### Patch Changes

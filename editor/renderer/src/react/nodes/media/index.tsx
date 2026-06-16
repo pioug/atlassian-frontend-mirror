@@ -23,6 +23,7 @@ import type {
 	LinkDefinition,
 	BorderMarkDefinition,
 	AnnotationMarkDefinition,
+	DataConsumerDefinition,
 } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
@@ -65,7 +66,7 @@ export type MediaProps = MediaCardProps & {
 	isDrafting: boolean;
 	isInsideOfBlockNode?: boolean;
 	isLinkMark: () => boolean;
-	marks: Array<LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition>;
+	marks: Array<LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition | DataConsumerDefinition>;
 	// only used for comment badge, is injected via nodes/mediaSingle
 	mediaSingleElement?: HTMLElement | null;
 	providers?: ProviderFactory;
@@ -340,6 +341,14 @@ class Media extends PureComponent<MediaProps, object> {
 			| BorderMarkDefinition
 			| undefined;
 
+		const dataConsumerMark = fg('cc-maui-add-mark-for-remix-generated-images')
+			? (this.props.marks.find(
+					(m) =>
+						m.type === 'dataConsumer' ||
+						(m.type as unknown as { name: string })?.name === 'dataConsumer',
+				) as DataConsumerDefinition | undefined)
+			: undefined;
+
 		const linkMark = this.props.marks.find(this.props.isLinkMark) as LinkDefinition | undefined;
 
 		const linkHref = linkMark?.attrs.href;
@@ -359,6 +368,9 @@ class Media extends PureComponent<MediaProps, object> {
 							data={{
 								[MEDIA_CONTEXT]: {
 									border: !!borderMark,
+									// Only defined for remix-generated media (i.e. media nodes with a dataConsumer mark).
+									// Format: "remix:{type}:{subtype}" e.g. "remix:infographic:corporate-doodle"
+									remixSource: dataConsumerMark?.attrs.sources?.[0],
 								},
 							}}
 						>

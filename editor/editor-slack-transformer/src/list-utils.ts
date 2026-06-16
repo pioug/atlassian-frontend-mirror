@@ -2,6 +2,10 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { MarkdownSerializerState } from './serializer';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const TRAILING_UNWIND_REGEX = /(\n[ \t]*){2,}$/;
+
 /** Node types that represent lists. */
 export const listTypes: Set<string> = new Set(['bulletList', 'orderedList', 'taskList']);
 
@@ -27,9 +31,7 @@ export function renderListChildren(state: MarkdownSerializerState, node: PMNode)
 
 /** Collapses trailing decreasing-indentation whitespace lines from nested list unwinding. */
 export function collapseTrailingUnwind(state: MarkdownSerializerState): void {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	const trailingLines = state.out.match(/(\n[ \t]*){2,}$/);
+	const trailingLines = state.out.match(TRAILING_UNWIND_REGEX);
 	if (!trailingLines) {
 		return;
 	}

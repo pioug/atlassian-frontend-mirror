@@ -6,12 +6,15 @@
 import { jsx, css } from '@emotion/react';
 import type { Dispatch, SetStateAction } from 'react';
 import CopyButton from './codeBlockCopyButton';
+import DownloadButton from './codeBlockDownloadButton';
 import CodeWrapButton from './codeBlockWrapButton';
 import { token } from '@atlaskit/tokens';
 
 export interface CodeBlockButtonContainerProps {
 	allowCopyToClipboard?: boolean;
+	allowDownloadCodeBlock?: boolean;
 	allowWrapCodeBlock?: boolean;
+	language?: string | null;
 	setWrapLongLines: Dispatch<SetStateAction<boolean>>;
 	text: string;
 	wrapLongLines: boolean;
@@ -61,7 +64,9 @@ const codeBlockButtonsStyle = css({
 
 const CodeBlockButtonContainer = ({
 	allowCopyToClipboard,
+	allowDownloadCodeBlock,
 	allowWrapCodeBlock,
+	language,
 	setWrapLongLines,
 	text,
 	wrapLongLines,
@@ -69,6 +74,7 @@ const CodeBlockButtonContainer = ({
 	return (
 		<div css={codeBlockButtonsWrapper}>
 			<div css={codeBlockButtonsStyle}>
+				{allowDownloadCodeBlock && <DownloadButton content={text} language={language ?? null} />}
 				{allowWrapCodeBlock && (
 					<CodeWrapButton setWrapLongLines={setWrapLongLines} wrapLongLines={wrapLongLines} />
 				)}

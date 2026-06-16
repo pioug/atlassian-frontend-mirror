@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::f011ef2e44bcfe53ddd263aceed05794>>
+ * @codegen <<SignedSource::ca027fa25ebfebe972ae3a385e13319e>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:ads-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -332,7 +332,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"added" | "default" | "important" | "primary" | "primaryInverted" | "removed" | "warning" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse"',
+				type: '"added" | "default" | "important" | "primary" | "primaryInverted" | "removed" | "warning" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "informationBold" | "successBold" | "dangerBold" | "warningBold" | "discoveryBold"',
 				description: 'Affects the visual style of the badge.',
 			},
 			{
@@ -3852,7 +3852,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'color',
-				type: '"var(--ds-link-pressed)" | "var(--ds-link-visited-pressed)" | "var(--ds-link)" | "var(--ds-link-visited)" | "var(--ds-icon)" | "var(--ds-icon-accent-lime)" | "var(--ds-icon-accent-red)" | ... 58 more ... | "currentColor"',
+				type: '"var(--ds-link-pressed)" | "var(--ds-link-visited-pressed)" | "var(--ds-icon)" | "var(--ds-icon-accent-lime)" | "var(--ds-icon-accent-red)" | "var(--ds-icon-accent-orange)" | ... 63 more ... | "currentColor"',
 				description:
 					"Color for the icon. Supports any icon or text design token, or 'currentColor' to inherit the current text color.\nDefaults to `currentColor`, inheriting the current text color.",
 			},
@@ -3939,7 +3939,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Image',
 		package: '@atlaskit/image',
 		description: 'A component for displaying images with theme support.',
-		status: 'open-beta',
+		status: 'general-availability',
 		usageGuidelines: [
 			'Use for displaying images in content',
 			'Provide appropriate alt text',
@@ -5450,7 +5450,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'ExitingPersistence',
 		package: '@atlaskit/motion',
 		description:
-			'Keeps elements mounted and plays their exit animation before they are removed from the DOM. Without it, elements are removed immediately and no exit animation plays. Works with both the Motion primitive and legacy entering-motion components.',
+			'Motion helper that keeps elements mounted and plays their exit animation before they are removed from the DOM. Without it, elements are removed immediately and no exit animation plays. Works with both the Motion primitive and legacy entering-motion components.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Wrap motion elements with ExitingPersistence to enable exit animations when elements are removed from the DOM',
@@ -5554,7 +5554,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'StaggeredEntrance',
 		package: '@atlaskit/motion',
 		description:
-			'Staggers the entering animation of its child motion elements in sequence, creating a cascading effect. Works with both the Motion primitive and legacy entering-motion components.',
+			'Motion helper that staggers the entering animation of its child motion elements in sequence, creating a cascading effect. Works with both the Motion primitive and legacy entering-motion components.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Wrap entering motion elements with StaggeredEntrance to create a cascading stagger effect',
@@ -6199,7 +6199,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'backgroundColor',
-				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | "color.background.accent.lime.subtlest" | ... 205 more ... | "elevation.surface.raised.pressed"',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 214 more ... | "elevation.surface.raised.pressed"',
 				description: 'Token representing background color with a built-in fallback value.',
 			},
 			{
@@ -9950,7 +9950,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Skeleton',
 		package: '@atlaskit/skeleton',
 		description: 'A skeleton acts as a placeholder for content, usually while the content loads.',
-		status: 'early-access',
+		status: 'general-availability',
 		usageGuidelines: [
 			'Use to indicate content is loading',
 			'Match skeleton structure to actual content layout',
@@ -9997,6 +9997,7 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'height',
 				type: 'string | number',
+				description: 'Height of the skeleton.',
 				isRequired: true,
 			},
 			{
@@ -10013,6 +10014,7 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'width',
 				type: 'string | number',
+				description: 'Width of the skeleton.',
 				isRequired: true,
 			},
 		],
@@ -11031,7 +11033,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'position',
-				type: 'Placement | "mouse" | "mouse-y" | "mouse-x"',
+				type: 'Placement | PositionMouseOptions',
 				description:
 					'Where the tooltip should appear relative to its target.\nIf set to `"mouse"`, the tooltip will display next to the mouse pointer instead.\nIf set to `"mouse-y"`, the tooltip will use the mouse Y coordinate but the target X coordinate.\nIf set to `"mouse-x"`, the tooltip will use the mouse X coordinate but the target Y coordinate.\nMake sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.',
 				defaultValue: '"bottom"',

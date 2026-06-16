@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/web-config-client",
-	"version": "0.9.0",
+	"version": "1.0.0",
 	"description": "JavaScript Frontend Web Client for Dynamic Configuration.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -19,14 +19,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <5.4": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
 	"sideEffects": [
 		"*.compiled.css"
 	],

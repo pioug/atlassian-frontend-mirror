@@ -551,6 +551,20 @@ export class EditorCardProvider
 		}
 	}
 
+	/**
+	 * Opt-in hook: when a caller explicitly requests an `'embed'` appearance and the
+	 * user has no saved preference for the URL, honour that request as the default
+	 * (above any provider default), validating embeddability first and falling back
+	 * to a card (`'block'`) when the link cannot be embedded.
+	 *
+	 * Defaults to `false` so behaviour is unchanged for every existing consumer.
+	 * Subclasses (e.g. Confluence) can override this to opt in, typically behind an
+	 * experiment.
+	 */
+	protected shouldHonorRequestedEmbedAsDefault(): boolean {
+		return false;
+	}
+
 	private async getAuthStatusFromResolveResponse(
 		url: string,
 	): Promise<Pick<JsonLd.Meta.BaseMeta, 'access' | 'visibility'> | undefined> {
@@ -655,6 +669,22 @@ export class EditorCardProvider
 					if (!canItBeEmbed) {
 						preferredAppearance = 'inline';
 					}
+				}
+
+				// When a caller explicitly requested an embed (e.g. Confluence's quick-insert
+				// embed flow tags the inserted link) and the user has no saved preference for
+				// this URL, honour embed-by-default above the provider default — but only in an
+				// embed-friendly location (matching how hard-coded embeds are gated above) and
+				// only when the link can actually be embedded, otherwise fall back to a card.
+				// Gated behind a default-off opt-in hook so other consumers are unaffected.
+				if (
+					!userPreference &&
+					appearance === 'embed' &&
+					isEmbedFriendlyLocationEvaluated &&
+					this.shouldHonorRequestedEmbedAsDefault()
+				) {
+					const canItBeEmbed = await this.canBeResolvedAsEmbed(url);
+					preferredAppearance = canItBeEmbed ? 'embed' : 'block';
 				}
 
 				const datasource = await this.getDatasourceFromResolveResponse(url);

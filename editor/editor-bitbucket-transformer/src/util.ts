@@ -1,4 +1,14 @@
 /* eslint-disable require-unicode-regexp */
+
+const ESCAPE_MARKDOWN_SPECIAL_CHARS_REGEX = /^[#-&(-*]/;
+
+const ESCAPE_MARKDOWN_ORDERED_LIST_REGEX = /^(\d+)\./;
+
+const TRAILING_NEWLINE_REGEX = /\n$/;
+
+const AT_MENTION_TITLE_REGEX = /^@(.*?)$/;
+
+const EMOJI_SRC_ID_REGEX = /([^\/]+)\.[^\/]+$/;
 // File has been copied to packages/editor/editor-plugin-ai/src/provider/prosemirror-transformer/utils/utils.ts
 // If changes are made to this file, please make the same update in the linked file.
 
@@ -25,11 +35,8 @@ export function escapeMarkdown(str: string, startOfLine?: boolean, insideTable?:
 	strToEscape = strToEscape.replace(/[`*\\+_()\[\]{}]/g, '\\$&');
 	if (startOfLine) {
 		strToEscape = strToEscape
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			.replace(/^[#-&(-*]/, '\\$&') // Don't escape ' character
-			// Ignored via go/ees005
-			.replace(/^(\d+)\./, '$1\\.');
+			.replace(ESCAPE_MARKDOWN_SPECIAL_CHARS_REGEX, '\\$&') // Don't escape ' character
+			.replace(ESCAPE_MARKDOWN_ORDERED_LIST_REGEX, '$1\\.');
 	}
 	if (insideTable) {
 		// Ignored via go/ees005
@@ -132,9 +139,11 @@ export function parseMarkdownFormatting(text: string): string {
 const SPECIAL_CHARACTERS = /\u200c|↵/g;
 function removeSpecialCharacters(node: Node) {
 	if (node.nodeType === 3 && node.textContent) {
+		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 		node.textContent = node.textContent.replace(SPECIAL_CHARACTERS, '');
 	}
 
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 	Array.from(node.childNodes).forEach((child) => removeSpecialCharacters(child));
 }
 
@@ -191,8 +200,9 @@ export function transformHtml(
 			suggestionDiv.setAttribute('data-local-id', index.toString());
 			// remove trailing newline from suggestion text
 			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+			const textContent = div.textContent;
 			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
-			const suggestionText = div.textContent ? div.textContent.replace(/\n$/, '') : '';
+			const suggestionText = textContent ? textContent.replace(TRAILING_NEWLINE_REGEX, '') : '';
 			suggestionDiv.setAttribute(
 				'data-parameters',
 				JSON.stringify({
@@ -251,9 +261,7 @@ export function transformHtml(
 			} else {
 				const title = a.getAttribute('title') || '';
 				if (title) {
-					// Ignored via go/ees005
-					// eslint-disable-next-line require-unicode-regexp
-					const usernameMatch = title.match(/^@(.*?)$/);
+					const usernameMatch = title.match(AT_MENTION_TITLE_REGEX);
 					if (usernameMatch) {
 						const username = usernameMatch[1];
 						span.setAttribute('data-mention-id', username);
@@ -311,9 +319,7 @@ export function transformHtml(
 				// Fallback to parsing Bitbucket's src attributes to find the
 				// short name
 				const src = img.getAttribute('src');
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				const idMatch = !src ? false : src.match(/([^\/]+)\.[^\/]+$/);
+				const idMatch = !src ? false : src.match(EMOJI_SRC_ID_REGEX);
 
 				if (idMatch) {
 					shortName = `:${decodeURIComponent(idMatch[1])}:`;

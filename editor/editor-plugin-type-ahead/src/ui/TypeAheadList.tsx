@@ -22,7 +22,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { Text, Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type { InputMethodType } from '../pm-plugins/analytics';
@@ -51,6 +51,7 @@ type TypeAheadListProps = {
 	editorView: EditorView;
 	emptyItem?: TypeAheadItem;
 	fitHeight: number;
+	isEmptyQuery?: boolean;
 	items: Array<TypeAheadItem>;
 	moreElementsInQuickInsertViewEnabled?: boolean;
 	onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
@@ -65,10 +66,43 @@ type TypeAheadRowEntry =
 	| { section: TypeAheadResolvedSection; type: 'section' }
 	| { itemIndex: number; type: 'item' };
 
+/**
+ * Resolves section title visibility before rows are built so hidden titles do not
+ * occupy virtualized list rows. A single populated section keeps the existing
+ * no-title behaviour unless it opts in with `showWhenOnlySection`; multiple
+ * populated sections show titles by default. `showWhenQueryPresent: false`
+ * takes precedence once the query is non-empty.
+ */
+const shouldRenderSectionTitle = ({
+	isEmptyQuery,
+	populatedSectionCount,
+	section,
+}: {
+	isEmptyQuery: boolean;
+	populatedSectionCount: number;
+	section: TypeAheadResolvedSection;
+}): boolean => {
+	if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
+		return populatedSectionCount > 1;
+	}
+
+	if (!isEmptyQuery && section.sectionTitleDisplay?.showWhenQueryPresent === false) {
+		return false;
+	}
+
+	if (populatedSectionCount === 1) {
+		return section.sectionTitleDisplay?.showWhenOnlySection === true;
+	}
+
+	return true;
+};
+
 export const buildTypeAheadRows = ({
+	isEmptyQuery,
 	itemsLength,
 	sections,
 }: {
+	isEmptyQuery: boolean;
 	itemsLength: number;
 	sections: Array<TypeAheadResolvedSection>;
 }): Array<TypeAheadRowEntry> => {
@@ -81,11 +115,19 @@ export const buildTypeAheadRows = ({
 		sortedSections.map((section) => [section.startIndex, section]),
 	);
 	const rows: Array<TypeAheadRowEntry> = [];
+	const populatedSectionCount = sortedSections.length;
 
 	for (let itemIndex = 0; itemIndex < itemsLength; itemIndex++) {
 		const section = sectionsByStartIndex.get(itemIndex);
 		if (section) {
-			rows.push({ type: 'section', section });
+			const shouldRenderTitle = shouldRenderSectionTitle({
+				isEmptyQuery,
+				populatedSectionCount,
+				section,
+			});
+			if (shouldRenderTitle) {
+				rows.push({ type: 'section', section });
+			}
 		}
 		rows.push({ type: 'item', itemIndex });
 	}
@@ -115,6 +157,7 @@ const TypeAheadListComponent = React.memo(
 		sections,
 		emptyItem,
 		selectedIndex,
+		isEmptyQuery = true,
 		editorView,
 		onItemClick,
 		intl,
@@ -160,10 +203,11 @@ const TypeAheadListComponent = React.memo(
 		const listRows = useMemo(
 			() =>
 				buildTypeAheadRows({
+					isEmptyQuery,
 					itemsLength,
 					sections: sections || [],
 				}),
-			[itemsLength, sections],
+			[isEmptyQuery, itemsLength, sections],
 		);
 
 		const itemRowIndexByItemIndex = useMemo(() => {
@@ -177,12 +221,7 @@ const TypeAheadListComponent = React.memo(
 		}, [listRows]);
 
 		const selectedItemRowIndex =
-			selectedIndex >= 0 ? (itemRowIndexByItemIndex.get(selectedIndex) ?? -1) : -1;
-
-		const populatedSectionCount = useMemo(
-			() => listRows.filter((row) => row.type === 'section').length,
-			[listRows],
-		);
+			selectedIndex >= 0 ? itemRowIndexByItemIndex.get(selectedIndex) ?? -1 : -1;
 
 		const onItemsRendered = useCallback(
 			(props: {
@@ -346,11 +385,11 @@ const TypeAheadListComponent = React.memo(
 
 		useLayoutEffect(() => {
 			// Exclude view more item from the count
-			const itemsToRender = editorExperiment('platform_editor_agent_mentions', true)
+			const itemsToRender = expVal('platform_editor_agent_mentions', 'isEnabled', false)
 				? listRows
 				: showMoreOptionsButton
-					? items.slice(0, -1)
-					: items;
+				? items.slice(0, -1)
+				: items;
 			const height = Math.min(
 				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 				itemsToRender.reduce((prevValue, currentValue, index) => {
@@ -455,10 +494,6 @@ const TypeAheadListComponent = React.memo(
 				return null;
 			}
 
-			const shouldHideSingleSectionTitle =
-				currentRow.type === 'section' &&
-				populatedSectionCount === 1 &&
-				!currentRow.section.showTitleWhenOnlySection;
 			return (
 				<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
 					{({ measure }) => (
@@ -473,15 +508,11 @@ const TypeAheadListComponent = React.memo(
 							onMouseMove={(e) => onMouseMove(e, currentRow)}
 						>
 							{currentRow.type === 'section' ? (
-								// Preserve the existing collapsed-title behaviour for single-section results unless
-								// the gated section title API explicitly asks for the title to remain visible.
-								shouldHideSingleSectionTitle ? null : (
-									<Box paddingInline="space.150" paddingBlock="space.050">
-										<Text as="span" size="small" color="color.text.subtle" weight="medium">
-											{currentRow.section.title}
-										</Text>
-									</Box>
-								)
+								<Box paddingInline="space.150" paddingBlock="space.050">
+									<Text as="span" size="small" color="color.text.subtle" weight="medium">
+										{currentRow.section.title}
+									</Text>
+								</Box>
 							) : (
 								<TypeAheadListItem
 									key={items[currentRow.itemIndex].title}
@@ -584,8 +615,8 @@ const TypeAheadListComponent = React.memo(
 					{isEmptyStateActive
 						? ListContent
 						: !showMoreOptionsButton || itemsLength
-							? ListContent
-							: EmptyResultView}
+						? ListContent
+						: EmptyResultView}
 					{showMoreOptionsButton && config && (
 						<MoreOptions
 							title={config.title}
@@ -612,6 +643,7 @@ export const TypeAheadList: React.FC<
 			editorView: EditorView;
 			emptyItem?: TypeAheadItem;
 			fitHeight: number;
+			isEmptyQuery?: boolean;
 			items: Array<TypeAheadItem>;
 			moreElementsInQuickInsertViewEnabled?: boolean;
 			onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;
@@ -630,6 +662,7 @@ export const TypeAheadList: React.FC<
 			editorView: EditorView;
 			emptyItem?: TypeAheadItem;
 			fitHeight: number;
+			isEmptyQuery?: boolean;
 			items: Array<TypeAheadItem>;
 			moreElementsInQuickInsertViewEnabled?: boolean;
 			onItemClick: (mode: SelectItemMode, index: number, inputMethod?: InputMethodType) => void;

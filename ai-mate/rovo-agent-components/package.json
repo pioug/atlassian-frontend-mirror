@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "5.2.3",
+	"version": "6.0.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -26,14 +26,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <5.4": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
 	"atlaskit:src": "src/index.ts",
 	"sideEffects": [
 		"*.compiled.css"
@@ -164,6 +156,9 @@
 			"type": "boolean"
 		},
 		"jira_browse_agents_modal": {
+			"type": "boolean"
+		},
+		"rovo_hide_remote_a2a_agent_creator": {
 			"type": "boolean"
 		}
 	}

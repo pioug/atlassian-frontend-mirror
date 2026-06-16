@@ -18,7 +18,7 @@ import {
 	traditionalInsertStyleActive,
 	getDeletedTraditionalInlineStyle,
 } from './colorSchemes/traditional';
-import { buildDiffDecorationKey, DiffDecorationKey } from './decorationKeys';
+import { buildDiffDecorationSpec } from './decorationKeys';
 
 const displayNoneStyle = convertToInlineCss({
 	display: 'none',
@@ -42,18 +42,18 @@ export const createInlineChangedDecoration = ({
 	isActive?: boolean;
 	isInserted?: boolean;
 	shouldHideDeleted?: boolean;
-}): Decoration => {
+}): Decoration[] => {
+	const diffId = crypto.randomUUID();
+
 	if (shouldHideDeleted) {
-		return Decoration.inline(
-			change.fromB,
-			change.toB,
-			{ style: displayNoneStyle },
-			{
-				key: buildDiffDecorationKey({
-					type: DiffDecorationKey.inline,
-				}),
-			},
-		);
+		return [
+			Decoration.inline(
+				change.fromB,
+				change.toB,
+				{ style: displayNoneStyle },
+				buildDiffDecorationSpec({ decorationType: 'inline', diffId, isActive }),
+			),
+		];
 	}
 
 	let style: string;
@@ -86,13 +86,15 @@ export const createInlineChangedDecoration = ({
 		}
 	}
 
-	return Decoration.inline(
-		change.fromB,
-		change.toB,
-		{
-			style,
-			'data-testid': 'show-diff-changed-decoration',
-		},
-		{ key: buildDiffDecorationKey({ type: DiffDecorationKey.inline }) },
-	);
+	return [
+		Decoration.inline(
+			change.fromB,
+			change.toB,
+			{
+				style,
+				'data-testid': 'show-diff-changed-decoration',
+			},
+			buildDiffDecorationSpec({ decorationType: 'inline', diffId, isActive }),
+		),
+	];
 };

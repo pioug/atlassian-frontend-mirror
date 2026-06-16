@@ -272,6 +272,7 @@ export interface MentionDescription {
 	userType?: string;
 }
 
+
 export interface MentionDescContext {
 	includesYou: boolean;
 	memberCount: number;

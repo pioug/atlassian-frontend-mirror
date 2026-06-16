@@ -406,6 +406,22 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
 				: token('elevation.surface')};
 		border-right: 0 none;
+		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+			? `
+			width: ${akEditorTableNumberColumnWidth + 1}px;
+			border-left: 1px solid ${tableBorderColor};
+
+			/* Keep the new fixed left border in sync with the selected/danger states,
+			   which would otherwise leave it the default colour (.active recolours the
+			   rest of the border) or drop it entirely (delete-hover sets border-left: 0). */
+			&.active {
+				border-left-color: ${tableBorderSelectedColor};
+			}
+			&.${ClassName.HOVERED_CELL_IN_DANGER} {
+				border-left: 1px solid ${tableBorderDeleteColor};
+			}
+			`
+			: ''}
 		/* top set by NumberColumn component */
 	}
 

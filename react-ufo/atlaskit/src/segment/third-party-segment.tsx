@@ -50,7 +50,7 @@ const MAX_RESIZED_ENTRIES_PER_SEGMENT = 50;
 // Extended abort timeout (ms from mount). Once any recognised iframe event is received
 // we know the iframe is on the new rollout cohort and actively sending data, so we extend
 // the window to accommodate legitimately slow-loading Forge apps.
-const ABORT_TIMEOUT_EXTENDED_MS = 60_000;
+const ABORT_TIMEOUT_EXTENDED_MS = 30_000;
 
 // Events logged via addIframeSegmentData as they arrive.
 const IFRAME_SEGMENT_DATA_SUFFIXES = [

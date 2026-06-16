@@ -257,6 +257,7 @@ describe('FileFetcher', () => {
 					{ descriptors },
 					{ collection: 'some-collection' },
 					traceContext,
+					{ expectedFileSize: undefined },
 				);
 			});
 		});
@@ -1772,6 +1773,7 @@ describe('FileFetcher', () => {
 			expect((fileFetcher as any).generateUploadableFileUpfrontIds).toBeCalledWith(
 				collection,
 				traceContext,
+				undefined,
 			);
 			expect(asMock(uploadFile).mock.calls[0][4]).toBe(traceContext);
 		});

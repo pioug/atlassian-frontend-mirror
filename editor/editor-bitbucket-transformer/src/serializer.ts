@@ -9,6 +9,25 @@ import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { escapeMarkdown, stringRepeat, escapeHtmlAttribute } from './util';
 import tableNodes from './tableSerializer';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const AT_BLANK_REGEX = /(^|\n)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const FLUSH_CLOSE_TRIM_REGEX = /\s+$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const EXPEL_WHITESPACE_REGEX = /^(\s*)(.*?)(\s*)$/m;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const BACKTICK_START_REGEX = /^`/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const BACKTICK_END_REGEX = /`$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const FOUR_SPACES_START_REGEX = /^\s{4}/;
+
 /**
  * Look for series of backticks in a string, find length of the longest one, then
  * generate a backtick chain of a length longer by one. This is the only proven way
@@ -57,9 +76,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L241
 	 */
 	atBlank(): boolean {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		return /(^|\n)$/.test(this.out);
+		return AT_BLANK_REGEX.test(this.out);
 	}
 
 	/**
@@ -73,9 +90,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			}
 			if (size > 1) {
 				let delimMin = this.delim;
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				const trim = /\s+$/.exec(delimMin);
+				const trim = FLUSH_CLOSE_TRIM_REGEX.exec(delimMin);
 				if (trim) {
 					delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
 				}
@@ -141,8 +156,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 				})
 			) {
 				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, require-unicode-regexp
-				const [, lead, inner, trail] = /^(\s*)(.*?)(\s*)$/m.exec(node.text!)!;
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				const [, lead, inner, trail] = EXPEL_WHITESPACE_REGEX.exec(node.text!)!;
 				leading += lead;
 				trailing = trail;
 				if (lead || trail) {
@@ -238,15 +253,11 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 					const backticks = generateOuterBacktickChain(node.text as string, 1);
 
 					// Make sure there is a space between fences, otherwise python-markdown renderer will get confused
-					// Ignored via go/ees005
-					// eslint-disable-next-line require-unicode-regexp
-					if (text.match(/^`/)) {
+					if (text.match(BACKTICK_START_REGEX)) {
 						text = ' ' + text;
 					}
 
-					// Ignored via go/ees005
-					// eslint-disable-next-line require-unicode-regexp
-					if (text.match(/`$/)) {
+					if (text.match(BACKTICK_END_REGEX)) {
 						text += ' ';
 					}
 
@@ -457,9 +468,7 @@ const editorNodes = {
 		// BB converts 4 spaces at the beginning of the line to code block
 		// that's why we escape 4 spaces with zero-width-non-joiner
 		const fourSpaces = '    ';
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		if (!previousNode && /^\s{4}/.test(node.textContent)) {
+		if (!previousNode && FOUR_SPACES_START_REGEX.test(node.textContent)) {
 			text = node.textContent.replace(fourSpaces, '\u200c' + fourSpaces);
 		}
 

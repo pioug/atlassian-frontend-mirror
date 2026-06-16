@@ -21,7 +21,6 @@ import { css, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { popupMotion } from '@atlaskit/top-layer/animations';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import {
@@ -226,32 +225,6 @@ export function PopupContentTopLayer({
 		popoverRef,
 		anchorRef,
 		isOpen,
-	});
-
-	/**
-	 * Register with the open-layer observer as a `popup` while open.
-	 *
-	 * The legacy compositional `PopupContent` registered every open
-	 * popup with the observer regardless of role, and product surfaces
-	 * such as the side-nav panel splitter rely on this signal to detect
-	 * open popups via `getCount({ type: 'popup' }) > 0`. The underlying
-	 * top-layer `Popover` only self-registers when its role is one of
-	 * `menu | listbox | dialog | alertdialog | tree | grid`, which would
-	 * miss role-less popups and silently regress the splitter.
-	 *
-	 * Registering here unconditionally preserves the legacy contract.
-	 * When the role does opt the `Popover` into observer registration
-	 * the count is incremented twice, which is safe because every known
-	 * consumer treats the count as a boolean (`> 0` / `=== 0`).
-	 */
-	const handleObserverClose = useCallback(() => {
-		onClose?.(createPopoverCloseEvent({ reason: 'programmatic' }));
-	}, [onClose]);
-
-	useNotifyOpenLayerObserver({
-		type: 'popup',
-		isOpen,
-		onClose: handleObserverClose,
 	});
 
 	// Narrow to ForwardRefExoticComponent so JSX accepts the ref prop.

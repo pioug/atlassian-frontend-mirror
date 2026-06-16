@@ -215,22 +215,34 @@ export class MediaStore implements MediaApi {
 		body: MediaStoreCreateFileFromUploadBody,
 		params: MediaStoreCreateFileFromUploadParams = {},
 		traceContext?: MediaTraceContext,
+		options?: { expectedFileSize?: number },
 	): Promise<MediaStoreResponse<MediaFile>> {
 		const metadata: RequestMetadata = {
 			method: 'POST',
 			endpoint: '/file/upload',
 		};
 
-		const options: MediaStoreRequestOptions = {
+		const headers: RequestHeaders = {
+			...jsonHeaders,
+		};
+
+		if (
+			options?.expectedFileSize !== undefined &&
+			fg('platform_media_upload_expected_size_header')
+		) {
+			headers['x-expected-size'] = options.expectedFileSize.toString();
+		}
+
+		const requestOptions: MediaStoreRequestOptions = {
 			...metadata,
 			authContext: { collectionName: params.collection },
 			params,
-			headers: jsonHeaders,
+			headers,
 			body: JSON.stringify(body),
 			traceContext,
 		};
 
-		return this.request('/file/upload', options).then(createMapResponseToJson(metadata));
+		return this.request('/file/upload', requestOptions).then(createMapResponseToJson(metadata));
 	}
 
 	getRejectedResponseFromDescriptor(
@@ -253,16 +265,28 @@ export class MediaStore implements MediaApi {
 		body: MediaStoreTouchFileBody,
 		params: MediaStoreTouchFileParams = {},
 		traceContext?: MediaTraceContext,
+		options?: { expectedFileSize?: number },
 	): Promise<MediaStoreResponse<TouchedFiles>> {
 		const metadata: RequestMetadata = {
 			method: 'POST',
 			endpoint: '/upload/createWithFiles',
 		};
 
-		const options: MediaStoreRequestOptions = {
+		const headers: RequestHeaders = {
+			...jsonHeaders,
+		};
+
+		if (
+			options?.expectedFileSize !== undefined &&
+			fg('platform_media_upload_expected_size_header')
+		) {
+			headers['x-expected-size'] = options.expectedFileSize.toString();
+		}
+
+		const requestOptions: MediaStoreRequestOptions = {
 			...metadata,
 			authContext: { collectionName: params.collection },
-			headers: jsonHeaders,
+			headers,
 			body: JSON.stringify(body),
 			traceContext,
 			params: {
@@ -270,7 +294,9 @@ export class MediaStore implements MediaApi {
 			},
 		};
 
-		return this.request('/upload/createWithFiles', options).then(createMapResponseToJson(metadata));
+		return this.request('/upload/createWithFiles', requestOptions).then(
+			createMapResponseToJson(metadata),
+		);
 	}
 
 	getFile(

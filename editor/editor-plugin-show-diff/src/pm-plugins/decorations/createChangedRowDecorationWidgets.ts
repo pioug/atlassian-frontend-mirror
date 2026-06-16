@@ -20,6 +20,7 @@ import {
 	deletedTraditionalCellOverlayStyle,
 	traditionalAddedCellOverlayStyle,
 } from './colorSchemes/traditional';
+import { buildDiffDecorationSpec } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 
 interface RowInfo {
@@ -284,6 +285,9 @@ export const createChangedRowDecorationWidgets = ({
 			originalDoc.slice(changedRow.fromA, changedRow.toA),
 		);
 
-		return Decoration.widget(safeInsertPos, rowDOM, {});
+		const diffId = crypto.randomUUID();
+		return Decoration.widget(safeInsertPos, rowDOM, {
+			...buildDiffDecorationSpec({ decorationType: 'widget', diffId, isActive: false }),
+		});
 	});
 };

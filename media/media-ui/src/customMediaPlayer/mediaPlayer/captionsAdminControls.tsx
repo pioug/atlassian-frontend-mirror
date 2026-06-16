@@ -9,14 +9,20 @@ import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'reac
 import { formatLocale } from './captions';
 import { token } from '@atlaskit/tokens';
 import MediaButton from '../../MediaButton';
-import { popupCustomStyles, createPopupSelectComponentsWithIcon } from '../dropdownControlCommon';
+import {
+	popupCustomStyles,
+	createPopupSelectComponentsWithIcon,
+	popperProps,
+	getPopperPropsForFullscreen,
+} from '../dropdownControlCommon';
 import { type OptionType, PopupSelect, type ValueType } from '@atlaskit/select';
-import { popperProps } from '../dropdownControlCommon';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface CaptionsAdminControlsProps {
 	textTracks?: VideoTextTracks;
 	onUpload: () => void;
 	onDelete: (artifactName: string) => void;
+	isFullScreen?: boolean;
 }
 
 const ADD_CAPTIONS_VALUE = 'add-captions';
@@ -35,6 +41,7 @@ export const _CaptionsAdminControls = ({
 	textTracks = {},
 	onUpload,
 	onDelete,
+	isFullScreen = false,
 }: CaptionsAdminControlsProps & WrappedComponentProps): React.JSX.Element => {
 	const manageCaptions = intl.formatMessage(messages.manage_captions);
 	const addCaptions = intl.formatMessage(messages.add_captions);
@@ -88,7 +95,11 @@ export const _CaptionsAdminControls = ({
 				</Tooltip>
 			)}
 			styles={popupCustomStyles}
-			popperProps={popperProps}
+			popperProps={
+				fg('platform_editor_video_caption_commit')
+					? getPopperPropsForFullscreen(isFullScreen)
+					: popperProps
+			}
 		/>
 	);
 };

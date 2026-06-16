@@ -206,19 +206,19 @@ describe('UFOThirdPartySegment', () => {
 				expect.objectContaining({ label: 'segment-timing-abort' }),
 			);
 
-			// Advance past the full 60 s mark from mount.
-			// The code computes remainingMs = ABORT_TIMEOUT_EXTENDED_MS - elapsed = 60000 - 3000 = 57000 ms
-			// from the moment the event arrived at 3 s, so the abort fires at 3 + 57 = 60 s from mount.
-			// We've already advanced 3000 + 2001 = 5001 ms, so we need at least 54999 ms more.
+			// Advance past the full 30 s mark from mount.
+			// The code computes remainingMs = ABORT_TIMEOUT_EXTENDED_MS - elapsed = 30000 - 3000 = 27000 ms
+			// from the moment the event arrived at 3 s, so the abort fires at 3 + 27 = 30 s from mount.
+			// We've already advanced 3000 + 2001 = 5001 ms, so we need at least 24999 ms more.
 			act(() => {
-				jest.advanceTimersByTime(55_000);
+				jest.advanceTimersByTime(25_000);
 			});
 			expect(mockAddIframeSegmentData).toHaveBeenCalledWith(
 				'test-interaction-id',
 				expect.anything(),
 				expect.objectContaining({
 					label: 'segment-timing-abort',
-					data: expect.objectContaining({ reason: 'timeout', abortAfterMs: 60_000 }),
+					data: expect.objectContaining({ reason: 'timeout', abortAfterMs: 30_000 }),
 				}),
 			);
 		});

@@ -179,6 +179,9 @@ export const AgentProfileCreator = ({
 		}
 
 		if (creator.type === 'REMOTE_A2A') {
+			if (fg('rovo_hide_remote_a2a_agent_creator')) {
+				return null;
+			}
 			return formatMessage(messages.remoteAgentCreatedBy, { creatorNameWithLink: creator.name });
 		}
 

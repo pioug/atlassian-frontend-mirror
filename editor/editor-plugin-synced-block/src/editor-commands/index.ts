@@ -22,6 +22,7 @@ import {
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import {
+	NodeSelection,
 	TextSelection,
 	type EditorState,
 	type Transaction,
@@ -35,6 +36,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
 import {
@@ -47,7 +49,7 @@ import {
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { FLAG_ID } from '../types';
 
-import { pasteSyncBlockHTMLContent } from './utils';
+import { findBodiedSyncBlockByLocalId, pasteSyncBlockHTMLContent } from './utils';
 
 type createSyncedBlockProps = {
 	fireAnalyticsEvent?: DispatchAnalyticsEvent;
@@ -290,6 +292,7 @@ export const editSyncedBlockSource =
 		}
 
 		const syncBlockURL = syncBlockStore.referenceManager.getSyncBlockURL(resourceId);
+		const syncBlockData = syncBlockStore.referenceManager.getFromCache(resourceId)?.data;
 
 		if (syncBlockURL) {
 			api?.analytics?.actions.fireAnalyticsEvent({
@@ -301,6 +304,18 @@ export const editSyncedBlockSource =
 					resourceId: resourceId,
 				},
 			});
+
+			if (syncBlockData?.onSameDocument && fg('platform_editor_blocks_patch_2')) {
+				const sourceBlock = findBodiedSyncBlockByLocalId(state, syncBlockData.blockInstanceId);
+
+				if (sourceBlock) {
+					const tr = state.tr
+						.setSelection(NodeSelection.create(state.doc, sourceBlock.pos))
+						.scrollIntoView();
+					dispatch?.(tr);
+					return true;
+				}
+			}
 
 			window.open(syncBlockURL, '_blank');
 		} else {

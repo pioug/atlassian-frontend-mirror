@@ -71,16 +71,30 @@ export type TypeAheadSection = {
 	filter: (item: TypeAheadItem) => boolean;
 	id: string;
 	limit?: number;
+	sectionTitleDisplay?: TypeAheadSectionTitleDisplay;
 	title: string;
+};
+
+export type TypeAheadSectionTitleDisplay = {
+	/**
+	 * Keeps this section's title visible when it is the only section with matching items.
+	 * Does not render the title for an empty section and does not override
+	 * `showWhenQueryPresent: false`.
+	 */
+	showWhenOnlySection?: boolean;
+	/**
+	 * Controls whether this section's title stays visible once the typeahead query is non-empty.
+	 * Defaults to true. Grouping, ordering, and section limits still apply when false.
+	 */
+	showWhenQueryPresent?: boolean;
 };
 
 export type TypeAheadSectionTitleUpdate = {
 	id: string;
 	/**
-	 * Keeps this section's title visible when it is the only section with matching items.
-	 * Does not render the title for an empty section.
+	 * Updates display rules for this section title in the current typeahead session.
 	 */
-	showTitleWhenOnlySection?: boolean;
+	sectionTitleDisplay?: TypeAheadSectionTitleDisplay;
 	title: string;
 };
 

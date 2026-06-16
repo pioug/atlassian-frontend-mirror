@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/comment",
-	"version": "13.3.1",
+	"version": "14.0.0",
 	"description": "A comment displays discussions and user feedback.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -82,14 +82,6 @@
 			],
 			"design-system": "v1",
 			"deprecation": "no-deprecated-imports"
-		}
-	},
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
 		}
 	},
 	"homepage": "https://atlassian.design/components/comment",

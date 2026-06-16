@@ -43,4 +43,5 @@ export type CardWithUrlContentProps = {
 	truncateInline?: boolean;
 	ui?: FlexibleUiOptions;
 	url: string;
+	title?: string;
 };

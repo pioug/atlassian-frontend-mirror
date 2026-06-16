@@ -61,6 +61,7 @@ const EmojiNodeFunctional = (props: EmojiProps) => {
 				shortName,
 			})}
 			editorEmoji={true}
+			renderUnicodeEmojiAsImage={false}
 		/>
 	);
 };

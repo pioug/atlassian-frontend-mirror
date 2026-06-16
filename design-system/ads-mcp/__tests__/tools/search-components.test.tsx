@@ -48,6 +48,9 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['calendar'], ['Calendar', 'DatePicker']],
 	[['progress'], ['ProgressTracker', 'ProgressIndicator']],
 
+	// Animation & motion
+	[['motion'], ['Motion', 'ExitingPersistence']],
+
 	// Feedback
 	[['spinner'], ['Spinner']],
 

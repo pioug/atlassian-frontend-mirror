@@ -19,6 +19,12 @@ export type CardSSRProps = CardProps & {
 	hideIconLoadingSkeleton?: boolean;
 	placeholderData?: SmartLinkResponse;
 	url: string;
+	/**
+	 * Server-rendered title fallback passed through to FlexibleCard layered links.
+	 * On SSR we cannot reliably derive TitleBlock text from children, so this keeps
+	 * server/client link text aligned and avoids hydration mismatches.
+	 */
+	title?: string;
 };
 
 // SSR friendly version of smart-card

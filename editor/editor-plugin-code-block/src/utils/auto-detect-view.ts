@@ -87,7 +87,8 @@ const runPendingDetection = (
 			},
 			eventType: EVENT_TYPE.TRACK,
 		})(tr);
-		return tr;
+		// Language detection runs in the background and should not move the viewport.
+		return tr.setMeta('scrollIntoView', false);
 	});
 };
 

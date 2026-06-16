@@ -48,6 +48,7 @@ export interface RendererProps {
 	allowColumnSorting?: boolean;
 	allowCopyToClipboard?: boolean;
 	allowCustomPanels?: boolean;
+	allowDownloadCodeBlock?: boolean;
 	allowFixedColumnWidthOption?: boolean;
 	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
 	allowPlaceholderText?: boolean;

@@ -1,4 +1,5 @@
 import { getInsertedCodeBlocksInTransaction } from '@atlaskit/editor-common/code-block';
+import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, NodeType as PMNodeType } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -26,16 +27,22 @@ export const hasEnoughTextForAutoDetection = (text: string): boolean =>
 export const getLocalId = (node: PMNode): string | null =>
 	typeof node.attrs.localId === 'string' ? node.attrs.localId : null;
 
+type CreateAutoDetectEntryOptions = {
+	// Preserve previous result for background re-detection; manual re-detection starts fresh.
+	preserveDetectionResult?: boolean;
+};
+
 export const createAutoDetectEntry = (
 	node: PMNode,
 	pos: number,
 	isPending: boolean,
 	previous?: AutoDetectEntry,
+	options: CreateAutoDetectEntryOptions = {},
 ): AutoDetectEntry => ({
 	lastObservedText: node.textContent,
 	lastObservedFirstLine: getFirstLine(node.textContent),
 	isPending,
-	detectionResult: previous?.detectionResult,
+	detectionResult: options.preserveDetectionResult === false ? undefined : previous?.detectionResult,
 	autoDetectedLanguage: previous?.autoDetectedLanguage,
 	pos,
 });
@@ -120,6 +127,9 @@ type CodeBlockTransactionChanges = {
 	insertedCodeBlocks: InsertedCodeBlock[];
 };
 
+const isHistoryMeta = (meta: unknown): meta is { redo: unknown } =>
+	typeof meta === 'object' && meta !== null && 'redo' in meta;
+
 const getCodeBlockTransactionChanges = (
 	tr: ReadonlyTransaction,
 	codeBlockType: PMNodeType,
@@ -166,6 +176,8 @@ export const updateAutoDetectState = (
 	const isPaste = tr.getMeta('paste') === true || tr.getMeta('uiEvent') === 'paste';
 	const isExternalContentChange =
 		tr.getMeta('replaceDocument') === true || tr.getMeta('isRemote') === true;
+	const historyMeta = tr.getMeta(pmHistoryPluginKey);
+	const isUndo = isHistoryMeta(historyMeta) && historyMeta.redo === false;
 	const hasTrackedEntries = Object.keys(pluginState.languageDetectionMap).length > 0;
 
 	// Page loads and remote edits should not start auto-detection for code blocks.
@@ -215,7 +227,15 @@ export const updateAutoDetectState = (
 
 			const currentLanguage = node.attrs.language;
 			const previousEntry = languageDetectionMap[localId];
-			if (currentLanguage && currentLanguage !== previousEntry.autoDetectedLanguage) {
+				// Undo metadata does not identify the changed node; compare the pre/post language
+				// so text undo inside auto-detection mode keeps the entry.
+				const previousLanguage = isUndo
+					? tr.before.nodeAt(tr.mapping.invert().map(pos))?.attrs.language
+					: undefined;
+			if (
+				(isUndo && previousLanguage && !currentLanguage) ||
+				(currentLanguage && currentLanguage !== previousEntry.autoDetectedLanguage)
+			) {
 				languageDetectionMap = removeAutoDetection(languageDetectionMap, localId);
 				return;
 			}

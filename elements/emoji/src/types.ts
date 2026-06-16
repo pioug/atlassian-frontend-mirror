@@ -276,13 +276,20 @@ export interface EmojiDescription extends EmojiId {
 	altRepresentation?: EmojiRepresentation;
 	ascii?: string[];
 	category: string;
+	color?: string;
 	createdDate?: string;
 	creatorUserId?: string;
+	fallback?: string;
+	hidden?: boolean;
+	keywords?: string[];
 	name?: string;
 	order?: number;
 	representation: EmojiRepresentation;
 	searchable: boolean;
 	type: string;
+	variantBase?: boolean;
+	variantChildren?: string[];
+	variantParent?: string;
 }
 
 export interface EmojiDescriptionWithVariations extends EmojiDescription {

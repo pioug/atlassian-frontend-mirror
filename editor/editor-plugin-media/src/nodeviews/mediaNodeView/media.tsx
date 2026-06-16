@@ -320,6 +320,9 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props;
 
 		const borderMark = node.marks.find((m) => m.type.name === 'border');
+		const dataConsumerMark = fg('cc-maui-add-mark-for-remix-generated-images')
+			? node.marks.find((m) => m.type.name === 'dataConsumer')
+			: undefined;
 
 		const { viewMediaClientConfig, viewAndUploadMediaClientConfig, contextIdentifierProvider } =
 			this.state;
@@ -388,6 +391,9 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 					data={{
 						[MEDIA_CONTEXT]: {
 							border: !!borderMark,
+							// Only defined for remix-generated media (i.e. media nodes with a dataConsumer mark).
+							// Format: "remix:{type}:{subtype}" e.g. "remix:infographic:corporate-doodle"
+							remixSource: dataConsumerMark?.attrs.sources?.[0],
 						},
 					}}
 				>

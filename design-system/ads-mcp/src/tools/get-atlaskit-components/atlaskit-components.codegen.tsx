@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::bd5b86ae65b6b9e48b637d6a463db4f9>>
+ * @codegen <<SignedSource::295ec1e9a2e00f56b3fdbb37f170a1c1>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:atlaskit-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -343,6 +343,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'MenuItem[]',
 			},
 			{
+				name: 'isEditorModernisationEnabled',
+				type: 'boolean',
+			},
+			{
 				name: 'legacyImageUploadProvider',
 				type: 'Promise<ImageUploadProvider>',
 			},
@@ -552,7 +556,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'api',
-				type: '{ blockControls: BasePluginDependenciesAPI<{ actions: { registerNodeDecoration: (factory: NodeDecorationFactory) => void; unregisterNodeDecoration: (type: string) => void; }; commands: { ...; }; dependencies: BlockControlsPluginDependencies; pluginConfiguration?: BlockControlsPluginConfig; sharedState: { ...; }; }>;...',
+				type: '{ blockControls: BasePluginDependenciesAPI<{ actions: { getTextInfo: (editorView: EditorView) => { textContent: string; textLength: number; }; registerNodeDecoration: (factory: NodeDecorationFactory) => void; unregisterNodeDecoration: (type: string) => void; }; commands: { ...; }; dependencies: BlockControlsPluginDe...',
 			},
 			{
 				name: 'config',
@@ -1126,6 +1130,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '(key: string, width: number) => void',
 			},
 			{
+				name: 'onColumnSort',
+				type: '(key: string) => void',
+				description: 'Callback to be invoked whenever a user sorts a datasource table by a column.',
+			},
+			{
 				name: 'onVisibleColumnKeysChange',
 				type: '(visibleColumnKeys: string[]) => void',
 				description:
@@ -1149,6 +1158,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'number',
 				description:
 					'If this number is set it will restrict (max-height) maximum size of the component AND make main container a scrollable container.\nIt this number is 0 it will not restrict height and not make container scrollable.',
+			},
+			{
+				name: 'sortState',
+				type: '{ direction: DatasourceTableSortDirection; key: string; }',
 			},
 			{
 				name: 'url',
@@ -1810,8 +1823,9 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onClick',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void',
-				description: 'A callback function after a link is clicked.',
+				type: '(event: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>, data?: OnClickData) => void',
+				description:
+					'A callback function triggered when a Smart Link is clicked.\n\nWhen defined, the default browser navigation is prevented and your handler\nis responsible for navigation — except for Flexible Card, which always opens\nthe link and then calls the callback.\n\nThe optional second argument `data` provides additional context about the click:\n- `data.destinationUrl` — the resolved URL Smart Link will navigate to.\n  This may differ from the original `url` prop if Smart Link resolved a\n  preferred URL from metadata or appended analytics parameters.\n- `data.url` — the original `url` prop passed to the component.\n\n@example\n// Basic usage\nonClick={(e) => { e.preventDefault(); window.location.href = myUrl; }}\n\n// With destination URL\nonClick={(e, data) => { navigate(data?.destinationUrl ?? url); }}',
 			},
 			{
 				name: 'onError',
@@ -2481,8 +2495,9 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'onClick',
-				type: '(event: MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>) => void',
-				description: 'A callback function after a link is clicked.',
+				type: '(event: MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>, data?: OnClickData) => void',
+				description:
+					'A callback function triggered when a Smart Link is clicked.\n\nWhen defined, the default browser navigation is prevented and your handler\nis responsible for navigation — except for Flexible Card, which always opens\nthe link and then calls the callback.\n\nThe optional second argument `data` provides additional context about the click:\n- `data.destinationUrl` — the resolved URL Smart Link will navigate to.\n  This may differ from the original `url` prop if Smart Link resolved a\n  preferred URL from metadata or appended analytics parameters.\n- `data.url` — the original `url` prop passed to the component.\n\n@example\n// Basic usage\nonClick={(e) => { e.preventDefault(); window.location.href = myUrl; }}\n\n// With destination URL\nonClick={(e, data) => { navigate(data?.destinationUrl ?? url); }}',
 			},
 			{
 				name: 'onError',

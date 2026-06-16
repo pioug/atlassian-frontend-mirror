@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "11.8.4",
+	"version": "12.0.0",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -10,13 +10,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "src/index.tsx",
-	"typesVersions": {
-		">=4.0 <4.5": {
-			"*": [
-				"dist/types-ts4.0/*"
-			]
-		}
-	},
 	"atlaskit:src": "src/index.tsx",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {

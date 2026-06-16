@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "9.1.21",
+	"version": "10.0.1",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -17,14 +17,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"exports": {
@@ -116,6 +108,9 @@
 	},
 	"platform-feature-flags": {
 		"confluence_fronend_labels_categorization_migration": {
+			"type": "boolean"
+		},
+		"platform_editor_blocks_patch_2": {
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_13": {

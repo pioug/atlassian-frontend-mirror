@@ -1,5 +1,73 @@
 # @atlaskit/renderer
 
+## 133.2.0
+
+### Minor Changes
+
+- [`1abdd6ae1f4aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1abdd6ae1f4aa) -
+  Add renderUnicodeEmojiAsImage prop to render unicode emojis as images via OffscreenCanvas, with
+  override to text as alternative
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.1.0
+
+### Minor Changes
+
+- [`19869b1832800`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19869b1832800) -
+  Add download button to code block toolbar in Rovo Chat. When enabled via the
+  rovo_chat_code_block_download feature gate, users can download code snippets (HTML, Python,
+  Markdown, etc.) directly as a file with the correct extension (e.g. rovo-snippet.html,
+  rovo-snippet.py). Adds allowDownloadCodeBlock prop to ReactRenderer (opt-in, defaults to false).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Minor Changes
+
+- [`458ee17c2c8ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/458ee17c2c8ee) -
+  Register layout column vertical alignment rendering experiment and gate renderer layout column
+  vertical alignment styles behind it
+
+### Patch Changes
+
+- [`eb0de97776ce5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb0de97776ce5) -
+  cleanup to prefer static regex as part of ees019
+- Updated dependencies
+
+## 132.7.0
+
+### Minor Changes
+
+- [`a80e758660883`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a80e758660883) -
+  add remixSource attribute to mediaCardRender events behind
+  cc-maui-add-mark-for-remix-generated-images FF
+
 ## 132.6.1
 
 ### Patch Changes

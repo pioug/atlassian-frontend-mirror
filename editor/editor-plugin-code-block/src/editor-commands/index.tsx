@@ -47,14 +47,14 @@ import type {
 } from '../pm-plugins/main-state';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { transformToCodeBlockAction } from '../pm-plugins/transform-to-code-block';
-import type { CodeBlockFormatProvider } from '../types';
+import type { CodeBlockFormatProvider, FormatResult } from '../types';
 import type { LanguagePickerSelectionSource } from '../ui/language-picker-options';
 import {
 	createAutoDetectEntry,
 	getLocalId,
 	hasEnoughTextForAutoDetection,
 } from '../utils/auto-detect-state';
-import type { FormatCodeResult, LanguageSource } from '../utils/format-code/formatter';
+import type { LanguageSource } from '../utils/format-code/formatter';
 
 export const removeCodeBlockWithAnalytics = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -167,6 +167,7 @@ export const detectLanguage = (): Command => (state, dispatch) => {
 		pos,
 		hasEnoughTextForAutoDetection(node.textContent),
 		previousEntry,
+		{ preserveDetectionResult: false },
 	);
 	const tr = state.tr
 		.setNodeMarkup(pos, state.schema.nodes.codeBlock, { ...node.attrs, language: null })
@@ -196,7 +197,7 @@ const setResolveFormatCodeMeta = (
 		requestId,
 		errorType,
 	}: {
-		errorType?: Extract<FormatCodeResult, { status: 'failed' }>['errorType'];
+		errorType?: Extract<FormatResult, { status: 'failed' }>['errorType'];
 		languageSource: LanguageSource;
 		localId: string;
 		outcome: ResolveFormatCodeOutcome;
@@ -245,7 +246,7 @@ const attachFormatCodeAnalytics = ({
 }: {
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	languageSource: LanguageSource;
-	result: FormatCodeResult;
+	result: FormatResult;
 	tr: Transaction;
 }): void => {
 	if (result.status === 'failed') {
@@ -284,7 +285,7 @@ const createResolveFormatCodeTransaction = ({
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	localId: string;
 	pendingFormat: PendingFormatRequest;
-	result: FormatCodeResult;
+	result: FormatResult;
 	tr: Transaction;
 }): Transaction => {
 	const { languageSource, requestId } = pendingFormat;
@@ -395,7 +396,7 @@ export const createFormatCodeOnClick =
 		void formatCodeProvider
 			.formatCode({ content, language: currentLanguage })
 			.catch(
-				(): FormatCodeResult => ({
+				(): FormatResult => ({
 					errorType: 'formatter-execution-failed',
 					language: currentLanguage,
 					status: 'failed',

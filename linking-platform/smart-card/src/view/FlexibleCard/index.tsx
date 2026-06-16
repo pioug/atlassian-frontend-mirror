@@ -45,6 +45,7 @@ const FlexibleCard = ({
 	testId,
 	ui,
 	url,
+	title: ssrTitle,
 }: FlexibleCardProps): React.JSX.Element => {
 	const aiSummaryConfig = useAISummaryConfig();
 	const resolve = useResolve();
@@ -176,6 +177,7 @@ const FlexibleCard = ({
 			<Container
 				testId={testId}
 				{...ui}
+				title={ssrTitle}
 				onClick={onClick}
 				onAuxClick={onAuxClick}
 				onContextMenu={onContextMenu}

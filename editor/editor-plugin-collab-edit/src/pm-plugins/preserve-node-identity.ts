@@ -1,6 +1,5 @@
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * Walk two Fragments (old and new) and return a Fragment that reuses old node
@@ -63,8 +62,7 @@ export function preserveNodeIdentity(oldFragment: Fragment, newFragment: Fragmen
 				oldChild.type === newChild.type &&
 				oldChild.sameMarkup(newChild) &&
 				oldChild.content.childCount > 0 &&
-				newChild.content.childCount > 0 &&
-				expValEquals('platform_editor_preserve_node_identity', 'isRecursive', true)
+				newChild.content.childCount > 0
 			) {
 				// Same type and markup but different content — recurse into children
 				const preservedContent = preserveNodeIdentity(oldChild.content, newChild.content);

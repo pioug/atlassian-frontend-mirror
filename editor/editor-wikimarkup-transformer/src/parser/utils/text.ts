@@ -7,10 +7,12 @@ export function hasAnyOfMarks(node: PMNode, types: string[]): boolean {
 	return node.marks.findIndex((m) => types.findIndex((t) => m.type.name === t) !== -1) !== -1;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const DIGIT_REGEX = /^\d$/;
+
 export function isDigit(value: string): boolean {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return !!value.match(/^\d$/);
+	return !!value.match(DIGIT_REGEX);
 }
 
 export function isBlank(value: string | null): boolean {

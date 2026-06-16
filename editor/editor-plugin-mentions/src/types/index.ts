@@ -53,8 +53,33 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
  */
 export type MentionPluginOptions = MentionsPluginOptions;
 
+export type AgentMentionDetails = {
+	id: string;
+	context: string | null;
+	nodeSize: number;
+	parentNodeType: string | null;
+	pos: number;
+};
+
 export type MentionPluginState = {
 	canInsertMention?: boolean;
+	/**
+	 * @internal Tracks a typed agent mention while waiting for the platform-side
+	 * ready-to-fire trigger. Consumers should continue to react only to
+	 * lastInsertedAgentMention* fields.
+	 */
+	pendingTypedAgentMention?: {
+		id: string;
+		localId: string;
+		nodeSize: number;
+		pos: number;
+		/**
+		 * Generation value for the inactivity timer. This changes when local edits
+		 * reset the pending mention window, so stale timer callbacks for the same
+		 * localId cannot publish before the latest inactivity period has elapsed.
+		 */
+		resetCount: number;
+	} | null;
 	/**
 	 * Increments on each new agent mention insertion (including re-mentions of the same agent).
 	 * Used to trigger re-renders when the same agent is mentioned again.

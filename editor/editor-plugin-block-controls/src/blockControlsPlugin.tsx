@@ -99,7 +99,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 			if (editorExperiment('platform_editor_controls', 'variant1')) {
 				pmPlugins.push({
 					name: 'blockControlsInteractionTrackingPlugin',
-					plugin: () => createInteractionTrackingPlugin(rightSideControlsEnabled),
+					plugin: () => createInteractionTrackingPlugin(rightSideControlsEnabled, api),
 				});
 			}
 

@@ -12,7 +12,11 @@ import type {
 	ExtractInjectionAPI,
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
-import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	SafeStateField,
+} from '@atlaskit/editor-prosemirror/state';
 import { insm } from '@atlaskit/insm';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
@@ -24,12 +28,19 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mentionNodeView';
 import { MENTION_PROVIDER_REJECTED, MENTION_PROVIDER_UNDEFINED } from '../types';
-import type { FireElementsChannelEvent, MentionPluginOptions, MentionPluginState } from '../types';
+import type {
+	AgentMentionDetails,
+	FireElementsChannelEvent,
+	MentionPluginOptions,
+	MentionPluginState,
+} from '../types';
 
 import { mentionPluginKey } from './key';
 import { canMentionBeCreatedInRange } from './utils';
 
 export const ACTIONS = {
+	COMMIT_PENDING_TYPED_AGENT_MENTION: 'COMMIT_PENDING_TYPED_AGENT_MENTION',
+	SET_PENDING_TYPED_AGENT_MENTION: 'SET_PENDING_TYPED_AGENT_MENTION',
 	SET_PROVIDER: 'SET_PROVIDER',
 };
 
@@ -37,6 +48,7 @@ export const ACTIONS = {
 const AGENT_USER_TYPES = new Set<MentionUserType | 'AGENT'>(['APP', 'AGENT']);
 
 const AI_STREAMING_TRANSFORMATION_META_KEY = 'isAIStreamingTransformation' as const;
+const AGENT_MENTION_INACTIVITY_MS = 3000;
 
 const PACKAGE_NAME = process.env._PACKAGE_NAME_ as string;
 const PACKAGE_VERSION = process.env._PACKAGE_VERSION_ as string;
@@ -54,6 +66,127 @@ const setProvider =
 		}
 		return true;
 	};
+
+/**
+ * Returns true when a transaction represents a local user document edit that
+ * should restart pending agent-mention inactivity tracking.
+ *
+ * Remote/collab updates, replace-document transactions, AI streaming transforms,
+ * selection-only movements, and metadata-only transactions are intentionally ignored.
+ */
+const isQualifyingLocalUserDocChange = (tr: ReadonlyTransaction) => {
+	const isAIStreaming = Boolean(tr.getMeta(AI_STREAMING_TRANSFORMATION_META_KEY));
+
+	return (
+		tr.docChanged && !tr.getMeta('isRemote') && !tr.getMeta('replaceDocument') && !isAIStreaming
+	);
+};
+
+/**
+ * Reads agent-mention details from a known document position without traversing
+ * the document. Callers pass a matcher so mapped positions are only accepted
+ * when they still point at the same pending/tracked mention.
+ */
+const getAgentMentionDetailsAtPos = (
+	state: EditorState,
+	pos: number,
+	matchesMention: (attrs: Record<string, unknown>) => boolean,
+): AgentMentionDetails | null => {
+	if (pos < 0 || pos > state.doc.content.size) {
+		return null;
+	}
+
+	const node = state.doc.nodeAt(pos);
+	const mentionSchema = state.schema.nodes.mention;
+	if (
+		node?.type !== mentionSchema ||
+		!AGENT_USER_TYPES.has(node.attrs.userType) ||
+		!matchesMention(node.attrs) ||
+		!node.attrs.id
+	) {
+		return null;
+	}
+
+	const $mentionPos = state.doc.resolve(pos);
+	const parentNode = $mentionPos.node($mentionPos.depth);
+
+	return {
+		id: node.attrs.id as string,
+		context: parentNode.textContent.trim() || null,
+		nodeSize: node.nodeSize,
+		parentNodeType: parentNode.type.name ?? null,
+		pos,
+	};
+};
+
+/**
+ * Finds an agent mention that survived a document change when the changed-range
+ * scan did not find one. Prefers the previously tracked mention ID when present;
+ * otherwise returns a surviving agent mention using the existing traversal order.
+ */
+const getSurvivingAgentMentionDetails = (
+	state: EditorState,
+	preferredId: string,
+): AgentMentionDetails | null => {
+	const mentionSchema = state.schema.nodes.mention;
+	let result: AgentMentionDetails | null = null;
+
+	state.doc.descendants((node, pos) => {
+		if (result?.id === preferredId) {
+			return false;
+		}
+		if (
+			node.type !== mentionSchema ||
+			!AGENT_USER_TYPES.has(node.attrs.userType) ||
+			!node.attrs.id
+		) {
+			return true;
+		}
+
+		result = getAgentMentionDetailsAtPos(state, pos, (attrs) => attrs.id === node.attrs.id);
+
+		return result?.id !== preferredId;
+	});
+
+	return result;
+};
+
+/**
+ * Maps a pending typed agent mention through a document-changing transaction and
+ * returns the updated pending state. If the mapped position was deleted or no
+ * longer points at the same local mention, the pending mention is cleared.
+ */
+const getPendingTypedAgentMentionAfterDocChange = (
+	state: EditorState,
+	tr: ReadonlyTransaction,
+	pendingTypedAgentMention: NonNullable<MentionPluginState['pendingTypedAgentMention']>,
+	{ resetTimer }: { resetTimer: boolean },
+) => {
+	const mappedPos = tr.mapping.mapResult(pendingTypedAgentMention.pos, 1);
+	const resetCount = resetTimer
+		? pendingTypedAgentMention.resetCount + 1
+		: pendingTypedAgentMention.resetCount;
+
+	if (mappedPos.deleted) {
+		return null;
+	}
+
+	const pendingMentionDetails = getAgentMentionDetailsAtPos(
+		state,
+		mappedPos.pos,
+		(attrs) => attrs.localId === pendingTypedAgentMention.localId,
+	);
+
+	return pendingMentionDetails
+		? {
+				id: pendingMentionDetails.id,
+				localId: pendingTypedAgentMention.localId,
+				nodeSize: pendingMentionDetails.nodeSize,
+				pos: pendingMentionDetails.pos,
+				resetCount,
+			}
+		: null;
+};
 
 interface CreateMentionPlugin {
 	api?: ExtractInjectionAPI<MentionsPlugin>;
@@ -113,8 +246,12 @@ export function createMentionPlugin({
 					action: null,
 					params: null,
 				};
-				let hasNewPluginState = false;
+				let hasPublicPluginStateChanged = false;
 				let newPluginState = pluginState;
+				const isAgentMentionsExperimentEnabled = editorExperiment(
+					'platform_editor_agent_mentions',
+					true,
+				);
 
 				const hasPositionChanged =
 					oldState.selection.from !== newState.selection.from ||
@@ -128,24 +265,74 @@ export function createMentionPlugin({
 							newState.selection.to,
 						)(newState),
 					};
-					hasNewPluginState = true;
+					hasPublicPluginStateChanged = true;
 				}
 
 				switch (action) {
+					case ACTIONS.COMMIT_PENDING_TYPED_AGENT_MENTION: {
+						const pendingTypedAgentMention = newPluginState.pendingTypedAgentMention;
+						// Ignore stale timer callbacks. The localId and resetCount must still match the
+						// current pending mention so older timers cannot publish after later user edits.
+						if (
+							!isAgentMentionsExperimentEnabled ||
+							!pendingTypedAgentMention ||
+							pendingTypedAgentMention.localId !== params?.localId ||
+							pendingTypedAgentMention.resetCount !== params?.resetCount
+						) {
+							break;
+						}
+
+						const pendingMentionDetails = getAgentMentionDetailsAtPos(
+							newState,
+							pendingTypedAgentMention.pos,
+							(attrs) => attrs.localId === pendingTypedAgentMention.localId,
+						);
+
+						if (!pendingMentionDetails) {
+							newPluginState = {
+								...newPluginState,
+								pendingTypedAgentMention: null,
+							};
+							break;
+						}
+
+						newPluginState = {
+							...newPluginState,
+							pendingTypedAgentMention: null,
+							lastInsertedAgentMentionId: pendingMentionDetails.id,
+							lastInsertedAgentMentionContext: pendingMentionDetails.context,
+							lastInsertedAgentMentionParentNodeType: pendingMentionDetails.parentNodeType,
+							lastAgentMentionInsertionCount:
+								(newPluginState.lastAgentMentionInsertionCount ?? 0) + 1,
+						};
+						hasPublicPluginStateChanged = true;
+						break;
+					}
 					case ACTIONS.SET_PROVIDER:
 						newPluginState = {
 							...newPluginState,
 							mentionProvider: params.provider,
 						};
-						hasNewPluginState = true;
+						hasPublicPluginStateChanged = true;
 						break;
 				}
 
 				// When the agent mentions experiment is off, dispatch immediately (original behaviour).
 				// When it's on, defer dispatch to after the agent tracking block below so that
 				// agent-mention state changes are included in the notification.
-				if (hasNewPluginState && !editorExperiment('platform_editor_agent_mentions', true)) {
+				if (hasPublicPluginStateChanged && !isAgentMentionsExperimentEnabled) {
 					pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
+				}
+
+				if (isAgentMentionsExperimentEnabled && tr.docChanged && tr.getMeta('replaceDocument')) {
+					newPluginState = {
+						...newPluginState,
+						pendingTypedAgentMention: null,
+						lastInsertedAgentMentionId: null,
+						lastInsertedAgentMentionContext: null,
+						lastInsertedAgentMentionParentNodeType: null,
+					};
+					hasPublicPluginStateChanged = true;
 				}
 
 				type MentionMapItem = {
@@ -223,7 +410,7 @@ export function createMentionPlugin({
 					tr.docChanged &&
 					!tr.getMeta('replaceDocument') &&
 					!isAIStreaming &&
-					editorExperiment('platform_editor_agent_mentions', true)
+					isAgentMentionsExperimentEnabled
 				) {
 					const mentionSchema = newState.schema.nodes.mention;
 
@@ -275,27 +462,49 @@ export function createMentionPlugin({
 						}
 					});
 
-					if (stepsTouchMentions || newPluginState.lastInsertedAgentMentionId) {
+					const shouldResolveAgentMentionState =
+						stepsTouchMentions || Boolean(newPluginState.lastInsertedAgentMentionId);
+
+					if (shouldResolveAgentMentionState) {
 						let agentMentionId: string | null = null;
 						let agentMentionContext: string | null = null;
 						let agentMentionParentNodeType: string | null = null;
 						let newCount = 0;
 						let oldAgentMentionId: string | null = null;
 						let oldCount = 0;
+						const pendingTypedAgentMentionDetails: { current?: AgentMentionDetails } = {};
 
 						if (stepsTouchMentions) {
 							for (const [from, to] of newDocRanges) {
 								const clampedTo = Math.min(to, newState.doc.content.size);
 								if (from >= clampedTo) continue;
-								newState.doc.nodesBetween(from, clampedTo, (node, _pos, parent) => {
+								newState.doc.nodesBetween(from, clampedTo, (node, pos) => {
 									if (node.type !== mentionSchema || !AGENT_USER_TYPES.has(node.attrs.userType)) {
 										return true;
 									}
 									newCount++;
+									if (
+										pendingTypedAgentMentionDetails.current === undefined &&
+										action === ACTIONS.SET_PENDING_TYPED_AGENT_MENTION &&
+										node.attrs.localId === params?.localId
+									) {
+										pendingTypedAgentMentionDetails.current = getAgentMentionDetailsAtPos(
+											newState,
+											pos,
+											(attrs) => attrs.localId === params.localId,
+										) ?? undefined;
+									}
 									if (agentMentionId === null && node.attrs.id) {
-										agentMentionId = node.attrs.id as string;
-										agentMentionParentNodeType = parent?.type.name ?? null;
-										agentMentionContext = parent?.textContent.trim() || null;
+										const agentMentionDetails = getAgentMentionDetailsAtPos(
+											newState,
+											pos,
+											(attrs) => attrs.id === node.attrs.id,
+										);
+										if (agentMentionDetails) {
+											agentMentionId = agentMentionDetails.id;
+											agentMentionContext = agentMentionDetails.context;
+											agentMentionParentNodeType = agentMentionDetails.parentNodeType;
+										}
 									}
 									return true;
 								});
@@ -320,39 +529,60 @@ export function createMentionPlugin({
 						// When a deletion collapses the new-doc range to a zero-width point, or when
 						// the doc changed but no step covered the tracked mention, the new-doc scan
 						// above finds nothing. Check whether any agent mention survived in the document.
-						let resolvedFromSurvivor = false;
+						let resolvedFromFullDocFallback = false;
 						if (agentMentionId === null && newPluginState.lastInsertedAgentMentionId) {
-							const prevId = newPluginState.lastInsertedAgentMentionId;
-							let survivorId: string | null = null;
-							let survivorContext: string | null = null;
-							let survivorParentNodeType: string | null = null;
-							newState.doc.descendants((node, _pos, parent) => {
-								if (survivorId === prevId) return false;
-								if (node.type === mentionSchema && AGENT_USER_TYPES.has(node.attrs.userType)) {
-									// Prefer the previously tracked ID; otherwise keep the first found.
-									survivorId = node.attrs.id as string;
-									survivorParentNodeType = parent?.type.name ?? null;
-									survivorContext = parent?.textContent.trim() || null;
-								}
-								return survivorId !== prevId;
-							});
-							if (survivorId !== null) {
-								agentMentionId = survivorId;
-								agentMentionContext = survivorContext;
-								agentMentionParentNodeType = survivorParentNodeType;
-								resolvedFromSurvivor = true;
+							const survivorDetails = getSurvivingAgentMentionDetails(
+								newState,
+								newPluginState.lastInsertedAgentMentionId,
+							);
+							if (survivorDetails) {
+								agentMentionId = survivorDetails.id;
+								agentMentionContext = survivorDetails.context;
+								agentMentionParentNodeType = survivorDetails.parentNodeType;
+								resolvedFromFullDocFallback = true;
 							}
 						}
 
 						const isNewInsertion =
 							agentMentionId !== null &&
-							!resolvedFromSurvivor &&
+							!resolvedFromFullDocFallback &&
 							(oldAgentMentionId !== agentMentionId || newCount > oldCount);
+						const isPendingTypedAgentMentionInsertion =
+							isNewInsertion &&
+							action === ACTIONS.SET_PENDING_TYPED_AGENT_MENTION &&
+							typeof params?.localId === 'string';
 						const newInsertionCount = isNewInsertion
 							? (newPluginState.lastAgentMentionInsertionCount ?? 0) + 1
 							: undefined;
 
-						if (
+						if (isPendingTypedAgentMentionInsertion && pendingTypedAgentMentionDetails.current) {
+							const pendingTypedAgentMentionLocalId = params?.localId as string;
+
+							newPluginState = {
+								...newPluginState,
+								pendingTypedAgentMention: {
+									id: pendingTypedAgentMentionDetails.current.id,
+									localId: pendingTypedAgentMentionLocalId,
+									nodeSize: pendingTypedAgentMentionDetails.current.nodeSize,
+									pos: pendingTypedAgentMentionDetails.current.pos,
+									resetCount: 1,
+								},
+							};
+						} else if (isPendingTypedAgentMentionInsertion) {
+							// Fallback: if the localId-specific scan missed the typed mention,
+							// publish immediately so the insertion is not dropped.
+							newPluginState = {
+								...newPluginState,
+								pendingTypedAgentMention: null,
+								lastInsertedAgentMentionId: agentMentionId,
+								lastInsertedAgentMentionContext: agentMentionContext,
+								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
+								...(newInsertionCount !== undefined
+									? { lastAgentMentionInsertionCount: newInsertionCount }
+									: {}),
+							};
+							hasPublicPluginStateChanged = true;
+						} else if (
 							agentMentionId !== (newPluginState.lastInsertedAgentMentionId ?? null) ||
 							agentMentionContext !== (newPluginState.lastInsertedAgentMentionContext ?? null) ||
 							agentMentionParentNodeType !==
@@ -368,12 +598,30 @@ export function createMentionPlugin({
 									? { lastAgentMentionInsertionCount: newInsertionCount }
 									: {}),
 							};
-							hasNewPluginState = true;
+							hasPublicPluginStateChanged = true;
 						}
 					}
 				}
 
-				if (hasNewPluginState && editorExperiment('platform_editor_agent_mentions', true)) {
+				if (
+					isAgentMentionsExperimentEnabled &&
+					newPluginState.pendingTypedAgentMention &&
+					action !== ACTIONS.SET_PENDING_TYPED_AGENT_MENTION &&
+					action !== ACTIONS.COMMIT_PENDING_TYPED_AGENT_MENTION &&
+					tr.docChanged
+				) {
+					newPluginState = {
+						...newPluginState,
+						pendingTypedAgentMention: getPendingTypedAgentMentionAfterDocChange(
+							newState,
+							tr,
+							newPluginState.pendingTypedAgentMention,
+							{ resetTimer: isQualifyingLocalUserDocChange(tr) },
+						),
+					};
+				}
+
+				if (hasPublicPluginStateChanged && isAgentMentionsExperimentEnabled) {
 					pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
 				}
 
@@ -392,6 +640,64 @@ export function createMentionPlugin({
 			},
 		},
 		view(editorView) {
+			const isAgentMentionsEnabled = editorExperiment('platform_editor_agent_mentions', true);
+			let pendingTypedAgentMentionTimer: ReturnType<typeof setTimeout> | undefined;
+			let pendingTypedAgentMentionTimerKey: string | null = null;
+
+			const clearPendingTypedAgentMentionTimer = () => {
+				if (pendingTypedAgentMentionTimer) {
+					clearTimeout(pendingTypedAgentMentionTimer);
+					pendingTypedAgentMentionTimer = undefined;
+				}
+				pendingTypedAgentMentionTimerKey = null;
+			};
+
+			const schedulePendingTypedAgentMentionTimer = (
+				mentionPluginState: MentionPluginState | undefined,
+			) => {
+				if (!isAgentMentionsEnabled) {
+					clearPendingTypedAgentMentionTimer();
+					return;
+				}
+
+				const pendingTypedAgentMention = mentionPluginState?.pendingTypedAgentMention;
+				if (!pendingTypedAgentMention) {
+					clearPendingTypedAgentMentionTimer();
+					return;
+				}
+
+				const timerKey = `${pendingTypedAgentMention.localId}:${pendingTypedAgentMention.resetCount}`;
+				if (timerKey === pendingTypedAgentMentionTimerKey) {
+					return;
+				}
+
+				clearPendingTypedAgentMentionTimer();
+				pendingTypedAgentMentionTimerKey = timerKey;
+				pendingTypedAgentMentionTimer = setTimeout(() => {
+					const latestPendingTypedAgentMention = mentionPluginKey.getState(
+						editorView.state,
+					)?.pendingTypedAgentMention;
+
+					if (
+						!latestPendingTypedAgentMention ||
+						latestPendingTypedAgentMention.localId !== pendingTypedAgentMention.localId ||
+						latestPendingTypedAgentMention.resetCount !== pendingTypedAgentMention.resetCount
+					) {
+						return;
+					}
+
+					editorView.dispatch(
+						editorView.state.tr.setMeta(mentionPluginKey, {
+							action: ACTIONS.COMMIT_PENDING_TYPED_AGENT_MENTION,
+							params: {
+								localId: pendingTypedAgentMention.localId,
+								resetCount: pendingTypedAgentMention.resetCount,
+							},
+						}),
+					);
+				}, AGENT_MENTION_INACTIVITY_MS);
+			};
+
 			const providerHandler = (
 				name: string,
 				providerPromise?: Promise<MentionProvider | ContextIdentifierProvider>,
@@ -454,7 +760,15 @@ export function createMentionPlugin({
 			}
 
 			return {
+				update(view, prevState) {
+					const mentionPluginState = mentionPluginKey.getState(view.state);
+					if (mentionPluginState === mentionPluginKey.getState(prevState)) {
+						return;
+					}
+					schedulePendingTypedAgentMentionTimer(mentionPluginState);
+				},
 				destroy() {
+					clearPendingTypedAgentMentionTimer();
 					if (pmPluginFactoryParams.providerFactory) {
 						pmPluginFactoryParams.providerFactory.unsubscribe('mentionProvider', providerHandler);
 					}

@@ -3,13 +3,15 @@ import type { AddArgs, List, ListItem, ListType } from '../../interfaces';
 
 const supportedContentType = ['paragraph', 'orderedList', 'bulletList', 'mediaSingle', 'codeBlock'];
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ORDERED_LIST_REGEX = /#$/;
+
 /**
  * Return the type of a list from the bullets
  */
 export function getType(bullets: string): ListType {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return /#$/.test(bullets) ? 'orderedList' : 'bulletList';
+	return ORDERED_LIST_REGEX.test(bullets) ? 'orderedList' : 'bulletList';
 }
 
 export class ListBuilder {

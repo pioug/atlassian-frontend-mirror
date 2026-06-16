@@ -23,6 +23,14 @@ class TestableEditorCardProvider extends EditorCardProvider {
 	}
 }
 
+// Test subclass that opts in to honouring a requested embed appearance as the
+// default, mirroring how Confluence overrides the hook behind an experiment.
+class OptInEmbedEditorCardProvider extends EditorCardProvider {
+	protected shouldHonorRequestedEmbedAsDefault(): boolean {
+		return true;
+	}
+}
+
 describe('EditorCardProvider', () => {
 	let provider: EditorCardProvider;
 	let mockCardClient: jest.Mocked<CardClient>;
@@ -684,6 +692,85 @@ describe('EditorCardProvider', () => {
 		it('should return undefined for Loom URLs with an invalid id', () => {
 			const url = 'https://www.loom.com/share/not-a-valid-id';
 			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
+		});
+	});
+
+	describe('resolve - requested embed as default (shouldHonorRequestedEmbedAsDefault)', () => {
+		const url = 'https://example.com/some/resource';
+
+		const setupResolveMocks = (
+			target: EditorCardProvider,
+			{
+				userPreference,
+				canEmbed,
+				providerDefault,
+			}: {
+				userPreference?: string;
+				canEmbed: boolean;
+				providerDefault?: string;
+			},
+		) => {
+			jest
+				.spyOn(target as any, 'findPatternData')
+				.mockResolvedValue(providerDefault ? { defaultView: providerDefault } : undefined);
+			jest.spyOn(target as any, 'findUserPreference').mockResolvedValue(userPreference);
+			jest.spyOn(target as any, 'checkLinkResolved').mockResolvedValue(true);
+			jest.spyOn(target as any, 'canBeResolvedAsEmbed').mockResolvedValue(canEmbed);
+			jest.spyOn(target as any, 'getDatasourceFromResolveResponse').mockResolvedValue(undefined);
+			jest.spyOn(target as any, 'getAuthStatusFromResolveResponse').mockResolvedValue(undefined);
+		};
+
+		it('resolves as an embed when the user has no preference and the link is embeddable', async () => {
+			const optIn = new OptInEmbedEditorCardProvider();
+			setupResolveMocks(optIn, { userPreference: undefined, canEmbed: true });
+
+			const adf = await optIn.resolve(url, 'embed', false, true);
+
+			expect(adf.type).toBe('embedCard');
+		});
+
+		it('falls back to a block card when the link cannot be embedded', async () => {
+			const optIn = new OptInEmbedEditorCardProvider();
+			setupResolveMocks(optIn, { userPreference: undefined, canEmbed: false });
+
+			const adf = await optIn.resolve(url, 'embed', false, true);
+
+			expect(adf.type).toBe('blockCard');
+		});
+
+		it('lets an explicit user preference win over the requested embed', async () => {
+			const optIn = new OptInEmbedEditorCardProvider();
+			setupResolveMocks(optIn, { userPreference: 'inline', canEmbed: true });
+
+			const adf = await optIn.resolve(url, 'embed', false, true);
+
+			expect(adf.type).toBe('inlineCard');
+		});
+
+		it('wins over a provider default appearance', async () => {
+			const optIn = new OptInEmbedEditorCardProvider();
+			setupResolveMocks(optIn, {
+				userPreference: undefined,
+				canEmbed: true,
+				providerDefault: 'block',
+			});
+
+			const adf = await optIn.resolve(url, 'embed', false, true);
+
+			expect(adf.type).toBe('embedCard');
+		});
+
+		it('leaves behaviour unchanged when the hook is off (provider default wins)', async () => {
+			const base = new EditorCardProvider();
+			setupResolveMocks(base, {
+				userPreference: undefined,
+				canEmbed: true,
+				providerDefault: 'block',
+			});
+
+			const adf = await base.resolve(url, 'embed', false, true);
+
+			expect(adf.type).toBe('blockCard');
 		});
 	});
 });

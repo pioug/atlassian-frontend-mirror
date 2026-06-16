@@ -151,6 +151,16 @@ describe('<CardSSR />', () => {
 
 				await expect(document.body).toBeAccessible();
 			});
+
+			it('should pass down title prop', async () => {
+				const title = 'title-from-ssr';
+				setup({ title });
+
+				expect(cardWithUrlContentMock).toHaveBeenCalledWith(
+					expect.objectContaining({ title }),
+					expect.anything(),
+				);
+			});
 		});
 	});
 
@@ -180,6 +190,16 @@ describe('<CardSSR />', () => {
 				);
 
 				await expect(document.body).toBeAccessible();
+			});
+
+			it('should pass down title prop', async () => {
+				const title = 'title-from-ssr';
+				setup({ title });
+
+				expect(cardWithUrlMock).toHaveBeenCalledWith(
+					expect.objectContaining({ title }),
+					expect.anything(),
+				);
 			});
 		});
 	});

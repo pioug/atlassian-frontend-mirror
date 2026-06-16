@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "220.4.5",
+	"version": "221.0.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,14 +12,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
 	"sideEffects": [
 		"*.compiled.css"
 	],
@@ -322,9 +314,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_fixed_column_width_prop": {
-			"type": "boolean"
-		},
-		"platform_editor_breakout_in_universal_preset": {
 			"type": "boolean"
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {

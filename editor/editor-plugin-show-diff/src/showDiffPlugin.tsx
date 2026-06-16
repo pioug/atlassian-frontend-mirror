@@ -42,6 +42,9 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 			return {
 				isDisplayingChanges: false,
 				activeIndex: undefined,
+				...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+					? { diffDescriptors: [] }
+					: {}),
 			};
 		}
 		const pluginState = showDiffPluginKey.getState(editorState);
@@ -50,6 +53,9 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 			isDisplayingChanges: decorationCount.length > 0,
 			activeIndex: pluginState?.activeIndex,
 			numberOfChanges: decorationCount.length,
+			...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+				? { diffDescriptors: pluginState?.diffDescriptors }
+				: {}),
 		};
 	},
 });

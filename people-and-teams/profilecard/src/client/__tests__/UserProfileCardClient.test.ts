@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
 
 import { AGGErrors } from '../../util/errors';
@@ -8,6 +9,11 @@ import UserProfileCardClient, { buildAggUserQuery } from '../UserProfileCardClie
 
 jest.mock('../../util/performance', () => ({
 	getPageTime: jest.fn(() => 1000),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
 }));
 
 jest.mock('../graphqlUtils');
@@ -20,6 +26,7 @@ jest.mock('../graphqlUtils');
 );
 
 const mockAnalytics = jest.fn();
+const mockFg = fg as jest.MockedFunction<typeof fg>;
 
 const mockAggError = new AGGErrors([{ message: 'Test error', extensions: {} }], 'test-id');
 
@@ -86,6 +93,12 @@ describe('UserProfileCardClient', () => {
 	beforeEach(() => {
 		client = new UserProfileCardClient(options);
 		jest.clearAllMocks();
+		mockFg.mockReturnValue(false);
+		(AGGQuery as jest.Mock).mockResolvedValue({
+			user: {
+				zoneinfo: 'test-zoneinfo',
+			},
+		});
 	});
 
 	it('should return a cached profile if it exists', async () => {
@@ -130,6 +143,43 @@ describe('UserProfileCardClient', () => {
 			(AGGQuery as jest.Mock).mockRejectedValue(mockAggError);
 
 			await expect(client.getProfile(cloudId, userId, mockAnalytics)).rejects.toThrow('AGGErrors');
+		});
+
+		it('should add scoped profiles atl-attribution header when feature gated', async () => {
+			mockFg.mockImplementation(
+				(flagKey) => flagKey === 'profilecard_scoped_profile_atl_attribution',
+			);
+
+			await client.getProfile(cloudId, userId, mockAnalytics);
+
+			const processHeaders = (AGGQuery as jest.Mock).mock.calls[0][2];
+			const headers = processHeaders(new Headers());
+
+			expect(headers.get('atl-attribution')).toEqual(
+				JSON.stringify({
+					tenantId: `ari:cloud:townsquare::site/${cloudId}`,
+					product: 'Atlassian Home',
+					service: 'townsquare-frontend',
+				}),
+			);
+		});
+
+		it('should not add scoped profiles atl-attribution header when feature gate is off', async () => {
+			mockFg.mockReturnValue(false);
+
+			await client.getProfile(cloudId, userId, mockAnalytics);
+
+			expect((AGGQuery as jest.Mock).mock.calls[0][2]).toBeUndefined();
+		});
+
+		it('should not add scoped profiles atl-attribution header when cloudId is empty', async () => {
+			mockFg.mockImplementation(
+				(flagKey) => flagKey === 'profilecard_scoped_profile_atl_attribution',
+			);
+
+			await client.getProfile('', userId, mockAnalytics);
+
+			expect((AGGQuery as jest.Mock).mock.calls[0][2]).toBeUndefined();
 		});
 
 		it('should call analytics when makeRequest throws an error', async () => {

@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.0.0
+
+### Major Changes
+
+- [`f2dc9097319f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2dc9097319f0) - ###
+  Dropped support for _legacy_ Typescript 4 types. **Typescript 5 is now the new minimum**.
+
+  Removes the `typesVersions` property and `dist/types-ts4.5` directory from the dist.
+
+  Types are now exclusively via the `"types": "dist/types/index.d.ts"` property.
+
+  ```diff
+  - "typesVersions": {
+  -    ">=4.5 <4.9": {
+  -        "*": [
+  -            "dist/types-ts4.5/*",
+  -            "dist/types-ts4.5/index.d.ts"
+  -        ]
+  -    }
+  - },
+  ```
+
+### Patch Changes
+
+- [`f92001e22291e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f92001e22291e) -
+  Reverts the mid-word cursor suppression for ghost-text suggestions. Autocomplete suggestions will
+  again appear regardless of cursor position within a word.
+- Updated dependencies
+
+## 3.6.2
+
+### Patch Changes
+
+- [`8ed22a585196f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ed22a585196f) -
+  [ux] Fixes a bug where autocomplete suggestions were shown when the cursor was positioned in the
+  middle of an existing word. Suggestions are now suppressed unless the cursor is at the trailing
+  edge of a token.
+- Updated dependencies
+
 ## 3.6.1
 
 ### Patch Changes

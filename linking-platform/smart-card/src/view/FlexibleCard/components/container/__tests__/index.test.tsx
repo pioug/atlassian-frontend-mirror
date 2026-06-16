@@ -117,6 +117,21 @@ describe('Container', () => {
 			expect(link).toHaveTextContent(text);
 		});
 
+		it('prefers title prop over title from TitleBlock for layered link text', async () => {
+			const titleFromSsr = 'title-from-ssr';
+			const titleFromTitleBlock = 'title-from-title-block';
+			render(
+				<Container clickableContainer={true} testId={testId} title={titleFromSsr}>
+					<TitleBlock text={titleFromTitleBlock} />
+				</Container>,
+				{ wrapper: getFlexibleCardTestWrapper(context) },
+			);
+
+			const link = await screen.findByTestId(`${testId}-layered-link`);
+
+			expect(link).toHaveTextContent(titleFromSsr);
+		});
+
 		it('triggers onClick even when link is clicked', async () => {
 			const user = userEvent.setup();
 			const mockOnClick = jest.fn();

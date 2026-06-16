@@ -51,6 +51,7 @@ export enum ACTION_SUBJECT_ID {
 	HOVER_LABEL = 'hoverLabel',
 	INLINE_COMMENT = 'inlineComment',
 	CODEBLOCK_COPY = 'codeBlockCopy',
+	CODEBLOCK_DOWNLOAD = 'codeBlockDownload',
 	CODEBLOCK_WRAP = 'codeBlockWrap',
 }
 

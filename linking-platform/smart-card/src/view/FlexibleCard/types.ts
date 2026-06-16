@@ -130,6 +130,11 @@ export type FlexibleCardProps = {
 	 * Determines the URL of the Smart Link.
 	 */
 	url: string;
+
+	/**
+	 * Determines the link title in the LayeredLink.
+	 */
+	title?: string;
 };
 
 export type InternalFlexibleUiOptions = FlexibleUiOptions & {

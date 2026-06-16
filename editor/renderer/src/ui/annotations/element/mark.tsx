@@ -113,10 +113,12 @@ const markStylesWithCommentsPanel = css({
 	},
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const MOBILE_USER_AGENT_REGEX = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+
 const isMobile = () => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	return MOBILE_USER_AGENT_REGEX.test(navigator.userAgent);
 };
 
 const accessibilityStylesNew = css({

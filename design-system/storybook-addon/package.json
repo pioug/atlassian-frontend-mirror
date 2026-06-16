@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/storybook-addon-design-system",
-	"version": "3.2.5",
+	"version": "4.0.0",
 	"description": "Design token storybook addon",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -16,14 +16,6 @@
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"type": "module",
 	"main": "src/index.tsx",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
 	"sideEffects": [
 		"**/*.compiled.css"
 	],

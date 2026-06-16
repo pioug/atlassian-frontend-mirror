@@ -125,6 +125,7 @@ export interface FileFetcher {
 		descriptors: TouchFileDescriptor[],
 		collection?: string,
 		traceContext?: MediaTraceContext,
+		expectedFileSize?: number,
 	): Promise<TouchedFiles>;
 	upload(
 		file: UploadableFile,
@@ -351,6 +352,7 @@ export class FileFetcherImpl implements FileFetcher {
 		descriptors: TouchFileDescriptor[],
 		collection?: string,
 		traceContext?: MediaTraceContext,
+		expectedFileSize?: number,
 	): Promise<TouchedFiles> {
 		return this.mediaApi
 			.touchFiles(
@@ -359,6 +361,7 @@ export class FileFetcherImpl implements FileFetcher {
 					collection,
 				},
 				traceContext,
+				{ expectedFileSize },
 			)
 			.then(({ data }) => data);
 	}
@@ -366,6 +369,7 @@ export class FileFetcherImpl implements FileFetcher {
 	private generateUploadableFileUpfrontIds(
 		collection?: string,
 		traceContext?: MediaTraceContext,
+		expectedFileSize?: number,
 	): UploadableFileUpfrontIds {
 		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 		const id = uuid();
@@ -377,9 +381,12 @@ export class FileFetcherImpl implements FileFetcher {
 			collection,
 		};
 
-		const deferredUploadId = this.touchFiles([touchFileDescriptor], collection, traceContext).then(
-			(touchedFiles) => touchedFiles.created[0].uploadId,
-		);
+		const deferredUploadId = this.touchFiles(
+			[touchFileDescriptor],
+			collection,
+			traceContext,
+			expectedFileSize,
+		).then((touchedFiles) => touchedFiles.created[0].uploadId);
 
 		return {
 			id,
@@ -525,7 +532,8 @@ export class FileFetcherImpl implements FileFetcher {
 		const { collection } = file;
 
 		const upfrontId =
-			uploadableFileUpfrontIds || this.generateUploadableFileUpfrontIds(collection, traceContext);
+			uploadableFileUpfrontIds ||
+			this.generateUploadableFileUpfrontIds(collection, traceContext, file.size);
 
 		const { id, occurrenceKey } = upfrontId;
 

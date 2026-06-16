@@ -55,6 +55,13 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * existing experiments.
  */
 export const editorExperimentsConfig: {
+	// Added 2026-06-09
+	remix_button_right_margin_hover: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2024-10-14
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_advanced_layouts/setup
 	advanced_layouts: {
@@ -632,13 +639,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-31
-	platform_editor_lovability_distribute_column_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-10-13
 	platform_editor_media_error_analytics: {
 		defaultValue: boolean;
@@ -719,13 +719,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-10-22
 	platform_editor_remove_bidi_char_warning: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-16
-	platform_editor_disable_lcm_copy_button: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1130,13 +1123,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-02-05
-	platform_editor_toolbar_split_button_ui: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-24
 	platform_rovo_page_comment_selector_full_width: {
 		defaultValue: boolean;
@@ -1167,6 +1153,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-07
 	platform_editor_layout_column_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-15
+	platform_editor_layout_column_valign_rendering: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1272,6 +1265,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-24
 	'cwr-modal-ui-refresh': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-11
+	'cwr-reduce-prompt-suggestion-max-chars': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1431,13 +1431,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-03-10
-	platform_editor_insert_location_check: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-10
 	platform_editor_fix_editor_unhandled_type_errors: {
 		defaultValue: boolean;
 		param: string;
@@ -1582,13 +1575,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-15
 	platform_editor_user_preference_override: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-27
-	platform_editor_preserve_node_identity: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1957,8 +1943,24 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-15
+	platform_editor_menu_radius_update: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
+
+	// Added 2026-06-09
+	remix_button_right_margin_hover: createBooleanExperiment({
+		productKeys: {
+			confluence: 'remix_button_right_margin_hover',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 
 	// Editor Platform experiments
 	// lwoollard experiments
@@ -2893,14 +2895,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-16
-	platform_editor_disable_lcm_copy_button: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_disable_lcm_copy_button',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-11-05
 	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
 		productKeys: {
@@ -3197,14 +3191,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-05
-	platform_editor_toolbar_split_button_ui: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_toolbar_split_button_ui',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-24
 	platform_rovo_page_comment_selector_full_width: createBooleanExperiment({
 		productKeys: {
@@ -3314,6 +3300,14 @@ export const editorExperimentsConfig: {
 	'cwr-modal-ui-refresh': createBooleanExperiment({
 		productKeys: {
 			confluence: 'cwr-modal-ui-refresh',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-11
+	'cwr-reduce-prompt-suggestion-max-chars': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cwr-reduce-prompt-suggestion-max-chars',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3491,15 +3485,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-10
-	platform_editor_insert_location_check: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_insert_location_check',
-			confluence: 'platform_editor_insert_location_check',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-05
 	cc_drag_and_drop_smart_link_from_content_to_tree: createBooleanExperiment({
 		productKeys: {
@@ -3651,14 +3636,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-27
-	platform_editor_preserve_node_identity: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_preserve_node_identity',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-23
 	confluence_toc_nav_a11y: createBooleanExperiment({
 		productKeys: {
@@ -3755,19 +3732,19 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-15
+	platform_editor_layout_column_valign_rendering: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_layout_column_valign_rendering',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-21
 	platform_editor_layout_typeahead_reorder: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_layout_typeahead_reorder',
 			jira: 'platform_editor_layout_typeahead_reorder',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-31
-	platform_editor_lovability_distribute_column_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_lovability_distribute_column_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4196,6 +4173,15 @@ export const editorExperimentsConfig: {
 	cc_ai_insert_to_page_rovo_chat_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_ai_insert_to_page_rovo_chat_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-15
+	platform_editor_menu_radius_update: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_menu_radius_update',
+			jira: 'platform_editor_menu_radius_update',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

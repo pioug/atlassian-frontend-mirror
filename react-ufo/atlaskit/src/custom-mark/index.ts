@@ -14,6 +14,7 @@ export default function UFOCustomMark({ name, timestamp }: { name: string; times
 	return null;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function UFOCustomMarks({ data }: { data: { [key: string]: number } | undefined }) {
 	const interactionContext = useContext(UFOInteractionContext);
 	useMemo(() => {
@@ -26,6 +27,7 @@ export function UFOCustomMarks({ data }: { data: { [key: string]: number } | und
 	return null;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function addUFOCustomMark(name: string, timestamp?: number): void {
 	const interactionId = getInteractionId();
 	const currentInteractionId = interactionId.current;

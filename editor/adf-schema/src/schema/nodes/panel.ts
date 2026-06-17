@@ -11,6 +11,7 @@ import type { MediaSingleDefinition as MediaSingle } from './media-single';
 import type { DecisionListDefinition as DecisionList } from './decision-list';
 import type { TaskListDefinition as TaskList } from './task-list';
 import type { RuleDefinition as Rule } from './rule';
+import type { TableDefinition as Table } from './tableNodes';
 import type { NodeSpecOptions } from '../createPMSpecFactory';
 import type { PanelNode, PanelC1Node } from '../../next-schema/generated/nodeTypes';
 import {
@@ -61,6 +62,34 @@ export interface PanelDefinition {
 		| DecisionList
 		| TaskList
 		| Rule
+	>;
+	type: 'panel';
+}
+
+/**
+ * @name panel_c1_node
+ */
+export interface PanelC1Definition {
+	attrs: PanelAttributes;
+	/**
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
+	 * @minItems 1
+	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
+	 * @allowUnsupportedBlock true
+	 */
+	content: Array<
+		| Paragraph
+		| Heading
+		| OrderedList
+		| BulletList
+		| BlockCard
+		| CodeBlock
+		| MediaGroup
+		| MediaSingle
+		| DecisionList
+		| TaskList
+		| Rule
+		| Table
 	>;
 	type: 'panel';
 }

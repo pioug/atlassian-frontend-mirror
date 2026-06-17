@@ -66,7 +66,9 @@ export type MediaProps = MediaCardProps & {
 	isDrafting: boolean;
 	isInsideOfBlockNode?: boolean;
 	isLinkMark: () => boolean;
-	marks: Array<LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition | DataConsumerDefinition>;
+	marks: Array<
+		LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition | DataConsumerDefinition
+	>;
 	// only used for comment badge, is injected via nodes/mediaSingle
 	mediaSingleElement?: HTMLElement | null;
 	providers?: ProviderFactory;

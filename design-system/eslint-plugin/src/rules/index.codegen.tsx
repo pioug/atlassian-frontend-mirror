@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b90bcf0b2fb6429faae59c7a454e3260>>
+ * @codegen <<SignedSource::d404a0bd62a78d4bad7ee376df0bd475>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -79,6 +79,7 @@ import useSimpleForm from './use-simple-form';
 import useSpotlightPackage from './use-spotlight-package';
 import useTagGroupLabel from './use-tag-group-label';
 import useTextfieldAutocomplete from './use-textfield-autocomplete';
+import useTokensMotion from './use-tokens-motion';
 import useTokensShape from './use-tokens-shape';
 import useTokensSpace from './use-tokens-space';
 import useTokensTypography from './use-tokens-typography';
@@ -159,6 +160,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'use-spotlight-package': useSpotlightPackage,
 	'use-tag-group-label': useTagGroupLabel,
 	'use-textfield-autocomplete': useTextfieldAutocomplete,
+	'use-tokens-motion': useTokensMotion,
 	'use-tokens-shape': useTokensShape,
 	'use-tokens-space': useTokensSpace,
 	'use-tokens-typography': useTokensTypography,

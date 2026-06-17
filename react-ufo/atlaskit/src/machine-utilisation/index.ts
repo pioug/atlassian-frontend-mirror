@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import type {
 	MemoryRecord,
 	PressureObserverInstance,

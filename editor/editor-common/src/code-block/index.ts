@@ -146,11 +146,7 @@ export const getInsertedCodeBlocksInTransaction = (
 			return;
 		}
 
-		const insertedCodeBlockByStep = hasInsertedCodeBlockInStep(
-			step,
-			codeBlockType,
-			options.filter,
-		);
+		const insertedCodeBlockByStep = hasInsertedCodeBlockInStep(step, codeBlockType, options.filter);
 
 		if (!insertedCodeBlockByStep) {
 			return;

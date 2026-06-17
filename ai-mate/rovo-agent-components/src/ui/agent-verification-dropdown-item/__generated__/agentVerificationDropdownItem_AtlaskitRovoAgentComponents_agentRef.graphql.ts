@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f56f2021fc78abc88eb1eed18de6132d>>
+ * @generated SignedSource<<e14499a7efb36d6afac933ab3986b8e1>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -13,7 +13,7 @@ import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef$data = {
   readonly id: string;
-  readonly isVerified: boolean | null | undefined;
+  readonly isVerified: boolean | null;
   readonly " $fragmentType": "agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef";
 };
 export type agentVerificationDropdownItem_AtlaskitRovoAgentComponents_agentRef$key = {

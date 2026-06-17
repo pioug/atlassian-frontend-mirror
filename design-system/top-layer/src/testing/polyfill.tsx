@@ -347,9 +347,7 @@ function hidePopoversInStackNotInChainTo({
 	target: Node | null;
 }) {
 	const snapshot = stack.slice().reverse();
-	const stopIndex = snapshot.findIndex((popover) =>
-		isInChainTo({ candidate: popover, target }),
-	);
+	const stopIndex = snapshot.findIndex((popover) => isInChainTo({ candidate: popover, target }));
 	const toHide = stopIndex === -1 ? snapshot : snapshot.slice(0, stopIndex);
 	toHide.forEach((popover) => popover.hidePopover());
 }

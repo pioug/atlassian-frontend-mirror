@@ -47,7 +47,10 @@ export function useWidthFromAnchor({
 			// `min-inline-size` is intentionally NOT set here - it would override the
 			// explicit width constraint, allowing the popover to grow past the anchor's width.
 			if (supportsAnchorSize) {
-				return setStyle({ element: node, styles: [{ property: 'width', value: 'anchor-size(width)' }] });
+				return setStyle({
+					element: node,
+					styles: [{ property: 'width', value: 'anchor-size(width)' }],
+				});
 			}
 
 			// JS fallback: one-off read of the anchor's width.

@@ -15,6 +15,7 @@ function isGqlUrl(name: string): boolean {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function sanitizeTimingName(name: string): string {
 	if (name.length <= MAX_TIMING_NAME_LENGTH) {
 		return name;

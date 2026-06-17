@@ -64,6 +64,18 @@ type DiscardSuggestionAEP = TrackAEP<
 	undefined
 >;
 
+type DismissSuggestionAEP = TrackAEP<
+	ACTION.DISMISSED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		affectedBlocks: number;
+		interactionPoint: AiSuggestionInteractionPoint;
+		suggestionType: string;
+	},
+	undefined
+>;
+
 type ViewSuggestionAEP = TrackAEP<
 	ACTION.VIEWED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
@@ -86,4 +98,5 @@ export type AiSuggestionsEventPayload =
 	| EntryPointExposureAEP
 	| AcceptSuggestionAEP
 	| DiscardSuggestionAEP
+	| DismissSuggestionAEP
 	| ViewSuggestionAEP;

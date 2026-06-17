@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 221.1.0
+
+### Minor Changes
+
+- [`5bf738fb98422`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bf738fb98422) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`c75659db298a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c75659db298a9) -
+  Clean up prefer static regex violations
+- [`137ce6a6d525e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/137ce6a6d525e) -
+  Prevent automatic table fit-to-content conversion from rewriting resized tables
+- Updated dependencies
+
+## 221.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.0.1
 
 ### Patch Changes

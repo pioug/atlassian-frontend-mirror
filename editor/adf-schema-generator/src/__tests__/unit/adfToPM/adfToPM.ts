@@ -266,5 +266,27 @@ describe('transform', () => {
 				content: 'paragraph',
 			});
 		});
+
+		test('should include variant node names in PM content expressions', () => {
+			const paragraph = adfNode('paragraph').define({});
+			const table = adfNode('table').define({});
+			const panel = adfNode('panel')
+				.define({
+					content: [$or(paragraph)],
+				})
+				.variant('c1', {
+					content: [$or(paragraph, table)],
+					preserveVariantNameInPm: true,
+				});
+			const root = adfNode('root').define({
+				root: true,
+				content: [$or(panel.use('c1')!)],
+			});
+
+			const nodeResMap = transform(root).nodeResMap;
+			expect(nodeResMap.root.pmNodeSpec).toStrictEqual({
+				content: 'panel_c1',
+			});
+		});
 	});
 });

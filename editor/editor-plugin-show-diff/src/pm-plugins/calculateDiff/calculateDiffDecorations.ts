@@ -19,6 +19,7 @@ import type {
 	ShowDiffPlugin,
 } from '../../showDiffPluginType';
 import { areDocsEqualByBlockStructureAndText } from '../areDocsEqualByBlockStructureAndText';
+import { createDocMarginAnchorWidget } from '../decorations/createAnchorDecorationWidgets';
 import { createBlockChangedDecoration } from '../decorations/createBlockChangedDecoration';
 import { createInlineChangedDecoration } from '../decorations/createInlineChangedDecoration';
 import { createNodeChangedDecorationWidget } from '../decorations/createNodeChangedDecorationWidget';
@@ -138,6 +139,7 @@ const calculateDiffDecorationsInner = ({
 	isInverted = false,
 	diffType = 'inline',
 	hideDeletedDiffs = false,
+	showIndicators = false,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
@@ -148,10 +150,11 @@ const calculateDiffDecorationsInner = ({
 	isInverted?: boolean;
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
+	showIndicators?: boolean;
 	state: EditorState;
 }): CalculatedDiffs => {
-	const { originalDoc, steps } = pluginState;
-	if (!originalDoc || !pluginState.isDisplayingChanges) {
+	const { originalDoc, steps, isDisplayingChanges } = pluginState;
+	if (!originalDoc || !isDisplayingChanges) {
 		return { decorations: DecorationSet.empty, diffDescriptors: [] };
 	}
 
@@ -204,6 +207,13 @@ const calculateDiffDecorationsInner = ({
 	});
 
 	const decorations: Decoration[] = [];
+
+	/**
+	 * If showIndicators is on, we create an anchor widget here to mark the doc margin.
+	 */
+	if (showIndicators && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		decorations.push(createDocMarginAnchorWidget());
+	}
 	changes.forEach((change) => {
 		const isActive =
 			activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
@@ -221,11 +231,13 @@ const calculateDiffDecorationsInner = ({
 			decorations.push(
 				...createInlineChangedDecoration({
 					change,
+					doc: tr.doc,
 					colorScheme,
 					isActive,
 					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
 						isInserted,
 						shouldHideDeleted,
+						showIndicators,
 					}),
 				}),
 			);
@@ -267,6 +279,7 @@ const calculateDiffDecorationsInner = ({
 							isInserted: !isInserted,
 							diffType,
 						}),
+						showIndicators,
 					}),
 				);
 			}
@@ -330,6 +343,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		activeIndexPos,
 		api,
 		hideDeletedDiffs,
+		showIndicators,
 	}: {
 		activeIndexPos?: {
 			from: number;
@@ -341,6 +355,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		intl: IntlShape;
 		nodeViewSerializer: NodeViewSerializer;
 		pluginState: Omit<ShowDiffPluginState, 'decorations'>;
+		showIndicators?: boolean;
 		state: EditorState;
 	}) => CalculatedDiffs
 > = memoizeOne(
@@ -357,6 +372,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				isInverted,
 				diffType,
 				hideDeletedDiffs,
+				showIndicators,
 			},
 		],
 		[
@@ -369,6 +385,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				isInverted: lastIsInverted,
 				diffType: lastDiffType,
 				hideDeletedDiffs: lastHideDeletedDiffs,
+				showIndicators: lastShowIndicators,
 			},
 		],
 	) => {
@@ -387,7 +404,8 @@ export const calculateDiffDecorations: MemoizedFn<
 					originalDocIsSame &&
 					isEqual(pluginState.steps, lastPluginState.steps) &&
 					state.doc.eq(lastState.doc) &&
-					hideDeletedDiffs === lastHideDeletedDiffs) ??
+					hideDeletedDiffs === lastHideDeletedDiffs &&
+					showIndicators === lastShowIndicators) ??
 				false
 			);
 		}

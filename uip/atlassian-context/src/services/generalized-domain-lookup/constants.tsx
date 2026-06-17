@@ -24,6 +24,7 @@ export const ReservedNameMapping: IsolatedCloudDomainTypeEnumeration = {
 /**
  * Contains list of Atlassian experiences that use the Atlassian namespace subdomain.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const AtlDomainMapping: IsolatedCloudDomainTypeEnumeration = {
 	[COMMERCIAL]: ['packages'],
 };
@@ -31,6 +32,7 @@ export const AtlDomainMapping: IsolatedCloudDomainTypeEnumeration = {
 /**
  * Contains the domain patterns for each isolated cloud perimeter
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isolatedCloudFunctions: IsolatedCloudDomainPatternMap = {
 	[COMMERCIAL]: {
 		isolatedCloudReservedNameDomain: (subdomain: string, isolatedCloudDomain: string) =>
@@ -45,6 +47,7 @@ export const isolatedCloudFunctions: IsolatedCloudDomainPatternMap = {
 /**
  * Contains the domain patterns for each non-isolated cloud perimeter and environment
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const nonIsolatedCloudFunctions: NonIsolatedCloudDomainPatternMap = {
 	[COMMERCIAL]: {
 		defaultDomainEnding: (subdomain: string, envType: EnvironmentType) => {

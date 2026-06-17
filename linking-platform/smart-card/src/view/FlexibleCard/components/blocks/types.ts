@@ -416,7 +416,7 @@ export type ModifiedBy = {
  */
 export type ModifiedOn = {
 	name: ElementName.ModifiedOn;
-} & Pick<ModifiedOnProps, 'fontSize' | 'text'>;
+} & Pick<ModifiedOnProps, 'fontSize' | 'text' | 'timeZone'>;
 /**
  * Represents the props available for an Preview element.
  * @see Preview

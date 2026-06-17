@@ -1087,6 +1087,7 @@ export async function createPayloads(
 
 	return payloads.filter(Boolean) as (CriticalMetricsPayload | InteractionMetricsPayloadResult)[];
 }
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export async function createExtraSearchPageInteractionPayload(
 	interactionId: string,
 	interaction: InteractionMetrics,

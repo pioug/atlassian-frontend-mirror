@@ -7,6 +7,7 @@ import { selectUnit } from '@formatjs/intl-utils';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl';
 
 import type { Prettify } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../../../messages';
@@ -30,6 +31,39 @@ const styles = css({
 });
 
 type DateTypeVariation = 'relative' | 'absolute';
+const ABSOLUTE_DATE_FORMAT: Intl.DateTimeFormatOptions = {
+	month: 'short',
+	day: 'numeric',
+	year: 'numeric',
+};
+
+const isValidTimeZone = (timeZone: string): boolean => {
+	try {
+		new Intl.DateTimeFormat(undefined, { timeZone });
+		return true;
+	} catch {
+		return false;
+	}
+};
+
+const formatAbsoluteDateWithOptionalTimeZone = ({
+	date,
+	formatDate,
+	timeZone,
+}: {
+	date: Date;
+	formatDate: ReturnType<typeof useIntl>['formatDate'];
+	timeZone?: string;
+}): string => {
+	if (!timeZone || !isValidTimeZone(timeZone)) {
+		return formatDate(date, ABSOLUTE_DATE_FORMAT);
+	}
+
+	return formatDate(date, {
+		...ABSOLUTE_DATE_FORMAT,
+		timeZone,
+	});
+};
 
 const typeToDescriptorMap: Record<DateTimeType, Record<DateTypeVariation, MessageDescriptor>> = {
 	created: {
@@ -82,6 +116,10 @@ export type BaseDateTimeElementProps = ElementProps & {
 	 */
 	text?: string;
 	/**
+	 * IANA timezone used for absolute date formatting.
+	 */
+	timeZone?: string;
+	/**
 	 * Whether the date time element text should contain "Modified" or "Created" or "sent"
 	 */
 	type?: DateTimeType;
@@ -105,6 +143,7 @@ const BaseDateTimeElement = ({
 	hideDatePrefix = false,
 	color,
 	fontSize,
+	timeZone,
 }: BaseDateTimeElementProps): JSX.Element | null => {
 	const { formatRelativeTime, formatDate } = useIntl();
 	if (!type || !date) {
@@ -115,11 +154,17 @@ const BaseDateTimeElement = ({
 	let typeVariant: DateTypeVariation;
 	if (isLongerThenWeek) {
 		typeVariant = 'absolute';
-		context = formatDate(date, {
-			month: 'short',
-			day: 'numeric',
-			year: 'numeric',
-		});
+		context = fg('dfo_issue_view_remote_data_srr_group')
+			? formatAbsoluteDateWithOptionalTimeZone({
+					date,
+					formatDate,
+					timeZone,
+				})
+			: formatDate(date, {
+					month: 'short',
+					day: 'numeric',
+					year: 'numeric',
+				});
 	} else {
 		const { value, unit } = selectUnit(date, Date.now());
 		typeVariant = 'relative';

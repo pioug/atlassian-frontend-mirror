@@ -421,8 +421,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				border-left: 1px solid ${tableBorderDeleteColor};
 			}
 			`
-			: ''}
-		/* top set by NumberColumn component */
+			: ''}/* top set by NumberColumn component */
 	}
 
 	.${ClassName.TABLE_STICKY} .${ClassName.CORNER_CONTROLS}.sticky {
@@ -1353,11 +1352,13 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position-area: top center;
 		position-visibility: anchors-visible;
 		z-index: ${nativeStickyHeaderZIndex + 1};
-		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-			? `
+		${
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? `
 		/* Leave a 1px gap so the sticky header row's top border stays visible. */
 		translate: 0 -1px;`
-			: ``}
+				: ``
+		}
 	}`
 		: `.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 		/* +2px is to overlap the table border on the sides */
@@ -1368,11 +1369,13 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position-area: top center;
 		position-visibility: anchors-visible;
 		z-index: ${nativeStickyHeaderZIndex + 1};
-		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-			? `
+		${
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? `
 		/* Leave a 1px gap so the sticky header row's top border stays visible. */
 		margin-bottom: 1px;`
-			: ``}
+				: ``
+		}
 	}`}
 
 	/** Mask for content to the left of the column controls */
@@ -1450,7 +1453,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}):first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}, .${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;
 		border-left-color: ${tableBorderSelectedColor};
-		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)  ? `border-bottom-color: ${tableBorderSelectedColor }` : ''};
+		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+			? `border-bottom-color: ${tableBorderSelectedColor}`
+			: ''};
 		${fg('platform_editor_table_sticky_header_patch_1')
 			? `border-top-color: ${tableBorderSelectedColor};`
 			: ``}

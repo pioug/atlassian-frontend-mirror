@@ -14,6 +14,60 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
+// We don't agressively upgrade single quotes to smart quotes because
+// they may clash with an emoji. Only do that when we have a matching
+// single quote, or a contraction.
+// wrapped text
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const WRAPPED_SINGLE_QUOTE_REGEX = /(\s|^)'(\S+.*\S+)'$/;
+// apostrophe
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const APOSTROPHE_REGEX = /(\w+)(')(\w+)$/;
+
+// Product rules
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ATLASSIAN_REGEX = /(\s+|^)(atlassian)(\s)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const JIRA_REGEX = /(\s+|^)(jira|JIRA)(\s)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const BITBUCKET_REGEX = /(\s+|^)(bitbucket|BitBucket)(\s)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const HIPCHAT_REGEX = /(\s+|^)(hipchat|HipChat)(\s)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const TRELLO_REGEX = /(\s+|^)(trello)(\s)$/;
+
+// Symbol rules
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ARROW_RIGHT_REGEX = /(\s+|^)(--?>)(\s)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ARROW_LEFT_REGEX = /(\s+|^)(<--?)(\s)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ARROW_DOUBLE_REGEX = /(\s+|^)(<->?)(\s)$/;
+
+// Punctuation rules
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const DASH_REGEX = /(\s+|^)(--)(\s)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ELLIPSIS_REGEX = /()(\.\.\.)$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const OPEN_DOUBLE_QUOTE_REGEX = /((?:^|[\s\{\[\(\<'"\u2018\u201C]))(")$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const CLOSE_DOUBLE_QUOTE_REGEX = /"$/;
+
 /**
  * Creates an InputRuleHandler that will match on a regular expression of the
  * form `(prefix, content, suffix?)`, and replace it with some given text,
@@ -78,8 +132,7 @@ function createReplacementRules(
 function createSingleQuotesRules(): Array<InputRuleWrapper> {
 	return [
 		// wrapped text
-		// eslint-disable-next-line require-unicode-regexp
-		createRule(/(\s|^)'(\S+.*\S+)'$/, (state, match, start, end): Transaction => {
+		createRule(WRAPPED_SINGLE_QUOTE_REGEX, (state, match, start, end): Transaction => {
 			const OPEN_SMART_QUOTE_CHAR = '‘';
 			const CLOSED_SMART_QUOTE_CHAR = '’';
 			const [, spacing, innerContent] = match;
@@ -96,9 +149,7 @@ function createSingleQuotesRules(): Array<InputRuleWrapper> {
 		}),
 
 		// apostrophe
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		createReplacementRule('’', /(\w+)(')(\w+)$/),
+		createReplacementRule('’', APOSTROPHE_REGEX),
 	];
 }
 
@@ -125,21 +176,11 @@ function getProductRules(
 
 	return createReplacementRules(
 		{
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			Atlassian: /(\s+|^)(atlassian)(\s)$/,
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			Jira: /(\s+|^)(jira|JIRA)(\s)$/,
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			Bitbucket: /(\s+|^)(bitbucket|BitBucket)(\s)$/,
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			Hipchat: /(\s+|^)(hipchat|HipChat)(\s)$/,
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			Trello: /(\s+|^)(trello)(\s)$/,
+			Atlassian: ATLASSIAN_REGEX,
+			Jira: JIRA_REGEX,
+			Bitbucket: BITBUCKET_REGEX,
+			Hipchat: HIPCHAT_REGEX,
+			Trello: TRELLO_REGEX,
 		},
 		productRuleWithAnalytics,
 	);
@@ -173,15 +214,9 @@ function getSymbolRules(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) {
 
 	return createReplacementRules(
 		{
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			'→': /(\s+|^)(--?>)(\s)$/,
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			'←': /(\s+|^)(<--?)(\s)$/,
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			'↔︎': /(\s+|^)(<->?)(\s)$/,
+			'→': ARROW_RIGHT_REGEX,
+			'←': ARROW_LEFT_REGEX,
+			'↔︎': ARROW_DOUBLE_REGEX,
 		},
 		symbolRuleWithAnalytics,
 	);
@@ -217,24 +252,16 @@ function getPunctuationRules(editorAnalyticsAPI: EditorAnalyticsAPI | undefined)
 
 	const dashEllipsisRules = createReplacementRules(
 		{
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			'–': /(\s+|^)(--)(\s)$/,
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			'…': /()(\.\.\.)$/,
+			'–': DASH_REGEX,
+			'…': ELLIPSIS_REGEX,
 		},
 		punctuationRuleWithAnalytics,
 	);
 
 	const doubleQuoteRules = createReplacementRules(
 		{
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			'“': /((?:^|[\s\{\[\(\<'"\u2018\u201C]))(")$/,
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			'”': /"$/,
+			'“': OPEN_DOUBLE_QUOTE_REGEX,
+			'”': CLOSE_DOUBLE_QUOTE_REGEX,
 		},
 		punctuationRuleWithAnalytics,
 	);

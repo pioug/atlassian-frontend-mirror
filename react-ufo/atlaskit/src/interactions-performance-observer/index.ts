@@ -103,6 +103,7 @@ export const getPerformanceObserver = (): PerformanceObserver => {
 	return performanceEventObserver;
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const setInteractionPerformanceEvent = (entry: PerformanceEventTiming): void => {
 	const interaction = getActiveInteraction();
 	if (interaction?.type === 'press') {

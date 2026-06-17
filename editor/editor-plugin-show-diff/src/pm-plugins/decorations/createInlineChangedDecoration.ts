@@ -1,4 +1,5 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -18,6 +19,7 @@ import {
 	traditionalInsertStyleActive,
 	getDeletedTraditionalInlineStyle,
 } from './colorSchemes/traditional';
+import { createInlineIndicatorAnchorWidgets } from './createAnchorDecorationWidgets';
 import { buildDiffDecorationSpec } from './decorationKeys';
 
 const displayNoneStyle = convertToInlineCss({
@@ -36,12 +38,16 @@ export const createInlineChangedDecoration = ({
 	isActive = false,
 	isInserted = true,
 	shouldHideDeleted = false,
+	showIndicators = false,
+	doc,
 }: {
 	change: { fromB: number; toB: number };
 	colorScheme?: ColorScheme;
+	doc?: PMNode;
 	isActive?: boolean;
 	isInserted?: boolean;
 	shouldHideDeleted?: boolean;
+	showIndicators?: boolean;
 }): Decoration[] => {
 	const diffId = crypto.randomUUID();
 
@@ -86,7 +92,7 @@ export const createInlineChangedDecoration = ({
 		}
 	}
 
-	return [
+	const decorations = [
 		Decoration.inline(
 			change.fromB,
 			change.toB,
@@ -97,4 +103,16 @@ export const createInlineChangedDecoration = ({
 			buildDiffDecorationSpec({ decorationType: 'inline', diffId, isActive }),
 		),
 	];
+
+	if (
+		showIndicators &&
+		doc &&
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+	) {
+		decorations.push(
+			...createInlineIndicatorAnchorWidgets({ doc, from: change.fromB, to: change.toB, diffId }),
+		);
+	}
+
+	return decorations;
 };

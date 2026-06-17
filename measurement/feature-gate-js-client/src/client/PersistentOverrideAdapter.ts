@@ -35,6 +35,7 @@ const djb2MapKey = (hash: string, kind: keyof LocalOverrides) => kind + ':' + ha
  *
  * [Reference](https://github.com/statsig-io/js-client-monorepo/blob/main/packages/js-local-overrides/src/LocalOverrideAdapter.ts)
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class PersistentOverrideAdapter implements OverrideAdapter {
 	private _overrides: LocalOverrides;
 	private _localStorageKey: string;

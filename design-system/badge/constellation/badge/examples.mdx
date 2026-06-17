@@ -11,6 +11,7 @@ import BadgeNewDanger from '../../examples/constellation/badge-new-danger';
 import BadgeNewSuccess from '../../examples/constellation/badge-new-success';
 import BadgeNewWarning from '../../examples/constellation/badge-new-warning';
 import BadgeNewDiscovery from '../../examples/constellation/badge-new-discovery';
+import BadgeNewBold from '../../examples/constellation/badge-new-bold';
 import BadgeNewMaxValue from '../../examples/constellation/badge-new-max-value';
 import BadgeNewMaxValueDisabled from '../../examples/constellation/badge-new-max-value-disabled';
 
@@ -108,6 +109,18 @@ feature flag off)
 
 <Example
 	Component={BadgeNewDiscovery}
+	packageName="@atlaskit/badge"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
+
+### Bold appearances
+
+Bold semantic appearances provide higher visual prominence and should be reserved for badges of high
+importance, such as notification counts. Five bold appearances are available: `informationBold`,
+`successBold`, `dangerBold`, `warningBold`, and `discoveryBold`.
+
+<Example
+	Component={BadgeNewBold}
 	packageName="@atlaskit/badge"
 	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
 />

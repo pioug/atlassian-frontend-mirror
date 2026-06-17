@@ -293,6 +293,12 @@ export const editSyncedBlockSource =
 
 		const syncBlockURL = syncBlockStore.referenceManager.getSyncBlockURL(resourceId);
 		const syncBlockData = syncBlockStore.referenceManager.getFromCache(resourceId)?.data;
+		const isOnSameDocument = syncBlockData?.onSameDocument === true;
+		const shouldReportSameDocument = fg('platform_editor_blocks_patch_2');
+		const sourceBlock =
+			shouldReportSameDocument && isOnSameDocument && syncBlockData
+				? findBodiedSyncBlockByLocalId(state, syncBlockData.blockInstanceId)
+				: undefined;
 
 		if (syncBlockURL) {
 			api?.analytics?.actions.fireAnalyticsEvent({
@@ -302,19 +308,16 @@ export const editSyncedBlockSource =
 				actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_URL,
 				attributes: {
 					resourceId: resourceId,
+					...(shouldReportSameDocument ? { sameDocument: isOnSameDocument } : {}),
 				},
 			});
 
-			if (syncBlockData?.onSameDocument && fg('platform_editor_blocks_patch_2')) {
-				const sourceBlock = findBodiedSyncBlockByLocalId(state, syncBlockData.blockInstanceId);
-
-				if (sourceBlock) {
-					const tr = state.tr
-						.setSelection(NodeSelection.create(state.doc, sourceBlock.pos))
-						.scrollIntoView();
-					dispatch?.(tr);
-					return true;
-				}
+			if (sourceBlock) {
+				const tr = state.tr
+					.setSelection(NodeSelection.create(state.doc, sourceBlock.pos))
+					.scrollIntoView();
+				dispatch?.(tr);
+				return true;
 			}
 
 			window.open(syncBlockURL, '_blank');

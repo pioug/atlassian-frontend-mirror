@@ -14,6 +14,7 @@ export const isAnalyticsEvent = (obj: any): boolean =>
 	// Backwards compatibility with older analytics-next packages
 	obj?.constructor?.name === 'AnalyticsEvent';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default class AnalyticsEvent {
 	payload: AnalyticsEventPayload;
 	_isAnalyticsEvent: boolean = true;

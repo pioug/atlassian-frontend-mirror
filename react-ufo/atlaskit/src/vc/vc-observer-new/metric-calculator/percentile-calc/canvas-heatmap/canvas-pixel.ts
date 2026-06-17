@@ -204,6 +204,7 @@ export class ViewportCanvas {
  * @param number - The input number to be split into RGB components.
  * @returns The RGB color string in the format "rgb(r, g, b)".
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getRGBComponents(n: number): RGBColor {
 	// Ensure the input is within the valid range for a 24-bit color
 	if (n < 0 || n > 0xffffff) {
@@ -229,6 +230,7 @@ export function getRGBComponents(n: number): RGBColor {
  * @param arraySize - The amount of timestamps that were drawn in the viewport
  * @returns A Map containing color to pixel count mappings.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export async function calculateDrawnPixelsRaw(
 	imageData: ImageData,
 	_: number,

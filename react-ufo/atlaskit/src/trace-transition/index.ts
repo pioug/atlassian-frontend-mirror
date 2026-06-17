@@ -83,4 +83,5 @@ export function useUFOTransitionCompleter(): void {
 	}, [capturedInteractionId, interactionId]);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default traceUFOTransition;

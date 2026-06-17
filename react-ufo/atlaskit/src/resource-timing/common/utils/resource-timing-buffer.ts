@@ -89,6 +89,7 @@ function isValidTiming(
 	return timing.startTime >= startTime && timing.startTime + timing.duration <= endTime;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function filterResourceTimings(startTime: number, endTime: number): ResourceEntry[] | null {
 	const performance = getPerformanceObject();
 	const PerformanceObserver = getPerformanceObserverObject();

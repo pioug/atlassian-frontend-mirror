@@ -221,7 +221,7 @@ const TypeAheadListComponent = React.memo(
 		}, [listRows]);
 
 		const selectedItemRowIndex =
-			selectedIndex >= 0 ? itemRowIndexByItemIndex.get(selectedIndex) ?? -1 : -1;
+			selectedIndex >= 0 ? (itemRowIndexByItemIndex.get(selectedIndex) ?? -1) : -1;
 
 		const onItemsRendered = useCallback(
 			(props: {
@@ -388,8 +388,8 @@ const TypeAheadListComponent = React.memo(
 			const itemsToRender = expVal('platform_editor_agent_mentions', 'isEnabled', false)
 				? listRows
 				: showMoreOptionsButton
-				? items.slice(0, -1)
-				: items;
+					? items.slice(0, -1)
+					: items;
 			const height = Math.min(
 				// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 				itemsToRender.reduce((prevValue, currentValue, index) => {
@@ -615,8 +615,8 @@ const TypeAheadListComponent = React.memo(
 					{isEmptyStateActive
 						? ListContent
 						: !showMoreOptionsButton || itemsLength
-						? ListContent
-						: EmptyResultView}
+							? ListContent
+							: EmptyResultView}
 					{showMoreOptionsButton && config && (
 						<MoreOptions
 							title={config.title}

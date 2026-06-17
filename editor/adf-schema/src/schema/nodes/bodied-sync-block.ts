@@ -2,7 +2,7 @@ import { bodiedSyncBlock as bodiedSyncBlockFactory } from '../../next-schema/gen
 import { uuid } from '../../utils';
 import type { BreakoutMarkDefinition } from '../marks';
 import type { ExpandDefinition as Expand } from './expand';
-import type { PanelDefinition as Panel } from './panel';
+import type { PanelC1Definition as PanelC1, PanelDefinition as Panel } from './panel';
 import type {
 	ParagraphDefinition as Paragraph,
 	ParagraphWithMarksDefinition as ParagraphWithMarks,
@@ -70,6 +70,7 @@ export interface BodiedSyncBlockDefinition {
 		| MediaSingle
 		| OrderedList
 		| Panel
+		| PanelC1
 		| Rule
 		| Table
 		| TaskList

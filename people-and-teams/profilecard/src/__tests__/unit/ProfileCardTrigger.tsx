@@ -410,68 +410,22 @@ describe('prop drilling', () => {
 		}
 	};
 
-	describe('hideReportingLines', () => {
-		ffTest.on('jira_ai_profilecard_hide_reportinglines', 'feature gate enabled', () => {
-			it('should NOT call getReportingLines when hideReportingLines is true', () => {
-				const client = createMockClient();
-				renderWithIntl(
-					<ProfileCardTrigger
-						{...defaultProps}
-						resourceClient={client}
-						trigger="click"
-						testId="profilecard-trigger"
-						hideReportingLines
-					>
-						<span data-testid="test-inner-trigger">trigger</span>
-					</ProfileCardTrigger>,
-				);
+	it('should always call getReportingLines', () => {
+		const client = createMockClient();
+		renderWithIntl(
+			<ProfileCardTrigger
+				{...defaultProps}
+				resourceClient={client}
+				trigger="click"
+				testId="profilecard-trigger"
+			>
+				<span data-testid="test-inner-trigger">trigger</span>
+			</ProfileCardTrigger>,
+		);
 
-				triggerCard('test-inner-trigger');
+		triggerCard('test-inner-trigger');
 
-				expect(client.getProfile).toHaveBeenCalled();
-				expect(mockGetReportingLines).not.toHaveBeenCalled();
-			});
-
-			it('should still call getReportingLines when hideReportingLines is false', () => {
-				const client = createMockClient();
-				renderWithIntl(
-					<ProfileCardTrigger
-						{...defaultProps}
-						resourceClient={client}
-						trigger="click"
-						testId="profilecard-trigger"
-						hideReportingLines={false}
-					>
-						<span data-testid="test-inner-trigger">trigger</span>
-					</ProfileCardTrigger>,
-				);
-
-				triggerCard('test-inner-trigger');
-
-				expect(mockGetReportingLines).toHaveBeenCalledWith(defaultProps.userId);
-			});
-		});
-
-		ffTest.off('jira_ai_profilecard_hide_reportinglines', 'feature gate disabled', () => {
-			it('should always call getReportingLines even when hideReportingLines is true', () => {
-				const client = createMockClient();
-				renderWithIntl(
-					<ProfileCardTrigger
-						{...defaultProps}
-						resourceClient={client}
-						trigger="click"
-						testId="profilecard-trigger"
-						hideReportingLines
-					>
-						<span data-testid="test-inner-trigger">trigger</span>
-					</ProfileCardTrigger>,
-				);
-
-				triggerCard('test-inner-trigger');
-
-				expect(mockGetReportingLines).toHaveBeenCalledWith(defaultProps.userId);
-			});
-		});
+		expect(mockGetReportingLines).toHaveBeenCalledWith(defaultProps.userId);
 	});
 
 	describe('hideAgentConversationStarters', () => {

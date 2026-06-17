@@ -42,7 +42,8 @@ export const createAutoDetectEntry = (
 	lastObservedText: node.textContent,
 	lastObservedFirstLine: getFirstLine(node.textContent),
 	isPending,
-	detectionResult: options.preserveDetectionResult === false ? undefined : previous?.detectionResult,
+	detectionResult:
+		options.preserveDetectionResult === false ? undefined : previous?.detectionResult,
 	autoDetectedLanguage: previous?.autoDetectedLanguage,
 	pos,
 });
@@ -227,11 +228,11 @@ export const updateAutoDetectState = (
 
 			const currentLanguage = node.attrs.language;
 			const previousEntry = languageDetectionMap[localId];
-				// Undo metadata does not identify the changed node; compare the pre/post language
-				// so text undo inside auto-detection mode keeps the entry.
-				const previousLanguage = isUndo
-					? tr.before.nodeAt(tr.mapping.invert().map(pos))?.attrs.language
-					: undefined;
+			// Undo metadata does not identify the changed node; compare the pre/post language
+			// so text undo inside auto-detection mode keeps the entry.
+			const previousLanguage = isUndo
+				? tr.before.nodeAt(tr.mapping.invert().map(pos))?.attrs.language
+				: undefined;
 			if (
 				(isUndo && previousLanguage && !currentLanguage) ||
 				(currentLanguage && currentLanguage !== previousEntry.autoDetectedLanguage)

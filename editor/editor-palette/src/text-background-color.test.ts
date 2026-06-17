@@ -3,8 +3,11 @@ import { hexToEditorTextBackgroundPaletteColor } from './index';
 describe('hexToEditorTextBackgroundPaletteColor', () => {
 	test.each([
 		['#DCDFE4', 'var(--ds-background-accent-gray-subtler)'],
+		['#B3D4FF', 'var(--ds-background-accent-blue-subtler)'],
 		['#C6EDFB', 'var(--ds-background-accent-teal-subtler)'],
+		['#ABF5D1', 'var(--ds-background-accent-green-subtler)'],
 		['#D3F1A7', 'var(--ds-background-accent-lime-subtler)'],
+		['#F8E6A0', 'var(--ds-background-accent-yellow-subtler)'],
 		['#FEDEC8', 'var(--ds-background-accent-orange-subtler)'],
 		['#FDD0EC', 'var(--ds-background-accent-magenta-subtler)'],
 		['#DFD8FD', 'var(--ds-background-accent-purple-subtler)'],

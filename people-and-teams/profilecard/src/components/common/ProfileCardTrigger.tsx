@@ -7,6 +7,7 @@ import React, {
 	useState,
 } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -107,19 +108,40 @@ function ProfileCardTriggerInner<T>(
 			zIndex={layers.modal()}
 			shouldFitContainer={false}
 			trigger={(triggerProps) => {
-				const { 'aria-expanded': _, 'aria-haspopup': __, ...restInnerProps } = triggerProps;
-				return (
-					<PopupTrigger<T>
-						{...(disabledAriaAttributes ? restInnerProps : triggerProps)}
-						ref={triggerProps.ref}
-						hideProfilecard={hideProfilecard}
-						showProfilecard={showProfilecard}
-						children={children}
-						ariaLabelledBy={ariaLabelledBy}
-						trigger={trigger}
-						data-testid={testId}
-					/>
-				);
+				if (fg('fix_aria_attribute_violation_on_agent_card_trigger')) {
+					const {
+						'aria-expanded': _,
+						'aria-haspopup': __,
+						'aria-controls': ___,
+						...restInnerProps
+					} = triggerProps;
+					return (
+						<PopupTrigger<T>
+							{...(disabledAriaAttributes ? restInnerProps : triggerProps)}
+							ref={triggerProps.ref}
+							hideProfilecard={hideProfilecard}
+							showProfilecard={showProfilecard}
+							children={children}
+							ariaLabelledBy={ariaLabelledBy}
+							trigger={trigger}
+							data-testid={testId}
+						/>
+					);
+				} else {
+					const { 'aria-expanded': _, 'aria-haspopup': __, ...restInnerProps } = triggerProps;
+					return (
+						<PopupTrigger<T>
+							{...(disabledAriaAttributes ? restInnerProps : triggerProps)}
+							ref={triggerProps.ref}
+							hideProfilecard={hideProfilecard}
+							showProfilecard={showProfilecard}
+							children={children}
+							ariaLabelledBy={ariaLabelledBy}
+							trigger={trigger}
+							data-testid={testId}
+						/>
+					);
+				}
 			}}
 			content={() => (
 				<div

@@ -120,13 +120,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
-	// Added 2026-04-08
-	cc_integrations_editor_open_link_click_analytics: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	cc_editor_insm_doc_size_stats: {
 		defaultValue: boolean;
 		param: string;
@@ -243,13 +236,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-03
 	platform_editor_ai_quick_prompt_iw_cc: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-25
-	platform_editor_ai_escape_early_for_unhealthy_node: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1277,6 +1263,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-15
+	'cwr-staging-area-close-as-minimize-button': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-12
 	platform_editor_a11y_escape_link_dialog: {
 		defaultValue: boolean;
@@ -1402,13 +1395,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-11
-	platform_editor_renderer_error_boundary_stable_key: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-30
 	platform_editor_a11y_scrollable_region: {
 		defaultValue: boolean;
@@ -1425,13 +1411,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-04
 	confluence_fe_renderer_inline_node_mark_color_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-10
-	platform_editor_fix_editor_unhandled_type_errors: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1492,14 +1471,14 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_chromeless_expand_fix: {
+	// Added 2026-06-10
+	platform_editor_close_expand_find: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-23
-	platform_editor_inline_media_copy_paste_fix: {
+	platform_editor_chromeless_expand_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1735,13 +1714,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-22
 	platform_editor_ai_screen_layout_refactor: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-23
-	platform_editor_emojis_in_renderer_smart_links: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2133,14 +2105,6 @@ export const editorExperimentsConfig: {
 		defaultValue: 'control',
 	}),
 
-	// Added 2026-04-08
-	cc_integrations_editor_open_link_click_analytics: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_integrations_editor_open_link_click_analytics',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-01-7
 	platform_editor_table_sticky_header_patch_10: createBooleanExperiment({
 		productKeys: {
@@ -2821,14 +2785,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-02-25
-	platform_editor_ai_escape_early_for_unhealthy_node: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_escape_early_for_unhealthy_node',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-12-04
 	confluence_compact_text_format: createBooleanExperiment({
 		productKeys: {
@@ -3312,6 +3268,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-15
+	'cwr-staging-area-close-as-minimize-button': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cwr-staging-area-close-as-minimize-button',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-02-12
 	platform_editor_a11y_escape_link_dialog: createBooleanExperiment({
 		productKeys: {
@@ -3460,27 +3424,10 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-11
-	platform_editor_renderer_error_boundary_stable_key: createBooleanExperiment({
-		productKeys: {
-			jira: 'platform_editor_renderer_error_boundary_stable_key',
-			confluence: 'platform_editor_renderer_error_boundary_stable_key',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	confluence_fe_renderer_inline_node_mark_color_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_fe_renderer_inline_node_mark_color_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-10
-	platform_editor_fix_editor_unhandled_type_errors: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_editor_unhandled_type_errors',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3562,6 +3509,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-10
+	platform_editor_close_expand_find: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_close_expand_find',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-24
 	platform_editor_table_ref_optimisation: createBooleanExperiment({
 		productKeys: {
@@ -3582,15 +3537,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_normalized_telemetry: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_normalized_telemetry',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-23
-	platform_editor_inline_media_copy_paste_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_inline_media_copy_paste_fix',
-			jira: 'platform_editor_inline_media_copy_paste_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3917,14 +3863,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_screen_layout_refactor: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_screen_layout_refactor',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-23
-	platform_editor_emojis_in_renderer_smart_links: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_emojis_in_renderer_smart_links',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

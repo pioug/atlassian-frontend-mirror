@@ -1,9 +1,12 @@
+import React from 'react';
+
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getScrollableDecorations } from './pm-plugins/getScrollableDecorations';
 import { createPlugin, showDiffPluginKey } from './pm-plugins/main';
 import type { ShowDiffPlugin, PMDiffParams } from './showDiffPluginType';
+import { IndicatorBarContentComponent } from './ui/IndicatorBar/IndicatorBarContentComponent';
 
 export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 	name: 'showDiff',
@@ -37,6 +40,12 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 			},
 		];
 	},
+	contentComponent: () => {
+		if (!expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			return null;
+		}
+		return <IndicatorBarContentComponent api={api} />;
+	},
 	getSharedState: (editorState: EditorState | undefined) => {
 		if (!editorState) {
 			return {
@@ -54,7 +63,10 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => ({
 			activeIndex: pluginState?.activeIndex,
 			numberOfChanges: decorationCount.length,
 			...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-				? { diffDescriptors: pluginState?.diffDescriptors }
+				? {
+						diffDescriptors: pluginState?.diffDescriptors,
+						showIndicators: pluginState?.showIndicators,
+					}
 				: {}),
 		};
 	},

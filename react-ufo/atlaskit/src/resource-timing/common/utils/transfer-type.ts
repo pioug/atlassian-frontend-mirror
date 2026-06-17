@@ -15,7 +15,7 @@ export function isCacheableType(url: string, type: string): boolean {
 	return false;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type, @atlaskit/volt-strict-mode/no-multiple-exports
 export function calculateTransferType(
 	name: string,
 	type: string,

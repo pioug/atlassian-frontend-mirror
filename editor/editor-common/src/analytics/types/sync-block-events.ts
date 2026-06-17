@@ -33,6 +33,10 @@ type SyncedBlockCopyErrorAttributes = SyncedBlockErrorAttributes & {
 	inputMethod: INPUT_METHOD;
 };
 
+type SyncedBlockEditSourceAttributes = SyncedBlockSuccessAttributes & {
+	sameDocument?: boolean;
+};
+
 export type SyncedBlockSourceURLErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
@@ -142,7 +146,7 @@ export type SyncedBlockEditSourceAEP = OperationalAEP<
 	ACTION.SYNCED_BLOCK_EDIT_SOURCE,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_SOURCE_URL,
-	SyncedBlockSuccessAttributes
+	SyncedBlockEditSourceAttributes
 >;
 
 export type SyncedBlockCopyAEP = OperationalAEP<

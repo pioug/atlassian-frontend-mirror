@@ -171,6 +171,7 @@ let isServer = Boolean((globalThis as any)?.__SERVER__);
 // Other products set this other variable to indicate it is running in SSR
 let isReactSSR = typeof process !== 'undefined' && Boolean(process?.env?.REACT_SSR || false);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isEnvironmentSupported(): boolean {
 	// SSR environment aren't supported
 	if (isReactSSR || isServer) {
@@ -194,6 +195,7 @@ export function isEnvironmentSupported(): boolean {
 	return true;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getVCObserver(opts: VCObserverOptions = {}): VCObserverInterface {
 	if (!globalThis.__vcObserver) {
 		const shouldMockVCObserver = !isEnvironmentSupported();
@@ -204,6 +206,7 @@ export function getVCObserver(opts: VCObserverOptions = {}): VCObserverInterface
 	return globalThis.__vcObserver;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function newVCObserver(opts: VCObserverOptions = {}): VCObserverInterface {
 	const shouldMockVCObserver = !isEnvironmentSupported();
 	const observer = shouldMockVCObserver ? new VCObserverNOOP() : new VCObserverWrapper(opts);

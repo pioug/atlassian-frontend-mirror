@@ -38,6 +38,7 @@ export function isIsolatedCloud(): boolean {
  *
  * @returns {boolean} True if the current perimeter is FedRAMP Moderate, false otherwise
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isFedrampModerate(): boolean {
 	if (typeof document === 'undefined') {
 		// @ts-ignore
@@ -58,6 +59,7 @@ export function isFedrampModerate(): boolean {
  *
  * @returns {string | undefined} The Isolated Cloud domain name if applicable, undefined otherwise (ex. if not in Isolated Cloud)
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isolatedCloudDomain(): string | undefined {
 	if (typeof document === 'undefined') {
 		return globalThis.location?.hostname;
@@ -71,6 +73,7 @@ export function isolatedCloudDomain(): string | undefined {
  *
  * @returns {string | undefined} The Isolation Context ID if applicable, undefined otherwise (ex. if not in Isolated Cloud)
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isolationContextId(): string | undefined {
 	if (typeof document === 'undefined') {
 		// @ts-ignore
@@ -85,6 +88,7 @@ export function isolationContextId(): string | undefined {
  * Returns information about the current environment for internal use
  * @returns {string | undefined} if the current environment is in isolated cloud + what the current perimeter is. Returns undefined when a new cloud environment has been created but not added to this library
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function cloudEnvironment(): CloudEnvironment | undefined {
 	if (typeof document === 'undefined') {
 		return cloudEnvironmentSsrLookup();

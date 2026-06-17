@@ -5,7 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import React, { useCallback, useRef, Suspense, lazy } from 'react';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { bind } from 'bind-event-listener';
+import { getDocument } from '@atlaskit/browser-apis';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import {
 	ExpandIconWrapper,
@@ -125,12 +126,16 @@ const titleContainerStylesExpanded = css({
 	paddingBottom: token('space.0'),
 });
 
+// Base styles for the content container. visibility:hidden hides collapsed content.
+// When browser find is enabled, the useEffect clears visibility:hidden after setting
+// hidden="until-found" on the DOM element, which applies content-visibility:hidden natively —
+// this hides the content while allowing browser Ctrl+F to index the text.
+// The visibility:hidden in CSS serves as an SSR fallback (useEffect doesn't run server-side).
 const contentContainerStyles = css({
 	paddingTop: token('space.0'),
 	marginLeft: token('space.050'),
 	paddingRight: token('space.200'),
 	paddingLeft: token('space.400'),
-	display: 'flow-root',
 	visibility: 'hidden',
 
 	// The follow rules inside @supports block are added as a part of ED-8893
@@ -140,6 +145,13 @@ const contentContainerStyles = css({
 		width: '100%',
 		boxSizing: 'border-box',
 	},
+});
+
+// display:flow-root is applied only when browser find is NOT enabled.
+// It must NOT be set when browser find is enabled — it overrides the
+// content-visibility:hidden applied by hidden="until-found" and makes content visible.
+const contentContainerStylesFlowRoot = css({
+	display: 'flow-root',
 });
 
 const contentContainerStylesExpanded = css({
@@ -157,6 +169,19 @@ const contentContainerStylesNotExpanded = css({
 		height: 0,
 		overflow: 'hidden',
 		clip: 'rect(1px, 1px, 1px, 1px)',
+		userSelect: 'none',
+	},
+});
+
+// When browser find is enabled and expand is collapsed, we rely on the
+// hidden="until-found" attribute on the outer container to hide content.
+// We remove height:0/overflow:hidden/clip from the inner wrapper so the
+// browser can actually search through the content.
+const contentContainerStylesNotExpandedBrowserFind = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.expand-content-wrapper, .nestedExpand-content-wrapper': {
+		width: '100%',
+		display: 'block',
 		userSelect: 'none',
 	},
 });
@@ -220,13 +245,23 @@ const TitleContainer = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButto
 
 TitleContainer.displayName = 'TitleContainerButton';
 
-const ContentContainer = (props: StyleProps) => {
+type ContentContainerProps = StyleProps & {
+	contentRef?: React.Ref<HTMLDivElement>;
+	enableBrowserFind?: boolean;
+};
+
+const ContentContainer = (props: ContentContainerProps) => {
 	return (
 		<div
+			ref={props.contentRef}
 			css={[
 				contentContainerStyles,
+				!props.enableBrowserFind && contentContainerStylesFlowRoot,
 				props.expanded && contentContainerStylesExpanded,
-				!props.expanded && contentContainerStylesNotExpanded,
+				!props.expanded &&
+					(props.enableBrowserFind
+						? contentContainerStylesNotExpandedBrowserFind
+						: contentContainerStylesNotExpanded),
 			]}
 		>
 			{props.children}
@@ -243,6 +278,7 @@ export interface ExpandProps {
 	nodeType: 'expand' | 'nestedExpand';
 	rendererAppearance?: RendererAppearance;
 	rendererContentMode?: RendererContentMode;
+	searchText?: string;
 	title: string;
 }
 
@@ -277,6 +313,7 @@ function Expand({
 	nestedHeaderIds,
 	rendererContentMode,
 	loadBodyContent,
+	searchText,
 }: ExpandProps & WrappedComponentProps) {
 	const [expanded, setExpanded] = React.useState(false);
 	const [focused, setFocused] = React.useState(false);
@@ -287,15 +324,113 @@ function Expand({
 		expanded ? expandMessages.collapseNode : expandMessages.expandNode,
 	);
 	const { current: id } = useRef(_uniqueId('expand-title-'));
+	const contentContainerRef = useRef<HTMLDivElement>(null);
+	const contentWrapperRef = useRef<HTMLDivElement>(null);
 
 	const handleFocus = useCallback(() => setFocused(true), []);
 	const handleBlur = useCallback(() => setFocused(false), []);
+	const expandForBrowserFind = useCallback(() => {
+		setHasLoadedChildren(true);
+		setExpanded(true);
+	}, []);
 
 	const isCompactModeSupported =
 		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 			fg('platform_editor_content_mode_button_mvp'));
 	const isCompact = rendererContentMode === 'compact' && isCompactModeSupported;
+	const shouldRenderLazyChildren = hasLoadedChildren || loadBodyContent;
+	// Only render the lightweight text placeholder when lazy load is ON and
+	// children haven't been loaded yet. When lazy load is OFF, children are
+	// always in the DOM — hidden="until-found" on the wrapper already makes
+	// them searchable by browser find, so no placeholder is needed.
+	const shouldRenderBrowserFindText =
+		!shouldRenderLazyChildren &&
+		searchText &&
+		fg('hot-121622_lazy_load_expand_content') &&
+		expValEquals('platform_editor_close_expand_find', 'isEnabled', true);
+
+	// Feature-detect hidden="until-found" support via the beforematch event.
+	// Chrome 102+ and Firefox 130+ support it; Safari does not yet.
+	// In unsupported browsers, setting hidden="until-found" is treated as boolean hidden
+	// (display:none), which would break the expand entirely.
+	// Initialised as false and set in useEffect to avoid SSR/client hydration mismatch —
+	// useMemo would return true on the client's first render in supported browsers,
+	// differing from the server snapshot which always produces false.
+	const [supportsHiddenUntilFound, setSupportsHiddenUntilFound] = React.useState(false);
+	React.useEffect(() => {
+		const doc = getDocument();
+		setSupportsHiddenUntilFound(doc?.body ? 'onbeforematch' in doc.body : false);
+	}, []);
+
+	// React 18 treats `hidden` as a boolean attribute and strips the "until-found" value,
+	// rendering it as just `hidden` (which applies display:none and blocks find-in-page).
+	// We bypass React by setting the attribute directly on the DOM element around the text.
+	//
+	// We also remove the CSS visibility:hidden (SSR fallback) once hidden="until-found" is set,
+	// because visibility:hidden blocks browser find. On expanded, we restore visibility to visible.
+	//
+	// Only applied when the browser supports hidden="until-found" (detected via onbeforematch).
+	// In unsupported browsers (Safari), we skip this entirely and fall back to the normal
+	// CSS hiding (visibility:hidden + height:0), which doesn't support find-in-page but
+	// still works correctly for expand/collapse.
+	React.useEffect(() => {
+		const contentContainer = contentContainerRef.current;
+		const contentWrapper = contentWrapperRef.current;
+		if (!contentWrapper) {
+			return;
+		}
+
+		if (
+			supportsHiddenUntilFound &&
+			expValEquals('platform_editor_close_expand_find', 'isEnabled', true) &&
+			!expanded
+		) {
+			contentWrapper.setAttribute('hidden', 'until-found');
+			// Override the CSS visibility:hidden from contentContainerStyles — hidden="until-found"
+			// now handles hiding via content-visibility:hidden, which allows browser find to index
+			// the content. We use 'visible' (not '') because '' only clears the inline style but
+			// the Emotion CSS class rule still applies visibility:hidden, blocking find-in-page.
+			contentContainer?.style.setProperty('visibility', 'visible');
+			contentWrapper.style.visibility = 'visible';
+		} else {
+			contentWrapper.removeAttribute('hidden');
+			contentContainer?.style.removeProperty('visibility');
+			contentWrapper.style.visibility = '';
+		}
+	}, [expanded, supportsHiddenUntilFound]);
+
+	React.useEffect(() => {
+		if (!expValEquals('platform_editor_close_expand_find', 'isEnabled', true) || expanded) {
+			return;
+		}
+
+		const contentWrapper = contentWrapperRef.current;
+
+		const unbindWrapperBeforeMatch =
+			contentWrapper && supportsHiddenUntilFound
+				? bind(contentWrapper, { type: 'beforematch', listener: expandForBrowserFind })
+				: undefined;
+
+		return () => {
+			unbindWrapperBeforeMatch?.();
+		};
+	}, [expandForBrowserFind, expanded, supportsHiddenUntilFound]);
+
+	let expandContent = children;
+	if (shouldRenderBrowserFindText) {
+		// Browser find path: keep a lightweight text mirror in the closed expand
+		// so Ctrl+F can index it without mounting the rich children tree.
+		expandContent = <span>{searchText}</span>;
+	} else if (!shouldRenderLazyChildren && fg('hot-121622_lazy_load_expand_content')) {
+		expandContent = null;
+	} else if (fg('hot-121622_lazy_load_expand_content')) {
+		expandContent = (
+			<Suspense fallback={<div>{intl.formatMessage(expandMessages.loading)}</div>}>
+				<LazyChildren>{children}</LazyChildren>
+			</Suspense>
+		);
+	}
 
 	return (
 		<Container
@@ -364,20 +499,19 @@ function Expand({
 					{title || intl.formatMessage(expandMessages.expandDefaultTitle)}
 				</span>
 			</TitleContainer>
-			<ContentContainer expanded={expanded}>
+			<ContentContainer
+				expanded={expanded}
+				enableBrowserFind={
+					supportsHiddenUntilFound &&
+					expValEquals('platform_editor_close_expand_find', 'isEnabled', true)
+				}
+				contentRef={contentContainerRef}
+			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-				<div className={`${nodeType}-content-wrapper`}>
+				<div className={`${nodeType}-content-wrapper`} ref={contentWrapperRef}>
 					<WidthProvider>
 						<div css={clearNextSiblingMarginTopStyle} />
-						{fg('hot-121622_lazy_load_expand_content') ? (
-							hasLoadedChildren || loadBodyContent ? (
-								<Suspense fallback={<div>{intl.formatMessage(expandMessages.loading)}</div>}>
-									<LazyChildren>{children}</LazyChildren>
-								</Suspense>
-							) : null
-						) : (
-							children
-						)}
+						{expandContent}
 					</WidthProvider>
 				</div>
 			</ContentContainer>

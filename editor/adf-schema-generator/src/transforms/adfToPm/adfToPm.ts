@@ -30,6 +30,10 @@ function isGroupReturnValue(
 	return value && 'group' in value;
 }
 
+function getPmContentExpressionNames(node: ADFNode): Array<string> {
+	return node.getSpec().preserveVariantNameInPm ? [node.getName()] : [node.getType()];
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function transform(adf: ADFNode<any, any>): {
 	markResMap: Record<string, MarkSpecResMap>;
@@ -117,7 +121,7 @@ export function transform(adf: ADFNode<any, any>): {
 					 */
 					if (PSEUDO_GROUPS.has(child.group)) {
 						for (const member of child.members) {
-							expr.push(member.node.getType());
+							expr.push(...getPmContentExpressionNames(member.node));
 							contentTypes.push(...getNodeNames(member.node));
 						}
 					} else {
@@ -141,7 +145,7 @@ export function transform(adf: ADFNode<any, any>): {
 						}
 					}
 				} else if (isNodeReturnValue(child)) {
-					expr.push(child.node.getType());
+					expr.push(...getPmContentExpressionNames(child.node));
 					contentTypes.push(...getNodeNames(child.node));
 					if (child.node.getMarks().length) {
 						for (const mark of child.node.getMarksTypes()) {

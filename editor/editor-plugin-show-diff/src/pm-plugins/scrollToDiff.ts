@@ -1,6 +1,6 @@
-import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView, Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import { DiffDecorationKey } from './decorations/decorationKeys';
+import { isDiffDecoration, isDiffDecorationSpec } from './decorations/decorationKeys';
 
 /**
  * Extra space above the scrolled-to element so it does not sit flush under the
@@ -45,11 +45,8 @@ function scrollToSelection(node: Node | null | undefined): void {
  *
  * @returns A function that cancels the scheduled `requestAnimationFrame` if it has not run yet.
  */
-export const scrollToFirstDecoration = (
-	view: EditorView,
-	decorations: Decoration[],
-): (() => void) => {
-	const decoration = decorations[0];
+export const scrollToFirstDecoration = (view: EditorView, set: DecorationSet): (() => void) => {
+	const decoration = set.find(undefined, undefined, isDiffDecorationSpec).find(isDiffDecoration);
 	if (!decoration) {
 		return () => {};
 	}
@@ -57,7 +54,7 @@ export const scrollToFirstDecoration = (
 	let rafId: number | null = requestAnimationFrame(() => {
 		rafId = null;
 		// @ts-expect-error - decoration.type is not typed public API
-		if (decoration.spec?.key?.startsWith(DiffDecorationKey.widget) && decoration?.type?.toDOM) {
+		if (decoration.spec.decorationType === 'widget' && decoration?.type?.toDOM) {
 			// @ts-expect-error - decoration.type is not typed public API
 			const widgetDom = decoration.type.toDOM;
 			// Always scroll to the top of this decoration even if it's in view already
@@ -98,7 +95,7 @@ export const scrollToActiveDecoration = (
 
 	let rafId: number | null = requestAnimationFrame(() => {
 		rafId = null;
-		if (decoration.spec?.key?.startsWith(DiffDecorationKey.widget)) {
+		if (isDiffDecoration(decoration) && decoration.spec.decorationType === 'widget') {
 			// @ts-expect-error - decoration.type is not typed public API
 			const widgetDom = decoration?.type?.toDOM;
 			scrollToSelection(widgetDom);

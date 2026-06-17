@@ -114,6 +114,7 @@ function getDomainForNonIsolatedCloud(
  * @param The environment to get the domain for ('dev', 'staging', or 'prod'). When in Isolated Cloud, the same value will be returned for all env types.
  * @returns The full URL for the given subdomain and environment
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getUrlForDomainInContext(
 	subdomain: string,
 	envType: EnvironmentType,

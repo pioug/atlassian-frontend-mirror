@@ -141,9 +141,7 @@ const queryAGGUser = async (
 	cloudId: string,
 ): Promise<TeamsUserQueryResponse> => {
 	const query = buildAggUserQuery(userId);
-	const shouldAddScopedProfileAtlAttribution = fg(
-		'profilecard_scoped_profile_atl_attribution',
-	);
+	const shouldAddScopedProfileAtlAttribution = fg('profilecard_scoped_profile_atl_attribution');
 	const { user } = await AGGQuery<{ user: TeamsUserQueryResponse }>(
 		url,
 		query,

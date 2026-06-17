@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6976169d85be7545c35821ac2ecd2c10>>
+ * @generated SignedSource<<5f16dd67db6269aad158fa98e85c76a4>>
  * @relayHash c95a4b89f332b56ac41d44591442026c
  * @lightSyntaxTransform
  * @nogrep
@@ -22,8 +22,8 @@ export type testAgentVerificationDropdownItemQuery$data = {
   readonly atlassianStudio_userSiteContext: {
     readonly userPermissions?: {
       readonly " $fragmentSpreads": FragmentRefs<"agentVerificationDropdownItem_AtlaskitRovoAgentComponents_userPermissionsRef">;
-    } | null | undefined;
-  } | null | undefined;
+    } | null;
+  } | null;
 };
 export type testAgentVerificationDropdownItemQuery = {
   response: testAgentVerificationDropdownItemQuery$data;

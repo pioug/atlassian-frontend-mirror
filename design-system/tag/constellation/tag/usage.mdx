@@ -45,7 +45,7 @@ control the layout and alignment for a collection of tags.
 <Image
 	src={tagsAnatomyLight}
 	srcDark={tagsAnatomyDark}
-	alt="Tag anatomy diagram showing four parts: 1. Label — text that describes the classification or category; 2. Leading swatch (optional) — a color swatch before the label used for wayfinding, such as Jira epic or parent labels; 3. Leading element (optional) — an icon or element before the label that adds context; 4. Close button (optional) — a trailing button that allows the tag to be removed."
+	alt="Tag anatomy diagram showing five parts: 1. Label — text that describes the classification or category; 2. Leading swatch (optional) — a color swatch before the label used for wayfinding, such as Jira epic or parent labels; 3. Leading element (optional) — an icon or element before the label that adds context; 4. Close button (optional) — a trailing button that allows the tag to be removed; 5. Badge (optional) — a trailing metric that adds a score or count to the tag."
 />
 
 1. **Label:** Text that describes the classification or category.
@@ -58,6 +58,7 @@ control the layout and alignment for a collection of tags.
    by using the `elemBefore` property.
 4. **Close button (optional):** Enable the `isRemovable` property to allow customers to remove a tag
    by clicking the trailing close button.
+5. **Badge (optional):** Use the `trailingMetric` prop to add a metric to the tag.
 
 ## Best practices
 

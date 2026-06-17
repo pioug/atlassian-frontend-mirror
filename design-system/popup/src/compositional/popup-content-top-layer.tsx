@@ -124,13 +124,10 @@ export function PopupContentTopLayer({
 	 * underlying `Popover`.
 	 */
 	const consumerInitialFocusRef = useRef<HTMLElement | null>(null);
-	const setInitialFocusRef = useCallback<Dispatch<SetStateAction<HTMLElement | null>>>(
-		(value) => {
-			consumerInitialFocusRef.current =
-				typeof value === 'function' ? value(consumerInitialFocusRef.current) : value;
-		},
-		[],
-	);
+	const setInitialFocusRef = useCallback<Dispatch<SetStateAction<HTMLElement | null>>>((value) => {
+		consumerInitialFocusRef.current =
+			typeof value === 'function' ? value(consumerInitialFocusRef.current) : value;
+	}, []);
 
 	// Placement conversion
 	// Legacy `offset` is the popper `[along, away]` tuple; `fromLegacyPlacement`

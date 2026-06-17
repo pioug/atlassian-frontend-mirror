@@ -15,6 +15,7 @@ const VC_CHECKPOINTS_TO_TRIM = ['25', '50', '75'];
  * exceeds the limit after interactionMetrics trimming.
  * Mutates `properties` in place and updates event:isTrimmed and event:trimmedFields.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function trimVcDebugData(
 	/** Properties object to trim VC debug data from. */
 	properties: Record<string, unknown>,

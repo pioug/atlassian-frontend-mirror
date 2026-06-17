@@ -13,15 +13,7 @@ export type RecommendedUsersArgs = {
 	accountId: string;
 	cloudId: string;
 	maxNumberOfResults?: number;
-	filter?: string | null;
-	expand?: 'existing' | 'all' | string;
-	requestingUserId?: string;
-	sessionId?: string;
-	modelRequestParams?: {
-		experience?: string;
-		caller?: string;
-		featureServiceModel?: string;
-	};
+	filter?: string;
 };
 
 enum CONTAINER_TYPE {
@@ -100,25 +92,20 @@ export class CollaborationGraphClient extends RestClient {
 		cloudId,
 		maxNumberOfResults = 12,
 		filter = 'account_status:"active" AND (NOT email_domain:"connect.atlassian.com") AND (NOT account_type:"app")',
-		expand = 'existing',
-		requestingUserId = accountId,
-		sessionId,
-		modelRequestParams = {
-			experience: 'CgUserNearbyUser',
-			caller: 'atlas',
-		},
 	}: RecommendedUsersArgs): Promise<RecommendedUsersResponse> {
 		return this.postResource('/v2/recommend/user', {
 			context: {
 				userId: accountId,
 				tenantId: cloudId,
 			},
-			modelRequestParams,
-			requestingUserId,
-			expand,
+			modelRequestParams: {
+				experience: 'CgUserNearbyUser',
+				caller: 'atlas',
+			},
+			requestingUserId: accountId,
+			expand: 'existing',
 			maxNumberOfResults,
-			...(filter ? { filter } : {}),
-			...(sessionId ? { sessionId } : {}),
+			filter,
 		});
 	}
 }

@@ -1,5 +1,33 @@
 # @atlaskit/editor-statsig-tmp
 
+## 107.1.0
+
+### Minor Changes
+
+- [`7af62a3047331`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7af62a3047331) -
+  Make closed Expand macro content searchable by browser find (Ctrl+F) via
+  platform_editor_close_expand_find experiment
+
+## 107.0.0
+
+### Major Changes
+
+- [`bafa7b1c23370`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bafa7b1c23370) -
+  Clean up experiment `platform_editor_fix_editor_unhandled_type_errors`
+- [`b9d4a2139fad1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9d4a2139fad1) -
+  Clean up experiment `platform_editor_renderer_error_boundary_stable_key`
+- [`186a5bca426ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/186a5bca426ff) -
+  Clean up experiment `platform_editor_emojis_in_renderer_smart_links`
+- [`111a9ff8e3e9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/111a9ff8e3e9c) -
+  cleanup fg platform_editor_ai_escape_early_for_unhealthy_node
+
+## 106.0.0
+
+### Major Changes
+
+- [`3c78f7149e895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c78f7149e895) -
+  Clean up experiment `cc_integrations_editor_open_link_click_analytics`.
+
 ## 105.0.0
 
 ### Major Changes

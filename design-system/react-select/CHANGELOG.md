@@ -1,5 +1,21 @@
 # @atlaskit/react-select
 
+## 4.0.1
+
+### Patch Changes
+
+- [`0f8f79a02f3d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f8f79a02f3d5) -
+  Fix `MultiValueContainer` component override being silently ignored when the
+  `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate is enabled.
+
+  When the gate is on, `MultiValue` previously bypassed the `Container` (i.e. `MultiValueContainer`)
+  component entirely and rendered a `<Tag>` or tag-like `<div>` directly, causing consumers who use
+  `MultiValueContainer: () => null` to suppress selected tag display to see broken dropdown
+  positioning.
+
+  The fix detects when `Container` has been overridden and falls back to the default
+  `Container`-based render path, restoring the expected suppression behaviour.
+
 ## 4.0.0
 
 ### Major Changes

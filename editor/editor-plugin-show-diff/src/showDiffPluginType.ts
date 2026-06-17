@@ -44,6 +44,10 @@ export type PMDiffParams = {
 	 */
 	scrollIntoView?: boolean;
 	/**
+	 * Whether to show indicators at the doc margin for the diffs.
+	 */
+	showIndicators?: boolean;
+	/**
 	 * Prosemirror steps. This is used to calculate and show the diff in the editor
 	 */
 	steps: Step[];
@@ -85,6 +89,10 @@ export type ShowDiffPlugin = NextEditorPlugin<
 			 * The number of changes being displayed
 			 */
 			numberOfChanges?: number;
+			/**
+			 * Whether to show indicators at the doc margin for the diffs.
+			 */
+			showIndicators?: boolean;
 		};
 	}
 >;

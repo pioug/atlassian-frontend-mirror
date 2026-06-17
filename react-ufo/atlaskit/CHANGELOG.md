@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.1.0
+
+### Minor Changes
+
+- [`9f501971522cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f501971522cb) -
+  Add gated disablement for legacy interaction extra metrics payload
+
 ## 7.0.0
 
 ### Major Changes

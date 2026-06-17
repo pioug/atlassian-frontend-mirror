@@ -37,6 +37,7 @@ export function sinkExtraSearchPageInteractionHandler(
 	installInteractionSink(sinkFn);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function onSearchPageInteractionComplete(
 	interactionId: string,
 	data: InteractionMetrics,

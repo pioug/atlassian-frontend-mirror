@@ -34,7 +34,7 @@ export const ContextTypes: {
  * for any events fired by its descendents,
  * then passes the event up the hierarchy
  */
-// eslint-disable-next-line @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components, @atlaskit/volt-strict-mode/no-multiple-exports
 export class AnalyticsDecorator extends Component<AnalyticsDecoratorProps> {
 	static defaultProps = {
 		match: '*',
@@ -100,4 +100,5 @@ export class AnalyticsDecorator extends Component<AnalyticsDecoratorProps> {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default AnalyticsDecorator;

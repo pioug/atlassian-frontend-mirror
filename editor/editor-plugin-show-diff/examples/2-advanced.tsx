@@ -237,6 +237,7 @@ export default function Editor(): React.JSX.Element {
 	const [isInverted, setisInverted] = useState(false);
 	const [hideDeletedDiffs, setHideDeletedDiffs] = useState(false);
 	const [diffType, setDiffType] = useState<DiffType>('inline');
+	const [showIndicators, setShowIndicators] = useState(false);
 
 	const { preset, editorApi } = usePreset(
 		(builder) =>
@@ -367,10 +368,11 @@ export default function Editor(): React.JSX.Element {
 				isInverted,
 				hideDeletedDiffs,
 				diffType,
+				showIndicators,
 			}),
 		);
 		setIsShowingDiff(true);
-	}, [editorApi, isInverted, hideDeletedDiffs, diffType]);
+	}, [editorApi, isInverted, hideDeletedDiffs, diffType, showIndicators]);
 
 	useEffect(() => {
 		showDiff();
@@ -416,6 +418,14 @@ export default function Editor(): React.JSX.Element {
 					}}
 				>
 					Type: {diffType}
+				</Button>
+				<Button
+					onClick={() => {
+						hideDiff();
+						setShowIndicators((prev) => !prev);
+					}}
+				>
+					Indicators: {showIndicators ? 'on' : 'off'}
 				</Button>
 				<Button
 					onClick={() => {

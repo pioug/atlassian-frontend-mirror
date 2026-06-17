@@ -55,10 +55,7 @@ export const ToolbarButtonGroup = ({ children }: ToolbarButtonGroupProps): JSX.E
 	const middleChildren = items.slice(1, -1);
 
 	return (
-		<Box
-			xcss={styles.container}
-			data-toolbar-component="button-group"
-		>
+		<Box xcss={styles.container} data-toolbar-component="button-group">
 			{items.length <= 1 ? (
 				children
 			) : (

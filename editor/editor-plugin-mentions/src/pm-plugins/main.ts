@@ -45,7 +45,12 @@ export const ACTIONS = {
 };
 
 // 'AGENT' is not in the ADF schema UserType enum but is used at runtime.
-const AGENT_USER_TYPES = new Set<MentionUserType | 'AGENT'>(['APP', 'AGENT']);
+type AgentUserType = MentionUserType | 'AGENT';
+const AGENT_USER_TYPES = new Set<AgentUserType>(['APP', 'AGENT']);
+
+const isAgentUserType = (userType: unknown): userType is AgentUserType => {
+	return typeof userType === 'string' && AGENT_USER_TYPES.has(userType as AgentUserType);
+};
 
 const AI_STREAMING_TRANSFORMATION_META_KEY = 'isAIStreamingTransformation' as const;
 const AGENT_MENTION_INACTIVITY_MS = 3000;
@@ -82,6 +87,20 @@ const isQualifyingLocalUserDocChange = (tr: ReadonlyTransaction) => {
 	);
 };
 
+const isLocalSelectionChange = (tr: ReadonlyTransaction, hasPositionChanged: boolean) => {
+	const isAIStreaming = Boolean(tr.getMeta(AI_STREAMING_TRANSFORMATION_META_KEY));
+
+	// Pressing Enter can move selection through a doc split without setting tr.selectionSet
+	// or changing from/to numerically, so local doc changes are checked against the
+	// pending mention's current parent before publishing.
+	return (
+		(hasPositionChanged || tr.docChanged) &&
+		!tr.getMeta('isRemote') &&
+		!tr.getMeta('replaceDocument') &&
+		!isAIStreaming
+	);
+};
+
 /**
  * Reads agent-mention details from a known document position without traversing
  * the document. Callers pass a matcher so mapped positions are only accepted
@@ -100,21 +119,23 @@ const getAgentMentionDetailsAtPos = (
 	const mentionSchema = state.schema.nodes.mention;
 	if (
 		node?.type !== mentionSchema ||
-		!AGENT_USER_TYPES.has(node.attrs.userType) ||
+		!isAgentUserType(node.attrs.userType) ||
 		!matchesMention(node.attrs) ||
 		!node.attrs.id
 	) {
 		return null;
 	}
 
-	const $mentionPos = state.doc.resolve(pos);
+	const $mentionPos = state.doc.resolve(Math.min(pos + node.nodeSize, state.doc.content.size));
 	const parentNode = $mentionPos.node($mentionPos.depth);
 
 	return {
 		id: node.attrs.id as string,
 		context: parentNode.textContent.trim() || null,
 		nodeSize: node.nodeSize,
+		parentEnd: $mentionPos.end($mentionPos.depth),
 		parentNodeType: parentNode.type.name ?? null,
+		parentStart: $mentionPos.start($mentionPos.depth),
 		pos,
 	};
 };
@@ -135,11 +156,7 @@ const getSurvivingAgentMentionDetails = (
 		if (result?.id === preferredId) {
 			return false;
 		}
-		if (
-			node.type !== mentionSchema ||
-			!AGENT_USER_TYPES.has(node.attrs.userType) ||
-			!node.attrs.id
-		) {
+		if (node.type !== mentionSchema || !isAgentUserType(node.attrs.userType) || !node.attrs.id) {
 			return true;
 		}
 
@@ -184,9 +201,114 @@ const getPendingTypedAgentMentionAfterDocChange = (
 				nodeSize: pendingMentionDetails.nodeSize,
 				pos: pendingMentionDetails.pos,
 				resetCount,
-			}
+		  }
 		: null;
 };
+
+const hasPendingMentionMovedToNewParent = (
+	oldState: EditorState,
+	tr: ReadonlyTransaction,
+	previousPendingTypedAgentMention: MentionPluginState['pendingTypedAgentMention'],
+	pendingMentionDetails: AgentMentionDetails,
+) => {
+	if (!previousPendingTypedAgentMention) {
+		return false;
+	}
+
+	const previousMentionDetails = getAgentMentionDetailsAtPos(
+		oldState,
+		previousPendingTypedAgentMention.pos,
+		(attrs) => attrs.localId === previousPendingTypedAgentMention.localId,
+	);
+
+	// Keep the previous parent boundary associated with the left side of an
+	// insertion at that boundary, so typing at the start of the parent does not
+	// look like the pending mention moved into a new parent.
+	const mappedPreviousParentStart =
+		previousMentionDetails && tr.mapping.map(previousMentionDetails.parentStart, -1);
+
+	return Boolean(
+		previousMentionDetails && mappedPreviousParentStart !== pendingMentionDetails.parentStart,
+	);
+};
+
+const isSelectionOutsideDirectParent = (
+	state: EditorState,
+	pendingMentionDetails: AgentMentionDetails,
+) => {
+	return (
+		state.selection.from < pendingMentionDetails.parentStart ||
+		state.selection.to > pendingMentionDetails.parentEnd
+	);
+};
+
+/**
+ * Finalises a pending typed agent mention by copying its details into the
+ * public lastInserted* plugin state after the caller has already resolved the
+ * pending mention from the current document.
+ */
+const commitResolvedPendingTypedAgentMention = (
+	pluginState: MentionPluginState,
+	pendingMentionDetails: AgentMentionDetails,
+) => ({
+	hasPublicPluginStateChanged: true,
+	pluginState: {
+		...pluginState,
+		pendingTypedAgentMention: null,
+		lastInsertedAgentMentionId: pendingMentionDetails.id,
+		lastInsertedAgentMentionContext: pendingMentionDetails.context,
+		lastInsertedAgentMentionParentNodeType: pendingMentionDetails.parentNodeType,
+		lastAgentMentionInsertionCount: (pluginState.lastAgentMentionInsertionCount ?? 0) + 1,
+	},
+});
+
+/**
+ * Resolves and finalises a pending typed agent mention. If the tracked mention
+ * no longer resolves, the stale pending state is cleared without dispatching a
+ * public update.
+ */
+const commitPendingTypedAgentMention = (
+	state: EditorState,
+	pluginState: MentionPluginState,
+	pendingTypedAgentMention: NonNullable<MentionPluginState['pendingTypedAgentMention']>,
+) => {
+	const pendingMentionDetails = getAgentMentionDetailsAtPos(
+		state,
+		pendingTypedAgentMention.pos,
+		(attrs) => attrs.localId === pendingTypedAgentMention.localId,
+	);
+
+	if (!pendingMentionDetails) {
+		return {
+			hasPublicPluginStateChanged: false,
+			pluginState: {
+				...pluginState,
+				pendingTypedAgentMention: null,
+			},
+		};
+	}
+
+	return commitResolvedPendingTypedAgentMention(pluginState, pendingMentionDetails);
+};
+
+const hasTrackedAgentMentionState = (pluginState: MentionPluginState) =>
+	Boolean(pluginState.pendingTypedAgentMention) ||
+	pluginState.lastInsertedAgentMentionId != null ||
+	pluginState.lastInsertedAgentMentionContext != null ||
+	pluginState.lastInsertedAgentMentionParentNodeType != null;
+
+/**
+ * Clears agent mention state that points at a specific document snapshot.
+ * replaceDocument swaps content wholesale, so pending typed mentions and
+ * lastInserted* details from the previous document must be cleared together.
+ */
+const clearTrackedAgentMentionState = (pluginState: MentionPluginState): MentionPluginState => ({
+	...pluginState,
+	pendingTypedAgentMention: null,
+	lastInsertedAgentMentionId: null,
+	lastInsertedAgentMentionContext: null,
+	lastInsertedAgentMentionParentNodeType: null,
+});
 
 interface CreateMentionPlugin {
 	api?: ExtractInjectionAPI<MentionsPlugin>;
@@ -282,30 +404,14 @@ export function createMentionPlugin({
 							break;
 						}
 
-						const pendingMentionDetails = getAgentMentionDetailsAtPos(
+						const commitResult = commitPendingTypedAgentMention(
 							newState,
-							pendingTypedAgentMention.pos,
-							(attrs) => attrs.localId === pendingTypedAgentMention.localId,
+							newPluginState,
+							pendingTypedAgentMention,
 						);
-
-						if (!pendingMentionDetails) {
-							newPluginState = {
-								...newPluginState,
-								pendingTypedAgentMention: null,
-							};
-							break;
-						}
-
-						newPluginState = {
-							...newPluginState,
-							pendingTypedAgentMention: null,
-							lastInsertedAgentMentionId: pendingMentionDetails.id,
-							lastInsertedAgentMentionContext: pendingMentionDetails.context,
-							lastInsertedAgentMentionParentNodeType: pendingMentionDetails.parentNodeType,
-							lastAgentMentionInsertionCount:
-								(newPluginState.lastAgentMentionInsertionCount ?? 0) + 1,
-						};
-						hasPublicPluginStateChanged = true;
+						newPluginState = commitResult.pluginState;
+						hasPublicPluginStateChanged =
+							hasPublicPluginStateChanged || commitResult.hasPublicPluginStateChanged;
 						break;
 					}
 					case ACTIONS.SET_PROVIDER:
@@ -322,17 +428,6 @@ export function createMentionPlugin({
 				// agent-mention state changes are included in the notification.
 				if (hasPublicPluginStateChanged && !isAgentMentionsExperimentEnabled) {
 					pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
-				}
-
-				if (isAgentMentionsExperimentEnabled && tr.docChanged && tr.getMeta('replaceDocument')) {
-					newPluginState = {
-						...newPluginState,
-						pendingTypedAgentMention: null,
-						lastInsertedAgentMentionId: null,
-						lastInsertedAgentMentionContext: null,
-						lastInsertedAgentMentionParentNodeType: null,
-					};
-					hasPublicPluginStateChanged = true;
 				}
 
 				type MentionMapItem = {
@@ -432,7 +527,7 @@ export function createMentionPlugin({
 								const clampedNewTo = Math.min(newTo, newState.doc.content.size);
 								if (clampedNewFrom < clampedNewTo) {
 									newState.doc.nodesBetween(clampedNewFrom, clampedNewTo, (node) => {
-										if (node.type === mentionSchema && AGENT_USER_TYPES.has(node.attrs.userType)) {
+										if (node.type === mentionSchema && isAgentUserType(node.attrs.userType)) {
 											found = true;
 										}
 										return !found;
@@ -472,27 +567,27 @@ export function createMentionPlugin({
 						let newCount = 0;
 						let oldAgentMentionId: string | null = null;
 						let oldCount = 0;
-						const pendingTypedAgentMentionDetails: { current?: AgentMentionDetails } = {};
+						let pendingTypedAgentMentionDetails: AgentMentionDetails | null = null;
 
 						if (stepsTouchMentions) {
 							for (const [from, to] of newDocRanges) {
 								const clampedTo = Math.min(to, newState.doc.content.size);
 								if (from >= clampedTo) continue;
 								newState.doc.nodesBetween(from, clampedTo, (node, pos) => {
-									if (node.type !== mentionSchema || !AGENT_USER_TYPES.has(node.attrs.userType)) {
+									if (node.type !== mentionSchema || !isAgentUserType(node.attrs.userType)) {
 										return true;
 									}
 									newCount++;
 									if (
-										pendingTypedAgentMentionDetails.current === undefined &&
+										pendingTypedAgentMentionDetails === null &&
 										action === ACTIONS.SET_PENDING_TYPED_AGENT_MENTION &&
 										node.attrs.localId === params?.localId
 									) {
-										pendingTypedAgentMentionDetails.current = getAgentMentionDetailsAtPos(
+										pendingTypedAgentMentionDetails = getAgentMentionDetailsAtPos(
 											newState,
 											pos,
 											(attrs) => attrs.localId === params.localId,
-										) ?? undefined;
+										);
 									}
 									if (agentMentionId === null && node.attrs.id) {
 										const agentMentionDetails = getAgentMentionDetailsAtPos(
@@ -514,7 +609,7 @@ export function createMentionPlugin({
 								const clampedOldTo = Math.min(to, oldState.doc.content.size);
 								if (from >= clampedOldTo) continue;
 								oldState.doc.nodesBetween(from, clampedOldTo, (node) => {
-									if (node.type !== mentionSchema || !AGENT_USER_TYPES.has(node.attrs.userType)) {
+									if (node.type !== mentionSchema || !isAgentUserType(node.attrs.userType)) {
 										return true;
 									}
 									oldCount++;
@@ -555,16 +650,19 @@ export function createMentionPlugin({
 							? (newPluginState.lastAgentMentionInsertionCount ?? 0) + 1
 							: undefined;
 
-						if (isPendingTypedAgentMentionInsertion && pendingTypedAgentMentionDetails.current) {
+						const pendingTypedAgentMentionDetailsForState =
+							pendingTypedAgentMentionDetails as AgentMentionDetails | null;
+
+						if (isPendingTypedAgentMentionInsertion && pendingTypedAgentMentionDetailsForState) {
 							const pendingTypedAgentMentionLocalId = params?.localId as string;
 
 							newPluginState = {
 								...newPluginState,
 								pendingTypedAgentMention: {
-									id: pendingTypedAgentMentionDetails.current.id,
+									id: pendingTypedAgentMentionDetailsForState.id,
 									localId: pendingTypedAgentMentionLocalId,
-									nodeSize: pendingTypedAgentMentionDetails.current.nodeSize,
-									pos: pendingTypedAgentMentionDetails.current.pos,
+									nodeSize: pendingTypedAgentMentionDetailsForState.nodeSize,
+									pos: pendingTypedAgentMentionDetailsForState.pos,
 									resetCount: 1,
 								},
 							};
@@ -605,6 +703,16 @@ export function createMentionPlugin({
 
 				if (
 					isAgentMentionsExperimentEnabled &&
+					tr.docChanged &&
+					tr.getMeta('replaceDocument') &&
+					hasTrackedAgentMentionState(newPluginState)
+				) {
+					newPluginState = clearTrackedAgentMentionState(newPluginState);
+					hasPublicPluginStateChanged = true;
+				}
+
+				if (
+					isAgentMentionsExperimentEnabled &&
 					newPluginState.pendingTypedAgentMention &&
 					action !== ACTIONS.SET_PENDING_TYPED_AGENT_MENTION &&
 					action !== ACTIONS.COMMIT_PENDING_TYPED_AGENT_MENTION &&
@@ -619,6 +727,52 @@ export function createMentionPlugin({
 							{ resetTimer: isQualifyingLocalUserDocChange(tr) },
 						),
 					};
+				}
+
+				// Typed agent mentions stay pending while the user is still editing around them,
+				// but leaving the mention's direct parent means they have moved on from that
+				// paragraph/block. Publish immediately in that case instead of waiting for the
+				// inactivity timer.
+				const shouldCheckPendingTypedAgentMentionParent = isLocalSelectionChange(
+					tr,
+					hasPositionChanged,
+				);
+				if (
+					isAgentMentionsExperimentEnabled &&
+					newPluginState.pendingTypedAgentMention &&
+					action !== ACTIONS.SET_PENDING_TYPED_AGENT_MENTION &&
+					action !== ACTIONS.COMMIT_PENDING_TYPED_AGENT_MENTION &&
+					shouldCheckPendingTypedAgentMentionParent
+				) {
+					const pendingTypedAgentMention = newPluginState.pendingTypedAgentMention;
+					const pendingMentionDetails = getAgentMentionDetailsAtPos(
+						newState,
+						pendingTypedAgentMention.pos,
+						(attrs) => attrs.localId === pendingTypedAgentMention.localId,
+					);
+
+					if (!pendingMentionDetails) {
+						newPluginState = {
+							...newPluginState,
+							pendingTypedAgentMention: null,
+						};
+					} else if (
+						hasPendingMentionMovedToNewParent(
+							oldState,
+							tr,
+							pluginState.pendingTypedAgentMention,
+							pendingMentionDetails,
+						) ||
+						isSelectionOutsideDirectParent(newState, pendingMentionDetails)
+					) {
+						const commitResult = commitResolvedPendingTypedAgentMention(
+							newPluginState,
+							pendingMentionDetails,
+						);
+						newPluginState = commitResult.pluginState;
+						hasPublicPluginStateChanged =
+							hasPublicPluginStateChanged || commitResult.hasPublicPluginStateChanged;
+					}
 				}
 
 				if (hasPublicPluginStateChanged && isAgentMentionsExperimentEnabled) {

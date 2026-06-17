@@ -79,7 +79,16 @@ describe(`${packageName}/schema syncBlock node`, () => {
 
 function makeSchema() {
 	return createSchema({
-		nodes: ['doc', 'paragraph', 'text', 'syncBlock', 'bodiedSyncBlock', 'unsupportedInline'],
+		nodes: [
+			'doc',
+			'paragraph',
+			'text',
+			'panel',
+			'panel_c1',
+			'syncBlock',
+			'bodiedSyncBlock',
+			'unsupportedInline',
+		],
 		marks: ['unsupportedMark', 'unsupportedNodeAttribute', 'breakout'],
 	});
 }

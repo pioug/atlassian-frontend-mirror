@@ -181,14 +181,17 @@ export const UsePlatformLeafEventHandlerHookTest: () => React.JSX.Element = With
 	ButtonWithUsePlatformLeafEventHandlerHook,
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const UseAnalyticsEventHookTest: () => React.JSX.Element = WithListener(
 	ButtonWithUseAnalyticsEventHook,
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const UseCallbackWithAnalyticsHookTest: () => React.JSX.Element = WithListener(
 	ButtonWithUseCallbackWithAnalyticsHook,
 );
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const HOCSTest: () => React.JSX.Element = WithListener(ButtonWithHOCs);
 
 (UsePlatformLeafEventHandlerHookTest as any).story = {

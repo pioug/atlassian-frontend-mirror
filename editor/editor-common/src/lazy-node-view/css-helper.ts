@@ -11,7 +11,9 @@ const MS_PREFIX_REGEX = /^ms/;
 function hyphenate(property: string): string {
 	// Ignored via go/ees005
 	/* eslint-disable require-unicode-regexp */
-	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(MS_PREFIX_REGEX, '-ms');
+	return property
+		.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
+		.replace(MS_PREFIX_REGEX, '-ms');
 	/* eslint-enable require-unicode-regexp */
 }
 

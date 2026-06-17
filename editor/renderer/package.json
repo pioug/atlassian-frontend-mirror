@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "133.2.0",
+	"version": "133.3.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -73,6 +73,7 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
+		"bind-event-listener": "root:*",
 		"lodash": "root:*",
 		"memoize-one": "root:*",
 		"react-loadable": "root:*",
@@ -144,9 +145,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_native_embeds_rollout_non_maui_experience": {
-			"type": "boolean"
-		},
-		"platform_editor_render_inline_extension_analytics": {
 			"type": "boolean"
 		},
 		"confluence_frontend_table_scrollbar_ttvc_fix": {

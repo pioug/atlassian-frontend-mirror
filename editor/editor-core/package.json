@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "221.0.1",
+	"version": "221.1.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -188,6 +188,9 @@
 		"platform_editor_table_initial_load_fix": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_table_auto_convert_fix": {
+			"type": "boolean"
 		},
 		"platform_editor_toolbar_mode_override": {
 			"type": "boolean"

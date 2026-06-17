@@ -84,6 +84,7 @@ export default async function getPaintMetrics(
 }
 
 // Helper function to get paint metrics in legacy colon format for backward compatibility
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export async function getPaintMetricsToLegacyFormat(
 	type: InteractionType,
 	end: number,

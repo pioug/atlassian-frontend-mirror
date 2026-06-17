@@ -31,6 +31,7 @@ export function shouldRedactValue(value: any): boolean {
 	return (isString(value) && startsAsObject(value)) || isObject(value);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function redactValue(featureFlagValue: FeatureFlagValue): FeatureFlagValue {
 	return shouldRedactValue(featureFlagValue) ? NON_BOOLEAN_VALUE : featureFlagValue;
 }

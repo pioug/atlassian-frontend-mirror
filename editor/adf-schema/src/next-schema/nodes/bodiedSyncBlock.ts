@@ -63,6 +63,7 @@ export const bodiedSyncBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
 				mediaSingle.use('width_type'),
 				orderedList,
 				panel,
+				panel.use('c1'),
 				rule,
 				table,
 				// @ts-expect-error - types don't deal well with circular references for the variant

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 12.0.3
+
+### Patch Changes
+
+- [`8c7ebd7b40870`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c7ebd7b40870) -
+  Clean up feature gate `platform_editor_fix_decoration_edge_case`
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

@@ -136,13 +136,10 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 	 * `useInitialFocus` inside the underlying `Popover`.
 	 */
 	const consumerInitialFocusRef = useRef<HTMLElement | null>(null);
-	const setInitialFocusRef = useCallback<Dispatch<SetStateAction<HTMLElement | null>>>(
-		(value) => {
-			consumerInitialFocusRef.current =
-				typeof value === 'function' ? value(consumerInitialFocusRef.current) : value;
-		},
-		[],
-	);
+	const setInitialFocusRef = useCallback<Dispatch<SetStateAction<HTMLElement | null>>>((value) => {
+		consumerInitialFocusRef.current =
+			typeof value === 'function' ? value(consumerInitialFocusRef.current) : value;
+	}, []);
 
 	/**
 	 * Override the role-based initial focus chosen by the underlying

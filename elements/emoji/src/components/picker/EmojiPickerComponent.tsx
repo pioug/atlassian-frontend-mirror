@@ -619,7 +619,7 @@ const EmojiPickerComponent = ({
 						if (isTeamojiExperimentEnabled) {
 							isProgrammaticScroll.current = true;
 						}
-						emojiPickerList.current.reveal(categoryId);
+						emojiPickerList.current.reveal(categoryId, isTeamojiExperimentEnabled);
 						if (isTeamojiExperimentEnabled) {
 							// Clear the flag after the scroll animation has settled.
 							setTimeout(() => {

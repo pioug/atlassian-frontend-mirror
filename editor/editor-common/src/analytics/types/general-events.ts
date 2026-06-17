@@ -4,7 +4,13 @@ import type { FeatureFlagKey } from '../../types/feature-flags';
 import type { PropsDifference, ShallowPropsDifference } from '../../utils';
 import type { SEVERITY } from '../../utils/SEVERITY';
 
-import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
+import type {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	INPUT_METHOD,
+	MEDIA_INSERT_TAB,
+} from './enums';
 import type { AnnotationAEP, AnnotationErrorAEP } from './inline-comment-events';
 import type { OperationalAEP, OperationalAEPWithObjectId, TrackAEP, UIAEP } from './utils';
 
@@ -290,7 +296,19 @@ type PickerMediaInsertAEP = PickerAEP<
 	ACTION_SUBJECT_ID.PICKER_MEDIA,
 	{
 		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU;
+		openedTab?: MEDIA_INSERT_TAB;
 	}
+>;
+
+type PickerMediaInsertTabViewedAEP = UIAEP<
+	ACTION.VIEWED,
+	ACTION_SUBJECT.PICKER,
+	ACTION_SUBJECT_ID.PICKER_MEDIA,
+	{
+		selectedTab: string;
+		selectedTabIndex: number;
+	},
+	undefined
 >;
 
 type PickerMediaInsertClosedAEP = PickerClosedAEP<
@@ -637,6 +655,7 @@ export type GeneralEventPayload<T = void> =
 	| PickerEmojiAEP
 	| PickerImageAEP
 	| PickerMediaInsertAEP
+	| PickerMediaInsertTabViewedAEP
 	| PickerMediaInsertClosedAEP
 	| PickerMediaInsertCancelledAEP
 	| ReactNodeViewRenderedAEP

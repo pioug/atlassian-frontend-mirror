@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<40be805679705c17d93b6a404d0208ac>>
+ * @generated SignedSource<<72cf5b4272bd87e3f60ceea7d096d404>>
  * @relayHash 426410e11638597e4a12069dd5a8be16
  * @lightSyntaxTransform
  * @nogrep
@@ -21,13 +21,13 @@ export type agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgen
   readonly agentStudio_updateAgentVerification: {
     readonly agent: {
       readonly id?: string;
-      readonly isVerified?: boolean | null | undefined;
-    } | null | undefined;
+      readonly isVerified?: boolean | null;
+    } | null;
     readonly errors: ReadonlyArray<{
-      readonly message: string | null | undefined;
-    }> | null | undefined;
+      readonly message: string | null;
+    }> | null;
     readonly success: boolean;
-  } | null | undefined;
+  } | null;
 };
 export type agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation = {
   response: agentVerificationDropdownItem_AtlaskitRovoAgentComponents_updateAgentVerificationMutation$data;

@@ -25,6 +25,7 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { PluginConfig, TableSharedState } from './types';
 
 export interface TablePluginOptions {
+	__livePage?: boolean;
 	allowContextualMenu?: boolean;
 	/**
 	 * Enables the fixed column width option.

@@ -29,6 +29,7 @@ export function addTimingFromPerformanceMark(
 	});
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getTimings(): ReportedTimings {
 	const reportedTimingsObj: ReportedTimings = {};
 	timings.forEach(({ name, startMark, stopMark, cleanStart, cleanStop }) => {

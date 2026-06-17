@@ -25,11 +25,7 @@ type ProductivityVariant = {
 };
 
 const getProductivityVariant = (emoji: EmojiDescription): ProductivityVariant | undefined => {
-	if (
-		emoji.type !== 'ATLASSIAN' ||
-		!emoji.color ||
-		!productivityColorSet.has(emoji.color)
-	) {
+	if (emoji.type !== 'ATLASSIAN' || !emoji.color || !productivityColorSet.has(emoji.color)) {
 		return undefined;
 	}
 

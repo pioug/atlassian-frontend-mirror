@@ -422,6 +422,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							isTableScalingEnabled,
 							isCommentEditor,
 							isChromelessEditor,
+							__livePage,
 						} = options || ({} as TablePluginOptions);
 
 						return createPlugin(
@@ -443,6 +444,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							isCommentEditor,
 							isChromelessEditor,
 							options?.allowFixedColumnWidthOption,
+							__livePage,
 						);
 					},
 				},

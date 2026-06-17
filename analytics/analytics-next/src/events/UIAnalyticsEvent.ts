@@ -23,6 +23,7 @@ export const isUIAnalyticsEvent = (obj: any): obj is UIAnalyticsEvent =>
 	// Backwards compatibility with older analytics-next packages
 	obj?.constructor?.name === 'UIAnalyticsEvent';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default class UIAnalyticsEvent extends AnalyticsEvent {
 	context: Context;
 	handlers: UIAnalyticsEventHandler[];

@@ -68,4 +68,5 @@ function createPerformanceObserver({
 	return observer;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default createPerformanceObserver;

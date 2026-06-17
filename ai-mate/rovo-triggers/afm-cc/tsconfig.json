@@ -27,9 +27,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../conversation-assistant-external-context/afm-cc/tsconfig.json"
 		}
 	]
 }

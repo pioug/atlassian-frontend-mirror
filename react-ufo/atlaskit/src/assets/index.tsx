@@ -58,6 +58,7 @@ export class CHRSummary {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class CHRReporter {
 	all: CHRSummary = new CHRSummary();
 	allAtlassian: CHRSummary = new CHRSummary();

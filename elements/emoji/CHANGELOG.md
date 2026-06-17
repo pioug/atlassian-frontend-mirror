@@ -1,5 +1,25 @@
 # @atlaskit/emoji
 
+## 71.2.0
+
+### Minor Changes
+
+- [`5bf738fb98422`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bf738fb98422) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`0d9015ca0190a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d9015ca0190a) -
+  When uploading file for emoji use the filename by default if name is empty
+- Updated dependencies
+
+## 71.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.1.0
 
 ### Minor Changes

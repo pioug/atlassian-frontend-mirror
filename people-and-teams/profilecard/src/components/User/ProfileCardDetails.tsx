@@ -330,14 +330,12 @@ export const ProfileCardDetails = (
 				<IconLabel icon="companyName">{props.companyName}</IconLabel>
 				<IconLabel icon="location">{props.location}</IconLabel>
 			</Box>
-			{!(fg('jira_ai_profilecard_hide_reportinglines') && props.hideReportingLines) && (
-				<ReportingLinesDetails
-					reportingLines={props.reportingLines}
-					reportingLinesProfileUrl={props.reportingLinesProfileUrl}
-					onReportingLinesClick={props.onReportingLinesClick}
-					fireAnalyticsWithDuration={props.fireAnalyticsWithDuration}
-				/>
-			)}
+			<ReportingLinesDetails
+				reportingLines={props.reportingLines}
+				reportingLinesProfileUrl={props.reportingLinesProfileUrl}
+				onReportingLinesClick={props.onReportingLinesClick}
+				fireAnalyticsWithDuration={props.fireAnalyticsWithDuration}
+			/>
 		</DetailsGroup>
 	);
 };

@@ -9,6 +9,7 @@ export function startLighthouseObserver(): void {
 	startLTObserver();
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getLighthouseMetrics({ start, stop }: { start: number; stop: number }): {
 	[key: string]: number;
 } {

@@ -86,9 +86,7 @@ test.describe('Modal dialog: top-layer focus contract', () => {
 	// outside `useInitialFocus`, but it shares the same WCAG / APG
 	// contract: the chosen element receives focus instead of the
 	// natural first focusable.
-	test('initial focus: `autoFocus` ref overrides the first focusable element', async ({
-		page,
-	}) => {
+	test('initial focus: `autoFocus` ref overrides the first focusable element', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/98-testing-initial-focus-matrix.tsx')>(
 			'design-system',
 			'modal-dialog',

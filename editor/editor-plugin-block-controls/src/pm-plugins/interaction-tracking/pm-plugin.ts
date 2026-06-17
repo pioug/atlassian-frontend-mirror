@@ -189,8 +189,7 @@ export const createInteractionTrackingPlugin = (
 						if (
 							rightSideControlsEnabled &&
 							(isMovingToBlockControlsArea(event.relatedTarget) ||
-								(marginHoverEnabled &&
-									isOverActiveClickArea(event.relatedTarget, event.clientX)))
+								(marginHoverEnabled && isOverActiveClickArea(event.relatedTarget, event.clientX)))
 						) {
 							return;
 						}

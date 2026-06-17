@@ -117,6 +117,7 @@ export type FeatureGateEnvironment =
 	(typeof FeatureGateEnvironment)[keyof typeof FeatureGateEnvironment];
 
 // If adding new values here, please check FeatureGates.getDefaultPerimeter to make sure it still returns something sensible.
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const PerimeterType = {
 	COMMERCIAL: 'commercial',
 	FEDRAMP_MODERATE: 'fedramp-moderate',
@@ -194,6 +195,7 @@ export interface Provider {
 	getApiKey?: () => string;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const NON_BOOLEAN_VALUE = 'non_boolean';
 
 export type FeatureFlagValue =

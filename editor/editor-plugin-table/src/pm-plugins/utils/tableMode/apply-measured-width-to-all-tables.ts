@@ -1,8 +1,9 @@
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { hasTableBeenResized } from '@atlaskit/editor-common/table';
+import { hasTableBeenResized, isTableInContentMode } from '@atlaskit/editor-common/table';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../../../types';
 import {
@@ -34,8 +35,21 @@ export const applyMeasuredWidthToAllTables = (
 
 	// modify only top-level tables
 	doc.forEach((node, offset) => {
-		if (node.type !== table || (hasTableBeenResized(node) && node.attrs.layout !== 'align-start')) {
-			return;
+		if (fg('platform_editor_table_auto_convert_fix')) {
+			if (
+				node.type !== table ||
+				!isTableInContentMode({
+					tableNode: node,
+					isSupported: true,
+					isTableNested: false,
+				})
+			) {
+				return;
+			}
+		} else {
+			if (node.type !== table || (hasTableBeenResized(node) && node.attrs.layout !== 'align-start')) {
+				return;
+			}
 		}
 
 		const domNode = view.domAtPos(offset + 1).node;

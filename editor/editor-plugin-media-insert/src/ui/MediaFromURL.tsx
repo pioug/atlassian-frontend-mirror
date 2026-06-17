@@ -352,9 +352,7 @@ export function MediaFromURL({
 											// eslint-disable-next-line react/jsx-props-no-spreading
 											{...rest}
 											value={value}
-											aria-label={
-												strings.pasteLinkToUpload
-											}
+											aria-label={strings.pasteLinkToUpload}
 											placeholder={strings.pasteLinkToUpload}
 											maxLength={MAX_URL_LENGTH}
 											onKeyPress={onInputKeyPress}

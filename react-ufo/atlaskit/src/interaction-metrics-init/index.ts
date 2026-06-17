@@ -254,7 +254,7 @@ export function init(
 	const extraInteractionMetricsPayloadPackagePromise = isInteractionExtraMetricsEnabled()
 		? import(
 				/* webpackChunkName: "create-interaction-extra-metrics-payload" */ '../create-interaction-extra-metrics-payload'
-		  )
+			)
 		: Promise.resolve(undefined);
 
 	Promise.all([

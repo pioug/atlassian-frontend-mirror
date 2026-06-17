@@ -288,6 +288,11 @@ export const aiMessages: {
 		description: string;
 		id: string;
 	};
+	rovoToolbarDropdownChevronLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	summarizeToolbarDropdownIconTitle: {
 		defaultMessage: string;
 		description: string;
@@ -421,6 +426,12 @@ export const aiMessages: {
 		id: 'fabric.editor.ai.toolbar.simplifiedAI.title',
 		defaultMessage: 'AI',
 		description: 'Title for Atlassian Intelligence button in editor selection floating toolbar',
+	},
+	rovoToolbarDropdownChevronLabel: {
+		id: 'fabric.editor.ai.toolbar.rovoDropdownChevron.label',
+		defaultMessage: 'More Ask Rovo options',
+		description:
+			'Accessible label for the chevron button that opens a dropdown menu with additional Ask Rovo options in the editor selection floating toolbar',
 	},
 	summarizeToolbarDropdownIconTitle: {
 		id: 'fabric.editor.ai.toolbar.summarize.title',

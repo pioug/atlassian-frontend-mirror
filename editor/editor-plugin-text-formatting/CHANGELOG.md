@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 12.0.3
+
+### Patch Changes
+
+- [`c75659db298a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c75659db298a9) -
+  Clean up prefer static regex violations
+- Updated dependencies
+
+## 12.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

@@ -90,7 +90,13 @@ const repositionPopupInFullscreen = (state: Partial<State>) => {
 	const popupRect = popupEl.getBoundingClientRect();
 
 	const left = Math.round(
-		Math.max(0, Math.min(fullscreenEl.clientWidth - popupRect.width, triggerRect.left + triggerRect.width / 2 - popupRect.width / 2)),
+		Math.max(
+			0,
+			Math.min(
+				fullscreenEl.clientWidth - popupRect.width,
+				triggerRect.left + triggerRect.width / 2 - popupRect.width / 2,
+			),
+		),
 	);
 	const bottom = Math.round(fullscreenEl.clientHeight - triggerRect.top + POPUP_OFFSET);
 

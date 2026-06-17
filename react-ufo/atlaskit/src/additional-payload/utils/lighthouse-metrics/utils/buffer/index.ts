@@ -29,6 +29,7 @@ export type EntriesBufferType = {
 };
 export type PerformanceEntryBuffer = BufferWithMaxLength<PerformanceEntry>;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const EntriesBuffer: EntriesBufferType = {
 	[PerformanceObserverEntryTypes.LongTask]: new BufferWithMaxLength<PerformanceEntry>(),
 	[PerformanceObserverEntryTypes.LayoutShift]: new BufferWithMaxLength<PerformanceEntry>(),

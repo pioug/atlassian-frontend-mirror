@@ -85,6 +85,7 @@ async function calculateTTVCPercentilesWithDebugInfo({
 
 export default calculateTTVCPercentiles;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calculatePercentiles(
 	timePixelCounts: Map<DOMHighResTimeStamp, number>,
 	elementMap: ReadonlyMap<DOMHighResTimeStamp, Set<string>>,
@@ -145,6 +146,7 @@ export function calculatePercentiles(
 	return results;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calculatePercentilesWithDebugInfo(
 	timePixelCounts: Map<DOMHighResTimeStamp, number>,
 	elementMap: ReadonlyMap<DOMHighResTimeStamp, ViewportEntryData[]>,
@@ -187,4 +189,5 @@ export function calculatePercentilesWithDebugInfo(
 	};
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export { calculateTTVCPercentilesWithDebugInfo };

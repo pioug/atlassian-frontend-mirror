@@ -59,7 +59,7 @@ const getRightMarginBoundary = (view: EditorView): number =>
 	RIGHT_MARGIN_ROVO_GAP_PX;
 
 type RightMarginZone =
-	| { block: HTMLElement; type: 'active'; } // beside a block, before the Rovo gap
+	| { block: HTMLElement; type: 'active' } // beside a block, before the Rovo gap
 	| { type: 'gap' } // past the gap boundary, reserved for the Rovo button
 	| null; // not in the right margin
 

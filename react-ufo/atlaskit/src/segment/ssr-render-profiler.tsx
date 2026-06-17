@@ -65,6 +65,7 @@ const ProfilerMarker = ({ onRender }: { onRender?: () => void }) => {
 const ParentSpanContext = createContext<SpanContext | null>(null);
 
 // For profiler spans in SSR, we 'end' any with their latest end times set, we need to do this at UFO-interaction-end since until then the component could rerender/remount again and spans fundamentally don't use the last 'end' but the first
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const flushSsrRenderProfilerTraces = (): void => {
 	spanStates.forEach((spanState) => {
 		if (spanState.latestEndTime != null) {
@@ -74,6 +75,7 @@ export const flushSsrRenderProfilerTraces = (): void => {
 	spanStates.clear();
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const SsrRenderProfilerInner = ({
 	children,
 	labelStack,
@@ -144,6 +146,7 @@ const SsrRenderProfiler = (
 		</>
 	);
 };
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default SsrRenderProfiler;
 
 interface SpanContext {

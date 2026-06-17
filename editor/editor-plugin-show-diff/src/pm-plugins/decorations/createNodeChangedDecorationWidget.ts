@@ -27,8 +27,9 @@ import {
 	deletedTraditionalContentStyleUnbounded,
 	deletedTraditionalContentStyleUnboundedActive,
 } from './colorSchemes/traditional';
+import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
-import { buildDiffDecorationSpec } from './decorationKeys';
+import { buildDiffDecorationSpec, buildAnchorDecorationKey } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 import { wrapBlockNodeView } from './utils/wrapBlockNodeView';
 
@@ -92,7 +93,7 @@ const injectInnerWrapper = ({
 	colorScheme?: 'standard' | 'traditional';
 	isActive?: boolean;
 	isInserted?: boolean;
-	node: Node;
+	node: HTMLElement;
 }) => {
 	const wrapper = document.createElement('span');
 	wrapper.setAttribute(
@@ -157,6 +158,7 @@ export const createNodeChangedDecorationWidget = ({
 	activeIndexPos,
 	// This is false by default as this is generally used to show deleted content
 	isInserted = false,
+	showIndicators = false,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted' | 'toB'>;
@@ -166,6 +168,7 @@ export const createNodeChangedDecorationWidget = ({
 	isInserted?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
+	showIndicators?: boolean;
 }): Decoration[] => {
 	const slice = doc.slice(change.fromA, change.toA);
 	const shouldSkipDeletedEmptyParagraphDecoration =
@@ -211,6 +214,8 @@ export const createNodeChangedDecorationWidget = ({
 
 	// For non-table content, use the existing span wrapper approach
 	const dom = document.createElement('span');
+	const diffId = crypto.randomUUID();
+	const decorations: Decoration[] = [];
 
 	/*
 	 * The thinking is we separate out the fragment we got from doc.slice
@@ -321,8 +326,19 @@ export const createNodeChangedDecorationWidget = ({
 
 	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
 
-	const diffId = crypto.randomUUID();
-	const decorations: Decoration[] = [];
+	if (showIndicators && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		const leftAnchor = createLeftAnchorWidget({
+			doc: newDoc,
+			from: safeInsertPos,
+			diffId,
+		});
+		dom.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
+
+		if (leftAnchor) {
+			decorations.push(leftAnchor);
+		}
+	}
+
 	decorations.push(
 		Decoration.widget(
 			safeInsertPos,

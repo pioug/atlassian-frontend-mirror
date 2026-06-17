@@ -244,10 +244,7 @@ function IframeSegment({
 				const { height, elapsed } = event;
 				// Reset the per-segment counter when the active segmentId changes
 				// (SPA navigations swap segments; each gets a fresh budget).
-				if (
-					segmentIdRef.current &&
-					segmentIdRef.current !== resizedCounterSegmentIdRef.current
-				) {
+				if (segmentIdRef.current && segmentIdRef.current !== resizedCounterSegmentIdRef.current) {
 					resizedCountRef.current = 0;
 					resizedCounterSegmentIdRef.current = segmentIdRef.current;
 				}

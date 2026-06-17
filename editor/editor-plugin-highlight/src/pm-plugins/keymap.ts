@@ -1,14 +1,15 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
+	applyYellowHighlight,
 	bindKeymapWithCommand,
 	keymap,
 	toggleHighlightPalette,
-	applyYellowHighlight,
 } from '@atlaskit/editor-common/keymaps';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { highlightColorPalette } from '@atlaskit/editor-common/ui-color';
+import { highlightColorPalette, highlightColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changeColor } from '../editor-commands/change-color';
 import { togglePalette } from '../editor-commands/palette';
@@ -31,7 +32,14 @@ export function keymapPlugin({ api }: { api: ExtractInjectionAPI<HighlightPlugin
 	}
 
 	const analyticsApi = api?.analytics?.actions;
-	const color = highlightColorPalette.find(({ label }) => label === 'Yellow');
+	const highlightPalette = expValEquals(
+		'platform_editor_lovability_text_bg_color',
+		'isEnabled',
+		true,
+	)
+		? highlightColorPaletteNew
+		: highlightColorPalette;
+	const color = highlightPalette.find(({ label }) => label === 'Yellow');
 
 	if (color) {
 		bindKeymapWithCommand(

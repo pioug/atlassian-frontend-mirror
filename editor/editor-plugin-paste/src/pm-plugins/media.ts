@@ -234,10 +234,7 @@ export const unwrapNestedMediaElements = (html: string): string => {
 		// Bypass mediaInline images - don't hoist images that are inside a mediaInline wrapper
 		// as this would break parseDOM matching for mediaInline nodes
 		// We remove the img from the DOM since mediaInline is a leaf node with no content
-		if (
-			imageTag.closest('[data-node-type="mediaInline"]') &&
-			expValEquals('platform_editor_inline_media_copy_paste_fix', 'isEnabled', true)
-		) {
+		if (imageTag.closest('[data-node-type="mediaInline"]')) {
 			// Remove the img element so ProseMirror doesn't try to parse it
 			// mediaInline nodes are leaf nodes and cannot have children
 			imageTag.remove();

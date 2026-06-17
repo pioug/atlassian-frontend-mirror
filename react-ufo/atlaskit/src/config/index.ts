@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import { isFedrampModerate } from '@atlaskit/atlassian-context';
 import { fg } from '@atlaskit/platform-feature-flags';
 

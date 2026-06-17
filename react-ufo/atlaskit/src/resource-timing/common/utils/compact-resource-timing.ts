@@ -147,6 +147,7 @@ export function compactResourceTimings(
 		: resourceTimings;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function unpackResourceTimings(
 	resourceTimings: CompactResourceTimings | LegacyResourceTimingEntry[] | undefined,
 ): LegacyResourceTimingEntry[] {

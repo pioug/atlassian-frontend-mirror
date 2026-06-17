@@ -25,6 +25,17 @@ import {
 	B75,
 	B100,
 	B500,
+	Orange200,
+	O600,
+	O800,
+	M200,
+	M600,
+	M800,
+	L200,
+	L600,
+	L800,
+	Y600,
+	Y800,
 } from '../../utils/colors';
 
 import { getDarkModeLCHColor } from '../../utils/lch-color-inversion';
@@ -52,28 +63,36 @@ export interface TextColorMark extends Mark {
 export type TextColorKey =
 	// row 1 original
 	| 'Light gray'
-	| 'Purple'
+	| 'Blue'
 	| 'Teal'
 	| 'Green'
-	| 'Red'
-	| 'Orange'
-	// row 1 extended extras
-	| 'Dark gray'
-	| 'Blue'
+	| 'Lime'
 	| 'Yellow'
+	| 'Orange'
+	| 'Red'
+	| 'Magenta'
+	| 'Purple'
 	// row 2
+	| 'Dark gray'
 	| 'Dark blue'
 	| 'Dark teal'
 	| 'Dark green'
+	| 'Dark lime'
+	| 'Dark yellow'
+	| 'Dark orange'
 	| 'Dark red'
+	| 'Dark magenta'
 	| 'Dark purple'
 	// row 3
 	| 'White'
 	| 'Light blue'
 	| 'Light teal'
 	| 'Light green'
+	| 'Light lime'
 	| 'Light yellow'
+	| 'Light orange'
 	| 'Light red'
+	| 'Light magenta'
 	| 'Light purple';
 
 // used for extended palette in text color picker
@@ -104,13 +123,53 @@ const colorArrayPalette: Array<[string, TextColorKey]> = [
 	[P50, 'Light purple'], // Lavender secret
 ];
 
+// experiment: platform_editor_lovability_text_bg_color
+const colorArrayPaletteNew: Array<[string, TextColorKey]> = [
+	// default row - first color is added programatically
+	// [N800, 'Squid ink'], // default dark gray
+	[B500, 'Dark blue'], // Chore coat
+	[T500, 'Dark teal'], // Shabby chic
+	[G500, 'Dark green'], // Keen green
+	[L800, 'Dark lime'],
+	[Y800, 'Dark yellow'],
+	[O800, 'Dark orange'],
+	[R500, 'Dark red'], // Dragon's blood
+	[M800, 'Dark magenta'],
+	[P500, 'Dark purple'], // Prince	
+	// row 2
+	[N80, 'Light gray'], // Spooky ghost
+	[B100, 'Blue'], // Arvo breeze
+	[T300, 'Teal'], // Tamarama
+	[G300, 'Green'], // Fine pine
+	[L600, 'Lime'],
+	[Y600, 'Yellow'], // Pub mix
+	[O600, 'Orange'],
+	[R300, 'Red'], // Poppy surprise
+	[M600, 'Magenta'],
+	[P300, 'Purple'], // Da' juice
+	// row 3
+	[N0, 'White'],
+	[B75, 'Light blue'], // Schwag
+	[T75, 'Light teal'], // Arctic chill
+	[G75, 'Light green'], // Mintie
+	[L200, 'Light lime'],
+	[Y75, 'Light yellow'], // Dandelion whisper
+	[Orange200, 'Light orange'],
+	[R75, 'Light red'], // Bondi sunburn
+	[M200, 'Light magenta'],
+	[P50, 'Light purple'], // Lavender secret
+];
+
 // @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/55979455/Colour+picker+decisions#Colourpickerdecisions-Visualdesigndecisions
 export const colorPalette: Map<string, TextColorKey> = new Map<string, TextColorKey>();
+export const colorPaletteNew: Map<string, TextColorKey> = new Map<string, TextColorKey>();
+
 // eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 /** @deprecated [ED-15849] The extended palette is now rolled into the main one. Use `colorPalette` instead. */
 export const colorPaletteExtended: Map<string, TextColorKey> = colorPalette;
 
 colorArrayPalette.forEach(([color, label]) => colorPalette.set(color.toLowerCase(), label));
+colorArrayPaletteNew.forEach(([color, label]) => colorPaletteNew.set(color.toLowerCase(), label));
 
 // these are for test only
 let testGlobalTheme: string;

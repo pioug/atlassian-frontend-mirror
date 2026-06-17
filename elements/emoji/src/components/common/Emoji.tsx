@@ -418,7 +418,7 @@ type UnicodeEmojiImageState =
 
 const renderUnicodeEmojiToImagePath = async (unicodeEmoji: string): Promise<string | undefined> => {
 	const OffscreenCanvasCtor = (
-		globalThis as typeof globalThis & { 'OffscreenCanvas'?: OffscreenCanvasConstructor }
+		globalThis as typeof globalThis & { OffscreenCanvas?: OffscreenCanvasConstructor }
 	)['OffscreenCanvas'];
 
 	if (isSSR() || !OffscreenCanvasCtor || typeof URL === 'undefined') {

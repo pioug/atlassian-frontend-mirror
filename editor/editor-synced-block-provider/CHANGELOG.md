@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.1.0
+
+### Minor Changes
+
+- [`100d833307949`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/100d833307949) -
+  Allow panel_c1 inside bodied sync blocks
+
+## 8.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

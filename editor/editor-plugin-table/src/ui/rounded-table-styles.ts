@@ -112,16 +112,12 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 		> tbody
 			> tr
 			> td:is(
-				.${ClassName.SELECTED_CELL},
-				.${ClassName.HOVERED_CELL},
-				.${ClassName.ACTIVE_CURSOR_CELL}
+				.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, .${ClassName.ACTIVE_CURSOR_CELL}
 			),
-			> tbody
+		> tbody
 			> tr
 			> th:is(
-				.${ClassName.SELECTED_CELL},
-				.${ClassName.HOVERED_CELL},
-				.${ClassName.ACTIVE_CURSOR_CELL}
+				.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, .${ClassName.ACTIVE_CURSOR_CELL}
 			) {
 			&[data-reaches-top] {
 				border-top-color: transparent;
@@ -161,7 +157,7 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 		> tbody
 			> tr
 			> td.${ClassName.HOVERED_CELL_IN_DANGER},
-		> tbody
+			> tbody
 			> tr
 			> th.${ClassName.HOVERED_CELL_IN_DANGER} {
 			&[data-reaches-top] {
@@ -256,7 +252,11 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 		   ::before is intentionally excluded here because on the sticky header it carries the
 		   numbered-column mask which needs to round its own top-left corner (see overrides
 		   below and in roundedTableStickyHeaderStyles). */
-		> .${ClassName.TABLE_NODE_WRAPPER} > table > tbody > tr > th[data-reaches-top][data-reaches-left],
+		> .${ClassName.TABLE_NODE_WRAPPER}
+			> table
+			> tbody
+			> tr
+			> th[data-reaches-top][data-reaches-left],
 		> .${ClassName.TABLE_NODE_WRAPPER}
 			> table
 			> tbody
@@ -289,14 +289,14 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 
 		/* Preserve rounded numbered-column corners across normal, active, and danger states. */
 		.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type,
-		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type,
+			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type,
 			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE}:first-of-type,
 			.${ClassName.NUMBERED_COLUMN_BUTTON}.active:first-of-type {
 			border-top-left-radius: ${token('radius.xlarge')};
 		}
 
 		.${ClassName.NUMBERED_COLUMN_BUTTON}:last-of-type,
-		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER}:last-of-type,
+			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER}:last-of-type,
 			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE}:last-of-type,
 			.${ClassName.NUMBERED_COLUMN_BUTTON}.active:last-of-type {
 			border-bottom-left-radius: ${token('radius.xlarge')};
@@ -321,8 +321,14 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 
 const roundedTableStickyHeaderCellCornerStyles = (): SerializedStyles => css`
 	/* Sticky header rows have independent border/shadow/mask painting, so patch the sticky-only painters too. */
-	.${ClassName.TABLE_NODE_WRAPPER} > table > tbody > tr.${ClassName.NATIVE_STICKY},
-		.${ClassName.TABLE_NODE_WRAPPER} > table.${ClassName.TABLE_STICKY} > tbody > tr.sticky {
+	.${ClassName.TABLE_NODE_WRAPPER}
+		> table
+		> tbody
+		> tr.${ClassName.NATIVE_STICKY},
+		.${ClassName.TABLE_NODE_WRAPPER}
+		> table.${ClassName.TABLE_STICKY}
+		> tbody
+		> tr.sticky {
 		> th[data-reaches-left],
 		> td[data-reaches-left] {
 			border-top-left-radius: ${token('radius.xlarge')};
@@ -389,7 +395,7 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 	*/
 	.${ClassName.TABLE_NODE_WRAPPER}:has(> table > tbody > tr.${ClassName.NATIVE_STICKY})
 		> .${ClassName.TABLE_CORNER_MASK},
-	.${ClassName.TABLE_NODE_WRAPPER}:has(> table.${ClassName.TABLE_STICKY} > tbody > tr.sticky)
+		.${ClassName.TABLE_NODE_WRAPPER}:has(> table.${ClassName.TABLE_STICKY} > tbody > tr.sticky)
 		> .${ClassName.TABLE_CORNER_MASK} {
 		display: block;
 	}
@@ -423,7 +429,7 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 		> tbody
 		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
 		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]::after,
-	.${ClassName.TABLE_NODE_WRAPPER}
+		.${ClassName.TABLE_NODE_WRAPPER}
 		> table
 		> tbody
 		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
@@ -470,7 +476,7 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 		> tbody
 		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
 		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top].${ClassName.HOVERED_CELL_IN_DANGER}::after,
-	.${ClassName.TABLE_NODE_WRAPPER}
+		.${ClassName.TABLE_NODE_WRAPPER}
 		> table
 		> tbody
 		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
@@ -519,17 +525,17 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		> tbody
 		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
 		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top],
-	.${ClassName.TABLE_NODE_WRAPPER}
+		.${ClassName.TABLE_NODE_WRAPPER}
 		> table
 		> tbody
 		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
 		> td.${ClassName.TABLE_CELL}[data-reaches-top],
-	.${ClassName.TABLE_NODE_WRAPPER}
+		.${ClassName.TABLE_NODE_WRAPPER}
 		> table.${ClassName.TABLE_STICKY}
 		> tbody
 		> tr.sticky
 		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top],
-	.${ClassName.TABLE_NODE_WRAPPER}
+		.${ClassName.TABLE_NODE_WRAPPER}
 		> table.${ClassName.TABLE_STICKY}
 		> tbody
 		> tr.sticky
@@ -547,7 +553,7 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		> tbody
 		> tr.sticky
 		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-left],
-	.${ClassName.TABLE_NODE_WRAPPER}
+		.${ClassName.TABLE_NODE_WRAPPER}
 		> table.${ClassName.TABLE_STICKY}
 		> tbody
 		> tr.sticky
@@ -560,7 +566,7 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		> tbody
 		> tr.sticky
 		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-right],
-	.${ClassName.TABLE_NODE_WRAPPER}
+		.${ClassName.TABLE_NODE_WRAPPER}
 		> table.${ClassName.TABLE_STICKY}
 		> tbody
 		> tr.sticky
@@ -576,7 +582,7 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		> tbody
 		> tr.sticky
 		> th.${ClassName.TABLE_HEADER_CELL},
-	.${ClassName.TABLE_NODE_WRAPPER}
+		.${ClassName.TABLE_NODE_WRAPPER}
 		> table.${ClassName.TABLE_STICKY}
 		> tbody
 		> tr.sticky

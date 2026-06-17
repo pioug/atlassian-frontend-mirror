@@ -873,10 +873,17 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			});
 		}
 
+		// Only compute searchText when the browser find experiment is enabled,
+		// to avoid unnecessary node.textContent string allocations per expand node.
+		const searchText = expValEquals('platform_editor_close_expand_find', 'isEnabled', true)
+			? node.textContent
+			: undefined;
+
 		if (!isNestedHeaderLinksEnabled(this.allowHeadingAnchorLinks)) {
 			return {
 				...this.getProps(node),
 				loadBodyContent,
+				searchText,
 			};
 		}
 
@@ -888,6 +895,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			...this.getProps(node),
 			nestedHeaderIds,
 			loadBodyContent,
+			searchText,
 		};
 	}
 

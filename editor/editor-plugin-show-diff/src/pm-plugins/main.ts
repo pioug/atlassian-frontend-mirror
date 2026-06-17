@@ -45,6 +45,7 @@ export type ShowDiffPluginState = {
 	 * and then reset this flag.
 	 */
 	scrollIntoView?: boolean;
+	showIndicators?: boolean;
 	steps: ProseMirrorStep[];
 };
 
@@ -77,8 +78,9 @@ export const createPlugin = (
 								isInverted: false,
 								diffType: 'inline',
 								hideDeletedDiffs: false,
+								showIndicators: false,
 								diffDescriptors: [],
-						  }
+							}
 						: {}),
 				};
 			},
@@ -114,7 +116,8 @@ export const createPlugin = (
 										isInverted: newPluginState?.isInverted,
 										diffType: newPluginState?.diffType,
 										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
-								  }
+										showIndicators: newPluginState?.showIndicators,
+									}
 								: {}),
 						});
 						// Update the decorations and their ids
@@ -139,7 +142,7 @@ export const createPlugin = (
 										diffType: 'inline',
 										hideDeletedDiffs: false,
 										diffDescriptors: [],
-								  }
+									}
 								: {}),
 						};
 					} else if (meta?.action === 'SCROLL_TO_NEXT' || meta?.action === 'SCROLL_TO_PREVIOUS') {
@@ -187,7 +190,8 @@ export const createPlugin = (
 												isInverted: newPluginState.isInverted,
 												diffType: newPluginState.diffType,
 												hideDeletedDiffs: newPluginState.hideDeletedDiffs,
-										  }
+												showIndicators: newPluginState.showIndicators,
+											}
 										: {}),
 								});
 							newPluginState.decorations = updatedDecorations;
@@ -236,8 +240,10 @@ export const createPlugin = (
 						expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
 					) {
 						cancelPendingScrollToDecoration?.();
-						const allDecorations = pluginState.decorations?.find() || [];
-						cancelPendingScrollToDecoration = scrollToFirstDecoration(view, allDecorations);
+						cancelPendingScrollToDecoration = scrollToFirstDecoration(
+							view,
+							pluginState.decorations,
+						);
 
 						// Reset the flag so we don't scroll again on subsequent updates
 						view.dispatch(

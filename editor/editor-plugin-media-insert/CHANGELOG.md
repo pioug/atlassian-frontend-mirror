@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 25.0.3
+
+### Patch Changes
+
+- [`39abc4f2636bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39abc4f2636bc) -
+  Add selected tab metadata, source context, opened tab metadata, and initial/tab-change viewed
+  events to media insert picker analytics.
+- [`383a8b7cb9b90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/383a8b7cb9b90) -
+  [ux] Ungates the media insert picker tab for image generation relative to the gate for analytics
+  tab. This is is to continue the behavior without the analytics changes when the gate is off.
+  Prevents heavy coupling with the gate.
+- Updated dependencies
+
+## 25.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.1
 
 ### Patch Changes

@@ -46,9 +46,7 @@ describe('Emoji', () => {
 			});
 
 			it('should render the fallback text for a standard emoji', () => {
-				const component = mount(
-					<RendererEmoji id="1f605" shortName=":sweat_smile:" text="😅" />,
-				);
+				const component = mount(<RendererEmoji id="1f605" shortName=":sweat_smile:" text="😅" />);
 				const span = component.find('span[data-emoji-id="1f605"]');
 				expect(span.prop('data-emoji-text')).toBe('😅');
 				expect(span.text()).toBe('😅');
@@ -80,11 +78,7 @@ describe('Emoji', () => {
 
 			it('should render U+FFFD when the text attribute is empty for a custom emoji', () => {
 				const component = mount(
-					<RendererEmoji
-						id="atlassian-disapproval"
-						shortName=":atlassian-disapproval:"
-						text=""
-					/>,
+					<RendererEmoji id="atlassian-disapproval" shortName=":atlassian-disapproval:" text="" />,
 				);
 				const span = component.find('span[data-emoji-id="atlassian-disapproval"]');
 				expect(span.prop('data-emoji-text')).toBe('\uFFFD');
@@ -101,9 +95,7 @@ describe('Emoji', () => {
 			});
 
 			it('should still render the Unicode text for a standard emoji without fallback accessibility attributes', () => {
-				const component = mount(
-					<RendererEmoji id="1f605" shortName=":sweat_smile:" text="😅" />,
-				);
+				const component = mount(<RendererEmoji id="1f605" shortName=":sweat_smile:" text="😅" />);
 				const span = component.find('span[data-emoji-id="1f605"]');
 				expect(span.prop('data-emoji-text')).toBe('😅');
 				expect(span.prop('title')).toBeUndefined();

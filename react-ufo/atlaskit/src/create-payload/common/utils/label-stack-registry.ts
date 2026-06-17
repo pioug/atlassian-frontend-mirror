@@ -75,6 +75,7 @@ export class LabelStackRegistry {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function resolveLabelStackFromTrie(
 	lookupTable: LabelStackTrieLookupTable,
 	labelStackRef: number,

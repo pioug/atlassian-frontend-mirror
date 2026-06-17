@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as createUUID } from 'uuid';
 
@@ -1411,7 +1412,7 @@ export function addNewInteraction(
 			? {
 					prior: priorAccessedFg,
 					during: {},
-			  }
+				}
 			: undefined,
 		knownSegments: [],
 		cleanupCallbacks: [],

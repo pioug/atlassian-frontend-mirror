@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 24.0.3
+
+### Patch Changes
+
+- [`bafa7b1c23370`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bafa7b1c23370) -
+  Clean up experiment `platform_editor_fix_editor_unhandled_type_errors`
+- [`1e2c964dbe54e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e2c964dbe54e) -
+  Clean up feature gate `platform_editor_update_table_ref_fix`
+- [`137ce6a6d525e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/137ce6a6d525e) -
+  Prevent automatic table fit-to-content conversion from rewriting resized tables
+- Updated dependencies
+
+## 24.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.1
 
 ### Patch Changes

@@ -14,6 +14,7 @@ import { getStyleProps } from '../get-style-props';
 import { useSelectGetStyles } from '../internal/use-select-get-styles';
 import type { CommonPropsAndClassName, GroupBase, MultiValueGenericProps } from '../types';
 
+import { MultiValueContainer as DefaultMultiValueContainer } from './containers/multi-value-container';
 import { MultiValueLabel } from './multi-value-label';
 import type { MultiValueRemoveProps } from './multi-value-remove';
 
@@ -194,6 +195,7 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	});
 
 	const hasCustomLabel = Label !== MultiValueLabel;
+	const hasCustomContainer = Container !== DefaultMultiValueContainer;
 	const selectStyles = selectProps.styles;
 	const hasCustomMultiValueStyles = Boolean(
 		selectStyles?.multiValue || selectStyles?.multiValueLabel || selectStyles?.multiValueRemove,
@@ -214,7 +216,7 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	const hasCustomContainerStyles =
 		hasCustomMultiValueStyles || hasCustomMultiValueClassNames || hasOverriddenGetStyles;
 
-	if (ffTagUplifts && isPlainLabel && !hasCustomLabel && !hasCustomContainerStyles) {
+	if (ffTagUplifts && isPlainLabel && !hasCustomLabel && !hasCustomContainer && !hasCustomContainerStyles) {
 		const { elemBefore, color: tagColor } = (data ?? {}) as {
 			elemBefore?: ReactNode;
 			color?: NewTagColor;
@@ -244,7 +246,7 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	}
 
 	// FF on + custom content → tag-like path
-	if (ffTagUplifts) {
+	if (ffTagUplifts && !hasCustomContainer) {
 		const colorKey = (data as { color?: string })?.color;
 
 		return (

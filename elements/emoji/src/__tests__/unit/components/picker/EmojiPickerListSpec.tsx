@@ -88,10 +88,11 @@ describe('<EmojiPickerList />', () => {
 		};
 	};
 	const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-		jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-			(experimentName, _parameterName, defaultValue) =>
+		jest
+			.mocked(FeatureGates.getExperimentValue)
+			.mockImplementation((experimentName, _parameterName, defaultValue) =>
 				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? isEnabled : defaultValue,
-		);
+			);
 	};
 	const createTestEmoji = (
 		id: string,
@@ -225,12 +226,11 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should not render emojis with a hidden metadata tag', async () => {
-			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-				(experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
-						? true
-						: defaultValue,
-			);
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
 			const visibleEmoji: EmojiDescription = {
 				...imageEmoji,
 				id: 'visible-emoji',
@@ -331,12 +331,11 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should filter productivity number and star variants by selected colour when teamoji experiment is enabled', async () => {
-			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-				(experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
-						? true
-						: defaultValue,
-			);
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
 			const redZeroEmoji = createProductivityEmoji('red');
 			const blueZeroEmoji = createProductivityEmoji('blue');
 			const redZeroCircleEmoji = createProductivityEmoji('red', '0', 'zero', 'circle');
@@ -382,12 +381,11 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should filter coloured productivity emojis from endpoint metadata when the selected colour variant is unavailable', async () => {
-			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-				(experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
-						? true
-						: defaultValue,
-			);
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
 			const limeSquareEmoji: EmojiDescription = {
 				...imageEmoji,
 				id: 'atlassian-14_fourteen_square_lime',
@@ -466,12 +464,11 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should not infer productivity colour from emoji identifiers', async () => {
-			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-				(experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
-						? true
-						: defaultValue,
-			);
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
 			const emojiWithoutColorMetadata: EmojiDescription = {
 				...imageEmoji,
 				id: 'atlassian-red_star',
@@ -491,12 +488,11 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should filter coloured Atlassian emojis from frequent category by selected colour metadata', async () => {
-			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-				(experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
-						? true
-						: defaultValue,
-			);
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
 			const frequentRedStarEmoji = {
 				...createProductivityStarEmoji('red', 'color-first'),
 				category: frequentCategory,
@@ -516,12 +512,11 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should use the selected colour zero square emoji for the productivity colour button preview', async () => {
-			jest.mocked(FeatureGates.getExperimentValue).mockImplementation(
-				(experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker'
-						? true
-						: defaultValue,
-			);
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
 			const blueStarEmoji = createProductivityStarEmoji('blue', 'color-first');
 			const blueZeroSquareEmoji: EmojiDescription = {
 				...imageEmoji,
@@ -810,7 +805,6 @@ describe('<EmojiPickerList />', () => {
 			expect(onCategoryActivated.mock.calls).toHaveLength(1);
 			expect(onCategoryActivated).toHaveBeenLastCalledWith('PEOPLE');
 		});
-
 	});
 
 	describe('delete', () => {

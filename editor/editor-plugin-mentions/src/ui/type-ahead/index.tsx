@@ -217,7 +217,7 @@ const buildAndSendElementsTypeAheadAnalytics =
 								// Ignored via go/ees005
 								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								memberCount: mention.context!.memberCount,
-						  }
+							}
 						: null,
 				)
 				.filter((m) => !!m) as TeamInfoAttrAnalytics[];
@@ -252,8 +252,8 @@ const buildNodesForTeamMention = (
 	const teamLinkNode = fg('team-mention-inline-smartlink')
 		? schema.nodes.inlineCard.create({ url: teamLink })
 		: // Ignored via go/ees005
-		  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		  schema.text(name!, [marks.link.create({ href: teamLink })]);
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			schema.text(name!, [marks.link.create({ href: teamLink })]);
 
 	const openBracketText = schema.text('(');
 	const closeBracketText = schema.text(')');
@@ -379,7 +379,7 @@ export const createTypeAheadConfig = ({
 											? {
 													isInlineInviteMentionsEnabled:
 														mentionProvider.getShouldEnableInlineInvite?.(),
-											  }
+												}
 											: {},
 									),
 								);

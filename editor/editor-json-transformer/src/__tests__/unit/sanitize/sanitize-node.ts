@@ -635,6 +635,74 @@ describe('@atlaskit/editor-json-transformer', () => {
 					],
 				});
 			});
+
+			it('should convert panel_c1 nodes nested inside bodiedSyncBlock to panel nodes', () => {
+				const jsonDoc = {
+					version: 1,
+					type: 'doc',
+					content: [
+						{
+							type: 'bodiedSyncBlock',
+							attrs: {
+								localId: 'sync-local-id',
+								resourceId: 'sync-resource-id',
+							},
+							content: [
+								{
+									type: 'panel_c1',
+									attrs: {
+										panelType: 'warning',
+										panelIcon: null,
+										panelIconId: null,
+										panelIconText: null,
+										panelColor: null,
+									},
+									content: [
+										{
+											type: 'paragraph',
+											content: [{ type: 'text', text: 'In sync block' }],
+										},
+									],
+								},
+							],
+						},
+					],
+				} as JSONDocNode;
+
+				const sanitizedJSON = sanitizeNode(jsonDoc);
+
+				expect(sanitizedJSON).toEqual({
+					version: 1,
+					type: 'doc',
+					content: [
+						{
+							type: 'bodiedSyncBlock',
+							attrs: {
+								localId: 'sync-local-id',
+								resourceId: 'sync-resource-id',
+							},
+							content: [
+								{
+									type: 'panel',
+									attrs: {
+										panelType: 'warning',
+										panelIcon: null,
+										panelIconId: null,
+										panelIconText: null,
+										panelColor: null,
+									},
+									content: [
+										{
+											type: 'paragraph',
+											content: [{ type: 'text', text: 'In sync block' }],
+										},
+									],
+								},
+							],
+						},
+					],
+				});
+			});
 		});
 	});
 });

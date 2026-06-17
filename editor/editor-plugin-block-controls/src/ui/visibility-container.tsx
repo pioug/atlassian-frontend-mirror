@@ -92,8 +92,7 @@ export const VisibilityContainer = ({
 	// rightSideControlsEnabled is the single source of truth (confluence_remix_button_right_side_block_fg from preset)
 	// Both controls are restricted by side: the drag handle shows on the left half, the Remix button on
 	// the right half (and the right margin), matching the midpoint split in handle-mouse-move.
-	const shouldRestrictBySide =
-		rightSideControlsEnabled && controlSide !== undefined && !isViewMode;
+	const shouldRestrictBySide = rightSideControlsEnabled && controlSide !== undefined && !isViewMode;
 	// Only restrict by side when hoverSide is known (after mousemove). When undefined, show both
 	// controls so drag handle is visible on load and for keyboard-only users.
 	const sideHidden =

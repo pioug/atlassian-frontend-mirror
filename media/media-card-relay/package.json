@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card-relay",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A relay-driven media card component to accept mediaItemRef and pass SSR data through ssrFileState prop",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

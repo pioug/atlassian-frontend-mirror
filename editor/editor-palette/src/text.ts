@@ -23,7 +23,7 @@ export function hexToEditorTextPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorTextPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		EditorTextPalette[HexColor]
+	EditorTextPalette[HexColor]
 	: string | undefined {
 	// Ts ignore used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
@@ -106,4 +106,34 @@ export const editorTextPalette = {
 	['#97A0AF']: token('color.icon.accent.gray') as 'var(--ds-icon-accent-gray, #97A0AF)', // source for hex code was legacy token N80
 	/** whiteGray - strong */
 	['#172B4D']: token('color.text') as 'var(--ds-text, #172B4D)', // source for hex code was legacy token N800
+
+	// lime
+	/** lime - light */
+	['#D3F1A7']: token('color.background.accent.lime.subtler') as 'var(--ds-background-accent-lime-subtler, #D3F1A7)',
+	/** lime - medium */
+	['#6A9A23']: token('color.icon.accent.lime') as 'var(--ds-icon-accent-lime, #6A9A23)',
+	/** lime - strong */
+	['#4C6B1F']: token('color.text.accent.lime') as 'var(--ds-text-accent-lime, #4C6B1F)',
+
+	// orange
+	/** orange - light */
+	['#FCE4A6']: token('color.background.accent.orange.subtler') as 'var(--ds-background-accent-orange-subtler, #FCE4A6)',
+	/** orange - medium */
+	['#E06C00']: token('color.icon.accent.orange') as 'var(--ds-icon-accent-orange, #E06C00)',
+	/** orange - strong */
+	['#9E4C00']: token('color.text.accent.orange') as 'var(--ds-text-accent-orange, #9E4C00)',
+
+	// magenta
+	/** magenta - light */
+	['#FDD0EC']: token('color.background.accent.magenta.subtler') as 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
+	/** magenta - medium */
+	['#CD519D']: token('color.icon.accent.magenta') as 'var(--ds-icon-accent-magenta, #CD519D)',
+	/** magenta - strong */
+	['#943D73']: token('color.text.accent.magenta') as 'var(--ds-text-accent-magenta, #943D73)',
+
+	// yellow
+	/** yellow - medium */
+	['#B38600']: token('color.icon.accent.yellow') as 'var(--ds-icon-accent-yellow, #B38600)',
+	/** yellow - strong */
+	['#7F5F01']: token('color.text.accent.yellow') as 'var(--ds-text-accent-yellow, #7F5F01)',
 };

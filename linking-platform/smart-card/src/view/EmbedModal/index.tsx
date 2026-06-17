@@ -1,7 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../constants';
@@ -79,10 +78,7 @@ const EmbedModal = ({
 				invokeViewAction.display && invokeViewAction.display !== 'url'
 					? invokeViewAction.display
 					: null;
-			if (
-				visitedDisplay &&
-				expValEquals('cc_integrations_editor_open_link_click_analytics', 'isEnabled', true)
-			) {
+			if (visitedDisplay) {
 				fireEvent?.('track.smartLink.visited', {
 					id: invokeViewAction.id ?? iframeName,
 					display: visitedDisplay,
@@ -102,10 +98,7 @@ const EmbedModal = ({
 				invokeViewAction.display && invokeViewAction.display !== 'url'
 					? invokeViewAction.display
 					: null;
-			if (
-				visitedDisplay &&
-				expValEquals('cc_integrations_editor_open_link_click_analytics', 'isEnabled', true)
-			) {
+			if (visitedDisplay) {
 				fireEvent?.('track.smartLink.visited', {
 					id: invokeViewAction.id ?? iframeName,
 					display: visitedDisplay,

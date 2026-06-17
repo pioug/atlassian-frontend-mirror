@@ -708,7 +708,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			(!expValEquals('platform_editor_table_ref_optimisation', 'isEnabled', true) ||
 				this.props.tableActive) &&
 			this.props.view &&
-			expValEquals('platform_editor_fix_editor_unhandled_type_errors', 'isEnabled', true) &&
 			(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
 				fg('platform_editor_enable_table_update_ref_atlas'))
 		) {
@@ -735,18 +734,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		if (tableElement !== this.table) {
 			this.table = tableElement;
 			this.observeTable(this.table);
-
-			if (
-				this.table &&
-				(!expValEquals('platform_editor_table_ref_optimisation', 'isEnabled', true) ||
-					this.props.tableActive) &&
-				this.props.view &&
-				!expValEquals('platform_editor_fix_editor_unhandled_type_errors', 'isEnabled', true) &&
-				(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
-					fg('platform_editor_enable_table_update_ref_atlas'))
-			) {
-				setTableRef(this.table)(this.props.view.state, this.props.view.dispatch);
-			}
 		}
 	};
 

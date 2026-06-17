@@ -77,6 +77,7 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_core_static_css: false,
 	'cwr-modal-ui-refresh': false,
 	'cwr-reduce-prompt-suggestion-max-chars': false,
+	'cwr-staging-area-close-as-minimize-button': false,
 	prompt_tile_content_type_localizaiton: false,
 	// [CCI-15904] New AIFC Editor Experience — AND-gated with
 	// `platform_editor_ai_xstate_migration` (see `isNewAifcExperienceEnabled`

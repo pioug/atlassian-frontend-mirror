@@ -82,6 +82,7 @@ export function shapeNavigationTimingData(
  * The iframe event structure is: { name, elapsed, payload: { name, startTime, ... timing: { ... } } }
  * All timing fields live inside `payload`, with sub-timing fields inside `payload.timing`.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function shapeResourceTimingData(data: Record<string, unknown>): Record<string, unknown> {
 	const payload = (data?.payload || {}) as Record<string, unknown>;
 	// payload.timing.* to payload.* directly. Support both shapes during rollout.

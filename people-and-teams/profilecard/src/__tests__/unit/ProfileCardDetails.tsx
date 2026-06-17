@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ProfileCardDetails } from '../../components/User/ProfileCardDetails';
-import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../../types';
 import { type LozengeProps } from '../../types';
 
 jest.mock('react-intl', () => {
@@ -313,58 +312,6 @@ describe('ProfileCardDetails', () => {
 				});
 			},
 		);
-	});
-
-	describe('hideReportingLines', () => {
-		const reportingLinesUser: ReportingLinesUser = {
-			accountIdentifier: 'abc123',
-			identifierType: 'ATLASSIAN_ID',
-			pii: { name: 'Manager Name', picture: '' },
-		};
-
-		const reportingLines: TeamCentralReportingLinesData = {
-			managers: [reportingLinesUser],
-			reports: [
-				{ ...reportingLinesUser, accountIdentifier: 'def456', pii: { name: 'Report Name' } },
-			],
-		};
-
-		ffTest.on('jira_ai_profilecard_hide_reportinglines', 'feature gate enabled', () => {
-			it('should hide the reporting lines section when hideReportingLines is true', () => {
-				const { queryByText } = renderComponent({
-					reportingLines,
-					hideReportingLines: true,
-				});
-				expect(queryByText('Manager')).not.toBeInTheDocument();
-				expect(queryByText('Direct reports')).not.toBeInTheDocument();
-			});
-
-			it('should still show the reporting lines section when hideReportingLines is false', () => {
-				const { getByText } = renderComponent({
-					reportingLines,
-					hideReportingLines: false,
-				});
-				expect(getByText('Manager')).toBeInTheDocument();
-				expect(getByText('Direct reports')).toBeInTheDocument();
-			});
-
-			it('should still show the reporting lines section when hideReportingLines is not set', () => {
-				const { getByText } = renderComponent({ reportingLines });
-				expect(getByText('Manager')).toBeInTheDocument();
-				expect(getByText('Direct reports')).toBeInTheDocument();
-			});
-		});
-
-		ffTest.off('jira_ai_profilecard_hide_reportinglines', 'feature gate disabled', () => {
-			it('should show the reporting lines section even when hideReportingLines is true', () => {
-				const { getByText } = renderComponent({
-					reportingLines,
-					hideReportingLines: true,
-				});
-				expect(getByText('Manager')).toBeInTheDocument();
-				expect(getByText('Direct reports')).toBeInTheDocument();
-			});
-		});
 	});
 
 	describe('Custom lozenges', () => {

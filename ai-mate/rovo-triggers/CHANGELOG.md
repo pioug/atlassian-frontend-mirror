@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 9.0.0
+
+### Major Changes
+
+- [`6aa37d3b2e16a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6aa37d3b2e16a) -
+  Remove an internal package dependency from public package metadata.
+
 ## 8.1.0
 
 ### Minor Changes

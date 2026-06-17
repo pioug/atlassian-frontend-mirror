@@ -19,7 +19,7 @@ export function hexToEditorBorderPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorBorderPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		EditorBorderPalette[HexColor]
+	EditorBorderPalette[HexColor]
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
@@ -58,7 +58,7 @@ export function hexToEditorTextPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorTextPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		EditorTextPalette[HexColor]
+	EditorTextPalette[HexColor]
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
@@ -110,6 +110,28 @@ export const editorTextPalette = {
 	'#97A0AF': 'var(--ds-icon-accent-gray, #97A0AF)',
 	/** whiteGray - strong */
 	'#172B4D': 'var(--ds-text, #172B4D)',
+	/** lime - light */
+	'#D3F1A7': 'var(--ds-background-accent-lime-subtler, #D3F1A7)',
+	/** lime - medium */
+	'#6A9A23': 'var(--ds-icon-accent-lime, #6A9A23)',
+	/** lime - strong */
+	'#4C6B1F': 'var(--ds-text-accent-lime, #4C6B1F)',
+	/** orange - light */
+	'#FCE4A6': 'var(--ds-background-accent-orange-subtler, #FCE4A6)',
+	/** orange - medium */
+	'#E06C00': 'var(--ds-icon-accent-orange, #E06C00)',
+	/** orange - strong */
+	'#9E4C00': 'var(--ds-text-accent-orange, #9E4C00)',
+	/** magenta - light */
+	'#FDD0EC': 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
+	/** magenta - medium */
+	'#CD519D': 'var(--ds-icon-accent-magenta, #CD519D)',
+	/** magenta - strong */
+	'#943D73': 'var(--ds-text-accent-magenta, #943D73)',
+	/** yellow - medium */
+	'#B38600': 'var(--ds-icon-accent-yellow, #B38600)',
+	/** yellow - strong */
+	'#7F5F01': 'var(--ds-text-accent-yellow, #7F5F01)',
 };
 
 /**
@@ -133,7 +155,7 @@ export function hexToEditorTextBackgroundPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends TextBackgroundColorPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		TextBackgroundColorPalette[HexColor]
+	TextBackgroundColorPalette[HexColor]
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferring better type on consumption over safety in implementation)
@@ -155,6 +177,10 @@ export const textBackgroundColorPalette = {
 	'#FDD0EC': 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
 	/** Purple - light */
 	'#DFD8FD': 'var(--ds-background-accent-purple-subtler, #DFD8FD)',
+	/** Blue - light */
+	'#B3D4FF': 'var(--ds-background-accent-blue-subtler, #B3D4FF)',
+	/** Green - light */
+	'#ABF5D1': 'var(--ds-background-accent-green-subtler, #ABF5D1)',
 };
 type TextBackgroundColorPalette = typeof textBackgroundColorPalette;
 export type TextBackgroundColorPaletteKey = keyof TextBackgroundColorPalette;
@@ -176,7 +202,7 @@ export function hexToEditorBackgroundPaletteRawValue<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorBackgroundPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		string
+	string
 	: undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
@@ -300,4 +326,4 @@ export const editorBackgroundPalette = {
 	},
 };
 
-export {};
+export { };

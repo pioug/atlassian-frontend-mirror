@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "13.0.1",
+	"version": "13.0.3",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -153,10 +153,6 @@
 		},
 		"confluence_frontend_native_tabs_extension": {
 			"type": "boolean"
-		},
-		"remix_button_right_margin_hover": {
-			"type": "boolean",
-			"referenceOnly": true
 		}
 	},
 	"devDependencies": {

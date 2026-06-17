@@ -34,6 +34,7 @@ export default async function getBatteryInfo(): Promise<BatteryInfo> {
 }
 
 // Helper function to get battery info in legacy colon format for backward compatibility
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export async function getBatteryInfoToLegacyFormat(): Promise<LegacyBatteryInfo> {
 	const battery = await getBatteryInfo();
 	const legacyFormat: LegacyBatteryInfo = {};

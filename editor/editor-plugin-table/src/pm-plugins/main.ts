@@ -106,6 +106,7 @@ export const createPlugin = (
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
 	allowFixedColumnWidthOption?: boolean,
+	__livePage?: boolean,
 ): SafePlugin<TablePluginState> => {
 	const state = createPluginState(dispatch, {
 		pluginConfig,
@@ -221,6 +222,7 @@ export const createPlugin = (
 			let focusListenerBinding: UnbindFn | null = null;
 
 			if (
+				(!fg('platform_editor_table_auto_convert_fix') || !__livePage) &&
 				pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&
 				isContentModeSupported({
 					allowColumnResizing: !!pluginConfig.allowColumnResizing,
@@ -259,10 +261,7 @@ export const createPlugin = (
 						parent &&
 						pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view';
 
-					if (
-						expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) &&
-						fg('platform_editor_update_table_ref_fix')
-					) {
+					if (expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true)) {
 						shouldSetTableRef =
 							parent &&
 							pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&

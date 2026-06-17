@@ -255,10 +255,9 @@ const ContentComponent = ({ api, editorView, options }: ContentComponentProps) =
 		['width', 'grid'],
 		selector,
 	);
-	const overlayWidth =
-		expValEquals('platform_editor_external_embed_grid_fix', 'isEnabled', true)
-			? (lineLength || width || akEditorFullPageMaxWidth) + GRID_GUTTER_WIDTH
-			: undefined;
+	const overlayWidth = expValEquals('platform_editor_external_embed_grid_fix', 'isEnabled', true)
+		? (lineLength || width || akEditorFullPageMaxWidth) + GRID_GUTTER_WIDTH
+		: undefined;
 
 	if (!visible || !highlight) {
 		return null;

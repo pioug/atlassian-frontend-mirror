@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.2.0
+
+### Minor Changes
+
+- [`cf7bf77da7d41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf7bf77da7d41) -
+  Delay typed agent mention trigger until editor inactivity or when selection leaves the parent
+  block
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.0
 
 ### Minor Changes

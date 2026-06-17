@@ -32,6 +32,7 @@ export interface UFOInteractionContextType extends InteractionContextType {
 
 export default InteractionContext as Context<UFOInteractionContextType | null>;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useInteractionContext() {
 	return useContext(InteractionContext) as UFOInteractionContextType | null;
 }

@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.1.0
+
+### Minor Changes
+
+- [`96a8a99060dfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96a8a99060dfc) -
+  EDITOR-7523: Add diff indicators to the left doc margin
+
+## 10.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes

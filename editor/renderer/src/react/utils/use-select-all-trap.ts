@@ -13,7 +13,8 @@ export const useSelectAllTrap = <T extends HTMLElement>(): React.MutableRefObjec
 	const clicked = React.useRef<boolean>(false);
 	const caught = React.useRef<ElementSelection>();
 
-	const mac = typeof navigator !== 'undefined' ? MAC_PLATFORM_REGEX.test(navigator.platform) : false;
+	const mac =
+		typeof navigator !== 'undefined' ? MAC_PLATFORM_REGEX.test(navigator.platform) : false;
 
 	const onKeyDown = React.useCallback(
 		(e: KeyboardEvent) => {

@@ -247,11 +247,7 @@ describe('<Emoji />', () => {
 			const { OffscreenCanvasMock } = mockOffscreenCanvas();
 
 			const result = await renderWithIntl(
-				<Emoji
-					emoji={unicodeEmoji}
-					fitToHeight={24}
-					renderUnicodeEmojiAsImage={false}
-				/>,
+				<Emoji emoji={unicodeEmoji} fitToHeight={24} renderUnicodeEmojiAsImage={false} />,
 			);
 
 			expect(result.getByTestId(`unicode-emoji-${unicodeEmoji.shortName}`)).toBeInTheDocument();
@@ -260,11 +256,7 @@ describe('<Emoji />', () => {
 
 		it('should render unicode emoji as text using fitToHeight when renderUnicodeEmojiAsImage is false', async () => {
 			const result = await renderWithIntl(
-				<Emoji
-					emoji={unicodeEmoji}
-					fitToHeight={24}
-					renderUnicodeEmojiAsImage={false}
-				/>,
+				<Emoji emoji={unicodeEmoji} fitToHeight={24} renderUnicodeEmojiAsImage={false} />,
 			);
 
 			expect(result.getByText('😀')).toHaveStyle({

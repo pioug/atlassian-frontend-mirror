@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2d585f3ae5be298989545215bd25a826>>
+ * @generated SignedSource<<282cabba73994c8491dd9402312ed2aa>>
  * @relayHash 10df1400fe5f08dbb71223dbeb55d5d0
  * @lightSyntaxTransform
  * @nogrep
@@ -15,21 +15,21 @@
 import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type AgentStudioAgentQueryInput = {
-  includeDraftAgents?: boolean | null | undefined;
-  name?: string | null | undefined;
-  onlyEditableAgents?: boolean | null | undefined;
-  onlyFavouriteAgents?: boolean | null | undefined;
-  onlyMyAgents?: boolean | null | undefined;
-  onlyPublishedEditableAgents?: boolean | null | undefined;
-  onlyTemplateAgents?: boolean | null | undefined;
-  onlyUnpublishedAgents?: boolean | null | undefined;
-  onlyVerifiedAgents?: boolean | null | undefined;
+  includeDraftAgents?: boolean | null;
+  name?: string | null;
+  onlyEditableAgents?: boolean | null;
+  onlyFavouriteAgents?: boolean | null;
+  onlyMyAgents?: boolean | null;
+  onlyPublishedEditableAgents?: boolean | null;
+  onlyTemplateAgents?: boolean | null;
+  onlyUnpublishedAgents?: boolean | null;
+  onlyVerifiedAgents?: boolean | null;
 };
 export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery$variables = {
-  after?: string | null | undefined;
+  after?: string | null;
   cloudIdString: string;
-  first?: number | null | undefined;
-  input?: AgentStudioAgentQueryInput | null | undefined;
+  first?: number | null;
+  input?: AgentStudioAgentQueryInput | null;
 };
 export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"rovoAgentSelector_AtlaskitRovoAgentSelector">;

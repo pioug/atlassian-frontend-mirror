@@ -72,8 +72,9 @@ export const ToolbarMenuContainer: React.ForwardRefExoticComponent<
 				xcss={cx(
 					styles.container,
 					expValEquals('platform_editor_menu_radius_update', 'isEnabled', true) &&
-					styles.radiusUpdate,
-					expValEquals('platform_editor_menu_radius_update', 'isEnabled', true) && styles.emptyMenuSectionStyles,
+						styles.radiusUpdate,
+					expValEquals('platform_editor_menu_radius_update', 'isEnabled', true) &&
+						styles.emptyMenuSectionStyles,
 					expValEquals('platform_editor_menu_radius_update', 'isEnabled', true) && xcss,
 				)}
 				testId={testId}

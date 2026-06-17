@@ -18,6 +18,10 @@ import badgeDo2Light from './images/badge-do-2-light.png';
 import badgeDo2Dark from './images/badge-do-2-dark.png';
 import badgeDont2Light from './images/badge-dont-2-light.png';
 import badgeDont2Dark from './images/badge-dont-2-dark.png';
+import badgeDo2BoldLight from './images/badge-do-2-bold-light.png';
+import badgeDo2BoldDark from './images/badge-do-2-bold-dark.png';
+import badgeDont2BoldLight from './images/badge-dont-2-bold-light.png';
+import badgeDont2BoldDark from './images/badge-dont-2-bold-dark.png';
 
 ## Usage
 
@@ -40,9 +44,10 @@ Use badges to represent numerical data such as counts and metrics. Leading symbo
 
 ## Color
 
-Badges offer 6 semantic appearances: danger, warning, success, information, discovery, and neutral.
-They also include an inverse appearance for use on inverse backgrounds relative to the selected
-theme.
+Badges offer 6 default semantic appearances: danger, warning, success, information, discovery, and
+neutral, and 5 bold semantic appearances: dangerBold, warningBold, successBold, informationBold, and
+discoveryBold. They also include an inverse appearance for use on inverse backgrounds relative to the
+selected theme.
 
 <Image
 	src={badgeColorLight}
@@ -88,6 +93,34 @@ being conveyed can cause confusion for users and create inconsistent experiences
 	</DoDont>
 </DoDontGrid>
 
+### Only use bold semantic badges for elements of high importance
+
+Usage of the bold semantic appearances should only be used for badges of high importance or for
+badges requiring higher visual prominence, such as notification counts.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: badgeDo2BoldLight,
+			urlDarkMode: badgeDo2BoldDark,
+			alt: 'A bold danger badge showing a notification count of 3 in a top navigation bar, where high visual prominence is needed',
+		}}
+	>
+		Use bold badges sparingly, and only when the element requires high visual prominence.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: badgeDont2BoldLight,
+			urlDarkMode: badgeDont2BoldDark,
+			alt: 'Bold badges used on secondary elements alongside lozenges in a list, where the added prominence is unnecessary',
+		}}
+	>
+		Don't use bold badges for elements that are secondary to other labels such as lozenges.
+	</DoDont>
+</DoDontGrid>
+
 ### Provide additional cues to avoid ambiguity
 
 Use badges alongside a label to clearly show which item is quantified.
@@ -111,7 +144,7 @@ Use badges alongside a label to clearly show which item is quantified.
 			alt: 'Multiple badges shown together without context: 13, 8, and 15',
 		}}
 	>
-		Don't use badges without context.
+		Don't use badges without context, unless they contain an attached tooltip.
 	</DoDont>
 </DoDontGrid>
 

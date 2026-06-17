@@ -423,6 +423,56 @@ describe('<UploadingEmojiPicker />', () => {
 			expect(screen.queryByTestId('emoji-picker-footer')).not.toBeInTheDocument();
 		});
 
+		it('defaults empty emoji name to file name in refresh upload flow', async () => {
+			jest
+				.mocked(FeatureGates.getExperimentValue)
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
+
+			await helper.setupPicker({
+				emojiProvider,
+				hideToneSelector: true,
+			});
+			const provider = await emojiProvider;
+
+			await waitFor(() => {
+				expect(helperTestingLibrary.getEmojiActionsSection()).toBeInTheDocument();
+			});
+
+			await waitFor(() => {
+				expect(helperTestingLibrary.queryAddCustomEmojiButton()).toBeInTheDocument();
+			});
+
+			await userEvent.click(
+				within(helperTestingLibrary.queryAddCustomEmojiButton()!).getByRole('button'),
+			);
+
+			await waitFor(() => {
+				expect(screen.getByTestId(uploadEmojiNameInputTestId)).toHaveValue('');
+			});
+
+			await helperTestingLibrary.chooseFile(createPngFile());
+
+			await waitFor(() => {
+				expect(screen.getByTestId(uploadEmojiNameInputTestId)).toHaveValue('playasateam');
+			});
+
+			await userEvent.click(helperTestingLibrary.getUploadEmojiButton());
+
+			await waitFor(() => {
+				expect(provider.getUploads()).toHaveLength(1);
+			});
+
+			expect(provider.getUploads()[0].upload).toEqual({
+				name: 'Playasateam',
+				shortName: ':playasateam:',
+				...pngFileUploadData,
+				width: 30,
+				height: 30,
+			});
+		});
+
 		it('Upload after searching', async () => {
 			await helper.setupPicker({
 				emojiProvider,

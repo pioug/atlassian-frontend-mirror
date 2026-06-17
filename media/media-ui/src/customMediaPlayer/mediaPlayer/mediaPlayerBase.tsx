@@ -133,7 +133,6 @@ const customVideoWrapperStyles = cssMap({
 	},
 });
 
-
 const videoWrapperStyles = cssMap({
 	root: {
 		width: '100%',

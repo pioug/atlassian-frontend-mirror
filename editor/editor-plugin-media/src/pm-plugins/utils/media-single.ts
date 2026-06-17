@@ -59,10 +59,7 @@ const TABLE_CELL_HORIZONTAL_PADDING = 16;
 const getPositiveWidth = (width: number | null | undefined): number | undefined =>
 	typeof width === 'number' && width > 0 ? width : undefined;
 
-const getClosestNodeDepth = (
-	$pos: ResolvedPos,
-	nodeNames: string[],
-): number | undefined => {
+const getClosestNodeDepth = ($pos: ResolvedPos, nodeNames: string[]): number | undefined => {
 	for (let depth = $pos.depth; depth > 0; depth--) {
 		if (nodeNames.includes($pos.node(depth).type.name)) {
 			return depth;
@@ -70,7 +67,10 @@ const getClosestNodeDepth = (
 	}
 };
 
-const getTableCellWidthFromPosition = (doc: PMNode, pos: number | undefined): number | undefined => {
+const getTableCellWidthFromPosition = (
+	doc: PMNode,
+	pos: number | undefined,
+): number | undefined => {
 	if (typeof pos !== 'number') {
 		return undefined;
 	}

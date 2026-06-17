@@ -1,5 +1,13 @@
 # @atlaskit/side-nav-items
 
+## 2.0.1
+
+### Patch Changes
+
+- [`a0c9149dc697c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0c9149dc697c) -
+  Fix aria-dialog-name a11y violation: add aria-labelledby to flyout menu dialog
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

@@ -35,6 +35,7 @@ export function startLSObserver(): void {
 	});
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function startLTObserver(): void {
 	getObserver()?.observe({
 		type: PerformanceObserverEntryTypes.LongTask,

@@ -191,6 +191,15 @@ export type ADFCommonNodeSpec = {
 	noMarks?: boolean;
 
 	/**
+	 * PM Spec only.
+	 *
+	 * Most DSL variants collapse to their base node type in ProseMirror content
+	 * expressions. Set this on variants that correspond to a distinct PM node
+	 * name and must keep their variant suffix in generated PM content.
+	 */
+	preserveVariantNameInPm?: boolean;
+
+	/**
 	 * Marks a node as the top-level node of a document.
 	 * Parsing and constructing ADF DSL data structures will start from this node.
 	 * Only one root node is allowed in a document.

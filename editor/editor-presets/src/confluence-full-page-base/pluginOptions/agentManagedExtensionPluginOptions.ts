@@ -1,8 +1,9 @@
-import type { ConfluencePageAri } from '@atlassian/ari';
 import type { AgentManagedExtensionPluginOptions } from '@atlassian/editor-plugin-agent-managed-extension';
 
 interface Props {
 	options?: {
+		cloudId?: string;
+		contentType?: string;
 		/**
 		 * Optional override of the extension type used for newly inserted
 		 * agent-managed bodied extensions.
@@ -10,7 +11,6 @@ interface Props {
 		 * Defaults to `com.atlassian.confluence.macro.core`.
 		 */
 		extensionType?: string;
-		referenceObjectAri?: ConfluencePageAri;
 	};
 }
 
@@ -24,7 +24,8 @@ export function agentManagedExtensionPluginOptions({
 	options,
 }: Props): AgentManagedExtensionPluginOptions {
 	return {
+		cloudId: options?.cloudId,
+		contentType: options?.contentType,
 		extensionType: options?.extensionType,
-		referenceObjectAri: options?.referenceObjectAri,
 	};
 }

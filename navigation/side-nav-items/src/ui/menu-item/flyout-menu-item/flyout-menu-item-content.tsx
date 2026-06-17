@@ -7,7 +7,6 @@ import React, {
 	useCallback,
 	useContext,
 	useEffect,
-	useId,
 	useMemo,
 	useRef,
 	useState,
@@ -18,6 +17,7 @@ import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { PopupContent } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
 
@@ -25,6 +25,7 @@ import {
 	OnCloseContext,
 	SetIsOpenContext,
 	TitleIdContextProvider,
+	useTitleId,
 } from './flyout-menu-item-context';
 
 export type FlyoutCloseSource = 'close-button' | 'escape-key' | 'outside-click' | 'other';
@@ -179,7 +180,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 			onCloseRef.current = handleClose;
 		}, [handleClose, onCloseRef]);
 
-		const titleId = useId();
+		const titleId = useTitleId();
 
 		const computedMaxHeight = useMemo(
 			() =>
@@ -210,7 +211,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 				xcss={flyoutMenuItemContentStyles.root}
 				autoFocus={autoFocus}
 				role="dialog"
-				titleId={titleId}
+				titleId={fg('navx-5180-flyout-dialog-aria-label') ? titleId : undefined}
 				/**
 				 * Disabling GPU acceleration removes the use of `transform` by popper.js for this popup.
 				 *

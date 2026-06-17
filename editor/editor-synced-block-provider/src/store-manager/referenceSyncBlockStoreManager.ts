@@ -40,7 +40,7 @@ import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import {
 	createSyncBlockNode,
 	getSourceProductFromResourceIdSafe,
-	stripAnnotationMarksFromJSONContent,
+	normalizeSyncBlockJSONContent,
 } from '../utils/utils';
 
 import { SyncBlockBatchFetcher } from './syncBlockBatchFetcher';
@@ -237,18 +237,18 @@ export class ReferenceSyncBlockStoreManager {
 		const providerData = this.dataProvider?.getNodeDataFromCache(syncBlockNode)?.data;
 		if (providerData) {
 			// Initial provider cache data can come from SSR/prefetch and bypass updateCache(),
-			// so strip annotations here before references render existing synced block payloads.
-			return this.stripAnnotationMarksFromReferenceData(providerData);
+			// so normalize legacy reference payloads here before rendering.
+			return this.normalizeReferenceData(providerData);
 		}
 		return this.getFromSessionCache(resourceId);
 	}
 
-	private stripAnnotationMarksFromReferenceData(syncBlock: SyncBlockInstance): SyncBlockInstance {
-		if (!syncBlock.data?.content) {
+	private normalizeReferenceData(syncBlock: SyncBlockInstance): SyncBlockInstance {
+		if (!syncBlock.data?.content?.length) {
 			return syncBlock;
 		}
 
-		const content = stripAnnotationMarksFromJSONContent(syncBlock.data.content);
+		const content = normalizeSyncBlockJSONContent(syncBlock.data.content);
 
 		if (content === syncBlock.data.content) {
 			return syncBlock;
@@ -280,8 +280,8 @@ export class ReferenceSyncBlockStoreManager {
 				return undefined;
 			}
 			// Session cache entries written before this sanitizer existed may still include
-			// source annotation marks, so keep this read-time safety net for legacy data.
-			return this.stripAnnotationMarksFromReferenceData(JSON.parse(raw) as SyncBlockInstance);
+			// annotation marks or panel_c1 nodes, so keep this read-time safety net for legacy data.
+			return this.normalizeReferenceData(JSON.parse(raw) as SyncBlockInstance);
 		} catch (error) {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager/getFromSessionCache',
@@ -710,7 +710,7 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	private updateCache(syncBlock: SyncBlockInstance) {
-		const sanitizedSyncBlock = this.stripAnnotationMarksFromReferenceData(syncBlock);
+		const sanitizedSyncBlock = this.normalizeReferenceData(syncBlock);
 		const { resourceId } = sanitizedSyncBlock;
 
 		if (resourceId) {

@@ -217,6 +217,8 @@ function makeSchema() {
 			'doc',
 			'paragraph',
 			'text',
+			'panel',
+			'panel_c1',
 			'bodiedSyncBlock',
 			'syncBlock',
 			'bodiedExtension',

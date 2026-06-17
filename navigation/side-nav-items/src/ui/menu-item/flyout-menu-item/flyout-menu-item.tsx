@@ -1,4 +1,4 @@
-import React, { forwardRef, type ReactNode, useEffect, useRef } from 'react';
+import React, { forwardRef, type ReactNode, useEffect, useId, useRef } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
@@ -8,7 +8,12 @@ import { Popup } from '@atlaskit/popup/experimental';
 import { MenuListItem } from '../menu-list-item';
 
 import type { FlyoutCloseSource } from './flyout-menu-item-content';
-import { IsOpenContext, OnCloseContext, SetIsOpenContext } from './flyout-menu-item-context';
+import {
+	IsOpenContext,
+	OnCloseContext,
+	SetIsOpenContext,
+	TitleIdContextProvider,
+} from './flyout-menu-item-context';
 
 export type FlyoutMenuItemProps = {
 	/**
@@ -69,6 +74,7 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 		forwardedRef,
 	) => {
 		const [isOpen, setIsOpen] = useControlled(isOpenControlled, () => isDefaultOpen);
+		const titleId = useId();
 
 		const previousIsOpen = usePreviousValue(isOpen);
 		const onCloseRef =
@@ -111,11 +117,17 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 			<IsOpenContext.Provider value={isOpen}>
 				<SetIsOpenContext.Provider value={setIsOpen}>
 					<OnCloseContext.Provider value={onCloseRef}>
-						<MenuListItem ref={forwardedRef}>
-							<Popup id={id} isOpen={isOpen} role="dialog">
-								{children}
-							</Popup>
-						</MenuListItem>
+						<TitleIdContextProvider value={titleId}>
+							<MenuListItem ref={forwardedRef}>
+								<Popup
+									id={id}
+									isOpen={isOpen}
+									role="dialog"
+								>
+									{children}
+								</Popup>
+							</MenuListItem>
+						</TitleIdContextProvider>
 					</OnCloseContext.Provider>
 				</SetIsOpenContext.Provider>
 			</IsOpenContext.Provider>

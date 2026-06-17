@@ -3,12 +3,16 @@ import type { ResourceEntry } from '../resource-timing/common/types';
 /* Borrowed from https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/performance/browser-metrics/src/plugins/timings/resource.ts */
 export const cacheableTypes: string[] = ['script', 'link', 'other'];
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const MEMORY_KEY = 'mem';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const DISK_KEY = 'disk';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const NETWORK_KEY = 'net';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function calculateTransferType(
 	name: string,
 	type: string,
@@ -32,6 +36,7 @@ export function calculateTransferType(
 	return NETWORK_KEY;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getTypeOfRequest({ name, initiatorType: type }: ResourceEntry): string {
 	let category = 'other';
 	const urlWithoutQuery = name.split('?')[0];
@@ -69,6 +74,7 @@ export function getTypeOfRequest({ name, initiatorType: type }: ResourceEntry): 
 	return category;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function checkIfTimingsAvailable(entry: ResourceEntry): boolean {
 	if (
 		entry.decodedSize === 0 &&
@@ -82,6 +88,7 @@ export function checkIfTimingsAvailable(entry: ResourceEntry): boolean {
 	return true;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function round(n: number): number {
 	if (isNaN(n)) {
 		return 0;

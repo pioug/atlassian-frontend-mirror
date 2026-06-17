@@ -161,8 +161,12 @@ export const useMotionTokenValues: Rule.RuleModule = {
 	meta: {
 		type: 'suggestion',
 		hasSuggestions: true,
+		deprecated: true,
+		replacedBy: ['@atlaskit/design-system/use-tokens-motion'],
 		docs: {
 			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/compiled/use-motion-token-values/',
+			description:
+				'@deprecated Use `@atlaskit/design-system/use-tokens-motion` instead. This rule has moved to the design-system plugin.',
 		},
 		messages: {
 			useMotionDurationToken:

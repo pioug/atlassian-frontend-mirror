@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 116.3.1
+
+### Patch Changes
+
+- [`d034aa0575c89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d034aa0575c89) -
+  Add same-document analytics for synced block edit source and always evaluate the scroll gate.
+- Updated dependencies
+
+## 116.3.0
+
+### Minor Changes
+
+- [`d3ccc67c63428`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3ccc67c63428) -
+  add analytics to track suggestions being dismissed
+- [`1498129c7eef2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1498129c7eef2) -
+  [EDITOR-7591] adds updated text color and highlight color palettes behind the
+  `platform_editor_lovability_text_bg_color` experiment
+- [`5bf738fb98422`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bf738fb98422) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`39abc4f2636bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39abc4f2636bc) -
+  Add selected tab metadata, source context, opened tab metadata, and initial/tab-change viewed
+  events to media insert picker analytics.
+- [`275679fbe0ea1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/275679fbe0ea1) -
+  Add accessible labels to two floating-toolbar buttons that axe flagged
+- Updated dependencies
+
+## 116.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.2.1
+
+### Patch Changes
+
+- [`3c607ceed7a02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c607ceed7a02) -
+  Fix extension renderer Promise handling behind a feature gate
+
 ## 116.2.0
 
 ### Minor Changes

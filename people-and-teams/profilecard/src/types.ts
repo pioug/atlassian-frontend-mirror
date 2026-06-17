@@ -174,8 +174,6 @@ export interface ProfileCardResourcedProps {
 	trigger?: TriggerType;
 	children?: React.ReactNode;
 	addFlag?: (flag: any) => void;
-	/** When true (and feature-gated), skip fetching and hide the reporting lines section */
-	hideReportingLines?: boolean;
 }
 
 export interface ProfileCardResourcedState {
@@ -247,11 +245,6 @@ export interface ProfileCardTriggerProps {
 	hideAiDisclaimer?: boolean;
 	/** Hide the conversation starters. Defaults to false (conversation starters are shown by default). */
 	hideAgentConversationStarters?: boolean;
-	/**
-	 * When true, skip fetching Townsquare's reporting lines data and hide the reporting lines section
-	 * currentky only working when the flag jira_ai_profilecard_hide_reportinglines is enabled
-	 * */
-	hideReportingLines?: boolean;
 }
 
 export interface ProfileCardTriggerState {
@@ -538,8 +531,6 @@ export interface ProfilecardProps {
 	disabledAriaAttributes?: boolean;
 	//overriding agent actions
 	agentActions?: AgentActionsType;
-	/** When true (and feature-gated), hide the reporting lines section */
-	hideReportingLines?: boolean;
 	/** When true (and feature-gated), hide the agent conversation starters section */
 	hideAgentConversationStarters?: boolean;
 }
@@ -656,10 +647,8 @@ export type TeamProfileCardErrorType = {
 	reason: 'default' | 'NotFound' | 'TEAMS_FORBIDDEN';
 } | null;
 
-export interface ProfileClientOptions extends Omit<
-	TeamCentralCardClientOptions,
-	'gatewayGraphqlUrl'
-> {
+export interface ProfileClientOptions
+	extends Omit<TeamCentralCardClientOptions, 'gatewayGraphqlUrl'> {
 	gatewayGraphqlUrl?: string;
 	url?: string;
 	cacheSize?: number;

@@ -302,7 +302,7 @@ export class TableContainer extends React.Component<
 	private _isInsideTableCell: boolean | null = null;
 	// Stores the last computed style values from render() for use by applyNestedRendererTableFix().
 	// This avoids reading from the DOM which can be stale when React removes properties between renders.
-	private lastComputedStyle: { left?: string; marginLeft?: string; width?: string; } = {};
+	private lastComputedStyle: { left?: string; marginLeft?: string; width?: string } = {};
 	private resizeObserver: ResizeObserver | null = null;
 
 	private applyResizerChange: ResizeObserverCallback = (entries) => {

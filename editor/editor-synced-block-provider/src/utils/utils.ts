@@ -11,51 +11,67 @@ import type {
 	SyncBlockProduct,
 } from '../common/types';
 
-export const stripAnnotationMarksFromJSONContent = <T extends JSONNode | undefined>(
+const normalizeSyncBlockJSONContentInternal = <T extends JSONNode | undefined>(
 	content: T[],
+	options: { convertPanelC1ToPanel: boolean },
 ): T[] => {
-	let strippedContent: T[] | undefined;
+	let normalizedContent: T[] | undefined;
 
 	content.forEach((contentNode, index) => {
 		if (!contentNode) {
-			strippedContent?.push(contentNode);
+			normalizedContent?.push(contentNode);
 			return;
 		}
 
 		const hasAnnotationMark = contentNode.marks?.some((mark) => mark.type === 'annotation');
+		const shouldConvertPanelC1 = options.convertPanelC1ToPanel && contentNode.type === 'panel_c1';
 		const childContent = contentNode.content
-			? stripAnnotationMarksFromJSONContent(contentNode.content)
+			? normalizeSyncBlockJSONContentInternal(contentNode.content, options)
 			: undefined;
 		const hasContentChanged = childContent !== undefined && childContent !== contentNode.content;
 
-		if (!hasAnnotationMark && !hasContentChanged) {
-			strippedContent?.push(contentNode);
+		if (!hasAnnotationMark && !shouldConvertPanelC1 && !hasContentChanged) {
+			normalizedContent?.push(contentNode);
 			return;
 		}
 
-		if (!strippedContent) {
-			strippedContent = content.slice(0, index);
+		if (!normalizedContent) {
+			normalizedContent = content.slice(0, index);
 		}
 
-		const strippedNode = { ...contentNode };
+		const normalizedNode = { ...contentNode };
+
+		if (shouldConvertPanelC1) {
+			normalizedNode.type = 'panel';
+		}
 
 		if (hasAnnotationMark) {
 			const marks = contentNode.marks?.filter((mark) => mark.type !== 'annotation');
 			if (marks && marks.length > 0) {
-				strippedNode.marks = marks;
+				normalizedNode.marks = marks;
 			} else {
-				delete strippedNode.marks;
+				delete normalizedNode.marks;
 			}
 		}
 
 		if (hasContentChanged && childContent) {
-			strippedNode.content = childContent;
+			normalizedNode.content = childContent;
 		}
 
-		strippedContent.push(strippedNode as T);
+		normalizedContent.push(normalizedNode as T);
 	});
 
-	return strippedContent ?? content;
+	return normalizedContent ?? content;
+};
+
+export const stripAnnotationMarksFromJSONContent = <T extends JSONNode | undefined>(
+	content: T[],
+): T[] => {
+	return normalizeSyncBlockJSONContentInternal(content, { convertPanelC1ToPanel: false });
+};
+
+export const normalizeSyncBlockJSONContent = <T extends JSONNode | undefined>(content: T[]): T[] => {
+	return normalizeSyncBlockJSONContentInternal(content, { convertPanelC1ToPanel: true });
 };
 
 export const convertSyncBlockPMNodeToSyncBlockData = (node: PMNode): SyncBlockData => {
@@ -63,7 +79,7 @@ export const convertSyncBlockPMNodeToSyncBlockData = (node: PMNode): SyncBlockDa
 
 	return {
 		blockInstanceId: node.attrs.localId,
-		content: content ? stripAnnotationMarksFromJSONContent(content) : content,
+		content: content ? normalizeSyncBlockJSONContent(content) : content,
 		resourceId: node.attrs.resourceId,
 	};
 };

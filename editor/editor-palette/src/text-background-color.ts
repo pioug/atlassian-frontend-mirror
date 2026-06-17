@@ -32,6 +32,14 @@ export const textBackgroundColorPalette = {
 	['#DFD8FD']: token(
 		'color.background.accent.purple.subtler',
 	) as 'var(--ds-background-accent-purple-subtler, #DFD8FD)',
+	/** Blue - light */
+	['#B3D4FF']: token(
+		'color.background.accent.blue.subtler',
+	) as 'var(--ds-background-accent-blue-subtler, #B3D4FF)',
+	/** Green - light */
+	['#ABF5D1']: token(
+		'color.background.accent.green.subtler',
+	) as 'var(--ds-background-accent-green-subtler, #ABF5D1)',
 };
 type TextBackgroundColorPalette = typeof textBackgroundColorPalette;
 export type TextBackgroundColorPaletteKey = keyof TextBackgroundColorPalette;
@@ -57,7 +65,7 @@ export function hexToEditorTextBackgroundPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends TextBackgroundColorPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-		TextBackgroundColorPalette[HexColor]
+	TextBackgroundColorPalette[HexColor]
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferring better type on consumption over safety in implementation)

@@ -191,6 +191,11 @@ const toEmojiName = (uploadName: string): string => {
 	return `${name.substr(0, 1).toLocaleUpperCase()}${name.substr(1)}`;
 };
 
+const toDefaultUploadName = (fileName: string): string => {
+	const nameWithoutExtension = fileName.replace(/\.[^/.]+$/, '');
+	return sanitizeName(nameWithoutExtension).slice(0, maxNameLength);
+};
+
 const isSupportedEmojiUploadFileType = (file: File): boolean => {
 	if (
 		!FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
@@ -533,6 +538,16 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			async (f: any): Promise<any> => {
 				try {
 					setFilename(file.name);
+					if (
+						!name &&
+						FeatureGates.getExperimentValue(
+							'platform_teamoji_26_refresh_emoji_picker',
+							'isEnabled',
+							false,
+						)
+					) {
+						setName(toDefaultUploadName(file.name));
+					}
 					await ImageUtil.parseImage(f.target.result);
 					setPreviewImage(f.target.result);
 					setChooseEmojiErrorMessage(undefined);
@@ -541,7 +556,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 					cancelChooseFile();
 				}
 			},
-		[cancelChooseFile],
+		[cancelChooseFile, name],
 	);
 
 	const onChooseFile = useCallback(

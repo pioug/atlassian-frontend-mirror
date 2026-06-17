@@ -14,6 +14,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	REMOVE_HIGHLIGHT_COLOR,
 	highlightColorPalette,
+	highlightColorPaletteNew,
 	type PaletteColor,
 	useSelectedTextColor,
 } from '@atlaskit/editor-common/ui-color';
@@ -39,6 +40,8 @@ interface HighlightMenuItemProps {
 	parents: ToolbarComponentTypes;
 }
 
+const HIGHLIGHT_COLOR_PICKER_COLUMNS = 10;
+
 const styles = cssMap({
 	container: {
 		marginTop: token('space.200'),
@@ -62,8 +65,9 @@ const styles = cssMap({
 const getTextColorIconColor = (
 	defaultColor: string | null | undefined,
 	textColor: string | null | undefined,
+	isNewColorPaletteEnabled: boolean,
 ) => {
-	if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+	if (!isNewColorPaletteEnabled) {
 		return token('color.icon');
 	}
 
@@ -105,6 +109,14 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 	const { textColor, defaultColor } = useSelectedTextColor();
 	const closeMenu = context?.closeMenu;
 
+	const isNewColorPaletteEnabled = expValEquals(
+		'platform_editor_lovability_text_bg_color',
+		'isEnabled',
+		true,
+	);
+
+	const selectedColor = activeColor || (isNewColorPaletteEnabled ? REMOVE_HIGHLIGHT_COLOR : null);
+
 	const handleHighlightColorChange = useCallback(
 		(color: string, event: React.MouseEvent | React.KeyboardEvent) => {
 			if (api?.highlight?.commands?.changeColor) {
@@ -115,19 +127,24 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					}),
 				);
 
-				if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+				if (!isNewColorPaletteEnabled) {
 					closeMenu?.(event);
 				}
 			}
 		},
-		[api, closeMenu, parents],
+		[api, closeMenu, isNewColorPaletteEnabled, parents],
 	);
 
 	const colorPalette: PaletteColor[] = useMemo(() => {
-		const isSelected = (color: PaletteColor) => color.value === activeColor;
-		const iconColor = getTextColorIconColor(defaultColor, textColor);
-		return highlightColorPalette
-			.filter((color) => color.value !== REMOVE_HIGHLIGHT_COLOR)
+		const isSelected = (color: PaletteColor) => color.value === selectedColor;
+		const iconColor = getTextColorIconColor(defaultColor, textColor, isNewColorPaletteEnabled);
+
+		const highlightPalette = isNewColorPaletteEnabled
+			? highlightColorPaletteNew
+			: highlightColorPalette;
+
+		return highlightPalette
+			.filter((color) => isNewColorPaletteEnabled || color.value !== REMOVE_HIGHLIGHT_COLOR)
 			.map((color) => ({
 				...color,
 				decorator: (
@@ -138,17 +155,18 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 					/>
 				),
 			}));
-	}, [activeColor, defaultColor, textColor]);
+	}, [defaultColor, textColor, isNewColorPaletteEnabled, selectedColor]);
 
 	return (
 		<Stack xcss={styles.container} testId="highlight-color-menu-item">
 			<Heading size="xxsmall">{formatMessage(messages.highlight)}</Heading>
 			<ColorPalette
+				cols={isNewColorPaletteEnabled ? HIGHLIGHT_COLOR_PICKER_COLUMNS : undefined}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(color, _, event) => {
 					handleHighlightColorChange(color, event);
 				}}
-				selectedColor={activeColor || null}
+				selectedColor={selectedColor}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				paletteOptions={{
 					palette: colorPalette || [],

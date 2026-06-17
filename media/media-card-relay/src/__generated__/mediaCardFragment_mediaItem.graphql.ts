@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d796714437c7649a479dd332ab41ff5b>>
+ * @generated SignedSource<<45ea233035690e4a669888cc30fd9725>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -14,35 +14,35 @@ import type { FragmentRefs } from "relay-runtime";
 export type mediaCardFragment_mediaItem$data = {
   readonly details: {
     readonly abuseClassification: {
-      readonly classification: string | null | undefined;
-      readonly confidence: string | null | undefined;
-    } | null | undefined;
+      readonly classification: string | null;
+      readonly confidence: string | null;
+    } | null;
     readonly artifactsList: ReadonlyArray<{
-      readonly createdAt: AGG$Long | null | undefined;
-      readonly mimeType: string | null | undefined;
+      readonly createdAt: AGG$Long | null;
+      readonly mimeType: string | null;
       readonly name: string;
-      readonly processingStatus: string | null | undefined;
-      readonly size: AGG$Long | null | undefined;
-      readonly url: string | null | undefined;
-    }> | null | undefined;
-    readonly createdAt: AGG$Long | null | undefined;
-    readonly failReason: string | null | undefined;
+      readonly processingStatus: string | null;
+      readonly size: AGG$Long | null;
+      readonly url: string | null;
+    }> | null;
+    readonly createdAt: AGG$Long | null;
+    readonly failReason: string | null;
     readonly mediaMetadata: {
-      readonly duration: number | null | undefined;
-    } | null | undefined;
-    readonly mediaType: string | null | undefined;
-    readonly mimeType: string | null | undefined;
-    readonly name: string | null | undefined;
+      readonly duration: number | null;
+    } | null;
+    readonly mediaType: string | null;
+    readonly mimeType: string | null;
+    readonly name: string | null;
     readonly preview: {
-      readonly cdnUrl: string | null | undefined;
-    } | null | undefined;
-    readonly processingStatus: string | null | undefined;
+      readonly cdnUrl: string | null;
+    } | null;
+    readonly processingStatus: string | null;
     readonly representations: {
       readonly image: {
-        readonly _empty: boolean | null | undefined;
-      } | null | undefined;
-    } | null | undefined;
-    readonly size: AGG$Long | null | undefined;
+        readonly _empty: boolean | null;
+      } | null;
+    } | null;
+    readonly size: AGG$Long | null;
   };
   readonly id: string;
   readonly type: string;

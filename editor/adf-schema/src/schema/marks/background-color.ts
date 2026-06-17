@@ -1,12 +1,22 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import { backgroundColor as backgroundColorFactory } from '../../next-schema/generated/markTypes';
 
+import {
+	B75,
+	G75,
+	L200,
+	M200,
+	Neutral300,
+	O200,
+	P200,
+	rgbToHex,
+	T200,
+	Yellow200,
+} from '../../utils/colors';
 import { hexToEditorTextBackgroundPaletteColor } from '../../utils/editor-palette';
-
-import { rgbToHex, L200, T200, P200, M200, Neutral300, O200, Yellow200 } from '../../utils/colors';
+import { getDarkModeLCHColor } from '../../utils/lch-color-inversion';
 import type { TextColorAttributes } from './text-color';
 import { getGlobalTheme } from './text-color';
-import { getDarkModeLCHColor } from '../../utils/lch-color-inversion';
 
 /**
  * @name backgroundColor_mark
@@ -27,7 +37,9 @@ export type BackgroundColorKey =
 	| 'Yellow'
 	| 'Orange'
 	| 'Magenta'
-	| 'Purple';
+	| 'Purple'
+	| 'Blue'
+	| 'Green';
 
 const colorArrayPalette: Array<[string, BackgroundColorKey]> = [
 	[Neutral300, 'Gray'], // token: color.background.accent.gray.subtler
@@ -37,6 +49,18 @@ const colorArrayPalette: Array<[string, BackgroundColorKey]> = [
 	[Yellow200, 'Yellow'], // token: color.background.accent.yellow.subtler
 	[L200, 'Lime'], // token: color.background.accent.lime.subtler
 	[T200, 'Teal'], // token: color.background.accent.teal.subtler
+];
+
+const colorArrayPaletteNew: Array<[string, BackgroundColorKey]> = [
+	[Neutral300, 'Gray'], // token: color.background.accent.gray.subtler
+	[B75, 'Blue'], // token: color.background.accent.blue.subtler
+	[T200, 'Teal'], // token: color.background.accent.teal.subtler
+	[G75, 'Green'], // token: color.background.accent.green.subtler
+	[L200, 'Lime'], // token: color.background.accent.lime.subtler
+	[Yellow200, 'Yellow'], // token: color.background.accent.yellow.subtler
+	[O200, 'Orange'], // token: color.background.accent.orange.subtler
+	[M200, 'Magenta'], // token: color.background.accent.magenta.subtler
+	[P200, 'Purple'], // token: color.background.accent.purple.subtler
 ];
 
 // @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/55979455/Colour+picker+decisions#Colourpickerdecisions-Visualdesigndecisions
@@ -50,6 +74,14 @@ colorArrayPalette.forEach(([color, label]) =>
 
 // @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 const RGB_PREFIX_BG_COLOR_REGEX = /^rgb/iu;
+
+export const backgroundColorPaletteNew: Map<string, BackgroundColorKey> = new Map<
+	string,
+	BackgroundColorKey
+>();
+colorArrayPaletteNew.forEach(([color, label]) =>
+	backgroundColorPaletteNew.set(color.toLowerCase(), label),
+);
 
 export const backgroundColor: MarkSpec = backgroundColorFactory({
 	parseDOM: [

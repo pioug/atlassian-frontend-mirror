@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 7.1.0
+
+### Minor Changes
+
+- [`70d7bedfe6c44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70d7bedfe6c44) -
+  Migrate CustomMotionXCSS type from XCSSProp (@compiled/react) to StrictXCSSProp (@atlaskit/css)
+  for improved type safety and alignment with the UI Styling Standard
+
 ## 7.0.0
 
 ### Major Changes

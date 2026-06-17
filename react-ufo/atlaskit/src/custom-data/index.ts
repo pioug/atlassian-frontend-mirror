@@ -24,6 +24,7 @@ export default function UFOCustomData({ data }: UFOCustomDataProps) {
 	return null;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function addUFOCustomData(data: CustomData): void {
 	const interactionId = getInteractionId();
 	const currentInteractionId = interactionId.current;

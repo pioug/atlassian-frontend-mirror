@@ -165,7 +165,6 @@ describe('useBlockCardRovoActionExperiment', () => {
 				});
 			});
 
-
 			it('returns isEnabled=false when product is not Confluence even with experiment on', () => {
 				const result = renderHook(
 					() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),

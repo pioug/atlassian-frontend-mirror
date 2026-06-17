@@ -119,8 +119,13 @@ const linkify = (state: any) => {
 					//
 					if (!links[ln].schema) {
 						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
-						urlText = state.md.normalizeLinkText('http://' + urlText).replace(HTTP_PREFIX_REGEX, '');
-					} else if (links[ln].schema === 'mailto:' && !MAILTO_CASE_INSENSITIVE_REGEX.test(urlText)) {
+						urlText = state.md
+							.normalizeLinkText('http://' + urlText)
+							.replace(HTTP_PREFIX_REGEX, '');
+					} else if (
+						links[ln].schema === 'mailto:' &&
+						!MAILTO_CASE_INSENSITIVE_REGEX.test(urlText)
+					) {
 						// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
 						urlText = state.md.normalizeLinkText('mailto:' + urlText).replace(MAILTO_REGEX, '');
 					} else {

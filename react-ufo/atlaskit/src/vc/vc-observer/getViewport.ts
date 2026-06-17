@@ -8,6 +8,7 @@ export function getViewportWidth(document: Document = window.document): number {
 	return Math.max(documentWidth, window.innerWidth || 0);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getViewportHeight(document: Document = window.document): number {
 	let documentHeight;
 	try {

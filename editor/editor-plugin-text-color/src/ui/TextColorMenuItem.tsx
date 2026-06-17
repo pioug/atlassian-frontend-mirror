@@ -18,6 +18,8 @@ import { token } from '@atlaskit/tokens';
 
 import type { TextColorPlugin } from '../textColorPluginType';
 
+const TEXT_COLOR_PICKER_COLUMNS = 10;
+
 const styles = cssMap({
 	container: {
 		gap: token('space.075'),
@@ -43,6 +45,13 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 	const context = useToolbarDropdownMenu();
 	const closeMenu = context?.closeMenu;
 
+	const { formatMessage } = useIntl();
+	const isNewColorPaletteEnabled = expValEquals(
+		'platform_editor_lovability_text_bg_color',
+		'isEnabled',
+		true,
+	);
+
 	const handleTextColorChange = useCallback(
 		(color: string, event: React.MouseEvent | React.KeyboardEvent) => {
 			if (!editorView?.state || !editorView?.dispatch) {
@@ -54,20 +63,26 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 					editorView.dispatch,
 				);
 
-				if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+				if (!isNewColorPaletteEnabled) {
 					closeMenu?.(event);
 				}
 			}
 		},
-		[editorView?.state, editorView?.dispatch, api?.textColor.actions, parents, closeMenu],
+		[
+			editorView?.state,
+			editorView?.dispatch,
+			api?.textColor.actions,
+			parents,
+			closeMenu,
+			isNewColorPaletteEnabled,
+		],
 	);
-
-	const { formatMessage } = useIntl();
-
+	
 	return (
 		<Stack xcss={styles.container} testId="text-color-menu-item">
 			<Heading size="xxsmall">{formatMessage(messages.textColorTooltip)}</Heading>
 			<ColorPalette
+				cols={isNewColorPaletteEnabled ? TEXT_COLOR_PICKER_COLUMNS : undefined}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onClick={(color, _, event) => {
 					handleTextColorChange(color, event);

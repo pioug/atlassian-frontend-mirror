@@ -1,7 +1,6 @@
 import { type Hooks, snapshot, type SnapshotTestOptions } from '@af/visual-regression';
 
 import {
-	ProfileCardExampleWithHideReportingLines,
 	ProfileCardExampleWithMetaAndLozenges,
 	ProfileCardExampleWithoutReportingLines,
 	ProfileCardExampleWithReportingLines,
@@ -17,7 +16,6 @@ const defaultSettings: SnapshotTestOptions<Hooks> = {
 
 snapshot(ProfileCardExampleWithReportingLines, defaultSettings);
 snapshot(ProfileCardExampleWithoutReportingLines, defaultSettings);
-snapshot(ProfileCardExampleWithHideReportingLines, defaultSettings);
 snapshot(ProfileCardExampleWithMetaAndLozenges, defaultSettings);
 
 snapshot(TeamProfileCardWithTriggerTest, {

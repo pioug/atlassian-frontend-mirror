@@ -26,11 +26,13 @@ export const PDND_REGISTRATION_ATTRIBUTES: ReadonlySet<string> = new Set([
 	'data-rbd-style-context-id',
 ]);
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const DROP_TARGET_ATTRIBUTE_PREFIX = 'data-drop-target-for-';
 
 /**
  * Name-only match (rbd-migration attributes carry dynamic values).
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function isPdndAttribute({
 	target,
 	attributeName,

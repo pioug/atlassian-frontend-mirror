@@ -6,36 +6,71 @@ order: 0
 
 import SectionMessage from '@atlaskit/section-message';
 
-## Library considerations
+## How to use the Motion library
 
-### Entry/Exit animations
+### Motion primitive
 
-The recommended way to apply entry and exit animations is with the
-[Motion primitive](/components/motion/motion-primitive) component. Pass pre-defined motion tokens to
-`enteringAnimation` and `exitingAnimation`, or supply custom `cssMap` styles via
-`enteringAnimationXcss` and `exitingAnimationXcss` for full control.
+Use the Motion primitive to apply entry and exit animations. It uses semantic enter/exit tokens and
+base tokens for custom transitions, enabling streamlined implementation without redoing base system
+behaviors. Pass pre-defined motion tokens to `enteringAnimation` and `exitingAnimation`, or supply
+custom `cssMap` styles via `enteringAnimationXcss` and `exitingAnimationXcss` for full control.
+
+#### How the primitive is composed
+
+Wrap your component in `<Motion>` and get best-practice enter/exit transitions out of the box.
 
 ```tsx
-import { ExitingPersistence, Motion } from '@atlaskit/motion';
+import { Motion } from '@atlaskit/motion';
+
+<Motion
+	enteringAnimation={token('motion.example.enter')}
+	exitingAnimation={token('motion.example.exit')}
+>
+	<Card />
+</Motion>
+```
+
+#### How motion components work together
+
+The Motion primitive can be paired with motion StaggeredEntrance and ExitingPersistence components
+for more detailed choreography.
+
+```tsx
+import { ExitingPersistence, StaggeredEntrance, Motion } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
-<ExitingPersistence appear>
-	{isVisible && (
-		<Motion
-			enteringAnimation={token('motion.modal.enter')}
-			exitingAnimation={token('motion.modal.exit')}
-		>
-			<MyComponent />
-		</Motion>
-	)}
-</ExitingPersistence>;
+<StaggeredEntrance>
+	<ExitingPersistence appear>
+		{isIn && (
+			<Motion
+				enteringAnimationXcss={styles.entering}
+				exitingAnimation={styles.exiting}
+			>
+				<Card appearance="small" />
+			</Motion>
+			<Motion
+				enteringAnimationXcss={styles.entering}
+				exitingAnimation={styles.exiting}
+			>
+				<Card appearance="small" />
+			</Motion>
+			<Motion
+				enteringAnimationXcss={styles.entering}
+				exitingAnimation={styles.exiting}
+			>
+				<Card appearance="small" />
+			</Motion>
+		)}
+	</ExitingPersistence>
+</StaggeredEntrance>
 ```
 
 ### CSS over JavaScript
 
 Where possible this library uses CSS exclusively, and only falls back to JavaScript when there is no
-alternative. This is primarily for **performance**, and to allow motion to run without waiting for
-JavaScript to execute on initial load — important for SSR-rendered apps.
+alternative. The reason for this is primarily for performance. CSS animations run on the compositor
+thread, avoid blocking the main thread, and execute without waiting for JavaScript to load, important
+for SSR-rendered apps.
 
 In practice this means:
 
@@ -45,8 +80,9 @@ In practice this means:
 - Highly interactive or gestural motions may warrant an animation engine, but these are handled
   case-by-case
 
-For new CSS-based animations that are not entry or exit animations, use the `motion.duration.*` and
-`motion.easing.*` design tokens to define animation and transition CSS properties:
+For new CSS-based animations that are not entry or exit animations, use motion tokens to ensure
+consistency, accessibility, and automatic updates across products. Use tokens like `motion.duration.*`
+and `motion.easing.*` to define animation and transition CSS properties:
 
 - `animation-timing-function`
 - `animation-duration`
@@ -55,12 +91,15 @@ For new CSS-based animations that are not entry or exit animations, use the `mot
 - `transition-duration`
 - `transition-delay`
 
-### Motion abstractions
+For entry and exit transitions, use the [Motion primitive](/components/motion/motion-primitive), which
+manages the animation lifecycle using the correct tokens. For the full list of motion tokens, visit
+[All tokens](/components/tokens/all-tokens#motion).
 
-We want you to use the provided abstractions to power your motion and not worry about the underlying
-implementation. We _also_ want a consistent motion experience across all our apps. If you need a
-particular motion that doesn't exist yet, consider contributing motion design tokens to
-`@atlaskit/tokens` so every app at Atlassian can benefit.
+### Tokens over custom values
+
+Use the provided tokens to power your motion. This ensures a consistent motion experience across
+all apps. If there is motion you need that doesn't exist yet, reach out to the ADS team for
+contribution consideration.
 
 ### Reduced motion support
 
@@ -82,7 +121,7 @@ for the utilities available.
 ### Not rendering markup
 
 Every component in this library will not render markup, they will just pass down \`props\` for you
-to wire up. Because of this the majority of _motion atoms_ will utilise children as props or hooks:
+to wire up. Because of this the majority of _motion atoms_ will utilize children as props or hooks:
 
 ```
 <div {...useMotion()} />

@@ -1,4 +1,5 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { matchers } from '@emotion/jest';
 import { act, fireEvent, type RenderResult, screen, waitFor, within } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
@@ -52,8 +53,10 @@ import {
 } from '../../../../util/constants';
 import { isMessagesKey } from '../../../../util/type-helpers';
 import {
+	getEmojiResourcePromiseFromRepository,
 	getEmojiResourcePromise,
 	mediaEmoji,
+	siteEmojiFoo,
 	standardEmojis,
 	standardServiceEmojis,
 } from '../../_test-data';
@@ -78,6 +81,7 @@ const emojiListHeaders = {
 	ALL_UPLOADS: 'All uploads',
 	ATLASSIAN: 'Atlassian & productivity',
 	FLAGS: 'Flags',
+	USER_UPLOADS: 'Your uploads',
 };
 
 const emojiCategoryIds = {
@@ -359,6 +363,44 @@ describe('<EmojiPicker />', () => {
 					helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.ALL_UPLOADS),
 				).toBeInTheDocument();
 			});
+		});
+
+		it('selecting custom category scrolls to your uploads when current user has uploads', async () => {
+			const getExperimentValueSpy = jest
+				.spyOn(FeatureGates, 'getExperimentValue')
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
+			const emojiProvider = getEmojiResourcePromiseFromRepository(
+				new EmojiRepository(JSON.parse(JSON.stringify([...standardEmojis, mediaEmoji, siteEmojiFoo]))),
+				{
+					currentUser: { id: siteEmojiFoo.creatorUserId },
+				},
+			);
+
+			try {
+				await helper.setupPicker({
+					emojiProvider,
+				});
+
+				await waitFor(() => {
+					expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+				});
+
+				expect(
+					helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.USER_UPLOADS),
+				).not.toBeInTheDocument();
+
+				await helperTestingLibrary.selectCategory(customCategory);
+
+				await waitFor(() => {
+					expect(
+						helperTestingLibrary.queryEmojiCategoryHeader(emojiListHeaders.USER_UPLOADS),
+					).toBeInTheDocument();
+				});
+			} finally {
+				getExperimentValueSpy.mockRestore();
+			}
 		});
 
 		it('does not add non-standard categories to the selector if there are no emojis in those categories', async () => {

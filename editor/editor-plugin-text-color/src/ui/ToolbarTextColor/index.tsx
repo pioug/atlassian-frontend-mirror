@@ -112,14 +112,20 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		} = this.props;
 
 		const palette = pluginState.palette;
+		const isNewColorPaletteEnabled = editorExperiment(
+			'platform_editor_lovability_text_bg_color',
+			true,
+		);
+		const colorPickerColumns = isNewColorPaletteEnabled ? 10 : undefined;
 
 		let fitWidth: number | undefined;
 		if (document.body.clientWidth <= 740) {
 			// This was originally hard-coded, but moved here to a const
 			// My guess is it's based off (width of button * columns) + left/right padding
-			// 240 = (32 * 7) + (8 + 8)
+			// 7 cols: 240 = (32 * 7) + (8 + 8)
+			// 10 cols: 338 = (32 * 10) + (8 + 8)
 			// Not sure where the extra 2px comes from
-			fitWidth = 242;
+			fitWidth = isNewColorPaletteEnabled ? 338 : 242;
 		}
 
 		const selectedColor = this.getSelectedColor(pluginState);
@@ -138,6 +144,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		const { selectedRowIndex, selectedColumnIndex } = getSelectedRowAndColumnFromPalette(
 			palette,
 			pluginState.color,
+			colorPickerColumns,
 		);
 
 		const reducedSpacing = this.props.toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
@@ -209,6 +216,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 				>
 					<div data-testid="text-color-palette">
 						<ColorPalette
+							cols={colorPickerColumns}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={(color) =>
 								this.changeTextColor(

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.0.1",
+	"version": "45.1.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -352,6 +352,9 @@
 			"type": "boolean"
 		},
 		"platform_smartlink_inline_resolve_optimization": {
+			"type": "boolean"
+		},
+		"dfo_issue_view_remote_data_srr_group": {
 			"type": "boolean"
 		}
 	},

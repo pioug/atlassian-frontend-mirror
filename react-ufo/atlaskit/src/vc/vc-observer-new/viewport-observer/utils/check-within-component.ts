@@ -31,6 +31,7 @@ export function cleanupCaches(
 	return resultCache;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default function checkWithinComponent(
 	node: HTMLElement,
 	targetComponentName: string,

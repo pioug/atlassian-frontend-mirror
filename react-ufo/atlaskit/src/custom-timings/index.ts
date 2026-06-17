@@ -41,6 +41,7 @@ export function getBm3Timings(
 	return bm3Timings;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function UFOBM3TimingsToUFO({
 	marks,
 	timings,
@@ -63,6 +64,7 @@ export function UFOBM3TimingsToUFO({
 	return null;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function addBM3TimingsToUFO(marks?: BM3Marks, timingsConfig?: BM3TimingsConfig[]): void {
 	const interactionId = getInteractionId().current;
 	if (interactionId) {

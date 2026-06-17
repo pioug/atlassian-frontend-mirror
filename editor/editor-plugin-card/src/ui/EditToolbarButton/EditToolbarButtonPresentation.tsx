@@ -89,6 +89,11 @@ const EditToolbarButtonPresentation = ({
 						testId="edit-link"
 						onClick={onEditLink}
 						icon={icon}
+						ariaLabel={
+							areAnyNewToolbarFlagsEnabled
+								? intl.formatMessage(linkToolbarMessages.editLink)
+								: undefined
+						}
 						tooltipContent={tooltipContent}
 						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					>

@@ -18,9 +18,7 @@ const MEMBERS_OF_FUNCTION_NAME = 'membersof';
  *
  * For all other functions it returns an empty Observable (no-op).
  */
-const useOnFunctionArguments = (
-	onValues: OnValues,
-): OnFunctionArguments => {
+const useOnFunctionArguments = (onValues: OnValues): OnFunctionArguments => {
 	return useCallback<OnFunctionArguments>(
 		(
 			_fieldName: string,

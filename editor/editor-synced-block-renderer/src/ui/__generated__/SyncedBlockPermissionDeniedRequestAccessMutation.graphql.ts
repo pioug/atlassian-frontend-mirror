@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7740d767b2268ec52c7dd85949458362>>
+ * @generated SignedSource<<0c6c51fca90b1d8be221569188b41155>>
  * @relayHash 676631e44ffd7d0d16b3a7e96ba02def
  * @lightSyntaxTransform
  * @nogrep
@@ -24,7 +24,7 @@ export type SyncedBlockPermissionDeniedRequestAccessMutation$variables = {
 export type SyncedBlockPermissionDeniedRequestAccessMutation$data = {
   readonly requestPageAccess: {
     readonly displayName: string;
-  } | null | undefined;
+  } | null;
 };
 export type SyncedBlockPermissionDeniedRequestAccessMutation = {
   response: SyncedBlockPermissionDeniedRequestAccessMutation$data;

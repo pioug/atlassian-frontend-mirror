@@ -33,6 +33,7 @@ function isValidDomainKey(domainKey: unknown): domainKey is DomainKey {
 	return true;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getATLContextDomain(
 	domain: DomainKey | string,
 	environment?: EnvironmentLookupResult,
@@ -67,10 +68,12 @@ export function getATLContextDomain(
 	return `${subdomain}.${tld}`;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getATLContextUrl(domain: DomainKey | string): string {
 	return `${globalThis.location?.protocol ?? 'https:'}//${getATLContextDomain(domain)}`;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function _getEnvironmentFromDomain(): EnvironmentLookupResult {
 	const hostname = globalThis.location?.hostname;
 	if (!hostname) {

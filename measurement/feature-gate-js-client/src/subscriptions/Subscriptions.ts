@@ -4,6 +4,7 @@ import { type CheckGateOptions, type GetExperimentValueOptions } from '../client
 
 export const ALL_FEATURE_VALUES = '@all-features';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default class Subscriptions {
 	private emitter: EventEmitter;
 	private eventToValue: Map<(value: any) => any, any> = new Map();

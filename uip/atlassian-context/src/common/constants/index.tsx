@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 export const FEDRAMP_MODERATE = 'fedramp-moderate';
 export const COMMERCIAL = 'commercial';
 export const ISOLATED_CLOUD = 'isolated-cloud';

@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount, type ReactWrapper } from 'enzyme';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { render } from '@atlassian/testing-library';
 
 import { ErrorBoundary } from '../../ErrorBoundary';
@@ -214,12 +213,9 @@ describe('ErrorBoundary', () => {
 		);
 	});
 
-	eeTest
-		.describe(
-			'platform_editor_renderer_error_boundary_stable_key',
-			'ErrorBoundary with stable key should not remount children on re-renders after DOM error recovery',
-		)
-		.variant(true, () => {
+	describe(
+		'ErrorBoundary with stable key should not remount children on re-renders after DOM error recovery',
+		() => {
 			const DomError = new Error(
 				`Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node`,
 			);
@@ -262,5 +258,6 @@ describe('ErrorBoundary', () => {
 
 				expect(renderCount).toBe(2);
 			});
-		});
+		},
+	);
 });

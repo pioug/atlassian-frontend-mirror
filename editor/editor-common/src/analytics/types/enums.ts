@@ -280,6 +280,13 @@ export enum INPUT_METHOD {
 }
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export enum MEDIA_INSERT_TAB {
+	CREATE = 'create',
+	LINK = 'link',
+	UPLOAD = 'upload',
+}
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export enum INSERT_MEDIA_VIA {
 	LOCAL_UPLOAD = 'localUpload',
 	EXTERNAL_URL = 'externalUrl',

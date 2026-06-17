@@ -70,6 +70,7 @@ function traceUFOPageLoad(
 
 export default traceUFOPageLoad;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function updatePageloadName(
 	ufoName: string,
 	routeName: string | null | undefined = ufoName,

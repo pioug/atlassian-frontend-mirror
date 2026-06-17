@@ -492,7 +492,6 @@ describe('SideNavPanelSplitter', () => {
 
 				expect(screen.getByTestId('panel-splitter')).toBeInTheDocument();
 			});
-
 		});
 	});
 });

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
 import { bind } from 'bind-event-listener';
 
 import { fg } from '@atlaskit/platform-feature-flags';

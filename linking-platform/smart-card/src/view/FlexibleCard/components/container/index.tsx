@@ -314,15 +314,7 @@ const Container = ({
 			data-testid={testId}
 		>
 			{clickableContainer
-				? getLayeredLink(
-						testId,
-						context,
-						children,
-						onClick,
-						onAuxClick,
-						onContextMenu,
-						title,
-					)
+				? getLayeredLink(testId, context, children, onClick, onAuxClick, onContextMenu, title)
 				: null}
 			{filterChildren(children, removeBlockRestriction)}
 		</div>

@@ -2,6 +2,7 @@ import type { InteractionType } from '../../interaction-metrics';
 
 export const LATEST_REACT_UFO_PAYLOAD_VERSION = '2.0.0';
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getReactUFOPayloadVersion(
 	interactionType: InteractionType,
 	isPostInteractionLog?: boolean,

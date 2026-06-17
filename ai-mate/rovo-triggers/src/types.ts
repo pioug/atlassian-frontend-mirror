@@ -1,5 +1,4 @@
 import type { DocNode } from '@atlaskit/adf-schema';
-import type { CreationContextParams } from '@atlassian/conversation-assistant-external-context/types';
 
 import type { SolutionDraftAgentUpdatePayload } from './common/types/agent';
 import type { JsmJourneyBuilderActionsPayload } from './common/types/jsm-journey-builder';
@@ -85,6 +84,49 @@ type ChatModeParam = {
 	webSearchEnabled?: boolean;
 	useCurrentPageContext?: boolean;
 	appFilters?: unknown[];
+};
+
+type SerializableCreationContextValue =
+	| string
+	| number
+	| boolean
+	| null
+	| undefined
+	| { [key: string | number]: SerializableCreationContextValue }
+	| SerializableCreationContextValue[];
+
+export type CreationContextParams = {
+	templateInput?: {
+		templateId: string;
+		templateType: string;
+	};
+	jiraContext?: unknown;
+	dynamicUiType?: string;
+	dynamicUiSubtype?: string;
+	dynamicUiSource?: unknown;
+	forcedContentType?: string;
+	contentMauiId?: string;
+	mediaFileId?: string;
+	source?: string;
+	shouldUseExistingContent?: boolean;
+	isViewMode?: boolean;
+	experience?:
+		| 'cwr'
+		| 'cwr_type'
+		| 'cwr_edit'
+		| 'cwr_existing'
+		| 'inline_edit'
+		| 'inline_view'
+		| 'remix'
+		| 'remix_edit'
+		| 'remix_object'
+		| 'remix_custom'
+		| 'chat_edit'
+		| 'chat_view';
+	contentTypes?: string[];
+	blocks?: string[];
+	spaceKey?: string;
+	additionalContext?: Record<string, SerializableCreationContextValue>;
 };
 
 export type ChatNewPayload = PayloadCore<

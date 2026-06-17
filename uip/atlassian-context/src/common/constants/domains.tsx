@@ -35,6 +35,7 @@ export const globalDomains: Record<string, string> = {
  * IF YOU ADD SOMETHING HERE YOU MUST EXPLICITLY ADD EVERY PERIMETER AND EVERY ENVIRONMENT
  * ANYTHING NOT SET EXPLICITLY WILL DEFAULT TO COMMERCIAL/PRODUCTION
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const fullDomainOverride: Record<string, DomainConfig> = {
 	id: {
 		[COMMERCIAL]: {

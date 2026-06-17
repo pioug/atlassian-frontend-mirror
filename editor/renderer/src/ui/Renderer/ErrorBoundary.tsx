@@ -6,9 +6,6 @@ import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ComponentCaughtDomErrorAEP, ComponentCrashErrorAEP } from '../../analytics/events';
 import { PLATFORM } from '../../analytics/events';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-import uuid from 'uuid';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
@@ -103,16 +100,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 		| null
 		| undefined {
 		if (this.state.domError) {
-			const key = expValEquals(
-				'platform_editor_renderer_error_boundary_stable_key',
-				'isEnabled',
-				true,
-			)
-				? this.state.domErrorCount
-				: // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-					uuid();
-
-			return <React.Fragment key={key}>{this.props.children}</React.Fragment>;
+			return <React.Fragment key={this.state.domErrorCount}>{this.props.children}</React.Fragment>;
 		}
 		if (this.shouldRecover()) {
 			return this.props.fallbackComponent;

@@ -43,10 +43,12 @@ const globalVar = (typeof window !== 'undefined'
 
 globalVar[PFF_GLOBAL_KEY] = globalVar[PFF_GLOBAL_KEY] || DEFAULT_PFF_GLOBAL;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function setBooleanResolver(resolver: FeatureFlagResolverBoolean): void {
 	globalVar[PFF_GLOBAL_KEY].booleanResolver = resolver;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function resolveBooleanFlag(flagKey: string): boolean {
 	if (ENABLE_GLOBAL_PLATFORM_FF_OVERRIDE) {
 		debug(

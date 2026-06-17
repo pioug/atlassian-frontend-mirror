@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.0.1",
+	"version": "26.1.1",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -177,9 +177,6 @@
 		"cover-header-image-team-profilecard": {
 			"type": "boolean"
 		},
-		"jira_ai_profilecard_hide_reportinglines": {
-			"type": "boolean"
-		},
 		"enable_profilecard_text_truncation_tooltip": {
 			"type": "boolean"
 		},
@@ -217,6 +214,9 @@
 			"type": "boolean"
 		},
 		"teams_app_react_19_upgrade": {
+			"type": "boolean"
+		},
+		"fix_aria_attribute_violation_on_agent_card_trigger": {
 			"type": "boolean"
 		}
 	},

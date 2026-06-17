@@ -26,6 +26,7 @@ export function generateSpanId(): string {
 // DO NOT CALL THIS FUNCTION DIRECTLY!!!!
 // It is only to be called by React UFO libraries for the automatic handling of trace context for experiences.
 // Calling this may cause trace context to be broken
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function setInteractionActiveTrace(interactionId: string, experienceType: string): void {
 	setActiveTrace(interactionId.replace(/-/g, ''), generateSpanId(), experienceType);
 }
@@ -33,6 +34,7 @@ export function setInteractionActiveTrace(interactionId: string, experienceType:
 // DO NOT CALL THIS FUNCTION DIRECTLY!!!!
 // It is only to be called by React UFO libraries for the automatic handling of trace context for experiences.
 // Calling this may cause trace context to be broken
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function setActiveTrace(traceId: string, spanId: string, type: string): void {
 	if (fg('platform_ufo_enable_otel_context_manager')) {
 		const activeTraceContext: Context = ROOT_CONTEXT.setValue(traceIdKey, traceId)
@@ -55,6 +57,7 @@ export function setActiveTrace(traceId: string, spanId: string, type: string): v
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getActiveTrace(): TraceIdContext | undefined {
 	if (fg('platform_ufo_enable_otel_context_manager')) {
 		// Get trace context from active context
@@ -76,6 +79,7 @@ export function getActiveTrace(): TraceIdContext | undefined {
 // DO NOT CALL THIS FUNCTION DIRECTLY!!!!
 // It is only to be called by React UFO libraries for the automatic handling of trace context for experiences.
 // Calling this may cause trace context to be broken
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function clearActiveTrace(): void {
 	if (fg('platform_ufo_enable_otel_context_manager')) {
 		// Now we need to get the global Context Manager and set the active context
@@ -91,6 +95,7 @@ export function clearActiveTrace(): void {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getActiveTraceHttpRequestHeaders(_url?: string): {
 	'X-B3-TraceId': string;
 	'X-B3-SpanId': string;
@@ -103,6 +108,7 @@ export function getActiveTraceHttpRequestHeaders(_url?: string): {
 	return makeTraceHttpRequestHeaders(traceId, spanId);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getActiveTraceAsQueryParams(_url?: string): string | null {
 	const traceHeaders = getActiveTraceHttpRequestHeaders();
 	return traceHeaders ? new URLSearchParams(traceHeaders).toString().toLowerCase() : null;

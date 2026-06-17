@@ -17,6 +17,7 @@ export function setBooleanFeatureFlagResolver(flagResolver: FeatureFlagResolverB
  * @deprecated Use {@link fg} function instead.
  * @param name
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getBooleanFF(name: string): boolean {
 	return resolveBooleanFlag(name);
 }
@@ -26,6 +27,7 @@ export function getBooleanFF(name: string): boolean {
  *
  * @param name
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function fg(name: string): boolean {
 	return resolveBooleanFlag(name);
 }

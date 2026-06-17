@@ -2146,10 +2146,9 @@ const roundedTableOuterBorderOverlayStyles = css({
 			borderTopColor: 'transparent',
 		},
 
-		'> tbody > tr > th[data-reaches-bottom], > tbody > tr > td[data-reaches-bottom]':
-			{
-				borderBottomColor: 'transparent',
-			},
+		'> tbody > tr > th[data-reaches-bottom], > tbody > tr > td[data-reaches-bottom]': {
+			borderBottomColor: 'transparent',
+		},
 
 		'> tbody > tr > th[data-reaches-left], > tbody > tr > td[data-reaches-left]': {
 			borderLeftColor: 'transparent',
@@ -2214,19 +2213,17 @@ const roundedTableOuterBorderOverlayStyles = css({
 				backgroundClip: 'border-box',
 			},
 
-			'> tbody > tr > th[data-reaches-left], > tbody > tr > td[data-reaches-left]':
-				{
-					borderTopLeftRadius: token('radius.xlarge'),
-					borderBottomLeftRadius: 0,
-					clipPath: `inset(0 round ${token('radius.xlarge')} 0 0 0)`,
-				},
+			'> tbody > tr > th[data-reaches-left], > tbody > tr > td[data-reaches-left]': {
+				borderTopLeftRadius: token('radius.xlarge'),
+				borderBottomLeftRadius: 0,
+				clipPath: `inset(0 round ${token('radius.xlarge')} 0 0 0)`,
+			},
 
-			'> tbody > tr > th[data-reaches-right], > tbody > tr > td[data-reaches-right]':
-				{
-					borderTopRightRadius: token('radius.xlarge'),
-					borderBottomRightRadius: 0,
-					clipPath: `inset(0 round 0 ${token('radius.xlarge')} 0 0)`,
-				},
+			'> tbody > tr > th[data-reaches-right], > tbody > tr > td[data-reaches-right]': {
+				borderTopRightRadius: token('radius.xlarge'),
+				borderBottomRightRadius: 0,
+				clipPath: `inset(0 round 0 ${token('radius.xlarge')} 0 0)`,
+			},
 
 			'> tbody > tr > th[data-reaches-left][data-reaches-bottom], > tbody > tr > td[data-reaches-left][data-reaches-bottom]':
 				{
@@ -2238,10 +2235,9 @@ const roundedTableOuterBorderOverlayStyles = css({
 					borderBottomRightRadius: 0,
 				},
 
-			'> tbody > tr > th[data-reaches-left]::after, > tbody > tr > td[data-reaches-left]::after':
-				{
-					borderBottomLeftRadius: 0,
-				},
+			'> tbody > tr > th[data-reaches-left]::after, > tbody > tr > td[data-reaches-left]::after': {
+				borderBottomLeftRadius: 0,
+			},
 
 			'> tbody > tr > th[data-reaches-right]::after, > tbody > tr > td[data-reaches-right]::after':
 				{
@@ -2923,48 +2919,6 @@ const scaledDenseEmojiStyles = css({
 			height: `${defaultDenseEmojiHeight}px`,
 			width: `${defaultDenseEmojiHeight}px`,
 		},
-});
-
-// this is gated behind `platform_editor_emojis_in_renderer_smart_links`
-const scaledDenseEmojiStylesNew = css({
-	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
-		height: `${defaultDenseEmojiHeight}px`,
-		minHeight: `${defaultDenseEmojiHeight}px`,
-		minWidth: `${defaultDenseEmojiHeight}px`,
-		maxHeight: `${denseEmojiHeightH1}px`,
-		maxWidth: `${denseEmojiHeightH1}px`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		img: {
-			width: '100%',
-			height: '100%',
-			objectFit: 'contain',
-		},
-	},
-	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${denseEmojiHeightH1}px`,
-			width: `${denseEmojiHeightH1}px`,
-		},
-	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${denseEmojiHeightH2}px`,
-			width: `${denseEmojiHeightH2}px`,
-		},
-	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${denseEmojiHeightH3}px`,
-			width: `${denseEmojiHeightH3}px`,
-		},
-	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${denseEmojiHeightH4}px`,
-			width: `${denseEmojiHeightH4}px`,
-		},
-	[`:is(h5, h6, p) :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${defaultDenseEmojiHeight}px`,
-			width: `${defaultDenseEmojiHeight}px`,
-		},
 	// sync with platform/packages/linking-platform/smart-card/src/view/InlineCard/IconAndTitleLayout/index.tsx
 	[`[data-testid="icon-wrapper"] :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
 		{
@@ -2976,48 +2930,6 @@ const scaledDenseEmojiStylesNew = css({
 });
 
 const scaledEmojiStyles = css({
-	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
-		height: `${defaultEmojiHeight}px`,
-		minHeight: `${defaultEmojiHeight}px`,
-		minWidth: `${defaultEmojiHeight}px`,
-		maxHeight: `${scaledEmojiHeightH1}px`,
-		maxWidth: `${scaledEmojiHeightH1}px`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		img: {
-			width: '100%',
-			height: '100%',
-			objectFit: 'contain',
-		},
-	},
-	[`h1 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${scaledEmojiHeightH1}px`,
-			width: `${scaledEmojiHeightH1}px`,
-		},
-	[`h2 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${scaledEmojiHeightH2}px`,
-			width: `${scaledEmojiHeightH2}px`,
-		},
-	[`h3 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${scaledEmojiHeightH3}px`,
-			width: `${scaledEmojiHeightH3}px`,
-		},
-	[`h4 :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${scaledEmojiHeightH4}px`,
-			width: `${scaledEmojiHeightH4}px`,
-		},
-	[`:is(h5, h6, p) :is(.${EmojiSharedCssClassName.EMOJI_IMAGE}, .${EmojiSharedCssClassName.EMOJI_SPRITE}, .${EmojiSharedCssClassName.EMOJI_PLACEHOLDER})`]:
-		{
-			height: `${defaultEmojiHeight}px`,
-			width: `${defaultEmojiHeight}px`,
-		},
-});
-
-// this is gated behind `platform_editor_emojis_in_renderer_smart_links`
-const scaledEmojiStylesNew = css({
 	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
 		height: `${defaultEmojiHeight}px`,
 		minHeight: `${defaultEmojiHeight}px`,
@@ -3438,13 +3350,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))) &&
 					responsiveBreakoutWidthFullWidth,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
-					? expValEquals('platform_editor_emojis_in_renderer_smart_links', 'isEnabled', true)
-						? isCompactModeEnabled
-							? scaledDenseEmojiStylesNew
-							: scaledEmojiStylesNew
-						: isCompactModeEnabled
-							? scaledDenseEmojiStyles
-							: scaledEmojiStyles
+					? isCompactModeEnabled
+						? scaledDenseEmojiStyles
+						: scaledEmojiStyles
 					: isCompactModeEnabled
 						? denseStyles
 						: undefined,

@@ -26,6 +26,7 @@ export default function UFOCustomCohortData({ dataKey, value }: UFOCustomCohortD
 	return null;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function addUFOCustomCohortData(
 	key: string,
 	value: number | boolean | string | null | undefined,

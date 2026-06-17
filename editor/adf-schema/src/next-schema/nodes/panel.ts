@@ -57,4 +57,5 @@ export const panel: ADFNode<[string, 'c1'], ADFCommonNodeSpec> = adfNode('panel'
 		// in full-schema.adf.ts to avoid a circular module import).
 		content: [$onePlus($or(...panelContent, extension.use('with_marks')))],
 		ignore: ['json-schema', 'validator-spec'],
+		preserveVariantNameInPm: true,
 	});

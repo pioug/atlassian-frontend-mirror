@@ -5,6 +5,7 @@
 import { css, jsx } from '@compiled/react';
 import { IntlProvider } from 'react-intl';
 
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen } from '@atlassian/testing-library';
 
 import BaseDateTime from '../index';
@@ -98,6 +99,66 @@ describe('Element: BaseDateTime', () => {
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
 			expect(element).toHaveTextContent('Updated on Jan 5, 2022');
+		});
+
+		it('formats absolute date using provided timezone when gate is on', async () => {
+			passGate('dfo_issue_view_remote_data_srr_group');
+			const date = new Date('2022-01-17T23:30:00.000Z');
+			const expectedDate = new Intl.DateTimeFormat('en', {
+				month: 'short',
+				day: 'numeric',
+				year: 'numeric',
+				timeZone: 'UTC',
+			}).format(date);
+			render(
+				<IntlProvider locale="en">
+					<BaseDateTime date={date} type="created" timeZone="UTC" />
+				</IntlProvider>,
+			);
+			const element = await screen.findByTestId(testId);
+			expect(element).toHaveTextContent(`Created on ${expectedDate}`);
+		});
+
+		it('does not formats absolute date using provided timezone when gate is off', async () => {
+			failGate('dfo_issue_view_remote_data_srr_group');
+			const date = new Date('2022-01-17T23:30:00.000Z');
+			const expectedDate = new Intl.DateTimeFormat('en', {
+				month: 'short',
+				day: 'numeric',
+				year: 'numeric',
+			}).format(date);
+			render(
+				<IntlProvider locale="en">
+					<BaseDateTime date={date} type="created" timeZone="UTC" />
+				</IntlProvider>,
+			);
+			const element = await screen.findByTestId(testId);
+			expect(element).toHaveTextContent(`Created on ${expectedDate}`);
+		});
+
+		it('falls back to non-timezone formatting for invalid timezone when gate is on', async () => {
+			passGate('dfo_issue_view_remote_data_srr_group');
+			const date = new Date('2022-01-17T23:30:00.000Z');
+			render(
+				<IntlProvider locale="en">
+					<BaseDateTime date={date} type="created" testId="no-timezone" />
+				</IntlProvider>,
+			);
+			const defaultElement = await screen.findByTestId('no-timezone');
+
+			render(
+				<IntlProvider locale="en">
+					<BaseDateTime
+						date={date}
+						type="created"
+						timeZone="invalid/timezone"
+						testId="invalid-timezone"
+					/>
+				</IntlProvider>,
+			);
+			const invalidTimezoneElement = await screen.findByTestId('invalid-timezone');
+
+			expect(invalidTimezoneElement).toHaveTextContent(defaultElement.textContent || '');
 		});
 	});
 

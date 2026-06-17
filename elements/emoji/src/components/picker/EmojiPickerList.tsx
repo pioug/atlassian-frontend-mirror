@@ -121,7 +121,7 @@ export interface Props {
 export interface State {}
 
 export type PickerListRef = {
-	reveal: (category: CategoryId) => void;
+	reveal: (category: CategoryId, preferYourUploads?: boolean) => void;
 	scrollToBottom: () => void;
 	scrollToRecentlyUploaded: (uploadedEmoji: EmojiDescription) => void;
 	scrollToRow: (index?: number) => void;
@@ -326,10 +326,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				(Object.keys(categoryToGroupMap) as CategoryGroupKey[])
 					.map((key: CategoryGroupKey) => categoryToGroupMap[key])
 					.map((group) => {
-						if (
-							isTeamojiExperimentEnabled &&
-							selectedProductivityColor
-						) {
+						if (isTeamojiExperimentEnabled && selectedProductivityColor) {
 							group.emojis = filterProductivityEmojisByColor(
 								group.emojis,
 								selectedProductivityColor,
@@ -586,8 +583,12 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	 */
 	useImperativeHandle(ref, () => {
 		return {
-			reveal(category: CategoryId) {
-				const row = categoryTracker.getRow(category);
+			reveal(category: CategoryId, preferYourUploads = false) {
+				const row =
+					preferYourUploads && category === customCategory
+						? categoryTracker.getRow(yourUploadsCategory as CategoryId) ??
+							categoryTracker.getRow(category)
+						: categoryTracker.getRow(category);
 				scrollToRow(listRef, row);
 			},
 

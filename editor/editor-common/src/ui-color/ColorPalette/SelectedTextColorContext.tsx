@@ -5,4 +5,5 @@ export type SelectedTextColorContextValue = {
 	textColor?: string | null;
 };
 
-export const SelectedTextColorContext: React.Context<SelectedTextColorContextValue> = React.createContext<SelectedTextColorContextValue>({});
+export const SelectedTextColorContext: React.Context<SelectedTextColorContextValue> =
+	React.createContext<SelectedTextColorContextValue>({});

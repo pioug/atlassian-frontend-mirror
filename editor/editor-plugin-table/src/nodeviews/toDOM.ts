@@ -9,7 +9,6 @@ import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-
 import {
 	generateColgroupFromNode,
 	getResizerMinWidth,

@@ -175,10 +175,7 @@ export const getBrowserInfo: MemoizedFn<
 				!userAgent.includes('FxiOS') &&
 				SAFARI_REGEX.test(userAgent);
 
-			result.safari_version = parseInt(
-				(userAgent.match(SAFARI_VERSION_REGEX) || [])[1],
-				10,
-			);
+			result.safari_version = parseInt((userAgent.match(SAFARI_VERSION_REGEX) || [])[1], 10);
 
 			// Previously we relied on documentElement.style.WebkitAppearance, now changed to userAgent
 			result.webkit = WEBKIT_REGEX.test(userAgent);

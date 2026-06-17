@@ -62,7 +62,6 @@ import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import CogIcon from '@atlaskit/icon/core/settings';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance } from '@atlaskit/smart-card';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { cardPlugin } from '../index';
@@ -141,11 +140,6 @@ export const visitCardLinkAnalytics =
 
 		if (dispatch) {
 			const { tr } = state;
-			const shouldIncludeResolvedAttributes = expValEquals(
-				'cc_integrations_editor_open_link_click_analytics',
-				'isEnabled',
-				true,
-			);
 			editorAnalyticsApi?.attachAnalyticsEvent(
 				buildVisitedNonHyperLinkPayload(
 					type.name as
@@ -153,7 +147,7 @@ export const visitCardLinkAnalytics =
 						| ACTION_SUBJECT_ID.CARD_BLOCK
 						| ACTION_SUBJECT_ID.EMBEDS,
 					inputMethod,
-					shouldIncludeResolvedAttributes ? resolvedAttributes : undefined,
+					resolvedAttributes,
 				),
 			)(tr);
 
@@ -184,20 +178,18 @@ const fireOpenLinkToolbarAnalytics =
 			return false;
 		}
 
-		if (expValEquals('cc_integrations_editor_open_link_click_analytics', 'isEnabled', true)) {
-			editorAnalyticsApi?.fireAnalyticsEvent({
-				action: ACTION.CLICKED,
-				actionSubject: ACTION_SUBJECT.BUTTON,
-				actionSubjectId: ACTION_SUBJECTID.OPEN_LINK,
-				attributes: {
-					displayCategory: resolvedAttributes.displayCategory,
-					extensionKey: resolvedAttributes.extensionKey,
-					status: resolvedAttributes.status,
-					statusDetails: resolvedAttributes.statusDetails,
-				},
-				eventType: EVENT_TYPE.UI,
-			});
-		}
+		editorAnalyticsApi?.fireAnalyticsEvent({
+			action: ACTION.CLICKED,
+			actionSubject: ACTION_SUBJECT.BUTTON,
+			actionSubjectId: ACTION_SUBJECTID.OPEN_LINK,
+			attributes: {
+				displayCategory: resolvedAttributes.displayCategory,
+				extensionKey: resolvedAttributes.extensionKey,
+				status: resolvedAttributes.status,
+				statusDetails: resolvedAttributes.statusDetails,
+			},
+			eventType: EVENT_TYPE.UI,
+		});
 
 		return true;
 	};

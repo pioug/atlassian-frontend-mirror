@@ -37,6 +37,10 @@ export type MediaInsertTabProps = {
  */
 export type RegisterInsertTab = {
 	/**
+	 * Component rendered inside the picker when this tab is active.
+	 */
+	component: ComponentType<MediaInsertTabProps>;
+	/**
 	 * Stable identifier for this tab. Used to de-duplicate registrations so
 	 * calling `registerInsertTab` with the same key twice replaces the prior
 	 * registration rather than appending a duplicate tab.
@@ -47,10 +51,6 @@ export type RegisterInsertTab = {
 	 * registering plugin owns its own i18n.
 	 */
 	label: ReactNode;
-	/**
-	 * Component rendered inside the picker when this tab is active.
-	 */
-	component: ComponentType<MediaInsertTabProps>;
 };
 
 export type MediaInsertPluginState = {

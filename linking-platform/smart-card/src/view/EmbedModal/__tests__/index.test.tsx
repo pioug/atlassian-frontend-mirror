@@ -51,10 +51,6 @@ jest.mock('@atlaskit/link-provider', () => ({
 	}),
 }));
 
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn().mockReturnValue(false),
-}));
-
 expect.extend(jestExtendedMatchers);
 
 const EXPERIENCE_TEST_ID = 'smart-link-action-invocation';
@@ -477,8 +473,6 @@ describe('EmbedModal', () => {
 		});
 
 		it('dispatches analytics event on open url on a new tab', async () => {
-			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-			expValEquals.mockReturnValue(true);
 			const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
 			const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
 			uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
@@ -550,10 +544,7 @@ describe('EmbedModal', () => {
 			expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
 		});
 
-		it('dispatches track.smartLink.visited event on resize when experiment is enabled', async () => {
-			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-			expValEquals.mockReturnValue(true);
-
+		it('dispatches track.smartLink.visited event on resize', async () => {
 			const onResize = jest.fn();
 			renderEmbedModal({
 				invokeViewAction,
@@ -578,32 +569,7 @@ describe('EmbedModal', () => {
 			);
 		});
 
-		it('does not dispatch track.smartLink.visited event on resize when experiment is disabled', async () => {
-			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-			expValEquals.mockReturnValue(false);
-
-			const onResize = jest.fn();
-			renderEmbedModal({
-				invokeViewAction,
-				onResize,
-				origin: 'smartLinkCard',
-			});
-
-			const button = await screen.findByTestId(`${testId}-resize-button`);
-			await user.click(button);
-
-			expect(mockAnalyticsClient.sendTrackEvent).not.toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'visited',
-					actionSubject: 'smartLink',
-				}),
-			);
-		});
-
 		it('does not dispatch track.smartLink.visited event on resize when invokeViewAction is not provided', async () => {
-			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-			expValEquals.mockReturnValue(true);
-
 			const onResize = jest.fn();
 			renderEmbedModal({
 				onResize,

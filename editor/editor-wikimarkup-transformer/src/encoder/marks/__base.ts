@@ -20,5 +20,7 @@ export const baseMarkPattern = (text: string, token: string): string => {
 		 */
 		return text;
 	}
-	return text.replace(LEADING_WHITESPACE_REGEX, `$&${token}`).replace(TRAILING_WHITESPACE_REGEX, `${token}$&`);
+	return text
+		.replace(LEADING_WHITESPACE_REGEX, `$&${token}`)
+		.replace(TRAILING_WHITESPACE_REGEX, `${token}$&`);
 };

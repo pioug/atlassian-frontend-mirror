@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema-generator
 
+## 3.1.0
+
+### Minor Changes
+
+- [`100d833307949`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/100d833307949) -
+  Allow panel_c1 inside bodied sync blocks
+
 ## 3.0.0
 
 ### Major Changes

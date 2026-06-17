@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-local-id",
-	"version": "10.0.1",
+	"version": "10.0.3",
 	"description": "LocalId plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

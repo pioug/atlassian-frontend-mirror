@@ -175,10 +175,7 @@ export const renderExtension = (
 	const inlineClassName = isInline ? RendererCssClassName.EXTENSION_AS_INLINE : '';
 
 	const asInlineAnalytics =
-		isInline &&
-		fireAnalyticsEvent &&
-		node &&
-		fg('platform_editor_render_inline_extension_analytics') ? (
+		isInline && fireAnalyticsEvent && node ? (
 			<FireExtensionAsInlineAnalytics fireAnalyticsEvent={fireAnalyticsEvent} node={node} />
 		) : null;
 

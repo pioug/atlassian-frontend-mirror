@@ -14,7 +14,7 @@ import React, {
 
 import type { XCSSProp } from '@compiled/react';
 
-import { cssMap, cx, jsx, type XCSSAllProperties, type XCSSAllPseudos } from '@atlaskit/css';
+import { cssMap, cx, jsx, type StrictXCSSProp, type XCSSAllProperties, type XCSSAllPseudos } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { type Motion as MotionToken } from '@atlaskit/tokens/css-type-schema';
 
@@ -28,7 +28,7 @@ import { Reanimate } from './reanimate';
 import { useStaggeredEntrance } from './staggered-entrance';
 import { type Transition } from './types';
 
-export type CustomMotionXCSS = XCSSProp<
+export type CustomMotionXCSS = StrictXCSSProp<
 	'animationName' | 'animationDuration' | 'animationTimingFunction' | 'animationDelay',
 	never
 >;

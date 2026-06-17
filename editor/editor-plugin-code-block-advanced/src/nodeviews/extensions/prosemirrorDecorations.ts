@@ -3,7 +3,7 @@ import { ViewPlugin, WidgetType, Decoration as CodeMirrorDecoration } from '@cod
 import type { EditorView as CodeMirror, DecorationSet, ViewUpdate } from '@codemirror/view';
 
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+
 
 class PMWidget extends WidgetType {
 	constructor(readonly toDOMElement: HTMLElement) {
@@ -140,11 +140,7 @@ export const prosemirrorDecorationPlugin = (
 					.map((decoration) => mapPMDecorationToCMDecoration(decoration, editorView, getPos))
 					.filter(isDefined);
 
-				if (fg('platform_editor_fix_decoration_edge_case')) {
-					return CodeMirrorDecoration.set(cmDecorations.sort(sortDecorationsByPositionAndSide));
-				} else {
-					return CodeMirrorDecoration.set(cmDecorations);
-				}
+				return CodeMirrorDecoration.set(cmDecorations.sort(sortDecorationsByPositionAndSide));
 			}
 			update(update: ViewUpdate) {
 				this.decorations = this.updateDecorations(update.view);

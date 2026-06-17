@@ -45,6 +45,7 @@ export function sinkErrorHandler(
 	errors.length = 0;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getGlobalErrorCount(): number {
 	return globalCount;
 }
@@ -99,4 +100,5 @@ function setupUFOGlobalErrorHandler(): void {
 	}
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default setupUFOGlobalErrorHandler;

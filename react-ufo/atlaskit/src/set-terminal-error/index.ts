@@ -69,6 +69,7 @@ type RelayNetworkErrors = {
 	};
 };
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const isRelayNetworkError = (
 	error: RelayNetworkErrors | Error,
 ): error is RelayNetworkErrors => error.name === RELAY_NETWORK_ERRORS_NAME;
@@ -97,6 +98,7 @@ const getErrorTraceId = (error: Error) =>
 		? error.traceId
 		: undefined;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function setTerminalError(
 	error: Error,
 	additionalAttributes?: TerminalErrorAdditionalAttributes,
@@ -153,6 +155,7 @@ export function setTerminalError(
 	sinkHandlerFn(errorData, context);
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function useReportTerminalError(
 	error: Error | null | undefined,
 	additionalAttributes?: TerminalErrorAdditionalAttributes,

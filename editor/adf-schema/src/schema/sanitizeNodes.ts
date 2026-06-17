@@ -26,9 +26,10 @@ function sanitizeNodeSpecContent(nodes: { [key: string]: NodeSpec }, rawContent:
 	// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
 	const content = rawContent.replace(/\W/gu, ' ');
 	const contentKeys = content.split(' ');
-	const unsupportedContentKeys = contentKeys.filter(
-		(contentKey) => !isContentSupported(nodes, contentKey),
-	);
+	const unsupportedContentKeys = Array.from(
+		new Set(contentKeys.filter((contentKey) => !isContentSupported(nodes, contentKey))),
+		// Remove longer variant names first so base names like `panel` don't partially strip `panel_c1`.
+	).sort((a, b) => b.length - a.length);
 	return unsupportedContentKeys.reduce(
 		(newContent, nodeName) => sanitizedContent(newContent, nodeName),
 		rawContent,

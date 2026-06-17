@@ -1,5 +1,33 @@
 # @atlaskit/smart-card
 
+## 45.1.0
+
+### Minor Changes
+
+- [`754e04aa98a74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/754e04aa98a74) -
+  Add new 'timeZone' prop for ModifiedOn smartlink block to allow for server hydrated modified on
+  display
+
+### Patch Changes
+
+- [`8e6266d49dafa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e6266d49dafa) -
+  NAVX-5111 Updating formatting for inline cta rovo chat prompts
+- Updated dependencies
+
+## 45.0.3
+
+### Patch Changes
+
+- [`3c78f7149e895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c78f7149e895) -
+  Clean up experiment `cc_integrations_editor_open_link_click_analytics`.
+- Updated dependencies
+
+## 45.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.0.1
 
 ### Patch Changes

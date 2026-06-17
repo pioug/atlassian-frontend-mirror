@@ -60,6 +60,7 @@ export function getHasAbortingEventDuringSSR(): boolean {
 	return hasAbortingEventDuringSSR;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default class VCObserverNew {
 	private selectorConfig: SelectorConfig;
 	private viewportObserver: ViewportObserver | null = null;

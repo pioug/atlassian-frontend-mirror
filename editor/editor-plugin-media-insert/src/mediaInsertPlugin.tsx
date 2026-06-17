@@ -7,6 +7,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 	INSERT_MEDIA_VIA,
+	MEDIA_INSERT_TAB,
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconImages } from '@atlaskit/editor-common/quick-insert';
@@ -18,6 +19,18 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import type { InsertExternalMediaSingle, InsertFile, InsertMediaSingle } from './types';
 import { MediaInsertPicker } from './ui/MediaInsertPicker';
 
+const getInitialMediaInsertTab = (
+	registeredTabs: RegisterInsertTab[],
+	isOnlyExternalLinks?: boolean,
+): MEDIA_INSERT_TAB => {
+	const registeredTab = registeredTabs[0];
+	if (registeredTab) {
+		return registeredTab.key as MEDIA_INSERT_TAB;
+	}
+
+	return isOnlyExternalLinks ? MEDIA_INSERT_TAB.LINK : MEDIA_INSERT_TAB.UPLOAD;
+};
+
 /**
  * Per-editor-instance registry of insert tabs registered via
  * `actions.registerInsertTab(...)`. Idempotent on `key` so that re-registering
@@ -25,8 +38,8 @@ import { MediaInsertPicker } from './ui/MediaInsertPicker';
  * than duplicates.
  */
 const createInsertTabRegistry = (): {
-	register: (tab: RegisterInsertTab) => void;
 	getAll: () => RegisterInsertTab[];
+	register: (tab: RegisterInsertTab) => void;
 } => {
 	const tabs: RegisterInsertTab[] = [];
 	return {
@@ -195,7 +208,13 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 							action: ACTION.OPENED,
 							actionSubject: ACTION_SUBJECT.PICKER,
 							actionSubjectId: ACTION_SUBJECT_ID.PICKER_MEDIA,
-							attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+							attributes: {
+								inputMethod: INPUT_METHOD.QUICK_INSERT,
+								openedTab: getInitialMediaInsertTab(
+									insertTabRegistry.getAll(),
+									config?.isOnlyExternalLinks,
+								),
+							},
 							eventType: EVENT_TYPE.UI,
 						})(tr);
 

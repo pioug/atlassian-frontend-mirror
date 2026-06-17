@@ -1,5 +1,32 @@
 # @atlaskit/profilecard
 
+## 26.1.1
+
+### Patch Changes
+
+- [`48fdf96c8650a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48fdf96c8650a) -
+  Remove disallowed aria attributes from agent profile card trigger
+- Updated dependencies
+
+## 26.1.0
+
+### Minor Changes
+
+- [`8382e7c58bb24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8382e7c58bb24) -
+  Update AgentCard to support AgentProfileCard relay props
+
+## 26.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.1
 
 ### Patch Changes

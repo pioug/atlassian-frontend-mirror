@@ -77,10 +77,12 @@ const useBlockCardRovoActionExperiment = (
 };
 
 export const isBlockCardRovoActionExperimentEnabled = (product?: ProductType): boolean => {
-	return !!product &&
+	return (
+		!!product &&
 		product === 'CONFLUENCE' &&
 		fg('platform_sl_3p_auth_rovo_block_card_kill_switch') &&
-		expValEqualsNoExposure('platform_sl_3p_auth_rovo_block_card_confluence', 'isEnabled', true);
+		expValEqualsNoExposure('platform_sl_3p_auth_rovo_block_card_confluence', 'isEnabled', true)
+	);
 };
 
 export const useBlockCardRovoActionExperimentNoExposure = (): boolean => {

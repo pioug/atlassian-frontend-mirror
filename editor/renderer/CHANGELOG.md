@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 133.3.1
+
+### Patch Changes
+
+- [`7af62a3047331`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7af62a3047331) -
+  Make closed Expand macro content searchable by browser find (Ctrl+F) via
+  platform_editor_close_expand_find experiment
+- Updated dependencies
+
+## 133.3.0
+
+### Minor Changes
+
+- [`5bf738fb98422`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bf738fb98422) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`b9d4a2139fad1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9d4a2139fad1) -
+  Clean up experiment `platform_editor_renderer_error_boundary_stable_key`
+- [`186a5bca426ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/186a5bca426ff) -
+  Clean up experiment `platform_editor_emojis_in_renderer_smart_links`
+- [`1cc2ead27e17b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cc2ead27e17b) -
+  Clean up feature gate `platform_editor_render_inline_extension_analytics`
+- Updated dependencies
+
+## 133.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.2.0
 
 ### Minor Changes

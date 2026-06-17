@@ -14,7 +14,7 @@ export type { LinkAttributes, LinkDefinition } from './link';
 export { typeAheadQuery } from './type-ahead-query';
 export { subsup } from './subsup';
 export type { SubSupDefinition, SubSupAttributes } from './subsup';
-export { textColor, colorPalette, colorPaletteExtended } from './text-color';
+export { textColor, colorPalette, colorPaletteNew, colorPaletteExtended } from './text-color';
 export type { TextColorDefinition, TextColorAttributes } from './text-color';
 export { confluenceInlineComment } from './confluence-inline-comment';
 export { breakout } from './breakout';
@@ -52,5 +52,5 @@ export { fragment, toJSON as fragmentToJSON } from './fragment';
 
 export { border, borderColorPalette } from './border';
 export type { BorderMarkAttributes, BorderMarkDefinition } from './border';
-export { backgroundColor, backgroundColorPalette } from './background-color';
+export { backgroundColor, backgroundColorPalette, backgroundColorPaletteNew } from './background-color';
 export type { BackgroundColorDefinition } from './background-color';

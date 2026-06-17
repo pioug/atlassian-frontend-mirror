@@ -1,7 +1,12 @@
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import { DiffDecorationKey } from './decorations/decorationKeys';
+import {
+	DiffDecorationKey,
+	isDiffDecoration,
+	isDiffDecorationSpec,
+} from './decorations/decorationKeys';
 
 /**
  * True if `fragment` contains at least one inline node (text, hardBreak, emoji, mention, etc.).
@@ -50,6 +55,16 @@ function isRangeFullyInside(
 	return range2Start <= range1Start && range1End <= range2End;
 }
 
+function specHasDiffKeyPrefix(spec: unknown, keyPrefix: string): spec is { key: string } {
+	return Boolean(
+		spec &&
+			typeof spec === 'object' &&
+			'key' in spec &&
+			typeof spec.key === 'string' &&
+			spec.key.startsWith(keyPrefix),
+	);
+}
+
 /**
  * Gets scrollable decorations from a DecorationSet, filtering out overlapping decorations
  * and applying various rules for diff visualization.
@@ -76,37 +91,58 @@ export const getScrollableDecorations = (
 		return [];
 	}
 
+	const isBlockDecoration = (decoration: Decoration): boolean =>
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'block'
+			: decoration.spec?.key?.startsWith(DiffDecorationKey.block) ?? false;
+	const isInlineDecoration = (decoration: Decoration): boolean =>
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'inline'
+			: decoration.spec?.key?.startsWith(DiffDecorationKey.inline) ?? false;
+	const isWidgetDecoration = (decoration: Decoration): boolean =>
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'widget'
+			: decoration.spec?.key?.startsWith(DiffDecorationKey.widget) ?? false;
+
 	const seenBlockKeys = new Set<string>();
-	const allDecorations = set.find(
-		undefined,
-		undefined,
-		(spec) =>
-			spec.key?.startsWith(DiffDecorationKey.inline) ||
-			spec.key?.startsWith(DiffDecorationKey.widget) ||
-			spec.key?.startsWith(DiffDecorationKey.block),
-	);
+	const allDecorations = expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+		? set.find(undefined, undefined, isDiffDecorationSpec)
+		: set.find(
+				undefined,
+				undefined,
+				(spec) =>
+					specHasDiffKeyPrefix(spec, DiffDecorationKey.inline) ||
+					specHasDiffKeyPrefix(spec, DiffDecorationKey.widget) ||
+					specHasDiffKeyPrefix(spec, DiffDecorationKey.block),
+			);
 
 	// First pass: filter out listItem blocks and deduplicates blocks
 	const filtered = allDecorations.filter((dec) => {
-		if (dec.spec?.key?.startsWith(DiffDecorationKey.block)) {
+		if (!isBlockDecoration(dec) && !isInlineDecoration(dec) && !isWidgetDecoration(dec)) {
+			return false;
+		}
+
+		if (isBlockDecoration(dec)) {
 			// Skip listItem blocks as they are not scrollable
 			if (dec.spec?.nodeName === 'listItem') return false;
+
+			const key = `${dec.from}-${dec.to}-${dec.spec.nodeName ?? ''}`;
+			// Skip blocks that have already been seen
+			if (seenBlockKeys.has(key)) return false;
+			seenBlockKeys.add(key);
 		}
-		const key = `${dec.from}-${dec.to}-${dec.spec?.nodeName ?? ''}`;
-		// Skip blocks that have already been seen
-		if (seenBlockKeys.has(key)) return false;
-		seenBlockKeys.add(key);
+
 		return true;
 	});
 
 	// Separate decorations by type for easier processing
-	const blocks = filtered.filter((d) => d.spec?.key?.startsWith(DiffDecorationKey.block));
-	const rawInlines = filtered.filter((d) => d.spec?.key?.startsWith(DiffDecorationKey.inline));
+	const blocks = filtered.filter(isBlockDecoration);
+	const rawInlines = filtered.filter(isInlineDecoration);
 	const inlines =
 		doc !== undefined
 			? rawInlines.filter((d) => isInlineDiffDecorationRenderableInDoc(doc, d.from, d.to))
 			: rawInlines;
-	const widgets = filtered.filter((d) => d.spec?.key?.startsWith(DiffDecorationKey.widget));
+	const widgets = filtered.filter(isWidgetDecoration);
 
 	// Second pass: exclude overlapping decorations
 	// Rules:

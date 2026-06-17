@@ -22,6 +22,8 @@ export const Y200 = '#FFC400';
 export const Yellow200 = '#F8E6A0';
 export const Y400 = '#FF991F';
 export const Y500 = '#FF8B00';
+export const Y600 = '#B38600';
+export const Y800 = '#7F5F01';
 
 export const G50 = '#E3FCEF';
 export const G75 = '#ABF5D1';
@@ -37,6 +39,8 @@ export const B400 = '#0052CC';
 export const B500 = '#0747A6';
 
 export const L200 = '#D3F1A7';
+export const L600 = '#6A9A23';
+export const L800 = '#4C6B1F';
 
 export const N0 = '#FFFFFF';
 export const N20 = '#F4F5F7';
@@ -56,8 +60,13 @@ export const N800 = '#172B4D';
 export const N1000 = '#172B4D';
 
 export const M200 = '#FDD0EC';
+export const M600 = '#CD519D';
+export const M800 = '#943D73';
 
 export const O200 = '#FEDEC8';
+export const Orange200 = '#FCE4A6';
+export const O600 = '#E06C00';
+export const O800 = '#9E4C00';
 
 export const P50 = '#EAE6FF';
 export const P75 = '#C0B6F2';

@@ -75,6 +75,7 @@ function trimResourceTimingsByDuration(
  * If still over budget after trimming, the payload-level trimmer drops the whole field.
  * navigation-timing and layout-shift are never dropped (most TTAI-relevant signals).
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function applySegment3pBudget(flat: FlatSegment3pTimingEntry[]): {
 	result: FlatSegment3pTimingEntry[];
 	wasTrimmed: boolean;
@@ -113,6 +114,7 @@ export function applySegment3pBudget(flat: FlatSegment3pTimingEntry[]): {
 
 	return { result: trimmed, wasTrimmed: trimmed.length < flat.length };
 }
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function buildSegment3pData(
 	segment3pTimings: InteractionMetrics['segment3pTimings'],
 	segmentExtraData: InteractionMetrics['segmentExtraData'],
@@ -154,6 +156,7 @@ export function buildSegment3pData(
  * Returns serialized sizes (in KB) of perf timings and DOM timings within a `Segment3pData`
  * grouped structure. Used when the ecosystem data feature flag is off.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getSegment3pDataSizes(data: Segment3pData): {
 	segment3pPerfTimingsSizeInKb: number;
 	segment3pDomTimingsSizeInKb: number;
@@ -172,6 +175,7 @@ export function getSegment3pDataSizes(data: Segment3pData): {
 }
 
 /** Applies B1+B2 budget trimming to a `Segment3pData` and returns a `Segment3pDataPayload`. */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function applySegment3pDataBudget(data: Segment3pData): Segment3pDataPayload {
 	// Flatten all timings with a temporary segmentId for budget calculation.
 	const flat: FlatSegment3pTimingEntry[] = Object.entries(data).flatMap(

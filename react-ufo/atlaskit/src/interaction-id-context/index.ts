@@ -56,6 +56,7 @@ export const DefaultInteractionID: InteractionIDContextType =
 	initializeGlobalDefaultInteractionID();
 
 // Subscription functions
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const subscribeToInteractionIdChanges = (listener: InteractionIDListener): (() => void) => {
 	listeners.add(listener);
 	return () => {
@@ -66,8 +67,11 @@ export const subscribeToInteractionIdChanges = (listener: InteractionIDListener)
 // We use a context to allow modals to have their own lifecycle
 const interactionContext: Context<InteractionIDContextType> =
 	createContext<InteractionIDContextType>(DefaultInteractionID);
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default interactionContext;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const getInteractionId = (): InteractionIDContextType => DefaultInteractionID;
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const useInteractionId = (): InteractionIDContextType => DefaultInteractionID;

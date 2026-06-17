@@ -17,8 +17,6 @@ export const SelectedTextColorProvider = ({
 	const value = useMemo(() => ({ defaultColor, textColor }), [defaultColor, textColor]);
 
 	return (
-		<SelectedTextColorContext.Provider value={value}>
-			{children}
-		</SelectedTextColorContext.Provider>
+		<SelectedTextColorContext.Provider value={value}>{children}</SelectedTextColorContext.Provider>
 	);
 };

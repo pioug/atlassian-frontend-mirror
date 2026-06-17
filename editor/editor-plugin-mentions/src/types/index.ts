@@ -54,32 +54,23 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 export type MentionPluginOptions = MentionsPluginOptions;
 
 export type AgentMentionDetails = {
-	id: string;
 	context: string | null;
+	id: string;
 	nodeSize: number;
+	/**
+	 * @internal ProseMirror position used for parent-boundary checks.
+	 */
+	parentEnd: number;
 	parentNodeType: string | null;
+	/**
+	 * @internal ProseMirror position used for parent-boundary checks.
+	 */
+	parentStart: number;
 	pos: number;
 };
 
 export type MentionPluginState = {
 	canInsertMention?: boolean;
-	/**
-	 * @internal Tracks a typed agent mention while waiting for the platform-side
-	 * ready-to-fire trigger. Consumers should continue to react only to
-	 * lastInsertedAgentMention* fields.
-	 */
-	pendingTypedAgentMention?: {
-		id: string;
-		localId: string;
-		nodeSize: number;
-		pos: number;
-		/**
-		 * Generation value for the inactivity timer. This changes when local edits
-		 * reset the pending mention window, so stale timer callbacks for the same
-		 * localId cannot publish before the latest inactivity period has elapsed.
-		 */
-		resetCount: number;
-	} | null;
 	/**
 	 * Increments on each new agent mention insertion (including re-mentions of the same agent).
 	 * Used to trigger re-renders when the same agent is mentioned again.
@@ -102,6 +93,23 @@ export type MentionPluginState = {
 	lastInsertedAgentMentionParentNodeType?: string | null;
 	mentionProvider?: MentionProvider;
 	mentions?: Array<MentionDescription>;
+	/**
+	 * @internal Tracks a typed agent mention while waiting for the platform-side
+	 * ready-to-fire trigger. Consumers should continue to react only to
+	 * lastInsertedAgentMention* fields.
+	 */
+	pendingTypedAgentMention?: {
+		id: string;
+		localId: string;
+		nodeSize: number;
+		pos: number;
+		/**
+		 * Generation value for the inactivity timer. This changes when local edits
+		 * reset the pending mention window, so stale timer callbacks for the same
+		 * localId cannot publish before the latest inactivity period has elapsed.
+		 */
+		resetCount: number;
+	} | null;
 };
 
 export type FireElementsChannelEvent = (payload: AnalyticsEventPayload, channel?: string) => void;

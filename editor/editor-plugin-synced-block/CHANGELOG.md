@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.0.4
+
+### Patch Changes
+
+- [`d034aa0575c89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d034aa0575c89) -
+  Add same-document analytics for synced block edit source and always evaluate the scroll gate.
+- Updated dependencies
+
+## 10.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.1
 
 ### Patch Changes

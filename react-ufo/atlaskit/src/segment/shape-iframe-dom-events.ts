@@ -34,6 +34,7 @@ export function shapePaintTimingData(data: Record<string, unknown>): Record<stri
  * Mirrors the bridge's own emission shape: { startTime, size }.
  * Drops: elapsed, envelope name — no other fields are sent by the bridge.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function shapeLargestContentfulPaintData(
 	data: Record<string, unknown>,
 ): Record<string, unknown> {
@@ -50,6 +51,7 @@ export function shapeLargestContentfulPaintData(
  * with hadRecentInput:true are filtered out before emit), lastInputTime (low analytical value),
  * and currentRect/previousRect from sources (8 floats per source — high cost, low value).
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function shapeLayoutShiftData(data: Record<string, unknown>): Record<string, unknown> {
 	const payload = extractPayload(data);
 	const rawSources = Array.isArray(payload.sources) ? payload.sources : [];
@@ -71,6 +73,7 @@ export function shapeLayoutShiftData(data: Record<string, unknown>): Record<stri
  * Returns true only for the final dom-mutations batch, which is the one worth recording.
  * Intermediate batches (isFinalBatch === false/undefined) are skipped by the caller.
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function isDomMutationsFinalBatch(data: Record<string, unknown>): boolean {
 	const payload = extractPayload(data);
 	return payload.isFinalBatch === true;
@@ -83,6 +86,7 @@ export function isDomMutationsFinalBatch(data: Record<string, unknown>): boolean
  * isTimedOut (redundant with stopReason), isFinalBatch (always true at this point),
  * and individual mutation objects (too verbose; totalMutations covers the count).
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function shapeDomMutationsData(data: Record<string, unknown>): Record<string, unknown> {
 	const payload = extractPayload(data);
 	return {

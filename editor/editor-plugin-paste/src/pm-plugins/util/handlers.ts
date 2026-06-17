@@ -192,10 +192,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 		// returning false will allow code to flow into `handleCodeBlock` function
 		// Partial content copied from panels will have panel in the slice
 		// Return false to avoid handling this situation when pasted into list in panel and let `handlePastePanelOrDecisionContentIntoList` handle it
-		if (
-			selectionIsPanel &&
-			(selectionIsCodeBlock || (selectionIsListItem && !isSliceWholePanel))
-		) {
+		if (selectionIsPanel && (selectionIsCodeBlock || (selectionIsListItem && !isSliceWholePanel))) {
 			return false;
 		}
 

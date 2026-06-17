@@ -18,6 +18,7 @@ export function setContextManager(ctxMgr: ContextManager): void {
 	contextManager = ctxMgr;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getContextManager(): ContextManager {
 	return contextManager;
 }
@@ -31,6 +32,7 @@ export function getContextManager(): ContextManager {
  * UFO Context Manager for managing the state in web
  * it doesn't fully support the async calls though
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export class UFOContextManager implements ContextManager {
 	/**
 	 * whether the context manager is enabled or not

@@ -93,6 +93,7 @@ export default function getBrowserMetadata(): {
 }
 
 // Helper function to get browser metadata in legacy colon format for backward compatibility
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getBrowserMetadataToLegacyFormat(): Record<string, any> {
 	const metadata = getBrowserMetadata();
 	const legacyFormat: Record<string, any> = {};

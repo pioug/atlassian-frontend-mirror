@@ -37,6 +37,7 @@ export const domainMap: DomainConfig = {
 };
 
 // Contains overrides for subdomains where the DomainKey is different from the subdomain
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const subdomainOverride: Partial<Record<DomainKey, string>> = {};
 
 /**
@@ -47,6 +48,7 @@ export const subdomainOverride: Partial<Record<DomainKey, string>> = {};
  * IF YOU ADD SOMETHING HERE YOU MUST EXPLICITLY ADD EVERY PERIMETER AND EVERY ENVIRONMENT
  * ANYTHING NOT SET EXPLICITLY WILL DEFEAULT TO COMMERCIAL/PRODUCTION
  */
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const fullDomainOverride: Partial<Record<DomainKey, DomainConfig>> = {
 	analytics: {
 		[COMMERCIAL]: {

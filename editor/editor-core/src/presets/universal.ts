@@ -265,7 +265,7 @@ export default function createUniversalPresetInternal({
 						typeof props.allowExpand === 'boolean'
 							? props.allowExpand
 							: Boolean(props.allowExpand && props.allowExpand.allowInteractiveExpand !== false),
-					__livePage: props.__livePage,
+					__livePage: props.__livePage
 				},
 			],
 			Boolean(props.allowExpand),
@@ -359,6 +359,7 @@ export default function createUniversalPresetInternal({
 							typeof props.allowTables !== 'boolean' &&
 							props.allowTables.allowFixedColumnWidthOption
 						: false,
+					__livePage: fg('platform_editor_table_auto_convert_fix') ? props.__livePage : undefined,
 				},
 			],
 			Boolean(props.allowTables),

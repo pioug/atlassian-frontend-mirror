@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-card
 
+## 18.0.3
+
+### Patch Changes
+
+- [`275679fbe0ea1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/275679fbe0ea1) -
+  Add accessible labels to two floating-toolbar buttons that axe flagged
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- [`3c78f7149e895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c78f7149e895) -
+  Clean up experiment `cc_integrations_editor_open_link_click_analytics`.
+- Updated dependencies
+
 ## 18.0.1
 
 ### Patch Changes

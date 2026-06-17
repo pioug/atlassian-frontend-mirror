@@ -48,6 +48,7 @@ export function configure(resourceTimingConfig: ResourceTimingsConfig): void {
 	config = newConfig;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getConfig(): ResourceTimingsConfig {
 	return config;
 }

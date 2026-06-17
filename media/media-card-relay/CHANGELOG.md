@@ -1,5 +1,14 @@
 # @atlaskit/media-card-relay
 
+## 1.0.1
+
+### Patch Changes
+
+- [`1562c8fde9669`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1562c8fde9669) -
+  Add @ts-expect-error suppressions for TypeScript errors surfaced after enabling
+  typescriptExcludeUndefinedFromNullableUnion in the Relay compiler config.
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

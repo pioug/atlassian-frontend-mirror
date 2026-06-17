@@ -2,9 +2,10 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import { textColorPalette } from '@atlaskit/editor-common/ui-color';
+import { textColorPalette, textColorPaletteNew } from '@atlaskit/editor-common/ui-color';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import { getActiveColor } from './utils/color';
@@ -45,6 +46,13 @@ function createInitialPluginState(
 	pluginConfig?: TextColorPluginConfig,
 ): TextColorPluginState {
 	const defaultColor = pluginConfig?.defaultColor || DEFAULT_COLOR;
+	const paletteColors = expValEqualsNoExposure(
+		'platform_editor_lovability_text_bg_color',
+		'isEnabled',
+		true,
+	)
+		? textColorPaletteNew
+		: textColorPalette;
 
 	const palette: Array<PaletteColor> = [
 		{
@@ -52,7 +60,7 @@ function createInitialPluginState(
 			label: defaultColor.label,
 			border: token('color.border'),
 		},
-		...textColorPalette,
+		...paletteColors,
 	];
 
 	const state = {

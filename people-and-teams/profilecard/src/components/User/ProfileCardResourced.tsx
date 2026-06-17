@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type FireEventType, useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 
 import filterActions from '../../internal/filterActions';
@@ -94,14 +93,9 @@ class ProfileCardResourced extends React.PureComponent<
 				data: null,
 			},
 			() => {
-				const shouldHideReportingLines =
-					fg('jira_ai_profilecard_hide_reportinglines') && this.props.hideReportingLines;
-
 				const requests = Promise.all([
 					this.props.resourceClient.getProfile(cloudId, userId, this.fireAnalytics),
-					shouldHideReportingLines
-						? Promise.resolve({ managers: [], reports: [] })
-						: this.props.resourceClient.getReportingLines(userId),
+					this.props.resourceClient.getReportingLines(userId),
 					this.props.resourceClient.shouldShowGiveKudos(),
 					this.props.resourceClient.getTeamCentralBaseUrl({
 						withOrgContext: true,
@@ -171,7 +165,7 @@ class ProfileCardResourced extends React.PureComponent<
 			isKudosEnabled,
 			teamCentralBaseUrl,
 		} = this.state;
-		const { onReportingLinesClick, cloudId, userId, addFlag, hideReportingLines } = this.props;
+		const { onReportingLinesClick, cloudId, userId, addFlag } = this.props;
 
 		const isFetchingOrNotStartToFetchYet = isLoading === true || isLoading === undefined;
 
@@ -206,7 +200,6 @@ class ProfileCardResourced extends React.PureComponent<
 			isKudosEnabled,
 			teamCentralBaseUrl,
 			openKudosDrawer: this.openKudosDrawer,
-			hideReportingLines: fg('jira_ai_profilecard_hide_reportinglines') && hideReportingLines,
 		};
 
 		return (

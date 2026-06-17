@@ -96,6 +96,7 @@ function getEdgeOffset(edgeTtfb: number | null | undefined): number {
 	return clientTtfb - edgeTtfb;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getEdgeTimingsIncludingCloudfront(): ReportedTimings | null {
 	const serverTimingsByName = getServerTimingsByName();
 
@@ -175,6 +176,7 @@ export function getEdgeTimingsIncludingCloudfront(): ReportedTimings | null {
 	return edgeTimings;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getSSRTimings(): ReportedTimings {
 	const defaultSSRTimings = getEdgeTimingsIncludingCloudfront() || {};
 
@@ -197,20 +199,24 @@ export function getSSRTimings(): ReportedTimings {
 	return ssrTimings;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getSSRSuccess(): boolean {
 	return !!config?.getDoneMark();
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getSSRPhaseSuccess():
 	| { prefetch?: boolean; earlyFlush?: boolean; done?: boolean }
 	| undefined {
 	return config?.getSsrPhaseSuccess?.();
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getSSRDoneTime(): number | undefined {
 	return config?.getDoneMark() ?? undefined;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getSSRFeatureFlags(): SSRFeatureFlags | undefined {
 	if (!config?.getFeatureFlags) {
 		return undefined;

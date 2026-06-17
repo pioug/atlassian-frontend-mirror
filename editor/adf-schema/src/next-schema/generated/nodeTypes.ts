@@ -288,6 +288,7 @@ export interface BodiedSyncBlockDefinition {
     | MediaSingleFullDefinition
     | MediaSingleWidthTypeDefinition
     | OrderedListDefinition
+    | PanelC1Definition
     | PanelDefinition
     | ParagraphDefinition
     | ParagraphWithAlignmentDefinition
@@ -310,7 +311,7 @@ export type BodiedSyncBlockNode = PMNode & BodiedSyncBlockDefinition;
 export const bodiedSyncBlock: PMNodeSpecFactoryInstance<BodiedSyncBlockNode> =
   createPMNodeSpecFactory<BodiedSyncBlockNode>({
     content:
-      '(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel | rule | table | taskList | unsupportedBlock)+',
+      '(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel | panel_c1 | rule | table | taskList | unsupportedBlock)+',
     marks:
       'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation breakout link fragment',
     attrs: { resourceId: { default: '' }, localId: { default: '' } },

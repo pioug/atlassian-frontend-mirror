@@ -82,6 +82,7 @@ export default function getNavigationMetrics(type: InteractionType): NavigationM
 }
 
 // Helper function to get navigation metrics in legacy format for backward compatibility
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getNavigationMetricsToLegacyFormat(type: InteractionType):
 	| {
 			'metrics:navigation'?: undefined;

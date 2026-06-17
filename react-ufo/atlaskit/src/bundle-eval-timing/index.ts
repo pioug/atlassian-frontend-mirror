@@ -20,6 +20,7 @@ function getPerformanceObject() {
 	return (window ?? {}).performance;
 }
 
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function getBundleEvalTimings(interactionStartTime: number): ReportedTimings {
 	if (config == null) {
 		return {};

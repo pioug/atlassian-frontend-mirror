@@ -96,7 +96,7 @@ const colorOption = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Styling the ADS Radio internals as an icon-only colour tile.
 	'input:checked + span': {
-		boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+		backgroundColor: token('color.background.accent.gray.subtler'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Styling the ADS Radio internals as an icon-only colour tile.
@@ -117,6 +117,7 @@ const colorOptionEmoji = css({
 
 export interface Props {
 	colorPreviewEmojis: Partial<Record<ProductivityColor, EmojiDescription>>;
+	focusSelectedColorOnMount?: boolean;
 	onColorSelected: (color: ProductivityColor) => void;
 	selectedColor: ProductivityColor;
 }
@@ -126,6 +127,7 @@ const getColorLabel = (color: ProductivityColor): string =>
 
 export const ProductivityColorSelector = ({
 	colorPreviewEmojis,
+	focusSelectedColorOnMount = false,
 	onColorSelected,
 	selectedColor,
 }: Props): JSX.Element | null => {
@@ -186,11 +188,14 @@ export const ProductivityColorSelector = ({
 						<Radio
 							ref={(el) => {
 								radioRefs.current[index] = el;
-								if (selectedColor === color) {
-									if (el && !hasFocusedSelectedColor.current) {
-										el.focus();
-										hasFocusedSelectedColor.current = true;
-									}
+								if (
+									focusSelectedColorOnMount &&
+									selectedColor === color &&
+									el &&
+									!hasFocusedSelectedColor.current
+								) {
+									el.focus();
+									hasFocusedSelectedColor.current = true;
 								}
 							}}
 							ariaLabel={getColorLabel(color)}

@@ -11,6 +11,7 @@ import type { IntlShape } from 'react-intl';
 
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -330,7 +331,9 @@ export const DropTarget = (
 			? '100%'
 			: `${lineLength || DEFAULT_DROP_INDICATOR_WIDTH}px`,
 		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN]: isNestedDropTarget
-			? getNestedNodeLeftPaddingMargin(parentNode?.type.name)
+			? expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) && parentNode?.type
+				? getNestedNodeLeftPaddingMargin(getBaseNodeTypeName(parentNode.type))
+				: getNestedNodeLeftPaddingMargin(parentNode?.type.name)
 			: '0',
 		[EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX]: layers.navigation(),
 	} as CSSProperties;

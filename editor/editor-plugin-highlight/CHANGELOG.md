@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-highlight
 
+## 12.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.3
+
+### Patch Changes
+
+- [`6f7b6c498b07c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f7b6c498b07c) -
+  [EDITOR-7591] Align the no-color highlight palette tile icon with the updated transparent
+  highlight styling for the experiment `platform_editor_lovability_text_bg_color`.
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

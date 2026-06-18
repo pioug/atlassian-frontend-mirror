@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-media
 
+## 14.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`19773530cd51c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19773530cd51c) -
+  Add fallbackMediaNameFetcher support to MediaCard (FileCard) and MediaViewer (header display),
+  gated behind the platform_editor_media_name_fallback_viewer_card experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.3
 
 ### Patch Changes

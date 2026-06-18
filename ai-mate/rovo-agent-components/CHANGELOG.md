@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 7.0.0
+
+### Major Changes
+
+- [`9ed7de31803c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed7de31803c7) -
+  Updating rovo_hide_remote_a2a_agent_creator to be an experiment
+  rovo_hide_remote_a2a_agent_creator_exp instead of feature gate as per SPRT
+
+## 6.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

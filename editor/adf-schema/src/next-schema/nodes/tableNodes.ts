@@ -34,6 +34,7 @@ const cellAttributes = {
 	},
 	background: { type: 'string' as const, default: null, optional: true },
 	localId: { type: 'string' as const, default: null, optional: true },
+	valign,
 };
 
 const tableCell = adfNode('tableCell')
@@ -44,12 +45,6 @@ const tableCell = adfNode('tableCell')
 		marks: [unsupportedMark, unsupportedNodeAttribute],
 		attrs: cellAttributes,
 		content: [tableCellContentPseudoGroup],
-		stage0: {
-			attrs: {
-				...cellAttributes,
-				valign,
-			},
-		},
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'validator-spec': {
 				required: {
@@ -62,12 +57,6 @@ const tableCell = adfNode('tableCell')
 	.variant('with_nested_table', {
 		content: [$onePlus($or(...tableCellContentNodes, unsupportedBlock, table))],
 		ignore: ['json-schema', 'validator-spec'],
-		stage0: {
-			attrs: {
-				...cellAttributes,
-				valign,
-			},
-		},
 	});
 
 const tableHeader = adfNode('tableHeader')
@@ -78,12 +67,6 @@ const tableHeader = adfNode('tableHeader')
 		marks: [unsupportedMark, unsupportedNodeAttribute],
 		attrs: cellAttributes,
 		content: [tableHeaderContentPseudoGroup],
-		stage0: {
-			attrs: {
-				...cellAttributes,
-				valign,
-			},
-		},
 		DANGEROUS_MANUAL_OVERRIDE: {
 			'validator-spec': {
 				required: {
@@ -96,12 +79,6 @@ const tableHeader = adfNode('tableHeader')
 	.variant('with_nested_table', {
 		content: [$onePlus($or(...tableCellContentNodes, nestedExpand, table))],
 		ignore: ['json-schema', 'validator-spec'],
-		stage0: {
-			attrs: {
-				...cellAttributes,
-				valign,
-			},
-		},
 	});
 
 const tableRow = adfNode('tableRow')

@@ -11,6 +11,7 @@ import {
 	useCallback,
 	type ComponentType,
 	type FC,
+	type KeyboardEvent,
 	type MouseEvent,
 	useEffect,
 } from 'react';
@@ -201,7 +202,12 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 	} = props;
 	const { formatMessage } = intl;
 	const tonePreviewButtonRef = useRef<HTMLButtonElement>(null);
+	const openProductivityColorSelectorWithKeyboard = useRef(false);
 	const [focusTonePreviewButton, setFocusTonePreviewButton] = useState(false);
+	const [
+		focusSelectedProductivityColorOnMount,
+		setFocusSelectedProductivityColorOnMount,
+	] = useState(false);
 
 	useLayoutEffect(() => {
 		if (focusTonePreviewButton && !showToneSelector) {
@@ -231,10 +237,26 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 		(color: ProductivityColor) => {
 			onProductivityColorSelected?.(color);
 			onToneClose();
-			setFocusTonePreviewButton(true);
+			setFocusSelectedProductivityColorOnMount(false);
 		},
 		[onProductivityColorSelected, onToneClose],
 	);
+
+	const onProductivityColorToggle = useCallback((event?: MouseEvent<HTMLButtonElement>) => {
+		const isKeyboardClick = event?.detail === 0;
+		setFocusSelectedProductivityColorOnMount(
+			!showToneSelector &&
+				(openProductivityColorSelectorWithKeyboard.current || isKeyboardClick),
+		);
+		openProductivityColorSelectorWithKeyboard.current = false;
+		onToneToggle();
+	}, [onToneToggle, showToneSelector]);
+
+	const onProductivityColorPreviewKeyDown = useCallback((event: KeyboardEvent<HTMLButtonElement>) => {
+		if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+			openProductivityColorSelectorWithKeyboard.current = true;
+		}
+	}, []);
 
 	const shouldShowProductivityColorSelector = !!(
 		activeCategoryId === 'ATLASSIAN' &&
@@ -266,6 +288,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 						<div css={productivityColorPopup}>
 							<ProductivityColorSelector
 								colorPreviewEmojis={productivityColorPreviewEmojis}
+								focusSelectedColorOnMount={focusSelectedProductivityColorOnMount}
 								selectedColor={selectedProductivityColor}
 								onColorSelected={onProductivityColorSelectedHandler}
 							/>
@@ -278,7 +301,8 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 					ariaExpanded={showToneSelector}
 					emoji={previewEmoji}
 					selectOnHover
-					onSelected={onToneToggle}
+					onKeyDown={onProductivityColorPreviewKeyDown}
+					onSelected={onProductivityColorToggle}
 					ariaLabelText={formatMessage(messages.emojiSelectColorButtonAriaLabelText)}
 				/>
 			</div>

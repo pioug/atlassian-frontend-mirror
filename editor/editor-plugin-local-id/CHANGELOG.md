@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-local-id
 
+## 10.1.0
+
+### Minor Changes
+
+- [`c3f49a97737db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3f49a97737db) -
+  Generate localIds for nodes inserted when a template replaces the whole document (e.g. applying a
+  template to a blank page), gated behind the experiment `platform_editor_ai_template_localids`.
+
+  Such replacements are delivered by NCS as a remote `OverrideDocumentStep`, which has no `slice`
+  and so was skipped by the localId plugin's slice-based scan. When the experiment is enabled,
+  remote transactions containing an `OverrideDocumentStep` are now processed so the freshly inserted
+  template nodes receive localIds. Ordinary remote collaborator edits remain skipped, and nodes that
+  already have a localId are never overwritten.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.3
 
 ### Patch Changes

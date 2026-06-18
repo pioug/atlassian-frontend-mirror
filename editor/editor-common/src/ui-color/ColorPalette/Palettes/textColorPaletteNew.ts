@@ -1,4 +1,4 @@
-import { colorPaletteNew } from '@atlaskit/adf-schema';
+import { colorPaletteNew } from '@atlaskit/adf-schema/text-color';
 
 import { mapPaletteColor } from './mapPaletteColor';
 import type { PaletteColor } from './type';

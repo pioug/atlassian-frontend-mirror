@@ -27,6 +27,7 @@ export type Props = {
 	contextId?: string;
 	innerRef?: React.Ref<HTMLDivElement>;
 	viewerOptions?: ViewerOptionsProps;
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 };
 
 const MediaViewerComponent = ({
@@ -39,6 +40,7 @@ const MediaViewerComponent = ({
 	selectedItem,
 	intl,
 	viewerOptions,
+	fallbackMediaNameFetcher,
 }: Props & WrappedComponentProps) => {
 	const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 	const [selectedIdentifier, setSelectedIdentifier] = useState<Identifier>();
@@ -101,6 +103,7 @@ const MediaViewerComponent = ({
 						contextId={contextId}
 						featureFlags={featureFlags}
 						viewerOptions={viewerOptions}
+						fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 					/>
 				</Content>
 				{renderSidebar()}

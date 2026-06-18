@@ -236,6 +236,14 @@ export const ColumnControls = ({
 		columnControlsRef.current.scrollLeft = getScrollOffset?.() ?? 0;
 	}
 
+	// EDITOR-6790 - render a dot on the left edge of the first column so users have a visible
+	// affordance to insert a column to the left of the first column.
+	const isFirstColumnInsertEnabled = expValEquals(
+		'platform_editor_table_col_insert',
+		'isEnabled',
+		true,
+	);
+
 	const generateHandleByType = (
 		type: HandleTypes,
 		appearance: DragHandleAppearance,
@@ -276,6 +284,7 @@ export const ColumnControls = ({
 					width: '100%',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					position: 'relative',
+					pointerEvents: isPlaceholder && isFirstColumnInsertEnabled ? 'none' : undefined,
 				}}
 				data-testid={`table-floating-column-${
 					isHover ? colIndex : isPlaceholder ? appearance : selectedColIndexes[0]
@@ -398,6 +407,14 @@ export const ColumnControls = ({
 						// eslint-disable-next-line react/no-array-index-key
 						key={index}
 					>
+						{isFirstColumnInsertEnabled && index === 0 && (
+							<div
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								className={ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								style={{ left: '0', right: 'auto' }}
+							/>
+						)}
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT}

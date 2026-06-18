@@ -1,5 +1,31 @@
 # @atlaskit/smart-card
 
+## 45.2.1
+
+### Patch Changes
+
+- [`f072d326571d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f072d326571d1) -
+  Fix SSR regression: skip XPC URL wrapping on server to avoid unnecessary window probes per
+  SmartCard
+- Updated dependencies
+
+## 45.2.0
+
+### Minor Changes
+
+- [`91fb45b6e63f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91fb45b6e63f3) -
+  Add gated inline Smart Link icon extraction through link-extractors
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.1.0
 
 ### Minor Changes

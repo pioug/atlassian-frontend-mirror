@@ -23,4 +23,9 @@ export type FilmstripProps = {
 	viewerOptions?: ViewerOptionsProps;
 	includeHashForDuplicateFiles?: boolean;
 	isLazy?: boolean;
+	/**
+	 * Optional fallback fetcher to retrieve the media filename from another service.
+	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media.
+	 */
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 };

@@ -250,10 +250,7 @@ export const toolbarPlugin: ToolbarPlugin = ({
 									listener: () => {
 										// On first page load, focus fires after mousedown — skip to
 										// avoid showing the toolbar mid-drag
-										if (
-											mouseState.isMouseDown &&
-											fg('platform_editor_fix_toolbar_on_first_highlight')
-										) {
+										if (mouseState.isMouseDown) {
 											return;
 										}
 										view.dispatch(

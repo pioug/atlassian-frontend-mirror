@@ -2711,6 +2711,9 @@
             },
             "localId": {
               "type": "string"
+            },
+            "valign": {
+              "enum": ["top", "middle", "bottom"]
             }
           },
           "additionalProperties": false
@@ -2748,6 +2751,9 @@
             },
             "localId": {
               "type": "string"
+            },
+            "valign": {
+              "enum": ["top", "middle", "bottom"]
             }
           },
           "additionalProperties": false

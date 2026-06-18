@@ -47,13 +47,6 @@ const styles = cssMap({
 		marginTop: token('space.200'),
 		gap: token('space.075'),
 	},
-	removeHighlightButton: {
-		marginInline: token('space.025'),
-		borderWidth: token('border.width'),
-		borderStyle: 'solid',
-		borderColor: token('color.border'),
-		borderRadius: token('radius.small'),
-	},
 	icon: {
 		display: 'inline-block',
 		// @ts-expect-error: Intentional negative margin for icon alignment
@@ -102,6 +95,46 @@ const TextColorIconDecorator = ({
 	);
 };
 
+const NoColorIconDecorator = ({
+	isSelected,
+	iconColor,
+}: {
+	iconColor: string;
+	isSelected: boolean;
+}) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		aria-hidden="true"
+	>
+		<g transform="translate(-1 -1)">
+			<rect
+				x="1.70703"
+				y="1.35383"
+				width="29.8003"
+				height="0.5"
+				transform="rotate(45 1.70703 1.35383)"
+				stroke={token('color.border')}
+				strokeWidth="0.5"
+			/>
+			{isSelected ? (
+				<path
+					d="M17.959 7.9707L10.709 16.9707C10.5675 17.1462 10.3544 17.2488 10.1289 17.25C9.90343 17.2512 9.68924 17.1506 9.5459 16.9766L6.0459 12.7266L7.2041 11.7734L10.1182 15.3115L16.791 7.0293L17.959 7.9707Z"
+					fill={token('color.icon')}
+				/>
+			) : (
+				<path
+					d="M7.80469 16L10.9746 7.26953H12.2637L15.4746 16H14.3027L12.4512 10.8203C12.3379 10.5 12.2051 10.1016 12.0527 9.625C11.9043 9.14453 11.7227 8.5332 11.5078 7.79102H11.7188C11.5078 8.54102 11.3242 9.16016 11.168 9.64844C11.0156 10.1328 10.8887 10.5234 10.7871 10.8203L8.98828 16H7.80469ZM9.39844 13.5625V12.5898H13.8809V13.5625H9.39844Z"
+					fill={iconColor}
+				/>
+			)}
+		</g>
+	</svg>
+);
+
 export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps): JSX.Element {
 	const { formatMessage } = useIntl();
 	const activeColor = useSharedPluginStateSelector(api, 'highlight.activeColor');
@@ -147,13 +180,16 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 			.filter((color) => isNewColorPaletteEnabled || color.value !== REMOVE_HIGHLIGHT_COLOR)
 			.map((color) => ({
 				...color,
-				decorator: (
-					<TextColorIconDecorator
-						label={color.label}
-						isSelected={isSelected(color)}
-						iconColor={iconColor}
-					/>
-				),
+				decorator:
+					isNewColorPaletteEnabled && color.value === REMOVE_HIGHLIGHT_COLOR ? (
+						<NoColorIconDecorator isSelected={isSelected(color)} iconColor={iconColor} />
+					) : (
+						<TextColorIconDecorator
+							label={color.label}
+							isSelected={isSelected(color)}
+							iconColor={iconColor}
+						/>
+					),
 			}));
 	}, [defaultColor, textColor, isNewColorPaletteEnabled, selectedColor]);
 

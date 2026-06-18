@@ -71,7 +71,10 @@ const getNextTabIndexForKey = (
 	return undefined;
 };
 
-const AnalyticsTab = ({
+const getLinkTabIndex = (registeredTabCount: number, isOnlyExternalLinks: boolean): number =>
+	registeredTabCount + (isOnlyExternalLinks ? 0 : 1);
+
+const TabWithAnalytics = ({
 	children,
 	onSelectTabForAnalytics,
 	selectedTabIndex,
@@ -206,6 +209,9 @@ export const MediaInsertPicker = ({
 	const tabCount = isMediaInsertTabWithAnalyticsEnabled
 		? registeredTabs.length + (isOnlyExternalLinks ? 1 : 2)
 		: 0;
+	const linkTabIndex = isMediaInsertTabWithAnalyticsEnabled
+		? getLinkTabIndex(registeredTabs.length, isOnlyExternalLinks)
+		: 0;
 	const getTabAnalyticsMetadata = React.useCallback(
 		(selectedTabIndex: number): TabAnalyticsMetadata => {
 			const registeredTab = registeredTabs[selectedTabIndex];
@@ -224,7 +230,6 @@ export const MediaInsertPicker = ({
 				};
 			}
 
-			const linkTabIndex = registeredTabs.length + (isOnlyExternalLinks ? 0 : 1);
 			if (selectedTabIndex === linkTabIndex) {
 				return {
 					selectedTab: MEDIA_INSERT_TAB.LINK,
@@ -237,7 +242,7 @@ export const MediaInsertPicker = ({
 				selectedTabIndex,
 			};
 		},
-		[isOnlyExternalLinks, registeredTabs],
+		[isOnlyExternalLinks, linkTabIndex, registeredTabs],
 	);
 	const selectedTabAnalyticsMetadataRef = React.useRef<TabAnalyticsMetadata>(
 		getTabAnalyticsMetadata(0),
@@ -259,6 +264,9 @@ export const MediaInsertPicker = ({
 		[getTabAnalyticsMetadata],
 	);
 	const hasDispatchedInitialTabViewedEventRef = React.useRef(false);
+	// Atlaskit Tabs only calls `onChange` after the user changes tabs, so the
+	// initially opened tab needs its viewed analytics event dispatched from an
+	// effect. The ref keeps this to once per picker open without setting state.
 	React.useEffect(() => {
 		if (!isMediaInsertTabWithAnalyticsEnabled || !isOpen) {
 			hasDispatchedInitialTabViewedEventRef.current = false;
@@ -271,8 +279,6 @@ export const MediaInsertPicker = ({
 
 		const selectedTabMetadata = getTabAnalyticsMetadata(0);
 		selectedTabAnalyticsMetadataRef.current = selectedTabMetadata;
-		// Atlaskit Tabs only calls `onChange` after the user changes tabs. Fire the
-		// initial viewed event once per picker open so the first rendered tab is also tracked.
 		const payload: AnalyticsEventPayload = {
 			action: ACTION.VIEWED,
 			actionSubject: ACTION_SUBJECT.PICKER,
@@ -361,9 +367,6 @@ export const MediaInsertPicker = ({
 	)
 		? intl.formatMessage(mediaInsertMessages.uploadTabTitle)
 		: intl.formatMessage(mediaInsertMessages.fileTabTitle);
-	const linkTabIndex = isMediaInsertTabWithAnalyticsEnabled
-		? registeredTabs.length + (isOnlyExternalLinks ? 0 : 1)
-		: 0;
 
 	return (
 		<PopupWithListeners
@@ -397,32 +400,32 @@ export const MediaInsertPicker = ({
 								<TabList>
 									{isMediaInsertTabWithAnalyticsEnabled &&
 										registeredTabs.map((tab, index) => (
-											<AnalyticsTab
+											<TabWithAnalytics
 												key={tab.key}
 												onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
 												selectedTabIndex={index}
 												tabCount={tabCount}
 											>
 												{tab.label}
-											</AnalyticsTab>
+											</TabWithAnalytics>
 										))}
 									{isMediaInsertTabWithAnalyticsEnabled && !isOnlyExternalLinks && (
-										<AnalyticsTab
+										<TabWithAnalytics
 											onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
 											selectedTabIndex={registeredTabs.length}
 											tabCount={tabCount}
 										>
 											{fileTabTitle}
-										</AnalyticsTab>
+										</TabWithAnalytics>
 									)}
 									{isMediaInsertTabWithAnalyticsEnabled && (
-										<AnalyticsTab
+										<TabWithAnalytics
 											onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
 											selectedTabIndex={linkTabIndex}
 											tabCount={tabCount}
 										>
 											{intl.formatMessage(mediaInsertMessages.linkTabTitle)}
-										</AnalyticsTab>
+										</TabWithAnalytics>
 									)}
 									{!isMediaInsertTabWithAnalyticsEnabled &&
 										registeredTabs.map((tab) => <Tab key={tab.key}>{tab.label}</Tab>)}

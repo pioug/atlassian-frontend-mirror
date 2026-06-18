@@ -215,6 +215,7 @@ exports[`JIRA wiki markup - Block Card should create Block Cards in panel 1`] = 
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -317,6 +318,7 @@ exports[`JIRA wiki markup - Block Card should create Block Cards in table 1`] = 
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -412,6 +414,7 @@ exports[`JIRA wiki markup - Block Card should create embedCard inside table 1`] 
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -464,6 +467,7 @@ exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -487,6 +491,7 @@ exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {

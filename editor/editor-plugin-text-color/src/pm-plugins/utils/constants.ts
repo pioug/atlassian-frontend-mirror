@@ -1,5 +1,10 @@
 export const overrideMarks: string[] = ['backgroundColor'];
 
+export const ACCESSIBLE_CONTRAST_RATIO = 4.5;
+export const DIFFICULT_CONTRAST_RATIO = 3;
+
+export const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
+export const TRANSPARENT_HIGHLIGHT_COLOR = '#00000000';
 export const DEFAULT_COLOR: {
 	color: string;
 	label: string;

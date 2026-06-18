@@ -1,5 +1,85 @@
 # @atlaskit/editor-statsig-tmp
 
+## 109.0.0
+
+### Major Changes
+
+- [`49f682f5edc7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49f682f5edc7b) -
+  Clean up experiment `cc_editor_ttvc_media_hold_fix`
+
+### Minor Changes
+
+- [`c3f49a97737db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3f49a97737db) -
+  Generate localIds for nodes inserted when a template replaces the whole document (e.g. applying a
+  template to a blank page), gated behind the experiment `platform_editor_ai_template_localids`.
+
+  Such replacements are delivered by NCS as a remote `OverrideDocumentStep`, which has no `slice`
+  and so was skipped by the localId plugin's slice-based scan. When the experiment is enabled,
+  remote transactions containing an `OverrideDocumentStep` are now processed so the freshly inserted
+  template nodes receive localIds. Ordinary remote collaborator edits remain skipped, and nodes that
+  already have a localId are never overwritten.
+
+## 108.4.0
+
+### Minor Changes
+
+- [`298f9a506cb5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/298f9a506cb5f) -
+  [EDITOR-6790] Allow inserting a column to the left of the first column, behind the
+  platform_editor_table_col_insert experiment
+
+## 108.3.0
+
+### Minor Changes
+
+- [`ccf2e0f0ba838`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ccf2e0f0ba838) -
+  [CCI-17112] Route Heading Autocomplete via cc-smarts behind SPRT.
+
+  `callHeadingAutocompleteApi` now branches on the editor experiment
+  `cc_smarts_heading_autocomplete_migration` (param `useCcSmarts`):
+  - **Control arm (default):** `/gateway/api/assist/api/ai/v2/ai-feature/heading-autocomplete`
+    (conversational-ai-platform — current source of truth, unchanged behaviour).
+  - **Test arm:** `/gateway/api/ai/v2/ai-feature/heading-autocomplete` (cc-smarts — new home,
+    reached via the `cc-smarts-ai-feature` stargate wildcard route).
+
+  Wire shape is byte-for-byte identical between the two backends; only the URL path changes. Mirrors
+  the `cc_smarts_comment_summary_followups_migration` pattern (AFM PR-388153). With the experiment
+  at 0%, this is a no-op behaviour change in production.
+
+  Adds a `try`/`catch` around `expValEquals` so the API fails closed to the convo-ai control arm on
+  Statsig read errors (per the convo-ai → cc-smarts migration skill guardrail).
+
+  Registers the new boolean experiment in `@atlaskit/tmp-editor-statsig/experiments-config`.
+
+  Tests live in the sibling `@af/editor-plugin-ai-autocomplete-tests` package per AFM ratcheting
+  rule "No tests in Editor plugin packages"; `heading-autocomplete-api-mock.ts` globs both the
+  convo-ai (`/gateway/api/assist/...`) and cc-smarts URLs.
+
+- [`19773530cd51c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19773530cd51c) -
+  Add fallbackMediaNameFetcher support to MediaCard (FileCard) and MediaViewer (header display),
+  gated behind the platform_editor_media_name_fallback_viewer_card experiment
+
+## 108.2.0
+
+### Minor Changes
+
+- [`91fb45b6e63f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91fb45b6e63f3) -
+  Add gated inline Smart Link icon extraction through link-extractors
+
+## 108.1.0
+
+### Minor Changes
+
+- [`85df613a5b213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85df613a5b213) -
+  Add confluence_3p_in_cwr_ghost_icons_ui_tweaks experiment gating ghost-icon inner opacity (0.5)
+  and an updated connect-apps tooltip in the Rovo chat sources pill
+
+## 108.0.0
+
+### Major Changes
+
+- [`302b888acacab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/302b888acacab) -
+  cleanup platform_editor_inline_media_copy_paste_fix feature flag
+
 ## 107.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 export type RovoChatPathway = 'chat' | 'agents-browse' | 'agents-create' | 'pulse';
 
-export type RovoChatOpenMode = 'sidebar' | 'mini-modal';
+export type RovoChatOpenMode = 'sidebar' | 'mini-modal' | 'full-screen-modal';
 
 export interface BaseRovoChatParams {
 	pathway: RovoChatPathway;

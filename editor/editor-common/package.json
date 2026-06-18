@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "116.3.1",
+	"version": "116.6.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -199,7 +199,9 @@
 		"./messages/codeBlockButton": "./src/messages/codeBlockButton.ts",
 		"./ui-color/ColorPalette/Color": "./src/ui-color/ColorPalette/Color/index.tsx",
 		"./analytics/types/color-events": "./src/analytics/types/color-events.ts",
+		"./messages/color-accessibility": "./src/messages/color-accessibility.ts",
 		"./messages/color-picker-button": "./src/messages/color-picker-button.ts",
+		"./ui-color/ColorPalette/utils": "./src/ui-color/ColorPalette/utils.ts",
 		"./ui-color/ColorPalette/ColorPalette/utils": "./src/ui-color/ColorPalette/utils.ts",
 		"./ui-color/ColorPalette": "./src/ui-color/ColorPalette/index.tsx",
 		"./ui-menu/ColorPaletteArrowKeyNavigationProvider": "./src/ui-menu/ArrowKeyNavigationProvider/ColorPaletteArrowKeyNavigationProvider/index.tsx",
@@ -844,9 +846,6 @@
 			"type": "boolean"
 		},
 		"draft_reply_contextual_pills_gate": {
-			"type": "boolean"
-		},
-		"platform_editor_transform_invalid_media_width": {
 			"type": "boolean"
 		},
 		"platform_editor_sentry_breadcrumbs": {

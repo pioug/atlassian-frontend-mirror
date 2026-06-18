@@ -1,5 +1,20 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.1.3
+
+### Patch Changes
+
+- [`0310e538ce794`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0310e538ce794) -
+  Treat no-op reference sync block flushes as successful when there is nothing to persist, reducing
+  false-positive sync block error reporting.
+- Updated dependencies
+
+## 8.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

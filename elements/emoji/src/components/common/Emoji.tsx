@@ -526,7 +526,8 @@ const UnicodeEmojiImage = (props: Props): JSX.Element => {
 };
 
 export const UnicodeEmoji = (props: Props): JSX.Element => {
-	const { emoji, selected, selectOnHover, className, renderUnicodeEmojiAsImage = true } = props;
+	const { emoji, selected, selectOnHover, className, fitToHeight, renderUnicodeEmojiAsImage = true } =
+		props;
 
 	if (renderUnicodeEmojiAsImage) {
 		return <UnicodeEmojiImage {...props} />;
@@ -537,21 +538,15 @@ export const UnicodeEmoji = (props: Props): JSX.Element => {
 	} ${className ? className : ''}`;
 
 	const emojiText = (emoji.representation as UnicodeRepresentation).unicodeEmoji;
-	const size = props.fitToHeight ?? defaultEmojiHeight;
+	const defaultSize = `${fitToHeight ?? defaultEmojiHeight}px`;
+	const emojiSize = `var(--emoji-common-unicode-size, ${defaultSize})`;
 
 	const style: React.CSSProperties = {
-		display: 'inline-block',
+		display: 'inline-flex',
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: `max(1em, ${size}px)`,
-		width: `max(1em, ${size}px)`,
-		height: `max(1em, ${size}px)`,
-		textAlign: 'center',
-		alignContent: 'center',
-		alignSelf: 'center',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '0',
-		margin: '0',
-		padding: '0',
+		fontSize: emojiSize,
+		alignItems: 'center',
+		aspectRatio: '1/1',
 	};
 
 	return (

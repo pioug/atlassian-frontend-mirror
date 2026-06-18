@@ -1,5 +1,66 @@
 # @atlaskit/editor-common
 
+## 116.6.0
+
+### Minor Changes
+
+- [`eb17ff47fd9d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb17ff47fd9d1) -
+  [EDITOR-7588] Add an accessibility footer for the new text and highlight color experience behind
+  `platform_editor_lovability_text_bg_color`.
+
+### Patch Changes
+
+- [`5bb773a2afdef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bb773a2afdef) -
+  Add an AI disclaimer footer to the AI suggestion card.
+- [`696340f6c25a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/696340f6c25a0) -
+  Clean up feature gate `platform_editor_transform_invalid_media_width`
+- [`09a2e3530b528`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/09a2e3530b528) -
+  Add missing containerNodeTransformed event in editor
+- Updated dependencies
+
+## 116.5.0
+
+### Minor Changes
+
+- [`8222a13990fce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8222a13990fce) -
+  Add a `templateType` field (`atlassian` | `user`) to snippets so consumers can distinguish
+  Atlassian out-of-the-box templates from user-created ones. The value is populated from the backend
+  when provided, and otherwise derived from the snippet scope, and is reported on snippet insert
+  analytics events. This behaviour is gated behind the `platform_editor_blocks_patch_2` feature
+  gate; when the gate is disabled `templateType` is left undefined and is not emitted.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.4.1
+
+### Patch Changes
+
+- [`6f7b6c498b07c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f7b6c498b07c) -
+  [EDITOR-7591] Align the no-color highlight palette tile icon with the updated transparent
+  highlight styling for the experiment `platform_editor_lovability_text_bg_color`.
+- [`301be34250b01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/301be34250b01) -
+  [ux] added order fix so native elements are prioritised over skills (eg /code)
+- Updated dependencies
+
+## 116.4.0
+
+### Minor Changes
+
+- [`9054a4d9bd389`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9054a4d9bd389) -
+  Add markdown source editor line number and gutter layout
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.3.1
 
 ### Patch Changes

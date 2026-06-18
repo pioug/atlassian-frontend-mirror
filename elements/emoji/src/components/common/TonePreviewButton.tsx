@@ -6,7 +6,9 @@ import {
 	forwardRef,
 	memo,
 	type ForwardRefExoticComponent,
+	type KeyboardEventHandler,
 	type MemoExoticComponent,
+	type MouseEventHandler,
 	type RefAttributes,
 } from 'react';
 import { css, jsx } from '@compiled/react';
@@ -21,6 +23,7 @@ export const tonePreviewTestId = 'tone-preview';
 const emojiButton = css({
 	backgroundColor: 'transparent',
 	border: '0',
+	// Remove this on cleanup of platform_teamoji_26_refresh_emoji_picker
 	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	padding: 0,
@@ -73,13 +76,18 @@ const emojiButtonOutline = css({
 	border: `${token('border.width')} solid ${token('color.border')}`,
 });
 
+const emojiButtonBorderRadius = css({
+	borderRadius: token('radius.medium', '6px'),
+})
+
 export interface Props {
 	ariaControls?: string;
 	ariaExpanded?: boolean;
 	ariaLabelText?: string;
 	emoji: EmojiDescription;
 	isVisible?: boolean;
-	onSelected?: () => void;
+	onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
+	onSelected?: MouseEventHandler<HTMLButtonElement>;
 	selectOnHover?: boolean;
 }
 
@@ -92,6 +100,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 		ariaControls = 'emoji-picker-tone-selector',
 		ariaLabelText,
 		ariaExpanded,
+		onKeyDown,
 		onSelected,
 		isVisible = true,
 	} = props;
@@ -104,8 +113,9 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 	) ? (
 		<button
 			ref={ref}
-			css={[emojiButton, !isVisible && hidden, emojiButtonOutline]}
+			css={[emojiButton, !isVisible && hidden, emojiButtonOutline, emojiButtonBorderRadius]}
 			onClick={onSelected}
+			onKeyDown={onKeyDown}
 			aria-label={ariaLabelText}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
@@ -127,6 +137,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 			ref={ref}
 			css={[emojiButton, !isVisible && hidden]}
 			onClick={onSelected}
+			onKeyDown={onKeyDown}
 			aria-label={ariaLabelText}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}

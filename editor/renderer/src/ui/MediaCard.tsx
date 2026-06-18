@@ -59,6 +59,12 @@ export interface MediaCardProps {
 			onClick?: CardOnClickCallback;
 		};
 	};
+	/**
+	 * Optional fallback fetcher to retrieve the media filename from another service.
+	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media.
+	 * Receives the file ID and should resolve to the filename string.
+	 */
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	featureFlags?: MediaFeatureFlags;
 	id?: string;
 	imageStatus?: ImageStatus;
@@ -339,6 +345,7 @@ export class MediaCardView extends Component<
 			enableSyncMediaCard,
 			localId,
 			mediaViewerExtensions,
+			fallbackMediaNameFetcher,
 		} = this.props;
 
 		const isMobile = false;
@@ -422,6 +429,7 @@ export class MediaCardView extends Component<
 					ssr={ssr?.mode}
 					shouldHideTooltip={isMobile}
 					mediaViewerExtensions={mediaViewerExtensions}
+					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 					onError={
 						expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
 							? this.onError

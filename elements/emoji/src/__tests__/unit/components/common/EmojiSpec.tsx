@@ -259,11 +259,12 @@ describe('<Emoji />', () => {
 				<Emoji emoji={unicodeEmoji} fitToHeight={24} renderUnicodeEmojiAsImage={false} />,
 			);
 
-			expect(result.getByText('😀')).toHaveStyle({
-				fontSize: 'max(1em, 24px)',
-				width: 'max(1em, 24px)',
-				height: 'max(1em, 24px)',
-			});
+			const emojiText = result.getByText('😀');
+
+			expect(emojiText).toHaveAttribute(
+				'style',
+				expect.stringContaining('font-size: var(--emoji-common-unicode-size, 24px);'),
+			);
 		});
 
 		it('should render a fallback placeholder when unicode image rendering fails', async () => {

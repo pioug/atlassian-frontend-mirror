@@ -1,5 +1,14 @@
 # @atlaskit/logo
 
+## 21.1.0
+
+### Minor Changes
+
+- [`8f2b7327fda32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f2b7327fda32) -
+  Added the `assets-platform-branding-with-confluence` feature gate as an OR condition alongside the
+  existing `assets-platform-branding` gate, so the Assets brand styling is also applied when the
+  Confluence-targeted gate is enabled.
+
 ## 21.0.0
 
 ### Major Changes

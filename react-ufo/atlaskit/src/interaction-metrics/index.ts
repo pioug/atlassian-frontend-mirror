@@ -52,6 +52,7 @@ import {
 } from '../feature-flags-accessed';
 import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
+import { BACKEND_RESOURCE_TIMING_INITIATOR_TYPES } from '../resource-timing/common/utils/resource-timing-initiator-types';
 import { flushSsrRenderProfilerTraces } from '../segment/ssr-render-profiler';
 import { newVCObserver } from '../vc';
 import { type VCObserverInterface } from '../vc/types';
@@ -248,19 +249,35 @@ export function addSegmentExtraData(
 /**
  * Builds a stable cross-segment dedup key for a segment3pTimings entry.
  *
- * For `resource-timing` we use only `label|startTime|duration` — the fields that uniquely
- * identify a network request regardless of which iframe reported it. Excluding `segmentId`
- * from the key is intentional: shared Forge runtime CDN URLs reported by N iframes are
- * genuinely the same resource and should be stored only once (B3).
+ * For `resource-timing`, the new filtered mode uses query-stripped labels + timing fields that
+ * uniquely identify a request without depending on query parameters. Shared CSS/JS asset timings can
+ * dedupe across segments, but backend fetch/XHR entries are scoped by `segmentId` because each iframe
+ * can make its own backend request to the same URL. The legacy key is preserved while the filter gate
+ * is off.
  *
  * For all other labels the data objects are small (a handful of fields), so we use a full
  * JSON fingerprint which is cheap and collision-free.
  */
-function buildCrossSegmentDedupKey(entry: Segment3pTimingEntry): string {
+function buildCrossSegmentDedupKey(entry: Segment3pTimingEntry, segmentId: string): string {
 	if (entry.label === 'resource-timing') {
-		// Use the url label + timing fields that uniquely identify the request
-		const { label: urlLabel, startTime, duration } = entry.data as Record<string, unknown>;
-		return `resource-timing|${urlLabel}|${startTime}|${duration}`;
+		const {
+			label: resourceLabel,
+			startTime,
+			duration,
+			requestStart,
+			fetchStart,
+			ttfb,
+			type,
+		} = entry.data as Record<string, unknown>;
+		if (fg('platform_ufo_filter_3p_resource_timings')) {
+			if (BACKEND_RESOURCE_TIMING_INITIATOR_TYPES.has(String(type))) {
+				// Backend calls are separate requests per segment; include extra timings and segment scope.
+				return `resource-timing|${resourceLabel}|${startTime}|${duration}|${fetchStart}|${requestStart}|${ttfb}|${segmentId}`;
+			}
+			// Shared CSS/JS assets keep the original B3 key so they can dedupe across segments.
+			return `resource-timing|${resourceLabel}|${startTime}|${duration}`;
+		}
+		return `resource-timing|${resourceLabel}|${startTime}|${duration}`;
 	}
 	return `${entry.label}|${JSON.stringify(entry.data)}`;
 }
@@ -278,7 +295,7 @@ export function addIframeSegmentData(
 			if (!interaction.segment3pCrossSegmentSeen) {
 				interaction.segment3pCrossSegmentSeen = new Set();
 			}
-			const key = buildCrossSegmentDedupKey(entry);
+			const key = buildCrossSegmentDedupKey(entry, segmentId);
 			if (interaction.segment3pCrossSegmentSeen.has(key)) {
 				return;
 			}

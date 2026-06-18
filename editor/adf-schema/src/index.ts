@@ -23,7 +23,6 @@ export {
 	codeBlockWithLocalId,
 	codeBlockToJSON,
 	colorPalette,
-	colorPaletteNew,
 	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/** @deprecated [ED-15849] The extended palette is now rolled into the main one. Use `colorPalette` instead. */
 	colorPaletteExtended,
@@ -146,7 +145,6 @@ export {
 	multiBodiedExtension,
 	backgroundColor,
 	backgroundColorPalette,
-	backgroundColorPaletteNew,
 	syncBlock,
 	bodiedSyncBlock,
 	tableWithNestedTable,

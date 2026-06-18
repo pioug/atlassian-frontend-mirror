@@ -2,14 +2,10 @@ import React, { useEffect } from 'react';
 
 import {
 	tableCell,
-	tableCellStage0,
 	tableCellWithNestedTable,
-	tableCellWithNestedTableStage0,
 	tableHeader,
-	tableHeaderStage0,
 	tableHeaderWithLocalId,
 	tableHeaderWithNestedTable,
-	tableHeaderWithNestedTableStage0,
 	tableRow,
 	tableRowWithNestedTable,
 	tableRowWithLocalId,
@@ -44,7 +40,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { tableNodeSpecWithFixedToDOM } from './nodeviews/toDOM';
@@ -344,11 +339,9 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						},
 						{
 							name: 'tableHeader',
-							node: expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
-								? tableHeaderWithNestedTableStage0
-								: fg('platform_editor_adf_with_localid')
-									? tableHeaderWithNestedTableWithLocalId
-									: tableHeaderWithNestedTable,
+							node: fg('platform_editor_adf_with_localid')
+								? tableHeaderWithNestedTableWithLocalId
+								: tableHeaderWithNestedTable,
 						},
 						{
 							name: 'tableRow',
@@ -358,11 +351,9 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						},
 						{
 							name: 'tableCell',
-							node: expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
-								? tableCellWithNestedTableStage0
-								: fg('platform_editor_adf_with_localid')
-									? tableCellWithNestedTableWithLocalId
-									: tableCellWithNestedTable,
+							node: fg('platform_editor_adf_with_localid')
+								? tableCellWithNestedTableWithLocalId
+								: tableCellWithNestedTable,
 						},
 					]
 				: [
@@ -381,11 +372,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						},
 						{
 							name: 'tableHeader',
-							node: expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
-								? tableHeaderStage0
-								: fg('platform_editor_adf_with_localid')
-									? tableHeaderWithLocalId
-									: tableHeader,
+							node: fg('platform_editor_adf_with_localid') ? tableHeaderWithLocalId : tableHeader,
 						},
 						{
 							name: 'tableRow',
@@ -393,11 +380,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						},
 						{
 							name: 'tableCell',
-							node: expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
-								? tableCellStage0
-								: fg('platform_editor_adf_with_localid')
-									? tableCellWithLocalId
-									: tableCell,
+							node: fg('platform_editor_adf_with_localid') ? tableCellWithLocalId : tableCell,
 						},
 					];
 		},

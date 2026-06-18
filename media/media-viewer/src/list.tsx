@@ -25,6 +25,7 @@ export type Props = Readonly<
 		contextId?: string;
 		featureFlags?: MediaFeatureFlags;
 		viewerOptions?: ViewerOptionsProps;
+		fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	} & WithShowControlMethodProp
 >;
 
@@ -46,6 +47,7 @@ export const List = ({
 	onNavigationChange,
 	items,
 	viewerOptions,
+	fallbackMediaNameFetcher,
 }: Props): React.JSX.Element => {
 	const [selectedItem, setSelectedItem] = useState(defaultSelectedItem);
 	const [previewCount, setPreviewCount] = useState(0);
@@ -71,6 +73,7 @@ export const List = ({
 					featureFlags={featureFlags}
 					onSetArchiveSideBarVisible={setIsArchiveSideBarVisible}
 					traceContext={traceContext.current}
+					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 				/>
 			</HeaderWrapper>
 			<ItemViewer

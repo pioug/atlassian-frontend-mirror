@@ -13,14 +13,17 @@ import {
 	TEXT_COLLAPSED_MENU_RANK,
 	TEXT_COLLAPSED_MENU,
 	CLEAR_COLOR_MENU_ITEM,
+	COLOR_ACCESSIBILITY_MENU_ITEM,
 	TEXT_SECTION_PRIMARY_TOOLBAR_RANK,
 	TEXT_SECTION_PRIMARY_TOOLBAR,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { RegisterComponent, ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextColorPlugin } from '../textColorPluginType';
 
+import { ColorAccessibilityMenuItem } from './ColorAccessibilityMenuItem';
 import { RemoveColorMenuItem } from './RemoveColorMenuItem';
 import { TextColorHighlightMenu } from './TextColorHighlightMenu';
 import { TextColorMenuItem } from './TextColorMenuItem';
@@ -95,5 +98,21 @@ export const getToolbarComponents = (
 				return <RemoveColorMenuItem api={api} parents={parents} />;
 			},
 		},
+		...(expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)
+			? [
+					{
+						...COLOR_ACCESSIBILITY_MENU_ITEM,
+						parents: [
+							{
+								...TEXT_COLOR_HIGHLIGHT_MENU_SECTION,
+								rank: TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK[COLOR_ACCESSIBILITY_MENU_ITEM.key],
+							},
+						],
+						component: () => {
+							return <ColorAccessibilityMenuItem api={api} />;
+						},
+					},
+				]
+			: []),
 	];
 };

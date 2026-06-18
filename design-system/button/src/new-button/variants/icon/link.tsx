@@ -151,6 +151,22 @@ const primaryStyles = cssMap({
 	},
 });
 
+const rovoStyles = cssMap({
+	root: {
+		backgroundColor: token('color.rovo.background.brand.bold'),
+		color: token('color.text.inverse'),
+		'&:visited': {
+			color: token('color.text.inverse'),
+		},
+		'&:hover': {
+			backgroundColor: token('color.rovo.background.brand.bold.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.rovo.background.brand.bold.pressed'),
+		},
+	},
+});
+
 const discoveryStyles = cssMap({
 	root: {
 		backgroundColor: token('color.background.discovery.bold'),
@@ -334,6 +350,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 							fg('platform-dst-shape-theme-default') && styles.baseT26Shape,
 							appearance === 'default' && defaultStyles.root,
 							appearance === 'primary' && primaryStyles.root,
+							appearance === 'rovo' && rovoStyles.root,
 							appearance === 'discovery' && discoveryStyles.root,
 							appearance === 'subtle' && subtleStyles.root,
 							styles.linkDecorationUnset,
@@ -384,6 +401,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 				fg('platform-dst-shape-theme-default') && styles.baseT26Shape,
 				appearance === 'default' && defaultStyles.root,
 				appearance === 'primary' && primaryStyles.root,
+				appearance === 'rovo' && rovoStyles.root,
 				appearance === 'discovery' && discoveryStyles.root,
 				appearance === 'subtle' && subtleStyles.root,
 				styles.linkDecorationUnset,

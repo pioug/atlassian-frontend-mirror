@@ -669,6 +669,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a t
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -693,6 +694,7 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a t
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {

@@ -33,6 +33,7 @@ import {
 	type MediaViewerExtensions,
 } from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { useMergeRefs } from 'use-callback-ref';
 import { MediaCardError, type MediaCardErrorPrimaryReason } from '../errors';
 import {
@@ -159,6 +160,12 @@ export interface FileCardProps extends CardEventProps {
 	) => void;
 	/** Extensions for the media viewer (e.g. comment button in header). */
 	readonly mediaViewerExtensions?: MediaViewerExtensions;
+	/**
+	 * Optional fallback fetcher to retrieve the media filename from another service.
+	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media.
+	 * Receives the file ID and should resolve to the filename string.
+	 */
+	readonly fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 }
 
 const traceContextRetriever = () => {
@@ -209,6 +216,7 @@ export const FileCard = ({
 	ssrFileState,
 	onError,
 	mediaViewerExtensions,
+	fallbackMediaNameFetcher,
 }: FileCardProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
@@ -255,6 +263,10 @@ export const FileCard = ({
 		initialFileState,
 	});
 
+	const [fallbackMediaName, setFallbackMediaName] = useState<string | undefined>();
+	const fallbackMediaNameFetchAttempted = useRef(false);
+	const lastFetchedFileId = useRef<string | undefined>();
+
 	const prevFileState: NonErrorFileState | undefined = usePrevious(
 		fileState && isErrorFileState(fileState) ? undefined : fileState,
 	);
@@ -266,6 +278,38 @@ export const FileCard = ({
 		return prevFileState;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fileState]);
+
+	useEffect(() => {
+		// Reset fetch state when the file identity changes
+		const currentId = fileStateValue?.id;
+		if (
+			currentId &&
+			currentId !== lastFetchedFileId.current &&
+			expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
+		) {
+			fallbackMediaNameFetchAttempted.current = false;
+			setFallbackMediaName(undefined);
+			lastFetchedFileId.current = currentId;
+		}
+
+		if (
+			fileStateValue &&
+			!fileStateValue.name &&
+			fallbackMediaNameFetcher &&
+			!fallbackMediaNameFetchAttempted.current &&
+			expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
+		) {
+			fallbackMediaNameFetchAttempted.current = true;
+			fallbackMediaNameFetcher(fileStateValue.id).then(
+				(name) => {
+					setFallbackMediaName(name);
+				},
+				() => {
+					// Silently ignore fetch failures
+				},
+			);
+		}
+	}, [fileStateValue, fallbackMediaNameFetcher]);
 
 	const dateOverrides = useContext(DateOverrideContext);
 	const overridenDate = dateOverrides?.[identifier.id];
@@ -307,7 +351,7 @@ export const FileCard = ({
 					size,
 					...(originalDimensions || previewDimensions),
 					alt,
-				}
+			  }
 			: undefined;
 	}, [alt, previewDimensions, contextId, fileStateValue, identifier, originalDimensions]);
 
@@ -356,8 +400,8 @@ export const FileCard = ({
 	const finalStatus = finalError
 		? 'error'
 		: status === 'failed-processing' && fileStateValue?.mimeType === 'image/svg+xml'
-			? 'loading-preview'
-			: status;
+		? 'loading-preview'
+		: status;
 
 	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(null);
 
@@ -382,11 +426,22 @@ export const FileCard = ({
 			}
 		};
 
+		const resolvedFallbackName = expValEquals(
+			'platform_editor_media_name_fallback_viewer_card',
+			'isEnabled',
+			true,
+		)
+			? fallbackMediaName
+			: undefined;
+
 		if (fg('dfo_attachments_late_render_fix')) {
 			if (fileStateValue) {
 				return {
 					id: fileStateValue.id,
-					name: fileStateValue.name || (ssrItemDetails && ssrItemDetails.filename),
+					name:
+						fileStateValue.name ||
+						resolvedFallbackName ||
+						(ssrItemDetails && ssrItemDetails.filename),
 					size: fileStateValue.size,
 					mimeType: fileStateValue.mimeType || (ssrItemDetails && ssrItemDetails.mimetype),
 					createdAt: fileStateValue.createdAt || (ssrItemDetails && ssrItemDetails.createdDate),
@@ -409,7 +464,7 @@ export const FileCard = ({
 			if (fileStateValue) {
 				return {
 					id: fileStateValue.id,
-					name: fileStateValue.name,
+					name: fileStateValue.name || resolvedFallbackName,
 					size: fileStateValue.size,
 					mimeType: fileStateValue.mimeType,
 					createdAt: fileStateValue.createdAt,
@@ -426,7 +481,7 @@ export const FileCard = ({
 				};
 			}
 		}
-	}, [fileStateValue, identifier.id, ssrItemDetails]);
+	}, [fileStateValue, identifier.id, ssrItemDetails, fallbackMediaName]);
 
 	const fileAttributes = useMemo(() => {
 		return {
@@ -980,7 +1035,7 @@ export const FileCard = ({
 									viewingLevel: 'minimal',
 									...payloadPart,
 								});
-							}
+						  }
 						: undefined
 				}
 				innerRef={mergedRef}
@@ -1069,6 +1124,7 @@ export const FileCard = ({
 					featureFlags={featureFlags}
 					viewerOptions={viewerOptions}
 					extensions={mediaViewerExtensions}
+					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 				/>
 			) : null}
 			{/* Print the SSR result to be used during hydration */}

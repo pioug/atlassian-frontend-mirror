@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.1.1
+
+### Patch Changes
+
+- [`e4fd1aa703224`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4fd1aa703224) -
+  Add a gated filter for third-party segment resource timings to limit payloads to CSS, JS,
+  query-stripped backend URLs, and broad image/file/avatar placeholders
+
 ## 7.1.0
 
 ### Minor Changes

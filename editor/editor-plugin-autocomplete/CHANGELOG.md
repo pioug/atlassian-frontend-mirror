@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.0.2
+
+### Patch Changes
+
+- [`56263a9d5bb6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56263a9d5bb6d) -
+  Gate editor autocomplete to English locales so suggestions and model loading are disabled for
+  non-English users.
+
+## 4.0.1
+
+### Patch Changes
+
+- [`560ddb7a914f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/560ddb7a914f6) -
+  [ux] Fixes a bug where autocomplete suggestions were shown when the cursor was positioned in the
+  middle of an existing word. Suggestions are now suppressed unless the cursor is at the trailing
+  edge of a token.
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

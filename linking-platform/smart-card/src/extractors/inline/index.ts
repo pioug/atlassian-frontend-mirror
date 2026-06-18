@@ -8,9 +8,11 @@ import {
 	extractType,
 	isEntityPresent,
 } from '@atlaskit/link-extractors';
+import { extractSmartLinkInlineIcon as extractSmartLinkInlineIconFromLinkExtractors } from '@atlaskit/link-extractors/extract-smart-link-inline-icon';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getEmptyJsonLd } from '../../utils/jsonld';
 import { type InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
@@ -61,7 +63,9 @@ export const extractInlineProps = (
 	return {
 		link: extractSmartLinkUrl(response),
 		title: extractSmartLinkTitle(response, removeTextHighlightingFromTitle),
-		icon: extractSmartLinkInlineIcon(response, showLabel),
+		icon: expValEquals('confluence_1p_and_3p_connection_byline_experiment', 'isEnabled', true)
+			? extractSmartLinkInlineIconFromLinkExtractors(response, showLabel)
+			: extractSmartLinkInlineIcon(response, showLabel),
 		// As we migrate to support more entities we can incorporate these fields
 		lozenge: extractLozenge(jsonLd),
 		titleTextColor: extractTitleTextColor(jsonLd),

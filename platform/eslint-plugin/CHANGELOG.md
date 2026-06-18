@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 3.0.1
+
+### Patch Changes
+
+- [`c6fce4a43355c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6fce4a43355c) -
+  Deprecate `compiled/use-motion-token-values` rule. Use `@atlaskit/design-system/use-tokens-motion`
+  instead.
+
 ## 3.0.0
 
 ### Major Changes

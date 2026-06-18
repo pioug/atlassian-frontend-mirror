@@ -439,6 +439,7 @@ describe(name, () => {
 												colwidth: null,
 												rowspan: 1,
 												localId: null,
+												valign: null,
 											},
 											content: [
 												{
@@ -457,6 +458,7 @@ describe(name, () => {
 												colwidth: null,
 												rowspan: 1,
 												localId: null,
+												valign: null,
 											},
 											content: [
 												{
@@ -475,6 +477,7 @@ describe(name, () => {
 												colwidth: null,
 												rowspan: 1,
 												localId: null,
+												valign: null,
 											},
 											content: [
 												{
@@ -501,6 +504,7 @@ describe(name, () => {
 												colwidth: null,
 												rowspan: 1,
 												localId: null,
+												valign: null,
 											},
 											content: [
 												{
@@ -537,6 +541,7 @@ describe(name, () => {
 												colwidth: null,
 												rowspan: 1,
 												localId: null,
+												valign: null,
 											},
 											content: [
 												{
@@ -555,6 +560,7 @@ describe(name, () => {
 												colwidth: null,
 												rowspan: 1,
 												localId: null,
+												valign: null,
 											},
 											content: [
 												{

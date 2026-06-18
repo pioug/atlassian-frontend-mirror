@@ -50,8 +50,13 @@ describe('addIframeSegmentData — B3 cross-segment deduplication', () => {
 			region: 'test-region',
 		});
 
-		// Enable the feature gate so addIframeSegmentData actually stores entries
-		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_3p_segment_timings');
+		// Enable the feature gates so addIframeSegmentData stores entries and uses the filtered
+		// resource-timing dedupe key.
+		mockFg.mockImplementation(
+			(flag: string) =>
+				flag === 'platform_ufo_3p_segment_timings' ||
+				flag === 'platform_ufo_filter_3p_resource_timings',
+		);
 	});
 
 	afterEach(() => {
@@ -106,7 +111,7 @@ describe('addIframeSegmentData — B3 cross-segment deduplication', () => {
 		expect(interaction.segment3pTimings?.['seg-b']).toBeUndefined();
 	});
 
-	it('keeps resource-timing entries with different urls/start/duration across segments', () => {
+	it('keeps resource-timing entries with different shaped labels or timings across segments', () => {
 		const id = 'b3-test-4';
 		setupInteraction(id);
 
@@ -116,12 +121,97 @@ describe('addIframeSegmentData — B3 cross-segment deduplication', () => {
 		});
 		addIframeSegmentData(id, 'seg-b', {
 			label: 'resource-timing',
-			data: { label: 'forge-bridge.js', startTime: 200, duration: 80 }, // different URL
+			data: { label: 'forge-bridge.js', startTime: 200, duration: 80 }, // different asset label
+		});
+		addIframeSegmentData(id, 'seg-c', {
+			label: 'resource-timing',
+			data: {
+				label: 'https://api.example.com/rest/api/content/123',
+				type: 'fetch',
+				startTime: 200,
+				duration: 80,
+				fetchStart: 205,
+				requestStart: 220,
+				ttfb: 260,
+			},
+		});
+		addIframeSegmentData(id, 'seg-d', {
+			label: 'resource-timing',
+			data: {
+				label: 'https://api.example.com/rest/api/content/456',
+				type: 'fetch',
+				startTime: 200,
+				duration: 80,
+				fetchStart: 210,
+				requestStart: 230,
+				ttfb: 270,
+			},
 		});
 
 		const interaction = interactions.get(id)!;
 		expect(interaction.segment3pTimings?.['seg-a']).toHaveLength(1);
 		expect(interaction.segment3pTimings?.['seg-b']).toHaveLength(1);
+		expect(interaction.segment3pTimings?.['seg-c']).toHaveLength(1);
+		expect(interaction.segment3pTimings?.['seg-d']).toHaveLength(1);
+	});
+
+	it('keeps identical backend resource-timing entries from different segments', () => {
+		const id = 'b3-test-4-backend';
+		setupInteraction(id);
+
+		const backendResource = {
+			label: 'resource-timing',
+			data: {
+				label: 'https://api.example.com/rest/api/content/123',
+				type: 'fetch',
+				startTime: 200,
+				duration: 80,
+				fetchStart: 205,
+				requestStart: 220,
+				ttfb: 260,
+			},
+		};
+
+		addIframeSegmentData(id, 'seg-a', backendResource);
+		addIframeSegmentData(id, 'seg-b', backendResource);
+
+		const interaction = interactions.get(id)!;
+		expect(interaction.segment3pTimings?.['seg-a']).toHaveLength(1);
+		expect(interaction.segment3pTimings?.['seg-b']).toHaveLength(1);
+	});
+
+	it('dedupes shared CSS/JS assets across segments without using backend-only timing fields', () => {
+		const id = 'b3-test-4-assets';
+		setupInteraction(id);
+
+		addIframeSegmentData(id, 'seg-a', {
+			label: 'resource-timing',
+			data: {
+				label: 'forge-ui-kit.js',
+				type: 'script',
+				startTime: 100,
+				duration: 50,
+				fetchStart: 110,
+				requestStart: 120,
+				ttfb: 150,
+			},
+		});
+		addIframeSegmentData(id, 'seg-b', {
+			label: 'resource-timing',
+			data: {
+				label: 'forge-ui-kit.js',
+				type: 'script',
+				startTime: 100,
+				duration: 50,
+				fetchStart: 210,
+				requestStart: 220,
+				ttfb: 250,
+			},
+		});
+
+		const interaction = interactions.get(id)!;
+		expect(interaction.segment3pTimings?.['seg-a']).toHaveLength(1);
+		expect(interaction.segment3pTimings?.['seg-b']).toBeUndefined();
 	});
 
 	it('rejects identical non-resource entries (e.g. navigation-timing) across segments', () => {

@@ -2929,6 +2929,31 @@ const scaledDenseEmojiStyles = css({
 		},
 });
 
+const scaledDenseUnicodeEmojiStylesNew = css({
+	[`[data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
+	},
+	[`h1 [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${denseEmojiHeightH1}px`,
+	},
+	[`h2 [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${denseEmojiHeightH2}px`,
+	},
+	[`h3 [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${denseEmojiHeightH3}px`,
+	},
+	[`h4 [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${denseEmojiHeightH4}px`,
+	},
+	[`:is(h5, h6, p) [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
+	},
+	// sync with platform/packages/linking-platform/smart-card/src/view/InlineCard/IconAndTitleLayout/index.tsx
+	[`[data-testid="icon-wrapper"] [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${defaultInlineEmojiHeight}px`,
+	},
+});
+
 const scaledEmojiStyles = css({
 	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
 		height: `${defaultEmojiHeight}px`,
@@ -2976,6 +3001,31 @@ const scaledEmojiStyles = css({
 			height: `${defaultInlineEmojiHeight}px`,
 			width: `${defaultInlineEmojiHeight}px`,
 		},
+});
+
+const scaledUnicodeEmojiStylesNew = css({
+	[`[data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
+	},
+	[`h1 [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${scaledEmojiHeightH1}px`,
+	},
+	[`h2 [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${scaledEmojiHeightH2}px`,
+	},
+	[`h3 [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${scaledEmojiHeightH3}px`,
+	},
+	[`h4 [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${scaledEmojiHeightH4}px`,
+	},
+	[`:is(h5, h6, p) [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
+	},
+	// sync with platform/packages/linking-platform/smart-card/src/view/InlineCard/IconAndTitleLayout/index.tsx
+	[`[data-testid="icon-wrapper"] [data-emoji-type="unicode"]`]: {
+		'--emoji-common-unicode-size': `${defaultInlineEmojiHeight}px`,
+	},
 });
 
 const denseStyles = css({
@@ -3356,6 +3406,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					: isCompactModeEnabled
 						? denseStyles
 						: undefined,
+				isCompactModeEnabled ? scaledDenseUnicodeEmojiStylesNew : scaledUnicodeEmojiStylesNew,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
 				centerWrapperStyles,
 				editorExperiment('platform_synced_block', true) && isInsideSyncBlock

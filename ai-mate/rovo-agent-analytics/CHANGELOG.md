@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-analytics
 
+## 5.0.0
+
+### Major Changes
+
+- [`ad236a4768346`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad236a4768346) -
+  Remove the orphan `rovoAgent subagentEdit` event variant from `SubagentInteractionsEventPayload`.
+  No callers existed in product code.
+
 ## 4.1.0
 
 ### Minor Changes

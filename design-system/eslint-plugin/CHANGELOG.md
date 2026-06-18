@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 15.1.0
+
+### Minor Changes
+
+- [`c6fce4a43355c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6fce4a43355c) -
+  Add new `use-tokens-motion` ESLint rule to enforce the use of motion design tokens for durations
+  and easing values. This rule was moved from `@atlaskit/eslint-plugin-platform`
+  (`compiled/use-motion-token-values`) to the design-system plugin as a first-class rule.
+
 ## 15.0.0
 
 ### Major Changes

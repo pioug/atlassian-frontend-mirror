@@ -298,6 +298,7 @@ describe('<EmojiActions />', () => {
 
 				expect(handleProductivityColorSelected).toHaveBeenCalledWith('red');
 				expect(productivityColorButton).toHaveAttribute('aria-expanded', 'false');
+				expect(productivityColorButton).not.toHaveFocus();
 				expect(screen.queryByTestId(productivityColorSelectorTestId)).toBeNull();
 			});
 
@@ -388,6 +389,65 @@ describe('<EmojiActions />', () => {
 						name: 'Productivity emoji color selector',
 					}),
 				);
+
+				const blueRadio = screen.getByTestId('productivity-color-blue--radio-input');
+				const redRadio = screen.getByTestId('productivity-color-red--radio-input');
+
+				expect(blueRadio).not.toHaveFocus();
+
+				await userEvent.tab();
+
+				expect(blueRadio).toHaveFocus();
+
+				await userEvent.keyboard('{ArrowLeft}');
+
+				expect(redRadio).toHaveFocus();
+
+				await userEvent.keyboard('{Enter}');
+
+				expect(handleProductivityColorSelected).toHaveBeenCalledWith('red');
+				expect(
+					screen.getByRole('button', {
+						name: 'Productivity emoji color selector',
+					}),
+				).not.toHaveFocus();
+			});
+
+			it('should focus the selected productivity colour when opened by keyboard', async () => {
+				const handleProductivityColorSelected = jest.fn();
+				const zeroSquareRed = {
+					...baseToneEmoji,
+					id: '0_zero_square_red',
+					shortName: ':0_zero_square_red:',
+					name: 'Zero square red',
+				};
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+
+				await renderWithIntl(
+					<EmojiActions
+						{...props}
+						toneEmoji={toneEmoji}
+						activeCategoryId="ATLASSIAN"
+						selectedProductivityColor="blue"
+						productivityColorPreviewEmojis={{
+							red: zeroSquareRed,
+							blue: zeroSquareBlue,
+						}}
+						onProductivityColorSelected={handleProductivityColorSelected}
+					/>,
+				);
+
+				const productivityColorButton = screen.getByRole('button', {
+					name: 'Productivity emoji color selector',
+				});
+				productivityColorButton.focus();
+
+				await userEvent.keyboard(' ');
 
 				const blueRadio = screen.getByTestId('productivity-color-blue--radio-input');
 				const redRadio = screen.getByTestId('productivity-color-red--radio-input');

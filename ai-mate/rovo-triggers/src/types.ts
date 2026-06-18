@@ -13,6 +13,7 @@ import type {
 	UpdateAgentConfigurationPayload,
 } from './common/types/solution-architect';
 import type { ChatContextPayload } from './common/utils/chat-context/types';
+import type { RovoChatOpenMode } from './common/utils/params/types';
 
 export const Topics = {
 	AI_MATE: 'ai-mate',
@@ -27,7 +28,7 @@ export type PayloadCore<TKey extends string, TData = void> = {
 	type: TKey;
 	source: string;
 	openChat?: boolean;
-	openChatMode?: 'sidebar' | 'mini-modal';
+	openChatMode?: RovoChatOpenMode;
 	product?: string;
 	interactionSource?: string;
 	/**
@@ -225,6 +226,14 @@ export type InsightsOpenInChatPayload = PayloadCore<
 		followUps?: string[] | null;
 	}
 >;
+
+/**
+ * Published from the panel (publisher) side when the user leaves a seeded Rovo
+ * Insight chat (via any exit path). Surfaces rendering the Rovo Insights carousel
+ * subscribe to this to clear the selected-card highlight. Carries no data: the
+ * only meaning is "the user is no longer in an insight chat".
+ */
+export type InsightsChatExitedPayload = PayloadCore<'insights-chat-exited', {}>;
 
 export type EditorContextPayloadData =
 	| {
@@ -720,6 +729,7 @@ export type Payload =
 	| SmartCreationModalOpenPayload
 	| ChatNewPayload
 	| InsightsOpenInChatPayload
+	| InsightsChatExitedPayload
 	| ChatDraftPayload
 	| ChatSmartLink3PPostAuthLaunchPayload
 	| EditorContextPayload

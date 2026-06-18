@@ -24,6 +24,7 @@ snapshot(ShowcaseExample, {
 	],
 	featureFlags: {
 		'assets-platform-branding': true,
+		'assets-platform-branding-with-confluence': true,
 	},
 });
 
@@ -38,5 +39,6 @@ snapshot(ShowcaseLegacyExample, {
 	],
 	featureFlags: {
 		'assets-platform-branding': true,
+		'assets-platform-branding-with-confluence': true,
 	},
 });

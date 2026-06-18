@@ -1,17 +1,20 @@
-import { backgroundColorPaletteNew } from '@atlaskit/adf-schema';
+import { backgroundColorPaletteNew } from '@atlaskit/adf-schema/background-color';
+import { token } from '@atlaskit/tokens';
 
-import { REMOVE_HIGHLIGHT_COLOR, highlightColorPalette } from './highlightColorPalette';
+import getColorMessage from './getColorMessage';
+import { REMOVE_HIGHLIGHT_COLOR } from './highlightColorPalette';
 import { mapPaletteColor } from './mapPaletteColor';
+import paletteMessages from './paletteMessages';
 import type { PaletteColor } from './type';
 
-const removeHighlightColor = highlightColorPalette.find(
-	({ value }) => value === REMOVE_HIGHLIGHT_COLOR,
-);
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const highlightColorPaletteNew: Array<PaletteColor> = removeHighlightColor
-	? [removeHighlightColor]
-	: [];
+export const highlightColorPaletteNew: Array<PaletteColor> = [
+	{
+		value: REMOVE_HIGHLIGHT_COLOR,
+		label: 'No color' as const, // Mostly informative, only used for analytics
+		border: token('color.border'),
+		message: getColorMessage(paletteMessages, 'no-color'),
+	},
+];
 
 backgroundColorPaletteNew.forEach((label, color) => {
 	highlightColorPaletteNew.push(mapPaletteColor(label, color));

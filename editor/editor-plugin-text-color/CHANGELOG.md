@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-text-color
 
+## 12.2.0
+
+### Minor Changes
+
+- [`eb17ff47fd9d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb17ff47fd9d1) -
+  [EDITOR-7588] Add an accessibility footer for the new text and highlight color experience behind
+  `platform_editor_lovability_text_bg_color`.
+
+### Patch Changes
+
+- [`724e2a1ea50bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/724e2a1ea50bb) -
+  Remove stale feature gate platform_editor_toolbar_aifc_text_color_config_jsm.
+- Updated dependencies
+
+## 12.1.3
+
+### Patch Changes
+
+- [`6f7b6c498b07c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f7b6c498b07c) -
+  [EDITOR-7591] Align the no-color highlight palette tile icon with the updated transparent
+  highlight styling for the experiment `platform_editor_lovability_text_bg_color`.
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

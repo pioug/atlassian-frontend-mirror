@@ -291,7 +291,10 @@ export function LogoWrapper({
 					: colorMode === 'dark'
 						? cloudDarkAppearanceMap[appearance]
 						: cloudLightAppearanceMap[appearance],
-				isAssets && appearance === 'brand' && fg('assets-platform-branding') && styles.TEMP_assets,
+				isAssets &&
+					appearance === 'brand' &&
+					(fg('assets-platform-branding') || fg('assets-platform-branding-with-confluence')) &&
+					styles.TEMP_assets,
 			]}
 			style={
 				{

@@ -37,6 +37,7 @@ import { type MediaFeatureFlags, type MediaTraceContext } from '@atlaskit/media-
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import { getFormat } from './viewers/codeViewer/util';
 import { MediaViewerError } from './errors';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export type Props = {
 	readonly identifier: Identifier;
@@ -48,6 +49,7 @@ export type Props = {
 	readonly onSetArchiveSideBarVisible?: (isVisible: boolean) => void;
 	readonly isArchiveSideBarVisible?: boolean;
 	traceContext: MediaTraceContext;
+	readonly fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 };
 
 export const Header = ({
@@ -59,9 +61,13 @@ export const Header = ({
 	onClose,
 	onSetArchiveSideBarVisible,
 	traceContext,
+	fallbackMediaNameFetcher,
 }: Props & WrappedComponentProps): React.JSX.Element => {
 	// States
 	const [item, setItem] = useState<Outcome<FileState, MediaViewerError>>(Outcome.pending());
+	const [fallbackMediaName, setFallbackMediaName] = useState<string | undefined>();
+	const fallbackMediaNameFetchAttempted = useRef(false);
+	const lastFetchedFileId = useRef<string | undefined>();
 
 	// Refs and Hooks
 	const mediaClient = useMediaClient();
@@ -110,6 +116,39 @@ export const Header = ({
 			);
 		}
 	}, [fileState, identifier]);
+
+	useEffect(() => {
+		// Reset fetch state when the file identity changes (e.g. navigating in viewer)
+		const currentId = fileState?.status !== 'error' ? fileState?.id : undefined;
+		if (
+			currentId &&
+			currentId !== lastFetchedFileId.current &&
+			expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
+		) {
+			fallbackMediaNameFetchAttempted.current = false;
+			setFallbackMediaName(undefined);
+			lastFetchedFileId.current = currentId;
+		}
+
+		if (
+			fileState &&
+			fileState.status !== 'error' &&
+			!fileState.name &&
+			fallbackMediaNameFetcher &&
+			!fallbackMediaNameFetchAttempted.current &&
+			expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
+		) {
+			fallbackMediaNameFetchAttempted.current = true;
+			fallbackMediaNameFetcher(fileState.id).then(
+				(name) => {
+					setFallbackMediaName(name);
+				},
+				() => {
+					// Silently ignore fetch failures
+				},
+			);
+		}
+	}, [fileState, fallbackMediaNameFetcher]);
 
 	const renderFileTypeText = (item: Exclude<FileState, ErrorFileState>): ReactNode => {
 		// render appropriate header if its a code/email item and the feature flag is enabled
@@ -167,7 +206,13 @@ export const Header = ({
 								</MetadataIconWrapper>
 								<MedatadataTextWrapper>
 									<MetadataFileName data-testid="media-viewer-file-name">
-										{item.name || <FormattedMessage {...messages.unknown} />}
+										{item.name ||
+											(expValEquals(
+												'platform_editor_media_name_fallback_viewer_card',
+												'isEnabled',
+												true,
+											) &&
+												fallbackMediaName) || <FormattedMessage {...messages.unknown} />}
 									</MetadataFileName>
 									<MetadataSubText data-testid="media-viewer-file-metadata-text">
 										<FormattedMessageWrapper>{renderFileTypeText(item)}</FormattedMessageWrapper>

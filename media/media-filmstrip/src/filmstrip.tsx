@@ -53,6 +53,7 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
 					featureFlags={featureFlags}
 					viewerOptions={viewerOptions}
 					isLazy={isLazy}
+					fallbackMediaNameFetcher={this.props.fallbackMediaNameFetcher}
 					{...item}
 				/>
 			);

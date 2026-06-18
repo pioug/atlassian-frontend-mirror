@@ -23,6 +23,7 @@ const interactiveStyles = css({
 
 type MediaViewerContainerProps = {
 	children?: React.ReactNode;
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	isEditorViewMode?: boolean;
 	isInline?: boolean;
 	isSelected?: boolean;
@@ -40,6 +41,7 @@ export const MediaViewerContainer = ({
 	isSelected = true,
 	isInline = false,
 	mediaViewerExtensions,
+	fallbackMediaNameFetcher,
 	children,
 }: MediaViewerContainerProps): jsx.JSX.Element => {
 	const [showViewer, setShowMediaViewer] = useState(false);
@@ -100,6 +102,7 @@ export const MediaViewerContainer = ({
 							mediaClientConfig={mediaClientConfig}
 							onClose={closeMediaViewer}
 							extensions={mediaViewerExtensions}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 						/>
 					)}
 				</Fragment>

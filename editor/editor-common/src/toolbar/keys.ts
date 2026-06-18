@@ -424,6 +424,11 @@ export const CLEAR_COLOR_MENU_ITEM = {
 	type: 'menu-item',
 } as const;
 
+export const COLOR_ACCESSIBILITY_MENU_ITEM = {
+	key: 'color-accessibility-menu-item',
+	type: 'menu-item',
+} as const;
+
 /*
  * Alignment
  */

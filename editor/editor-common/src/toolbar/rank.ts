@@ -60,6 +60,7 @@ import {
 	TEXT_COLOR_MENU_ITEM,
 	HIGHLIGHT_MENU_ITEM,
 	CLEAR_COLOR_MENU_ITEM,
+	COLOR_ACCESSIBILITY_MENU_ITEM,
 	TEXT_COLOR_HIGHLIGHT_MENU,
 	TEXT_COLOR_HIGHLIGHT_MENU_SECTION,
 	PIN_MENU_ITEM,
@@ -538,12 +539,14 @@ export const TEXT_COLOR_HIGHLIGHT_MENU_RANK: {
 
 export const TEXT_COLOR_HIGHLIGHT_MENU_SECTION_RANK: {
 	'clear-color-menu-item': number;
+	'color-accessibility-menu-item': number;
 	'highlight-menu-item': number;
 	'text-color-menu-item': number;
 } = {
 	[TEXT_COLOR_MENU_ITEM.key]: 100,
 	[HIGHLIGHT_MENU_ITEM.key]: 200,
 	[CLEAR_COLOR_MENU_ITEM.key]: 300,
+	[COLOR_ACCESSIBILITY_MENU_ITEM.key]: 400,
 };
 
 /**

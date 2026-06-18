@@ -120,6 +120,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -191,6 +192,7 @@ exports[`JIRA wiki markup - Images and attachments [CS-1404] should parse attach
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {

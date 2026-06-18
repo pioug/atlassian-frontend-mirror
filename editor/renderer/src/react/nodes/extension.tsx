@@ -205,6 +205,7 @@ export const renderExtension = (
 				data-local-id={localId}
 				data-testid="extension--wrapper"
 				data-node-type="extension"
+				data-top-level={isTopLevel || undefined}
 			>
 				<div
 					tabIndex={options.tabIndex}
@@ -273,6 +274,7 @@ export const renderExtension = (
 						}}
 						data-layout={layout}
 						data-local-id={localId}
+						data-top-level={isTopLevel || undefined}
 					>
 						<div
 							tabIndex={options.tabIndex}

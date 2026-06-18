@@ -395,6 +395,9 @@ export default class EmojiRepository {
 		this.fullSearch.searchIndex = new UnorderedSearchIndex();
 		this.fullSearch.addIndex('name');
 		this.fullSearch.addIndex('shortName');
+		if (expVal(teamojiRefreshExperimentName, 'isEnabled', false)) {
+			this.fullSearch.addIndex('keywords');
+		}
 
 		this.fullSearch.addDocuments(this.getAllSearchableEmojis());
 		this.fullSearchReady = true;

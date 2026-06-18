@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5f16dd67db6269aad158fa98e85c76a4>>
+ * @generated SignedSource<<477fa8bbad45490f6a463fc28ad38d48>>
  * @relayHash c95a4b89f332b56ac41d44591442026c
  * @lightSyntaxTransform
  * @nogrep
@@ -92,8 +92,7 @@ return {
           ],
           "storageKey": "agentStudio_agentById(id:\"test-agent-id\")"
         },
-        "action": "THROW",
-        "path": "agentStudio_agentById"
+        "action": "THROW"
       },
       {
         "args": (v1/*: any*/),

@@ -68,8 +68,7 @@ const makeSchema = () =>
 		customNodeSpecs: {
 			table: tableWithNestedTable,
 			tableRow: tableRowWithNestedTable,
-			// This schema intentionally uses stage-0 cell specs so assertions can cover
-			// valign parsing while retaining the localId behaviour required by editor APIs.
+			// Use the localId-generating cell specs so assertions cover localId behaviour.
 			tableCell: tableCellWithNestedTableStage0,
 			tableHeader: tableHeaderWithNestedTableStage0,
 		},
@@ -89,8 +88,7 @@ const makeSchemaWithFontSize = () =>
 		customNodeSpecs: {
 			table: tableWithNestedTable,
 			tableRow: tableRowWithNestedTable,
-			// This schema intentionally uses stage-0 cell specs so assertions can cover
-			// valign parsing while retaining the localId behaviour required by editor APIs.
+			// Use the localId-generating cell specs so assertions cover localId behaviour.
 			tableCell: tableCellWithNestedTableStage0,
 			tableHeader: tableHeaderWithNestedTableStage0,
 		},
@@ -170,6 +168,9 @@ describe(`${packageName}/schema table node`, () => {
 						localId: {
 							default: null,
 						},
+						valign: {
+							default: null,
+						},
 					},
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
@@ -212,6 +213,9 @@ describe(`${packageName}/schema table node`, () => {
 							default: 1,
 						},
 						localId: {
+							default: null,
+						},
+						valign: {
 							default: null,
 						},
 					},
@@ -312,6 +316,9 @@ describe(`${packageName}/schema table node`, () => {
 						localId: {
 							default: null,
 						},
+						valign: {
+							default: null,
+						},
 					},
 					content:
 						'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
@@ -354,6 +361,9 @@ describe(`${packageName}/schema table node`, () => {
 							default: 1,
 						},
 						localId: {
+							default: null,
+						},
+						valign: {
 							default: null,
 						},
 					},
@@ -1382,6 +1392,60 @@ describe(`${packageName}/schema table node`, () => {
 
 			expect(html).toContain('data-font-size="small"');
 			expect(html).toContain('Small header');
+		});
+	});
+
+	describe('valign in full schema', () => {
+		const fullSchema = createSchema({
+			nodes: ['doc', 'paragraph', 'text', 'table', 'tableRow', 'tableCell', 'tableHeader'],
+			marks: ['fragment', 'unsupportedMark', 'unsupportedNodeAttribute'],
+			customNodeSpecs: {
+				table,
+				tableRow,
+				tableCell,
+				tableHeader,
+			},
+		});
+
+		it('exposes valign as a tableCell attribute', () => {
+			expect(fullSchema.nodes.tableCell.spec.attrs).toHaveProperty('valign');
+		});
+
+		it('exposes valign as a tableHeader attribute', () => {
+			expect(fullSchema.nodes.tableHeader.spec.attrs).toHaveProperty('valign');
+		});
+
+		it('serializes tableCell valign', () => {
+			const cell = fullSchema.nodes.tableCell.create({ valign: 'middle' });
+			expect(toHTML(cell, fullSchema)).toContain('data-valign="middle"');
+		});
+
+		it('serializes tableHeader valign', () => {
+			const header = fullSchema.nodes.tableHeader.create({ valign: 'bottom' });
+			expect(toHTML(header, fullSchema)).toContain('data-valign="bottom"');
+		});
+
+		it('parses tableCell valign from data-valign', () => {
+			const doc = fromHTML(
+				'<table><tbody><tr><td data-valign="middle"></td></tr></tbody></table>',
+				fullSchema,
+			);
+			const cell = doc.firstChild!.firstChild!.firstChild!;
+			expect(cell.attrs.valign).toBe('middle');
+		});
+
+		it('parses tableHeader valign from data-valign', () => {
+			const doc = fromHTML(
+				'<table><tbody><tr><th data-valign="bottom"></th></tr></tbody></table>',
+				fullSchema,
+			);
+			const header = doc.firstChild!.firstChild!.firstChild!;
+			expect(header.attrs.valign).toBe('bottom');
+		});
+
+		it('omits data-valign when valign is not set', () => {
+			const cell = fullSchema.nodes.tableCell.create();
+			expect(toHTML(cell, fullSchema)).not.toContain('data-valign');
 		});
 	});
 });

@@ -10,6 +10,7 @@ import { isExternalMedia } from '../../ui/toolbar/utils';
 
 interface RenderMediaViewerProps {
 	extensions?: MediaViewerExtensions;
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	items?: Identifier[];
 	mediaClientConfig: MediaClientConfig;
 	onClose: () => void;
@@ -38,6 +39,7 @@ export const RenderMediaViewer = ({
 	selectedNodeAttrs,
 	items = [],
 	extensions,
+	fallbackMediaNameFetcher,
 }: RenderMediaViewerProps): React.ReactPortal => {
 	const identifier = getIdentifier(selectedNodeAttrs);
 	const collectionName = isExternalMedia(selectedNodeAttrs) ? '' : selectedNodeAttrs.collection;
@@ -52,6 +54,7 @@ export const RenderMediaViewer = ({
 			selectedItem={identifier}
 			onClose={onClose}
 			extensions={extensions}
+			fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 		/>,
 		document.body,
 	);

@@ -402,7 +402,13 @@ export type InsertSourceSyncedBlockPayload = InsertAEP<
 
 type InsertSnippetAEP = InsertAEP<
 	ACTION_SUBJECT_ID.SNIPPET,
-	{ hadMedia?: boolean; inputMethod: INPUT_METHOD.QUICK_INSERT; snippetId: string },
+	{
+		hadMedia?: boolean;
+		inputMethod: INPUT_METHOD.QUICK_INSERT;
+		snippetId: string;
+		// Template provenance: 'atlassian' (OOTB) vs 'user' (user/space-created).
+		templateType?: 'atlassian' | 'user';
+	},
 	undefined
 >;
 
@@ -410,19 +416,21 @@ type FailedToInsertSnippetAEP = OperationalAEP<
 	ACTION.FAILED_TO_INSERT,
 	ACTION_SUBJECT.DOCUMENT,
 	ACTION_SUBJECT_ID.SNIPPET,
-	| { reason: 'emptyBody' | 'parseError'; snippetId: string }
+	| { reason: 'emptyBody' | 'parseError'; snippetId: string; templateType?: 'atlassian' | 'user' }
 	| {
 			numFailedMediaFiles: number;
 			numTotalMediaFiles: number;
 			reason: 'snippetMediaDirectCopyFailed';
 			snippetId: string;
 			snippetMediaCopyStatus: 'copied' | 'partial-copy' | 'failed' | 'copy-unavailable';
+			templateType?: 'atlassian' | 'user';
 	  }
 	| {
 			numFailedMediaFiles: number;
 			numTotalMediaFiles: number;
 			reason: 'snippetMediaDirectCopyUnexpectedError';
 			snippetId: string;
+			templateType?: 'atlassian' | 'user';
 	  }
 >;
 

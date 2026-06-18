@@ -47,6 +47,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -112,8 +113,9 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		} = this.props;
 
 		const palette = pluginState.palette;
-		const isNewColorPaletteEnabled = editorExperiment(
+		const isNewColorPaletteEnabled = expValEquals(
 			'platform_editor_lovability_text_bg_color',
+			'isEnabled',
 			true,
 		);
 		const colorPickerColumns = isNewColorPaletteEnabled ? 10 : undefined;

@@ -1,6 +1,6 @@
 # Prop guidance
 
-- **appearance** - primary (main), default (secondary), subtle (tertiary), danger (destructive),
+- **appearance** - primary (main), rovo (Rovo/AI primary action), default (secondary), subtle (tertiary), danger (destructive),
   warning (caution), discovery (new features)
 - **spacing** - compact (tight spaces), default (standard), comfortable (generous)
 - **isDisabled** - Use instead of removing the button

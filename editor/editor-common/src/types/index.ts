@@ -50,7 +50,10 @@ export type { Browsers, Range, DisableSpellcheckByBrowser } from './supported-br
 export type { EditorContainerWidth, GetEditorContainerWidth } from './editor-container-width';
 export type { EmptyStateHandler, EmptyStateHandlerParams } from './empty-state-handler';
 
-export type { _MarkdownModePluginStub } from './markdown-mode-plugin-stub';
+export type {
+	_MarkdownModePluginStub,
+	_MarkdownModePluginStateStub,
+} from './markdown-mode-plugin-stub';
 
 export type {
 	RenderOptionsPropsT,

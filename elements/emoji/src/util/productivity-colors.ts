@@ -1,4 +1,6 @@
 import type { EmojiDescription } from '../types';
+import { selectedProductivityColorStorageKey } from './constants';
+import storageAvailable from './storage-available';
 
 export const productivityColors = [
 	'gray',
@@ -19,6 +21,37 @@ const productivityColorSet = new Set<string>(productivityColors);
 const zeroSquareVariantParent = '0_zero_square_blue';
 
 export const defaultProductivityColor: ProductivityColor = 'blue';
+
+const isProductivityColor = (color: string | null): color is ProductivityColor =>
+	!!color && productivityColorSet.has(color);
+
+export const getStoredProductivityColor = (): ProductivityColor => {
+	if (typeof window === 'undefined' || !storageAvailable('localStorage')) {
+		return defaultProductivityColor;
+	}
+
+	try {
+		const storedColor = window.localStorage.getItem(selectedProductivityColorStorageKey);
+		return isProductivityColor(storedColor) ? storedColor : defaultProductivityColor;
+	} catch (error) {
+		// eslint-disable-next-line no-console
+		console.error('failed to load selected productivity emoji colour', error);
+		return defaultProductivityColor;
+	}
+};
+
+export const storeProductivityColor = (color: ProductivityColor): void => {
+	if (typeof window === 'undefined' || !storageAvailable('localStorage')) {
+		return;
+	}
+
+	try {
+		window.localStorage.setItem(selectedProductivityColorStorageKey, color);
+	} catch (error) {
+		// eslint-disable-next-line no-console
+		console.error('failed to store selected productivity emoji colour', error);
+	}
+};
 
 type ProductivityVariant = {
 	color: ProductivityColor;

@@ -2172,6 +2172,7 @@ export interface TableCellDefinition {
     colwidth?: Array<number>;
     background?: string;
     localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
   };
 }
 
@@ -2179,62 +2180,6 @@ export type TableCellNode = PMNode & TableCellDefinition;
 
 export const tableCell: PMNodeSpecFactoryInstance<TableCellNode> =
   createPMNodeSpecFactory<TableCellNode>({
-    content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
-    marks:
-      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-    attrs: {
-      colspan: { default: 1 },
-      rowspan: { default: 1 },
-      colwidth: { default: null },
-      background: { default: null },
-      localId: { default: null },
-    },
-    selectable: false,
-    isolating: true,
-    tableRole: 'cell',
-  });
-
-export interface TableCellStage0Definition {
-  type: 'tableCell';
-  content: Array<
-    | BlockCardDefinition
-    | BlockquoteDefinition
-    | BulletListDefinition
-    | CodeBlockDefinition
-    | DecisionListDefinition
-    | EmbedCardDefinition
-    | ExtensionWithMarksDefinition
-    | HeadingWithAlignmentDefinition
-    | HeadingWithIndentationDefinition
-    | HeadingWithNoMarksDefinition
-    | MediaGroupDefinition
-    | MediaSingleCaptionDefinition
-    | MediaSingleFullDefinition
-    | NestedExpandWithNoMarksDefinition
-    | OrderedListDefinition
-    | PanelDefinition
-    | ParagraphWithAlignmentDefinition
-    | ParagraphWithNoMarksDefinition
-    | RuleDefinition
-    | TaskListDefinition
-    | UnsupportedBlockDefinition
-  >;
-  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-  attrs: {
-    colspan?: number;
-    rowspan?: number;
-    colwidth?: Array<number>;
-    background?: string;
-    localId?: string;
-    valign?: 'top' | 'middle' | 'bottom';
-  };
-}
-
-export type TableCellStage0Node = PMNode & TableCellStage0Definition;
-
-export const tableCellStage0: PMNodeSpecFactoryInstance<TableCellStage0Node> =
-  createPMNodeSpecFactory<TableCellStage0Node>({
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
     marks:
@@ -2285,6 +2230,7 @@ export interface TableCellWithNestedTableDefinition {
     colwidth?: Array<number>;
     background?: string;
     localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
   };
 }
 
@@ -2293,64 +2239,6 @@ export type TableCellWithNestedTableNode = PMNode &
 
 export const tableCellWithNestedTable: PMNodeSpecFactoryInstance<TableCellWithNestedTableNode> =
   createPMNodeSpecFactory<TableCellWithNestedTableNode>({
-    content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
-    marks:
-      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-    attrs: {
-      colspan: { default: 1 },
-      rowspan: { default: 1 },
-      colwidth: { default: null },
-      background: { default: null },
-      localId: { default: null },
-    },
-    selectable: false,
-    isolating: true,
-    tableRole: 'cell',
-  });
-
-export interface TableCellWithNestedTableStage0Definition {
-  type: 'tableCell';
-  content: Array<
-    | BlockCardDefinition
-    | BlockquoteDefinition
-    | BulletListDefinition
-    | CodeBlockDefinition
-    | DecisionListDefinition
-    | EmbedCardDefinition
-    | ExtensionWithMarksDefinition
-    | HeadingWithAlignmentDefinition
-    | HeadingWithIndentationDefinition
-    | HeadingWithNoMarksDefinition
-    | MediaGroupDefinition
-    | MediaSingleCaptionDefinition
-    | MediaSingleFullDefinition
-    | NestedExpandWithNoMarksDefinition
-    | OrderedListDefinition
-    | PanelDefinition
-    | ParagraphWithAlignmentDefinition
-    | ParagraphWithNoMarksDefinition
-    | RuleDefinition
-    | TableDefinition
-    | TaskListDefinition
-    | UnsupportedBlockDefinition
-  >;
-  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-  attrs: {
-    colspan?: number;
-    rowspan?: number;
-    colwidth?: Array<number>;
-    background?: string;
-    localId?: string;
-    valign?: 'top' | 'middle' | 'bottom';
-  };
-}
-
-export type TableCellWithNestedTableStage0Node = PMNode &
-  TableCellWithNestedTableStage0Definition;
-
-export const tableCellWithNestedTableStage0: PMNodeSpecFactoryInstance<TableCellWithNestedTableStage0Node> =
-  createPMNodeSpecFactory<TableCellWithNestedTableStage0Node>({
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
     marks:
@@ -2400,6 +2288,7 @@ export interface TableHeaderDefinition {
     colwidth?: Array<number>;
     background?: string;
     localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
   };
 }
 
@@ -2407,62 +2296,6 @@ export type TableHeaderNode = PMNode & TableHeaderDefinition;
 
 export const tableHeader: PMNodeSpecFactoryInstance<TableHeaderNode> =
   createPMNodeSpecFactory<TableHeaderNode>({
-    content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
-    marks:
-      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-    attrs: {
-      colspan: { default: 1 },
-      rowspan: { default: 1 },
-      colwidth: { default: null },
-      background: { default: null },
-      localId: { default: null },
-    },
-    selectable: false,
-    isolating: true,
-    tableRole: 'header_cell',
-  });
-
-export interface TableHeaderStage0Definition {
-  type: 'tableHeader';
-  content: Array<
-    | BlockCardDefinition
-    | BlockquoteDefinition
-    | BulletListDefinition
-    | CodeBlockDefinition
-    | DecisionListDefinition
-    | EmbedCardDefinition
-    | ExtensionWithMarksDefinition
-    | HeadingWithAlignmentDefinition
-    | HeadingWithIndentationDefinition
-    | HeadingWithNoMarksDefinition
-    | MediaGroupDefinition
-    | MediaSingleCaptionDefinition
-    | MediaSingleFullDefinition
-    | NestedExpandDefinition
-    | NestedExpandWithNoMarksDefinition
-    | OrderedListDefinition
-    | PanelDefinition
-    | ParagraphWithAlignmentDefinition
-    | ParagraphWithNoMarksDefinition
-    | RuleDefinition
-    | TaskListDefinition
-  >;
-  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-  attrs: {
-    colspan?: number;
-    rowspan?: number;
-    colwidth?: Array<number>;
-    background?: string;
-    localId?: string;
-    valign?: 'top' | 'middle' | 'bottom';
-  };
-}
-
-export type TableHeaderStage0Node = PMNode & TableHeaderStage0Definition;
-
-export const tableHeaderStage0: PMNodeSpecFactoryInstance<TableHeaderStage0Node> =
-  createPMNodeSpecFactory<TableHeaderStage0Node>({
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
     marks:
@@ -2513,6 +2346,7 @@ export interface TableHeaderWithNestedTableDefinition {
     colwidth?: Array<number>;
     background?: string;
     localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
   };
 }
 
@@ -2521,64 +2355,6 @@ export type TableHeaderWithNestedTableNode = PMNode &
 
 export const tableHeaderWithNestedTable: PMNodeSpecFactoryInstance<TableHeaderWithNestedTableNode> =
   createPMNodeSpecFactory<TableHeaderWithNestedTableNode>({
-    content:
-      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
-    marks:
-      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-    attrs: {
-      colspan: { default: 1 },
-      rowspan: { default: 1 },
-      colwidth: { default: null },
-      background: { default: null },
-      localId: { default: null },
-    },
-    selectable: false,
-    isolating: true,
-    tableRole: 'header_cell',
-  });
-
-export interface TableHeaderWithNestedTableStage0Definition {
-  type: 'tableHeader';
-  content: Array<
-    | BlockCardDefinition
-    | BlockquoteDefinition
-    | BulletListDefinition
-    | CodeBlockDefinition
-    | DecisionListDefinition
-    | EmbedCardDefinition
-    | ExtensionWithMarksDefinition
-    | HeadingWithAlignmentDefinition
-    | HeadingWithIndentationDefinition
-    | HeadingWithNoMarksDefinition
-    | MediaGroupDefinition
-    | MediaSingleCaptionDefinition
-    | MediaSingleFullDefinition
-    | NestedExpandDefinition
-    | NestedExpandWithNoMarksDefinition
-    | OrderedListDefinition
-    | PanelDefinition
-    | ParagraphWithAlignmentDefinition
-    | ParagraphWithNoMarksDefinition
-    | RuleDefinition
-    | TableDefinition
-    | TaskListDefinition
-  >;
-  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-  attrs: {
-    colspan?: number;
-    rowspan?: number;
-    colwidth?: Array<number>;
-    background?: string;
-    localId?: string;
-    valign?: 'top' | 'middle' | 'bottom';
-  };
-}
-
-export type TableHeaderWithNestedTableStage0Node = PMNode &
-  TableHeaderWithNestedTableStage0Definition;
-
-export const tableHeaderWithNestedTableStage0: PMNodeSpecFactoryInstance<TableHeaderWithNestedTableStage0Node> =
-  createPMNodeSpecFactory<TableHeaderWithNestedTableStage0Node>({
     content:
       '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
     marks:
@@ -2598,12 +2374,7 @@ export const tableHeaderWithNestedTableStage0: PMNodeSpecFactoryInstance<TableHe
 
 export interface TableRowDefinition {
   type: 'tableRow';
-  content: Array<
-    | TableCellDefinition
-    | TableCellStage0Definition
-    | TableHeaderDefinition
-    | TableHeaderStage0Definition
-  >;
+  content: Array<TableCellDefinition | TableHeaderDefinition>;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: { localId?: string };
 }
@@ -2622,10 +2393,7 @@ export const tableRow: PMNodeSpecFactoryInstance<TableRowNode> =
 export interface TableRowWithNestedTableDefinition {
   type: 'tableRow';
   content: Array<
-    | TableCellWithNestedTableDefinition
-    | TableCellWithNestedTableStage0Definition
-    | TableHeaderWithNestedTableDefinition
-    | TableHeaderWithNestedTableStage0Definition
+    TableCellWithNestedTableDefinition | TableHeaderWithNestedTableDefinition
   >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: { localId?: string };

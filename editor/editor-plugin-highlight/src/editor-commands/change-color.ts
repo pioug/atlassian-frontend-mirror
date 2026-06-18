@@ -17,7 +17,7 @@ import {
 	highlightColorPaletteNew,
 } from '@atlaskit/editor-common/ui-color';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { HighlightPluginAction, highlightPluginKey } from '../pm-plugins/main';
 
@@ -57,7 +57,7 @@ const createAnalyticsEvent = (
 	tr: Transaction,
 ): AnalyticsEventPayload => {
 	const previousColor = getActiveColor(tr) ?? REMOVE_HIGHLIGHT_COLOR;
-	const highlightPalette = expValEquals(
+	const highlightPalette = expValEqualsNoExposure(
 		'platform_editor_lovability_text_bg_color',
 		'isEnabled',
 		true,

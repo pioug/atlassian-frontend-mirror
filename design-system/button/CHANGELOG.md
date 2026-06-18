@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 24.1.0
+
+### Minor Changes
+
+- [`b7327182ba010`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7327182ba010) -
+  Add `rovo` appearance to new Button, LinkButton, and IconButton using Rovo primary background
+  color tokens with inverse text, including documentation examples for each supported variant.
+
 ## 24.0.0
 
 ### Major Changes

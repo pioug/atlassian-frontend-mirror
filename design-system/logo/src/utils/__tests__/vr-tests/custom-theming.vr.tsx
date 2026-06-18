@@ -13,5 +13,6 @@ snapshot(CustomThemeExample, {
 	],
 	featureFlags: {
 		'assets-platform-branding': true,
+		'assets-platform-branding-with-confluence': true,
 	},
 });

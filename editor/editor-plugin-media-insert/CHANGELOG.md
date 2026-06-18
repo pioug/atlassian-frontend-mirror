@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 25.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.6
+
+### Patch Changes
+
+- [`7e9f79a61fe1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e9f79a61fe1b) -
+  [ux] Applies some refactors and renames to the work for media insert tab analytics, keeping the
+  element names more relevant to their functions, adds commentary, and cleans up duplicate code.
+- Updated dependencies
+
+## 25.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.0.3
 
 ### Patch Changes

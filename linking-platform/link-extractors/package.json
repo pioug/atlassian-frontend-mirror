@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-extractors",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Functions for extracting props from JSON-LD",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,16 +29,22 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
+		"./extract-smart-link-inline-icon": "./src/extract-smart-link-inline-icon.tsx",
 		"./extract-name-from-json-ld": "./src/index.tsx",
 		"./types": "./src/index.tsx",
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-file-type": "workspace:^",
 		"@atlaskit/json-ld-types": "workspace:^",
 		"@atlaskit/linking-types": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
+		"@atlaskit/object": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@babel/runtime": "root:*"
+		"@atlaskit/tokens": "workspace:^",
+		"@babel/runtime": "root:*",
+		"react-loadable": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -88,6 +94,12 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_navx_smart_link_icon_label_a11y": {
+			"type": "boolean"
+		},
+		"platform_sl_icons_refactor": {
+			"type": "boolean"
+		},
 		"platform_lp_use_entity_icon_url_for_icon": {
 			"type": "boolean"
 		},

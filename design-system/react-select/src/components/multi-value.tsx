@@ -62,33 +62,20 @@ const multiValueTagWrapperStyles = cssMap({
 
 // Tag-like color styles
 const tagLikeColorStyles = cssMap({
-	gray: { '--tag-border-token': token('color.border.accent.gray') },
-	blue: { '--tag-border-token': token('color.border.accent.blue') },
-	green: { '--tag-border-token': token('color.border.accent.green') },
-	red: { '--tag-border-token': token('color.border.accent.red') },
-	yellow: { '--tag-border-token': token('color.border.accent.yellow') },
-	purple: { '--tag-border-token': token('color.border.accent.purple') },
-	lime: { '--tag-border-token': token('color.border.accent.lime') },
-	magenta: { '--tag-border-token': token('color.border.accent.magenta') },
-	orange: { '--tag-border-token': token('color.border.accent.orange') },
-	teal: { '--tag-border-token': token('color.border.accent.teal') },
+	gray: { '--tag-border-token': token('color.border.accent.gray.subtle') },
+	blue: { '--tag-border-token': token('color.border.accent.blue.subtle') },
+	green: { '--tag-border-token': token('color.border.accent.green.subtle') },
+	red: { '--tag-border-token': token('color.border.accent.red.subtle') },
+	yellow: { '--tag-border-token': token('color.border.accent.yellow.subtle') },
+	purple: { '--tag-border-token': token('color.border.accent.purple.subtle') },
+	lime: { '--tag-border-token': token('color.border.accent.lime.subtle') },
+	magenta: { '--tag-border-token': token('color.border.accent.magenta.subtle') },
+	orange: { '--tag-border-token': token('color.border.accent.orange.subtle') },
+	teal: { '--tag-border-token': token('color.border.accent.teal.subtle') },
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- match TagNew border color logic
 const tagLikeBorderFilterStyles = css({
-	borderColor:
-		'color-mix(in oklch, var(--tag-border-token) 100%, var(--cm-border-color) var(--cm-border-value))',
-	'--border-l-factor': '1.33',
-	'--cm-border-color': 'white',
-	'--cm-border-value': '45%',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- dark mode override for TagNew border
-	'[data-color-mode="dark"] &': {
-		'--border-l-factor': '0.7',
-		'--cm-border-color': 'black',
-	},
-	'@supports (color: oklch(from white l c h))': {
-		borderColor: 'oklch(from var(--tag-border-token) calc(l * var(--border-l-factor)) c h)',
-	},
+	borderColor: 'var(--tag-border-token)',
 });
 
 // Tag-like styles for custom content values (not plain text) when FF is on.

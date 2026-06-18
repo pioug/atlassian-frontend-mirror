@@ -78,6 +78,7 @@ const atlassianTest: EmojiDescription = {
 	shortName: ':test:',
 	type: 'ATLASSIAN',
 	category: 'SYMBOL',
+	keywords: ['explosion'],
 	representation: {
 		sprite: {
 			url: 'https://pf-emoji-service--cdn.ap-southeast-2.dev.public.atl-paas.net/standard/6ba7377a-fbd4-4efe-8dbc-f025cfb40c2b/32x32/people.png',
@@ -619,6 +620,21 @@ describe('EmojiRepository', () => {
 			const emojis = repository.search(':test1').emojis;
 			expect(emojis.length).toEqual(1);
 			expect(emojis[0].name).toEqual('BOOM');
+		});
+
+		it('finds Atlassian emojis by keyword when teamoji experiment is enabled', () => {
+			enableTeamojiRefreshExperiment();
+			const repository = new EmojiRepository([...searchableEmojis, atlassianTest]);
+			const emojis = repository.search('explosion').emojis;
+
+			expect(emojis).toContain(atlassianTest);
+		});
+
+		it('does not find Atlassian emojis by keyword when teamoji experiment is disabled', () => {
+			const repository = new EmojiRepository([...searchableEmojis, atlassianTest]);
+			const emojis = repository.search('explosion').emojis;
+
+			expect(emojis).not.toContain(atlassianTest);
 		});
 
 		it('should not find a non-searchable emoji', () => {

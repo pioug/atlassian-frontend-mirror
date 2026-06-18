@@ -1,5 +1,31 @@
 # @atlaskit/media-card
 
+## 81.1.1
+
+### Patch Changes
+
+- [`49f682f5edc7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49f682f5edc7b) -
+  Clean up experiment `cc_editor_ttvc_media_hold_fix`
+- Updated dependencies
+
+## 81.1.0
+
+### Minor Changes
+
+- [`19773530cd51c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19773530cd51c) -
+  Add fallbackMediaNameFetcher support to MediaCard (FileCard) and MediaViewer (header display),
+  gated behind the platform_editor_media_name_fallback_viewer_card experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 81.0.3
 
 ### Patch Changes

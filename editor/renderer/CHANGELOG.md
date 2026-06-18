@@ -1,5 +1,39 @@
 # @atlaskit/renderer
 
+## 133.4.2
+
+### Patch Changes
+
+- [`fae3b71e868dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fae3b71e868dd) -
+  Add data-top-level attribute to top-level extension and multiBodiedExtension renderer nodes.
+- Updated dependencies
+
+## 133.4.1
+
+### Patch Changes
+
+- [`deb7c88f3baed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/deb7c88f3baed) -
+  Update unicode emoji sizing so renderer typography can control text emoji scale.
+- Updated dependencies
+
+## 133.4.0
+
+### Minor Changes
+
+- [`19773530cd51c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19773530cd51c) -
+  Add fallbackMediaNameFetcher support to MediaCard (FileCard) and MediaViewer (header display),
+  gated behind the platform_editor_media_name_fallback_viewer_card experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.3.1
 
 ### Patch Changes

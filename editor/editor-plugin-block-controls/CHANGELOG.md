@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.0.5
+
+### Patch Changes
+
+- [`086e779e3490c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/086e779e3490c) -
+  Add drag and drop support for panel_c1 - allow tables to be dropped into panel_c1, allow panel_c1
+  -> panel when dropping in parents that allow panel (e.g., expand, table) via generic transform
+  functions for future variants
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.3
 
 ### Patch Changes

@@ -206,6 +206,12 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 	) => void;
 	/** Extensions for the media viewer (e.g. comment button in header). */
 	readonly mediaViewerExtensions?: MediaViewerExtensions;
+	/**
+	 * Optional fallback fetcher to retrieve the media filename from another service.
+	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media.
+	 * Receives the file ID and should resolve to the filename string.
+	 */
+	readonly fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 }
 
 export interface CardState {

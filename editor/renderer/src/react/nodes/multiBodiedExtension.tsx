@@ -114,6 +114,7 @@ const MultiBodiedExtensionWrapperLegacy = ({
 			}}
 			data-layout={layout}
 			data-testid="multiBodiedExtension--wrapper-renderer"
+			data-top-level={isTopLevel || undefined}
 		>
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -167,6 +168,7 @@ const MultiBodiedExtensionWrapperNext = ({
 			}}
 			data-layout={layout}
 			data-testid="multiBodiedExtension--wrapper-renderer"
+			data-top-level={isTopLevel || undefined}
 		>
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

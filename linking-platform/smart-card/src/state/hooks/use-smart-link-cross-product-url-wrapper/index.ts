@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { useCrossProductUrlWrapper } from '@atlaskit/analytics-cross-product/useCrossProductUrlWrapper';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { type SmartLinkResponse } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { functionWithFG } from '@atlaskit/platform-feature-flags-react';
 
 const SMART_LINKS_XPC_BRIDGE = 'smartLinks';
@@ -40,7 +41,12 @@ export const useSmartLinkCrossProductUrlWrapper = ({
 
 	return useCallback(
 		(url: string) => {
-			if (!getIsFirstPartyLink(details) || !effectiveProduct) {
+			if (
+				(typeof window === 'undefined' &&
+					fg('platform_smartlink_xpc_url_wrapping_window_existed')) ||
+				!getIsFirstPartyLink(details) ||
+				!effectiveProduct
+			) {
 				return url;
 			}
 

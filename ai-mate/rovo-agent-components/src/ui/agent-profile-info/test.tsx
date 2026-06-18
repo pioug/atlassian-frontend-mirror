@@ -3,6 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -353,21 +354,32 @@ describe('AgentProfileCreator', () => {
 		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
 	});
 
-	test('hides the creator line for REMOTE_A2A when rovo_hide_remote_a2a_agent_creator is on', () => {
+	test('hides the creator line for REMOTE_A2A when rovo_hide_remote_a2a_agent_creator_exp is on', () => {
 		passGate('jira_improve_agent_profile_for_a2a');
-		passGate('rovo_hide_remote_a2a_agent_creator');
+		const getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((experiment, _key, defaultValue) => {
+				if (experiment === 'rovo_hide_remote_a2a_agent_creator_exp') {
+					return true;
+				}
+				return defaultValue;
+			});
 
-		render(
-			<AgentProfileCreator
-				creator={{ type: 'REMOTE_A2A', name: 'Cursor' }}
-				isLoading={false}
-				onCreatorLinkClick={() => {}}
-			/>,
-			{ wrapper },
-		);
+		try {
+			render(
+				<AgentProfileCreator
+					creator={{ type: 'REMOTE_A2A', name: 'Cursor' }}
+					isLoading={false}
+					onCreatorLinkClick={() => {}}
+				/>,
+				{ wrapper },
+			);
 
-		expect(screen.queryByText('Agent by Cursor')).not.toBeInTheDocument();
-		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
+			expect(screen.queryByText('Agent by Cursor')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
+		} finally {
+			getExperimentValueSpy.mockRestore();
+		}
 	});
 
 	test('should apply aria-hidden to the decorative rovo icon element', () => {

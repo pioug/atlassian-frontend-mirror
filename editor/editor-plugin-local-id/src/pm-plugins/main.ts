@@ -1,4 +1,4 @@
-import { BatchAttrsStep } from '@atlaskit/adf-schema/steps';
+import { BatchAttrsStep, OverrideDocumentStep } from '@atlaskit/adf-schema/steps';
 import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -110,14 +110,33 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 					return;
 				}
 
-				if (
-					transaction.getMeta('uiEvent') === 'cut' ||
-					// We skip remote transactions as we don't want to affect transactions created
-					// by other users
-					Boolean(transaction.getMeta('isRemote'))
-				) {
-					return;
+				if (expValEquals('platform_editor_ai_template_localids', 'isEnabled', true)) {
+					if (
+						transaction.getMeta('uiEvent') === 'cut' ||
+						// We skip remote transactions as we don't want to affect transactions
+						// created by other collaborators.
+						//
+						// Exception (platform_editor_ai_template_localids): applying a template to a
+						// blank page arrives as a remote OverrideDocumentStep (a full-document
+						// replacement with no localIds). We still want those template nodes to get
+						// localIds, so we let such transactions through. Ordinary remote edits are
+						// still skipped, and existing localIds are never overwritten.
+						(Boolean(transaction.getMeta('isRemote')) &&
+							!transaction.steps.some((step) => step instanceof OverrideDocumentStep))
+					) {
+						return;
+					}
+				} else {
+					if (
+						transaction.getMeta('uiEvent') === 'cut' ||
+						// We skip remote transactions as we don't want to affect transactions created
+						// by other users
+						Boolean(transaction.getMeta('isRemote'))
+					) {
+						return;
+					}
 				}
+
 				// Ignore local ID updates for certain transactions
 				// this is purposely not a public API as we should not use
 				// this except in some circumstances (ie. streaming)
@@ -126,7 +145,15 @@ export const createPlugin = (api: ExtractInjectionAPI<LocalIdPlugin> | undefined
 				}
 
 				transaction.steps.forEach((step) => {
-					if (!stepHasSlice(step)) {
+					// Steps with a slice are scanned for nodes that need localIds.
+					// OverrideDocumentStep (template replacement) has no `slice`, so when the
+					// experiment is on we also scan it so the inserted template nodes get
+					// localIds.
+					const isTemplateOverrideStep =
+						step instanceof OverrideDocumentStep &&
+						expValEquals('platform_editor_ai_template_localids', 'isEnabled', true);
+
+					if (!stepHasSlice(step) && !isTemplateOverrideStep) {
 						return;
 					}
 					step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {

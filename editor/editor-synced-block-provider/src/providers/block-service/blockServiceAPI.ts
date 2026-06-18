@@ -615,7 +615,9 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 
 		// Dynamically import blockSubscription so that graphql-ws is NOT pulled
 		// into the SSR/preload bundle that imports this subpath.
-		void import('../../clients/block-service/blockSubscription')
+		void import(
+			/* webpackChunkName: "@atlaskit-internal_editor-synced-block-subscription" */ '../../clients/block-service/blockSubscription'
+		)
 			.then(({ subscribeToBlockUpdates: subscribeToBlockUpdatesWS }) => {
 				if (cancelled) {
 					return;

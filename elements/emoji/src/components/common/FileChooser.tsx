@@ -30,6 +30,16 @@ export const dropzoneTestId = 'file-dropzone';
 const hasFilesInTransfer = (dataTransfer: DataTransfer | null): boolean =>
 	!!dataTransfer?.types && Array.from(dataTransfer.types).includes('Files');
 
+const isEventWithinElement = (event: DragEvent, element: HTMLElement): boolean => {
+	const rect = element.getBoundingClientRect();
+	return (
+		event.clientX >= rect.left &&
+		event.clientX <= rect.right &&
+		event.clientY >= rect.top &&
+		event.clientY <= rect.bottom
+	);
+};
+
 const dropzone = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -118,12 +128,46 @@ const FileChooser = (props: Props): React.JSX.Element => {
 			return;
 		}
 
-		const suppressNativeFileDrop = (event: DragEvent) => {
+		const suppressNativeFileDrop = (event: DragEvent): boolean => {
 			if (!hasFilesInTransfer(event.dataTransfer)) {
-				return;
+				return false;
 			}
 			event.preventDefault();
 			event.stopPropagation();
+			return true;
+		};
+
+		const onWindowFileDrag = (event: DragEvent) => {
+			if (!hasFilesInTransfer(event.dataTransfer)) {
+				return;
+			}
+
+			const isOverDropzone = isEventWithinElement(event, element);
+			if (isOverDropzone) {
+				suppressNativeFileDrop(event);
+			}
+
+			if (!isDropDisabled) {
+				setIsDragging(isOverDropzone);
+			}
+		};
+
+		const onWindowFileDragLeave = (event: DragEvent) => {
+			if (!hasFilesInTransfer(event.dataTransfer) || event.relatedTarget) {
+				return;
+			}
+			setIsDragging(false);
+		};
+
+		const onWindowFileDrop = (event: DragEvent) => {
+			if (!hasFilesInTransfer(event.dataTransfer) || !isEventWithinElement(event, element)) {
+				return;
+			}
+			suppressNativeFileDrop(event);
+			setIsDragging(false);
+			if (!isDropDisabled) {
+				handleFileDrop(Array.from(event.dataTransfer?.files ?? []));
+			}
 		};
 
 		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
@@ -132,6 +176,14 @@ const FileChooser = (props: Props): React.JSX.Element => {
 		element.addEventListener('dragover', suppressNativeFileDrop);
 		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 		element.addEventListener('drop', suppressNativeFileDrop);
+		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+		window.addEventListener('dragenter', onWindowFileDrag, true);
+		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+		window.addEventListener('dragover', onWindowFileDrag, true);
+		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+		window.addEventListener('dragleave', onWindowFileDragLeave, true);
+		// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+		window.addEventListener('drop', onWindowFileDrop, true);
 
 		const cleanupDropTarget = dropTargetForExternal({
 			element,
@@ -155,6 +207,10 @@ const FileChooser = (props: Props): React.JSX.Element => {
 			element.removeEventListener('dragenter', suppressNativeFileDrop);
 			element.removeEventListener('dragover', suppressNativeFileDrop);
 			element.removeEventListener('drop', suppressNativeFileDrop);
+			window.removeEventListener('dragenter', onWindowFileDrag, true);
+			window.removeEventListener('dragover', onWindowFileDrag, true);
+			window.removeEventListener('dragleave', onWindowFileDragLeave, true);
+			window.removeEventListener('drop', onWindowFileDrop, true);
 			cleanupDropTarget();
 		};
 	}, [isDropDisabled, handleFileDrop]);
@@ -181,6 +237,7 @@ const FileChooser = (props: Props): React.JSX.Element => {
 				ref={dropzoneRef}
 				css={[dropzone, isDragging && dropzoneActive]}
 				data-testid={dropzoneTestId}
+				data-dragging={isDragging ? 'true' : undefined}
 				role="region"
 				aria-label={label}
 			>

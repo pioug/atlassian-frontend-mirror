@@ -86,8 +86,20 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			isChromelessEditor,
 		} = this.props;
 
-		// ED-26961 - disable insert button for first column and row
-		if (insertColumnButtonIndex === 0 || insertRowButtonIndex === 0) {
+		// EDITOR-6790 - when platform_editor_table_col_insert is enabled, allow the first column
+		// (index 0) insert button so a column can be inserted to the left of the first column.
+		const isFirstColumnInsertEnabled = expValEquals(
+			'platform_editor_table_col_insert',
+			'isEnabled',
+			true,
+		);
+
+		// ED-26961 - disable insert button for first row, and keep first-column behavior
+		// disabled until platform_editor_table_col_insert is enabled.
+		if (
+			(insertColumnButtonIndex === 0 && !isFirstColumnInsertEnabled) ||
+			insertRowButtonIndex === 0
+		) {
 			return null;
 		}
 
@@ -103,9 +115,14 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		}
 
 		// We can’t display the insert button for row|colum index 0
-		// when the header row|colum is enabled, this feature will be change on the future
+		// when the header row|colum is enabled, this feature will be change on the future.
+		// EDITOR-6790 - when platform_editor_table_col_insert is enabled, still allow the first
+		// column (index 0) insert button even when the header column is enabled.
 		if (
-			(type === 'column' && isHeaderColumnEnabled && insertColumnButtonIndex === 0) ||
+			(type === 'column' &&
+				isHeaderColumnEnabled &&
+				insertColumnButtonIndex === 0 &&
+				!isFirstColumnInsertEnabled) ||
 			(type === 'row' && isHeaderRowEnabled && insertRowButtonIndex === 0)
 		) {
 			return null;

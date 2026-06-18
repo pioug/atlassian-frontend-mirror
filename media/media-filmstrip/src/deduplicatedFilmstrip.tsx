@@ -27,6 +27,7 @@ const DeduplicatedFilmStripInternal = ({
 	viewerOptions,
 	testId = 'media-filmstrip',
 	isLazy,
+	fallbackMediaNameFetcher,
 }: FilmstripProps) => {
 	const [animate, setAnimate] = useState(false);
 	const [offset, setOffset] = useState(0);
@@ -88,6 +89,7 @@ const DeduplicatedFilmStripInternal = ({
 					viewerOptions={viewerOptions}
 					includeHashForDuplicateFiles
 					isLazy={isLazy}
+					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 					{...item}
 				/>
 			);
@@ -100,6 +102,7 @@ const DeduplicatedFilmStripInternal = ({
 		featureFlags,
 		viewerOptions,
 		isLazy,
+		fallbackMediaNameFetcher,
 	]);
 
 	return (

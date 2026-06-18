@@ -5,6 +5,7 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
@@ -58,7 +59,10 @@ const getContainerNodeTypes = memoizeOne(() => [
 ]);
 
 const isContainerNode = (node: PMNode) => {
-	return getContainerNodeTypes().includes(node.type.name);
+	const nodeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? getBaseNodeTypeName(node.type)
+		: node.type.name;
+	return getContainerNodeTypes().includes(nodeName);
 };
 
 export const canMoveNodeOrSliceToPos = (

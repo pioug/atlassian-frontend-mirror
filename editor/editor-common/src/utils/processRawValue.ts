@@ -14,7 +14,6 @@ import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
@@ -146,13 +145,11 @@ export function processRawValueWithoutValidation(
 	}
 
 	if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
-		const containerNodeTransformResult = transformContainerNodes(
+		({ transformedAdf } = transformContainerNodesWithAnalytics(
 			transformedAdf as ADFEntity,
 			schema,
-		);
-		if (containerNodeTransformResult.isTransformed && containerNodeTransformResult.transformedAdf) {
-			transformedAdf = containerNodeTransformResult.transformedAdf;
-		}
+			dispatchAnalyticsEvent,
+		));
 	}
 
 	return Node.fromJSON(schema, transformedAdf);
@@ -227,17 +224,15 @@ export function processRawValue(
 			});
 		}
 
-		if (fg('platform_editor_transform_invalid_media_width')) {
-			// Fix mediaSingle width issues
-			({ transformedAdf, isTransformed } = transformMediaSingleWidth(transformedAdf as ADFEntity));
+		// Fix mediaSingle width issues
+		({ transformedAdf, isTransformed } = transformMediaSingleWidth(transformedAdf as ADFEntity));
 
-			if (isTransformed && dispatchAnalyticsEvent) {
-				dispatchAnalyticsEvent({
-					action: ACTION.MEDIA_SINGLE_WIDTH_TRANSFORMED,
-					actionSubject: ACTION_SUBJECT.EDITOR,
-					eventType: EVENT_TYPE.OPERATIONAL,
-				});
-			}
+		if (isTransformed && dispatchAnalyticsEvent) {
+			dispatchAnalyticsEvent({
+				action: ACTION.MEDIA_SINGLE_WIDTH_TRANSFORMED,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				eventType: EVENT_TYPE.OPERATIONAL,
+			});
 		}
 
 		// See: HOT-97965 https://product-fabric.atlassian.net/browse/ED-14400

@@ -421,6 +421,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 						)}
 						isAIGenerating={!!this.props.isAIGenerating}
 						onPreviewRender={this.onPreviewRender}
+						fallbackMediaNameFetcher={mediaOptions?.fallbackMediaNameFetcher}
 						onError={
 							expValEquals('platform_editor_media_error_analytics', 'isEnabled', true)
 								? this.onError

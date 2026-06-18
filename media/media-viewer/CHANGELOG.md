@@ -1,5 +1,23 @@
 # @atlaskit/media-viewer
 
+## 54.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.1.0
+
+### Minor Changes
+
+- [`19773530cd51c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/19773530cd51c) -
+  Add fallbackMediaNameFetcher support to MediaCard (FileCard) and MediaViewer (header display),
+  gated behind the platform_editor_media_name_fallback_viewer_card experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.0.0
 
 ### Major Changes

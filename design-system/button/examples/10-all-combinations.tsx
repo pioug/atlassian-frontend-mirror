@@ -340,16 +340,18 @@ export default function AllCombinationsExample(): React.JSX.Element {
 													</tr>
 													{appearances.map((appearance) => (
 														<Fragment key={appearance}>
-															{appearance !== 'discovery' && showLegacyButton && (
-																<ExampleRow
-																	showLegacyButton={showLegacyButton}
-																	appearance={appearance}
-																	component={LegacyButton}
-																	spacing={space}
-																	version="legacy"
-																	isIconOnly={isIconOnly}
-																	elementType={elementType}
-																/>
+															{appearance !== 'discovery' &&
+																appearance !== 'rovo' &&
+																showLegacyButton && (
+																	<ExampleRow
+																		showLegacyButton={showLegacyButton}
+																		appearance={appearance}
+																		component={LegacyButton}
+																		spacing={space}
+																		version="legacy"
+																		isIconOnly={isIconOnly}
+																		elementType={elementType}
+																	/>
 															)}
 															<ExampleRow
 																showLegacyButton={showLegacyButton}

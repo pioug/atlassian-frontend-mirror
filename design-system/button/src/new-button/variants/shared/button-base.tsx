@@ -298,6 +298,37 @@ const primaryStyles = cssMap({
 	},
 });
 
+const rovoStyles = cssMap({
+	root: {
+		backgroundColor: token('color.rovo.background.brand.bold'),
+		color: token('color.text.inverse'),
+		'&:visited': {
+			color: token('color.text.inverse'),
+		},
+		'&:hover': {
+			color: token('color.text.inverse'),
+		},
+		'&:active': {
+			// @ts-expect-error
+			color: token('color.text.inverse'),
+		},
+		'&:focus': {
+			color: token('color.text.inverse'),
+		},
+	},
+	interactive: {
+		'&:hover': {
+			color: token('color.text.inverse'),
+			backgroundColor: token('color.rovo.background.brand.bold.hovered'),
+		},
+		'&:active': {
+			// @ts-expect-error
+			color: token('color.text.inverse'),
+			backgroundColor: token('color.rovo.background.brand.bold.pressed'),
+		},
+	},
+});
+
 const warningStyles = cssMap({
 	root: {
 		backgroundColor: token('color.background.warning.bold'),
@@ -624,6 +655,8 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					appearance === 'default' && isInteractive && defaultStyles.interactive,
 					appearance === 'primary' && primaryStyles.root,
 					appearance === 'primary' && isInteractive && primaryStyles.interactive,
+					appearance === 'rovo' && rovoStyles.root,
+					appearance === 'rovo' && isInteractive && rovoStyles.interactive,
 					appearance === 'warning' && warningStyles.root,
 					appearance === 'warning' && isInteractive && warningStyles.interactive,
 					appearance === 'danger' && dangerStyles.root,

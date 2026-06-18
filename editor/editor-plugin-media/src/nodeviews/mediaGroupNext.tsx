@@ -259,6 +259,7 @@ export const MediaGroupNext: React.FC<
 				allowMediaInlineImages,
 				enableDownloadButton,
 				featureFlags,
+				fallbackMediaNameFetcher,
 			},
 			intl,
 			getPos,
@@ -406,6 +407,7 @@ export const MediaGroupNext: React.FC<
 				shouldOpenMediaViewer={
 					editorViewMode && editorExperiment('platform_editor_controls', 'control')
 				}
+				fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 			/>
 		);
 	}),

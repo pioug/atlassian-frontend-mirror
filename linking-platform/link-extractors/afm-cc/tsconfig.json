@@ -23,6 +23,12 @@
 	],
 	"references": [
 		{
+			"path": "../../../design-system/icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../media/icon-file-type/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../json-ld-types/afm-cc/tsconfig.json"
 		},
 		{
@@ -32,7 +38,13 @@
 			"path": "../../../design-system/logo/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/object/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
 		}
 	]
 }

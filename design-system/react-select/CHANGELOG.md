@@ -1,5 +1,16 @@
 # @atlaskit/react-select
 
+## 4.0.2
+
+### Patch Changes
+
+- [`61f82ad80594c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61f82ad80594c) -
+  Removed OKLCH / `color-mix()` runtime colour transformations from the tag-like multi-value
+  rendering (behind the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate). The
+  decorative border colour now comes directly from the `color.border.accent.*.subtle` tokens
+  (introduced in `@atlaskit/tokens@13.2.0`) instead of being derived at runtime, matching the new
+  Tag component's border logic.
+
 ## 4.0.1
 
 ### Patch Changes

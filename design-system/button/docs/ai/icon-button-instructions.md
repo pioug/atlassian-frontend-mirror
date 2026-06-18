@@ -1,3 +1,7 @@
+# Prop guidance
+
+- **appearance** - primary (main compact action), rovo (Rovo/AI compact primary action), default (secondary), subtle (tertiary), discovery (new features)
+
 # Translating from Tailwind
 
 An example diff of a migration from Tailwind generated code to ADS generated code.

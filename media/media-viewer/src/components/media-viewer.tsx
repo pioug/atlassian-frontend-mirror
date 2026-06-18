@@ -52,6 +52,7 @@ export const MediaViewerBase = ({
 	extensions,
 	contextId,
 	viewerOptions,
+	fallbackMediaNameFetcher,
 }: MediaViewerProps): React.JSX.Element => {
 	const { items: normalisedItems, selectedItem: normalisedSelectedItem } = useMemo(
 		() => normaliseItems(items, selectedItem, collectionName),
@@ -89,6 +90,7 @@ export const MediaViewerBase = ({
 			extensions={extensions}
 			contextId={contextId}
 			viewerOptions={viewerOptions}
+			fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 		/>
 	);
 };

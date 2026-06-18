@@ -1,5 +1,51 @@
 # @atlaskit/emoji
 
+## 71.3.3
+
+### Patch Changes
+
+- [`65b9427ab9649`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65b9427ab9649) -
+  Increase border radius of tone picker to match search input
+
+## 71.3.2
+
+### Patch Changes
+
+- [`7e7dc2539db50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e7dc2539db50) -
+  Persist colour choice + do not have focus on button after select, do not have focus on selected
+  colour
+- Updated dependencies
+
+## 71.3.1
+
+### Patch Changes
+
+- [`26dff0be3275b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26dff0be3275b) -
+  Search for Atlassian emojis based on keywords
+
+## 71.3.0
+
+### Minor Changes
+
+- [`e0513f0b5178e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0513f0b5178e) -
+  Drag and drop will still work with native file explorer overlap
+
+## 71.2.2
+
+### Patch Changes
+
+- [`deb7c88f3baed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/deb7c88f3baed) -
+  Update unicode emoji sizing so renderer typography can control text emoji scale.
+- Updated dependencies
+
+## 71.2.1
+
+### Patch Changes
+
+- [`6fbfacbeddc94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fbfacbeddc94) -
+  Ensure scroll to Your uploads on clicking uploads category
+- Updated dependencies
+
 ## 71.2.0
 
 ### Minor Changes

@@ -993,7 +993,9 @@ export class ReferenceSyncBlockStoreManager {
 	 */
 	public async flush(): Promise<boolean> {
 		if (this.viewMode === 'view') {
-			return false;
+			// Reference flushes are only meaningful while editing. Treat view-mode flush attempts as
+			// gated no-op successes so lifecycle/teardown calls do not report false save failures.
+			return fg('platform_editor_blocks_patch_2');
 		}
 
 		if (!this.isCacheDirty) {
@@ -1047,7 +1049,6 @@ export class ReferenceSyncBlockStoreManager {
 				this.isCacheDirty = false; // Reset since we're considering this a successful no-op flush
 				return true;
 			}
-
 			// reset isCacheDirty early to prevent race condition
 			// There is a race condition where if a user makes changes (create/delete) to a reference sync block
 			// on a live page and the reference sync block is being saved while the user

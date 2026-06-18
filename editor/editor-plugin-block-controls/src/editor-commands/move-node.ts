@@ -18,7 +18,7 @@ import {
 	DIRECTION,
 } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
+import { isNodeTypeValidChildOf, getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import {
 	type Node as PMNode,
 	Fragment,
@@ -54,6 +54,7 @@ import {
 	isInsideTable,
 	transformFragmentExpandToNestedExpand,
 	transformSliceExpandToNestedExpand,
+	transformSliceNodeType,
 } from '../pm-plugins/utils/validation';
 
 import { getPosWhenMoveNodeDown, getPosWhenMoveNodeUp } from './utils/move-node-utils';
@@ -75,13 +76,24 @@ function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null
 	const destTypeInTable = isInsideTable(destType);
 	const destTypeInDocOrLayoutCol = [doc, layoutColumn].includes(destType);
 
-	// No need to loop over slice content if destination requires no transformations
-	if (!destTypeInTable && !destTypeInDocOrLayoutCol) {
+	// Only run transformation loop if destination may need node conversions:
+	// - Table destinations may need expand → nestedExpand
+	// - Doc/layoutColumn destinations may need nestedExpand → expand
+	// - When panel_c1 experiment is on:
+	// - Expand/table/bodied extension destinations may need panel_c1 → panel downgrade
+	// - Doc/layoutColumn destinations may need panel → panel_c1 upgrade
+	const needsTransformCheck = destTypeInTable || destTypeInDocOrLayoutCol || expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true);
+	if (!needsTransformCheck) {
 		return nodeCopy;
 	}
 
 	let containsExpand = false;
 	let containsNestedExpand = false;
+	// Track variant nodes (e.g. panel_c1) and their base forms (e.g. panel).
+	// Uses getBaseNodeTypeName to auto-detect variants — new variants only need
+	// to be added to variantToBaseNameMap, no changes needed in the detection loop.
+	let variantType: string | null = null;
+	let baseOfVariantType: string | null = null;
 
 	for (let i = 0; i < nodeCopy.content.childCount; i++) {
 		const node = nodeCopy.content.child(i);
@@ -90,7 +102,15 @@ function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null
 		} else if (node.type === schema.nodes.nestedExpand) {
 			containsNestedExpand = true;
 		}
-		if (containsExpand && containsNestedExpand) {
+		if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+			const baseName = getBaseNodeTypeName(node.type);
+			if (baseName !== node.type.name) {
+				variantType = node.type.name;
+			} else if (schema.nodes[`${baseName}_c1`]) {
+				baseOfVariantType = node.type.name;
+			}
+		}
+		if (containsExpand && containsNestedExpand && (variantType || baseOfVariantType)) {
 			break;
 		}
 	}
@@ -99,6 +119,26 @@ function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null
 		return transformSliceExpandToNestedExpand(nodeCopy);
 	} else if (containsNestedExpand && destTypeInDocOrLayoutCol) {
 		return transformSliceNestedExpandToExpand(nodeCopy, schema);
+	}
+
+	// Downgrade variant → base (e.g. panel_c1 → panel) when dest doesn't support the variant
+	if (variantType && schema.nodes[variantType]) {
+		const destParent = destType.createAndFill();
+		if (destParent && !isNodeTypeValidChildOf(variantType, destParent, schema)) {
+			const baseName = getBaseNodeTypeName(schema.nodes[variantType]);
+			return transformSliceNodeType(nodeCopy, schema, variantType, baseName);
+		}
+	}
+
+	// Upgrade base → variant (e.g. panel → panel_c1) when dest supports the variant
+	if (baseOfVariantType) {
+		const variantName = `${baseOfVariantType}_c1`;
+		if (schema.nodes[variantName]) {
+			const destParent = destType.createAndFill();
+			if (destParent && isNodeTypeValidChildOf(variantName, destParent, schema)) {
+				return transformSliceNodeType(nodeCopy, schema, baseOfVariantType, variantName);
+			}
+		}
 	}
 
 	return nodeCopy;

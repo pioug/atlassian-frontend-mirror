@@ -9,6 +9,7 @@ export { messages as breakoutMessages } from './breakout';
 export { messages as blockMenuMessages } from './block-menu';
 export { messages as blockTypeMessages } from './block-type';
 export { codeBidiWarningMessages } from './codeBidiWarning';
+export { colorAccessibilityMessages } from './color-accessibility';
 export { colorPickerButtonMessages } from './color-picker-button';
 export { linkMessages } from './link';
 export { linkToolbarMessages } from './link-toolbar';

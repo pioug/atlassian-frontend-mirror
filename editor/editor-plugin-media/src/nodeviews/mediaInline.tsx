@@ -196,6 +196,7 @@ export const MediaInline = (props: MediaInlineProps): jsx.JSX.Element => {
 			isEditorViewMode={props.editorViewMode}
 			isSelected={props.isSelected}
 			isInline={true}
+			fallbackMediaNameFetcher={props.fallbackMediaNameFetcher}
 		>
 			<MediaInlineCard
 				isSelected={props.isSelected}

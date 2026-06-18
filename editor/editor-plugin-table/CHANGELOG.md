@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-table
 
+## 24.2.1
+
+### Patch Changes
+
+- [`bb257b58a707a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb257b58a707a) -
+  Clean up feature gate `platform_editor_table_fit_to_content_smart_adjust`
+- Updated dependencies
+
+## 24.2.0
+
+### Minor Changes
+
+- [`298f9a506cb5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/298f9a506cb5f) -
+  [EDITOR-6790] Allow inserting a column to the left of the first column, behind the
+  platform_editor_table_col_insert experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.1.0
+
+### Minor Changes
+
+- [`377a4234587d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/377a4234587d1) -
+  Promote `tableCell` and `tableHeader` `valign` attribute from stage-0 to the full ADF schema, and
+  remove the now-redundant stage-0 node-spec selection in the table plugin.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.0.3
 
 ### Patch Changes

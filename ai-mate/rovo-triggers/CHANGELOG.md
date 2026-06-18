@@ -1,5 +1,35 @@
 # @atlaskit/rovo-triggers
 
+## 9.2.0
+
+### Minor Changes
+
+- [`a91cf005e7d57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a91cf005e7d57) -
+  Add support for the full-screen modal chat mode across shared chat APIs, triggers, and switch-mode
+  UI.
+
+  This updates the conversation assistant trigger payloads and shared switch-mode components so
+  full-screen modal can be selected consistently anywhere these APIs are consumed.
+
+- [`a91cf005e7d57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a91cf005e7d57) -
+  Deduplicate the chat-open mode literal union by sourcing it from the canonical `RovoChatOpenMode`
+  type in `@atlaskit/rovo-triggers/params-types`.
+
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.1.0
+
+### Minor Changes
+
+- [`5c49e68beadfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c49e68beadfa) -
+  Add insights-chat-exited rovo-trigger event, published from the panel when the user leaves a
+  seeded Rovo Insight chat (gated at the call site by the rovo_growth_chat_pulse experiment) so
+  carousel surfaces can clear the selected-card highlight.
+
 ## 9.0.0
 
 ### Major Changes

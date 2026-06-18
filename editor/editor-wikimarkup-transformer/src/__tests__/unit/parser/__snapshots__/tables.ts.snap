@@ -25,6 +25,7 @@ exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments s
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -155,6 +156,7 @@ exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments s
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -208,6 +210,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -237,6 +240,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -266,6 +270,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -303,6 +308,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -332,6 +338,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -356,6 +363,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -388,6 +396,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -417,6 +426,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -441,6 +451,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -494,6 +505,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -539,6 +551,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -568,6 +581,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -605,6 +619,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -651,6 +666,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -675,6 +691,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -707,6 +724,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -752,6 +770,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -776,6 +795,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -829,6 +849,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to tab
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -978,6 +999,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1007,6 +1029,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1036,6 +1059,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1073,6 +1097,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1102,6 +1127,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1126,6 +1152,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1158,6 +1185,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1187,6 +1215,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1211,6 +1240,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1264,6 +1294,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1321,6 +1352,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1378,6 +1410,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1406,6 +1439,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1435,6 +1469,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1472,6 +1507,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1501,6 +1537,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1525,6 +1562,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1557,6 +1595,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1586,6 +1625,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1610,6 +1650,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1663,6 +1704,7 @@ exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1753,6 +1795,7 @@ exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not clo
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1785,6 +1828,7 @@ exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not clo
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1817,6 +1861,7 @@ exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not clo
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1865,6 +1910,7 @@ exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not clo
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1918,6 +1964,7 @@ exports[`JIRA wiki markup - Tables ADFS-700 Should not consider trailing spaces 
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -1950,6 +1997,7 @@ exports[`JIRA wiki markup - Tables ADFS-700 Should not consider trailing spaces 
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2003,6 +2051,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2032,6 +2081,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2069,6 +2119,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2093,6 +2144,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2132,6 +2184,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2156,6 +2209,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2182,6 +2236,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2206,6 +2261,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2251,6 +2307,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2275,6 +2332,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2301,6 +2359,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2325,6 +2384,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2364,6 +2424,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2388,6 +2449,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2412,6 +2474,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2438,6 +2501,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2462,6 +2526,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2480,6 +2545,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2519,6 +2585,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2543,6 +2610,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2561,6 +2629,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2593,6 +2662,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2617,6 +2687,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2635,6 +2706,7 @@ exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2688,6 +2760,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2717,6 +2790,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2764,6 +2838,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2811,6 +2886,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2858,6 +2934,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2905,6 +2982,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2960,6 +3038,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -2984,6 +3063,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3008,6 +3088,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3032,6 +3113,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3056,6 +3138,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3080,6 +3163,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3133,6 +3217,7 @@ exports[`JIRA wiki markup - Tables macros should convert a nestedExpand into an 
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3157,6 +3242,7 @@ exports[`JIRA wiki markup - Tables macros should convert a nestedExpand into an 
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3238,6 +3324,7 @@ exports[`JIRA wiki markup - Tables macros should keep nestedExpand inside a tabl
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3262,6 +3349,7 @@ exports[`JIRA wiki markup - Tables macros should keep nestedExpand inside a tabl
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3311,6 +3399,7 @@ exports[`JIRA wiki markup - Tables macros should parse anchor 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3364,6 +3453,7 @@ exports[`JIRA wiki markup - Tables macros should parse code 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3421,6 +3511,7 @@ exports[`JIRA wiki markup - Tables macros should parse color 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3493,6 +3584,7 @@ exports[`JIRA wiki markup - Tables macros should parse noformat 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3550,6 +3642,7 @@ exports[`JIRA wiki markup - Tables macros should parse panel 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3616,6 +3709,7 @@ exports[`JIRA wiki markup - Tables macros should parse quote 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3677,6 +3771,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3706,6 +3801,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3735,6 +3831,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3772,6 +3869,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3801,6 +3899,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3825,6 +3924,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3857,6 +3957,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3886,6 +3987,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3910,6 +4012,7 @@ exports[`JIRA wiki markup - Tables should convert table with header column 1`] =
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3963,6 +4066,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -3992,6 +4096,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4021,6 +4126,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4058,6 +4164,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4082,6 +4189,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4106,6 +4214,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4138,6 +4247,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4162,6 +4272,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4186,6 +4297,7 @@ exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4240,6 +4352,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4269,6 +4382,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4306,6 +4420,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4330,6 +4445,7 @@ exports[`JIRA wiki markup - Tables should find text nodes at the end of the tabl
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4419,6 +4535,7 @@ exports[`JIRA wiki markup - Tables should not include new line text in table 1`]
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4448,6 +4565,7 @@ exports[`JIRA wiki markup - Tables should not include new line text in table 1`]
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4518,6 +4636,7 @@ exports[`JIRA wiki markup - Tables should not render trailing space into a new c
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4542,6 +4661,7 @@ exports[`JIRA wiki markup - Tables should not render trailing space into a new c
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4595,6 +4715,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4624,6 +4745,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4653,6 +4775,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4690,6 +4813,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4742,6 +4866,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4766,6 +4891,7 @@ exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whites
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4819,6 +4945,7 @@ exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`]
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4848,6 +4975,7 @@ exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`]
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4877,6 +5005,7 @@ exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`]
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -4910,6 +5039,7 @@ exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`]
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5000,6 +5130,7 @@ exports[`JIRA wiki markup - Tables should parse properly medias inside a cell 1`
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5073,6 +5204,7 @@ exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5102,6 +5234,7 @@ exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5139,6 +5272,7 @@ exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5163,6 +5297,7 @@ exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5216,6 +5351,7 @@ exports[`JIRA wiki markup - Tables should remove trailing space before and after
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5240,6 +5376,7 @@ exports[`JIRA wiki markup - Tables should remove trailing space before and after
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5272,6 +5409,7 @@ exports[`JIRA wiki markup - Tables should remove trailing space before and after
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5296,6 +5434,7 @@ exports[`JIRA wiki markup - Tables should remove trailing space before and after
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5349,6 +5488,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5378,6 +5518,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5407,6 +5548,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5444,6 +5586,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5484,6 +5627,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {
@@ -5508,6 +5652,7 @@ exports[`JIRA wiki markup - Tables should remove whole row if no content is pres
                 "colwidth": null,
                 "localId": null,
                 "rowspan": 1,
+                "valign": null,
               },
               "content": [
                 {

@@ -9,7 +9,7 @@ import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { highlightColorPalette, highlightColorPaletteNew } from '@atlaskit/editor-common/ui-color';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { changeColor } from '../editor-commands/change-color';
 import { togglePalette } from '../editor-commands/palette';
@@ -32,7 +32,7 @@ export function keymapPlugin({ api }: { api: ExtractInjectionAPI<HighlightPlugin
 	}
 
 	const analyticsApi = api?.analytics?.actions;
-	const highlightPalette = expValEquals(
+	const highlightPalette = expValEqualsNoExposure(
 		'platform_editor_lovability_text_bg_color',
 		'isEnabled',
 		true,

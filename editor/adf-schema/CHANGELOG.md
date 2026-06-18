@@ -1,5 +1,37 @@
 # @atlaskit/adf-schema
 
+## 56.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.0.1
+
+### Patch Changes
+
+- [`6f7b6c498b07c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f7b6c498b07c) -
+  [EDITOR-7591] Align the no-color highlight palette tile icon with the updated transparent
+  highlight styling for the experiment `platform_editor_lovability_text_bg_color`.
+
+## 56.0.0
+
+### Major Changes
+
+- [`377a4234587d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/377a4234587d1) -
+  Promote `tableCell` and `tableHeader` `valign` attribute from stage-0 to the full ADF schema, and
+  remove the now-redundant stage-0 node-spec selection in the table plugin.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 55.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 55.2.0
 
 ### Minor Changes

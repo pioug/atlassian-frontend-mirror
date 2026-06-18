@@ -34,6 +34,12 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../media/icon-file-type/tsconfig.app.json"
+		},
+		{
 			"path": "../json-ld-types/tsconfig.app.json"
 		},
 		{
@@ -43,7 +49,13 @@
 			"path": "../../design-system/logo/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/object/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"

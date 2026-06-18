@@ -1,5 +1,33 @@
 import type { NextEditorPlugin } from './index';
 
+export type _MarkdownModePluginStateStub = {
+	isMarkdownMode: boolean;
+	showSourceLineNumbers: boolean;
+	sourceBlockFormatState: {
+		headingLevel: number | null;
+		inBlockquote: boolean;
+		inCodeBlock: boolean;
+	} | null;
+	sourceInlineFormatState: {
+		boldActive: boolean;
+		codeActive: boolean;
+		inlineFormattingAvailable: boolean;
+		italicActive: boolean;
+		strikeActive: boolean;
+	} | null;
+	sourceListFormatState: {
+		inBulletList: boolean;
+		inOrderedList: boolean;
+		inTaskList: boolean;
+	} | null;
+	sourcePositionState: {
+		columnNumber: number;
+		lineCount: number;
+		lineNumber: number;
+	} | null;
+	view: 'syntax' | 'split-view' | 'preview';
+};
+
 /**
  * Duck-typed mirror of `@atlassian/editor-plugin-markdown-mode`'s
  * `MarkdownModePlugin`, covering all actions and `sharedState` fields
@@ -25,10 +53,14 @@ export type _MarkdownModePluginStub = NextEditorPlugin<
 		actions: {
 			dispatchSourceCommand: (cmd: unknown) => boolean;
 			registerSourceCommandDispatch: (dispatcher: ((cmd: unknown) => boolean) | null) => void;
+			setShowSourceLineNumbers: (showSourceLineNumbers: boolean) => void;
 			setSourceBlockFormatState: (state: unknown) => void;
 			setSourceFormatState: (state: unknown) => void;
 			setSourceInlineFormatState: (state: unknown) => void;
 			setSourceListFormatState: (state: unknown) => void;
+			setSourcePositionState: (
+				state: { columnNumber: number; lineCount: number; lineNumber: number } | null,
+			) => void;
 			setView: (view: 'syntax' | 'split-view' | 'preview') => void;
 			toggleSourceBlockquote: () => boolean;
 			toggleSourceBold: () => boolean;
@@ -40,28 +72,6 @@ export type _MarkdownModePluginStub = NextEditorPlugin<
 			toggleSourceStrike: () => boolean;
 			toggleSourceTaskList: () => boolean;
 		};
-		sharedState:
-			| {
-					isMarkdownMode: boolean;
-					sourceBlockFormatState: {
-						headingLevel: number | null;
-						inBlockquote: boolean;
-						inCodeBlock: boolean;
-					} | null;
-					sourceInlineFormatState: {
-						boldActive: boolean;
-						codeActive: boolean;
-						inlineFormattingAvailable: boolean;
-						italicActive: boolean;
-						strikeActive: boolean;
-					} | null;
-					sourceListFormatState: {
-						inBulletList: boolean;
-						inOrderedList: boolean;
-						inTaskList: boolean;
-					} | null;
-					view: 'syntax' | 'split-view' | 'preview';
-			  }
-			| undefined;
+		sharedState: _MarkdownModePluginStateStub | undefined;
 	}
 >;

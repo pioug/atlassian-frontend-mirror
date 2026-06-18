@@ -15,4 +15,10 @@ export type MediaPluginOptions = {
 	providerFactory: ProviderFactory;
 	uploadErrorHandler?: (state: MediaState) => void;
 	waitForMediaUpload?: boolean;
+	/**
+	 * Optional fallback fetcher to retrieve the media filename from another service.
+	 * Workaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media.
+	 * Receives the file ID and should resolve to the filename string.
+	 */
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 };

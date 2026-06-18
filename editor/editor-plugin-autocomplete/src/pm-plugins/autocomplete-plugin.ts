@@ -215,6 +215,11 @@ export interface AutocompletePluginOptions {
 	 */
 	getVectorsBinaryUrl?: () => Promise<string>;
 	/**
+	 * User locale used to determine whether autocomplete should run.
+	 * Defaults to browser locale when omitted.
+	 */
+	locale?: string;
+	/**
 	 * When true, uses on-device inference via WebGPU (MLC WebLLM) instead of
 	 * the network-based slow-lane backend. Defaults to false (network client).
 	 */
@@ -243,6 +248,52 @@ const buildSlowLaneText = (docText: string, context?: AutocompleteContext): stri
 	return lines.join('\n');
 };
 
+const createMidWordCharacterRegex = (): RegExp | null => {
+	try {
+		// string-built regex avoids TS1501 under the package's ES5 build target
+		return new RegExp('[\\p{L}\\p{N}_]', 'u');
+	} catch {
+		return null;
+	}
+};
+
+const midWordCharacterRegex = createMidWordCharacterRegex();
+
+const isAsciiWordCharacter = (char: string): boolean => {
+	if (char === '_') {
+		return true;
+	}
+
+	const charCode = char.charCodeAt(0);
+	return (
+		(charCode >= 48 && charCode <= 57) ||
+		(charCode >= 65 && charCode <= 90) ||
+		(charCode >= 97 && charCode <= 122)
+	);
+};
+
+const isMidWordCharacter = (char: string): boolean => {
+	if (midWordCharacterRegex) {
+		return midWordCharacterRegex.test(char);
+	}
+
+	if (isAsciiWordCharacter(char)) {
+		return true;
+	}
+
+	return char.toLocaleLowerCase() !== char.toLocaleUpperCase();
+};
+
+const getLeadingTextCharacter = (text?: string): string | undefined => {
+	const firstCodePoint = text?.codePointAt(0);
+
+	if (firstCodePoint === undefined) {
+		return undefined;
+	}
+
+	return String.fromCodePoint(firstCodePoint);
+};
+
 const getTypedLengthForPrediction = (textBefore: string): number => {
 	if (isWordBoundary(textBefore)) {
 		return 0;
@@ -253,10 +304,22 @@ const getTypedLengthForPrediction = (textBefore: string): number => {
 	return trailingToken.length;
 };
 
+const isEnglishLocale = (locale?: string): boolean => {
+	if (!locale) {
+		return false;
+	}
+
+	return locale.toLowerCase().startsWith('en');
+};
+
 export const createAutocompletePlugin = (
 	options?: AutocompletePluginOptions,
 	api?: ExtractInjectionAPI<AutocompletePlugin>,
 ): SafePlugin<AutocompletePluginState> => {
+	const locale =
+		options?.locale ?? (typeof navigator !== 'undefined' ? navigator.language : undefined);
+	const isAutocompleteEnabled = isEnglishLocale(locale);
+
 	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 	let hasIngestedPage = false;
 	let resolvedContext: AutocompleteContext | undefined;
@@ -514,6 +577,19 @@ export const createAutocompletePlugin = (
 					return;
 				}
 
+				// Suppress suggestions when the cursor is mid-word — only offer
+				// completions when the cursor is at the trailing edge of a token.
+				// nodeAfter correctly handles inline atoms (mentions, emojis) where
+				// parentOffset and textContent indices diverge.
+				const nodeAfter = selection.$from.nodeAfter;
+				const charAfterCursor = nodeAfter?.isText ? getLeadingTextCharacter(nodeAfter.text) : undefined;
+				// Only suppress for Unicode letters, digits, and underscore — hyphens,
+				// apostrophes, and similar punctuation are valid left-edge boundaries
+				// and should not block suggestions (e.g. cursor before '-' in compound-word).
+				if (charAfterCursor && isMidWordCharacter(charAfterCursor)) {
+					return;
+				}
+
 				const textBefore = getTextBeforeCursor(state);
 
 				// Suppress re-showing the same suggestion the user just dismissed.
@@ -671,6 +747,10 @@ export const createAutocompletePlugin = (
 
 			handleDOMEvents: {
 				blur: (view: EditorView) => {
+					if (!isAutocompleteEnabled) {
+						return false;
+					}
+
 					const pluginState = autocompletePluginKey.getState(view.state) as
 						| AutocompletePluginState
 						| undefined;
@@ -681,6 +761,10 @@ export const createAutocompletePlugin = (
 					return false;
 				},
 				focus: () => {
+					if (!isAutocompleteEnabled) {
+						return false;
+					}
+
 					loadDefaultVocabulary({ isLocalLLM: options?.useLocalModel ?? false }).catch((error) => {
 						logException(error as Error, {
 							location: 'editor-plugin-autocomplete/loadDefaultVocabulary',
@@ -708,6 +792,10 @@ export const createAutocompletePlugin = (
 
 		view: () => ({
 			update: (view: EditorView, prevState: EditorState) => {
+				if (!isAutocompleteEnabled) {
+					return;
+				}
+
 				currentView = view;
 				if (!prevState.doc.eq(view.state.doc)) {
 					if (justAccepted) {

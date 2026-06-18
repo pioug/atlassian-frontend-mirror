@@ -416,6 +416,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-12
+	platform_editor_media_name_fallback_viewer_card: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-06-05
 	platform_editor_block_controls_perf_optimization: {
 		defaultValue: boolean;
@@ -741,6 +748,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-16
+	platform_editor_table_col_insert: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-04-17
 	platform_editor_tables_table_selector: {
 		defaultValue: boolean;
@@ -879,6 +893,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-29 — Inline rovo action experiment for resolved inline smart links (boolean: isEnabled)
 	platform_sl_3p_auth_inline_tailored_cta: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-16 — Use link-extractors inline icon extraction for Confluence 1P/3P connection byline (boolean: isEnabled)
+	confluence_1p_and_3p_connection_byline_experiment: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1256,6 +1277,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-08
+	'cc-disambiguation-in-cwr': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-11
 	'cwr-reduce-prompt-suggestion-max-chars': {
 		defaultValue: boolean;
@@ -1438,13 +1466,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-10
 	platform_editor_fix_media_toolbar_border_dropdown: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-20
-	cc_editor_ttvc_media_hold_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1726,6 +1747,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-17
+	platform_editor_ai_template_localids: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-20
 	platform_editor_ai_tablecell_localids: {
 		defaultValue: boolean;
@@ -1901,6 +1929,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-16
+	confluence_3p_in_cwr_ghost_icons_ui_tweaks: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-01
 	platform_editor_lovability_text_bg_color: {
 		defaultValue: boolean;
@@ -1917,6 +1952,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-15
 	platform_editor_menu_radius_update: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-12 — CCI-17112 — convo-ai → cc-smarts routing for heading-autocomplete
+	cc_smarts_heading_autocomplete_migration: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2117,6 +2159,14 @@ export const editorExperimentsConfig: {
 	platform_editor_renderer_extension_width_fix: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_renderer_extension_width_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-16
+	platform_editor_table_col_insert: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_col_insert',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2495,6 +2545,14 @@ export const editorExperimentsConfig: {
 	platform_editor_media_name_fallback: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_media_name_fallback',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-12
+	platform_editor_media_name_fallback_viewer_card: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_name_fallback_viewer_card',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2912,6 +2970,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-16 — Use link-extractors inline icon extraction for Confluence 1P/3P connection byline
+	confluence_1p_and_3p_connection_byline_experiment: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_1p_and_3p_connection_byline_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open
 	platform_sl_3p_post_auth_chat_open_exp: createBooleanExperiment({
 		productKeys: {
@@ -3260,6 +3326,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-08
+	'cc-disambiguation-in-cwr': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc-disambiguation-in-cwr',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-06-11
 	'cwr-reduce-prompt-suggestion-max-chars': createBooleanExperiment({
 		productKeys: {
@@ -3460,13 +3534,6 @@ export const editorExperimentsConfig: {
 	platform_editor_fix_media_toolbar_border_dropdown: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_fix_media_toolbar_border_dropdown',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	cc_editor_ttvc_media_hold_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_ttvc_media_hold_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3916,6 +3983,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-17
+	platform_editor_ai_template_localids: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_template_localids',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-20
 	platform_editor_ai_tablecell_localids: createBooleanExperiment({
 		productKeys: {
@@ -4098,6 +4173,17 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-16
+	// Gates UI tweaks to the 3p-in-CWR ghost icons (inner icon opacity and the
+	// "connect apps" tooltip copy) in the Rovo chat sources pill. When off the
+	// existing ghost-icon styling and tooltip are used.
+	confluence_3p_in_cwr_ghost_icons_ui_tweaks: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_3p_in_cwr_ghost_icons_ui_tweaks',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-06-01
 	platform_editor_lovability_text_bg_color: createBooleanExperiment({
 		productKeys: {
@@ -4122,6 +4208,13 @@ export const editorExperimentsConfig: {
 			jira: 'platform_editor_menu_radius_update',
 		},
 		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	cc_smarts_heading_autocomplete_migration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_smarts_heading_autocomplete_migration',
+		},
+		param: 'useCcSmarts',
 		defaultValue: false,
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

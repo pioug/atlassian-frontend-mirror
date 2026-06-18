@@ -1,3 +1,7 @@
+# Prop guidance
+
+- **appearance** - primary (main navigation action), rovo (Rovo/AI primary navigation action), default (secondary), subtle (tertiary), danger (destructive), warning (caution), discovery (new features)
+
 # Translating from Tailwind
 
 An example diff of a migration from Tailwind generated code to ADS generated code.

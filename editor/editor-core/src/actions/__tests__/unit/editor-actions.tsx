@@ -268,6 +268,7 @@ describe('Editor Actions', () => {
 								colwidth: null,
 								background: null,
 								localId: null,
+								valign: null,
 							},
 							content: [
 								{

@@ -76,6 +76,7 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_table_menu_updates: false,
 	platform_editor_core_static_css: false,
 	'cwr-modal-ui-refresh': false,
+	'cc-disambiguation-in-cwr': false,
 	'cwr-reduce-prompt-suggestion-max-chars': false,
 	'cwr-staging-area-close-as-minimize-button': false,
 	prompt_tile_content_type_localizaiton: false,

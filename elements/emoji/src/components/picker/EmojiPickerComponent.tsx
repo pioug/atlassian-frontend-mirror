@@ -85,7 +85,12 @@ import {
 import { useEmoji } from '../../hooks/useEmoji';
 import { useIsMounted } from '../../hooks/useIsMounted';
 import { messages } from '../i18n';
-import { defaultProductivityColor, type ProductivityColor } from '../../util/productivity-colors';
+import {
+	defaultProductivityColor,
+	getStoredProductivityColor,
+	storeProductivityColor,
+	type ProductivityColor,
+} from '../../util/productivity-colors';
 import { filterHiddenEmojis } from '../../util/hidden-emojis';
 
 const emojiPickerBoxShadow = token('elevation.shadow.overlay');
@@ -257,8 +262,9 @@ const EmojiPickerComponent = ({
 	const [selectedTone, setSelectedTone] = useState(
 		!hideToneSelector ? emojiProvider.getSelectedTone() : undefined,
 	);
-	const [selectedProductivityColor, setSelectedProductivityColor] =
-		useState<ProductivityColor>(defaultProductivityColor);
+	const [selectedProductivityColor, setSelectedProductivityColor] = useState<ProductivityColor>(() =>
+		isTeamojiExperimentEnabled ? getStoredProductivityColor() : defaultProductivityColor,
+	);
 	const [loading, setLoading] = useState(true);
 	const [uploading, setUploading] = useState(false);
 	const [selectedEmoji, setSelectedEmoji] = useState<EmojiDescription | undefined>();
@@ -560,6 +566,7 @@ const EmojiPickerComponent = ({
 
 	const onProductivityColorSelected = useCallback((color: ProductivityColor) => {
 		setSelectedProductivityColor(color);
+		storeProductivityColor(color);
 	}, []);
 
 	const onSelectWrapper = useCallback(

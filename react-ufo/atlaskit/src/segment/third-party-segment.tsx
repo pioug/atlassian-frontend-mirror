@@ -292,7 +292,7 @@ function IframeSegment({
 			if (suffix && interactionId.current && segmentIdRef.current) {
 				const { type, ...rest } = event;
 				const restData = rest as Record<string, unknown>;
-				let data: Record<string, unknown>;
+				let data: Record<string, unknown> | undefined;
 				if (suffix === 'resource-timing') {
 					data = shapeResourceTimingData(restData);
 				} else if (suffix === 'navigation-timing') {
@@ -312,10 +312,12 @@ function IframeSegment({
 				} else {
 					data = restData;
 				}
-				addIframeSegmentData(interactionId.current, segmentIdRef.current, {
-					label: suffix,
-					data,
-				});
+				if (data !== undefined) {
+					addIframeSegmentData(interactionId.current, segmentIdRef.current, {
+						label: suffix,
+						data,
+					});
+				}
 			}
 
 			// ufo-forge-init confirms the iframe is on the new rollout cohort — extend the abort window.

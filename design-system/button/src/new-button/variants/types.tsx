@@ -7,6 +7,7 @@ export type ButtonAppearance =
 	| 'default'
 	| 'danger'
 	| 'primary'
+	| 'rovo'
 	| 'subtle'
 	| 'warning'
 	| 'discovery';
@@ -15,11 +16,12 @@ export type LinkButtonAppearance =
 	| 'default'
 	| 'danger'
 	| 'primary'
+	| 'rovo'
 	| 'subtle'
 	| 'warning'
 	| 'discovery';
 
-export type IconButtonAppearance = 'default' | 'primary' | 'discovery' | 'subtle';
+export type IconButtonAppearance = 'default' | 'primary' | 'rovo' | 'discovery' | 'subtle';
 
 export type Appearance = ButtonAppearance | LinkButtonAppearance | IconButtonAppearance;
 

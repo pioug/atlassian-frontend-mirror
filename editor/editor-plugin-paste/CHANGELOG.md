@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-paste
 
+## 13.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.4
+
+### Patch Changes
+
+- [`302b888acacab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/302b888acacab) -
+  cleanup platform_editor_inline_media_copy_paste_fix feature flag
+- Updated dependencies
+
 ## 13.0.3
 
 ### Patch Changes

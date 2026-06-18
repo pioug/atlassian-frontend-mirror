@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -35,7 +36,10 @@ export const getNodeTypeWithLevel = (node: PMNode): string => {
 			? `-${node.attrs.level}`
 			: '';
 
-	return node.type.name + subType;
+	const typeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? getBaseNodeTypeName(node.type)
+		: node.type.name;
+	return typeName + subType;
 };
 
 class ObjHash {

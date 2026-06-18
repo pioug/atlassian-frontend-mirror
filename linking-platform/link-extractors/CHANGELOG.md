@@ -1,5 +1,12 @@
 # @atlaskit/link-extractors
 
+## 3.1.0
+
+### Minor Changes
+
+- [`91fb45b6e63f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/91fb45b6e63f3) -
+  Add gated inline Smart Link icon extraction through link-extractors
+
 ## 3.0.0
 
 ### Major Changes

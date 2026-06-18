@@ -11,6 +11,7 @@ import EditorPanelIcon from '@atlaskit/icon/core/status-information';
 import { fakeIntl } from '@atlaskit/media-test-helpers';
 import { Header } from '../../../header';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 const externalIdentifierWithName: Identifier = {
 	dataURI: 'some-external-src',
@@ -455,6 +456,108 @@ describe('<Header />', () => {
 				expect(screen.getByLabelText('View comments')).toBeInTheDocument();
 				await expect(document.body).toBeAccessible();
 			});
+		});
+	});
+
+	eeTest.describe(
+		'platform_editor_media_name_fallback_viewer_card',
+		'fallback media name in header when media service name is missing (HOT-301450)',
+	).variant(true, () => {
+		it('should display fallback name when file has no name and fallbackMediaNameFetcher resolves', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const fetchedName = 'fallback-file-name.jpg';
+			const fallbackMediaNameFetcher = jest.fn().mockResolvedValue(fetchedName);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<Header
+							intl={fakeIntl}
+							identifier={identifier}
+							traceContext={traceContext}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+						/>
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			const fileName = await screen.findByTestId('media-viewer-file-name');
+			await waitFor(() => expect(fileName).toHaveTextContent(fetchedName));
+			expect(fallbackMediaNameFetcher).toHaveBeenCalledWith(fileItem.id);
+		});
+
+		it('should prefer file state name over fallback when file already has a name', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const fallbackMediaNameFetcher = jest.fn().mockResolvedValue('should-not-be-used.jpg');
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<Header
+							intl={fakeIntl}
+							identifier={identifier}
+							traceContext={traceContext}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+						/>
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			const fileName = await screen.findByTestId('media-viewer-file-name');
+			await waitFor(() => expect(fileName).toHaveTextContent(fileItem.details.name));
+			expect(fallbackMediaNameFetcher).not.toHaveBeenCalled();
+		});
+
+		it('should show "Unknown" when fallbackMediaNameFetcher rejects', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const fallbackMediaNameFetcher = jest.fn().mockRejectedValue(new Error('fetch failed'));
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<Header
+							intl={fakeIntl}
+							identifier={identifier}
+							traceContext={traceContext}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+						/>
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			const fileName = await screen.findByTestId('media-viewer-file-name');
+			await waitFor(() => expect(fileName).toHaveTextContent('unknown'));
+		});
+	});
+
+	eeTest.describe(
+		'platform_editor_media_name_fallback_viewer_card',
+		'fallback media name in header when media service name is missing (HOT-301450)',
+	).variant(false, () => {
+		it('should not use fallbackMediaNameFetcher when experiment is off', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const fallbackMediaNameFetcher = jest.fn().mockResolvedValue('should-not-be-used.jpg');
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<Header
+							intl={fakeIntl}
+							identifier={identifier}
+							traceContext={traceContext}
+							fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+						/>
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			const fileName = await screen.findByTestId('media-viewer-file-name');
+			await waitFor(() => expect(fileName).toHaveTextContent('unknown'));
+			expect(fallbackMediaNameFetcher).not.toHaveBeenCalled();
 		});
 	});
 });

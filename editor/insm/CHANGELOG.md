@@ -1,5 +1,25 @@
 # @atlaskit/insm
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.5
+
+### Patch Changes
+
+- [`1089121c89c91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1089121c89c91) -
+  Clean up feature gate `cc_editor_insm_fix_attributes`
+- Updated dependencies
+
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.3
 
 ### Patch Changes

@@ -74,6 +74,7 @@ type MediaPickerFunctionalComponentProps = {
 type MediaViewerFunctionalComponentProps = {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	editorView: EditorView;
+	fallbackMediaNameFetcher?: (id: string) => Promise<string>;
 	mediaViewerExtensions?: MediaViewerExtensions;
 };
 
@@ -127,6 +128,7 @@ const MediaViewerFunctionalComponent = ({
 	api,
 	editorView,
 	mediaViewerExtensions,
+	fallbackMediaNameFetcher,
 }: MediaViewerFunctionalComponentProps) => {
 	// Only traverse document once when media viewer is visible, media viewer items will not update
 	// when document changes are made while media viewer is open
@@ -158,6 +160,7 @@ const MediaViewerFunctionalComponent = ({
 			selectedNodeAttrs={mediaViewerSelectedMedia}
 			items={mediaItems}
 			extensions={mediaViewerExtensions}
+			fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 		/>
 	);
 };
@@ -343,6 +346,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 								customDropzoneContainer: options && options.customDropzoneContainer,
 								customMediaPicker: options && options.customMediaPicker,
 								allowResizing: !!(options && options.allowResizing),
+								fallbackMediaNameFetcher: options && options.fallbackMediaNameFetcher,
 							},
 							getIntl,
 							api,
@@ -459,6 +463,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						api={api}
 						editorView={editorView}
 						mediaViewerExtensions={options?.mediaViewerExtensions}
+						fallbackMediaNameFetcher={options?.fallbackMediaNameFetcher}
 					/>
 					<MediaPickerFunctionalComponent
 						editorDomElement={editorView.dom}

@@ -265,10 +265,14 @@ test.describe('DatePicker top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		);
 
 		const datePicker = page.getByTestId('datepicker-1--container');
-		const popover = page.locator('[popover]');
+		// Scope to the calendar's popover element specifically. A bare
+		// `[popover]` selector also matches the always-closed react-select
+		// inner popover that mounts earlier in the DOM, causing
+		// `.first()` to resolve to the wrong (hidden) element.
+		const popover = page.locator('[role="dialog"][aria-label="calendar"][popover]');
 
 		await datePicker.click();
-		await expect(popover.first()).toBeVisible();
+		await expect(popover).toBeVisible();
 	});
 });
 

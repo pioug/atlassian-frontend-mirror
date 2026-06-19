@@ -1,6 +1,7 @@
 import { type ReactElement, type Ref, useContext, useLayoutEffect, useRef, useState } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { PortalPlacementContext } from '../internal/portal-placement-context';
 import type {
@@ -346,6 +347,13 @@ const MenuPlacer: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	const controlHeight = 38;
 
 	useLayoutEffect(() => {
+		// When the menu is hosted in the browser top layer, positioning, flipping
+		// and viewport-fit are all handled by `@atlaskit/top-layer`. The placer
+		// becomes a pass-through that only forwards `maxMenuHeight` as a cap.
+		if (fg('platform-dst-top-layer')) {
+			return;
+		}
+
 		const menuEl = ref.current;
 		if (!menuEl) {
 			return;

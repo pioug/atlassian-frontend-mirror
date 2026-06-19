@@ -251,6 +251,12 @@ export interface Props extends Omit<
 	onSelected?: OnEmojiEvent;
 
 	/**
+	 * Prevent mouse selection from moving browser focus to the emoji.
+	 * Keyboard selection still keeps focus on the emoji for grid navigation.
+	 */
+	preventFocusOnMouseDown?: boolean;
+
+	/**
 	 * Renders unicode emoji through an image representation when a fixed height is supplied.
 	 * Defaults to `true`.
 	 */
@@ -295,6 +301,9 @@ const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
 	}
 	const { emoji, onSelected } = props;
 	if (onSelected && leftClick(event)) {
+		if (props.preventFocusOnMouseDown) {
+			event.preventDefault();
+		}
 		onSelected(toEmojiId(emoji), emoji, event);
 	}
 };
@@ -510,6 +519,7 @@ const UnicodeEmojiImage = (props: Props): JSX.Element => {
 				{...props}
 				emoji={{
 					...emoji,
+					altRepresentation: undefined,
 					representation: {
 						imagePath: unicodeEmojiImage.imagePath,
 						width: unicodeEmojiCanvasSize,

@@ -311,6 +311,18 @@ type PickerMediaInsertTabViewedAEP = UIAEP<
 	undefined
 >;
 
+type PickerMediaInsertImageGenerationSubmittedAEP = UIAEP<
+	ACTION.SUBMITTED,
+	ACTION_SUBJECT.PICKER,
+	ACTION_SUBJECT_ID.PICKER_MEDIA,
+	{
+		aiFeatureName: string;
+		aspectRatio: string;
+		imageStyle: string;
+	},
+	undefined
+>;
+
 type PickerMediaInsertClosedAEP = PickerClosedAEP<
 	ACTION_SUBJECT_ID.PICKER_MEDIA,
 	{
@@ -555,6 +567,17 @@ type CodeBlockLineNumbersToggleAEP = TrackAEP<
 	undefined
 >;
 
+type CodeBlockFoldingToggleAEP = TrackAEP<
+	ACTION.TOGGLE_CODE_FOLDING,
+	ACTION_SUBJECT.CODE_BLOCK,
+	undefined,
+	{
+		folded: boolean;
+		trigger: 'gutter' | 'placeholder';
+	},
+	undefined
+>;
+
 export type RequestToEditAEP = UIAEP<
 	ACTION.REQUEST_TO_EDIT | ACTION.DISMISSED,
 	ACTION_SUBJECT.REQUEST_TO_EDIT_POP_UP,
@@ -656,6 +679,7 @@ export type GeneralEventPayload<T = void> =
 	| PickerImageAEP
 	| PickerMediaInsertAEP
 	| PickerMediaInsertTabViewedAEP
+	| PickerMediaInsertImageGenerationSubmittedAEP
 	| PickerMediaInsertClosedAEP
 	| PickerMediaInsertCancelledAEP
 	| ReactNodeViewRenderedAEP
@@ -682,6 +706,7 @@ export type GeneralEventPayload<T = void> =
 	| CollabStepsTrackerPayloadAEP
 	| CollabOrganicChangesTrackerPayloadAEP
 	| BlocksDragInitAEP
+	| CodeBlockFoldingToggleAEP
 	| CodeBlockWordWrapToggleAEP
 	| CodeBlockLineNumbersToggleAEP
 	| RequestToEditAEP

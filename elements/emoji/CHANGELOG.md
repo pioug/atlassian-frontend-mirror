@@ -1,5 +1,32 @@
 # @atlaskit/emoji
 
+## 71.4.1
+
+### Patch Changes
+
+- [`9a7ca4cefe634`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a7ca4cefe634) -
+  Use the platform_use_unicode_emojis experiment for native Unicode emoji rendering.
+- [`2a3076a890d07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a3076a890d07) -
+  Fix unicode emoji image rendering so generated unicode images do not fall back to alt image
+  representations at large sizes.
+- Updated dependencies
+
+## 71.4.0
+
+### Minor Changes
+
+- [`404be770a2ccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/404be770a2ccf) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`9e5de3ca1a915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e5de3ca1a915) -
+  Increase z-index of the popup for color picker
+- [`2690a770de7bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2690a770de7bf) -
+  Do not focus the added emoji after uploading new emoji
+- Updated dependencies
+
 ## 71.3.3
 
 ### Patch Changes

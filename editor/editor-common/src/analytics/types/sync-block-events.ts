@@ -1,7 +1,8 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { ExperienceEventPayload } from './experience-events';
 import type { InsertSourceSyncedBlockPayload } from './insert-events';
-import type { OperationalAEP } from './utils';
+import type { PasteSource } from './paste-events';
+import type { OperationalAEP, TrackAEP } from './utils';
 
 type SyncedBlockErrorAttributes = {
 	error: string;
@@ -228,6 +229,35 @@ export type SyncedBlockCacheDeletionForcedAEP = OperationalAEP<
 	SyncedBlockCacheDeletionForcedAttributes
 >;
 
+type SyncedBlockInsertAttemptedUnsupportedSurfaceAttributes = {
+	/**
+	 * The paste mechanism the content arrived through (e.g. `fabric-editor`).
+	 * Controlled, enumerated value — never user-generated content.
+	 */
+	pasteSource?: PasteSource;
+	/**
+	 * The product the copied synced block reference originated from, derived from
+	 * the clipboard `data-resource-id` prefix. Controlled, enumerated value
+	 * (`confluence-page` | `jira-work-item`) — never user-generated content.
+	 */
+	sourceProduct?: 'confluence-page' | 'jira-work-item';
+};
+
+/**
+ * Track event fired when a synced block reference is pasted into a surface that
+ * does not support synced blocks (the destination schema dropped the node). This
+ * lets us measure insertion attempts into unsupported surfaces (e.g. Bitbucket)
+ * directly, rather than inferring them from "copied but never landed". See
+ * EDITOR-7749.
+ */
+export type SyncedBlockInsertAttemptedUnsupportedSurfaceAEP = TrackAEP<
+	ACTION.INSERT_ATTEMPTED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.UNSUPPORTED_SURFACE,
+	SyncedBlockInsertAttemptedUnsupportedSurfaceAttributes,
+	undefined
+>;
+
 export type SyncBlockEventPayload =
 	| SyncedBlockSourceURLErrorAEP
 	| SyncedBlockUpdateCacheErrorAEP
@@ -252,6 +282,7 @@ export type SyncBlockEventPayload =
 	| SyncedBlockSSRErrorAEP
 	| SyncedBlockSourceInfoOrphanedAEP
 	| SyncedBlockCacheDeletionForcedAEP
+	| SyncedBlockInsertAttemptedUnsupportedSurfaceAEP
 	| InsertSourceSyncedBlockPayload;
 
 export type RendererSyncBlockEventPayload =

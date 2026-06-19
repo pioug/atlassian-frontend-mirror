@@ -766,7 +766,7 @@ const EmojiPickerComponent = ({
 			if (emojiPickerList.current) {
 				// Wait a tick to ensure repaint and updated height for picker list
 				window.setTimeout(() => {
-					emojiPickerList.current?.scrollToRecentlyUploaded(emojiDescription);
+					emojiPickerList.current?.scrollToRecentlyUploaded(emojiDescription, false);
 				}, 0);
 			}
 		},

@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { getAvatarSize } from './size-utils';
 import { type AppearanceType, type SizeType } from './types';
 
 export interface SkeletonProps {
@@ -77,7 +76,7 @@ const Skeleton: FC<SkeletonProps> = ({
 	color,
 	weight,
 }: SkeletonProps) => {
-	const avatarSize = getAvatarSize({ appearance, size: size ?? 'medium' });
+	const avatarSize = size ?? 'medium';
 
 	return (
 		<div

@@ -206,3 +206,44 @@ Create `popup-select/__tests__/informational-vr-tests/popup-select-top-layer.vr.
 
 **As of 2026-03:** Steps 1–3 and test/doc artifacts are in place; unit-test depth for the top-layer
 path was still a known gap in the 2026-03-16 migration audit.
+
+---
+
+## Consumer-side `MenuPortal` wrappers (downstream type breakage)
+
+Several products copy-paste a tiny wrapper around `components.MenuPortal` from
+`@atlaskit/select/react-select` so they can inject product-specific concerns (most commonly
+`@atlaskit/layering` to apply `data-ds--level` for correct stacking inside portals). One such copy
+lives in Jira:
+
+- `jira/src/packages/portfolio-3/portfolio/src/app-simple-plans/view/main/tabs/roadmap/dependencies-flyout/add-dependency/dependency-selector/layer-menu-portal/index.tsx`
+
+These wrappers typically redeclare the `MenuPortal` signature with a narrow return type, for
+example:
+
+```ts
+const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+  props: MenuPortalProps<Option, IsMulti, Group>,
+) => JSX.Element | null = components.MenuPortal;
+```
+
+**Problem:** Upstream `react-select` types now return `ReactNode` (which includes `undefined`) from
+`MenuPortal`, so the narrowed `JSX.Element | null` annotation no longer assigns. This shows up as
+a TS2322 type error in any product copy that uses the older annotation.
+
+**Fix:** Widen the wrapper's return type to `ReactNode`:
+
+```ts
+import { type ReactNode } from 'react';
+
+const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+  props: MenuPortalProps<Option, IsMulti, Group>,
+) => ReactNode = components.MenuPortal;
+```
+
+The wrapper still renders fine in JSX. Only the type annotation needs to relax.
+
+**Action for product teams:** Search your product for hand-rolled `MenuPortal` wrappers (grep for
+`components.MenuPortal` and `MenuPortalProps`) and apply the same widening. Longer term, consider
+extracting these "select + layering + portal" wrappers into a shared product-local package so that
+future upstream type changes are a single-file fix rather than a copy-paste sweep.

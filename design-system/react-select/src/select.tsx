@@ -15,6 +15,7 @@ import React, {
 } from 'react';
 
 import { css, jsx } from '@compiled/react';
+import { bind } from 'bind-event-listener';
 
 import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
 import { isSafari } from '@atlaskit/ds-lib/is-safari';
@@ -37,6 +38,7 @@ import { createFilter, type FilterOptionOption } from './filters';
 import { classNames } from './internal/classnames';
 import { cleanValue } from './internal/clean-value';
 import { isDocumentElement } from './internal/is-document-el';
+import { MenuPortalCloseContext } from './internal/menu-portal-close-context';
 import { multiValueAsValue } from './internal/multi-value-as-value';
 import { NotifyOpenLayerObserver } from './internal/notify-open-layer-observer';
 import RequiredInput from './internal/required-input';
@@ -664,6 +666,14 @@ interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>
 	inputIsHiddenAfterUpdate: boolean | null | undefined;
 	prevProps: SelectProps<Option, IsMulti, Group> | void;
 	instancePrefix: string;
+	/**
+	 * State mirror of `controlRef`, used only on the top-layer path so
+	 * `MenuPortalTopLayer` re-renders when the anchor attaches (its layout
+	 * effects depend on this prop). Legacy `MenuPortalLegacy` measures during
+	 * render and keeps reading `controlRef` directly. Stays `null` when the
+	 * `platform-dst-top-layer` flag is off.
+	 */
+	controlElement: HTMLDivElement | null;
 }
 
 interface CategorizedOption<Option> {
@@ -927,6 +937,7 @@ export default class Select<
 		inputIsHiddenAfterUpdate: undefined,
 		prevProps: undefined,
 		instancePrefix: '',
+		controlElement: null,
 	};
 
 	// Misc. Instance Properties
@@ -939,6 +950,9 @@ export default class Select<
 	initialTouchY = 0;
 	openAfterFocus = false;
 	scrollToFocusedOptionOnUpdate = false;
+	// Cleanup for a pending document `pointerup` listener registered by
+	// `openMenuAfterPointerUp`. See that method for the full rationale.
+	deferredOpenMenuCleanup: (() => void) | null = null;
 	userIsDragging?: boolean;
 
 	// Refs
@@ -947,6 +961,16 @@ export default class Select<
 	controlRef: HTMLDivElement | null = null;
 	getControlRef: RefCallback<HTMLDivElement> = (ref) => {
 		this.controlRef = ref;
+		// Mirror the ref into state on the top-layer path so
+		// `MenuPortalTopLayer`'s layout effects react to the anchor attaching.
+		// Skip the null-ref (unmount) case: setState during unmount is unsafe
+		// and the state is dropped with the instance anyway.
+		if (ref === null) {
+			return;
+		}
+		if (this.state.controlElement !== ref && fg('platform-dst-top-layer')) {
+			this.setState({ controlElement: ref });
+		}
 	};
 	focusedOptionRef: HTMLDivElement | null = null;
 	getFocusedOptionRef: RefCallback<HTMLDivElement> = (ref) => {
@@ -1140,6 +1164,7 @@ export default class Select<
 	componentWillUnmount(): void {
 		this.stopListeningComposition();
 		this.stopListeningToTouch();
+		this.cancelDeferredOpenMenu();
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.removeEventListener('scroll', this.onScroll, true);
 	}
@@ -1183,6 +1208,59 @@ export default class Select<
 	// aliased for consumers
 	focus: () => void = this.focusInput;
 	blur: () => void = this.blurInput;
+
+	/**
+	 * Whether to defer the menu open past the in-flight pointer gesture.
+	 * Any renderer that drives a `popover="auto"` element must, otherwise
+	 * the browser's light-dismiss runs on the matching `pointerup` and
+	 * closes the menu immediately. Today only the top-layer path needs it.
+	 */
+	private shouldDeferOpenPastPointerUp(): boolean {
+		return fg('platform-dst-top-layer');
+	}
+
+	/**
+	 * Open the menu after the current pointer gesture, instead of
+	 * synchronously inside `mousedown`.
+	 *
+	 * On the top-layer path the menu is a `popover="auto"` element. The
+	 * browser captures the pointerdown target before the popover exists, so
+	 * opening synchronously gets immediately light-dismissed on pointerup
+	 * (and the matching `beforetoggle: closed` is not cancellable). Deferring
+	 * to the next `pointerup` avoids that.
+	 *
+	 * We listen for `pointerup` rather than `click` because `pointerup` is
+	 * the exact event the browser uses for light-dismiss (earliest safe
+	 * moment), always fires (`click` requires same down/up target), is hard
+	 * to lose to upstream `stopPropagation`, and is uniform across input
+	 * types. Off the top-layer path we open synchronously as before.
+	 */
+	private openMenuAfterPointerUp(focusOption: 'first' | 'last'): void {
+		if (!this.shouldDeferOpenPastPointerUp()) {
+			this.openMenu(focusOption);
+			return;
+		}
+		// A second pointerdown can land before the queued pointerup if the
+		// user releases and re-clicks very quickly. Replace any pending
+		// deferred open with the latest one so we never stack listeners.
+		this.cancelDeferredOpenMenu();
+		const handlePointerUp = () => {
+			this.deferredOpenMenuCleanup = null;
+			this.openMenu(focusOption);
+		};
+		this.deferredOpenMenuCleanup = bind(document, {
+			type: 'pointerup',
+			listener: handlePointerUp,
+			options: { capture: true, once: true },
+		});
+	}
+
+	cancelDeferredOpenMenu(): void {
+		if (this.deferredOpenMenuCleanup) {
+			this.deferredOpenMenuCleanup();
+			this.deferredOpenMenuCleanup = null;
+		}
+	}
 
 	openMenu(focusOption: 'first' | 'last'): void {
 		const { selectValue, isFocused } = this.state;
@@ -1666,7 +1744,7 @@ export default class Select<
 			this.focusInput();
 		} else if (!this.props.menuIsOpen) {
 			if (openMenuOnClick) {
-				this.openMenu('first');
+				this.openMenuAfterPointerUp('first');
 			}
 		} else {
 			if (
@@ -1703,7 +1781,7 @@ export default class Select<
 			this.setState({ inputIsHiddenAfterUpdate: !isMulti });
 			this.onMenuClose();
 		} else {
-			this.openMenu('first');
+			this.openMenuAfterPointerUp('first');
 		}
 		event.preventDefault();
 	};
@@ -1876,7 +1954,14 @@ export default class Select<
 			isFocused: true,
 		});
 		if (this.openAfterFocus || this.props.openMenuOnFocus) {
-			this.openMenu('first');
+			// `openAfterFocus` always follows a pointer gesture, so defer past
+			// pointerup. `openMenuOnFocus` alone can come from a keyboard tab
+			// with no pointer gesture in flight, so open synchronously.
+			if (this.openAfterFocus) {
+				this.openMenuAfterPointerUp('first');
+			} else {
+				this.openMenu('first');
+			}
 		}
 		this.openAfterFocus = false;
 	};
@@ -2593,21 +2678,39 @@ export default class Select<
 			</MenuPlacer>
 		);
 
-		// positioning behaviour is almost identical for portalled and fixed,
-		// so we use the same component. the actual portalling logic is forked
-		// within the component based on `menuPosition`
-		return menuPortalTarget || menuPosition === 'fixed' ? (
+		// On the top-layer path the menu always portals (into the top layer)
+		// regardless of consumer `menuPortalTarget` / `menuPosition`. Off the
+		// flag we keep the legacy "portal only when needed" behaviour.
+		const shouldPortal =
+			fg('platform-dst-top-layer') || menuPortalTarget || menuPosition === 'fixed';
+		if (!shouldPortal) {
+			return menuElement;
+		}
+		// Top-layer path needs the state mirror so MenuPortalTopLayer re-renders
+		// when the anchor attaches; legacy path keeps the direct ref read.
+		const controlElementForPortal = fg('platform-dst-top-layer')
+			? this.state.controlElement
+			: this.controlRef;
+		const menuPortal = (
 			<MenuPortal
 				{...commonProps}
 				appendTo={menuPortalTarget}
-				controlElement={this.controlRef}
+				controlElement={controlElementForPortal}
 				menuPlacement={menuPlacement}
 				menuPosition={menuPosition}
 			>
 				{menuElement}
 			</MenuPortal>
-		) : (
-			menuElement
+		);
+		// The Provider plumbs the close signal to MenuPortalTopLayer; not
+		// needed on the legacy path.
+		if (!fg('platform-dst-top-layer')) {
+			return menuPortal;
+		}
+		return (
+			<MenuPortalCloseContext.Provider value={this.handleOpenLayerObserverCloseSignal}>
+				{menuPortal}
+			</MenuPortalCloseContext.Provider>
 		);
 	}
 	renderFormField(): React.JSX.Element | undefined {
@@ -2767,10 +2870,16 @@ export default class Select<
 					</Control>
 					{this.renderMenu()}
 					{this.renderFormField()}
-					<NotifyOpenLayerObserver
-						isOpen={this.props.menuIsOpen}
-						onClose={this.handleOpenLayerObserverCloseSignal}
-					/>
+					{/*
+					 * On the top-layer path MenuPortalTopLayer owns this
+					 * notification; skip here to avoid a duplicate open signal.
+					 */}
+					{!fg('platform-dst-top-layer') && (
+						<NotifyOpenLayerObserver
+							isOpen={this.props.menuIsOpen}
+							onClose={this.handleOpenLayerObserverCloseSignal}
+						/>
+					)}
 				</SelectContainer>
 			</SelectGetStylesContext.Provider>
 		);

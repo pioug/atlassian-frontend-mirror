@@ -1,5 +1,31 @@
 # @atlaskit/react-select
 
+## 4.1.0
+
+### Minor Changes
+
+- [`642a4ddbce9f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/642a4ddbce9f4) -
+  [ux] The Select menu is being migrated to the browser top layer. The new behaviour is gated behind
+  the `platform-dst-top-layer` feature flag and ships dark; there are no public API changes for
+  `@atlaskit/react-select` or `@atlaskit/select`.
+
+  Internal-only improvements to support consumer migrations:
+  - Polyfilled the `:popover-open` CSS pseudo-class in the jsdom test polyfill so consumers can
+    assert on popover open state in unit tests without a browser.
+  - Removed a defensive `try/catch` around `element.matches()` in `Popover` that was only needed to
+    work around the missing pseudo-class.
+  - Clarified, via an inline comment in `use-initial-focus`, why the combobox carve-out is kept
+    role-specific (menu / listbox) rather than hoisted above all role checks.
+  - Fixed a unit test for `PopupSelect` top-layer trigger click that incorrectly called `failGate`
+    in `afterEach`, which conflicted with the auto-reset behaviour of
+    `@atlassian/feature-flags-test-utils/mock-gates` and caused the suite to fail.
+
+  No public API or runtime behaviour changes for existing consumers.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.2
 
 ### Patch Changes

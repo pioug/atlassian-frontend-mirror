@@ -26,6 +26,7 @@ export type _MarkdownModePluginStateStub = {
 		lineNumber: number;
 	} | null;
 	view: 'syntax' | 'split-view' | 'preview';
+	wrapSourceCode: boolean;
 };
 
 /**
@@ -62,6 +63,7 @@ export type _MarkdownModePluginStub = NextEditorPlugin<
 				state: { columnNumber: number; lineCount: number; lineNumber: number } | null,
 			) => void;
 			setView: (view: 'syntax' | 'split-view' | 'preview') => void;
+			setWrapSourceCode: (wrapSourceCode: boolean) => void;
 			toggleSourceBlockquote: () => boolean;
 			toggleSourceBold: () => boolean;
 			toggleSourceBulletList: () => boolean;

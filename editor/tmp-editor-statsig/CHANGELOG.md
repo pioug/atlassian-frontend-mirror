@@ -1,5 +1,18 @@
 # @atlaskit/editor-statsig-tmp
 
+## 109.1.0
+
+### Minor Changes
+
+- [`7754772ebfa47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7754772ebfa47) -
+  Add remix_iw_block_menu_table_calc_fix experiment
+- [`9a7ca4cefe634`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a7ca4cefe634) -
+  Use the platform_use_unicode_emojis experiment for native Unicode emoji rendering.
+- [`e850980f5a66f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e850980f5a66f) -
+  [EDITOR-6790] Block-controls drag-handle wrapper's background is removed and instead set
+  on`::before` on `.pm-table-container.pm-table-sticky` to keep masking the row insert dots when
+  legacy sticky header is activated while also not overlapping the column insert button.
+
 ## 109.0.0
 
 ### Major Changes

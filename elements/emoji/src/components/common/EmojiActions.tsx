@@ -51,6 +51,7 @@ import { emojiPickerAddEmoji } from './styles';
 import { DEFAULT_TONE } from '../../util/constants';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { Box } from '@atlaskit/primitives/compiled';
+import { layers } from '@atlaskit/theme/constants';
 import type { ProductivityColor } from '../../util/productivity-colors';
 
 const styles = cssMap({
@@ -104,22 +105,22 @@ const previewFooterNew = css({
 });
 
 export interface Props {
+	activeCategoryId?: CategoryId | null;
 	emojiToDelete?: EmojiDescription;
 	initialUploadName?: string;
 	onChange: (value: string) => void;
 	onCloseDelete: () => void;
-	onProductivityColorSelected?: (color: ProductivityColor) => void;
 	onDeleteEmoji: OnDeleteEmoji;
 	onFileChooserClicked?: () => void;
 	onOpenUpload: () => void;
+	onProductivityColorSelected?: (color: ProductivityColor) => void;
 	onToneSelected?: OnToneSelected;
 	onToneSelectorCancelled?: OnToneSelectorCancelled;
 	onUploadCancelled: () => void;
 	onUploadEmoji: OnUploadEmoji;
+	productivityColorPreviewEmojis?: Partial<Record<ProductivityColor, EmojiDescription>>;
 	query?: string;
 	resultsCount?: number;
-	activeCategoryId?: CategoryId | null;
-	productivityColorPreviewEmojis?: Partial<Record<ProductivityColor, EmojiDescription>>;
 	selectedProductivityColor?: ProductivityColor;
 	selectedTone?: ToneSelection;
 	toneEmoji?: EmojiDescriptionWithVariations;
@@ -163,8 +164,9 @@ export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 								}
 								appearance="subtle"
 								// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
+								// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 								css={addCustomEmojiButton}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 								className={emojiPickerAddEmoji}
 								tabIndex={0}
 								id="add-custom-emoji"
@@ -263,6 +265,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 		productivityColorPreviewEmojis &&
 		selectedProductivityColor &&
 		onProductivityColorSelected &&
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 	);
 
@@ -283,7 +286,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 						relativePosition="below"
 						horizontalAlign="end-to-start"
 						offsetY={4}
-						zIndex={510}
+						zIndex={layers.tooltip()}
 					>
 						<div css={productivityColorPopup}>
 							<ProductivityColorSelector
@@ -369,6 +372,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		props.productivityColorPreviewEmojis &&
 		props.selectedProductivityColor &&
 		props.onProductivityColorSelected &&
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 	);
 
@@ -413,6 +417,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}, [shouldUseProductivityColorControl, showToneSelector]);
 
 	if (uploading) {
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 		return FeatureGates.getExperimentValue(
 			'platform_teamoji_26_refresh_emoji_picker',
 			'isEnabled',
@@ -441,6 +446,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}
 
 	if (emojiToDelete) {
+		// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 		return FeatureGates.getExperimentValue(
 			'platform_teamoji_26_refresh_emoji_picker',
 			'isEnabled',
@@ -464,6 +470,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		);
 	}
 
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 	return FeatureGates.getExperimentValue(
 		'platform_teamoji_26_refresh_emoji_picker',
 		'isEnabled',

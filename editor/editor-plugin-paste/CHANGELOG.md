@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste
 
+## 13.1.0
+
+### Minor Changes
+
+- [`1a60a3ac641f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a60a3ac641f9) -
+  Add a track analytics event that fires when a synced block reference is pasted into a surface that
+  does not support synced blocks, allowing these insertion attempts to be measured directly. The
+  event is gated behind the `platform_editor_blocks_patch_2` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.6
 
 ### Patch Changes

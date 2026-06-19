@@ -40,6 +40,10 @@ import { MediaCard } from './MediaCard';
 import type { OnInsertAttrs } from './types';
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const WHITESPACE_REGEX = /\s/;
+
 const PreviewBoxStyles = xcss({
 	borderWidth: 'border.width',
 	borderStyle: 'dashed',
@@ -91,9 +95,7 @@ const MAX_URL_LENGTH = 2048;
 export const isValidUrl = (value: string): boolean => {
 	try {
 		// Check for spaces and length first to avoid the expensive URL parsing
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		if (/\s/.test(value) || value.length > MAX_URL_LENGTH) {
+		if (WHITESPACE_REGEX.test(value) || value.length > MAX_URL_LENGTH) {
 			return false;
 		}
 		new URL(value);

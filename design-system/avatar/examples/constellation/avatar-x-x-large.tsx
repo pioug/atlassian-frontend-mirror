@@ -12,6 +12,7 @@ const AvatarXXLargeExample = (): React.JSX.Element => {
 				src="https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg"
 				name="Scott Farquhar"
 			/>
+			<Avatar size="xxlarge" appearance="square" src={ExampleImg} name="Nucleus" />
 			<Avatar size="xxlarge" appearance="hexagon" src={ExampleImg} name="Nucleus" />
 		</div>
 	);

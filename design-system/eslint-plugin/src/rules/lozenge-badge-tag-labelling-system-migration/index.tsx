@@ -17,10 +17,7 @@ const rule: Rule.RuleModule = createLintRule({
 		messages: {
 			updateAppearance: 'Update appearance value to new semantic value.',
 			migrateTag:
-				'Non-bold <Lozenge> variants should migrate to <Tag> component. For safe, staged rollout, use the `migration_fallback="lozenge"` prop which renders as Lozenge when the feature flag is off.',
-			manualReview: "Dynamic 'isBold' props require manual review before migration.",
-			dynamicLozengeAppearance:
-				"Dynamic 'appearance' prop values require manual review before migrating to Tag. Please verify the appearance value and manually convert it to the appropriate color prop value.",
+				'<SimpleTag> and <RemovableTag> components should migrate to the new <Tag> or <AvatarTag> component.',
 			updateBadgeAppearance:
 				'Update Badge appearance value "{{oldValue}}" to new semantic value "{{newValue}}".',
 			dynamicBadgeAppearance:
@@ -70,19 +67,6 @@ const rule: Rule.RuleModule = createLintRule({
 		const newTagImports: Record<string, string> = {};
 
 		/**
-		 * Check if a JSX attribute value is a literal false
-		 */
-		function isLiteralFalse(node: any): boolean {
-			return (
-				node &&
-				node.type === 'JSXExpressionContainer' &&
-				node.expression &&
-				node.expression.type === 'Literal' &&
-				node.expression.value === false
-			);
-		}
-
-		/**
 		 * Check if a JSX attribute value is dynamic (not a static literal value)
 		 * Can be used for any prop type (boolean, string, etc.)
 		 */
@@ -119,35 +103,20 @@ const rule: Rule.RuleModule = createLintRule({
 		}
 
 		/**
-		 * Map old appearance values to new semantic appearance values
-		 * Both Lozenge and Tag now use the same appearance prop with new semantic values
+		 * Map old Lozenge appearance values to new semantic appearance values.
+		 * The new Lozenge no longer uses legacy values — it uses semantic color names
+		 * that align with the new labelling system.
 		 */
 		function mapToNewAppearanceValue(oldValue: string): string {
 			const mapping: Record<string, string> = {
+				default: 'neutral',
+				inprogress: 'information',
+				moved: 'warning',
+				removed: 'danger',
+				new: 'discovery',
 				success: 'success',
-				default: 'default',
-				removed: 'removed',
-				inprogress: 'inprogress',
-				new: 'new',
-				moved: 'moved',
 			};
 			return mapping[oldValue] || oldValue;
-		}
-
-		/**
-		 * Map Lozenge appearance values to Tag color values
-		 * Used when migrating Lozenge to Tag component
-		 */
-		function mapLozengeAppearanceToTagColor(appearanceValue: string): string {
-			const mapping: Record<string, string> = {
-				success: 'lime',
-				default: 'gray',
-				removed: 'red',
-				inprogress: 'blue',
-				new: 'purple',
-				moved: 'yellow',
-			};
-			return mapping[appearanceValue] || appearanceValue;
 		}
 
 		/**
@@ -299,14 +268,13 @@ const rule: Rule.RuleModule = createLintRule({
 
 		/**
 		 * Generate the replacement JSX element text for Tag migration
-		 * Handles both regular Tag and avatarTag migrations
+		 * Handles both regular Tag and AvatarTag migrations for SimpleTag/RemovableTag.
 		 */
 		function generateTagReplacement(
 			node: any,
 			options: {
 				isAvatarTag?: boolean;
 				isSimpleTag?: boolean;
-				isLozengeMigration?: boolean;
 				preserveComponentName?: boolean;
 			} = {},
 		): string {
@@ -327,20 +295,7 @@ const rule: Rule.RuleModule = createLintRule({
 					}
 
 					if (attrName === 'appearance') {
-						// For Lozenge migrations, convert appearance to color prop
-						// For SimpleTag/RemovableTag migrations, delete appearance prop
-						if (options.isLozengeMigration) {
-							// Map Lozenge appearance value to Tag color value and change prop name from appearance to color
-							const stringValue = extractStringValue(attr.value);
-							if (stringValue && typeof stringValue === 'string') {
-								const mappedColor = mapLozengeAppearanceToTagColor(stringValue);
-								newAttributes.push(`color="${mappedColor}"`);
-							}
-							// If we can't extract the string value (dynamic expression), skip it
-							// Dynamic expressions should be caught earlier and require manual review
-							// This code path shouldn't be reached, but we skip to be safe
-						}
-						// For SimpleTag/RemovableTag migrations, skip appearance prop (delete it)
+						// Delete appearance prop — not used in new Tag/AvatarTag API
 						return;
 					}
 
@@ -411,14 +366,9 @@ const rule: Rule.RuleModule = createLintRule({
 				}
 			});
 
-			// Add isRemovable={false} for SimpleTag migrations and Lozenge migrations
-			if (options.isSimpleTag || options.isLozengeMigration) {
+			// Add isRemovable={false} for SimpleTag migrations
+			if (options.isSimpleTag) {
 				newAttributes.push('isRemovable={false}');
-			}
-
-			// Add migration_fallback="lozenge" for Lozenge migrations to enable safe staged rollout
-			if (options.isLozengeMigration) {
-				newAttributes.push('migration_fallback="lozenge"');
 			}
 
 			const attributesText = newAttributes.length > 0 ? ` ${newAttributes.join(' ')}` : '';
@@ -732,73 +682,22 @@ const rule: Rule.RuleModule = createLintRule({
 
 				const attributesMap = getAttributesMap(node.openingElement.attributes);
 				const appearanceProp = attributesMap.appearance;
-				const isBoldProp = attributesMap.isBold;
 
-				// Handle appearance prop value migration
+				// Handle appearance prop value migration — always update to new semantic values.
+				// isBold is intentionally not flagged: users may still need it while the feature flag
+				// platform-dst-lozenge-tag-badge-visual-uplifts is OFF (subtle variant still rendered).
 				if (appearanceProp) {
-					const shouldMigrateToTag = !isBoldProp || isLiteralFalse(isBoldProp.value);
-					if (!shouldMigrateToTag) {
-						// Only update appearance values for Lozenge components that stay as Lozenge
-						const stringValue = extractStringValue(appearanceProp.value);
-						if (stringValue && typeof stringValue === 'string') {
-							const mappedValue = mapToNewAppearanceValue(stringValue);
-							if (mappedValue !== stringValue) {
-								context.report({
-									node: appearanceProp,
-									messageId: 'updateAppearance',
-									fix: createAppearanceFixer(appearanceProp.value, mappedValue),
-								});
-							}
-						}
-					}
-				}
-
-				// Handle isBold prop and Tag migration
-				if (isBoldProp) {
-					if (isLiteralFalse(isBoldProp.value)) {
-						// isBold={false} should migrate to Tag
-						// Check if appearance is dynamic - if so, require manual review
-						if (appearanceProp && isDynamicExpression(appearanceProp.value)) {
+					const stringValue = extractStringValue(appearanceProp.value);
+					if (stringValue && typeof stringValue === 'string') {
+						const mappedValue = mapToNewAppearanceValue(stringValue);
+						if (mappedValue !== stringValue) {
 							context.report({
 								node: appearanceProp,
-								messageId: 'dynamicLozengeAppearance',
+								messageId: 'updateAppearance',
+								fix: createAppearanceFixer(appearanceProp.value, mappedValue),
 							});
-							return;
 						}
-						context.report({
-							node: node,
-							messageId: 'migrateTag',
-							fix: (fixer) => {
-								const replacement = generateTagReplacement(node, { isLozengeMigration: true });
-								return fixer.replaceText(node, replacement);
-							},
-						});
-					} else if (isDynamicExpression(isBoldProp.value)) {
-						// Dynamic isBold requires manual review
-						context.report({
-							node: isBoldProp,
-							messageId: 'manualReview',
-						});
 					}
-					// isBold={true} or isBold (implicit true) - no action needed
-				} else {
-					// No isBold prop means implicit false, should migrate to Tag
-					// Check if appearance is dynamic - if so, require manual review
-					if (appearanceProp && isDynamicExpression(appearanceProp.value)) {
-						context.report({
-							node: appearanceProp,
-							messageId: 'dynamicLozengeAppearance',
-						});
-						return;
-					}
-					context.report({
-						node: node,
-						messageId: 'migrateTag',
-						fix: (fixer) => {
-							const replacement = generateTagReplacement(node, { isLozengeMigration: true });
-							return fixer.replaceText(node, replacement);
-						},
-					});
 				}
 			},
 		};

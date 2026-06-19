@@ -6,7 +6,9 @@ import type { DIRECTION, ExtractInjectionAPI, PMPlugin } from '@atlaskit/editor-
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -53,6 +55,28 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 
 				const preservedSelection = blockControlsState?.preservedSelection;
 				if (preservedSelection && preservedSelection.from !== preservedSelection.to) {
+					// CellSelection covers a table: collect each selected cell's text joined with spaces
+					// so that adjacent cells are not fused (e.g. 'hello world' + 'foo' must not
+					// become 'hello worldfoo'). Intl.Segmenter word-counting requires correct
+					// word boundaries, which raw textContent fusion breaks.
+					if (
+						preservedSelection instanceof CellSelection &&
+						expValEquals('remix_iw_block_menu_table_calc_fix', 'isEnabled', true)
+					) {
+						// Use node(1) to reliably target the table node regardless of $anchorCell depth.
+						// node(-1) would return tableRow if $anchorCell is at tableCell depth.
+						const tableNode = preservedSelection.$anchorCell.node(1);
+						const cellTexts: string[] = [];
+						if (tableNode) {
+							// forEachCell iterates only the selected cells, not all cells in the table.
+							preservedSelection.forEachCell((cell) => {
+								cellTexts.push(cell.textContent);
+							});
+						}
+						const textContent = cellTexts.filter(Boolean).join(' ');
+						return { textLength: textContent.length, textContent };
+					}
+
 					const { from, to } = preservedSelection;
 					const textContent = editorView.state.doc.textBetween(from, to, '\n');
 					return { textLength: textContent.length, textContent };

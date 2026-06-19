@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 26.1.5
+
+### Patch Changes
+
+- [`78de7992fee4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78de7992fee4c) -
+  Remove feature gate `enable_profilecard_text_truncation_tooltip`. Tooltip on truncated profile
+  card name and job title text is now always enabled.
+- Updated dependencies
+
 ## 26.1.4
 
 ### Patch Changes

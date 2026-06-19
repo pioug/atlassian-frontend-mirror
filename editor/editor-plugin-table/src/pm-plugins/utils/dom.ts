@@ -25,6 +25,25 @@ export const getColumnOrRowIndex = (target: HTMLElement): [number, number] => [
 	parseInt(target.getAttribute('data-end-index') || '-1', 10),
 ];
 
+/**
+ * Returns the element that carries the `data-start-index` / `data-end-index` attributes for a
+ * column/row control.
+ *
+ * The floating insert dot is a child of a wrapper that holds the index attributes, so when the
+ * pointer is directly over the dot the attributes are not on the event target. This walks up to
+ * the nearest ancestor that has `data-start-index`, falling back to the original element so the
+ * behaviour is unchanged when the target already carries the attributes.
+ */
+export const getIndexAttributeSourceElement = (target: HTMLElement): HTMLElement => {
+	if (target.hasAttribute('data-start-index')) {
+		return target;
+	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
+	const closestWithIndex = target.closest('[data-start-index]') as HTMLElement | null;
+	return closestWithIndex ?? target;
+};
+
 export const isColumnControlsDecorations = (node: HTMLElement | null): boolean =>
 	containsClassName(node, ClassName.COLUMN_CONTROLS_DECORATIONS);
 

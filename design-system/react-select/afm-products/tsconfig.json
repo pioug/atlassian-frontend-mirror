@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-products/tsconfig.json"
 		},
 		{
@@ -45,6 +48,9 @@
 		},
 		{
 			"path": "../../tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../top-layer/afm-products/tsconfig.json"
 		}
 	]
 }

@@ -123,7 +123,7 @@ export interface State {}
 export type PickerListRef = {
 	reveal: (category: CategoryId, preferYourUploads?: boolean) => void;
 	scrollToBottom: () => void;
-	scrollToRecentlyUploaded: (uploadedEmoji: EmojiDescription) => void;
+	scrollToRecentlyUploaded: (uploadedEmoji: EmojiDescription, shouldFocus?: boolean) => void;
 	scrollToRow: (index?: number) => void;
 	scrollToTop: () => void;
 };
@@ -604,18 +604,26 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				scrollToRow(listRef, index);
 			},
 
-			scrollToRecentlyUploaded(uploadedEmoji: EmojiDescription) {
+			scrollToRecentlyUploaded(uploadedEmoji: EmojiDescription, shouldFocus = true) {
 				// when search results is shown
 				if (query) {
 					const { rowIndex, columnIndex } = findEmojiRowAndColumnById(uploadedEmoji.id!);
 					if (rowIndex !== -1) {
-						listRef.current?.scrollToEmojiAndFocus(rowIndex, columnIndex);
+						if (shouldFocus) {
+							listRef.current?.scrollToEmojiAndFocus(rowIndex, columnIndex);
+						} else {
+							listRef.current?.scrollToRow(rowIndex);
+						}
 					}
 				} else {
 					// when seeing all emojis
 					const row = lastYourUploadsRow;
 					if (row > 0) {
-						listRef.current?.scrollToRowAndFocusLastEmoji(lastYourUploadsRow);
+						if (shouldFocus) {
+							listRef.current?.scrollToRowAndFocusLastEmoji(lastYourUploadsRow);
+						} else {
+							listRef.current?.scrollToRow(lastYourUploadsRow);
+						}
 					}
 				}
 			},

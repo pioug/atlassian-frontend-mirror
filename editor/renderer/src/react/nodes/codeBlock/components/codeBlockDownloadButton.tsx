@@ -71,20 +71,40 @@ const getFileExtension = (language: string | null): string => {
 	return languageToExtension[language.toLowerCase()] ?? 'txt';
 };
 
+const suggestBaseName = (content: string): string => {
+	// eslint-disable-next-line require-unicode-regexp
+	const filenameCommentPattern = /^(?:#|\/\/|<!--)\s*([\w.\-]+)\s*(?:-->)?$/;
+	const firstMeaningfulLine = content.split('\n').find((l) => l.trim()) ?? '';
+	const filenameMatch = firstMeaningfulLine.trim().match(filenameCommentPattern);
+	if (filenameMatch) {
+		// eslint-disable-next-line require-unicode-regexp
+		return filenameMatch[1].replace(/\.[^.]+$/, '') || 'rovo-snippet';
+	}
+	const cleaned = firstMeaningfulLine
+		// eslint-disable-next-line require-unicode-regexp
+		.replace(/[^a-zA-Z0-9\s]/g, ' ')
+		.trim()
+		// eslint-disable-next-line require-unicode-regexp
+		.replace(/\s+/g, '-')
+		.toLowerCase()
+		.slice(0, 30);
+	return cleaned || 'rovo-snippet';
+};
+
 const triggerDownload = (content: string, language: string | null): void => {
 	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 	if (typeof document === 'undefined') {
 		return;
 	}
 	const extension = getFileExtension(language);
-	const filename = `rovo-snippet.${extension}`;
+	const resolvedFilename = `${suggestBaseName(content)}.${extension}`;
 	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
 	const doc = document;
 	const blob = new Blob([content], { type: 'text/plain' });
 	const url = URL.createObjectURL(blob);
 	const anchor = doc.createElement('a');
 	anchor.href = url;
-	anchor.download = filename;
+	anchor.download = resolvedFilename;
 	anchor.style.display = 'none';
 	doc.body.appendChild(anchor);
 	anchor.dispatchEvent(new MouseEvent('click', { bubbles: false, cancelable: true, view: window }));

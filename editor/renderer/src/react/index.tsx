@@ -87,6 +87,7 @@ export interface ReactSerializerInit {
 	disableActions?: boolean;
 	disableHeadingIDs?: boolean;
 	disableTableOverflowShadow?: boolean;
+	headingIdPrefix?: string;
 	emojiResourceConfig?: EmojiResourceConfig;
 	eventHandlers?: EventHandlers;
 	extensionHandlers?: ExtensionHandlers;
@@ -179,6 +180,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private appearance?: RendererAppearance;
 	private contentMode?: RendererContentMode;
 	private disableHeadingIDs?: boolean;
+	private headingIdPrefix?: string;
 	private disableActions?: boolean;
 	private headingIds: string[] = [];
 	/**
@@ -245,6 +247,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.appearance = init.appearance;
 		this.contentMode = init.contentMode;
 		this.disableHeadingIDs = init.disableHeadingIDs;
+		this.headingIdPrefix = init.headingIdPrefix;
 		this.disableActions = init.disableActions;
 		this.allowHeadingAnchorLinks = init.allowHeadingAnchorLinks;
 		this.allowCopyToClipboard = init.allowCopyToClipboard;
@@ -927,7 +930,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			return;
 		}
 
-		return this.getUniqueHeadingId(nodeContent, headingIds);
+		const uniqueId = this.getUniqueHeadingId(nodeContent, headingIds);
+		return this.headingIdPrefix ? `${this.headingIdPrefix}-${uniqueId}` : uniqueId;
 	}
 
 	private getUniqueHeadingId(baseId: string, headingIds: string[], counter = 0): string {

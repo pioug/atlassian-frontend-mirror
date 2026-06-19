@@ -19,7 +19,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { copyTextToClipboard } from '../utils/clipboard';
 import type { NodeProps } from '../types';
-import type { HeadingAnchorLinksProps, HeadingAnchorLinksConfig } from '../../ui/Renderer/types';
+import type { HeadingAnchorLinksProps } from '../../ui/Renderer/types';
 
 import HeadingAnchor from './heading-anchor';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -51,13 +51,18 @@ const wrapperStyles = css({
 	display: 'block',
 });
 
+const getHeadingAnchorLinksConfig = (allowHeadingAnchorLinks: HeadingProps['allowHeadingAnchorLinks']) =>
+	typeof allowHeadingAnchorLinks === 'object' ? allowHeadingAnchorLinks : undefined;
+
 function WrappedHeadingAnchor({
 	enableNestedHeaderLinks,
+	getHeadingLink,
 	level,
 	headingId,
 	hideFromScreenReader,
 }: {
 	enableNestedHeaderLinks: boolean | undefined;
+	getHeadingLink?: (headingId: string) => string;
 	headingId: string;
 	hideFromScreenReader?: boolean;
 	level: number;
@@ -77,7 +82,7 @@ function WrappedHeadingAnchor({
 							eventType: EVENT_TYPE.UI,
 						});
 
-						return copyTextToClipboard(getCurrentUrlWithHash(headingId));
+						return copyTextToClipboard(getHeadingLink?.(headingId) ?? getCurrentUrlWithHash(headingId));
 					}}
 					hideFromScreenReader={hideFromScreenReader}
 					headingId={headingId}
@@ -118,9 +123,9 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 	const mouseEntered = React.useRef(false);
 	const showAnchorLink = !!props.showAnchorLink;
 	const isRightAligned = hasRightAlignmentMark(marks);
-	const enableNestedHeaderLinks =
-		allowHeadingAnchorLinks &&
-		(allowHeadingAnchorLinks as HeadingAnchorLinksConfig).allowNestedHeaderLinks;
+	const headingAnchorLinksConfig = getHeadingAnchorLinksConfig(allowHeadingAnchorLinks);
+	const enableNestedHeaderLinks = headingAnchorLinksConfig?.allowNestedHeaderLinks;
+	const getHeadingLink = headingAnchorLinksConfig?.getHeadingLink;
 
 	const headingIdToUse = invisible ? undefined : headingId;
 
@@ -149,6 +154,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 						<WrappedHeadingAnchor
 							level={props.level}
 							enableNestedHeaderLinks={enableNestedHeaderLinks}
+							getHeadingLink={getHeadingLink}
 							headingId={headingId}
 							hideFromScreenReader
 						/>
@@ -158,6 +164,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 						<WrappedHeadingAnchor
 							level={props.level}
 							enableNestedHeaderLinks={enableNestedHeaderLinks}
+							getHeadingLink={getHeadingLink}
 							headingId={headingId}
 							hideFromScreenReader
 						/>
@@ -169,6 +176,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 					<WrappedHeadingAnchor
 						level={props.level}
 						enableNestedHeaderLinks={enableNestedHeaderLinks}
+						getHeadingLink={getHeadingLink}
 						headingId={headingId}
 					/>
 				)}
@@ -197,9 +205,9 @@ function HeadingWithWrapper(props: HeadingProps): React.JSX.Element {
 	const mouseEntered = React.useRef(false);
 	const showAnchorLink = !!props.showAnchorLink;
 	const isRightAligned = hasRightAlignmentMark(marks);
-	const enableNestedHeaderLinks =
-		allowHeadingAnchorLinks &&
-		(allowHeadingAnchorLinks as HeadingAnchorLinksConfig).allowNestedHeaderLinks;
+	const headingAnchorLinksConfig = getHeadingAnchorLinksConfig(allowHeadingAnchorLinks);
+	const enableNestedHeaderLinks = headingAnchorLinksConfig?.allowNestedHeaderLinks;
+	const getHeadingLink = headingAnchorLinksConfig?.getHeadingLink;
 
 	const headingIdToUse = invisible ? undefined : headingId;
 
@@ -224,6 +232,7 @@ function HeadingWithWrapper(props: HeadingProps): React.JSX.Element {
 				<WrappedHeadingAnchor
 					level={props.level}
 					enableNestedHeaderLinks={enableNestedHeaderLinks}
+					getHeadingLink={getHeadingLink}
 					headingId={headingId}
 					hideFromScreenReader={false}
 				/>
@@ -242,6 +251,7 @@ function HeadingWithWrapper(props: HeadingProps): React.JSX.Element {
 				<WrappedHeadingAnchor
 					level={props.level}
 					enableNestedHeaderLinks={enableNestedHeaderLinks}
+					getHeadingLink={getHeadingLink}
 					headingId={headingId}
 					hideFromScreenReader={false}
 				/>

@@ -86,6 +86,56 @@ export const getRowsParams = (rowsHeights: Array<number | undefined>): RowParams
 	return rows;
 };
 
+/**
+ * Returns the visual row index that the mouse pointer is over, by walking the row heights
+ * inside `tbody` and finding the row whose vertical range contains `mouseEvent.clientY`.
+ *
+ * When `rowIndexRange` is provided, the search is restricted to rows in that range (the
+ * `endIndex` is exclusive). This is the hot path used on `mousemove` when hovering over a
+ * row-spanned cell — restricting the range to `[startIndex, endIndex)` keeps the number
+ * of forced layout reads bounded by the row-span size, not the table size.
+ *
+ * Returns `undefined` when the mouse is above the search range or below it (so callers can
+ * fall back to the HTML row index).
+ */
+export const getRowIndexByMousePosition = (
+	tableRef: HTMLTableElement,
+	mouseEvent: MouseEvent,
+	rowIndexRange?: { endIndex: number; startIndex: number },
+): number | undefined => {
+	const tableBody = tableRef.querySelector('tbody');
+	if (!tableBody) {
+		return undefined;
+	}
+
+	const rows = tableBody.children;
+	const startIndex = rowIndexRange?.startIndex ?? 0;
+	const endIndex = Math.min(rowIndexRange?.endIndex ?? rows.length, rows.length);
+	if (startIndex >= endIndex) {
+		return undefined;
+	}
+
+	const firstRowRect = (rows[startIndex] as HTMLTableRowElement).getBoundingClientRect();
+	if (mouseEvent.clientY < firstRowRect.top) {
+		return undefined;
+	}
+
+	let rowBottom = firstRowRect.bottom;
+	if (mouseEvent.clientY < rowBottom) {
+		return startIndex;
+	}
+
+	for (let rowIndex = startIndex + 1; rowIndex < endIndex; rowIndex++) {
+		const rowRect = (rows[rowIndex] as HTMLTableRowElement).getBoundingClientRect();
+		rowBottom = rowRect.bottom;
+		if (mouseEvent.clientY < rowBottom) {
+			return rowIndex;
+		}
+	}
+
+	return undefined;
+};
+
 export const getRowClassNames = (
 	index: number,
 	selection: Selection,

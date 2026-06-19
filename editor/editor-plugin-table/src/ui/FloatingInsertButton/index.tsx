@@ -32,6 +32,10 @@ import {
 	insertRowWithAnalytics,
 } from '../../pm-plugins/commands/commands-with-analytics';
 import { checkIfNumberColumnEnabled } from '../../pm-plugins/utils/nodes';
+import {
+	isColumnSelectionWithMergedFirstRow,
+	isRowSelectionWithMergedFirstColumn,
+} from '../../pm-plugins/utils/selection';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
 
@@ -131,12 +135,24 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		const {
 			state: { tr },
 		} = editorView;
-		if (
-			tr.selection instanceof CellSelection &&
-			((tr.selection as CellSelection).isColSelection() ||
-				(tr.selection as CellSelection).isRowSelection())
-		) {
-			return null;
+		if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+			if (
+				tr.selection instanceof CellSelection &&
+				(tr.selection.isColSelection() ||
+					tr.selection.isRowSelection() ||
+					isColumnSelectionWithMergedFirstRow(tr.selection) ||
+					isRowSelectionWithMergedFirstColumn(tr.selection))
+			) {
+				return null;
+			}
+		} else {
+			if (
+				tr.selection instanceof CellSelection &&
+				((tr.selection as CellSelection).isColSelection() ||
+					(tr.selection as CellSelection).isRowSelection())
+			) {
+				return null;
+			}
 		}
 		const tablePos = findTable(tr.selection);
 		if (!tablePos) {
@@ -198,6 +214,18 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 
 		const hasNumberedColumns = checkIfNumberColumnEnabled(editorView.state.selection);
 
+		// If row 0 has a colspan, anchor to a lower row for the real column boundary (X),
+		// then move back up to the table top (Y):
+		//   row 0: [   colspan=2   ]
+		//   row 1: [ col 1 ][ col 2 ]  ← anchor here for X
+		//          ↑ button should render at row 0/table top
+		let verticalOffsetCorrection = 0;
+		if (type === 'column' && expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+			verticalOffsetCorrection = Math.max(
+				0,
+				targetCellRef.getBoundingClientRect().top - tableRef.getBoundingClientRect().top,
+			);
+		}
 		// Fixed the 'add column button' not visible issue when sticky header is enabled
 		// By setting the Popup z-index higher than the sticky header z-index ( common-styles.ts tr.sticky)
 		// Only when inserting a column, otherwise set to undefined
@@ -223,7 +251,13 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				allowOutOfBounds
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...getPopupOptions(type, index, hasNumberedColumns, tableContainerWrapper)}
+				{...getPopupOptions(
+					type,
+					index,
+					hasNumberedColumns,
+					tableContainerWrapper,
+					verticalOffsetCorrection,
+				)}
 				zIndex={zIndex}
 			>
 				<DragAndDropInsertButton
@@ -235,6 +269,18 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				/>
 			</Popup>
 		);
+	}
+
+	// Finds a row where `columnIndex` has real left/right cell boundaries.
+	private findRowWithUnmergedColumn(tableMap: TableMap, columnIndex: number): number | null {
+		for (let row = 0; row < tableMap.height; row++) {
+			const pos = tableMap.map[row * tableMap.width + columnIndex];
+			const rect = tableMap.findCell(pos);
+			if (rect.left === columnIndex && rect.right === columnIndex + 1) {
+				return row;
+			}
+		}
+		return null;
 	}
 
 	private getCellPosition(type: 'column' | 'row', tableNode: PmNode): number | null {
@@ -252,6 +298,13 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 
 			if (columnIndex > tableMap.width - 1) {
 				return null;
+			}
+
+			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+				const rowWithRealColumn = this.findRowWithUnmergedColumn(tableMap, columnIndex);
+				return rowWithRealColumn === null
+					? null
+					: tableMap.positionAt(rowWithRealColumn, columnIndex, tableNode);
 			}
 
 			return tableMap.positionAt(0, columnIndex, tableNode);

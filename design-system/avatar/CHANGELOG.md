@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 26.0.1
+
+### Patch Changes
+
+- [`9810045072e34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9810045072e34) -
+  Remove feature flag `platform_square_avatar_remove_xlarge_xxlarge_sizes`. Square avatars now
+  support all sizes including `xlarge` and `xxlarge`.
+
 ## 26.0.0
 
 ### Major Changes

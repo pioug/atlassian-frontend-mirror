@@ -9,6 +9,7 @@ import { css, type SerializedStyles } from '@emotion/react';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import {
 	ANCHOR_VARIABLE_NAME,
+	DRAG_HANDLE_WIDTH,
 	tableMarginTop,
 	tableSharedStyle,
 	TableSharedCssClassName,
@@ -537,6 +538,36 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		width: ${insertColumnButtonOffset + 1}px;
 	}
 
+	/* use :before element to hide table row insert dots when legacy table sticky header is activated */
+	${expValEquals('platform_editor_table_col_insert', 'isEnabled', true)
+		? // Mask geometry mirrors the drag-handle wrapper geometry from
+			// editor-plugin-block-controls/src/ui/drag-handle.tsx
+			// (`buttonWrapperStyles`):
+			//   height = paddingTop (=calc(space.400 - 1px)) + paddingBottom (=space.200) + DRAG_HANDLE_HEIGHT
+			//   width  = DRAG_HANDLE_WIDTH + paddingRight('space.150')
+			`.${ClassName.TABLE_CONTAINER}.${ClassName.TABLE_STICKY}:has(tr.sticky)::before {
+			content: ' ';
+			position: sticky;
+			pointer-events: none;
+			top: 0;
+			float: left;
+			transform: translateX(calc(-1 * (${DRAG_HANDLE_WIDTH}px + ${token('space.150')})));
+			margin-bottom: calc(-1 * (${token('space.400')} - 1px + ${token('space.200')} + ${token('space.300')}));
+			height: calc(${token('space.400')} - 1px + ${token('space.200')} + ${token('space.300')});
+			width: calc(${DRAG_HANDLE_WIDTH}px + ${token('space.150')});
+			background: linear-gradient(
+				to bottom,
+				${
+					expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+						? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+						: token('elevation.surface')
+				} 90%,
+				transparent
+			);
+			z-index: ${rowControlsZIndex + 5};
+		}`
+		: ``}
+
 	/* To fix jumpiness caused in Chrome Browsers for sticky headers */
 	.${ClassName.TABLE_STICKY} .sticky + tr {
 		min-height: 0px;
@@ -568,12 +599,17 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	tr.${ClassName.NATIVE_STICKY} {
 		position: sticky;
 		top: ${tableMarginTop}px;
-		z-index: calc(${akEditorTableCellOnStickyHeaderZIndex} - 5);
+		z-index: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+			? akEditorSmallZIndex
+			: `calc(${akEditorTableCellOnStickyHeaderZIndex} - 5)`};
 		box-shadow:
 			inset -1px 1px ${tableBorderColor},
 			inset 1px -1px ${tableBorderColor};
 
 		&.${ClassName.NATIVE_STICKY_ACTIVE} {
+			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? `z-index: ${nativeStickyHeaderZIndex};`
+				: ''}
 			box-shadow:
 				inset -1px 1px ${tableBorderColor},
 				inset 1px -1px ${tableBorderColor},

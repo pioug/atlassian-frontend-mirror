@@ -283,33 +283,27 @@ export const JobTitleLabel = ({ children }: { children: ReactNode }): React.JSX.
 
 	return (
 		<Box xcss={cx(stylesCompiled.jobTitleLabel)}>
-			{fg('enable_profilecard_text_truncation_tooltip') ? (
-				<Tooltip
-					content={children}
-					position="bottom"
-					isScreenReaderAnnouncementDisabled
-					canAppear={() => {
-						if (!textRef.current) {
-							return false;
-						}
-						// Only showing the tooltip when the element has been truncated (ellipsis)
-						return textRef.current.scrollHeight > textRef.current.clientHeight;
-					}}
+			<Tooltip
+				content={children}
+				position="bottom"
+				isScreenReaderAnnouncementDisabled
+				canAppear={() => {
+					if (!textRef.current) {
+						return false;
+					}
+					// Only showing the tooltip when the element has been truncated (ellipsis)
+					return textRef.current.scrollHeight > textRef.current.clientHeight;
+				}}
+			>
+				<Text
+					ref={textRef}
+					maxLines={1}
+					color="color.text.inverse"
+					id="profile-card-job-title-label-text"
 				>
-					<Text
-						ref={textRef}
-						maxLines={1}
-						color="color.text.inverse"
-						id="profile-card-job-title-label-text"
-					>
-						{children}
-					</Text>
-				</Tooltip>
-			) : (
-				<Text maxLines={1} color="color.text.inverse" id="profile-card-job-title-label-text">
 					{children}
 				</Text>
-			)}
+			</Tooltip>
 		</Box>
 	);
 };

@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 35.2.0
+
+### Minor Changes
+
+- [`404be770a2ccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/404be770a2ccf) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.1.2
 
 ### Patch Changes

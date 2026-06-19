@@ -44,6 +44,7 @@ import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { highlightStyle } from '../ui/syntaxHighlightingTheme';
 import { cmTheme, codeFoldingTheme } from '../ui/theme';
 
+import { getCodeFoldingAnalyticsPayload, type CodeFoldingTrigger } from './analytics';
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { getCMSelectionChanges } from './codemirrorSync/updateCMSelection';
 import { firstCodeBlockInDocument } from './extensions/firstCodeBlockInDocument';
@@ -83,6 +84,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private contentMode: EditorContentMode | undefined;
 	private selectionAPI: EditorSelectionAPI | undefined;
 	private maybeTryingToReachNodeSelection = false;
+	private mouseDownInBorderArea = false;
 	private mouseDownInsideCodeMirror = false;
 	private cleanupDisabledState: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
@@ -209,6 +211,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 							foldGutterExtension({
 								selectNode: this.selectCodeBlockNodeAndFocus,
 								getNode: () => this.node,
+								onFoldToggled: this.fireCodeFoldingAnalytics,
 							}),
 						]
 					: [],
@@ -429,6 +432,16 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.view.focus();
 	};
 
+	private fireCodeFoldingAnalytics = (folded: boolean, trigger: CodeFoldingTrigger) => {
+		if (!fg('platform_editor_code_block_folding_analytics')) {
+			return;
+		}
+
+		this.config.api?.analytics?.actions.fireAnalyticsEvent(
+			getCodeFoldingAnalyticsPayload(folded, trigger),
+		);
+	};
+
 	private getLineNumberExtensions(): Extension[] {
 		return [
 			lineNumbers({
@@ -552,8 +565,13 @@ class CodeBlockAdvancedNodeView implements NodeView {
 
 	private handleBorderAreaMouseDown = (event: MouseEvent) => {
 		const isBorderArea = this.isBorderAreaClick(event);
-		// Later click can follow a drag; remember where the interaction began.
-		this.mouseDownInsideCodeMirror = !isBorderArea;
+
+		if (fg('platform_editor_code_block_dogfooding_patch')) {
+			this.mouseDownInBorderArea = isBorderArea;
+		} else {
+			// Later click can follow a drag; remember where the interaction began.
+			this.mouseDownInsideCodeMirror = !isBorderArea;
+		}
 
 		if (isBorderArea && event.target === this.cm.scrollDOM) {
 			// Stop CodeMirror from restoring stale inner selection before node selection.
@@ -562,15 +580,21 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	};
 
 	private handleBorderAreaClick = (event: MouseEvent) => {
-		// Dragging across lines leaves a CodeMirror selection; keep it instead of selecting the node.
-		if (
-			(this.mouseDownInsideCodeMirror && this.hasCodeMirrorTextSelection()) ||
-			!this.isBorderAreaClick(event)
-		) {
+		if (fg('platform_editor_code_block_dogfooding_patch')) {
+			if (!this.mouseDownInBorderArea) {
+				return;
+			}
+		} else {
+			// Dragging across lines leaves a CodeMirror selection; keep it instead of selecting the node.
+			if (
+				(this.mouseDownInsideCodeMirror && this.hasCodeMirrorTextSelection()) ||
+				!this.isBorderAreaClick(event)
+			) {
+				this.mouseDownInsideCodeMirror = false;
+				return;
+			}
 			this.mouseDownInsideCodeMirror = false;
-			return;
 		}
-		this.mouseDownInsideCodeMirror = false;
 
 		// Prevent CodeMirror from restoring its inner selection after we hand focus and selection
 		// back to ProseMirror

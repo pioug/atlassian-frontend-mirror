@@ -1,5 +1,35 @@
 # @atlaskit/renderer
 
+## 133.5.0
+
+### Minor Changes
+
+- [`404be770a2ccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/404be770a2ccf) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.4.4
+
+### Patch Changes
+
+- [`29e91091708d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29e91091708d1) -
+  Add headingIdPrefix and custom heading-link copy support for nested renderers to namespace
+  generated heading IDs and copy canonical page links.
+- Updated dependencies
+
+## 133.4.3
+
+### Patch Changes
+
+- [`db98e2e76d7f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db98e2e76d7f9) -
+  Improve code block download filename suggestion. Filenames are now derived from comment lines
+  (e.g. `# cats.py`), fence marker filenames (e.g. ` ```python cats.py `), or fall back to
+  `rovo-snippet.<ext>`.
+
 ## 133.4.2
 
 ### Patch Changes

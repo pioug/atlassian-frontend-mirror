@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.0.6
+
+### Patch Changes
+
+- [`e850980f5a66f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e850980f5a66f) -
+  [EDITOR-6790] Block-controls drag-handle wrapper's background is removed and instead set
+  on`::before` on `.pm-table-container.pm-table-sticky` to keep masking the row insert dots when
+  legacy sticky header is activated while also not overlapping the column insert button.
+- [`7754772ebfa47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7754772ebfa47) -
+  Fix table text length calculation for Remix/Improve Writing hero prompts: use
+  tableNode.textContent for CellSelection instead of textBetween which only spans anchor/head cell
+  range
+- Updated dependencies
+
 ## 13.0.5
 
 ### Patch Changes

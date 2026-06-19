@@ -83,6 +83,7 @@ export enum ACTION {
 	INPUT_PERF_SAMPLING = 'inputPerfSampling',
 	INPUT_PERF_SAMPLING_AVG = 'inputPerfSamplingAvg',
 	INSERTED = 'inserted',
+	INSERT_ATTEMPTED = 'insertAttempted',
 	INVALID_DOCUMENT_ENCOUNTERED = 'invalidDocumentEncountered',
 	INVOKED = 'invoked',
 	/** used in @atlassian/editor-referentiality */
@@ -205,6 +206,7 @@ export enum ACTION {
 	UPLOAD_COMMENCED = 'uploadCommenced',
 	UPLOAD_SUCCEEDED = 'uploadSucceeded',
 	UPLOAD_FAILED = 'uploadFailed',
+	TOGGLE_CODE_FOLDING = 'toggleCodeFolding',
 	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
 	TOGGLE_CODE_BLOCK_LINE_NUMBERS = 'toggleCodeBlockLineNumbers',
 	TRANSFORMED = 'transformed',
@@ -605,6 +607,7 @@ export enum ACTION_SUBJECT_ID {
 	SYNCED_BLOCK_SSR_ERROR = 'syncedBlockSSRError',
 	SYNCED_BLOCK_SOURCE_INFO_ORPHANED = 'syncedBlockSourceInfoOrphaned',
 	SYNCED_BLOCK_CACHE_DELETION_FORCED = 'syncedBlockCacheDeletionForced',
+	UNSUPPORTED_SURFACE = 'unsupportedSurface',
 	TABLE_STICKY_HEADER = 'tableStickyHeader',
 	SNIPPET = 'snippet',
 }

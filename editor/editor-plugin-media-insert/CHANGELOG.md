@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 25.0.8
+
+### Patch Changes
+
+- [`8e5e159447746`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e5e159447746) -
+  Clean up prefer static regex violations
+- Updated dependencies
+
 ## 25.0.7
 
 ### Patch Changes

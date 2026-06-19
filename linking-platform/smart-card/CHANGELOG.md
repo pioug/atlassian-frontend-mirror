@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 45.2.2
+
+### Patch Changes
+
+- [`89227a0cf30c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89227a0cf30c4) -
+  Cleanup feature gate `navx-3698-flexible-card-a11y-fix`. Decorative icons in FlexibleCard actions
+  (copy link, preview) are now permanently hidden from screen readers via `aria-hidden="true"`.
+  Action buttons now have explicit `aria-label` attributes for accessible names, fixing a
+  `button-name` a11y violation that was previously masked by the gate.
+
 ## 45.2.1
 
 ### Patch Changes

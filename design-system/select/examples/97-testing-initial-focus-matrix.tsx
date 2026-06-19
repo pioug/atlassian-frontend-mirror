@@ -11,22 +11,21 @@ const options = [
 ];
 
 /**
- * Test fixture: exercises the initial-focus behavior for `PopupSelect`
- * running on the top-layer path.
+ * Test fixture: exercises the click-to-open path of
+ * `top-layer/useInitialFocus` for `PopupSelect`.
  *
  * `PopupSelect` renders react-select inside a `role="dialog"` popover.
  * `top-layer/useInitialFocus` therefore focuses the first focusable
  * element inside the popover, which is the react-select search input.
  *
- * Two PopupSelects are rendered:
+ * The PopupSelect is closed on mount; user activation opens it. The
+ * combobox carve-out keeps focus on the search input.
  *
- * - `initial-focus-popup-select`: closed on mount; user activation
- *   opens it. The combobox carve-out keeps focus on the search input.
- *
- * - `default-open-popup-select`: mounted with `defaultIsOpen` so the
- *   popover is open before any user interaction. This exercises the
- *   mount-time open path of `useInitialFocus`. The combobox carve-out
- *   still applies, so focus must land on the search input on mount.
+ * This fixture is intentionally isolated to a single PopupSelect so the
+ * spec is not racing a sibling popover's light-dismiss / focus-restoration
+ * against the assertion under test. See sibling fixture
+ * `98-testing-initial-focus-default-open.tsx` for the `defaultIsOpen`
+ * mount-time open path.
  *
  * The trigger is wrapped in a labelled region and the search input is given
  * an accessible name via `searchProps.inputId` + an associated label, so the
@@ -50,25 +49,6 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 							testId="initial-focus-popup-select-trigger"
 						>
 							Open popup select
-						</Button>
-					)}
-				/>
-
-				<label htmlFor="default-open-popup-select-input">Choose another option</label>
-				<PopupSelect
-					options={options}
-					testId="default-open-popup-select"
-					searchThreshold={0}
-					inputId="default-open-popup-select-input"
-					aria-label="Choose another option"
-					defaultIsOpen
-					target={({ isOpen, ...triggerProps }) => (
-						<Button
-							{...triggerProps}
-							isSelected={isOpen}
-							testId="default-open-popup-select-trigger"
-						>
-							Open default-open popup select
 						</Button>
 					)}
 				/>

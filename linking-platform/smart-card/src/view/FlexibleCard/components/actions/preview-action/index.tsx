@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import MediaServicesActualSizeIcon from '@atlaskit/icon/core/grow-diagonal';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
@@ -20,6 +20,7 @@ const PreviewAction = ({
 	onClick: onClickCallback,
 	...props
 }: PreviewActionProps): React.JSX.Element | null => {
+	const intl = useIntl();
 	const context = useFlexibleUiContext();
 	const invoke = useInvokeClientAction({});
 
@@ -45,7 +46,7 @@ const PreviewAction = ({
 				<PanelRightIcon
 					color="currentColor"
 					spacing="spacious"
-					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview panel'}
+					label=''
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }
 						: {})}
@@ -56,7 +57,7 @@ const PreviewAction = ({
 			<MediaServicesActualSizeIcon
 				color="currentColor"
 				spacing="spacious"
-				label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'Open preview'}
+				label=''
 				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 					? { size: props.iconSize }
 					: {})}
@@ -64,21 +65,24 @@ const PreviewAction = ({
 		);
 	}, [hasPreviewPanel, props.iconSize, isRovoBlockCardExperimentEnabled]);
 
-	const actionLabel = useCallback(() => {
+	const actionLabel = useMemo(() => {
 		// Only use panel message if experiment is enabled and hasPreviewPanel is true
 		if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') && hasPreviewPanel) {
-			return <FormattedMessage {...messages.preview_panel} />;
+			return messages.preview_panel;
 		}
 		// Fall back to modal message if experiment is enabled, otherwise use original preview message
 		if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test')) {
-			return <FormattedMessage {...messages.preview_modal} />;
+			return messages.preview_modal;
 		}
-		return <FormattedMessage {...messages.preview_improved} />;
+		return messages.preview_improved;
 	}, [hasPreviewPanel]);
+
+	const actionMessage = intl.formatMessage(actionLabel);
 
 	return data ? (
 		<Action
-			content={actionLabel()}
+			ariaLabel={actionMessage}
+			content={actionMessage}
 			icon={actionIcon()}
 			onClick={onClick}
 			testId="smart-action-preview-action"

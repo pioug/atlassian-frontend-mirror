@@ -67,14 +67,36 @@ const POPUP_ROLES: Set<TRoleRequiringAccessibleName | TRoleWithImplicitName> = n
 ]);
 
 /**
- * Unopinionated top-layer primitive. Manages visibility and animation only;
+ * Unopinionated top-layer primitive. Owns visibility and animation only;
  * compose with `useAnchorPosition` / `useWidthFromAnchor` for positioning.
  *
- * `isOpen={true}` calls `showPopover()` (entry via `@starting-style`);
- * `isOpen={false}` calls `hidePopover()` (exit via `allow-discrete`).
+ * ### 🔌 Visibility
  *
- * In `mode="auto"`, the browser can light-dismiss (Escape, click outside).
- * `onClose` fires; the consumer must then set `isOpen` to `false`.
+ * - `isOpen={true}` calls `showPopover()` (entry via `@starting-style`).
+ * - `isOpen={false}` calls `hidePopover()` (exit via `allow-discrete`).
+ *
+ * ### 📜 Browser dismiss is non-cancellable
+ *
+ * Per the popover spec, `beforetoggle` is cancellable on open transitions
+ * only, not on close. Consumers that need to ignore a specific dismiss
+ * (e.g. a click on a logically-associated external trigger) must reconcile
+ * inside their own `onClose` handler by calling `showPopover()` again.
+ * `Popover` does not self-heal so consumers do not pay a reconcile cost
+ * by default.
+ *
+ * - Spec: <https://html.spec.whatwg.org/multipage/popover.html#the-popover-attribute>
+ * - <https://github.com/whatwg/html/issues/8973>
+ *
+ * ### ⚠️ Open from `onClick`, not `onPointerDown`
+ *
+ * The light-dismiss algorithm captures the pointerdown target before the
+ * popover exists and dismisses on the matching pointerup if that target is
+ * not in the popover's ancestor chain. Opening during pointerdown hides
+ * the popover on the next pointerup.
+ *
+ * Legacy triggers that must open on mousedown (e.g. `@atlaskit/react-select`)
+ * should defer the open past the in-flight gesture; see
+ * `Select.openMenuAfterPointerUp`.
  */
 export const Popover: React.ForwardRefExoticComponent<
 	TPopoverForwardedProps & React.RefAttributes<HTMLDivElement>

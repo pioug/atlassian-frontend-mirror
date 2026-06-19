@@ -51,6 +51,8 @@ type DragHandleProps = {
 	toggleDragMenu?: (
 		trigger: TriggerType,
 		event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+		// Index represented by this rendered handle, used when merged cells make `hoveredCell` stale.
+		handleIndex?: number,
 	) => void;
 };
 
@@ -275,12 +277,20 @@ const DragHandleComponent = ({
 					// return focus to editor so copying table selections whilst still works, i cannot call e.preventDefault in a mousemove event as this stops dragstart events from firing
 					// -> this is bad for a11y but is the current standard new copy/paste keyboard shortcuts should be introduced instead
 					editorView.focus();
-					toggleDragMenu && toggleDragMenu('mouse', e);
+					if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+						toggleDragMenu && toggleDragMenu('mouse', e, indexes[0]);
+					} else {
+						toggleDragMenu && toggleDragMenu('mouse', e);
+					}
 				}}
 				onClick={onClick}
 				onKeyDown={(e) => {
 					if (e.key === 'Enter' || e.key === ' ') {
-						toggleDragMenu && toggleDragMenu('keyboard');
+						if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+							toggleDragMenu && toggleDragMenu('keyboard', undefined, indexes[0]);
+						} else {
+							toggleDragMenu && toggleDragMenu('keyboard');
+						}
 					}
 				}}
 			>

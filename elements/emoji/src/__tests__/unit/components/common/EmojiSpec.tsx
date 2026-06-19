@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, fireEvent, waitFor } from '@testing-library/react';
+import { cleanup, createEvent, fireEvent, waitFor } from '@testing-library/react';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import Emoji from '../../../../components/common/Emoji';
@@ -75,6 +75,7 @@ describe('<Emoji />', () => {
 	const originalOffscreenCanvas = (globalThis as Record<string, unknown>)['OffscreenCanvas'];
 	const originalCreateObjectURL = URL.createObjectURL;
 	const originalRevokeObjectURL = URL.revokeObjectURL;
+	const originalDevicePixelRatio = window.devicePixelRatio;
 
 	beforeAll(() => {
 		browserSupport.supportsIntersectionObserver = true;
@@ -97,6 +98,10 @@ describe('<Emoji />', () => {
 			configurable: true,
 			writable: true,
 			value: originalRevokeObjectURL,
+		});
+		Object.defineProperty(window, 'devicePixelRatio', {
+			configurable: true,
+			value: originalDevicePixelRatio,
 		});
 	});
 
@@ -226,6 +231,25 @@ describe('<Emoji />', () => {
 			}
 			expect(onLoadSuccess).toHaveBeenCalled();
 		});
+
+		it('should prevent mouse down from moving focus when requested', async () => {
+			const onSelected = jest.fn();
+			const result = await renderWithIntl(
+				<Emoji
+					emoji={imageEmoji}
+					onSelected={onSelected}
+					preventFocusOnMouseDown
+					shouldBeInteractive
+				/>,
+			);
+			const emoji = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+			const event = createEvent.mouseDown(emoji, { button: 0 });
+
+			fireEvent(emoji, event);
+
+			expect(event.defaultPrevented).toBe(true);
+			expect(onSelected).toHaveBeenCalled();
+		});
 	});
 
 	describe('as unicode', () => {
@@ -241,6 +265,29 @@ describe('<Emoji />', () => {
 			expect(image).toHaveAttribute('src', unicodeEmojiImagePath);
 			expect(OffscreenCanvasMock).toHaveBeenCalledWith(128, 128);
 			expect(context.fillText).toHaveBeenCalledWith('😀', 64, 72);
+		});
+
+		it('should not use alt representation for unicode emoji rendered as an image', async () => {
+			mockOffscreenCanvas();
+			Object.defineProperty(window, 'devicePixelRatio', {
+				configurable: true,
+				value: 2,
+			});
+			const unicodeEmojiWithAltRepresentation: EmojiDescription = {
+				...unicodeEmoji,
+				altRepresentation: {
+					imagePath: 'https://alt-path-to-image.png',
+					width: 64,
+					height: 64,
+				},
+			};
+
+			const result = await renderWithIntl(
+				<Emoji emoji={unicodeEmojiWithAltRepresentation} fitToHeight={80} />,
+			);
+			const image = await result.findByAltText(unicodeEmoji.name!);
+
+			expect(image).toHaveAttribute('src', unicodeEmojiImagePath);
 		});
 
 		it('should render unicode emoji as text when renderUnicodeEmojiAsImage is false', async () => {

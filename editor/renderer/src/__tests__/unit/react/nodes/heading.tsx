@@ -144,6 +144,96 @@ describe('<Heading />', () => {
 				'http://localhost/some-path#This-is-a-Heading-1',
 			);
 		});
+
+		describe('when allowHeadingAnchorLinks.getHeadingLink is provided', () => {
+			const HeadingWithCustomLinkBuilder = ({
+				getHeadingLink,
+			}: {
+				getHeadingLink: (headingId: string) => string;
+			}) => {
+				return (
+					<AnalyticsContext.Provider
+						value={{
+							fireAnalyticsEvent,
+						}}
+					>
+						<Heading
+							level={1}
+							headingId="This-is-a-Heading-1"
+							showAnchorLink={true}
+							allowHeadingAnchorLinks={{
+								getHeadingLink,
+							}}
+							dataAttributes={{
+								'data-renderer-start-pos': 0,
+							}}
+							nodeType="heading"
+							marks={[]}
+							serializer={serialiser}
+						>
+							This is a Heading 1
+						</Heading>
+					</AnalyticsContext.Provider>
+				);
+			};
+
+			it('should copy the URL returned by getHeadingLink instead of the current page URL', async () => {
+				const getHeadingLink = jest.fn(
+					(headingId) => `https://example.com/wiki/page#${headingId}`,
+				);
+				const screen = renderWithIntl(
+					<HeadingWithCustomLinkBuilder getHeadingLink={getHeadingLink} />,
+				);
+				const headingAnchors = screen.getAllByTestId('anchor-button');
+				await userEvent.click(headingAnchors[0]);
+				expect(getHeadingLink).toHaveBeenCalledWith('This-is-a-Heading-1');
+				expect(mockCopyTextToClipboard).toHaveBeenCalledWith(
+					'https://example.com/wiki/page#This-is-a-Heading-1',
+				);
+			});
+
+			it('should fall back to the current page URL when getHeadingLink returns null', async () => {
+				jsdom.reconfigure({ url: 'http://localhost/some-path' });
+				const getHeadingLink = jest.fn(() => null as unknown as string);
+				const screen = renderWithIntl(
+					<HeadingWithCustomLinkBuilder getHeadingLink={getHeadingLink} />,
+				);
+				const headingAnchors = screen.getAllByTestId('anchor-button');
+				await userEvent.click(headingAnchors[0]);
+				expect(getHeadingLink).toHaveBeenCalledWith('This-is-a-Heading-1');
+				expect(mockCopyTextToClipboard).toHaveBeenCalledWith(
+					'http://localhost/some-path#This-is-a-Heading-1',
+				);
+			});
+
+			it('should fall back to the current page URL when getHeadingLink returns undefined', async () => {
+				jsdom.reconfigure({ url: 'http://localhost/some-path' });
+				const getHeadingLink = jest.fn(() => undefined as unknown as string);
+				const screen = renderWithIntl(
+					<HeadingWithCustomLinkBuilder getHeadingLink={getHeadingLink} />,
+				);
+				const headingAnchors = screen.getAllByTestId('anchor-button');
+				await userEvent.click(headingAnchors[0]);
+				expect(mockCopyTextToClipboard).toHaveBeenCalledWith(
+					'http://localhost/some-path#This-is-a-Heading-1',
+				);
+			});
+
+			it('should still fire the analytics event when using the custom link builder', async () => {
+				const getHeadingLink = jest.fn(() => 'https://example.com/page#h');
+				const screen = renderWithIntl(
+					<HeadingWithCustomLinkBuilder getHeadingLink={getHeadingLink} />,
+				);
+				const headingAnchors = screen.getAllByTestId('anchor-button');
+				await userEvent.click(headingAnchors[0]);
+				expect(fireAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'headingAnchorLink',
+					eventType: 'ui',
+				});
+			});
+		});
 	});
 
 	it('renders an aria hidden and visually hidden heading anchor when showAnchorLink is true and headingId is provided', () => {

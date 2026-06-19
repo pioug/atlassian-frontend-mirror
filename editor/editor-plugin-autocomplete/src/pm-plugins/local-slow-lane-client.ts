@@ -37,6 +37,8 @@
 
 import type { MLCEngine, InitProgressReport, AppConfig, LogitProcessor } from '@mlc-ai/web-llm';
 
+import { abortExp, EXPERIENCE_NAME, failExp, startExp, succeedExp } from '../analytics/ufo';
+
 import { isAutocompleteDebugEnabled } from './debug-mode';
 import { isWordBoundary } from './slow-lane-client';
 
@@ -987,6 +989,8 @@ export const createLocalSlowLaneClient = (
 			return;
 		}
 
+		const experienceId = String(requestId);
+
 		// Clear the capture buffer so we read only this pass's logits. The engine
 		// serialises per-model requests and updateContext is debounced, so the
 		// latest request's decode step is the last to populate `captured` before
@@ -1025,6 +1029,17 @@ export const createLocalSlowLaneClient = (
 		}
 
 		try {
+			// Reuse the network slow-lane-fetch UFO experience (tagged isLocalLLM:true,
+			// matching LOAD_VECTORS/LOAD_VOCABULARY) so on-device inference
+			// latency/success-rate feeds the same FE Reliability SLO. Started inside
+			// the try — post engine-init (parity with the network fetch, which
+			// excludes the one-time model load) and so the catch below always
+			// terminates the experience, even on a synchronous throw.
+			startExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, experienceId, {
+				textLength: text.length,
+				isLocalLLM: true,
+			});
+
 			const tStart = performance.now();
 			let tLmDone = 0;
 			let tEmbDone = 0;
@@ -1064,6 +1079,12 @@ export const createLocalSlowLaneClient = (
 
 			// Discard stale results
 			if (requestId < latestRequestId || destroyed) {
+				abortExp(
+					EXPERIENCE_NAME.SLOW_LANE_FETCH,
+					experienceId,
+					destroyed ? 'destroyed' : 'superseded',
+					{ isLocalLLM: true },
+				);
 				return;
 			}
 
@@ -1126,6 +1147,13 @@ export const createLocalSlowLaneClient = (
 				console.groupEnd();
 			}
 
+			succeedExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, experienceId, {
+				textLength: text.length,
+				hasVector: storedContextVector !== null,
+				hasLmLogits: storedLmLogits !== null,
+				isLocalLLM: true,
+			});
+
 			onUpdate?.({
 				textLength: text.length,
 				hasVector: storedContextVector !== null,
@@ -1134,11 +1162,21 @@ export const createLocalSlowLaneClient = (
 		} catch (err) {
 			// Discard errors for stale requests or after teardown
 			if (requestId < latestRequestId || destroyed) {
+				abortExp(
+					EXPERIENCE_NAME.SLOW_LANE_FETCH,
+					experienceId,
+					destroyed ? 'destroyed' : 'superseded',
+					{ isLocalLLM: true },
+				);
 				return;
 			}
 
 			storedContextVector = null;
 			storedLmLogits = null;
+			failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, experienceId, {
+				errorType: 'inference',
+				isLocalLLM: true,
+			});
 			onUpdate?.({ textLength: text.length, hasVector: false, hasLmLogits: false });
 
 			const errorMsg = err instanceof Error ? err.message : String(err);

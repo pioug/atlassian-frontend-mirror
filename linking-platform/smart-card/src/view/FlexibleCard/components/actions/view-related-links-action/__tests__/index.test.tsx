@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
 
 import mockContextDefault from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -120,31 +119,15 @@ describe('ViewRelatedLinksAction', () => {
 		await waitForElementToBeRemoved(modal);
 	});
 
-	ffTest.on('navx-3698-flexible-card-a11y-fix', '', () => {
-		it('should render icon without aria-label', async () => {
-			const { queryByLabelText } = setup();
-			const iconWithLabel = queryByLabelText('View related links...');
-			expect(iconWithLabel).not.toBeInTheDocument();
-		});
-
-		it('should pass a11y check with empty icon label', async () => {
-			const onClick = jest.fn();
-			const { container } = setup({ onClick });
-			await expect(container).toBeAccessible();
-		});
+	it('should render icon without aria-label', async () => {
+		const { queryByLabelText } = setup();
+		const iconWithLabel = queryByLabelText('View related links...');
+		expect(iconWithLabel).not.toBeInTheDocument();
 	});
 
-	ffTest.off('navx-3698-flexible-card-a11y-fix', '', () => {
-		it('should render icon with aria-label', async () => {
-			const { findByLabelText } = setup();
-			const iconWithLabel = await findByLabelText('View related links...');
-			expect(iconWithLabel).toBeInTheDocument();
-		});
-
-		it('should pass a11y check with icon aria-label', async () => {
-			const onClick = jest.fn();
-			const { container } = setup({ onClick });
-			await expect(container).toBeAccessible();
-		});
+	it('should pass a11y check with empty icon label', async () => {
+		const onClick = jest.fn();
+		const { container } = setup({ onClick });
+		await expect(container).toBeAccessible();
 	});
 });

@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 7.0.6
+
+### Patch Changes
+
+- [`8e5e159447746`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e5e159447746) -
+  Clean up prefer static regex violations
+- Updated dependencies
+
 ## 7.0.5
 
 ### Patch Changes

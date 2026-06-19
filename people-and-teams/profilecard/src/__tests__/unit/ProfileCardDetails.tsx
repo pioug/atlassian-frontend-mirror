@@ -4,8 +4,6 @@ import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { ProfileCardDetails } from '../../components/User/ProfileCardDetails';
 import { type LozengeProps } from '../../types';
 
@@ -164,67 +162,35 @@ describe('ProfileCardDetails', () => {
 		});
 
 		describe('for long name', () => {
-			ffTest.on('enable_profilecard_text_truncation_tooltip', 'enabled', () => {
-				it('should show tooltip if name is long and truncated', async () => {
-					const longName =
-						'This is a very long name that will definitely be truncated in the profile card';
-					const { getByTestId } = renderComponent({
-						fullName: longName,
-					});
-					const nameElement = getByTestId('profilecard-name');
-
-					// Mock the element to be truncated (scrollWidth > clientWidth)
-					Object.defineProperty(nameElement, 'scrollWidth', {
-						writable: true,
-						configurable: true,
-						value: 200,
-					});
-					Object.defineProperty(nameElement, 'clientWidth', {
-						writable: true,
-						configurable: true,
-						value: 100,
-					});
-
-					await act(async () => {
-						await userEvent.hover(nameElement);
-					});
-
-					const tooltip = await screen.findByRole('tooltip');
-					expect(tooltip).toBeInTheDocument();
-					expect(tooltip).toHaveTextContent(longName);
-
-					await expect(document.body).toBeAccessible();
+			it('should show tooltip if name is long and truncated', async () => {
+				const longName =
+					'This is a very long name that will definitely be truncated in the profile card';
+				const { getByTestId } = renderComponent({
+					fullName: longName,
 				});
-			});
-			ffTest.off('enable_profilecard_text_truncation_tooltip', 'disabled', () => {
-				it('should not show tooltip even if name is long and truncated', async () => {
-					const longName =
-						'This is a very long name that will definitely be truncated in the profile card';
-					const { getByTestId } = renderComponent({
-						fullName: longName,
-					});
-					const nameElement = getByTestId('profilecard-name');
+				const nameElement = getByTestId('profilecard-name');
 
-					// Mock the element to be truncated (scrollWidth > clientWidth)
-					Object.defineProperty(nameElement, 'scrollWidth', {
-						writable: true,
-						configurable: true,
-						value: 200,
-					});
-					Object.defineProperty(nameElement, 'clientWidth', {
-						writable: true,
-						configurable: true,
-						value: 100,
-					});
-
-					await act(async () => {
-						await userEvent.hover(nameElement);
-					});
-
-					expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-
-					await expect(document.body).toBeAccessible();
+				// Mock the element to be truncated (scrollWidth > clientWidth)
+				Object.defineProperty(nameElement, 'scrollWidth', {
+					writable: true,
+					configurable: true,
+					value: 200,
 				});
+				Object.defineProperty(nameElement, 'clientWidth', {
+					writable: true,
+					configurable: true,
+					value: 100,
+				});
+
+				await act(async () => {
+					await userEvent.hover(nameElement);
+				});
+
+				const tooltip = await screen.findByRole('tooltip');
+				expect(tooltip).toBeInTheDocument();
+				expect(tooltip).toHaveTextContent(longName);
+
+				await expect(document.body).toBeAccessible();
 			});
 		});
 	});

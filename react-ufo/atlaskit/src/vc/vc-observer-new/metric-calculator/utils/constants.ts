@@ -24,6 +24,7 @@ export const KNOWN_ATTRIBUTES_THAT_DOES_NOT_CAUSE_LAYOUT_SHIFTS: string[] = [
 	'data-has-collab-initialised',
 	'translate',
 	'data-comment-id',
+	'data-access-level',
 ];
 
 // Common aria attributes that don't cause visual layout shifts

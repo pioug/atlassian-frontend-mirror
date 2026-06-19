@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 116.9.0
+
+### Minor Changes
+
+- [`1a60a3ac641f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a60a3ac641f9) -
+  Add a track analytics event that fires when a synced block reference is pasted into a surface that
+  does not support synced blocks, allowing these insertion attempts to be measured directly. The
+  event is gated behind the `platform_editor_blocks_patch_2` feature gate.
+
+## 116.8.0
+
+### Minor Changes
+
+- [`757e26860e9c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/757e26860e9c7) -
+  [ux] Added "Wrap code" footer toggle that soft-wraps long lines in the source view
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.7.0
+
+### Minor Changes
+
+- [`404be770a2ccf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/404be770a2ccf) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`bf04628c00609`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf04628c00609) -
+  Add code folding usage analytics
+- [`8a8aa51281ee3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a8aa51281ee3) -
+  Add selected aspect ratio to media insert image generation submit analytics.
+- Updated dependencies
+
+## 116.6.1
+
+### Patch Changes
+
+- [`1502b869f9d55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1502b869f9d55) -
+  Add media insert image generation submit analytics with the selected image style.
+
 ## 116.6.0
 
 ### Minor Changes

@@ -28,7 +28,7 @@ const headingStyles = cssMap({
 		borderColor: token('color.border'),
 		borderStyle: 'solid',
 		borderWidth: token('border.width', '1px'),
-		backgroundColor: token('color.background.neutral'),
+		backgroundColor: token('color.background.neutral.subtle'),
 		cursor: 'pointer',
 		paddingBlockStart: token('space.100'),
 		paddingBlockEnd: token('space.100'),
@@ -39,10 +39,10 @@ const headingStyles = cssMap({
 		alignItems: 'center',
 		gap: token('space.050'),
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered'),
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.neutral.pressed'),
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 		borderRadius: token('radius.medium'),
 	},

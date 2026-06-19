@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.0.3
+
+### Patch Changes
+
+- [`9869d944172b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9869d944172b6) -
+  Instrument the local (LocalLLM) slow-lane client with the existing `slow-lane-fetch` UFO
+  experience, tagged with an `isLocalLLM` flag (matching `load-vectors`/`load-vocabulary`) so
+  on-device inference latency and success-rate feed the same FE Reliability SLO as the network
+  slow-lane fetch. The `isLocalLLM` flag is now also emitted on the abort path of both the local and
+  network clients.
+
 ## 4.0.2
 
 ### Patch Changes

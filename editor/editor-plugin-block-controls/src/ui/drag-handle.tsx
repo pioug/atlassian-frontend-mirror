@@ -138,6 +138,40 @@ const buttonWrapperStyles = css({
 		},
 });
 
+// EDITOR-6790 - When the `platform_editor_table_col_insert` experiment is enabled,
+// drop the linear-gradient background that paints over the legacy `tr.sticky` table
+// header so the new left-edge column-insert affordance is not visually clipped.
+// Keep all paddings / margins identical to `buttonWrapperStyles` so the drag-handle
+// layout does not shift between the two variants.
+const buttonWrapperStylesNoBackground = css({
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			marginBottom: token('space.negative.200'),
+			paddingBottom: token('space.200'),
+			marginTop: token('space.negative.400'),
+			paddingTop: `calc(${token('space.400')} - 1px)`,
+			marginRight: token('space.negative.150'),
+			paddingRight: token('space.150'),
+			boxSizing: 'border-box',
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
+		{
+			marginBottom: token('space.negative.200'),
+			paddingBottom: token('space.200'),
+			marginTop: token('space.negative.400'),
+			paddingTop: `calc(${token('space.400')} - 1px)`,
+			marginRight: token('space.negative.150'),
+			paddingRight: token('space.150'),
+			boxSizing: 'border-box',
+		},
+});
+
 const buttonWrapperStylesPatch = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls [data-number-column="true"] tr.sticky) &':
@@ -1398,7 +1432,12 @@ export const DragHandle = ({
 				>
 					<span
 						css={[
-							shouldMaskNodeControls(nodeType, isTopLevelNodeValue) && buttonWrapperStyles,
+							shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
+								// EDITOR-6790 - drop the masking background under the new
+								// column-insert experiment so the left-edge dot is not clipped.
+								(expValEquals('platform_editor_table_col_insert', 'isEnabled', true)
+									? buttonWrapperStylesNoBackground
+									: buttonWrapperStyles),
 							buttonWrapperStylesPatch,
 						]}
 					>
@@ -1429,7 +1468,12 @@ export const DragHandle = ({
 			>
 				<span
 					css={[
-						shouldMaskNodeControls(nodeType, isTopLevelNodeValue) && buttonWrapperStyles,
+						shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
+							// EDITOR-6790 - drop the masking background under the new
+							// column-insert experiment so the left-edge dot is not clipped.
+							(expValEquals('platform_editor_table_col_insert', 'isEnabled', true)
+								? buttonWrapperStylesNoBackground
+								: buttonWrapperStyles),
 						buttonWrapperStylesPatch,
 					]}
 				>

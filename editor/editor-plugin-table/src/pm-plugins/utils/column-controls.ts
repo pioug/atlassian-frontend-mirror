@@ -41,6 +41,76 @@ export const getColumnsWidths = (view: EditorView): Array<number | undefined> =>
 	return widths;
 };
 
+/**
+ * Splits a merged cell's rendered width by `colwidth` ratios, falling back to an even split when
+ * usable ratios are unavailable.
+ */
+export const getProportionalColumnWidths = (
+	totalWidth: number,
+	columnCount: number,
+	ratios: number[] | undefined,
+): number[] => {
+	const evenSplit = () => new Array(columnCount).fill(totalWidth / columnCount);
+
+	if (!ratios || ratios.length !== columnCount) {
+		return evenSplit();
+	}
+
+	const total = ratios.reduce((sum, ratio) => sum + (ratio > 0 ? ratio : 0), 0);
+	if (total <= 0) {
+		return evenSplit();
+	}
+
+	return ratios.map((ratio) => totalWidth * ((ratio > 0 ? ratio : 0) / total));
+};
+
+/**
+ * Like `getColumnsWidths`, but fills every visual column under a first-row `colspan` so column
+ * controls can render one grid track per column.
+ */
+export const getColumnsWidthsWithMergedCells = (view: EditorView): Array<number | undefined> => {
+	const { selection } = view.state;
+	const table = findTable(selection);
+	if (!table) {
+		return [];
+	}
+
+	const map = TableMap.get(table.node);
+	const domAtPos = view.domAtPos.bind(view);
+	const widths: Array<number | undefined> = Array.from({ length: map.width });
+
+	for (let i = 0; i < map.width; i++) {
+		if (map.isCellMergedTopLeft(0, i)) {
+			continue;
+		}
+
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		const node = table.node.nodeAt(map.map[i])!;
+		const pos = map.map[i] + table.start;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
+		const cellRef = findDomRefAtPos(pos, domAtPos) as HTMLElement;
+		const rect = cellRef.getBoundingClientRect();
+		const measuredWidth = (rect ? rect.width : cellRef.offsetWidth) + 1;
+
+		const colspan = node.attrs.colspan ?? 1;
+		if (colspan <= 1) {
+			widths[i] = measuredWidth;
+			continue;
+		}
+
+		const colwidth = Array.isArray(node.attrs.colwidth) ? node.attrs.colwidth : undefined;
+		const perColumnWidths = getProportionalColumnWidths(measuredWidth, colspan, colwidth);
+		for (let span = 0; span < colspan && i + span < map.width; span++) {
+			widths[i + span] = perColumnWidths[span];
+		}
+		i += colspan - 1;
+	}
+
+	return widths;
+};
+
 export const getColumnDeleteButtonParams = (
 	columnsWidths: Array<number | undefined>,
 	selection: Selection,
@@ -123,7 +193,10 @@ const getRelativeDomCellWidths = ({ width, colspan, colwidth }: CellWidthInfo) =
 	return cellColWidths.map((cellColWidth) => width * (cellColWidth / totalCalculatedCellWidth));
 };
 
-export const colWidthsForRow = (tr: HTMLTableRowElement): string => {
+export const colWidthsForRow = (
+	tr: HTMLTableRowElement,
+	{ useColwidthRatios = false }: { useColwidthRatios?: boolean } = {},
+): string => {
 	// get the colspans
 	const rowColSpans = maphElem(tr, (cell) =>
 		Number(cell.getAttribute('colspan') || 1 /* default to span of 1 */),
@@ -150,7 +223,11 @@ export const colWidthsForRow = (tr: HTMLTableRowElement): string => {
 		// reverse engineer cell widths from table widths
 		const domBasedCellWidths: number[] = [];
 		cellInfos.map((cell) => {
-			domBasedCellWidths.push(...getRelativeDomCellWidths(cell));
+			domBasedCellWidths.push(
+				...(useColwidthRatios
+					? getRelativeDomCellWidths(cell)
+					: new Array(cell.colspan).fill(cell.width / cell.colspan)),
+			);
 		});
 
 		if (cellInfos.reduce((acc, cell) => acc + cell.width, 0) !== 0) {
@@ -166,6 +243,59 @@ export const colWidthsForRow = (tr: HTMLTableRowElement): string => {
 	const pctWidths = rowColSpans.map((cellColSpan) => (cellColSpan / visualColCount) * 100);
 
 	return pctWidths.map((pct) => `${pct}%`).join(' ');
+};
+
+/**
+ * Returns the visual column index that the mouse pointer is over within a column-spanned
+ * cell, by walking the per-column boundaries of the spanned cell and finding the column whose
+ * horizontal range contains `mouseEvent.clientX`.
+ *
+ * `<td>.cellIndex` for a cell with `colspan > 1` only resolves to the first column the cell
+ * occupies, so hovering anywhere inside a colspanned first-row cell pins the column drag handle
+ * to that first column. This resolver disambiguates which visual column the pointer is actually
+ * over so the handle/menu can target a single column.
+ *
+ * The search is restricted to columns in `[startIndex, endIndex)` (the cell's own span). The
+ * spanned cell's bounding rect is read once and split into per-column boundaries using the cell's
+ * `data-colwidth` ratios (falling back to an even split for unresized columns) — this keeps the
+ * work bounded by the colspan size and avoids measuring the whole table.
+ *
+ * Returns `undefined` when the mouse is outside the spanned range (so callers can fall back to
+ * the converted HTML column index).
+ */
+export const getColumnIndexByMousePosition = (
+	cellElement: HTMLTableCellElement,
+	mouseEvent: MouseEvent,
+	columnIndexRange: { endIndex: number; startIndex: number },
+): number | undefined => {
+	const { startIndex, endIndex } = columnIndexRange;
+	const columnCount = endIndex - startIndex;
+	if (columnCount <= 0) {
+		return undefined;
+	}
+
+	const cellRect = cellElement.getBoundingClientRect();
+	if (mouseEvent.clientX < cellRect.left || mouseEvent.clientX >= cellRect.right) {
+		return undefined;
+	}
+
+	// Read DOM ratios here to avoid resolving the ProseMirror node on this mouse-move path.
+	const ratios = cellElement.dataset.colwidth
+		?.split(',')
+		.map(Number)
+		.filter((value) => !Number.isNaN(value));
+	const perColumnWidths = getProportionalColumnWidths(cellRect.width, columnCount, ratios);
+
+	const offsetFromLeft = mouseEvent.clientX - cellRect.left;
+	let cumulativeWidth = 0;
+	for (let column = 0; column < columnCount; column++) {
+		cumulativeWidth += perColumnWidths[column];
+		if (offsetFromLeft < cumulativeWidth) {
+			return startIndex + column;
+		}
+	}
+
+	return endIndex - 1;
 };
 
 export const convertHTMLCellIndexToColumnIndex = (

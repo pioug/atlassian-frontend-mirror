@@ -283,7 +283,7 @@ describe('<UploadingEmojiPicker />', () => {
 			jest.runAllTimers();
 
 			expect(screen.getByText('Your uploads')).toBeInTheDocument();
-			// focus on the first uploaded emoji, which is under your uploads category.
+			// Focus should stay in the search input after uploading.
 			expect(screen.getByTestId('emoji-picker-search')).toHaveFocus();
 
 			expect(ufoStartSpy).toHaveBeenCalled();
@@ -549,7 +549,7 @@ describe('<UploadingEmojiPicker />', () => {
 			const cheeseBurgerEmoji = await screen.findAllByRole('img', {
 				name: ':cheese_burger:',
 			});
-			// This is unexpected behaviour, focus goes to the body in JSDom
+			expect(helperTestingLibrary.getEmojiSearchInput()).toHaveFocus();
 			expect(cheeseBurgerEmoji[0]).not.toHaveFocus();
 
 			jest.useRealTimers();

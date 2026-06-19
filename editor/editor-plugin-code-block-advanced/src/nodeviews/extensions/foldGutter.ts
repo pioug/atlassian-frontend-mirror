@@ -9,6 +9,8 @@ import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
 
+import type { CodeFoldingTrigger } from '../analytics';
+
 // Based on platform/packages/design-system/icon/svgs/utility/add.svg
 const chevronDown: DOMOutputSpec = [
 	'http://www.w3.org/2000/svg svg',
@@ -53,10 +55,12 @@ const chevronRight: DOMOutputSpec = [
 ];
 
 export function foldGutterExtension({
+	onFoldToggled,
 	selectNode,
 	getNode,
 }: {
 	getNode: () => PMNode;
+	onFoldToggled?: (folded: boolean, trigger: CodeFoldingTrigger) => void;
 	selectNode: () => void;
 }): Extension[] {
 	return [
@@ -128,6 +132,9 @@ export function foldGutterExtension({
 					}
 				}
 
+				// CodeMirror passes whether the range is currently open; after click, that becomes folded.
+				htmlElement.onclick = () => onFoldToggled?.(open, 'gutter');
+
 				return htmlElement;
 			},
 		}),
@@ -146,7 +153,10 @@ export function foldGutterExtension({
 				);
 				htmlElement.textContent = '…';
 				htmlElement.className = 'cm-foldPlaceholder';
-				htmlElement.onclick = onclick;
+				htmlElement.onclick = (event) => {
+					onFoldToggled?.(false, 'placeholder');
+					onclick(event);
+				};
 				return htmlElement;
 			},
 		}),

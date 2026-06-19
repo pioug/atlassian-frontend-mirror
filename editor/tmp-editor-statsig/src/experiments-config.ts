@@ -1389,6 +1389,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-19
+	remix_iw_block_menu_table_calc_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	platform_editor_ai_aifc_space_shortcut_patch: {
 		defaultValue: boolean;
 		param: string;
@@ -2167,6 +2174,7 @@ export const editorExperimentsConfig: {
 	platform_editor_table_col_insert: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_table_col_insert',
+			jira: 'platform_editor_table_col_insert',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3462,6 +3470,14 @@ export const editorExperimentsConfig: {
 	platform_editor_remix_in_block_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remix_in_block_menu',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-19 — fix table text length calculation for Remix/Improve Writing hero prompts
+	remix_iw_block_menu_table_calc_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'remix_iw_block_menu_table_calc_fix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

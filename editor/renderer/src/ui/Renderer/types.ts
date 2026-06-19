@@ -35,6 +35,7 @@ export type StickyHeaderProps =
 export type HeadingAnchorLinksConfig = {
 	activeHeadingId?: string;
 	allowNestedHeaderLinks?: boolean;
+	getHeadingLink?: (headingId: string) => string;
 };
 
 export type NodeComponentsProps = {

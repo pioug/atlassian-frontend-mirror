@@ -14,6 +14,7 @@ import {
 } from 'react';
 
 import { css, jsx } from '@compiled/react';
+import { bind } from 'bind-event-listener';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type GroupBase, mergeStyles } from '@atlaskit/react-select';
@@ -251,16 +252,32 @@ export function PopupSelectTopLayer<
 	);
 
 	// Open the menu when the trigger is clicked. Mirrors the legacy
-	// PopupSelect target-click behavior (popup-select.tsx -> handleClick).
-	// We cannot trust consumers to spread `onClick` onto the target; the
-	// legacy implementation listened on a global click handler, but here
-	// we attach `onClick` directly via the triggerProps spread.
-	const handleTargetClick = useCallback(() => {
-		if (isOpen) {
-			close();
-		} else {
-			open();
+	// `PopupSelect` global-click listener: consumers are not required to
+	// spread an `onClick`, so we walk up from the event target to the
+	// trigger ref instead.
+	useEffect(() => {
+		if (typeof window === 'undefined') {
+			return;
 		}
+		return bind(window, {
+			type: 'click',
+			listener: (event) => {
+				const target = event.target;
+				if (!(target instanceof Element)) {
+					return;
+				}
+				const trigger = triggerRef.current;
+				if (!trigger || !trigger.contains(target)) {
+					return;
+				}
+				if (isOpen) {
+					close();
+					return;
+				}
+				open();
+			},
+			options: { capture: true },
+		});
 	}, [isOpen, open, close]);
 
 	// Focus restoration on close is handled automatically by Popover
@@ -318,6 +335,10 @@ export function PopupSelectTopLayer<
 			({
 				...mergedComponents,
 				Control: showSearchControl ? mergedComponents.Control : DummyControl,
+				// Render react-select's menu inline; PopupSelectTopLayer's own
+				// `Popover` is already the top-layer host. Otherwise the flag-on
+				// `MenuPortalTopLayer` would nest a second popover.
+				MenuPortal: ({ children }) => <Fragment>{children}</Fragment>,
 			}) as SelectComponentsConfig<Option, IsMulti>,
 		[mergedComponents, showSearchControl],
 	);
@@ -330,7 +351,10 @@ export function PopupSelectTopLayer<
 		ref: (node: HTMLElement | null) => {
 			triggerRef.current = node;
 		},
-		onClick: handleTargetClick,
+		// No `onClick` on `triggerProps`: the trigger click is observed via
+		// the capture-phase global `click` listener in the effect above,
+		// matching the legacy `PopupSelect` contract for consumers that do
+		// not spread `triggerProps` onto their target.
 		onKeyDown: handleTargetKeyDown,
 		// Maintain existing aria attribute format for backwards compatibility.
 		// Should technically be 'dialog' instead of 'true', but preserving

@@ -320,6 +320,7 @@ export const RendererFunctionalComponent = (
 				contentMode: props.contentMode,
 				onSetLinkTarget: props.onSetLinkTarget,
 				disableHeadingIDs: props.disableHeadingIDs,
+				headingIdPrefix: props.headingIdPrefix,
 				disableActions: props.disableActions,
 				allowHeadingAnchorLinks: props.allowHeadingAnchorLinks,
 				allowColumnSorting: props.allowColumnSorting,

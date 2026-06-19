@@ -1913,3 +1913,46 @@ describe('IDL `popover` setter round-trips through the getter', () => {
 		expect(popover.popover).toBe('manual');
 	});
 });
+
+// Spec: https://html.spec.whatwg.org/multipage/semantics-other.html#selector-popover-open
+describe('`:popover-open` pseudo-class matching', () => {
+	it('matches an open popover and does not match a closed one', () => {
+		jest.useFakeTimers();
+		const popover = createPopover({ mode: 'auto' });
+		const cleanup = appendToBody(popover);
+
+		expect(popover.matches(':popover-open')).toBe(false);
+
+		popover.showPopover();
+		flushTasks();
+
+		expect(popover.matches(':popover-open')).toBe(true);
+
+		popover.hidePopover();
+		flushTasks();
+
+		expect(popover.matches(':popover-open')).toBe(false);
+
+		cleanup();
+	});
+
+	it('does not match a non-popover element', () => {
+		const element = document.createElement('div');
+		const cleanup = appendToBody(element);
+
+		expect(element.matches(':popover-open')).toBe(false);
+
+		cleanup();
+	});
+
+	it('delegates other selectors to the native matcher', () => {
+		const element = document.createElement('div');
+		element.classList.add('example');
+		const cleanup = appendToBody(element);
+
+		expect(element.matches('.example')).toBe(true);
+		expect(element.matches('.other')).toBe(false);
+
+		cleanup();
+	});
+});

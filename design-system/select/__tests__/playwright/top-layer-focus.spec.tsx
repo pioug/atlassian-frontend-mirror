@@ -41,11 +41,19 @@ test.describe('PopupSelect: top-layer focus contract', () => {
 		);
 
 		const trigger = page.getByTestId('initial-focus-popup-select-trigger');
+		const input = page.getByTestId('initial-focus-popup-select-select--input');
 		await trigger.click();
-		await expect(page.getByTestId('initial-focus-popup-select-select--input')).toBeFocused();
+		await expect(input).toBeFocused();
 
 		await page.keyboard.press('Escape');
 		await expect(trigger).toBeFocused();
+
+		// Guard against an upstream `Popover` reconcile mis-firing on
+		// Escape: assert the popup stays closed. The input only exists
+		// while the popup is mounted, so `toHaveCount(0)` with a
+		// generous timeout catches a reconcile-driven flicker that
+		// briefly re-mounts the popup contents.
+		await expect(input).toHaveCount(0, { timeout: 1000 });
 	});
 
 	// WCAG 2.4.3 Focus Order + WAI-ARIA APG Combobox pattern. The
@@ -54,12 +62,9 @@ test.describe('PopupSelect: top-layer focus contract', () => {
 	// carve-out in `useInitialFocus` must still apply, leaving focus on
 	// the react-select search input on mount.
 	test('initial focus: `defaultIsOpen` focuses the search input on mount', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/97-testing-initial-focus-matrix.tsx')>(
-			'design-system',
-			'select',
-			'testing-initial-focus-matrix',
-			{ featureFlag },
-		);
+		await page.visitExample<
+			typeof import('../../examples/98-testing-initial-focus-default-open.tsx')
+		>('design-system', 'select', 'testing-initial-focus-default-open', { featureFlag });
 
 		await expect(page.getByTestId('default-open-popup-select-select--input')).toBeFocused();
 	});

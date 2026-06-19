@@ -4,141 +4,281 @@ import transformer from '../codemods/lozenge-to-tag-migration';
 const check = createCheck(transformer);
 
 describe('lozenge-to-tag-migration', () => {
-	describe('basic migration', () => {
+	describe('no-op cases', () => {
 		check({
-			it: 'should migrate Lozenge without isBold to Tag',
+			it: 'should not transform files with no Lozenge import',
 			original: `
-import Lozenge from '@atlaskit/lozenge';
+import Button from '@atlaskit/button';
 
 export default function App() {
-	return <Lozenge appearance="success">Success</Lozenge>;
+	return <Button appearance="primary">Click me</Button>;
 }
 `,
 			expected: `
-import Tag from '@atlaskit/tag';
+import Button from '@atlaskit/button';
 
 export default function App() {
-	return <Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />;
+	return <Button appearance="primary">Click me</Button>;
 }
 `,
 		});
 
 		check({
-			it: 'should migrate Lozenge with isBold={false} to Tag',
+			it: 'should not transform Lozenge with no appearance prop',
 			original: `
 import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Lozenge isBold={false} appearance="default">Default</Lozenge>;
+	return <Lozenge>Default</Lozenge>;
 }
 `,
 			expected: `
-import Tag from '@atlaskit/tag';
+import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Tag text="Default" color="standard" isRemovable={false} migration_fallback="lozenge" />;
+	return <Lozenge>Default</Lozenge>;
 }
 `,
 		});
 
 		check({
-			it: 'should not migrate Lozenge with isBold={true}',
+			it: 'should not transform Lozenge with already-valid appearance "success"',
 			original: `
 import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Lozenge isBold={true} appearance="success">Bold Success</Lozenge>;
+	return <Lozenge appearance="success">Done</Lozenge>;
 }
 `,
 			expected: `
 import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Lozenge isBold={true} appearance="success">Bold Success</Lozenge>;
+	return <Lozenge appearance="success">Done</Lozenge>;
 }
 `,
 		});
 
 		check({
-			it: 'should not migrate Lozenge with isBold (boolean prop)',
+			it: 'should not transform Lozenge with an unrecognised appearance value',
 			original: `
-import AKLozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Lozenge isBold appearance="success">Bold Success</Lozenge>;
+	return <Lozenge appearance="custom">Custom</Lozenge>;
 }
 `,
 			expected: `
-import AKLozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
-	return <Lozenge isBold appearance="success">Bold Success</Lozenge>;
+	return <Lozenge appearance="custom">Custom</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should not touch non-Lozenge component appearance props when Lozenge is also imported',
+			original: `
+import Button from '@atlaskit/button';
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Button appearance="primary">Click</Button>
+			<Lozenge>No appearance</Lozenge>
+		</div>
+	);
+}
+`,
+			expected: `
+import Button from '@atlaskit/button';
+import Lozenge from '@atlaskit/lozenge';
+
+export default function App() {
+	return (
+		<div>
+			<Button appearance="primary">Click</Button>
+			<Lozenge>No appearance</Lozenge>
+		</div>
+	);
 }
 `,
 		});
 	});
 
-	describe('appearance to color mapping', () => {
+	describe('appearance value mapping', () => {
 		check({
-			it: 'should map all appearance values correctly',
+			it: 'should map "default" to "neutral"',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="default">Default</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="neutral">Default</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should map "inprogress" to "information"',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="inprogress">In Progress</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="information">In Progress</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should map "moved" to "warning"',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="moved">Moved</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="warning">Moved</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should map "removed" to "danger"',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="removed">Removed</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="danger">Removed</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should map "new" to "discovery"',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="new">New</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge appearance="discovery">New</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should transform multiple Lozenge elements with different appearances',
 			original: `
 import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
 	return (
 		<div>
-			<Lozenge appearance="success">Success</Lozenge>
 			<Lozenge appearance="default">Default</Lozenge>
-			<Lozenge appearance="removed">Removed</Lozenge>
 			<Lozenge appearance="inprogress">In Progress</Lozenge>
-			<Lozenge appearance="new">New</Lozenge>
 			<Lozenge appearance="moved">Moved</Lozenge>
+			<Lozenge appearance="removed">Removed</Lozenge>
+			<Lozenge appearance="new">New</Lozenge>
+			<Lozenge appearance="success">Success</Lozenge>
 		</div>
 	);
 }
 `,
 			expected: `
-import Tag from '@atlaskit/tag';
+import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
 	return (
 		<div>
-			<Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />
-			<Tag text="Default" color="standard" isRemovable={false} migration_fallback="lozenge" />
-			<Tag text="Removed" color="red" isRemovable={false} migration_fallback="lozenge" />
-			<Tag text="In Progress" color="blue" isRemovable={false} migration_fallback="lozenge" />
-			<Tag text="New" color="purple" isRemovable={false} migration_fallback="lozenge" />
-			<Tag text="Moved" color="orange" isRemovable={false} migration_fallback="lozenge" />
+			<Lozenge appearance="neutral">Default</Lozenge>
+			<Lozenge appearance="information">In Progress</Lozenge>
+			<Lozenge appearance="warning">Moved</Lozenge>
+			<Lozenge appearance="danger">Removed</Lozenge>
+			<Lozenge appearance="discovery">New</Lozenge>
+			<Lozenge appearance="success">Success</Lozenge>
 		</div>
 	);
 }
 `,
 		});
+	});
 
+	describe('isBold prop', () => {
 		check({
-			it: 'should handle unknown appearance values with warning',
+			it: 'should keep isBold={true} and still migrate appearance',
 			original: `
 import Lozenge from '@atlaskit/lozenge';
-
 export default function App() {
-	return <Lozenge appearance="unknown">Unknown</Lozenge>;
+	return <Lozenge isBold={true} appearance="default">Bold</Lozenge>;
 }
 `,
 			expected: `
-import Tag from '@atlaskit/tag';
-
+import Lozenge from '@atlaskit/lozenge';
 export default function App() {
-	return (
-		/* TODO: (from codemod) FIXME: This Tag component uses an unknown appearance value "unknown".
-        Please update to a valid Tag color: standard, green, lime, blue, red, purple, magenta, grey, teal, orange, yellow. */
-		<Tag text="Unknown" color="unknown" isRemovable={false} migration_fallback="lozenge" />
-	);
+	return <Lozenge isBold={true} appearance="neutral">Bold</Lozenge>;
 }
 `,
 		});
 
 		check({
-			it: 'should handle dynamic appearance values with warning',
+			it: 'should keep isBold={false} and still migrate appearance',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge isBold={false} appearance="inprogress">Not Bold</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge isBold={false} appearance="information">Not Bold</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should keep boolean shorthand isBold and still migrate appearance',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge isBold appearance="moved">Bold</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge isBold appearance="warning">Bold</Lozenge>;
+}
+`,
+		});
+	});
+
+	describe('dynamic appearance', () => {
+		check({
+			it: 'should add a FIXME comment and leave the prop untouched for a dynamic appearance',
 			original: `
 import Lozenge from '@atlaskit/lozenge';
 
@@ -148,449 +288,85 @@ export default function App() {
 }
 `,
 			expected: `
-import Tag from '@atlaskit/tag';
+import Lozenge from '@atlaskit/lozenge';
 
 export default function App() {
 	const status = getStatus();
 	return (
-		/* TODO: (from codemod) FIXME: This Tag component uses a dynamic \`appearance\` prop that has been renamed to \`color\`.
-        Please verify that the values being passed are valid color values (semantic: default, inprogress, moved, new, removed, success). */
-		<Tag text="Dynamic" color={status} isRemovable={false} migration_fallback="lozenge" />
+		/* TODO: (from codemod) FIXME: This Lozenge uses a dynamic \`appearance\` prop. Please verify the values are updated to new semantic values: neutral, information, warning, danger, discovery, success. */
+		<Lozenge appearance={status}>Dynamic</Lozenge>
 	);
+}
+`,
+		});
+
+	});
+
+	describe('other props are preserved', () => {
+		check({
+			it: 'should preserve testId and maxWidth while migrating appearance',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge testId="my-lozenge" maxWidth={150} appearance="default">Default</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	return <Lozenge testId="my-lozenge" maxWidth={150} appearance="neutral">Default</Lozenge>;
+}
+`,
+		});
+
+		check({
+			it: 'should preserve spread attributes',
+			original: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	const props = { testId: 'x' };
+	return <Lozenge {...props} appearance="removed">Removed</Lozenge>;
+}
+`,
+			expected: `
+import Lozenge from '@atlaskit/lozenge';
+export default function App() {
+	const props = { testId: 'x' };
+	return <Lozenge {...props} appearance="danger">Removed</Lozenge>;
 }
 `,
 		});
 	});
 
-	describe('prop handling', () => {
+	describe('renamed imports', () => {
 		check({
-			it: 'should remove maxWidth prop with warning',
+			it: 'should handle a renamed default import',
 			original: `
-import Lozenge from '@atlaskit/lozenge';
-
+import MyLozenge from '@atlaskit/lozenge';
 export default function App() {
-	return <Lozenge maxWidth={150} appearance="success">Success</Lozenge>;
+	return <MyLozenge appearance="default">Default</MyLozenge>;
 }
 `,
 			expected: `
-import Tag from '@atlaskit/tag';
-
+import MyLozenge from '@atlaskit/lozenge';
 export default function App() {
-	return (
-		/* TODO: (from codemod) FIXME: maxWidth prop was removed during migration from Lozenge to Tag.
-        Tag component does not support maxWidth. Please review if width constraints are needed. */
-		<Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />
-	);
+	return <MyLozenge appearance="neutral">Default</MyLozenge>;
 }
 `,
 		});
 
 		check({
-			it: 'should preserve other props',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return <Lozenge testId="my-lozenge" appearance="success">Success</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return <Tag text="Success" testId="my-lozenge" color="lime" isRemovable={false} migration_fallback="lozenge" />;
-}
-`,
-		});
-
-		check({
-			it: 'should handle style prop with warning',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return <Lozenge style={{ backgroundColor: 'red' }} appearance="success">Success</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return (
-		/* TODO: (from codemod) FIXME: This Tag component has a style prop that was kept during migration.
-        Tag component has limited style support. Please review if custom styles are compatible. */
-		<Tag text="Success" style={{ backgroundColor: 'red' }} color="lime" isRemovable={false} migration_fallback="lozenge" />
-	);
-}
-`,
-		});
-	});
-
-	describe('dynamic isBold handling', () => {
-		check({
-			it: 'should add warning for dynamic isBold without migrating',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	const shouldBeBold = getBoldness();
-	return <Lozenge isBold={shouldBeBold} appearance="success">Dynamic Bold</Lozenge>;
-}
-`,
-			expected: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	const shouldBeBold = getBoldness();
-	return (
-		/* TODO: (from codemod) FIXME: This Lozenge component uses a dynamic \`isBold\` prop. Please manually review if this should be migrated to Tag component.
-        If isBold is typically false, consider migrating to <Tag /> from '@atlaskit/tag'. */
-		<Lozenge isBold={shouldBeBold} appearance="success">Dynamic Bold</Lozenge>
-	);
-}
-`,
-		});
-	});
-
-	describe('import handling', () => {
-		check({
-			it: 'should handle renamed imports',
+			it: 'should handle a { default as X } named import',
 			original: `
 import { default as Badge } from '@atlaskit/lozenge';
-
 export default function App() {
-	return <Badge appearance="success">Success</Badge>;
+	return <Badge appearance="new">New</Badge>;
 }
 `,
 			expected: `
-import Tag from '@atlaskit/tag';
-
+import { default as Badge } from '@atlaskit/lozenge';
 export default function App() {
-	return <Tag text="Success" color="lime" isRemovable={false} migration_fallback="lozenge" />;
-}
-`,
-		});
-
-		check({
-			it: 'should not add Tag import if already present',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return (
-		<div>
-			<Tag text="Existing" color="blue" />
-			<Lozenge appearance="success">To Migrate</Lozenge>
-		</div>
-	);
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return (
-		<div>
-			<Tag text="Existing" color="blue" />
-			<Tag text="To Migrate" color="lime" isRemovable={false} migration_fallback="lozenge" />
-		</div>
-	);
-}
-`,
-		});
-	});
-
-	describe('children to text conversion', () => {
-		check({
-			it: 'should convert simple text children to text prop',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return <Lozenge appearance="success">Simple Text</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return <Tag text="Simple Text" color="lime" isRemovable={false} migration_fallback="lozenge" />;
-}
-`,
-		});
-
-		check({
-			it: 'should handle complex children with TODO comment',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return (
-		<Lozenge appearance="success">
-			<strong>Bold</strong> text with <em>emphasis</em>
-		</Lozenge>
-	);
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return (
-		/* TODO: (from codemod) FIXME: This Tag component has complex children that couldn't be automatically migrated to the text prop.
-        Tag component only supports simple text via the text prop. Please manually convert the children content. */
-		<Tag color="lime" isRemovable={false} migration_fallback="lozenge" />
-	);
-}
-`,
-		});
-
-		check({
-			it: 'should handle whitespace-only children',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return <Lozenge appearance="success">   </Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return <Tag color="lime" isRemovable={false} migration_fallback="lozenge" />;
-}
-`,
-		});
-
-		check({
-			it: 'should handle string expression children',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return <Lozenge appearance="success">{"Simple String"}</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return <Tag text="Simple String" color="lime" isRemovable={false} migration_fallback="lozenge" />;
-}
-`,
-		});
-
-		check({
-			it: 'should handle multiple text nodes with TODO comment',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return <Lozenge appearance="success">Part 1 {" "} Part 2</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return (
-		/* TODO: (from codemod) FIXME: This Tag component has complex children that couldn't be automatically migrated to the text prop.
-        Tag component only supports simple text via the text prop. Please manually convert the children content. */
-		<Tag color="lime" isRemovable={false} migration_fallback="lozenge" />
-	);
-}
-`,
-		});
-
-		check({
-			it: 'should migrate variable children with verification warning',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	const label = 'Dynamic Label';
-	return <Lozenge appearance="success">{label}</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	const label = 'Dynamic Label';
-	return (
-		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
-		<Tag text={label} color="lime" isRemovable={false} migration_fallback="lozenge" />
-	);
-}
-`,
-		});
-
-		check({
-			it: 'should migrate member expression children with verification warning',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	const data = { title: 'Member Title' };
-	return <Lozenge appearance="success">{data.title}</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	const data = { title: 'Member Title' };
-	return (
-		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
-		<Tag text={data.title} color="lime" isRemovable={false} migration_fallback="lozenge" />
-	);
-}
-`,
-		});
-
-		check({
-			it: 'should migrate deeply nested member expression',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	const config = { ui: { label: 'Nested Label' } };
-	return <Lozenge appearance="success">{config.ui.label}</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	const config = { ui: { label: 'Nested Label' } };
-	return (
-		/* TODO: (from codemod) FIXME: This Tag component uses a variable as the text prop. Please verify that the variable contains a string value. */
-		<Tag text={config.ui.label} color="lime" isRemovable={false} migration_fallback="lozenge" />
-	);
-}
-`,
-		});
-
-		check({
-			it: 'should migrate formatMessage call expression as children without warning',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-import { formatMessage } from '@atlassian/jira-intl';
-
-export default function App() {
-	return <Lozenge appearance="success">{formatMessage(messages.label)}</Lozenge>;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-import { formatMessage } from '@atlassian/jira-intl';
-
-export default function App() {
-	return <Tag text={formatMessage(messages.label)} color="lime" isRemovable={false} migration_fallback="lozenge" />;
-}
-`,
-		});
-	});
-
-	describe('edge cases', () => {
-		check({
-			it: 'should not transform files without Lozenge imports',
-			original: `
-import Button from '@atlaskit/button';
-
-export default function App() {
-	return <Button appearance="primary">Button</Button>;
-}
-`,
-			expected: `
-import Button from '@atlaskit/button';
-
-export default function App() {
-	return <Button appearance="primary">Button</Button>;
-}
-`,
-		});
-
-		check({
-			it: 'should not transform non-Lozenge components',
-			original: `
-import Button from '@atlaskit/button';
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return (
-		<div>
-			<Button appearance="primary">Button</Button>
-			<Lozenge appearance="success">Lozenge</Lozenge>
-		</div>
-	);
-}
-`,
-			expected: `
-import Button from '@atlaskit/button';
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return (
-		<div>
-			<Button appearance="primary">Button</Button>
-			<Tag text="Lozenge" color="lime" isRemovable={false} migration_fallback="lozenge" />
-		</div>
-	);
-}
-`,
-		});
-
-		check({
-			it: 'should handle Lozenge with no children',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return <Lozenge appearance="success" />;
-}
-`,
-			expected: `
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return <Tag color="lime" isRemovable={false} migration_fallback="lozenge" />;
-}
-`,
-		});
-
-		check({
-			it: 'should handle mixed migration scenarios',
-			original: `
-import Lozenge from '@atlaskit/lozenge';
-
-export default function App() {
-	return (
-		<div>
-			<Lozenge appearance="success">Should migrate</Lozenge>
-			<Lozenge isBold={false} appearance="default">Should migrate</Lozenge>
-			<Lozenge isBold={true} appearance="new">Should NOT migrate</Lozenge>
-			<Lozenge isBold appearance="moved">Should NOT migrate</Lozenge>
-		</div>
-	);
-}
-`,
-			expected: `
-import Lozenge from '@atlaskit/lozenge';
-
-import Tag from '@atlaskit/tag';
-
-export default function App() {
-	return (
-		<div>
-			<Tag text="Should migrate" color="lime" isRemovable={false} migration_fallback="lozenge" />
-			<Tag text="Should migrate" color="standard" isRemovable={false} migration_fallback="lozenge" />
-			<Lozenge isBold={true} appearance="new">Should NOT migrate</Lozenge>
-			<Lozenge isBold appearance="moved">Should NOT migrate</Lozenge>
-		</div>
-	);
+	return <Badge appearance="discovery">New</Badge>;
 }
 `,
 		});

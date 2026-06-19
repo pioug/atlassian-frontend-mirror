@@ -480,6 +480,21 @@ function handleDocumentKeydown(event: KeyboardEvent) {
 if (typeof HTMLElement !== 'undefined') {
 	const schedulePopoverToggle = createToggleScheduler();
 
+	// jsdom throws `SyntaxError` on the `:popover-open` pseudo-class. Answer
+	// it from the polyfill's `data-popover-open` source of truth and
+	// delegate every other selector to the original implementation.
+	// Spec: https://html.spec.whatwg.org/multipage/semantics-other.html#selector-popover-open
+	const originalMatches = Element.prototype.matches;
+	Element.prototype.matches = function patchedMatches(
+		this: Element,
+		selector: string,
+	): boolean {
+		if (selector === ':popover-open') {
+			return this.hasAttribute('data-popover-open');
+		}
+		return originalMatches.call(this, selector);
+	};
+
 	// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
 	if (!HTMLElement.prototype.showPopover) {
 		HTMLElement.prototype.showPopover = function showPopover(this: HTMLElement) {

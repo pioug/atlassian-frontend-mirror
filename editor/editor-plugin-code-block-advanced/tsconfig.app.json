@@ -43,6 +43,9 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-analytics/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-code-block/tsconfig.app.json"
 		},
 		{

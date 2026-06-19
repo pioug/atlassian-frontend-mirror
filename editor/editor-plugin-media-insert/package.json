@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-insert",
-	"version": "25.0.7",
+	"version": "25.0.8",
 	"description": "Media Insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -120,12 +120,23 @@ export const failExp = (
 	}
 };
 
-export const abortExp = (name: AutocompleteExperienceName, id: string, reason?: string): void => {
+export const abortExp = (
+	name: AutocompleteExperienceName,
+	id: string,
+	reason?: string,
+	metadata?: CustomData,
+): void => {
 	if (!isUfoEnabled()) {
 		return;
 	}
 	try {
-		experiences[name].getInstance(id).abort(reason ? { metadata: { reason } } : undefined);
+		// `reason` is the dedicated, canonical channel for the abort reason and
+		// intentionally takes precedence over a `reason` key in `metadata`. Callers
+		// must pass the reason via the param, not inside `metadata` (the `reason`
+		// key there is reserved and would be overwritten).
+		const merged: CustomData = { ...metadata, ...(reason ? { reason } : {}) };
+		const hasMetadata = Object.keys(merged).length > 0;
+		experiences[name].getInstance(id).abort(hasMetadata ? { metadata: merged } : undefined);
 	} catch {
 		// UFO errors must never break the plugin
 	}

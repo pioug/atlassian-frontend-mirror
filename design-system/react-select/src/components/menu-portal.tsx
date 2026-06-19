@@ -16,9 +16,13 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import { autoUpdate } from '@floating-ui/dom';
 import { createPortal } from 'react-dom';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getStyleProps } from '../get-style-props';
 import { PortalPlacementContext } from '../internal/portal-placement-context';
 import type { CommonPropsAndClassName, GroupBase, MenuPlacement, MenuPosition } from '../types';
+
+import { MenuPortalTopLayer } from './menu-portal-top-layer';
 
 function getBoundingClientObj(element: HTMLElement): {
 	bottom: number;
@@ -79,11 +83,9 @@ const menuPortalStyles = cssMap({
 	},
 });
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+function MenuPortalLegacy<Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuPortalProps<Option, IsMulti, Group>,
-) => JSX.Element | null = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	props: MenuPortalProps<Option, IsMulti, Group>,
-) => {
+): ReactNode {
 	const { appendTo, children, controlElement, innerProps, menuPlacement, menuPosition, xcss } =
 		props;
 
@@ -157,7 +159,10 @@ export const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBa
 		[runAutoUpdate],
 	);
 
-	// bail early if required elements aren't present
+	// Legacy quirk: `computedPosition` is null until the layout effect runs,
+	// so the first render returns null even with `defaultMenuIsOpen` set.
+	// Synchronous observers (VR snapshots) see a one-frame "closed" state.
+	// Left as-is; the top-layer path supersedes this and positions declaratively.
 	if ((!appendTo && menuPosition !== 'fixed') || !computedPosition) {
 		return null;
 	}
@@ -203,4 +208,23 @@ export const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBa
 			{appendTo ? createPortal(menuWrapper, appendTo) : menuWrapper}
 		</PortalPlacementContext.Provider>
 	);
+}
+
+/**
+ * Public-facing `MenuPortal` component. Routes between the legacy
+ * `createPortal`-based implementation and the top-layer-based
+ * `MenuPortalTopLayer` based on the `platform-dst-top-layer` feature flag.
+ */
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MenuPortalProps<Option, IsMulti, Group>,
+) => ReactNode = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
+	props: MenuPortalProps<Option, IsMulti, Group>,
+) => {
+	if (fg('platform-dst-top-layer')) {
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		return <MenuPortalTopLayer {...props} />;
+	}
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+	return <MenuPortalLegacy {...props} />;
 };

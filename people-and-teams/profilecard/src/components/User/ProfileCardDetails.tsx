@@ -4,7 +4,6 @@ import { cssMap, cx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -91,7 +90,7 @@ const renderName = (
 
 	const displayName = isNicknameRedundant ? fullName : `${fullName}${shownNickname}`;
 
-	return fg('enable_profilecard_text_truncation_tooltip') ? (
+	return (
 		<Tooltip
 			content={displayName}
 			position="top"
@@ -125,27 +124,6 @@ const renderName = (
 				{displayName}
 			</Box>
 		</Tooltip>
-	) : (
-		<Box
-			ref={nameRef}
-			as="h2"
-			xcss={cx(
-				styles.fullNameLabel,
-				styles.activeAccount,
-				meta ? styles.metaLabel : styles.noMetaLabel,
-			)}
-			testId="profilecard-name"
-			id="profilecard-name-label"
-			tabIndex={
-				isTriggeredUsingKeyboard &&
-				isRenderedInPortal &&
-				expValEquals('editor_a11y_7152_profile_card_tab_order', 'isEnabled', true)
-					? -1
-					: undefined
-			}
-		>
-			{displayName}
-		</Box>
 	);
 };
 

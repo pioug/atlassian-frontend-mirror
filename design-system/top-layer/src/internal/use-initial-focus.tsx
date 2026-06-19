@@ -135,6 +135,11 @@ function getInitialFocusTarget({
 		return getFirstFocusable({ container });
 	}
 
+	// The combobox carve-out is kept role-specific (menu / listbox) rather
+	// than hoisted. Hoisting it over-matched on dialog popups that contain
+	// a nested combobox (e.g. datetime-picker's dialog hosts a react-select),
+	// where the active combobox's `aria-controls` falsely matched the
+	// container and suppressed the dialog's own focus contract.
 	if (role === 'menu') {
 		if (isComboboxControllingPopup({ container })) {
 			return null;

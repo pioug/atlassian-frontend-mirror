@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import LinkIcon from '@atlaskit/icon/core/link';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -18,6 +18,7 @@ const CopyLinkAction = ({
 	onClick: onClickCallback,
 	...props
 }: CopyLinkActionProps): React.JSX.Element | null => {
+	const intl = useIntl();
 	const context = useFlexibleUiContext();
 	const invoke = useInvokeClientAction({});
 
@@ -41,11 +42,12 @@ const CopyLinkAction = ({
 
 	return data ? (
 		<Action
+			ariaLabel={intl.formatMessage(messages.copy_url_to_clipboard)}
 			content={<FormattedMessage {...messages.copy_url_to_clipboard} />}
 			icon={
 				<LinkIcon
 					color="currentColor"
-					label={fg('navx-3698-flexible-card-a11y-fix') ? '' : 'copy url'}
+					label=''
 					spacing="spacious"
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }

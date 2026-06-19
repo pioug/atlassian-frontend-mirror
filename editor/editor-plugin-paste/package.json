@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "13.0.6",
+	"version": "13.1.0",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -102,6 +102,10 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_editor_blocks_patch_2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_legacy_content_macro_insert": {
 			"type": "boolean"
 		},

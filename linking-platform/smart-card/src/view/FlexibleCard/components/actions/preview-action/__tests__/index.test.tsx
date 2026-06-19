@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -117,8 +116,8 @@ describe('PreviewAction', () => {
 
 		const element = await screen.findByTestId(testId);
 		expect(element).toHaveTextContent('Open preview');
-		// icon label for modal
-		expect(screen.getByLabelText('Open preview')).toBeInTheDocument();
+		// button has aria-label for a11y; icon is decorative (empty label)
+		expect(element).toHaveAttribute('aria-label', 'Open preview');
 	});
 
 	it('should render panel variant when hasPreviewPanel is true', async () => {
@@ -130,8 +129,8 @@ describe('PreviewAction', () => {
 
 		const element = await screen.findByTestId(testId);
 		expect(element).toHaveTextContent('Open preview panel');
-		// icon label for panel
-		expect(screen.getByLabelText('Open preview panel')).toBeInTheDocument();
+		// button has aria-label for a11y; icon is decorative (empty label)
+		expect(element).toHaveAttribute('aria-label', 'Open preview panel');
 	});
 
 	it('should not render when no preview action data present', () => {
@@ -147,50 +146,20 @@ describe('PreviewAction', () => {
 		expect(screen.queryByTestId(testId)).toBeNull();
 	});
 
-	ffTest.on('navx-3698-flexible-card-a11y-fix', '', () => {
-		it('should render modal icon without aria-label when flag is enabled', async () => {
-			setContextWithPreviewPanel(false);
-			setup();
-			const element = await screen.findByTestId(testId);
-			expect(element).toBeInTheDocument();
-			expect(element).toHaveTextContent('Open preview');
-			expect(screen.queryByLabelText('Open preview')).not.toBeInTheDocument();
-		});
-
-		it('should pass a11y check when icon label is empty', async () => {
-			setContextWithPreviewPanel(false);
-
-			const { container } = setup();
-			await expect(container).toBeAccessible();
-		});
+	it('should render modal icon without aria-label when flag is enabled', async () => {
+		setContextWithPreviewPanel(false);
+		setup();
+		const element = await screen.findByTestId(testId);
+		expect(element).toBeInTheDocument();
+		expect(element).toHaveTextContent('Open preview');
+		// button has aria-label for a11y; icon is decorative (empty label)
+		expect(element).toHaveAttribute('aria-label', 'Open preview');
 	});
 
-	ffTest.off('navx-3698-flexible-card-a11y-fix', '', () => {
-		it('should render panel icon with aria-label when flag is disabled', async () => {
-			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-			expValEquals.mockReturnValue(true);
-			setContextWithPreviewPanel(true);
-			setup();
+	it('should pass a11y check when icon label is empty', async () => {
+		setContextWithPreviewPanel(false);
 
-			const iconWithLabel = screen.getByLabelText('Open preview panel');
-			expect(iconWithLabel).toBeInTheDocument();
-		});
-
-		it('should render modal message icon with aria-label when flag is disabled', async () => {
-			setContextWithPreviewPanel(false);
-			setup();
-
-			const iconWithLabel = screen.getByLabelText('Open preview');
-			expect(iconWithLabel).toBeInTheDocument();
-		});
-
-		it('should pass a11y check when panel icon has descriptive label', async () => {
-			const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-			expValEquals.mockReturnValue(true);
-			setContextWithPreviewPanel(true);
-
-			const { container } = setup();
-			await expect(container).toBeAccessible();
-		});
+		const { container } = setup();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -9,7 +9,10 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/ad
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
-import { getColumnsWidths } from '../../pm-plugins/utils/column-controls';
+import {
+	getColumnsWidths,
+	getColumnsWidthsWithMergedCells,
+} from '../../pm-plugins/utils/column-controls';
 import { containsHeaderColumn } from '../../pm-plugins/utils/nodes';
 import { getRowHeights } from '../../pm-plugins/utils/row-controls';
 import { isNativeStickySupported } from '../../pm-plugins/utils/sticky-header';
@@ -98,7 +101,13 @@ const TableFloatingColumnControls = ({
 		return null;
 	}
 
-	const colWidths = getColumnsWidths(editorView);
+	const colWidths = expValEquals(
+		'platform_editor_table_menu_updates',
+		'isEnabled',
+		true,
+	)
+		? getColumnsWidthsWithMergedCells(editorView)
+		: getColumnsWidths(editorView);
 
 	if (stickyTop) {
 		const columnControlTopOffsetFromParent = '-12px';

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 12.0.6
+
+### Patch Changes
+
+- [`4fb2bcf154f52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fb2bcf154f52) -
+  Clean up feature gate `platform_editor_allow_viewmode_transaction`
+- Updated dependencies
+
 ## 12.0.5
 
 ### Patch Changes

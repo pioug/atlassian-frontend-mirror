@@ -39,117 +39,138 @@ type UrlChecker = (url: string) => RegExpMatchArray | null;
 
 // Check if it is matching a Jira Roadmaps or Jira Timeline url
 // NOT to be confused with JSM timeline
+const JIRA_ROADMAP_OR_TIMELINE_REGEX =
+	/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/(timeline|roadmap)\/?/;
+const POLARIS_VIEW_REGEX =
+	/^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+$|^https:\/\/.*?\/secure\/JiraProductDiscoveryAnonymous\.jspa\?hash=\w+|^https:\/\/.*?\/jira\/polaris\/share\/\w+|^https:\/\/.*?\/jira\/discovery\/share\/views\/[\w-]+(\?selectedIssue=[\w-]+&issueViewLayout=sidebar&issueViewSection=[\w-]+)?$/;
+const JWM_VIEW_REGEX =
+	/^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board|summary|(form\/[^\/]+?))\/?/;
+const JIRA_LIST_REGEX =
+	/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/list\/?/;
+const GIPHY_MEDIA_REGEX = /^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//;
+const PROFORMA_VIEW_REGEX =
+	/^https:\/\/[^/]+\/jira\/(core|software(\/c)?|servicedesk)\/projects\/\w+\/forms\/form\/direct\/\d+\/\d+.*$/;
+// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+const CONFLUENCE_WHITEBOARD_DECIMAL_REGEX = /\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>\d+)(\?\/)?/;
+// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+const CONFLUENCE_WHITEBOARD_UUID_REGEX = /\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/;
+const CONFLUENCE_DATABASE_REGEX = /\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*)?$/;
+const YOUTUBE_VIDEO_REGEX =
+	/^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/;
+// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+const LOOM_VIDEO_URL_REGEX = /^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/;
+// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+const LOOM_SCREENSHOT_URL_REGEX = /^https:\/\/(.*?\.)?loom\..*?\/i\/(?<id>[a-f0-9]{32})/;
+const JIRA_DASHBOARD_REGEX = /^https:\/\/.*?\/jira\/dashboards\/[0-9]+.*/;
+const JIRA_BACKLOG_REGEX =
+	/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\/backlog\??.*/;
+const JIRA_BOARD_REGEX =
+	/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\??.*/;
+// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+const JIRA_PLAN_REGEX = /https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/;
+// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+const JIRA_PLAN_WITH_SCENARIO_REGEX = /https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/;
+const JIRA_VERSION_REGEX =
+	/https:\/\/.*?\/projects\/[^\/]+?\/versions\/\d+\/tab\/release-report-all-issues/;
+const JIRA_FORM_REGEX =
+	/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/form\/\d\??.*/;
+const JIRA_SUMMARY_REGEX =
+	/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/summary/;
+const ROVO_AGENT_PROFILE_PAGE_REGEX = /^https:\/\/.*?\/people\/agent\/.+$/;
+const CUSTOMER_360_LANDING_PAGE_REGEX = /^https:\/\/customer\.atlassian\.com\/.*$/;
+// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
+const CONFLUENCE_TEAM_CALENDARS_REGEX = /\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/;
+const JIRA_ISSUE_NAVIGATOR_REGEX =
+	/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/;
+const AVP_VISUALIZATION_VIEW_REGEX = /^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/;
+const JIRA_WORK_ITEM_REGEX = /\/browse\/((?:\w+)-(?:\d+))/i;
+const DOES_URL_MATCH_PATH_START_REGEX = /^[a-zA-Z0-9]/;
+const DOES_URL_MATCH_PATH_END_REGEX = /[a-zA-Z0-9]$/;
+
 const isJiraRoadmapOrTimeline: UrlChecker = (url) =>
-	url.match(
-		/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/(timeline|roadmap)\/?/,
-	);
+	url.match(JIRA_ROADMAP_OR_TIMELINE_REGEX);
 
 const isPolarisView: UrlChecker = (url) =>
-	url.match(
-		/^https:\/\/.*?\/jira\/polaris\/projects\/[^\/]+?\/ideas\/view\/\d+$|^https:\/\/.*?\/secure\/JiraProductDiscoveryAnonymous\.jspa\?hash=\w+|^https:\/\/.*?\/jira\/polaris\/share\/\w+|^https:\/\/.*?\/jira\/discovery\/share\/views\/[\w-]+(\?selectedIssue=[\w-]+&issueViewLayout=sidebar&issueViewSection=[\w-]+)?$/,
-	);
+	url.match(POLARIS_VIEW_REGEX);
 
 const isJwmView: UrlChecker = (url) =>
-	url.match(
-		/^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board|summary|(form\/[^\/]+?))\/?/,
-	);
+	url.match(JWM_VIEW_REGEX);
 
 const isJiraList: UrlChecker = (url) =>
-	url.match(/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/list\/?/);
+	url.match(JIRA_LIST_REGEX);
 
 const isGiphyMedia: UrlChecker = (url) =>
-	url.match(/^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//);
+	url.match(GIPHY_MEDIA_REGEX);
 
 const isProformaView: UrlChecker = (url) =>
-	url.match(
-		/^https:\/\/[^/]+\/jira\/(core|software(\/c)?|servicedesk)\/projects\/\w+\/forms\/form\/direct\/\d+\/\d+.*$/,
-	);
+	url.match(PROFORMA_VIEW_REGEX);
 
 const isConfluenceWhiteboard: UrlChecker = (url) =>
-	// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-	url.match(/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>\d+)(\?\/)?/) ||
-	url.match(
-		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-		/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/,
-	);
+	url.match(CONFLUENCE_WHITEBOARD_DECIMAL_REGEX) ||
+	url.match(CONFLUENCE_WHITEBOARD_UUID_REGEX);
 
 const isConfluenceDatabase: UrlChecker = (url) =>
-	url.match(/\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*)?$/);
+	url.match(CONFLUENCE_DATABASE_REGEX);
 
 const isYoutubeVideo: UrlChecker = (url) =>
-	url.match(/^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/);
+	url.match(YOUTUBE_VIDEO_REGEX);
 
 const isLoomVideoUrl: UrlChecker = (url) => {
-	return url.match(
-		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-		/^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/,
-	);
+	return url.match(LOOM_VIDEO_URL_REGEX);
 };
 
 const isLoomScreenshotUrl: UrlChecker = (url) => {
-	return url.match(
-		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-		/^https:\/\/(.*?\.)?loom\..*?\/i\/(?<id>[a-f0-9]{32})/,
-	);
+	return url.match(LOOM_SCREENSHOT_URL_REGEX);
 };
 
 const isJiraDashboard: UrlChecker = (url) => {
-	return url.match(/^https:\/\/.*?\/jira\/dashboards\/[0-9]+.*/);
+	return url.match(JIRA_DASHBOARD_REGEX);
 };
 
 const isJiraBacklog: UrlChecker = (url) => {
-	return url.match(
-		/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\/backlog\??.*/,
-	);
+	return url.match(JIRA_BACKLOG_REGEX);
 };
 
 const isJiraBoard: UrlChecker = (url) => {
-	return url.match(/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\??.*/);
+	return url.match(JIRA_BOARD_REGEX);
 };
 
 const isJiraPlan: UrlChecker = (url) => {
 	return (
-		// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-		url.match(/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/) ||
-		url.match(
-			// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-			/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/,
-		)
+		url.match(JIRA_PLAN_REGEX) ||
+		url.match(JIRA_PLAN_WITH_SCENARIO_REGEX)
 	);
 };
 
 const isJiraVersion: UrlChecker = (url) => {
-	return url.match(
-		/https:\/\/.*?\/projects\/[^\/]+?\/versions\/\d+\/tab\/release-report-all-issues/,
-	);
+	return url.match(JIRA_VERSION_REGEX);
 };
 
 const isJiraForm: UrlChecker = (url) => {
-	return url.match(/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/form\/\d\??.*/);
+	return url.match(JIRA_FORM_REGEX);
 };
 
 const isJiraSummary: UrlChecker = (url) => {
-	return url.match(/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/summary/);
+	return url.match(JIRA_SUMMARY_REGEX);
 };
 
 const isRovoAgentProfilePage: UrlChecker = (url) => {
-	return url.match(/^https:\/\/.*?\/people\/agent\/.+$/);
+	return url.match(ROVO_AGENT_PROFILE_PAGE_REGEX);
 };
 
 const isCustomer360LandingPage: UrlChecker = (url) =>
-	url.match(/^https:\/\/customer\.atlassian\.com\/.*$/);
+	url.match(CUSTOMER_360_LANDING_PAGE_REGEX);
 
 const isConfluenceTeamCalendars: UrlChecker = (url) =>
-	// @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-	url.match(/\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/);
+	url.match(CONFLUENCE_TEAM_CALENDARS_REGEX);
 
 const isJiraIssueNavigator: UrlChecker = (url) =>
-	url.match(/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/);
+	url.match(JIRA_ISSUE_NAVIGATOR_REGEX);
 
 const isAvpVisualizationView: UrlChecker = (url) =>
-	url.match(/^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/);
+	url.match(AVP_VISUALIZATION_VIEW_REGEX);
 
-export const isJiraWorkItem = (url: string): boolean => /\/browse\/((?:\w+)-(?:\d+))/i.test(url);
+export const isJiraWorkItem = (url: string): boolean => JIRA_WORK_ITEM_REGEX.test(url);
 
 // Local UrlChecker-compatible wrapper around the boolean-returning
 // `isConfluenceSlideUrl` from `./url-checkers` (the single source of truth for
@@ -421,8 +442,8 @@ export class EditorCardProvider
 
 	private doesUrlMatchPath(path: string, url: string) {
 		// Using [a-zA-Z0-9] here instead of \w since that includes underscores
-		const startingRegex = new RegExp(/^[a-zA-Z0-9]/).test(path) ? '(^|[^a-zA-Z0-9])' : '';
-		const endingRegex = new RegExp(/[a-zA-Z0-9]$/).test(path) ? '($|[^a-zA-Z0-9])' : '';
+		const startingRegex = DOES_URL_MATCH_PATH_START_REGEX.test(path) ? '(^|[^a-zA-Z0-9])' : '';
+		const endingRegex = DOES_URL_MATCH_PATH_END_REGEX.test(path) ? '($|[^a-zA-Z0-9])' : '';
 
 		const escapedPath = path.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 		const regexPattern = new RegExp(`${startingRegex}${escapedPath}${endingRegex}`);

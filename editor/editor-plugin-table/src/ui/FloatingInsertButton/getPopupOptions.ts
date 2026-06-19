@@ -46,6 +46,8 @@ function getColumnOptions(
 	index: number,
 	tableContainer: HTMLElement | null,
 	hasNumberedColumns: boolean,
+	// Distance between the target cell top and table top, used when anchoring to a lower-row cell.
+	verticalOffsetCorrection = 0,
 ): Partial<PopupProps> {
 	const options: Partial<PopupProps> = {
 		alignX: 'end',
@@ -57,15 +59,24 @@ function getColumnOptions(
 		// we should always set the InsertButton on the start,
 		// considering the offset from the first column
 		onPositionCalculated(position) {
+			// Move the popup upward whether the offset parent provides `top` or `bottom`.
+			let verticalCorrection: { bottom?: number; top?: number; } | undefined;
+			if (verticalOffsetCorrection) {
+				if (position.top !== undefined) {
+					verticalCorrection = { top: position.top - verticalOffsetCorrection };
+				} else if (position.bottom !== undefined) {
+					verticalCorrection = { bottom: position.bottom + verticalOffsetCorrection };
+				}
+			}
 			const { left } = position;
 			if (!left) {
-				// If not left, lest skip expensive next calculations.
-				return position;
+				return { ...position, ...verticalCorrection };
 			}
 
 			if (index === 0) {
 				return {
 					...position,
+					...verticalCorrection,
 					left: hasNumberedColumns
 						? HORIZONTAL_ALIGN_NUMBERED_COLUMN_BUTTON
 						: HORIZONTAL_ALIGN_COLUMN_BUTTON,
@@ -77,6 +88,7 @@ function getColumnOptions(
 
 			return {
 				...position,
+				...verticalCorrection,
 				left: rect && left > rect.width ? rect.width : left,
 			};
 		},
@@ -100,10 +112,11 @@ function getPopupOptions(
 	index: number,
 	hasNumberedColumns: boolean,
 	tableContainer: HTMLElement | null,
+	verticalOffsetCorrection = 0,
 ): Partial<PopupProps> {
 	switch (direction) {
 		case 'column':
-			return getColumnOptions(index, tableContainer, hasNumberedColumns);
+			return getColumnOptions(index, tableContainer, hasNumberedColumns, verticalOffsetCorrection);
 		case 'row':
 			return getRowOptions(index);
 		default:

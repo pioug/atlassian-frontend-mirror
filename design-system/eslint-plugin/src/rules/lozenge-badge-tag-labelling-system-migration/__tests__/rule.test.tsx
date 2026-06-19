@@ -4,32 +4,88 @@ import rule from '../index';
 tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 	valid: [
 		{
-			name: 'Lozenge with isBold={true} should not trigger warnings',
+			name: 'Lozenge with new semantic appearance="success" needs no change',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="success">Success lozenge</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with new semantic appearance="neutral" needs no change',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="neutral">Neutral lozenge</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with new semantic appearance="information" needs no change',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="information">Info lozenge</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with new semantic appearance="warning" needs no change',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="warning">Warning lozenge</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with new semantic appearance="danger" needs no change',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="danger">Danger lozenge</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with new semantic appearance="discovery" needs no change',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="discovery">Discovery lozenge</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with no appearance prop needs no change',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge>Status</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with dynamic appearance and no isBold needs no change',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				const appearance = 'success';
+				<Lozenge appearance={appearance}>Already migrated</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with isBold={true} is valid — isBold is kept while FF is off',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
 				<Lozenge isBold={true} appearance="success">Bold lozenge</Lozenge>
 			`,
 		},
 		{
-			name: 'Lozenge with implicit isBold (no value) should not trigger warnings',
+			name: 'Lozenge with isBold={false} is valid — isBold is kept while FF is off',
+			code: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge isBold={false} appearance="success">Subtle lozenge</Lozenge>
+			`,
+		},
+		{
+			name: 'Lozenge with bare isBold is valid — isBold is kept while FF is off',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
 				<Lozenge isBold appearance="success">Bold lozenge</Lozenge>
 			`,
 		},
 		{
-			name: 'Lozenge with implicit isBold and dynamic appearance prop should not trigger warnings',
+			name: 'Self-closing Lozenge with new semantic appearance needs no change',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
-				const appearance = 'success';
-				<Lozenge isBold appearance={appearance}>Bold lozenge</Lozenge>
-			`,
-		},
-		{
-			name: 'Lozenge with correct appearance prop (no value changes needed)',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="success" isBold>Correct usage</Lozenge>
+				<Lozenge appearance="success" />
 			`,
 		},
 		{
@@ -154,326 +210,116 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 		},
 	],
 	invalid: [
-		// Test case 1: isBold={false} should migrate to Tag
+		// Lozenge appearance value migration: legacy values → new semantic values
 		{
-			name: 'Lozenge with isBold={false} migrates to Tag',
+			name: 'Lozenge appearance="default" maps to "neutral"',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge isBold={false} appearance="success">Test</Lozenge>
+				<Lozenge appearance="default">Default</Lozenge>
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime" isRemovable={false} migration_fallback="lozenge">Test</Tag>
+				<Lozenge appearance="neutral">Default</Lozenge>
 			`,
 			errors: [
 				{
-					messageId: 'migrateTag',
+					messageId: 'updateAppearance',
 				},
 			],
 		},
-		// Test case 2: Missing isBold should migrate to Tag
 		{
-			name: 'Lozenge without isBold prop migrates to Tag',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="moved">Test</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="yellow" isRemovable={false} migration_fallback="lozenge">Test</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 3: Self-closing Lozenge without isBold
-		{
-			name: 'Self-closing Lozenge without isBold migrates to Tag',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="success" />
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime" isRemovable={false} migration_fallback="lozenge" />
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 4: Lozenge with only isBold={false}
-		{
-			name: 'Lozenge with only isBold={false} migrates to Tag',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge isBold={false}>Test</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag isRemovable={false} migration_fallback="lozenge">Test</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 5: Lozenge with no props (should migrate to Tag)
-		{
-			name: 'Lozenge with no props migrates to Tag',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge>Test</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag isRemovable={false} migration_fallback="lozenge">Test</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 6: Dynamic isBold should warn without autofix
-		{
-			name: 'Lozenge with dynamic isBold warns without autofix',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge isBold={someVariable}>Test</Lozenge>
-			`,
-			errors: [
-				{
-					messageId: 'manualReview',
-				},
-			],
-		},
-		// Test case 7: Conditional isBold should warn without autofix
-		{
-			name: 'Lozenge with conditional isBold warns without autofix',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge isBold={condition ? true : false}>Test</Lozenge>
-			`,
-			errors: [
-				{
-					messageId: 'manualReview',
-				},
-			],
-		},
-		// Test case 8: Named import
-		{
-			name: 'Lozenge with named import migrates to Tag',
-			code: `
-				import { Lozenge } from '@atlaskit/lozenge';
-				<Lozenge appearance="new" isBold={false}>Test</Lozenge>
-			`,
-			output: `
-				import { Lozenge } from '@atlaskit/lozenge';
-				<Tag color="purple" isRemovable={false} migration_fallback="lozenge">Test</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 9: Lozenge with multiple props
-		{
-			name: 'Lozenge with multiple props migrates to Tag preserving other props',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="inprogress" testId="test-lozenge" className="custom-class" isBold={false}>
-					Complex content
-				</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="blue" testId="test-lozenge" className="custom-class" isRemovable={false} migration_fallback="lozenge">
-					Complex content
-				</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 10: Lozenge with spread attributes
-		{
-			name: 'Lozenge with spread attributes migrates to Tag',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				const props = { testId: 'test' };
-				<Lozenge {...props} appearance="success" isBold={false}>Test</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				const props = { testId: 'test' };
-				<Tag {...props} color="lime" isRemovable={false} migration_fallback="lozenge">Test</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 10b: Lozenge with style prop should migrate to Tag preserving style
-		{
-			name: 'Lozenge with style prop migrates to Tag preserving style',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="success" style={{ color: 'pink' }}>Test with style</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="lime" style={{ color: 'pink' }} isRemovable={false} migration_fallback="lozenge">Test with style</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 11: Test different appearance values for Tag migration
-		{
-			name: 'Lozenge appearance="default" maps to color="standard"',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="default" isBold={false}>Default</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="gray" isRemovable={false} migration_fallback="lozenge">Default</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 12: Test removed appearance for Tag migration
-		{
-			name: 'Lozenge appearance="removed" maps to color="red"',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="removed">Removed</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="red" isRemovable={false} migration_fallback="lozenge">Removed</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 13: Test inprogress appearance for Tag migration
-		{
-			name: 'Lozenge appearance="inprogress" maps to color="blue"',
+			name: 'Lozenge appearance="inprogress" maps to "information"',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
 				<Lozenge appearance="inprogress">In Progress</Lozenge>
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="blue" isRemovable={false} migration_fallback="lozenge">In Progress</Tag>
+				<Lozenge appearance="information">In Progress</Lozenge>
 			`,
 			errors: [
 				{
-					messageId: 'migrateTag',
+					messageId: 'updateAppearance',
 				},
 			],
 		},
-		// Test case 14: Test new appearance for Tag migration
 		{
-			name: 'Lozenge appearance="new" maps to color="purple"',
-			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance="new">New</Lozenge>
-			`,
-			output: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="purple" isRemovable={false} migration_fallback="lozenge">New</Tag>
-			`,
-			errors: [
-				{
-					messageId: 'migrateTag',
-				},
-			],
-		},
-		// Test case 15: Test moved appearance for Tag migration
-		{
-			name: 'Lozenge appearance="moved" maps to color="yellow"',
+			name: 'Lozenge appearance="moved" maps to "warning"',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
 				<Lozenge appearance="moved">Moved</Lozenge>
 			`,
 			output: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Tag color="yellow" isRemovable={false} migration_fallback="lozenge">Moved</Tag>
+				<Lozenge appearance="warning">Moved</Lozenge>
 			`,
 			errors: [
 				{
-					messageId: 'migrateTag',
+					messageId: 'updateAppearance',
 				},
 			],
 		},
-		// Test case 16: Dynamic appearance value (variable) should require manual review
 		{
-			name: 'Lozenge with dynamic appearance variable requires manual review',
+			name: 'Lozenge appearance="removed" maps to "danger"',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
-				const appearance = 'success';
-				<Lozenge appearance={appearance}>Test</Lozenge>
+				<Lozenge appearance="removed">Removed</Lozenge>
+			`,
+			output: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="danger">Removed</Lozenge>
 			`,
 			errors: [
 				{
-					messageId: 'dynamicLozengeAppearance',
+					messageId: 'updateAppearance',
 				},
 			],
 		},
-		// Test case 17: Dynamic appearance value (function call) should require manual review
 		{
-			name: 'Lozenge with dynamic appearance function call requires manual review',
+			name: 'Lozenge appearance="new" maps to "discovery"',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance={getAppearance()}>Test</Lozenge>
+				<Lozenge appearance="new">New</Lozenge>
+			`,
+			output: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge appearance="discovery">New</Lozenge>
 			`,
 			errors: [
 				{
-					messageId: 'dynamicLozengeAppearance',
+					messageId: 'updateAppearance',
 				},
 			],
 		},
-		// Test case 18: Dynamic appearance value (conditional expression) should require manual review
+		// isBold is preserved, only appearance is flagged
 		{
-			name: 'Lozenge with dynamic appearance conditional requires manual review',
+			name: 'Lozenge with isBold and legacy appearance only flags appearance',
 			code: `
 				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance={isSuccess ? 'success' : 'default'}>Test</Lozenge>
+				<Lozenge isBold={false} appearance="inprogress">Test</Lozenge>
+			`,
+			output: `
+				import Lozenge from '@atlaskit/lozenge';
+				<Lozenge isBold={false} appearance="information">Test</Lozenge>
 			`,
 			errors: [
-				{
-					messageId: 'dynamicLozengeAppearance',
-				},
+				{ messageId: 'updateAppearance' },
 			],
 		},
-		// Test case 19: Dynamic appearance value in JSXExpressionContainer should require manual review
+		// Named import
 		{
-			name: 'Lozenge with dynamic appearance in JSXExpressionContainer requires manual review',
+			name: 'Lozenge named import with legacy appearance maps correctly',
 			code: `
-				import Lozenge from '@atlaskit/lozenge';
-				<Lozenge appearance={status}>Test</Lozenge>
+				import { Lozenge } from '@atlaskit/lozenge';
+				<Lozenge appearance="new">Test</Lozenge>
+			`,
+			output: `
+				import { Lozenge } from '@atlaskit/lozenge';
+				<Lozenge appearance="discovery">Test</Lozenge>
 			`,
 			errors: [
 				{
-					messageId: 'dynamicLozengeAppearance',
+					messageId: 'updateAppearance',
 				},
 			],
 		},

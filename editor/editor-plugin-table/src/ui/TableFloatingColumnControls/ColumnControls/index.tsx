@@ -19,7 +19,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	clearHoverSelection,
-	closeActiveTableMenu,
 	hoverCell,
 	hoverColumns,
 	selectColumn,
@@ -30,7 +29,10 @@ import { toggleDragMenuWithAnalytics } from '../../../pm-plugins/drag-and-drop/c
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import { getPluginState as getTablePluginState } from '../../../pm-plugins/plugin-factory';
 import { getRowsParams } from '../../../pm-plugins/utils/row-controls';
-import { getSelectedColumnIndexes } from '../../../pm-plugins/utils/selection';
+import {
+	getSelectedColumnIndexes,
+	isColumnSelectionWithMergedFirstRow,
+} from '../../../pm-plugins/utils/selection';
 import type { CellHoverMeta, HandleTypes, PluginInjectionAPI } from '../../../types';
 import { TableCssClassName as ClassName } from '../../../types';
 import type { DragHandleAppearance } from '../../DragHandle';
@@ -54,8 +56,23 @@ interface ColumnControlsProps {
 	tableRef: HTMLTableElement;
 }
 
-const getSelectedColumns = (selection: Selection) => {
-	if (selection instanceof CellSelection && selection.isColSelection()) {
+const getSelectedColumns = (selection: Selection): number[] => {
+	if (!(selection instanceof CellSelection)) {
+		return [];
+	}
+
+	if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+		// New behaviour: also treat a column selection that sits below a merged first-row cell as a
+		// full column selection.
+		if (!selection.isColSelection() && !isColumnSelectionWithMergedFirstRow(selection)) {
+			return [];
+		}
+		const rect = getSelectionRect(selection);
+		return rect ? getSelectedColumnIndexes(rect) : [];
+	}
+
+	// Old behaviour: only standard column selections are recognised.
+	if (selection.isColSelection()) {
 		const rect = getSelectionRect(selection);
 		if (!rect) {
 			return [];
@@ -177,22 +194,21 @@ export const ColumnControls = ({
 		(
 			trigger: TriggerType,
 			event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent> | undefined,
+			handleIndex?: number,
 		) => {
-			const { state, dispatch } = editorView;
 			if (event?.shiftKey) {
-				// Shift-click extends the selection rather than toggling the menu, but the
-				// open drag menu would otherwise stay anchored to a stale column. Close it here
-				// for the updated menu (legacy menu closes via outside-click on its dropdown).
-				if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-					api?.core.actions.execute(closeActiveTableMenu(api));
-				}
 				return;
 			}
+
+			const { state, dispatch } = editorView;
 			if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-				if (colIndex !== undefined && api) {
+				// Use the clicked handle index because `hoveredCell` can point at a merged cell's first column.
+				const targetColIndex = handleIndex ?? colIndex;
+				if (targetColIndex !== undefined && api) {
 					const { activeTableMenu: currentActiveTableMenu } = getTablePluginState(state);
 					const isSameActiveMenu =
-						currentActiveTableMenu?.type === 'column' && currentActiveTableMenu.index === colIndex;
+						currentActiveTableMenu?.type === 'column' &&
+						currentActiveTableMenu.index === targetColIndex;
 
 					api.core.actions.execute(({ tr }) => {
 						if (!isSameActiveMenu) {
@@ -208,7 +224,7 @@ export const ColumnControls = ({
 							})(tr);
 						}
 						toggleActiveTableMenu(
-							{ type: 'column', index: colIndex, openedBy: trigger },
+							{ type: 'column', index: targetColIndex, openedBy: trigger },
 							currentActiveTableMenu,
 							api,
 						)({ tr });
@@ -286,9 +302,8 @@ export const ColumnControls = ({
 					position: 'relative',
 					pointerEvents: isPlaceholder && isFirstColumnInsertEnabled ? 'none' : undefined,
 				}}
-				data-testid={`table-floating-column-${
-					isHover ? colIndex : isPlaceholder ? appearance : selectedColIndexes[0]
-				}-drag-handle`}
+				data-testid={`table-floating-column-${isHover ? colIndex : isPlaceholder ? appearance : selectedColIndexes[0]
+					}-drag-handle`}
 			>
 				<DragHandle
 					isDragMenuTarget={!isHover}

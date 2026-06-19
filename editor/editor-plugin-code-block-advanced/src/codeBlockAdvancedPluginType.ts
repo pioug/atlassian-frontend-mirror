@@ -1,6 +1,7 @@
 import type { Extension } from '@codemirror/state';
 
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CodeBlockPlugin } from '@atlaskit/editor-plugin-code-block';
 import type { ContentFormatPlugin } from '@atlaskit/editor-plugin-content-format';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
@@ -13,6 +14,7 @@ export type CodeBlockAdvancedPlugin = NextEditorPlugin<
 	{
 		dependencies: [
 			OptionalPlugin<CodeBlockPlugin>,
+			OptionalPlugin<AnalyticsPlugin>,
 			SelectionPlugin,
 			OptionalPlugin<EditorDisabledPlugin>,
 			OptionalPlugin<SelectionMarkerPlugin>,

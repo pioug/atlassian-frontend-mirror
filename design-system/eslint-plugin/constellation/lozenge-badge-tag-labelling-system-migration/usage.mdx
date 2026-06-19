@@ -1,8 +1,8 @@
 # lozenge-badge-tag-labelling-system-migration
 
-This rule helps migrate deprecated `<Lozenge>` usages to the new API or `<Tag>` component, migrate
+This rule helps migrate deprecated `<Lozenge>` props and appearance values to the new API, migrate
 `<Badge>` component appearance prop to new semantic values, and migrate `<SimpleTag>` and
-`<RemovableTag>` components to the new `<Tag>` or `<avatarTag>` components as part of the Labelling
+`<RemovableTag>` components to the new `<Tag>` or `<AvatarTag>` components as part of the Labelling
 System Phase 1 migration.
 
 ## Examples
@@ -10,13 +10,18 @@ System Phase 1 migration.
 ### Incorrect
 
 ```tsx
-// Non-bold Lozenge variants should migrate to Tag
-<Lozenge isBold={false} />
-<Lozenge /> // no isBold means implicit false
-
-// Dynamic isBold expressions require manual review
+// Lozenge: isBold is deprecated — remove it regardless of value
+<Lozenge isBold={false} appearance="success" />
+<Lozenge isBold={true} appearance="success" />
+<Lozenge isBold appearance="success" />
 <Lozenge isBold={someVariable} />
-<Lozenge isBold={condition ? true : false} />
+
+// Lozenge: Old appearance values that need migration to new semantic values
+<Lozenge appearance="default">Default</Lozenge>
+<Lozenge appearance="inprogress">In Progress</Lozenge>
+<Lozenge appearance="moved">Moved</Lozenge>
+<Lozenge appearance="removed">Removed</Lozenge>
+<Lozenge appearance="new">New</Lozenge>
 
 // Badge: Old appearance values that need migration
 <Badge appearance="added">{5}</Badge>
@@ -48,15 +53,13 @@ import RemovableTag from '@atlaskit/tag/removable-tag';
 ### Correct
 
 ```tsx
-// Non-bold variants should use Tag component with migration_fallback for safe rollout
-// migration_fallback="lozenge" renders as Lozenge when feature flag is off
-<Tag text="Label" color="lime" isRemovable={false} migration_fallback="lozenge" />
-<Tag text="Status" color="gray" isRemovable={false} migration_fallback="lozenge" />
-
-// Bold Lozenge variants can stay as Lozenge
-<Lozenge isBold />
-<Lozenge isBold={true} />
-<Lozenge appearance="success" isBold />
+// Lozenge: Use new semantic appearance values (no isBold prop)
+<Lozenge appearance="success">Success</Lozenge>
+<Lozenge appearance="neutral">Default</Lozenge>
+<Lozenge appearance="information">In Progress</Lozenge>
+<Lozenge appearance="warning">Moved</Lozenge>
+<Lozenge appearance="danger">Removed</Lozenge>
+<Lozenge appearance="discovery">New</Lozenge>
 
 // Badge: New semantic appearance values
 <Badge appearance="success">{5}</Badge>
@@ -65,9 +68,6 @@ import RemovableTag from '@atlaskit/tag/removable-tag';
 <Badge appearance="information">{7}</Badge>
 <Badge appearance="inverse">{2}</Badge>
 <Badge appearance="danger">{99}</Badge>
-
-// Badge: Already using semantic values
-<Badge appearance="success">{42}</Badge>
 
 // SimpleTag/RemovableTag: Migrate to Tag component
 import Tag from '@atlaskit/tag';
@@ -90,12 +90,13 @@ import Avatar from '@atlaskit/avatar';
 
 This rule enforces multiple migration patterns:
 
-1. **Migrate `isBold={false}` or missing `isBold` → `<Tag />`**: Detects non-bold Lozenge variants
-   and suggests migrating to the Tag component, preserving other props including the `appearance`
-   prop with its value.
+1. **Remove deprecated `isBold` prop from `<Lozenge>`**: The `isBold` prop is deprecated in the new
+   Lozenge API. The rule warns and auto-removes it regardless of value (true, false, or dynamic).
+   Both bold and subtle variants are now expressed via the `appearance` prop alone.
 
-2. **Warn on dynamic `isBold` expressions**: Detects dynamic `isBold` props that cannot be safely
-   auto-fixed and require manual review.
+2. **Migrate Lozenge appearance values to new semantic values**: Detects old appearance values
+   (`default`, `inprogress`, `moved`, `removed`, `new`) and auto-fixes them to new semantic values
+   (`neutral`, `information`, `warning`, `danger`, `discovery`). The value `success` is unchanged.
 
 3. **Migrate Badge appearance values**: Detects Badge components using old appearance values and
    migrates them to new semantic values.
@@ -299,56 +300,29 @@ This rule enforces multiple migration patterns:
 
 ## Appearance Prop Handling
 
-### Lozenge → Tag Migration
+### Lozenge Appearance Value Migration
 
-When migrating `<Lozenge>` to `<Tag>`, the `appearance` prop is converted to `color` prop with value
-mapping.
+The new Lozenge API uses semantic color names. Old legacy appearance values are auto-fixed in-place:
 
-### Lozenge Appearance → Tag Color Mapping
+| Old Appearance | New Appearance        |
+| -------------- | --------------------- |
+| `default`      | `neutral`             |
+| `inprogress`   | `information`         |
+| `moved`        | `warning`             |
+| `removed`      | `danger`              |
+| `new`          | `discovery`           |
+| `success`      | `success` (unchanged) |
 
-When migrating Lozenge to Tag, appearance values are mapped to color values:
+The `<Lozenge>` component stays as `<Lozenge>` — it no longer migrates to `<Tag>`.
 
-| Lozenge Appearance | Tag Color |
-| ------------------ | --------- |
-| `success`          | `lime`    |
-| `default`          | `gray`    |
-| `removed`          | `red`     |
-| `inprogress`       | `blue`    |
-| `new`              | `purple`  |
-| `moved`            | `yellow`  |
+### isBold Prop
 
-**Note**: Dynamic appearance values in Lozenge components require manual review before migration.
+The `isBold` prop is **not flagged** by this rule. While the feature flag
+`platform-dst-lozenge-tag-badge-visual-uplifts` is OFF, users still need `isBold` to render subtle
+Lozenges. Removing it prematurely would break subtle Lozenges in those environments.
 
-### Migration Fallback Prop
-
-For safe, staged rollout when migrating from Lozenge to Tag, use the `migration_fallback="lozenge"`
-prop:
-
-```tsx
-// Before (Lozenge)
-<Lozenge appearance="success">{data.label}</Lozenge>
-
-// After (Tag with migration_fallback for safe rollout)
-<Tag
-  text={data.label}
-  color="lime"
-  isRemovable={false}
-  migration_fallback="lozenge"
-/>
-```
-
-When `migration_fallback="lozenge"` is set and the feature flag
-`platform-dst-lozenge-tag-badge-visual-uplifts` is **OFF**, the Tag component renders as a Lozenge
-with `isBold={false}`. When the feature flag is **ON**, it renders as the new Tag component.
-
-This prop is:
-
-- **Temporary**: Should be cleaned up via codemod after migration is complete
-- **Internal**: Intended for staged rollout to support large consumers (like Jira)
-- **Safe**: Prevents visual regressions during migration
-
-The `migration_fallback` prop will be automatically added by the ESLint auto-fix when migrating from
-Lozenge to Tag.
+Once the feature flag is fully rolled out and the new Lozenge (always bold) is the only variant,
+`isBold` cleanup can be handled in a separate codemod pass.
 
 ### Badge Appearance Value Mapping
 
@@ -384,8 +358,8 @@ Tag:
 
 ## Auto-fixes
 
-- ✅ `isBold={false}` and missing `isBold` migration to `<Tag>` with `migration_fallback="lozenge"`
-  for safe rollout
+- ✅ Lozenge legacy appearance values migrated to new semantic values in-place (e.g.,
+  `appearance="inprogress"` → `appearance="information"`)
 - ✅ Static Badge appearance prop values (e.g., `appearance="added"` → `appearance="success"`)
 - ✅ SimpleTag/RemovableTag migration to `<Tag>` with color mapping and import updates
 - ✅ SimpleTag/RemovableTag from subpaths (e.g., `@atlaskit/tag/simple-tag`) migration to main
@@ -394,6 +368,5 @@ Tag:
 - ✅ Static Tag color prop mapping (e.g., `color="blueLight"` → `color="blue"`)
 - ✅ SimpleTag `isRemovable={false}` prop addition when migrating to Tag
 - ✅ Subpath import conversion to main `@atlaskit/tag` module
-- ✅ Lozenge to Tag migration adds `migration_fallback="lozenge"` for safe staged rollout
-- ❌ Dynamic `isBold` expressions (warning only)
+- ❌ Dynamic Lozenge `appearance` prop values (warning with FIXME comment only)
 - ❌ Dynamic Badge appearance expressions (warning only - requires manual review)

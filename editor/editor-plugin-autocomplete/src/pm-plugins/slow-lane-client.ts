@@ -101,7 +101,10 @@ export const createSlowLaneClient = (
 			session_id: sessionId,
 		};
 
-		startExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, { textLength: text.length });
+		startExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, {
+			textLength: text.length,
+			isLocalLLM: false,
+		});
 
 		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
@@ -131,6 +134,7 @@ export const createSlowLaneClient = (
 				failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, {
 					status: res.status,
 					errorType: 'http_error',
+					isLocalLLM: false,
 				});
 				if (isAutocompleteDebugEnabled()) {
 					// eslint-disable-next-line no-console
@@ -184,6 +188,7 @@ export const createSlowLaneClient = (
 				textLength: text.length,
 				hasVector: storedContextVector !== null,
 				hasLmLogits: storedLmLogits !== null,
+				isLocalLLM: false,
 			});
 
 			onUpdate?.({
@@ -195,7 +200,10 @@ export const createSlowLaneClient = (
 		} catch (e) {
 			storedContextVector = null;
 			storedLmLogits = null;
-			failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, { errorType: 'network' });
+			failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, {
+				errorType: 'network',
+				isLocalLLM: false,
+			});
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
 				console.log(
@@ -219,7 +227,9 @@ export const createSlowLaneClient = (
 		debounceTimer = setTimeout(() => {
 			debounceTimer = null;
 			if (inflightRequestId !== null) {
-				abortExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, inflightRequestId, 'superseded');
+				abortExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, inflightRequestId, 'superseded', {
+					isLocalLLM: false,
+				});
 			}
 			const requestId = String(++requestSeq);
 			inflightRequestId = requestId;

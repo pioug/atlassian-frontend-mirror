@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 15.1.1
+
+### Patch Changes
+
+- [`2b3eee14e8063`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b3eee14e8063) -
+  Update lozenge-badge-tag-labelling-system-migration ESLint rule and codemod for the new Lozenge
+  API.
+  - Lozenges no longer migrate to `<Tag>`. The `<Lozenge>` component stays as `<Lozenge>`.
+  - Legacy `appearance` values are now auto-fixed in-place to new semantic values: `default` →
+    `neutral`, `inprogress` → `information`, `moved` → `warning`, `removed` → `danger`, `new` →
+    `discovery`. The value `success` is unchanged.
+  - `isBold` is intentionally not flagged: while the feature flag
+    `platform-dst-lozenge-tag-badge-visual-uplifts` is OFF, users still need `isBold` to render
+    subtle Lozenges. It will be cleaned up in a separate pass after rollout.
+
 ## 15.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.1.4",
+	"version": "26.1.5",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -175,9 +175,6 @@
 			"type": "boolean"
 		},
 		"cover-header-image-team-profilecard": {
-			"type": "boolean"
-		},
-		"enable_profilecard_text_truncation_tooltip": {
 			"type": "boolean"
 		},
 		"people-teams-deprecate-profilecard-teams": {

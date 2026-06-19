@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 12.0.7
+
+### Patch Changes
+
+- [`bf04628c00609`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf04628c00609) -
+  Add code folding usage analytics
+- Updated dependencies
+
 ## 12.0.6
 
 ### Patch Changes

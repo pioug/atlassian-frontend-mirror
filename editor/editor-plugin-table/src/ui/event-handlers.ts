@@ -49,10 +49,12 @@ import { deleteRows } from '../pm-plugins/transforms/delete-rows';
 import { getSelectedCellInfo } from '../pm-plugins/utils/analytics';
 import {
 	convertHTMLCellIndexToColumnIndex,
+	getColumnIndexByMousePosition,
 	getColumnIndexMappedToColumnIndexInFirstRow,
 } from '../pm-plugins/utils/column-controls';
 import {
 	getColumnOrRowIndex,
+	getIndexAttributeSourceElement,
 	getMousePositionHorizontalRelativeByElement,
 	getMousePositionVerticalRelativeByElement,
 	hasResizeHandler,
@@ -69,6 +71,7 @@ import {
 	isTableControlsButton,
 } from '../pm-plugins/utils/dom';
 import { getAllowAddColumnCustomStep } from '../pm-plugins/utils/get-allow-add-column-custom-step';
+import { getRowIndexByMousePosition } from '../pm-plugins/utils/row-controls';
 import { TableCssClassName as ClassName, RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
 import type { PluginInjectionAPI } from '../types';
 
@@ -398,11 +401,31 @@ const handleMouseMoveDebounce = (nodeViewPortalProviderAPI: PortalProviderAPI) =
 			return false;
 		}
 		const element = event.target;
+		const isTableMenuUpdatesEnabled = expValEquals(
+			'platform_editor_table_menu_updates',
+			'isEnabled',
+			true,
+		);
+
+		// Spanned cells need mouse-position-based hover indexes; normal cells already report them.
+		if (isTableMenuUpdatesEnabled) {
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			const tableCell = isElementInTableCell(element) as HTMLTableCellElement | null;
+			if (tableCell && (tableCell.rowSpan > 1 || tableCell.colSpan > 1)) {
+				const dragDropState = getDragDropPluginState(view.state);
+				if (dragDropState && !dragDropState.isDragging) {
+					trackCellLocation(view, event);
+				}
+			}
+		}
 
 		if (isColumnControlsDecorations(element) || isDragColumnFloatingInsertDot(element)) {
 			const { state, dispatch } = view;
 			const { insertColumnButtonIndex } = getPluginState(state);
-			const [startIndex, endIndex] = getColumnOrRowIndex(element);
+			const indexSourceElement = isTableMenuUpdatesEnabled
+				? getIndexAttributeSourceElement(element)
+				: element;
+			const [startIndex, endIndex] = getColumnOrRowIndex(indexSourceElement);
 
 			const positionColumn =
 				getMousePositionHorizontalRelativeByElement(event, offsetX, undefined) === 'right'
@@ -417,7 +440,10 @@ const handleMouseMoveDebounce = (nodeViewPortalProviderAPI: PortalProviderAPI) =
 		if (isRowControlsButton(element) || isDragRowFloatingInsertDot(element)) {
 			const { state, dispatch } = view;
 			const { insertRowButtonIndex } = getPluginState(state);
-			const [startIndex, endIndex] = getColumnOrRowIndex(element);
+			const indexSourceElement = isTableMenuUpdatesEnabled
+				? getIndexAttributeSourceElement(element)
+				: element;
+			const [startIndex, endIndex] = getColumnOrRowIndex(indexSourceElement);
 
 			const positionRow =
 				getMousePositionVerticalRelativeByElement(event) === 'bottom' ? endIndex : startIndex;
@@ -607,6 +633,11 @@ export const whenTableInFocus =
 	};
 
 const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
+	const isTableMenuUpdatesEnabled = expValEquals(
+		'platform_editor_table_menu_updates',
+		'isEnabled',
+		true,
+	);
 	const target = mouseEvent.target;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -635,6 +666,14 @@ const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
 	const rowElement = closestElement(target as HTMLElement, 'tr') as HTMLTableRowElement;
 	const htmlRowIndex = rowElement && rowElement.rowIndex;
 
+	const rowIndex =
+		maybeTableCell.rowSpan > 1 && mouseEvent instanceof MouseEvent && isTableMenuUpdatesEnabled
+			? (getRowIndexByMousePosition(tableRef, mouseEvent, {
+					startIndex: htmlRowIndex,
+					endIndex: htmlRowIndex + maybeTableCell.rowSpan,
+				}) ?? htmlRowIndex)
+			: htmlRowIndex;
+
 	const tableMap = tableNode && TableMap.get(tableNode);
 	let colIndex = htmlColIndex;
 	if (tableMap) {
@@ -644,14 +683,33 @@ const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
 			tableMap,
 		);
 
-		colIndex = getColumnIndexMappedToColumnIndexInFirstRow(
-			convertedColIndex,
-			htmlRowIndex,
-			tableMap,
-		);
+		if (isTableMenuUpdatesEnabled) {
+			// New behaviour: the column controls grid renders one track per visual column
+			// (`getColumnsWidthsWithMergedCells`), so the hover index must be the visual column
+			// index — not the first-row-cell index. Mapping to the first-row cell would collapse
+			// every column under a merged first-row cell to the same index, leaving the drag handle
+			// stuck when hovering cells in other rows. For a colspanned cell, refine the converted
+			// (left-most) visual column to the exact visual column under the pointer.
+			colIndex = convertedColIndex;
+			if (maybeTableCell.colSpan > 1 && mouseEvent instanceof MouseEvent) {
+				colIndex =
+					getColumnIndexByMousePosition(maybeTableCell, mouseEvent, {
+						startIndex: convertedColIndex,
+						endIndex: convertedColIndex + maybeTableCell.colSpan,
+					}) ?? convertedColIndex;
+			}
+		} else {
+			// Old behaviour: the legacy grid renders one track per first-row cell, so snap to the
+			// first-row column index (a merged first-row cell collapses to a single column track).
+			colIndex = getColumnIndexMappedToColumnIndexInFirstRow(
+				convertedColIndex,
+				htmlRowIndex,
+				tableMap,
+			);
+		}
 	}
 
-	hoverCell(htmlRowIndex, colIndex)(view.state, view.dispatch);
+	hoverCell(rowIndex, colIndex)(view.state, view.dispatch);
 };
 
 export const withCellTracking =

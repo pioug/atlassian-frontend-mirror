@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "4.0.2",
+	"version": "4.1.0",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,6 +54,7 @@
 		"./value-container": "./src/entry-points/value-container.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/layering": "workspace:^",
@@ -62,9 +63,11 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tag": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/top-layer": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@floating-ui/dom": "root:*",
+		"bind-event-listener": "root:*",
 		"memoize-one": "root:*",
 		"use-isomorphic-layout-effect": "root:*"
 	},
@@ -74,14 +77,19 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/button": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/form": "workspace:^",
+		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"jest-in-case": "root:*",
 		"react": "root:*",
-		"react-dom": "root:*"
+		"react-dom": "root:*",
+		"tiny-invariant": "root:*"
 	},
 	"platform-feature-flags": {
 		"custom-interactive-elements-not-keyboard-focusable": {
@@ -103,6 +111,9 @@
 			"type": "boolean"
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
+			"type": "boolean"
+		},
+		"platform-dst-top-layer": {
 			"type": "boolean"
 		}
 	},

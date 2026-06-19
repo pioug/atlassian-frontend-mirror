@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, waitForElementToBeRemoved, userEvent } from '@atlassian/testing-library';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
@@ -99,29 +98,14 @@ describe('CopyLinkAction', () => {
 		});
 	});
 
-	ffTest.on('navx-3698-flexible-card-a11y-fix', '', () => {
-		it('should render icon without aria-label', async () => {
-			setup();
-			const iconWithLabel = screen.queryByLabelText('copy url');
-			expect(iconWithLabel).not.toBeInTheDocument();
-		});
-
-		it('should pass a11y check with empty label', async () => {
-			const { container } = setup();
-			await expect(container).toBeAccessible();
-		});
+	it('should render icon without aria-label', async () => {
+		setup();
+		const iconWithLabel = screen.queryByLabelText('copy url');
+		expect(iconWithLabel).not.toBeInTheDocument();
 	});
 
-	ffTest.off('navx-3698-flexible-card-a11y-fix', '', () => {
-		it('should render icon with aria-label', async () => {
-			setup();
-			const iconWithLabel = screen.queryByLabelText('copy url');
-			expect(iconWithLabel).toBeInTheDocument();
-		});
-
-		it('should pass a11y check with aria-label', async () => {
-			const { container } = setup();
-			await expect(container).toBeAccessible();
-		});
+	it('should pass a11y check with empty label', async () => {
+		const { container } = setup();
+		await expect(container).toBeAccessible();
 	});
 });

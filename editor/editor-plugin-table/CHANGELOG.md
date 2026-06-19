@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-table
 
+## 24.2.3
+
+### Patch Changes
+
+- [`bd776b48c8623`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd776b48c8623) -
+  [ux] Fix table drag-handle menu edge cases for merged cells in the first row/column behind the
+  `platform_editor_table_menu_updates` experiment.
+- [`e850980f5a66f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e850980f5a66f) -
+  [EDITOR-6790] Block-controls drag-handle wrapper's background is removed and instead set
+  on`::before` on `.pm-table-container.pm-table-sticky` to keep masking the row insert dots when
+  legacy sticky header is activated while also not overlapping the column insert button.
+- Updated dependencies
+
+## 24.2.2
+
+### Patch Changes
+
+- [`4930e7d0d97c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4930e7d0d97c1) -
+  Adjust inactive native sticky table header z-index
+- Updated dependencies
+
 ## 24.2.1
 
 ### Patch Changes

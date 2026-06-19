@@ -102,6 +102,11 @@ export interface RendererProps {
 	 * of tables.
 	 */
 	disableTableOverflowShadow?: boolean;
+	/**
+	 * Optional prefix to prepend to all generated heading IDs.
+	 * Used by nested renderers to namespace heading IDs and avoid collisions with the host page.
+	 */
+	headingIdPrefix?: string;
 	document: DocNode;
 	emojiResourceConfig?: EmojiResourceConfig;
 	// Enables inline scripts to add support for breakout nodes,

@@ -18,7 +18,10 @@ import {
 	DIRECTION,
 } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { isNodeTypeValidChildOf, getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
+import {
+	isNodeTypeValidChildOf,
+	getBaseNodeTypeName,
+} from '@atlaskit/editor-common/utils/node-type-utils';
 import {
 	type Node as PMNode,
 	Fragment,
@@ -82,7 +85,10 @@ function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null
 	// - When panel_c1 experiment is on:
 	// - Expand/table/bodied extension destinations may need panel_c1 → panel downgrade
 	// - Doc/layoutColumn destinations may need panel → panel_c1 upgrade
-	const needsTransformCheck = destTypeInTable || destTypeInDocOrLayoutCol || expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true);
+	const needsTransformCheck =
+		destTypeInTable ||
+		destTypeInDocOrLayoutCol ||
+		expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true);
 	if (!needsTransformCheck) {
 		return nodeCopy;
 	}

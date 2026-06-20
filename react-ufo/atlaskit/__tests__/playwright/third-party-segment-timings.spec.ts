@@ -3,11 +3,7 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: UFOThirdPartySegment segment3pData', () => {
 	test.use({
 		examplePage: 'third-party-segment-timings',
-		featureFlags: [
-			'platform_ufo_3p_segment_timings',
-			'platform_ufo_ecosystem_data_in_payload',
-			'platform_ufo_filter_3p_resource_timings',
-		],
+		featureFlags: ['platform_ufo_3p_segment_timings', 'platform_ufo_ecosystem_data_in_payload'],
 	});
 
 	test('segment3pData from iframe analytics appear grouped by segmentId in interactionMetrics', async ({

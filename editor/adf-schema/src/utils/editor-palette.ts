@@ -19,7 +19,7 @@ export function hexToEditorBorderPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorBorderPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-	EditorBorderPalette[HexColor]
+		EditorBorderPalette[HexColor]
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
@@ -58,7 +58,7 @@ export function hexToEditorTextPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorTextPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-	EditorTextPalette[HexColor]
+		EditorTextPalette[HexColor]
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
@@ -155,7 +155,7 @@ export function hexToEditorTextBackgroundPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends TextBackgroundColorPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-	TextBackgroundColorPalette[HexColor]
+		TextBackgroundColorPalette[HexColor]
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferring better type on consumption over safety in implementation)
@@ -202,7 +202,7 @@ export function hexToEditorBackgroundPaletteRawValue<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorBackgroundPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-	string
+		string
 	: undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
@@ -326,4 +326,4 @@ export const editorBackgroundPalette = {
 	},
 };
 
-export { };
+export {};

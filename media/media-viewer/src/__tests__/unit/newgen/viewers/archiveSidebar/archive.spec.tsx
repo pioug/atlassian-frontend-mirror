@@ -4,8 +4,12 @@ jest.mock('../../../../../analytics/events/operational/zipEntryLoadSucceeded', (
 jest.mock('../../../../../analytics/events/operational/zipEntryLoadFailed', () => ({
 	createZipEntryLoadFailedEvent: jest.fn(),
 }));
+jest.mock('../../../../../analytics/events/operational/previewUnsupported', () => ({
+	createPreviewUnsupportedEvent: jest.fn(),
+}));
 
 const mockUnzip = jest.fn();
+
 jest.mock('unzipit', () => ({
 	unzip: (...args: any[]) => mockUnzip(...args),
 	HTTPRangeReader: function () {
@@ -18,15 +22,18 @@ import { render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 import { IntlProvider } from 'react-intl';
 import { type ProcessedFileState } from '@atlaskit/media-client';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	ArchiveViewerBase,
 	getArchiveEntriesFromFileState,
 	type Props as ArchiveViewerProps,
 } from '../../../../../viewers/archiveSidebar/archive';
+
 import { ArchiveViewerError } from '../../../../../errors';
 import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../viewers/archiveSidebar/consts';
 import { createZipEntryLoadSucceededEvent } from '../../../../../analytics/events/operational/zipEntryLoadSucceeded';
+import { createPreviewUnsupportedEvent } from '../../../../../analytics/events/operational/previewUnsupported';
 import { createZipEntryLoadFailedEvent } from '../../../../../analytics/events/operational/zipEntryLoadFailed';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../../../../item-viewer';
 
@@ -56,7 +63,7 @@ describe('Archive', () => {
 		name: 'file',
 		size: 11222,
 		mediaType: 'archive',
-		mimeType: 'zip',
+		mimeType: 'application/zip',
 		artifacts: {},
 		representations: { image: {} },
 	};
@@ -304,6 +311,60 @@ describe('Archive', () => {
 				},
 			});
 		});
+
+		ffTest.on('platform_media_archive_zip_guard', 'when the zip guard is enabled', () => {
+			it('throws archiveviewer-not-zip for a non-ZIP archive mime type', async () => {
+				const nonZipFileState: ProcessedFileState = {
+					...fileState,
+					mimeType: 'application/x-rar-compressed',
+				};
+				await expect(getArchiveEntriesFromFileState(nonZipFileState, mediaClient)).rejects.toThrow(
+					'archiveviewer-not-zip',
+				);
+			});
+
+			it('throws archiveviewer-not-zip when the archive has no mimeType (regression: BMPT-7978)', async () => {
+				const noMimeFileState: ProcessedFileState = {
+					...fileState,
+					mimeType: '',
+				};
+				await expect(getArchiveEntriesFromFileState(noMimeFileState, mediaClient)).rejects.toThrow(
+					'archiveviewer-not-zip',
+				);
+			});
+
+			it('fires a previewUnsupported (non-SLI) event - not loadFailed - for a non-ZIP archive', async () => {
+				const nonZipFileState: ProcessedFileState = {
+					...fileState,
+					mimeType: 'application/x-7z-compressed',
+				};
+				renderComponent({ item: nonZipFileState });
+
+				// The dedicated "unsupported file format" message is shown full-width.
+				expect(
+					await screen.findByText('Preview is not available for this file type.'),
+				).toBeInTheDocument();
+
+				// A previewUnsupported event is fired with the file state, so the
+				// archive (unzipit-limited) case is distinguishable from the
+				// browser-unknown case via fileAttributes.
+				expect(createPreviewUnsupportedEvent).toHaveBeenCalledWith(nonZipFileState);
+				// It must NOT be reported as a load failure.
+				expect(createZipEntryLoadFailedEvent).not.toHaveBeenCalled();
+			});
+		});
+
+		ffTest.off('platform_media_archive_zip_guard', 'when the zip guard is disabled', () => {
+			it('does not short-circuit non-ZIP archives and proceeds to unzip (legacy behaviour)', async () => {
+				mockUnzip.mockResolvedValue({ archive: 'file', entries: {} });
+				const nonZipFileState: ProcessedFileState = {
+					...fileState,
+					mimeType: 'application/x-rar-compressed',
+				};
+				const result = await getArchiveEntriesFromFileState(nonZipFileState, mediaClient);
+				expect(result).toEqual({ archive: 'file', entries: {} });
+			});
+		});
 	});
 
 	describe('Analytics', () => {
@@ -357,22 +418,4 @@ describe('Archive', () => {
 			expect.objectContaining({ message: 'archiveviewer-read-binary' }),
 		);
 	});
-
-	// Note: original Enzyme tests for `isArchiveEntryLoading` prop forwarding and
-	// `onError should set the state as errored` couldn't be converted — both
-	// assert internal state with no DOM-observable difference. The state→render
-	// path is exercised by the entry-click error tests above.
-
-	// Note: the original Enzyme tests
-	//   - `should render ArchiveSidebarRenderer with isArchiveEntryLoading false if isArchiveEntryLoading in state is false`
-	//   - `should render ArchiveSidebarRenderer with isArchiveEntryLoading true if isArchiveEntryLoading in state is undefined`
-	// asserted internal state (`state.content.data.isArchiveEntryLoading`) and the
-	// downstream prop forwarded to ArchiveSidebarRenderer. The `isArchiveEntryLoading`
-	// prop is consumed by ArchiveSidebarFolderEntry but does not produce any visible
-	// DOM change (see archive-sidebar-folder-entry.tsx — the prop is in the props
-	// type but is never branched on during render). The behavioural transition
-	// (no entry → image viewer / spinner) is already exercised by
-	// `should render InteractiveImg (img) when an image entry is selected` and
-	// `should render content viewer area in loading state until an entry is selected`,
-	// so the prop-forwarding assertions could not be converted to RTL queries.
 });

@@ -53,7 +53,7 @@ describe('Archive with custom renderer', () => {
 		name: 'file',
 		size: 11222,
 		mediaType: 'archive',
-		mimeType: 'zip',
+		mimeType: 'application/zip',
 		artifacts: {},
 		representations: {
 			image: {},

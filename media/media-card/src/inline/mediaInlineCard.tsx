@@ -140,7 +140,11 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 					selectedItem={identifier}
 					onClose={onMediaViewerClose}
 					viewerOptions={viewerOptions}
-					fallbackMediaNameFetcher={expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true) ? fallbackMediaNameFetcher : undefined}
+					fallbackMediaNameFetcher={
+						expValEquals('platform_editor_media_name_fallback_viewer_card', 'isEnabled', true)
+							? fallbackMediaNameFetcher
+							: undefined
+					}
 				/>,
 				document.body,
 			);

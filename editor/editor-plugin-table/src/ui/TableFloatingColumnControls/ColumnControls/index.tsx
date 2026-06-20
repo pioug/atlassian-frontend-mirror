@@ -302,8 +302,9 @@ export const ColumnControls = ({
 					position: 'relative',
 					pointerEvents: isPlaceholder && isFirstColumnInsertEnabled ? 'none' : undefined,
 				}}
-				data-testid={`table-floating-column-${isHover ? colIndex : isPlaceholder ? appearance : selectedColIndexes[0]
-					}-drag-handle`}
+				data-testid={`table-floating-column-${
+					isHover ? colIndex : isPlaceholder ? appearance : selectedColIndexes[0]
+				}-drag-handle`}
 			>
 				<DragHandle
 					isDragMenuTarget={!isHover}

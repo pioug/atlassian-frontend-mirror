@@ -94,9 +94,7 @@ test.describe('react-select: top-layer smoke', () => {
 		await expect(listbox).toBeVisible();
 	});
 
-	test('clicking the input while the menu is open does not dismiss the menu', async ({
-		page,
-	}) => {
+	test('clicking the input while the menu is open does not dismiss the menu', async ({ page }) => {
 		// Regression guard: the Select input lives outside the top-layer
 		// popover, so light-dismiss would close the menu on input click.
 		// `MenuPortalTopLayer` re-opens when the close comes from inside

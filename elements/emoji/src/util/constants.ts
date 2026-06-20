@@ -52,8 +52,7 @@ export const emojiPickerHeightWithPreview: number = emojiPickerHeight + emojiPic
 
 export const localStoragePrefix = 'fabric.emoji';
 export const selectedToneStorageKey: 'fabric.emoji.selectedTone' = `${localStoragePrefix}.selectedTone`;
-export const selectedProductivityColorStorageKey: 'fabric.emoji.selectedProductivityColor' =
-	`${localStoragePrefix}.selectedProductivityColor`;
+export const selectedProductivityColorStorageKey: 'fabric.emoji.selectedProductivityColor' = `${localStoragePrefix}.selectedProductivityColor`;
 export const defaultCategories: CategoryId[] = [
 	'PEOPLE',
 	'NATURE',

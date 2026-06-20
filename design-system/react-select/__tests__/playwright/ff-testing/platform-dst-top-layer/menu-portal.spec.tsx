@@ -22,9 +22,12 @@ async function openMenu(page: Page, name = 'City') {
 
 test.describe('react-select MenuPortal - top-layer-specific contracts', () => {
 	test('escapes an `overflow: hidden` scroll container', async ({ page }) => {
-		await page.visitExample<
-			typeof import('../../../../examples/testing-menu-portal-overflow.tsx')
-		>('design-system', 'react-select', 'testing-menu-portal-overflow', { featureFlag });
+		await page.visitExample<typeof import('../../../../examples/testing-menu-portal-overflow.tsx')>(
+			'design-system',
+			'react-select',
+			'testing-menu-portal-overflow',
+			{ featureFlag },
+		);
 
 		await openMenu(page);
 		const listbox = page.getByRole('listbox');

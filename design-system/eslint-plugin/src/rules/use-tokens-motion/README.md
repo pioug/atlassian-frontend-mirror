@@ -8,8 +8,8 @@ token will still be reported, however no auto-fix will happen.
 
 ```jsx
 const styles = css({
-  transitionDuration: '200ms',
-  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0, 1)',
+	transitionDuration: '200ms',
+	transitionTimingFunction: 'cubic-bezier(0.4, 0, 0, 1)',
 });
 ```
 

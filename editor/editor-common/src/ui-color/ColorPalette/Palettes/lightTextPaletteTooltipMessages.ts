@@ -111,7 +111,7 @@ export const lightTextPaletteTooltipMessages: {
 		defaultMessage: string;
 		description: string;
 		id: string;
-	},
+	};
 	'#E06C00': {
 		defaultMessage: string;
 		description: string;

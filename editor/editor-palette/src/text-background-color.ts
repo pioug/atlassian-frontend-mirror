@@ -65,7 +65,7 @@ export function hexToEditorTextBackgroundPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends TextBackgroundColorPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-	TextBackgroundColorPalette[HexColor]
+		TextBackgroundColorPalette[HexColor]
 	: string | undefined {
 	// Ts ignore was used to allow use of conditional return type
 	// (preferring better type on consumption over safety in implementation)

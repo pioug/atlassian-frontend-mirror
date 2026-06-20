@@ -50,6 +50,7 @@
 		"@atlaskit/media-client-react": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/media-document-viewer": "workspace:^",
+		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/media-svg": "workspace:^",
 		"@atlaskit/media-ui": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -93,7 +94,6 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-integration-test-helpers": "workspace:^",
-		"@atlaskit/media-state": "workspace:^",
 		"@atlaskit/media-test-data": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
@@ -146,6 +146,9 @@
 			"type": "boolean"
 		},
 		"platform_media_excel_lazy_load": {
+			"type": "boolean"
+		},
+		"platform_media_archive_zip_guard": {
 			"type": "boolean"
 		}
 	},

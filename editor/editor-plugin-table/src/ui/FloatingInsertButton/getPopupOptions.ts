@@ -60,7 +60,7 @@ function getColumnOptions(
 		// considering the offset from the first column
 		onPositionCalculated(position) {
 			// Move the popup upward whether the offset parent provides `top` or `bottom`.
-			let verticalCorrection: { bottom?: number; top?: number; } | undefined;
+			let verticalCorrection: { bottom?: number; top?: number } | undefined;
 			if (verticalOffsetCorrection) {
 				if (position.top !== undefined) {
 					verticalCorrection = { top: position.top - verticalOffsetCorrection };

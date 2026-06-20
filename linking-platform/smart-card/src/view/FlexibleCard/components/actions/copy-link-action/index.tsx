@@ -47,7 +47,7 @@ const CopyLinkAction = ({
 			icon={
 				<LinkIcon
 					color="currentColor"
-					label=''
+					label=""
 					spacing="spacious"
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }

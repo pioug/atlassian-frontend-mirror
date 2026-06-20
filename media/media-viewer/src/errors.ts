@@ -74,6 +74,7 @@ export type MediaViewerErrorReason =
 export type ArchiveViewerErrorReason =
 	| 'archiveviewer-bundle-loader'
 	| 'archiveviewer-read-binary'
+	| 'archiveviewer-not-zip'
 	| 'archiveviewer-create-url'
 	| 'archiveviewer-imageviewer-onerror'
 	| 'archiveviewer-videoviewer-onerror'

@@ -14,7 +14,14 @@ import React, {
 
 import type { XCSSProp } from '@compiled/react';
 
-import { cssMap, cx, jsx, type StrictXCSSProp, type XCSSAllProperties, type XCSSAllPseudos } from '@atlaskit/css';
+import {
+	cssMap,
+	cx,
+	jsx,
+	type StrictXCSSProp,
+	type XCSSAllProperties,
+	type XCSSAllPseudos,
+} from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { type Motion as MotionToken } from '@atlaskit/tokens/css-type-schema';
 

@@ -201,7 +201,7 @@ export function shapeResourceTimingData(
 
 	const rawName = typeof payload.name === 'string' ? payload.name : '';
 	const initiatorType = typeof payload.initiatorType === 'string' ? payload.initiatorType : 'other';
-	const isFilteredModeEnabled = fg('platform_ufo_filter_3p_resource_timings');
+	const isFilteredModeEnabled = fg('platform_ufo_3p_segment_timings');
 	const isBackendTiming = isBackendResourceTiming(initiatorType);
 	if (
 		isFilteredModeEnabled &&

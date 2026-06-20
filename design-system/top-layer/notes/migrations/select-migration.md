@@ -223,13 +223,13 @@ example:
 
 ```ts
 const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-  props: MenuPortalProps<Option, IsMulti, Group>,
+	props: MenuPortalProps<Option, IsMulti, Group>,
 ) => JSX.Element | null = components.MenuPortal;
 ```
 
 **Problem:** Upstream `react-select` types now return `ReactNode` (which includes `undefined`) from
-`MenuPortal`, so the narrowed `JSX.Element | null` annotation no longer assigns. This shows up as
-a TS2322 type error in any product copy that uses the older annotation.
+`MenuPortal`, so the narrowed `JSX.Element | null` annotation no longer assigns. This shows up as a
+TS2322 type error in any product copy that uses the older annotation.
 
 **Fix:** Widen the wrapper's return type to `ReactNode`:
 
@@ -237,7 +237,7 @@ a TS2322 type error in any product copy that uses the older annotation.
 import { type ReactNode } from 'react';
 
 const MenuPortal: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-  props: MenuPortalProps<Option, IsMulti, Group>,
+	props: MenuPortalProps<Option, IsMulti, Group>,
 ) => ReactNode = components.MenuPortal;
 ```
 

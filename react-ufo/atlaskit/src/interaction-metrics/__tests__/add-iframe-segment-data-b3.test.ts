@@ -1,20 +1,16 @@
 /**
  * Tests for B3: cross-segment deduplication in addIframeSegmentData.
  *
- * B3 rejects iframe timing entries that are identical (by content, ignoring segmentId)
- * to one already stored from a different segment on the same interaction. This prevents
- * N copies of shared Forge runtime CDN resources from accumulating in memory when a page
- * has N Forge iframe gadgets (e.g. a dashboard).
+ * B3 rejects iframe timing entries that are identical by content to one already stored
+ * on the same interaction. Shared CSS/JS resources dedupe across segments, while backend
+ * fetch/XHR resource timings include segment scope so independent iframe requests are retained.
  */
-import { fg } from '@atlaskit/platform-feature-flags';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { setUFOConfig } from '../../config';
 import { DefaultInteractionID } from '../../interaction-id-context';
 import { interactions } from '../common/constants';
 import { addIframeSegmentData, addNewInteraction } from '../index';
-
-jest.mock('@atlaskit/platform-feature-flags');
-const mockFg = fg as jest.Mock;
 
 const mockPerformanceNow = jest.fn(() => 1000);
 Object.defineProperty(global.performance, 'now', {
@@ -27,7 +23,13 @@ const mockClearTimeout = jest.fn();
 global.setTimeout = mockSetTimeout as any;
 global.clearTimeout = mockClearTimeout as any;
 
-function setupInteraction(interactionId: string) {
+function setupInteraction(interactionId: string, isSegmentTimingsGateEnabled = true) {
+	if (isSegmentTimingsGateEnabled) {
+		passGate('platform_ufo_3p_segment_timings');
+	} else {
+		failGate('platform_ufo_3p_segment_timings');
+	}
+
 	mockSetTimeout.mockImplementation((fn: () => void, delay: number) => ({
 		id: 'timer',
 		fn,
@@ -49,14 +51,6 @@ describe('addIframeSegmentData — B3 cross-segment deduplication', () => {
 			product: 'test-product',
 			region: 'test-region',
 		});
-
-		// Enable the feature gates so addIframeSegmentData stores entries and uses the filtered
-		// resource-timing dedupe key.
-		mockFg.mockImplementation(
-			(flag: string) =>
-				flag === 'platform_ufo_3p_segment_timings' ||
-				flag === 'platform_ufo_filter_3p_resource_timings',
-		);
 	});
 
 	afterEach(() => {
@@ -267,9 +261,8 @@ describe('addIframeSegmentData — B3 cross-segment deduplication', () => {
 	});
 
 	it('does nothing when feature gate platform_ufo_3p_segment_timings is off', () => {
-		mockFg.mockImplementation(() => false);
 		const id = 'b3-test-8';
-		setupInteraction(id);
+		setupInteraction(id, false);
 
 		addIframeSegmentData(id, 'seg-a', {
 			label: 'resource-timing',

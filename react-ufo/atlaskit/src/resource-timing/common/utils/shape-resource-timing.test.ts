@@ -2,7 +2,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 
 import { shapeResourceTimingData } from './shape-resource-timing';
 
-const FILTER_3P_RESOURCE_TIMINGS_GATE = 'platform_ufo_filter_3p_resource_timings';
+const THIRD_PARTY_SEGMENT_TIMINGS_GATE = 'platform_ufo_3p_segment_timings';
 
 function makeResourceTimingEvent({
 	name = 'https://example.com/static/app.js',
@@ -35,7 +35,7 @@ function makeResourceTimingEvent({
 
 describe('shapeResourceTimingData — `source` field', () => {
 	beforeEach(() => {
-		passGate(FILTER_3P_RESOURCE_TIMINGS_GATE);
+		passGate(THIRD_PARTY_SEGMENT_TIMINGS_GATE);
 	});
 
 	it.each([
@@ -68,8 +68,8 @@ describe('shapeResourceTimingData — `source` field', () => {
 });
 
 describe('shapeResourceTimingData — legacy resource behavior', () => {
-	it('keeps URL-derived labels and non CSS/JS resources when the filter gate is off', () => {
-		failGate(FILTER_3P_RESOURCE_TIMINGS_GATE);
+	it('keeps URL-derived labels and non CSS/JS resources when third-party segment timings are off', () => {
+		failGate(THIRD_PARTY_SEGMENT_TIMINGS_GATE);
 
 		const pdfTiming = shapeResourceTimingData(
 			makeResourceTimingEvent({
@@ -91,7 +91,7 @@ describe('shapeResourceTimingData — legacy resource behavior', () => {
 
 describe('shapeResourceTimingData — resource allowlist', () => {
 	beforeEach(() => {
-		passGate(FILTER_3P_RESOURCE_TIMINGS_GATE);
+		passGate(THIRD_PARTY_SEGMENT_TIMINGS_GATE);
 	});
 
 	it.each([

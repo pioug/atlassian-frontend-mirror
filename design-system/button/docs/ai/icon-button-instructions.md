@@ -1,6 +1,7 @@
 # Prop guidance
 
-- **appearance** - primary (main compact action), rovo (Rovo/AI compact primary action), default (secondary), subtle (tertiary), discovery (new features)
+- **appearance** - primary (main compact action), rovo (Rovo/AI compact primary action), default
+  (secondary), subtle (tertiary), discovery (new features)
 
 # Translating from Tailwind
 

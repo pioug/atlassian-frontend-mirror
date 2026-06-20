@@ -77,7 +77,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 			isNewColorPaletteEnabled,
 		],
 	);
-	
+
 	return (
 		<Stack xcss={styles.container} testId="text-color-menu-item">
 			<Heading size="xxsmall">{formatMessage(messages.textColorTooltip)}</Heading>

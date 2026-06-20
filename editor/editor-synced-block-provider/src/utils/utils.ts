@@ -70,7 +70,9 @@ export const stripAnnotationMarksFromJSONContent = <T extends JSONNode | undefin
 	return normalizeSyncBlockJSONContentInternal(content, { convertPanelC1ToPanel: false });
 };
 
-export const normalizeSyncBlockJSONContent = <T extends JSONNode | undefined>(content: T[]): T[] => {
+export const normalizeSyncBlockJSONContent = <T extends JSONNode | undefined>(
+	content: T[],
+): T[] => {
 	return normalizeSyncBlockJSONContentInternal(content, { convertPanelC1ToPanel: true });
 };
 

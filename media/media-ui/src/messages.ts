@@ -79,6 +79,8 @@ export type MessageKey =
 	| 'submit'
 	| 'give_feedback'
 	| 'try_downloading_file'
+	| 'archive_format_not_supported'
+	| 'unsupported_file_format'
 	| 'webgl_warning_description'
 	| 'unable_to_annotate_image'
 	| 'learn_more'
@@ -598,6 +600,18 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.media.try_downloading_file',
 		defaultMessage: 'Try downloading the file to view it.',
 		description: 'We show this message to allow users to download a file',
+	},
+	archive_format_not_supported: {
+		id: 'fabric.media.archive_format_not_supported',
+		defaultMessage: 'Preview is not available for this file type.',
+		description:
+			'Error message shown in the archive viewer when a non-ZIP archive file (e.g. RAR, TAR, 7z) is opened. Only ZIP is supported by the browser-based viewer.',
+	},
+	unsupported_file_format: {
+		id: 'fabric.media.unsupported_file_format',
+		defaultMessage: 'Unsupported file format',
+		description:
+			'Heading shown when a file type cannot be previewed (e.g. non-ZIP archives like RAR, TAR, 7z).',
 	},
 	webgl_warning_description: {
 		id: 'fabric.media.webgl_warning_description',

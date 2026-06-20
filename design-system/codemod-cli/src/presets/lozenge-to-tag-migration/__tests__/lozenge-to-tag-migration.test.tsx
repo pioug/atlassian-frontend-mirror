@@ -299,7 +299,6 @@ export default function App() {
 }
 `,
 		});
-
 	});
 
 	describe('other props are preserved', () => {

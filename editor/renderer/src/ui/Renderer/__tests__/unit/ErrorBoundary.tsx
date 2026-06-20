@@ -213,51 +213,48 @@ describe('ErrorBoundary', () => {
 		);
 	});
 
-	describe(
-		'ErrorBoundary with stable key should not remount children on re-renders after DOM error recovery',
-		() => {
-			const DomError = new Error(
-				`Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node`,
+	describe('ErrorBoundary with stable key should not remount children on re-renders after DOM error recovery', () => {
+		const DomError = new Error(
+			`Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node`,
+		);
+
+		it('should fire analytics for the initial DOM error only, not on subsequent re-renders', () => {
+			// Throw only once globally. After recovery, never throw again.
+			let shouldThrow = true;
+			let renderCount = 0;
+			const ThrowsOnce = () => {
+				React.useEffect(() => {
+					renderCount++;
+					if (shouldThrow) {
+						shouldThrow = false;
+						throw DomError;
+					}
+				}, []);
+
+				return <div>recovered</div>;
+			};
+
+			const Wrapper = ({ value }: { value: number }) => (
+				<ErrorBoundary
+					component={ACTION_SUBJECT.RENDERER}
+					createAnalyticsEvent={mockCreateAnalyticsEvent}
+				>
+					<ThrowsOnce />
+					<span>{value}</span>
+				</ErrorBoundary>
 			);
 
-			it('should fire analytics for the initial DOM error only, not on subsequent re-renders', () => {
-				// Throw only once globally. After recovery, never throw again.
-				let shouldThrow = true;
-				let renderCount = 0;
-				const ThrowsOnce = () => {
-					React.useEffect(() => {
-						renderCount++;
-						if (shouldThrow) {
-							shouldThrow = false;
-							throw DomError;
-						}
-					}, []);
+			// Initial render: child throws → componentDidCatch → analytics fire → recovery
+			const { rerender } = render(<Wrapper value={1} />);
+			expect(renderCount).toBe(2);
 
-					return <div>recovered</div>;
-				};
+			// Re-render parent multiple times.
+			// With stable key: same key → React reconciles in place → ThrowsOnce re-renders
+			// (shouldThrow is false) → no error → no additional componentDidCatch
+			rerender(<Wrapper value={2} />);
+			rerender(<Wrapper value={3} />);
 
-				const Wrapper = ({ value }: { value: number }) => (
-					<ErrorBoundary
-						component={ACTION_SUBJECT.RENDERER}
-						createAnalyticsEvent={mockCreateAnalyticsEvent}
-					>
-						<ThrowsOnce />
-						<span>{value}</span>
-					</ErrorBoundary>
-				);
-
-				// Initial render: child throws → componentDidCatch → analytics fire → recovery
-				const { rerender } = render(<Wrapper value={1} />);
-				expect(renderCount).toBe(2);
-
-				// Re-render parent multiple times.
-				// With stable key: same key → React reconciles in place → ThrowsOnce re-renders
-				// (shouldThrow is false) → no error → no additional componentDidCatch
-				rerender(<Wrapper value={2} />);
-				rerender(<Wrapper value={3} />);
-
-				expect(renderCount).toBe(2);
-			});
-		},
-	);
+			expect(renderCount).toBe(2);
+		});
+	});
 });

@@ -213,6 +213,9 @@
 		"teams_app_react_19_upgrade": {
 			"type": "boolean"
 		},
+		"create_modernization_ga_fixes_drop_2": {
+			"type": "boolean"
+		},
 		"fix_aria_attribute_violation_on_agent_card_trigger": {
 			"type": "boolean"
 		}

@@ -201,7 +201,7 @@ const getPendingTypedAgentMentionAfterDocChange = (
 				nodeSize: pendingMentionDetails.nodeSize,
 				pos: pendingMentionDetails.pos,
 				resetCount,
-		  }
+			}
 		: null;
 };
 

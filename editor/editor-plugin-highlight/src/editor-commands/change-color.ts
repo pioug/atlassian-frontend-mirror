@@ -25,31 +25,31 @@ import { getActiveColor } from './color';
 
 export const changeColor =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-		({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }): EditorCommand =>
-			({ tr }) => {
-				const { backgroundColor } = tr.doc.type.schema.marks;
+	({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }): EditorCommand =>
+	({ tr }) => {
+		const { backgroundColor } = tr.doc.type.schema.marks;
 
-				if (!backgroundColor) {
-					return null;
-				}
+		if (!backgroundColor) {
+			return null;
+		}
 
-				editorAnalyticsAPI?.attachAnalyticsEvent(createAnalyticsEvent(color, inputMethod, tr))(tr);
+		editorAnalyticsAPI?.attachAnalyticsEvent(createAnalyticsEvent(color, inputMethod, tr))(tr);
 
-				tr.scrollIntoView();
+		tr.scrollIntoView();
 
-				if (color === REMOVE_HIGHLIGHT_COLOR) {
-					removeMark(backgroundColor)({ tr });
-				} else {
-					tr.setMeta(highlightPluginKey, {
-						type: HighlightPluginAction.CHANGE_COLOR,
-						color,
-					});
+		if (color === REMOVE_HIGHLIGHT_COLOR) {
+			removeMark(backgroundColor)({ tr });
+		} else {
+			tr.setMeta(highlightPluginKey, {
+				type: HighlightPluginAction.CHANGE_COLOR,
+				color,
+			});
 
-					toggleMark(backgroundColor, { color })({ tr });
-				}
+			toggleMark(backgroundColor, { color })({ tr });
+		}
 
-				return tr;
-			};
+		return tr;
+	};
 
 const createAnalyticsEvent = (
 	color: string,
@@ -67,9 +67,7 @@ const createAnalyticsEvent = (
 
 	// get color names from palette
 	const newColorFromPalette = highlightPalette.find(({ value }) => value === color);
-	const previousColorFromPalette = highlightPalette.find(
-		({ value }) => value === previousColor,
-	);
+	const previousColorFromPalette = highlightPalette.find(({ value }) => value === previousColor);
 
 	const newColorLabel = newColorFromPalette ? newColorFromPalette.label : color;
 

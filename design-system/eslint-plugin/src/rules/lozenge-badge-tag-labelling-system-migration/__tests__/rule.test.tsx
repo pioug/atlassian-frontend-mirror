@@ -302,9 +302,7 @@ tester.run('lozenge-badge-tag-labelling-system-migration', rule, {
 				import Lozenge from '@atlaskit/lozenge';
 				<Lozenge isBold={false} appearance="information">Test</Lozenge>
 			`,
-			errors: [
-				{ messageId: 'updateAppearance' },
-			],
+			errors: [{ messageId: 'updateAppearance' }],
 		},
 		// Named import
 		{

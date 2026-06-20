@@ -84,6 +84,17 @@ export class ErrorMessage extends React.Component<
 			intl: { formatMessage },
 			error,
 		} = this.props;
+		// Non-ZIP archives (e.g. RAR, TAR, 7z) aren't a load failure - the
+		// browser-based viewer simply can't preview them. Show a dedicated
+		// "Unsupported file format" heading instead of the generic
+		// "Something went wrong" copy.
+		if (getPrimaryErrorReason(error) === 'archiveviewer-not-zip') {
+			return {
+				icon: errorLoadingFileImage(formatMessage),
+				messages: [i18nMessages.unsupported_file_format, i18nMessages.archive_format_not_supported],
+			};
+		}
+
 		const errorInfo = {
 			icon: errorLoadingFileImage(formatMessage),
 			messages: [i18nMessages.something_went_wrong, i18nMessages.couldnt_generate_preview],

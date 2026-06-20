@@ -58,10 +58,10 @@ function isRangeFullyInside(
 function specHasDiffKeyPrefix(spec: unknown, keyPrefix: string): spec is { key: string } {
 	return Boolean(
 		spec &&
-			typeof spec === 'object' &&
-			'key' in spec &&
-			typeof spec.key === 'string' &&
-			spec.key.startsWith(keyPrefix),
+		typeof spec === 'object' &&
+		'key' in spec &&
+		typeof spec.key === 'string' &&
+		spec.key.startsWith(keyPrefix),
 	);
 }
 
@@ -94,15 +94,15 @@ export const getScrollableDecorations = (
 	const isBlockDecoration = (decoration: Decoration): boolean =>
 		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
 			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'block'
-			: decoration.spec?.key?.startsWith(DiffDecorationKey.block) ?? false;
+			: (decoration.spec?.key?.startsWith(DiffDecorationKey.block) ?? false);
 	const isInlineDecoration = (decoration: Decoration): boolean =>
 		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
 			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'inline'
-			: decoration.spec?.key?.startsWith(DiffDecorationKey.inline) ?? false;
+			: (decoration.spec?.key?.startsWith(DiffDecorationKey.inline) ?? false);
 	const isWidgetDecoration = (decoration: Decoration): boolean =>
 		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
 			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'widget'
-			: decoration.spec?.key?.startsWith(DiffDecorationKey.widget) ?? false;
+			: (decoration.spec?.key?.startsWith(DiffDecorationKey.widget) ?? false);
 
 	const seenBlockKeys = new Set<string>();
 	const allDecorations = expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)

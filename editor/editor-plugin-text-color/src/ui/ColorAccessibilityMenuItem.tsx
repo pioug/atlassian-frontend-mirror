@@ -68,7 +68,7 @@ const useColorAccessibilityState = (api: ExtractInjectionAPI<TextColorPlugin> | 
 const getContrastRatio = (
 	defaultColor: string | undefined,
 	highlightColor: string | null | undefined,
-	textColor: string | null | undefined
+	textColor: string | null | undefined,
 ): number | null => {
 	try {
 		const contrastRatio = calcContrastRatio(
@@ -76,9 +76,8 @@ const getContrastRatio = (
 			getBackgroundColor(highlightColor),
 		);
 		return contrastRatio;
-	}
-	// if we failed to calculate the contrast ratio, return null
-	catch {
+	} catch {
+		// if we failed to calculate the contrast ratio, return null
 		return null;
 	}
 };
@@ -88,11 +87,9 @@ type AccessibilityStatusKey = 'accessible' | 'difficultToRead' | 'inaccessible';
 const getAccessibilityStatus = (contrastRatio: number): AccessibilityStatusKey => {
 	if (contrastRatio >= ACCESSIBLE_CONTRAST_RATIO) {
 		return 'accessible';
-	}
-	else if (contrastRatio >= DIFFICULT_CONTRAST_RATIO) {
+	} else if (contrastRatio >= DIFFICULT_CONTRAST_RATIO) {
 		return 'difficultToRead';
-	}
-	else {
+	} else {
 		return 'inaccessible';
 	}
 };
@@ -102,7 +99,7 @@ const AccessibilityStatus = ({
 	formatMessage,
 }: {
 	accessibilityStatus: AccessibilityStatusKey;
-	formatMessage: IntlShape['formatMessage'],
+	formatMessage: IntlShape['formatMessage'];
 }): React.JSX.Element => {
 	if (accessibilityStatus === 'accessible') {
 		return (
@@ -136,16 +133,18 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-	}
+	},
 });
 
-export const ColorAccessibilityMenuItem = ({ api }: ColorAccessibilityMenuItemProps): React.JSX.Element => {
+export const ColorAccessibilityMenuItem = ({
+	api,
+}: ColorAccessibilityMenuItemProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const { defaultColor, highlightColor, textColor } = useColorAccessibilityState(api);
 	const contrastRatio = getContrastRatio(defaultColor, highlightColor, textColor);
 	if (contrastRatio === null) {
-		return (<></>);
+		return <></>;
 	}
 
 	const accessibilityStatus = getAccessibilityStatus(contrastRatio);
@@ -164,9 +163,16 @@ export const ColorAccessibilityMenuItem = ({ api }: ColorAccessibilityMenuItemPr
 		<Box xcss={styles.container}>
 			<Inline alignBlock="center" space="space.050">
 				<AccessibilityIcon label="" size="medium" />
-				<Text as="span" size="small" color="color.text.subtle">{formatMessage(messages.accessibility)}</Text>
-				<Text as="span" size="small" color="color.text.subtle" aria-hidden="true">•</Text>
-				<AccessibilityStatus accessibilityStatus={accessibilityStatus} formatMessage={formatMessage} />
+				<Text as="span" size="small" color="color.text.subtle">
+					{formatMessage(messages.accessibility)}
+				</Text>
+				<Text as="span" size="small" color="color.text.subtle" aria-hidden="true">
+					•
+				</Text>
+				<AccessibilityStatus
+					accessibilityStatus={accessibilityStatus}
+					formatMessage={formatMessage}
+				/>
 			</Inline>
 			<IconButton
 				icon={QuestionCircleIcon}
@@ -174,7 +180,7 @@ export const ColorAccessibilityMenuItem = ({ api }: ColorAccessibilityMenuItemPr
 				label={tooltipContent(accessibilityStatus)}
 				isTooltipDisabled={false}
 				spacing="compact"
-				appearance="subtle"	
+				appearance="subtle"
 			/>
 		</Box>
 	);

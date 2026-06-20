@@ -46,7 +46,7 @@ const PreviewAction = ({
 				<PanelRightIcon
 					color="currentColor"
 					spacing="spacious"
-					label=''
+					label=""
 					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 						? { size: props.iconSize }
 						: {})}
@@ -57,7 +57,7 @@ const PreviewAction = ({
 			<MediaServicesActualSizeIcon
 				color="currentColor"
 				spacing="spacious"
-				label=''
+				label=""
 				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
 					? { size: props.iconSize }
 					: {})}

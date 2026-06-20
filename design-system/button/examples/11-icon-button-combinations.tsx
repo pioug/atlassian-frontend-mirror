@@ -56,27 +56,43 @@ export default function IconButtonExample(): React.JSX.Element {
 													<th>{capitalize(appearance)}</th>
 													<td>
 														<LegacyButton
-															appearance={appearance === 'discovery' || appearance === 'rovo' ? undefined : appearance}
+															appearance={
+																appearance === 'discovery' || appearance === 'rovo'
+																	? undefined
+																	: appearance
+															}
 															iconBefore={<StarStarredIcon label="Label" size="medium" />}
 														/>
 													</td>
 													<td>
 														<LegacyButton
-															appearance={appearance === 'discovery' || appearance === 'rovo' ? undefined : appearance}
+															appearance={
+																appearance === 'discovery' || appearance === 'rovo'
+																	? undefined
+																	: appearance
+															}
 															iconBefore={<StarStarredIcon label="Label" size="medium" />}
 															isDisabled
 														/>
 													</td>
 													<td>
 														<LegacyButton
-															appearance={appearance === 'discovery' || appearance === 'rovo' ? undefined : appearance}
+															appearance={
+																appearance === 'discovery' || appearance === 'rovo'
+																	? undefined
+																	: appearance
+															}
 															iconBefore={<StarStarredIcon label="Label" size="medium" />}
 															isSelected
 														/>
 													</td>
 													<td>
 														<LegacyButton
-															appearance={appearance === 'discovery' || appearance === 'rovo' ? undefined : appearance}
+															appearance={
+																appearance === 'discovery' || appearance === 'rovo'
+																	? undefined
+																	: appearance
+															}
 															iconBefore={<StarStarredIcon label="Label" size="medium" />}
 															isSelected
 															isDisabled
@@ -86,7 +102,11 @@ export default function IconButtonExample(): React.JSX.Element {
 													{iconSizes.map((size) => (
 														<td>
 															<LegacyButton
-																appearance={appearance === 'discovery' || appearance === 'rovo' ? undefined : appearance}
+																appearance={
+																	appearance === 'discovery' || appearance === 'rovo'
+																		? undefined
+																		: appearance
+																}
 																iconBefore={<StarStarredIcon label="Label" size={size} />}
 															/>
 														</td>

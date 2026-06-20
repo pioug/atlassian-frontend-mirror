@@ -327,19 +327,11 @@ export const DragControls = ({
 		}
 
 		const selectedAppearance =
-			isRowSelected && isEntireTableSelected
-				? isInDanger
-					? 'danger'
-					: 'selected'
-				: 'placeholder';
+			isRowSelected && isEntireTableSelected ? (isInDanger ? 'danger' : 'selected') : 'placeholder';
 
 		// placeholder / selected need to always render at least one handle
 		// so it can be focused via keyboard shortcuts
-		const selectedGridRow = expValEquals(
-			'platform_editor_table_menu_updates',
-			'isEnabled',
-			true,
-		)
+		const selectedGridRow = expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
 			? // New behaviour: always position the placeholder in the first row to avoid an invalid
 				// `NaN / span 0` grid placement (which makes the handle disappear) when no rows are selected.
 				selectedAppearance === 'placeholder'
@@ -379,13 +371,13 @@ export const DragControls = ({
 				gridTemplateRows: heights,
 				gridTemplateColumns: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					`${dropTargetExtendedWidth}px ${dragRowControlsWidth}px ${tableWidth}px`
+						`${dropTargetExtendedWidth}px ${dragRowControlsWidth}px ${tableWidth}px`
 					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					`0px ${dragRowControlsWidth}px 0px`,
+						`0px ${dragRowControlsWidth}px 0px`,
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 				left: isDragging
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					`-${dropTargetExtendedWidth + 2}px`
+						`-${dropTargetExtendedWidth + 2}px`
 					: token('space.negative.025'),
 			}}
 			onMouseMove={handleMouseMove}

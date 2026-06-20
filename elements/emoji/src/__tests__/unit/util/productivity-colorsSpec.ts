@@ -15,10 +15,7 @@ describe('productivity-colors', () => {
 	it('stores the selected productivity colour in localStorage', () => {
 		storeProductivityColor('red');
 
-		expect(localStorage.setItem).toHaveBeenCalledWith(
-			selectedProductivityColorStorageKey,
-			'red',
-		);
+		expect(localStorage.setItem).toHaveBeenCalledWith(selectedProductivityColorStorageKey, 'red');
 	});
 
 	it('loads a stored productivity colour from localStorage', () => {

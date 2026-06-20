@@ -29,6 +29,7 @@
 		"./isMimeTypeSupportedByBrowser": "./src/mediaTypeUtils/isMimeTypeSupportedByBrowser.ts",
 		"./isMimeTypeSupportedByServer": "./src/mediaTypeUtils/isMimeTypeSupportedByServer.ts",
 		"./isExcelFile": "./src/mediaTypeUtils/isExcelFile.ts",
+		"./isZipMimeType": "./src/mediaTypeUtils/isZipMimeType.ts",
 		"./isValidUuid": "./src/utils/isValidUuid.ts",
 		"./jestHelpers": "./src/test-helpers/jestHelpers.ts",
 		"./media-use-only": "./src/docs/media-use-only.tsx",

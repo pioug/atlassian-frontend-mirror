@@ -36,6 +36,34 @@ describe('Error Message', () => {
 				screen.getByText(i18nMessages.image_format_invalid_error.defaultMessage as string),
 			).toBeInTheDocument();
 		});
+
+		it('shows a dedicated "Unsupported file format" heading for a non-ZIP archive', () => {
+			render(
+				<IntlProvider locale="en">
+					<ErrorMessage
+						fileId="some-id"
+						intl={fakeIntl}
+						error={new MediaViewerError('archiveviewer-not-zip')}
+					/>
+				</IntlProvider>,
+			);
+
+			// The dedicated heading and explanatory line are shown.
+			expect(
+				screen.getByText(i18nMessages.unsupported_file_format.defaultMessage as string),
+			).toBeInTheDocument();
+			expect(
+				screen.getByText(i18nMessages.archive_format_not_supported.defaultMessage as string),
+			).toBeInTheDocument();
+
+			// The generic failure copy is NOT shown for this case.
+			expect(
+				screen.queryByText(i18nMessages.something_went_wrong.defaultMessage as string),
+			).not.toBeInTheDocument();
+			expect(
+				screen.queryByText(i18nMessages.couldnt_generate_preview.defaultMessage as string),
+			).not.toBeInTheDocument();
+		});
 	});
 
 	it('should render a child component', async () => {

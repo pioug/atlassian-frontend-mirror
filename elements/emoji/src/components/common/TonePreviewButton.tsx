@@ -78,7 +78,7 @@ const emojiButtonOutline = css({
 
 const emojiButtonBorderRadius = css({
 	borderRadius: token('radius.medium', '6px'),
-})
+});
 
 export interface Props {
 	ariaControls?: string;

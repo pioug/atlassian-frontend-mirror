@@ -485,10 +485,7 @@ if (typeof HTMLElement !== 'undefined') {
 	// delegate every other selector to the original implementation.
 	// Spec: https://html.spec.whatwg.org/multipage/semantics-other.html#selector-popover-open
 	const originalMatches = Element.prototype.matches;
-	Element.prototype.matches = function patchedMatches(
-		this: Element,
-		selector: string,
-	): boolean {
+	Element.prototype.matches = function patchedMatches(this: Element, selector: string): boolean {
 		if (selector === ':popover-open') {
 			return this.hasAttribute('data-popover-open');
 		}

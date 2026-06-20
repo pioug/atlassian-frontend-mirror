@@ -2,10 +2,7 @@ import React from 'react';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
-import {
-	failGate,
-	passGate,
-} from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 import { extractSmartLinkInlineIcon } from '../extract-smart-link-inline-icon';

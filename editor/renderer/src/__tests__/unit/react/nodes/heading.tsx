@@ -178,9 +178,7 @@ describe('<Heading />', () => {
 			};
 
 			it('should copy the URL returned by getHeadingLink instead of the current page URL', async () => {
-				const getHeadingLink = jest.fn(
-					(headingId) => `https://example.com/wiki/page#${headingId}`,
-				);
+				const getHeadingLink = jest.fn((headingId) => `https://example.com/wiki/page#${headingId}`);
 				const screen = renderWithIntl(
 					<HeadingWithCustomLinkBuilder getHeadingLink={getHeadingLink} />,
 				);

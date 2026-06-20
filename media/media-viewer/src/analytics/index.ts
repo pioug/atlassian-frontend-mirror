@@ -9,6 +9,7 @@ import {
 	sanitiseAnalyticsPayload,
 } from '@atlaskit/media-common/analytics';
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type ProcessingFailReason } from '@atlaskit/media-state';
 import { type PrimaryErrorReason } from '../errors';
 
 import { type MediaViewerEventPayload } from './events';
@@ -50,6 +51,7 @@ export type MediaViewerFailureAttributes = Omit<FailureAttributes, 'failReason'>
 	failReason: PrimaryErrorReason;
 	statusCode?: number;
 	request?: RequestMetadata;
+	processingFailReason?: ProcessingFailReason | 'not-available';
 } & WithFileAttributes &
 	WithTraceContext;
 

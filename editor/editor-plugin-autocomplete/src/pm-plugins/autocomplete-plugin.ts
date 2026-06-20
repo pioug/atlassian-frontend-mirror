@@ -582,7 +582,9 @@ export const createAutocompletePlugin = (
 				// nodeAfter correctly handles inline atoms (mentions, emojis) where
 				// parentOffset and textContent indices diverge.
 				const nodeAfter = selection.$from.nodeAfter;
-				const charAfterCursor = nodeAfter?.isText ? getLeadingTextCharacter(nodeAfter.text) : undefined;
+				const charAfterCursor = nodeAfter?.isText
+					? getLeadingTextCharacter(nodeAfter.text)
+					: undefined;
 				// Only suppress for Unicode letters, digits, and underscore — hyphens,
 				// apostrophes, and similar punctuation are valid left-edge boundaries
 				// and should not block suggestions (e.g. cursor before '-' in compound-word).

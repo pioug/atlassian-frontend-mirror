@@ -135,7 +135,7 @@ const colorArrayPaletteNew: Array<[string, TextColorKey]> = [
 	[O800, 'Dark orange'],
 	[R500, 'Dark red'], // Dragon's blood
 	[M800, 'Dark magenta'],
-	[P500, 'Dark purple'], // Prince	
+	[P500, 'Dark purple'], // Prince
 	// row 2
 	[N80, 'Light gray'], // Spooky ghost
 	[B100, 'Blue'], // Arvo breeze

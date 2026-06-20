@@ -3,7 +3,14 @@ import type { MemoizedFn } from 'memoize-one';
 
 import { getParentOfTypeCount, isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
-import { Fragment, Slice, type Schema, type NodeType, type Node as PMNode, type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import {
+	Fragment,
+	Slice,
+	type Schema,
+	type NodeType,
+	type Node as PMNode,
+	type ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';

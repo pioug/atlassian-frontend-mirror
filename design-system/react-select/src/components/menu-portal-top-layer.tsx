@@ -11,7 +11,6 @@ import { Popover } from '@atlaskit/top-layer/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';
 
-
 import { getStyleProps } from '../get-style-props';
 import { MenuPortalCloseContext } from '../internal/menu-portal-close-context';
 import type { GroupBase, MenuPlacement } from '../types';

@@ -1,6 +1,8 @@
 # Prop guidance
 
-- **appearance** - primary (main navigation action), rovo (Rovo/AI primary navigation action), default (secondary), subtle (tertiary), danger (destructive), warning (caution), discovery (new features)
+- **appearance** - primary (main navigation action), rovo (Rovo/AI primary navigation action),
+  default (secondary), subtle (tertiary), danger (destructive), warning (caution), discovery (new
+  features)
 
 # Translating from Tailwind
 

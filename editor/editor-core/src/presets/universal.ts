@@ -265,7 +265,7 @@ export default function createUniversalPresetInternal({
 						typeof props.allowExpand === 'boolean'
 							? props.allowExpand
 							: Boolean(props.allowExpand && props.allowExpand.allowInteractiveExpand !== false),
-					__livePage: props.__livePage
+					__livePage: props.__livePage,
 				},
 			],
 			Boolean(props.allowExpand),

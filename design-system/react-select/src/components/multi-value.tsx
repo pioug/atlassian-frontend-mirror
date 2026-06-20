@@ -203,7 +203,13 @@ const MultiValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opti
 	const hasCustomContainerStyles =
 		hasCustomMultiValueStyles || hasCustomMultiValueClassNames || hasOverriddenGetStyles;
 
-	if (ffTagUplifts && isPlainLabel && !hasCustomLabel && !hasCustomContainer && !hasCustomContainerStyles) {
+	if (
+		ffTagUplifts &&
+		isPlainLabel &&
+		!hasCustomLabel &&
+		!hasCustomContainer &&
+		!hasCustomContainerStyles
+	) {
 		const { elemBefore, color: tagColor } = (data ?? {}) as {
 			elemBefore?: ReactNode;
 			color?: NewTagColor;

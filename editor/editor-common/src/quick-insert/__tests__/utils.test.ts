@@ -230,11 +230,7 @@ describe('find', () => {
 
 				const results = find('', items);
 
-				expect(results.map((r) => r.title)).toEqual([
-					'Table',
-					'Code snippet',
-					'Code Intelligence',
-				]);
+				expect(results.map((r) => r.title)).toEqual(['Table', 'Code snippet', 'Code Intelligence']);
 			});
 		});
 

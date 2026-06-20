@@ -4,7 +4,6 @@ import type { EditorView as CodeMirror, DecorationSet, ViewUpdate } from '@codem
 
 import type { EditorView, Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
 
-
 class PMWidget extends WidgetType {
 	constructor(readonly toDOMElement: HTMLElement) {
 		super();

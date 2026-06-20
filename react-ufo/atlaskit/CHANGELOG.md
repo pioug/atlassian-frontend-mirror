@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.1.2
+
+### Patch Changes
+
+- [`0751d9c5e58bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0751d9c5e58bb) -
+  Unify third-party segment resource timing filtering behind `platform_ufo_3p_segment_timings` and
+  remove the deprecated `platform_ufo_filter_3p_resource_timings` gate.
+
 ## 7.1.1
 
 ### Patch Changes

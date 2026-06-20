@@ -23,7 +23,7 @@ export function hexToEditorTextPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorTextPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-	EditorTextPalette[HexColor]
+		EditorTextPalette[HexColor]
 	: string | undefined {
 	// Ts ignore used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
@@ -109,7 +109,9 @@ export const editorTextPalette = {
 
 	// lime
 	/** lime - light */
-	['#D3F1A7']: token('color.background.accent.lime.subtler') as 'var(--ds-background-accent-lime-subtler, #D3F1A7)',
+	['#D3F1A7']: token(
+		'color.background.accent.lime.subtler',
+	) as 'var(--ds-background-accent-lime-subtler, #D3F1A7)',
 	/** lime - medium */
 	['#6A9A23']: token('color.icon.accent.lime') as 'var(--ds-icon-accent-lime, #6A9A23)',
 	/** lime - strong */
@@ -117,7 +119,9 @@ export const editorTextPalette = {
 
 	// orange
 	/** orange - light */
-	['#FCE4A6']: token('color.background.accent.orange.subtler') as 'var(--ds-background-accent-orange-subtler, #FCE4A6)',
+	['#FCE4A6']: token(
+		'color.background.accent.orange.subtler',
+	) as 'var(--ds-background-accent-orange-subtler, #FCE4A6)',
 	/** orange - medium */
 	['#E06C00']: token('color.icon.accent.orange') as 'var(--ds-icon-accent-orange, #E06C00)',
 	/** orange - strong */
@@ -125,7 +129,9 @@ export const editorTextPalette = {
 
 	// magenta
 	/** magenta - light */
-	['#FDD0EC']: token('color.background.accent.magenta.subtler') as 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
+	['#FDD0EC']: token(
+		'color.background.accent.magenta.subtler',
+	) as 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
 	/** magenta - medium */
 	['#CD519D']: token('color.icon.accent.magenta') as 'var(--ds-icon-accent-magenta, #CD519D)',
 	/** magenta - strong */

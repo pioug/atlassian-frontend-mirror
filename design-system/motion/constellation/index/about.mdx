@@ -27,7 +27,7 @@ import { Motion } from '@atlaskit/motion';
 	exitingAnimation={token('motion.example.exit')}
 >
 	<Card />
-</Motion>
+</Motion>;
 ```
 
 #### How motion components work together
@@ -69,8 +69,8 @@ import { token } from '@atlaskit/tokens';
 
 Where possible this library uses CSS exclusively, and only falls back to JavaScript when there is no
 alternative. The reason for this is primarily for performance. CSS animations run on the compositor
-thread, avoid blocking the main thread, and execute without waiting for JavaScript to load, important
-for SSR-rendered apps.
+thread, avoid blocking the main thread, and execute without waiting for JavaScript to load,
+important for SSR-rendered apps.
 
 In practice this means:
 
@@ -81,8 +81,8 @@ In practice this means:
   case-by-case
 
 For new CSS-based animations that are not entry or exit animations, use motion tokens to ensure
-consistency, accessibility, and automatic updates across products. Use tokens like `motion.duration.*`
-and `motion.easing.*` to define animation and transition CSS properties:
+consistency, accessibility, and automatic updates across products. Use tokens like
+`motion.duration.*` and `motion.easing.*` to define animation and transition CSS properties:
 
 - `animation-timing-function`
 - `animation-duration`
@@ -91,15 +91,15 @@ and `motion.easing.*` to define animation and transition CSS properties:
 - `transition-duration`
 - `transition-delay`
 
-For entry and exit transitions, use the [Motion primitive](/components/motion/motion-primitive), which
-manages the animation lifecycle using the correct tokens. For the full list of motion tokens, visit
-[All tokens](/components/tokens/all-tokens#motion).
+For entry and exit transitions, use the [Motion primitive](/components/motion/motion-primitive),
+which manages the animation lifecycle using the correct tokens. For the full list of motion tokens,
+visit [All tokens](/components/tokens/all-tokens#motion).
 
 ### Tokens over custom values
 
-Use the provided tokens to power your motion. This ensures a consistent motion experience across
-all apps. If there is motion you need that doesn't exist yet, reach out to the ADS team for
-contribution consideration.
+Use the provided tokens to power your motion. This ensures a consistent motion experience across all
+apps. If there is motion you need that doesn't exist yet, reach out to the ADS team for contribution
+consideration.
 
 ### Reduced motion support
 

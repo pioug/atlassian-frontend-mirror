@@ -586,8 +586,8 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			reveal(category: CategoryId, preferYourUploads = false) {
 				const row =
 					preferYourUploads && category === customCategory
-						? categoryTracker.getRow(yourUploadsCategory as CategoryId) ??
-							categoryTracker.getRow(category)
+						? (categoryTracker.getRow(yourUploadsCategory as CategoryId) ??
+							categoryTracker.getRow(category))
 						: categoryTracker.getRow(category);
 				scrollToRow(listRef, row);
 			},

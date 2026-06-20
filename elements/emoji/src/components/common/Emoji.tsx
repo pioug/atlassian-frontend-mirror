@@ -536,8 +536,14 @@ const UnicodeEmojiImage = (props: Props): JSX.Element => {
 };
 
 export const UnicodeEmoji = (props: Props): JSX.Element => {
-	const { emoji, selected, selectOnHover, className, fitToHeight, renderUnicodeEmojiAsImage = true } =
-		props;
+	const {
+		emoji,
+		selected,
+		selectOnHover,
+		className,
+		fitToHeight,
+		renderUnicodeEmojiAsImage = true,
+	} = props;
 
 	if (renderUnicodeEmojiAsImage) {
 		return <UnicodeEmojiImage {...props} />;

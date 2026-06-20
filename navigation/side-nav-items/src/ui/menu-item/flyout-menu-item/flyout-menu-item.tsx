@@ -119,11 +119,7 @@ export const FlyoutMenuItem: React.ForwardRefExoticComponent<
 					<OnCloseContext.Provider value={onCloseRef}>
 						<TitleIdContextProvider value={titleId}>
 							<MenuListItem ref={forwardedRef}>
-								<Popup
-									id={id}
-									isOpen={isOpen}
-									role="dialog"
-								>
+								<Popup id={id} isOpen={isOpen} role="dialog">
 									{children}
 								</Popup>
 							</MenuListItem>

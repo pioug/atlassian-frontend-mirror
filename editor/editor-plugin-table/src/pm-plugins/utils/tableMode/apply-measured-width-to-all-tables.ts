@@ -47,7 +47,10 @@ export const applyMeasuredWidthToAllTables = (
 				return;
 			}
 		} else {
-			if (node.type !== table || (hasTableBeenResized(node) && node.attrs.layout !== 'align-start')) {
+			if (
+				node.type !== table ||
+				(hasTableBeenResized(node) && node.attrs.layout !== 'align-start')
+			) {
 				return;
 			}
 		}

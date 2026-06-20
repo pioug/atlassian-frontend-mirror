@@ -6,7 +6,7 @@ function hexToRgb(hex: string): [number, number, number] {
 	if (!isHex(hex)) {
 		throw new Error('Invalid HEX');
 	}
-	
+
 	const colorParts = hex.substring(1).split('');
 	const color =
 		colorParts.length === 3 || colorParts.length === 4

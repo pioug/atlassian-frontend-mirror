@@ -3,7 +3,8 @@ import React from 'react';
 import { unzip, type ZipInfo, type ZipEntry, HTTPRangeReader, type Reader } from 'unzipit';
 import { FormattedMessage } from 'react-intl';
 
-import { type MediaClient, type FileState } from '@atlaskit/media-client';
+import { type MediaClient, type FileState, isErrorFileState } from '@atlaskit/media-client';
+import { isZipMimeType } from '@atlaskit/media-common/isZipMimeType';
 import { CustomMediaPlayer, messages } from '@atlaskit/media-ui';
 import { getLanguageType, isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
 import { Text } from '@atlaskit/primitives/compiled';
@@ -35,6 +36,7 @@ import {
 } from '../../errors';
 import { createZipEntryLoadSucceededEvent } from '../../analytics/events/operational/zipEntryLoadSucceeded';
 import { createZipEntryLoadFailedEvent } from '../../analytics/events/operational/zipEntryLoadFailed';
+import { createPreviewUnsupportedEvent } from '../../analytics/events/operational/previewUnsupported';
 import { CodeViewRenderer } from '../codeViewer/codeViewerRenderer';
 import { DEFAULT_LANGUAGE } from '../codeViewer/util';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../item-viewer';
@@ -60,6 +62,21 @@ export const getArchiveEntriesFromFileState = async (
 	mediaClient: MediaClient,
 	collectionName?: string,
 ): Promise<ZipInfo> => {
+	// The browser-based archive viewer relies on `unzipit`, which only supports
+	// the ZIP container format. Media classifies 40+ archive formats (.tar, .gz,
+	// .rar, .7z, etc.) as `archive` and routes them all through this code path,
+	// causing unzipit to fail with a cryptic "could not find end of central
+	// directory" error. We short-circuit non-ZIP archives up-front so the UI
+	// can show a clear "format not supported" message instead. We rely on the
+	// file's mime type (provided by the media backend).
+	if (
+		!isErrorFileState(fileState) &&
+		!isZipMimeType(fileState.mimeType) &&
+		fg('platform_media_archive_zip_guard')
+	) {
+		throw new ArchiveViewerError('archiveviewer-not-zip');
+	}
+
 	const url = await mediaClient.file.getFileBinaryURL(fileState.id, collectionName);
 	const reader = new HTTPRangeReader(url);
 	const archive = await rejectAfter(() => unzip(reader as Reader));
@@ -94,6 +111,29 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 	}
 
 	private onError = (error: ArchiveViewerError, entry?: ZipEntry) => {
+		// Non-ZIP archives (e.g. RAR, TAR, 7z) are a known limitation of the
+		// browser-based `unzipit` viewer, not a per-entry failure. Render a
+		// full-width "format not supported" message via BaseViewer's failed
+		// outcome (no sidebar, no 300px offset) and do NOT escalate to the
+		// parent item-viewer error boundary, which would double-render the
+		// message inside the offset archive layout.
+		if (error.primaryReason === 'archiveviewer-not-zip') {
+			// Fire a dedicated, non-SLI `previewUnsupported` event (not a
+			// `loadFailed`) so unsupported archives don't pollute error
+			// dashboards. The event's fileAttributes distinguish the two cases:
+			// `fileMediatype: 'unknown'` (browser-unrecognised, e.g. RAR) vs
+			// `fileMediatype: 'archive'` with a non-ZIP `fileMimetype` (unzipit
+			// limitation, e.g. 7z/tar/gzip).
+			fireAnalytics(
+				createPreviewUnsupportedEvent(this.props.item),
+				this.props.createAnalyticsEvent,
+			);
+			this.setState({
+				content: Outcome.failed<Content, ArchiveViewerError>(error),
+			});
+			return;
+		}
+
 		this.props.onError(error);
 
 		this.setState({

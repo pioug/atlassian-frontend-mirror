@@ -40,7 +40,8 @@ export const colorAccessibilityMessages: {
 	accessibility: {
 		id: 'fabric.editor.color.accessibility.accessibility',
 		defaultMessage: 'Accessibility',
-		description: 'Label for the accessibility status in the combined text highlight and color menu.',
+		description:
+			'Label for the accessibility status in the combined text highlight and color menu.',
 	},
 	accessibleLabel: {
 		id: 'fabric.editor.color.accessibility.accessibleLabel',
@@ -50,17 +51,21 @@ export const colorAccessibilityMessages: {
 	accessibleTooltip: {
 		id: 'fabric.editor.color.accessibility.accessibleTooltip',
 		defaultMessage: 'Accessible color combination',
-		description: 'Tooltip content for the accessibility status when the color combination is accessible.',
+		description:
+			'Tooltip content for the accessibility status when the color combination is accessible.',
 	},
 	difficultToReadLabel: {
 		id: 'fabric.editor.color.accessibility.difficultToReadLabel',
 		defaultMessage: 'Difficult to read',
-		description: 'Label for the accessibility status when the color combination is difficult to read.',
+		description:
+			'Label for the accessibility status when the color combination is difficult to read.',
 	},
 	difficultToReadTooltip: {
 		id: 'fabric.editor.color.accessibility.difficultToReadTooltip',
-		defaultMessage: 'This color combination has low contrast. Select a different color to improve legibility.',
-		description: 'Tooltip content for the accessibility status when the color combination is difficult to read.',
+		defaultMessage:
+			'This color combination has low contrast. Select a different color to improve legibility.',
+		description:
+			'Tooltip content for the accessibility status when the color combination is difficult to read.',
 	},
 	inaccessibleLabel: {
 		id: 'fabric.editor.color.accessibility.inaccessibleLabel',
@@ -69,7 +74,9 @@ export const colorAccessibilityMessages: {
 	},
 	inaccessibleTooltip: {
 		id: 'fabric.editor.color.accessibility.inaccessibleTooltip',
-		defaultMessage: 'This color combination is hard to read. Select a different color to improve legibility.',
-		description: 'Tooltip content for the accessibility status when the color combination is inaccessible.',
+		defaultMessage:
+			'This color combination is hard to read. Select a different color to improve legibility.',
+		description:
+			'Tooltip content for the accessibility status when the color combination is inaccessible.',
 	},
 });

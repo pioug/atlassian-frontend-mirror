@@ -40,35 +40,38 @@ async function probeSkipHoneyPot({
 	x: number;
 	y: number;
 }): Promise<TSkipProbeResult> {
-	return page.evaluate(({ x, y }) => {
-		// `document.elementsFromPoint` is restricted because direct usage is
-		// not honey-pot aware. This test intentionally reaches for the
-		// underlying API to mirror the PDND skip logic exactly.
-		// eslint-disable-next-line no-restricted-syntax
-		const stack = document.elementsFromPoint(x, y);
-		const top = stack[0] ?? null;
-		const second = stack[1] ?? null;
-		const honeyPotAttribute = 'data-pdnd-honey-pot';
-		const skip =
-			top && top instanceof Element && top.hasAttribute(honeyPotAttribute) ? second : top;
+	return page.evaluate(
+		({ x, y }) => {
+			// `document.elementsFromPoint` is restricted because direct usage is
+			// not honey-pot aware. This test intentionally reaches for the
+			// underlying API to mirror the PDND skip logic exactly.
+			// eslint-disable-next-line no-restricted-syntax
+			const stack = document.elementsFromPoint(x, y);
+			const top = stack[0] ?? null;
+			const second = stack[1] ?? null;
+			const honeyPotAttribute = 'data-pdnd-honey-pot';
+			const skip =
+				top && top instanceof Element && top.hasAttribute(honeyPotAttribute) ? second : top;
 
-		function describeElement(element: Element | null): string | null {
-			if (!element) {
-				return null;
+			function describeElement(element: Element | null): string | null {
+				if (!element) {
+					return null;
+				}
+				if (element instanceof HTMLElement && element.dataset.testid) {
+					return `testid:${element.dataset.testid}`;
+				}
+				if (element.id) {
+					return `id:${element.id}`;
+				}
+				return element.tagName.toLowerCase();
 			}
-			if (element instanceof HTMLElement && element.dataset.testid) {
-				return `testid:${element.dataset.testid}`;
-			}
-			if (element.id) {
-				return `id:${element.id}`;
-			}
-			return element.tagName.toLowerCase();
-		}
 
-		return {
-			skipHoneyPotDescription: describeElement(skip),
-		};
-	}, { x, y });
+			return {
+				skipHoneyPotDescription: describeElement(skip),
+			};
+		},
+		{ x, y },
+	);
 }
 
 test.describe('honey pot (popover)', () => {

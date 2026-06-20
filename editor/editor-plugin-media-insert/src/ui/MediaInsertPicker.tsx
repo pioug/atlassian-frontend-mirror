@@ -250,9 +250,7 @@ export const MediaInsertPicker = ({
 	const tabsAnalyticsContext = React.useMemo(
 		() => ({
 			get source() {
-				return getMediaInsertPickerTabSource(
-					selectedTabAnalyticsMetadataRef.current.selectedTab,
-				);
+				return getMediaInsertPickerTabSource(selectedTabAnalyticsMetadataRef.current.selectedTab);
 			},
 		}),
 		[],
@@ -273,7 +271,11 @@ export const MediaInsertPicker = ({
 			return;
 		}
 
-		if (!mediaProvider || !dispatchAnalyticsEvent || hasDispatchedInitialTabViewedEventRef.current) {
+		if (
+			!mediaProvider ||
+			!dispatchAnalyticsEvent ||
+			hasDispatchedInitialTabViewedEventRef.current
+		) {
 			return;
 		}
 

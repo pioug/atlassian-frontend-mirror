@@ -29,9 +29,7 @@ export const isOutdatedBrowser = (userAgent: string): boolean => {
 	}
 
 	const safari = !chrome && !gecko && SAFARI_REGEX.test(userAgent);
-	const safariVersion = safari
-		? parseInt((userAgent.match(SAFARI_REGEX) || [])[1], 10)
-		: 0;
+	const safariVersion = safari ? parseInt((userAgent.match(SAFARI_REGEX) || [])[1], 10) : 0;
 	if (safariVersion >= 17) {
 		return false;
 	}

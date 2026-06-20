@@ -262,8 +262,8 @@ const EmojiPickerComponent = ({
 	const [selectedTone, setSelectedTone] = useState(
 		!hideToneSelector ? emojiProvider.getSelectedTone() : undefined,
 	);
-	const [selectedProductivityColor, setSelectedProductivityColor] = useState<ProductivityColor>(() =>
-		isTeamojiExperimentEnabled ? getStoredProductivityColor() : defaultProductivityColor,
+	const [selectedProductivityColor, setSelectedProductivityColor] = useState<ProductivityColor>(
+		() => (isTeamojiExperimentEnabled ? getStoredProductivityColor() : defaultProductivityColor),
 	);
 	const [loading, setLoading] = useState(true);
 	const [uploading, setUploading] = useState(false);

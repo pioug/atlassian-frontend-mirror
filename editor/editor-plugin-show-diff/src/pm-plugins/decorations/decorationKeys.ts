@@ -64,8 +64,7 @@ export const DiffDecorationKey: Readonly<{
 	widget: `${DecorationFamily.diff}-widget`,
 };
 
-export const AnchorDocMarginKey: `${typeof DecorationFamily.anchor}-${typeof AnchorTypeKey.docMargin}` =
-	`${DecorationFamily.anchor}-${AnchorTypeKey.docMargin}`;
+export const AnchorDocMarginKey: `${typeof DecorationFamily.anchor}-${typeof AnchorTypeKey.docMargin}` = `${DecorationFamily.anchor}-${AnchorTypeKey.docMargin}`;
 
 export const buildAnchorDecorationKey = ({
 	diffId,
@@ -167,17 +166,17 @@ export function buildAnchorDecorationSpec({
 export const isDiffDecorationSpec = (spec: unknown): spec is DiffDecorationSpec =>
 	Boolean(
 		spec &&
-			typeof spec === 'object' &&
-			'decorationFamily' in spec &&
-			spec.decorationFamily === DecorationFamily.diff,
+		typeof spec === 'object' &&
+		'decorationFamily' in spec &&
+		spec.decorationFamily === DecorationFamily.diff,
 	);
 
 export const isAnchorDecorationSpec = (spec: unknown): spec is AnchorDecorationSpec =>
 	Boolean(
 		spec &&
-			typeof spec === 'object' &&
-			'decorationFamily' in spec &&
-			spec.decorationFamily === DecorationFamily.anchor,
+		typeof spec === 'object' &&
+		'decorationFamily' in spec &&
+		spec.decorationFamily === DecorationFamily.anchor,
 	);
 
 export const isDiffDecoration = (

@@ -619,6 +619,9 @@ const ButtonBase: React.ForwardRefExoticComponent<
 		}: ButtonBaseProps<HTMLButtonElement>,
 		ref: React.Ref<HTMLButtonElement>,
 	): JSX.Element => {
+		// React Compiler opt-out: RC-incompatible (memoization breaks runtime behaviour).
+		'use no memo';
+
 		const localRef = useRef<HTMLButtonElement | null>(null);
 		const splitButtonContext = useSplitButtonContext();
 		const loadingLabelId = useId();

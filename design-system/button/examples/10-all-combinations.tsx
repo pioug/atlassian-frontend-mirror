@@ -352,7 +352,7 @@ export default function AllCombinationsExample(): React.JSX.Element {
 																		isIconOnly={isIconOnly}
 																		elementType={elementType}
 																	/>
-															)}
+																)}
 															<ExampleRow
 																showLegacyButton={showLegacyButton}
 																appearance={appearance}

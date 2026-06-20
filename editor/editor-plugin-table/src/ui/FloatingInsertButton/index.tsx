@@ -220,7 +220,10 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		//   row 1: [ col 1 ][ col 2 ]  ← anchor here for X
 		//          ↑ button should render at row 0/table top
 		let verticalOffsetCorrection = 0;
-		if (type === 'column' && expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+		if (
+			type === 'column' &&
+			expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
+		) {
 			verticalOffsetCorrection = Math.max(
 				0,
 				targetCellRef.getBoundingClientRect().top - tableRef.getBoundingClientRect().top,

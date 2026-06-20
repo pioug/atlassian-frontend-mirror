@@ -88,9 +88,9 @@ import Avatar from '@atlaskit/avatar';
 
 This rule enforces multiple migration patterns:
 
-1. **Remove deprecated `isBold` prop from `<Lozenge>`**: The `isBold` prop is deprecated in the
-   new Lozenge API. The rule warns and auto-removes it regardless of value (true, false, or
-   dynamic). Both bold and subtle variants are now expressed via the `appearance` prop alone.
+1. **Remove deprecated `isBold` prop from `<Lozenge>`**: The `isBold` prop is deprecated in the new
+   Lozenge API. The rule warns and auto-removes it regardless of value (true, false, or dynamic).
+   Both bold and subtle variants are now expressed via the `appearance` prop alone.
 
 2. **Migrate Lozenge appearance values to new semantic values**: Detects old appearance values
    (`default`, `inprogress`, `moved`, `removed`, `new`) and auto-fixes them to new semantic values
@@ -302,13 +302,13 @@ This rule enforces multiple migration patterns:
 
 The new Lozenge API uses semantic color names. Old legacy appearance values are auto-fixed in-place:
 
-| Old Appearance | New Appearance  |
-| -------------- | --------------- |
-| `default`      | `neutral`       |
-| `inprogress`   | `information`   |
-| `moved`        | `warning`       |
-| `removed`      | `danger`        |
-| `new`          | `discovery`     |
+| Old Appearance | New Appearance        |
+| -------------- | --------------------- |
+| `default`      | `neutral`             |
+| `inprogress`   | `information`         |
+| `moved`        | `warning`             |
+| `removed`      | `danger`              |
+| `new`          | `discovery`           |
 | `success`      | `success` (unchanged) |
 
 The `<Lozenge>` component stays as `<Lozenge>` — it no longer migrates to `<Tag>`.
@@ -356,8 +356,8 @@ Tag:
 
 ## Auto-fixes
 
-- ✅ Lozenge legacy appearance values migrated to new semantic values in-place
-  (e.g., `appearance="inprogress"` → `appearance="information"`)
+- ✅ Lozenge legacy appearance values migrated to new semantic values in-place (e.g.,
+  `appearance="inprogress"` → `appearance="information"`)
 - ✅ Static Badge appearance prop values (e.g., `appearance="added"` → `appearance="success"`)
 - ✅ SimpleTag/RemovableTag migration to `<Tag>` with color mapping and import updates
 - ✅ SimpleTag/RemovableTag from subpaths (e.g., `@atlaskit/tag/simple-tag`) migration to main

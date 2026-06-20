@@ -49,12 +49,19 @@ export default class ArchiveSidebarRenderer extends Component<
 			onSuccess();
 		} catch (error) {
 			this.setState({ status: 'loaded' });
-			onError(
-				new ArchiveViewerError(
-					'archiveviewer-read-binary',
-					error instanceof Error ? error : undefined,
-				),
-			);
+			// Preserve archiveviewer-not-zip as-is so the generic error boundary
+			// can show a clear "format not supported" message instead of a
+			// generic read error.
+			if (error instanceof ArchiveViewerError && error.primaryReason === 'archiveviewer-not-zip') {
+				onError(error);
+			} else {
+				onError(
+					new ArchiveViewerError(
+						'archiveviewer-read-binary',
+						error instanceof Error ? error : undefined,
+					),
+				);
+			}
 		}
 	}
 

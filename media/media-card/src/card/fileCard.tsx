@@ -351,7 +351,7 @@ export const FileCard = ({
 					size,
 					...(originalDimensions || previewDimensions),
 					alt,
-			  }
+				}
 			: undefined;
 	}, [alt, previewDimensions, contextId, fileStateValue, identifier, originalDimensions]);
 
@@ -400,8 +400,8 @@ export const FileCard = ({
 	const finalStatus = finalError
 		? 'error'
 		: status === 'failed-processing' && fileStateValue?.mimeType === 'image/svg+xml'
-		? 'loading-preview'
-		: status;
+			? 'loading-preview'
+			: status;
 
 	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(null);
 
@@ -1035,7 +1035,7 @@ export const FileCard = ({
 									viewingLevel: 'minimal',
 									...payloadPart,
 								});
-						  }
+							}
 						: undefined
 				}
 				innerRef={mergedRef}

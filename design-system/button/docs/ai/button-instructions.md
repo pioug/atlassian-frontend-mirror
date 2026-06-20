@@ -1,7 +1,7 @@
 # Prop guidance
 
-- **appearance** - primary (main), rovo (Rovo/AI primary action), default (secondary), subtle (tertiary), danger (destructive),
-  warning (caution), discovery (new features)
+- **appearance** - primary (main), rovo (Rovo/AI primary action), default (secondary), subtle
+  (tertiary), danger (destructive), warning (caution), discovery (new features)
 - **spacing** - compact (tight spaces), default (standard), comfortable (generous)
 - **isDisabled** - Use instead of removing the button
 - **isLoading** - Show loading state during async operations

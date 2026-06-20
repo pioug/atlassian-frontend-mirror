@@ -58,7 +58,7 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 		? HIGHLIGHT_COLOR_PICKER_COLUMNS_NEW
 		: HIGHLIGHT_COLOR_PICKER_COLUMNS;
 
-		// pixels, used to determine where to horizontally position the dropdown when space is limited
+	// pixels, used to determine where to horizontally position the dropdown when space is limited
 	// this should reflect the width of the dropdown when fully populated with colors, including translations due to layering
 	const fitWidth = isNewColorPaletteEnabled ? 338 : 274;
 	// 8 cols: 272 = (32 * 8) + (8 + 8)

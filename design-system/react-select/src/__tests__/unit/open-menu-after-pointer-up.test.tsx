@@ -4,7 +4,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import __noop from '@atlaskit/ds-lib/noop'
+import __noop from '@atlaskit/ds-lib/noop';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Select from '../../select';

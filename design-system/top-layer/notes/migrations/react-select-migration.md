@@ -35,17 +35,17 @@ When `platform-dst-top-layer` is on:
   notifies the open-layer observer internally; threading `handleOpenLayerObserverCloseSignal`
   through `MenuPortal.onTopLayerClose` preserves the existing close-on-higher-layer behaviour.
 
-The original plan called for routing only the already-portaled path through the top layer; the
-scope expanded during implementation because (a) the top-layer host is strictly better than
+The original plan called for routing only the already-portaled path through the top layer; the scope
+expanded during implementation because (a) the top-layer host is strictly better than
 `position: absolute`/`fixed` for the inline path's clipping and stacking edge cases, and (b) a
 single code path is more resilient than two.
 
 ## Focus contract
 
-React-select uses combobox + virtual focus: DOM focus stays on the combobox input while the menu
-is open; option selection is conveyed via `aria-activedescendant`. `MenuPortalTopLayer` therefore
-does NOT trigger `useInitialFocus` - the top-layer host accepts focus only on user action (Tab
-into options is not part of react-select's interaction model).
+React-select uses combobox + virtual focus: DOM focus stays on the combobox input while the menu is
+open; option selection is conveyed via `aria-activedescendant`. `MenuPortalTopLayer` therefore does
+NOT trigger `useInitialFocus` - the top-layer host accepts focus only on user action (Tab into
+options is not part of react-select's interaction model).
 
 See `packages/design-system/top-layer/notes/architecture/focus.md` for the broader top-layer focus
 substrate; the `react-select` carve-out lives in
@@ -54,12 +54,12 @@ substrate; the `react-select` carve-out lives in
 ## Test coverage
 
 - **Unit** - `src/__tests__/unit/menu-portal-top-layer.test.tsx`,
-  `src/__tests__/unit/notify-open-layer-observer.test.tsx`. Detailed DOM-contract assertions live
-  in the Playwright suite (jsdom does not render `MenuPortal` reliably because react-select reads
+  `src/__tests__/unit/notify-open-layer-observer.test.tsx`. Detailed DOM-contract assertions live in
+  the Playwright suite (jsdom does not render `MenuPortal` reliably because react-select reads
   `controlRef` at render time and the ref callback only fires post-commit).
 - **Informational VR** - `src/__tests__/informational-vr-tests/menu-portal-top-layer.vr.tsx`.
-  Snapshots both flag states for the default fixture and the
-  `transform + overflow: hidden` clipped-ancestor fixture.
+  Snapshots both flag states for the default fixture and the `transform + overflow: hidden`
+  clipped-ancestor fixture.
 - **Playwright (package-level)** - `__tests__/playwright/top-layer-focus.spec.tsx` and
   `__tests__/playwright/top-layer-smoke.spec.tsx`.
 - **Playwright (flag-isolated)** -
@@ -71,8 +71,8 @@ substrate; the `react-select` carve-out lives in
 1. **`menuPortalTarget` is now a hint.** Consumers that relied on the portal landing inside a
    specific subtree (e.g. for theme/token scope) lose that placement. The escape hatch is
    `components.MenuPortal`.
-2. **Inline-now-top-layer:** Selects that were inline (no `menuPortalTarget`) now render in the
-   top layer too. This changes their DOM ancestry, which can break tests that assert ancestry or
+2. **Inline-now-top-layer:** Selects that were inline (no `menuPortalTarget`) now render in the top
+   layer too. This changes their DOM ancestry, which can break tests that assert ancestry or
    consumer styles that depended on the menu being a CSS descendant of the Select container.
 3. **`menuPosition="fixed"`** becomes a no-op under the top-layer path; kept in the type for
    back-compat.

@@ -1,4 +1,5 @@
 import { type FileState } from '@atlaskit/media-client';
+import { type ProcessingFailedState } from '@atlaskit/media-state';
 import { type MediaFileEventPayload } from './_mediaFile';
 import { getFileAttributes, type MediaViewerFailureAttributes } from '../..';
 import {
@@ -23,6 +24,11 @@ export const createLoadFailedEvent = (
 ): LoadFailedEventPayload => {
 	const { fileMediatype, fileMimetype, fileSize } = getFileAttributes(fileState);
 	const requestMetadata = getRequestMetadata(error);
+
+	const processingFailReason =
+		fileState?.status === 'failed-processing'
+			? ((fileState as ProcessingFailedState).failReason ?? 'not-available')
+			: undefined;
 	return {
 		eventType: 'operational',
 		actionSubject: 'mediaFile',
@@ -34,6 +40,7 @@ export const createLoadFailedEvent = (
 			errorDetail: getErrorDetail(error),
 			statusCode: requestMetadata?.statusCode,
 			request: requestMetadata,
+			processingFailReason,
 			fileMimetype,
 			fileAttributes: {
 				fileId,

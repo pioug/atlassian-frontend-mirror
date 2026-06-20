@@ -52,9 +52,7 @@ test.describe('react-select: top-layer focus contract', () => {
 		await expect(page.getByRole('listbox')).toHaveCount(0);
 	});
 
-	test('click inside the combobox while menu is open does NOT close the menu', async ({
-		page,
-	}) => {
+	test('click inside the combobox while menu is open does NOT close the menu', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/testing-top-layer-focus.tsx')>(
 			'design-system',
 			'react-select',

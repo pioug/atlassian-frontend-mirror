@@ -101,11 +101,7 @@ const TableFloatingColumnControls = ({
 		return null;
 	}
 
-	const colWidths = expValEquals(
-		'platform_editor_table_menu_updates',
-		'isEnabled',
-		true,
-	)
+	const colWidths = expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
 		? getColumnsWidthsWithMergedCells(editorView)
 		: getColumnsWidths(editorView);
 

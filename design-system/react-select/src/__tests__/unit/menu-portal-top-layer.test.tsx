@@ -4,7 +4,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import __noop from '@atlaskit/ds-lib/noop'
+import __noop from '@atlaskit/ds-lib/noop';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Select from '../../select';
@@ -38,12 +38,7 @@ function isInTopLayerPopover(node: HTMLElement | null): boolean {
 
 function renderSelect(extraProps: Record<string, unknown> = {}) {
 	return render(
-		<Select
-			testId={TEST_ID}
-			options={options}
-			onInputChange={__noop}
-			{...extraProps}
-		/>,
+		<Select testId={TEST_ID} options={options} onInputChange={__noop} {...extraProps} />,
 	);
 }
 

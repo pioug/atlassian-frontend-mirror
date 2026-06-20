@@ -17,6 +17,8 @@ import {
 	MediaButton,
 } from '@atlaskit/media-ui';
 import { getLanguageType, getExtension, isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
+import { isZipMimeType } from '@atlaskit/media-common/isZipMimeType';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl';
 import { Outcome } from './domain';
 import {
@@ -104,8 +106,17 @@ export const Header = ({
 		}
 
 		if (fileState.status !== 'error') {
+			// Only reserve the archive sidebar space for previewable ZIP archives.
+			// Non-ZIP archives (e.g. RAR, TAR, 7z) render a full-width "unsupported
+			// file format" error in the body and have no sidebar, so the header
+			// must not leave an empty 300px gap for them.
 			onSetArchiveSideBarVisibleRef.current?.(
-				!isErrorFileState(fileState) && fileState.mediaType === 'archive',
+				!isErrorFileState(fileState) &&
+					fileState.mediaType === 'archive' &&
+					// When the zip guard is on, non-ZIP archives show a full-width
+					// "unsupported file format" error with no sidebar, so the header
+					// must not reserve the 300px sidebar space for them.
+					(!fg('platform_media_archive_zip_guard') || isZipMimeType(fileState.mimeType)),
 			);
 			setItem(Outcome.successful(fileState));
 		} else {

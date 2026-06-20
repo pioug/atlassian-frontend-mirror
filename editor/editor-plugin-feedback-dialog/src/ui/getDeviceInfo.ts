@@ -77,7 +77,8 @@ const BEOS_REGEX = /BeOS/;
 const OS2_REGEX = /OS\/2/;
 // Ignored via go/ees005
 /* eslint-disable require-unicode-regexp */
-const SEARCH_BOT_REGEX = /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/;
+const SEARCH_BOT_REGEX =
+	/(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/;
 /* eslint-enable require-unicode-regexp */
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp

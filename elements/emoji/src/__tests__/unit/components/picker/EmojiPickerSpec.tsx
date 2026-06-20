@@ -372,7 +372,9 @@ describe('<EmojiPicker />', () => {
 					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
 				);
 			const emojiProvider = getEmojiResourcePromiseFromRepository(
-				new EmojiRepository(JSON.parse(JSON.stringify([...standardEmojis, mediaEmoji, siteEmojiFoo]))),
+				new EmojiRepository(
+					JSON.parse(JSON.stringify([...standardEmojis, mediaEmoji, siteEmojiFoo])),
+				),
 				{
 					currentUser: { id: siteEmojiFoo.creatorUserId },
 				},

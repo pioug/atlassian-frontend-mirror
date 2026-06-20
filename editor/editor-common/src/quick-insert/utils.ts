@@ -120,7 +120,9 @@ export function find(
 			datasourceIndex > 0 &&
 			legacyIndex >= 0 &&
 			legacyIndex < datasourceIndex &&
-			Math.abs((rerankedResults[datasourceIndex].score ?? 0) - (rerankedResults[legacyIndex].score ?? 0)) < 0.2
+			Math.abs(
+				(rerankedResults[datasourceIndex].score ?? 0) - (rerankedResults[legacyIndex].score ?? 0),
+			) < 0.2
 		) {
 			const [datasource] = rerankedResults.splice(datasourceIndex, 1);
 			rerankedResults.splice(legacyIndex, 0, datasource);

@@ -51,8 +51,9 @@ const wrapperStyles = css({
 	display: 'block',
 });
 
-const getHeadingAnchorLinksConfig = (allowHeadingAnchorLinks: HeadingProps['allowHeadingAnchorLinks']) =>
-	typeof allowHeadingAnchorLinks === 'object' ? allowHeadingAnchorLinks : undefined;
+const getHeadingAnchorLinksConfig = (
+	allowHeadingAnchorLinks: HeadingProps['allowHeadingAnchorLinks'],
+) => (typeof allowHeadingAnchorLinks === 'object' ? allowHeadingAnchorLinks : undefined);
 
 function WrappedHeadingAnchor({
 	enableNestedHeaderLinks,
@@ -82,7 +83,9 @@ function WrappedHeadingAnchor({
 							eventType: EVENT_TYPE.UI,
 						});
 
-						return copyTextToClipboard(getHeadingLink?.(headingId) ?? getCurrentUrlWithHash(headingId));
+						return copyTextToClipboard(
+							getHeadingLink?.(headingId) ?? getCurrentUrlWithHash(headingId),
+						);
 					}}
 					hideFromScreenReader={hideFromScreenReader}
 					headingId={headingId}

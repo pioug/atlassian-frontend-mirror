@@ -194,19 +194,18 @@ dialog focusing steps look for the HTML `autofocus` attribute.
   Without this carve-out, moving focus into the listbox would blur the external textbox and cause
   libraries like `react-select` to close the menu on the same interaction that opened it.
 
-  **Considered and rejected: hoisting the carve-out above all role branches.** Doing so would
-  give role-undefined popups (e.g. `@atlaskit/react-select`'s `MenuPortalTopLayer`, where the
-  listbox role lives on a descendant of a roleless Popover host) an explicit "combobox owns me"
-  guarantee instead of relying on the "no role = no focus movement" fall-through. The
+  **Considered and rejected: hoisting the carve-out above all role branches.** Doing so would give
+  role-undefined popups (e.g. `@atlaskit/react-select`'s `MenuPortalTopLayer`, where the listbox
+  role lives on a descendant of a roleless Popover host) an explicit "combobox owns me" guarantee
+  instead of relying on the "no role = no focus movement" fall-through. The
   `container.contains(referenced)` wrapper-shape match makes it tempting to apply to all
-  popup-shaped roles, but it is over-broad for `dialog` popups that themselves contain a
-  separate combobox widget. `@atlaskit/datetime-picker`'s calendar dialog renders
-  `react-select` inside it; the active combobox's `aria-controls` resolves to a listbox inside
-  the dialog container, which falsely matches the wrapper-shape rule and suppresses the
-  dialog's own focus contract. A per-role opt-in for the wrapper-shape match was prototyped
-  and discarded as added complexity for a hypothetical future caller — current consumers
-  (`react-select`, `TimePicker`, `DatePicker`) all work correctly under the role-specific
-  placement.
+  popup-shaped roles, but it is over-broad for `dialog` popups that themselves contain a separate
+  combobox widget. `@atlaskit/datetime-picker`'s calendar dialog renders `react-select` inside it;
+  the active combobox's `aria-controls` resolves to a listbox inside the dialog container, which
+  falsely matches the wrapper-shape rule and suppresses the dialog's own focus contract. A per-role
+  opt-in for the wrapper-shape match was prototyped and discarded as added complexity for a
+  hypothetical future caller — current consumers (`react-select`, `TimePicker`, `DatePicker`) all
+  work correctly under the role-specific placement.
 
 - Fires on transitions into a visible phase, tracked via a `prevPhase` ref. Three transitions
   qualify:

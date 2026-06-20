@@ -172,9 +172,7 @@ describe('useSmartLinkCrossProductUrlWrapperGated', () => {
 			originalWindow = global.window;
 			delete (global as any).window;
 
-			expect(urlWrapper('https://example.com/page')).toBe(
-				'https://example.com/page?xpis=wrapped',
-			);
+			expect(urlWrapper('https://example.com/page')).toBe('https://example.com/page?xpis=wrapped');
 			expect(wrapUrl).toHaveBeenCalledWith('https://example.com/page');
 		});
 

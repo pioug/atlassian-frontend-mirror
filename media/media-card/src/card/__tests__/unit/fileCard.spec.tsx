@@ -18,11 +18,7 @@ const renderFileCard = (
 	return render(
 		<IntlProvider locale="en">
 			<MockedMediaClientProvider mockedMediaApi={mediaApi ?? {}}>
-				<FileCard
-					identifier={identifier}
-					isLazy={false}
-					{...props}
-				/>
+				<FileCard identifier={identifier} isLazy={false} {...props} />
 			</MockedMediaClientProvider>
 		</IntlProvider>,
 	);
@@ -34,10 +30,12 @@ describe('<FileCard />', () => {
 		failGate('platform_media_ssr_data_seed');
 	});
 
-	eeTest.describe(
-		'platform_editor_media_name_fallback_viewer_card',
-		'fallback media name in FileCard when media service name is missing (HOT-301450)',
-	).variant(true, () => {
+	eeTest
+		.describe(
+			'platform_editor_media_name_fallback_viewer_card',
+			'fallback media name in FileCard when media service name is missing (HOT-301450)',
+		)
+		.variant(true, () => {
 			it('should display fallback name when file has no name and fallbackMediaNameFetcher resolves', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
 				const { mediaApi } = createMockedMediaApi(fileItem);
@@ -90,11 +88,13 @@ describe('<FileCard />', () => {
 				// Card should still render — rejection is silently ignored
 				expect(screen.queryByTestId('title-box-header')).not.toHaveTextContent('fetch failed');
 			});
-	});
-	eeTest.describe(
-		'platform_editor_media_name_fallback_viewer_card',
-		'fallback media name in FileCard when media service name is missing (HOT-301450)',
-	).variant(false, () => {
+		});
+	eeTest
+		.describe(
+			'platform_editor_media_name_fallback_viewer_card',
+			'fallback media name in FileCard when media service name is missing (HOT-301450)',
+		)
+		.variant(false, () => {
 			it('should not use fallbackMediaNameFetcher when experiment is off', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
 				const { mediaApi } = createMockedMediaApi(fileItem);
@@ -103,7 +103,11 @@ describe('<FileCard />', () => {
 				renderFileCard(identifier, { fallbackMediaNameFetcher }, mediaApi);
 
 				// File has no name — title box should not show the fallback name
-				await waitFor(() => expect(screen.queryByTestId('title-box-header')).not.toHaveTextContent('should-not-be-used.jpg'));
+				await waitFor(() =>
+					expect(screen.queryByTestId('title-box-header')).not.toHaveTextContent(
+						'should-not-be-used.jpg',
+					),
+				);
 				expect(fallbackMediaNameFetcher).not.toHaveBeenCalled();
 			});
 		});

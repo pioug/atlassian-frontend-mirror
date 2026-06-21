@@ -49,17 +49,17 @@ const JIRA_LIST_REGEX = /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?
 const GIPHY_MEDIA_REGEX = /^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//;
 const PROFORMA_VIEW_REGEX =
 	/^https:\/\/[^/]+\/jira\/(core|software(\/c)?|servicedesk)\/projects\/\w+\/forms\/form\/direct\/\d+\/\d+.*$/;
+// prettier-ignore
 // @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-const CONFLUENCE_WHITEBOARD_DECIMAL_REGEX =
-	/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>\d+)(\?\/)?/;
+const CONFLUENCE_WHITEBOARD_DECIMAL_REGEX = /\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>\d+)(\?\/)?/;
+// prettier-ignore
 // @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-const CONFLUENCE_WHITEBOARD_UUID_REGEX =
-	/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/;
+const CONFLUENCE_WHITEBOARD_UUID_REGEX = /\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/;
 const CONFLUENCE_DATABASE_REGEX = /\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*)?$/;
 const YOUTUBE_VIDEO_REGEX = /^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/;
+// prettier-ignore
 // @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-const LOOM_VIDEO_URL_REGEX =
-	/^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/;
+const LOOM_VIDEO_URL_REGEX = /^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/;
 // @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 const LOOM_SCREENSHOT_URL_REGEX = /^https:\/\/(.*?\.)?loom\..*?\/i\/(?<id>[a-f0-9]{32})/;
 const JIRA_DASHBOARD_REGEX = /^https:\/\/.*?\/jira\/dashboards\/[0-9]+.*/;
@@ -68,18 +68,18 @@ const JIRA_BACKLOG_REGEX =
 const JIRA_BOARD_REGEX = /https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/\d\??.*/;
 // @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
 const JIRA_PLAN_REGEX = /https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)/;
+// prettier-ignore
 // @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-const JIRA_PLAN_WITH_SCENARIO_REGEX =
-	/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/;
+const JIRA_PLAN_WITH_SCENARIO_REGEX = /https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/;
 const JIRA_VERSION_REGEX =
 	/https:\/\/.*?\/projects\/[^\/]+?\/versions\/\d+\/tab\/release-report-all-issues/;
 const JIRA_FORM_REGEX = /https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/form\/\d\??.*/;
 const JIRA_SUMMARY_REGEX = /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/summary/;
 const ROVO_AGENT_PROFILE_PAGE_REGEX = /^https:\/\/.*?\/people\/agent\/.+$/;
 const CUSTOMER_360_LANDING_PAGE_REGEX = /^https:\/\/customer\.atlassian\.com\/.*$/;
+// prettier-ignore
 // @ts-ignore - TS1503 TypeScript 5.9.2 upgrade
-const CONFLUENCE_TEAM_CALENDARS_REGEX =
-	/\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/;
+const CONFLUENCE_TEAM_CALENDARS_REGEX = /\/wiki\/spaces\/(?<resourceContext>[^\/]+)\/calendars\/(?<resourceId>[a-zA-Z0-9-]+)/;
 const JIRA_ISSUE_NAVIGATOR_REGEX =
 	/^https:\/\/.*?\/jira\/software|core\/(c\/)?projects\/[^\/]+?\/issues\/?/;
 const AVP_VISUALIZATION_VIEW_REGEX = /^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/;

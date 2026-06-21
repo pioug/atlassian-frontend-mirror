@@ -1,5 +1,14 @@
 # @atlaskit/media-common
 
+## 14.1.0
+
+### Minor Changes
+
+- [`758e07b536b13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/758e07b536b13) -
+  [ux] Show a clear "Unsupported file format" message for non-ZIP archives (e.g. 7z, tar, gzip) in
+  the media viewer instead of a generic error, and remove the empty sidebar gap. Behind feature gate
+  platform_media_archive_zip_guard.
+
 ## 14.0.0
 
 ### Major Changes

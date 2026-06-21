@@ -1,5 +1,21 @@
 # @atlaskit/media-viewer
 
+## 54.2.0
+
+### Minor Changes
+
+- [`a56e76c8f33af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a56e76c8f33af) -
+  Add processingFailReason to media-viewer loadFailed analytics for failed-processing root-cause
+  analysis (BMPT-8000)
+- [`758e07b536b13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/758e07b536b13) -
+  [ux] Show a clear "Unsupported file format" message for non-ZIP archives (e.g. 7z, tar, gzip) in
+  the media viewer instead of a generic error, and remove the empty sidebar gap. Behind feature gate
+  platform_media_archive_zip_guard.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.1.1
 
 ### Patch Changes

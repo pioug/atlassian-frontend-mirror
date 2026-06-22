@@ -16,7 +16,7 @@ export const cellColourPreviewStyles = (selectedColor: string): SerializedStyles
 	});
 
 export const tablePopupStyles =
-	() // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+	()// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 	: SerializedStyles => css`
 		.${ClassName.CONTEXTUAL_SUBMENU} {
 			border-radius: ${token('radius.small', '3px')};

@@ -8,12 +8,10 @@ import useSelectionReducer, {
 
 type SelectionContext = [
 	SelectableState,
-	(
-		/**
-		 * Context actions will be undefined without a `SelectionProvider` mounted.
-		 */
-		SelectableActions | Partial<SelectableActions>
-	),
+	/**
+	 * Context actions will be undefined without a `SelectionProvider` mounted.
+	 */
+	SelectableActions | Partial<SelectableActions>,
 ];
 
 const SelectionContext: React.Context<SelectionContext> = createContext<SelectionContext>([

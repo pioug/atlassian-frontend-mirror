@@ -1,4 +1,5 @@
-import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTableClosestToPos, getSelectionRect } from '@atlaskit/editor-tables/utils';
@@ -75,4 +76,21 @@ export const isRowSelectionWithMergedFirstColumn = (selection: CellSelection): b
 		}
 	}
 	return true;
+};
+
+/**
+ * Returns `true` when the selection covers one or more complete rows or columns (the kind of
+ * selection produced by clicking a row/column drag handle), including the merged-cell variants
+ * where `CellSelection.isRowSelection()` / `isColSelection()` return `false`.
+ */
+export const isFullRowOrColumnSelected = (selection: Selection): boolean => {
+	if (!(selection instanceof CellSelection)) {
+		return false;
+	}
+	return (
+		selection.isRowSelection() ||
+		selection.isColSelection() ||
+		isRowSelectionWithMergedFirstColumn(selection) ||
+		isColumnSelectionWithMergedFirstRow(selection)
+	);
 };

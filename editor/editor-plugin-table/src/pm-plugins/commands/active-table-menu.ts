@@ -3,21 +3,25 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { ActiveTableMenu, PluginInjectionAPI } from '../../types';
 import { pluginKey } from '../plugin-key';
+import { isFullRowOrColumnSelected } from '../utils/selection';
 
 const applyMenuUserIntent = (
 	tr: Transaction,
 	api: PluginInjectionAPI | undefined | null,
 	nextActiveTableMenu: ActiveTableMenu,
 ) => {
-	const isRowOrColumnMenuOpen =
-		nextActiveTableMenu.type === 'row' || nextActiveTableMenu.type === 'column';
+	if (nextActiveTableMenu.type === 'row' || nextActiveTableMenu.type === 'column') {
+		api?.userIntent?.commands.setCurrentUserIntent('tableDragMenuPopupOpen')({ tr });
+		return;
+	}
+
 	api?.userIntent?.commands.setCurrentUserIntent(
-		isRowOrColumnMenuOpen ? 'tableDragMenuPopupOpen' : 'default',
+		isFullRowOrColumnSelected(tr.selection) ? 'dragHandleSelected' : 'default',
 	)({ tr });
 };
 
 export const closeActiveTableMenu =
-	(api?: PluginInjectionAPI | null): EditorCommand =>
+	(api?: PluginInjectionAPI | null, options?: { skipUserIntent?: boolean }): EditorCommand =>
 	({ tr }) => {
 		const nextActiveTableMenu: ActiveTableMenu = { type: 'none' };
 		tr.setMeta(pluginKey, {
@@ -26,10 +30,15 @@ export const closeActiveTableMenu =
 				activeTableMenu: nextActiveTableMenu,
 			},
 		});
-		applyMenuUserIntent(tr, api, nextActiveTableMenu);
+
+		if (!options?.skipUserIntent) {
+			applyMenuUserIntent(tr, api, nextActiveTableMenu);
+		}
+
 		if (!tr.docChanged) {
 			tr.setMeta('addToHistory', false);
 		}
+
 		return tr;
 	};
 

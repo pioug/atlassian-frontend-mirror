@@ -71,8 +71,8 @@ const dispatchLongTaskEvent =
 	};
 
 export default (
-		contextIdentifierPlugin: ExtractInjectionAPI<BasePlugin>['contextIdentifier'] | undefined,
-	) =>
+	contextIdentifierPlugin: ExtractInjectionAPI<BasePlugin>['contextIdentifier'] | undefined,
+) =>
 	(
 		dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 		inputTracking?: InputTracking,

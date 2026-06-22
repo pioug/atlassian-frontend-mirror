@@ -8,8 +8,8 @@ import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { ErrorMessage } from '@atlaskit/form';
 import type { Message } from '../../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { useIntl } from 'react-intl';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { messages } from '../i18n';
 
@@ -67,11 +67,7 @@ const EmojiErrorMessage = (props: Props): JSX.Element => {
 				/>
 			</Tooltip>
 		</div>
-	) : FeatureGates.getExperimentValue(
-			'platform_teamoji_26_refresh_emoji_picker',
-			'isEnabled',
-			false,
-	  ) ? (
+	) : expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 		<div data-testid={emojiErrorMessageTestId}>
 			<ErrorMessage>{message}</ErrorMessage>
 		</div>

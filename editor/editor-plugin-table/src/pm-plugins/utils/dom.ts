@@ -73,6 +73,10 @@ export const isDragCornerButton = (node: HTMLElement | null): boolean =>
 	containsClassName(node, ClassName.DRAG_CORNER_BUTTON) ||
 	containsClassName(node, ClassName.DRAG_CORNER_BUTTON_INNER);
 
+export const isTableDragHandleButton = (target: EventTarget | null): boolean =>
+	target instanceof HTMLElement &&
+	Boolean(target.closest(`.${ClassName.DRAG_HANDLE_BUTTON_CONTAINER}`));
+
 /*
  * This function returns which side of a given element the mouse cursor is,
  * using as a base the half of the width by default, for example:

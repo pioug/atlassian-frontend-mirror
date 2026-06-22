@@ -12,8 +12,8 @@ import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { messages } from '../i18n';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 const input = css({
 	boxSizing: 'border-box',
@@ -144,11 +144,7 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 							})
 					: null}
 			</VisuallyHidden>
-			{FeatureGates.getExperimentValue(
-				'platform_teamoji_26_refresh_emoji_picker',
-				'isEnabled',
-				false,
-			) ? (
+			{expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 				<div css={textFieldWrapperNew}>
 					<TextField
 						role="searchbox"

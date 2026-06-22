@@ -7,9 +7,9 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import Button from '@atlaskit/button/new';
 import UploadIcon from '@atlaskit/icon/core/upload';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 import { containsFiles, getFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 export interface Props {
 	accept?: string;
@@ -117,14 +117,7 @@ const FileChooser = (props: Props): React.JSX.Element => {
 
 	useEffect(() => {
 		const element = dropzoneRef.current;
-		if (
-			!element ||
-			!FeatureGates.getExperimentValue(
-				'platform_teamoji_26_refresh_emoji_picker',
-				'isEnabled',
-				false,
-			)
-		) {
+		if (!element || !expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
 			return;
 		}
 
@@ -229,9 +222,7 @@ const FileChooser = (props: Props): React.JSX.Element => {
 		/>
 	);
 
-	if (
-		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-	) {
+	if (expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
 		return (
 			<div
 				ref={dropzoneRef}

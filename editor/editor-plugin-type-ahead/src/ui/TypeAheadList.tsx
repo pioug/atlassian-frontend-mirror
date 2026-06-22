@@ -20,7 +20,7 @@ import type { ExtractInjectionAPI, TypeAheadItem } from '@atlaskit/editor-common
 import { AssistiveText } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
-import { Text, Box } from '@atlaskit/primitives/compiled';
+import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
@@ -474,6 +474,7 @@ const TypeAheadListComponent = React.memo(
 		}, [items]);
 
 		const config = triggerHandler?.getMoreOptionsButtonConfig?.(intl);
+		const shouldRenderSectionLozenge = expVal('platform_editor_agent_mentions', 'isEnabled', false);
 		const handleClick = () => {
 			if (onMoreOptionsClicked) {
 				onMoreOptionsClicked();
@@ -494,6 +495,11 @@ const TypeAheadListComponent = React.memo(
 				return null;
 			}
 
+			const sectionLozenge =
+				currentRow.type === 'section' && shouldRenderSectionLozenge
+					? currentRow.section.lozenge
+					: null;
+
 			return (
 				<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
 					{({ measure }) => (
@@ -509,9 +515,18 @@ const TypeAheadListComponent = React.memo(
 						>
 							{currentRow.type === 'section' ? (
 								<Box paddingInline="space.150" paddingBlock="space.050">
-									<Text as="span" size="small" color="color.text.subtle" weight="medium">
-										{currentRow.section.title}
-									</Text>
+									{sectionLozenge ? (
+										<Inline as="span" space="space.075" alignBlock="center">
+											<Text as="span" size="small" color="color.text.subtle" weight="medium">
+												{currentRow.section.title}
+											</Text>
+											{sectionLozenge}
+										</Inline>
+									) : (
+										<Text as="span" size="small" color="color.text.subtle" weight="medium">
+											{currentRow.section.title}
+										</Text>
+									)}
 								</Box>
 							) : (
 								<TypeAheadListItem

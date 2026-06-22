@@ -5,6 +5,8 @@ import {
 	utils as serviceUtils,
 } from '@atlaskit/util-service-support';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+
 import {
 	type AltRepresentations,
 	type EmojiDescription,
@@ -29,7 +31,6 @@ import {
 	buildEmojiDescriptionWithAltRepresentation,
 } from '../util/type-helpers';
 import debug from '../util/logger';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { emojiIdToEmoji } from '../util/emojiIdToEmoji';
 
 export interface EmojiLoaderConfig extends ServiceConfig {
@@ -156,7 +157,7 @@ const denormaliseStandardRepresentation = (
 		emoji.id &&
 		emoji.type === ProviderTypes.STANDARD &&
 		unicodeEmoji &&
-		fg('platform_twemoji_removal_unicode_emojis')
+		expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
 	);
 
 	return useUnicodeRepresentation

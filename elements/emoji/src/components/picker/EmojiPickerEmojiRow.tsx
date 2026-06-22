@@ -5,13 +5,13 @@
 import { memo, type MemoExoticComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl';
 import type { EmojiDescription, OnEmojiEvent } from '../../types';
 import CachingEmoji from '../common/CachingEmoji';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import type { CategoryGroupKey } from './categories';
 import { messages } from '../i18n';
 
@@ -81,8 +81,6 @@ const emojiPickerRowList = css({
 	marginLeft: token('space.100'),
 });
 
-const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
-
 export interface Props {
 	category: CategoryGroupKey;
 	emojis: EmojiDescription[];
@@ -110,11 +108,13 @@ const EmojiPickerEmojiRow = ({
 	const { currentEmojisFocus, setEmojisFocus } = useEmojiPickerListContext();
 	const rowIndex = virtualItemContext?.index || 0;
 	const { formatMessage } = useIntl();
-	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
-	const preventFocusOnMouseDown = FeatureGates.getExperimentValue(
-		teamojiRefreshExperimentName,
+	const fitToHeight = expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
+		? 24
+		: undefined;
+	const preventFocusOnMouseDown = expValEqualsNoExposure(
+		'platform_teamoji_26_refresh_emoji_picker',
 		'isEnabled',
-		false,
+		true,
 	);
 	const handleFocus: (index: number) => OnEmojiEvent<HTMLSpanElement> =
 		(index) => (emojiId, emoji, event) => {
@@ -147,6 +147,7 @@ const EmojiPickerEmojiRow = ({
 								tabIndex={focus ? 0 : -1}
 								aria-roledescription={formatMessage(messages.emojiButtonRoleDescription)}
 								shouldBeInteractive
+								fitToHeight={fitToHeight}
 								preventFocusOnMouseDown={preventFocusOnMouseDown}
 							/>
 						</li>

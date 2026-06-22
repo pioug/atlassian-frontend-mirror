@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "37.0.0",
+	"version": "37.1.0",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,6 +32,7 @@
 		"./from-observable": "./src/utils/mediaSubscribable/fromObservable.ts",
 		"./get-dimensions-from-blob": "./src/utils/getDimensionsFromBlob.ts",
 		"./global-media-event-emitter": "./src/globalMediaEventEmitter.ts",
+		"./hashing/file-reader-error": "./src/utils/hashing/fileReaderError.ts",
 		"./identifier": "./src/identifier.ts",
 		"./image-resize-mode-to-file-image-mode": "./src/utils/imageResizeModeToFileImageMode.ts",
 		"./item": "./src/models/item.ts",
@@ -165,11 +166,18 @@
 		"platform_media_auth_provider_analytics": {
 			"type": "boolean"
 		},
+		"platform_media_validate_client_id": {
+			"type": "boolean"
+		},
 		"confluence_watermark_admin_ui": {
 			"type": "boolean"
 		},
 		"platform_media_upload_expected_size_header": {
 			"type": "boolean"
+		},
+		"platform_media_filereader_error_surfacing": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	}
 }

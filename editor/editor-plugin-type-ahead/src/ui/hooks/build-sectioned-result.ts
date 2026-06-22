@@ -83,6 +83,10 @@ export const buildSectionedResult = ({
 			title: section.title,
 		};
 
+		if (section.lozenge !== undefined) {
+			resolvedSection.lozenge = section.lozenge;
+		}
+
 		if (section.sectionTitleDisplay) {
 			resolvedSection.sectionTitleDisplay = section.sectionTitleDisplay;
 		}

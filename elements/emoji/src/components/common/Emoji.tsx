@@ -36,6 +36,7 @@ import {
 import {
 	type EmojiDescription,
 	type OnEmojiEvent,
+	ProviderTypes,
 	type SpriteRepresentation,
 	UfoEmojiTimings,
 	type UnicodeRepresentation,
@@ -843,6 +844,9 @@ export const Emoji = (props: Props): JSX.Element => {
 		}
 		if (!hasUfoMarked(ufoExp, UfoEmojiTimings.MOUNTED_END)) {
 			ufoExp.mark(UfoEmojiTimings.MOUNTED_END);
+		}
+		if (emoji.type === ProviderTypes.STANDARD || isUnicodeRepresentation(emoji.representation)) {
+			expValEquals('platform_use_unicode_emojis', 'isEnabled', true);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

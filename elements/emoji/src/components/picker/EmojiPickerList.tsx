@@ -1,4 +1,5 @@
 import { useIntl } from 'react-intl';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import React, {
 	useCallback,
 	useEffect,
@@ -8,7 +9,6 @@ import React, {
 	useState,
 } from 'react';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	customCategory,
 	defaultEmojiPickerSize,
@@ -204,11 +204,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	const [lastYourUploadsRow, setLastYourUploadsRow] = useState(0);
 	const categoryTracker = useMemo(() => new CategoryTracker(), []);
 	const [categoriesChanged, setCategoriesChanged] = useState(false);
-	const isTeamojiExperimentEnabled = FeatureGates.getExperimentValue(
-		teamojiRefreshExperimentName,
-		'isEnabled',
-		false,
-	);
+	const isTeamojiExperimentEnabled = expVal(teamojiRefreshExperimentName, 'isEnabled', false);
 	const visibleEmojis = useMemo(
 		() => (isTeamojiExperimentEnabled ? filterHiddenEmojis(emojis) : emojis),
 		[emojis, isTeamojiExperimentEnabled],

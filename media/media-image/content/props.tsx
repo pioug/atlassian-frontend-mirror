@@ -338,6 +338,6 @@ export const mediaImageProps: {
 };
 
 const _default_1: any = md`
-  ${(<PropsTable heading="MediaImage Props" props={mediaImageProps} />)}
+  ${<PropsTable heading="MediaImage Props" props={mediaImageProps} />}
 `;
 export default _default_1;

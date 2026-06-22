@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 24.2.4
+
+### Patch Changes
+
+- [`2a5949df6125f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a5949df6125f) -
+  Under platform_editor_table_menu_updates, keep the selection toolbar suppressed after the
+  row/column drag menu closes while that drag-handle selection persists; any other selection
+  re-enables the toolbar.
+- Updated dependencies
+
 ## 24.2.3
 
 ### Patch Changes

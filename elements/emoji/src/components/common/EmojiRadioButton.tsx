@@ -4,13 +4,12 @@
  */
 import React, { memo, forwardRef } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import Emoji from './Emoji';
 import { TONESELECTOR_KEYBOARD_KEYS_SUPPORTED } from '../../util/constants';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 const emojiButton = css({
 	backgroundColor: 'transparent',
@@ -84,7 +83,7 @@ export interface Props {
 const handleKeyDown = (props: Props, event: React.KeyboardEvent) => {
 	if (
 		(event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
-		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+		expValEqualsNoExposure('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true)
 	) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -107,7 +106,9 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 	Props & React.RefAttributes<HTMLInputElement>
 > = forwardRef<HTMLInputElement, Props>((props: Props, ref) => {
 	const { emoji, selectOnHover, ariaLabelText, defaultChecked } = props;
-	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
+	const fitToHeight = expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
+		? 24
+		: undefined;
 
 	return (
 		<label css={emojiButton}>
@@ -123,11 +124,7 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 				onClick={() => props.onSelected?.()}
 				onKeyDown={(event) => handleKeyDown(props, event)}
 				onChange={
-					FeatureGates.getExperimentValue(
-						'platform_teamoji_26_refresh_emoji_picker',
-						'isEnabled',
-						false,
-					)
+					expValEqualsNoExposure('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true)
 						? (e) => e.preventDefault()
 						: undefined
 				}

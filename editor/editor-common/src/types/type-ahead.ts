@@ -71,6 +71,7 @@ export type TypeAheadSection = {
 	filter: (item: TypeAheadItem) => boolean;
 	id: string;
 	limit?: number;
+	lozenge?: ReactNode;
 	sectionTitleDisplay?: TypeAheadSectionTitleDisplay;
 	title: string;
 };

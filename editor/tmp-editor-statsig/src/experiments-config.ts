@@ -1354,6 +1354,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-16
+	platform_use_unicode_emojis: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-02-26
 	platform_editor_toolbar_update_jira_config: {
 		defaultValue: boolean;
@@ -3421,6 +3428,16 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_teamoji_26_refresh_emoji_picker',
 			jira: 'platform_teamoji_26_refresh_emoji_picker',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-16
+	platform_use_unicode_emojis: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_use_unicode_emojis_confluence',
+			jira: 'platform_use_unicode_emojis_jira',
+			bitbucket: 'platform_use_unicode_emojis_bitbucket',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

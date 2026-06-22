@@ -10,7 +10,7 @@ import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/an
 import { ufoExperiences } from '../../util/analytics';
 import type { EmojiProvider } from '../../api/EmojiResource';
 import type { OnEmojiEvent, PickerSize } from '../../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import LoadingEmojiComponent, {
 	type Props as LoadingProps,
 	type State as LoadingState,
@@ -124,11 +124,7 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 		};
 		ufoExperiences['emoji-picker-opened'].markFMP();
 
-		return FeatureGates.getExperimentValue(
-			'platform_teamoji_26_refresh_emoji_picker',
-			'isEnabled',
-			false,
-		) ? (
+		return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 			<div css={emojiPickerNew} ref={handlePickerRef}>
 				{item.renderItem()}
 			</div>

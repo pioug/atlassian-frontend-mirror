@@ -1,5 +1,19 @@
 # @atlaskit/media-client
 
+## 37.1.0
+
+### Minor Changes
+
+- [`0a00d74d3fe12`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a00d74d3fe12) -
+  Surface the underlying `DOMException` (e.g. `NotReadableError`, `NotFoundError`, `SecurityError`)
+  when a `FileReader` fails while hashing an upload, instead of leaking the browser `ProgressEvent`
+  which analytics serialised to the opaque `{"isTrusted":true}` error detail. Gated behind
+  `platform_media_filereader_error_surfacing`.
+
+  `@atlaskit/media-client` also exposes the `toFileReaderError` helper via a new
+  `@atlaskit/media-client/hashing/file-reader-error` entry point so consumers can normalise
+  `FileReader`/`DOMException` failures consistently without duplicating the logic.
+
 ## 37.0.0
 
 ### Major Changes

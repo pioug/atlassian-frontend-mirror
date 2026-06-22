@@ -9,9 +9,9 @@ import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { Box } from '@atlaskit/primitives/compiled';
 import type { EmojiDescription } from '../../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { AddOwnEmoji } from '../common/AddEmoji';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 const emojiPickerFooter = css({
 	flex: '0 0 auto',
@@ -45,11 +45,7 @@ export const emojiPickerFooterTestId = 'emoji-picker-footer';
 
 const EmojiPickerFooter = ({ selectedEmoji, onOpenUpload, uploadEnabled }: Props): JSX.Element => {
 	const intl = useIntl();
-	return FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	) ? (
+	return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 		<div
 			css={[emojiPickerFooter, emojiPickerFooterWithTopShadowNew]}
 			data-testid={emojiPickerFooterTestId}

@@ -234,6 +234,13 @@ export class EmojiNodeView implements NodeView {
 		);
 	}
 
+	private static shouldRecordUnicodeEmojiExposure(
+		description: EmojiDescription,
+		representation: Exclude<EmojiRepresentation, undefined>,
+	): boolean {
+		return description.type === 'STANDARD' || 'unicodeEmoji' in representation;
+	}
+
 	// Pay attention, this method should be called only when the emoji provider returns
 	// emoji data to prevent rendering empty emoji during loading.
 	private cleanUpAndRenderCommonAttributes() {
@@ -321,6 +328,10 @@ export class EmojiNodeView implements NodeView {
 		containerElement.appendChild(emojiElement);
 
 		this.dom.appendChild(containerElement);
+
+		if (EmojiNodeView.shouldRecordUnicodeEmojiExposure(description, representation)) {
+			expValEquals('platform_use_unicode_emojis', 'isEnabled', true);
+		}
 	}
 
 	private createUnicodeEmojiElement(emoji: string): HTMLSpanElement {

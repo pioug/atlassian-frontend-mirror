@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 45.2.3
+
+### Patch Changes
+
+- [`646db528187d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/646db528187d4) -
+  Fix feature gate logic for SmartLink inline CTA
+- Updated dependencies
+
 ## 45.2.2
 
 ### Patch Changes

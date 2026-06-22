@@ -7,9 +7,9 @@ export const i18nConversionGuide: ConversionGuide = {
 	id: 'hardcoded-string-to-formatmessage',
 	title: 'Hardcoded String to formatMessage Conversion Guide',
 	description:
-		'Comprehensive guide for converting hardcoded strings to use formatMessage or FormattedMessage from @atlassian/jira-intl or react-intl-next',
+		'Comprehensive guide for converting hardcoded strings to use formatMessage or FormattedMessage from @atlassian/jira-intl or react-intl',
 	purpose:
-		'This guide instructs LLM agents to convert hardcoded strings to use formatMessage or FormattedMessage. The import source depends on the file path: use @atlassian/jira-intl for Jira files (path contains "jira"), and react-intl-next for any non-Jira files. **CRITICAL: Check for existing imports** - If the file already imports from react-intl-next or react-intl, reuse that import. If the file already uses FormattedMessage, use FormattedMessage for consistency instead of useIntl + formatMessage. The goal is to find all hardcoded strings in JSX and convert them to internationalized messages.',
+		'This guide instructs LLM agents to convert hardcoded strings to use formatMessage or FormattedMessage. The import source depends on the file path: use @atlassian/jira-intl for Jira files (path contains "jira"), and react-intl for any non-Jira files. **CRITICAL: Check for existing imports** - If the file already imports from react-intl or react-intl, reuse that import. If the file already uses FormattedMessage, use FormattedMessage for consistency instead of useIntl + formatMessage. The goal is to find all hardcoded strings in JSX and convert them to internationalized messages.',
 	scope: `**CRITICAL SCOPE**: This process should **ONLY** focus on converting hardcoded strings (literal strings in JSX, eslint-disable comments for no-literal-string-in-jsx, etc.) to use formatMessage. Do NOT modify pre-existing messages that were already in the codebase, even if they have poor descriptions, incorrect placeholder names, or other quality issues. Only convert NEW hardcoded strings.
 
 **PATH SCOPE LIMITATION**: If a specific file, package name, or path is provided, **ONLY** find and convert hardcoded strings within that specified path. Do NOT modify files outside the provided scope.
@@ -21,10 +21,10 @@ export const i18nConversionGuide: ConversionGuide = {
 **CRITICAL: STRING FILTERING**: When finding eslint-disable comments, you MUST examine the actual string content. Only convert strings that contain **user-facing English text**. Many English strings are technical/non-user-facing and should NOT be converted (e.g., product names like "Jira", URLs like "https://example.com", technical IDs, symbols). Use the ESLint ignore patterns to identify which English strings to skip - strings matching ignore patterns should be LEFT AS-IS with their eslint-disable comments intact.`,
 	implementationChecklist: [
 		'**CRITICAL: Only convert strings with eslint-disable** - ONLY convert strings that have eslint-disable comments for @atlassian/i18n/no-literal-string-in-jsx. Do NOT convert strings without these comments (e.g., field labels like label="Space Name" without eslint-disable should remain as-is).',
-		'**CRITICAL: Check for existing imports** - If the file already imports from react-intl-next or react-intl, REUSE that import. Only add a new import if none exists.',
+		'**CRITICAL: Check for existing imports** - If the file already imports from react-intl or react-intl, REUSE that import. Only add a new import if none exists.',
 		'**CRITICAL: Match existing pattern** - If the file already uses FormattedMessage, use FormattedMessage with inline props. If it uses useIntl + formatMessage, use defineMessage + formatMessage. Match the existing code style.',
 		"**CRITICAL: When to use formatMessage() vs <FormattedMessage>** - Use formatMessage() for prop values (labels, placeholders, aria-labels), computed values, event handlers, and non-JSX contexts. Use <FormattedMessage> for JSX content where you'd otherwise write {formatMessage(...)}.",
-		'Import: Use "@atlassian/jira-intl" for Jira files or "react-intl-next" for non-Jira files. Note: "react-intl" and "react-intl-next" are treated the same way - both use the same API. When adding to existing imports, maintain alphabetical order: import { defineMessage, FormattedMessage } from "react-intl-next";',
+		'Import: Use "@atlassian/jira-intl" for Jira files or "react-intl" for non-Jira files. Note: "react-intl" and "react-intl" are treated the same way - both use the same API. When adding to existing imports, maintain alphabetical order: import { defineMessage, FormattedMessage } from "react-intl";',
 		'**CRITICAL: FormattedMessage pattern** - When using FormattedMessage, define message details directly inline: <FormattedMessage id="..." defaultMessage="..." description="..." />. NO need to use defineMessage - FormattedMessage accepts these props directly.',
 		'**CRITICAL: formatMessage pattern** - When using useIntl + formatMessage, create message constants using defineMessage (singular) at the top of the file - use defineMessage for each individual message, NOT defineMessages. Then use: const { formatMessage } = useIntl(); formatMessage(messageKey)',
 		'**CRITICAL: i18n ID Format**: For files in `/next/packages/`, i18n ids MUST start with the package name (with dashes). Format: `{package-name}.{component-or-feature}.{message-key}`. Example: For package `comment-extension-handlers`, use `comment-extension-handlers.legacy-content-modal.close-button`. For package `rovo-ai-search`, use `rovo-ai-search.view-profile-text` or `rovo-ai-search.knowledge-cards.copy-email-address`.',
@@ -161,7 +161,7 @@ export function MyComponent() {
 		{
 			title: 'Using FormattedMessage',
 			description: 'Reusing existing FormattedMessage pattern and using with placeholders',
-			before: `import { FormattedMessage } from 'react-intl-next';
+			before: `import { FormattedMessage } from 'react-intl';
 
 export function MyComponent() {
   const version = 'v2.0';
@@ -175,7 +175,7 @@ export function MyComponent() {
     </Box>
   );
 }`,
-			after: `import { FormattedMessage } from 'react-intl-next';
+			after: `import { FormattedMessage } from 'react-intl';
 
 export function MyComponent() {
   const version = 'v2.0';
@@ -209,7 +209,7 @@ export function MyComponent() {
 			before: `<Field name="spaceName" label="Space Name" placeholder="Enter space name" />
 <Button aria-label="Create space">Create space</Button>
 <Box>Welcome message</Box>`,
-			after: `import { defineMessage, FormattedMessage, useIntl } from 'react-intl-next';
+			after: `import { defineMessage, FormattedMessage, useIntl } from 'react-intl';
 
 const spaceNameLabel = defineMessage({
   id: 'my-component.space-name-label.ai-non-final',
@@ -271,7 +271,7 @@ export function MyComponent() {
 		"**CRITICAL**: Converting strings that don't have eslint-disable comments - only convert strings with @atlassian/i18n/no-literal-string-in-jsx eslint-disable comments. Field labels and other strings without these comments should remain as-is.",
 		'**CRITICAL**: Converting/removing eslint-disable for strings matching ignore patterns - technical/non-user-facing strings should remain hardcoded',
 		'**CRITICAL**: Forgetting to remove eslint-disable comments after conversion - once a string is converted to use formatMessage/FormattedMessage, the eslint-disable comment must be removed',
-		'Using wrong import path - "jira" path needs @atlassian/jira-intl (with eslint-disable), others use react-intl-next',
+		'Using wrong import path - "jira" path needs @atlassian/jira-intl (with eslint-disable), others use react-intl',
 		'Adding eslint-disable for defineMessage in non-Jira files or forgetting it in Jira files',
 		'Missing useIntl hook when using formatMessage pattern, generic placeholder names, descriptions < 40 chars, or descriptions that do not follow the translator guidelines (missing UI element location, missing action explanation, etc.)',
 		"Using placeholder names that don't match variable names - placeholder names in defaultMessage must exactly match the keys in the values object or formatMessage parameters",

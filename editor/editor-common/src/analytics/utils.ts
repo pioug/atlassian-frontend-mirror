@@ -8,10 +8,11 @@ export function getAnalyticsEventsFromTransaction(
 	tr: Transaction | ReadonlyTransaction,
 ): AnalyticsEventPayloadWithChannel[] {
 	return (tr.steps as Step[])
-		.filter<
-			AnalyticsStep<AnalyticsEventPayload>
-		>((step: Step): step is AnalyticsStep<AnalyticsEventPayload> => step instanceof AnalyticsStep)
-		.reduce<
-			AnalyticsEventPayloadWithChannel[]
-		>((acc, step) => [...acc, ...step.analyticsEvents], []);
+		.filter<AnalyticsStep<AnalyticsEventPayload>>(
+			(step: Step): step is AnalyticsStep<AnalyticsEventPayload> => step instanceof AnalyticsStep,
+		)
+		.reduce<AnalyticsEventPayloadWithChannel[]>(
+			(acc, step) => [...acc, ...step.analyticsEvents],
+			[],
+		);
 }

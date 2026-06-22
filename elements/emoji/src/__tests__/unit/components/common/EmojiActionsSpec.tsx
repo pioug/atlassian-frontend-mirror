@@ -4,7 +4,7 @@ import { screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
 import { productivityColorSelectorTestId } from '../../../../components/common/ProductivityColorSelector';
@@ -46,6 +46,11 @@ const props = {
 
 const keepPickerOpenOnUploadGate = 'platform_emoji_keep_picker_open_on_upload';
 const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
+	setupEditorExperiments('test', {
+		[teamojiRefreshExperimentName]: isEnabled,
+	});
+};
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -53,6 +58,10 @@ const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 skipAutoA11yFile();
 
 describe('<EmojiActions />', () => {
+	beforeEach(() => {
+		setTeamojiExperimentEnabled(false);
+	});
+
 	afterEach(() => {
 		jest.clearAllMocks();
 		jest.restoreAllMocks();
@@ -226,11 +235,7 @@ describe('<EmojiActions />', () => {
 
 		describe('when teamoji refresh experiment is on', () => {
 			beforeEach(() => {
-				jest
-					.spyOn(FeatureGates, 'getExperimentValue')
-					.mockImplementation((experimentName, _parameterName, defaultValue) =>
-						experimentName === teamojiRefreshExperimentName ? true : defaultValue,
-					);
+				setTeamojiExperimentEnabled(true);
 			});
 
 			it('should show productivity colour button before opening selector for Atlassian category', async () => {

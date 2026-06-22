@@ -115,14 +115,7 @@ export default class WithDifferentChildComponent extends Component {
 				</Headers>
 				<Rows
 					items={items}
-					render={({
-						title,
-						numbering,
-						page,
-						hasChildren,
-						children,
-						component: CustomComponent,
-					}) =>
+					render={({ title, numbering, page, hasChildren, children, component: CustomComponent }) =>
 						CustomComponent ? (
 							<CustomComponent header="I am the header" imageUrl={exampleImage} />
 						) : (

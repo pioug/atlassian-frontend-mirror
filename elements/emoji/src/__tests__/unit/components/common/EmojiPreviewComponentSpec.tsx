@@ -1,13 +1,9 @@
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import type { EmojiDescriptionWithVariations } from '../../../../types';
 import { imageEmoji } from '../../_test-data';
 import { EmojiPreviewComponent } from '../../../../components/common/EmojiPreviewComponent';
 import { renderWithIntl } from '../../_testing-library';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn().mockReturnValue(false),
-}));
 
 const emoji: EmojiDescriptionWithVariations = {
 	...imageEmoji,
@@ -22,11 +18,9 @@ describe('<EmojiPreviewComponent />', () => {
 	])(
 		'should render an emoji preview if one is selected when unicode gate is %s',
 		async (gateEnabled, expectedSrc) => {
-			jest
-				.mocked(fg)
-				.mockImplementation(
-					(flagName) => flagName === 'platform_twemoji_removal_unicode_emojis' && gateEnabled,
-				);
+			setupEditorExperiments('test', {
+				platform_use_unicode_emojis: gateEnabled,
+			});
 
 			const result = await renderWithIntl(<EmojiPreviewComponent emoji={emoji} />);
 

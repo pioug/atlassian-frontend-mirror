@@ -462,7 +462,9 @@ export const createPlugin = (
 			handleDOMEvents: {
 				focus: handleFocus,
 				blur: handleBlur,
-				mousedown: withCellTracking(handleMouseDown),
+				mousedown: withCellTracking((view, event) =>
+					handleMouseDown(view, event, pluginInjectionApi),
+				),
 				mouseleave: handleMouseLeave,
 				mousemove: whenTableInFocus(handleMouseMove(nodeViewPortalProviderAPI), pluginInjectionApi),
 				mouseenter: handleMouseEnter,

@@ -2,7 +2,8 @@
 order: 2
 title: Lozenge dropdown trigger
 description:
-  Lozenge dropdown trigger displays an item’s status and enables switching through a menu.
+  Lozenge dropdown trigger enables a lozenge to be interactive, and opens a dropdown to update the
+  selection.
 ---
 
 import Image from '@atlaskit/image';
@@ -20,8 +21,14 @@ import lozengeDropdownTriggerDont2Dark from '../images/lozenge-dropdown-dont-2-d
 
 ## Usage
 
-Lozenge dropdown triggers indicate the status of items while also triggering a menu to enable status
-switching. They differ from lozenges in that they contain interactivity and can be selected.
+Use a lozenge dropdown trigger when a [lozenge](/components/lozenge/lozenge) needs interactivity. It
+shows the current attribute and opens a dropdown so people can switch between related labels.
+
+Lozenge should be used for important labels that need to be easily noticed — like workflow status
+(e.g. On track, In progress, Completed), system state (e.g. Live, Active, On, Disabled), priority
+(High, P1, Urgent), permissions (Locked, Read only, Private) and promotional labels (Premium, New,
+Try). [Tag](/components/tag/tag) should be used instead when the label is just descriptive metadata
+that helps classify, group, or filter information.
 
 ## Parts
 
@@ -32,26 +39,19 @@ switching. They differ from lozenges in that they contain interactivity and can 
 />
 
 1. **Icon (optional):** Use an icon to add additional affordance where the icon has a clear and
-   well-established meaning. For example, arrow up right for “On track”.
-2. **Label**: Text describing the status. For example, “On track”.
-3. **Badge (optional)**: Use the `trailingMetric` prop to add a score to the status.
+   well-established meaning. For example, arrow up right for "On track".
+2. **Label**: Text describing the condition. For example, "On track", "At risk", or "Read only".
+3. **Badge (optional)**: Use the `trailingMetric` prop to add a score or metric that supports the
+   label.
 4. **Dropdown icon**: Indicates that this lozenge has interactivity and can be selected to open a
    menu.
 
-## Accessibility
-
-- Don't use color alone to signify an important state or status. Instead, use clear labels and, if
-  relevant, a supporting icon. For example: for a critical status, use descriptors like “Off track”.
-- Don't use long labels in lozenges. They have a max width of 200 pixels (or a
-  custom `maxWidth` value) causing labels to truncate. Lozenges can’t be focused, so truncated text
-  will not be visible.
-
 ## Best practices
 
-### Use lozenge dropdown trigger for status switching
+### Use lozenge dropdown trigger to open a dropdown for changing the label
 
-Lozenge dropdown trigger should only open a dropdown menu or a popup to allow for quick status
-switching.
+The lozenge dropdown trigger should open a dropdown menu or popup so people can quickly change the
+displayed label.
 
 <DoDontGrid>
 	<DoDont
@@ -59,20 +59,20 @@ switching.
 		image={{
 			url: lozengeDropdownTriggerDo,
 			urlDarkMode: lozengeDropdownTriggerDoDark,
-			alt: 'Use to enable quick status switching.',
+			alt: 'Use to enable quick switching between different lozenges in a menu.',
 		}}
 	>
-		Use to enable quick status switching.
+		Use to enable quick switching between different lozenges in a menu.
 	</DoDont>
 	<DoDont
 		type="dont"
 		image={{
 			url: lozengeDropdownTriggerDont,
 			urlDarkMode: lozengeDropdownTriggerDontDark,
-			alt: 'Don’t use to communicate other information, such as more information about the status.',
+			alt: 'Don’t use it to show additional read-only information.',
 		}}
 	>
-		Don’t use to communicate other information, such as more information about the status.
+		Don’t use it to show additional read-only information.
 	</DoDont>
 </DoDontGrid>
 
@@ -100,19 +100,27 @@ elements, such as when it appears alongside other buttons.
 			alt: 'Don’t use a default lozenge dropdown trigger alongside other buttons.',
 		}}
 	>
-		Don’t use a default lozenge dropdown trigger alongside other buttons.
+		Don't use a default lozenge dropdown trigger alongside other buttons.
 	</DoDont>
 </DoDontGrid>
 
+## Accessibility
+
+- Don't use color alone to signify an important attribute. Instead, use clear labels and, if
+  relevant, a supporting icon. For example: for a critical condition, use descriptors like "Off
+  track" or "Blocked".
+- Don't use long labels in lozenge dropdown triggers. They have a max width of 200 pixels (or a
+  custom `maxWidth` value) causing labels to truncate. Ensure truncated text remains accessible via
+  the interactive trigger and dropdown menu options.
+
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and
-other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, continue to
-use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
 ## Related
 
-- For lozenge dropdown triggers that don’t require dropdown interactivity, use
-  [lozenge](/components/lozenge).
-- For tallies or counts, use a [badge](/components/badge/badge).
-- To visually label content such as categories and attributes, use a [tag](/components/tag).
+- For non-interactive lozenges, use [lozenge](/components/lozenge/lozenge).
+- For tallies or scores, use a [badge](/components/badge/badge).
+- For descriptive metadata and information, use a [tag](/components/tag/tag).

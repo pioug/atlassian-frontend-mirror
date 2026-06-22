@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "72.0.0",
+	"version": "72.0.1",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -98,6 +98,9 @@
 			"type": "boolean"
 		},
 		"platform_media_picker_upload_batching": {
+			"type": "boolean"
+		},
+		"platform_media_filereader_error_surfacing": {
 			"type": "boolean"
 		}
 	}

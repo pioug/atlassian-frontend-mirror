@@ -1,14 +1,9 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { useMemo } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -18,13 +13,16 @@ import { useElementWidth } from './hooks';
 import { Toolbar } from './Toolbar';
 import { toolbarSizeToWidth, widthToToolbarSize } from './toolbar-size';
 import type { ToolbarWithSizeDetectorProps } from './toolbar-types';
+import { ToolbarSizeDetectorWrapperCompiled } from './ToolbarSizeDetectorWrapper-compiled';
+import { ToolbarSizeDetectorWrapperEmotion } from './ToolbarSizeDetectorWrapper-emotion';
 
-const toolbar = css({
-	width: '100%',
-	position: 'relative',
-});
+const ToolbarSizeDetectorWrapperMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	ToolbarSizeDetectorWrapperCompiled,
+	ToolbarSizeDetectorWrapperEmotion,
+);
 
-export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): jsx.JSX.Element => {
+export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): React.JSX.Element => {
 	const ref = React.useRef<HTMLDivElement>(null);
 	const [width, setWidth] = React.useState<number | undefined>(undefined);
 	const elementWidth = useElementWidth(ref, {
@@ -56,8 +54,16 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): js
 		}
 	}, [props.appearance, props.hasMinWidth, props.twoLineEditorToolbar]);
 
+	const memoizedWrapperStyle = useMemo(() => ({ minWidth: minWidthValue }), [minWidthValue]);
+	const wrapperStyle = expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true)
+		? memoizedWrapperStyle
+		: { minWidth: minWidthValue };
+
 	return (
-		<div css={toolbar} style={{ minWidth: minWidthValue }}>
+		<ToolbarSizeDetectorWrapperMigration
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- minWidth is computed dynamically from props.hasMinWidth, props.appearance, props.twoLineEditorToolbar, and the platform_editor_preview_panel_responsiveness experiment, so it cannot be expressed as a static css value.
+			style={wrapperStyle}
+		>
 			<WidthObserver setWidth={setWidth} />
 			{props.editorView && toolbarSize ? (
 				<Toolbar
@@ -80,6 +86,6 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps): js
 			) : (
 				<div ref={ref} />
 			)}
-		</div>
+		</ToolbarSizeDetectorWrapperMigration>
 	);
 };

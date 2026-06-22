@@ -1,6 +1,6 @@
 ---
 title: Tag
-description: A tag is a compact label used to classify, organize, and categorize information.
+description: A tag is a subtle, compact label used to categorize and organize content.
 order: 2
 ---
 
@@ -31,11 +31,11 @@ import tagDont5Dark from './images/tag-dont-5-dark.png';
 
 ## Usage
 
-Use tags to classify, organize, and categorize information. Tags work best for lower priority
-metadata such as categories, attributes, or topics that support scanning and filtering. They can be
-rendered as non-interactive, or as interactive elements to support linking and removal with a close
-button. If you need to represent a status, for example "In progress", use a
-[lozenge](/components/lozenge/lozenge) instead.
+Use tags to categorize and organize information. Tags work best for lower priority metadata such as
+categories, attributes, or topics that support scanning and filtering. They can be rendered as
+non-interactive, or as interactive elements to support linking and removal with a close button. If
+you need to represent an important attribute such as workflow status, system state, priority,
+permissions or promotional labels, use a [lozenge](/components/lozenge/lozenge) instead.
 
 Tags are designed to be displayed within a [tag group](/components/tag-group). Use a tag group to
 control the layout and alignment for a collection of tags.
@@ -48,7 +48,7 @@ control the layout and alignment for a collection of tags.
 	alt="Tag anatomy diagram showing five parts: 1. Label — text that describes the classification or category; 2. Leading swatch (optional) — a color swatch before the label used for wayfinding, such as Jira epic or parent labels; 3. Leading element (optional) — an icon or element before the label that adds context; 4. Close button (optional) — a trailing button that allows the tag to be removed; 5. Badge (optional) — a trailing metric that adds a score or count to the tag."
 />
 
-1. **Label:** Text that describes the classification or category.
+1. **Label:** Text that describes the categorized information.
 2. **Leading swatch (optional):** Tags that use color as a wayfinding method (such as Jira epic or
    parent labels) can leverage the `swatchBefore` property to increase prominence of that color.
    **Note:** This prop is early access and may be changed in the future. If you work at Atlassian
@@ -92,9 +92,10 @@ Tags are reserved for object related content. For people, team, project or space
 
 ### Don’t use tags to communicate status
 
-Tags should only be used to classify, organize, or categorize information. Tags provide less visual
-prominence than lozenges to create visual hierarchy. To communicate status use
-[lozenge](/components/lozenge/lozenge) instead.
+Tags should only be used to categorize or organize information. Tags provide less visual prominence
+than lozenges to create visual hierarchy. To communicate high importance attributes such as workflow
+status, system state, permissions and promotional labels that affect prioritization, interpretation
+or product understanding, use [lozenge](/components/lozenge/lozenge).
 
 <DoDontGrid>
 	<DoDont
@@ -105,7 +106,7 @@ prominence than lozenges to create visual hierarchy. To communicate status use
 			alt: 'Tags showing categories: Design, Lead, Marketing, Management, Backend',
 		}}
 	>
-		Use tags to classify, organize, and highlight information.
+		Use tags to categorize, highlight and organize information.
 	</DoDont>
 	<DoDont
 		type="dont"
@@ -115,7 +116,7 @@ prominence than lozenges to create visual hierarchy. To communicate status use
 			alt: 'Tags showing status labels: Off track, In progress, Completed, In review, and paused',
 		}}
 	>
-		Don't use tags to communicate the status of an item.
+		Don’t use tags to communicate important attributes such as workflow status.
 	</DoDont>
 </DoDontGrid>
 
@@ -150,7 +151,7 @@ speeds up user comprehension by providing familiar visual cues.
 
 ### Don't use tags inline with body text
 
-Tags are designed for labelling and categorization, not for use inline with long form text like
+Tags are designed for organization and categorization, not for use inline with long form text like
 paragraphs or editor content.
 
 <DoDontGrid>
@@ -162,7 +163,7 @@ paragraphs or editor content.
 			alt: 'Side navigation with an item called Dashboards with a tag next to it saying New',
 		}}
 	>
-		Use tag to label and categorize items.
+		Use tag to organize and categorize items.
 	</DoDont>
 	<DoDont
 		type="dont"
@@ -218,6 +219,6 @@ For all new features, we recommend using Atlassian Design System and other
 
 ## Related
 
-- For status information, use a [lozenge](/components/lozenge/lozenge).
-- For tallies or counts, use a [badge](/components/badge/badge).
+- For status and other high importance attributes, use a [lozenge](/components/lozenge/lozenge).
+- For tallies or scores, use a [badge](/components/badge/badge).
 - For tagging people, team, space, or projects, use an [avatar tag](/components/tag/avatar-tag).

@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { testingEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
 
@@ -12,6 +13,10 @@ import EmojiUploadPicker from '../../components/common/EmojiUploadPicker';
 import { type EmojiDescription, type ImageRepresentation } from '../../types';
 
 const wrapperStyles = css({ width: '350px' });
+
+setupEditorExperiments('test', {
+	platform_teamoji_26_refresh_emoji_picker: false,
+});
 
 export const EmojiDeletePreview = (): JSX.Element => {
 	const blueStar = testingEmojis.emojis[2] as EmojiDescription;

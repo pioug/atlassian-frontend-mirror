@@ -1,27 +1,22 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { css, jsx } from '@emotion/react';
 import isEqual from 'lodash/isEqual';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
-import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
+import { componentWithCondition } from '@atlaskit/platform-feature-flags-react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
 
 import type { ToolbarInnerProps } from './toolbar-types';
+import { ToolbarComponentsWrapperCompiled } from './ToolbarComponentsWrapper-compiled';
+import { ToolbarComponentsWrapperEmotion } from './ToolbarComponentsWrapper-emotion';
 
-const toolbarComponentsWrapper = css({
-	display: 'flex',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
-		justifyContent: 'space-between',
-	},
-});
+const ToolbarComponentsWrapperMigration = componentWithCondition(
+	() => expValEquals('platform_editor_core_non_ecc_static_css', 'isEnabled', true),
+	ToolbarComponentsWrapperCompiled,
+	ToolbarComponentsWrapperEmotion,
+);
 
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -30,7 +25,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 		return !isEqual(nextProps, this.props);
 	}
 
-	render(): jsx.JSX.Element | null {
+	render(): React.JSX.Element | null {
 		const {
 			appearance,
 			editorView,
@@ -58,7 +53,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 		}
 
 		return (
-			<div css={toolbarComponentsWrapper} data-vc="toolbar-inner">
+			<ToolbarComponentsWrapperMigration data-vc="toolbar-inner">
 				{items.map((component, key) => {
 					const element = component({
 						editorView,
@@ -81,7 +76,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 					});
 					return element && React.cloneElement(element, { key });
 				})}
-			</div>
+			</ToolbarComponentsWrapperMigration>
 		);
 	}
 }

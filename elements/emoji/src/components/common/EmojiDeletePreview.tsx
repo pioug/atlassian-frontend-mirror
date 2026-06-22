@@ -5,6 +5,7 @@
 import { Component, type ComponentType, type FC } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import {
 	FormattedMessage,
 	injectIntl,
@@ -16,7 +17,6 @@ import Heading from '@atlaskit/heading';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import FocusLock from 'react-focus-lock';
 import type { EmojiDescription } from '../../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage, { emojiErrorScreenreaderTestId } from './EmojiErrorMessage';
@@ -170,13 +170,7 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		const { loading, error } = this.state;
 		const { formatMessage } = intl;
 
-		if (
-			FeatureGates.getExperimentValue(
-				'platform_teamoji_26_refresh_emoji_picker',
-				'isEnabled',
-				false,
-			)
-		) {
+		if (expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
 			return (
 				<FocusLock noFocusGuards>
 					<div css={deletePreviewNew} data-testid={emojiDeletePreviewTestId}>

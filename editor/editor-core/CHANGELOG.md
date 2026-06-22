@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 221.2.1
+
+### Patch Changes
+
+- [`ab450dd0e5fd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab450dd0e5fd2) -
+  migrate Toolbar components to compiled css
+- Updated dependencies
+
 ## 221.2.0
 
 ### Minor Changes

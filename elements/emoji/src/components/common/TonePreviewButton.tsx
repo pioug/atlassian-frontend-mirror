@@ -12,11 +12,10 @@ import {
 	type RefAttributes,
 } from 'react';
 import { css, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import Emoji from './Emoji';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export const tonePreviewTestId = 'tone-preview';
 
@@ -104,13 +103,11 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 		onSelected,
 		isVisible = true,
 	} = props;
-	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 24 : undefined;
+	const fitToHeight = expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
+		? 24
+		: undefined;
 
-	return FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	) ? (
+	return expValEqualsNoExposure('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true) ? (
 		<button
 			ref={ref}
 			css={[emojiButton, !isVisible && hidden, emojiButtonOutline, emojiButtonBorderRadius]}

@@ -3,7 +3,7 @@
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import console from 'console';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
@@ -57,13 +57,18 @@ const createSvgFile = (): File =>
 	new File(['<svg xmlns="http://www.w3.org/2000/svg"></svg>'], 'unsupported.svg', {
 		type: 'image/svg+xml',
 	});
+const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
+	setupEditorExperiments('test', {
+		[teamojiRefreshExperimentName]: isEnabled,
+	});
+};
 
 describe('<UploadingEmojiPicker />', () => {
 	let onEvent: jest.SpyInstance;
 	let ufoStartSpy: jest.SpyInstance;
 	let ufoSuccessSpy: jest.SpyInstance;
 	let ufoFailureSpy: jest.SpyInstance;
-	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
 
 	const experience = ufoExperiences['emoji-uploaded'];
 
@@ -72,14 +77,11 @@ describe('<UploadingEmojiPicker />', () => {
 		ufoStartSpy = jest.spyOn(experience, 'start');
 		ufoSuccessSpy = jest.spyOn(experience, 'success');
 		ufoFailureSpy = jest.spyOn(experience, 'failure');
-		getExperimentValueSpy = jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
+		setTeamojiExperimentEnabled(false);
 	});
 
 	afterEach(() => {
 		jest.clearAllMocks();
-		getExperimentValueSpy.mockRestore();
 		ufoStartSpy.mockClear();
 		ufoSuccessSpy.mockClear();
 		ufoFailureSpy.mockClear();
@@ -377,11 +379,7 @@ describe('<UploadingEmojiPicker />', () => {
 		});
 
 		it('shows unsupported file type error in refresh upload flow', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 
 			await helper.setupPicker({
 				emojiProvider,
@@ -424,11 +422,7 @@ describe('<UploadingEmojiPicker />', () => {
 		});
 
 		it('defaults empty emoji name to file name in refresh upload flow', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 
 			await helper.setupPicker({
 				emojiProvider,

@@ -7,9 +7,9 @@ import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import { token } from '@atlaskit/tokens';
 import { deleteEmojiLabel } from '../../util/constants';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { emojiDeleteButton } from './styles';
 import { Box } from '@atlaskit/primitives/compiled';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 const styles = cssMap({
 	boxWrapperStyle: {
@@ -44,11 +44,7 @@ const refreshedDeleteButton = css({
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
 const DeleteButton = (props: ButtonProps): JSX.Element => {
-	const isRefreshEnabled = FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
+	const isRefreshEnabled = expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
 
 	return (
 		<span

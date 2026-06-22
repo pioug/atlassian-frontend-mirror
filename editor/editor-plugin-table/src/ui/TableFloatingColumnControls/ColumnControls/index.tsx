@@ -307,6 +307,7 @@ export const ColumnControls = ({
 				}-drag-handle`}
 			>
 				<DragHandle
+					api={api}
 					isDragMenuTarget={!isHover}
 					direction="column"
 					tableLocalId={localId || ''}

@@ -519,7 +519,10 @@ export const selectColumn = (
 			};
 		},
 		(tr: Transaction) =>
-			selectColumnTransform(column, expand)(tr)
+			selectColumnTransform(
+				column,
+				expand,
+			)(tr)
 				.setMeta('addToHistory', false)
 				.setMeta('selectedColumnViaKeyboard', triggeredByKeyboard),
 	);
@@ -574,7 +577,10 @@ export const selectRow = (row: number, expand?: boolean, triggeredByKeyboard = f
 			return { type: 'SET_TARGET_CELL_POSITION', data: { targetCellPosition } };
 		},
 		(tr) =>
-			selectRowTransform(row, expand)(tr)
+			selectRowTransform(
+				row,
+				expand,
+			)(tr)
 				.setMeta('addToHistory', false)
 				.setMeta('selectedRowViaKeyboard', triggeredByKeyboard),
 	);

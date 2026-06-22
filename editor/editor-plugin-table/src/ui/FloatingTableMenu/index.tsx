@@ -90,10 +90,6 @@ const FloatingTableMenu: FloatingTableMenuFunction = ({
 		[setOutsideClickTargetRef],
 	);
 
-	const dismiss = useCallback(() => {
-		api?.core.actions.execute(closeActiveTableMenu(api));
-	}, [api]);
-
 	const returnFocusToDragHandle = useCallback(() => {
 		// Match legacy DragMenu's closeMenu('handle') behaviour.
 		const handleId =
@@ -139,10 +135,10 @@ const FloatingTableMenu: FloatingTableMenuFunction = ({
 		(event: KeyboardEvent) => {
 			event.preventDefault();
 			event.stopPropagation();
-			dismiss();
+			api?.core.actions.execute(closeActiveTableMenu(api));
 			returnFocusToDragHandle();
 		},
-		[dismiss, returnFocusToDragHandle],
+		[api, returnFocusToDragHandle],
 	);
 
 	// Memoize the editor DOM reference so the provider doesn't re-bind listeners
@@ -169,9 +165,9 @@ const FloatingTableMenu: FloatingTableMenuFunction = ({
 			) {
 				return;
 			}
-			dismiss();
+			api?.core.actions.execute(closeActiveTableMenu(api));
 		},
-		[dismiss],
+		[api],
 	);
 
 	if (

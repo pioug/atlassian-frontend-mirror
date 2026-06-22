@@ -288,6 +288,7 @@ export const DragControls = ({
 				data-handle-appearance={appearance}
 			>
 				<DragHandle
+					api={api}
 					isDragMenuTarget={!isHover}
 					direction="row"
 					tableLocalId={currentNodeLocalId}

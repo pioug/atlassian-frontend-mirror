@@ -36,7 +36,12 @@ export const mentionMessages: {
 		description: string;
 		id: string;
 	};
-	unknownLabel: {
+	typeAheadSectionAgents: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	typeAheadSectionAgentsLabs: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -46,7 +51,7 @@ export const mentionMessages: {
 		description: string;
 		id: string;
 	};
-	typeAheadSectionAgents: {
+	unknownLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -106,5 +111,11 @@ export const mentionMessages: {
 		id: 'fabric.editor.typeAhead.mentionSection.agents',
 		defaultMessage: 'Agents',
 		description: 'Section header for agent results in the mention type-ahead menu',
+	},
+	typeAheadSectionAgentsLabs: {
+		id: 'fabric.editor.typeAhead.mentionSection.agentsLabs',
+		defaultMessage: 'LABS',
+		description:
+			'Lozenge label shown next to the Agents section header in the mention type-ahead menu to indicate that agent mentions are experimental (Labs).',
 	},
 });

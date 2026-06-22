@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 const KEYCAP_COMBINING = 0x20e3;
 const VARIATION_SELECTOR_16 = 0xfe0f;
@@ -82,7 +82,7 @@ export function emojiIdToEmoji(id: string): string | undefined {
 	// Text-presentation-default emoji: characters that are valid emoji but whose
 	// default rendering is text (e.g. ☪ ☺ ☢ etc.) must be followed by
 	// U+FE0F (VARIATION SELECTOR-16) to force emoji presentation.
-	if (fg('platform_twemoji_removal_unicode_emojis')) {
+	if (expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)) {
 		const lastCodePoint = processedCodePoints[processedCodePoints.length - 1];
 		const alreadyHasVariationSelector =
 			lastCodePoint === VARIATION_SELECTOR_16 ||

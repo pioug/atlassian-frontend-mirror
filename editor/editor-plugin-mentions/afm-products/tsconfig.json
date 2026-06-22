@@ -56,6 +56,9 @@
 			"path": "../../../design-system/link/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/lozenge/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/mention/afm-products/tsconfig.json"
 		},
 		{

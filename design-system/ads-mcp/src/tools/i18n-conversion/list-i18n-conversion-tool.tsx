@@ -7,7 +7,7 @@ import { i18nConversionInputSchema } from './i18n-conversion-input-schema';
 
 export const listI18nConversionTool: Tool = {
 	name: 'ads_i18n_conversion_guide',
-	description: `Returns a **bundled** step-by-step guide for replacing hardcoded UI strings with \`formatMessage\` (and related patterns) using @atlassian/jira-intl or react-intl-next: message constants, placeholders, descriptions, and scope/limitations for systematic refactors.
+	description: `Returns a **bundled** step-by-step guide for replacing hardcoded UI strings with \`formatMessage\` (and related patterns) using @atlassian/jira-intl or react-intl: message constants, placeholders, descriptions, and scope/limitations for systematic refactors.
 
 When working with i18n or hardcoded UI strings, use this tool alongside the Context Engine MCP tool \`get_i18n_docs\` for Atlassian-wide Traduki / i18n standards (message definition, extraction, pluralisation, formatting, workflow); this tool supplies the concrete hardcoded-string → \`formatMessage\` playbook bundled in ADS MCP.
 

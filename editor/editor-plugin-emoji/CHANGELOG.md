@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 13.0.8
+
+### Patch Changes
+
+- [`05b9f7b19ddba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05b9f7b19ddba) -
+  Use the platform_use_unicode_emojis experiment for native Unicode emoji rendering.
+- Updated dependencies
+
 ## 13.0.7
 
 ### Patch Changes

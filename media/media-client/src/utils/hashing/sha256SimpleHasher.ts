@@ -1,5 +1,7 @@
 import { sha256 } from 'js-sha256';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type Hasher } from './hasher';
+import { toFileReaderError } from './fileReaderError';
 
 export class SimpleHasher implements Hasher {
 	hash(blob: Blob): Promise<string> {
@@ -15,7 +17,13 @@ export class SimpleHasher implements Hasher {
 						.hex()}`,
 				);
 			};
-			reader.onerror = reject;
+			reader.onerror = (event) => {
+				if (fg('platform_media_filereader_error_surfacing')) {
+					reject(toFileReaderError(reader.error));
+				} else {
+					reject(event);
+				}
+			};
 		});
 	}
 }

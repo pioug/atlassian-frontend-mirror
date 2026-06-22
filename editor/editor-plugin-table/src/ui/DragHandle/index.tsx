@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
 import type { MouseEventHandler, FocusEventHandler } from 'react';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import classnames from 'classnames';
 import ReactDOM from 'react-dom';
@@ -17,6 +17,7 @@ import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/el
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
+import { closeActiveTableMenu } from '../../pm-plugins/commands/active-table-menu';
 import { getPluginState as getDnDPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import type { TriggerType } from '../../pm-plugins/drag-and-drop/types';
 import {
@@ -24,7 +25,12 @@ import {
 	hasMergedCellsInSelection,
 } from '../../pm-plugins/utils/merged-cells';
 import { TableCssClassName as ClassName } from '../../types';
-import type { CellHoverMeta, TableDirection } from '../../types';
+import type {
+	CellHoverMeta,
+	PluginInjectionAPI,
+	TableDirection,
+	TableSharedStateInternal,
+} from '../../types';
 import { dragTableInsertColumnButtonSize } from '../consts';
 import { DragPreview } from '../DragPreview';
 
@@ -33,6 +39,7 @@ import { HandleIconComponent } from './HandleIconComponent';
 export type DragHandleAppearance = 'default' | 'selected' | 'disabled' | 'danger' | 'placeholder';
 
 type DragHandleProps = {
+	api?: PluginInjectionAPI | null;
 	appearance?: DragHandleAppearance;
 	direction?: TableDirection;
 	editorView: EditorView;
@@ -57,6 +64,7 @@ type DragHandleProps = {
 };
 
 const DragHandleComponent = ({
+	api,
 	isDragMenuTarget,
 	tableLocalId,
 	direction = 'row',
@@ -200,6 +208,29 @@ const DragHandleComponent = ({
 	const showDragMenuAnchorId = isRow ? 'drag-handle-button-row' : 'drag-handle-button-column';
 	const browser = getBrowserInfo();
 
+	// Clicking the drag handle's clickable zone is a plain row/column selection (not the menu
+	// trigger), so the selection toolbar should appear. The floating menu defers closing for clicks
+	// inside the drag controls, so we close it here and reset the user intent to 'default' (in the
+	// same transaction) so the toolbar is shown.
+	const closeActiveDragMenuAndShowToolbar = useCallback(() => {
+		if (!api) {
+			return;
+		}
+		const activeTableMenu = (
+			api.table?.sharedState.currentState() as TableSharedStateInternal | undefined
+		)?.activeTableMenu;
+		const isActiveTableMenuOpen =
+			activeTableMenu?.type === 'row' || activeTableMenu?.type === 'column';
+		if (!isActiveTableMenuOpen) {
+			return;
+		}
+		api.core?.actions.execute(({ tr }) => {
+			closeActiveTableMenu(api, { skipUserIntent: true })({ tr });
+			api.userIntent?.commands.setCurrentUserIntent('default')({ tr });
+			return tr;
+		});
+	}, [api]);
+
 	return (
 		<>
 			<button
@@ -228,7 +259,10 @@ const DragHandleComponent = ({
 					// return focus to editor so copying table selections whilst still works, i cannot call e.preventDefault in a mousemove event as this stops dragstart events from firing
 					// -> this is bad for a11y but is the current standard new copy/paste keyboard shortcuts should be introduced instead
 					editorView.focus();
-					if (isDragMenuOpen) {
+					if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+						// New menu: close the open row/column menu (and show the selection toolbar).
+						closeActiveDragMenuAndShowToolbar();
+					} else if (isDragMenuOpen) {
 						toggleDragMenu && toggleDragMenu('mouse', e);
 					}
 				}}

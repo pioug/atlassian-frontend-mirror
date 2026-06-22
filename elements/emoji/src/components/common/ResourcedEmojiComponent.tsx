@@ -14,6 +14,7 @@ import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { hasUfoMarked } from '../../util/analytics/ufoExperiences';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { emojiIdToEmoji } from '../../util/emojiIdToEmoji';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export interface BaseResourcedEmojiProps {
 	/**
@@ -138,7 +139,7 @@ export const ResourcedEmojiComponent = ({
 			// When id is absent/empty, fetchByEmojiId won't retry if the catalogue isn't loaded yet.
 			// findByEmojiId has retryIfLoading built in — use it for shortName-only lookups.
 			const foundEmoji =
-				!emojiId.id && fg('platform_twemoji_removal_unicode_emojis')
+				!emojiId.id && expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
 					? _emojiProvider.findByEmojiId(emojiId)
 					: _emojiProvider.fetchByEmojiId(emojiId, optimisticFetch);
 
@@ -218,7 +219,10 @@ export const ResourcedEmojiComponent = ({
 	const emojiRenderState = useMemo<ResourcedEmojiComponentRenderStatesEnum>(() => {
 		if (
 			(!emoji && !loaded && !optimisticImageURL) ||
-			(optimisticImageURL && !emoji && !id && fg('platform_twemoji_removal_unicode_emojis'))
+			(optimisticImageURL &&
+				!emoji &&
+				!id &&
+				expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true))
 		) {
 			return ResourcedEmojiComponentRenderStatesEnum.INITIAL;
 		} else if ((!emoji && loaded) || imageLoadError) {
@@ -230,7 +234,7 @@ export const ResourcedEmojiComponent = ({
 
 	const optimisticEmojiDescription = useMemo(() => {
 		// For STANDARD emojis, use native unicode character instead of optimistic image.
-		if (fg('platform_twemoji_removal_unicode_emojis')) {
+		if (expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)) {
 			const resolvedId = id || emoji?.id;
 			if (!resolvedId) return undefined;
 			const unicodeEmoji = emojiIdToEmoji(resolvedId);

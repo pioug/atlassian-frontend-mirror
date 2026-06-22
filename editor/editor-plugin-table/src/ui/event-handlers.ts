@@ -69,6 +69,7 @@ import {
 	isRowControlsButton,
 	isTableContainerOrWrapper,
 	isTableControlsButton,
+	isTableDragHandleButton,
 } from '../pm-plugins/utils/dom';
 import { getAllowAddColumnCustomStep } from '../pm-plugins/utils/get-allow-add-column-custom-step';
 import { getRowIndexByMousePosition } from '../pm-plugins/utils/row-controls';
@@ -299,9 +300,26 @@ export const handleMouseUp = (view: EditorView, mouseEvent: Event): boolean => {
 	return false;
 };
 
+const resetDragHandleSelectedIntentOnMouseDown = (
+	event: Event,
+	api?: PluginInjectionAPI | null,
+): void => {
+	if (isTableDragHandleButton(event.target)) {
+		return;
+	}
+
+	if (api?.userIntent?.sharedState.currentState()?.currentUserIntent === 'dragHandleSelected') {
+		api?.core?.actions.execute(api?.userIntent?.commands.setCurrentUserIntent('default'));
+	}
+};
+
 // Ignore any `mousedown` `event` from control and numbered column buttons
 // PM end up changing selection during shift selection if not prevented
-export const handleMouseDown = (_: EditorView, event: Event): boolean => {
+export const handleMouseDown = (
+	_view: EditorView,
+	event: Event,
+	api?: PluginInjectionAPI | null,
+): boolean => {
 	const isControl = !!(
 		event.target &&
 		event.target instanceof HTMLElement &&
@@ -313,6 +331,10 @@ export const handleMouseDown = (_: EditorView, event: Event): boolean => {
 
 	if (isControl) {
 		event.preventDefault();
+	}
+
+	if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
+		resetDragHandleSelectedIntentOnMouseDown(event, api);
 	}
 
 	return isControl;

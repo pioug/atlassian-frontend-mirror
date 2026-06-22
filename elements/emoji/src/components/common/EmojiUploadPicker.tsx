@@ -31,7 +31,6 @@ import { Text } from '@atlaskit/primitives/compiled';
 import FocusLock from 'react-focus-lock';
 
 import type { EmojiUpload, Message } from '../../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import * as ImageUtil from '../../util/image';
 import debug from '../../util/logger';
 import { messages } from '../i18n';
@@ -40,6 +39,7 @@ import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives/compiled';
 import { getDocument } from '@atlaskit/browser-apis';
@@ -197,9 +197,7 @@ const toDefaultUploadName = (fileName: string): string => {
 };
 
 const isSupportedEmojiUploadFileType = (file: File): boolean => {
-	if (
-		!FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-	) {
+	if (!expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
 		return true;
 	}
 
@@ -268,11 +266,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	const isUploading = uploadStatus === UploadStatus.Uploading;
 	const addEmojiDisabled = !previewImage || !name || isUploading;
 
-	return FeatureGates.getExperimentValue(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	) ? (
+	return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 		<div css={emojiUploadNew} data-testid={uploadEmojiComponentTestId}>
 			<div css={emojiUploadTopNew}>
 				<label css={[uploadChooseFileMessage, labelStylesNew]} htmlFor="new-emoji-name-input">
@@ -289,11 +283,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						{() => (
 							<FileChooser
 								label={
-									FeatureGates.getExperimentValue(
-										'platform_teamoji_26_refresh_emoji_picker',
-										'isEnabled',
-										false,
-									)
+									expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 										? emojiChooseFileTitleNew
 										: emojiChooseFileTitle
 								}
@@ -395,11 +385,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						{() => (
 							<FileChooser
 								label={
-									FeatureGates.getExperimentValue(
-										'platform_teamoji_26_refresh_emoji_picker',
-										'isEnabled',
-										false,
-									)
+									expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
 										? emojiChooseFileTitleNew
 										: emojiChooseFileTitle
 								}
@@ -538,14 +524,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			async (f: any): Promise<any> => {
 				try {
 					setFilename(file.name);
-					if (
-						!name &&
-						FeatureGates.getExperimentValue(
-							'platform_teamoji_26_refresh_emoji_picker',
-							'isEnabled',
-							false,
-						)
-					) {
+					if (!name && expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
 						setName(toDefaultUploadName(file.name));
 					}
 					await ImageUtil.parseImage(f.target.result);
@@ -619,16 +598,12 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 	const isDuplicateNameError =
 		errorMessage !== null &&
 		errorMessage !== undefined &&
-		FeatureGates.getExperimentValue('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
+		expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
 
 	const content =
 		name &&
 		previewImage &&
-		!FeatureGates.getExperimentValue(
-			'platform_teamoji_26_refresh_emoji_picker',
-			'isEnabled',
-			false,
-		) ? (
+		!expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 			<EmojiUploadPreview
 				errorMessage={errorMessage}
 				name={name}
@@ -654,11 +629,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		);
 
 	return disableFocusLock ||
-		FeatureGates.getExperimentValue(
-			'platform_teamoji_26_refresh_emoji_picker',
-			'isEnabled',
-			false,
-		) ? (
+		expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 		content
 	) : (
 		<FocusLock noFocusGuards>{content}</FocusLock>

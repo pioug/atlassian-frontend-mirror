@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type {
@@ -74,6 +76,7 @@ export type TypeAheadPluginState = {
 export type TypeAheadResolvedSection = {
 	endIndex: number;
 	id: string;
+	lozenge?: ReactNode;
 	/**
 	 * Section title display rules copied from the section definition and optional runtime updates.
 	 */

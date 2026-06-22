@@ -1,5 +1,21 @@
 # @atlaskit/emoji
 
+## 71.4.3
+
+### Patch Changes
+
+- [`af94e11b48eff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af94e11b48eff) -
+  Use expval for evaluating experiment
+- Updated dependencies
+
+## 71.4.2
+
+### Patch Changes
+
+- [`05b9f7b19ddba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05b9f7b19ddba) -
+  Use the platform_use_unicode_emojis experiment for native Unicode emoji rendering.
+- Updated dependencies
+
 ## 71.4.1
 
 ### Patch Changes

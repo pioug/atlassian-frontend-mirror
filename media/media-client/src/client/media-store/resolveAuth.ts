@@ -74,6 +74,14 @@ export const resolveAuth = async (
 	}
 
 	/*
+	Only client-based auth carries a clientId. Fail fast when it is present but empty, instead of
+	letting the request reach dt-auth and get rejected with `Client id "" is invalid`.
+  */
+	if ('clientId' in auth && !auth.clientId && fg('platform_media_validate_client_id')) {
+		throw new MediaStoreError('emptyClientId');
+	}
+
+	/*
     We added a token expiration check here in the past, and then we had to revert due to edge cases in the client that we can't control.
     Token expiration check in the frontend is a bad idea. Don't do it!
     More info:

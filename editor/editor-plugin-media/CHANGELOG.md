@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 14.2.0
+
+### Minor Changes
+
+- [`fe857f3a8f72b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe857f3a8f72b) -
+  Gate media toolbar separator changes behind cc-maui-toolbar-separators-update feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.1
 
 ### Patch Changes

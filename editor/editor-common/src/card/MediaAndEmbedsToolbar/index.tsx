@@ -498,10 +498,8 @@ const getSelectedLayoutIcon = (layoutIcons: LayoutIcon[], selectedNode: Node) =>
 	);
 };
 
-const getSeparatorBetweenAlignmentAndWrapping = (
-	allowAlignment: boolean,
-	allowWrapping: boolean,
-) => (allowAlignment && allowWrapping ? [{ type: 'separator' } as FloatingToolbarSeparator] : []);
+const getSeparatorBetweenAlignmentAndWrapping = (allowAlignment: boolean, allowWrapping: boolean) =>
+	allowAlignment && allowWrapping ? [{ type: 'separator' } as FloatingToolbarSeparator] : [];
 
 const getSeparatorBeforeBreakoutItems = (
 	allowAlignment: boolean,

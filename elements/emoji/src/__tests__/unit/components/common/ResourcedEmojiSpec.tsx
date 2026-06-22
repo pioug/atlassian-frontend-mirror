@@ -19,7 +19,7 @@ import browserSupport from '../../../../util/browser-support';
 import type { EmojiId } from '../../../..';
 import { renderWithIntl } from '../../_testing-library';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 jest.mock('../../../../util/constants', () => {
 	const originalModule = jest.requireActual('../../../../util/constants');
@@ -289,6 +289,12 @@ describe('<ResourcedEmoji />', () => {
 	});
 
 	describe('has a resolved instance of emoji provider', () => {
+		afterEach(() => {
+			setupEditorExperiments('test', {
+				platform_use_unicode_emojis: false,
+			});
+		});
+
 		it('should render an emoji', async () => {
 			const resolvedEmojiProvider = await getEmojiResourcePromise();
 			renderWithIntl(
@@ -317,7 +323,9 @@ describe('<ResourcedEmoji />', () => {
 		});
 
 		it('should render unicode emoji as text for editor emoji when renderUnicodeEmojiAsImage is false', async () => {
-			passGate('platform_twemoji_removal_unicode_emojis');
+			setupEditorExperiments('test', {
+				platform_use_unicode_emojis: true,
+			});
 			const resolvedEmojiProvider = await getEmojiResourcePromise();
 
 			renderWithIntl(

@@ -14,6 +14,7 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import Lozenge from '@atlaskit/lozenge';
 import type { MentionStats } from '@atlaskit/mention';
 import {
 	MENTION_ITEM_HEIGHT,
@@ -425,6 +426,15 @@ export const createTypeAheadConfig = ({
 					limit: expVal('platform_editor_agent_mentions', 'isEnabled', false) ? 5 : undefined,
 					...(expVal('platform_editor_agent_mentions', 'isEnabled', false)
 						? { sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true } }
+						: {}),
+					...(expVal('platform_editor_agent_mentions', 'isEnabled', false)
+						? {
+								lozenge: (
+									<Lozenge appearance="new">
+										{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabs)}
+									</Lozenge>
+								),
+							}
 						: {}),
 				},
 			];

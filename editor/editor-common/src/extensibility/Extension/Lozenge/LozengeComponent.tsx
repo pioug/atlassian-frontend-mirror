@@ -109,12 +109,13 @@ export const LozengeComponent = ({
 			)}
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 			<span className="extension-title">{capitalizedTitle}</span>
-			{params && !isBlockExtension && (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<span css={placeholderFallbackParams}>
-					{Object.keys(params).map((key) => key && ` | ${key} = ${params[key].value}`)}
-				</span>
-			)}
+			{params &&
+				!isBlockExtension && (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					<span css={placeholderFallbackParams}>
+						{Object.keys(params).map((key) => key && ` | ${key} = ${params[key].value}`)}
+					</span>
+				)}
 		</div>
 	);
 };

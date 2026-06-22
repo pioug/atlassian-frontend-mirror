@@ -5,6 +5,7 @@ export type MediaStoreErrorReason =
 	| 'tokenExpired'
 	| 'missingInitialAuth'
 	| 'emptyAuth'
+	| 'emptyClientId'
 	| 'authProviderTimedOut';
 
 export type MediaStoreErrorAttributes = {

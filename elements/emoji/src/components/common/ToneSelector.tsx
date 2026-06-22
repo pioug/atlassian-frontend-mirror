@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import React, {
 	memo,
 	useCallback,
@@ -13,7 +14,6 @@ import React, {
 	type MemoExoticComponent,
 	type RefAttributes,
 } from 'react';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import type {
 	EmojiDescription,
 	EmojiDescriptionWithVariations,
@@ -141,11 +141,7 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 			css={!isVisible && hidden}
 		>
 			{emojiToneCollection.map((tone, renderIndex) => {
-				return FeatureGates.getExperimentValue(
-					'platform_teamoji_26_refresh_emoji_picker',
-					'isEnabled',
-					false,
-				) ? (
+				return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
 					<EmojiRadioButton
 						ref={(el) => {
 							radioRefs.current[renderIndex] = el;

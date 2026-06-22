@@ -1,7 +1,7 @@
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import EmojiPicker from '../../../../components/picker/EmojiPicker';
@@ -94,11 +94,9 @@ describe('Media Emoji Handling across components', () => {
 		])(
 			'Media emoji rendered in type ahead when unicode gate is %s',
 			async (gateEnabled, expectedSrc) => {
-				jest
-					.mocked(fg)
-					.mockImplementation(
-						(flagName) => flagName === 'platform_twemoji_removal_unicode_emojis' && gateEnabled,
-					);
+				setupEditorExperiments('test', {
+					platform_use_unicode_emojis: gateEnabled,
+				});
 
 				renderWithIntl(<EmojiTypeAhead emojiProvider={emojiProvider} />);
 				const emoji = await screen.findByAltText(mediaEmoji.name);

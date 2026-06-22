@@ -36,6 +36,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardDismissButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardExpandButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -376,6 +381,11 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.card.disclaimerText.non-final',
 		defaultMessage: 'Uses AI. Verify results.',
 		description: 'Disclaimer text shown in the footer of the AI suggestions card',
+	},
+	cardDismissButtonLabel: {
+		id: 'fabric.editor.ai.suggestions.card.dismissButtonLabel.non-final',
+		defaultMessage: 'Dismiss',
+		description: 'Label for the dismiss button on the AI suggestions card',
 	},
 	cardMoreOptionsButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.moreOptionsButtonLabel.non-final',

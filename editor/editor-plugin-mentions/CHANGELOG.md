@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.3.0
+
+### Minor Changes
+
+- [`cf7797df5ff1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf7797df5ff1e) -
+  [ux] Add a Labs lozenge to the agent mention typeahead section.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.3
 
 ### Patch Changes

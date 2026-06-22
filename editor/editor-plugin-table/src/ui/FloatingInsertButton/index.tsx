@@ -32,10 +32,7 @@ import {
 	insertRowWithAnalytics,
 } from '../../pm-plugins/commands/commands-with-analytics';
 import { checkIfNumberColumnEnabled } from '../../pm-plugins/utils/nodes';
-import {
-	isColumnSelectionWithMergedFirstRow,
-	isRowSelectionWithMergedFirstColumn,
-} from '../../pm-plugins/utils/selection';
+import { isFullRowOrColumnSelected } from '../../pm-plugins/utils/selection';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
 
@@ -136,13 +133,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			state: { tr },
 		} = editorView;
 		if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
-			if (
-				tr.selection instanceof CellSelection &&
-				(tr.selection.isColSelection() ||
-					tr.selection.isRowSelection() ||
-					isColumnSelectionWithMergedFirstRow(tr.selection) ||
-					isRowSelectionWithMergedFirstColumn(tr.selection))
-			) {
+			if (isFullRowOrColumnSelected(tr.selection)) {
 				return null;
 			}
 		} else {

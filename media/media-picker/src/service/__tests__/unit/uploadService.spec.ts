@@ -635,6 +635,99 @@ describe('UploadService', () => {
 			});
 		});
 
+		describe('when the upload fails with a non-Error throwable (FileReader leak)', () => {
+			const setupNonError = () => {
+				const mediaClient = getMediaClient();
+				const { uploadService, fileStateObservable } = setup(mediaClient, {
+					collection: 'some-collection',
+				});
+				const fileUploadErrorCallback = jest.fn();
+				uploadService.on('file-upload-error', fileUploadErrorCallback);
+				uploadService.addFiles([file]);
+				return { fileStateObservable, fileUploadErrorCallback };
+			};
+
+			ffTest.on(
+				'platform_media_filereader_error_surfacing',
+				'surfaces the underlying DOMException name',
+				() => {
+					it('surfaces the name from a FileReader ProgressEvent-like object', async () => {
+						const { fileStateObservable, fileUploadErrorCallback } = setupNonError();
+
+						const progressEventLike = {
+							isTrusted: true,
+							target: { error: new DOMException('not found', 'NotFoundError') },
+						};
+						fileStateObservable.error(progressEventLike as any);
+
+						await waitFor(() => {
+							expect(fileUploadErrorCallback).toHaveBeenCalledWith({
+								fileId: 'uuid1',
+								error: {
+									fileId: 'uuid1',
+									name: 'upload_fail',
+									description: 'NotFoundError',
+									rawError: expect.objectContaining({
+										name: 'NotFoundError',
+										message: 'NotFoundError',
+									}),
+								},
+								traceContext: expect.any(Object),
+							});
+						});
+					});
+
+					it('falls back to "unknown" when no DOMException can be extracted', async () => {
+						const { fileStateObservable, fileUploadErrorCallback } = setupNonError();
+
+						fileStateObservable.error({ isTrusted: true } as any);
+
+						await waitFor(() => {
+							expect(fileUploadErrorCallback).toHaveBeenCalledWith({
+								fileId: 'uuid1',
+								error: {
+									fileId: 'uuid1',
+									name: 'upload_fail',
+									description: 'unknown',
+									rawError: undefined,
+								},
+								traceContext: expect.any(Object),
+							});
+						});
+					});
+				},
+			);
+
+			ffTest.off(
+				'platform_media_filereader_error_surfacing',
+				'passes the raw event through (legacy behaviour)',
+				() => {
+					it('leaves rawError undefined and passes the raw event as description', async () => {
+						const { fileStateObservable, fileUploadErrorCallback } = setupNonError();
+
+						const progressEventLike = {
+							isTrusted: true,
+							target: { error: new DOMException('cannot read', 'NotReadableError') },
+						};
+						fileStateObservable.error(progressEventLike as any);
+
+						await waitFor(() => {
+							expect(fileUploadErrorCallback).toHaveBeenCalledWith({
+								fileId: 'uuid1',
+								error: {
+									fileId: 'uuid1',
+									name: 'upload_fail',
+									description: progressEventLike,
+									rawError: undefined,
+								},
+								traceContext: expect.any(Object),
+							});
+						});
+					});
+				},
+			);
+		});
+
 		it('should not call the file rejection handler when all uploads are successful', async () => {
 			const { uploadService } = setup();
 

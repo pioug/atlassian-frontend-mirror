@@ -3,10 +3,10 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 const emojiName = css({
 	display: 'block',
@@ -91,7 +91,9 @@ type Props = {
 };
 
 export const EmojiPreviewComponent = ({ emoji }: Props): JSX.Element => {
-	const fitToHeight = fg('platform_twemoji_removal_unicode_emojis') ? 32 : undefined;
+	const fitToHeight = expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
+		? 32
+		: undefined;
 
 	return (
 		<div css={preview}>

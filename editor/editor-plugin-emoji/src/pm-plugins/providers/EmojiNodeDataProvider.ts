@@ -11,7 +11,7 @@ import type {
 } from '@atlaskit/emoji';
 import { emojiIdToEmoji } from '@atlaskit/emoji/emoji-id-to-emoji';
 import { NodeDataProvider } from '@atlaskit/node-data-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 export class EmojiNodeDataProvider extends NodeDataProvider<
 	EmojiDefinition,
@@ -86,7 +86,7 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 		const getOptimisticImageUrl = this.emojiResource.emojiProviderConfig.optimisticImageApi?.getUrl;
 		if (isSSR() && getOptimisticImageUrl) {
 			return nodes.map((node) => {
-				if (fg('platform_twemoji_removal_unicode_emojis')) {
+				if (expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)) {
 					// Skip SSR for nodes without an Id
 					if (!node.attrs.id) {
 						return undefined;
@@ -149,7 +149,11 @@ export class EmojiNodeDataProvider extends NodeDataProvider<
 
 			// For STANDARD emojis, return a UnicodeRepresentation so they are rendered
 			// as native text characters rather than images (twemoji removal).
-			if (node.attrs.id && result && fg('platform_twemoji_removal_unicode_emojis')) {
+			if (
+				node.attrs.id &&
+				result &&
+				expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
+			) {
 				const unicodeEmoji = emojiIdToEmoji(node.attrs.id);
 				if (unicodeEmoji) {
 					return {

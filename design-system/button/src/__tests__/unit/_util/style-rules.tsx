@@ -21,10 +21,8 @@ function getCssRules(cssText: string): string[] {
 // https://emotion.sh/docs/jest-emotion
 export function hasStyleRule(selector: string, expected: CSSObject): boolean {
 	const allRules: CSSStyleRule[] = flatten(
-		Array.from(document.styleSheets).map((sheet: StyleSheet): CSSStyleRule[] =>
-			// @ts-ignore
-			[...(sheet as StyleSheet & CSSGroupingRule).cssRules],
-		),
+		Array.from(document.styleSheets).map((sheet: StyleSheet): CSSStyleRule[] => // @ts-ignore
+		[...(sheet as StyleSheet & CSSGroupingRule).cssRules]),
 	);
 	const matchSelector: CSSStyleRule[] = allRules.filter(
 		(rule) => rule.selectorText && rule.selectorText.trim().split(',').includes(selector),

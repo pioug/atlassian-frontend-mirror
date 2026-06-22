@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 12.0.7
+
+### Patch Changes
+
+- [`cf7797df5ff1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf7797df5ff1e) -
+  [ux] Add a Labs lozenge to the agent mention typeahead section.
+- Updated dependencies
+
 ## 12.0.6
 
 ### Patch Changes

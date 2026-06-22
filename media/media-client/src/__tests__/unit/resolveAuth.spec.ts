@@ -1,8 +1,10 @@
 import { resolveAuth, resolveInitialAuth } from '../../client/media-store/resolveAuth';
 import { MediaStoreError } from '../../client/media-store/error';
-import { type AsapBasedAuth, type AuthProvider } from '@atlaskit/media-core';
+import { MediaStore } from '../../client/media-store';
+import { type AsapBasedAuth, type AuthProvider, type ClientBasedAuth } from '@atlaskit/media-core';
 import { resolveTimeout } from '../../utils/setTimeoutPromise';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import * as requestModule from '../../utils/request';
 import { globalMediaEventEmitter } from '../../globalMediaEventEmitter';
 
 // expires in 1619827800000
@@ -58,6 +60,109 @@ describe('resolveAuth', () => {
 			expect((e as MediaStoreError).reason).toBe('emptyAuth');
 		}
 		expect.assertions(2);
+	});
+
+	describe('empty clientId validation', () => {
+		// An auth that is meant to be client-based but carries an empty clientId. This is the shape
+		// that reaches the backend with an empty `X-Client-Id`/token and is rejected by dt-auth.
+		const emptyClientIdAuth = {
+			clientId: '',
+			token,
+			baseUrl: 'some-url',
+		} as ClientBasedAuth;
+
+		const validClientAuth: ClientBasedAuth = {
+			clientId: 'some-client-id',
+			token,
+			baseUrl: 'some-url',
+		};
+
+		ffTest.on('platform_media_validate_client_id', 'when the gate is enabled', () => {
+			it('should throw emptyClientId error when clientId is empty', async () => {
+				const provider = async () => emptyClientIdAuth;
+				const error = await resolveAuth(provider).catch((e) => e);
+				expect(error).toBeInstanceOf(MediaStoreError);
+				expect((error as MediaStoreError).reason).toBe('emptyClientId');
+			});
+
+			// The guard is scoped to the `clientId` field only, so an asap-based auth (which has no
+			// `clientId`) is never flagged — even when its `asapIssuer` happens to be empty. This
+			// keeps `emptyClientId` an accurate signal rather than a catch-all for any empty identity.
+			it('should not flag an asap-based auth with an empty asapIssuer as emptyClientId', async () => {
+				const emptyAsapIssuerAuth = {
+					asapIssuer: '',
+					token,
+					baseUrl: 'some-url',
+				} as AsapBasedAuth;
+				const provider = async () => emptyAsapIssuerAuth;
+				expect(await resolveAuth(provider)).toBe(emptyAsapIssuerAuth);
+			});
+		});
+
+		ffTest.off('platform_media_validate_client_id', 'when the gate is disabled', () => {
+			it('should not throw for an empty clientId (legacy behaviour)', async () => {
+				const provider = async () => emptyClientIdAuth;
+				expect(await resolveAuth(provider)).toBe(emptyClientIdAuth);
+			});
+		});
+
+		// For a structurally-valid auth the gate is short-circuited (and never evaluated), so the
+		// auth must resolve regardless of the gate value.
+		it('should resolve a valid client-based auth', async () => {
+			const provider = async () => validClientAuth;
+			expect(await resolveAuth(provider)).toBe(validClientAuth);
+		});
+
+		it('should resolve a valid asap-based auth', async () => {
+			const provider = async () => auth;
+			expect(await resolveAuth(provider)).toBe(auth);
+		});
+	});
+});
+
+// The external-URL upload flow (FileFetcher.uploadExternal) downloads the remote blob with a raw
+// `fetch` (no auth), but every Media-backend call still goes through `MediaStore.request` ->
+// `resolveAuth`. Its first backend call is `touchFiles` (POST /upload/createWithFiles), so this
+// asserts the empty-clientId guard fires there and no network request is made.
+describe('MediaStore.touchFiles (upload backend entry point) empty clientId guard', () => {
+	const emptyClientIdAuth = {
+		clientId: '',
+		token,
+		baseUrl: 'some-url',
+	} as ClientBasedAuth;
+
+	let requestSpy: jest.SpyInstance;
+
+	beforeEach(() => {
+		requestSpy = jest.spyOn(requestModule, 'request');
+	});
+
+	afterEach(() => {
+		requestSpy.mockRestore();
+	});
+
+	ffTest.on('platform_media_validate_client_id', 'when the gate is on', () => {
+		it('rejects with emptyClientId and never calls the backend', async () => {
+			const mediaStore = new MediaStore({ authProvider: async () => emptyClientIdAuth });
+
+			await expect(mediaStore.touchFiles({ descriptors: [] })).rejects.toMatchObject({
+				reason: 'emptyClientId',
+			});
+			expect(requestSpy).not.toHaveBeenCalled();
+		});
+	});
+
+	ffTest.off('platform_media_validate_client_id', 'when the gate is off', () => {
+		it('does not block the request (legacy behaviour)', async () => {
+			requestSpy.mockResolvedValue({
+				json: async () => ({ data: { created: [] } }),
+				headers: { get: () => null },
+			} as unknown as Response);
+			const mediaStore = new MediaStore({ authProvider: async () => emptyClientIdAuth });
+
+			await mediaStore.touchFiles({ descriptors: [] });
+			expect(requestSpy).toHaveBeenCalledTimes(1);
+		});
 	});
 });
 

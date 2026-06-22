@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 109.2.0
+
+### Minor Changes
+
+- [`05b9f7b19ddba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05b9f7b19ddba) -
+  Use the platform_use_unicode_emojis experiment for native Unicode emoji rendering.
+
 ## 109.1.0
 
 ### Minor Changes

@@ -67,6 +67,9 @@
 			"path": "../insm/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/lozenge/tsconfig.app.json"
+		},
+		{
 			"path": "../../elements/mention/tsconfig.app.json"
 		},
 		{

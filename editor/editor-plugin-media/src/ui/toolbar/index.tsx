@@ -377,6 +377,9 @@ const generateMediaSingleFloatingToolbar = (
 	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(pluginState);
 
+	const mauiToolbarSeparatorsUpdateEnabled =
+		fg('cc-maui-toolbar-separators-update') && areAnyNewToolbarFlagsEnabled;
+
 	if (shouldShowImageBorder(state)) {
 		toolbarButtons.push({
 			type: 'custom',
@@ -491,9 +494,7 @@ const generateMediaSingleFloatingToolbar = (
 					toolbarButtons = [
 						...toolbarButtons,
 						trigger,
-						...(areAnyNewToolbarFlagsEnabled
-							? []
-							: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
+						...(areAnyNewToolbarFlagsEnabled ? [] : [{ type: 'separator' } as const]),
 					];
 				}
 			}
@@ -505,7 +506,7 @@ const generateMediaSingleFloatingToolbar = (
 			} else {
 				toolbarButtons = [...toolbarButtons, ...layoutButtons];
 
-				if (layoutButtons.length) {
+				if (layoutButtons.length && !mauiToolbarSeparatorsUpdateEnabled) {
 					toolbarButtons.push({ type: 'separator' });
 				}
 			}
@@ -579,16 +580,18 @@ const generateMediaSingleFloatingToolbar = (
 						hasCaption,
 					);
 
-					toolbarButtons.push(switchFromBlockToInline, {
-						type: 'separator',
-						fullHeight: true,
-					});
+					toolbarButtons.push(
+						switchFromBlockToInline,
+						...(mauiToolbarSeparatorsUpdateEnabled
+							? []
+							: [{ type: 'separator', fullHeight: true } as const]),
+					);
 				}
 			}
 		}
 
 		// A separator is needed regardless switcher is enabled or not
-		if (Boolean(pluginInjectionApi?.toolbar)) {
+		if (Boolean(pluginInjectionApi?.toolbar) && !mauiToolbarSeparatorsUpdateEnabled) {
 			toolbarButtons.push({
 				type: 'separator',
 				fullHeight: true,
@@ -797,7 +800,9 @@ const generateMediaSingleFloatingToolbar = (
 				title: intl.formatMessage(messages.download),
 				supportsViewMode: true,
 			},
-			{ type: 'separator', supportsViewMode: true },
+			...(mauiToolbarSeparatorsUpdateEnabled
+				? []
+				: [{ type: 'separator', supportsViewMode: true } as const]),
 		);
 	}
 
@@ -868,10 +873,9 @@ const generateMediaSingleFloatingToolbar = (
 						),
 						supportsViewMode: true,
 					},
-					{
-						type: 'separator',
-						supportsViewMode: true,
-					},
+					...(mauiToolbarSeparatorsUpdateEnabled
+						? []
+						: [{ type: 'separator', supportsViewMode: true } as const]),
 				);
 			}
 		}
@@ -905,10 +909,9 @@ const generateMediaSingleFloatingToolbar = (
 						},
 						supportsViewMode: false,
 					},
-					{
-						type: 'separator',
-						supportsViewMode: false,
-					},
+					...(mauiToolbarSeparatorsUpdateEnabled
+						? []
+						: [{ type: 'separator', supportsViewMode: false } as const]),
 				);
 			}
 		}
@@ -922,10 +925,9 @@ const generateMediaSingleFloatingToolbar = (
 		) {
 			toolbarButtons.push(
 				getOpenLinkToolbarButtonOption(intl, mediaLinkingState, pluginInjectionApi),
-				{
-					type: 'separator',
-					supportsViewMode: true,
-				},
+				...(mauiToolbarSeparatorsUpdateEnabled
+					? []
+					: [{ type: 'separator', supportsViewMode: true } as const]),
 			);
 		}
 
@@ -942,11 +944,16 @@ const generateMediaSingleFloatingToolbar = (
 					],
 					supportsViewMode: true,
 				},
-				{ type: 'separator', supportsViewMode: true },
+				...(mauiToolbarSeparatorsUpdateEnabled
+					? []
+					: [{ type: 'separator', supportsViewMode: true } as const]),
 			);
 
 		if (allowAdvancedToolBarOptions && allowCommentsOnMedia) {
-			updateToFullHeightSeparator(toolbarButtons);
+			if (!mauiToolbarSeparatorsUpdateEnabled) {
+				updateToFullHeightSeparator(toolbarButtons);
+			}
+
 			toolbarButtons.push(
 				commentButton(
 					intl,
@@ -1150,7 +1157,9 @@ export const floatingToolbar = (
 		!mediaPluginState.isResizing &&
 		areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))
 	) {
-		updateToFullHeightSeparator(items);
+		if (!fg('cc-maui-toolbar-separators-update')) {
+			updateToFullHeightSeparator(items);
+		}
 
 		const showReplaceOption =
 			!isViewOnly &&

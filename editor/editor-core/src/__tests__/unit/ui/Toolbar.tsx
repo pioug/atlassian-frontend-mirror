@@ -9,6 +9,7 @@ import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import type { WidthObserver } from '@atlaskit/width-detector';
+import { render } from '@atlassian/testing-library';
 
 import { Toolbar } from '../../../ui/Toolbar/Toolbar';
 import { ToolbarWithSizeDetector } from '../../../ui/Toolbar/ToolbarWithSizeDetector';
@@ -48,6 +49,7 @@ jest.mock('@atlaskit/editor-common/core-utils', () => ({
 	isSSR: jest.fn(),
 }));
 
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Toolbar', () => {
 	beforeEach(() => {
 		mockElementWidth = undefined;
@@ -142,7 +144,7 @@ eeTest
 	.each(() => {
 		it('should apply correct min-width based on experiment flag', () => {
 			const toolbarItem = getMockedToolbarItem();
-			const toolbar = mount(
+			const { container, unmount } = render(
 				<ToolbarWithSizeDetector
 					items={[toolbarItem]}
 					editorView={{} as any}
@@ -154,23 +156,15 @@ eeTest
 				/>,
 			);
 
-			let toolbarElement = toolbar.getDOMNode() as Element | Array<Element | null>;
-			if (Array.isArray(toolbarElement)) {
-				for (const el of toolbarElement) {
-					if (el && el instanceof Element) {
-						toolbarElement = el;
-						break;
-					}
-				}
-				if (!(toolbarElement instanceof Element)) {
-					throw new Error('Toolbar returned an empty/nullish array from getDOMNode');
-				}
-			}
+			// The first child with compiled CSS classes is the wrapper div (after any <style> elements)
+			// eslint-disable-next-line testing-library/no-container
+			const toolbarElement = container.querySelector('div');
+			expect(toolbarElement).toHaveCompiledCss({
+				width: '100%',
+				position: 'relative',
+			});
 
-			expect(toolbarElement).toHaveStyle(`width: 100%;
-position: relative;`);
-
-			toolbar.unmount();
+			unmount();
 		});
 	});
 

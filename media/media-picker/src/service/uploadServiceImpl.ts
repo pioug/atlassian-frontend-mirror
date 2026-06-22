@@ -12,6 +12,7 @@ import {
 	type TouchedFiles,
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
+import { toFileReaderError } from '@atlaskit/media-client/hashing/file-reader-error';
 import { EventEmitter2 } from 'eventemitter2';
 import { type FileEmptyData, type MediaFile, type UploadParams } from '../types';
 
@@ -42,6 +43,20 @@ export interface CancellableFileUpload {
 const generateTraceContext = (): MediaTraceContext => ({
 	traceId: getRandomTelemetryId(),
 });
+
+// Extracts the `DOMException` from a FileReader `ProgressEvent` (`target.error`).
+// Bare `DOMException`s are `Error`s, so `onFileError` handles them before this.
+const extractDomException = (error: unknown): DOMException | undefined => {
+	const target = (error as { target?: { error?: unknown } } | null)?.target;
+	return target?.error instanceof DOMException ? target.error : undefined;
+};
+
+// Defence-in-depth: turns a raw FileReader `ProgressEvent` into a real `Error`
+// so analytics records the `DOMException` name instead of `{"isTrusted":true}`.
+const normalizeUploadError = (error: unknown): Error | undefined => {
+	const domException = extractDomException(error);
+	return domException ? toFileReaderError(domException) : undefined;
+};
 
 export class UploadServiceImpl implements UploadService {
 	private readonly userMediaClient?: MediaClient;
@@ -448,8 +463,18 @@ export class UploadServiceImpl implements UploadService {
 			return;
 		}
 
-		const description = error instanceof Error ? error.message : error;
-		const rawError = error instanceof Error ? error : undefined;
+		let description: string;
+		let rawError: Error | undefined;
+		if (error instanceof Error) {
+			description = error.message;
+			rawError = error;
+		} else if (fg('platform_media_filereader_error_surfacing')) {
+			rawError = normalizeUploadError(error);
+			description = rawError?.message ?? (typeof error === 'string' ? error : 'unknown');
+		} else {
+			description = error;
+			rawError = undefined;
+		}
 
 		this.emit('file-upload-error', {
 			fileId: mediaFile.id,

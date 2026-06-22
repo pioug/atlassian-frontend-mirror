@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { EmojiPicker } from '../../picker';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getMockEmojis, getFallbackEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
@@ -8,6 +9,10 @@ import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoj
 
 import type { EmojiProvider } from '../../resource';
 import { IntlProvider } from 'react-intl';
+
+setupEditorExperiments('test', {
+	platform_teamoji_26_refresh_emoji_picker: false,
+});
 
 const useProvider = (uploadSupported: boolean, useFallback: boolean = false) => {
 	return useMemo<Promise<EmojiProvider>>(() => {

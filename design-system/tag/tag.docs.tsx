@@ -6,8 +6,7 @@ const documentation: StructuredContentSource = {
 	components: [
 		{
 			name: 'Tag',
-			description:
-				'A tag is a compact label used to classify, organize, and categorize information.',
+			description: 'A tag is a subtle, compact label used to categorize and organize content.',
 			status: 'general-availability', // beta tag is feature-flagged
 			import: {
 				name: 'Tag',
@@ -82,8 +81,7 @@ const documentation: StructuredContentSource = {
 		},
 		{
 			name: 'SimpleTag',
-			description:
-				'A tag is a compact label used to classify, organize, and categorize information.',
+			description: 'A tag is a subtle, compact label used to categorize and organize content.',
 			status: 'open-beta',
 			import: {
 				name: 'SimpleTag',

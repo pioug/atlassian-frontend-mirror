@@ -2,6 +2,7 @@ import type { JsonLd } from '@atlaskit/json-ld-types';
 import { extractSmartLinkUrl } from '@atlaskit/link-extractors';
 import type { ProductType } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ActionName, CardAction } from '../../../constants';
 import type { RovoChatActionData } from '../../../state/flexible-ui-context/types';
@@ -56,6 +57,9 @@ const extractRovoChatAction = ({
 		rovoConfig?.product ?? product,
 	);
 
+	const isInlineExperimentEnabled =
+		fg('platform_sl_3p_auth_inline_tailored_cta_killswitch') &&
+		expValEqualsNoExposure('platform_sl_3p_auth_inline_tailored_cta', 'isEnabled', true);
 	const is3PAuthRovoActionEnabled =
 		isGoogleProvider && fg('platform_sl_3p_auth_rovo_action_kill_switch');
 	const is3PBlockPostAuthActionsEnabled =
@@ -63,7 +67,8 @@ const extractRovoChatAction = ({
 		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
 		is3PBlockExperimentEnabled;
 
-	const isSupportedFeature = is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled;
+	const isSupportedFeature =
+		is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled || isInlineExperimentEnabled;
 	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);

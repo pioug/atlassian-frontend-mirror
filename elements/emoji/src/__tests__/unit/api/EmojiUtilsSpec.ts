@@ -1,4 +1,4 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import {
 	denormaliseEmojiServiceResponse,
@@ -17,6 +17,13 @@ import type {
 import { defaultMediaApiToken, mediaEmoji, mediaServiceEmoji } from '../_test-data';
 
 describe('EmojiUtils', () => {
+	beforeEach(() => {
+		setupEditorExperiments('test', {
+			platform_editor_emoji_default_scale: false,
+			platform_use_unicode_emojis: false,
+		});
+	});
+
 	describe('#denormaliseEmojiServiceResponse', () => {
 		const emojiFields = ['id', 'name', 'shortName', 'type', 'category', 'order'];
 
@@ -31,7 +38,6 @@ describe('EmojiUtils', () => {
 		};
 
 		it('denormaliseEmojiServiceResponse emoji with sprite', () => {
-			failGate('platform_twemoji_removal_unicode_emojis');
 			const spriteRef = 'http://spriteref/test.png';
 			const emoji: EmojiServiceDescriptionWithVariations = {
 				id: '1f600',
@@ -111,7 +117,9 @@ describe('EmojiUtils', () => {
 		});
 
 		it('uses unicode representation for standard emoji when enabled', () => {
-			passGate('platform_twemoji_removal_unicode_emojis');
+			setupEditorExperiments('test', {
+				platform_use_unicode_emojis: true,
+			});
 
 			const emoji: EmojiServiceDescriptionWithVariations = {
 				id: '1f600',
@@ -143,7 +151,9 @@ describe('EmojiUtils', () => {
 		});
 
 		it('uses unicode representation for standard skin tone emoji when enabled', () => {
-			passGate('platform_twemoji_removal_unicode_emojis');
+			setupEditorExperiments('test', {
+				platform_use_unicode_emojis: true,
+			});
 
 			const emoji: EmojiServiceDescriptionWithVariations = {
 				id: '1f44d',
@@ -243,7 +253,6 @@ describe('EmojiUtils', () => {
 		});
 
 		it('maps out the ascii field when present', () => {
-			failGate('platform_twemoji_removal_unicode_emojis');
 			const emoji = {
 				id: '1f603',
 				name: 'smiling face with open mouth',

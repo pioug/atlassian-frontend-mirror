@@ -26,6 +26,7 @@ export type MediaClientErrorReason =
 	| 'missingInitialAuth'
 	| 'emptyAuth'
 	| 'authProviderTimedOut'
+	| 'emptyClientId'
 	// FileFetcherErrorReason ----------------------------
 	| 'invalidFileId'
 	| 'emptyItems'

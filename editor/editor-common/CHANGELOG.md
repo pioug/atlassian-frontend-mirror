@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 116.10.0
+
+### Minor Changes
+
+- [`cf7797df5ff1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf7797df5ff1e) -
+  [ux] Add a Labs lozenge to the agent mention typeahead section.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.9.1
+
+### Patch Changes
+
+- [`ce754f0f3613b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce754f0f3613b) - -
+  Insight suggestion card UI
+  - Adds i18n copy for the insight suggestion card dismiss action
+- [`47cef9f3ca86b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47cef9f3ca86b) -
+  [ux] EDITOR-7670 add new transformContainerNodesWhenRequired util to support converting panel to
+  panel_c1 when panel contains table in block templates
+- Updated dependencies
+
 ## 116.9.0
 
 ### Minor Changes

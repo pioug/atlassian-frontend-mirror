@@ -1,7 +1,9 @@
 ---
 order: 2
 title: Lozenge
-description: A lozenge is a visual indicator used to communicate status.
+description:
+  A lozenge is a prominent, compact label used to communicate a meaningful attribute that affects
+  how people understand, prioritize or act on an object.
 ---
 
 import Image from '@atlaskit/image';
@@ -31,39 +33,34 @@ import lozengeBadgeDontDark from '../images/lozenge-badge-dont-dark.png';
 
 ## Usage
 
-Lozenges indicate the status or state of objects, such as the progress of a work item. They help
-people quickly understand an object’s state, so it’s important they are used accurately and
-consistently.
+Use lozenges for important labels that need to be easily noticed — like workflow status (e.g. On
+track, In progress, Completed), system state (e.g. Live, Active, On, Disabled), priority (High, P1,
+Urgent), permissions (Locked, Read only, Private) and promotional labels (Premium, New, Try).
+Lozenges should help people quickly scan and understand a meaningful attribute, so it's important
+they are used accurately and consistently.
 
 ## Parts
 
 <Image
 	src={lozengeAnatomyLight}
 	srcDark={lozengeAnatomyDark}
-	alt="Lozenge anatomy diagram showing: 1. Label (text that describes the status. For example, “On track”), 2. Icon (optional to add additional affordance), and 3. Badge (optional, to add a score to the status)"
+	alt="Lozenge anatomy diagram showing: 1. Label (text that describes the condition. For example, “On track” or “Beta”), 2. Icon (optional to add additional affordance), and 3. Badge (optional, to add a score or metric that supports the label)"
 />
 
-1. **Label**: Text describing the status. For example, “On track”.
-2. **Icon (optional)**: Use an icon from the iconography library to add additional affordance where
-   the icon has a clear and well-established meaning. For example, arrow up right for “On track”.
-3. **Badge (optional)**: The `trailingMetric` prop can be utilised on semantic colored lozenges to
-   add a score to the status.
-
-## Accessibility
-
-- Don't use color alone to signify an important state or status. Instead, use clear labels and, if
-  relevant, a supporting icon. For example: for a critical status, use descriptors like “Off track”.
-- Don't use long labels in lozenge. They have a max width of 200 pixels (or a
-  custom `maxWidth` value) causing labels to truncate. Lozenges can’t be focused, so truncated text
-  will not be visible.
+1. **Label**: Text describing the attribute. For example, "On track", "Blocked", or "Beta".
+2. **Icon (optional)**: Use an icon from the iconography library to add additional affordance where
+   the icon has a clear and well-established meaning. For example, arrow up right for "On track".
+3. **Badge (optional)**: The `trailingMetric` prop can be utilised on semantic colored lozenges to
+   add a score or metric that supports the label.
 
 ## Best practices
 
-### Only use lozenge to communicate status or state
+### Use lozenge when the label communicates a meaningful attribute.
 
-To classify, organize, or categorize information, use a [tag](/components/tag) instead. Tags have
-lower visual prominence than lozenges to create a clear visual hierarchy that prioritizes important
-information that needs customer attention.
+Lozenges should be used to indicate an important label that affects prioritization, action,
+interpretation or product understanding. They have higher visual prominence than a
+[tag](/components/tag/tag) which should be used instead when the label is just descriptive metadata
+that helps classify, group, or filter information.
 
 <DoDontGrid>
 	<DoDont
@@ -71,30 +68,31 @@ information that needs customer attention.
 		image={{
 			url: lozengeStatusDo,
 			urlDarkMode: lozengeStatusDoDark,
-			alt: 'Use lozenges to communicate the status or state of an object, service, or workflow.',
+			alt: 'Use lozenges for workflow status, system state, priority, permissions, or promotional labels.',
 		}}
 	>
-		Use lozenges to communicate the status or state of an object, service, or workflow.
+		Use lozenges for workflow status, system state, priority, permissions, or promotional labels.
 	</DoDont>
 	<DoDont
 		type="dont"
 		image={{
 			url: lozengeStatusDont,
 			urlDarkMode: lozengeStatusDontDark,
-			alt: 'Don’t use lozenges to classify, organize, and highlight information — use a tag instead.',
+			alt: 'Don’t use lozenges for descriptive metadata that only classifies or categorizes—use a tag instead.',
 		}}
 	>
-		Don’t use lozenges to classify, organize, and highlight information — use a tag instead.
+		Don't use lozenges for descriptive metadata that only classifies or categorizes — use a tag
+		instead.
 	</DoDont>
 </DoDontGrid>
 
 ### Use accent and semantic colors correctly
 
-When choosing a lozenge color, there’s two sets of color choices available:
+When choosing a lozenge color, there's two sets of color choices available:
 
-- **Semantic colors (for example, "success")**: use for status or state where color usage reflects
-  semantic intent.
-- **Accent colors (for example, "accent-red")**: use when color isn’t used for semantic intent. In
+- **Semantic colors (for example, "success")**: use when color reflects shared semantic meaning for
+  the label (including workflow status, risk, and other well-defined conditions).
+- **Accent colors (for example, "accent-red")**: use when color isn't carrying semantic intent. In
   most cases, accent colors are used for user-generated content, where customers can choose a color
   and the text label.
 
@@ -104,10 +102,10 @@ When choosing a lozenge color, there’s two sets of color choices available:
 		image={{
 			url: lozengeSemanticAccentDo,
 			urlDarkMode: lozengeSemanticAccentDoDark,
-			alt: 'Choose the right semantic color to reflect the status.',
+			alt: 'Choose the right semantic color to reflect the meaning of the label.',
 		}}
 	>
-		Choose the right semantic color to reflect the status.
+		Choose the right semantic color to reflect the meaning of the label.
 	</DoDont>
 	<DoDont
 		type="dont"
@@ -117,14 +115,15 @@ When choosing a lozenge color, there’s two sets of color choices available:
 			alt: 'Don’t use accents when the label has semantic meaning and isn’t user generated content.',
 		}}
 	>
-		Don’t use accents when the label has semantic meaning and isn’t user generated content.
+		Don't use accents when the label has semantic meaning and isn't user generated content.
 	</DoDont>
 </DoDontGrid>
 
 ### Use the appropriate badge within a semantic colored lozenge
 
-When the appearance is set to a semantic color, you can add a matching trailing badge to the
-lozenge. Use it to add a score to a status, for example for a goal.
+When the appearance is set to a semantic color, you can use the `trailingMetric` prop to add a
+matching [badge](/components/badge/badge) to the lozenge. Use it to add a score to a status, for
+example for a goal.
 
 <DoDontGrid>
 	<DoDont
@@ -145,7 +144,7 @@ lozenge. Use it to add a score to a status, for example for a goal.
 			alt: 'Don’t use a badge within a lozenge with an accent color and avoid mixing semantics.',
 		}}
 	>
-		Don’t use a badge within a lozenge with an accent color and avoid mixing semantics.
+		Don't use a badge within a lozenge with an accent color and avoid mixing semantics.
 	</DoDont>
 </DoDontGrid>
 
@@ -174,7 +173,7 @@ inline status switcher, use a
 			alt: 'Don’t add custom functionality to the lozenge.',
 		}}
 	>
-		Don’t add custom functionality to the lozenge.
+		Don't add custom functionality to the lozenge.
 	</DoDont>
 </DoDontGrid>
 
@@ -205,19 +204,28 @@ information.
 			alt: 'Don’t use title case capitalization or all caps.',
 		}}
 	>
-		Don’t use title case capitalization or all caps.
+		Don't use title case capitalization or all caps.
 	</DoDont>
 </DoDontGrid>
 
+## Accessibility
+
+- Don't use color alone to signify an important attribute. Instead, use clear labels and, if
+  relevant, a supporting icon. For example: for a critical condition, use descriptors like "Off
+  track" or "Blocked".
+- Don't use long labels in lozenge. They have a max width of 200 pixels (or a custom `maxWidth`
+  value) causing labels to truncate. Lozenges can't be focused, so truncated text will not be
+  visible.
+
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and
-other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, continue to
-use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
 ## Related
 
 - For lozenges requiring dropdown interactivity, use
   [lozenge dropdown trigger](/components/lozenge/lozenge-dropdown-trigger).
-- For tallies or counts, use a [badge](/components/badge/badge).
-- To visually label content such as categories and attributes, use a [tag](/components/tag).
+- For tallies or scores, use a [badge](/components/badge/badge).
+- For descriptive metadata and information, use a [tag](/components/tag/tag).

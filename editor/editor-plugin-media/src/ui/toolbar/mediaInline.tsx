@@ -33,6 +33,7 @@ import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { messages } from '@atlaskit/media-ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { showLinkingToolbar } from '../../pm-plugins/commands/linking';
@@ -94,6 +95,8 @@ export const generateMediaInlineFloatingToolbar = (
 	const items: FloatingToolbarItem<Command>[] = [];
 
 	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
+	const mauiToolbarSeparatorsUpdateEnabled =
+		fg('cc-maui-toolbar-separators-update') && areAnyNewToolbarFlagsEnabled;
 
 	const preview: FloatingToolbarButton<Command> = {
 		id: 'editor.media.viewer',
@@ -209,14 +212,17 @@ export const generateMediaInlineFloatingToolbar = (
 
 		items.push(
 			switcherDropdown,
-			{ type: 'separator', fullHeight: true },
+			...(mauiToolbarSeparatorsUpdateEnabled
+				? []
+				: [{ type: 'separator', fullHeight: true } as const]),
 			download,
-			{ type: 'separator', supportsViewMode: true },
+			...(mauiToolbarSeparatorsUpdateEnabled
+				? []
+				: [{ type: 'separator', supportsViewMode: true } as const]),
 			preview,
-			{
-				type: 'separator',
-				fullHeight: true,
-			},
+			...(mauiToolbarSeparatorsUpdateEnabled
+				? []
+				: [{ type: 'separator', fullHeight: true } as const]),
 		);
 	}
 
@@ -242,6 +248,9 @@ const getMediaInlineImageToolbar = (
 	const inlineImageItems: FloatingToolbarItem<Command>[] = [];
 	const isEditorControlsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 	const { isViewOnly, allowAltTextOnImages, allowLinking, allowImagePreview } = options;
+
+	const mauiToolbarSeparatorsUpdateEnabled =
+		fg('cc-maui-toolbar-separators-update') && isEditorControlsEnabled;
 
 	if (shouldShowImageBorder(state)) {
 		inlineImageItems.push({
@@ -373,13 +382,20 @@ const getMediaInlineImageToolbar = (
 			pluginInjectionApi,
 		);
 
-		inlineImageItems.push(switchFromInlineToBlock, { type: 'separator', fullHeight: true });
+		inlineImageItems.push(
+			switchFromInlineToBlock,
+			...(mauiToolbarSeparatorsUpdateEnabled
+				? []
+				: [{ type: 'separator', fullHeight: true } as const]),
+		);
 
 		if (isViewOnly) {
-			inlineImageItems.push(download, {
-				type: 'separator',
-				supportsViewMode: true,
-			});
+			inlineImageItems.push(
+				download,
+				...(mauiToolbarSeparatorsUpdateEnabled
+					? []
+					: [{ type: 'separator', supportsViewMode: true } as const]),
+			);
 		}
 	}
 
@@ -397,10 +413,9 @@ const getMediaInlineImageToolbar = (
 				},
 				supportsViewMode: true,
 			},
-			{
-				type: 'separator',
-				supportsViewMode: true,
-			},
+			...(mauiToolbarSeparatorsUpdateEnabled
+				? []
+				: [{ type: 'separator', supportsViewMode: true } as const]),
 		);
 	}
 
@@ -414,10 +429,9 @@ const getMediaInlineImageToolbar = (
 	) {
 		inlineImageItems.push(
 			getOpenLinkToolbarButtonOption(intl, mediaLinkingState, pluginInjectionApi),
-			{
-				type: 'separator',
-				supportsViewMode: true,
-			},
+			...(mauiToolbarSeparatorsUpdateEnabled
+				? []
+				: [{ type: 'separator', supportsViewMode: true } as const]),
 		);
 	}
 

@@ -48,7 +48,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'LozengeDropdownTrigger',
 			description:
-				"Lozenge dropdown trigger displays an item's status and enables switching through a menu.",
+				'Lozenge dropdown trigger enables a lozenge to be interactive, and opens a dropdown to update the selection.',
 			status: 'open-beta',
 			import: {
 				name: 'LozengeDropdownTrigger',

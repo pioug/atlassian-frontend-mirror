@@ -2,7 +2,7 @@ import { matchers } from '@emotion/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
 import React from 'react';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { messages } from '../../../../components/i18n';
@@ -36,7 +36,7 @@ expect.extend(matchers);
 
 describe('<EmojiPickerList />', () => {
 	mockReactDomWarningGlobal();
-	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+	const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 
 	beforeEach(() => {
 		jest
@@ -44,13 +44,11 @@ describe('<EmojiPickerList />', () => {
 			.mockImplementation((listRef?: any, index?: number) =>
 				helperTestingLibrary.scrollToIndex(index || 0),
 			);
-		getExperimentValueSpy = jest
-			.spyOn(FeatureGates, 'getExperimentValue')
-			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
+		setTeamojiExperimentEnabled(false);
 	});
 
 	afterEach(() => {
-		getExperimentValueSpy.mockRestore();
+		jest.restoreAllMocks();
 	});
 
 	const emojis = [imageEmoji];
@@ -88,11 +86,9 @@ describe('<EmojiPickerList />', () => {
 		};
 	};
 	const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-		jest
-			.mocked(FeatureGates.getExperimentValue)
-			.mockImplementation((experimentName, _parameterName, defaultValue) =>
-				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? isEnabled : defaultValue,
-			);
+		setupEditorExperiments('test', {
+			[teamojiRefreshExperimentName]: isEnabled,
+		});
 	};
 	const createTestEmoji = (
 		id: string,
@@ -226,11 +222,7 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should not render emojis with a hidden metadata tag', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 			const visibleEmoji: EmojiDescription = {
 				...imageEmoji,
 				id: 'visible-emoji',
@@ -283,11 +275,7 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should keep frequent category before atlassian subcategories when teamoji experiment is enabled', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 			const frequentAtlassianEmoji: EmojiDescription = {
 				...atlassianEmojis[0],
 				id: 'frequent-atlassian',
@@ -331,11 +319,7 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should filter productivity number and star variants by selected colour when teamoji experiment is enabled', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 			const redZeroEmoji = createProductivityEmoji('red');
 			const blueZeroEmoji = createProductivityEmoji('blue');
 			const redZeroCircleEmoji = createProductivityEmoji('red', '0', 'zero', 'circle');
@@ -381,11 +365,7 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should filter coloured productivity emojis from endpoint metadata when the selected colour variant is unavailable', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 			const limeSquareEmoji: EmojiDescription = {
 				...imageEmoji,
 				id: 'atlassian-14_fourteen_square_lime',
@@ -464,11 +444,7 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should not infer productivity colour from emoji identifiers', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 			const emojiWithoutColorMetadata: EmojiDescription = {
 				...imageEmoji,
 				id: 'atlassian-red_star',
@@ -488,11 +464,7 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should filter coloured Atlassian emojis from frequent category by selected colour metadata', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 			const frequentRedStarEmoji = {
 				...createProductivityStarEmoji('red', 'color-first'),
 				category: frequentCategory,
@@ -512,11 +484,7 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should use the selected colour zero square emoji for the productivity colour button preview', async () => {
-			jest
-				.mocked(FeatureGates.getExperimentValue)
-				.mockImplementation((experimentName, _parameterName, defaultValue) =>
-					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
-				);
+			setTeamojiExperimentEnabled(true);
 			const blueStarEmoji = createProductivityStarEmoji('blue', 'color-first');
 			const blueZeroSquareEmoji: EmojiDescription = {
 				...imageEmoji,

@@ -16,11 +16,12 @@ const documentation: StructuredContentSource = {
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
-				'Use for object-related content; for people, teams, projects, spaces use AvatarTag',
-				"Don't use for status or state—use lozenge instead",
-				'Use TagGroup to control layout of multiple tags',
-				"Don't use tags within user-generated text (e.g. editor)",
-				'Tags can be non-interactive, links, or removable (isRemovable)',
+				'Use for descriptive or contextual metadata such as categories, attributes, topics, and groupings; for people, teams, projects, spaces use AvatarTag.',
+				"Don't use for meaningful attributes like status, state, priority, or permissions—use lozenge instead.",
+				'Use the trailingMetric prop to show a count or metric that supports the label (e.g. a roll-up of sub-tags).',
+				'Use TagGroup to control layout of multiple tags.',
+				"Don't use tags within user-generated text (e.g. editor).",
+				'Tags can be non-interactive, links, or removable (isRemovable).',
 			],
 			contentGuidelines: [
 				'Use clear, descriptive tag labels',

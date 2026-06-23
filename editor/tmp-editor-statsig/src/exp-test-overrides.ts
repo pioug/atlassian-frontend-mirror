@@ -90,4 +90,5 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_ai_new_aifc_editor_experience: false,
 	cc_page_experiences_editor_image_generation: false,
 	platform_use_unicode_emojis: false,
+	platform_editor_emoji_hover_show_tooltip: false,
 };

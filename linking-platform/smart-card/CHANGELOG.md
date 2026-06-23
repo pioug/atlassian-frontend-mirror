@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 45.2.4
+
+### Patch Changes
+
+- [`7ecbb011395dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ecbb011395dc) -
+  [ux] Updates jira/confluence icon in smart list footer to have label='' to reduce a11y redudancy
+  on icons
+- Updated dependencies
+
 ## 45.2.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 37.1.1
+
+### Patch Changes
+
+- [`8bac4be486285`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bac4be486285) -
+  Adds a client-side validation guard in media-client's resolveAuth that rejects an auth resolving
+  to neither a valid clientId nor a valid asapIssuer, behind the platform_media_validate_client_id
+
 ## 37.1.0
 
 ### Minor Changes

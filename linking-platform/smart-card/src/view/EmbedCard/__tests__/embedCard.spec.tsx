@@ -141,7 +141,7 @@ describe('EmbedCard view component', () => {
 					const { iframeEl } = setup(cardStateOverrideWithThemeSupport, expectedUrl);
 
 					expect(iframeEl.getAttribute('src')).toEqual(
-						`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+spacing%3Aspacing+typography%3Atypography+colorMode%3Adark`,
+						`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+motion%3Amotion+spacing%3Aspacing+typography%3Atypography+colorMode%3Adark`,
 					);
 				},
 			);

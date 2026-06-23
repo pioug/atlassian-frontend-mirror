@@ -1,10 +1,13 @@
 import React from 'react';
 
+import { matchers } from '@emotion/jest';
 import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	__esModule: true,
@@ -40,14 +43,29 @@ jest.mock('@emotion/react', () => {
 
 import { FullPageContentArea } from '../../../ui/Appearance/FullPage/FullPageContentArea';
 
+expect.extend(matchers);
+
 const mockEditorView = {} as EditorView;
 
-const createMockEditorAPI = (allowScrollGutter: unknown) => ({
+const createMockEditorAPI = (
+	allowScrollGutter: unknown,
+	markdownModeState?: { isMarkdownMode: boolean; view: 'preview' | 'split-view' | 'syntax' },
+) => ({
 	base: {
 		sharedState: {
 			currentState: () => ({ allowScrollGutter }),
 		},
 	},
+	...(markdownModeState
+		? {
+				markdownMode: {
+					sharedState: {
+						currentState: () => markdownModeState,
+						onChange: () => () => {},
+					},
+				},
+			}
+		: {}),
 });
 
 const defaultProps = {
@@ -82,6 +100,16 @@ const renderComponent = (props: Partial<typeof defaultProps> = {}) =>
 		</IntlProvider>,
 	);
 
+const mockFg = fg as jest.MockedFunction<typeof fg>;
+const mockExpValEqualsNoExposure = expValEqualsNoExposure as jest.MockedFunction<
+	typeof expValEqualsNoExposure
+>;
+
+beforeEach(() => {
+	mockFg.mockReturnValue(false);
+	mockExpValEqualsNoExposure.mockReturnValue(false);
+});
+
 describe('accessibility', () => {
 	it('should be accessible', async () => {
 		const { container } = renderComponent({
@@ -92,6 +120,53 @@ describe('accessibility', () => {
 });
 
 describe('FullPageContentArea - scroll gutter rendering', () => {
+	it('hides scroll gutters in markdown mode', () => {
+		mockExpValEqualsNoExposure.mockReturnValue(true);
+		mockFg.mockImplementation((gate) => gate === 'platform_editor_md_mvp_layout');
+
+		renderComponent({
+			editorAPI: createMockEditorAPI(
+				{ gutterSize: 120 },
+				{ isMarkdownMode: true, view: 'syntax' },
+			) as any,
+		});
+
+		const contentRegion = document.querySelector('[data-markdown-mode-hide-scroll-gutter="true"]');
+		const scrollGutter = document.querySelector('[data-vc="scroll-gutter"]');
+
+		expect(contentRegion).toBeInstanceOf(HTMLElement);
+		expect(scrollGutter).toBeInstanceOf(HTMLElement);
+		if (!(contentRegion instanceof HTMLElement)) {
+			throw new Error('Expected content region to be rendered.');
+		}
+		if (!(scrollGutter instanceof HTMLElement)) {
+			throw new Error('Expected scroll gutter to be rendered.');
+		}
+		expect(contentRegion).toHaveAttribute('data-markdown-mode-hide-scroll-gutter', 'true');
+		expect(scrollGutter).toHaveStyleRule('display', 'none');
+	});
+
+	it('removes prose width constraints in markdown mode when the MVP layout is active', () => {
+		mockExpValEqualsNoExposure.mockReturnValue(true);
+		mockFg.mockImplementation((gate) => gate === 'platform_editor_md_mvp_layout');
+
+		renderComponent({
+			editorAPI: createMockEditorAPI(
+				{ gutterSize: 120 },
+				{ isMarkdownMode: true, view: 'syntax' },
+			) as any,
+		});
+
+		const contentRegion = document.querySelector('.ak-editor-content-area-region');
+
+		expect(contentRegion).toBeInstanceOf(HTMLElement);
+		if (!(contentRegion instanceof HTMLElement)) {
+			throw new Error('Expected content region to be rendered.');
+		}
+		expect(contentRegion).toHaveStyleRule('max-width', 'none');
+		expect(contentRegion).toHaveStyleRule('width', '100%');
+	});
+
 	eeTest.describe('platform_editor_blocks', 'when experiment is enabled').variant(true, () => {
 		it('renders scroll gutter with data-editor-scroll-gutter attribute', () => {
 			renderComponent({ editorAPI: createMockEditorAPI({ gutterSize: 120 }) as any });

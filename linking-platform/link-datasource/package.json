@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "6.0.1",
+	"version": "6.0.2",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -90,6 +90,7 @@
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
 		"@atlassian/assets-workspace-host": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@types/dompurify": "root:*",
@@ -116,7 +117,6 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@faker-js/faker": "root:*",
 		"@testing-library/dom": "root:*",
@@ -189,9 +189,6 @@
 		"confluence-issue-terminology-refresh": {
 			"type": "boolean"
 		},
-		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
 		"product-terminology-refresh": {
 			"type": "boolean"
 		},
@@ -199,9 +196,6 @@
 			"type": "boolean"
 		},
 		"navx-1895-new-logo-design": {
-			"type": "boolean"
-		},
-		"platform_navx_sllv_dropdown_escape_and_focus_fix": {
 			"type": "boolean"
 		},
 		"platform_navx_sllv_j2ws_dropdown_for_single_row": {

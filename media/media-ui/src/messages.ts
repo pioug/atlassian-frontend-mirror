@@ -155,6 +155,7 @@ export type MessageKey =
 	| 'file_archive_is_selected'
 	| 'file_unknown_is_selected'
 	| 'open_file_in_viewer'
+	| 'open_file_in_viewer_aria_label'
 	| 'video_seeker_assistive_text_time_value'
 	| 'video_seeker_label_assistive_text'
 	| 'abuse_modal_body'
@@ -1072,6 +1073,12 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Open {name}',
 		description:
 			'Shown when user focuses on preview to open the full screen viewer of the file with {name}',
+	},
+	open_file_in_viewer_aria_label: {
+		id: 'fabric.media.open_file_in_viewer_aria_label',
+		defaultMessage: 'Open {name} in fullscreen',
+		description:
+			'Aria label for the button that opens the full screen viewer. Provides additional context for screen reader users that the action opens a fullscreen viewer.',
 	},
 	video_seeker_assistive_text_time_value: {
 		id: 'fabric.media.video_seeker_assistive_text_time_value',

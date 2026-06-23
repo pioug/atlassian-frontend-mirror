@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
+import { type GroupKey } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
 import Spinner from '@atlaskit/spinner';
@@ -36,6 +37,7 @@ import {
 	AutocompleteContainer,
 	AutocompleteLoadingFooter,
 	AutocompleteOptionsContainer,
+	AutocompleteSectionTitle,
 	OptionList,
 } from './styled';
 
@@ -47,6 +49,40 @@ type Props = {
 		analyticsAttributes: AutocompleteAnalyticsAttributes,
 	) => void;
 	options: SelectableAutocompleteOption[];
+};
+
+export type AutocompleteOptionsByGroupKey = {
+	groupKey?: GroupKey;
+	options: SelectableAutocompleteOption[];
+};
+
+const UNGROUPED_KEY = '';
+
+export const groupAutocompleteOptionsByKey = (
+	options: SelectableAutocompleteOption[],
+): AutocompleteOptionsByGroupKey[] => {
+	if (!options.some((option) => option.groupKey != null)) {
+		return [{ options }];
+	}
+
+	const groupsByKey = new Map<string, SelectableAutocompleteOption[]>();
+
+	for (const option of options) {
+		const key = option.groupKey ?? UNGROUPED_KEY;
+
+		let bucket = groupsByKey.get(key);
+		if (!bucket) {
+			bucket = [];
+			groupsByKey.set(key, bucket);
+		}
+		bucket.push(option);
+	}
+
+	return [...groupsByKey.entries()].map(([key, groupedOptions]) =>
+		key === UNGROUPED_KEY
+			? { options: groupedOptions }
+			: { groupKey: key as GroupKey, options: groupedOptions },
+	);
 };
 
 const getPreviousOptionId = (
@@ -95,7 +131,7 @@ const AutocompleteDropdown = ({
 }: Props): React.JSX.Element | null => {
 	const containerRef = useRef<HTMLElement | null>(null);
 	const scrollContainerRef = useRef<HTMLElement | null>(null);
-	const selectedItemRef = useRef<HTMLLIElement | null>(null);
+	const selectedItemRef = useRef<HTMLDivElement | HTMLLIElement | null>(null);
 	const [navigatingWithKeyboard, setNavigatingWithKeyboard] = useState(false);
 
 	const [intl] = useIntl();
@@ -117,6 +153,7 @@ const AutocompleteDropdown = ({
 	const [autocompleteId] = useScopedId(JQL_EDITOR_AUTOCOMPLETE_ID);
 
 	const isPopperPositioningEnabled = fg('jql_editor_autocomplete_use_popper');
+	const isAutocompleteForMembersOfEnabled = fg('enable-jql-membersof-autocomplete');
 
 	// Create virtual reference element positioned at cursor location (for popper implementation)
 	const virtualReferenceElement = useMemo(() => {
@@ -315,6 +352,30 @@ const AutocompleteDropdown = ({
 		return intl.formatMessage(messages.optionsFound);
 	}, [isAutocompleteOpen, intl, options]);
 
+	const optionGroups = useMemo(() => {
+		if (!isAutocompleteForMembersOfEnabled) {
+			return [];
+		}
+		return groupAutocompleteOptionsByKey(options);
+	}, [options, isAutocompleteForMembersOfEnabled]);
+
+	const optionIndexById = useMemo(
+		() =>
+			isAutocompleteForMembersOfEnabled ? new Map(options.map((o, i) => [o.id, i])) : new Map(),
+		[options, isAutocompleteForMembersOfEnabled],
+	);
+
+	const getGroupTitle = (groupKey: GroupKey): string => {
+		switch (groupKey) {
+			case 'team':
+				return intl.formatMessage(messages.teamGroupTitle);
+			default: {
+				const exhaustiveCheck: never = groupKey;
+				throw new Error(`Unexpected group key: ${exhaustiveCheck}`);
+			}
+		}
+	};
+
 	const renderAutocompleteContent = () => (
 		<AutocompleteOptionsContainer ref={onScrollContainerRef} onMouseMove={onMouseMove}>
 			<OptionList role="listbox" id={autocompleteId}>
@@ -334,6 +395,52 @@ const AutocompleteDropdown = ({
 							}}
 						/>
 					);
+				})}
+			</OptionList>
+		</AutocompleteOptionsContainer>
+	);
+
+	const renderAutocompleteContentWithGroups = () => (
+		<AutocompleteOptionsContainer ref={onScrollContainerRef} onMouseMove={onMouseMove}>
+			<OptionList role="listbox" id={autocompleteId}>
+				{optionGroups.map((group) => {
+					const groupKey = group.groupKey ?? '__ungrouped__';
+					const groupTitleId = group.groupKey
+						? `${autocompleteId}-group-${group.groupKey}-title`
+						: undefined;
+
+					const optionNodes = group.options.map((option) => {
+						const flatOptionIndex = optionIndexById.get(option.id) ?? -1;
+						const isSelected = option.id === selectedOptionId;
+
+						return (
+							<AutocompleteOption
+								key={option.value}
+								isSelected={isSelected}
+								{...(isSelected && { ref: selectedItemRef })}
+								option={option}
+								onClick={() => handleClick(option, flatOptionIndex, false)}
+								onMouseMove={() => {
+									if (option.id !== selectedOptionId) {
+										setSelectedAutocompleteOptionId(option.id);
+									}
+								}}
+							/>
+						);
+					});
+
+					if (group.groupKey) {
+						return (
+							<div key={groupKey} role="group" aria-labelledby={groupTitleId}>
+								<AutocompleteSectionTitle id={groupTitleId}>
+									{getGroupTitle(group.groupKey)}
+								</AutocompleteSectionTitle>
+								{optionNodes}
+							</div>
+						);
+					}
+
+					return <React.Fragment key={`fragment-${groupKey}`}>{optionNodes}</React.Fragment>;
 				})}
 			</OptionList>
 		</AutocompleteOptionsContainer>
@@ -381,7 +488,9 @@ const AutocompleteDropdown = ({
 							onBlur={onEditorViewBlur}
 							onFocus={onEditorViewFocus}
 						>
-							{renderAutocompleteContent()}
+							{isAutocompleteForMembersOfEnabled
+								? renderAutocompleteContentWithGroups()
+								: renderAutocompleteContent()}
 							{renderLoadingFooter()}
 						</AutocompleteContainer>
 					)}
@@ -397,7 +506,9 @@ const AutocompleteDropdown = ({
 					onBlur={onEditorViewBlur}
 					onFocus={onEditorViewFocus}
 				>
-					{renderAutocompleteContent()}
+					{isAutocompleteForMembersOfEnabled
+						? renderAutocompleteContentWithGroups()
+						: renderAutocompleteContent()}
 					{renderLoadingFooter()}
 				</AutocompleteContainer>
 			)}

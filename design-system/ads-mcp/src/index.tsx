@@ -29,6 +29,10 @@ import { getAllTokensTool } from './tools/get-all-tokens/get-all-tokens-tool';
 import { listGetAllTokensTool } from './tools/get-all-tokens/list-get-all-tokens-tool';
 import { getAtlaskitComponentsTool } from './tools/get-atlaskit-components/get-atlaskit-components-tool';
 import { listGetAtlaskitComponentsTool } from './tools/get-atlaskit-components/list-get-atlaskit-components-tool';
+import { getAtlaskitHooksTool } from './tools/get-atlaskit-hooks/get-atlaskit-hooks-tool';
+import { listGetAtlaskitHooksTool } from './tools/get-atlaskit-hooks/list-get-atlaskit-hooks-tool';
+import { getAtlaskitUtilitiesTool } from './tools/get-atlaskit-utilities/get-atlaskit-utilities-tool';
+import { listGetAtlaskitUtilitiesTool } from './tools/get-atlaskit-utilities/list-get-atlaskit-utilities-tool';
 import { getGuidelinesInputSchema } from './tools/get-guidelines/get-guidelines-input-schema';
 import { getGuidelinesTool } from './tools/get-guidelines/get-guidelines-tool';
 import { listGetGuidelinesTool } from './tools/get-guidelines/list-get-guidelines-tool';
@@ -47,6 +51,12 @@ import { planTool } from './tools/plan/plan-tool';
 import { listSearchAtlaskitComponentsTool } from './tools/search-atlaskit-components/list-search-atlaskit-components-tool';
 import { searchAtlaskitComponentsInputSchema } from './tools/search-atlaskit-components/search-atlaskit-components-input-schema';
 import { searchAtlaskitComponentsTool } from './tools/search-atlaskit-components/search-atlaskit-components-tool';
+import { listSearchAtlaskitHooksTool } from './tools/search-atlaskit-hooks/list-search-atlaskit-hooks-tool';
+import { searchAtlaskitHooksInputSchema } from './tools/search-atlaskit-hooks/search-atlaskit-hooks-input-schema';
+import { searchAtlaskitHooksTool } from './tools/search-atlaskit-hooks/search-atlaskit-hooks-tool';
+import { listSearchAtlaskitUtilitiesTool } from './tools/search-atlaskit-utilities/list-search-atlaskit-utilities-tool';
+import { searchAtlaskitUtilitiesInputSchema } from './tools/search-atlaskit-utilities/search-atlaskit-utilities-input-schema';
+import { searchAtlaskitUtilitiesTool } from './tools/search-atlaskit-utilities/search-atlaskit-utilities-tool';
 import { listSearchComponentsTool } from './tools/search-components/list-search-components-tool';
 import { searchComponentsInputSchema } from './tools/search-components/search-components-input-schema';
 import { searchComponentsTool } from './tools/search-components/search-components-tool';
@@ -196,6 +206,26 @@ export const getToolRegistry = (): Record<
 			handler: searchAtlaskitComponentsTool,
 			inputSchema: searchAtlaskitComponentsInputSchema,
 			tool: listSearchAtlaskitComponentsTool,
+		},
+		[listGetAtlaskitUtilitiesTool.name]: {
+			handler: getAtlaskitUtilitiesTool,
+			inputSchema: null,
+			tool: listGetAtlaskitUtilitiesTool,
+		},
+		[listSearchAtlaskitUtilitiesTool.name]: {
+			handler: searchAtlaskitUtilitiesTool,
+			inputSchema: searchAtlaskitUtilitiesInputSchema,
+			tool: listSearchAtlaskitUtilitiesTool,
+		},
+		[listGetAtlaskitHooksTool.name]: {
+			handler: getAtlaskitHooksTool,
+			inputSchema: null,
+			tool: listGetAtlaskitHooksTool,
+		},
+		[listSearchAtlaskitHooksTool.name]: {
+			handler: searchAtlaskitHooksTool,
+			inputSchema: searchAtlaskitHooksInputSchema,
+			tool: listSearchAtlaskitHooksTool,
 		},
 	};
 

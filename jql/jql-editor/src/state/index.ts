@@ -460,7 +460,7 @@ export const actions: Actions = {
 							'values',
 							functionArguments$,
 							rules.functionArgument,
-							'value',
+							'functionArgument',
 						),
 					),
 				);

@@ -27,7 +27,6 @@
 	"types": "dist/types/index.d.ts",
 	"devDependencies": {
 		"@atlassian/a11y-jest-testing": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
@@ -62,6 +61,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*"
 	},

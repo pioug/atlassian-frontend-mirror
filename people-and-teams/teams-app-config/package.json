@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
@@ -44,7 +45,6 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"

@@ -7,6 +7,7 @@ import {
 	type WrappedComponentProps,
 } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -19,7 +20,17 @@ const OpenMediaViewerButton = ({ fileName, innerRef, ...props }: OpenMediaViewer
 	const intl = useIntl();
 	return (
 		<VisuallyHidden>
-			<Pressable ref={innerRef} {...props}>
+			<Pressable
+				ref={innerRef}
+				{...props}
+				{...(fg('create_modernization_ga_fixes_drop_2')
+					? {
+							'aria-label': intl.formatMessage(messages.open_file_in_viewer_aria_label, {
+								name: fileName,
+							}),
+						}
+					: {})}
+			>
 				{intl.formatMessage(messages.open_file_in_viewer, {
 					name: fileName,
 				})}

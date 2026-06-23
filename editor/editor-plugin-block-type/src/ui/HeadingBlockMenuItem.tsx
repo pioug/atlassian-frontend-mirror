@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import TextHeadingFiveIcon from '@atlaskit/icon-lab/core/text-heading-five';
 import TextHeadingFourIcon from '@atlaskit/icon-lab/core/text-heading-four';
@@ -35,12 +36,13 @@ const headingMessages = [
 
 type HeadingBlockMenuItemProps = {
 	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
+	isSuggested?: boolean;
 	level: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
 const NODE_NAME = 'heading';
 
-const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
+const HeadingBlockMenuItem = ({ level, api, isSuggested }: HeadingBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
 	const Icon = headingIcons[level - 1];
 	const message = headingMessages[level - 1];
@@ -55,6 +57,7 @@ const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 		api?.core.actions.execute(({ tr }) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.heading, {
 				inputMethod,
+				isSuggested,
 				triggeredFrom,
 				targetTypeName: `${NODE_NAME}${level}`,
 				targetAttrs: { level },
@@ -71,5 +74,7 @@ const HeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
 };
 
 export const createHeadingBlockMenuItem = ({ level, api }: HeadingBlockMenuItemProps) => {
-	return (): React.JSX.Element => <HeadingBlockMenuItem level={level} api={api} />;
+	return ({ isSuggested }: BlockMenuItemComponentProps = {}): React.JSX.Element => (
+		<HeadingBlockMenuItem level={level} api={api} isSuggested={isSuggested} />
+	);
 };

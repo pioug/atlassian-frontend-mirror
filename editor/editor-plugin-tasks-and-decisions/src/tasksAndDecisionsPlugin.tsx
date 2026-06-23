@@ -16,6 +16,7 @@ import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/edi
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
+import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
@@ -174,8 +175,8 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 						TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key
 					],
 				},
-				component: () => {
-					return <TaskListBlockMenuItem api={api} />;
+				component: ({ isSuggested }: BlockMenuItemComponentProps = {}) => {
+					return <TaskListBlockMenuItem api={api} isSuggested={isSuggested} />;
 				},
 				isHidden: () =>
 					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(TASK_LIST_NODE_NAME)),
@@ -190,8 +191,8 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 						TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key
 					],
 				},
-				component: () => {
-					return <DecisionListBlockMenuItem api={api} />;
+				component: ({ isSuggested }: BlockMenuItemComponentProps = {}) => {
+					return <DecisionListBlockMenuItem api={api} isSuggested={isSuggested} />;
 				},
 				isHidden: () =>
 					Boolean(api?.blockMenu?.actions.isTransformOptionDisabled(DECISION_LIST_NODE_NAME)),

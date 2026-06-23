@@ -28,6 +28,7 @@
 		"./utils": "./src/entry-points/utils.ts"
 	},
 	"dependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -77,7 +78,6 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"react": "root:*"
 	}
 }

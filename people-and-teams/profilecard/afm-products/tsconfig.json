@@ -116,6 +116,9 @@
 			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../studio-foundations/studio-entry-link/afm-products/tsconfig.json"
 		}
 	]

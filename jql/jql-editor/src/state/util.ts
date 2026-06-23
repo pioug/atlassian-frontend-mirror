@@ -15,6 +15,7 @@ import {
 	type TerminalClause,
 } from '@atlaskit/jql-ast';
 import { type JQLRuleKey, type JQLSuggestions } from '@atlaskit/jql-autocomplete';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type SelectableAutocompleteOptions } from '../plugins/autocomplete/components/types';
 import getDocumentPosition from '../plugins/common/get-document-position';
@@ -60,7 +61,14 @@ export const getReplacePositionStart = ({ rules, tokens }: JQLSuggestions): numb
 	}
 
 	// Same precedence as `useAutocompleteOptions`, this may change in future if we don't limit suggestions to one rule
-	const rulePrecedence: JQLRuleKey[] = ['value', 'function', 'list', 'operator', 'field'];
+	const rulePrecedence: JQLRuleKey[] = [
+		...(fg('enable-jql-membersof-autocomplete') ? (['functionArgument'] as const) : []),
+		'value',
+		'function',
+		'list',
+		'operator',
+		'field',
+	];
 
 	for (const rule of rulePrecedence) {
 		if (Object.prototype.hasOwnProperty.call(rules, rule)) {

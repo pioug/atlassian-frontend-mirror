@@ -17,10 +17,7 @@ function getShapeDefault() {
   return undefined;
 }
 function getMotionDefault() {
-  if ((0, _platformFeatureFlags.fg)('platform-dst-motion-theme-default')) {
-    return 'motion';
-  }
-  return undefined;
+  return 'motion';
 }
 
 /**

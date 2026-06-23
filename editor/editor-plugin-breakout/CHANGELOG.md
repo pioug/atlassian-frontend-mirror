@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.0.7
+
+### Patch Changes
+
+- [`949347e49035b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/949347e49035b) -
+  [ux] [EDITOR-7471] Remove the left-hand resizer handle from nodes using breakout mark for
+  resizing.
+- Updated dependencies
+
 ## 12.0.6
 
 ### Patch Changes

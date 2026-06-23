@@ -31,7 +31,7 @@
 	},
 	"atlassian": {
 		"react-compiler": {
-			"enabled": true,
+			"enabled": false,
 			"gating": {
 				"source": "@atlassian/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"

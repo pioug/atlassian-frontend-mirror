@@ -27,6 +27,7 @@
 		}
 	},
 	"dependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"prop-types": "root:*"
 	},
@@ -35,7 +36,6 @@
 	},
 	"devDependencies": {
 		"@af/suppress-react-warnings": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/react-redux": "root:*",

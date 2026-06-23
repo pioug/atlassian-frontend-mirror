@@ -15,8 +15,8 @@ import { SpotlightContext } from '../../controllers/context';
 import type { DismissEvent } from '../../types';
 import { usePositionArea } from '../../utils/use-position-area';
 
+import { getPlacementWithOffset } from './get-placement-with-offset';
 import type { PopoverContentProps } from './legacy';
-import { placementMap } from './placement-map';
 
 const noopUpdate = () => Promise.resolve();
 
@@ -58,6 +58,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 		dismiss,
 		back,
 		testId,
+		offset,
 	} = props;
 
 	const done = 'done' in props ? props.done : undefined;
@@ -69,7 +70,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element => {
 	useAnchorPosition({
 		anchorRef: target.ref,
 		popoverRef,
-		placement: placementMap[placement],
+		placement: getPlacementWithOffset({ placement, offset }),
 		isOpen: isVisible,
 	});
 

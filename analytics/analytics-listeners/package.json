@@ -38,6 +38,7 @@
 		"@atlaskit/analytics-gas-types": "workspace:^",
 		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*"
 	},
@@ -46,7 +47,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/tokens": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"jest-in-case": "root:*",
 		"react": "root:*"

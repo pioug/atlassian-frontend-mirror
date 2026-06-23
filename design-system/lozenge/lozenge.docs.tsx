@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Lozenge',
 			description:
-				"A lozenge is a visual indicator used to highlight an item's status for quick recognition.",
+				'A lozenge is a prominent, compact label used to communicate a meaningful attribute that affects how people understand, prioritize or act on an object.',
 			status: 'general-availability', // beta lozenge is feature-flagged
 			import: {
 				name: 'Lozenge',
@@ -17,10 +17,11 @@ const documentation: StructuredContentSource = {
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
-				'Subtle (default): for long tables and general use',
-				'Bold: use sparingly (e.g. Pipeline/Jira status)',
-				'Always combine color with a concise, accurate label',
-				'Use Badge for tallies/counts; use Tag for labels',
+				'Use lozenge when a label communicates a meaningful attribute: status, system state, priority, permissions, or a promotional label.',
+				'Only migrate a lozenge to Tag when the label is purely categorisation or descriptive metadata (topics, attributes, groupings).',
+				"Don't choose lozenge only because Tag lacks a capability; pick the component that matches the label's meaning.",
+				'Always combine color with a concise, accurate label.',
+				'Use Badge for tallies/scores and Tag for descriptive metadata.',
 			],
 			contentGuidelines: [
 				'Use clear, concise text; use accurate labels (e.g. "Error", "Warning")',

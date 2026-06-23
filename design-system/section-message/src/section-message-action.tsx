@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, memo } from 'react';
+import { forwardRef, Fragment, memo } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, cx, jsx } from '@atlaskit/css';
@@ -24,10 +24,10 @@ const styles = cssMap({
 		color: token('color.link'),
 		fontWeight: token('font.weight.medium'),
 		backgroundColor: 'transparent',
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 
 		'&:hover': {
 			textDecoration: 'underline',
@@ -52,20 +52,26 @@ const styles = cssMap({
  *
  * - [Examples](https://atlassian.design/components/section-message/examples#actions)
  */
-const SectionMessageAction: import('react').NamedExoticComponent<SectionMessageActionProps> = memo(
-	function SectionMessageAction({
-		children,
-		onClick,
-		href,
-		testId,
-		linkComponent,
-		target,
-	}: SectionMessageActionProps) {
+const SectionMessageAction: React.MemoExoticComponent<
+	React.ForwardRefExoticComponent<
+		React.PropsWithoutRef<SectionMessageActionProps> & React.RefAttributes<HTMLElement>
+	>
+> = memo(
+	forwardRef<HTMLElement, SectionMessageActionProps>(function SectionMessageAction(
+		{ children, onClick, href, testId, linkComponent, target },
+		ref,
+	) {
 		if (!linkComponent) {
 			if (href) {
 				return (
 					<span css={[styles.common, styles.anchor]}>
-						<Link testId={testId} onClick={onClick} href={href} target={target}>
+						<Link
+							testId={testId}
+							onClick={onClick}
+							href={href}
+							target={target}
+							ref={ref as React.Ref<HTMLAnchorElement>}
+						>
 							{children}
 						</Link>
 					</span>
@@ -82,6 +88,7 @@ const SectionMessageAction: import('react').NamedExoticComponent<SectionMessageA
 							styles.pressable,
 							fg('platform-dst-shape-theme-default') && styles.pressableT26Shape,
 						)}
+						ref={ref as React.Ref<HTMLButtonElement>}
 					>
 						{children}
 					</Pressable>
@@ -89,7 +96,7 @@ const SectionMessageAction: import('react').NamedExoticComponent<SectionMessageA
 			}
 
 			return (
-				<Box as="span" testId={testId} xcss={styles.common}>
+				<Box as="span" testId={testId} xcss={styles.common} ref={ref}>
 					{children}
 				</Box>
 			);
@@ -104,13 +111,16 @@ const SectionMessageAction: import('react').NamedExoticComponent<SectionMessageA
 				onClick={onClick}
 				href={href}
 				component={href ? linkComponent : undefined}
+				ref={ref}
 			>
 				{children}
 			</Button>
 		) : (
 			<Fragment>{children}</Fragment>
 		);
-	},
+	}),
 );
+
+SectionMessageAction.displayName = 'SectionMessageAction';
 
 export default SectionMessageAction;

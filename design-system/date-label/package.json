@@ -1,4 +1,12 @@
 {
+	"name": "@atlaskit/date-label",
+	"version": "1.0.0",
+	"description": "Date label is a non-interactive label that displays a date and optionally, visually communicates its status.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {
@@ -89,13 +97,5 @@
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
 		}
-	},
-	"name": "@atlaskit/date-label",
-	"version": "1.0.0",
-	"description": "A Date label is a label that displays a date and optionally, visually communicates its status. And a Date label dropdown trigger is an interactive date label that opens a dropdown for date selection.",
-	"author": "Atlassian Pty Ltd",
-	"license": "Apache-2.0",
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org/"
 	}
 }

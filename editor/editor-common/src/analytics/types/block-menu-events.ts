@@ -66,6 +66,7 @@ interface ElementTransformAttr {
 	inputMethod: INPUT_METHOD.BLOCK_MENU;
 	isEmptyLine: boolean;
 	isNested: boolean;
+	isSuggested?: boolean;
 	outputNodesCount: number;
 	sourceNodesCount: number;
 	sourceNodesCountByType: Record<string, number>;

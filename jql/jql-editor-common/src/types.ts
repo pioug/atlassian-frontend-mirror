@@ -5,4 +5,5 @@ export type {
 	AutocompleteOptions,
 	AutocompleteProvider,
 	AutocompleteValueType,
+	GroupKey,
 } from './autocomplete';

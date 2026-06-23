@@ -452,7 +452,12 @@ export const IssueLikeDataTableView = ({
 			cells: headerColumns.map<RowCellType>((column) => ({
 				content: (
 					<Box paddingInline="space.100">
-						<Skeleton borderRadius={8} width="100%" height={14} testId="issues-table-row-loading" />
+						<Skeleton
+							borderRadius={token('radius.large')}
+							width="100%"
+							height={14}
+							testId="issues-table-row-loading"
+						/>
 					</Box>
 				),
 				key: column.key,

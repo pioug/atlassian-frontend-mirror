@@ -546,7 +546,9 @@ describe('ConfluenceSearchConfigModal', () => {
 					});
 
 					// Select option from edited/created by filter list
-					fireEvent.click(await findByTestId(`clol-basic-filter-editedOrCreatedBy-trigger`));
+					fireEvent.click(
+						await findByTestId(`clol-basic-filter-editedOrCreatedBy-trigger--button`),
+					);
 					fireEvent.click(await findByText(`Mike Scott`));
 
 					act(() => {

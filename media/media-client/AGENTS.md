@@ -26,11 +26,11 @@
 > codebase and the docs after any code change. Use the `generate` subcommand to bootstrap the index
 > in a new repository.
 
-**Entry point:** `.agents/knowledge-index/INDEX.md` **Unit doc:**
-`.agents/knowledge-index/domains/media/units/atlaskit-media-client.md` **CLI:**
-`python3 .agents/skills/knowledge-index/scripts/kg.py {find,read,edit,investigate,validate,init,explore,generate} …`
-**Refresh protocol:** never silently bump `Last verified` — always re-read the listed `Sources`
-first, edit, then `kg.py edit <path> --message "<reason>"`.
+**Entry point:** `.agents/knowledge-index/INDEX.md`
+**Unit doc:** `.agents/knowledge-index/domains/media/units/atlaskit-media-client.md`
+**Standards page:** `.agents/knowledge-index/domains/media/units/atlaskit-media-client/standards-and-patterns.md`
+**CLI:** `python3 .agents/skills/knowledge-index/scripts/kg.py {find,read,edit,investigate,validate,init,explore,generate} …`
+**Refresh protocol:** never silently bump `Last verified` — always re-read the listed `Sources` first, edit, then `kg.py edit <path> --message "<reason>"`.
 
 ## Key source files
 

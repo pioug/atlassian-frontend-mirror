@@ -10,6 +10,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 
@@ -25,11 +26,12 @@ const styles = cssMap({
 
 type Props = {
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined;
+	isSuggested?: boolean;
 };
 
 const NODE_NAME = 'layoutSection';
 
-const LayoutBlockMenuItem = ({ api }: Props) => {
+const LayoutBlockMenuItem = ({ api, isSuggested }: Props) => {
 	const { formatMessage } = useIntl();
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
@@ -44,6 +46,7 @@ const LayoutBlockMenuItem = ({ api }: Props) => {
 				tr.doc.type.schema.nodes.layoutSection,
 				{
 					inputMethod,
+					isSuggested,
 					triggeredFrom,
 					targetTypeName: NODE_NAME,
 				},
@@ -67,5 +70,7 @@ const LayoutBlockMenuItem = ({ api }: Props) => {
 };
 
 export const createLayoutBlockMenuItem = (api: ExtractInjectionAPI<LayoutPlugin> | undefined) => {
-	return (): React.JSX.Element => <LayoutBlockMenuItem api={api} />;
+	return ({ isSuggested }: BlockMenuItemComponentProps = {}): React.JSX.Element => (
+		<LayoutBlockMenuItem api={api} isSuggested={isSuggested} />
+	);
 };

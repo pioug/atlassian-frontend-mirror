@@ -66,13 +66,7 @@ const _default_1: React.NamedExoticComponent<Props> = memo(function Status(props
 						userContext: 'document',
 					}}
 				>
-					<AkStatus
-						text={text}
-						color={color}
-						localId={localId}
-						role={undefined}
-						isBold={fg('platform-component-visual-refresh')}
-					/>
+					<AkStatus text={text} color={color} localId={localId} role={undefined} isBold={true} />
 				</FabricElementsAnalyticsContext>
 			</span>
 		);
@@ -86,12 +80,7 @@ const _default_1: React.NamedExoticComponent<Props> = memo(function Status(props
 			}}
 		>
 			<span role="emphasis">
-				<AkStatus
-					text={text}
-					color={color}
-					localId={localId}
-					isBold={fg('platform-component-visual-refresh')}
-				/>
+				<AkStatus text={text} color={color} localId={localId} isBold={true} />
 			</span>
 		</FabricElementsAnalyticsContext>
 	);

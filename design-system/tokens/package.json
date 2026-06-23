@@ -39,6 +39,7 @@
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@babel/traverse": "root:*",
 		"@babel/types": "root:*",
@@ -77,7 +78,6 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"@babel/core": "root:*",
@@ -159,9 +159,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
-		"platform-dst-motion-theme-default": {
 			"type": "boolean"
 		}
 	},

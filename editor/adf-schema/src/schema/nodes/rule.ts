@@ -24,3 +24,8 @@ export const ruleWithLocalId: NodeSpec = ruleFactory({
 		return ['hr', { 'data-local-id': node?.attrs?.localId || undefined }];
 	},
 });
+
+export const ruleRootOnlyStage0: NodeSpec = {
+	...ruleWithLocalId,
+	marks: 'breakout unsupportedMark unsupportedNodeAttribute',
+};

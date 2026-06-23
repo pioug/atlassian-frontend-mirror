@@ -4,6 +4,8 @@ import { type JQLClause } from '@atlaskit/jql-autocomplete';
 
 export type AutocompleteValueType = 'user' | 'team' | 'project' | 'goal';
 
+export type GroupKey = 'team';
+
 export type AutocompleteOption = {
 	/**
 	 * SearcherKey of the deprecated field.
@@ -13,6 +15,10 @@ export type AutocompleteOption = {
 	 * Field type to be rendered alongside `name` for this option.
 	 */
 	fieldType?: string;
+	/**
+	 * When set, autocomplete UI may group this option under a section identified by the given key.
+	 */
+	groupKey?: GroupKey;
 	/**
 	 * Whether the current option is deprecated or not.
 	 */

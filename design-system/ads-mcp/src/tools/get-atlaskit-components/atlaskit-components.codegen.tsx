@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::295ec1e9a2e00f56b3fdbb37f170a1c1>>
+ * @codegen <<SignedSource::9a2dd503a8c88989c93926372eaa84c1>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:atlaskit-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1481,6 +1481,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'allowCustomPanels',
+				type: 'boolean',
+			},
+			{
+				name: 'allowDownloadCodeBlock',
 				type: 'boolean',
 			},
 			{

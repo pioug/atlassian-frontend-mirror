@@ -32,6 +32,7 @@
 		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/notification-log-client": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"techstack": {
@@ -46,7 +47,6 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"

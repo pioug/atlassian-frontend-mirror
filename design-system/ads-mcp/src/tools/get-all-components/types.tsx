@@ -1,12 +1,6 @@
-/* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
-export type ComponentStatus =
-	| 'release-candidate'
-	| 'early-access'
-	| 'open-beta'
-	| 'general-availability'
-	| 'intent-to-deprecate'
-	| 'deprecated'
-	| 'unmaintained';
+import { type Status } from '../types';
+
+export type ComponentStatus = Status;
 
 export type ComponentProps = {
 	name: string;

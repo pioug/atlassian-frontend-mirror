@@ -48,6 +48,7 @@
 		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/media-file-preview": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"react-error-boundary": "root:*"
@@ -62,7 +63,6 @@
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*"

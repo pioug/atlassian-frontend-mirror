@@ -14,8 +14,10 @@ const NODE_NAME = 'decisionList';
 
 export const DecisionListBlockMenuItem = ({
 	api,
+	isSuggested,
 }: {
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
+	isSuggested?: boolean;
 }): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
@@ -31,6 +33,7 @@ export const DecisionListBlockMenuItem = ({
 				tr.doc.type.schema.nodes.decisionList,
 				{
 					inputMethod,
+					isSuggested,
 					triggeredFrom,
 					targetTypeName: NODE_NAME,
 				},

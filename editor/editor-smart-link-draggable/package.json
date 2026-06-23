@@ -40,6 +40,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"bind-event-listener": "root:*"
@@ -54,7 +55,6 @@
 		}
 	},
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"react": "root:*",
 		"react-dom": "root:*"
 	}

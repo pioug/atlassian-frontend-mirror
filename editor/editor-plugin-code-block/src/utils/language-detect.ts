@@ -1,4 +1,6 @@
 /* eslint-disable require-unicode-regexp */
+import { fg } from '@atlaskit/platform-feature-flags';
+
 type LanguageId =
 	| 'css'
 	| 'go'
@@ -32,6 +34,17 @@ const hasPattern = (code: string, pattern: RegExp): boolean => {
 
 const scorePatterns = (code: string, patterns: Array<[RegExp, number]>): number =>
 	patterns.reduce((score, [pattern, value]) => score + (hasPattern(code, pattern) ? value : 0), 0);
+
+const scoreEnhancedTypeScriptPatterns = (code: string): number =>
+	fg('platform_editor_code_block_dogfooding_patch')
+		? scorePatterns(code, [
+				[/\b(?:private|protected|public|readonly)\s+[\w$]+\s*=/, 5],
+				[
+					/\([^)]{0,500}\b[\w$]+\??:\s*[A-Za-z_$][\w$<>{}\[\]|&,\s.?]{0,200}[^)]{0,500}\)\s*(?::\s*[A-Za-z_$][\w$<>{}\[\]|&,\s.?]{0,200})?\s*=>/,
+					5,
+				],
+			])
+		: 0;
 
 const looksLikeHtmlTagPair = (code: string): boolean => {
 	const openTags = new Set<string>();
@@ -112,13 +125,14 @@ const getLanguageScores = (code: string): LanguageScore[] => [
 	},
 	{
 		language: 'typescript',
-		score: scorePatterns(code, [
-			[/\b(?:interface|type)\s+[A-Z_$][\w$]*(?:\s*[=<{])/, 5],
-			[/\bimport\s+type\b|\bexport\s+type\b/, 4],
-			[/\b(?:const|let|var)\s+[\w$]+\s*:\s*[A-Za-z_$][\w$<>|\[\],\s]*/, 4],
-			[/\)\s*:\s*(?:Promise<)?[A-Za-z_$][\w$<>|\[\],\s]*(?:>|\s)?\s*=>?\s*[{;]/, 3],
-			[/\b(?:as\s+const|implements\s+[A-Z_$]|enum\s+[A-Z_$])/, 3],
-		]),
+		score:
+			scorePatterns(code, [
+				[/\b(?:interface|type)\s+[A-Z_$][\w$]*(?:\s*[=<{])/, 5],
+				[/\bimport\s+type\b|\bexport\s+type\b/, 4],
+				[/\b(?:const|let|var)\s+[\w$]+\s*:\s*[A-Za-z_$][\w$<>|\[\],\s]*/, 4],
+				[/\)\s*:\s*(?:Promise<)?[A-Za-z_$][\w$<>|\[\],\s]*(?:>|\s)?\s*=>?\s*[{;]/, 3],
+				[/\b(?:as\s+const|implements\s+[A-Z_$]|enum\s+[A-Z_$])/, 3],
+			]) + scoreEnhancedTypeScriptPatterns(code),
 	},
 	{
 		language: 'javascript',

@@ -48,6 +48,7 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"react-relay": "root:*",
@@ -59,7 +60,6 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"react": "root:*",
 		"react-intl": "root:*",
 		"typescript": "root:*"

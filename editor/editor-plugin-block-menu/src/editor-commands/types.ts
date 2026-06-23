@@ -21,6 +21,7 @@ export type TransfromNodeTargetType =
 
 export type TransformNodeMetadata = {
 	inputMethod: INPUT_METHOD.BLOCK_MENU;
+	isSuggested?: boolean;
 	targetAttrs?: Record<string, unknown>;
 	targetTypeName: TransfromNodeTargetType;
 	triggeredFrom: INPUT_METHOD.MOUSE | INPUT_METHOD.KEYBOARD;

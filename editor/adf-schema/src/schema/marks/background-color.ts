@@ -1,4 +1,5 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { backgroundColor as backgroundColorFactory } from '../../next-schema/generated/markTypes';
 
 import {
@@ -83,6 +84,17 @@ colorArrayPaletteNew.forEach(([color, label]) =>
 	backgroundColorPaletteNew.set(color.toLowerCase(), label),
 );
 
+const isSupportedBackgroundColor = (hexColor: string): boolean => {
+	if (backgroundColorPalette.has(hexColor)) {
+		return true;
+	}
+
+	return (
+		expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+		backgroundColorPaletteNew.has(hexColor)
+	);
+};
+
 export const backgroundColor: MarkSpec = backgroundColorFactory({
 	parseDOM: [
 		{
@@ -96,7 +108,7 @@ export const backgroundColor: MarkSpec = backgroundColorFactory({
 					hexColor = value.toLowerCase();
 				}
 				// else handle other colour formats
-				return hexColor && backgroundColorPalette.has(hexColor) ? { color: hexColor } : false;
+				return hexColor && isSupportedBackgroundColor(hexColor) ? { color: hexColor } : false;
 			},
 		},
 		// This rule ensures when loading from a renderer or editor where the
@@ -114,7 +126,7 @@ export const backgroundColor: MarkSpec = backgroundColorFactory({
 
 				const hexColor = maybeElement.dataset.backgroundCustomColor;
 
-				return hexColor && backgroundColorPalette.has(hexColor) ? { color: hexColor } : false;
+				return hexColor && isSupportedBackgroundColor(hexColor) ? { color: hexColor } : false;
 			},
 		},
 	],

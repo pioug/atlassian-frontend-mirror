@@ -3322,6 +3322,25 @@ events:
           type: number
           description: the status code if the action failed
           required: false
+  - archivedTeamBannerMergedTeam succeeded:
+      type: operational
+      description:
+        fired when the archived team banner successfully loads the merged destination team
+      attributes:
+        teamId:
+          type: string
+          description: the id of the archived team
+  - archivedTeamBannerMergedTeam failed:
+      type: operational
+      description: fired when the archived team banner fails to load the merged destination team
+      attributes:
+        teamId:
+          type: string
+          description: the id of the archived team
+        error:
+          type: string
+          description: error message
+          required: false
   - GetSettings succeeded:
       type: operational
       description: fired when the get settings request is succeeded

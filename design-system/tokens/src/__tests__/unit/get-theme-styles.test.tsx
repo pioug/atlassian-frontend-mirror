@@ -45,6 +45,7 @@ describe('getThemeStyles', () => {
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 			async () => {
@@ -64,6 +65,7 @@ describe('getThemeStyles', () => {
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 		);
@@ -93,6 +95,7 @@ describe('getThemeStyles', () => {
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 			async () => {
@@ -108,6 +111,7 @@ describe('getThemeStyles', () => {
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 		);
@@ -143,6 +147,7 @@ describe('getThemeStyles', () => {
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 					{
 						id: 'light',
 						attrs: {
@@ -178,6 +183,7 @@ describe('getThemeStyles', () => {
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 					{
 						id: 'light',
 						attrs: {
@@ -221,6 +227,7 @@ describe('getThemeStyles', () => {
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 			async () => {
@@ -236,6 +243,7 @@ describe('getThemeStyles', () => {
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 		);
@@ -261,6 +269,7 @@ describe('getThemeStyles', () => {
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 			async () => {
@@ -276,6 +285,7 @@ describe('getThemeStyles', () => {
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 		);
@@ -301,6 +311,7 @@ describe('getThemeStyles', () => {
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 			async () => {
@@ -316,6 +327,7 @@ describe('getThemeStyles', () => {
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 		);
@@ -338,6 +350,7 @@ describe('getThemeStyles', () => {
 					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 			async () => {
@@ -350,6 +363,7 @@ describe('getThemeStyles', () => {
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
 			},
 		);

@@ -32,6 +32,9 @@
 			"path": "../../../platform/feature-flags-react/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
 		},
 		{

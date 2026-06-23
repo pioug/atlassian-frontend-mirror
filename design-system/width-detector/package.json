@@ -31,6 +31,7 @@
 		}
 	},
 	"dependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"raf-schd": "root:*"
 	},
@@ -42,7 +43,6 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@compiled/react": "root:*",
 		"@testing-library/react": "root:*",

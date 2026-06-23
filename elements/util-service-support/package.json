@@ -36,11 +36,11 @@
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"meros": "root:*"
 	},
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"sinon": "root:*"

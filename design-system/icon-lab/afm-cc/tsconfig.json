@@ -24,6 +24,9 @@
 	"references": [
 		{
 			"path": "../../icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		}
 	]
 }

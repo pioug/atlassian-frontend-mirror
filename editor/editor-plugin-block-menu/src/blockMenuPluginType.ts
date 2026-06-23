@@ -133,7 +133,14 @@ export type BlockMenuNestedSectionComponent = (props: {
 	children: React.ReactNode;
 }) => React.ReactNode;
 
-export type BlockMenuItemComponent = () => React.ReactNode;
+export type BlockMenuItemComponentProps = {
+	/**
+	 * TODO: Make this required when cleaning up platform_editor_blocks_patch_2.
+	 */
+	isSuggested?: boolean;
+};
+
+export type BlockMenuItemComponent = (props?: BlockMenuItemComponentProps) => React.ReactNode;
 
 export type RegisterBlockMenuNested = BlockMenuNested & {
 	component?: BlockMenuNestedComponent;

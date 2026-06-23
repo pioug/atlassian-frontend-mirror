@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../embedded-confluence-common/afm-products/tsconfig.json"
 		},
 		{

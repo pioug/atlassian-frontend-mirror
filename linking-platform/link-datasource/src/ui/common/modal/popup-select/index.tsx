@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import isEqual from 'lodash/isEqual';
 import { useIntl } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type InputActionMeta, PopupSelect, type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -220,7 +219,7 @@ export const FilterPopupSelect = ({
 			onInputChange={handleInputChange}
 			onOpen={handleMenuOpen}
 			onClose={handleMenuClose}
-			shouldPreventEscapePropagation={fg('platform_navx_sllv_dropdown_escape_and_focus_fix')}
+			shouldPreventEscapePropagation
 			target={({ isOpen, ...triggerProps }) => (
 				<PopupTrigger
 					{...triggerProps}

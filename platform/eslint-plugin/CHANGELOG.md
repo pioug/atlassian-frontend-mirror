@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 3.0.2
+
+### Patch Changes
+
+- [`c0033c3fe63b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0033c3fe63b3) -
+  Raise AI Mate double type assertion linting to error for new violations. Keep the current AI Mate
+  double assertion baseline explicit with targeted inline ESLint disable comments.
+
 ## 3.0.1
 
 ### Patch Changes

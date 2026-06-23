@@ -30,16 +30,14 @@ export const useLoadItems = (
 	const [items, setItems] = useState<Array<TypeAheadItem>>(EMPTY_LIST_ITEM);
 	const componentIsMounted = useRef(true);
 	const editorViewRef = useRef(editorView);
+	const latestQueryRef = useRef(query);
+	latestQueryRef.current = query;
 
 	useEffect(() => {
-		const getItems = triggerHandler?.getItems;
-		if (!getItems) {
-			setItems(EMPTY_LIST_ITEM);
-			return;
-		}
-
+		const requestQuery = query;
+		const isStaleRequest = () => latestQueryRef.current !== requestQuery;
 		const options = {
-			query: query || '',
+			query: requestQuery || '',
 			editorState: editorView.state,
 		};
 
@@ -52,50 +50,92 @@ export const useLoadItems = (
 			});
 		}
 
-		getItems(options)
-			.then((result) => {
-				// Inject empty list item here so it flows through the normal list rendering and keyboard
-				// navigation paths
-				const emptyItem =
-					result.length === 0 && expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
-						? triggerHandler.getEmptyItem?.({ editorState: editorView.state })
-						: undefined;
+		/**
+		 * Shared render pipeline used by both the single-shot `getItems`
+		 * Promise path and the opt-in multi-emit `subscribeToItemsUpdates`
+		 * path. Renders the dropdown with whatever items it is given.
+		 *
+		 * Both paths share the empty-state injection, section-building
+		 * and "View more" placeholder logic — extracting this helper
+		 * avoids any chance the two paths drift in subtle rendering
+		 * behaviour.
+		 */
+		const renderResult = (result: Array<TypeAheadItem>) => {
+			const emptyItem =
+				result.length === 0 && expValEquals('platform_editor_insert_menu_ai', 'isEnabled', true)
+					? triggerHandler.getEmptyItem?.({ editorState: editorView.state })
+					: undefined;
 
-				const rawList = result.length > 0 ? result : emptyItem ? [emptyItem] : EMPTY_LIST_ITEM;
-				const { items: list, sections } = buildSectionedResult({
-					items: rawList,
-					triggerHandler,
-					intl: intl ?? null,
-				});
-
-				if (componentIsMounted.current) {
-					setItems(list);
-				}
-
-				// Add a placeholder item for view more button so that it can be traversed with arrow keys
-				const viewMoreItem: TypeAheadItem = {
-					title: 'View more',
-				};
-
-				queueMicrotask(() => {
-					updateListItem(showViewMore ? list.concat(viewMoreItem) : list, sections)(
-						view.state,
-						view.dispatch,
-					);
-				});
-			})
-			.catch((e) => {
-				if (editorExperiment('platform_editor_offline_editing_web', true)) {
-					if (e) {
-						if (componentIsMounted.current) {
-							setItems(EMPTY_LIST_ITEM);
-						}
-						queueMicrotask(() => {
-							updateListError(e)(view.state, view.dispatch);
-						});
-					}
-				}
+			const rawList = result.length > 0 ? result : emptyItem ? [emptyItem] : EMPTY_LIST_ITEM;
+			const { items: list, sections } = buildSectionedResult({
+				items: rawList,
+				triggerHandler,
+				intl: intl ?? null,
 			});
+
+			if (componentIsMounted.current) {
+				setItems(list);
+			}
+
+			const viewMoreItem: TypeAheadItem = { title: 'View more' };
+			queueMicrotask(() => {
+				updateListItem(showViewMore ? list.concat(viewMoreItem) : list, sections)(
+					view.state,
+					view.dispatch,
+				);
+			});
+		};
+
+		// Matches the pre-refactor implicit-any contract for the original
+		// `.catch((e) => updateListError(e)(...))` path.
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const handleError = (e: any) => {
+			if (editorExperiment('platform_editor_offline_editing_web', true)) {
+				if (e) {
+					if (componentIsMounted.current) {
+						setItems(EMPTY_LIST_ITEM);
+					}
+					queueMicrotask(() => {
+						updateListError(e)(view.state, view.dispatch);
+					});
+				}
+			}
+		};
+
+		// Multi-emit path: handler opts in by implementing
+		// `subscribeToItemsUpdates`. The handler controls when to push
+		// updates; we re-render on every push for the lifetime of this
+		// effect.
+		const subscribeToItemsUpdates = triggerHandler?.subscribeToItemsUpdates;
+		if (subscribeToItemsUpdates) {
+			let stale = false;
+			const { initial, subscribe } = subscribeToItemsUpdates(options);
+			initial
+				.then((result) => {
+					if (!stale && !isStaleRequest()) {
+						renderResult(result);
+					}
+				})
+				.catch(handleError);
+			const unsubscribe = subscribe((items) => {
+				if (stale || isStaleRequest() || !componentIsMounted.current) {
+					return;
+				}
+				renderResult(items);
+			});
+			return () => {
+				stale = true;
+				unsubscribe();
+			};
+		}
+
+		// Existing single-shot path. Unchanged in behaviour.
+		const getItems = triggerHandler?.getItems;
+		if (!getItems) {
+			setItems(EMPTY_LIST_ITEM);
+			return;
+		}
+		getItems(options).then(renderResult).catch(handleError);
 
 		// ignore because EditorView is mutable but we don't want to
 		// call loadItems when it changes, only when the query changes

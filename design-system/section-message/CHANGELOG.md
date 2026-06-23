@@ -1,5 +1,12 @@
 # @atlaskit/section-message
 
+## 9.1.0
+
+### Minor Changes
+
+- [`e2597c94593a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2597c94593a1) -
+  Add ref forwarding to section message actions.
+
 ## 9.0.0
 
 ### Major Changes

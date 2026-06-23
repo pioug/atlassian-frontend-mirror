@@ -114,45 +114,19 @@ describe('UserEditType', () => {
 		expect(() => setup()).not.toThrow();
 	});
 
-	ffTest.on(
-		'platform_navx_sllv_dropdown_escape_and_focus_fix',
-		'shouldPreventEscapePropagation when feature flag is on',
-		() => {
-			it('should stop propagation of Escape key event when feature flag is enabled', async () => {
-				const parentKeyDownHandler = jest.fn();
+	it('should stop propagation of Escape key event', async () => {
+		const parentKeyDownHandler = jest.fn();
 
-				setup(undefined, parentKeyDownHandler);
+		setup(undefined, parentKeyDownHandler);
 
-				const input = await screen.findByTestId(testId);
+		const input = await screen.findByTestId(testId);
 
-				// Fire Escape key event on the input (menu is open by default)
-				fireEvent.keyDown(input, { key: 'Escape' });
+		// Fire Escape key event on the input (menu is open by default)
+		fireEvent.keyDown(input, { key: 'Escape' });
 
-				// Event should not propagate to parent because stopPropagation is called
-				expect(parentKeyDownHandler).not.toHaveBeenCalled();
-			});
-		},
-	);
-
-	ffTest.off(
-		'platform_navx_sllv_dropdown_escape_and_focus_fix',
-		'shouldPreventEscapePropagation when feature flag is off',
-		() => {
-			it('should not stop propagation of Escape key event when feature flag is disabled', async () => {
-				const parentKeyDownHandler = jest.fn();
-
-				setup(undefined, parentKeyDownHandler);
-
-				const input = await screen.findByTestId(testId);
-
-				// Fire Escape key event on the input (menu is open by default)
-				fireEvent.keyDown(input, { key: 'Escape' });
-
-				// Event should propagate to parent because stopPropagation is not called
-				expect(parentKeyDownHandler).toHaveBeenCalled();
-			});
-		},
-	);
+		// Event should not propagate to parent because stopPropagation is called
+		expect(parentKeyDownHandler).not.toHaveBeenCalled();
+	});
 
 	ffTest.on('platform_navx_sllv_j2ws_dropdown_for_single_row', '', () => {
 		it('should render dropdown menu in portal when feature flag is enabled', async () => {

@@ -14,8 +14,10 @@ const NODE_NAME = 'taskList';
 
 export const TaskListBlockMenuItem = ({
 	api,
+	isSuggested,
 }: {
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
+	isSuggested?: boolean;
 }): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
@@ -29,6 +31,7 @@ export const TaskListBlockMenuItem = ({
 		api?.core.actions.execute(({ tr }) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.taskList, {
 				inputMethod,
+				isSuggested,
 				triggeredFrom,
 				targetTypeName: NODE_NAME,
 			});

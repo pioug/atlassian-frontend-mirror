@@ -135,7 +135,7 @@ describe('DatasourceModal', () => {
 		expect(onModalCloseFn).toHaveBeenCalledTimes(0);
 	});
 
-	it('when triggering inline-edit dropdowns, pressing Escape, should cancel editing and keep the modal open', async () => {
+	it('when triggering inline-edit dropdowns, pressing Escape, should keep editing and keep the modal open', async () => {
 		const onModalCloseFn = jest.fn();
 		const executeFn = jest.fn();
 		render(
@@ -178,7 +178,8 @@ describe('DatasourceModal', () => {
 			charCode: 27,
 		});
 
-		expect(screen.getByTestId(testIds.readView)).toBeInTheDocument();
+		expect(screen.getByTestId('inline-edit-status-select--container')).toBeInTheDocument();
+		expect(screen.queryByTestId(testIds.readView)).not.toBeInTheDocument();
 
 		expect(onModalCloseFn).toHaveBeenCalledTimes(0);
 	});

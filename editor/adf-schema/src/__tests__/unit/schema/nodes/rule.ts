@@ -1,6 +1,6 @@
 import { createSchema } from '../../../../schema/create-schema';
 import { fromHTML, toHTML } from '@af/adf-test-helpers/src/adf-schema/html-helpers';
-import { rule } from '../../../..';
+import { rule, ruleRootOnlyStage0 } from '../../../../schema/nodes/rule';
 
 const schema = makeSchema();
 const packageName = process.env.npm_package_name as string;
@@ -18,6 +18,25 @@ describe(`${packageName}/schema rule node`, () => {
 			},
 			parseDOM: [
 				{
+					tag: 'hr',
+				},
+			],
+			toDOM: expect.anything(),
+		});
+	});
+
+	it('should return correct stage-0 root-only node spec', () => {
+		expect(ruleRootOnlyStage0).toStrictEqual({
+			group: 'block',
+			marks: 'breakout unsupportedMark unsupportedNodeAttribute',
+			attrs: {
+				localId: {
+					default: null,
+				},
+			},
+			parseDOM: [
+				{
+					getAttrs: expect.any(Function),
 					tag: 'hr',
 				},
 			],

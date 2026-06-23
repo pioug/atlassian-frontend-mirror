@@ -1,11 +1,18 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import type { DetailedHTMLProps, HTMLAttributes } from 'react';
+import type {
+	ComponentPropsWithoutRef,
+	DetailedHTMLProps,
+	ForwardRefExoticComponent,
+	HTMLAttributes,
+	RefAttributes,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { Theme } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled, { type StyledComponent } from '@emotion/styled';
 
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -67,7 +74,25 @@ export const AutocompleteOptionsContainer: StyledComponent<
 	});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const OptionList: StyledComponent<
+export const AutocompleteSectionTitle: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement>,
+	{}
+> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.h4({
+		borderBottom: `solid ${token('border.width')} ${token('color.border')}`,
+		color: token('color.text'),
+		margin: token('space.0'),
+		marginBottom: token('space.050'),
+		padding: `${token('space.100')}`,
+	});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const OptionListLi: StyledComponent<
 	{
 		as?: React.ElementType;
 		theme?: Theme;
@@ -82,6 +107,32 @@ export const OptionList: StyledComponent<
 		padding: `${token('space.0')}`,
 	});
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const OptionListDiv: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div({
+		margin: `${token('space.0')}`,
+		padding: `${token('space.0')}`,
+	});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export type OptionListComponent = ForwardRefExoticComponent<
+	ComponentPropsWithoutRef<typeof OptionListDiv> & RefAttributes<HTMLDivElement | HTMLUListElement>
+>;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const OptionList: OptionListComponent = componentWithFG(
+	'enable-jql-membersof-autocomplete',
+	OptionListDiv,
+	OptionListLi,
+) as OptionListComponent;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AutocompleteLoadingFooter: StyledComponent<
 	{

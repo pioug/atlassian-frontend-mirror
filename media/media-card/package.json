@@ -74,6 +74,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"classnames": "root:*",
@@ -104,7 +105,6 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/ufo": "workspace:^",
 		"@testing-library/dom": "root:*",
@@ -187,6 +187,10 @@
 			"type": "boolean"
 		},
 		"platform_media_ssr_data_seed": {
+			"type": "boolean"
+		},
+		"create_modernization_ga_fixes_drop_2": {
+			"referenceOnly": true,
 			"type": "boolean"
 		}
 	},

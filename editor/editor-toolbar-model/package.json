@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
@@ -36,7 +37,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-toolbar": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"

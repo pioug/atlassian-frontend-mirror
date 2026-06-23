@@ -63,6 +63,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/top-layer": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@popperjs/core": "root:*",
@@ -90,7 +91,6 @@
 		"@atlaskit/radio": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
@@ -122,9 +122,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		},
-		"platform_navx_sllv_dropdown_escape_and_focus_fix": {
 			"type": "boolean"
 		},
 		"platform-dst-top-layer": {

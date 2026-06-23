@@ -63,6 +63,7 @@ export const transformNode: (
 			sourceNodes.length === 1 &&
 			(sourceNodes[0].type === nodes.paragraph || sourceNodes[0].type === nodes.heading) &&
 			(sourceNodes[0].content.size === 0 || sourceNodes[0].textContent.trim() === '');
+		const isSuggested = Boolean(metadata?.isSuggested);
 
 		try {
 			const resultNodes = convertNodesToTargetType({
@@ -133,6 +134,7 @@ export const transformNode: (
 						duration,
 						isEmptyLine,
 						isNested,
+						...(fg('platform_editor_blocks_patch_2') ? { isSuggested } : {}),
 						sourceNodesCount: sourceNodes.length,
 						sourceNodesCountByType: sourceNodeTypes,
 						sourceNodeType: sourceNodes.length === 1 ? sourceNodes[0].type.name : 'multiple',

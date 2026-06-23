@@ -74,6 +74,7 @@
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
@@ -90,7 +91,6 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/tag-group": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",

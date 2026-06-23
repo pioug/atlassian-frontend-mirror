@@ -2,6 +2,8 @@
 export type {
 	BlockMenuPlugin,
 	RegisterBlockMenuComponent,
+	BlockMenuItemComponentProps,
+	BlockMenuItemComponent,
 	Parent,
 	BlockMenuPluginOptions,
 	BlockMenuSharedState,

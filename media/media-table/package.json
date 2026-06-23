@@ -44,6 +44,7 @@
 		"@atlaskit/media-viewer": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"memoize-one": "root:*"
 	},
@@ -59,7 +60,6 @@
 		"@atlaskit/media-core": "workspace:^",
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/range": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@emotion/react": "root:*",
 		"@testing-library/react": "root:*",

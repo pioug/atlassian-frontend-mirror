@@ -32,6 +32,7 @@
 		"ak-postbuild": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --config config/webpack.prod.js"
 	},
 	"dependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -40,7 +41,6 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react": "root:*",

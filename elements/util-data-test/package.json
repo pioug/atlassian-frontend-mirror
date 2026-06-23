@@ -89,6 +89,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/user-picker": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*",
 		"memoize-one": "root:*",

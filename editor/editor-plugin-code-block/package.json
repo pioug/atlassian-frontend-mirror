@@ -109,6 +109,9 @@
 		"platform_editor_code_block_add_line_number_button": {
 			"type": "boolean"
 		},
+		"platform_editor_code_block_dogfooding_patch": {
+			"type": "boolean"
+		},
 		"platform_editor_code_block_language_detection_flow": {
 			"type": "boolean"
 		}

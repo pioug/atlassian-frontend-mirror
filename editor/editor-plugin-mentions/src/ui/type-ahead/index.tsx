@@ -298,6 +298,82 @@ type Props = {
 	mentionInsertDisplayName?: boolean;
 	sanitizePrivateContent?: boolean;
 };
+/**
+ * Shared mentions → typeahead-items transformer used by both the
+ * single-shot `getItems` Promise path and the multi-emit
+ * `subscribeToItemsUpdates` path. Factoring this out avoids any
+ * chance the two paths drift in subtle item-shape behaviour (invite
+ * item injection, analytics emission, no-results bookkeeping).
+ *
+ * NOTE: `firstQueryWithoutResults` is captured by closure in
+ * `createTypeAheadConfig` and intentionally mutated here as a
+ * side-effect — preserves the existing single-shot semantics.
+ */
+const makeTransformMentionsToTypeAheadItems = ({
+	fireEvent,
+	getFirstQueryWithoutResults,
+	setFirstQueryWithoutResults,
+}: {
+	fireEvent: FireElementsChannelEvent;
+	getFirstQueryWithoutResults: () => string | null;
+	setFirstQueryWithoutResults: (query: string) => void;
+}) => {
+	return ({
+		mentions,
+		query,
+		stats,
+		mentionProvider,
+		contextIdentifierProvider,
+		sessionId,
+	}: {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		contextIdentifierProvider: any;
+		mentionProvider: MentionProvider;
+		mentions: MentionDescription[];
+		query: string;
+		sessionId: string;
+		stats?: MentionStats;
+	}): Array<TypeAheadItem> => {
+		const mentionItems = mentions.map((mention) => memoizedToItem.call(mention));
+
+		buildAndSendElementsTypeAheadAnalytics(fireEvent)({
+			query,
+			mentions,
+			stats,
+		});
+
+		if (mentions.length === 0 && getFirstQueryWithoutResults() === null) {
+			setFirstQueryWithoutResults(query);
+		}
+
+		if (!mentionProvider.shouldEnableInvite || mentionItems.length > 2) {
+			return mentionItems;
+		}
+
+		const emailDomain = mentionProvider.userEmailDomain;
+		return withInviteItem({
+			mentionProvider,
+			firstQueryWithoutResults: getFirstQueryWithoutResults() || '',
+			currentQuery: query,
+			onInviteItemMount: () => {
+				fireEvent(
+					buildTypeAheadInviteItemViewedPayload(
+						sessionId,
+						contextIdentifierProvider,
+						mentionProvider.userRole,
+						fg('jira_invites_auto_tag_new_user_in_mentions_fg')
+							? {
+									isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.(),
+								}
+							: {},
+					),
+				);
+			},
+			emailDomain,
+		})(mentionItems);
+	};
+};
+
 export const createTypeAheadConfig = ({
 	sanitizePrivateContent,
 	mentionInsertDisplayName,
@@ -310,6 +386,14 @@ export const createTypeAheadConfig = ({
 	let sessionId = uuid();
 	let firstQueryWithoutResults: string | null = null;
 	const subscriptionKeys = new Set<string>();
+
+	const transformMentionsToTypeAheadItems = makeTransformMentionsToTypeAheadItems({
+		fireEvent,
+		getFirstQueryWithoutResults: () => firstQueryWithoutResults,
+		setFirstQueryWithoutResults: (query: string) => {
+			firstQueryWithoutResults = query;
+		},
+	});
 
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.MENTION,
@@ -349,47 +433,15 @@ export const createTypeAheadConfig = ({
 
 					mentionProvider.unsubscribe(key);
 					subscriptionKeys.delete(key);
-					const mentionItems = mentions.map((mention) => memoizedToItem.call(mention));
-
-					buildAndSendElementsTypeAheadAnalytics(fireEvent)({
-						query,
+					const items = transformMentionsToTypeAheadItems({
 						mentions,
+						query,
 						stats,
+						mentionProvider,
+						contextIdentifierProvider,
+						sessionId,
 					});
-
-					if (mentions.length === 0 && firstQueryWithoutResults === null) {
-						firstQueryWithoutResults = query;
-					}
-
-					if (!mentionProvider.shouldEnableInvite || mentionItems.length > 2) {
-						resolve(mentionItems);
-					} else {
-						const emailDomain = mentionProvider.userEmailDomain;
-
-						const items = withInviteItem({
-							mentionProvider,
-							firstQueryWithoutResults: firstQueryWithoutResults || '',
-							currentQuery: query,
-							onInviteItemMount: () => {
-								fireEvent(
-									buildTypeAheadInviteItemViewedPayload(
-										sessionId,
-										contextIdentifierProvider,
-										mentionProvider.userRole,
-										fg('jira_invites_auto_tag_new_user_in_mentions_fg')
-											? {
-													isInlineInviteMentionsEnabled:
-														mentionProvider.getShouldEnableInlineInvite?.(),
-												}
-											: {},
-									),
-								);
-							},
-							emailDomain,
-						})(mentionItems);
-
-						resolve(items);
-					}
+					resolve(items);
 				};
 
 				subscriptionKeys.add(key);
@@ -644,6 +696,121 @@ export const createTypeAheadConfig = ({
 			sessionId = uuid();
 		},
 	};
+
+	/**
+	 * Opt-in multi-emit path. Subscribes to the provider's stream of
+	 * results for the lifetime of the type-ahead session — does NOT
+	 * unsubscribe after the first emission. Lets providers like
+	 * `RovoChatMentionResource` deliver people-first then merged
+	 * people + agents to the dropdown without the typeahead dropping
+	 * the second emission on the floor.
+	 *
+	 * Gated behind `rovo_chat_agent_selection` (the same gate that drives
+	 * agent mentions in the Rovo chat input). The generic type-ahead hook
+	 * opts a handler into streaming purely by the presence of this method,
+	 * so we only attach it when the gate is on — otherwise the proven
+	 * single-shot `getItems` path continues to drive every consumer.
+	 */
+	const subscribeToItemsUpdates: NonNullable<TypeAheadHandler['subscribeToItemsUpdates']> = ({
+		query,
+		editorState,
+	}) => {
+		const pluginState = getMentionPluginState(editorState);
+		if (!pluginState?.mentionProvider) {
+			return { initial: Promise.resolve([]), subscribe: () => () => {} };
+		}
+		const { mentionProvider } = pluginState;
+		const { contextIdentifierProvider } = api?.contextIdentifier?.sharedState.currentState() ?? {};
+
+		// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+		const key = `loadingMentionsForTypeAhead_${uuid()}`;
+		let initialResolve: ((items: Array<TypeAheadItem>) => void) | null = null;
+		let initialReject: ((reason?: unknown) => void) | null = null;
+		let initialResolved = false;
+		let updateCallback: ((items: Array<TypeAheadItem>) => void) | null = null;
+		let unsubscribed = false;
+
+		const initial = new Promise<Array<TypeAheadItem>>((resolve, reject) => {
+			initialResolve = resolve;
+			initialReject = reject;
+		});
+
+		const mentionsSubscribeCallback = (
+			mentions: MentionDescription[],
+			resultQuery: string = '',
+			stats?: MentionStats,
+		) => {
+			// Drop emissions tagged with a query that has moved on.
+			// Mirrors the same guard in the single-shot `getItems`.
+			if (query !== resultQuery) {
+				return;
+			}
+			if (unsubscribed) {
+				return;
+			}
+			const items = transformMentionsToTypeAheadItems({
+				mentions,
+				query,
+				stats,
+				mentionProvider,
+				contextIdentifierProvider,
+				sessionId,
+			});
+			if (!initialResolved) {
+				initialResolved = true;
+				initialResolve?.(items);
+			} else {
+				updateCallback?.(items);
+			}
+		};
+
+		subscriptionKeys.add(key);
+		mentionProvider.subscribe(key, mentionsSubscribeCallback, () => {
+			if (editorExperiment('platform_editor_offline_editing_web', true)) {
+				mentionProvider.unsubscribe(key);
+				subscriptionKeys.delete(key);
+				if (!initialResolved) {
+					initialResolved = true;
+					initialReject?.('FETCH_ERROR');
+				}
+			}
+		});
+
+		mentionProvider.filter(query || '', {
+			...contextIdentifierProvider,
+			sessionId,
+		});
+
+		return {
+			initial,
+			subscribe: (update) => {
+				if (updateCallback) {
+					throw new Error('TypeAhead mention updates support only one subscriber');
+				}
+				updateCallback = update;
+				return () => {
+					unsubscribed = true;
+					updateCallback = null;
+					mentionProvider.unsubscribe(key);
+					subscriptionKeys.delete(key);
+					// If cleanup runs before the first emission, settle the initial
+					// promise so its `.then` chain (and the closures it holds) is
+					// released instead of pending forever.
+					if (!initialResolved) {
+						initialResolved = true;
+						initialResolve?.([]);
+					}
+				};
+			},
+		};
+	};
+
+	// Presence of `subscribeToItemsUpdates` is how the type-ahead hook
+	// opts a handler into the multi-emit path, so only expose it when the
+	// agent-selection gate is on.
+	if (fg('rovo_chat_agent_selection')) {
+		typeAhead.subscribeToItemsUpdates = subscribeToItemsUpdates;
+	}
 
 	return typeAhead;
 };

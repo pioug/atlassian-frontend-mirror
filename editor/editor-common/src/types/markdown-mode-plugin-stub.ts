@@ -24,6 +24,7 @@ export type _MarkdownModePluginStateStub = {
 		columnNumber: number;
 		lineCount: number;
 		lineNumber: number;
+		wordCount?: number;
 	} | null;
 	view: 'syntax' | 'split-view' | 'preview';
 	wrapSourceCode: boolean;
@@ -60,7 +61,12 @@ export type _MarkdownModePluginStub = NextEditorPlugin<
 			setSourceInlineFormatState: (state: unknown) => void;
 			setSourceListFormatState: (state: unknown) => void;
 			setSourcePositionState: (
-				state: { columnNumber: number; lineCount: number; lineNumber: number } | null,
+				state: {
+					columnNumber: number;
+					lineCount: number;
+					lineNumber: number;
+					wordCount?: number;
+				} | null,
 			) => void;
 			setView: (view: 'syntax' | 'split-view' | 'preview') => void;
 			setWrapSourceCode: (wrapSourceCode: boolean) => void;

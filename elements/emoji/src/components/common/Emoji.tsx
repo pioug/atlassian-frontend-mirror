@@ -782,7 +782,12 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 				? undefined
 				: emoji.shortName;
 
-	return (
+	const tooltipContent =
+		showTooltip && expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)
+			? emoji.shortName || emoji.name || undefined
+			: undefined;
+
+	const emojiSpan = (
 		<span
 			role={
 				editorEmoji
@@ -797,7 +802,7 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 			ref={ref}
 			data-testid={`${type}-emoji-${emoji.shortName}`}
 			data-emoji-type={type}
-			tabIndex={shouldBeInteractive ? tabIndex || 0 : undefined}
+			tabIndex={shouldBeInteractive ? tabIndex || 0 : tooltipContent ? 0 : undefined}
 			css={[
 				type === 'sprite'
 					? emojiSpriteContainer
@@ -807,22 +812,46 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
-			onKeyDown={(event) => handleKeyDown(props, event)}
-			onMouseDown={(event) => {
-				handleMouseDown(props, event);
-			}}
+			onKeyDown={
+				shouldBeInteractive ||
+				!expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)
+					? (event) => handleKeyDown(props, event)
+					: undefined
+			}
+			onMouseDown={
+				shouldBeInteractive ||
+				!expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)
+					? (event) => {
+							handleMouseDown(props, event);
+						}
+					: undefined
+			}
 			onMouseEnter={(event) => {
 				handleMouseMove(props, event);
 			}}
 			onFocus={(event) => {
 				handleFocus(props, event);
 			}}
-			title={showTooltip ? emoji.shortName : undefined} // TODO: COLLAB-2351 - use @atlaskit/Tooltip in future for non-deletable emoji if enabled showTooltip
+			title={
+				showTooltip && !expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)
+					? emoji.shortName
+					: undefined
+			}
 			{...other}
 		>
 			{children}
 		</span>
 	);
+
+	if (tooltipContent) {
+		return (
+			<Tooltip content={tooltipContent} tag="span">
+				{emojiSpan}
+			</Tooltip>
+		);
+	}
+
+	return emojiSpan;
 });
 
 export const Emoji = (props: Props): JSX.Element => {

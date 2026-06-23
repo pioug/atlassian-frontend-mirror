@@ -55,6 +55,7 @@
 		"@atlaskit/toggle": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
 		"@emotion/serialize": "root:*"
@@ -65,7 +66,6 @@
 	"devDependencies": {
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/forge-ui": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@types/node": "root:*",
 		"lodash": "root:*",
 		"react": "root:*",

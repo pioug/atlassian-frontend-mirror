@@ -1,5 +1,12 @@
 # @atlaskit/spotlight
 
+## 1.0.1
+
+### Patch Changes
+
+- [`ea69f44d1d210`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea69f44d1d210) -
+  Undeprecate `offset` prop.
+
 ## 1.0.0
 
 ### Major Changes

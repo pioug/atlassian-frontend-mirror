@@ -28,7 +28,7 @@ describe('getThemeHtmlAttrs', () => {
 
 		expect(result).toHaveProperty(
 			THEME_DATA_ATTRIBUTE,
-			'dark:dark light:light spacing:spacing typography:typography',
+			'dark:dark light:light motion:motion spacing:spacing typography:typography',
 		);
 
 		// SSR doesn't check the media query

@@ -11,6 +11,8 @@ import {
 	tableCellWithNestedTableStage0,
 	tableHeaderWithNestedTableStage0,
 } from './nodes';
+import { ruleRootOnlyStage0 } from './nodes/rule';
+import { extendedPanelRootOnlyStage0 } from './nodes/panel';
 import type { SchemaConfig } from './create-schema';
 import { createSchema } from './create-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
@@ -194,6 +196,8 @@ export const getSchemaBasedOnStage: MemoizedFn<
 				tableRow: tableRowWithNestedTable,
 				tableCell: tableCellWithNestedTableStage0,
 				tableHeader: tableHeaderWithNestedTableStage0,
+				panel: extendedPanelRootOnlyStage0(true),
+				rule: ruleRootOnlyStage0,
 			};
 		}
 

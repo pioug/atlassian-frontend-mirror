@@ -291,6 +291,33 @@ describe('SectionMessage', () => {
 			expect(onClick).toHaveBeenCalledTimes(1);
 		});
 
+		it('should add `ref` to actions', () => {
+			const onClick = jest.fn();
+			const linkRef = React.createRef<HTMLAnchorElement>();
+			const buttonRef = React.createRef<HTMLButtonElement>();
+			const linkComponentRef = React.createRef<HTMLElement>();
+			const actions = [
+				<SectionMessageAction href="zombo.com" ref={linkRef}>
+					Link
+				</SectionMessageAction>,
+				<SectionMessageAction onClick={onClick} ref={buttonRef}>
+					Button
+				</SectionMessageAction>,
+				<SectionMessageAction
+					href="zombo.com"
+					linkComponent={CustomLinkComponent}
+					ref={linkComponentRef}
+				>
+					hello world
+				</SectionMessageAction>,
+			];
+			render(<SectionMessage actions={actions}>boo</SectionMessage>);
+
+			expect(linkRef.current).toBe(screen.getByText('Link'));
+			expect(buttonRef.current).toBe(screen.getByText('Button'));
+			expect(linkComponentRef.current).toBe(screen.getByText('hello world'));
+		});
+
 		it('should NOT render custom component for an action with onClick but no href', () => {
 			const onClick = jest.fn();
 			const action = (

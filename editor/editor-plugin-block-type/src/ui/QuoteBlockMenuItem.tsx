@@ -10,6 +10,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import QuotationMarkIcon from '@atlaskit/icon/core/quotation-mark';
 
@@ -25,11 +26,12 @@ const styles = cssMap({
 
 type QuoteBlockMenuItemProps = {
 	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
+	isSuggested?: boolean;
 };
 
 const NODE_NAME = 'blockquote';
 
-const QuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
+const QuoteBlockMenuItem = ({ api, isSuggested }: QuoteBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
@@ -42,6 +44,7 @@ const QuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
 		api?.core.actions.execute(({ tr }) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.blockquote, {
 				inputMethod,
+				isSuggested,
 				triggeredFrom,
 				targetTypeName: NODE_NAME,
 			});
@@ -64,5 +67,7 @@ const QuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
 };
 
 export const createQuoteBlockMenuItem = ({ api }: QuoteBlockMenuItemProps) => {
-	return (): React.JSX.Element => <QuoteBlockMenuItem api={api} />;
+	return ({ isSuggested }: BlockMenuItemComponentProps = {}): React.JSX.Element => (
+		<QuoteBlockMenuItem api={api} isSuggested={isSuggested} />
+	);
 };

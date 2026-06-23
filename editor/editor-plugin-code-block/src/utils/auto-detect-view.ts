@@ -1,6 +1,7 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CodeBlockPlugin } from '../index';
 import { ACTIONS } from '../pm-plugins/actions';
@@ -49,6 +50,7 @@ const runPendingDetection = (
 
 	const detectedLanguage = detectLanguage(found.node.textContent);
 	const detectionResult = detectedLanguage ? 'detected' : 'noneDetected';
+	const detectionPhase = entry.detectionResult ? 'redetection' : 'initial';
 	// Keep a previous auto-detected language when the latest snippet is too weak to classify.
 	const shouldPreserveAutoDetectedLanguage =
 		!detectedLanguage &&
@@ -63,9 +65,16 @@ const runPendingDetection = (
 	// If there is no confident detection, record the result without clearing user-visible language.
 	const shouldOnlyUpdateDetectionState =
 		!detectedLanguage && (!found.node.attrs.language || shouldPreserveAutoDetectedLanguage);
+	const hasDetectedLanguageChange =
+		Boolean(detectedLanguage) && found.node.attrs.language !== detectedLanguage;
+	const shouldClearStaleLanguage =
+		!detectedLanguage && Boolean(found.node.attrs.language) && !shouldPreserveAutoDetectedLanguage;
+	const shouldUpdateNodeLanguage = fg('platform_editor_code_block_dogfooding_patch')
+		? hasDetectedLanguageChange || shouldClearStaleLanguage
+		: !shouldOnlyUpdateDetectionState;
 
 	api?.core?.actions.execute(({ tr }) => {
-		if (!shouldOnlyUpdateDetectionState) {
+		if (shouldUpdateNodeLanguage) {
 			tr.setNodeMarkup(
 				found.pos,
 				undefined,
@@ -78,15 +87,19 @@ const runPendingDetection = (
 			type: ACTIONS.SET_AUTO_DETECT_ENTRY,
 			data: { localId, entry: nextEntry },
 		});
-		api?.analytics?.actions.attachAnalyticsEvent({
-			action: ACTION.LANGUAGE_AUTO_DETECTED,
-			actionSubject: ACTION_SUBJECT.CODE_BLOCK,
-			attributes: {
-				language: detectedLanguage ?? 'none',
-				detectionResult,
-			},
-			eventType: EVENT_TYPE.TRACK,
-		})(tr);
+		// When platform_editor_code_block_dogfooding_patch is cleaned up, merge this with the previous shouldUpdateNodeLanguage check.
+		if (!fg('platform_editor_code_block_dogfooding_patch') || shouldUpdateNodeLanguage) {
+			api?.analytics?.actions.attachAnalyticsEvent({
+				action: ACTION.LANGUAGE_AUTO_DETECTED,
+				actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+				attributes: {
+					language: detectedLanguage ?? 'none',
+					detectionResult,
+					...(fg('platform_editor_code_block_dogfooding_patch') ? { detectionPhase } : {}),
+				},
+				eventType: EVENT_TYPE.TRACK,
+			})(tr);
+		}
 		// Language detection runs in the background and should not move the viewport.
 		return tr.setMeta('scrollIntoView', false);
 	});

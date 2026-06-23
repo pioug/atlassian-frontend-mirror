@@ -73,6 +73,7 @@ const backgroundColor = (isSelected: boolean) => {
 type ButtonIndicatorProps = {
 	panelId: string;
 	tabId: string;
+	label: string;
 	appearance: DotsAppearance;
 	isSelected: boolean;
 	testId?: string;
@@ -105,6 +106,7 @@ export const ButtonIndicator: ({
 	appearance,
 	panelId,
 	tabId,
+	label,
 	isSelected,
 	onClick,
 	testId,
@@ -112,6 +114,7 @@ export const ButtonIndicator: ({
 	appearance,
 	panelId,
 	tabId,
+	label,
 	isSelected,
 	onClick,
 	testId,
@@ -128,7 +131,7 @@ export const ButtonIndicator: ({
 			tabIndex={isSelected ? -1 : undefined}
 			testId={testId}
 		>
-			<VisuallyHidden>{tabId}</VisuallyHidden>
+			<VisuallyHidden>{label}</VisuallyHidden>
 		</Pressable>
 	);
 };

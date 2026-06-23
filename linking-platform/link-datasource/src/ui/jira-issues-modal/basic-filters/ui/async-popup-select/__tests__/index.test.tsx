@@ -69,7 +69,9 @@ const setup = ({
 		</AnalyticsListener>,
 	);
 
-	const triggerButton = renderResult.queryByTestId(`jlol-basic-filter-${filterType}-trigger`);
+	const triggerButton = renderResult.queryByTestId(
+		`jlol-basic-filter-${filterType}-trigger--button`,
+	);
 
 	if (openPicker) {
 		invariant(triggerButton);
@@ -594,7 +596,7 @@ describe('Testing AsyncPopupSelect', () => {
 		);
 
 		// after rerender, open the popup again
-		const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger`);
+		const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger--button`);
 
 		invariant(triggerButton);
 		fireEvent.click(triggerButton);
@@ -801,7 +803,7 @@ describe('Analytics: AsyncPopupSelect', () => {
 			status: 'resolved',
 		});
 
-		const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger`);
+		const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger--button`);
 
 		invariant(triggerButton);
 		fireEvent.click(triggerButton);
@@ -847,7 +849,7 @@ describe('Analytics: AsyncPopupSelect', () => {
 			status: 'resolved',
 		});
 
-		const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger`);
+		const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger--button`);
 
 		invariant(triggerButton);
 		fireEvent.click(triggerButton);

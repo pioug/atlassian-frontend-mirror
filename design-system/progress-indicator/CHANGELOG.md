@@ -1,5 +1,12 @@
 # @atlaskit/progress-indicator
 
+## 13.0.1
+
+### Patch Changes
+
+- [`6fa577ac3e5ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fa577ac3e5ea) -
+  Add descriptive accessible labels for carousel controls and selectable progress indicators.
+
 ## 13.0.0
 
 ### Major Changes

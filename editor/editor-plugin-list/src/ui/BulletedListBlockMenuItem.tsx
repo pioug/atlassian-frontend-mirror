@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { listMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 
@@ -12,11 +13,12 @@ import type { ListPlugin } from '../listPluginType';
 
 type BulletedListBlockMenuItemProps = {
 	api: ExtractInjectionAPI<ListPlugin> | undefined;
+	isSuggested?: boolean;
 };
 
 const NODE_NAME = 'bulletList';
 
-const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
+const BulletedListBlockMenuItem = ({ api, isSuggested }: BulletedListBlockMenuItemProps) => {
 	const { formatMessage } = useIntl();
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
@@ -29,6 +31,7 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 		api?.core.actions.execute(({ tr }) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.bulletList, {
 				inputMethod,
+				isSuggested,
 				triggeredFrom,
 				targetTypeName: NODE_NAME,
 			});
@@ -47,5 +50,7 @@ const BulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
 };
 
 export const createBulletedListBlockMenuItem = ({ api }: BulletedListBlockMenuItemProps) => {
-	return (): React.JSX.Element => <BulletedListBlockMenuItem api={api} />;
+	return ({ isSuggested }: BlockMenuItemComponentProps = {}): React.JSX.Element => (
+		<BulletedListBlockMenuItem api={api} isSuggested={isSuggested} />
+	);
 };

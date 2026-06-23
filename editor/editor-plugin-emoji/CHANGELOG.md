@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-emoji
 
+## 13.0.9
+
+### Patch Changes
+
+- [`e108322f4ea71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e108322f4ea71) -
+  Add emoji tooltip on hover using VanillaTooltip behind platform_editor_emoji_hover_show_tooltip
+  experiment
+- Updated dependencies
+
 ## 13.0.8
 
 ### Patch Changes

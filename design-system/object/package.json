@@ -81,6 +81,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tile": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"tiny-invariant": "root:*"
@@ -95,7 +96,6 @@
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"fs-extra": "root:*",

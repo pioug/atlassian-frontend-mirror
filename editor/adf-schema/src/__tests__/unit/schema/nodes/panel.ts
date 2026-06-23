@@ -6,6 +6,8 @@ import {
 	extendedPanel,
 	extendedPanelC1,
 	extendedPanelC1WithLocalId,
+	extendedPanelC1RootOnlyStage0,
+	extendedPanelRootOnlyStage0,
 } from '../../../../schema/nodes/panel';
 import { panel, panelC1 } from '../../../../next-schema';
 
@@ -96,6 +98,80 @@ describe(`${packageName}/schema panel node `, () => {
 				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
 			group: 'block',
 			marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			parseDOM: [
+				{
+					getAttrs: expect.anything(),
+					tag: 'div[data-panel-type]',
+				},
+			],
+			selectable: true,
+			toDOM: expect.anything(),
+		});
+	});
+
+	it('should return correct stage-0 root-only node spec', () => {
+		expect(extendedPanelRootOnlyStage0(true)).toStrictEqual({
+			attrs: {
+				panelColor: {
+					default: null,
+				},
+				panelIcon: {
+					default: null,
+				},
+				panelIconId: {
+					default: null,
+				},
+				panelIconText: {
+					default: null,
+				},
+				panelType: {
+					default: 'info',
+				},
+				localId: {
+					default: null,
+				},
+			},
+			content:
+				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
+			group: 'block',
+			marks: 'breakout fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+			parseDOM: [
+				{
+					getAttrs: expect.anything(),
+					tag: 'div[data-panel-type]',
+				},
+			],
+			selectable: true,
+			toDOM: expect.anything(),
+		});
+	});
+
+	it('should return correct stage-0 c1 root-only node spec', () => {
+		expect(extendedPanelC1RootOnlyStage0(true)).toStrictEqual({
+			attrs: {
+				panelColor: {
+					default: null,
+				},
+				panelIcon: {
+					default: null,
+				},
+				panelIconId: {
+					default: null,
+				},
+				panelIconText: {
+					default: null,
+				},
+				panelType: {
+					default: 'info',
+				},
+				localId: {
+					default: null,
+				},
+			},
+			content:
+				'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension | table)+',
+			group: 'block',
+			marks: 'breakout fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
 			parseDOM: [
 				{
 					getAttrs: expect.anything(),

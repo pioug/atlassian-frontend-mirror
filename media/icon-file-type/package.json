@@ -42,6 +42,7 @@
 	"dependencies": {
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:^"
 	},
@@ -50,7 +51,6 @@
 	},
 	"devDependencies": {
 		"@af/icon-build-process": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@emotion/styled": "root:*",
 		"fs-extra": "root:*",
 		"jscodeshift": "root:*",

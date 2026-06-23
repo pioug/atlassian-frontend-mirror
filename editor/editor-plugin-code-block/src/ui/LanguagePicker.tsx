@@ -12,6 +12,7 @@ import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 import type { SelectOption } from '@atlaskit/editor-common/types';
 import { akEditorLineHeight } from '@atlaskit/editor-shared-styles';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import {
 	PopupSelect,
@@ -99,12 +100,18 @@ const popupSelectComponents = { Group: CustomGroup, Option: CustomOption };
 
 type PopupSelectTarget = NonNullable<PopupSelectProps<LanguagePickerOption>['target']>;
 type PopupSelectTargetProps = Parameters<PopupSelectTarget>[0];
+type PopupSelectPopperProps = NonNullable<PopupSelectProps['popperProps']>;
+type PopupSelectPopperPlacement = PopupSelectPopperProps['placement'];
 
-const menuPopperProps: NonNullable<PopupSelectProps['popperProps']> = {
+const menuPopperProps: PopupSelectPopperProps = {
 	modifiers: [
 		{ name: 'offset', options: { offset: [0, 8] } },
 		{ name: 'preventOverflow', enabled: false },
 	],
+};
+
+const focusWithoutScrolling = (element: HTMLElement) => {
+	element.focus({ preventScroll: true });
 };
 
 const getRecentlyUsedLanguages = (
@@ -136,6 +143,7 @@ export const LanguagePicker = ({
 	const label = defaultValue?.label ?? formatMessage(codeBlockButtonMessages.selectLanguage);
 	const selectLanguageLabel = formatMessage(codeBlockButtonMessages.selectLanguage);
 	const [hasSearchQuery, setHasSearchQuery] = useState(false);
+	const [lockedPopperPlacement, setLockedPopperPlacement] = useState<PopupSelectPopperPlacement>();
 	const inputValueRef = useRef('');
 	const optionsByValue = useMemo(
 		() => new Map(languagePickerOptions.map((option) => [option.value, option])),
@@ -155,6 +163,22 @@ export const LanguagePicker = ({
 		[formatMessage, languagePickerOptions, recentlyUsedLanguages],
 	);
 	const searchOptions = useMemo(() => options.flatMap((group) => group.options), [options]);
+	const stableMenuPopperProps = useMemo<PopupSelectPopperProps>(
+		() => ({
+			// Allow Popper to choose top on the first open when bottom has no room, then lock the
+			// chosen placement so later hover/search renders do not move the open picker.
+			placement: lockedPopperPlacement ?? 'bottom-start',
+			modifiers: [
+				{ name: 'offset', options: { offset: [0, 8] } },
+				{ name: 'preventOverflow', enabled: false },
+				...(lockedPopperPlacement ? [{ name: 'flip', enabled: false } as const] : []),
+			],
+			onFirstUpdate: ({ placement }) => {
+				setLockedPopperPlacement(placement);
+			},
+		}),
+		[lockedPopperPlacement],
+	);
 	const handleChange = useCallback(
 		(option: ValueType<LanguagePickerOption>) => {
 			if (!option) {
@@ -174,19 +198,42 @@ export const LanguagePicker = ({
 		(newInputValue: string, actionMeta?: { action?: string }) => {
 			// React-select clears the input as part of selecting a value before onChange fires.
 			// Keep the last user-typed query so handleChange can report search selections correctly.
-			if (!actionMeta || actionMeta.action === 'input-change') {
+			const isInputChange = !actionMeta || actionMeta.action === 'input-change';
+			if (isInputChange) {
 				inputValueRef.current = newInputValue;
 			}
-			setHasSearchQuery(newInputValue.trim().length > 0);
-			return newInputValue;
+			if (isInputChange || !fg('platform_editor_code_block_dogfooding_patch')) {
+				setHasSearchQuery(newInputValue.trim().length > 0);
+				return newInputValue;
+			}
+			return inputValueRef.current;
 		},
 		[],
 	);
+	const handleMenuOpen = useCallback(() => {
+		if (fg('platform_editor_code_block_dogfooding_patch')) {
+			inputValueRef.current = '';
+			setHasSearchQuery(false);
+			setLockedPopperPlacement(undefined);
+		}
+		onMenuOpen?.();
+	}, [onMenuOpen]);
+	const handleTriggerMouseDown = useCallback((event: React.MouseEvent<HTMLElement>) => {
+		if (fg('platform_editor_code_block_dogfooding_patch')) {
+			// PopupSelect's FocusLock returns focus to the element that was focused before the
+			// picker opened. If that is the editor/code block, closing the picker can scroll the
+			// whole code block into view. Focus the trigger first without scrolling so FocusLock
+			// returns to the trigger; see CodeBlockLanguagePicker's handleSelection for restoring
+			// editor focus.
+			focusWithoutScrolling(event.currentTarget);
+		}
+	}, []);
 	const renderTarget = useCallback(
 		({ isOpen, ref, onKeyDown, 'aria-controls': ariaControls }: PopupSelectTargetProps) => (
 			<div css={styles.trigger}>
 				<Button
 					shouldFitContainer
+					onMouseDown={handleTriggerMouseDown}
 					onKeyDown={onKeyDown}
 					ref={ref}
 					iconAfter={ChevronDownIcon}
@@ -199,7 +246,7 @@ export const LanguagePicker = ({
 				</Button>
 			</div>
 		),
-		[label],
+		[handleTriggerMouseDown, label],
 	);
 
 	return (
@@ -212,9 +259,11 @@ export const LanguagePicker = ({
 			menuPlacement="auto"
 			onChange={handleChange}
 			onInputChange={handleInputChange}
-			onMenuOpen={onMenuOpen}
+			onMenuOpen={handleMenuOpen}
 			options={hasSearchQuery ? searchOptions : options}
-			popperProps={menuPopperProps}
+			popperProps={
+				fg('platform_editor_code_block_dogfooding_patch') ? stableMenuPopperProps : menuPopperProps
+			}
 			searchThreshold={-1}
 			target={renderTarget}
 			testId="code-block-language-picker"

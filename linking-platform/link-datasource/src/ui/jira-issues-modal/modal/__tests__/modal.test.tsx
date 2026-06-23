@@ -247,7 +247,7 @@ describe('JiraIssuesConfigModal', () => {
 		await user.click(await screen.findByTestId('mode-toggle-basic'));
 
 		// open the status dropdown
-		const triggerButton = await screen.findByTestId(`jlol-basic-filter-status-trigger`);
+		const triggerButton = await screen.findByTestId(`jlol-basic-filter-status-trigger--button`);
 		invariant(triggerButton);
 
 		await user.click(triggerButton);

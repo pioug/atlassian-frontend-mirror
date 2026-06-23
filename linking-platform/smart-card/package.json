@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.2.3",
+	"version": "45.2.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -92,6 +92,7 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@formatjs/intl-utils": "root:*",
@@ -123,7 +124,6 @@
 		"@atlassian/analytics-tooling": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/dom": "root:*",
@@ -255,9 +255,6 @@
 		"platform_lp_use_entity_icon_url_for_icon": {
 			"type": "boolean"
 		},
-		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
 		"platform_bandicoots-smartlink-unresolved-error-key": {
 			"type": "boolean"
 		},
@@ -291,9 +288,6 @@
 		"platform_sl_3p_auth_rovo_action_kill_switch": {
 			"type": "boolean"
 		},
-		"platform_sl_event_ui_seen": {
-			"type": "boolean"
-		},
 		"platform_sl_connect_account_flag": {
 			"type": "boolean"
 		},
@@ -317,6 +311,10 @@
 		},
 		"platform_navx_smart_link_icon_label_a11y": {
 			"type": "boolean"
+		},
+		"billplat_a11y_icon_label_fix": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"

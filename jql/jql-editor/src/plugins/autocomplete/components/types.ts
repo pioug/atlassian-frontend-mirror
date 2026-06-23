@@ -11,7 +11,13 @@ export type {
 	AutocompleteValueType,
 } from '@atlaskit/jql-editor-common';
 
-export type AutocompleteOptionType = 'field' | 'operator' | 'value' | 'function' | 'keyword';
+export type AutocompleteOptionType =
+	| 'field'
+	| 'operator'
+	| 'value'
+	| 'function'
+	| 'functionArgument'
+	| 'keyword';
 
 export type AutocompleteOptionExtra = {
 	context: JQLRuleContext | null;

@@ -18,7 +18,7 @@ export const SuggestedMenuItems: React.NamedExoticComponent<SuggestedMenuItemsPr
 			<>
 				{suggestedItems.map((item) => {
 					const ItemComponent = item.component;
-					return ItemComponent ? <ItemComponent key={item.key} /> : null;
+					return ItemComponent ? <ItemComponent key={item.key} isSuggested /> : null;
 				})}
 			</>
 		);

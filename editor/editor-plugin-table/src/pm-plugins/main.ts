@@ -257,17 +257,11 @@ export const createPlugin = (
 					const pluginState = getPluginState(state);
 					let tableRef: HTMLTableElement | undefined;
 					const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
-					let shouldSetTableRef =
+					const shouldSetTableRef =
 						parent &&
-						pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view';
-
-					if (expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true)) {
-						shouldSetTableRef =
-							parent &&
-							pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&
-							pluginInjectionApi?.interaction?.sharedState.currentState()?.interactionState !==
-								'hasNotHadInteraction';
-					}
+						pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&
+						pluginInjectionApi?.interaction?.sharedState.currentState()?.interactionState !==
+							'hasNotHadInteraction';
 
 					if (shouldSetTableRef) {
 						tableRef =

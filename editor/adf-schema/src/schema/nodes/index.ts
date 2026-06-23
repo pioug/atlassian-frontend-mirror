@@ -31,7 +31,7 @@ export type {
 	HeadingWithIndentationDefinition,
 	HeadingWithMarksDefinition,
 } from './heading';
-export { rule, ruleWithLocalId } from './rule';
+export { rule, ruleWithLocalId, ruleRootOnlyStage0 } from './rule';
 export type { RuleDefinition } from './rule';
 export {
 	orderedList,
@@ -59,6 +59,8 @@ export type { ListItemArray, ListItemDefinition } from './types/list';
 export {
 	extendedPanel,
 	extendedPanelWithLocalId,
+	extendedPanelRootOnlyStage0,
+	extendedPanelC1RootOnlyStage0,
 	extendedPanelC1,
 	extendedPanelC1WithLocalId,
 	PanelType,

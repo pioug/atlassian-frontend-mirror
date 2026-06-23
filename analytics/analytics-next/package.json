@@ -53,6 +53,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next-stable-react-context": "root:*",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"prop-types": "root:*",
 		"use-memo-one": "root:*"
@@ -63,7 +64,6 @@
 	},
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",

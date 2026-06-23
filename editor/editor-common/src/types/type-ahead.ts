@@ -101,6 +101,34 @@ export type TypeAheadSectionTitleUpdate = {
 
 export type TypeAheadForceSelect = (props: TypeAheadForceSelectProps) => TypeAheadItem | undefined;
 
+/**
+ * Multi-emit contract returned by `TypeAheadHandler.subscribeToItemsUpdates`.
+ *
+ * The runtime awaits `initial` to render the dropdown's first frame,
+ * then re-renders with whatever each `subscribe` callback delivers
+ * thereafter. The returned unsubscribe function is called when the
+ * query changes or the component unmounts.
+ */
+export type TypeAheadItemsUpdate = {
+	initial: Promise<Array<TypeAheadItem>>;
+	/**
+	 * Subscribe to incremental updates from this `TypeAheadItemsUpdate`.
+	 *
+	 * **Single-subscriber contract.** Implementations are NOT required
+	 * to support multiple concurrent subscribers; calling `subscribe`
+	 * twice on the same instance may silently overwrite the first
+	 * callback. The runtime calls this once per filter cycle, and a
+	 * fresh `TypeAheadItemsUpdate` is produced by
+	 * `subscribeToItemsUpdates` for every query, so fan-out is never
+	 * needed in practice.
+	 *
+	 * The returned function unsubscribes the callback and releases any
+	 * underlying transport. The runtime calls it on query change or
+	 * component unmount.
+	 */
+	subscribe: (update: (items: Array<TypeAheadItem>) => void) => () => void;
+};
+
 export type MoreOptionsButtonConfig = {
 	ariaLabel?: string;
 	iconBefore?: ReactNode;
@@ -151,6 +179,29 @@ export type TypeAheadHandler = {
 
 	/** Handler returns a transaction which inserts the TypeAheadItem into the doc */
 	selectItem: TypeAheadSelectItem;
+
+	/**
+	 * Optional opt-in to multi-emit. When implemented, the type-ahead
+	 * runtime calls this INSTEAD of `getItems` and renders the dropdown
+	 * progressively as updates arrive.
+	 *
+	 * Returns:
+	 *  - `initial`: a Promise that resolves with the first set of items
+	 *    to show. Replaces the single-shot `getItems` Promise.
+	 *  - `subscribe(update)`: registers a callback that fires with a
+	 *    fresh items array whenever the underlying provider has more
+	 *    results (for example: "people first, then merged people +
+	 *    agents" for the Rovo Chat mention provider). Returns an
+	 *    unsubscribe function that the runtime calls on query change
+	 *    or component unmount.
+	 *
+	 * Existing handlers using only `getItems` continue to work
+	 * unchanged. This field is purely additive.
+	 */
+	subscribeToItemsUpdates?: (props: {
+		editorState: EditorState;
+		query: string;
+	}) => TypeAheadItemsUpdate;
 
 	/** Pattern that will trigger the TypeAhead */
 	trigger: string;

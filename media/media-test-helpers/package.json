@@ -41,6 +41,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*",
 		"@emotion/styled": "root:*",
@@ -59,7 +60,6 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@types/exenv": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",

@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockMenuMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import AngleBracketsIcon from '@atlaskit/icon/core/angle-brackets';
 
@@ -12,11 +13,12 @@ import type { CodeBlockPlugin } from '../codeBlockPluginType';
 
 type Props = {
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined;
+	isSuggested?: boolean;
 };
 
 const NODE_NAME = 'codeBlock';
 
-const CodeBlockMenuItem = ({ api }: Props) => {
+const CodeBlockMenuItem = ({ api, isSuggested }: Props) => {
 	const { formatMessage } = useIntl();
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
@@ -29,6 +31,7 @@ const CodeBlockMenuItem = ({ api }: Props) => {
 		api?.core.actions.execute(({ tr }) => {
 			const command = api?.blockMenu?.commands.transformNode(tr.doc.type.schema.nodes.codeBlock, {
 				inputMethod,
+				isSuggested,
 				triggeredFrom,
 				targetTypeName: NODE_NAME,
 			});
@@ -47,5 +50,7 @@ const CodeBlockMenuItem = ({ api }: Props) => {
 };
 
 export const createCodeBlockMenuItem = (api: ExtractInjectionAPI<CodeBlockPlugin> | undefined) => {
-	return (): React.JSX.Element => <CodeBlockMenuItem api={api} />;
+	return ({ isSuggested }: BlockMenuItemComponentProps = {}): React.JSX.Element => (
+		<CodeBlockMenuItem api={api} isSuggested={isSuggested} />
+	);
 };

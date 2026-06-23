@@ -1,10 +1,26 @@
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
 import { emojiIdToEmoji } from '../../../util/emojiIdToEmoji';
 
 describe('emojiIdToEmoji', () => {
+	beforeEach(() => {
+		setupEditorExperiments('test', {
+			platform_use_unicode_emojis: true,
+		});
+	});
+
+	it('returns undefined when the unicode emoji experiment is disabled', () => {
+		setupEditorExperiments('test', {
+			platform_use_unicode_emojis: false,
+		});
+
+		expect(emojiIdToEmoji('1f600')).toBeUndefined();
+	});
+
 	describe('valid single codepoints', () => {
 		it('converts a simple single codepoint emoji id', () => {
 			// 👍 THUMBS UP SIGN (U+1F44D)
-			expect(emojiIdToEmoji('1f44d')).toBe('👍');
+			expect(emojiIdToEmoji('1f44d')).toBe('👍️');
 		});
 
 		it('converts a basic ASCII-range codepoint', () => {
@@ -13,8 +29,8 @@ describe('emojiIdToEmoji', () => {
 		});
 
 		it('is case-insensitive for hex digits', () => {
-			expect(emojiIdToEmoji('1F44D')).toBe('👍');
-			expect(emojiIdToEmoji('1F44d')).toBe('👍');
+			expect(emojiIdToEmoji('1F44D')).toBe('👍️');
+			expect(emojiIdToEmoji('1F44d')).toBe('👍️');
 		});
 	});
 
@@ -39,9 +55,14 @@ describe('emojiIdToEmoji', () => {
 	});
 
 	describe('flag sequences (regional indicators)', () => {
-		it('converts a regional indicator pair for a country flag', () => {
-			// 🇦🇺 FLAG: AUSTRALIA
-			expect(emojiIdToEmoji('1f1e6-1f1fa')).toBe('🇦🇺');
+		it('returns undefined for country flags so callers use Twemoji', () => {
+			expect(emojiIdToEmoji('1f1e6-1f1fa')).toBeUndefined();
+		});
+
+		it('returns undefined for flag base and ZWJ emoji so callers use Twemoji', () => {
+			expect(emojiIdToEmoji('1f3f3')).toBeUndefined();
+			expect(emojiIdToEmoji('1f3f3-200d-1f308')).toBeUndefined();
+			expect(emojiIdToEmoji('1f3f4-e0067-e0062-e0065-e006e-e0067-e007f')).toBeUndefined();
 		});
 	});
 
@@ -71,6 +92,32 @@ describe('emojiIdToEmoji', () => {
 			// ☪️ STAR AND CRESCENT with emoji presentation
 			const result = emojiIdToEmoji('262a-fe0f');
 			expect(result).toBe('☪️');
+		});
+
+		it('adds variation selector-16 for BMP emoji variation bases', () => {
+			expect(emojiIdToEmoji('262a')).toBe('☪️');
+		});
+
+		it('adds variation selector-16 for supplementary-plane emoji variation bases', () => {
+			expect(emojiIdToEmoji('1f37d')).toBe('🍽️');
+			expect(emojiIdToEmoji('1f396')).toBe('🎖️');
+			expect(emojiIdToEmoji('1f39b')).toBe('🎛️');
+			expect(emojiIdToEmoji('1f3d5')).toBe('🏕️');
+			expect(emojiIdToEmoji('1f5b2')).toBe('🖲️');
+			expect(emojiIdToEmoji('1f5e1')).toBe('🗡️');
+			expect(emojiIdToEmoji('1f5f3')).toBe('🗳️');
+		});
+
+		it('adds variation selector-16 for supplementary-plane emoji-default variation bases', () => {
+			expect(emojiIdToEmoji('1f44d')).toBe('👍️');
+		});
+
+		it('does not double-insert variation selector-16 for supplementary-plane emoji', () => {
+			expect(emojiIdToEmoji('1f37d-fe0f')).toBe('🍽️');
+		});
+
+		it('adds variation selector-16 before ZWJ when a non-flag emoji variation base starts a sequence', () => {
+			expect(emojiIdToEmoji('1f441-200d-1f5e8')).toBe('👁️‍🗨️');
 		});
 	});
 

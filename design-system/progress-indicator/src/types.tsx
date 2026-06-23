@@ -22,6 +22,10 @@ export interface ProgressDotsProps {
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	ariaLabel?: string;
 	/**
+	 * Returns the accessible label for each selectable indicator.
+	 */
+	getAriaLabel?: (index: number) => string;
+	/**
 	 * Function called when an indicator is selected.
 	 */
 	onSelect?: (

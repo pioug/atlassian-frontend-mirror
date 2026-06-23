@@ -22,7 +22,7 @@ import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
 import type { AnchorRectCache } from './utils/anchor-utils';
-import { getActiveBlockMarks, getMatchingBlockMarks } from './utils/marks';
+import { getMatchingBlockMarks } from './utils/marks';
 
 const TYPE_ACTIVE_HANDLE_DEC = 'active-drag-handle-node';
 
@@ -118,9 +118,7 @@ export const dragHandleDecoration = ({
 							editorState.schema.marks.alignment,
 							editorState.schema.marks.fontSize,
 						])
-					: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
-						? []
-						: getActiveBlockMarks(editorState, pos),
+					: [],
 				destroy: (node: Node) => {
 					unbind && unbind();
 				},
@@ -135,11 +133,7 @@ export const dragHandleDecoration = ({
 							editorState.schema.marks.alignment,
 							editorState.schema.marks.fontSize,
 						])
-					: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
-						? []
-						: expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-							? getActiveBlockMarks(editorState, pos)
-							: undefined,
+					: [],
 				destroy: (node: Node) => {
 					unbind && unbind();
 				},

@@ -38,6 +38,7 @@
 		"./user-latency": "./src/entry-points/user-latency.ts"
 	},
 	"dependencies": {
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
 	},
@@ -48,7 +49,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",

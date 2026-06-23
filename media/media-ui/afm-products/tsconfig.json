@@ -96,6 +96,9 @@
 		},
 		{
 			"path": "../../../design-system/width-detector/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		}
 	]
 }

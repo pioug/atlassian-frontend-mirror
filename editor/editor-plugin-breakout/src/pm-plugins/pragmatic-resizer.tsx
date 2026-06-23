@@ -11,6 +11,7 @@ import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import type { BaseEventPayload, ElementDragType } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Tooltip from '@atlaskit/tooltip';
 
 const getNodeName = (nodeName?: string) => {
@@ -74,11 +75,16 @@ export const createPragmaticResizer = ({
 	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
 	target: HTMLElement;
 }): {
-	rightHandle: HTMLDivElement;
-	leftHandle: HTMLDivElement;
 	destroy: (isChangeToViewMode?: boolean) => void;
+	leftHandle: HTMLDivElement | undefined;
+	rightHandle: HTMLDivElement;
 } => {
 	let state: 'default' | 'resizing' = 'default';
+	const isLeftResizeHandleDisabled = expValEquals(
+		'platform_editor_lovability_resize_dividers_panels',
+		'isEnabled',
+		true,
+	);
 
 	const createHandle = (side: 'left' | 'right') => {
 		const handle = document.createElement('div');
@@ -130,7 +136,8 @@ export const createPragmaticResizer = ({
 	};
 
 	const rightHandle = createHandle('right');
-	const leftHandle = createHandle('left');
+	// Remove const leftHandle during 'platform_editor_lovability_resize_dividers_panels' cleanup
+	const leftHandle = isLeftResizeHandleDisabled ? undefined : createHandle('left');
 
 	const registerHandle = (handleElement: HTMLElement, handleSide: 'left' | 'right') => {
 		return draggable({
@@ -164,7 +171,7 @@ export const createPragmaticResizer = ({
 				type: 'mouseenter',
 				listener: () => {
 					rightHandle.rail.style.setProperty('opacity', '1');
-					leftHandle.rail.style.setProperty('opacity', '1');
+					leftHandle?.rail.style.setProperty('opacity', '1');
 				},
 			}),
 			bind(element, {
@@ -174,39 +181,51 @@ export const createPragmaticResizer = ({
 						return;
 					}
 					rightHandle.rail.style.removeProperty('opacity');
-					leftHandle.rail.style.removeProperty('opacity');
+					leftHandle?.rail.style.removeProperty('opacity');
 				},
 			}),
 		];
 	};
 
-	const unbindFns = [
-		...registerEvents(target),
-		...registerEvents(rightHandle.handleHitBox),
-		...registerEvents(leftHandle.handleHitBox),
-		...registerEvents(rightHandle.rail),
-		...registerEvents(leftHandle.rail),
-	];
+	const unbindFns = leftHandle
+		? // old code - left + right
+			[
+				...registerEvents(target),
+				...registerEvents(rightHandle.handleHitBox),
+				...registerEvents(leftHandle.handleHitBox),
+				...registerEvents(rightHandle.rail),
+				...registerEvents(leftHandle.rail),
+			]
+		: // new code - right only
+			[
+				...registerEvents(target),
+				...registerEvents(rightHandle.handleHitBox),
+				...registerEvents(rightHandle.rail),
+			];
 
 	const handleElement = 'rail';
 
-	const destroyFns = [
-		registerHandle(rightHandle[handleElement], 'right'),
-		registerHandle(leftHandle[handleElement], 'left'),
-		rightHandle.destroyTooltip,
-		leftHandle.destroyTooltip,
-	];
+	const destroyFns = leftHandle
+		? // old code - left + right
+			[
+				registerHandle(rightHandle[handleElement], 'right'),
+				registerHandle(leftHandle[handleElement], 'left'),
+				rightHandle.destroyTooltip,
+				leftHandle.destroyTooltip,
+			]
+		: // new code - right only
+			[registerHandle(rightHandle[handleElement], 'right'), rightHandle.destroyTooltip];
 
 	return {
 		rightHandle: rightHandle.handle,
-		leftHandle: leftHandle.handle,
+		leftHandle: leftHandle?.handle,
 		destroy: (isChangeToViewMode?: boolean): void => {
 			destroyFns.forEach((destroyFn) => destroyFn());
 			unbindFns.forEach((unbindFn) => unbindFn());
 
 			if (isChangeToViewMode) {
 				rightHandle.handle.parentElement?.removeChild(rightHandle.handle);
-				leftHandle.handle.parentElement?.removeChild(leftHandle.handle);
+				leftHandle?.handle.parentElement?.removeChild(leftHandle.handle);
 			}
 		},
 	};

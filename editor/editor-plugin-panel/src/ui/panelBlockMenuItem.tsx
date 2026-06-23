@@ -6,6 +6,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { pickPanelTypeForInsertion } from '@atlaskit/editor-common/utils/node-type-utils';
+import type { BlockMenuItemComponentProps } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -14,11 +15,12 @@ import type { PanelPlugin } from '../panelPluginType';
 
 type Props = {
 	api: ExtractInjectionAPI<PanelPlugin> | undefined;
+	isSuggested?: boolean;
 };
 
 const NODE_NAME = 'panel';
 
-const PanelBlockMenuItem = ({ api }: Props) => {
+const PanelBlockMenuItem = ({ api, isSuggested }: Props) => {
 	const { formatMessage } = useIntl();
 
 	const handleClick = (event: React.MouseEvent | React.KeyboardEvent) => {
@@ -34,6 +36,7 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 				: tr.doc.type.schema.nodes.panel;
 			const command = api?.blockMenu?.commands.transformNode(panelNodeType, {
 				inputMethod,
+				isSuggested,
 				triggeredFrom,
 				targetTypeName: NODE_NAME,
 			});
@@ -52,5 +55,7 @@ const PanelBlockMenuItem = ({ api }: Props) => {
 };
 
 export const createPanelBlockMenuItem = (api: ExtractInjectionAPI<PanelPlugin> | undefined) => {
-	return (): React.JSX.Element => <PanelBlockMenuItem api={api} />;
+	return ({ isSuggested }: BlockMenuItemComponentProps = {}): React.JSX.Element => (
+		<PanelBlockMenuItem api={api} isSuggested={isSuggested} />
+	);
 };

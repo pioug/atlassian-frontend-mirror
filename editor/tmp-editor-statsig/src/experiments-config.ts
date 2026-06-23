@@ -98,13 +98,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-08
-	aifc_space_typesettings: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-28
 	'agent-managed_blocks_mvp': {
 		defaultValue: boolean;
@@ -494,12 +487,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'variant1';
 		values: ('control' | 'variant1')[];
 	};
-	platform_editor_clean_up_widget_mark_logic: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_controls_reliable_anchor: {
 		defaultValue: boolean;
 		param: string;
@@ -785,13 +772,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-16
 	platform_editor_table_display_mode_in_to_dom: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-05
-	platform_editor_table_update_table_ref: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1342,6 +1322,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-24
 	platform_editor_emoji_default_scale: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-17
+	platform_editor_emoji_hover_show_tooltip: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1978,6 +1965,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-19
+	platform_editor_lovability_resize_dividers_panels: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -2005,14 +1999,6 @@ export const editorExperimentsConfig: {
 	cwr_page_tree_auto_finalize: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cwr_page_tree_auto_finalize',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-08
-	aifc_space_typesettings: createBooleanExperiment({
-		productKeys: {
-			confluence: 'aifc_space_typesettings',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2498,14 +2484,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_clean_up_widget_mark_logic: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_clean_up_widget_mark_logic',
-			jira: 'platform_editor_clean_up_widget_mark_logic',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-30
 	platform_editor_code_block_q4_lovability: createBooleanExperiment({
 		productKeys: {
@@ -2633,14 +2611,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_preview_panel_linking_exp_conf',
 			jira: 'platform_editor_preview_panel_linking_exp_jira',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-05
-	platform_editor_table_update_table_ref: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_update_table_ref',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3419,6 +3389,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_emoji_default_scale',
 			jira: 'platform_editor_emoji_default_scale',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-17
+	platform_editor_emoji_hover_show_tooltip: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_emoji_hover_show_tooltip',
+			jira: 'platform_editor_emoji_hover_show_tooltip',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4248,6 +4227,14 @@ export const editorExperimentsConfig: {
 			confluence: 'cc_smarts_heading_autocomplete_migration',
 		},
 		param: 'useCcSmarts',
+		defaultValue: false,
+	}),
+	// Added 2026-06-19
+	platform_editor_lovability_resize_dividers_panels: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_resize_dividers_panels',
+		},
+		param: 'isEnabled',
 		defaultValue: false,
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

@@ -19,10 +19,7 @@ function getShapeDefault(): ThemeState['shape'] {
 }
 
 function getMotionDefault(): ThemeState['motion'] {
-	if (fg('platform-dst-motion-theme-default')) {
-		return 'motion';
-	}
-	return undefined;
+	return 'motion';
 }
 
 /**

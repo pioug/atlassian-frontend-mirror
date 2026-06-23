@@ -71,6 +71,8 @@ export {
 	extendedPanel,
 	extendedPanelC1,
 	extendedPanelC1WithLocalId,
+	extendedPanelRootOnlyStage0,
+	extendedPanelC1RootOnlyStage0,
 	extendedPanelWithLocalId,
 	paragraph,
 	placeholder,

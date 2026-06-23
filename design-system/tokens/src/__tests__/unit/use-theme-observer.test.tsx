@@ -83,6 +83,7 @@ describe('useThemeObserver', () => {
 			colorMode: 'dark',
 			dark: 'dark',
 			light: 'light',
+			motion: 'motion',
 			spacing: 'spacing',
 			typography: 'typography',
 		};

@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
+import { act } from 'react';
 
 import { render } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { IntlProvider } from 'react-intl';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 
 import { type AutocompleteOptions } from '@atlaskit/jql-editor-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import useOnFunctionArguments from './index';
 
@@ -54,47 +56,90 @@ describe('onFunctionArguments', () => {
 		return null;
 	};
 
-	it('delegates membersOf arguments to onValues using the Team field', (done) => {
-		const expectedOptions: AutocompleteOptions = [
-			{ name: 'Team Rocket', value: 'team-rocket', valueType: 'team' },
-		];
-		onValues.mockReturnValue(of(expectedOptions));
+	ffTest.on(
+		'enable-jql-membersof-autocomplete',
+		'membersOf function argument autocomplete is enabled',
+		() => {
+			it('delegates membersOf arguments to onValues using the Team field', (done) => {
+				const expectedOptions: AutocompleteOptions = [
+					{ name: 'Team Rocket', value: 'team-rocket', valueType: 'team' },
+				];
+				onValues.mockReturnValue(of(expectedOptions));
 
-		const assertValues = (options: AutocompleteOptions) => {
-			expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
-			expect(options).toEqual(expectedOptions);
-		};
+				const assertValues = (options: AutocompleteOptions) => {
+					expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
+					expect(options).toEqual(
+						expectedOptions.map((option) => ({ ...option, groupKey: 'team' })),
+					);
+				};
 
-		act(() => {
-			render(
-				<OnFunctionArgumentsConsumer
-					fieldValue="rock"
-					functionName="membersOf"
-					onAssert={assertValues}
-					done={done}
-				/>,
-			);
-		});
-	});
+				act(() => {
+					render(
+						<IntlProvider locale="en">
+							<OnFunctionArgumentsConsumer
+								fieldValue="rock"
+								functionName="membersOf"
+								onAssert={assertValues}
+								done={done}
+							/>
+						</IntlProvider>,
+					);
+				});
+			});
+		},
+	);
 
-	it('returns no values for non-membersOf functions', (done) => {
-		onValues.mockReturnValue(empty());
+	ffTest.off(
+		'enable-jql-membersof-autocomplete',
+		'membersOf function argument autocomplete is disabled',
+		() => {
+			it('returns no values for membersOf when the gate is off', (done) => {
+				onValues.mockReturnValue(of([{ name: 'Team Rocket', value: 'team-rocket' }]));
 
-		const assertValues = (options: AutocompleteOptions) => {
-			expect(onValues).not.toHaveBeenCalled();
-			expect(onNext).not.toHaveBeenCalled();
-			expect(options).toEqual([]);
-		};
+				const assertValues = (options: AutocompleteOptions) => {
+					expect(onValues).not.toHaveBeenCalled();
+					expect(onNext).not.toHaveBeenCalled();
+					expect(options).toEqual([]);
+				};
 
-		act(() => {
-			render(
-				<OnFunctionArgumentsConsumer
-					fieldValue="rock"
-					functionName="currentUser"
-					onAssert={assertValues}
-					done={done}
-				/>,
-			);
+				act(() => {
+					render(
+						<IntlProvider locale="en">
+							<OnFunctionArgumentsConsumer
+								fieldValue="rock"
+								functionName="membersOf"
+								onAssert={assertValues}
+								done={done}
+							/>
+						</IntlProvider>,
+					);
+				});
+			});
+		},
+	);
+
+	ffTest.on('enable-jql-membersof-autocomplete', 'non-membersOf functions', () => {
+		it('returns no values for non-membersOf functions', (done) => {
+			onValues.mockReturnValue(empty());
+
+			const assertValues = (options: AutocompleteOptions) => {
+				expect(onValues).not.toHaveBeenCalled();
+				expect(onNext).not.toHaveBeenCalled();
+				expect(options).toEqual([]);
+			};
+
+			act(() => {
+				render(
+					<IntlProvider locale="en">
+						<OnFunctionArgumentsConsumer
+							fieldValue="rock"
+							functionName="currentUser"
+							onAssert={assertValues}
+							done={done}
+						/>
+					</IntlProvider>,
+				);
+			});
 		});
 	});
 });

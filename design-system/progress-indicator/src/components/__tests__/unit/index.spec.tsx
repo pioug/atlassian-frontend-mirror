@@ -170,6 +170,26 @@ describe('Progress Indicator', () => {
 			skipA11yAudit();
 		});
 
+		it('should apply provided indicator labels', () => {
+			render(
+				<ProgressDots
+					selectedIndex={0}
+					values={[{ key: 'value' }, { key: 'value' }, { key: 'value' }]}
+					getAriaLabel={(index) => `Step ${index + 1} of 3`}
+					onSelect={__noop}
+				/>,
+			);
+
+			const buttons = screen.getAllByRole('tab');
+
+			expect(buttons[0]).toHaveAccessibleName('Step 1 of 3');
+			expect(buttons[1]).toHaveAccessibleName('Step 2 of 3');
+			expect(buttons[2]).toHaveAccessibleName('Step 3 of 3');
+			// skip should be removed once DSP-17664 is fixed
+			// This will skip the a11y audit in after each
+			skipA11yAudit();
+		});
+
 		it('should apply aria-selected prop to the selected button', () => {
 			render(<StubComponent onSelect={__noop} />);
 

@@ -707,9 +707,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			this.table !== this.lastSetTableRef &&
 			(!expValEquals('platform_editor_table_ref_optimisation', 'isEnabled', true) ||
 				this.props.tableActive) &&
-			this.props.view &&
-			(expValEquals('platform_editor_table_update_table_ref', 'isEnabled', true) ||
-				fg('platform_editor_enable_table_update_ref_atlas'))
+			this.props.view
 		) {
 			this.lastSetTableRef = this.table;
 			setTableRef(this.table)(this.props.view.state, this.props.view.dispatch);

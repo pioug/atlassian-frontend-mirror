@@ -1,4 +1,5 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { textColor as textColorFactory } from '../../next-schema/generated/markTypes';
 
 import { hexToEditorTextPaletteColor } from '../../utils/editor-palette';
@@ -171,6 +172,17 @@ export const colorPaletteExtended: Map<string, TextColorKey> = colorPalette;
 colorArrayPalette.forEach(([color, label]) => colorPalette.set(color.toLowerCase(), label));
 colorArrayPaletteNew.forEach(([color, label]) => colorPaletteNew.set(color.toLowerCase(), label));
 
+const isSupportedTextColor = (hexColor: string): boolean => {
+	if (colorPalette.has(hexColor)) {
+		return true;
+	}
+
+	return (
+		expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+		colorPaletteNew.has(hexColor)
+	);
+};
+
 // these are for test only
 let testGlobalTheme: string;
 export const setGlobalTheme = (theme: string): void => {
@@ -210,7 +222,7 @@ export const textColor: MarkSpec = textColorFactory({
 					hexColor = value.toLowerCase();
 				}
 				// else handle other colour formats
-				return hexColor && colorPalette.has(hexColor) ? { color: hexColor } : false;
+				return hexColor && isSupportedTextColor(hexColor) ? { color: hexColor } : false;
 			},
 		},
 		// This rule ensures when loading from a renderer or editor where the
@@ -230,7 +242,7 @@ export const textColor: MarkSpec = textColorFactory({
 
 				const hexColor = maybeElement.dataset.textCustomColor;
 
-				return hexColor && colorPalette.has(hexColor) ? { color: hexColor } : false;
+				return hexColor && isSupportedTextColor(hexColor) ? { color: hexColor } : false;
 			},
 		},
 	],

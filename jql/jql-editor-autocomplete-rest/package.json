@@ -38,6 +38,7 @@
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/jql-editor-common": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"lodash": "root:*",
 		"react-magnetic-di": "root:*",
@@ -51,12 +52,18 @@
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
+		"react-intl": "root:*",
 		"wait-for-expect": "root:*"
+	},
+	"platform-feature-flags": {
+		"enable-jql-membersof-autocomplete": {
+			"type": "boolean"
+		}
 	},
 	"techstack": {
 		"@atlassian/frontend": {

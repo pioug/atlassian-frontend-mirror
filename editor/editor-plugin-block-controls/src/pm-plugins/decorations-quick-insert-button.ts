@@ -18,7 +18,7 @@ import { ACTIVE_QUICK_INSERT_ATTR } from '../ui/consts';
 import { QuickInsertWithVisibility } from '../ui/quick-insert-button';
 
 import type { AnchorRectCache } from './utils/anchor-utils';
-import { getActiveBlockMarks, getMatchingBlockMarks } from './utils/marks';
+import { getMatchingBlockMarks } from './utils/marks';
 
 const TYPE_QUICK_INSERT = 'INSERT_BUTTON';
 const TYPE_ACTIVE_QUICK_INSERT_NODE = 'active-quick-insert-node';
@@ -95,9 +95,7 @@ export const quickInsertButtonDecoration = ({
 							editorState.schema.marks.alignment,
 							editorState.schema.marks.fontSize,
 						])
-					: expValEquals('platform_editor_clean_up_widget_mark_logic', 'isEnabled', true)
-						? []
-						: getActiveBlockMarks(editorState, rootPos),
+					: [],
 				destroy: (_: Node) => {
 					if (fg('platform_editor_fix_widget_destroy')) {
 						nodeViewPortalProviderAPI.remove(key);

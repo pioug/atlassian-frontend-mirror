@@ -49,12 +49,19 @@ export const CodeBlockLanguagePicker = ({
 					: changeLanguage(api?.analytics?.actions)(option.value, selectionSource);
 			const commandSucceeded = command(editorView.state, editorView.dispatch);
 
+			if (fg('platform_editor_code_block_dogfooding_patch')) {
+				requestAnimationFrame(() => {
+					// Let PopupSelect/FocusLock finish returning focus to the trigger, then restore the editor.
+					api?.core.actions.focus({ scrollIntoView: false });
+				});
+			}
+
 			if (commandSucceeded && option.value !== DETECT_LANGUAGE_VALUE) {
 				saveRecentLanguage(option.value);
 				setRecentLanguageValues(getRecentLanguages());
 			}
 		},
-		[api?.analytics?.actions, editorView],
+		[api?.analytics?.actions, api?.core.actions, editorView],
 	);
 
 	return (

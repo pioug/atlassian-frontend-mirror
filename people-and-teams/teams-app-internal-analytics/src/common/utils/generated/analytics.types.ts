@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::9f873993261784578f4c526676204873>>
+ * @codegen <<SignedSource::88213e41e1fc5f91770af55b3b7c3e18>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -1471,6 +1471,13 @@ export type TeamRestoreSucceededAttributesType = undefined;
 export type TeamRestoreFailedAttributesType = {
 	status?: number | null;
 };
+export type ArchivedTeamBannerMergedTeamSucceededAttributesType = {
+	teamId: string;
+};
+export type ArchivedTeamBannerMergedTeamFailedAttributesType = {
+	teamId: string;
+	error?: string | null;
+};
 export type GetSettingsSucceededAttributesType = undefined;
 export type GetSettingsFailedAttributesType = undefined;
 export type TeamLinkEditedAttributesType = {
@@ -2647,6 +2654,12 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the team restore action fails */
 	'operational.teamRestore.failed': TeamRestoreFailedAttributesType;
+	/**
+	 * fired when the archived team banner successfully loads the merged destination team */
+	'operational.archivedTeamBannerMergedTeam.succeeded': ArchivedTeamBannerMergedTeamSucceededAttributesType;
+	/**
+	 * fired when the archived team banner fails to load the merged destination team */
+	'operational.archivedTeamBannerMergedTeam.failed': ArchivedTeamBannerMergedTeamFailedAttributesType;
 	/**
 	 * fired when the get settings request is succeeded */
 	'operational.GetSettings.succeeded': GetSettingsSucceededAttributesType;

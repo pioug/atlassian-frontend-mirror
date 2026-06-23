@@ -500,13 +500,7 @@ export function createMentionPlugin({
 					insm.session?.endFeature('mentionDeletionDetection');
 				}
 
-				const isAIStreaming = Boolean(tr.getMeta(AI_STREAMING_TRANSFORMATION_META_KEY));
-				if (
-					tr.docChanged &&
-					!tr.getMeta('replaceDocument') &&
-					!isAIStreaming &&
-					isAgentMentionsExperimentEnabled
-				) {
+				if (isAgentMentionsExperimentEnabled && isQualifyingLocalUserDocChange(tr)) {
 					const mentionSchema = newState.schema.nodes.mention;
 
 					const newDocRanges: Array<[number, number]> = [];

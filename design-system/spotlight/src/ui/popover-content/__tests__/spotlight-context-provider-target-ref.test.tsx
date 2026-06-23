@@ -80,9 +80,11 @@ jest.mock('@atlaskit/top-layer/popover', () => {
 const TargetRefSeededProvider = ({
 	dismiss,
 	shouldDismissOnClickOutside,
+	offset,
 }: {
 	dismiss: (event: any) => void;
 	shouldDismissOnClickOutside?: boolean;
+	offset?: [number, number];
 }) => {
 	const anchorRef = useRef<HTMLDivElement>(null);
 	return (
@@ -96,6 +98,7 @@ const TargetRefSeededProvider = ({
 					placement="bottom-end"
 					testId="spotlight-popover-content"
 					shouldDismissOnClickOutside={shouldDismissOnClickOutside}
+					offset={offset}
 				>
 					<SpotlightCard>
 						<SpotlightHeader>
@@ -141,6 +144,27 @@ describe('SpotlightContextProvider — targetRef', () => {
 			expect(lastCall.anchorRef.current).toBe(externalTarget);
 			expect(lastCall.popoverRef).toBeDefined();
 			expect(lastCall.placement).toBeDefined();
+		});
+
+		it('passes the merged top-layer placement into useAnchorPosition', () => {
+			render(<TargetRefSeededProvider dismiss={() => undefined} offset={[6, 8]} />);
+
+			const lastCall = mockUseAnchorPositionArgs.mock.calls.at(-1)?.[0];
+
+			expect(lastCall.placement).toEqual(
+				expect.objectContaining({
+					axis: 'block',
+					edge: 'end',
+					align: 'start',
+					offset: {
+						gap: expect.stringContaining('+ 8px'),
+						crossAxisShift: {
+							value: expect.stringContaining('+ 6px'),
+							direction: 'forwards',
+						},
+					},
+				}),
+			);
 		});
 
 		it('SpotlightDismissControl still dismisses (provider wires popoverContent.setDismiss)', async () => {

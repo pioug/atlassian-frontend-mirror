@@ -1,11 +1,19 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import type { DetailedHTMLProps, HTMLAttributes, LiHTMLAttributes } from 'react';
+import type {
+	ComponentPropsWithoutRef,
+	DetailedHTMLProps,
+	ForwardRefExoticComponent,
+	HTMLAttributes,
+	LiHTMLAttributes,
+	RefAttributes,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { Theme } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled, { type StyledComponent } from '@emotion/styled';
 
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -23,7 +31,7 @@ export const TooltipContent: StyledComponent<
 	});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const OptionListItem: StyledComponent<
+export const OptionListLiItem: StyledComponent<
 	{
 		as?: React.ElementType;
 		theme?: Theme;
@@ -42,9 +50,7 @@ export const OptionListItem: StyledComponent<
 		{
 			cursor: 'pointer',
 			padding: `${token('space.075')} ${token('space.100')}`,
-			fontFamily: token('font.family.code'),
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: '24px',
+			fontFamily: token('font.family.code')
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 		({ isSelected }) =>
@@ -58,6 +64,52 @@ export const OptionListItem: StyledComponent<
 				color: token('color.text.disabled'),
 			},
 	);
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const OptionListDivItem: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	} & {
+		isDeprecated: boolean;
+		isSelected: boolean;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+> =
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+	styled.div<{
+		isDeprecated: boolean;
+		isSelected: boolean;
+	}>(
+		{
+			cursor: 'pointer',
+			padding: `${token('space.075')} ${token('space.100')}`,
+			fontFamily: token('font.family.code')
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+		({ isSelected }) =>
+			isSelected && {
+				background: token('color.background.neutral.subtle.hovered'),
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+		({ isDeprecated }) =>
+			isDeprecated && {
+				cursor: 'default',
+				color: token('color.text.disabled'),
+			},
+	);
+
+export type OptionListItemComponent = ForwardRefExoticComponent<
+	ComponentPropsWithoutRef<typeof OptionListDivItem> &
+	RefAttributes<HTMLDivElement | HTMLLIElement>
+>;
+
+export const OptionListItem: OptionListItemComponent = componentWithFG(
+	'enable-jql-membersof-autocomplete',
+	OptionListDivItem,
+	OptionListLiItem,
+) as OptionListItemComponent;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OptionName: StyledComponent<

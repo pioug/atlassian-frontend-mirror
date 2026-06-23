@@ -418,6 +418,7 @@ type CodeBlockLanguageAutoDetectedAEP = TrackAEP<
 	ACTION_SUBJECT.CODE_BLOCK,
 	undefined,
 	{
+		detectionPhase?: 'initial' | 'redetection';
 		detectionResult: 'detected' | 'noneDetected';
 		language: string;
 	},

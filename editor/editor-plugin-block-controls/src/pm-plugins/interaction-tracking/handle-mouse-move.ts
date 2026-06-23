@@ -118,7 +118,7 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 	}
 
 	// Added right-margin hover, gated so it can be rolled back. When off, fall through to midpoint.
-	if (editorExperiment('remix_button_right_margin_hover', true)) {
+	if (editorExperiment('remix_button_right_margin_hover', true, { exposure: true })) {
 		const closestBlock = target?.closest(BLOCK_SELECTORS);
 		const blockElement = closestBlock instanceof HTMLElement ? closestBlock : null;
 

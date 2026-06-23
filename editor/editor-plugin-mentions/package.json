@@ -127,6 +127,9 @@
 		},
 		"platform_editor_agent_mentions": {
 			"type": "boolean"
+		},
+		"rovo_chat_agent_selection": {
+			"type": "boolean"
 		}
 	}
 }

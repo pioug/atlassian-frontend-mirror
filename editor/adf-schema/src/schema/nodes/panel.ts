@@ -202,3 +202,24 @@ export const extendedPanelC1 = (allowCustomPanel: boolean): NodeSpec =>
 
 export const extendedPanelC1WithLocalId = (allowCustomPanel: boolean): NodeSpec =>
 	panelC1Factory(createPanelNodeSpecOptions(allowCustomPanel, true));
+
+/**
+ * @name extended_panel_root_only
+ */
+export const extendedPanelRootOnlyStage0 = (allowCustomPanel: boolean): NodeSpec => {
+	const panelNodeSpec = extendedPanelWithLocalId(allowCustomPanel);
+
+	return {
+		...panelNodeSpec,
+		marks: `breakout ${panelNodeSpec.marks}`,
+	};
+};
+
+export const extendedPanelC1RootOnlyStage0 = (allowCustomPanel: boolean): NodeSpec => {
+	const panelNodeSpec = extendedPanelC1WithLocalId(allowCustomPanel);
+
+	return {
+		...panelNodeSpec,
+		marks: `breakout ${panelNodeSpec.marks}`,
+	};
+};

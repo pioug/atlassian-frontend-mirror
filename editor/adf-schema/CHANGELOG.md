@@ -1,5 +1,13 @@
 # @atlaskit/adf-schema
 
+## 56.0.3
+
+### Patch Changes
+
+- [`88d7b2e461104`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88d7b2e461104) -
+  Preserve new text and highlight colors when pasted behind platform_editor_lovability_text_bg_color
+- Updated dependencies
+
 ## 56.0.2
 
 ### Patch Changes

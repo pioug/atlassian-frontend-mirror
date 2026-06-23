@@ -5,11 +5,10 @@ import React from 'react';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { cardState, url } from '@atlaskit/media-test-helpers/smart-card-state';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fireEvent, render, screen } from '@atlassian/testing-library';
 
 import { CardSSR, type CardSSRProps } from '../../ssr';
-import { CardWithUrlContent, CardWithUrl } from '../../view/CardWithUrl/component';
+import { CardWithUrl } from '../../view/CardWithUrl/component';
 
 jest.mock('../../view/CardWithUrl/component', () => {
 	const originalModule = jest.requireActual('../../view/CardWithUrl/component');
@@ -22,7 +21,6 @@ jest.mock('../../view/CardWithUrl/component', () => {
 
 describe('<CardSSR />', () => {
 	const cardWithUrlMock = jest.mocked(CardWithUrl);
-	const cardWithUrlContentMock = jest.mocked(CardWithUrlContent);
 	const cardProps: CardSSRProps = {
 		appearance: 'inline',
 		url,
@@ -56,151 +54,102 @@ describe('<CardSSR />', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		// Reset the implementation
-		const originalModule = jest.requireActual('../../view/CardWithUrl/component');
-		cardWithUrlContentMock.mockImplementation((props) => (
-			<originalModule.CardWithUrlContent {...props} />
-		));
 	});
 
-	ffTest.both('platform_sl_event_ui_seen', '', () => {
-		it('should render CardWithUrlContent with provided props', async () => {
-			setup();
+	it('should render CardWithUrlContent with provided props', async () => {
+		setup();
+		const resolvedCard = await screen.findByTestId('inline-card-resolved-view');
+		expect(resolvedCard).toBeVisible();
+		expect(resolvedCard).toHaveAttribute('href', url);
+
+		await expect(document.body).toBeAccessible();
+	});
+
+	it('should render error fallback component with correct props', async () => {
+		const onResolve = () => {
+			throw new Error();
+		};
+
+		setup({ onResolve });
+		expect(await screen.findByTestId('lazy-render-placeholder')).toBeVisible();
+
+		await expect(document.body).toBeAccessible();
+	});
+
+	describe('analytics', () => {
+		it('should fire analytics events', async () => {
+			const { mockAnalyticsClient } = setup();
+
+			await screen.findByTestId('inline-card-resolved-view');
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'renderSuccess',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({}),
+				}),
+			);
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should fire link clicked event with attributes from SmartLinkAnalyticsContext', async () => {
+			const { mockAnalyticsClient } = setup({ id: 'some-id' });
+
 			const resolvedCard = await screen.findByTestId('inline-card-resolved-view');
-			expect(resolvedCard).toBeVisible();
-			expect(resolvedCard).toHaveAttribute('href', url);
+
+			fireEvent.click(resolvedCard);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'link',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						id: 'some-id',
+						componentName: 'smart-cards',
+						status: 'resolved',
+					}),
+				}),
+			);
+
+			await expect(document.body).toBeAccessible();
+		});
+	});
+
+	describe('props', () => {
+		it('should pass down id prop if there is one', async () => {
+			const id = 'abc';
+
+			setup({
+				id,
+			});
+
+			expect(cardWithUrlMock).toHaveBeenCalledWith(
+				expect.objectContaining({ id }),
+				expect.anything(),
+			);
 
 			await expect(document.body).toBeAccessible();
 		});
 
-		it('should render error fallback component with correct props', async () => {
-			const onResolve = () => {
-				throw new Error();
-			};
+		it('should provide random uuid for id prop if there is not one provided', async () => {
+			setup();
 
-			setup({ onResolve });
-			expect(await screen.findByTestId('lazy-render-placeholder')).toBeVisible();
+			expect(cardWithUrlMock).toHaveBeenCalledWith(
+				expect.objectContaining({ id: expect.any(String) }),
+				expect.anything(),
+			);
 
 			await expect(document.body).toBeAccessible();
 		});
 
-		describe('analytics', () => {
-			it('should fire analytics events', async () => {
-				const { mockAnalyticsClient } = setup();
+		it('should pass down title prop', async () => {
+			const title = 'title-from-ssr';
+			setup({ title });
 
-				await screen.findByTestId('inline-card-resolved-view');
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'renderSuccess',
-						actionSubject: 'smartLink',
-						attributes: expect.objectContaining({}),
-					}),
-				);
-
-				await expect(document.body).toBeAccessible();
-			});
-
-			it('should fire link clicked event with attributes from SmartLinkAnalyticsContext', async () => {
-				const { mockAnalyticsClient } = setup({ id: 'some-id' });
-
-				const resolvedCard = await screen.findByTestId('inline-card-resolved-view');
-
-				fireEvent.click(resolvedCard);
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'clicked',
-						actionSubject: 'link',
-						attributes: expect.objectContaining({
-							display: 'inline',
-							id: 'some-id',
-							componentName: 'smart-cards',
-							status: 'resolved',
-						}),
-					}),
-				);
-
-				await expect(document.body).toBeAccessible();
-			});
-		});
-	});
-
-	ffTest.off('platform_sl_event_ui_seen', '', () => {
-		describe('props', () => {
-			it('should pass down id prop if there is one', async () => {
-				const id = 'abc';
-
-				setup({
-					id,
-				});
-
-				expect(cardWithUrlContentMock).toHaveBeenCalledWith(
-					expect.objectContaining({ id }),
-					expect.anything(),
-				);
-
-				await expect(document.body).toBeAccessible();
-			});
-
-			it('should provide random uuid for id prop if there is not one provided', async () => {
-				setup();
-
-				expect(cardWithUrlContentMock).toHaveBeenCalledWith(
-					expect.objectContaining({ id: expect.any(String) }),
-					expect.anything(),
-				);
-
-				await expect(document.body).toBeAccessible();
-			});
-
-			it('should pass down title prop', async () => {
-				const title = 'title-from-ssr';
-				setup({ title });
-
-				expect(cardWithUrlContentMock).toHaveBeenCalledWith(
-					expect.objectContaining({ title }),
-					expect.anything(),
-				);
-			});
-		});
-	});
-
-	ffTest.on('platform_sl_event_ui_seen', '', () => {
-		describe('props', () => {
-			it('should pass down id prop if there is one', async () => {
-				const id = 'abc';
-
-				setup({
-					id,
-				});
-
-				expect(cardWithUrlMock).toHaveBeenCalledWith(
-					expect.objectContaining({ id }),
-					expect.anything(),
-				);
-
-				await expect(document.body).toBeAccessible();
-			});
-
-			it('should provide random uuid for id prop if there is not one provided', async () => {
-				setup();
-
-				expect(cardWithUrlMock).toHaveBeenCalledWith(
-					expect.objectContaining({ id: expect.any(String) }),
-					expect.anything(),
-				);
-
-				await expect(document.body).toBeAccessible();
-			});
-
-			it('should pass down title prop', async () => {
-				const title = 'title-from-ssr';
-				setup({ title });
-
-				expect(cardWithUrlMock).toHaveBeenCalledWith(
-					expect.objectContaining({ title }),
-					expect.anything(),
-				);
-			});
+			expect(cardWithUrlMock).toHaveBeenCalledWith(
+				expect.objectContaining({ title }),
+				expect.anything(),
+			);
 		});
 	});
 });

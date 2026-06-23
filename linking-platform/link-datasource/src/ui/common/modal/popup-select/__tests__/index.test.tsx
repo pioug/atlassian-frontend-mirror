@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { FilterPopupSelect, type FilterPopupSelectProps } from '../index';
 
@@ -45,65 +44,28 @@ const renderFilterPopupSelect = (props: Partial<FilterPopupSelectProps> = {}) =>
 };
 
 describe('FilterPopupSelect', () => {
-	ffTest.on(
-		'platform_navx_sllv_dropdown_escape_and_focus_fix',
-		'shouldPreventEscapePropagation when feature flag is on',
-		() => {
-			it('should pass shouldPreventEscapePropagation as true to PopupSelect', async () => {
-				const user = userEvent.setup();
+	it('should pass shouldPreventEscapePropagation as true to PopupSelect', async () => {
+		const user = userEvent.setup();
 
-				renderFilterPopupSelect();
+		renderFilterPopupSelect();
 
-				// Open the popup
-				const trigger = screen.getByTestId('test-filter-trigger--button');
-				await user.click(trigger);
+		// Open the popup
+		const trigger = screen.getByTestId('test-filter-trigger--button');
+		await user.click(trigger);
 
-				// Verify the popup is open
-				expect(screen.getByTestId('test-filter-popup-select--menu')).toBeInTheDocument();
+		// Verify the popup is open
+		expect(screen.getByTestId('test-filter-popup-select--menu')).toBeInTheDocument();
 
-				// Dispatch Escape key event
-				const escapeKeyDownEvent = new KeyboardEvent('keydown', {
-					key: 'Escape',
-					bubbles: true,
-				});
+		// Dispatch Escape key event
+		const escapeKeyDownEvent = new KeyboardEvent('keydown', {
+			key: 'Escape',
+			bubbles: true,
+		});
 
-				const stopPropagationSpy = jest.spyOn(escapeKeyDownEvent, 'stopPropagation');
+		const stopPropagationSpy = jest.spyOn(escapeKeyDownEvent, 'stopPropagation');
 
-				window.dispatchEvent(escapeKeyDownEvent);
+		window.dispatchEvent(escapeKeyDownEvent);
 
-				expect(stopPropagationSpy).toHaveBeenCalled();
-			});
-		},
-	);
-
-	ffTest.off(
-		'platform_navx_sllv_dropdown_escape_and_focus_fix',
-		'shouldPreventEscapePropagation when feature flag is off',
-		() => {
-			it('should pass shouldPreventEscapePropagation as false to PopupSelect', async () => {
-				const user = userEvent.setup();
-
-				renderFilterPopupSelect();
-
-				// Open the popup
-				const trigger = screen.getByTestId('test-filter-trigger--button');
-				await user.click(trigger);
-
-				// Verify the popup is open
-				expect(screen.getByTestId('test-filter-popup-select--menu')).toBeInTheDocument();
-
-				// Dispatch Escape key event
-				const escapeKeyDownEvent = new KeyboardEvent('keydown', {
-					key: 'Escape',
-					bubbles: true,
-				});
-
-				const stopPropagationSpy = jest.spyOn(escapeKeyDownEvent, 'stopPropagation');
-
-				window.dispatchEvent(escapeKeyDownEvent);
-
-				expect(stopPropagationSpy).not.toHaveBeenCalled();
-			});
-		},
-	);
+		expect(stopPropagationSpy).toHaveBeenCalled();
+	});
 });

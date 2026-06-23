@@ -32,6 +32,7 @@
 	"dependencies": {
 		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
@@ -43,7 +44,6 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",

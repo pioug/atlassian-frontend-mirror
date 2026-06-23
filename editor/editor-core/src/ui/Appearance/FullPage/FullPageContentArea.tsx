@@ -100,6 +100,18 @@ const hideEditorContentAreaProsemirrorWithAttributeStyle = css({
 	},
 });
 
+const hideEditorContentAreaScrollGutterWithAttributeStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&[data-markdown-mode-hide-scroll-gutter="true"] > .ak-editor-content-area > [data-vc="scroll-gutter"]':
+		{
+			display: 'none',
+		},
+});
+
+const hideEditorScrollGutterStyle = css({
+	display: 'none',
+});
+
 const fullWidthNonChromelessBreakoutBlockTableStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-1
 	'.fabric-editor--full-width-mode:not(:has(#chromeless-editor))': {
@@ -267,6 +279,39 @@ const markdownModeContainerBackgroundStyle = css({
 	backgroundColor: token('elevation.surface.sunken'),
 });
 
+const markdownModeContentAreaStyle = css({
+	boxSizing: 'border-box',
+	height: '100%',
+	margin: 0,
+	maxWidth: 'none',
+	minWidth: 0,
+	paddingBottom: 0,
+	paddingTop: 0,
+	width: '100%',
+	// The markdown source view is rendered through PluginSlot. Stretch those
+	// intermediate wrappers so its in-flow footer can sit at the bottom without
+	// overlaying the CodeMirror scrollbar.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'> .ak-editor-content-area': {
+		boxSizing: 'border-box',
+		display: 'flex',
+		flexDirection: 'column',
+		height: '100%',
+		minHeight: 0,
+		minWidth: 0,
+		padding: 0,
+		width: '100%',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'> .ak-editor-content-area > [data-testid="plugins-components-wrapper"]': {
+		display: 'flex',
+		flex: '1 1 auto',
+		minHeight: 0,
+		minWidth: 0,
+		width: '100%',
+	},
+});
+
 type EditorAPI = PublicPluginAPI<
 	[
 		OptionalPlugin<ContextPanelPlugin>,
@@ -360,10 +405,19 @@ const Content = React.forwardRef<
 		['markdownMode'],
 		(states) => states.markdownModeState?.isMarkdownMode,
 	);
+	const isMarkdownModeExperimentEnabled = expValEqualsNoExposure(
+		'cc-markdown-mode',
+		'isEnabled',
+		true,
+	);
 	const shouldHideProseMirrorForMarkdownMode =
-		expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
+		isMarkdownModeExperimentEnabled &&
 		markdownPluginCurrentView !== 'preview' &&
 		markdownPluginCurrentIsMarkdownMode;
+	const shouldHideScrollGutterForMarkdownMode =
+		isMarkdownModeExperimentEnabled && markdownPluginCurrentIsMarkdownMode;
+	const shouldUseMarkdownModeMvpLayout =
+		shouldHideProseMirrorForMarkdownMode && fg('platform_editor_md_mvp_layout');
 
 	return (
 		<div
@@ -375,9 +429,7 @@ const Content = React.forwardRef<
 				css={[
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 					contentAreaWrapper,
-					shouldHideProseMirrorForMarkdownMode &&
-						fg('platform_editor_md_mvp_layout') &&
-						markdownModeContainerBackgroundStyle,
+					shouldUseMarkdownModeMvpLayout && markdownModeContainerBackgroundStyle,
 				]}
 				data-testid={EDITOR_CONTAINER}
 				data-editor-container={'true'}
@@ -398,6 +450,9 @@ const Content = React.forwardRef<
 							data-markdown-mode-hide-prosemirror={
 								shouldHideProseMirrorForMarkdownMode ? 'true' : undefined
 							}
+							data-markdown-mode-hide-scroll-gutter={
+								shouldHideScrollGutterForMarkdownMode ? 'true' : undefined
+							}
 							css={[
 								editorContentAreaNew,
 								editorContentAreaProsemirrorStyle,
@@ -405,6 +460,9 @@ const Content = React.forwardRef<
 								// reports a non-WYSIWYG view.
 								shouldHideProseMirrorForMarkdownMode &&
 									hideEditorContentAreaProsemirrorWithAttributeStyle,
+								shouldHideScrollGutterForMarkdownMode &&
+									hideEditorContentAreaScrollGutterWithAttributeStyle,
+								shouldUseMarkdownModeMvpLayout && markdownModeContentAreaStyle,
 								tableFullPageEditorStylesNew,
 								fullWidthNonChromelessBreakoutBlockTableStyle,
 								// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark
@@ -480,6 +538,7 @@ const Content = React.forwardRef<
 									(editorExperiment('platform_editor_blocks', true) ? (
 										<div
 											id="editor-scroll-gutter"
+											css={shouldHideScrollGutterForMarkdownMode && hideEditorScrollGutterStyle}
 											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
 											data-vc="scroll-gutter"
 											data-editor-scroll-gutter="true"
@@ -487,6 +546,7 @@ const Content = React.forwardRef<
 									) : (
 										<div
 											id="editor-scroll-gutter"
+											css={shouldHideScrollGutterForMarkdownMode && hideEditorScrollGutterStyle}
 											style={{ paddingBottom: `${allowScrollGutter.gutterSize ?? '120'}px` }}
 											data-vc="scroll-gutter"
 										></div>

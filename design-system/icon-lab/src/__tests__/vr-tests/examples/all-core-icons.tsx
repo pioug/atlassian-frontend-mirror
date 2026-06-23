@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::26321d272fe6806fe53ef3bac2a5b033>>
+ * @codegen <<SignedSource::ebc7f5e5819157d3ea77054ccab7b7d0>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -457,6 +457,7 @@ import TextLetterCaseIcon from '../../../../core/text-letter-case';
 import TextNormalIcon from '../../../../core/text-normal';
 import TextParagraphIcon from '../../../../core/text-paragraph';
 import TextRephraseIcon from '../../../../core/text-rephrase';
+import TextReviewIcon from '../../../../core/text-review';
 import TextSmallIcon from '../../../../core/text-small';
 import TextSubscriptIcon from '../../../../core/text-subscript';
 import TextSuperscriptIcon from '../../../../core/text-superscript';
@@ -997,6 +998,7 @@ const Icons = [
 	ArrowUpCircleIcon,
 	CloudFortifiedIcon,
 	LoomIcon,
+	TextReviewIcon,
 ];
 
 const groupSize = 50;

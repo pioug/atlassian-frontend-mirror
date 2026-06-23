@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 109.3.0
+
+### Minor Changes
+
+- [`2c36f79c27482`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c36f79c27482) -
+  Add dynamicConfigBooleanValue helper and route free-text remix whiteboard-create/update actions
+  (isRemixGenerated=true, no dynamicUiSubtype) to the full AIFC staging modal instead of inserting a
+  URL into the page. Guarded by killswitch dynamic config
+  platform_editor_ai_remix_whiteboard_to_aifc.
+- [`e108322f4ea71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e108322f4ea71) -
+  Add emoji tooltip on hover using VanillaTooltip behind platform_editor_emoji_hover_show_tooltip
+  experiment
+- [`949347e49035b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/949347e49035b) -
+  [ux] [EDITOR-7471] Remove the left-hand resizer handle from nodes using breakout mark for
+  resizing.
+
 ## 109.2.0
 
 ### Minor Changes

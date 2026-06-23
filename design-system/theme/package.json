@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {
@@ -44,7 +45,6 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@compiled/react": "root:*",
 		"@testing-library/react": "root:*",
 		"@types/color": "root:*",

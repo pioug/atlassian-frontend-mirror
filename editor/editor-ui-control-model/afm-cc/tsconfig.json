@@ -17,5 +17,9 @@
 		"../src/**/mocks/*",
 		"../src/**/examples.*"
 	],
-	"references": []
+	"references": [
+		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+		}
+	]
 }

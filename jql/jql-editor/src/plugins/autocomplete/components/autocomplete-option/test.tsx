@@ -63,9 +63,9 @@ describe.skip('basic behavior', () => {
 
 const OptionsListWrapper = ({ children }: { children: React.ReactNode }) => {
 	return (
-		<ul role="listbox" aria-label="options list">
+		<div role="listbox" aria-label="options list">
 			{children}
-		</ul>
+		</div>
 	);
 };
 

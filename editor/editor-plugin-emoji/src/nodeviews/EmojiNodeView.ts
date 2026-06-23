@@ -1,4 +1,5 @@
 import isEqual from 'lodash/isEqual';
+import uniqueId from 'lodash/uniqueId';
 import type { IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
@@ -10,6 +11,7 @@ import {
 } from '@atlaskit/editor-common/emoji';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { VanillaTooltip } from '@atlaskit/editor-common/vanilla-tooltip';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
@@ -26,6 +28,7 @@ import type {
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { token } from '@atlaskit/tokens';
 
 import type { EmojiPlugin } from '../emojiPluginType';
 import type { EmojiNodeDataProvider } from '../pm-plugins/providers/EmojiNodeDataProvider';
@@ -57,14 +60,32 @@ export function isSingleEmoji(fallbackText: string): boolean {
 /**
  * Emoji node view for renderering emoji nodes
  */
+const EMOJI_TOOLTIP_CLASS = 'emoji-tooltip-editor';
 export class EmojiNodeView implements NodeView {
 	dom: Node;
 	domElement: HTMLElement | undefined;
 	private readonly node: PMNode;
 	private readonly intl: IntlShape;
 	private renderingFallback: boolean = false;
+	private tooltipInstance: VanillaTooltip | undefined;
+	private tooltipTarget: HTMLElement | undefined;
 
-	readonly destroy = (): void => {};
+	readonly destroy = (): void => {
+		if (
+			(this.tooltipInstance || this.tooltipTarget) &&
+			expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)
+		) {
+			this.destroyTooltip();
+		}
+	};
+
+	private destroyTooltip(): void {
+		this.tooltipInstance?.destroy();
+		this.tooltipTarget?.removeAttribute('popovertarget');
+		this.tooltipTarget?.removeAttribute('aria-describedby');
+		this.tooltipInstance = undefined;
+		this.tooltipTarget = undefined;
+	}
 
 	private static logError(error: Error) {
 		void logException(error, {
@@ -171,6 +192,7 @@ export class EmojiNodeView implements NodeView {
 			this.destroy = () => {
 				unsubscribe();
 				subscribeToConnection?.();
+				this.destroyTooltip();
 			};
 		}
 	}
@@ -244,6 +266,8 @@ export class EmojiNodeView implements NodeView {
 	// Pay attention, this method should be called only when the emoji provider returns
 	// emoji data to prevent rendering empty emoji during loading.
 	private cleanUpAndRenderCommonAttributes() {
+		this.destroyTooltip();
+
 		// Clean up the DOM before rendering the new emoji
 		if (this.domElement) {
 			this.domElement.innerHTML = '';
@@ -251,6 +275,62 @@ export class EmojiNodeView implements NodeView {
 			this.domElement.classList.remove(EmojiSharedCssClassName.EMOJI_PLACEHOLDER);
 			this.domElement.removeAttribute('aria-label'); // The label is set in the renderEmoji method
 			this.domElement.removeAttribute('aria-busy');
+		}
+	}
+
+	/**
+	 * Creates a VanillaTooltip on the given element showing the emoji shortName.
+	 * Gated behind the platform_editor_emoji_hover_show_tooltip experiment.
+	 * When the tooltip is active, the native `title` attribute is removed to avoid
+	 * showing both the browser tooltip and the custom tooltip.
+	 */
+	private createTooltip(element: HTMLElement, shortName: string): void {
+		if (!expValEquals('platform_editor_emoji_hover_show_tooltip', 'isEnabled', true)) {
+			return;
+		}
+
+		const tooltipId =
+			typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+				? `emoji-tooltip-${crypto.randomUUID()}`
+				: uniqueId('emoji-tooltip-');
+		try {
+			const tooltipInstance = new VanillaTooltip(
+				// VanillaTooltip types expect HTMLButtonElement but works with any HTMLElement
+				element as unknown as HTMLButtonElement,
+				shortName,
+				tooltipId,
+				EMOJI_TOOLTIP_CLASS,
+				// default timeout
+				300,
+				// Inline styles are required because the Popover API promotes the tooltip
+				// to the browser's top layer, where ancestor CSS selectors cannot reach it.
+				{
+					boxSizing: 'border-box',
+					maxWidth: '240px',
+					backgroundColor: token('color.background.neutral.bold'),
+					border: 'none',
+					borderRadius: token('radius.small', '3px'),
+					color: token('color.text.inverse'),
+					font: token('font.body.small'),
+					fontFamily: token('font.family.body'),
+					insetBlockStart: token('space.0', '0px'),
+					insetInlineStart: token('space.0', '0px'),
+					overflowWrap: 'break-word',
+					paddingBlockStart: token('space.050', '4px'),
+					paddingBlockEnd: token('space.050', '4px'),
+					paddingInlineEnd: token('space.075', '6px'),
+					paddingInlineStart: token('space.075', '6px'),
+					whiteSpace: 'normal',
+				},
+			);
+
+			this.tooltipInstance = tooltipInstance;
+			this.tooltipTarget = element;
+			element.removeAttribute('title');
+		} catch (error) {
+			element.removeAttribute('popovertarget');
+			element.removeAttribute('aria-describedby');
+			EmojiNodeView.logError(error instanceof Error ? error : new Error(String(error)));
 		}
 	}
 
@@ -284,6 +364,7 @@ export class EmojiNodeView implements NodeView {
 		fallbackElement.setAttribute('data-emoji-type', 'fallback');
 
 		this.dom.appendChild(fallbackElement);
+		this.createTooltip(fallbackElement, shortName);
 	}
 
 	private renderEmoji(
@@ -332,6 +413,8 @@ export class EmojiNodeView implements NodeView {
 		if (EmojiNodeView.shouldRecordUnicodeEmojiExposure(description, representation)) {
 			expValEquals('platform_use_unicode_emojis', 'isEnabled', true);
 		}
+
+		this.createTooltip(containerElement, description.shortName);
 	}
 
 	private createUnicodeEmojiElement(emoji: string): HTMLSpanElement {

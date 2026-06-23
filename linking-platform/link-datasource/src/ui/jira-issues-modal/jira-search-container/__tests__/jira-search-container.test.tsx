@@ -151,7 +151,9 @@ const setupBasicFilter = async ({
 	// in current implementation JQL doesn't have basic filters
 	await userEvent.click(screen.getByTestId('mode-toggle-basic'));
 
-	const triggerButton = screen.queryByTestId(`jlol-basic-filter-${filterType}-trigger`);
+	const triggerButton =
+		screen.queryByTestId(`jlol-basic-filter-${filterType}-trigger--button`) ??
+		screen.queryByTestId(`jlol-basic-filter-${filterType}-trigger--loading-button`);
 
 	if (openPicker) {
 		invariant(triggerButton);
@@ -725,14 +727,18 @@ describe('JiraSearchContainer', () => {
 		await userEvent.click(firstStatus);
 
 		// Close menu
-		const statusTriggerButton = await screen.findByTestId(`jlol-basic-filter-status-trigger`);
+		const statusTriggerButton = await screen.findByTestId(
+			`jlol-basic-filter-status-trigger--button`,
+		);
 		await userEvent.click(statusTriggerButton);
 
 		expect(screen.queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
 			'ProjectWork typeStatus: AuthorizeAssignee',
 		);
 
-		const projectTriggerButton = await screen.findByTestId(`jlol-basic-filter-project-trigger`);
+		const projectTriggerButton = await screen.findByTestId(
+			`jlol-basic-filter-project-trigger--button`,
+		);
 		await userEvent.click(projectTriggerButton);
 
 		const projectSelectMenu = await screen.findByTestId(
@@ -772,7 +778,9 @@ describe('JiraSearchContainer', () => {
 		await userEvent.click(firstStatus);
 
 		// Close menu
-		const statusTriggerButton = await screen.findByTestId(`jlol-basic-filter-status-trigger`);
+		const statusTriggerButton = await screen.findByTestId(
+			`jlol-basic-filter-status-trigger--button`,
+		);
 		await userEvent.click(statusTriggerButton);
 
 		expect(screen.queryByTestId('jlol-basic-filter-container')).toHaveTextContent(
@@ -876,7 +884,9 @@ describe('JiraSearchContainer', () => {
 			);
 
 			// Open menu
-			const newInstanceOfTriggerButton = screen.queryByTestId(`jlol-basic-filter-status-trigger`);
+			const newInstanceOfTriggerButton = screen.queryByTestId(
+				`jlol-basic-filter-status-trigger--button`,
+			);
 
 			invariant(newInstanceOfTriggerButton);
 			await userEvent.click(newInstanceOfTriggerButton);

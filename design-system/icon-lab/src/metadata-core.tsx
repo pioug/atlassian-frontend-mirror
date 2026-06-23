@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::008bc20aa9b7cbdbfc570d8ba3f1af54>>
+ * @codegen <<SignedSource::d57e8c1bcc50d513fe7e337d262fa51e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -4795,7 +4795,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/journeys',
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing Journeys in JSM.',
-		team: 'JSM Getting Started',
+		team: 'JSM Grape Soju',
 		status: 'published',
 	},
 	kanban: {
@@ -7173,6 +7173,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Confluence Editor AI action for rephrasing text',
 		team: 'Editor AI',
+		status: 'published',
+	},
+	'text-review': {
+		keywords: ['text-review', 'textreview', 'icon', 'icon-lab', 'examine', 'text', 'review'],
+		componentName: 'TextReviewIcon',
+		package: '@atlaskit/icon-lab/core/text-review',
+		categorization: 'single-purpose',
+		usage: 'Editor action for reviewing text',
+		team: 'Editor',
 		status: 'published',
 	},
 	'text-small': {

@@ -28,6 +28,7 @@ import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import {
 	changeLanguage,
@@ -205,6 +206,7 @@ export const getToolbarConfig = (
 			filterOption: languageListFilter,
 		};
 
+		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 		let languagePicker: FloatingToolbarCustom<Command> | undefined;
 
 		if (
@@ -238,6 +240,11 @@ export const getToolbarConfig = (
 							filterOption={languageListFilter}
 							formatMessage={formatMessage}
 							languagePickerOptions={languagePickerOptions}
+							triggerSpacing={
+								!areAnyNewToolbarFlagsEnabled && fg('platform_editor_code_block_dogfooding_patch')
+									? 'compact'
+									: 'default'
+							}
 						/>
 					);
 				},
@@ -247,8 +254,6 @@ export const getToolbarConfig = (
 		const separator: FloatingToolbarSeparator = {
 			type: 'separator',
 		};
-
-		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 		const copyToClipboardItems = !allowCopyToClipboard
 			? []
@@ -335,7 +340,7 @@ export const getToolbarConfig = (
 			copyAndDeleteButtonMenuItems = [separator, ...copyToClipboardItems, deleteButton];
 		}
 
-		const codeBlockWrapButtonTitle = expValEquals(
+		const codeBlockWrapButtonTitle = expValEqualsNoExposure(
 			'platform_editor_code_block_q4_lovability',
 			'isEnabled',
 			true,
@@ -351,7 +356,7 @@ export const getToolbarConfig = (
 			id: 'editor.codeBlock.wrap',
 			type: 'button',
 			// Toggling button now writes to ADF, hence it should be available in view mode
-			supportsViewMode: !expValEquals(
+			supportsViewMode: !expValEqualsNoExposure(
 				'platform_editor_code_block_q4_lovability',
 				'isEnabled',
 				true,

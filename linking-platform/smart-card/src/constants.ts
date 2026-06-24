@@ -4,8 +4,6 @@ export const CONTENT_URL_SECURITY_AND_PERMISSIONS =
 export const CONTENT_URL_3P_ACCOUNT_AUTH =
 	'https://support.atlassian.com/confluence-cloud/docs/what-data-is-sent-and-received-when-pasting-a-smart-link/';
 
-export const CONTENT_URL_AI = 'https://www.atlassian.com/trust/atlassian-intelligence';
-
 export const CONTENT_URL_ROVO = 'https://www.atlassian.com/trust/ai';
 
 export const CONTENT_URL_AI_TROUBLESHOOTING = 'https://status.atlassian.com/';

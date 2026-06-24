@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 
 const BreadcrumbsExpandable = ({
 	defaultIsExpanded = false,
@@ -23,7 +24,7 @@ const BreadcrumbsExpandable = ({
 		>
 			<BreadcrumbsItem href="/pages" text="Pages" key="Pages" />
 			<BreadcrumbsItem href="/hidden" text="hidden bread crumb" key="hidden bread crumb" />
-			<BreadcrumbsItem href="/pages/home" text="Home" key="Home" />
+			<BreadcrumbsCurrentItem href="/pages/home" text="Home" key="Home" />
 		</Breadcrumbs>
 	);
 };

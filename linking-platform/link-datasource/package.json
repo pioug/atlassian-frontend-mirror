@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "6.0.2",
+	"version": "6.0.6",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -198,13 +198,13 @@
 		"navx-1895-new-logo-design": {
 			"type": "boolean"
 		},
-		"platform_navx_sllv_j2ws_dropdown_for_single_row": {
-			"type": "boolean"
-		},
 		"platform_lp_sllv_jira_type_as_link": {
 			"type": "boolean"
 		},
 		"platform_lp_jira_sllv_renderer_column_sorting": {
+			"type": "boolean"
+		},
+		"platform_sllv_a11y_modal_options_focus": {
 			"type": "boolean"
 		},
 		"linking_platform_link_datasource_unit_compliant": {

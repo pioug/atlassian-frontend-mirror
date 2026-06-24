@@ -65,7 +65,14 @@ export const useAvailableSites = ({
 					gatewayBaseUrl,
 				});
 				setState({
-					data: sites,
+					// TODO As part of NAVX-5287 (FG cleanup) remove the map and go back to `data: sites`
+					// As isVertigo be removed in same PR it doesn't matter if data will be back again.
+					data: fg('platform_lp_kill_isvertigo_and_vortexmode')
+						? sites.map((site) => ({
+								...site,
+								isVertigo: undefined,
+							}))
+						: sites,
 					loading: false,
 					error: undefined,
 				});
@@ -106,7 +113,9 @@ export const mapAccessibleProductsToAvailableSites = (data: AccessibleProduct): 
 				avatarUrl: workspace.workspaceAvatarUrl,
 				cloudId: workspace.cloudId,
 				displayName: workspace.workspaceDisplayName,
-				isVertigo: workspace.vortexMode === 'ENABLED',
+				isVertigo: fg('platform_lp_kill_isvertigo_and_vortexmode')
+					? undefined
+					: workspace.vortexMode === 'ENABLED',
 				products: [product.productId],
 				url: workspace.cloudUrl,
 			});

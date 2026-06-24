@@ -3,11 +3,20 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
+import useOverflowCollapse from '../../internal/use-overflow-collapse';
+
+jest.mock('../../internal/use-overflow-collapse', () => ({
+	__esModule: true,
+	default: jest.fn(),
+}));
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+const mockUseOverflowCollapse = jest.mocked(useOverflowCollapse);
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('analysis', () => {
@@ -81,6 +90,67 @@ describe('analysis', () => {
 						actionSubject: 'breadcrumbsItem',
 						attributes: {
 							componentName: 'breadcrumbsItem',
+							packageName,
+							packageVersion,
+						},
+					},
+				}),
+				'atlaskit',
+			);
+		});
+	});
+});
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+ffTest.on('platform_dst_breadcrumbs-refresh', 'analytics with refresh enabled', () => {
+	beforeEach(() => {
+		mockUseOverflowCollapse.mockReset();
+		mockUseOverflowCollapse.mockReturnValue({
+			collapsedIndices: new Set(),
+			naturalWidthsReady: true,
+			registerContainer: __noop,
+			registerItem: () => __noop,
+		});
+	});
+
+	describe('Breadcrumbs', () => {
+		it('should send expanded analytics when the overflow ellipsis is clicked', () => {
+			const onAnalyticsEvent = jest.fn();
+
+			mockUseOverflowCollapse.mockReturnValue({
+				collapsedIndices: new Set([1]),
+				naturalWidthsReady: true,
+				registerContainer: __noop,
+				registerItem: () => __noop,
+			});
+
+			render(
+				<AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
+					<Breadcrumbs analyticsContext={{ source: 'test' }} testId="breadcrumbs-container">
+						<BreadcrumbsItem href="/item" text="Item" />
+						<BreadcrumbsItem href="/item" text="Another item" />
+						<BreadcrumbsItem href="/item" text="A third item" />
+					</Breadcrumbs>
+				</AnalyticsListener>,
+			);
+
+			fireEvent.click(screen.getByTestId('breadcrumbs-container--breadcrumb-ellipsis'));
+
+			expect(onAnalyticsEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					context: expect.arrayContaining([
+						expect.objectContaining({
+							componentName: 'breadcrumbs',
+							packageName,
+							packageVersion,
+							source: 'test',
+						}),
+					]),
+					payload: {
+						action: 'expanded',
+						actionSubject: 'breadcrumbs',
+						attributes: {
+							componentName: 'breadcrumbs',
 							packageName,
 							packageVersion,
 						},

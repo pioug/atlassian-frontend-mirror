@@ -58,12 +58,10 @@ export type MessageKey =
 	| 'ai_summarized_abbreviation'
 	| 'ai_summarized_info'
 	| 'ai_summarized_info_short'
-	| 'ai_summary_error_generic'
 	| 'ai_summary_error_generic_rebrand'
 	| 'ai_summary_error_acceptable_use_violation'
 	| 'ai_summary_error_hipaa_content_detected'
 	| 'ai_summary_error_exceeding_context_length_error'
-	| 'ai_summary_action'
 	| 'ai_summary_action_rebrand'
 	| 'ai_summary_action_description'
 	| 'ai_summary_action_description_rebrand'
@@ -270,13 +268,6 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.ai_summarized_info_short',
 		defaultMessage: 'Content quality may vary',
 		description: 'Additional info about the content summarised by AI.',
-	},
-	ai_summary_error_generic: {
-		id: 'fabric.linking.ai_summary_error_generic',
-		defaultMessage:
-			'Atlassian Intelligence (AI) isn’t responding. Try again later or <a>check the status of AI</a>.',
-		description:
-			'Shown when AI Summary encountered an unexpected error while summarizing the linked resource content.',
 	},
 	ai_summary_error_generic_rebrand: {
 		id: 'fabric.linking.ai_summary_error_generic_rebrand',
@@ -555,12 +546,6 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Download file',
 		description:
 			'Label for the download file action in a smart link or card action menu, allowing the user to save the linked file locally.',
-	},
-	ai_summary_action: {
-		id: 'fabric.linking.ai_summary_action',
-		defaultMessage: 'Summarize with AI',
-		description:
-			'Label for the AI summarize action in a smart link or hover card action menu, allowing the user to generate an AI summary of the linked content.',
 	},
 	ai_summary_action_rebrand: {
 		id: 'fabric.linking.ai_summary_action_rebrand',

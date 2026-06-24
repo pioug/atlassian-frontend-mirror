@@ -18,6 +18,7 @@ export type LastContentPasted = {
   pastedSlice: Slice;
   pastedAt: number;
   pasteSource: PasteSource;
+  sourcePastedSlice?: Slice;
 };
 `}
 
@@ -33,11 +34,18 @@ Here is a brief explanation of each parameter:
 
 - \`pasteEndPos\`: This is the final position of the cursor after the paste operation has been completed.
 
-- \`pastedSlice\`: This parameter contains the actual pasted content. It can contain either rich text or plaintext.
+- \`pastedSlice\`: Backwards-compatible field for existing paste option consumers. This is the
+last slice extracted from a \`ReplaceStep\` or \`ReplaceAroundStep\` in the paste transaction. It
+is not necessarily the original clipboard slice or the full content inserted by the paste.
 
 - \`pastedAt\`: This is the Unix timestamp at which the paste operation occurred. It is currently unused.
 
 - \`pasteSource\`: This parameter is used to determine whether the content was copied from within or outside the editor.
+
+- \`sourcePastedSlice\`: This optional parameter contains the paste handler slice captured before
+inspecting transaction steps. It has already passed through clipboard parsing and paste transforms,
+but does not depend on which \`ReplaceStep\` or \`ReplaceAroundStep\` happens to be last in the paste
+transaction.
 
 This detailed explanation of the parameters should assist developers in understanding the functionality of the Paste Options Toolbar Plugin. It is important to note that some parameters are optional and others are used under specific conditions.
 `;

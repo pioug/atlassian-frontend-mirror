@@ -1,0 +1,114 @@
+import React, { Fragment, type SyntheticEvent, useMemo, useState } from 'react';
+
+import Link from '@atlaskit/link';
+import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import { token } from '@atlaskit/tokens';
+import { AtlassianLinkPickerPlugin, Scope } from '@atlassian/link-picker-atlassian-plugin';
+import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
+
+import { PageWrapper } from '../example-helpers/common';
+import { mockAccessibleProducts } from '../example-helpers/mock-available-sites';
+import { mockPluginEndpointsNoData } from '../example-helpers/mock-plugin-endpoints';
+import { MOCK_NO_RESULTS } from '../example-helpers/mock-recents-data';
+import { LinkPicker, type LinkPickerProps } from '../src';
+
+type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
+
+mockPluginEndpointsNoData();
+mockEndpoints(undefined, undefined, MOCK_NO_RESULTS);
+mockAccessibleProducts();
+
+/**
+ * This example demonstrates the `disableManualUrlInsert` prop.
+ *
+ * When `disableManualUrlInsert` is `true`, typing a URL (e.g. http://www.google.com)
+ * will NOT enable the Insert button — the user must select a result from the search
+ * list to proceed. This prevents inserting external/manual links when only
+ * result-based links are desired.
+ *
+ * In this example, the plugin returns no results, so the Insert button remains
+ * disabled even when a valid URL is typed.
+ */
+function DisableManualUrlInsert() {
+	const [link, setLink] = useState<OnSubmitPayload>({
+		url: '',
+		displayText: null,
+		title: null,
+		meta: {
+			inputMethod: 'manual',
+		},
+	});
+	const [isLinkPickerVisible, setIsLinkPickerVisible] = useState(true);
+	const linkAnalytics = useSmartLinkLifecycleAnalytics();
+
+	const handleSubmit: LinkPickerProps['onSubmit'] = (payload, analytic) => {
+		setLink(payload);
+		linkAnalytics.linkCreated(payload, analytic);
+		setIsLinkPickerVisible(false);
+	};
+
+	const handleClick = (e: SyntheticEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+		setIsLinkPickerVisible(true);
+	};
+
+	const handleCancel = () => setIsLinkPickerVisible(false);
+
+	const plugins = useMemo(
+		() => [
+			new AtlassianLinkPickerPlugin({
+				cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+				scope: Scope.ConfluencePageBlog,
+				aggregatorUrl: 'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
+				activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
+				products: ['confluence'],
+			}),
+		],
+		[],
+	);
+
+	const linkPicker = isLinkPickerVisible && (
+		<LinkPicker
+			plugins={plugins}
+			url={link.url}
+			displayText={link.displayText}
+			onSubmit={handleSubmit}
+			onCancel={handleCancel}
+			hideDisplayText
+			disableManualUrlInsert={true}
+			customMessages={{
+				linkLabel: {
+					id: 'link-picker-example.disable-manual-url-insert.link-label',
+					defaultMessage: 'Search',
+					description: 'Label for the search input when external link insertion is disabled',
+				},
+				linkPlaceholder: {
+					id: 'link-picker-example.disable-manual-url-insert.link-placeholder',
+					defaultMessage: 'Find recent links',
+					description: 'Placeholder for the search input when external link insertion is disabled',
+				},
+			}}
+		/>
+	);
+
+	return (
+		<Fragment>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			<div style={{ paddingBottom: token('space.250') }}>
+				<Link id="test-link" href={link.url} target="_blank" onClick={handleClick}>
+					{link.displayText || link.url}
+				</Link>
+			</div>
+			{linkPicker}
+		</Fragment>
+	);
+}
+
+export default function DisableManualUrlInsertWrapper(): React.JSX.Element {
+	return (
+		<PageWrapper>
+			<DisableManualUrlInsert />
+		</PageWrapper>
+	);
+}

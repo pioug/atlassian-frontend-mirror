@@ -1,5 +1,19 @@
 # @atlaskit/adf-schema
 
+## 56.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.0.4
+
+### Patch Changes
+
+- [`edd71c69a804b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edd71c69a804b) -
+  [EDITOR-7026] add breakout mark to rule and panel nodes in stage0
+- Updated dependencies
+
 ## 56.0.3
 
 ### Patch Changes

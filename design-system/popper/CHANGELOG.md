@@ -1,5 +1,26 @@
 # @atlaskit/popper
 
+## 8.1.0
+
+### Minor Changes
+
+- [`db3328ec580e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db3328ec580e4) -
+  Behind the `"platform-dst-top-layer"` feature flag, `@atlaskit/popper` now renders into the
+  browser top layer via `@atlaskit/top-layer`. Public API and exported types are unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.1
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

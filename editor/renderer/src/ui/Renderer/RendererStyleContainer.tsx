@@ -82,6 +82,7 @@ const wrappedMediaBreakoutPoint = 410;
 const TELEPOINTER_ID = 'ai-streaming-telepointer';
 const tableShadowWidth = 32;
 const LAYOUT_BREAKPOINT_RENDERER = 629;
+const REMIX_BLOCK_HIGHLIGHT_CLASS_NAME = 'remix-block-highlight';
 // originally defined from packages/editor/editor-plugin-table/src/ui/common-styles.ts
 // Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
 // eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
@@ -1271,14 +1272,18 @@ const backgroundColorStyles = css({
 		paddingBottom: '2px',
 		boxDecorationBreak: 'clone',
 	},
-	// Don't show text highlight styling when there is a hyperlink
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'a .fabric-background-color-mark': {
-		backgroundColor: 'unset',
-	},
 	// Don't show text highlight styling when there is an inline comment
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark .ak-editor-annotation': {
+		backgroundColor: 'unset',
+	},
+});
+
+// Don't show text highlight styling when there is a hyperlink.
+// Conditionally applied when the highlight-on-links experiment is off.
+const highlightLinksUnsetStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'a .fabric-background-color-mark': {
 		backgroundColor: 'unset',
 	},
 });
@@ -2123,6 +2128,17 @@ const tableSharedStyle = css({
 			},
 		},
 	},
+});
+
+const roundedTableRemixBlockHighlightStyles = css({
+	[`.${TableSharedCssClassName.TABLE_CONTAINER}.${REMIX_BLOCK_HIGHLIGHT_CLASS_NAME} > table,
+	.${TableSharedCssClassName.TABLE_CONTAINER}.${REMIX_BLOCK_HIGHLIGHT_CLASS_NAME} > .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
+	.${TableSharedCssClassName.TABLE_CONTAINER}.${REMIX_BLOCK_HIGHLIGHT_CLASS_NAME} > .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
+		{
+			'&::after': {
+				borderColor: token('color.border.selected'),
+			},
+		},
 });
 
 const roundedTableOuterBorderOverlayStyles = css({
@@ -3323,6 +3339,8 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				dateSharedStyle,
 				textColorStyles,
 				backgroundColorStyles,
+				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+					highlightLinksUnsetStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				textHighlightPaddingStyles,
 				tasksAndDecisionsStyles,
@@ -3361,6 +3379,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				tableSharedStyle,
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
 					roundedTableOuterBorderOverlayStyles,
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+					fg('platform_editor_table_q4_patch_1') &&
+					roundedTableRemixBlockHighlightStyles,
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					tableContentModeStyles,
 				tableRendererHeaderStylesForTableCellOnly,

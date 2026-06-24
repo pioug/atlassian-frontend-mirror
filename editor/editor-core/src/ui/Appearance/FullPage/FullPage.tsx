@@ -229,9 +229,13 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 						(isToolbarAIFCEnabled ? (
 							<FullPageToolbarNext
 								disabled={
-									!!props.disabled ||
-									(!hasHadInteraction &&
-										expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true))
+									expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)
+										? !hasHadInteraction
+											? false
+											: !!props.disabled
+										: !!props.disabled ||
+											(!hasHadInteraction &&
+												expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true))
 								}
 								disabledWithoutInteractionLogic={!!props.disabled}
 								toolbarDockingPosition={toolbarDockingPosition ?? toolbarDocking}

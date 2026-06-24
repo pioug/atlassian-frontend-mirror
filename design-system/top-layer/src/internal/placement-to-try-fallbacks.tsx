@@ -1,77 +1,104 @@
-import { type TPlacementOptions } from '../internal/resolve-placement';
-
-import { getPlacement } from './resolve-placement';
+import { getPlacement, type TPlacement, type TPlacementOptions } from './resolve-placement';
 
 /**
- * Returns `position-try-fallbacks` value based on placement.
+ * A `position-area` primary edge — the placement axis joined to its edge, e.g.
+ * `block-end` or `inline-start`. These are the four edges a popover can sit on.
+ */
+type TPositionAreaEdge = `${TPlacement['axis']}-${TPlacement['edge']}`;
+
+function slideOnEdge({
+	align,
+	edgeKey,
+	crossAxis,
+}: {
+	align: TPlacement['align'];
+	edgeKey: TPositionAreaEdge;
+	crossAxis: TPlacement['axis'];
+}): string[] {
+	if (align === 'center') {
+		return [`${edgeKey} span-${crossAxis}-end`, `${edgeKey} span-${crossAxis}-start`];
+	}
+	// For `align: 'start'` the popover expands toward `end`, so the "near"
+	// span is `end` and the "far" span is `start`; `align: 'end'` mirrors
+	// this. The bare `edgeKey` (re-centered) sits between them.
+	const near = align === 'start' ? 'end' : 'start';
+	const far = align === 'start' ? 'start' : 'end';
+	return [`${edgeKey} span-${crossAxis}-${near}`, edgeKey, `${edgeKey} span-${crossAxis}-${far}`];
+}
+
+function flipDiagonally({ axis }: { axis: 'block' | 'inline' }) {
+	const flipOnMainAxis = axis === 'block' ? 'flip-block' : 'flip-inline';
+	const flipToCrossAxis = axis === 'block' ? 'flip-inline' : 'flip-block';
+	return `${flipOnMainAxis} ${flipToCrossAxis}`;
+}
+
+/**
+ * Returns the `position-try-fallbacks` value for a placement.
  *
- * For centered placements, includes cross-axis aligned position-area
- * values so the browser can shift the popover along the cross-axis
- * when the centered position would overflow the viewport edge.
- *
- * Fallback order for centered placements (e.g. `block-end`):
- * 1. Same edge, start-aligned (shift for near-edge overflow)
- * 2. Same edge, end-aligned (shift for far-edge overflow)
- * 3. Flipped edge, centered
- * 4. Flipped edge, start-aligned
- * 5. Flipped edge, end-aligned
- *
- * For aligned placements (start/end), includes the same-edge centered
- * position as fallbacks so the browser can try centering when the aligned
- * position would overflow, before flipping to the opposite edge.
- *
- * **Why `flip-inline flip-block` (or `flip-block flip-inline`) is included:**
- *
- * When a popup is in a viewport corner (e.g. inline-end align-end at the
- * top-right), flipping only the primary axis (`flip-inline`) moves the popup
- * to the left but keeps the same cross-axis span direction (e.g. upward),
- * which is still off-screen. The combined keyword `flip-inline flip-block`
- * mirrors the popup diagonally. It flips BOTH the position-area AND both
- * inline and block margins simultaneously, placing the popup at the
- * diagonally opposite corner where there is always space.
- *
- * Named `position-area` entries (e.g. `inline-start span-block-end`) in
- * `position-try-fallbacks` do NOT update margins, so only the `flip-*`
- * tactic keywords correctly flip the gap margin along with the position.
+ * @example
+ * // Centered on the block-end edge (the default placement):
+ * placementToTryFallbacks({ placement: { axis: 'block', edge: 'end', align: 'center' } });
+ * // => 'block-end span-inline-end, block-end span-inline-start, flip-block,
+ * //     block-start span-inline-end, block-start span-inline-start'
  */
 export function placementToTryFallbacks({ placement }: { placement: TPlacementOptions }): string {
-	const { axis, edge, align } = getPlacement({ placement });
+	/**
+	 * **Build the fallback list**
+	 *
+	 * Each entry is a complete alternative position.
+	 * The browser tries them _in order_ and uses the _first_ one that fits.
+	 */
+
+	const resolved = getPlacement({ placement });
+	const { axis, edge, align } = resolved;
 	const crossAxis = axis === 'block' ? 'inline' : 'block';
 	const flippedEdge = edge === 'start' ? 'end' : 'start';
-	const sameEdge = `${axis}-${edge}`;
-	const oppositeEdge = `${axis}-${flippedEdge}`;
-	const flipKeyword = axis === 'block' ? 'flip-block' : 'flip-inline';
-	const flipCrossKeyword = axis === 'block' ? 'flip-inline' : 'flip-block';
 
-	// Single algorithm: produce the shift list against any base alignment.
-	// For `align: 'start'` the "near" shift expands toward `end`; for
-	// `align: 'end'` it expands toward `start`; for `align: 'center'`
-	// either order is symmetric (we use end-then-start to match the
-	// historical fallback list).
-	function shifts(baseAlign: 'start' | 'center' | 'end', edgeKey: string): string[] {
-		if (baseAlign === 'center') {
-			return [`${edgeKey} span-${crossAxis}-end`, `${edgeKey} span-${crossAxis}-start`];
-		}
-		const near = baseAlign === 'start' ? 'end' : 'start';
-		const far = baseAlign === 'start' ? 'start' : 'end';
-		return [`${edgeKey} span-${crossAxis}-${near}`, edgeKey, `${edgeKey} span-${crossAxis}-${far}`];
-	}
+	const sameEdgeArea: TPositionAreaEdge = `${axis}-${edge}`;
+	const oppositeEdgeArea: TPositionAreaEdge = `${axis}-${flippedEdge}`;
 
-	if (align !== 'center') {
-		// Aligned (start/end): try same-edge shifts, then single-axis flip,
-		// then diagonal flip for corner overflow, then opposite-edge shifts.
-		// Legacy Popper fallback ordering for e.g. bottom-start:
-		// [bottom, bottom-end, top-start, top, top-end, auto].
-		return [
-			...shifts(align, sameEdge),
-			flipKeyword,
-			`${flipKeyword} ${flipCrossKeyword}`,
-			...shifts(align, oppositeEdge),
-		].join(', ');
-	}
+	const flipOnMainAxis = axis === 'block' ? 'flip-block' : 'flip-inline';
 
-	// Centered: same-edge shifts, single-axis flip, opposite-edge shifts.
-	// Diagonal flip is unnecessary because centered placements expand
-	// equally in both cross-axis directions.
-	return [...shifts('center', sameEdge), flipKeyword, ...shifts('center', oppositeEdge)].join(', ');
+	/**
+	 * **Fallback algorithm**
+	 *
+	 * We have two things we can do to keep something visible:
+	 *
+	 * 1. _Slide_ along edges
+	 * 2. _Flip_ to another edge
+	 *
+	 * _Centered popover_
+	 *
+	 * Desired: Sits in middle of main edge
+	 *
+	 * Fallbacks:
+	 *  1: _Slide_ along main edge on the cross axis
+	 *  2: _Flip_ on main axis to opposite edge (centered)
+	 *  3: _Slide_ along opposite edge on the cross axis
+	 *
+	 * _Start or end aligned popover_
+	 *
+	 * Desired: Sits at start / end of main edge
+	 *
+	 * Fallbacks:
+	 *  1: _Slide_ along main edge on the cross axis
+	 *  2: _Flip_ on main axis to opposite edge
+	 *  3: _Flip_ on the diagonal (flip main axis + flip cross axis) into the
+	 *     opposite corner. For start / end alignment, this is the clean escape
+	 *     when the popover would otherwise land offscreen on both axes (ie in a
+	 *     corner). Rule 4 gets the job done, but a slide drops the gap
+	 *     as named position-area values don't carry margins).
+	 *     The diagonal flip keeps the gap and the alignment.
+	 *  4: _Slide_ along opposite edge on the cross axis
+	 */
+
+	return [
+		slideOnEdge({ align, edgeKey: sameEdgeArea, crossAxis }),
+		flipOnMainAxis,
+		align !== 'center' ? flipDiagonally({ axis }) : null,
+		slideOnEdge({ align, edgeKey: oppositeEdgeArea, crossAxis }),
+	]
+		.filter(Boolean)
+		.flat()
+		.join(', ');
 }

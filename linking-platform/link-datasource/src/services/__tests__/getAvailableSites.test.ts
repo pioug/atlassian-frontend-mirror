@@ -10,23 +10,57 @@ const ACCESSIBLE_PRODUCTS_PATH = '/gateway/api/v2/accessible-products';
 const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/v2/accessible-products';
 
 describe('getAvailableSites', () => {
+	const mockSiteDataWithIsVertigo = mockSiteData.map((site) => ({
+		...site,
+		isVertigo: false,
+	}));
+	const mockSiteDataWithoutIsVertigoValue = mockSiteData.map((site) => ({
+		...site,
+		isVertigo: undefined,
+	}));
+
 	beforeEach(() => {
 		fetchMock.restore();
 	});
 
 	ffTest.off('linking_platform_link_datasource_unit_compliant', 'when feature gate is OFF', () => {
-		it('should return an array of jira sites using the v2 endpoint', async () => {
-			fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { data: { products: mockProductsData } });
+		ffTest.off(
+			'platform_lp_kill_isvertigo_and_vortexmode',
+			'should return jira sites with isVertigo using the v2 endpoint',
+			() => {
+				it('returns jira sites with isVertigo', async () => {
+					fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { data: { products: mockProductsData } });
 
-			const jiraSites = await getAccessibleProducts('jira');
+					const jiraSites = await getAccessibleProducts('jira');
 
-			const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
-			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
-			expect(requestInit?.body).toEqual(
-				'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
-			);
-			expect(jiraSites).toEqual(mockSiteData);
-		});
+					const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+					expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+					expect(requestInit?.body).toEqual(
+						'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
+					);
+					expect(jiraSites).toEqual(mockSiteDataWithIsVertigo);
+				});
+			},
+		);
+
+		ffTest.on(
+			'platform_lp_kill_isvertigo_and_vortexmode',
+			'should return jira sites without isVertigo values using the v2 endpoint',
+			() => {
+				it('returns jira sites without isVertigo values', async () => {
+					fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { data: { products: mockProductsData } });
+
+					const jiraSites = await getAccessibleProducts('jira');
+
+					const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+					expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+					expect(requestInit?.body).toEqual(
+						'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
+					);
+					expect(jiraSites).toEqual(mockSiteDataWithoutIsVertigoValue);
+				});
+			},
+		);
 
 		it('should return an array of confluence sites using the v2 endpoint', async () => {
 			fetchMock.post(ACCESSIBLE_PRODUCTS_PATH, { data: { products: mockProductsData } });
@@ -56,20 +90,47 @@ describe('getAvailableSites', () => {
 	});
 
 	ffTest.on('linking_platform_link_datasource_unit_compliant', 'when feature gate is ON', () => {
-		it('should return an array of jira sites using the experimental v2 endpoint', async () => {
-			fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, {
-				data: { products: mockProductsData },
-			});
+		ffTest.off(
+			'platform_lp_kill_isvertigo_and_vortexmode',
+			'should return jira sites with isVertigo using the experimental v2 endpoint',
+			() => {
+				it('returns jira sites with isVertigo', async () => {
+					fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, {
+						data: { products: mockProductsData },
+					});
 
-			const jiraSites = await getAccessibleProducts('jira');
+					const jiraSites = await getAccessibleProducts('jira');
 
-			const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
-			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
-			expect(requestInit?.body).toEqual(
-				'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
-			);
-			expect(jiraSites).toEqual(mockSiteData);
-		});
+					const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+					expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
+					expect(requestInit?.body).toEqual(
+						'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
+					);
+					expect(jiraSites).toEqual(mockSiteDataWithIsVertigo);
+				});
+			},
+		);
+
+		ffTest.on(
+			'platform_lp_kill_isvertigo_and_vortexmode',
+			'should return jira sites without isVertigo values using the experimental v2 endpoint',
+			() => {
+				it('returns jira sites without isVertigo values', async () => {
+					fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, {
+						data: { products: mockProductsData },
+					});
+
+					const jiraSites = await getAccessibleProducts('jira');
+
+					const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+					expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
+					expect(requestInit?.body).toEqual(
+						'{"productIds":["jira-software.ondemand","jira-core.ondemand","jira-incident-manager.ondemand","jira-product-discovery","jira-servicedesk.ondemand"]}',
+					);
+					expect(jiraSites).toEqual(mockSiteDataWithoutIsVertigoValue);
+				});
+			},
+		);
 
 		it('should return an array of confluence sites using the experimental v2 endpoint', async () => {
 			fetchMock.post(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH, {

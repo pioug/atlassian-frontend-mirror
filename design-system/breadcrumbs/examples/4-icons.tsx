@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import { cssMap } from '@atlaskit/css';
 import ImageIcon from '@atlaskit/icon/core/image';
 import { AtlassianIcon } from '@atlaskit/logo';
@@ -21,59 +22,61 @@ export default (): React.JSX.Element => (
 		<p>@atlaskit/logo</p>
 		<Breadcrumbs label="@atlaskit/logo">
 			<BreadcrumbsItem href="/item" text="No icon" />
-			<BreadcrumbsItem href="/item" iconBefore={TestIcon} text="Before" />
+			<BreadcrumbsItem href="/item" elemBefore={TestIcon} text="Before" />
 			<BreadcrumbsItem href="/item" iconAfter={TestIcon} text="After" />
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={TestIcon}
+				elemBefore={TestIcon}
 				iconAfter={TestIcon}
 				text="Before and after"
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={TestIcon}
+				elemBefore={TestIcon}
 				iconAfter={TestIcon}
 				text="Long content, icons before and after"
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={TestIcon}
+				elemBefore={TestIcon}
 				iconAfter={TestIcon}
 				text="Truncated content, icons before and after"
 				truncationWidth={100}
 			/>
+			<BreadcrumbsCurrentItem href="/current-page" text="Current page" />
 		</Breadcrumbs>
 		<p>@atlaskit/icon - no spacing</p>
 		<Breadcrumbs label="@atlaskit/icon - no spacing">
 			<BreadcrumbsItem href="/item" text="No icon" />
-			<BreadcrumbsItem href="/item" iconBefore={<ImageIcon label="" />} text="Before" />
+			<BreadcrumbsItem href="/item" elemBefore={<ImageIcon label="" />} text="Before" />
 			<BreadcrumbsItem href="/item" iconAfter={<ImageIcon label="" />} text="After" />
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={<ImageIcon label="" />}
+				elemBefore={<ImageIcon label="" />}
 				iconAfter={<ImageIcon label="" />}
 				text="Before and after"
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={<ImageIcon label="" />}
+				elemBefore={<ImageIcon label="" />}
 				iconAfter={<ImageIcon label="" />}
 				text="Long content, icons before and after"
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={<ImageIcon label="" />}
+				elemBefore={<ImageIcon label="" />}
 				iconAfter={<ImageIcon label="" />}
 				text="Truncated content, icons before and after"
 				truncationWidth={100}
 			/>
+			<BreadcrumbsCurrentItem href="/current-page" text="Current page" />
 		</Breadcrumbs>
 		<p>@atlaskit/icon - spacing spacious</p>
 		<Breadcrumbs label="@atlaskit/icon - spacing spacious">
 			<BreadcrumbsItem href="/item" text="No icon" />
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={
+				elemBefore={
 					<Flex xcss={iconSpacingStyles.space050}>
 						<ImageIcon label="" />
 					</Flex>
@@ -91,7 +94,7 @@ export default (): React.JSX.Element => (
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={
+				elemBefore={
 					<Flex xcss={iconSpacingStyles.space050}>
 						<ImageIcon label="" />
 					</Flex>
@@ -105,7 +108,7 @@ export default (): React.JSX.Element => (
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={
+				elemBefore={
 					<Flex xcss={iconSpacingStyles.space050}>
 						<ImageIcon label="" />
 					</Flex>
@@ -119,7 +122,7 @@ export default (): React.JSX.Element => (
 			/>
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={
+				elemBefore={
 					<Flex xcss={iconSpacingStyles.space050}>
 						<ImageIcon label="" />
 					</Flex>
@@ -132,6 +135,7 @@ export default (): React.JSX.Element => (
 				text="Truncated content, icons before and after"
 				truncationWidth={100}
 			/>
+			<BreadcrumbsCurrentItem href="/current-page" text="Current page" />
 		</Breadcrumbs>
 	</Stack>
 );

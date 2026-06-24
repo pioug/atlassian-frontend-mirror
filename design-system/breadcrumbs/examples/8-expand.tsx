@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import { token } from '@atlaskit/tokens';
 
 export default (): React.JSX.Element => (
@@ -15,7 +16,7 @@ export default (): React.JSX.Element => (
 				<BreadcrumbsItem href="/item" text="Another item" />
 				<BreadcrumbsItem href="/item" text="A third item" />
 				<BreadcrumbsItem href="/item" text="A fourth item with a very long name" />
-				<BreadcrumbsItem href="/item" text="Item 5" />
+				<BreadcrumbsCurrentItem href="/item" text="Item 5" />
 			</Breadcrumbs>
 		</div>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
@@ -27,7 +28,7 @@ export default (): React.JSX.Element => (
 				<BreadcrumbsItem href="/item" text="A third item" />
 				<BreadcrumbsItem href="/item" text="A fourth item with a very long name" />
 				<BreadcrumbsItem href="/item" text="Item 5" />
-				<BreadcrumbsItem href="/item" text="A sixth item" />
+				<BreadcrumbsCurrentItem href="/item" text="A sixth item" />
 			</Breadcrumbs>
 		</div>
 	</div>

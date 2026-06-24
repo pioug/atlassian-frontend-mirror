@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-media
 
+## 14.2.3
+
+### Patch Changes
+
+- [`1586e012495ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1586e012495ed) -
+  [ux] Disables left resize handle on media nodes except for when media is aligned or wrapped right.
+
+## 14.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

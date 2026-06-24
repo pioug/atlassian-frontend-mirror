@@ -1,5 +1,43 @@
 # @atlaskit/editor-statsig-tmp
 
+## 111.0.0
+
+### Major Changes
+
+- [`3378314fe2ec1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3378314fe2ec1) -
+  Clean up experiment `platform_editor_chromeless_expand_fix`
+
+### Minor Changes
+
+- [`9d2c2c1c016bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d2c2c1c016bd) -
+  [ux] Server-side render the editor toolbar (FullPageToolbarNext) with toolbar items enabled (not
+  hidden/disabled), so the toolbar is visible and interactive-looking on first paint — before
+  EditorView or collab edit is initialized. Clicks before editor is ready are noops.
+
+## 110.1.0
+
+### Minor Changes
+
+- [`784845abac918`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/784845abac918) -
+  [ux] Add parentProduct=rovo to edit-smart-create iframe URL, which tells Confluence's SSR CSP
+  middleware to look up the rovo entry in the Shipyard config and include the parent product's
+  domain in the frame-ancestors directive
+
+## 110.0.0
+
+### Major Changes
+
+- [`c664929c3f15d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c664929c3f15d) -
+  Clean up experiment `platform_editor_clean_up_widget_mark_logic`
+- [`6ad6ef706e851`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ad6ef706e851) -
+  Clean up experiment `platform_editor_table_update_table_ref`
+- [`bc1c44cb9a43c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bc1c44cb9a43c) -
+  Clean up `aifc_space_typesettings` experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.3.0
 
 ### Minor Changes

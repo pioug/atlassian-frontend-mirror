@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.1.0
+
+### Minor Changes
+
+- [`bb48c26acb8ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb48c26acb8ba) -
+  Add platform_editor_layout_column_menu_kill_switch_1 kill switch and render the full block drag
+  handle icon for layout columns when the new behaviour is enabled (gate OFF). When the new
+  behaviour is enabled, re-clicking the layout column whose menu is already open now closes the
+  menu, while clicking a different column switches the menu to that column. The layout column menu
+  now opens below the drag handle with left-aligned edges (relying on the popup's built-in placement
+  to invert horizontally or nudge up when space is tight) instead of the previous centred
+  prefer-above behaviour. The layout column Delete hover/focus danger preview now matches the table
+  delete affordance exactly, using the translucent color.blanket.danger fill and a 1px
+  color.border.danger border instead of the previous low-alpha fill with a 2px border, and clears
+  the concurrent blue selected blanket while the danger preview is active so the preview reads as
+  pure red with no blue cast.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.7
+
+### Patch Changes
+
+- [`c664929c3f15d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c664929c3f15d) -
+  Clean up experiment `platform_editor_clean_up_widget_mark_logic`
+- [`5c279743e9b74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c279743e9b74) -
+  Fire an exposure event for the `remix_button_right_margin_hover` experiment.
+- Updated dependencies
+
 ## 13.0.6
 
 ### Patch Changes

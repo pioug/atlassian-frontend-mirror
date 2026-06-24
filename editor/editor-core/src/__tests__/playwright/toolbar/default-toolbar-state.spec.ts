@@ -17,6 +17,7 @@ const testConfig = {
 	},
 	editorExperiments: {
 		platform_editor_default_toolbar_state: true,
+		platform_editor_ssr_toolbar_optimistic: false,
 		platform_editor_no_cursor_on_edit_page_init: true,
 	},
 };

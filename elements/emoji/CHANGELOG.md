@@ -1,5 +1,46 @@
 # @atlaskit/emoji
 
+## 71.5.0
+
+### Minor Changes
+
+- [`14bcafd107387`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14bcafd107387) -
+  Breaking backend changes to metadata needs category guard
+
+## 71.4.7
+
+### Patch Changes
+
+- [`4befa130b45ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4befa130b45ff) -
+  Read refresh emoji picker experiment values directly through FeatureGates.
+
+## 71.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.4.5
+
+### Patch Changes
+
+- [`3d5270635bf55`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d5270635bf55) -
+  Select color should not close picker on some pages
+- [`4cb7dec82c494`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4cb7dec82c494) -
+  Place emoji tooltip above the emoji renderer by setting position to top
+- Updated dependencies
+
+## 71.4.4
+
+### Patch Changes
+
+- [`e3db0f49354a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3db0f49354a5) -
+  Use Twemoji for flag emoji and apply Unicode 14 emoji presentation selectors for native emoji
+  rendering.
+- [`ff291d024e356`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff291d024e356) -
+  EDITOR-7032 Show emoji shortName (with fallback to name) in tooltip on hover renderer
+- Updated dependencies
+
 ## 71.4.3
 
 ### Patch Changes

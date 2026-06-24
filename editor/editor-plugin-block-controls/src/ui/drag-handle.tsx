@@ -97,6 +97,7 @@ import {
 } from './consts';
 import { DragHandleNestedIcon } from './drag-handle-nested-icon';
 import { dragPreview, type DragPreviewContent } from './drag-preview';
+import { shouldUseNestedDragHandleIcon } from './should-use-nested-drag-handle-icon';
 import { refreshAnchorName } from './utils/anchor-name';
 import { getAnchorAttrName } from './utils/dom-attr-name';
 import { VisibilityContainer } from './visibility-container';
@@ -477,6 +478,14 @@ const getNodeMargins = (node?: PMNode): { bottom: number; top: number } => {
 	return nodeMargins[nodeTypeName] || nodeMargins['default'];
 };
 
+// Kill switch OFF: omit `isOpen` so the reducer toggles per clicked column. ON: keep
+// `isOpen: true` for legacy always-open. Centralised so all dispatch sites stay in sync.
+const buildToggleLayoutColumnMenuMeta = (anchorPos: number, openedViaKeyboard: boolean) => ({
+	anchorPos,
+	...(fg('platform_editor_layout_column_menu_kill_switch_1') ? { isOpen: true } : {}),
+	openedViaKeyboard,
+});
+
 type DragHandleProps = {
 	anchorName: string;
 	anchorRectCache?: AnchorRectCache;
@@ -611,11 +620,7 @@ export const DragHandle = ({
 					nodeType === 'layoutColumn' &&
 					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 				) {
-					tr.setMeta('toggleLayoutColumnMenu', {
-						anchorPos: startPos,
-						isOpen: true,
-						openedViaKeyboard: false,
-					});
+					tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, false));
 				}
 
 				const resolvedStartPos = tr.doc.resolve(startPos);
@@ -674,11 +679,7 @@ export const DragHandle = ({
 					nodeType === 'layoutColumn' &&
 					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 				) {
-					tr.setMeta('toggleLayoutColumnMenu', {
-						anchorPos: startPos,
-						isOpen: true,
-						openedViaKeyboard: false,
-					});
+					tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, false));
 				}
 
 				const mSelect = api?.blockControls.sharedState.currentState()?.multiSelectDnD;
@@ -785,11 +786,7 @@ export const DragHandle = ({
 						nodeType === 'layoutColumn' &&
 						expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
 					) {
-						tr.setMeta('toggleLayoutColumnMenu', {
-							anchorPos: startPos,
-							isOpen: true,
-							openedViaKeyboard: true,
-						});
+						tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, true));
 					}
 
 					const rootPos = editorExperiment('platform_synced_block', true)
@@ -1387,8 +1384,7 @@ export const DragHandle = ({
 				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 				onDragStart={handleIconDragStart}
 			>
-				{expValEquals('platform_editor_nested_drag_handle_icon', 'isEnabled', true) &&
-				!isTopLevelNodeValue ? (
+				{shouldUseNestedDragHandleIcon(isTopLevelNodeValue, isLayoutColumn) ? (
 					<DragHandleNestedIcon />
 				) : (
 					<DragHandleVerticalIcon spacing="spacious" label="" size="small" />

@@ -1,5 +1,50 @@
 # @atlaskit/editor-common
 
+## 116.11.1
+
+### Patch Changes
+
+- [`49b8e9a322976`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49b8e9a322976) -
+  Reduce q4 lovability experiment exposure noise in code block setup and bookkeeping paths
+- Updated dependencies
+
+## 116.11.0
+
+### Minor Changes
+
+- [`b483e293da76f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b483e293da76f) -
+  Add a gated `isSuggested` attribute to block menu element transformed analytics events so
+  suggested and non-suggested transform selections can be distinguished. The event attribute is
+  gated behind the `platform_editor_blocks_patch_2` feature gate.
+- [`dbf22f118dd9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbf22f118dd9e) -
+  Rewrite Rovo Chat @-mention provider on a single Relay-native RovoChatMentionResource that fires
+  people + agents in parallel via Promise. People render as soon as URS resolves and agents pop in
+  below when ready. New aliased agentStudio_getAgents query consolidates 3 prefetch round trips into
+  1, drops over-fetched fields, and uses real abort plumbing. Adds opt-in subscribeToItemsUpdates
+  multi-emit contract to the editor mention typeahead so progressive emissions are no longer dropped
+  after the first frame.
+- [`77f3d60237123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77f3d60237123) -
+  Add a live word count next to the line count in the markdown source view footer
+- [`59f92f7b6fbac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/59f92f7b6fbac) -
+  EDITOR-7095: Use shorter tooltip for padlock
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- [`64a0b50380570`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a0b50380570) - -
+  Improve TypeScript auto-detection for class fields and typed arrow function params/return types.
+  - Avoid unnecessary code block node updates when auto-detection re-detects the same language.
+  - Prevent wrap toggles from scrolling long code blocks to the top.
+  - Keep the language picker placement stable while it is open.
+  - Reset language picker search state on reopen so recent selections are not reported as search
+    selections.
+  - Prevent language picker close/selection from scrolling partially visible code blocks while
+    restoring editor focus.
+  - Add auto-detection analytics metadata to distinguish initial detection from re-detection.
+- Updated dependencies
+
 ## 116.10.1
 
 ### Patch Changes

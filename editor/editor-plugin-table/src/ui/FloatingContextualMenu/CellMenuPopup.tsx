@@ -10,7 +10,11 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { closeActiveTableMenu, setFocusToCellMenu } from '../../pm-plugins/commands';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
-import { TableCssClassName as ClassName, type PluginInjectionAPI } from '../../types';
+import {
+	TableCssClassName as ClassName,
+	type PluginInjectionAPI,
+	type TableSharedStateInternal,
+} from '../../types';
 import { tablePopupMenuFitHeight } from '../consts';
 import { CELL_MENU } from '../TableMenu/cell/keys';
 import { TABLE_MENU_WIDTH } from '../TableMenu/shared/consts';
@@ -101,9 +105,19 @@ export const CellMenuPopup = ({
 				return;
 			}
 
+			// Another table menu (e.g. a row/column drag menu) may have just been opened by this same
+			// click. Its React handler runs before this document listener, so the active menu is no
+			// longer 'cell' — don't clobber the newly opened menu back to 'none'.
+			const activeTableMenu = (
+				api?.table?.sharedState.currentState() as TableSharedStateInternal | undefined
+			)?.activeTableMenu;
+			if (activeTableMenu?.type !== 'cell') {
+				return;
+			}
+
 			closeCellMenu();
 		},
-		[closeCellMenu, isEventInsideCellMenu],
+		[api, closeCellMenu, isEventInsideCellMenu],
 	);
 	return (
 		<PopupWithListeners

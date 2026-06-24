@@ -1500,12 +1500,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_chromeless_expand_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-13
 	platform_editor_misaligned_ai_screens_firefox_fix: {
 		defaultValue: boolean;
@@ -1958,6 +1952,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-20
+	platform_editor_ssr_toolbar_optimistic: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-12 — CCI-17112 — convo-ai → cc-smarts routing for heading-autocomplete
 	cc_smarts_heading_autocomplete_migration: {
 		defaultValue: boolean;
@@ -1967,6 +1968,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-19
 	platform_editor_lovability_resize_dividers_panels: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-23
+	'aifc-confluence-editor-csp-fix': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -3604,14 +3612,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-20
-	platform_editor_chromeless_expand_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_chromeless_expand_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-05-01
 	platform_editor_ai_normalized_telemetry: createBooleanExperiment({
 		productKeys: {
@@ -4222,6 +4222,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-20
+	platform_editor_ssr_toolbar_optimistic: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ssr_toolbar_optimistic',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	cc_smarts_heading_autocomplete_migration: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_smarts_heading_autocomplete_migration',
@@ -4235,6 +4243,15 @@ export const editorExperimentsConfig: {
 			confluence: 'platform_editor_lovability_resize_dividers_panels',
 		},
 		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-23
+	'aifc-confluence-editor-csp-fix': createBooleanExperiment({
+		productKeys: {
+			confluence: 'aifc-confluence-editor-csp-fix',
+			jira: 'aifc-confluence-editor-csp-fix',
+		},
+		param: 'value',
 		defaultValue: false,
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

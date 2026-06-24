@@ -1,5 +1,16 @@
 # @atlaskit/ads-mcp
 
+## 1.1.0
+
+### Minor Changes
+
+- [`e912dc2ccd014`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e912dc2ccd014) -
+  add atlaskit-hooks and atlaskit-utilities
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Major Changes

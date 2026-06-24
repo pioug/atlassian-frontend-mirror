@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import React, {
 	useCallback,
 	useEffect,
@@ -70,6 +70,22 @@ export const RENDER_EMOJI_PICKER_LIST_TESTID = 'render-emoji-picker-list';
 
 const categoryClassname = 'emoji-category';
 const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		teamojiRefreshExperimentName,
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
+
 const atlassianCategory = 'ATLASSIAN' as CategoryGroupKey;
 const atlassianSubcategoryOrder = [
 	'Faces',
@@ -204,7 +220,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	const [lastYourUploadsRow, setLastYourUploadsRow] = useState(0);
 	const categoryTracker = useMemo(() => new CategoryTracker(), []);
 	const [categoriesChanged, setCategoriesChanged] = useState(false);
-	const isTeamojiExperimentEnabled = expVal(teamojiRefreshExperimentName, 'isEnabled', false);
+	const isTeamojiExperimentEnabled = isRefreshEmojiPickerEnabled();
 	const visibleEmojis = useMemo(
 		() => (isTeamojiExperimentEnabled ? filterHiddenEmojis(emojis) : emojis),
 		[emojis, isTeamojiExperimentEnabled],
@@ -224,6 +240,9 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				const categoryDefinition = isTeamojiExperimentEnabled
 					? CategoryDescriptionMapNew[category]
 					: CategoryDescriptionMap[category];
+				if (!categoryDefinition && isTeamojiExperimentEnabled) {
+					return categoryToGroupMap;
+				}
 				categoryToGroupMap[category] = {
 					emojis: [],
 					title: categoryDefinition.name,
@@ -231,7 +250,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 					order: categoryDefinition.order,
 				};
 			}
-			categoryToGroupMap[category].emojis.push(emoji);
+			categoryToGroupMap[category]?.emojis.push(emoji);
 			return categoryToGroupMap;
 		},
 		[isTeamojiExperimentEnabled],

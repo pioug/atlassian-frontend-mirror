@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 12.0.9
+
+### Patch Changes
+
+- [`49b8e9a322976`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49b8e9a322976) -
+  Reduce q4 lovability experiment exposure noise in code block setup and bookkeeping paths
+- Updated dependencies
+
+## 12.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.7
 
 ### Patch Changes

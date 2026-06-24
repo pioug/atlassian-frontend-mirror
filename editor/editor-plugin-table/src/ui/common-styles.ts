@@ -132,6 +132,16 @@ const rangeSelectionStyles = `
 }
 `;
 
+// Q4 path: node selection is painted by roundedTableSelectedNodeStyles() (the .selectedCell model),
+// so getSelectionStyles is omitted here and only native text-selection hiding is kept.
+const rangeSelectionStylesForRoundedTable = `
+.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} table tbody tr {
+  th,td {
+    ${hideNativeBrowserTextSelectionStyles}
+  }
+}
+`;
+
 const rangeSelectionStylesForFakeBorders = `
 .${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .${TableSharedCssClassName.TABLE_LEFT_BORDER},
 .${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName} .${TableSharedCssClassName.TABLE_RIGHT_BORDER} {
@@ -320,7 +330,14 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${hoveredWarningCell};
 	${insertLine()};
 	${resizeHandle()};
-	${rangeSelectionStyles};
+	${
+		// Only block getSelectionStyles when our replacement (gated by q4 + q4_patch_1) owns the
+		// decoration, so node selection is never left unstyled.
+		expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+		fg('platform_editor_table_q4_patch_1')
+			? rangeSelectionStylesForRoundedTable
+			: rangeSelectionStyles
+	};
 	${rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
 
@@ -1475,13 +1492,23 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 	${fg('platform_editor_table_sticky_header_patch_7')
 		? `.ak-editor-selected-node .${ClassName.TABLE_CONTAINER}[data-number-column="true"]:not(.${ClassName.TABLE_SELECTED}) .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type {
+			/* Recolour the number-column corner mask to match the selected cells. Keep this identical
+			   to the .selectedCell ::before rule below — never set margin-top (the base negative
+			   margin aligns the mask) or radius (rounded generically by data-reaches-* rules). */
 			&::before {
-				margin-top: 0;
-			}
-			&::after {
-				width: 100%;
-				border-left: 1px solid ${tableBorderSelectedColor};
-				background: ${tableCellSelectedColor};
+				outline: none;
+				border-left-color: ${tableBorderSelectedColor};
+				${
+					expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+						? `border-bottom-color: ${tableBorderSelectedColor};`
+						: ''
+				}
+				${
+					fg('platform_editor_table_sticky_header_patch_1')
+						? `border-top-color: ${tableBorderSelectedColor};`
+						: ''
+				}
+				background: ${tableHeaderCellSelectedColor};
 			}
 	}`
 		: ''}

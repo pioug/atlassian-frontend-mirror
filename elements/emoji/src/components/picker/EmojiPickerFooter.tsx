@@ -11,7 +11,22 @@ import { Box } from '@atlaskit/primitives/compiled';
 import type { EmojiDescription } from '../../types';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
 import { AddOwnEmoji } from '../common/AddEmoji';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 const emojiPickerFooter = css({
 	flex: '0 0 auto',
@@ -45,7 +60,7 @@ export const emojiPickerFooterTestId = 'emoji-picker-footer';
 
 const EmojiPickerFooter = ({ selectedEmoji, onOpenUpload, uploadEnabled }: Props): JSX.Element => {
 	const intl = useIntl();
-	return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return isRefreshEmojiPickerEnabled() ? (
 		<div
 			css={[emojiPickerFooter, emojiPickerFooterWithTopShadowNew]}
 			data-testid={emojiPickerFooterTestId}

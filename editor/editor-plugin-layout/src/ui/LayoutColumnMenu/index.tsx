@@ -25,7 +25,7 @@ import { LAYOUT_COLUMN_MENU_FALLBACKS } from './components';
 import { LAYOUT_COLUMN_MENU } from './keys';
 import {
 	calculateFallbackBottomPosition,
-	LAYOUT_COLUMN_MENU_POPUP_OFFSET,
+	getLayoutColumnMenuPositioningProps,
 	shouldOpenLayoutColumnMenuBelow,
 } from './utils';
 
@@ -193,6 +193,11 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 			}
 		}, [closeLayoutColumnMenu, components.length, hasValidTarget, isLayoutColumnMenuOpen]);
 
+		const { alignX, alignY, offset, useManualBelowFlip } = useMemo(
+			() => getLayoutColumnMenuPositioningProps(),
+			[],
+		);
+
 		if (!isLayoutColumnMenuOpen || components.length === 0 || !hasValidTarget) {
 			return null;
 		}
@@ -204,13 +209,13 @@ export const LayoutColumnMenu: React.NamedExoticComponent<LayoutColumnMenuProps>
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
 				zIndex={akEditorFloatingOverlapPanelZIndex}
-				alignX="center"
-				alignY="top"
+				alignX={alignX}
+				alignY={alignY}
 				forcePlacement={true}
 				preventOverflow={true}
 				stick={true}
-				offset={LAYOUT_COLUMN_MENU_POPUP_OFFSET}
-				onPositionCalculated={positionLayoutColumnMenu}
+				offset={offset}
+				onPositionCalculated={useManualBelowFlip ? positionLayoutColumnMenu : undefined}
 				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={closeLayoutColumnMenu}
 				focusTrap={openedViaKeyboard ? focusTrap : undefined}

@@ -1,5 +1,52 @@
 # @atlaskit/link-datasource
 
+## 6.0.6
+
+### Patch Changes
+
+- [`312cd0649a120`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/312cd0649a120) -
+  Fix keyboard focus stealing in ColumnPicker: focus no longer jumps back to the search input when
+  allOptions re-sorts after the popup is already open, resolving an a11y issue for keyboard and
+  screen reader users. Fix is behind feature gate platform_sllv_a11y_modal_options_focus.
+
+## 6.0.5
+
+### Patch Changes
+
+- [`0cc616f1c23b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0cc616f1c23b6) -
+  Clean up feature gate `platform_navx_sllv_j2ws_dropdown_for_single_row`. Single-row inline edit
+  dropdown menus now always render in a portal.
+- Updated dependencies
+
+## 6.0.4
+
+### Patch Changes
+
+- [`c10405c7e4695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c10405c7e4695) -
+  Internal changes to use tokens for skeleton component border radius.
+- [`c10405c7e4695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c10405c7e4695) -
+  Internal changes to use tokens for skeleton component border radius.
+- Updated dependencies
+
+## 6.0.3
+
+### Patch Changes
+
+- [`5960cad1ecc81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5960cad1ecc81) -
+  Remove unused platform feature flag declarations (no runtime impact)
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- [`6600d9566a565`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6600d9566a565) -
+  Internal changes to use tokens for skeleton component border radius.
+- [`9a892d8dc000e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a892d8dc000e) -
+  Clean up feature gate `platform_navx_sllv_dropdown_escape_and_focus_fix`.
+
+  Popup select dropdowns now consistently stop Escape keydown propagation when configured to do so,
+  keeping parent dialogs open while closing the dropdown and preserving focus on the trigger.
+
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes

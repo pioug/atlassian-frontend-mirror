@@ -180,7 +180,11 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 			recentSearchListSize,
 			shouldRenderNoResultsImage,
 			alwaysShowTabs,
+			disableManualUrlInsert: disableManualUrlInsertProp = false,
 		}: LinkPickerProps) => {
+			const disableManualUrlInsert =
+				fg('add-disable-manual-url-capability-technical') && disableManualUrlInsertProp;
+
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
 			const linkInputRef = React.useRef<HTMLInputElement>(null);
@@ -643,6 +647,7 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 								submitMessageId={submitMessageId}
 								testId={testIds.insertButton}
 								url={url}
+								disableManualUrlInsert={disableManualUrlInsert}
 							/>
 						</Box>
 					)}
@@ -685,6 +690,7 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 						customSubmitButtonLabel={customSubmitButtonLabel}
 						submitMessageId={submitMessageId}
 						hideSubmitButton={moveSubmitButton || submitOnInputChange}
+						disableManualUrlInsert={disableManualUrlInsert}
 					/>
 				</form>
 			);

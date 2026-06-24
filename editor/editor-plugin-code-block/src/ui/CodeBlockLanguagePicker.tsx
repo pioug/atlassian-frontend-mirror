@@ -31,6 +31,7 @@ export const CodeBlockLanguagePicker = ({
 	filterOption,
 	formatMessage,
 	languagePickerOptions,
+	triggerSpacing,
 }: CodeBlockLanguagePickerProps): React.JSX.Element => {
 	const [recentLanguageValues, setRecentLanguageValues] = useState<string[]>(() =>
 		getRecentLanguages(),
@@ -73,6 +74,7 @@ export const CodeBlockLanguagePicker = ({
 			recentLanguageValues={recentLanguageValues}
 			onMenuOpen={refreshRecentLanguages}
 			onSelection={handleSelection}
+			triggerSpacing={triggerSpacing}
 		/>
 	);
 };

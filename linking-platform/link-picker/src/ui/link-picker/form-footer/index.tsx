@@ -79,6 +79,7 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
 	customSubmitButtonLabel?: MessageDescriptor;
 	submitMessageId?: string;
 	hideSubmitButton?: boolean;
+	disableManualUrlInsert?: boolean;
 }
 
 export const FormFooter: MemoExoticComponent<
@@ -95,6 +96,7 @@ export const FormFooter: MemoExoticComponent<
 		customSubmitButtonLabel,
 		submitMessageId,
 		hideSubmitButton,
+		disableManualUrlInsert,
 		className,
 		...restProps
 	}: FormFooterProps) => JSX.Element | null
@@ -112,6 +114,7 @@ export const FormFooter: MemoExoticComponent<
 		customSubmitButtonLabel,
 		submitMessageId,
 		hideSubmitButton,
+		disableManualUrlInsert,
 		className,
 		...restProps
 	}: FormFooterProps): JSX.Element | null => {
@@ -178,6 +181,7 @@ export const FormFooter: MemoExoticComponent<
 							submitMessageId={submitMessageId}
 							testId={testIds.insertButton}
 							url={url}
+							disableManualUrlInsert={disableManualUrlInsert}
 						/>
 					)}
 				</ButtonGroup>

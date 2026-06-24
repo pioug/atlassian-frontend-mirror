@@ -17,6 +17,7 @@ import type {
 	EditorProps as PMEditorProps,
 } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { ignoreFollowingMutations, resetShouldIgnoreFollowingMutations } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
@@ -183,7 +184,9 @@ export const createPlugin = ({
 						decorations: updatedDecorationSet,
 					};
 
-					if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+					if (
+						!expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true)
+					) {
 						return newPluginState;
 					}
 
@@ -219,7 +222,7 @@ export const createPlugin = ({
 					};
 				}
 
-				if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+				if (expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
 					// Failed/unchanged format results and dismissals are meta-only.
 					return applyFormatCodeMeta(pluginState, meta);
 				}

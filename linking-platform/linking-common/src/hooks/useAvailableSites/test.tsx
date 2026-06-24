@@ -123,6 +123,40 @@ describe('useAvailableSites', () => {
 			});
 		},
 	);
+
+	ffTest.on(
+		'platform_lp_kill_isvertigo_and_vortexmode',
+		'should set deprecated site metadata to undefined in available sites responses when the gate is enabled',
+		() => {
+			it('sets isVertigo to undefined in the v1 hook result', async () => {
+				mockAvailableSites();
+				const { result } = renderHook(() => useAvailableSites());
+
+				await waitFor(() => {
+					expect(result.current.loading).toBe(false);
+				});
+
+				expect(result.current.data[0]).toHaveProperty('isVertigo', undefined);
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform_lp_kill_isvertigo_and_vortexmode',
+		'should keep deprecated site metadata in available sites responses when the gate is disabled',
+		() => {
+			it('still exposes isVertigo from the v1 hook result', async () => {
+				mockAvailableSites();
+				const { result } = renderHook(() => useAvailableSites());
+
+				await waitFor(() => {
+					expect(result.current.loading).toBe(false);
+				});
+
+				expect(result.current.data[0]).toHaveProperty('isVertigo', true);
+			});
+		},
+	);
 });
 
 describe('mapAccessibleProductsToAvailableSites', () => {
@@ -374,6 +408,40 @@ describe('useAvailableSitesV2', () => {
 
 				const [requestUrl] = fetchMock.lastCall() ?? [];
 				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+			});
+		},
+	);
+
+	ffTest.on(
+		'platform_lp_kill_isvertigo_and_vortexmode',
+		'should set deprecated site metadata to undefined in accessible products responses when the gate is enabled',
+		() => {
+			it('sets isVertigo to undefined in the v2 hook result', async () => {
+				mockAccessibleProducts();
+				const { result } = renderHook(() => useAvailableSitesV2({}));
+
+				await waitFor(() => {
+					expect(result.current.loading).toBe(false);
+				});
+
+				expect(result.current.data[0]).toHaveProperty('isVertigo', undefined);
+			});
+		},
+	);
+
+	ffTest.off(
+		'platform_lp_kill_isvertigo_and_vortexmode',
+		'should keep deprecated site metadata in accessible products responses when the gate is disabled',
+		() => {
+			it('still populates isVertigo in the v2 hook result', async () => {
+				mockAccessibleProducts();
+				const { result } = renderHook(() => useAvailableSitesV2({}));
+
+				await waitFor(() => {
+					expect(result.current.loading).toBe(false);
+				});
+
+				expect(result.current.data[0]).toHaveProperty('isVertigo', true);
 			});
 		},
 	);

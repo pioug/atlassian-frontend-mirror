@@ -34,6 +34,7 @@ import { token } from '@atlaskit/tokens';
 
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
 
+import { leftHandleOnlyLayouts } from './constants';
 import { wrapperStyle } from './styled';
 import type { EnabledHandles, Props } from './types';
 
@@ -347,6 +348,12 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			ratio = ((origHeight / origWidth) * 100).toFixed(3);
 		}
 
+		const isLeftResizeHandleDisabled = expValEquals(
+			'platform_editor_lovability_resize_dividers_panels',
+			'isEnabled',
+			true,
+		);
+
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
 			const oppositeSide = side === 'left' ? 'right' : 'left';
@@ -354,6 +361,18 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 				enable[side] = false;
 				return;
 			}
+
+			// Disable the left handle up-front (except for layouts where it is the
+			// only handle) before computing whether it would otherwise be enabled.
+			if (
+				side === 'left' &&
+				isLeftResizeHandleDisabled &&
+				leftHandleOnlyLayouts.indexOf(layout) === -1
+			) {
+				enable[side] = false;
+				return;
+			}
+
 			enable[side] =
 				['full-width', 'wide', 'center']
 					.concat(`wrap-${oppositeSide}` as MediaSingleLayout)

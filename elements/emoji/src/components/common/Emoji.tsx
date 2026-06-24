@@ -845,7 +845,7 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 
 	if (tooltipContent) {
 		return (
-			<Tooltip content={tooltipContent} tag="span">
+			<Tooltip content={tooltipContent} position="top" tag="span">
 				{emojiSpan}
 			</Tooltip>
 		);

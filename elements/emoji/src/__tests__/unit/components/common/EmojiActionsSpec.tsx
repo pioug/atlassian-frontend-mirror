@@ -4,7 +4,7 @@ import { screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
 import { productivityColorSelectorTestId } from '../../../../components/common/ProductivityColorSelector';
@@ -46,10 +46,12 @@ const props = {
 
 const keepPickerOpenOnUploadGate = 'platform_emoji_keep_picker_open_on_upload';
 const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+
 const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-	setupEditorExperiments('test', {
-		[teamojiRefreshExperimentName]: isEnabled,
-	});
+	getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
+		experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
+	);
 };
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
@@ -59,6 +61,10 @@ skipAutoA11yFile();
 
 describe('<EmojiActions />', () => {
 	beforeEach(() => {
+		jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
+		getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 		setTeamojiExperimentEnabled(false);
 	});
 
@@ -303,7 +309,7 @@ describe('<EmojiActions />', () => {
 
 				expect(handleProductivityColorSelected).toHaveBeenCalledWith('red');
 				expect(productivityColorButton).toHaveAttribute('aria-expanded', 'false');
-				expect(productivityColorButton).not.toHaveFocus();
+				expect(productivityColorButton).toHaveFocus();
 				expect(screen.queryByTestId(productivityColorSelectorTestId)).toBeNull();
 			});
 
@@ -358,6 +364,46 @@ describe('<EmojiActions />', () => {
 					document.removeEventListener('mousedown', handleDocumentMouseDown);
 					document.removeEventListener('click', handleDocumentClick);
 				}
+			});
+
+			it('should select productivity colour from visible colour tile clicks', async () => {
+				const handleProductivityColorSelected = jest.fn();
+				const zeroSquareRed = {
+					...baseToneEmoji,
+					id: '0_zero_square_red',
+					shortName: ':0_zero_square_red:',
+					name: 'Zero square red',
+				};
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+
+				await renderWithIntl(
+					<EmojiActions
+						{...props}
+						toneEmoji={toneEmoji}
+						activeCategoryId="ATLASSIAN"
+						selectedProductivityColor="blue"
+						productivityColorPreviewEmojis={{
+							red: zeroSquareRed,
+							blue: zeroSquareBlue,
+						}}
+						onProductivityColorSelected={handleProductivityColorSelected}
+					/>,
+				);
+
+				await userEvent.click(
+					screen.getByRole('button', {
+						name: 'Productivity emoji color selector',
+					}),
+				);
+
+				await userEvent.click(screen.getByTestId('image-emoji-:0_zero_square_red:'));
+
+				expect(handleProductivityColorSelected).toHaveBeenCalledWith('red');
 			});
 
 			it('should allow keyboard navigation and selection in the productivity colour selector', async () => {

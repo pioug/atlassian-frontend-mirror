@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import Button from '@atlaskit/button/new';
 import { AtlassianIcon } from '@atlaskit/logo';
 
@@ -18,7 +19,7 @@ const StatelessExample = (): React.JSX.Element => {
 				<BreadcrumbsItem href="/pages/home" text="Home" />
 				<BreadcrumbsItem
 					href="/item"
-					iconBefore={<AtlassianIcon label="" size="small" />}
+					elemBefore={<AtlassianIcon label="" size="small" />}
 					text="Icon Before"
 				/>
 				<BreadcrumbsItem
@@ -26,6 +27,7 @@ const StatelessExample = (): React.JSX.Element => {
 					iconAfter={<AtlassianIcon label="" size="small" />}
 					text="Icon After"
 				/>
+				<BreadcrumbsCurrentItem href="/current-page" text="Current page" />
 			</Breadcrumbs>
 			<Button appearance="primary" onClick={() => setIsExpanded(!isExpanded)}>
 				Toggle

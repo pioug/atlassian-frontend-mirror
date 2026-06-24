@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 13.0.8
+
+### Patch Changes
+
+- [`75bc915c1fe98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75bc915c1fe98) -
+  Hide paste actions when pasting agent mentions behind the platform_editor_agent_mentions
+  experiment. The paste plugin now exposes the source pasted slice so consumers can inspect the
+  paste handler content without depending on the last transaction step slice.
+- Updated dependencies
+
+## 13.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.5
 
 ### Patch Changes

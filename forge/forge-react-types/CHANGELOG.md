@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 2.0.1
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

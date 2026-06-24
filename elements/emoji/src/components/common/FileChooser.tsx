@@ -9,7 +9,22 @@ import Button from '@atlaskit/button/new';
 import UploadIcon from '@atlaskit/icon/core/upload';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 import { containsFiles, getFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 export interface Props {
 	accept?: string;
@@ -117,7 +132,7 @@ const FileChooser = (props: Props): React.JSX.Element => {
 
 	useEffect(() => {
 		const element = dropzoneRef.current;
-		if (!element || !expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+		if (!element || !isRefreshEmojiPickerEnabled()) {
 			return;
 		}
 
@@ -222,7 +237,7 @@ const FileChooser = (props: Props): React.JSX.Element => {
 		/>
 	);
 
-	if (expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+	if (isRefreshEmojiPickerEnabled()) {
 		return (
 			<div
 				ref={dropzoneRef}

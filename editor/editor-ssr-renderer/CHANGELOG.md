@@ -1,5 +1,24 @@
 # @atlaskit/editor-ssr-renderer
 
+## 7.0.3
+
+### Patch Changes
+
+- [`9d2c2c1c016bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d2c2c1c016bd) -
+  [ux] Server-side render the editor toolbar (FullPageToolbarNext) with toolbar items enabled (not
+  hidden/disabled), so the toolbar is visible and interactive-looking on first paint — before
+  EditorView or collab edit is initialized. Clicks before editor is ready are noops.
+- Updated dependencies
+
+## 7.0.2
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 7.0.1
 
 ### Patch Changes

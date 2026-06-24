@@ -1,5 +1,21 @@
 # @atlaskit/top-layer
 
+## 1.1.0
+
+### Minor Changes
+
+- [`ff76ce8167751`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff76ce8167751) -
+  Internal refactoring. No behaviour change.
+
+## 1.0.2
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

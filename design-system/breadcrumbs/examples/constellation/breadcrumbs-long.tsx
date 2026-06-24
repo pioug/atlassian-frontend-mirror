@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 
 const BreadcrumbsLongExample = (): React.JSX.Element => {
 	return (
@@ -14,7 +15,7 @@ const BreadcrumbsLongExample = (): React.JSX.Element => {
 			<BreadcrumbsItem href="/item" text="Item 7" />
 			<BreadcrumbsItem href="/item" text="Item 8" />
 			<BreadcrumbsItem href="/item" text="Item 9" />
-			<BreadcrumbsItem href="/item" text="Item 10" />
+			<BreadcrumbsCurrentItem href="/item" text="Item 10" />
 		</Breadcrumbs>
 	);
 };

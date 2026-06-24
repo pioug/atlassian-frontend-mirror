@@ -1,5 +1,22 @@
 # @atlaskit/breadcrumbs
 
+## 17.1.0
+
+### Minor Changes
+
+- [`a793998031fd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a793998031fd1) -
+  Implement refreshed Breadcrumbs behind feature flag. Mark props defaultExpanded, isExpanded,
+  maxItems, onExpand, itemsBeforeCollapse, itemsAfterCollapse, iconAfter as deprecated.
+
+## 17.0.1
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

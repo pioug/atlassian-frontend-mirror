@@ -42,6 +42,7 @@ export type LanguagePickerProps = {
 		selectionSource: LanguagePickerSelectionSource,
 	) => void;
 	recentLanguageValues?: string[];
+	triggerSpacing?: 'default' | 'compact';
 };
 
 const pickerOptionStyles = css({
@@ -139,6 +140,7 @@ export const LanguagePicker = ({
 	recentLanguageValues = [],
 	onMenuOpen,
 	onSelection,
+	triggerSpacing = 'default',
 }: LanguagePickerProps): React.JSX.Element => {
 	const label = defaultValue?.label ?? formatMessage(codeBlockButtonMessages.selectLanguage);
 	const selectLanguageLabel = formatMessage(codeBlockButtonMessages.selectLanguage);
@@ -232,6 +234,7 @@ export const LanguagePicker = ({
 		({ isOpen, ref, onKeyDown, 'aria-controls': ariaControls }: PopupSelectTargetProps) => (
 			<div css={styles.trigger}>
 				<Button
+					spacing={triggerSpacing}
 					shouldFitContainer
 					onMouseDown={handleTriggerMouseDown}
 					onKeyDown={onKeyDown}
@@ -246,7 +249,7 @@ export const LanguagePicker = ({
 				</Button>
 			</div>
 		),
-		[handleTriggerMouseDown, label],
+		[label, triggerSpacing, handleTriggerMouseDown],
 	);
 
 	return (

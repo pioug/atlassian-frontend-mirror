@@ -376,14 +376,13 @@ export const expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes: Ser
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const expandStylesMixin_experiment_platform_editor_chromeless_expand_fix: SerializedStyles =
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'.ProseMirror > .ak-editor-expand': {
-			marginLeft: 0,
-			marginRight: 0,
-		},
-	});
+export const expandStylesMixin_chromeless_expand_fix: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror > .ak-editor-expand': {
+		marginLeft: 0,
+		marginRight: 0,
+	},
+});
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in

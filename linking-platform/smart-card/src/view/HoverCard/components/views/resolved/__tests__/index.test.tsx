@@ -281,7 +281,7 @@ describe('HoverCardResolvedView', () => {
 				const aiSummaryAction = await findByTestId(
 					'smart-action-ai-summary-action-summarise-action',
 				);
-				expect(aiSummaryAction).toHaveTextContent('Summarize with AI');
+				expect(aiSummaryAction).toHaveTextContent('Summarize with Rovo');
 			});
 
 			it('renders snippet as a placeholder', async () => {

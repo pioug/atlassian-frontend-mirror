@@ -29,7 +29,7 @@ export const appearanceMappingToOld: Record<NewAppearance, OldAppearance> & {
 	discovery: 'default',
 	informationBold: 'primary',
 	successBold: 'added',
-	dangerBold: 'removed',
+	dangerBold: 'important',
 	warningBold: 'default',
 	discoveryBold: 'default',
 };

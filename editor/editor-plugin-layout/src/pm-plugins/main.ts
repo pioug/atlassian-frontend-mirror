@@ -30,6 +30,7 @@ import {
 	getSelectedLayout,
 	LAYOUT_COLUMN_INSERT_META,
 } from './actions';
+import type { ToggleLayoutColumnMenuOptions } from './actions';
 import { getColumnDividerDecorations } from './column-resize-divider';
 import { EVEN_DISTRIBUTED_COL_WIDTHS } from './consts';
 import { pluginKey } from './plugin-key';
@@ -114,12 +115,6 @@ const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState)
 	};
 };
 
-type ToggleLayoutColumnMenuMeta = {
-	anchorPos?: number;
-	isOpen?: boolean;
-	openedViaKeyboard?: boolean;
-};
-
 const fireLayoutColumnMenuOpenedAnalytics = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	state: EditorState,
@@ -147,7 +142,7 @@ const fireLayoutColumnMenuOpenedAnalytics = (
 };
 
 type LayoutColumnMenuStateAction =
-	| { meta: ToggleLayoutColumnMenuMeta; type: 'toggleLayoutColumnMenu' }
+	| { meta: ToggleLayoutColumnMenuOptions; type: 'toggleLayoutColumnMenu' }
 	| { positions: number[] | undefined; type: 'setDangerPreview' }
 	| { type: 'clearDangerPreview' }
 	| { isResizing: boolean; type: 'setResizeState' }
@@ -160,7 +155,13 @@ const reduceLayoutColumnMenuState = (
 	switch (action.type) {
 		case 'toggleLayoutColumnMenu': {
 			const { anchorPos, isOpen, openedViaKeyboard } = action.meta;
-			const nextIsOpen = isOpen ?? !pluginState.isLayoutColumnMenuOpen;
+			// `isOpen` provided: use directly (legacy). Omitted: toggle off only when re-clicking
+			// the already-open column; otherwise open for the clicked column.
+			const isSameColumnAsOpenMenu =
+				pluginState.isLayoutColumnMenuOpen &&
+				anchorPos !== undefined &&
+				anchorPos === pluginState.layoutColumnMenuAnchorPos;
+			const nextIsOpen = isOpen ?? !isSameColumnAsOpenMenu;
 
 			return {
 				...pluginState,
@@ -273,7 +274,7 @@ export default (
 			apply: (tr, pluginState, oldState, newState) => {
 				let nextPluginState = pluginState;
 				const columnMenuMeta = tr.getMeta('toggleLayoutColumnMenu') as
-					| ToggleLayoutColumnMenuMeta
+					| ToggleLayoutColumnMenuOptions
 					| undefined;
 				const dangerPreviewMeta = tr.getMeta('layoutColumnDangerPreview') as
 					| number[]

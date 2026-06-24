@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "133.5.0",
+	"version": "133.5.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -178,6 +178,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_nested_dnd_styles_changes": {
+			"type": "boolean"
+		},
+		"platform_editor_table_q4_patch_1": {
 			"type": "boolean"
 		},
 		"platform_editor_comments_api_manager": {

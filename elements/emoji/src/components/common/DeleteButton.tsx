@@ -9,7 +9,22 @@ import { token } from '@atlaskit/tokens';
 import { deleteEmojiLabel } from '../../util/constants';
 import { emojiDeleteButton } from './styles';
 import { Box } from '@atlaskit/primitives/compiled';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 const styles = cssMap({
 	boxWrapperStyle: {
@@ -44,7 +59,7 @@ const refreshedDeleteButton = css({
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
 const DeleteButton = (props: ButtonProps): JSX.Element => {
-	const isRefreshEnabled = expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
+	const isRefreshEnabled = isRefreshEmojiPickerEnabled();
 
 	return (
 		<span

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import { AtlassianIcon } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
 
@@ -11,7 +12,7 @@ export default (): React.JSX.Element => (
 			<Breadcrumbs testId="BreadcrumbsTestId">
 				<BreadcrumbsItem href="/item" text="item1" />
 				<BreadcrumbsItem href="/item" text="item2" />
-				<BreadcrumbsItem href="/item" text="item3" />
+				<BreadcrumbsCurrentItem href="/item" text="item3" />
 			</Breadcrumbs>
 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

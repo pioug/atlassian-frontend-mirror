@@ -1,5 +1,23 @@
 # @atlaskit/spotlight
 
+## 2.0.0
+
+### Major Changes
+
+- [`33235dd71a9df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33235dd71a9df) -
+  This package is now marked for general availability and is no longer considered experimental.
+  While the API is likely to be stable, we reserve the right to make changes if required. This
+  version bump contains no changes whatsoever.
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- [`56e9fd64a1333`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56e9fd64a1333) -
+  Remove beta label. This change is non-functional.
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

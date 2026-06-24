@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popper",
-	"version": "8.0.0",
+	"version": "8.1.0",
 	"description": "A wrapper for React Popper for situations which require a bespoke popup where other ADS components are deemed unsuitable",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,10 +31,22 @@
 		}
 	},
 	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
+		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@atlaskit/top-layer": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
+		"@compiled/react": "root:*",
 		"@popperjs/core": "root:*",
+		"bind-event-listener": "root:*",
 		"react-popper": "root:*"
+	},
+	"platform-feature-flags": {
+		"platform-dst-top-layer": {
+			"type": "boolean"
+		}
 	},
 	"peerDependencies": {
 		"react": "^18.2.0"
@@ -45,13 +57,12 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
-		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
-		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
-		"@compiled/react": "root:*",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"react": "root:*",

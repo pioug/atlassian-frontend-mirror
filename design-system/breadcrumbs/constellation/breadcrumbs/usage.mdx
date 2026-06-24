@@ -1,0 +1,217 @@
+---
+order: 2
+title: Breadcrumbs
+description: Use breadcrumbs to show a user’s location in a site or app.
+---
+
+import Image from '@atlaskit/image';
+
+import breadcrumbsParts from '../images/breadcrumbs-parts.png';
+import breadcrumbsPartsDark from '../images/breadcrumbs-parts-dark.png';
+import breadcrumbsSizeDo from '../images/breadcrumbs-size-do.png';
+import breadcrumbsSizeDoDark from '../images/breadcrumbs-size-do-dark.png';
+import breadcrumbsSizeDont from '../images/breadcrumbs-size-dont.png';
+import breadcrumbsSizeDontDark from '../images/breadcrumbs-size-dont-dark.png';
+import breadcrumbsCurrentItemDo from '../images/breadcrumbs-current-item-do.png';
+import breadcrumbsCurrentItemDoDark from '../images/breadcrumbs-current-item-do-dark.png';
+import breadcrumbsCurrentItemDont from '../images/breadcrumbs-current-item-dont.png';
+import breadcrumbsCurrentItemDontDark from '../images/breadcrumbs-current-item-dont-dark.png';
+import breadcrumbsIconsDo from '../images/breadcrumbs-icons-do.png';
+import breadcrumbsIconsDoDark from '../images/breadcrumbs-icons-do-dark.png';
+import breadcrumbsIconsDont from '../images/breadcrumbs-icons-dont.png';
+import breadcrumbsIconsDontDark from '../images/breadcrumbs-icons-dont-dark.png';
+import breadcrumbsLabelsDo from '../images/breadcrumbs-distinguishable-labels-do.png';
+import breadcrumbsLabelsDoDark from '../images/breadcrumbs-distinguishable-labels-do-dark.png';
+import breadcrumbsLabelsDont from '../images/breadcrumbs-distinguishable-labels-dont.png';
+import breadcrumbsLabelsDontDark from '../images/breadcrumbs-distinguishable-labels-dont-dark.png';
+import breadcrumbsOverflow from '../images/breadcrumbs-overflow.png';
+import breadcrumbsOverflowDark from '../images/breadcrumbs-overflow-dark.png';
+
+## Usage
+
+Breadcrumbs are a secondary navigation component that shows where a page sits in a hierarchy. They
+help people orient themselves within nested content and navigate to parent pages. They complement
+but do not replace the main navigation on a page.
+
+## Parts
+
+<Image
+	src={breadcrumbsParts}
+	srcDark={breadcrumbsPartsDark}
+	alt="Anatomy diagram of breadcrumbs labelling each part: 1. Element before, 2. Breadcrumb item, 3. Separator, 4. Current breadcrumb item, 5. Overflow button, 6. Overflow menu, and 7. Copy link button."
+/>
+
+1. **Element before (optional):** An element such as an icon or logo placed before a breadcrumb
+   item.
+2. **Breadcrumb item:** An interactive link to a parent page in the hierarchy.
+3. **Separator:** The separator is positioned between each breadcrumb item in the list. It provides
+   visual distinction between individual links.
+4. **Current breadcrumb item (optional):** Shows the current page.
+5. **Overflow button:** A button replaces collapsed breadcrumb items when the breadcrumb trail
+   exceeds the available width. Opens the overflow menu.
+6. **Overflow menu:** A dropdown list of collapsed breadcrumb items in their original order.
+7. **Copy link button (optional):** An action button that copies the URL of the current breadcrumb
+   item to the user’s clipboard. Appears on hover over the current breadcrumb item.
+
+### Size variants
+
+- **Medium (default):** Suits most surfaces, but avoid using it in dense surfaces.
+- **Small:** Compact variant for dense surfaces, with smaller text and icons.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: breadcrumbsSizeDo,
+			urlDarkMode: breadcrumbsSizeDoDark,
+			alt: 'A side panel with small breadcrumbs above a compact panel title.',
+		}}
+	>
+		Use the small size in dense surfaces such as side panels.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: breadcrumbsSizeDont,
+			urlDarkMode: breadcrumbsSizeDontDark,
+			alt: 'A side panel with default-size breadcrumbs that crowd the panel content.',
+		}}
+	>
+		Don’t use the default size in dense surfaces where it crowds the content.
+	</DoDont>
+</DoDontGrid>
+
+## Accessibility
+
+Breadcrumbs render inside a navigation landmark with the default accessible name “Breadcrumbs”. Use
+the `label` prop to override that name when you need something more specific, or when multiple
+breadcrumb regions appear on the same page.
+
+## Best practices
+
+### Place breadcrumbs above the page title
+
+Place breadcrumbs at the top of the content area, directly above the page title, so people can
+easily see where the current page sits in the hierarchy.
+
+### Show the current breadcrumb item when relevant
+
+Show the current breadcrumb item when it adds information the page title lacks, such as a Jira work
+item number, or when a clear visual break separates the breadcrumbs from the title. Hide it when it
+simply repeats the title directly below.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: breadcrumbsCurrentItemDo,
+			urlDarkMode: breadcrumbsCurrentItemDoDark,
+			alt: 'A breadcrumb trail ending in a work item, with the full name immediately below identifying the current page.',
+		}}
+	>
+		Show the current breadcrumb item when it adds information.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: breadcrumbsCurrentItemDont,
+			urlDarkMode: breadcrumbsCurrentItemDontDark,
+			alt: 'A breadcrumb trail where the last item repeats the same text as the H1 page title below it.',
+		}}
+	>
+		Don’t show the current page name in both the breadcrumb trail and the page title.
+	</DoDont>
+</DoDontGrid>
+
+### Apply icons consistently across breadcrumb items
+
+Icons are optional. If used, either apply icons to every breadcrumb item, or only to the root
+breadcrumb item. Add icons only when each icon makes its breadcrumb item more recognizable, such as
+a project icon or content type indicator. Leave breadcrumb items text-only when no clearly distinct
+icon is available.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: breadcrumbsIconsDo,
+			urlDarkMode: breadcrumbsIconsDoDark,
+			alt: 'A breadcrumb trail where every breadcrumb item has a matching icon before its label: Design System, Projects, Epic.',
+		}}
+	>
+		Apply an icon to every breadcrumb item, or only to the root.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: breadcrumbsIconsDont,
+			urlDarkMode: breadcrumbsIconsDontDark,
+			alt: 'A breadcrumb trail where only some breadcrumb items have icons, creating an inconsistent appearance.',
+		}}
+	>
+		Don’t apply icons to only some breadcrumb items in the trail.
+	</DoDont>
+</DoDontGrid>
+
+## Content guidelines
+
+### Keep labels short and distinguishable
+
+Each label should be clearly different from adjacent breadcrumb items.
+
+<DoDontGrid>
+	<DoDont
+		type="do"
+		image={{
+			url: breadcrumbsLabelsDo,
+			urlDarkMode: breadcrumbsLabelsDoDark,
+			alt: 'A breadcrumb trail with distinct labels at each level: Design System Team, Projects, Components.',
+		}}
+	>
+		Use short, specific labels that differ from adjacent items.
+	</DoDont>
+	<DoDont
+		type="dont"
+		image={{
+			url: breadcrumbsLabelsDont,
+			urlDarkMode: breadcrumbsLabelsDontDark,
+			alt: 'A breadcrumb trail with repeated generic labels: Design System Team, All projects, Projects, Project 1.',
+		}}
+	>
+		Don’t use generic labels that repeat across levels.
+	</DoDont>
+</DoDontGrid>
+
+### Show hierarchy, not history
+
+Breadcrumbs describe where a page lives, not the route someone took to get there. If there are
+multiple paths to a page, use the primary structural path, usually the one that mirrors the URL
+structure.
+
+### Choose root items carefully
+
+The root breadcrumb item should orient people to a meaningful context, such as a workspace or space
+name. Choose a specific label such as “Atlas” over a generic “Home”. Avoid using the topmost level
+of the hierarchy unless the navigation sidebar is collapsed.
+
+## Behavior
+
+### Long breadcrumbs collapse into an overflow menu
+
+Breadcrumbs always display on a single line. If the breadcrumb trail is too long for the available
+screen width, the middle items collapse into an overflow menu while keeping the parent and root
+pages visible. When space is very limited, the root also collapses and only the most recent item
+remains. Collapsed items appear in their original order.
+
+<Image
+	src={breadcrumbsOverflow}
+	srcDark={breadcrumbsOverflowDark}
+	alt="Breadcrumbs collapsing the middle items into an overflow menu as the available width decreases."
+/>
+
+## Related
+
+- For primary wayfinding, use the [navigation system](/components/atlassian-navigation).
+- For standalone links, see the [link](/components/link) component.
+- For placement context, see the [page header](/components/page-header) component.
+- For sequential navigation between pages, use [pagination](/components/pagination).

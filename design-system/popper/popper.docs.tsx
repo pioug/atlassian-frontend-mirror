@@ -20,6 +20,7 @@ const documentation: StructuredContentSource = {
 				'Consider positioning constraints',
 				'Handle responsive positioning',
 				'Use appropriate z-index management',
+				'Under the platform-dst-top-layer feature flag, Popper renders into the browser top layer via @atlaskit/top-layer. The render-prop ref and placement keep their meaning, but style and arrowProps.style are inert (the browser owns positioning) and the modifiers and strategy props are ignored at runtime.',
 			],
 			contentGuidelines: [
 				'Ensure positioned content is accessible',

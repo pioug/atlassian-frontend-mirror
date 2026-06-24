@@ -196,6 +196,12 @@ export interface LinkPickerProps {
 	shouldRenderNoResultsImage?: boolean;
 	/** When true, tabs are displayed even if there is only one plugin. */
 	alwaysShowTabs?: boolean;
+	/**
+	 * When true, disables the Insert button when the user has manually typed a URL but no search
+	 * result has been selected. This prevents inserting external/manual links when only
+	 * result-based links are desired.
+	 */
+	disableManualUrlInsert?: boolean;
 }
 
 type CustomLinkPickerMessages = {

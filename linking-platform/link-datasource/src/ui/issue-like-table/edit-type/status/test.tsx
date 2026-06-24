@@ -7,7 +7,6 @@ import { FlagsProvider } from '@atlaskit/flag';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { Box } from '@atlaskit/primitives/compiled';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
 import { useLoadOptions } from '../../../../hooks/useLoadOptions';
@@ -139,27 +138,13 @@ describe('StatusEditType', () => {
 		expect(parentKeyDownHandler).not.toHaveBeenCalled();
 	});
 
-	ffTest.on('platform_navx_sllv_j2ws_dropdown_for_single_row', '', () => {
-		it('should render dropdown menu in portal when feature flag is enabled', async () => {
-			setup();
+	it('should render dropdown menu in a portal', async () => {
+		setup();
 
-			const menu = await screen.findByRole('listbox');
-			const container = screen.getByTestId('inline-edit-status-select--container');
+		const menu = await screen.findByRole('listbox');
+		const container = screen.getByTestId('inline-edit-status-select--container');
 
-			// When portaled, menu should not be inside the container
-			expect(container.contains(menu)).toBe(false);
-		});
-	});
-
-	ffTest.off('platform_navx_sllv_j2ws_dropdown_for_single_row', '', () => {
-		it('should render dropdown menu inline when feature flag is disabled', async () => {
-			setup();
-
-			const menu = await screen.findByRole('listbox');
-			const container = screen.getByTestId('inline-edit-status-select--container');
-
-			// When not portaled, menu should be inside the container
-			expect(container.contains(menu)).toBe(true);
-		});
+		// When portaled, menu should not be inside the container
+		expect(container.contains(menu)).toBe(false);
 	});
 });

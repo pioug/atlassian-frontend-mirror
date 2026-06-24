@@ -2,7 +2,9 @@ export interface AvailableSite {
 	avatarUrl: string;
 	cloudId: string;
 	displayName: string;
-	isVertigo: boolean;
+	// TODO As part of NAVX-5287 (FG cleanup) remove this field with minor/major changeset
+	/** @deprecated This field may be `undefined` and will be removed in a future major release. */
+	isVertigo?: boolean;
 	products: AvailableSitesProductType[];
 	url: string;
 }
@@ -22,7 +24,9 @@ export interface Workspace {
 	cloudUrl: string;
 	isPartOf: string[];
 	orgId: string;
-	vortexMode: string;
+	// TODO As part of NAVX-5287 (FG cleanup) remove this field with minor/major changeset
+	/** @deprecated This field is no longer required by linking-common and will be removed in a future major release. */
+	vortexMode?: string;
 	workspaceAri: string;
 	workspaceAvatarUrl: string;
 	workspaceDisplayName: string;

@@ -4,7 +4,6 @@ import { type FieldProps } from '@atlaskit/form';
 import { Layering } from '@atlaskit/layering';
 import { type Status } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -55,9 +54,7 @@ const StatusEditType = (props: StatusEditTypeProps): React.JSX.Element => {
 		<Layering isDisabled={false}>
 			<Select<Status>
 				{...getCleanedSelectProps(props)}
-				menuPortalTarget={
-					fg('platform_navx_sllv_j2ws_dropdown_for_single_row') ? document.body : undefined
-				}
+				menuPortalTarget={document.body}
 				autoFocus
 				options={options}
 				defaultMenuIsOpen

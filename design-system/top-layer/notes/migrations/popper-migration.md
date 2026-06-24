@@ -1,28 +1,34 @@
 # Popper Migration
 
-> Migration plan for `@atlaskit/popper` itself. Unlike the other notes in this folder, popper is a
-> positioning **primitive**, not an overlay component, so its migration is **deprecation by
-> displacement** rather than a feature-flagged code path inside the package.
+> Migration plan for `@atlaskit/popper` itself. popper is a positioning **primitive**, not an
+> overlay component, so its migration is two-pronged: an in-package FF-on adapter (behind
+> `platform-dst-top-layer`) gives existing consumers top-layer rendering today, while the package is
+> ultimately retired by **deprecation by displacement** — driving consumers off popper and onto
+> `@atlaskit/top-layer` directly.
 
 ---
 
 ## Status
 
-**Not migrated.** No top-layer code path lives inside `@atlaskit/popper`, and the package still
-ships its full Popper.js + react-popper surface. The
+`@atlaskit/popper` ships an **in-package FF-on adapter** behind the `platform-dst-top-layer` feature
+gate. Flag-off, it runs the existing Popper.js + react-popper engine; flag-on, its `<Popper>`
+renders into the browser top layer via `@atlaskit/top-layer` while keeping the public API and
+exported types unchanged. See the "In-package FF-on adapter" section below. The
 [migration roadmap](../decisions/migration-roadmap.md) lists popper under **Infrastructure /
 primitives** with the note _"Legacy positioning; replaced by CSS Anchor Positioning (+ JS fallback
 in top-layer)"_.
 
-The migration happens in the **consumer** packages (popup, tooltip, etc.). Each consumer's top-layer
-branch stops importing `@atlaskit/popper` and uses `@atlaskit/top-layer` primitives instead. Once
-every consumer's legacy branch is removed, `@atlaskit/popper` can be deprecated and retired.
+That adapter is a **transitional bridge**, not the end state. Retiring the package still happens in
+the **consumer** packages (popup, tooltip, etc.): each consumer's top-layer branch stops importing
+`@atlaskit/popper` and adopts `@atlaskit/top-layer` primitives (`Popover`, `useAnchorPosition`)
+directly. Once every consumer's legacy branch is removed, `@atlaskit/popper` can be deprecated and
+retired.
 
 ---
 
-## Why popper is different from popup, tooltip, etc.
+## Why popper's migration is two-pronged
 
-The other migrations in this folder all follow the same shape:
+The other migrations in this folder all follow the same in-package FF shape:
 
 ```
 ConsumerComponent → fg('platform-dst-top-layer')
@@ -30,19 +36,165 @@ ConsumerComponent → fg('platform-dst-top-layer')
                       : <Legacy />             // imports @atlaskit/popper
 ```
 
-`@atlaskit/popper` cannot follow that pattern because:
+popper now ships that same FF switch internally (see "In-package FF-on adapter" below), but with
+caveats that make it a **transitional bridge** rather than a true migration:
 
-- It is a **positioning library**, not an overlay. There is no rendered surface to gate.
-- Its public API exposes raw `react-popper` primitives (`Manager`, `Reference`) and Popper.js types
-  (`Placement`, `Modifier`, `PopperChildrenProps`). A drop-in replacement that keeps the same
-  render-prop API is impossible because CSS Anchor Positioning does not produce `style` /
-  `attributes` / `placement` callback values.
+- popper is a **positioning library**, not an overlay — there is no rendered surface to gate. The
+  adapter instead wraps the consumer's render-prop output in a top-layer `<Popover>`.
+- A _faithful_ drop-in is impossible: CSS Anchor Positioning does not produce the `style` /
+  `attributes` / `placement` callback values that `react-popper`'s render prop hands back. The
+  adapter keeps the render-prop API at the **type** level but makes the positioning values **inert**
+  at runtime (the browser owns positioning). That is source-compatible, not behaviour-identical for
+  consumers that read individual `style` keys.
 - The new world replaces the **architecture** (anchor positioning + top layer + light dismiss), not
-  just the implementation. Consumers must adopt the new component API (`Popover`, `Popup.Content`,
-  `useAnchorPosition`), not a popper-shaped facade.
+  just the implementation. To actually retire popper, consumers must adopt the new component API
+  (`Popover`, `useAnchorPosition`) directly, not lean on the popper-shaped facade.
 
-Therefore the work is consumer-side: rewrite each adopter on its top-layer branch, then remove the
+So the work is two-pronged: the in-package adapter gives existing popper consumers top-layer
+rendering under the flag today, while the longer-term retire-the-package work (the inventory, gap
+analysis, and deprecation plan below) is still consumer-side — rewrite each adopter, then remove the
 popper dependency.
+
+---
+
+## In-package FF-on adapter (`platform-dst-top-layer`)
+
+Behind the `platform-dst-top-layer` gate, `popper.tsx` mounts `PopperTopLayer`
+(`src/popper-top-layer.tsx`) instead of the `react-popper` engine. It renders the consumer's
+render-prop output inside a manual `<Popover>` from `@atlaskit/top-layer`, lifting it into the
+browser top layer and positioning it with CSS Anchor Positioning. The public API and every exported
+type are unchanged; flag-off behaviour is the existing engine.
+
+### Render-prop contract under the flag
+
+`PopperChildrenProps` is preserved at the type level. Because the browser owns positioning, the
+positioning-related values are **inert** — stable module-level identities, so consumers can spread
+them safely into effect dependency arrays:
+
+- `ref` — no-op setter.
+- `style` — frozen empty object; consumers that read individual keys (e.g. `style.transform`) get
+  nothing. Documented in `popper.docs.tsx`.
+- `arrowProps` — `{ ref: noop, style: {}, 'data-popper-arrow': true }` (the data attribute is
+  widened onto the type so arrow CSS selectors and snapshots keep matching).
+- `update` / `forceUpdate` — no-op resolved promises.
+
+Two values are **real**, not inert:
+
+- `placement` — echoed back verbatim as requested. It does **not** reflect runtime flips: the
+  popover still flips / shifts visually via top-layer's CSS `position-try-fallbacks`, but the
+  render-prop value stays the requested placement.
+- `isReferenceHidden` / `hasPopperEscaped` — synthesised from a live measurement of the anchor
+  against the visual viewport and its scrollable ancestors
+  (`internal/use-reference-visibility.tsx`), not hard-coded `false`. An earlier attempt returned
+  them as constant `false` and capped `shouldFitViewport` with a blanket `calc(100vw - 10px)`; both
+  gaps broke real consumers (see
+  [PR 378908](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/378908)), so
+  per-placement caps and live visibility were promoted into the FF-on path.
+
+### Prop handling — three tiers
+
+| Tier      | Props                                                                                                                                                                                                                            | Behaviour under the flag                                                                                                                                                                                                                                                                                                                                                                               |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Keep**  | `placement`, `offset`, `shouldFitViewport`, `referenceElement` (incl. `VirtualElement`), `<Manager>` / `<Reference>` anchor context                                                                                              | Semantics preserved. `offset` maps to top-layer's offset input; `shouldFitViewport` maps to a CSS `max-inline-size` / `max-block-size` recipe with per-placement caps (legacy `viewportPadding = 5` preserved); `VirtualElement` is bridged via `useAnchorPositionAtPoint`; the `<Manager>` anchor is read through popper's own context.                                                               |
+| **No-op** | `modifiers`, `strategy`, consumer mutation of returned `style` / `arrowProps.style`                                                                                                                                              | Accepted at the type level for source compatibility; **no runtime effect** and **no dev warning**. `modifiers` is replaced by CSS `position-try-fallbacks`; `strategy` is irrelevant because top-layer rendering is always browser-fixed. A warning would fire on every render of a wrapping library (e.g. `@atlaskit/popup`) that forwards these props unconditionally, so it is deliberately silent. |
+| **Drop**  | `react-popper` engine, `@popperjs/core` modifier pipeline, `getMaxSizeModifiers` / `max-size.tsx`, the `flip` / `hide` / `preventOverflow` / `offset` / `maxSize` modifier wiring, scroll-parent traversal, reposition-on-update | Not present in the FF-on tree. The browser owns reflow; `shouldFitViewport` is the CSS recipe above.                                                                                                                                                                                                                                                                                                   |
+
+Consumers that rely on custom modifier behaviour are not served by the no-op tier — they are covered
+by the gap analysis below and must migrate to `useAnchorPosition` directly.
+
+### Decision: drop popper's `preventOverflow` viewport-edge clamp from top-layer
+
+**Date:** 2026-06-23. **Status:** decided and implemented (2026-06-23).
+
+**Context.** top-layer builds the popover's `position-try-fallbacks` value in
+`src/internal/placement-to-try-fallbacks.tsx`. That value contains two distinct families of
+fallback:
+
+1. **Flip and shift-near-trigger fallbacks**: same-edge `position-area` spans, `flip-block` /
+   `flip-inline`, the diagonal flip, and opposite-edge spans. These are built-in CSS values written
+   inline into the property string. They keep the popover usefully placed while its anchor is
+   visible, and they need no style injection.
+2. **The viewport-edge clamp**: the named `--ds-tl-shift-*` `@position-try` rules, generated by
+   `shiftRule` and injected once per document by `ensureShiftFallbackStyles`. These pin the popover
+   to a fixed inset from the viewport edge on the cross axis, replicating the "5px from the window
+   edge" feel of legacy popper's `preventOverflow` middleware. A named `@position-try` rule cannot
+   be inlined into the `position-try-fallbacks` property (the property can reference it only by
+   name), so the rule body has to live in an injected stylesheet. The clamp is therefore the only
+   reason the file needs a separate function plus injector.
+
+**Decision.** Remove the viewport-edge clamp from top-layer and keep family 1. This deletes
+`ensureShiftFallbackStyles`, `SHIFT_RULE_CSS`, `shiftRule`, `shiftRuleName`, `viewportShiftNames`,
+`PRIMARY_EDGES`, `VIEWPORT_PADDING_PX`, the `shiftNear` / `shiftFar` entries in
+`placementToTryFallbacks`, the `ensureShiftFallbackStyles()` call in
+`src/internal/use-anchor-position.tsx`, and the `no-multiple-exports` eslint-disable that only
+existed to pair the injector with the generator.
+
+**Why.**
+
+- The clamp is an opinionated, niche behavior, not a positioning invariant. It activates only when
+  the trigger leaves the viewport on the cross axis (for example a horizontally scrolling
+  container). Because the rule keeps `position-area` anchored to the trigger on the primary axis, it
+  does not recover the common case of the trigger scrolling away on the primary axis. When it does
+  fire it leaves the popover floating at the window edge, detached from an anchor the user can no
+  longer see, which often reads as broken.
+- The generally wanted behavior when the anchor leaves the viewport is to follow it off-screen
+  (which is the default, free, no-injection result of keeping only family 1) or to hide via
+  `position-visibility: anchors-visible`. top-layer is consumed by more than a dozen design-system
+  packages (tooltip, dropdown-menu, popup, select, spotlight, modal-dialog, navigation-system, and
+  others), so a non-configurable clamp default imposes one product's legacy middleware behavior on
+  all of them.
+- An `overflow` option on the placement API (for example `'shift' | 'hide' | 'none'`, with popper
+  opting into `'shift'`) was considered and rejected: it adds configuration surface to a primitive
+  for a behavior almost no consumer would choose deliberately. Relocating the clamp into popper was
+  also rejected, because top-layer is the only code that writes the single `position-try-fallbacks`
+  property and that resolves the placement the rule names depend on, so popper would have to
+  duplicate the generation, the injection, and the name lookup.
+
+**Trade-off (accepted).** popper loses byte-for-byte `preventOverflow` parity in the one niche case
+above (trigger off-screen on the cross axis). This is accepted: the lost behavior is narrow and
+arguably broken, and preserving it would cost either a permanent option knob or duplicated CSS
+anchor machinery in popper.
+
+**Scope.** This concerns only the `position-try-fallbacks` viewport-edge clamp. It does not affect
+the `shouldFitViewport` max-size recipe, which independently keeps its own legacy
+`viewportPadding = 5` cap (see the "Keep" tier above). It also does not change the JavaScript
+fallback path (`computeFallbackPosition`), which still clamps the popover to the viewport so it is
+never fully off screen in browsers without CSS Anchor Positioning. The CSS path (modern browsers)
+therefore now follows the anchor off screen while the JS fallback still clamps.
+
+We are intentionally leaving the JS fallback as is. Its viewport clamp is a single
+`computeFallbackPosition` step that does double duty: it both corrects an anchored-but-overflowing
+popover (the JS analog of the family-1 flip and shift we kept) and pins a detached popover to the
+edge when the trigger is fully off screen (the analog of the clamp we removed). Dropping the clamp
+outright would lose the on-screen correction; faithfully matching the CSS path would require extra
+logic to detect a fully off-screen trigger and only then skip the clamp. Neither is worth it for an
+edge case (trigger scrolled fully out of view while the popover is still open) on the legacy-browser
+path, so the small divergence is accepted.
+
+**Status update (implemented 2026-06-23).** The clamp was removed. `placement-to-try-fallbacks.tsx`
+no longer injects any styles (`ensureShiftFallbackStyles` and the `--ds-tl-shift-*` machinery are
+gone); `placementToTryFallbacks` now emits only the family-1 fallbacks. The clamp-specific VR
+fixtures, tests, and snapshots were deleted (popper `examples/80-vr-css-fallbacks.tsx` and its VR
+test; the offscreen-anchor fixtures in top-layer `examples/81-vr-popover-css-fallbacks.tsx` and
+their snapshots). The family-1 flip fixtures and their snapshots are unchanged, because removing the
+clamp does not alter how the popover behaves while its anchor is on screen.
+
+**Gating.** The clamp executes only on the CSS Anchor Positioning path, which today is reached only
+behind `platform-dst-top-layer` (and the analogous per-consumer flags), so the removal does not
+alter any flag-off production behavior. Confirm the gating approach at implementation time.
+
+### Accessibility outcomes preserved
+
+From [goals/accessibility-criteria.md](../goals/accessibility-criteria.md), the FF-on branch
+preserves:
+
+- Native top-layer rendering; tab order follows source order, independent of paint position.
+- No focus-management contract on popper itself (positioning-only primitive); no `Escape`
+  interception; no `aria-hidden` leakage onto the anchor.
+- Screen-reader semantics identical between gate states.
+
+These are asserted by the Playwright specs under `src/__tests__/playwright/` (`top-layer-focus`,
+`top-layer-visibility`, `top-layer-fit-viewport`, `top-layer-popper-escaped`, `top-layer-update`).
 
 ---
 
@@ -77,6 +229,10 @@ popper dependency.
 
 JS fallback for browsers without CSS Anchor Positioning is implemented inside `@atlaskit/top-layer`
 (see `architecture/positioning.md`); consumers do not need to ship their own popper-based fallback.
+
+> Under the in-package FF-on adapter, `modifiers` and `strategy` are silent no-ops (accepted at the
+> type level, no runtime effect, no dev warning). See the "In-package FF-on adapter" section above
+> for the full prop-handling tiers.
 
 ---
 

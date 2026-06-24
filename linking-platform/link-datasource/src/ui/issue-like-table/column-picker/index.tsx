@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { createFilter, type ModifierList, type OptionType, PopupSelect } from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -100,9 +101,20 @@ export const ColumnPicker = ({
 	};
 
 	useEffect(() => {
-		if (allOptions.length) {
-			// necessary to refocus the search input after the loading state
-			pickerRef?.current?.selectRef?.select?.inputRef?.focus();
+		if (fg('platform_sllv_a11y_modal_options_focus')) {
+			if (pickerRef?.current && allOptions.length > 0) {
+				// necessary to refocus the search input after the loading state
+				pickerRef?.current?.selectRef?.select?.inputRef?.focus();
+			}
+		}
+	}, [allOptions.length]);
+
+	useEffect(() => {
+		if (!fg('platform_sllv_a11y_modal_options_focus')) {
+			if (allOptions.length) {
+				// necessary to refocus the search input after the loading state
+				pickerRef?.current?.selectRef?.select?.inputRef?.focus();
+			}
 		}
 	}, [allOptions]);
 

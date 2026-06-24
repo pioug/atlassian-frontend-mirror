@@ -1,7 +1,6 @@
 import type { MessageDescriptor } from 'react-intl';
 
 import type { JsonLd } from '@atlaskit/json-ld-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CONTENT_URL_ACCEPTABLE_USE_POLICY, CONTENT_URL_AI_TROUBLESHOOTING } from '../constants';
 import { messages } from '../messages';
@@ -31,9 +30,7 @@ export const getAISummaryErrorMessage = (
 			};
 		default:
 			return {
-				message: fg('platform_sl_ai_summary_rebrand')
-					? messages.ai_summary_error_generic_rebrand
-					: messages.ai_summary_error_generic,
+				message: messages.ai_summary_error_generic_rebrand,
 				url: CONTENT_URL_AI_TROUBLESHOOTING,
 			};
 	}

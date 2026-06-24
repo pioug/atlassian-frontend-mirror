@@ -19,7 +19,7 @@ export const messages: {
 			'This message is read by screen readers when autocomplete suggestions are available in the JQL editor.',
 	},
 	teamGroupTitle: {
-		id: 'jql.editor.autocomplete.rest.membersof.team-group-title',
+		id: 'jql-editor.plugins.autocomplete.team-group-title',
 		defaultMessage: 'Teams',
 		description:
 			'Section heading shown above team autocomplete suggestions when editing a membersOf() JQL function argument.',

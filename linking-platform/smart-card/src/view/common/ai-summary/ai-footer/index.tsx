@@ -7,7 +7,6 @@ import { FormattedMessage } from 'react-intl';
 
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import Link from '@atlaskit/link';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -24,15 +23,7 @@ const AIFooter = (): JSX.Element => (
 	<Inline alignBlock="center" space="space.050" xcss={styles.aiFooterWrapper}>
 		<InformationCircleIcon label="" color={token('color.text.subtle')} size="small" />
 		<Text size="small">
-			<Link
-				href={
-					fg('platform_sl_ai_summary_rebrand')
-						? CONTENT_URL_ROVO
-						: 'https://www.atlassian.com/trust/atlassian-intelligence'
-				}
-				appearance="subtle"
-				target="_blank"
-			>
+			<Link href={CONTENT_URL_ROVO} appearance="subtle" target="_blank">
 				<FormattedMessage {...messages.ai_disclaimer} />
 			</Link>
 		</Text>

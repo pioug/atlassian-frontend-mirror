@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
@@ -10,10 +10,12 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { ToolbarDropdownMenuProvider } from '@atlaskit/editor-toolbar';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { hideToolbar, highlightContent, showToolbar } from '../../editor-commands/commands';
 import type {
@@ -28,6 +30,29 @@ import { getVisibleKeys, hasVisibleButton } from './hasVisibleButton';
 import { PasteActionsMenuContent } from './PasteActionsMenuContent';
 
 const PopupWithListeners = withReactEditorViewOuterListeners(Popup);
+
+const isAgentMentionUserType = (userType: unknown): boolean =>
+	userType === 'APP' || userType === 'AGENT';
+
+/**
+ * Checks whether a pasted ProseMirror slice contains an app or agent mention node.
+ */
+export const containsAgentMention = (slice?: Slice | null): boolean => {
+	if (!slice) {
+		return false;
+	}
+
+	let hasAgentMention = false;
+	slice.content.descendants((node) => {
+		if (node.type.name === 'mention' && isAgentMentionUserType(node.attrs.userType)) {
+			hasAgentMention = true;
+		}
+	});
+	return hasAgentMention;
+};
+
+export const shouldSuppressPasteActionsForAgentMention = (slice?: Slice | null): boolean =>
+	expVal('platform_editor_agent_mentions', 'isEnabled', false) && containsAgentMention(slice);
 
 interface PasteActionsMenuProps {
 	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined;
@@ -270,11 +295,21 @@ export const PasteActionsMenu = ({
 	const { lastContentPasted } = useSharedPluginStateWithSelector(api, ['paste'], (states) => ({
 		lastContentPasted: states.pasteState?.lastContentPasted,
 	}));
+	const sliceForAgentMentionSuppression = lastContentPasted?.sourcePastedSlice;
+	const shouldSuppressPasteActions = useMemo(
+		() => shouldSuppressPasteActionsForAgentMention(sliceForAgentMentionSuppression),
+		[sliceForAgentMentionSuppression],
+	);
 	const prevShowToolbarRef = useRef(false);
 	const popupContentRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (!lastContentPasted) {
+			hideToolbar()(editorView.state, editorView.dispatch);
+			return;
+		}
+
+		if (shouldSuppressPasteActions) {
 			hideToolbar()(editorView.state, editorView.dispatch);
 			return;
 		}
@@ -307,7 +342,7 @@ export const PasteActionsMenu = ({
 			legacyVisible,
 			pasteAncestorNodeNames,
 		)(editorView.state, editorView.dispatch);
-	}, [lastContentPasted, editorView]);
+	}, [lastContentPasted, shouldSuppressPasteActions, editorView]);
 
 	const {
 		showToolbar: isToolbarShown,
@@ -358,12 +393,16 @@ export const PasteActionsMenu = ({
 		[handleDismiss],
 	);
 
+	const shouldRenderToolbar = isToolbarShown && !shouldSuppressPasteActions;
+
 	// Find the actual scroll container using the same utility the Popup's
 	// stick prop uses internally. We pass this as the scrollableElement prop
 	// so the Popup attaches its built-in scroll listener, which calls
 	// scheduledUpdatePosition (RAF-throttled) on each scroll event — triggering
 	// onPositionCalculated with fresh viewport coordinates.
-	const overflowScrollParent = isToolbarShown ? findOverflowScrollParent(editorView.dom) : false;
+	const overflowScrollParent = shouldRenderToolbar
+		? findOverflowScrollParent(editorView.dom)
+		: false;
 	const effectiveScrollableElement = overflowScrollParent || scrollableElement;
 
 	const pasteMenuComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
@@ -384,7 +423,7 @@ export const PasteActionsMenu = ({
 	const hasVisibleAiActions = visibleAiActionKeys.length > 0;
 
 	useEffect(() => {
-		if (!prevShowToolbarRef.current && isToolbarShown) {
+		if (!prevShowToolbarRef.current && shouldRenderToolbar) {
 			editorAnalyticsAPI?.fireAnalyticsEvent({
 				action: ACTION.OPENED,
 				actionSubject: ACTION_SUBJECT.PASTE_ACTIONS_MENU,
@@ -394,12 +433,12 @@ export const PasteActionsMenu = ({
 				},
 			});
 		}
-		prevShowToolbarRef.current = isToolbarShown;
+		prevShowToolbarRef.current = shouldRenderToolbar;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isToolbarShown, editorAnalyticsAPI]);
+	}, [shouldRenderToolbar, editorAnalyticsAPI]);
 	const useInlinePosition = !hasVisibleAiActions;
 
-	if (!isToolbarShown) {
+	if (!shouldRenderToolbar) {
 		return null;
 	}
 

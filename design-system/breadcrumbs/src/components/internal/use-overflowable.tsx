@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default function useOverflowable(
 	truncationWidth: number | undefined,
-	buttonRefCurrent: HTMLButtonElement | HTMLAnchorElement | null,
+	buttonRefCurrent: HTMLElement | null,
 	iconWidthAllowance: number,
 ): boolean[] {
 	const shouldCheckWidth = truncationWidth && buttonRefCurrent;

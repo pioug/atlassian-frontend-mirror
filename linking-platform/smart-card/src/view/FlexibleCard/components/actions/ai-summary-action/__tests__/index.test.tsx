@@ -55,7 +55,7 @@ describe('AISummaryAction', () => {
 			const element = await findByTestId(`${testId}-summarise-action`);
 
 			expect(element).toBeInTheDocument();
-			expect(element).toHaveTextContent('Summarize with AI');
+			expect(element).toHaveTextContent('Summarize with Rovo');
 		});
 
 		it('does not render AI summary action if action data is not present', async () => {

@@ -3,6 +3,7 @@ import React, { createRef } from 'react';
 import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
 
@@ -232,6 +233,45 @@ describe('Controlled breadcrumbs', () => {
 		expect(ariaLabel).toBe('Test label');
 	});
 });
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+ffTest.on('platform_dst_breadcrumbs-refresh', 'Breadcrumbs container with refresh enabled', () => {
+	it('applies aria-current to the last plain BreadcrumbsItem', () => {
+		render(
+			<Breadcrumbs testId="breadcrumbs-container">
+				<BreadcrumbsItem href="/item" text="Item" />
+				<BreadcrumbsItem href="#" text="Current page" />
+			</Breadcrumbs>,
+		);
+
+		expect(screen.getByRole('link', { name: 'Current page' })).toHaveAttribute(
+			'aria-current',
+			'page',
+		);
+	});
+});
+
+// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
+ffTest.off(
+	'platform_dst_breadcrumbs-refresh',
+	'Breadcrumbs container with refresh disabled',
+	() => {
+		it('applies the small size variant in the legacy composed path', () => {
+			render(
+				<Breadcrumbs size="small">
+					<BreadcrumbsItem
+						href="/item"
+						text="Item"
+						testId="item"
+						elemBefore={<span aria-hidden="true">I</span>}
+					/>
+				</Breadcrumbs>,
+			);
+
+			expect(screen.getByTestId('item--icon-before')).toBeInTheDocument();
+		});
+	},
+);
 
 describe('Focus managment', () => {
 	const breadcrumbsFixture = (props: any = {}) => {

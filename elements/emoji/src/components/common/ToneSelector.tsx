@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { css, jsx } from '@compiled/react';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import React, {
 	memo,
 	useCallback,
@@ -35,6 +35,21 @@ import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import EmojiRadioButton from './EmojiRadioButton';
 import { useIntl } from 'react-intl';
 import { messages } from '../i18n';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 const hidden = css({
 	opacity: 0,
@@ -141,7 +156,7 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 			css={!isVisible && hidden}
 		>
 			{emojiToneCollection.map((tone, renderIndex) => {
-				return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+				return isRefreshEmojiPickerEnabled() ? (
 					<EmojiRadioButton
 						ref={(el) => {
 							radioRefs.current[renderIndex] = el;

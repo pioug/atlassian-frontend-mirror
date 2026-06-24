@@ -1,30 +1,31 @@
 import React, { useCallback, useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import Button from '@atlaskit/button/new';
 import Select from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 const data = [
-	<BreadcrumbsItem href="/item" key="Item" text="Item" />,
-	<BreadcrumbsItem href="/item" key="Another item" text="Another item" />,
-	<BreadcrumbsItem href="/item" key="A third item" text="A third item" />,
-	<BreadcrumbsItem
-		href="/item"
-		key="A fourth item with a very long name"
-		text="A fourth item with a very long name"
-	/>,
-	<BreadcrumbsItem href="/item" key="Yet another item" text="Yet another item" />,
-	<BreadcrumbsItem href="/item" key="An item" text="An item" />,
-	<BreadcrumbsItem href="/item" key="The next item" text="The next item" />,
-	<BreadcrumbsItem
-		href="/item"
-		key="The item after the next item"
-		text="The item after the next item"
-	/>,
-	<BreadcrumbsItem href="/item" key="The ninth item" text="The ninth item" />,
-	<BreadcrumbsItem href="/item" key="Item ten" text="Item ten" />,
-	<BreadcrumbsItem href="/item" key="The last item" text="The last item" />,
+	{ href: '/item', key: 'Item', text: 'Item' },
+	{ href: '/item', key: 'Another item', text: 'Another item' },
+	{ href: '/item', key: 'A third item', text: 'A third item' },
+	{
+		href: '/item',
+		key: 'A fourth item with a very long name',
+		text: 'A fourth item with a very long name',
+	},
+	{ href: '/item', key: 'Yet another item', text: 'Yet another item' },
+	{ href: '/item', key: 'An item', text: 'An item' },
+	{ href: '/item', key: 'The next item', text: 'The next item' },
+	{
+		href: '/item',
+		key: 'The item after the next item',
+		text: 'The item after the next item',
+	},
+	{ href: '/item', key: 'The ninth item', text: 'The ninth item' },
+	{ href: '/item', key: 'Item ten', text: 'Item ten' },
+	{ href: '/item', key: 'The last item', text: 'The last item' },
 ];
 
 const selectOptions = new Array(11)
@@ -42,6 +43,7 @@ export default function BreadcrumbsPlaygroundExample(): React.JSX.Element {
 	const [maxItems, setMaxItems] = useState<number | undefined>(undefined);
 	const [itemsAfterCollapse, setItemsAfterCollapse] = useState<number | undefined>(undefined);
 	const [itemsBeforeCollapse, setItemsBeforeCollapse] = useState<number | undefined>(undefined);
+	const visibleItems = data.slice(0, itemsToShow);
 
 	const expand = useCallback((e: React.MouseEvent) => {
 		e.preventDefault();
@@ -155,7 +157,13 @@ export default function BreadcrumbsPlaygroundExample(): React.JSX.Element {
 				itemsBeforeCollapse={itemsBeforeCollapse}
 				itemsAfterCollapse={itemsAfterCollapse}
 			>
-				{data.slice(0, itemsToShow)}
+				{visibleItems.map(({ key, ...item }, index) =>
+					index === visibleItems.length - 1 ? (
+						<BreadcrumbsCurrentItem key={key} {...item} />
+					) : (
+						<BreadcrumbsItem key={key} {...item} />
+					),
+				)}
 			</Breadcrumbs>
 		</React.Fragment>
 	);

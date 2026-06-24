@@ -1,5 +1,43 @@
 # @atlaskit/smart-card
 
+## 45.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.3.1
+
+### Patch Changes
+
+- [`c10405c7e4695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c10405c7e4695) -
+  Internal changes to use tokens for skeleton component border radius.
+- [`c10405c7e4695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c10405c7e4695) -
+  Internal changes to use tokens for skeleton component border radius.
+- Updated dependencies
+
+## 45.3.0
+
+### Minor Changes
+
+- [`05e2e74c028a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05e2e74c028a3) -
+  Cleanup feature gate platform_sl_ai_summary_rebrand. AI Summary now permanently uses Rovo branding
+  (RovoIcon, Rovo content URLs, and Rovo action labels).
+
+## 45.2.5
+
+### Patch Changes
+
+- [`8e8fa5c982de0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e8fa5c982de0) -
+  Cleanup feature gate `platform_sl_event_ui_seen`. The new SSR card implementation using
+  CardErrorBoundary and the smart link seen event tracking are now permanently enabled.
+- [`5960cad1ecc81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5960cad1ecc81) -
+  Remove unused platform feature flag declarations (no runtime impact)
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 45.2.4
 
 ### Patch Changes

@@ -62,6 +62,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../dropdown-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
@@ -86,7 +89,13 @@
 			"path": "../tokens/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../uip/ssr-tests/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

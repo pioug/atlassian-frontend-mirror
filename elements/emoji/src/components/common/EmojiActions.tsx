@@ -17,7 +17,7 @@ import {
 } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { token } from '@atlaskit/tokens';
 import {
 	FormattedMessage,
@@ -53,6 +53,21 @@ import { DEFAULT_TONE } from '../../util/constants';
 import { Box } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import type { ProductivityColor } from '../../util/productivity-colors';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 const styles = cssMap({
 	icon: { marginLeft: token('space.negative.050'), marginRight: token('space.negative.025') },
@@ -268,7 +283,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 		productivityColorPreviewEmojis &&
 		selectedProductivityColor &&
 		onProductivityColorSelected &&
-		expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+		isRefreshEmojiPickerEnabled()
 	);
 
 	if (shouldShowProductivityColorSelector) {
@@ -374,7 +389,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		props.productivityColorPreviewEmojis &&
 		props.selectedProductivityColor &&
 		props.onProductivityColorSelected &&
-		expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+		isRefreshEmojiPickerEnabled()
 	);
 
 	const onToneOpenHandler = useCallback(() => setShowToneSelector(true), []);
@@ -418,7 +433,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}, [shouldUseProductivityColorControl, showToneSelector]);
 
 	if (uploading) {
-		return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+		return isRefreshEmojiPickerEnabled() ? (
 			<div css={previewFooterNew}>
 				<EmojiUploadPicker
 					onUploadCancelled={onUploadCancelled}
@@ -442,7 +457,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}
 
 	if (emojiToDelete) {
-		return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+		return isRefreshEmojiPickerEnabled() ? (
 			<div css={previewFooterNew}>
 				<EmojiDeletePreview
 					emoji={emojiToDelete}
@@ -461,7 +476,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		);
 	}
 
-	return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return isRefreshEmojiPickerEnabled() ? (
 		<div
 			data-testid={emojiActionsTestId}
 			css={previewFooterNew}

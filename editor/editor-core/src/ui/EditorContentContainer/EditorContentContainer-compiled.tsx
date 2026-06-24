@@ -642,13 +642,15 @@ const editorContentStyles = cssMap({
 			boxDecorationBreak: 'clone',
 		},
 
-		// Don't show text highlight styling when there is a hyperlink
-		'a .fabric-background-color-mark': {
-			backgroundColor: 'unset',
-		},
-
 		// Don't show text highlight styling when there is an inline comment
 		'.fabric-background-color-mark .ak-editor-annotation': {
+			backgroundColor: 'unset',
+		},
+	},
+	// Don't show text highlight styling when there is a hyperlink.
+	// Conditionally applied when the highlight-on-links experiment is off.
+	highlightLinksUnsetStyles: {
+		'a .fabric-background-color-mark': {
 			backgroundColor: 'unset',
 		},
 	},
@@ -1852,7 +1854,7 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
-	expandStylesMixin_experiment_platform_editor_chromeless_expand_fix: {
+	expandStylesMixin_chromeless_expand_fix: {
 		'.ProseMirror > .ak-editor-expand': {
 			marginLeft: 0,
 			marginRight: 0,
@@ -7695,7 +7697,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={className}
+			className={className || undefined}
 			ref={ref}
 			css={[
 				editorContentStyles.baseStyles,
@@ -7755,6 +7757,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.codeMarkStylesA11yFix,
 				editorContentStyles.textColorStyles,
 				editorContentStyles.backgroundColorStyles,
+				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+					editorContentStyles.highlightLinksUnsetStyles,
 				editorContentStyles.textHighlightPaddingStyles,
 				editorContentStyles.listsStyles,
 				expValEqualsNoExposure('platform_editor_flexible_list_schema', 'isEnabled', true) &&
@@ -7835,9 +7839,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					? editorContentStyles.expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes
 					: editorContentStyles.expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
 				editorContentStyles.expandStylesMixin_fg_platform_visual_refresh_icons,
-				isChromeless &&
-					expValEquals('platform_editor_chromeless_expand_fix', 'isEnabled', true) &&
-					editorContentStyles.expandStylesMixin_experiment_platform_editor_chromeless_expand_fix,
+				isChromeless && editorContentStyles.expandStylesMixin_chromeless_expand_fix,
 				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 					? editorContentStyles.findReplaceStylesNewWithA11Y
 					: editorContentStyles.findReplaceStyles,

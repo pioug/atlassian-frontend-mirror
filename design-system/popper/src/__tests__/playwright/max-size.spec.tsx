@@ -1,87 +1,119 @@
 import { expect, test } from '@af/integration-testing';
 
-test('max size is not applied if the viewport is large enough', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/00-basic-positioning.tsx')>(
-		'design-system',
-		'popper',
-		'basic-positioning',
-	);
+// All four max-size scenarios run under both states of the
+// platform-dst-top-layer flag. The FF-on path resolves max-size via
+// CSS Anchor Positioning + a measured per-placement cap; behavioural
+// parity with the legacy modifier pipeline is the contract this suite
+// enforces.
 
-	const popper = page.locator('[data-testid="popper"]');
+/**
+ * Reads the popper's effective max-size, preferring the logical
+ * property the FF-on adapter emits and falling back to the physical
+ * property the legacy popper.js pipeline emits. Returns whichever is
+ * set (i.e. not the CSS initial value `'none'`); returns `'none'` only
+ * when both are unset.
+ */
+function readMaxSize(element: Element): string {
+	const computed = getComputedStyle(element);
+	if (computed.maxInlineSize && computed.maxInlineSize !== 'none') {
+		return computed.maxInlineSize;
+	}
+	return computed.maxWidth;
+}
 
-	await expect(popper).toBeVisible();
-	await expect(popper).toBeInViewport();
+const FLAG_STATES = [
+	{ label: 'FF-off (legacy popper.js)', featureFlag: 'platform-dst-top-layer=false' },
+	{ label: 'FF-on (top-layer adapter)', featureFlag: 'platform-dst-top-layer=true' },
+] as const;
 
-	const maxWidth = await popper.evaluate((element) => getComputedStyle(element).maxWidth);
-	expect(maxWidth).toBe('none');
-});
+for (const { label, featureFlag } of FLAG_STATES) {
+	test(`max size is not applied if the viewport is large enough [${label}]`, async ({ page }) => {
+		await page.visitExample<typeof import('../../../examples/00-basic-positioning.tsx')>(
+			'design-system',
+			'popper',
+			'basic-positioning',
+			{ featureFlag },
+		);
 
-test('max size is correctly applied', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
-		'design-system',
-		'popper',
-		'max-size',
-	);
+		const popper = page.locator('[data-testid="popper"]');
 
-	const popper = page.locator('[data-testid="placement--right"]');
+		await expect(popper).toBeVisible();
+		await expect(popper).toBeInViewport();
 
-	await expect(popper).toBeVisible();
-	await expect(popper).toBeInViewport();
+		const maxSize = await popper.evaluate(readMaxSize);
+		expect(maxSize).toBe('none');
+	});
 
-	const maxWidth = await popper.evaluate((element) => getComputedStyle(element).maxWidth);
-	expect(maxWidth).not.toBe('none');
-});
+	test(`max size is correctly applied [${label}]`, async ({ page }) => {
+		await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+			'design-system',
+			'popper',
+			'max-size',
+			{ featureFlag },
+		);
 
-test('max size updates when page gets smaller', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
-		'design-system',
-		'popper',
-		'max-size',
-	);
+		const popper = page.locator('[data-testid="placement--right"]');
 
-	const popper = page.locator('[data-testid="placement--right"]');
+		await expect(popper).toBeVisible();
+		await expect(popper).toBeInViewport();
 
-	// Default size, but making it explicit
-	await page.setViewportSize({ width: 1280, height: 720 });
-	await expect(popper).toBeVisible();
-	await expect(popper).toBeInViewport();
+		const maxSize = await popper.evaluate(readMaxSize);
+		expect(maxSize).not.toBe('none');
+	});
 
-	const maxWidthStart = await popper.evaluate((element) => getComputedStyle(element).maxWidth);
-	const maxWidthStartNum = parseInt(maxWidthStart, 10);
+	test(`max size updates when page gets smaller [${label}]`, async ({ page }) => {
+		await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+			'design-system',
+			'popper',
+			'max-size',
+			{ featureFlag },
+		);
 
-	await page.setViewportSize({ width: 1080, height: 720 });
-	await expect(popper).toBeVisible();
-	await expect(popper).toBeInViewport();
+		const popper = page.locator('[data-testid="placement--right"]');
 
-	const maxWidthEnd = await popper.evaluate((element) => getComputedStyle(element).maxWidth);
-	const maxWidthEndNum = parseInt(maxWidthEnd, 10);
+		// Default size, but making it explicit
+		await page.setViewportSize({ width: 1280, height: 720 });
+		await expect(popper).toBeVisible();
+		await expect(popper).toBeInViewport();
 
-	expect(maxWidthEndNum).toBeLessThan(maxWidthStartNum);
-});
+		const maxSizeStart = await popper.evaluate(readMaxSize);
+		const maxSizeStartNum = parseInt(maxSizeStart, 10);
 
-test('max size updates when page gets bigger', async ({ page }) => {
-	await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
-		'design-system',
-		'popper',
-		'max-size',
-	);
+		await page.setViewportSize({ width: 1080, height: 720 });
+		await expect(popper).toBeVisible();
+		await expect(popper).toBeInViewport();
 
-	const popper = page.locator('[data-testid="placement--right"]');
+		const maxSizeEnd = await popper.evaluate(readMaxSize);
+		const maxSizeEndNum = parseInt(maxSizeEnd, 10);
 
-	// Default size, but making it explicit
-	await page.setViewportSize({ width: 1280, height: 720 });
-	await expect(popper).toBeVisible();
-	await expect(popper).toBeInViewport();
+		expect(maxSizeEndNum).toBeLessThan(maxSizeStartNum);
+	});
 
-	const maxWidthStart = await popper.evaluate((element) => getComputedStyle(element).maxWidth);
-	const maxWidthStartNum = parseInt(maxWidthStart, 10);
+	test(`max size updates when page gets bigger [${label}]`, async ({ page }) => {
+		await page.visitExample<typeof import('../../../examples/03-max-size.tsx')>(
+			'design-system',
+			'popper',
+			'max-size',
+			{ featureFlag },
+		);
 
-	await page.setViewportSize({ width: 1480, height: 720 });
-	await expect(popper).toBeVisible();
-	await expect(popper).toBeInViewport();
+		const popper = page.locator('[data-testid="placement--right"]');
 
-	const maxWidthEnd = await popper.evaluate((element) => getComputedStyle(element).maxWidth);
-	const maxWidthEndNum = parseInt(maxWidthEnd, 10);
+		// Default size, but making it explicit
+		await page.setViewportSize({ width: 1280, height: 720 });
+		await expect(popper).toBeVisible();
+		await expect(popper).toBeInViewport();
 
-	expect(maxWidthEndNum).toBeGreaterThan(maxWidthStartNum);
-});
+		const maxSizeStart = await popper.evaluate(readMaxSize);
+		const maxSizeStartNum = parseInt(maxSizeStart, 10);
+
+		await page.setViewportSize({ width: 1480, height: 720 });
+		await expect(popper).toBeVisible();
+		await expect(popper).toBeInViewport();
+
+		const maxSizeEnd = await popper.evaluate(readMaxSize);
+		const maxSizeEndNum = parseInt(maxSizeEnd, 10);
+
+		expect(maxSizeEndNum).toBeGreaterThan(maxSizeStartNum);
+	});
+}

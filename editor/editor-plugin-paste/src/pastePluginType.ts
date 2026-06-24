@@ -51,10 +51,24 @@ export type LastContentPasted = {
 	isPlainText: boolean;
 	isShiftPressed: boolean;
 	pastedAt: number;
+	/**
+	 * Backwards-compatible field for existing paste option consumers.
+	 *
+	 * This is the last slice extracted from a ReplaceStep or ReplaceAroundStep
+	 * in the paste transaction. It is not necessarily the original clipboard
+	 * slice or the full content inserted by the paste.
+	 */
 	pastedSlice: Slice;
 	pasteEndPos: number;
 	pasteSource: PasteSource;
 	pasteStartPos: number;
+	/**
+	 * The paste handler slice captured before inspecting transaction steps.
+	 * This has already passed through clipboard parsing and paste transforms,
+	 * but does not depend on which ReplaceStep or ReplaceAroundStep happens to
+	 * be last in the paste transaction.
+	 */
+	sourcePastedSlice?: Slice;
 	text?: string;
 };
 

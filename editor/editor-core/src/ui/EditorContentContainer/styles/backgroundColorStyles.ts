@@ -44,15 +44,25 @@ export const backgroundColorStyles: SerializedStyles = css({
 		boxDecorationBreak: 'clone',
 	},
 
-	// Don't show text highlight styling when there is a hyperlink
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'a .fabric-background-color-mark': {
-		backgroundColor: 'unset',
-	},
-
 	// Don't show text highlight styling when there is an inline comment
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-background-color-mark .ak-editor-annotation': {
+		backgroundColor: 'unset',
+	},
+});
+
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
+// Don't show text highlight styling when there is a hyperlink.
+// Conditionally applied when the highlight-on-links experiment is off.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
+export const highlightLinksUnsetStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'a .fabric-background-color-mark': {
 		backgroundColor: 'unset',
 	},
 });

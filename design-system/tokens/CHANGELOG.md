@@ -1,5 +1,23 @@
 # @atlaskit/tokens
 
+## 15.0.0
+
+### Major Changes
+
+- [`26bb3944a5ea4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26bb3944a5ea4) -
+  Removed unused shape-rounder and shape-roundest themes. Removed legacy typography themes from
+  prebuilt.
+
+### Patch Changes
+
+- [`d223db963e46d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d223db963e46d) -
+  Cleanup feature gate `platform-dst-motion-theme-default`. Motion theme is now permanently enabled
+  by default in `setGlobalTheme` calls.
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 14.0.0
 
 ### Major Changes

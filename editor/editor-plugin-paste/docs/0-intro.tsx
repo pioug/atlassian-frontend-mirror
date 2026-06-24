@@ -46,6 +46,7 @@ export type LastContentPasted = {
   pasteEndPos: number;
   pasteSource: PasteSource;
   pasteStartPos: number;
+  sourcePastedSlice?: Slice;
   text?: string;
 };
 

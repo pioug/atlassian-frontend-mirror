@@ -7,10 +7,12 @@ import { memo } from 'react';
 
 import { css } from '@compiled/react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+import { useBreadcrumbsSize } from './internal/use-breadcrumbs-size';
 
 const noop = __noop;
 
@@ -32,6 +34,7 @@ const itemWrapperStyles = css({
 	'&:not(:last-child)::after': {
 		width: token('space.100'),
 		flexShrink: 0,
+		color: token('color.text.subtlest'),
 		content: '"/"',
 		paddingBlock: token('space.025'),
 		paddingInline: token('space.100'),
@@ -48,9 +51,11 @@ const styles = cssMap({
 		border: 'none',
 		display: 'inline-flex',
 		alignItems: 'center',
+		alignSelf: 'center',
 		gap: token('space.050'),
 		borderRadius: token('radius.small'),
 		textDecoration: 'none',
+		marginBlockStart: token('space.0'),
 
 		'&:hover': {
 			textDecoration: 'underline',
@@ -64,6 +69,9 @@ const styles = cssMap({
 			// @ts-expect-error
 			color: token('color.text'),
 		},
+	},
+	rootSmall: {
+		font: token('font.body.small'),
 	},
 });
 
@@ -81,13 +89,23 @@ interface EllipsisItemProps {
 
 const EllipsisItem: import('react').MemoExoticComponent<
 	({ label, onClick, testId }: EllipsisItemProps) => JSX.Element
-> = memo(({ label, onClick = noop, testId }: EllipsisItemProps) => (
-	<li css={itemWrapperStyles}>
-		<Pressable aria-label={label} onClick={onClick} xcss={styles.root} testId={testId}>
-			&hellip;
-		</Pressable>
-	</li>
-));
+> = memo(({ label, onClick = noop, testId }: EllipsisItemProps) => {
+	const breadcrumbsSize = useBreadcrumbsSize();
+	const isSmall = breadcrumbsSize === 'small';
+
+	return (
+		<li css={itemWrapperStyles}>
+			<Pressable
+				aria-label={label}
+				onClick={onClick}
+				xcss={cx(styles.root, isSmall && styles.rootSmall)}
+				testId={testId}
+			>
+				&hellip;
+			</Pressable>
+		</li>
+	);
+});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default EllipsisItem;

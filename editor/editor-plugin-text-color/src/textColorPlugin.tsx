@@ -70,17 +70,11 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 	};
 
 	if (isToolbarAIFCEnabled) {
-		if (fg('platform_editor_toolbar_aifc_text_color_config')) {
-			if (
-				api?.toolbar?.actions.registerComponents &&
-				isToolbarComponentEnabled(pluginConfig(textColorConfig))
-			) {
-				api.toolbar.actions.registerComponents(getToolbarComponents(api));
-			}
-		} else {
-			if (api?.toolbar?.actions.registerComponents) {
-				api.toolbar.actions.registerComponents(getToolbarComponents(api));
-			}
+		if (
+			api?.toolbar?.actions.registerComponents &&
+			isToolbarComponentEnabled(pluginConfig(textColorConfig))
+		) {
+			api.toolbar.actions.registerComponents(getToolbarComponents(api));
 		}
 	} else {
 		api?.primaryToolbar?.actions.registerComponent({

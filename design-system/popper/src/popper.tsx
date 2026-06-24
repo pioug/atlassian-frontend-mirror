@@ -8,7 +8,10 @@ import {
 	Popper as ReactPopper,
 } from 'react-popper';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getMaxSizeModifiers } from './max-size';
+import { PopperTopLayer } from './popper-top-layer';
 
 export { placements } from '@popperjs/core';
 // Export types from PopperJS / React Popper
@@ -95,6 +98,46 @@ function defaultChildrenFn() {
 const defaultOffset: Offset = [0, 8];
 
 export function Popper<CustomModifiers>({
+	children,
+	offset,
+	placement,
+	referenceElement,
+	modifiers,
+	strategy,
+	shouldFitViewport,
+}: CustomPopperProps<CustomModifiers>): React.JSX.Element {
+	// The FF check sits at the very top of the public Popper so the
+	// rest of the function (which has its own hooks) does not violate
+	// the rules of hooks. Each branch is its own component with its
+	// own complete hook order. Props are forwarded explicitly to
+	// satisfy `no-unsafe-spread-props`.
+	if (fg('platform-dst-top-layer')) {
+		return (
+			<PopperTopLayer
+				children={children}
+				offset={offset}
+				placement={placement}
+				referenceElement={referenceElement}
+				modifiers={modifiers}
+				strategy={strategy}
+				shouldFitViewport={shouldFitViewport}
+			/>
+		);
+	}
+	return (
+		<LegacyPopper
+			children={children}
+			offset={offset}
+			placement={placement}
+			referenceElement={referenceElement}
+			modifiers={modifiers}
+			strategy={strategy}
+			shouldFitViewport={shouldFitViewport}
+		/>
+	);
+}
+
+function LegacyPopper<CustomModifiers>({
 	children = defaultChildrenFn,
 	offset = defaultOffset,
 	placement = 'bottom-start',

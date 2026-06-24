@@ -3,15 +3,17 @@
  * @jsx jsx
  */
 
-import { type CSSProperties, memo, useRef } from 'react';
+import { type CSSProperties, memo, type Ref, useCallback, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type BreadcrumbsItemProps } from '../types';
 
+import BreadcrumbsItemBase from './internal/breadcrumbs-item-base';
 import Step from './internal/step';
 import StepOld from './internal/step-old';
 import useOverflowable from './internal/use-overflowable';
@@ -21,6 +23,7 @@ const itemWrapperStyles = css({
 	boxSizing: 'border-box',
 	maxWidth: '100%',
 	height: `${24 / 14}em`,
+	alignItems: 'center',
 	flexDirection: 'row',
 	fontFamily: token('font.family.body'),
 	marginBlockEnd: token('space.0'),
@@ -35,6 +38,7 @@ const itemWrapperStyles = css({
 	'&:not(:last-child)::after': {
 		width: '8px',
 		flexShrink: 0,
+		color: token('color.text.subtlest'),
 		content: '"/"',
 		paddingBlock: token('space.025'),
 		paddingInline: token('space.100'),
@@ -62,11 +66,17 @@ const staticItemWithoutTruncationStyles = css({
 	flexShrink: `1 !important`,
 });
 
+type BreadcrumbsItemInternalProps = BreadcrumbsItemProps & {
+	'aria-current'?: 'page' | boolean;
+	_overflowRef?: (el: HTMLLIElement | null) => void;
+};
+
 const BreadcrumbsItem: import('react').MemoExoticComponent<
 	({
 		analyticsContext,
 		component,
 		href,
+		elemBefore,
 		iconAfter,
 		iconBefore,
 		onClick,
@@ -76,51 +86,84 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 		testId,
 		text,
 		truncationWidth,
+		_overflowRef,
 		...rest
-	}: BreadcrumbsItemProps) => JSX.Element
+	}: BreadcrumbsItemInternalProps) => JSX.Element
 > = memo(
 	({
 		analyticsContext,
 		component,
-		// `createAnalyticsEvent` should be here, but throws errors on render since
-		// it ends up being spread on a DOM element at the very end
+		// Analytics event creation comes from context via usePlatformLeafEventHandler.
+		// Strip this prop so it cannot leak onto DOM-backed controls.
+		createAnalyticsEvent: _createAnalyticsEvent,
 		href,
+		elemBefore,
 		iconAfter,
 		iconBefore,
 		onClick,
 		onTooltipShown,
 		// This is overridden by the `buttonRef` below
-		ref,
+		ref: _ref,
 		target,
 		testId,
 		text,
+		title,
 		truncationWidth,
-		// I believe there is only `createAnalyticsEvent` left on here, but leaving
-		// it here to allow this to be a patch and not a major
+		'aria-label': ariaLabel,
+		'aria-labelledby': ariaLabelledBy,
+		'aria-current': ariaCurrent,
+		_overflowRef,
 		...rest
-	}: BreadcrumbsItemProps) => {
-		const stepTextRef = useRef<HTMLButtonElement | null>(null);
+	}: BreadcrumbsItemInternalProps) => {
+		const [stepElement, setStepElement] = useState<HTMLElement | null>(null);
+		const setStepRef = useCallback((element: HTMLElement | null) => {
+			setStepElement(element);
+		}, []);
+		const resolvedElemBefore = elemBefore ?? iconBefore;
 
-		// If icons are provided we include their width in the truncation calculation to ensure we're as accurate as possible.
-		// Note: this assumes icons are 24px wide which should be almost always.
-		// Not really an issue if the icons are smaller, just that truncation occurs slightly earlier than you may want.
 		let iconWidthAllowance = 0;
-		if (iconBefore) {
+		if (resolvedElemBefore) {
 			iconWidthAllowance += ICON_WIDTH_ESTIMATE;
 		}
 		if (iconAfter) {
 			iconWidthAllowance += ICON_WIDTH_ESTIMATE;
 		}
 
-		const [hasOverflow, showTooltip] = useOverflowable(
+		const [hasOverflow, shouldShowTooltip] = useOverflowable(
 			truncationWidth,
-			stepTextRef.current,
-			iconWidthAllowance,
+			stepElement,
+			fg('platform_dst_breadcrumbs-refresh') ? 0 : iconWidthAllowance,
 		);
 
-		// This should be a part of staticItemStyles but it requires the !important flag to prevent the padding from being overridden by the button styles
-		// compiled treats `${token(xxx)} !important` differently when concat !important in es2019 and esm built files
-		// the padding and font weight were not sourced correctly in the esm build
+		if (!component && fg('platform_dst_breadcrumbs-refresh')) {
+			return (
+				<BreadcrumbsItemBase
+					ref={_overflowRef}
+					analyticsContext={analyticsContext}
+					aria-label={ariaLabel}
+					aria-labelledby={ariaLabelledBy}
+					elemBefore={resolvedElemBefore}
+					href={href}
+					// TODO(CAT-2913): Remove `iconAfter` from the refresh path once Jira stops depending on deprecated
+					// `BreadcrumbsItem.iconAfter` in `src/packages/polaris/component-ideas-idea-view/tests/IssueKey.test.tsx`
+					// and `src/packages/polaris/component-ideas-idea-view/tests/IssueBreadcrumbs.test.tsx`.
+					// Those consumers need to move the copy-link affordance out of `BreadcrumbsItem` first.
+					iconAfter={iconAfter}
+					iconBefore={iconBefore}
+					onClick={onClick}
+					onTooltipShown={onTooltipShown}
+					shouldShowTooltip={shouldShowTooltip}
+					stepRef={setStepRef}
+					target={target}
+					testId={testId}
+					text={text}
+					title={title}
+					truncationWidth={truncationWidth}
+					aria-current={ariaCurrent}
+				/>
+			);
+		}
+
 		const buttonOverrideStyles: CSSProperties = {
 			paddingBlock: token('space.025'),
 			fontWeight: token('font.weight.regular'),
@@ -134,14 +177,19 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 
 		const step = !component ? (
 			<Step
-				ref={stepTextRef}
 				analyticsContext={analyticsContext}
+				aria-label={ariaLabel}
+				aria-labelledby={ariaLabelledBy}
+				aria-current={ariaCurrent}
+				elemBefore={resolvedElemBefore}
 				href={href}
 				iconAfter={iconAfter}
 				iconBefore={iconBefore}
 				onClick={onClick}
+				ref={setStepRef}
 				target={target}
 				testId={testId}
+				title={title}
 				truncationWidth={truncationWidth}
 				{...rest}
 			>
@@ -149,17 +197,20 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 			</Step>
 		) : (
 			<StepOld
-				{...rest}
 				analyticsContext={analyticsContext}
+				aria-label={ariaLabel}
+				aria-labelledby={ariaLabelledBy}
+				aria-current={ariaCurrent}
 				component={component}
 				hasOverflow={hasOverflow}
 				href={href}
 				iconAfter={iconAfter}
-				iconBefore={iconBefore}
+				iconBefore={resolvedElemBefore}
 				onClick={onClick}
-				ref={stepTextRef}
+				ref={setStepRef as Ref<HTMLButtonElement>}
 				target={target}
 				testId={testId}
+				title={title}
 				css={[
 					staticItemStyles,
 					truncationWidth ? staticItemWithTruncationStyles : staticItemWithoutTruncationStyles,
@@ -168,14 +219,15 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 				style={
 					truncationWidth ? { ...dynamicItemStyles, ...buttonOverrideStyles } : buttonOverrideStyles
 				}
+				{...rest}
 			>
 				{text}
 			</StepOld>
 		);
 
 		return (
-			<li css={itemWrapperStyles}>
-				{showTooltip ? (
+			<li css={itemWrapperStyles} ref={_overflowRef}>
+				{shouldShowTooltip ? (
 					<Tooltip content={text} position="bottom" onShow={onTooltipShown}>
 						{step}
 					</Tooltip>

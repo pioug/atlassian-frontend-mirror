@@ -3,6 +3,7 @@ import React from 'react';
 import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LinkPickerState, LinkSearchListItemData } from '../../../../common/types';
 
@@ -19,6 +20,7 @@ type LinkPickerButtonGroupProps = {
 	submitMessageId?: string;
 	testId?: string;
 	url: string;
+	disableManualUrlInsert?: boolean;
 };
 
 export const messages: {
@@ -57,6 +59,7 @@ export const LinkPickerSubmitButton = ({
 	submitMessageId,
 	testId,
 	url,
+	disableManualUrlInsert,
 }: LinkPickerButtonGroupProps): React.JSX.Element => {
 	const intl = useIntl();
 	const insertButtonMsg = isEditing ? messages.saveButton : messages.insertButton;
@@ -68,6 +71,7 @@ export const LinkPickerSubmitButton = ({
 		url,
 		queryState,
 		items,
+		fg('add-disable-manual-url-capability-technical') ? disableManualUrlInsert : undefined,
 	);
 
 	return (

@@ -13,7 +13,22 @@ import { useDebouncedCallback } from 'use-debounce';
 import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
 import { messages } from '../i18n';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 const input = css({
 	boxSizing: 'border-box',
@@ -144,7 +159,7 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 							})
 					: null}
 			</VisuallyHidden>
-			{expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+			{isRefreshEmojiPickerEnabled() ? (
 				<div css={textFieldWrapperNew}>
 					<TextField
 						role="searchbox"

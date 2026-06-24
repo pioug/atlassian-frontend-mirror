@@ -42,7 +42,7 @@ describe('placementToPositionArea()', () => {
 });
 
 describe('placementToTryFallbacks()', () => {
-	describe('centered block placements include cross-axis shifts and flip-block', () => {
+	describe('centered block placements include cross-axis shifts then flip-block', () => {
 		it.each([
 			[
 				{ axis: 'block', edge: 'start' },
@@ -60,7 +60,7 @@ describe('placementToTryFallbacks()', () => {
 		);
 	});
 
-	describe('centered inline placements include cross-axis shifts and flip-inline', () => {
+	describe('centered inline placements include cross-axis shifts then flip-inline', () => {
 		it.each([
 			[
 				{ axis: 'inline', edge: 'start' },
@@ -78,7 +78,7 @@ describe('placementToTryFallbacks()', () => {
 		);
 	});
 
-	describe('aligned placements include same-edge shifts, then primary flip, then diagonal flip, then opposite edge', () => {
+	describe('aligned placements include same-edge shifts, primary flip, diagonal flip, then opposite edge', () => {
 		it.each([
 			[
 				{ axis: 'block', edge: 'start', align: 'start' },

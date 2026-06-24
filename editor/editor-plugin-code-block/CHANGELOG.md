@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-code-block
 
+## 14.1.1
+
+### Patch Changes
+
+- [`5bb7d8aa14c4e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bb7d8aa14c4e) -
+  Fix code block language picker trigger height in legacy toolbar
+- [`49b8e9a322976`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49b8e9a322976) -
+  Reduce q4 lovability experiment exposure noise in code block setup and bookkeeping paths
+- Updated dependencies
+
+## 14.1.0
+
+### Minor Changes
+
+- [`b483e293da76f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b483e293da76f) -
+  Add a gated `isSuggested` attribute to block menu element transformed analytics events so
+  suggested and non-suggested transform selections can be distinguished. The event attribute is
+  gated behind the `platform_editor_blocks_patch_2` feature gate.
+
+### Patch Changes
+
+- [`64a0b50380570`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a0b50380570) - -
+  Improve TypeScript auto-detection for class fields and typed arrow function params/return types.
+  - Avoid unnecessary code block node updates when auto-detection re-detects the same language.
+  - Prevent wrap toggles from scrolling long code blocks to the top.
+  - Keep the language picker placement stable while it is open.
+  - Reset language picker search state on reopen so recent selections are not reported as search
+    selections.
+  - Prevent language picker close/selection from scrolling partially visible code blocks while
+    restoring editor focus.
+  - Add auto-detection analytics metadata to distinguish initial detection from re-detection.
+- Updated dependencies
+
 ## 14.0.6
 
 ### Patch Changes

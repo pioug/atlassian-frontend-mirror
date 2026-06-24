@@ -1,5 +1,25 @@
 # @atlaskit/media-card
 
+## 81.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 81.1.2
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- [`3a1dcbc4999da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a1dcbc4999da) -
+  A11Y fix (A11Y-41905): Add new `open_file_in_viewer_aria_label` message
+  (`'Open {name} in fullscreen'`) to provide screen reader users with clearer context about the
+  button action. The original `open_file_in_viewer` message is unchanged. `OpenMediaViewerButton`
+  now applies this aria-label when the `create_modernization_ga_fixes_drop_2` gate is enabled.
+- Updated dependencies
+
 ## 81.1.1
 
 ### Patch Changes

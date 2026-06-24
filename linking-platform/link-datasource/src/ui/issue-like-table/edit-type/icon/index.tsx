@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { type FieldProps } from '@atlaskit/form';
 import { Layering } from '@atlaskit/layering';
 import { type Icon } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 import Tooltip from '@atlaskit/tooltip';
@@ -55,9 +54,7 @@ const IconEditType = (props: IconEditTypeProps): React.JSX.Element => {
 		<Layering isDisabled={false}>
 			<Select<Icon>
 				{...getCleanedSelectProps(props)}
-				menuPortalTarget={
-					fg('platform_navx_sllv_j2ws_dropdown_for_single_row') ? document.body : undefined
-				}
+				menuPortalTarget={document.body}
 				autoFocus
 				blurInputOnSelect
 				defaultMenuIsOpen

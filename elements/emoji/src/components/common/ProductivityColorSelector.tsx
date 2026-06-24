@@ -152,6 +152,13 @@ export const ProductivityColorSelector = ({
 		event.stopPropagation();
 	};
 
+	const selectColorOnMouseDown =
+		(color: ProductivityColor) => (event: MouseEvent<HTMLInputElement>) => {
+			stopPickerDismissal(event);
+			event.preventDefault();
+			onColorSelected(color);
+		};
+
 	return (
 		<fieldset
 			id={productivityColorSelectorId}
@@ -204,7 +211,7 @@ export const ProductivityColorSelector = ({
 							onChange={() => onColorSelected(color)}
 							onClick={stopPickerDismissal}
 							onKeyDown={handleKeyDown}
-							onMouseDown={stopPickerDismissal}
+							onMouseDown={selectColorOnMouseDown(color)}
 							testId={`productivity-color-${color}`}
 							value={color}
 							label={

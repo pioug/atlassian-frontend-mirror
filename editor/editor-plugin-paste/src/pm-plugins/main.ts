@@ -340,7 +340,7 @@ export function createPlugin(
 						insm.endHeavyTask('paste');
 					}
 				});
-				const getLastPastedSlice = (tr: Transaction) => {
+				const getLastReplaceStepSlice = (tr: Transaction) => {
 					let slice;
 					for (const step of tr.steps) {
 						const stepSlice = extractSliceFromStep(step);
@@ -419,7 +419,9 @@ export function createPlugin(
 						tr = pluginInjectionApi?.betterTypeHistory?.actions.flagPasteEvent(tr);
 					}
 
-					if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+					if (
+						expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true)
+					) {
 						tr = normalizePastedCodeBlockAttrs(tr, schema.nodes.codeBlock);
 					}
 
@@ -434,7 +436,7 @@ export function createPlugin(
 					// we make sure to call paste options toolbar
 					// only for a valid paste action
 					if (isDocChanged) {
-						const pastedSlice = getLastPastedSlice(tr);
+						const pastedSlice = getLastReplaceStepSlice(tr);
 						if (pastedSlice) {
 							const pasteStartPos = state.selection.from;
 
@@ -451,6 +453,7 @@ export function createPlugin(
 								pastedSlice,
 								pastedAt: Date.now(),
 								pasteSource: getPasteSource(event),
+								sourcePastedSlice: slice,
 							};
 							tr.setMeta(stateKey, {
 								type: PastePluginActionTypes.ON_PASTE,

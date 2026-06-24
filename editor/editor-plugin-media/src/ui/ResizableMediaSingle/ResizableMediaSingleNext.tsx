@@ -55,6 +55,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -64,6 +65,7 @@ import {
 import { getMediaResizeAnalyticsEvent } from '../../pm-plugins/utils/analytics';
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
 
+import { leftHandleOnlyLayouts } from './constants';
 import { ResizableMediaMigrationNotification } from './ResizableMediaMigrationNotification';
 import { wrapperStyle } from './styled';
 import type { EnabledHandles, Props } from './types';
@@ -393,8 +395,27 @@ export const ResizableMediaSingleNextFunctional = (
 				right: false,
 			};
 		}
+
+		const isLeftResizeHandleDisabled = expValEquals(
+			'platform_editor_lovability_resize_dividers_panels',
+			'isEnabled',
+			true,
+		);
+
 		return handleSides.reduce((acc, side) => {
 			const oppositeSide = side === 'left' ? 'right' : 'left';
+
+			// Disable the left handle up-front (except for layouts where it is the
+			// only handle) before computing whether it would otherwise be enabled.
+			if (
+				side === 'left' &&
+				isLeftResizeHandleDisabled &&
+				leftHandleOnlyLayouts.indexOf(layout) === -1
+			) {
+				acc[side] = false;
+				return acc;
+			}
+
 			acc[side] =
 				nonWrappedLayouts
 					.concat(`wrap-${oppositeSide}` as MediaSingleLayout)

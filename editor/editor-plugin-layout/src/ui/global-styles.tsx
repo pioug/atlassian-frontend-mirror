@@ -5,7 +5,7 @@
 import { useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
-import { css, Global, jsx } from '@emotion/react';
+import { Global, css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
 import { layoutMessages as messages } from '@atlaskit/editor-common/messages';
@@ -18,8 +18,12 @@ const PLACEHOLDER_SELECTOR =
 const layoutColumnDangerPreviewStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.ProseMirror [data-layout-column].layout-column-danger-preview': {
-		backgroundColor: token('color.background.danger'),
-		boxShadow: `inset 0 0 0 2px ${token('color.border.danger')}`,
+		backgroundColor: token('color.blanket.danger'),
+		boxShadow: `inset 0 0 0 1px ${token('color.border.danger')}`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&::before': {
+			visibility: 'hidden',
+		},
 	},
 });
 

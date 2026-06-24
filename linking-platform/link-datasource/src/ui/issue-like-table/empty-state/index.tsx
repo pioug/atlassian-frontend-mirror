@@ -209,7 +209,7 @@ const EmptyState = ({ isCompact, testId }: Props): JSX.Element => {
 							<TableHeading key={key} style={{ width, padding }}>
 								<Skeleton
 									appearance="darkGray"
-									borderRadius={8}
+									borderRadius={token('radius.full')}
 									testId="empty-state-skeleton"
 									height={12}
 									width={width}

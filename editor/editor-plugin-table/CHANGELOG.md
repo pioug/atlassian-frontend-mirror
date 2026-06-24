@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 24.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.2.6
+
+### Patch Changes
+
+- [`5aa3054549632`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5aa3054549632) -
+  Fix cell menu to drag handle interaction by ensuring a menu always appears
+- Updated dependencies
+
+## 24.2.5
+
+### Patch Changes
+
+- [`6ad6ef706e851`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ad6ef706e851) -
+  Clean up experiment `platform_editor_table_update_table_ref`
+- Updated dependencies
+
 ## 24.2.4
 
 ### Patch Changes

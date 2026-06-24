@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 
 export default (): React.JSX.Element => {
 	const [label, setLabel] = useState<string>('');
@@ -32,7 +33,7 @@ export default (): React.JSX.Element => {
 					<BreadcrumbsItem href="/item" text="A third item" />
 					<BreadcrumbsItem href="/item" text="A fourth item with a very long name" />
 					<BreadcrumbsItem href="/item" text="Item 5" />
-					<BreadcrumbsItem href="/item" text="Item 6" />
+					<BreadcrumbsCurrentItem href="/item" text="Item 6" />
 				</Breadcrumbs>
 			</div>
 		</div>

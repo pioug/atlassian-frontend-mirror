@@ -9,7 +9,6 @@ describe('filter site products', () => {
 			avatarUrl: 'http://example.com/avatarUrl',
 			cloudId: 'test-cloudid',
 			displayName: 'test-displayName',
-			isVertigo: false,
 			products: [AvailableSitesProductType.CONFLUENCE, AvailableSitesProductType.JIRA_SOFTWARE],
 			url: 'http://example.com',
 		};
@@ -22,7 +21,6 @@ describe('filter site products', () => {
 			avatarUrl: 'http://example.com/avatarUrl',
 			cloudId: 'test-cloudid',
 			displayName: 'test-displayName',
-			isVertigo: false,
 			products: [AvailableSitesProductType.JIRA_SOFTWARE],
 			url: 'http://example.com',
 		};

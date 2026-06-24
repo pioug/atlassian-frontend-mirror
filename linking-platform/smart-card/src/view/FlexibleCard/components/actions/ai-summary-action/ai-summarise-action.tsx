@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import RovoIcon from '@atlaskit/icon-lab/core/rovo';
-import AiIcon from '@atlaskit/icon/core/atlassian-intelligence';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
@@ -57,19 +56,11 @@ export function AISummariseAction({
 		onClickCallback?.();
 	}, [fireEvent, onClickCallback, onCompleted, summariseUrl]);
 
-	const Icon = fg('platform_sl_ai_summary_rebrand') ? RovoIcon : AiIcon;
-
 	return (
 		<Action
-			content={
-				<FormattedMessage
-					{...(fg('platform_sl_ai_summary_rebrand')
-						? messages.ai_summary_action_rebrand
-						: messages.ai_summary_action)}
-				/>
-			}
+			content={<FormattedMessage {...messages.ai_summary_action_rebrand} />}
 			icon={
-				<Icon
+				<RovoIcon
 					spacing="spacious"
 					color="currentColor"
 					label="Summarise with AI"
@@ -81,13 +72,7 @@ export function AISummariseAction({
 			onClick={handleActionClick}
 			testId={`${testId}-summarise-action`}
 			isLoading={status === 'loading'}
-			tooltipMessage={
-				<FormattedMessage
-					{...(fg('platform_sl_ai_summary_rebrand')
-						? messages.ai_summary_action_description_rebrand
-						: messages.ai_summary_action_description)}
-				/>
-			}
+			tooltipMessage={<FormattedMessage {...messages.ai_summary_action_description_rebrand} />}
 			{...props}
 		/>
 	);

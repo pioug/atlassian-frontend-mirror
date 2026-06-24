@@ -62,6 +62,8 @@ import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemir
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
+import { createSSREditorState } from '@atlaskit/editor-ssr-renderer/create-ssr-editor-state';
+import { createSSRPMPlugins } from '@atlaskit/editor-ssr-renderer/create-ssr-pm-plugins';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getInteractionId } from '@atlaskit/react-ufo/interaction-id-context';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
@@ -200,7 +202,11 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		onEditorDestroyed,
 	} = props;
 
-	const ssrEditorStateRef = useRef<EditorState | undefined>(undefined);
+	// Holds the best available EditorState before the ProseMirror EditorView has mounted.
+	// On SSR: set to the SSR-rendered state so toolbar plugins can read it via getEditorState().
+	// On client first render: set to initialEditorState for the same reason.
+	// Cleared to undefined once createEditorView runs and viewRef.current becomes available.
+	const preMountEditorStateRef = useRef<EditorState | undefined>(undefined);
 	const editorRef = useRef<HTMLDivElement | null>(null);
 	const viewRef = useRef<EditorView | undefined>();
 	const focusTimeoutId = useRef<number | undefined | void>();
@@ -226,7 +232,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		() => createFeatureFlagsFromProps(editorPropFeatureFlags),
 		[editorPropFeatureFlags],
 	);
-	const getEditorState = useCallback(() => ssrEditorStateRef.current ?? viewRef.current?.state, []);
+	const getEditorState = useCallback(
+		() => preMountEditorStateRef.current ?? viewRef.current?.state,
+		[],
+	);
 	const getEditorView = useCallback(() => viewRef.current, []);
 	const dispatch = useMemo(() => createDispatch(eventDispatcher), [eventDispatcher]);
 	const errorReporter = useMemo(
@@ -407,12 +416,19 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				return undefined;
 			}
 
-			return createEditorState({
+			const state = createEditorState({
 				props,
 				doc: defaultValue,
 				// ED-4759: Don't set selection at end for full-page editor - should be at start.
 				selectionAtStart: isFullPage(nextAppearance),
 			});
+
+			if (expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)) {
+				// CSR only, synchronously set preMountEditorStateRef so it's ready to be consumed by children including toolbar
+				preMountEditorStateRef.current = state;
+			}
+
+			return state;
 		},
 		// This is only used for the initial state - afterwards we will have `viewRef` available for use
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -856,6 +872,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			// previously, this will contain the previous state of the editor.
 			const view = new EditorView({ mount: node }, getDirectEditorProps());
 			viewRef.current = view;
+			if (expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)) {
+				// clears pre-mount state as soon as the final view is mounted
+				preMountEditorStateRef.current = undefined;
+			}
 
 			measureRender(
 				measurements.PROSEMIRROR_RENDERED,
@@ -1321,13 +1341,48 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		const doBuildDoc = () => buildDoc(schema);
 		const doc = profileSSROperation(`${SSR_TRACE_SEGMENT_NAME}/buildDoc`, doBuildDoc, onSSRMeasure);
 
-		return { plugins, schema, doc };
-	}, [allowBlockType, buildDoc, props.preset, onSSRMeasure]);
+		// When the platform_editor_ssr_toolbar_optimistic is on, we create SSR-safe PM plugins and EditorState
+		// HERE in ssrDeps — before any children render — so that FullPageToolbarNext can read correct
+		// plugin state via useSharedPluginStateWithSelector → currentState() → getEditorState().
+		//
+		// We also pass these pre-built pmPlugins and editorState to EditorSSRRenderer so it can
+		// skip redundant creation (avoids double createPluginsList + EditorState.create).
+		if (expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)) {
+			const ssrPMPlugins = profileSSROperation(
+				`${SSR_TRACE_SEGMENT_NAME}/createSSRPMPlugins`,
+				() =>
+					createSSRPMPlugins({
+						plugins,
+						schema,
+						portalProviderAPI: props.portalProviderAPI,
+						getIntl: () => props.intl,
+					}),
+				onSSRMeasure,
+			);
+			const ssrState = profileSSROperation(
+				`${SSR_TRACE_SEGMENT_NAME}/createSSREditorState`,
+				() =>
+					createSSREditorState({
+						doc,
+						schema,
+						pmPlugins: ssrPMPlugins,
+					}),
+				onSSRMeasure,
+			);
+			return { plugins, schema, doc, ssrPMPlugins, ssrEditorState: ssrState };
+		}
+
+		return { plugins, schema, doc, ssrPMPlugins: undefined, ssrEditorState: undefined };
+	}, [allowBlockType, buildDoc, props.preset, onSSRMeasure, props.portalProviderAPI, props.intl]);
+	// SSR only, synchronously set preMountEditorStateRef so it's ready to be consumed by children including toolbar
+	if (ssrDeps?.ssrEditorState) {
+		preMountEditorStateRef.current = ssrDeps.ssrEditorState;
+	}
 
 	const { assistiveLabel, assistiveDescribedBy } = props.editorProps;
 	const handleSsrEditorStateChanged = useCallback(
 		(state: EditorState) => {
-			ssrEditorStateRef.current = state;
+			preMountEditorStateRef.current = state;
 			// Notify listeners about the initial SSR state
 			pluginInjectionAPI.current.onEditorViewUpdated({
 				newEditorState: state,
@@ -1390,12 +1445,14 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				aria-describedby={assistiveDescribedBy}
 				data-editor-id={editorId.current}
 				onSSRMeasure={onSSRMeasure}
+				prebuiltPMPlugins={ssrDeps.ssrPMPlugins}
+				prebuiltEditorState={ssrDeps.ssrEditorState}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				onEditorStateChanged={
 					expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 						? handleSsrEditorStateChanged
 						: (state) => {
-								ssrEditorStateRef.current = state;
+								preMountEditorStateRef.current = state;
 								// Notify listeners about the initial SSR state
 								pluginInjectionAPI.current.onEditorViewUpdated({
 									newEditorState: state,

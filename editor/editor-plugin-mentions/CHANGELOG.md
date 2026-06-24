@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.0
+
+### Minor Changes
+
+- [`dbf22f118dd9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbf22f118dd9e) -
+  Rewrite Rovo Chat @-mention provider on a single Relay-native RovoChatMentionResource that fires
+  people + agents in parallel via Promise. People render as soon as URS resolves and agents pop in
+  below when ready. New aliased agentStudio_getAgents query consolidates 3 prefetch round trips into
+  1, drops over-fetched fields, and uses real abort plumbing. Adds opt-in subscribeToItemsUpdates
+  multi-emit contract to the editor mention typeahead so progressive emissions are no longer dropped
+  after the first frame.
+
+### Patch Changes
+
+- [`ddeae9a5f8bdf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddeae9a5f8bdf) -
+  Prevent remote collaborative agent mention insertions from publishing local agent mention
+  insertion state.
+- Updated dependencies
+
 ## 14.3.0
 
 ### Minor Changes

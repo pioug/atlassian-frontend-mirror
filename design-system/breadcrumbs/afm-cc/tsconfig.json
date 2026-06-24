@@ -26,19 +26,31 @@
 			"path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../button/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../css/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../dropdown-menu/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../primitives/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../skeleton/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../tokens/afm-cc/tsconfig.json"

@@ -5,6 +5,7 @@ import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { NodeSpec, DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 interface Config {
@@ -114,7 +115,7 @@ const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutpu
 		.join('\n');
 	const gutters = getGutters(content, config, hideLineNumbers);
 	const isCodeBlockWrapped =
-		expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+		expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 		node.attrs.wrap === true;
 	const className = [
 		codeBlockClassNames.container,
@@ -129,7 +130,7 @@ const toDOM = (node: Node, formattedAriaLabel: string, config: Config): DOMOutpu
 			class: className,
 			style: `--lineNumberGutterWidth:${maxDigits}ch;`,
 			'data-language': node.attrs.language || '',
-			...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) && {
+			...(expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true) && {
 				'data-wrap': node.attrs.wrap ? 'true' : 'false',
 				...(hideLineNumbers && { 'data-hide-line-numbers': 'true' }),
 			}),

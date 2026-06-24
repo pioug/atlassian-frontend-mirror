@@ -165,6 +165,17 @@ const FloatingTableMenu: FloatingTableMenuFunction = ({
 			) {
 				return;
 			}
+
+			// Another table menu (e.g. the cell menu) may have just been opened by this same click.
+			// Its React handler runs before this document listener, so the active menu is no longer a
+			// row/column menu — don't clobber the newly opened menu back to 'none'.
+			const currentActiveTableMenu = (
+				api?.table?.sharedState.currentState() as TableSharedStateInternal | undefined
+			)?.activeTableMenu;
+			if (currentActiveTableMenu?.type !== 'row' && currentActiveTableMenu?.type !== 'column') {
+				return;
+			}
+
 			api?.core.actions.execute(closeActiveTableMenu(api));
 		},
 		[api],

@@ -1,5 +1,23 @@
 # @atlaskit/side-nav-items
 
+## 2.1.0
+
+### Minor Changes
+
+- [`61dff3d3e5b26`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61dff3d3e5b26) -
+  Improve global side navigation render stability behind the navx-4728-jira-stability-fixes feature
+  gate by giving each nav item type a memoised leaf component with a referentially-stable onClick
+  handler. No behaviour change when the gate is off.
+
+## 2.0.2
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

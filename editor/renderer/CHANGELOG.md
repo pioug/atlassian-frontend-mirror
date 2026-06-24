@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 133.5.3
+
+### Patch Changes
+
+- [`29f99c0627c46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29f99c0627c46) -
+  Show text highlight on hyperlinks behind platform_editor_lovability_text_bg_color
+- Updated dependencies
+
+## 133.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.5.1
+
+### Patch Changes
+
+- [`1c816e537f4d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c816e537f4d0) -
+  [NO-ISSUE] remove platform-component-visual-refresh from status node
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 133.5.0
 
 ### Minor Changes

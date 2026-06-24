@@ -521,7 +521,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		// Updates bundled for performance (to avoid multiple-dispatches)
 		const changes = getCMSelectionChanges(curText, newText);
 		const wordWrapEffect = this.getWordWrapEffects(node);
-		const lineNumbersEffect = expValEquals(
+		const lineNumbersEffect = expValEqualsNoExposure(
 			'platform_editor_code_block_q4_lovability',
 			'isEnabled',
 			true,

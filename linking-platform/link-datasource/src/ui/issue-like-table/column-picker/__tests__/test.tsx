@@ -6,6 +6,7 @@ import invariant from 'tiny-invariant';
 
 import { type DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
 import { SELECT_ITEMS_MAXIMUM_THRESHOLD } from '../concatenated-menu-list';
@@ -367,5 +368,80 @@ describe('Column picker', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = renderColumnPicker([], []);
 		await expect(container).toBeAccessible();
+	});
+
+	describe('feature gate: platform_sllv_a11y_modal_options_focus', () => {
+		const columns: DatasourceResponseSchemaProperty[] = [
+			{ key: 'matt', type: 'icon', title: 'Matt' },
+			{ key: 'tom', type: 'string', title: 'Tom' },
+			{ key: 'bob', type: 'string', title: 'Bob' },
+			{ key: 'john', type: 'string', title: 'John' },
+		];
+		const selectedColumnKeys = ['tom', 'john'];
+
+		describe('when gate is ON (fixed behaviour)', () => {
+			beforeEach(() => {
+				passGate('platform_sllv_a11y_modal_options_focus');
+			});
+
+			it('should focus the search input when the popup opens with pre-loaded options', async () => {
+				const { openPopUpMenu, getByRole } = renderColumnPicker(columns, selectedColumnKeys);
+
+				await act(async () => {
+					openPopUpMenu();
+				});
+
+				expect(getByRole('combobox')).toHaveFocus();
+			});
+
+			it('should NOT steal focus back to the search input when allOptions re-sorts after popup opens', async () => {
+				const focusSpy = jest.spyOn(HTMLElement.prototype, 'focus');
+
+				const { openPopUpMenu } = renderColumnPicker(columns, selectedColumnKeys);
+
+				await act(async () => {
+					openPopUpMenu();
+				});
+
+				const focusCallCount = focusSpy.mock.calls.length;
+
+				expect(focusSpy.mock.calls.length).toBe(focusCallCount);
+
+				focusSpy.mockRestore();
+			});
+
+			it('should NOT call focus on the search input when allOptions.length stays the same (re-sort)', async () => {
+				const focusSpy = jest.spyOn(HTMLElement.prototype, 'focus');
+
+				const { openPopUpMenu } = renderColumnPicker(columns, selectedColumnKeys);
+
+				await act(async () => {
+					openPopUpMenu();
+				});
+
+				const focusCallCountAfterOpen = focusSpy.mock.calls.length;
+
+				// No additional focus calls after the re-sort settled
+				expect(focusSpy.mock.calls.length).toBe(focusCallCountAfterOpen);
+
+				focusSpy.mockRestore();
+			});
+		});
+
+		describe('when gate is OFF (legacy behaviour)', () => {
+			beforeEach(() => {
+				failGate('platform_sllv_a11y_modal_options_focus');
+			});
+
+			it('should focus the search input when opened and options are passed in', async () => {
+				const { openPopUpMenu, getByRole } = renderColumnPicker(columns, selectedColumnKeys);
+
+				await act(async () => {
+					openPopUpMenu();
+				});
+
+				expect(getByRole('combobox')).toHaveFocus();
+			});
+		});
 	});
 });

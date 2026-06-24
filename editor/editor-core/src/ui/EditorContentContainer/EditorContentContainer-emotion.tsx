@@ -31,7 +31,11 @@ import {
 	aiPanelDarkStyles,
 } from './styles/aiPanel';
 import { annotationStyles } from './styles/annotationStyles';
-import { backgroundColorStyles, textHighlightPaddingStyles } from './styles/backgroundColorStyles';
+import {
+	backgroundColorStyles,
+	highlightLinksUnsetStyles,
+	textHighlightPaddingStyles,
+} from './styles/backgroundColorStyles';
 import {
 	baseStyles,
 	baseStylesMaxContainerWidthFixes,
@@ -79,7 +83,7 @@ import {
 import {
 	expandStyles,
 	expandStylesBase,
-	expandStylesMixin_experiment_platform_editor_chromeless_expand_fix,
+	expandStylesMixin_chromeless_expand_fix,
 	expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes,
 	expandStylesMixin_fg_platform_visual_refresh_icons,
 	expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
@@ -353,7 +357,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={className}
+			className={className || undefined}
 			ref={ref}
 			css={[
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -450,6 +454,9 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				textColorStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				backgroundColorStyles,
+				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					highlightLinksUnsetStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				textHighlightPaddingStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -551,9 +558,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				expandStylesMixin_fg_platform_visual_refresh_icons,
 				isChromeless &&
-					expValEquals('platform_editor_chromeless_expand_fix', 'isEnabled', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					expandStylesMixin_experiment_platform_editor_chromeless_expand_fix,
+					expandStylesMixin_chromeless_expand_fix,
 				expValEquals('platform_editor_find_and_replace_improvements', 'isEnabled', true)
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						findReplaceStylesNewWithA11Y

@@ -883,7 +883,6 @@ export const mockSiteData: {
 	avatarUrl: undefined;
 	cloudId: string;
 	displayName: string;
-	isVertigo: boolean;
 	products: string[];
 	url: string;
 }[] = [
@@ -893,7 +892,6 @@ export const mockSiteData: {
 		displayName: 'hello',
 		products: ['jira-software.ondemand', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false,
 	},
 	{
 		cloudId: '12345',
@@ -901,7 +899,6 @@ export const mockSiteData: {
 		displayName: 'test1',
 		products: ['jira-software.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false,
 	},
 	{
 		cloudId: '45678',
@@ -909,7 +906,6 @@ export const mockSiteData: {
 		displayName: 'test2',
 		products: ['jira-software.ondemand', 'jira-product-discovery'],
 		avatarUrl: undefined,
-		isVertigo: false,
 	},
 	{
 		cloudId: '78911',
@@ -917,7 +913,6 @@ export const mockSiteData: {
 		displayName: 'test4',
 		products: ['jira-product-discovery'],
 		avatarUrl: undefined,
-		isVertigo: false,
 	},
 	{
 		cloudId: '33333',
@@ -925,7 +920,6 @@ export const mockSiteData: {
 		displayName: 'testNetworkError',
 		products: ['jira-product-discovery', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false,
 	},
 	{
 		cloudId: '44444',
@@ -933,7 +927,6 @@ export const mockSiteData: {
 		displayName: 'testNoAccess',
 		products: ['jira-product-discovery', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false,
 	},
 	{
 		cloudId: '22222',
@@ -941,7 +934,6 @@ export const mockSiteData: {
 		displayName: 'testNoResults',
 		products: ['jira-product-discovery', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false,
 	},
 	{
 		cloudId: '11111',
@@ -949,7 +941,6 @@ export const mockSiteData: {
 		displayName: 'testSingleIssue',
 		products: ['jira-product-discovery', 'jira-servicedesk.ondemand', 'confluence.ondemand'],
 		avatarUrl: undefined,
-		isVertigo: false,
 	},
 ];
 

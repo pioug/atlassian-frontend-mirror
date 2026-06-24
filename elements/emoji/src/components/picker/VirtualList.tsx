@@ -8,7 +8,7 @@ import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual'
 import React, { useCallback, useImperativeHandle } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { useEmojiPickerListContext } from '../../hooks/useEmojiPickerListContext';
 import {
 	EMOJIPICKERLIST_KEYBOARD_KEYS_SUPPORTED,
@@ -17,6 +17,21 @@ import {
 	KeyboardNavigationDirection,
 	KeyboardKeys,
 } from '../../util/constants';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 const virtualList = css({
 	overflowX: 'hidden',
@@ -114,7 +129,7 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 			const parentTop = parentRect.top;
 			const parentBottom = parentRect.bottom;
 
-			const isVisible = expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+			const isVisible = isRefreshEmojiPickerEnabled()
 				? elemTop >= parentTop && elemBottom <= parentBottom
 				: elemBottom > parentTop && elemTop < parentBottom;
 			return isVisible;
@@ -134,9 +149,7 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 			if (firstVisibleIndex !== -1) {
 				return virtualList[firstVisibleIndex]?.index || 0;
 			}
-			return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-				? virtualList[0]?.index || 0
-				: 0;
+			return isRefreshEmojiPickerEnabled() ? virtualList[0]?.index || 0 : 0;
 		}, [rowVirtualizer]);
 
 		/**

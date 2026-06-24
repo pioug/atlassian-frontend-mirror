@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import { token } from '@atlaskit/tokens';
 
 export default (): React.JSX.Element => (
@@ -18,7 +19,7 @@ export default (): React.JSX.Element => (
 			<BreadcrumbsItem href="/item" text="The item after the next item" />
 			<BreadcrumbsItem href="/item" text="The ninth item" />
 			<BreadcrumbsItem href="/item" text="Item ten" />
-			<BreadcrumbsItem href="/item" text="The last item" />
+			<BreadcrumbsCurrentItem href="/item" text="The last item" />
 		</Breadcrumbs>
 	</div>
 );

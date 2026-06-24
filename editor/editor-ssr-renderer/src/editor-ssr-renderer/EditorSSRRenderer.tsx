@@ -1,21 +1,21 @@
 import React, { useMemo, useRef, useLayoutEffect } from 'react';
 import type { IntlShape } from 'react-intl';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet, type NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer, type Mark, type Schema } from '@atlaskit/editor-prosemirror/model';
-import type { PMPluginFactoryParams, EditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import { EventDispatcher, createDispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
 	profileSSROperation,
 	SSRRenderMeasure,
 } from '@atlaskit/editor-common/performance/ssr-measures';
 import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { createSSRPMPlugins } from './create-ssr-pm-plugins';
+import { createSSREditorState } from './create-ssr-editor-state';
 
 const SSR_TRACE_SEGMENT_NAME = 'reactEditorView/editorSSRRenderer';
 
@@ -39,6 +39,16 @@ interface Props {
 	}) => void;
 	plugins: EditorPlugin[];
 	portalProviderAPI: PortalProviderAPI;
+	/**
+	 * Pre-built EditorState from ReactEditorView's ssrDeps.
+	 * When provided, skips internal EditorState creation to avoid double work.
+	 */
+	prebuiltEditorState?: EditorState;
+	/**
+	 * Pre-built SafePlugins from ReactEditorView's ssrDeps.
+	 * When provided, skips internal PM plugin creation to avoid double work.
+	 */
+	prebuiltPMPlugins?: SafePlugin[];
 	schema: Schema;
 }
 
@@ -137,12 +147,6 @@ class SSREditorView implements Pick<EditorView, keyof EditorView> {
 	}
 }
 
-class SSREventDispatcher extends EventDispatcher {
-	override emit() {
-		// Don't notify about events in SSR
-	}
-}
-
 export function EditorSSRRenderer({
 	plugins,
 	schema,
@@ -151,6 +155,8 @@ export function EditorSSRRenderer({
 	intl,
 	onSSRMeasure,
 	onEditorStateChanged,
+	prebuiltPMPlugins,
+	prebuiltEditorState,
 	...divProps
 }: Props): React.JSX.Element {
 	// Should be always the first statement in the component
@@ -163,50 +169,16 @@ export function EditorSSRRenderer({
 	intlRef.current = intl;
 
 	const pmPlugins = useMemo(() => {
-		const createPMPlugins = () => {
-			const eventDispatcher = new SSREventDispatcher();
-			const providerFactory = new ProviderFactory();
-
-			const pmPluginFactoryParams: PMPluginFactoryParams = {
-				dispatch: createDispatch(eventDispatcher),
-				dispatchAnalyticsEvent: () => {},
-				eventDispatcher,
-				featureFlags: {},
-				getIntl: () => intlRef.current,
-				nodeViewPortalProviderAPI: portalProviderAPI,
-				portalProviderAPI: portalProviderAPI,
-				providerFactory,
-				schema,
-			};
-
-			return plugins.reduce((acc, editorPlugin) => {
-				editorPlugin.pmPlugins?.().forEach(({ plugin }) => {
-					try {
-						const pmPlugin = plugin(pmPluginFactoryParams);
-						if (pmPlugin) {
-							acc.push(pmPlugin);
-						}
-					} catch (error) {
-						if (process.env.NODE_ENV !== 'production') {
-							// eslint-disable-next-line no-console
-							console.warn(
-								`[EditorSSR] Failed to create PM plugin (${plugin?.name}) during SSR. This plugin will be skipped.`,
-								error,
-							);
-						}
-					}
-				});
-
-				return acc;
-			}, [] as SafePlugin[]);
-		};
-
+		if (prebuiltPMPlugins) {
+			return prebuiltPMPlugins;
+		}
 		return profileSSROperation(
 			`${SSR_TRACE_SEGMENT_NAME}/createPMPlugins`,
-			createPMPlugins,
+			() =>
+				createSSRPMPlugins({ plugins, schema, portalProviderAPI, getIntl: () => intlRef.current }),
 			onSSRMeasure,
 		);
-	}, [plugins, portalProviderAPI, schema, onSSRMeasure]);
+	}, [plugins, portalProviderAPI, schema, onSSRMeasure, prebuiltPMPlugins]);
 
 	const nodeViews = useMemo(() => {
 		return pmPlugins.reduce<Record<string, NodeViewConstructor>>((acc, plugin) => {
@@ -221,20 +193,16 @@ export function EditorSSRRenderer({
 	}, [pmPlugins]);
 
 	const editorState = useMemo(() => {
-		const createEditorState = () => {
-			return EditorState.create({
-				doc,
-				schema,
-				plugins: pmPlugins,
-			});
-		};
+		if (prebuiltEditorState) {
+			return prebuiltEditorState;
+		}
 
 		return profileSSROperation(
-			`${SSR_TRACE_SEGMENT_NAME}/createEditorState`,
-			createEditorState,
+			`${SSR_TRACE_SEGMENT_NAME}/createSSREditorState`,
+			() => createSSREditorState({ doc, schema, pmPlugins }),
 			onSSRMeasure,
 		);
-	}, [doc, pmPlugins, schema, onSSRMeasure]);
+	}, [doc, pmPlugins, schema, onSSRMeasure, prebuiltEditorState]);
 
 	// In React 19 could be replaced by `useEffectEvent` hook.
 	const onEditorStateChangedRef = useRef(onEditorStateChanged);

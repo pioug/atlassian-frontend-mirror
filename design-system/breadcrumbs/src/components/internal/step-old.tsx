@@ -5,8 +5,10 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import Button from '@atlaskit/button/standard-button';
 import { type CustomThemeButtonProps } from '@atlaskit/button/types';
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface BreadcrumbsButtonProps extends CustomThemeButtonProps, WithAnalyticsEventsProps {
+	'aria-current'?: 'page' | boolean;
 	hasOverflow?: boolean;
 
 	/**
@@ -42,7 +44,6 @@ const StepOld: React.ForwardRefExoticComponent<
 			onClick: onClickProvided = noop,
 			target,
 			testId,
-			// Button does not take `createAnalyticsEvent`, but it is spread on anyway
 			...props
 		},
 		ref,
@@ -54,13 +55,19 @@ const StepOld: React.ForwardRefExoticComponent<
 			...analyticsAttributes,
 		});
 
+		const resolvedIconAfter = fg('platform_dst_breadcrumbs-refresh')
+			? undefined
+			: hasOverflow
+				? undefined
+				: iconAfter;
+
 		return (
 			<Button
 				{...props}
 				appearance="subtle-link"
 				component={component}
 				href={href}
-				iconAfter={hasOverflow ? undefined : iconAfter}
+				iconAfter={resolvedIconAfter}
 				iconBefore={hasOverflow ? undefined : iconBefore}
 				onClick={handleClicked}
 				ref={ref}

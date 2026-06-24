@@ -39,10 +39,25 @@ import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives/compiled';
 import { getDocument } from '@atlaskit/browser-apis';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 const closeEmojiUploadButton = css({
 	display: 'flex',
@@ -197,7 +212,7 @@ const toDefaultUploadName = (fileName: string): string => {
 };
 
 const isSupportedEmojiUploadFileType = (file: File): boolean => {
-	if (!expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+	if (!isRefreshEmojiPickerEnabled()) {
 		return true;
 	}
 
@@ -266,7 +281,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	const isUploading = uploadStatus === UploadStatus.Uploading;
 	const addEmojiDisabled = !previewImage || !name || isUploading;
 
-	return expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return isRefreshEmojiPickerEnabled() ? (
 		<div css={emojiUploadNew} data-testid={uploadEmojiComponentTestId}>
 			<div css={emojiUploadTopNew}>
 				<label css={[uploadChooseFileMessage, labelStylesNew]} htmlFor="new-emoji-name-input">
@@ -283,9 +298,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						{() => (
 							<FileChooser
 								label={
-									expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-										? emojiChooseFileTitleNew
-										: emojiChooseFileTitle
+									isRefreshEmojiPickerEnabled() ? emojiChooseFileTitleNew : emojiChooseFileTitle
 								}
 								onChange={onChooseFile}
 								onClick={onClick}
@@ -385,9 +398,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						{() => (
 							<FileChooser
 								label={
-									expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-										? emojiChooseFileTitleNew
-										: emojiChooseFileTitle
+									isRefreshEmojiPickerEnabled() ? emojiChooseFileTitleNew : emojiChooseFileTitle
 								}
 								onChange={onChooseFile}
 								onClick={onClick}
@@ -524,7 +535,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			async (f: any): Promise<any> => {
 				try {
 					setFilename(file.name);
-					if (!name && expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+					if (!name && isRefreshEmojiPickerEnabled()) {
 						setName(toDefaultUploadName(file.name));
 					}
 					await ImageUtil.parseImage(f.target.result);
@@ -596,14 +607,10 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 	};
 
 	const isDuplicateNameError =
-		errorMessage !== null &&
-		errorMessage !== undefined &&
-		expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false);
+		errorMessage !== null && errorMessage !== undefined && isRefreshEmojiPickerEnabled();
 
 	const content =
-		name &&
-		previewImage &&
-		!expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+		name && previewImage && !isRefreshEmojiPickerEnabled() ? (
 			<EmojiUploadPreview
 				errorMessage={errorMessage}
 				name={name}
@@ -628,8 +635,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			/>
 		);
 
-	return disableFocusLock ||
-		expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	return disableFocusLock || isRefreshEmojiPickerEnabled() ? (
 		content
 	) : (
 		<FocusLock noFocusGuards>{content}</FocusLock>

@@ -17,7 +17,6 @@ import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -68,7 +67,11 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 			return [
 				{
 					name: 'codeBlock',
-					node: expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)
+					node: expValEqualsNoExposure(
+						'platform_editor_code_block_q4_lovability',
+						'isEnabled',
+						true,
+					)
 						? codeBlock
 						: fg('platform_editor_adf_with_localid')
 							? codeBlockWithLocalId
@@ -106,7 +109,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 						return createCodeBlockInputRule(schema, api?.analytics?.actions);
 					},
 				},
-				...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
+				...(expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
 				fg('platform_editor_code_block_language_detection_flow')
 					? [
 							{

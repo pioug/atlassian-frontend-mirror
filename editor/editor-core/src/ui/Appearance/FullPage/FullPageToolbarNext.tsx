@@ -249,7 +249,18 @@ export const FullPageToolbarNext = ({
 	// - primary toolbar isn't registered
 	// - no custom primary toolbar components to render
 	// note: primary toolbar must render if toolbar docking preference is set to "controlled" to avoid SSR conflicts
-	if (!shouldShowToolbarContainer(toolbar, customPrimaryToolbarComponents)) {
+	// note(platform_editor_ssr_toolbar_optimistic): On the SSR and CSR, the toolbar plugin may be registered in the
+	// injection API but its components not yet populated. Bypass the early-return
+	// so the toolbar chrome stays mounted for layout stability; ToolbarNext renders
+	// null inside it until components arrive.
+	const isAwaitingToolbarComponents =
+		expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true) &&
+		!Boolean(editorAPI?.toolbar);
+
+	if (
+		!isAwaitingToolbarComponents &&
+		!shouldShowToolbarContainer(toolbar, customPrimaryToolbarComponents)
+	) {
 		return <ToolbarPortal>{null}</ToolbarPortal>;
 	}
 
@@ -275,7 +286,24 @@ export const FullPageToolbarNext = ({
 							)}
 							<>
 								<FirstChildWrapper>
-									{expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true) ? (
+									{expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true) ? (
+										// optimistic toolbar — render immediately on both SSR and CSR with items enabled.
+										// Clicks are noops until editorView mounts.
+										primaryToolbarDockingConfigEnabled &&
+										(components && visibleToolbarComponents && isToolbar(toolbar) ? (
+											<ToolbarNext
+												toolbar={toolbar}
+												components={visibleToolbarComponents}
+												editorView={editorView}
+												editorAPI={editorAPI}
+												popupsMountPoint={mountPoint}
+												editorAppearance="full-page"
+												isDisabled={disabled}
+												disabledWithoutInteractionLogic={false}
+											/>
+										) : // toolbar plugin not yet registered — render nothing inside the chrome for layout stability
+										null)
+									) : expValEquals('platform_editor_default_toolbar_state', 'isEnabled', true) ? (
 										primaryToolbarDockingConfigEnabled &&
 										components &&
 										visibleToolbarComponents &&

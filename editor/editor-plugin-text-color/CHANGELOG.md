@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-text-color
 
+## 12.3.0
+
+### Minor Changes
+
+- [`a3986c96cfbc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3986c96cfbc4) -
+  Clean up
+  [platform_editor_toolbar_aifc_text_color_config](https://switcheroo.atlassian.com/ui/gates/72f9412f-73b0-449f-891e-82bd3c32d50b/key/platform_editor_toolbar_aifc_text_color_config)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

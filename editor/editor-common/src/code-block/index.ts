@@ -6,6 +6,7 @@ import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/tra
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { mapSlice } from '../utils/slice';
 
@@ -32,7 +33,7 @@ export const getDefaultCodeBlockAttrs = (attrs?: CodeBlockAttrs): OptionalCodeBl
 			}
 		: attrs;
 
-	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+	if (!expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
 		return attrsWithLocalId;
 	}
 
@@ -182,7 +183,7 @@ export interface FoldRange {
 const codeBlockFoldStates: WeakMap<PmNode, FoldRange[] | undefined> = new WeakMap();
 
 export const isCodeBlockWordWrapEnabled = (codeBlockNode: PmNode): boolean => {
-	if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+	if (expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
 		return Boolean(codeBlockNode.attrs.wrap);
 	}
 
@@ -192,7 +193,7 @@ export const isCodeBlockWordWrapEnabled = (codeBlockNode: PmNode): boolean => {
 };
 
 export const areCodeBlockLineNumbersHidden = (codeBlockNode: PmNode): boolean => {
-	if (!expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
+	if (!expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
 		return false;
 	}
 

@@ -5,10 +5,12 @@ import { css, type SerializedStyles } from '@emotion/react';
 
 import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import {
+	akEditorSelectedNodeClassName,
 	akEditorSmallZIndex,
 	akEditorTableNumberColumnWidth,
 	akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../types';
@@ -18,6 +20,7 @@ import {
 	tableBorderColor,
 	tableBorderDeleteColor,
 	tableBorderSelectedColor,
+	tableCellSelectedColor,
 } from './consts';
 
 const roundedTableCellCornerStyles = (): SerializedStyles => css`
@@ -29,7 +32,10 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 		> tbody > tr > th[data-reaches-top][data-reaches-left] {
 			border-top-left-radius: ${token('radius.xlarge')};
 
+			/* ::before is the node-selection blanket fill; round it so the selected
+			   wash follows the corner instead of leaving a square corner. */
 			&::after,
+			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
 				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-top-left-radius: ${token('radius.xlarge')};
@@ -41,6 +47,7 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 			border-top-right-radius: ${token('radius.xlarge')};
 
 			&::after,
+			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
 				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-top-right-radius: ${token('radius.xlarge')};
@@ -52,6 +59,7 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 			border-bottom-left-radius: ${token('radius.xlarge')};
 
 			&::after,
+			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
 				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-bottom-left-radius: ${token('radius.xlarge')};
@@ -63,6 +71,7 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 			border-bottom-right-radius: ${token('radius.xlarge')};
 
 			&::after,
+			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
 				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-bottom-right-radius: ${token('radius.xlarge')};
@@ -192,6 +201,52 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 				&::after {
 					border-bottom-color: ${tableBorderDeleteColor};
 				}
+			}
+		}
+	}
+`;
+
+const roundedTableSelectedNodeStyles = (): SerializedStyles => css`
+	.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+		> .${ClassName.TABLE_CONTAINER}
+		> .${ClassName.TABLE_NODE_WRAPPER}
+		> table,
+	.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+		> [data-testid='table-alignment-container']
+		> .${ClassName.TABLE_RESIZER_CONTAINER}
+		> .resizer-item
+		> .resizer-hover-zone
+		> .${ClassName.TABLE_CONTAINER}
+		> .${ClassName.TABLE_NODE_WRAPPER}
+		> table {
+		/* Make a node-selected table look identical to a cell-selected one by mirroring the
+		   .selectedCell single-::after overlay model (getSelectionStyles is blocked for this path). */
+
+		/* Recolour the single table-level rounded outer overlay to the selected colour. */
+		&::after {
+			border-color: ${tableBorderSelectedColor};
+		}
+
+		> tbody > tr > td,
+		> tbody > tr > th {
+			/* position: relative anchors the overlay (the blocked blanket used to provide it);
+			   transparent border + the ::after overlay below replicate .selectedCell exactly. */
+			position: relative;
+			border-color: transparent;
+
+			&::after {
+				content: '';
+				position: absolute;
+				left: -1px;
+				right: -1px;
+				top: -1px;
+				bottom: -1px;
+				width: auto;
+				height: auto;
+				border: 1px solid ${tableBorderSelectedColor};
+				background: ${tableCellSelectedColor};
+				z-index: ${akEditorSmallZIndex};
+				pointer-events: none;
 			}
 		}
 	}
@@ -488,6 +543,27 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-left]::after {
 		border-left-color: transparent;
 	}
+
+	${fg('platform_editor_table_q4_patch_1')
+		? css`
+				/* Node-selected (ak-editor-selected-node) sticky header: the pinned row leaves the table's
+					   rounded overlay behind, so recolour its painted top edge to the selected colour too. */
+				.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+					.${ClassName.TABLE_NODE_WRAPPER}
+					> table
+					> tbody
+					> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+					> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]::after,
+					.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+					.${ClassName.TABLE_NODE_WRAPPER}
+					> table
+					> tbody
+					> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+					> td.${ClassName.TABLE_CELL}[data-reaches-top]::after {
+					border-top-color: ${tableBorderSelectedColor};
+				}
+			`
+		: ''}
 `;
 
 const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
@@ -595,11 +671,42 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
 		box-shadow: none !important;
 	}
+
+	${fg('platform_editor_table_q4_patch_1')
+		? css`
+				/* Node-selected (ak-editor-selected-node) sticky header: recolour the bottom-edge
+					   shadow to the selected colour so it matches the rest of the selection. */
+				.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+					.${ClassName.TABLE_NODE_WRAPPER}
+					> table
+					> tbody
+					> tr.${ClassName.NATIVE_STICKY},
+					.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+					.${ClassName.TABLE_NODE_WRAPPER}
+					> table.${ClassName.TABLE_STICKY}
+					> tbody
+					> tr.sticky {
+					box-shadow: inset 0 -1px ${tableBorderSelectedColor} !important;
+				}
+
+				/* Active (pinned) variant keeps its drop shadow but recolours the bottom border. */
+				.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+					.${ClassName.TABLE_NODE_WRAPPER}
+					> table
+					> tbody
+					> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE} {
+					box-shadow:
+						inset 0 -1px ${tableBorderSelectedColor},
+						0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')} !important;
+				}
+			`
+		: ''}
 `;
 
 export const roundedTableOverrides = (): SerializedStyles => css`
 	${roundedTableCellCornerStyles()}
 	${roundedTableInteractionOverlayStyles()}
+	${fg('platform_editor_table_q4_patch_1') ? roundedTableSelectedNodeStyles() : ''}
 	${roundedTableNumberedColumnStyles()}
 	${roundedTableStickyHeaderCellCornerStyles()}
 	${roundedTableStickyHeaderNumberColumnStyles()}

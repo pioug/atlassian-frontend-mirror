@@ -4,6 +4,7 @@ import { EditorView as CodeMirror } from '@codemirror/view';
 import type { EditorContentMode } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 const shouldUseCompactTypography = (contentMode?: EditorContentMode) =>
@@ -75,7 +76,7 @@ export const cmTheme = (options?: ThemeOptions): Extension =>
 			border: 'none',
 			padding: token('space.0'),
 			color: token('color.text.subtlest'),
-			...(expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) && {
+			...(expValEqualsNoExposure('platform_editor_code_block_q4_lovability', 'isEnabled', true) && {
 				// CodeMirror defaults this to height: 100%, which can resolve against an indefinite
 				// parent height in content-height editor and prevent flex stretching when gutter
 				// content is sparse, such as fold-only gutters.

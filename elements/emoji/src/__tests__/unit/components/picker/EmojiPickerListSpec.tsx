@@ -2,7 +2,7 @@ import { matchers } from '@emotion/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
 import React from 'react';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { messages } from '../../../../components/i18n';
@@ -37,6 +37,7 @@ expect.extend(matchers);
 describe('<EmojiPickerList />', () => {
 	mockReactDomWarningGlobal();
 	const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
 
 	beforeEach(() => {
 		jest
@@ -44,6 +45,10 @@ describe('<EmojiPickerList />', () => {
 			.mockImplementation((listRef?: any, index?: number) =>
 				helperTestingLibrary.scrollToIndex(index || 0),
 			);
+		jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
+		getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 		setTeamojiExperimentEnabled(false);
 	});
 
@@ -86,9 +91,9 @@ describe('<EmojiPickerList />', () => {
 		};
 	};
 	const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-		setupEditorExperiments('test', {
-			[teamojiRefreshExperimentName]: isEnabled,
-		});
+		getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
+			experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
+		);
 	};
 	const createTestEmoji = (
 		id: string,

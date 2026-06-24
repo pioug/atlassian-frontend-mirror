@@ -1,7 +1,39 @@
 import { findOverflowScrollParent, type PopupPosition } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const LAYOUT_COLUMN_MENU_POPUP_OFFSET: [number, number] = [0, 4];
+
+// Gate OFF: small gap below the handle; Popup handles invert/nudge fallbacks.
+export const LAYOUT_COLUMN_MENU_POPUP_OFFSET_BELOW: [number, number] = [0, 2];
+
+type LayoutColumnMenuPositioningProps = {
+	alignX: 'center' | undefined;
+	alignY: 'top' | undefined;
+	offset: [number, number];
+	// Legacy (gate ON) only: manual below-flip via Popup's `onPositionCalculated`. Gate OFF
+	// relies on Popup's built-in placement (nudge, not flip).
+	useManualBelowFlip: boolean;
+};
+
+// Gate OFF: left-aligned, below the handle. Gate ON (legacy): centred, prefer above with manual flip.
+export const getLayoutColumnMenuPositioningProps = (): LayoutColumnMenuPositioningProps => {
+	if (!fg('platform_editor_layout_column_menu_kill_switch_1')) {
+		return {
+			alignX: undefined,
+			alignY: undefined,
+			offset: LAYOUT_COLUMN_MENU_POPUP_OFFSET_BELOW,
+			useManualBelowFlip: false,
+		};
+	}
+
+	return {
+		alignX: 'center',
+		alignY: 'top',
+		offset: LAYOUT_COLUMN_MENU_POPUP_OFFSET,
+		useManualBelowFlip: true,
+	};
+};
 
 const getVisibleEditorAreaTop = (
 	editorView: EditorView,

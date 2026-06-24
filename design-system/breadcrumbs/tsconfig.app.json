@@ -35,19 +35,31 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
+			"path": "../../helpers/browser-apis/tsconfig.app.json"
+		},
+		{
 			"path": "../button/tsconfig.app.json"
 		},
 		{
 			"path": "../css/tsconfig.app.json"
 		},
 		{
+			"path": "../dropdown-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../icon/tsconfig.app.json"
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../skeleton/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

@@ -3,7 +3,7 @@
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import console from 'console';
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
@@ -58,10 +58,13 @@ const createSvgFile = (): File =>
 		type: 'image/svg+xml',
 	});
 const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+let initializeCompletedSpy: jest.SpiedFunction<typeof FeatureGates.initializeCompleted>;
+let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
+
 const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-	setupEditorExperiments('test', {
-		[teamojiRefreshExperimentName]: isEnabled,
-	});
+	getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
+		experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
+	);
 };
 
 describe('<UploadingEmojiPicker />', () => {
@@ -77,6 +80,10 @@ describe('<UploadingEmojiPicker />', () => {
 		ufoStartSpy = jest.spyOn(experience, 'start');
 		ufoSuccessSpy = jest.spyOn(experience, 'success');
 		ufoFailureSpy = jest.spyOn(experience, 'failure');
+		initializeCompletedSpy = jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
+		getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 		setTeamojiExperimentEnabled(false);
 	});
 
@@ -85,6 +92,8 @@ describe('<UploadingEmojiPicker />', () => {
 		ufoStartSpy.mockClear();
 		ufoSuccessSpy.mockClear();
 		ufoFailureSpy.mockClear();
+		getExperimentValueSpy.mockRestore();
+		initializeCompletedSpy.mockRestore();
 	});
 
 	beforeAll(() => {

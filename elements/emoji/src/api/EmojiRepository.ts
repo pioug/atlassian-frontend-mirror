@@ -16,7 +16,7 @@ import {
 } from './internal/Comparators';
 import { UsageFrequencyTracker } from './internal/UsageFrequencyTracker';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 type Token = {
 	start: number;
@@ -136,6 +136,21 @@ const findEmojiIndex = (emojis: EmojiDescription[], toFind: EmojiDescription): n
 
 const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		teamojiRefreshExperimentName,
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
+
 export default class EmojiRepository {
 	private emojis: EmojiDescription[];
 	private fullSearch!: Search;
@@ -225,10 +240,7 @@ export default class EmojiRepository {
 	findInCategory(categoryId: CategoryId): EmojiDescription[] {
 		if (categoryId === frequentCategory) {
 			return this.getFrequentlyUsed();
-		} else if (
-			expVal(teamojiRefreshExperimentName, 'isEnabled', false) &&
-			categoryId === 'ATLASSIAN'
-		) {
+		} else if (isRefreshEmojiPickerEnabled() && categoryId === 'ATLASSIAN') {
 			return this.all().emojis.filter((emoji) => emoji.type === 'ATLASSIAN');
 		} else {
 			return this.all().emojis.filter((emoji) => emoji.category === categoryId);
@@ -371,12 +383,7 @@ export default class EmojiRepository {
 		const categorySet = new Set<CategoryId>();
 
 		this.emojis.forEach((emoji) => {
-			categorySet.add(
-				this.getDynamicCategoryForEmoji(
-					emoji,
-					expVal(teamojiRefreshExperimentName, 'isEnabled', false),
-				),
-			);
+			categorySet.add(this.getDynamicCategoryForEmoji(emoji, isRefreshEmojiPickerEnabled()));
 			this.addToMaps(emoji);
 		});
 
@@ -395,7 +402,7 @@ export default class EmojiRepository {
 		this.fullSearch.searchIndex = new UnorderedSearchIndex();
 		this.fullSearch.addIndex('name');
 		this.fullSearch.addIndex('shortName');
-		if (expVal(teamojiRefreshExperimentName, 'isEnabled', false)) {
+		if (isRefreshEmojiPickerEnabled()) {
 			this.fullSearch.addIndex('keywords');
 		}
 
@@ -430,10 +437,7 @@ export default class EmojiRepository {
 	}
 
 	private addToDynamicCategories(emoji: EmojiDescription): void {
-		const category = this.getDynamicCategoryForEmoji(
-			emoji,
-			expVal(teamojiRefreshExperimentName, 'isEnabled', false),
-		);
+		const category = this.getDynamicCategoryForEmoji(emoji, isRefreshEmojiPickerEnabled());
 		if (
 			defaultCategories.indexOf(category) === -1 &&
 			this.dynamicCategoryList.indexOf(category) === -1

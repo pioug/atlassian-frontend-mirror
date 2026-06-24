@@ -40,6 +40,13 @@ const defaultAvatarValues: AvatarContextProps = {
 	size: 'small',
 };
 
+// Stable reference for the anchor's text-decoration reset. Hoisted to module
+// scope so it is not re-created on every render of every menu item — the
+// inline literal `{ textDecoration: 'none' }` had identical content but a new
+// identity each render, forcing the host element's `style` to reconcile
+// unnecessarily. Gated behind `navx-4728-jira-stability-fixes`.
+const anchorTextDecorationResetStyle = { textDecoration: 'none' } as const;
+
 const elemAfterDisplayVar = '--elem-after-display';
 const actionsOnHoverOpacityVar = '--actions-on-hover-opacity';
 const actionsOnHoverWidthVar = '--actions-on-hover-width';
@@ -745,7 +752,11 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								)}
 								// Needed to override Anchor style due to a compiled/emotion conflict
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								style={{ textDecoration: 'none' }}
+								style={
+									fg('navx-4728-jira-stability-fixes')
+										? anchorTextDecorationResetStyle
+										: { textDecoration: 'none' }
+								}
 								aria-current={isSelected ? 'page' : undefined}
 								href={href}
 								target={target}

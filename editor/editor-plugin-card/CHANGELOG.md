@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-card
 
+## 18.0.9
+
+### Patch Changes
+
+- [`615699cf079c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/615699cf079c8) -
+  [ux] Disables left resize handle on embed nodes except for when embed is aligned or wrapped right.
+
+## 18.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.6
 
 ### Patch Changes

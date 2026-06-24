@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/external/file';
 import FileChooser, { dropzoneTestId } from '../../../../components/common/FileChooser';
@@ -19,17 +19,28 @@ jest.mock('@atlaskit/pragmatic-drag-and-drop/external/file', () => ({
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('File Chooser', () => {
 	let user: ReturnType<typeof userEvent.setup>;
+	let initializeCompletedSpy: jest.SpiedFunction<typeof FeatureGates.initializeCompleted>;
+	let getExperimentValueSpy: jest.SpiedFunction<typeof FeatureGates.getExperimentValue>;
 	const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 	const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-		setupEditorExperiments('test', {
-			[teamojiRefreshExperimentName]: isEnabled,
-		});
+		getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
+			experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
+		);
 	};
 
 	beforeEach(() => {
 		user = userEvent.setup();
 		jest.clearAllMocks();
+		initializeCompletedSpy = jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
+		getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 		setTeamojiExperimentEnabled(false);
+	});
+
+	afterEach(() => {
+		getExperimentValueSpy.mockRestore();
+		initializeCompletedSpy.mockRestore();
 	});
 
 	it('is displayed to the user', async () => {

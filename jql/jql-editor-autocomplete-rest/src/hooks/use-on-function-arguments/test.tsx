@@ -68,8 +68,14 @@ describe('onFunctionArguments', () => {
 
 				const assertValues = (options: AutocompleteOptions) => {
 					expect(onValues).toHaveBeenCalledWith('rock', '"Team[Team]"');
+					// The value should be prefixed with "id:" for membersOf so the JQL parser can
+					// distinguish team IDs from group name.
 					expect(options).toEqual(
-						expectedOptions.map((option) => ({ ...option, groupKey: 'team' })),
+						expectedOptions.map((option) => ({
+							...option,
+							value: `id:${option.value}`,
+							groupKey: 'team',
+						})),
 					);
 				};
 

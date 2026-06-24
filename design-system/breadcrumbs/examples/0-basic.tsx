@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 import { AtlassianIcon } from '@atlaskit/logo';
 
 export default function BreadcrumbsExpand(): React.JSX.Element {
@@ -17,7 +18,7 @@ export default function BreadcrumbsExpand(): React.JSX.Element {
 			<BreadcrumbsItem href="/pages/home" text="Home" />
 			<BreadcrumbsItem
 				href="/item"
-				iconBefore={<AtlassianIcon label="" size="small" />}
+				elemBefore={<AtlassianIcon label="" size="small" />}
 				text="Icon Before"
 			/>
 			<BreadcrumbsItem
@@ -25,6 +26,7 @@ export default function BreadcrumbsExpand(): React.JSX.Element {
 				iconAfter={<AtlassianIcon label="" size="small" />}
 				text="Icon After"
 			/>
+			<BreadcrumbsCurrentItem href="/current-page" text="Current page" />
 		</Breadcrumbs>
 	);
 }

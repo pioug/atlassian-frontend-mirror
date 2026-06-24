@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import {
 	type SyntheticEvent,
 	type MutableRefObject,
@@ -92,6 +92,21 @@ import {
 	type ProductivityColor,
 } from '../../util/productivity-colors';
 import { filterHiddenEmojis } from '../../util/hidden-emojis';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 const emojiPickerBoxShadow = token('elevation.shadow.overlay');
 const emojiPickerHeight = 295;
@@ -249,11 +264,7 @@ const EmojiPickerComponent = ({
 }: Props): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { emojiProvider, isUploadSupported } = useEmoji();
-	const isTeamojiExperimentEnabled = expVal(
-		'platform_teamoji_26_refresh_emoji_picker',
-		'isEnabled',
-		false,
-	);
+	const isTeamojiExperimentEnabled = isRefreshEmojiPickerEnabled();
 	const [filteredEmojis, setFilteredEmojis] = useState<EmojiDescription[]>([]);
 	const [searchEmojis, setSearchEmojis] = useState<EmojiDescription[]>([]);
 	const [frequentlyUsedEmojis, setFrequentlyUsedEmojis] = useState<EmojiDescription[]>([]);
@@ -314,7 +325,7 @@ const EmojiPickerComponent = ({
 	);
 
 	const onEmojiLeave = useCallback(() => {
-		if (expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+		if (isRefreshEmojiPickerEnabled()) {
 			setSelectedEmoji(undefined);
 		}
 	}, []);
@@ -324,22 +335,16 @@ const EmojiPickerComponent = ({
 			// Ignore scroll-driven category changes while a programmatic reveal()
 			// scroll is in progress — they would flicker the indicator through
 			// intermediate categories before landing on the correct one.
-			if (
-				isProgrammaticScroll.current &&
-				expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-			) {
+			if (isProgrammaticScroll.current && isRefreshEmojiPickerEnabled()) {
 				return;
 			}
 			// Ignore scroll-driven category changes while the upload or delete screen is open
-			if (
-				(uploading || emojiToDelete) &&
-				expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-			) {
+			if ((uploading || emojiToDelete) && isRefreshEmojiPickerEnabled()) {
 				return;
 			}
 			if (activeCategory !== category) {
 				setActiveCategory(category);
-				if (!query && expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+				if (!query && isRefreshEmojiPickerEnabled()) {
 					lastNonSearchCategory.current = category;
 				}
 			}
@@ -361,7 +366,7 @@ const EmojiPickerComponent = ({
 			setUploadErrorMessage(undefined);
 		});
 		fireAnalytics(uploadCancelButton());
-		if (expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+		if (isRefreshEmojiPickerEnabled()) {
 			setTimeout(() => {
 				getDocument()?.getElementById('add-custom-emoji')?.focus();
 			}, 0);
@@ -567,7 +572,7 @@ const EmojiPickerComponent = ({
 			}
 
 			// If the upload or delete screen is open, close it when a category is selected
-			if (expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+			if (isRefreshEmojiPickerEnabled()) {
 				if (uploading) {
 					setUploading(false);
 					setUploadErrorMessage(undefined);
@@ -651,11 +656,7 @@ const EmojiPickerComponent = ({
 			};
 			if (searchQuery !== query) {
 				// Capture the active category before entering search so we can keep it highlighted
-				if (
-					!query &&
-					searchQuery &&
-					expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-				) {
+				if (!query && searchQuery && isRefreshEmojiPickerEnabled()) {
 					lastNonSearchCategory.current = activeCategory;
 				}
 				setQuery(searchQuery);
@@ -674,7 +675,7 @@ const EmojiPickerComponent = ({
 	// When the upload screen is open, intercept any file drag at the window level so it
 	// cannot reach underlying page drop handlers (e.g. the Confluence editor).
 	useEffect(() => {
-		if (!uploading || !expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+		if (!uploading || !isRefreshEmojiPickerEnabled()) {
 			return;
 		}
 
@@ -744,7 +745,7 @@ const EmojiPickerComponent = ({
 				scrollToUploadedEmoji(emojiDescription);
 			};
 
-			if (expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)) {
+			if (isRefreshEmojiPickerEnabled()) {
 				const uploadShortName = `:${upload.name.toLowerCase()}:`;
 				const existing = await emojiProvider.findByShortName(uploadShortName);
 				if (existing) {
@@ -884,23 +885,17 @@ const EmojiPickerComponent = ({
 		};
 	}, [emojiProvider, onProviderChange]);
 
-	const showPreview = expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-		? !uploading
-		: selectedEmoji && !uploading;
+	const showPreview = isRefreshEmojiPickerEnabled() ? !uploading : selectedEmoji && !uploading;
 
 	return (
 		<div
 			css={[
-				expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-					? emojiPickerNew
-					: emojiPicker,
-				!!emojiToDelete && expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+				isRefreshEmojiPickerEnabled() ? emojiPickerNew : emojiPicker,
+				!!emojiToDelete && isRefreshEmojiPickerEnabled()
 					? withDeleteRefreshHeight[size]
-					: uploading && expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+					: uploading && isRefreshEmojiPickerEnabled()
 						? withUploadRefreshHeight[size]
-						: query &&
-							  filteredEmojis.length === 0 &&
-							  expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
+						: query && filteredEmojis.length === 0 && isRefreshEmojiPickerEnabled()
 							? withNoResultsRefreshHeight[size]
 							: showPreview
 								? withPreviewHeight[size]
@@ -921,10 +916,7 @@ const EmojiPickerComponent = ({
 			>
 				<CategorySelector
 					activeCategoryId={
-						(uploading || emojiToDelete) &&
-						expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-							? null
-							: activeCategory
+						(uploading || emojiToDelete) && isRefreshEmojiPickerEnabled() ? null : activeCategory
 					}
 					dynamicCategories={dynamicCategories}
 					disableCategories={disableCategories}
@@ -967,14 +959,8 @@ const EmojiPickerComponent = ({
 					activeCategoryId={activeCategory}
 				/>
 				{showPreview &&
-					!(
-						emojiToDelete && expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-					) &&
-					!(
-						query &&
-						filteredEmojis.length === 0 &&
-						expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false)
-					) && (
+					!(emojiToDelete && isRefreshEmojiPickerEnabled()) &&
+					!(query && filteredEmojis.length === 0 && isRefreshEmojiPickerEnabled()) && (
 						<EmojiPickerFooter
 							selectedEmoji={selectedEmoji}
 							uploadEnabled={isUploadSupported && !uploading}

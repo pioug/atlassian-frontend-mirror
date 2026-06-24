@@ -41,7 +41,7 @@ export const Shimmer = ({ testId }: { testId: string }): React.JSX.Element => {
 		<SpanSkeleton
 			width={16}
 			height={16}
-			borderRadius={2}
+			borderRadius={token('radius.xsmall')}
 			testId={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={skeletonCustomStyles}

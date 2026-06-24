@@ -15,10 +15,12 @@ import { IntlProvider } from 'react-intl';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ManualPromise, renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';
 import {
 	MockLinkPickerGeneratorPlugin,
+	MockLinkPickerPlugin,
 	MockLinkPickerPromisePlugin,
 	UnstableMockLinkPickerPlugin,
 } from '../../__tests__/__helpers/mock-plugins';
@@ -1965,5 +1967,127 @@ describe('<LinkPicker />', () => {
 			/>,
 		);
 		await expect(container).toBeAccessible();
+	});
+
+	describe('disableManualUrlInsert', () => {
+		/**
+		 * A plugin that returns no results for any query, used to test
+		 * disableManualUrlInsert where the insert button should be disabled
+		 * because there are no selectable results.
+		 */
+		class EmptyResultsMockPlugin {
+			async *resolve() {
+				yield { data: [] };
+			}
+		}
+
+		ffTest.off('add-disable-manual-url-capability-technical', 'when gate is OFF', () => {
+			it('should enable the insert button for a manually typed valid URL even when disableManualUrlInsert=true is passed', async () => {
+				render(
+					<LinkPicker
+						url=""
+						onSubmit={jest.fn()}
+						onCancel={jest.fn()}
+						onContentResize={jest.fn()}
+						plugins={[]}
+						disableManualUrlInsert={true}
+					/>,
+				);
+
+				await user.type(
+					await screen.findByTestId(testIds.urlInputField),
+					'http://www.atlassian.com',
+				);
+
+				await waitFor(() => {
+					expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
+				});
+			});
+
+			it('should enable the insert button for a manually typed valid URL when disableManualUrlInsert=false (default)', async () => {
+				render(
+					<LinkPicker
+						url=""
+						onSubmit={jest.fn()}
+						onCancel={jest.fn()}
+						onContentResize={jest.fn()}
+						plugins={[]}
+						disableManualUrlInsert={false}
+					/>,
+				);
+
+				await user.type(
+					await screen.findByTestId(testIds.urlInputField),
+					'http://www.atlassian.com',
+				);
+
+				await waitFor(() => {
+					expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
+				});
+			});
+		});
+
+		ffTest.on('add-disable-manual-url-capability-technical', 'when gate is ON', () => {
+			it('should disable the insert button for a manually typed URL when disableManualUrlInsert=true and plugin returns no results', async () => {
+				render(
+					<LinkPicker
+						url=""
+						onSubmit={jest.fn()}
+						onCancel={jest.fn()}
+						onContentResize={jest.fn()}
+						plugins={[new EmptyResultsMockPlugin() as any]}
+						disableManualUrlInsert={true}
+					/>,
+				);
+
+				await user.type(await screen.findByTestId(testIds.urlInputField), 'atlassian');
+
+				await waitFor(() => {
+					expect(screen.getByTestId(testIds.insertButton)).toBeDisabled();
+				});
+			});
+
+			it('should still enable the insert button for a manually typed URL when disableManualUrlInsert=false (default)', async () => {
+				render(
+					<LinkPicker
+						url=""
+						onSubmit={jest.fn()}
+						onCancel={jest.fn()}
+						onContentResize={jest.fn()}
+						plugins={[]}
+						disableManualUrlInsert={false}
+					/>,
+				);
+
+				await user.type(
+					await screen.findByTestId(testIds.urlInputField),
+					'http://www.atlassian.com',
+				);
+
+				await waitFor(() => {
+					expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
+				});
+			});
+
+			it('should enable insert when a result is selected even when disableManualUrlInsert=true', async () => {
+				render(
+					<LinkPicker
+						url=""
+						onSubmit={jest.fn()}
+						onCancel={jest.fn()}
+						onContentResize={jest.fn()}
+						plugins={[new MockLinkPickerPlugin()]}
+						disableManualUrlInsert={true}
+					/>,
+				);
+
+				// Results load on mount; click the first result to populate the URL field
+				await user.click((await screen.findAllByTestId(testIds.searchResultItem))[0]);
+
+				await waitFor(() => {
+					expect(screen.getByTestId(testIds.insertButton)).not.toBeDisabled();
+				});
+			});
+		});
 	});
 });

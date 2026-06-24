@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import { BreadcrumbsCurrentItem } from '@atlaskit/breadcrumbs/breadcrumbs-current-item';
 
 const clickPreventDefaultHandler = (e: React.MouseEvent) => {
 	e.preventDefault();
@@ -21,6 +22,7 @@ export default (): React.JSX.Element => (
 				onClick={clickPreventDefaultHandler}
 				text="Item2 with onClick which prevents default"
 			/>
+			<BreadcrumbsCurrentItem href="/current-page" text="Current page" />
 		</Breadcrumbs>
 	</div>
 );

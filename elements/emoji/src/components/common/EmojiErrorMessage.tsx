@@ -9,9 +9,24 @@ import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { ErrorMessage } from '@atlaskit/form';
 import type { Message } from '../../types';
 import { useIntl } from 'react-intl';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { messages } from '../i18n';
+
+const isRefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const isEnabled = FeatureGates.getExperimentValue(
+		'platform_teamoji_26_refresh_emoji_picker',
+		'isEnabled',
+		false,
+	);
+
+	return isEnabled;
+};
 
 export type ErrorStyle = 'chooseFile' | 'delete' | 'preview';
 
@@ -67,7 +82,7 @@ const EmojiErrorMessage = (props: Props): JSX.Element => {
 				/>
 			</Tooltip>
 		</div>
-	) : expVal('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', false) ? (
+	) : isRefreshEmojiPickerEnabled() ? (
 		<div data-testid={emojiErrorMessageTestId}>
 			<ErrorMessage>{message}</ErrorMessage>
 		</div>

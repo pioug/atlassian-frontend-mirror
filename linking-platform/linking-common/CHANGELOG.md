@@ -1,5 +1,26 @@
 # @atlaskit/linking-common
 
+## 11.0.0
+
+### Major Changes
+
+- [`3c46bdc078b9e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c46bdc078b9e) -
+  All changes behind feature gate: `platform_lp_kill_isvertigo_and_vortexmode`.
+
+  In `@atlaskit/linking-common`, `AvailableSite.isVertigo` and `Workspace.vortexMode` are now
+  deprecated and marked as optional. The public type fields remain for compatibility, but their
+  values will be `undefined` with flag turned on. That explains major release.
+
+  When `platform_lp_kill_isvertigo_and_vortexmode` is enabled, `useAvailableSites` and
+  `useAvailableSitesV2` return `AvailableSite.isVertigo` as `undefined`, and `useAvailableSitesV2`
+  no longer depends on `Workspace.vortexMode` to map accessible product workspaces.
+
+## 10.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.0
 
 ### Major Changes

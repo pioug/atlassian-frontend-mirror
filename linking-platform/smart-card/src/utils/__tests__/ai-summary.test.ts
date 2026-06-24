@@ -1,5 +1,4 @@
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CONTENT_URL_ACCEPTABLE_USE_POLICY, CONTENT_URL_AI_TROUBLESHOOTING } from '../../constants';
 import { messages } from '../../messages';
@@ -10,7 +9,6 @@ describe('getIsAISummaryEnabled', () => {
 	const getMockResponse = (meta: Partial<JsonLd.Meta.BaseMeta> = {}) =>
 		({
 			...mockConfluenceResponse,
-
 			meta: {
 				...mockConfluenceResponse.meta,
 				...meta,
@@ -45,25 +43,12 @@ describe('getIsAISummaryEnabled', () => {
 });
 
 describe('getAISummaryErrorMessage', () => {
-	ffTest.on('platform_sl_ai_summary_rebrand', '', () => {
-		it('returns default error message', () => {
-			const message = getAISummaryErrorMessage();
+	it('returns default error message', () => {
+		const message = getAISummaryErrorMessage();
 
-			expect(message).toEqual({
-				message: messages.ai_summary_error_generic_rebrand,
-				url: CONTENT_URL_AI_TROUBLESHOOTING,
-			});
-		});
-	});
-
-	ffTest.off('platform_sl_ai_summary_rebrand', '', () => {
-		it('returns default error message', () => {
-			const message = getAISummaryErrorMessage();
-
-			expect(message).toEqual({
-				message: messages.ai_summary_error_generic,
-				url: CONTENT_URL_AI_TROUBLESHOOTING,
-			});
+		expect(message).toEqual({
+			message: messages.ai_summary_error_generic_rebrand,
+			url: CONTENT_URL_AI_TROUBLESHOOTING,
 		});
 	});
 

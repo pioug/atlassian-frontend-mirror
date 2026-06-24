@@ -74,7 +74,7 @@ interface AvailableSite {
 	// (undocumented)
 	displayName: string;
 	// (undocumented)
-	isVertigo: boolean;
+	isVertigo?: boolean;
 	// (undocumented)
 	products: AvailableSitesProductType[];
 	// (undocumented)

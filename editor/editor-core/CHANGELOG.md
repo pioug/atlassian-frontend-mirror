@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 221.3.2
+
+### Patch Changes
+
+- [`92dbb82c2b7e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92dbb82c2b7e5) -
+  migrate compiled css for comment and fullpage
+- [`29f99c0627c46`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29f99c0627c46) -
+  Show text highlight on hyperlinks behind platform_editor_lovability_text_bg_color
+- Updated dependencies
+
+## 221.3.1
+
+### Patch Changes
+
+- [`3378314fe2ec1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3378314fe2ec1) -
+  Clean up experiment `platform_editor_chromeless_expand_fix`
+- [`9d2c2c1c016bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9d2c2c1c016bd) -
+  [ux] Server-side render the editor toolbar (FullPageToolbarNext) with toolbar items enabled (not
+  hidden/disabled), so the toolbar is visible and interactive-looking on first paint — before
+  EditorView or collab edit is initialized. Clicks before editor is ready are noops.
+- Updated dependencies
+
+## 221.3.0
+
+### Minor Changes
+
+- [`036b4169b1a86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/036b4169b1a86) -
+  [ux] Make Footer sit at the bottom of the page
+
+### Patch Changes
+
+- [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
+  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  gating.
+- Updated dependencies
+
 ## 221.2.1
 
 ### Patch Changes

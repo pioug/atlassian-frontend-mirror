@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/breadcrumbs",
-	"version": "17.0.0",
+	"version": "17.1.0",
 	"description": "Breadcrumbs are a navigation system used to show a user's location in a site or app.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,24 +27,46 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Breadcrumbs",
-			"category": "Navigation"
+			"category": "Navigation",
+			"subPages": [
+				{
+					"title": "Breadcrumbs",
+					"id": "breadcrumbs",
+					"status": {
+						"type": "beta",
+						"description": "New and ready to use. These visual updates are currently behind the feature flag: `platform_dst_breadcrumbs-refresh`. We’ll provide comms and support for any major changes."
+					}
+				}
+			]
 		}
 	},
 	"exports": {
 		".": "./src/index.tsx",
+		"./breadcrumbs-current-item": "./src/entry-points/breadcrumbs-current-item.tsx",
 		"./breadcrumbs-item": "./src/entry-points/breadcrumbs-item.tsx",
+		"./breadcrumbs-skeleton": "./src/entry-points/breadcrumbs-skeleton.tsx",
+		"./breadcrumbs-skeleton-item": "./src/entry-points/breadcrumbs-skeleton-item.tsx",
 		"./breadcrumbs": "./src/entry-points/breadcrumbs.tsx",
 		"./Breadcrumbs": "./src/entry-points/breadcrumbs.tsx",
+		"./BreadcrumbsCurrentItem": "./src/entry-points/breadcrumbs-current-item.tsx",
 		"./BreadcrumbsItem": "./src/entry-points/breadcrumbs-item.tsx",
-		"./types": "./src/entry-points/types.tsx"
+		"./BreadcrumbsSkeleton": "./src/entry-points/breadcrumbs-skeleton.tsx",
+		"./BreadcrumbsSkeletonItem": "./src/entry-points/breadcrumbs-skeleton-item.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		"./primitives": "./src/entry-points/primitives.tsx",
+		"./use-overflow-collapse": "./src/entry-points/use-overflow-collapse.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlassian/react-compiler-gating": "workspace:^",
@@ -60,13 +82,15 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
-		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/select": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"jscodeshift": "root:*",
 		"react": "root:*",
@@ -93,6 +117,9 @@
 	"homepage": "https://atlassian.design/components/breadcrumbs/",
 	"platform-feature-flags": {
 		"platform-dst-shape-theme-default": {
+			"type": "boolean"
+		},
+		"platform_dst_breadcrumbs-refresh": {
 			"type": "boolean"
 		}
 	}

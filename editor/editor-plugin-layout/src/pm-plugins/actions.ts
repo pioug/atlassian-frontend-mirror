@@ -1012,16 +1012,16 @@ export const distributeLayoutColumns =
 		return tr;
 	};
 
-export type ToggleLayoutColumnMenuOptions = {
-	anchorPos?: number;
-	isOpen?: boolean;
-	openedViaKeyboard?: boolean;
-};
+// Omitting `isOpen` (toggle) requires `anchorPos`, so a toggle can never open the menu
+// without a valid anchor. Explicit open/close keeps `anchorPos` optional (close needs none).
+export type ToggleLayoutColumnMenuOptions =
+	| { anchorPos: number; isOpen?: undefined; openedViaKeyboard?: boolean }
+	| { anchorPos?: number; isOpen: boolean; openedViaKeyboard?: boolean };
 
 export const toggleLayoutColumnMenu =
-	({ anchorPos, isOpen, openedViaKeyboard }: ToggleLayoutColumnMenuOptions): EditorCommand =>
+	(options: ToggleLayoutColumnMenuOptions): EditorCommand =>
 	({ tr }) => {
-		tr.setMeta('toggleLayoutColumnMenu', { anchorPos, isOpen, openedViaKeyboard });
+		tr.setMeta('toggleLayoutColumnMenu', options);
 		tr.setMeta('scrollIntoView', false);
 
 		return tr;

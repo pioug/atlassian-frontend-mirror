@@ -1,5 +1,17 @@
 # @atlaskit/editor-presets
 
+## 5.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.6
 
 ### Patch Changes

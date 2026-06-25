@@ -2445,6 +2445,8 @@ export default class Select<
 		const innerProps = {
 			onMouseDown: this.onDropdownIndicatorMouseDown,
 			onTouchEnd: this.onDropdownIndicatorTouchEnd,
+			// Always hidden: DropdownIndicator hoists aria-hidden onto consumer-supplied
+			// children only, keeping the voice-control button visible to AT.
 			'aria-hidden': 'true',
 			...(testId && {
 				'data-testid': `${testId}-select--dropdown-indicator`,

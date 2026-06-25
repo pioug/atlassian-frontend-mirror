@@ -5,6 +5,9 @@ order: 0
 import defaultExample from '../../examples/constellation/0-default';
 import themeSwitcherExample from '../../examples/constellation/1-theme-switcher';
 import routerLinkComponentExample from '../../examples/constellation/2-router-link-component';
+import subTreeThemingExample from '../../examples/constellation/3-sub-tree-theming';
+import SubTreeThemingOutsideAppProviderExample from '../../examples/constellation/4-sub-tree-theming-outside-app-provider';
+import subTreeThemingDynamicExample from '../../examples/constellation/5-sub-tree-theming-dynamic';
 
 ## Theming
 
@@ -28,6 +31,55 @@ change themes.
 <Example
 	Component={themeSwitcherExample.example}
 	source={themeSwitcherExample.code}
+	packageName="@atlaskit/app-provider"
+/>
+
+## Sub-tree theming
+
+Use sub-tree theming to apply a different color mode or theme to a specific section of your UI,
+independently of the rest of the page. This is useful for content that needs a distinct visual
+treatment.
+
+Nest `ThemeProvider` inside `AppProvider` to scope a theme to part of the page.
+
+<Example
+	Component={subTreeThemingExample.example}
+	source={subTreeThemingExample.code}
+	packageName="@atlaskit/app-provider"
+/>
+
+### Portalled content
+
+Components that render into a portal render outside the `ThemeProvider`'s DOM subtree. By default,
+portalled content inherits the root theme rather than the sub-tree theme.
+
+To support sub-tree theming for portalled content, use the [Portal](/components/portal/examples)
+component, which passes the color mode to the content it renders.
+
+### Sub-tree theming outside AppProvider
+
+If `AppProvider` has not yet been adopted in your application, `ThemeProvider` can still be used
+standalone to apply scoped theming. In this case, every `ThemeProvider` including the outermost one
+behaves as a sub-tree theme. It wraps its children in a scoped `div` and does not set page-level
+theme attributes on `html` or `body`.
+
+<Example Component={SubTreeThemingOutsideAppProviderExample} packageName="@atlaskit/app-provider" />
+
+### Dynamic color mode inversion
+
+A common pattern is to create a panel that always displays the opposite color mode to its
+surroundings. For example, a dark sidebar in a light-mode app, or a highlighted callout that always
+contrasts with its parent.
+
+To do this reliably, read the parent color mode with `useColorMode()`, then call `useSetColorMode()`
+inside the sub-tree `ThemeProvider` to update it reactively.
+
+Avoid relying on `defaultColorMode` alone for this pattern. The prop is only applied on initial
+mount and does not react to subsequent changes in the parent's color mode.
+
+<Example
+	Component={subTreeThemingDynamicExample.example}
+	source={subTreeThemingDynamicExample.code}
 	packageName="@atlaskit/app-provider"
 />
 

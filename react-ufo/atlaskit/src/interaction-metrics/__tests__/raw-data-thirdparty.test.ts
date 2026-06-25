@@ -261,6 +261,213 @@ describe('Raw Data Third Party Behavior', () => {
 		remove3pHold();
 	});
 
+	describe('GenAI metric variant behavior', () => {
+		it('waits for GenAI holds and emits an include-gen-ai metric window', () => {
+			mockFg.mockImplementation(
+				(flag: string) =>
+					flag === 'platform_ufo_metric_variants' || flag === 'platform_ufo_gen_ai_segment',
+			);
+			setUFOConfig({
+				enabled: true,
+				product: 'test-product',
+				region: 'test-region',
+			});
+
+			const interactionId = 'gen-ai-metric-variant-interaction';
+			const startTime = 1000;
+			mockPerformanceNow.mockReturnValue(startTime);
+			addNewInteraction(
+				interactionId,
+				'test-ufo-name',
+				'page_load',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			const interaction = interactions.get(interactionId);
+			expect(interaction).toBeDefined();
+
+			const removeGenAIHold = addHold(
+				interactionId,
+				[{ name: 'segment1', type: 'gen-ai' as const }],
+				'gen-ai-hold',
+				false,
+			);
+			const removeStandardHold = addHold(
+				interactionId,
+				[{ name: 'segment1' }],
+				'standard-hold',
+				false,
+			);
+
+			mockPerformanceNow.mockReturnValue(2000);
+			removeStandardHold();
+			tryComplete(interactionId, 2000);
+
+			expect(interaction!.end).toBe(2000);
+			expect(interactions.has(interactionId)).toBe(true);
+			expect(interaction!.metricWindows?.standard).toEqual({
+				start: 1000,
+				end: 2000,
+				includeCategories: [],
+				excludeCategories: ['third-party', 'gen-ai'],
+			});
+			expect(interaction!.metricWindows?.['include-gen-ai']).toBeUndefined();
+
+			mockPerformanceNow.mockReturnValue(2500);
+			removeGenAIHold();
+			tryComplete(interactionId);
+
+			expect(interaction!.metricWindows?.['include-gen-ai']).toEqual({
+				start: 1000,
+				end: 2500,
+				includeCategories: ['gen-ai'],
+				excludeCategories: [],
+			});
+			expect(interaction!.metricWindows?.['include-third-party']).toBeUndefined();
+		});
+
+		it('uses the core end time when GenAI holds finish before core holds', () => {
+			mockFg.mockImplementation(
+				(flag: string) =>
+					flag === 'platform_ufo_metric_variants' || flag === 'platform_ufo_gen_ai_segment',
+			);
+			setUFOConfig({
+				enabled: true,
+				product: 'test-product',
+				region: 'test-region',
+			});
+
+			const interactionId = 'gen-ai-finishes-before-core-interaction';
+			const startTime = 1000;
+			mockPerformanceNow.mockReturnValue(startTime);
+			addNewInteraction(
+				interactionId,
+				'test-ufo-name',
+				'page_load',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			const interaction = interactions.get(interactionId);
+			expect(interaction).toBeDefined();
+
+			const removeGenAIHold = addHold(
+				interactionId,
+				[{ name: 'segment1', type: 'gen-ai' as const }],
+				'gen-ai-hold',
+				false,
+			);
+			const removeStandardHold = addHold(
+				interactionId,
+				[{ name: 'segment1' }],
+				'standard-hold',
+				false,
+			);
+
+			mockPerformanceNow.mockReturnValue(1500);
+			removeGenAIHold();
+
+			mockPerformanceNow.mockReturnValue(2000);
+			removeStandardHold();
+			tryComplete(interactionId, 2000);
+
+			expect(interaction!.end).toBe(2000);
+			expect(interaction!.metricWindows?.['include-gen-ai']).toEqual({
+				start: 1000,
+				end: 2000,
+				includeCategories: ['gen-ai'],
+				excludeCategories: [],
+			});
+			expect(interaction!.metricWindows?.['include-third-party']).toBeUndefined();
+		});
+	});
+
+	describe('GenAI metric variant abort behavior', () => {
+		it('finishes as successful and emits include-gen-ai when abort is called with only a GenAI hold active', () => {
+			mockFg.mockImplementation(
+				(flag: string) =>
+					flag === 'platform_ufo_metric_variants' || flag === 'platform_ufo_gen_ai_segment',
+			);
+			setUFOConfig({
+				enabled: true,
+				product: 'test-product',
+				region: 'test-region',
+			});
+
+			const interactionId = 'gen-ai-abort-interaction';
+			const startTime = 1000;
+			mockPerformanceNow.mockReturnValue(startTime);
+			addNewInteraction(
+				interactionId,
+				'test-ufo-name',
+				'page_load',
+				startTime,
+				1,
+				null,
+				null,
+				null,
+			);
+
+			const interaction = interactions.get(interactionId);
+			expect(interaction).toBeDefined();
+
+			const removeGenAIHold = addHold(
+				interactionId,
+				[{ name: 'segment1', type: 'gen-ai' as const }],
+				'gen-ai-hold',
+				false,
+			);
+			const removeStandardHold = addHold(
+				interactionId,
+				[{ name: 'segment1' }],
+				'standard-hold',
+				false,
+			);
+
+			mockPerformanceNow.mockReturnValue(2000);
+			removeStandardHold();
+			tryComplete(interactionId, 2000);
+
+			expect(interaction!.end).toBe(2000);
+			expect(interactions.has(interactionId)).toBe(true);
+
+			mockPerformanceNow.mockReturnValue(2500);
+			abort(interactionId, 'timeout');
+
+			expect(interaction!.abortReason).toBeUndefined();
+			expect(interaction!.end).toBe(2000);
+			expect(interaction!.lifecycleObservations).toEqual([
+				{
+					type: 'timeout_expired',
+					timestamp: 2500,
+					activeHoldCount: 1,
+				},
+			]);
+			expect(interaction!.metricWindows?.standard).toEqual({
+				start: 1000,
+				end: 2000,
+				includeCategories: [],
+				excludeCategories: ['third-party', 'gen-ai'],
+			});
+			expect(interaction!.metricWindows?.['include-gen-ai']).toEqual({
+				start: 1000,
+				end: 2500,
+				includeCategories: ['gen-ai'],
+				excludeCategories: [],
+			});
+			expect(interaction!.metricWindows?.['include-third-party']).toBeUndefined();
+
+			removeGenAIHold();
+		});
+	});
+
 	describe('tryComplete with third-party holds', () => {
 		it('should set endTime but not finish when only 3p holds are active', () => {
 			const interactionId = 'test-interaction-1';

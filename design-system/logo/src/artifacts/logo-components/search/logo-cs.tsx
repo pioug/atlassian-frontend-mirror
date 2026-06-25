@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::151d3b961b465b2b1ef70ce5cd1da70c>>
+ * @codegen <<SignedSource::17e42f012731a68dbb72bc00bc08f838>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,7 +20,7 @@ const svg = `<svg height="100%" viewBox="0 0 130 32">
 /**
  * __SearchLogoCS__
  *
- * A temporary component to represent the logo for Search.
+ * An internal component to represent the logo for Search.
  *
  */
 export function SearchLogoCS({

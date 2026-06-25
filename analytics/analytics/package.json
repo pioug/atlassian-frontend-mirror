@@ -16,7 +16,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -27,7 +27,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"prop-types": "root:*"
 	},

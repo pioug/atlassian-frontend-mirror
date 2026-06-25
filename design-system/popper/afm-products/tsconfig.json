@@ -32,13 +32,13 @@
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../top-layer/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		}
 	]
 }

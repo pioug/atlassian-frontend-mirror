@@ -196,6 +196,12 @@ export interface InteractionMetrics {
 	id: string;
 	start: number;
 	end: number;
+	/**
+	 * End time for the legacy extended-hold bucket originally used by third-party metrics.
+	 *
+	 * Category-specific variants should prefer `metricCategoryEnds` / `metricWindows`; this field is
+	 * retained for existing third-party payload and extra-metrics behavior.
+	 */
 	end3p?: number;
 	ufoName: string;
 	previousInteractionName?: string;
@@ -258,7 +264,19 @@ export interface InteractionMetrics {
 	hydration?: ReactHydrationStats;
 	unknownElementName?: string;
 	unknownElementHierarchy?: string;
+	/**
+	 * Legacy backing bucket for holds that should not block core interaction metrics.
+	 *
+	 * This was introduced for third-party segments, so the field name is intentionally preserved for
+	 * existing payload / extra-metrics compatibility. New metric-variant categories such as GenAI can
+	 * also use this bucket for lifecycle bookkeeping, while their category-specific timing is recorded
+	 * in `metricCategoryEnds` and emitted through `metricWindows`.
+	 */
 	hold3pActive?: Map<string, HoldActive>;
+	/**
+	 * Completed entries from the legacy extended-hold bucket. See `hold3pActive` for why the 3P name is
+	 * retained even though the bucket can back non-3P metric variants.
+	 */
 	hold3pInfo?: HoldInfo[];
 	minorInteractions?: MinorInteraction[];
 	/**
@@ -282,6 +300,12 @@ export interface InteractionMetrics {
 	segmentExtraData?: Record<string, Record<string, string | undefined>>;
 
 	metricWindows?: MetricWindows;
+	/**
+	 * Category-specific end times for metric variants that share the legacy extended-hold bucket.
+	 * For example, GenAI records its own end here so `include-gen-ai` can be emitted independently of
+	 * the legacy third-party `end3p` value.
+	 */
+	metricCategoryEnds?: Partial<Record<MetricVariantCategory, number>>;
 	lifecycleObservations?: LifecycleObservation[];
 }
 

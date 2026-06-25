@@ -80,6 +80,9 @@
 			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../ai-mate/rovo-agent-components/afm-cc/tsconfig.json"
 		},
 		{
@@ -114,9 +117,6 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../studio-foundations/studio-entry-link/afm-cc/tsconfig.json"

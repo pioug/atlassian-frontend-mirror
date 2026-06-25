@@ -1,0 +1,26 @@
+{
+	"name": "@atlaskit/react-compiler-gating",
+	"version": "0.2.3",
+	"description": "Runtime gating for enabling the React Compiler in Atlassian platform packages.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "DST - A11Y Tooling"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@babel/runtime": "root:*"
+	}
+}

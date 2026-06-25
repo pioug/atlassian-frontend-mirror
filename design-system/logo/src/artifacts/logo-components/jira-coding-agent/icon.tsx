@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a4a56eeee9c8594a65687d2ede86d87f>>
+ * @codegen <<SignedSource::f238f469c20433ab8ed5a1e4abeae5fe>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,10 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 55 55">
 /**
  * __JiraCodingAgentIcon__
  *
- * A temporary component to represent the icon for Jira Coding Agent.
- * @deprecated This component has been replaced by the component `JiraCodingAgentIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * An internal component to represent the icon for Jira Coding Agent.
+ * Do not use this internal component directly — use `JiraCodingAgentIcon` from `@atlaskit/logo` instead.
  *
  */
 export function JiraCodingAgentIcon({

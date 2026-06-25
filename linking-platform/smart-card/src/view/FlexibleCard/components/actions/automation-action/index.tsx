@@ -11,7 +11,7 @@ import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type AutomationActionData } from '../../../../../state/flexible-ui-context/types';
-import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import { useSmartLinkModal } from '../../../../../state/modal';
 import Action from '../action';
 import { type LinkActionProps } from '../types';
@@ -34,7 +34,7 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 	const { fireEvent } = useAnalyticsEvents();
 	const automationActionData = context?.actions?.[ActionName.AutomationAction];
 
-	const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
+	const { product: rovoProduct } = useRovoConfig();
 
 	const automationActionOnClick = useCallback(
 		(automationActionData: AutomationActionData) => {
@@ -100,7 +100,7 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 						color="currentColor"
 						label={automationActionIconLabel}
 						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-						isRovoBlockCardExperimentEnabled
+						(!!rovoProduct && rovoProduct === 'CONFLUENCE')
 							? { size: props.iconSize }
 							: {})}
 					/>

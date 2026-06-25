@@ -1,5 +1,43 @@
 # @atlaskit/editor-common
 
+## 116.13.0
+
+### Minor Changes
+
+- [`d461a7ef54404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d461a7ef54404) -
+  Add analytics for table cell vertical alignment changes
+
+### Patch Changes
+
+- [`38ea9ee83c0a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38ea9ee83c0a6) -
+  Clean up `linking_platform_datasource_assets_objects` feature gate (always-on). No behaviour
+  change for consumers — gate was already `true` everywhere via
+  `always-on-gates-DO_NOT_EDIT_THIS_FILE.ts`.
+- Updated dependencies
+
+## 116.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.12.0
+
+### Minor Changes
+
+- [`2c4d58951fcb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c4d58951fcb7) -
+  [ux] add Labs lozenge to suggested edits card footer and sidebar pill
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.11.1
 
 ### Patch Changes
@@ -31,7 +69,7 @@
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - [`64a0b50380570`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/64a0b50380570) - -
   Improve TypeScript auto-detection for class fields and typed arrow function params/return types.

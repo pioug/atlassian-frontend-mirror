@@ -476,6 +476,37 @@ describe('VCCalculator_FY25_03', () => {
 			expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
 		});
 
+		it('should exclude mutation:gen-ai-element entries', () => {
+			const calculator = new VCCalculator_FY25_03();
+			const entry = {
+				time: 100,
+				data: {
+					type: 'mutation:gen-ai-element' as const,
+					elementName: 'test-element',
+					rect: new DOMRect(0, 0, 100, 100),
+					visible: true,
+				},
+			};
+
+			expect((calculator as any).isEntryIncluded(entry, true)).toBe(false);
+		});
+
+		it('should exclude mutation:gen-ai-attribute entries', () => {
+			const calculator = new VCCalculator_FY25_03();
+			const entry = {
+				time: 100,
+				data: {
+					type: 'mutation:gen-ai-attribute' as const,
+					elementName: 'test-element',
+					rect: new DOMRect(0, 0, 100, 100),
+					visible: true,
+					attributeName: 'class',
+				},
+			};
+
+			expect((calculator as any).isEntryIncluded(entry, true)).toBe(false);
+		});
+
 		it('should exclude mutation:third-party-attribute entries', () => {
 			const entry: VCObserverEntry = {
 				time: 0,

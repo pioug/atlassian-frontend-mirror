@@ -38,6 +38,9 @@
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
 		},
 		{
@@ -45,9 +48,6 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		}
 	]
 }

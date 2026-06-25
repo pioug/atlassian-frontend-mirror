@@ -658,7 +658,7 @@ export const createTypeAheadConfig = ({
 			if (isAgentMentionInsertion) {
 				tr.setMeta(mentionPluginKey, {
 					action: ACTIONS.SET_PENDING_TYPED_AGENT_MENTION,
-					params: { localId: mentionLocalId },
+					params: { localId: mentionLocalId, name },
 				});
 			}
 

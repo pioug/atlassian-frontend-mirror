@@ -22,9 +22,6 @@ class ProviderClient extends CardClient {
 }
 
 /**
- * VR snapshot for the block card treatment cohort of
- * platform_sl_3p_auth_rovo_block_card_kill_switch.
- *
  * Uses the real Card component with appearance="block" so the snapshot
  * reflects the actual rendering pipeline (provider → resolver → block view).
  */

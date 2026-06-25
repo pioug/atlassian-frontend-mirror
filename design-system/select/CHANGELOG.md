@@ -5,7 +5,7 @@
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - [`9a892d8dc000e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a892d8dc000e) -
   Clean up feature gate `platform_navx_sllv_dropdown_escape_and_focus_fix`.

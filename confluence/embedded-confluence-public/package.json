@@ -16,7 +16,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -32,7 +32,7 @@
 		"ak-postbuild": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --config config/webpack.prod.js"
 	},
 	"dependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
 	"peerDependencies": {

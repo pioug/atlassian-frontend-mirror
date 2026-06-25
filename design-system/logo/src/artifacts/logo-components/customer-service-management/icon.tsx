@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2cbaafcea60527c20df8d8395e491b95>>
+ * @codegen <<SignedSource::adde776e49635255fd9de5c803442f95>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -22,10 +22,8 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __CustomerServiceManagementIcon__
  *
- * A temporary component to represent the icon for Customer Service Management.
- * @deprecated This component has been replaced by the component `CustomerServiceManagementIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * An internal component to represent the icon for Customer Service Management.
+ * Do not use this internal component directly — use `CustomerServiceManagementIcon` from `@atlaskit/logo` instead.
  *
  */
 export function CustomerServiceManagementIcon({

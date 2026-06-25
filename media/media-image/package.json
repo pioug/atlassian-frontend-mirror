@@ -25,7 +25,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -48,7 +48,7 @@
 		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/media-file-preview": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"react-error-boundary": "root:*"

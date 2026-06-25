@@ -1,5 +1,19 @@
 # @atlaskit/react-select
 
+## 4.2.0
+
+### Minor Changes
+
+- [`20d2823db303b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/20d2823db303b) -
+  [ux] Wraps the dropdown indicator chevron in a transparent `<button>` with `tabIndex={-1}` and
+  `aria-label="toggle select menu"` so voice control users can target it to open or close the menu
+  (e.g. "click toggle select menu"). Keyboard tab order is unchanged because the button is not
+  focusable. Visual appearance is unchanged because the button uses an `appearance: none` reset and
+  inherits color/padding from the existing dropdown indicator. The icon's `label` is cleared in this
+  mode to avoid duplicate accessibility-tree announcements. Behaviour is gated on
+  `platform_dst_select_dropdown_voice_control`; when the gate is off, the legacy
+  `aria-hidden="true"` wrapper continues to render.
+
 ## 4.1.1
 
 ### Patch Changes

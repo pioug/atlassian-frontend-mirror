@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eb9aeb5356c94e49f5de53d842e3d0d4>>
+ * @codegen <<SignedSource::bfca7e8c69d08b230a638cb452ab6ed9>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,7 +20,7 @@ const svg = `<svg height="100%" viewBox="0 0 73 24">
 /**
  * __AdminLogo__
  *
- * A temporary component to represent the logo for Admin.
+ * An internal component to represent the logo for Admin.
  *
  */
 export function AdminLogo({

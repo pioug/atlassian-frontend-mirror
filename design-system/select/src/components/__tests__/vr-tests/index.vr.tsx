@@ -49,3 +49,21 @@ snapshot(Invalid, {
 snapshot(CheckboxSelect, {
 	drawsOutsideBounds: true, // only captures the select trigger without this
 });
+
+// Voice-control accessible dropdown indicator: visual appearance must be
+// pixel-identical to the gate-off rendering, because the new <button> uses
+// an `appearance: none` reset and inherits color/padding from the existing
+// dropdown indicator. This snapshot guards against any unintended visual
+// regression when the gate is flipped on.
+snapshot(Basic, {
+	description: 'voice-control-dropdown-ff-on',
+	featureFlags: {
+		platform_dst_select_dropdown_voice_control: true,
+	},
+	variants: [
+		{
+			name: 'desktop chrome',
+			device: Device.DESKTOP_CHROME,
+		},
+	],
+});

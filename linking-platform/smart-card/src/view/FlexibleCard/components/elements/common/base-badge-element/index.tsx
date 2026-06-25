@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { IconType } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
 import { useFlexibleUiOptionContext } from '../../../../../../state/flexible-ui-context';
-import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import useRovoConfig from '../../../../../../state/hooks/use-rovo-config';
 import ImageIcon from '../../../../../common/image-icon';
 import AtlaskitIcon from '../../../common/atlaskit-icon';
 import { withOverrideCss } from '../../../common/with-override-css';
@@ -162,7 +162,7 @@ const BaseBadgeRefreshNew = forwardRef(
 		ref: React.Ref<HTMLElement>,
 	) => {
 		const ui = useFlexibleUiOptionContext();
-		const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
+		const { product } = useRovoConfig();
 
 		const formattedMessageOrLabel = getFormattedMessageFromIcon(icon) || label;
 		const badgeIcon =
@@ -171,7 +171,7 @@ const BaseBadgeRefreshNew = forwardRef(
 			return null;
 		}
 
-		const shouldHideLabel = hideLabel && isRovoBlockCardExperimentEnabled;
+		const shouldHideLabel = hideLabel && !!product && product === 'CONFLUENCE';
 
 		return (
 			<span

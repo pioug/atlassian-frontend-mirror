@@ -29,10 +29,10 @@
 			"path": "../../object/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../tokens/afm-cc/tsconfig.json"
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		},
 		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+			"path": "../../tokens/afm-cc/tsconfig.json"
 		}
 	]
 }

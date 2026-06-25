@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-decorations
 
+## 12.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.8
+
+### Patch Changes
+
+- [`b2f53114889ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2f53114889ac) -
+  Clean up feature gate `platform_editor_block_menu_jira_patch_1`
+- Updated dependencies
+
 ## 12.0.7
 
 ### Patch Changes

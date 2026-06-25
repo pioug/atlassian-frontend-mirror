@@ -80,6 +80,61 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 	}
 `;
 
+/**
+ * Interaction-overlay corner rounding only styles (the `::after` / `::before` / hover-danger
+ * pseudo-elements), split out of {@link roundedTableCellCornerStyles}.
+ *
+ * The base cell `border-*-radius` rules are emitted from the SSR-rendered
+ * `EditorContentContainer` (see `tableRoundedCornerStyles` in editor-core) so corners are
+ * rounded server-side. These overlay rules only apply during interaction (node selection
+ * wash, hover-to-delete danger highlight), which require a live editorView and therefore
+ * never render during SSR — so they intentionally stay in the client-only `<Global>` styles
+ * to avoid shipping dead CSS in the SSR payload.
+ */
+const roundedTableCellCornerInteractionOverlayStyles = (): SerializedStyles => css`
+	.${ClassName.TABLE_NODE_WRAPPER} > table {
+		> tbody > tr > td[data-reaches-top][data-reaches-left],
+		> tbody > tr > th[data-reaches-top][data-reaches-left] {
+			&::after,
+			&::before,
+			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
+				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+				border-top-left-radius: ${token('radius.xlarge')};
+			}
+		}
+
+		> tbody > tr > td[data-reaches-top][data-reaches-right],
+		> tbody > tr > th[data-reaches-top][data-reaches-right] {
+			&::after,
+			&::before,
+			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
+				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+				border-top-right-radius: ${token('radius.xlarge')};
+			}
+		}
+
+		> tbody > tr > td[data-reaches-bottom][data-reaches-left],
+		> tbody > tr > th[data-reaches-bottom][data-reaches-left] {
+			&::after,
+			&::before,
+			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
+				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+				border-bottom-left-radius: ${token('radius.xlarge')};
+			}
+		}
+
+		> tbody > tr > td[data-reaches-bottom][data-reaches-right],
+		> tbody > tr > th[data-reaches-bottom][data-reaches-right] {
+			&::after,
+			&::before,
+			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
+				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+				border-bottom-right-radius: ${token('radius.xlarge')};
+			}
+		}
+	}
+`;
+
 const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 	.${ClassName.TABLE_NODE_WRAPPER} > table {
 		/* Active-cell highlight base properties (replaces activeCellHighlightStyles).
@@ -704,7 +759,11 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 `;
 
 export const roundedTableOverrides = (): SerializedStyles => css`
-	${roundedTableCellCornerStyles()}
+	${fg('platform_editor_table_q4_patch_1')
+		? // Base corner radius is emitted from the SSR-rendered EditorContentContainer
+			// (tableRoundedCornerStyles in editor-core); only the interaction overlays remain here.
+			roundedTableCellCornerInteractionOverlayStyles()
+		: roundedTableCellCornerStyles()}
 	${roundedTableInteractionOverlayStyles()}
 	${fg('platform_editor_table_q4_patch_1') ? roundedTableSelectedNodeStyles() : ''}
 	${roundedTableNumberedColumnStyles()}

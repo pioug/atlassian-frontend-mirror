@@ -3,7 +3,7 @@
 		"react-compiler": {
 			"enabled": false,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -49,7 +49,7 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"react": "root:*"
 	}
 }

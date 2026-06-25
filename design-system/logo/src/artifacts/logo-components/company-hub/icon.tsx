@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::63914affcd58d9c9bf667fc4ef29acc3>>
+ * @codegen <<SignedSource::3ac62e14826e8b3e1f38977284672c29>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,10 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __CompanyHubIcon__
  *
- * A temporary component to represent the icon for Company Hub.
- * @deprecated This component has been replaced by the component `CompanyHubIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * An internal component to represent the icon for Company Hub.
+ * Do not use this internal component directly — use `CompanyHubIcon` from `@atlaskit/logo` instead.
  *
  */
 export function CompanyHubIcon({

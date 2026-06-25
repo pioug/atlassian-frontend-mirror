@@ -226,6 +226,7 @@ import {
 	tableContainerStyles,
 	tableEmptyRowStyles,
 	tableLayoutFixes,
+	tableRoundedCornerStyles,
 	tableLayoutFixesWithFontSize,
 	tableContentModeStyles,
 } from './styles/tableStyles';
@@ -851,6 +852,12 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				tableSharedStyle(),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				tableEmptyRowStyles,
+				// SSR-safe rounded corners (see tableRoundedCornerStyles). Gated to match the table plugin
+				// migration that drops roundedTableCellCornerStyles() from the client-only <Global> styles.
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+					fg('platform_editor_table_q4_patch_1') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					tableRoundedCornerStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

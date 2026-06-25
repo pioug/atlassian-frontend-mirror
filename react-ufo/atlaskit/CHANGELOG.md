@@ -1,11 +1,18 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.2.0
+
+### Minor Changes
+
+- [`fe55e2b75abf1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe55e2b75abf1) -
+  Add a gated UFOGenAISegment API and GenAI metric window support.
+
 ## 7.1.3
 
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

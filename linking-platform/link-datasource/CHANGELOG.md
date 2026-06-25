@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 6.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.6
 
 ### Patch Changes
@@ -35,7 +41,7 @@
 - [`5960cad1ecc81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5960cad1ecc81) -
   Remove unused platform feature flag declarations (no runtime impact)
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - [`6600d9566a565`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6600d9566a565) -
   Internal changes to use tokens for skeleton component border radius.

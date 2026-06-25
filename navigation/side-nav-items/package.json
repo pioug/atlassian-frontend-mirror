@@ -11,7 +11,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -60,9 +60,9 @@
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"tiny-invariant": "root:*"

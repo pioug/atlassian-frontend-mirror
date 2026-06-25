@@ -23,7 +23,7 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from '../layoutPluginType';
@@ -758,7 +758,7 @@ const insertLayoutColumnAt =
 		inputMethod: LayoutColumnActionInputMethod = INPUT_METHOD.LAYOUT_COLUMN_MENU,
 	): EditorCommand =>
 	({ tr }) => {
-		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+		if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
 		}
 
@@ -877,7 +877,7 @@ export const setLayoutColumnValign =
 		api?: LayoutPluginAPI,
 	): EditorCommand =>
 	({ tr }) => {
-		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+		if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
 		}
 
@@ -937,7 +937,7 @@ export const distributeLayoutColumns =
 		target = 'selectedColumns',
 	}: DistributeLayoutColumnsOptions = {}): EditorCommand =>
 	({ tr }) => {
-		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+		if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
 		}
 
@@ -1053,7 +1053,7 @@ export const deleteLayoutColumn =
 		api?: LayoutPluginAPI,
 	): EditorCommand =>
 	({ tr }) => {
-		if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+		if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
 			return null;
 		}
 

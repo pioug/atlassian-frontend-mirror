@@ -18,12 +18,16 @@ const shortName = ':smiley:';
 const smiley: EmojiDescription = emojiRepository.findByShortName(shortName) as EmojiDescription;
 const emojiId = toEmojiId(smiley);
 
-const renderButton = async (onClick: OnEmojiEvent = () => {}) => {
+const renderButton = async (
+	onClick: OnEmojiEvent = () => {},
+	hoverableReactionPickerSelectorEmoji = false,
+) => {
 	return renderWithIntl(
 		<EmojiButton
 			onClick={onClick}
 			emojiId={emojiId}
 			emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+			hoverableReactionPickerSelectorEmoji={hoverableReactionPickerSelectorEmoji}
 		/>,
 	);
 };

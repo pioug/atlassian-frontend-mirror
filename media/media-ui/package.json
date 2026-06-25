@@ -20,7 +20,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -49,6 +49,7 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/range": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -56,7 +57,6 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/styled": "root:*",

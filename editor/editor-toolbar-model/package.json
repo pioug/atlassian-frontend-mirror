@@ -3,7 +3,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -26,9 +26,9 @@
 		"./types": "./src/entry-points/types.ts"
 	},
 	"dependencies": {
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
@@ -77,7 +77,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-toolbar-model",
-	"version": "1.0.7",
+	"version": "1.0.9",
 	"description": "register and render toolbar component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

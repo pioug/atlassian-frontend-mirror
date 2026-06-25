@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getDatasourceType } from './getDatasourceType';
 
 export const canRenderDatasource = (
@@ -10,12 +8,8 @@ export const canRenderDatasource = (
 
 	switch (datasourceType) {
 		case 'jira':
-			return true;
 		case 'assets':
-			if (fg('linking_platform_datasource_assets_objects')) {
-				return true;
-			}
-			return false;
+			return true;
 		default:
 			return defaultValue;
 	}

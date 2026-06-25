@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 221.3.6
+
+### Patch Changes
+
+- [`66d869b3fdc74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66d869b3fdc74) -
+  [ux] Style changes to fix tables with rounded corners.
+- Updated dependencies
+
+## 221.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.3.3
+
+### Patch Changes
+
+- [`db314df1b46db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db314df1b46db) -
+  Hides blank page actions in markdown view. Also minor padding and alighment fixes
+- Updated dependencies
+
 ## 221.3.2
 
 ### Patch Changes
@@ -32,7 +60,7 @@
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

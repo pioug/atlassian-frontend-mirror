@@ -7,7 +7,6 @@ import { PureComponent } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { fireEvent, render, screen, userEvent } from '@atlassian/testing-library';
 
 import {
@@ -108,84 +107,43 @@ describe('TitleBlock', () => {
 			ActionName.CustomAction,
 		];
 
-		ffTest.on('platform_sl_3p_auth_rovo_block_card_kill_switch', '', () => {
-			describe.each<[SmartLinkStatus, ActionName[]]>([
-				[SmartLinkStatus.Resolved, Object.values(ActionName)],
-				[SmartLinkStatus.Resolving, nonResolvedAllowedActions],
-				[SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
-				[SmartLinkStatus.Errored, nonResolvedAllowedActions],
-				[SmartLinkStatus.NotFound, nonResolvedAllowedActions],
-				[SmartLinkStatus.Unauthorized, nonResolvedAllowedActions],
-				[SmartLinkStatus.Fallback, nonResolvedAllowedActions],
-			])('Case: %s', (status, allowedActionNames) => {
-				it.each<ActionName>(allowedActionNames)(
-					`should render %s action in ${status} view`,
-					async (allowedActionName) => {
-						const testId = 'smart-element-test';
+		describe.each<[SmartLinkStatus, ActionName[]]>([
+			[SmartLinkStatus.Resolved, Object.values(ActionName)],
+			[SmartLinkStatus.Resolving, nonResolvedAllowedActions],
+			[SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
+			[SmartLinkStatus.Errored, nonResolvedAllowedActions],
+			[SmartLinkStatus.NotFound, nonResolvedAllowedActions],
+			[SmartLinkStatus.Unauthorized, nonResolvedAllowedActions],
+			[SmartLinkStatus.Fallback, nonResolvedAllowedActions],
+		])('Case: %s', (status, allowedActionNames) => {
+			it.each<ActionName>(allowedActionNames)(
+				`should render %s action in ${status} view`,
+				async (allowedActionName) => {
+					const testId = 'smart-element-test';
 
-						const action =
-							allowedActionName === ActionName.CustomAction
-								? makeCustomActionItem({
-										testId: `${testId}-1`,
-									})
-								: allowedActionName === ActionName.RovoChatAction
-									? {
-											name: allowedActionName,
-											testId: `${testId}`,
-											onClick: () => {},
-										}
-									: {
-											name: allowedActionName,
-											testId: `${testId}-1`,
-											onClick: () => {},
-										};
-
-						renderTitleBlock({ actions: [action] }, undefined, status);
-
-						const element = await screen.findByTestId(`smart-element-test-1`);
-						expect(element).toBeDefined();
-					},
-				);
-			});
-		});
-
-		ffTest.off('platform_sl_3p_auth_rovo_block_card_kill_switch', '', () => {
-			const resolvedAllowedActions = Object.values(ActionName).filter(
-				(name) => name !== ActionName.RovoChatAction,
-			);
-
-			describe.each<[SmartLinkStatus, ActionName[]]>([
-				[SmartLinkStatus.Resolved, resolvedAllowedActions],
-				[SmartLinkStatus.Resolving, nonResolvedAllowedActions],
-				[SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
-				[SmartLinkStatus.Errored, nonResolvedAllowedActions],
-				[SmartLinkStatus.NotFound, nonResolvedAllowedActions],
-				[SmartLinkStatus.Unauthorized, nonResolvedAllowedActions],
-				[SmartLinkStatus.Fallback, nonResolvedAllowedActions],
-			])('Case: %s', (status, allowedActionNames) => {
-				it.each<ActionName>(allowedActionNames)(
-					`should render %s action in ${status} view`,
-					async (allowedActionName) => {
-						const testId = 'smart-element-test';
-
-						const action =
-							allowedActionName === ActionName.CustomAction
-								? makeCustomActionItem({
-										testId: `${testId}-1`,
-									})
+					const action =
+						allowedActionName === ActionName.CustomAction
+							? makeCustomActionItem({
+									testId: `${testId}-1`,
+								})
+							: allowedActionName === ActionName.RovoChatAction
+								? {
+										name: allowedActionName,
+										testId: `${testId}`,
+										onClick: () => {},
+									}
 								: {
 										name: allowedActionName,
 										testId: `${testId}-1`,
 										onClick: () => {},
 									};
 
-						renderTitleBlock({ actions: [action] }, undefined, status);
+					renderTitleBlock({ actions: [action] }, undefined, status);
 
-						const element = await screen.findByTestId(`smart-element-test-1`);
-						expect(element).toBeDefined();
-					},
-				);
-			});
+					const element = await screen.findByTestId(`smart-element-test-1`);
+					expect(element).toBeDefined();
+				},
+			);
 		});
 
 		// Uncomment and implement when new actions (like Download and preview) are added

@@ -1,5 +1,30 @@
 # @atlaskit/editor-statsig-tmp
 
+## 113.0.0
+
+### Major Changes
+
+- [`0aced23fb1739`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0aced23fb1739) -
+  Clean up experiment platform_editor_fix_selection_wrapped_media_embed
+
+## 112.0.0
+
+### Major Changes
+
+- [`8465eeaf9cc9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8465eeaf9cc9f) -
+  Clean up experiment `platform_editor_user_preference_override`
+- [`9c64d42d5b44e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c64d42d5b44e) -
+  NAVX-5237 Cleaning up and shipping the block card post-auth 3P experiment for Confluence in
+  platform
+
+## 111.1.0
+
+### Minor Changes
+
+- [`b48ea9bf2eb3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b48ea9bf2eb3b) -
+  [ux] Add the advanced header image generation experiment and send its enabled value with header
+  image generation requests.
+
 ## 111.0.0
 
 ### Major Changes

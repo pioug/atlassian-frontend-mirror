@@ -82,6 +82,7 @@ type ChatModeParam = {
 	deepResearchEnabled?: boolean;
 	thinkDeeperEnabled?: boolean;
 	fastModeEnabled?: boolean;
+	taskModeEnabled?: boolean;
 	webSearchEnabled?: boolean;
 	useCurrentPageContext?: boolean;
 	appFilters?: unknown[];

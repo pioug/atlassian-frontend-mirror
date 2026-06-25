@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.1.2
+
+### Patch Changes
+
+- [`0aced23fb1739`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0aced23fb1739) -
+  Clean up experiment platform_editor_fix_selection_wrapped_media_embed
+- Updated dependencies
+
+## 13.1.1
+
+### Patch Changes
+
+- [`b2f53114889ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2f53114889ac) -
+  Clean up feature gate `platform_editor_block_menu_jira_patch_1`
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes

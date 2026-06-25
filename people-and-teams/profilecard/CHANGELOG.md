@@ -1,5 +1,36 @@
 # @atlaskit/profilecard
 
+## 26.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.2.1
+
+### Patch Changes
+
+- [`88745c9ee6398`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88745c9ee6398) -
+  A11Y-35182 Fix Give Kudos button incorrect ARIA role, it should renders as a <button> instead of
+  an <a>
+
+## 26.2.0
+
+### Minor Changes
+
+- [`f4abaa54b4859`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4abaa54b4859) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.1.7
 
 ### Patch Changes
@@ -11,7 +42,7 @@
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

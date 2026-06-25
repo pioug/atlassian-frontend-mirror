@@ -24,11 +24,9 @@ const CardExample = ({
 }) => {
 	const fallback = useMemo(() => <span>😭Something went wrong.</span>, []);
 	const onError = useCallback((err: Error) => console.error(err.message), []);
-	const actionOptions =
-		fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-		fg('platform_sl_3p_auth_rovo_block_card_kill_switch')
-			? { hide: false, rovoChatAction: { optIn: true } }
-			: undefined;
+	const actionOptions = fg('platform_sl_3p_auth_rovo_action_kill_switch')
+		? { hide: false, rovoChatAction: { optIn: true } }
+		: undefined;
 
 	return (
 		<Stack space="space.100">

@@ -19,7 +19,6 @@ import {
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/box';
 import Text from '@atlaskit/primitives/text';
 import { token } from '@atlaskit/tokens';
@@ -74,7 +73,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 			deleteSelectedRange(tr, preservedSelection);
 
 			api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
-			if (preservedSelection && fg('platform_editor_block_menu_jira_patch_1')) {
+			if (preservedSelection) {
 				api?.blockControls?.commands?.stopPreservingSelection()({ tr });
 			}
 			return tr;
@@ -84,14 +83,7 @@ const DeleteDropdownItemContent = ({ api }: Props) => {
 
 	const onShowHoverDecoration = useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
-			// [FEATURE FLAG: platform_editor_block_menu_jira_patch_1]
-			// Passes preservedSelection (NodeSelection) to hoverDecoration so paragraph nodes
-			// are correctly highlighted on hover over Delete. Without this, tr.selection is a
-			// collapsed TextSelection which produces no decorations for paragraphs.
-			// To clean up: always pass preservedSelection, remove the feature flag check.
-			const preservedSelection = fg('platform_editor_block_menu_jira_patch_1')
-				? api?.blockControls?.sharedState.currentState()?.preservedSelection
-				: undefined;
+			const preservedSelection = api?.blockControls?.sharedState.currentState()?.preservedSelection;
 			api?.decorations?.commands?.hoverDecoration?.({
 				add: true,
 				selection: preservedSelection,

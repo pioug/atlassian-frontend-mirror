@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::392efb90243b970840f8c509d2a28ebb>>
+ * @codegen <<SignedSource::26a3fa3816427b9c5f9d8a06e9aaf032>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -25,7 +25,7 @@ const customThemeSvg = `<svg height="100%" viewBox="0 0 247 24">
 /**
  * __CustomerServiceManagementLogo__
  *
- * A temporary component to represent the logo for Customer Service Management.
+ * An internal component to represent the logo for Customer Service Management.
  *
  */
 export function CustomerServiceManagementLogo({

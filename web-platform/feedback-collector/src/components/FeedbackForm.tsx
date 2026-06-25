@@ -73,6 +73,8 @@ interface Props {
 	customFeedbackOptions?: OptionType[];
 	/** React Ref to focus on close */
 	shouldReturnFocusRef?: React.RefObject<HTMLElement>;
+	/** Ref to the rendered feedback dialog container */
+	dialogRef?: React.RefObject<HTMLElement>;
 	/** Disable submit button to allow custom content to handle validation */
 	disableSubmitButton?: boolean;
 	/** Optional to show or hide the required fields summary */
@@ -122,6 +124,7 @@ const FeedbackForm = ({
 	customTextAreaLabel,
 	customFeedbackOptions = [],
 	shouldReturnFocusRef,
+	dialogRef,
 	disableSubmitButton,
 	showRequiredFieldsSummary = true,
 }: Props) => {
@@ -249,6 +252,7 @@ const FeedbackForm = ({
 
 	return (
 		<Modal
+			ref={dialogRef}
 			shouldCloseOnOverlayClick={false}
 			onClose={onClose}
 			testId="feedbackCollectorModalDialog"

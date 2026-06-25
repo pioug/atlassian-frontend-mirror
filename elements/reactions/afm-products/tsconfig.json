@@ -44,6 +44,9 @@
 			"path": "../../emoji/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../measurement/feature-gate-js-client/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/heading/afm-products/tsconfig.json"
 		},
 		{
@@ -74,6 +77,9 @@
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../react-ufo/atlaskit/afm-products/tsconfig.json"
 		},
 		{
@@ -99,9 +105,6 @@
 		},
 		{
 			"path": "../../util-service-support/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		}
 	]
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.1.7",
+	"version": "26.2.3",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,7 +17,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -90,6 +90,7 @@
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/rovo-agent-components": "workspace:^",
 		"@atlaskit/rovo-triggers": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
@@ -102,7 +103,6 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@atlassian/studio-entry-link": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -211,6 +211,9 @@
 			"type": "boolean"
 		},
 		"teams_app_react_19_upgrade": {
+			"type": "boolean"
+		},
+		"fix_give_kudos_btn_incorrect_role": {
 			"type": "boolean"
 		},
 		"create_modernization_ga_fixes_drop_2": {

@@ -1,11 +1,21 @@
 # @atlaskit/logo
 
+## 21.1.2
+
+### Patch Changes
+
+- [`78b18c51d5855`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78b18c51d5855) -
+  Updated logo package codegen. Internal artifact components (icons and logos) now use clearer JSDoc
+  descriptions distinguishing migration logos (with deprecation notices) from non-migration logos
+  (with "internal component" notices). Also fixes TypeScript errors in `temp-size-wrapper` to
+  correctly accept `UtilityIconProps` components.
+
 ## 21.1.1
 
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

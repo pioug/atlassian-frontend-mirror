@@ -18,7 +18,6 @@ import {
 	SmartLinkWidth,
 } from '../../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import { isBlockCardRovoActionExperimentEnabled } from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { Provider } from '../../../elements';
 import ActionGroup from '../../action-group';
 import Block from '../../block';
@@ -53,11 +52,13 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 	} = props;
 	const context = useFlexibleUiContext();
 	const rovoChatAction = context?.actions?.[ActionName.RovoChatAction];
-	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(
-		rovoChatAction?.product,
-	);
+
 	const hasPreview =
-		!!rovoChatAction && is3PBlockExperimentEnabled && !!context?.preview && !isPreviewBlockErrored;
+		!!rovoChatAction &&
+		!!rovoChatAction?.product &&
+		rovoChatAction?.product === 'CONFLUENCE' &&
+		!!context?.preview &&
+		!isPreviewBlockErrored;
 
 	const hasActions = useMemo(
 		() => filterActionItems(actions, context)?.length > 0,
@@ -86,7 +87,7 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 					appearance="subtle"
 					testId={`${testId}-provider`}
 					hideLabel={hasPreview}
-					css={[!!rovoChatAction && is3PBlockExperimentEnabled && providerStyles]}
+					css={[!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE' && providerStyles]}
 				/>
 			)}
 			{actions && hasActions ? (
@@ -97,20 +98,28 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 					css={[
 						size === SmartLinkSize.XLarge && actionGroupStyles,
 						safari && safariStyles,
-						!!rovoChatAction && is3PBlockExperimentEnabled && rovoActionStyles,
+						!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE' && rovoActionStyles,
 					]}
 					width={SmartLinkWidth.Flexible}
 				>
-					{!!rovoChatAction && is3PBlockExperimentEnabled && (
+					{!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE' && (
 						<WidthObserver setWidth={setContainerWidth} offscreen={true} />
 					)}
 					<ActionGroup
 						onDropdownOpenChange={onDropdownOpenChange}
 						items={actions}
-						appearance={!!rovoChatAction && is3PBlockExperimentEnabled ? 'subtle' : 'default'}
-						size={!!rovoChatAction && is3PBlockExperimentEnabled ? SmartLinkSize.Small : size}
+						appearance={
+							!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE' ? 'subtle' : 'default'
+						}
+						size={
+							!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE'
+								? SmartLinkSize.Small
+								: size
+						}
 						containerWidth={
-							!!rovoChatAction && is3PBlockExperimentEnabled ? containerWidth : undefined
+							!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE'
+								? containerWidth
+								: undefined
 						}
 					/>
 				</ElementGroup>

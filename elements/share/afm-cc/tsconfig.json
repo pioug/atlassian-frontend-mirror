@@ -65,6 +65,9 @@
 			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../smart-experiences/smart-user-picker/afm-cc/tsconfig.json"
 		},
 		{
@@ -93,9 +96,6 @@
 		},
 		{
 			"path": "../../util-service-support/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		}
 	]
 }

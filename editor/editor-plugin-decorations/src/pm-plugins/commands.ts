@@ -5,7 +5,6 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection, TableMap } from '@atlaskit/editor-tables';
 import { findTableClosestToPos } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { HoverDecorationCommand } from '../decorationsPluginType';
@@ -15,12 +14,7 @@ import { ACTIONS, decorationStateKey } from './main';
 export const hoverDecorationCommand: HoverDecorationCommand =
 	({ add, className = 'danger selected', selection: providedSelection }) =>
 	({ tr }) => {
-		// [FEATURE FLAG: platform_editor_block_menu_jira_patch_1]
-		// Use the provided selection (e.g., preservedSelection) or fall back to tr.selection.
-		// To clean up: always use providedSelection || tr.selection, remove the feature flag check.
-		const selection =
-			(fg('platform_editor_block_menu_jira_patch_1') ? providedSelection : undefined) ||
-			tr.selection;
+		const selection = providedSelection || tr.selection;
 		const decorations: Decoration[] = [];
 
 		const handleTableSelection = (pos: ResolvedPos = selection.$from) => {

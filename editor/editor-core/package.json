@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "221.3.2",
+	"version": "221.3.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -64,13 +64,13 @@
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/task-decision": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
@@ -166,10 +166,6 @@
 	"platform-feature-flags": {
 		"platform_editor_reconfigure_filter_plugins": {
 			"type": "boolean"
-		},
-		"linking_platform_datasource_assets_objects": {
-			"type": "boolean",
-			"referenceOnly": "true"
 		},
 		"platform_editor_md_mvp_layout": {
 			"type": "boolean"
@@ -323,6 +319,9 @@
 			"type": "boolean"
 		},
 		"platform_synced_block_patch_14": {
+			"type": "boolean"
+		},
+		"platform_editor_table_q4_patch_1": {
 			"type": "boolean"
 		}
 	},

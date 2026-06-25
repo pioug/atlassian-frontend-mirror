@@ -3,11 +3,9 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider';
 import type { ProductType } from '@atlaskit/linking-common';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderHook } from '@atlassian/testing-library';
 
-import useBlockCardRovoActionExperiment from '../index';
+import useBlockCardRovoAction from '../index';
 
 const mockUrl = 'https://www.mockurl.com';
 
@@ -62,131 +60,74 @@ const wrapper =
 		);
 	};
 
-describe('useBlockCardRovoActionExperiment', () => {
-	it('returns isEnabled=false when rovo is disabled', () => {
-		const result = renderHook(() => useBlockCardRovoActionExperiment(mockUrl), {
+describe('useBlockCardRovoAction', () => {
+	it('returns false when rovo is disabled', () => {
+		const result = renderHook(() => useBlockCardRovoAction(mockUrl), {
 			wrapper: wrapper(disabledRovoOptions),
 		});
-		expect(result.current.isEnabled).toBe(false);
+		expect(result.current).toBe(false);
 	});
 
-	it('returns isEnabled=false when extensionKey is figma-object-provider', () => {
-		const result = renderHook(() => useBlockCardRovoActionExperiment(mockUrl), {
+	it('returns false when extensionKey is figma-object-provider', () => {
+		const result = renderHook(() => useBlockCardRovoAction(mockUrl), {
 			wrapper: wrapper(enabledRovoOptions, 'figma-object-provider'),
 		});
-		expect(result.current.isEnabled).toBe(false);
+		expect(result.current).toBe(false);
 	});
 
 	it('returns isEnabled=false when supportedFeature does not include RovoActions', () => {
-		const result = renderHook(() => useBlockCardRovoActionExperiment(mockUrl), {
+		const result = renderHook(() => useBlockCardRovoAction(mockUrl), {
 			wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', []),
 		});
-		expect(result.current.isEnabled).toBe(false);
+		expect(result.current).toBe(false);
 	});
 
-	eeTest
-		.describe(
-			'platform_sl_3p_auth_rovo_block_card_confluence',
-			'block card rovo action experiment confluence on',
-		)
-		.variant(true, () => {
-			ffTest.on('platform_sl_3p_auth_rovo_block_card_kill_switch', '', () => {
-				it('returns isEnabled=true when rovo is enabled and experiment is on', () => {
-					const result = renderHook(
-						() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-						{
-							wrapper: wrapper(
-								enabledRovoOptions,
-								'slack-object-provider',
-								undefined,
-								'CONFLUENCE',
-							),
-						},
-					);
-					expect(result.current.isEnabled).toBe(true);
-				});
-
-				it('returns isEnabled=true for eligible extensionKeys', () => {
-					const result = renderHook(
-						() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-						{
-							wrapper: wrapper(
-								enabledRovoOptions,
-								'onedrive-object-provider',
-								undefined,
-								'CONFLUENCE',
-							),
-						},
-					);
-					expect(result.current.isEnabled).toBe(true);
-				});
-
-				it('returns isEnabled=true for google-object-provider', () => {
-					const result = renderHook(
-						() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-						{
-							wrapper: wrapper(
-								enabledRovoOptions,
-								'google-object-provider',
-								undefined,
-								'CONFLUENCE',
-							),
-						},
-					);
-					expect(result.current.isEnabled).toBe(true);
-				});
-
-				it('returns isEnabled=false when actionOptions.rovoChatAction.optIn is not true', () => {
-					const result = renderHook(
-						() =>
-							useBlockCardRovoActionExperiment(mockUrl, {
-								hide: false,
-								rovoChatAction: { optIn: false },
-							}),
-						{
-							wrapper: wrapper(enabledRovoOptions, 'slack-object-provider'),
-						},
-					);
-					expect(result.current.isEnabled).toBe(false);
-				});
-
-				it('returns isEnabled=false when actionOptions is not provided', () => {
-					const result = renderHook(() => useBlockCardRovoActionExperiment(mockUrl), {
-						wrapper: wrapper(enabledRovoOptions, 'slack-object-provider'),
-					});
-					expect(result.current.isEnabled).toBe(false);
-				});
-
-				it('returns isEnabled=false when rovo is disabled even with experiment on', () => {
-					const result = renderHook(() => useBlockCardRovoActionExperiment(mockUrl), {
-						wrapper: wrapper(disabledRovoOptions),
-					});
-					expect(result.current.isEnabled).toBe(false);
-				});
-			});
-
-			it('returns isEnabled=false when product is not Confluence even with experiment on', () => {
-				const result = renderHook(
-					() => useBlockCardRovoActionExperiment(mockUrl, optedInActionOptions),
-					{
-						wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'JSM'),
-					},
-				);
-				expect(result.current.isEnabled).toBe(false);
-			});
+	it('returns true when rovo is enabled and experiment is on', () => {
+		const result = renderHook(() => useBlockCardRovoAction(mockUrl, optedInActionOptions), {
+			wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'CONFLUENCE'),
 		});
+		expect(result.current).toBe(true);
+	});
 
-	eeTest
-		.describe(
-			'platform_sl_3p_auth_rovo_block_card_confluence',
-			'block card rovo action experiment confluence off',
-		)
-		.variant(false, () => {
-			it('returns isEnabled=false when experiment is off', () => {
-				const result = renderHook(() => useBlockCardRovoActionExperiment(mockUrl), {
-					wrapper: wrapper(),
-				});
-				expect(result.current.isEnabled).toBe(false);
-			});
+	it('returns true for eligible extensionKeys', () => {
+		const result = renderHook(() => useBlockCardRovoAction(mockUrl, optedInActionOptions), {
+			wrapper: wrapper(enabledRovoOptions, 'onedrive-object-provider', undefined, 'CONFLUENCE'),
 		});
+		expect(result.current).toBe(true);
+	});
+
+	it('returns true for google-object-provider', () => {
+		const result = renderHook(() => useBlockCardRovoAction(mockUrl, optedInActionOptions), {
+			wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'CONFLUENCE'),
+		});
+		expect(result.current).toBe(true);
+	});
+
+	it('returns false when actionOptions.rovoChatAction.optIn is not true', () => {
+		const result = renderHook(
+			() =>
+				useBlockCardRovoAction(mockUrl, {
+					hide: false,
+					rovoChatAction: { optIn: false },
+				}),
+			{
+				wrapper: wrapper(enabledRovoOptions, 'slack-object-provider'),
+			},
+		);
+		expect(result.current).toBe(false);
+	});
+
+	it('returns false when actionOptions is not provided', () => {
+		const result = renderHook(() => useBlockCardRovoAction(mockUrl), {
+			wrapper: wrapper(enabledRovoOptions, 'slack-object-provider'),
+		});
+		expect(result.current).toBe(false);
+	});
+
+	it('returns false when product is not Confluence', () => {
+		const result = renderHook(() => useBlockCardRovoAction(mockUrl, optedInActionOptions), {
+			wrapper: wrapper(enabledRovoOptions, 'slack-object-provider', undefined, 'JSM'),
+		});
+		expect(result.current).toBe(false);
+	});
 });

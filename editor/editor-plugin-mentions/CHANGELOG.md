@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.2
+
+### Patch Changes
+
+- [`484e372703a0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/484e372703a0e) -
+  [ux] EDITOR-7822: add agent name to nudge
+- Updated dependencies
+
 ## 14.4.1
 
 ### Patch Changes

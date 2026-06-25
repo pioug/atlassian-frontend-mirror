@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::edd23980285704c09d78f5241a37a99c>>
+ * @codegen <<SignedSource::525e888921a2eb67ac3477c558f06bd0>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -20,7 +20,7 @@ const svg = `<svg height="100%" viewBox="0 0 95 32">
 /**
  * __HubLogoCS__
  *
- * A temporary component to represent the logo for Hub.
+ * An internal component to represent the logo for Hub.
  *
  */
 export function HubLogoCS({

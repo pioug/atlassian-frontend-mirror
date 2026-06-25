@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d19396c378541211d8225aae490bcbcf>>
+ * @codegen <<SignedSource::90317e51e9a9185b7a39157502e3ebed>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -21,7 +21,7 @@ const svg = `<svg height="100%" viewBox="0 0 372 32">
 /**
  * __JiraServiceManagementDataCenterLogoCS__
  *
- * A temporary component to represent the logo for Jira Service Management Data Center.
+ * An internal component to represent the logo for Jira Service Management Data Center.
  *
  */
 export function JiraServiceManagementDataCenterLogoCS({

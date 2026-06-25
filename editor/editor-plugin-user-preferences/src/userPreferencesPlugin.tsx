@@ -1,6 +1,5 @@
 import { useResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
 import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	clearOverrideUserPreference,
@@ -57,26 +56,22 @@ export const userPreferencesPlugin: UserPreferencesPlugin = ({ config, api }) =>
 				return null;
 			}
 
-			if (expValEquals('platform_editor_user_preference_override', 'isEnabled', true)) {
-				const state = userPreferencesPluginKey.getState(editorState);
+			const state = userPreferencesPluginKey.getState(editorState);
 
-				// state can return undefined if the plugin hasn't been registered
-				if (!state) {
-					return null;
-				} else if (!state.overrides || Object.keys(state.overrides).length === 0) {
-					return state;
-				}
-
-				return {
-					...state,
-					preferences: {
-						...state.preferences,
-						...state.overrides,
-					},
-				};
+			// state can return undefined if the plugin hasn't been registered
+			if (!state) {
+				return null;
+			} else if (!state.overrides || Object.keys(state.overrides).length === 0) {
+				return state;
 			}
 
-			return userPreferencesPluginKey.getState(editorState);
+			return {
+				...state,
+				preferences: {
+					...state.preferences,
+					...state.overrides,
+				},
+			};
 		},
 		usePluginHook({ editorView }) {
 			const { resolvedUserPreferences } = useResolvedUserPreferences(userPreferencesProvider);

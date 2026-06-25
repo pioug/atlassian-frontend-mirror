@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "116.11.1",
+	"version": "116.13.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -700,6 +700,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/profilecard": "workspace:^",
 		"@atlaskit/prosemirror-history": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
@@ -712,7 +713,6 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
@@ -790,9 +790,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_updated_dropdown_colors": {
-			"type": "boolean"
-		},
-		"linking_platform_datasource_assets_objects": {
 			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {

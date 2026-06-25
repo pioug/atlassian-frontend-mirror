@@ -132,6 +132,8 @@ export interface Props {
 	customFeedbackOptions?: OptionType[];
 	/** Optional ref to return focus to after feedback form is closed */
 	shouldReturnFocusRef?: React.RefObject<HTMLElement>;
+	/** Ref to the rendered feedback dialog container */
+	dialogRef?: React.RefObject<HTMLElement>;
 	/** Disable submit button to allow custom content to handle validation */
 	disableSubmitButton?: boolean;
 	/** Optional to show or hide the required fields summary */
@@ -591,6 +593,7 @@ export default class FeedbackCollector extends Component<Props> {
 				customTextAreaLabel={this.props.customTextAreaLabel}
 				customFeedbackOptions={this.props.customFeedbackOptions}
 				shouldReturnFocusRef={this.props.shouldReturnFocusRef}
+				dialogRef={this.props.dialogRef}
 				disableSubmitButton={this.props.disableSubmitButton}
 				{...(fg('jfp_a11y_team_feedback_collector_nested_elements') && {
 					enrolInResearchLink: this.props.enrolInResearchLink,

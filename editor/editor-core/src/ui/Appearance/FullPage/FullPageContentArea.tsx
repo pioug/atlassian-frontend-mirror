@@ -286,7 +286,7 @@ const markdownModeContentAreaStyle = css({
 	maxWidth: 'none',
 	minWidth: 0,
 	paddingBottom: 0,
-	paddingTop: 0,
+	paddingTop: token('space.500'),
 	width: '100%',
 	// The markdown source view is rendered through PluginSlot. Stretch those
 	// intermediate wrappers so its in-flow footer can sit at the bottom without

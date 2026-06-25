@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 45.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.4.0
+
+### Minor Changes
+
+- [`9c64d42d5b44e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c64d42d5b44e) -
+  NAVX-5237 Cleaning up and shipping the block card post-auth 3P experiment for Confluence in
+  platform
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.3.2
 
 ### Patch Changes
@@ -34,7 +52,7 @@
 - [`5960cad1ecc81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5960cad1ecc81) -
   Remove unused platform feature flag declarations (no runtime impact)
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

@@ -20,7 +20,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -58,12 +58,12 @@
 		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-select": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/top-layer": "workspace:^",
 		"@atlaskit/visually-hidden": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@popperjs/core": "root:*",
@@ -93,6 +93,7 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"ast-types": "root:*",
@@ -129,6 +130,10 @@
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
+		},
+		"platform_dst_select_dropdown_voice_control": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"homepage": "https://atlassian.design/components/select/"

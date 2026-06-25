@@ -6,7 +6,11 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
+import {
+	createSelectionClickHandler,
+	GapCursorSelection,
+	Side,
+} from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
 import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
@@ -20,26 +24,63 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPluginOptions } from '../types';
 
+import type { ToggleLayoutColumnMenuOptions } from './actions';
 import {
 	fixColumnSizes,
 	fixColumnStructure,
 	getSelectedLayout,
 	LAYOUT_COLUMN_INSERT_META,
 } from './actions';
-import type { ToggleLayoutColumnMenuOptions } from './actions';
 import { getColumnDividerDecorations } from './column-resize-divider';
 import { EVEN_DISTRIBUTED_COL_WIDTHS } from './consts';
 import { pluginKey } from './plugin-key';
 import { pluginKey as layoutResizingPluginKey } from './resizing';
 import type { Change, LayoutState } from './types';
-import { getMaybeLayoutSection } from './utils';
+import {
+	getGapCursorTargetForBlankSpaceClick,
+	getMaybeLayoutSection,
+	isParagraphBlankSpaceTarget,
+} from './utils';
 import { getSelectedLayoutColumnsFromSelection } from './utils/layout-column-selection';
 
 export const DEFAULT_LAYOUT = 'two_equal';
+
+/**
+ * Shared blank-space gap cursor placement, used by both `handleClick` and `handleClickOn`
+ * (the latter catches clicks on atomic node views that stop propagation before `handleClick`).
+ * Returns `true` when it placed a selection and consumed the click, else `false`.
+ */
+const applyBlankSpaceGapCursor = (view: EditorView, event: MouseEvent): boolean => {
+	if (
+		!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) ||
+		!editorExperiment('advanced_layouts', true)
+	) {
+		return false;
+	}
+	const gapTarget = getGapCursorTargetForBlankSpaceClick(view, event);
+	if (gapTarget === undefined) {
+		return false;
+	}
+	const $pos = view.state.doc.resolve(gapTarget.pos);
+	// A paragraph child takes a TextSelection (caret at the edge) rather than a gap cursor.
+	const isParagraphTarget = isParagraphBlankSpaceTarget(view, gapTarget);
+	const nextSelection = isParagraphTarget
+		? TextSelection.near($pos, gapTarget.side === 'left' ? 1 : -1)
+		: new GapCursorSelection($pos, gapTarget.side === 'left' ? Side.LEFT : Side.RIGHT);
+	// Idempotency guard: `mousedown` already placed this selection, but the browser still
+	// fires `mouseup`, so `handleClick`/`handleClickOn` re-run for the same click. Consume it
+	// without re-dispatching (which would add a redundant undo entry).
+	if (view.state.selection.eq(nextSelection)) {
+		return true;
+	}
+	view.dispatch(view.state.tr.setSelection(nextSelection).scrollIntoView());
+	return true;
+};
 
 const isWholeSelectionInsideLayoutColumn = (state: EditorState): boolean => {
 	// Since findParentNodeOfType doesn't check if selection.to shares the parent, we do this check ourselves
@@ -385,15 +426,56 @@ export default (
 				Backspace: handleDeleteLayoutColumn,
 				Delete: handleDeleteLayoutColumn,
 			}),
-			handleClickOn: createSelectionClickHandler(
-				['layoutColumn'],
-				(target) =>
-					target.hasAttribute('data-layout-section') || target.hasAttribute('data-layout-column'),
-				{
-					useLongPressSelection: options.useLongPressSelection || false,
-					getNodeSelectionPos: (state, nodePos) => state.doc.resolve(nodePos).before(),
+			handleDOMEvents: {
+				// Place the gap cursor on `mousedown` (not `mouseup`) so the caret never flashes
+				// inside a nested editable child first.
+				mousedown(view, event: MouseEvent) {
+					const target = event.target as HTMLElement | null;
+					if (target?.hasAttribute('data-layout-section')) {
+						return false;
+					}
+					if (applyBlankSpaceGapCursor(view, event)) {
+						event.preventDefault();
+						// `preventDefault()` blocks the editor focus that makes the gap cursor blink,
+						// so restore it here. The `handleClick`/`handleClickOn` paths don't need this.
+						if (!view.hasFocus()) {
+							view.focus();
+						}
+						return true;
+					}
+					return false;
 				},
-			),
+			},
+			handleClickOn: (() => {
+				const selectionClickHandler = createSelectionClickHandler(
+					['layoutColumn'],
+					(target) =>
+						target.hasAttribute('data-layout-section') || target.hasAttribute('data-layout-column'),
+					{
+						useLongPressSelection: options.useLongPressSelection || false,
+						getNodeSelectionPos: (state, nodePos) => state.doc.resolve(nodePos).before(),
+					},
+				);
+				return (view, pos, node, nodePos, event, direct) => {
+					// Fallback for clicks on an atomic node view that the mousedown hook missed.
+					const target = event.target as HTMLElement | null;
+					if (
+						!target?.hasAttribute('data-layout-section') &&
+						applyBlankSpaceGapCursor(view, event)
+					) {
+						return true;
+					}
+					return selectionClickHandler(view, pos, node, nodePos, event, direct);
+				};
+			})(),
+			handleClick(view, _pos, event) {
+				// Fallback for clicks the mousedown interceptor missed.
+				const target = event.target as HTMLElement | null;
+				if (target?.hasAttribute('data-layout-section')) {
+					return false;
+				}
+				return applyBlankSpaceGapCursor(view, event);
+			},
 		},
 		appendTransaction: (transactions, _oldState, newState) => {
 			const changes: Change[] = [];

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ab3266b216390c79d8a1dc3be47de23d>>
+ * @codegen <<SignedSource::547909cc6b5dd84f765ef41fd848647b>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -19,10 +19,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __StudioIcon__
  *
- * A temporary component to represent the icon for Studio.
- * @deprecated This component has been replaced by the component `StudioIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * An internal component to represent the icon for Studio.
+ * Do not use this internal component directly — use `StudioIcon` from `@atlaskit/logo` instead.
  *
  */
 export function StudioIcon({

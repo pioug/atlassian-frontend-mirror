@@ -36,7 +36,9 @@ const getConsideredEntryTypes = (
 		'window:event',
 	];
 
-	// Only include third-party elements in TTVC calculation when explicitly requested
+	// Only include third-party elements in TTVC calculation when explicitly requested.
+	// GenAI elements intentionally remain excluded from core TTVC; a server-side metric variant
+	// can derive "including GenAI" from the emitted metricWindows payload.
 	if (include3p) {
 		entryTypes.push('mutation:third-party-element');
 		entryTypes.push('mutation:third-party-attribute');

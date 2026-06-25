@@ -148,8 +148,7 @@ export const topPositionAdjustment = (nodeType: string, layout?: string): number
 	if (
 		(nodeType === 'mediaSingle' || nodeType === 'embedCard') &&
 		layout &&
-		['wrap-left', 'wrap-right'].includes(layout) &&
-		editorExperiment('platform_editor_fix_selection_wrapped_media_embed', true)
+		['wrap-left', 'wrap-right'].includes(layout)
 	) {
 		return DRAG_HANDLE_WRAPPED_MEDIA_EMBED_TOP_ADJUSTMENT;
 	}

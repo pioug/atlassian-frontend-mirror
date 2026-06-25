@@ -111,6 +111,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	labsLozengeLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	originalViewLabel: {
 		defaultMessage: string;
 		description: string;
@@ -300,6 +305,11 @@ export const aiSuggestionsMessages: {
 		defaultMessage: '{count} suggestions',
 		description:
 			'Tooltip text for the suggestion icon button when there are multiple AI suggestions',
+	},
+	labsLozengeLabel: {
+		id: 'fabric.editor.ai.suggestions.labsLozengeLabel.non-final',
+		defaultMessage: 'Labs',
+		description: 'Label for the Labs lozenge shown on AI suggestion cards and sidebar tabs',
 	},
 	originalViewLabel: {
 		id: 'fabric.editor.ai.suggestions.stagingArea.originalViewLabel.non-final',

@@ -1,11 +1,20 @@
 # @atlaskit/rovo-triggers
 
+## 9.2.2
+
+### Patch Changes
+
+- [`a9ab7d65d11bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9ab7d65d11bf) -
+  Allow `chat-new` events to include `taskModeEnabled` so Home pending-chat handoffs can preserve
+  Max mode.
+- Updated dependencies
+
 ## 9.2.1
 
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

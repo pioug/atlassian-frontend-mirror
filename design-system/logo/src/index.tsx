@@ -31,6 +31,10 @@ import {
 	ChatLogoCS as NewChatLogo,
 } from './artifacts/logo-components/chat';
 import {
+	CompanyHubIcon as NewCompanyHubIcon,
+	CompanyHubLogo as NewCompanyHubLogo,
+} from './artifacts/logo-components/company-hub';
+import {
 	CompassIcon as NewCompassIcon,
 	CompassLogoCS as NewCompassLogo,
 } from './artifacts/logo-components/compass';
@@ -46,6 +50,7 @@ import {
 	CrowdIcon as NewCrowdIcon,
 	CrowdLogoCS as NewCrowdLogo,
 } from './artifacts/logo-components/crowd';
+import { CustomLinkIcon as NewCustomLinkIcon } from './artifacts/logo-components/custom-link';
 import {
 	CustomerServiceManagementIcon as NewCustomerServiceManagementIcon,
 	CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo,
@@ -67,6 +72,10 @@ import {
 	GuardIcon as NewGuardIcon,
 	GuardLogoCS as NewGuardLogo,
 } from './artifacts/logo-components/guard';
+import {
+	GuardDetectIcon as NewGuardDetectIcon,
+	GuardDetectLogo as NewGuardDetectLogo,
+} from './artifacts/logo-components/guard-detect';
 import {
 	HomeIcon as NewHomeIcon,
 	HomeLogoCS as NewHomeLogo,
@@ -102,6 +111,7 @@ import {
 	LoomInternalIcon as NewLoomInternalIcon,
 	LoomInternalLogoCS as NewLoomInternalLogo,
 } from './artifacts/logo-components/loom-internal';
+import { MoreAtlassianAppsIcon as NewMoreAtlassianAppsIcon } from './artifacts/logo-components/more-atlassian-apps';
 import {
 	OpsgenieIcon as NewOpsgenieIcon,
 	OpsgenieLogoCS as NewOpsgenieLogo,
@@ -1448,5 +1458,84 @@ export const FocusLogo: ({
 	LegacyFocusLogo,
 	NewFocusLogo,
 );
+
+/**
+ * __Company Hub icon__
+ *
+ * The Company Hub icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const CompanyHubIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewCompanyHubIcon);
+/**
+ * __Company Hub logo__
+ *
+ * The Company Hub logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const CompanyHubLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewCompanyHubLogo);
+/**
+ * __Custom Link icon__
+ *
+ * The Custom Link icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const CustomLinkIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewCustomLinkIcon);
+/**
+ * __Guard Detect icon__
+ *
+ * The Guard Detect icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const GuardDetectIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewGuardDetectIcon);
+/**
+ * __Guard Detect logo__
+ *
+ * The Guard Detect logo with both the wordmark and the icon combined.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const GuardDetectLogo: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewGuardDetectLogo);
+/**
+ * __More Atlassian Apps icon__
+ *
+ * The More Atlassian Apps icon without an accompanying wordmark.
+ *
+ * - [Examples](https://atlassian.design/components/logo/examples)
+ * - [Code](https://atlassian.design/components/logo/code)
+ * - [Usage](https://atlassian.design/components/logo/usage)
+ */
+export const MoreAtlassianAppsIcon: ({
+	size,
+	...props
+}: import('./types').LogoProps) => React.JSX.Element = tempSizeWrapper(NewMoreAtlassianAppsIcon);
 
 export type { LogoProps } from './types';

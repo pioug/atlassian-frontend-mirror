@@ -1,11 +1,18 @@
 # @atlaskit/teams-public
 
+## 2.1.0
+
+### Minor Changes
+
+- [`f4abaa54b4859`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4abaa54b4859) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
 ## 2.0.1
 
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

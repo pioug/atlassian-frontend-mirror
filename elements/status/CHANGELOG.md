@@ -1,5 +1,17 @@
 # @atlaskit/status
 
+## 5.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.2
 
 ### Patch Changes
@@ -11,7 +23,7 @@
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

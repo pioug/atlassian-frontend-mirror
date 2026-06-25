@@ -80,6 +80,9 @@
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/side-navigation/afm-products/tsconfig.json"
 		},
 		{
@@ -102,9 +105,6 @@
 		},
 		{
 			"path": "../../../data/ufo-external/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		}
 	]
 }

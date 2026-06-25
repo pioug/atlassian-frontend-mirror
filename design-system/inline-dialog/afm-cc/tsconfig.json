@@ -38,13 +38,13 @@
 			"path": "../../popper/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../top-layer/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		}
 	]
 }

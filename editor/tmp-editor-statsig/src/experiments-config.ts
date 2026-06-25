@@ -857,13 +857,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-01 — Block card rovo action  experiment for resolved block card smart links in confluence (boolean: isEnabled)
-	platform_sl_3p_auth_rovo_block_card_confluence: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-05-01 — Social proof experiment for unauthorized 3P block cards (boolean: isEnabled)
 	social_proof_3p_unauth_block_exp: {
 		defaultValue: boolean;
@@ -1182,6 +1175,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-23
+	confluence_advanced_header_image_generation_exp: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1519,13 +1519,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-04-09
-	platform_editor_fix_selection_wrapped_media_embed: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-06-11
 	platform_editor_external_embed_grid_fix: {
 		defaultValue: boolean;
@@ -1563,13 +1556,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-25
 	platform_editor_improve_preset_builder_logging: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-15
-	platform_editor_user_preference_override: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2989,14 +2975,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-01 — Block card rovo action on resolved block card smart links in confluence
-	platform_sl_3p_auth_rovo_block_card_confluence: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_sl_3p_auth_rovo_block_card_confluence',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-01-23
 	platform_editor_to_use_pmr_for_collab_edit_none_ic: createBooleanExperiment({
 		productKeys: {
@@ -3234,6 +3212,14 @@ export const editorExperimentsConfig: {
 	cc_page_experiences_editor_image_generation: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_page_experiences_editor_image_generation',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-23
+	confluence_advanced_header_image_generation_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_advanced_header_image_generation_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3677,14 +3663,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-04-15
-	platform_editor_user_preference_override: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_user_preference_override',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-23
 	'cc-markdown-mode': createBooleanExperiment({
 		productKeys: {
@@ -3770,15 +3748,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_layout_typeahead_reorder',
 			jira: 'platform_editor_layout_typeahead_reorder',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-09
-	platform_editor_fix_selection_wrapped_media_embed: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_selection_wrapped_media_embed',
-			jira: 'platform_editor_fix_selection_wrapped_media_embed',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

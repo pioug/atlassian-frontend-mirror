@@ -53,6 +53,9 @@
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../renderer/afm-products/tsconfig.json"
 		},
 		{
@@ -63,9 +66,6 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-common/afm-products/tsconfig.json"

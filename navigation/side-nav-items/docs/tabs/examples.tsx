@@ -147,7 +147,7 @@ ${(
 
 #### Responsive flyout menu
 
-At [breakpoints](https://atlassian.design/foundations/grid-beta/#breakpoints) \`xs\` and below (less than 768px), the flyout menu popup converts to a modal.
+At [breakpoints](https://atlassian.design/foundations/grid/#grid-breakpoints) \`xs\` and below (less than 768px), the flyout menu popup converts to a modal.
 
 The modal height is determined by its content, and its width is based on the viewport. There is a 4px margin between the modal and the blanket (viewport edge).
 

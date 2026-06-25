@@ -9,6 +9,8 @@ import {
 	type KeyboardEvent,
 	type MemoExoticComponent,
 	type MouseEvent,
+	type PointerEvent,
+	type SyntheticEvent,
 } from 'react';
 import { css, jsx } from '@compiled/react';
 import { IntlContext } from 'react-intl';
@@ -148,13 +150,25 @@ export const ProductivityColorSelector = ({
 		radioRefs.current[nextIndex]?.focus();
 	};
 
-	const stopPickerDismissal = (event: MouseEvent<HTMLInputElement>) => {
+	const stopPickerDismissal = (event: SyntheticEvent<HTMLInputElement>) => {
 		event.stopPropagation();
 	};
+
+	const selectColorOnPointerDown =
+		(color: ProductivityColor) => (event: PointerEvent<HTMLInputElement>) => {
+			stopPickerDismissal(event);
+			event.preventDefault();
+			onColorSelected(color);
+		};
 
 	const selectColorOnMouseDown =
 		(color: ProductivityColor) => (event: MouseEvent<HTMLInputElement>) => {
 			stopPickerDismissal(event);
+
+			if (typeof window !== 'undefined' && 'PointerEvent' in window) {
+				return;
+			}
+
 			event.preventDefault();
 			onColorSelected(color);
 		};
@@ -176,16 +190,19 @@ export const ProductivityColorSelector = ({
 				const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
 					if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
 						event.preventDefault();
+						event.stopPropagation();
 						onArrowKey(index, -1);
 					}
 
 					if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
 						event.preventDefault();
+						event.stopPropagation();
 						onArrowKey(index, 1);
 					}
 
-					if (event.key === 'Enter') {
+					if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
 						event.preventDefault();
+						event.stopPropagation();
 						onColorSelected(color);
 					}
 				};
@@ -212,6 +229,7 @@ export const ProductivityColorSelector = ({
 							onClick={stopPickerDismissal}
 							onKeyDown={handleKeyDown}
 							onMouseDown={selectColorOnMouseDown(color)}
+							onPointerDown={selectColorOnPointerDown(color)}
 							testId={`productivity-color-${color}`}
 							value={color}
 							label={

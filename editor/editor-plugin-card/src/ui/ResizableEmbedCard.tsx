@@ -36,7 +36,6 @@ import {
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -44,11 +43,6 @@ type State = {
 	offsetLeft: number;
 	resizedPctWidth?: number;
 };
-
-// Layouts where the left handle is the only resize handle today.
-// These must keep the left handle.
-// Remove during 'platform_editor_lovability_resize_dividers_panels' cleanup
-const leftHandleOnlyLayouts: RichMediaLayout[] = ['wrap-right', 'align-end'];
 
 export type Props = Omit<ResizerProps, 'height' | 'width'> & {
 	aspectRatio: number;
@@ -391,26 +385,9 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 			innerPadding: akEditorMediaResizeHandlerPadding,
 		};
 
-		const isLeftResizeHandleDisabled = expValEquals(
-			'platform_editor_lovability_resize_dividers_panels',
-			'isEnabled',
-			true,
-		);
-
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
 			if (isResizeDisabled) {
-				enable[side] = false;
-				return;
-			}
-
-			// Disable the left handle up-front (except for layouts where it is the
-			// only handle) before computing whether it would otherwise be enabled.
-			if (
-				side === 'left' &&
-				isLeftResizeHandleDisabled &&
-				!leftHandleOnlyLayouts.includes(layout)
-			) {
 				enable[side] = false;
 				return;
 			}

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 11.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.2
+
+### Patch Changes
+
+- [`b2f53114889ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2f53114889ac) -
+  Clean up feature gate `platform_editor_block_menu_jira_patch_1`
+- Updated dependencies
+
 ## 11.1.1
 
 ### Patch Changes

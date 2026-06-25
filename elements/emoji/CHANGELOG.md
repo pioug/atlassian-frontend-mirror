@@ -1,5 +1,26 @@
 # @atlaskit/emoji
 
+## 71.5.3
+
+### Patch Changes
+
+- [`2b14e887d34d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b14e887d34d1) -
+  Do not collapse emoji picker on color selected
+
+## 71.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.5.1
+
+### Patch Changes
+
+- [`488ec8f5b8696`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/488ec8f5b8696) -
+  Show the productivity emoji colour picker around productivity-related Atlassian subcategories
+- Updated dependencies
+
 ## 71.5.0
 
 ### Minor Changes

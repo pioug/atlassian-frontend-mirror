@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7cfe9311dc5f8070530ce9772b12f3fc>>
+ * @codegen <<SignedSource::2a7617bb15f45b06b307ddb34a89ff24>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,10 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __TeamsIcon__
  *
- * A temporary component to represent the icon for Teams.
- * @deprecated This component has been replaced by the component `TeamsIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * An internal component to represent the icon for Teams.
+ * Do not use this internal component directly — use `TeamsIcon` from `@atlaskit/logo` instead.
  *
  */
 export function TeamsIcon({

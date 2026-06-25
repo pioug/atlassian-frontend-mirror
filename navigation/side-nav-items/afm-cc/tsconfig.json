@@ -61,13 +61,13 @@
 			"path": "../../../design-system/primitives/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tokens/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		}
 	]
 }

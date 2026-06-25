@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::206fa44ab9c6427ebeb6aaad7e53b58f>>
+ * @codegen <<SignedSource::13d7df881302adff1c5de7157bb4b9bb>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -21,7 +21,7 @@ const svg = `<svg height="100%" viewBox="0 0 126 32">
 /**
  * __CrowdLogoCS__
  *
- * A temporary component to represent the logo for Crowd.
+ * An internal component to represent the logo for Crowd.
  *
  */
 export function CrowdLogoCS({

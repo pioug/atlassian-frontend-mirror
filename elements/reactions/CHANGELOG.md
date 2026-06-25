@@ -1,5 +1,25 @@
 # @atlaskit/reactions
 
+## 35.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.2.3
+
+### Patch Changes
+
+- [`1d58b5e7f4a75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d58b5e7f4a75) -
+  Stabilize reaction picker emoji loading state
+- Updated dependencies
+
 ## 35.2.2
 
 ### Patch Changes
@@ -11,7 +31,7 @@
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

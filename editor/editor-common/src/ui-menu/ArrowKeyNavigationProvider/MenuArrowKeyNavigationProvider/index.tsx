@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { getDocument } from '@atlaskit/browser-apis';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
@@ -32,7 +32,7 @@ export const MenuArrowKeyNavigationProvider = ({
 
 	const getCurrentIndex = useCallback(
 		(list: HTMLElement[]) => {
-			if (!expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+			if (!expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
 				return currentSelectedItemIndex;
 			}
 

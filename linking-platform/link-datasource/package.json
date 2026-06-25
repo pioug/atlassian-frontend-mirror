@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "6.0.6",
+	"version": "6.0.7",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -20,7 +20,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -77,6 +77,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-select": "workspace:^",
 		"@atlaskit/select": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
@@ -90,7 +91,6 @@
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
 		"@atlassian/assets-workspace-host": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@types/dompurify": "root:*",

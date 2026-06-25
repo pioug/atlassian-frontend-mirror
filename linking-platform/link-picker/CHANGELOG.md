@@ -1,5 +1,19 @@
 # @atlaskit/link-picker
 
+## 6.1.0
+
+### Minor Changes
+
+- [`672d0051b370b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/672d0051b370b) -
+  Add disableManualUrlInsert prop to disable the Insert button when a URL is typed but no search
+  result is selected
+
+  Fix bug where stale search results could enable the Insert button during an in-flight request or
+  error state when disableManualUrlInsert is true. The isLoading and error guards are now checked
+  before the disableManualUrlInsert block under the add-disable-manual-url-capability-technical
+  feature gate. The disableManualUrlInsert prop is also gated at the call site in
+  LinkPickerSubmitButton for additional safety.
+
 ## 6.0.2
 
 ### Patch Changes
@@ -11,7 +25,7 @@
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

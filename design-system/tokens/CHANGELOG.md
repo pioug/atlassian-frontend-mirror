@@ -14,7 +14,7 @@
   Cleanup feature gate `platform-dst-motion-theme-default`. Motion theme is now permanently enabled
   by default in `setGlobalTheme` calls.
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

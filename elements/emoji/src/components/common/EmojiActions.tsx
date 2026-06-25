@@ -119,8 +119,85 @@ const previewFooterNew = css({
 	flex: '0 0 auto',
 });
 
+const atlassianSubcategoriesWithProductivityColorSelector = ['Objects', 'Productivity', 'Logos'];
+
+type ProductivityColorPopupContentProps = {
+	colorPreviewEmojis: Partial<Record<ProductivityColor, EmojiDescription>>;
+	focusSelectedColorOnMount: boolean;
+	onColorSelected: (color: ProductivityColor) => void;
+	selectedColor: ProductivityColor;
+};
+
+const ProductivityColorPopupContent = ({
+	colorPreviewEmojis,
+	focusSelectedColorOnMount,
+	onColorSelected,
+	selectedColor,
+}: ProductivityColorPopupContentProps) => {
+	const popupRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const popupElement = popupRef.current;
+
+		if (!popupElement) {
+			return;
+		}
+
+		const isProductivityColorInput = (target: EventTarget | null) =>
+			target instanceof HTMLInputElement && target.name === 'productivity-emoji-colour';
+
+		const stopNonInputDismissal = (event: Event) => {
+			if (isProductivityColorInput(event.target)) {
+				return;
+			}
+
+			event.stopPropagation();
+		};
+
+		const stopNonInputDismissalBeforeDocument = (event: Event) => {
+			if (
+				!(event.target instanceof Node) ||
+				!popupElement.contains(event.target) ||
+				isProductivityColorInput(event.target)
+			) {
+				return;
+			}
+
+			event.stopPropagation();
+		};
+
+		window.addEventListener('pointerdown', stopNonInputDismissalBeforeDocument, true);
+		window.addEventListener('mousedown', stopNonInputDismissalBeforeDocument, true);
+		window.addEventListener('click', stopNonInputDismissalBeforeDocument, true);
+		popupElement.addEventListener('pointerdown', stopNonInputDismissal);
+		popupElement.addEventListener('mousedown', stopNonInputDismissal);
+		popupElement.addEventListener('click', stopNonInputDismissal);
+
+		return () => {
+			window.removeEventListener('pointerdown', stopNonInputDismissalBeforeDocument, true);
+			window.removeEventListener('mousedown', stopNonInputDismissalBeforeDocument, true);
+			window.removeEventListener('click', stopNonInputDismissalBeforeDocument, true);
+			popupElement.removeEventListener('pointerdown', stopNonInputDismissal);
+			popupElement.removeEventListener('mousedown', stopNonInputDismissal);
+			popupElement.removeEventListener('click', stopNonInputDismissal);
+		};
+	}, []);
+
+	return (
+		<div ref={popupRef} css={productivityColorPopup}>
+			<ProductivityColorSelector
+				colorPreviewEmojis={colorPreviewEmojis}
+				focusSelectedColorOnMount={focusSelectedColorOnMount}
+				selectedColor={selectedColor}
+				onColorSelected={onColorSelected}
+			/>
+		</div>
+	);
+};
+
 export interface Props {
 	activeCategoryId?: CategoryId | null;
+	activeAtlassianSubcategory?: string | null;
 	emojiToDelete?: EmojiDescription;
 	initialUploadName?: string;
 	onChange: (value: string) => void;
@@ -206,6 +283,7 @@ type TonesWrapperProps = PropsWithWrappedComponentPropsType & {
 const TonesWrapper = (props: TonesWrapperProps) => {
 	const {
 		activeCategoryId,
+		activeAtlassianSubcategory,
 		onProductivityColorSelected,
 		productivityColorPreviewEmojis,
 		selectedProductivityColor,
@@ -280,6 +358,8 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 
 	const shouldShowProductivityColorSelector = !!(
 		activeCategoryId === 'ATLASSIAN' &&
+		activeAtlassianSubcategory &&
+		atlassianSubcategoriesWithProductivityColorSelector.includes(activeAtlassianSubcategory) &&
 		productivityColorPreviewEmojis &&
 		selectedProductivityColor &&
 		onProductivityColorSelected &&
@@ -305,14 +385,12 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 						offsetY={4}
 						zIndex={layers.tooltip()}
 					>
-						<div css={productivityColorPopup}>
-							<ProductivityColorSelector
-								colorPreviewEmojis={productivityColorPreviewEmojis}
-								focusSelectedColorOnMount={focusSelectedProductivityColorOnMount}
-								selectedColor={selectedProductivityColor}
-								onColorSelected={onProductivityColorSelectedHandler}
-							/>
-						</div>
+						<ProductivityColorPopupContent
+							colorPreviewEmojis={productivityColorPreviewEmojis}
+							focusSelectedColorOnMount={focusSelectedProductivityColorOnMount}
+							selectedColor={selectedProductivityColor}
+							onColorSelected={onProductivityColorSelectedHandler}
+						/>
 					</Popup>
 				)}
 				<TonePreviewButton
@@ -386,6 +464,10 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 
 	const shouldUseProductivityColorControl = !!(
 		props.activeCategoryId === 'ATLASSIAN' &&
+		props.activeAtlassianSubcategory &&
+		atlassianSubcategoriesWithProductivityColorSelector.includes(
+			props.activeAtlassianSubcategory,
+		) &&
 		props.productivityColorPreviewEmojis &&
 		props.selectedProductivityColor &&
 		props.onProductivityColorSelected &&

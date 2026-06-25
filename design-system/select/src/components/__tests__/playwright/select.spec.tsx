@@ -100,3 +100,54 @@ test('A11yTexts can be provided through ariaLiveMessages prop', async ({ page })
 	await expect(page.getByTestId(selectValueContainer)).not.toHaveText('Choose a City');
 	await expect(page.getByRole('status')).toHaveText('CUSTOM: option Adelaide is selected.');
 });
+
+test.describe('Select dropdown indicator voice-control accessibility', () => {
+	test('with FF on: a named, non-tabbable button wraps the dropdown chevron and toggles the menu when clicked', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../../../examples/00-single-select.tsx')>(
+			'design-system',
+			'select',
+			'single-select',
+			{
+				featureFlag: 'platform_dst_select_dropdown_voice_control',
+			},
+		);
+
+		// The voice-control button is exposed in the accessibility tree with a clear name.
+		const voiceControlButton = page.getByRole('button', { name: 'toggle select menu' });
+		await expect(voiceControlButton).toBeVisible();
+		await expect(voiceControlButton).toHaveAttribute('tabindex', '-1');
+
+		// Menu starts closed.
+		await expect(page.getByTestId(selectMenu)).toBeHidden();
+
+		// Clicking the button (as voice control would do) opens the menu.
+		await voiceControlButton.click();
+		await expect(page.getByTestId(selectMenu)).toBeVisible();
+
+		// Clicking again closes the menu (toggle behaviour, same as today's chevron click).
+		await voiceControlButton.click();
+		await expect(page.getByTestId(selectMenu)).toBeHidden();
+
+		// Tab order: the voice-control button must NEVER receive Tab focus
+		// (regardless of where focus currently sits, the button has tabindex=-1
+		// so it's not a Tab stop). Tab-stop coverage for the input itself is
+		// validated by the unit test; here we only need to prove the new
+		// button is not in the tab order.
+		await page.keyboard.press('Tab');
+		await expect(voiceControlButton).not.toBeFocused();
+	});
+
+	test('with FF off: no voice-control button is rendered (legacy aria-hidden wrapper only)', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../../../examples/00-single-select.tsx')>(
+			'design-system',
+			'select',
+			'single-select',
+		);
+
+		await expect(page.getByRole('button', { name: 'toggle select menu' })).toHaveCount(0);
+	});
+});

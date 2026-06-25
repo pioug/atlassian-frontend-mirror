@@ -77,6 +77,9 @@
 			"path": "../../../design-system/range/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
 		},
 		{
@@ -96,9 +99,6 @@
 		},
 		{
 			"path": "../../../design-system/width-detector/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		}
 	]
 }

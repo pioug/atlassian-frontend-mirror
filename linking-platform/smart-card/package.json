@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.3.2",
+	"version": "45.4.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -77,6 +77,7 @@
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/rovo-triggers": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
@@ -92,7 +93,6 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@formatjs/intl-utils": "root:*",
@@ -317,9 +317,6 @@
 			"type": "boolean"
 		},
 		"smart-card-inline-resolved-view-refactor": {
-			"type": "boolean"
-		},
-		"platform_sl_3p_auth_rovo_block_card_kill_switch": {
 			"type": "boolean"
 		},
 		"dfo-fix-preview-dynamic-style": {

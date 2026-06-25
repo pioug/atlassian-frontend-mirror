@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-table
 
+## 24.3.0
+
+### Minor Changes
+
+- [`d461a7ef54404`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d461a7ef54404) -
+  Add analytics for table cell vertical alignment changes
+
+### Patch Changes
+
+- [`66d869b3fdc74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66d869b3fdc74) -
+  [ux] Style changes to fix tables with rounded corners.
+- Updated dependencies
+
+## 24.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.2.8
+
+### Patch Changes
+
+- [`78424bc9d614f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78424bc9d614f) -
+  Improve rounded table selected-node and Remix block highlight styling behind a feature gate
+
 ## 24.2.7
 
 ### Patch Changes

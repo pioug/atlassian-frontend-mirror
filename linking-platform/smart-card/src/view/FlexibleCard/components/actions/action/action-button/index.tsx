@@ -24,7 +24,7 @@ import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../../../../../../state/flexible-ui-context';
-import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import useRovoConfig from '../../../../../../state/hooks/use-rovo-config';
 import { withOverrideCss } from '../../../common/with-override-css';
 import { sizeToButtonSpacing } from '../../../utils';
 
@@ -122,9 +122,9 @@ const ActionButtonRefresh = forwardRef(
 		const iconOnly = !content;
 
 		const context = useFlexibleUiContext();
-		const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
+		const { product } = useRovoConfig();
 		const isRovoSupported =
-			!!context?.actions?.[ActionName.RovoChatAction] && isRovoBlockCardExperimentEnabled;
+			!!context?.actions?.[ActionName.RovoChatAction] && !!product && product === 'CONFLUENCE';
 
 		const onButtonClick = useCallback(
 			(handler: Function) => (e: React.BaseSyntheticEvent) => {

@@ -2,6 +2,7 @@ import type { IntlShape } from 'react-intl/src/types';
 
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableBackgroundColorPalette } from '@atlaskit/adf-schema';
+import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type {
 	AnalyticsEventPayload,
@@ -16,7 +17,11 @@ import {
 	TABLE_DISPLAY_MODE,
 } from '@atlaskit/editor-common/analytics';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
-import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	EditorCommand,
+	GetEditorContainerWidth,
+} from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -59,6 +64,7 @@ import {
 	deleteTableIfSelected,
 	getTableSelectionType,
 	setMultipleCellAttrs,
+	setMultipleCellAttrsEditorCommand,
 	setTableAlignment,
 	setTableAlignmentWithTableContentWithPos,
 } from './misc';
@@ -182,6 +188,88 @@ export const setColorWithAnalytics =
 				eventType: EVENT_TYPE.TRACK,
 			};
 		})(editorAnalyticsAPI)(setMultipleCellAttrs({ background: cellColor }, editorView));
+
+const getNormalizedCellValign = (valign?: Valign | null): Valign => valign ?? 'top';
+
+type CellVerticalAlignmentAnalyticsInfo = {
+	previousValign: Valign | 'mixed';
+	updatedCount: number;
+};
+
+const getCellVerticalAlignmentAnalyticsInfo = (
+	selection: Selection,
+	valign: Valign,
+	targetCellPosition?: number,
+): CellVerticalAlignmentAnalyticsInfo | undefined => {
+	const selectedValigns: Valign[] = [];
+
+	if (selection instanceof CellSelection) {
+		selection.forEachCell((cell) => {
+			selectedValigns.push(getNormalizedCellValign(cell.attrs.valign));
+		});
+	} else if (typeof targetCellPosition === 'number') {
+		const cell = selection.$from.doc.nodeAt(targetCellPosition);
+		if (cell) {
+			selectedValigns.push(getNormalizedCellValign(cell.attrs.valign));
+		}
+	}
+
+	if (selectedValigns.length === 0) {
+		return undefined;
+	}
+
+	const [firstValign] = selectedValigns;
+	const previousValign = selectedValigns.every((selectedValign) => selectedValign === firstValign)
+		? firstValign
+		: 'mixed';
+	const updatedCount = selectedValigns.filter((selectedValign) => selectedValign !== valign).length;
+
+	return {
+		previousValign,
+		updatedCount,
+	};
+};
+
+export const setCellVerticalAlignmentWithAnalytics =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+	(
+		inputMethod: INPUT_METHOD.TABLE_CONTEXT_MENU,
+		valign: Valign,
+		targetCellPosition?: number,
+	): EditorCommand =>
+	({ tr }) => {
+		const analyticsInfo = getCellVerticalAlignmentAnalyticsInfo(
+			tr.selection,
+			valign,
+			targetCellPosition,
+		);
+		const result = setMultipleCellAttrsEditorCommand({ valign }, targetCellPosition)({ tr });
+
+		if (result && analyticsInfo) {
+			const { horizontalCells, verticalCells, totalCells, totalRowCount, totalColumnCount } =
+				getSelectedCellInfo(tr.selection);
+
+			editorAnalyticsAPI?.attachAnalyticsEvent({
+				action: TABLE_ACTION.CHANGED_CELL_VERTICAL_ALIGNMENT,
+				actionSubject: ACTION_SUBJECT.TABLE,
+				actionSubjectId: null,
+				attributes: {
+					inputMethod,
+					previousValign: analyticsInfo.previousValign,
+					valign,
+					updatedCount: analyticsInfo.updatedCount,
+					horizontalCells,
+					verticalCells,
+					totalCells,
+					totalRowCount,
+					totalColumnCount,
+				},
+				eventType: EVENT_TYPE.TRACK,
+			})(tr);
+		}
+
+		return result;
+	};
 
 export const addRowAroundSelection =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>

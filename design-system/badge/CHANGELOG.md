@@ -1,11 +1,21 @@
 # @atlaskit/badge
 
+## 19.0.2
+
+### Patch Changes
+
+- [`e13ee97cc69a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e13ee97cc69a4) -
+  Fixed the legacy-appearance fallback for the `dangerBold` Badge appearance to map to `important`
+  instead of `removed`. When the `platform-dst-lozenge-tag-badge-visual-uplifts` feature gate is
+  off, `dangerBold` now falls back to the same legacy appearance the existing red danger Badge has
+  always used, preserving the previous visual look for consumers that haven't migrated yet.
+
 ## 19.0.1
 
 ### Patch Changes
 
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

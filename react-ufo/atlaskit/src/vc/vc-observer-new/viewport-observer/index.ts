@@ -40,6 +40,7 @@ const createElementMutationsWatcher =
 	(
 		removedNodeRects: (DOMRect | undefined)[],
 		isWithinThirdPartySegment: boolean,
+		isWithinGenAISegment: boolean,
 		isWithinSmartAnswersSegment: boolean,
 		hasSameDeletedNode: boolean,
 		timestamp: number,
@@ -111,6 +112,10 @@ const createElementMutationsWatcher =
 			return 'mutation:third-party-element';
 		}
 
+		if (isWithinGenAISegment) {
+			return 'mutation:gen-ai-element';
+		}
+
 		if (isWithinSmartAnswersSegment) {
 			return 'mutation:smart-answers-element';
 		}
@@ -139,6 +144,7 @@ const createElementMutationsWatcherNew =
 	(
 		removedNodeRects: (DOMRect | undefined)[],
 		isWithinThirdPartySegment: boolean,
+		isWithinGenAISegment: boolean,
 		isWithinSmartAnswersSegment: boolean,
 		hasSameDeletedNode: boolean,
 		timestamp: number,
@@ -251,6 +257,15 @@ const createElementMutationsWatcherNew =
 			};
 		}
 
+		if (isWithinGenAISegment) {
+			return {
+				type: 'mutation:gen-ai-element',
+				mutationData: {
+					timestamp,
+				},
+			};
+		}
+
 		if (isWithinSmartAnswersSegment) {
 			return {
 				type: 'mutation:smart-answers-element',
@@ -306,6 +321,7 @@ export default class ViewportObserver {
 	private performanceObserver: PerformanceObserver | null;
 	private mapVisibleNodeRects: WeakMap<Element, DOMRect>;
 	private mapIs3pResult: WeakMap<HTMLElement, boolean>;
+	private mapIsGenAIResult: WeakMap<HTMLElement, boolean>;
 	private onChange: ViewPortObserverConstructorArgs['onChange'];
 	private isStarted: boolean;
 	private trackLayoutShiftOffenders: boolean;
@@ -323,6 +339,7 @@ export default class ViewportObserver {
 	}: ViewPortObserverConstructorArgs) {
 		this.mapVisibleNodeRects = new WeakMap();
 		this.mapIs3pResult = new WeakMap();
+		this.mapIsGenAIResult = new WeakMap();
 		this.onChange = onChange;
 		this.isStarted = false;
 		this.intersectionObserver = null;
@@ -410,6 +427,9 @@ export default class ViewportObserver {
 				'UFOThirdPartySegment',
 				this.mapIs3pResult,
 			);
+			const { isWithin: isWithinGenAISegment } = fg('platform_ufo_gen_ai_segment')
+				? checkWithinComponent(addedNode, 'UFOGenAISegment', this.mapIsGenAIResult)
+				: { isWithin: false };
 
 			const isWithinSmartAnswersSegment = Boolean(
 				this.shouldCheckSmartAnswersMutations() && isContainedWithinSmartAnswers(addedNode),
@@ -424,6 +444,7 @@ export default class ViewportObserver {
 					: createElementMutationsWatcher)(
 					removedNodeRects,
 					isWithinThirdPartySegment,
+					isWithinGenAISegment,
 					isWithinSmartAnswersSegment,
 					!!hasSameDeletedNode,
 					timestamp,
@@ -466,9 +487,24 @@ export default class ViewportObserver {
 				'UFOThirdPartySegment',
 				this.mapIs3pResult,
 			);
+			const { isWithin: isWithinGenAISegment } = fg('platform_ufo_gen_ai_segment')
+				? checkWithinComponent(target, 'UFOGenAISegment', this.mapIsGenAIResult)
+				: { isWithin: false };
 			if (isWithinThirdPartySegment) {
 				return {
 					type: 'mutation:third-party-attribute',
+					mutationData: {
+						attributeName,
+						oldValue,
+						newValue,
+						timestamp,
+					},
+				};
+			}
+
+			if (isWithinGenAISegment) {
+				return {
+					type: 'mutation:gen-ai-attribute',
 					mutationData: {
 						attributeName,
 						oldValue,

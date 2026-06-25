@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 26.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.2
+
+### Patch Changes
+
+- [`f614702c47dc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f614702c47dc2) -
+  Clean up the launched media insert tab analytics feature gate.
+
 ## 26.0.1
 
 ### Patch Changes

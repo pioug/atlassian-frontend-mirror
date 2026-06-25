@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 13.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.8
+
+### Patch Changes
+
+- [`8465eeaf9cc9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8465eeaf9cc9f) -
+  Clean up experiment `platform_editor_user_preference_override`
+- Updated dependencies
+
 ## 13.0.7
 
 ### Patch Changes

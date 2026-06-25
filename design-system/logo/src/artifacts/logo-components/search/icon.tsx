@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::be11b64b046e775d05a59a39754fdeaf>>
+ * @codegen <<SignedSource::e8449a5cf6c2f473179dfe4bd9893163>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,10 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __SearchIcon__
  *
- * A temporary component to represent the icon for Search.
- * @deprecated This component has been replaced by the component `SearchIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * An internal component to represent the icon for Search.
+ * Do not use this internal component directly — use `SearchIcon` from `@atlaskit/logo` instead.
  *
  */
 export function SearchIcon({

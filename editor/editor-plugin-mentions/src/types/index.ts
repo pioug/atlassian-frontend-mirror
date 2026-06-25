@@ -56,6 +56,7 @@ export type MentionPluginOptions = MentionsPluginOptions;
 export type AgentMentionDetails = {
 	context: string | null;
 	id: string;
+	name: string | null;
 	nodeSize: number;
 	/**
 	 * @internal ProseMirror position used for parent-boundary checks.
@@ -87,6 +88,11 @@ export type MentionPluginState = {
 	 */
 	lastInsertedAgentMentionId?: string | null;
 	/**
+	 * Display name of the most recently inserted agent mention.
+	 * Derived from the mention node text and used for Rovo nudge copy.
+	 */
+	lastInsertedAgentMentionName?: string | null;
+	/**
 	 * ProseMirror node type of the direct parent of the agent mention
 	 * (e.g. 'taskItem', 'paragraph'). Determines auto-send vs. draft behaviour.
 	 */
@@ -101,6 +107,7 @@ export type MentionPluginState = {
 	pendingTypedAgentMention?: {
 		id: string;
 		localId: string;
+		name: string | null;
 		nodeSize: number;
 		pos: number;
 		/**

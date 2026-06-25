@@ -13,6 +13,7 @@ import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { token } from '@atlaskit/tokens';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { Table } from './table';
@@ -42,10 +43,17 @@ const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
 };
 
 // increasing specificity to override external renderer wrapper styles targeting div[mode='stick']
-const suppressExternalStickStyles = css({
+const suppressExternalStickStylesOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Override external renderer wrapper styles targeting div[mode='stick']
 	"&.fixed-table-div-custom-table-resizing[mode='stick']": {
 		background: token('elevation.surface.overlay'),
+	},
+});
+
+const suppressExternalStickStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Override external renderer wrapper styles targeting div[mode='stick']
+	"&.fixed-table-div-custom-table-resizing[mode='stick']": {
+		background: token('elevation.surface'),
 	},
 });
 
@@ -106,7 +114,9 @@ const FixedTableDiv = (props: FixedProps) => {
 				fixedTableDivStaticStyles,
 				modeSpecficStyles?.[mode],
 				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-					suppressExternalStickStyles,
+					(fg('platform_editor_table_q4_patch_1')
+						? suppressExternalStickStyles
+						: suppressExternalStickStylesOld),
 			]}
 			style={
 				{

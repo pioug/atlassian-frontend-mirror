@@ -1,3 +1,4 @@
+import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 
 import type { EditorBreakpointKey } from '../../utils/analytics';
@@ -44,6 +45,7 @@ export enum TABLE_ACTION {
 	ROW_OR_COLUMN_MOVED = 'rowOrColumnMoved',
 	CHANGED_DISPLAY_MODE = 'changedDisplayMode',
 	CHANGED_ALIGNMENT = 'changedAlignment',
+	CHANGED_CELL_VERTICAL_ALIGNMENT = 'changedVerticalAlignment',
 	// Temporary to track usage of CONFCLOUD-78239 bug
 	TABLE_CELL_BACKGROUND_FIXED = 'tableCellBackgroundFixed',
 	TABLE_WIDTH_INFO = 'tableWidthInformation',
@@ -174,6 +176,17 @@ type TableColorAEP = TableAEP<
 			| INPUT_METHOD.FLOATING_TB
 			| INPUT_METHOD.TABLE_CONTEXT_MENU;
 	} & { cellColor: string } & AllCellInfo,
+	undefined
+>;
+
+type TableChangedCellVerticalAlignmentAEP = TableAEP<
+	TABLE_ACTION.CHANGED_CELL_VERTICAL_ALIGNMENT,
+	{
+		inputMethod: INPUT_METHOD.TABLE_CONTEXT_MENU;
+		previousValign: Valign | 'mixed';
+		updatedCount: number;
+		valign: Valign;
+	} & AllCellInfo,
 	undefined
 >;
 
@@ -472,6 +485,7 @@ export type TableEventPayload =
 	| TableClearAEP
 	| TableMergeSplitAEP
 	| TableColorAEP
+	| TableChangedCellVerticalAlignmentAEP
 	| TableToggleHeaderAEP
 	| TableChangeBreakoutAEP
 	| TableCopyAndCutAEP

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-layout
 
+## 13.2.3
+
+### Patch Changes
+
+- [`6827a39105ea0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6827a39105ea0) -
+  EDITOR-7736: Fix left gap cursor before first image/expand in vertically-aligned layout column
+- Updated dependencies
+
+## 13.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.0
 
 ### Minor Changes

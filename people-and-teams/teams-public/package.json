@@ -3,7 +3,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -71,6 +71,7 @@
 		"@atlaskit/people-teams-ui-public": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/teams-app-internal-analytics": "workspace:^",
 		"@atlaskit/teams-app-internal-navigation": "workspace:^",
@@ -79,7 +80,6 @@
 		"@atlaskit/tile": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@types/string-hash": "root:*",
@@ -144,7 +144,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

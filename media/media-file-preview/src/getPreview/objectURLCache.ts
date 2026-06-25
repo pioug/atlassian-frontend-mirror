@@ -1,7 +1,5 @@
 import { LRUMap } from 'lru_map';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type MediaFilePreview } from '../types';
 
 export const PREVIEW_CACHE_LRU_SIZE = 50;
@@ -17,9 +15,7 @@ interface EvictionLRUCacheOptions<K, V> {
  * LRU cache that checks whether the oldest entry should be evicted
  * this means that the cache can grow past the softLimit if `shouldEvict` returns false.
  *
- * When `platform_media_safe_blob_url_eviction` is ON the oldest
- * entry is kept if `shouldEvict` returns false.
- * When the flag is OFF the oldest entry is always evicted.
+ * The oldest entry is kept if `shouldEvict` returns false.
  */
 class EvictionLRUCache<K, V> extends LRUMap<K, V> {
 	private readonly shouldEvict?: (entry: [K, V]) => boolean;
@@ -32,11 +28,9 @@ class EvictionLRUCache<K, V> extends LRUMap<K, V> {
 	}
 
 	shift(): [K, V] | undefined {
-		if (fg('platform_media_safe_blob_url_eviction')) {
-			const oldest = this.oldest;
-			if (oldest && this.shouldEvict && !this.shouldEvict([oldest.key, oldest.value])) {
-				return undefined;
-			}
+		const oldest = this.oldest;
+		if (oldest && this.shouldEvict && !this.shouldEvict([oldest.key, oldest.value])) {
+			return undefined;
 		}
 		const entry = super.shift();
 		if (entry && this.onEvict) {
@@ -55,9 +49,7 @@ export class ObjectURLCache {
 			shouldEvict: (entry) => !this.isInUse(entry[0]),
 			onEvict: (entry) => {
 				if (entry[1].dataURI) {
-					const dataURI = fg('platform_media_safe_blob_url_eviction')
-						? entry[1].dataURI.split('#')[0]
-						: entry[1].dataURI;
+					const dataURI = entry[1].dataURI.split('#')[0];
 					if (dataURI) {
 						URL.revokeObjectURL(dataURI);
 					}
@@ -104,9 +96,7 @@ export class ObjectURLCache {
 		const removed = this.cache.delete(key);
 		this.activeRefs.delete(key);
 
-		const dataURI = fg('platform_media_safe_blob_url_eviction')
-			? removed?.dataURI.split('#')[0]
-			: removed?.dataURI;
+		const dataURI = removed?.dataURI.split('#')[0];
 		dataURI && URL.revokeObjectURL(dataURI);
 	}
 

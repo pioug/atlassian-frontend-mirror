@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2dae141e789f6f860676eab772d48c16>>
+ * @codegen <<SignedSource::978838b36f6aa3744f039bfb1c56d79c>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,10 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __HomeIcon__
  *
- * A temporary component to represent the icon for Home.
- * @deprecated This component has been replaced by the component `HomeIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * An internal component to represent the icon for Home.
+ * Do not use this internal component directly — use `HomeIcon` from `@atlaskit/logo` instead.
  *
  */
 export function HomeIcon({

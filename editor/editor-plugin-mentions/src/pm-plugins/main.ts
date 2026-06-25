@@ -52,6 +52,24 @@ const isAgentUserType = (userType: unknown): userType is AgentUserType => {
 	return typeof userType === 'string' && AGENT_USER_TYPES.has(userType as AgentUserType);
 };
 
+const getAgentMentionName = (text: unknown, fallbackName?: unknown): string | null => {
+	const trimmedFallbackName = typeof fallbackName === 'string' ? fallbackName.trim() : '';
+	const normalizedFallbackName =
+		(trimmedFallbackName.startsWith('@')
+			? trimmedFallbackName.slice(1).trim()
+			: trimmedFallbackName) || null;
+
+	if (typeof text !== 'string') {
+		return normalizedFallbackName;
+	}
+
+	const trimmedText = text.trim();
+	const displayName = trimmedText.startsWith('@') ? trimmedText.slice(1).trim() : trimmedText;
+	const normalizedName = displayName || normalizedFallbackName;
+
+	return normalizedName;
+};
+
 const AI_STREAMING_TRANSFORMATION_META_KEY = 'isAIStreamingTransformation' as const;
 const AGENT_MENTION_INACTIVITY_MS = 3000;
 
@@ -110,6 +128,7 @@ const getAgentMentionDetailsAtPos = (
 	state: EditorState,
 	pos: number,
 	matchesMention: (attrs: Record<string, unknown>) => boolean,
+	fallbackName?: unknown,
 ): AgentMentionDetails | null => {
 	if (pos < 0 || pos > state.doc.content.size) {
 		return null;
@@ -132,6 +151,7 @@ const getAgentMentionDetailsAtPos = (
 	return {
 		id: node.attrs.id as string,
 		context: parentNode.textContent.trim() || null,
+		name: getAgentMentionName(node.attrs.text, fallbackName),
 		nodeSize: node.nodeSize,
 		parentEnd: $mentionPos.end($mentionPos.depth),
 		parentNodeType: parentNode.type.name ?? null,
@@ -148,6 +168,7 @@ const getAgentMentionDetailsAtPos = (
 const getSurvivingAgentMentionDetails = (
 	state: EditorState,
 	preferredId: string,
+	preferredName?: string | null,
 ): AgentMentionDetails | null => {
 	const mentionSchema = state.schema.nodes.mention;
 	let result: AgentMentionDetails | null = null;
@@ -160,7 +181,12 @@ const getSurvivingAgentMentionDetails = (
 			return true;
 		}
 
-		result = getAgentMentionDetailsAtPos(state, pos, (attrs) => attrs.id === node.attrs.id);
+		result = getAgentMentionDetailsAtPos(
+			state,
+			pos,
+			(attrs) => attrs.id === node.attrs.id,
+			node.attrs.id === preferredId ? preferredName : undefined,
+		);
 
 		return result?.id !== preferredId;
 	});
@@ -192,12 +218,14 @@ const getPendingTypedAgentMentionAfterDocChange = (
 		state,
 		mappedPos.pos,
 		(attrs) => attrs.localId === pendingTypedAgentMention.localId,
+		pendingTypedAgentMention.name,
 	);
 
 	return pendingMentionDetails
 		? {
 				id: pendingMentionDetails.id,
 				localId: pendingTypedAgentMention.localId,
+				name: pendingMentionDetails.name,
 				nodeSize: pendingMentionDetails.nodeSize,
 				pos: pendingMentionDetails.pos,
 				resetCount,
@@ -250,17 +278,20 @@ const isSelectionOutsideDirectParent = (
 const commitResolvedPendingTypedAgentMention = (
 	pluginState: MentionPluginState,
 	pendingMentionDetails: AgentMentionDetails,
-) => ({
-	hasPublicPluginStateChanged: true,
-	pluginState: {
-		...pluginState,
-		pendingTypedAgentMention: null,
-		lastInsertedAgentMentionId: pendingMentionDetails.id,
-		lastInsertedAgentMentionContext: pendingMentionDetails.context,
-		lastInsertedAgentMentionParentNodeType: pendingMentionDetails.parentNodeType,
-		lastAgentMentionInsertionCount: (pluginState.lastAgentMentionInsertionCount ?? 0) + 1,
-	},
-});
+) => {
+	return {
+		hasPublicPluginStateChanged: true,
+		pluginState: {
+			...pluginState,
+			pendingTypedAgentMention: null,
+			lastInsertedAgentMentionId: pendingMentionDetails.id,
+			lastInsertedAgentMentionContext: pendingMentionDetails.context,
+			lastInsertedAgentMentionName: pendingMentionDetails.name,
+			lastInsertedAgentMentionParentNodeType: pendingMentionDetails.parentNodeType,
+			lastAgentMentionInsertionCount: (pluginState.lastAgentMentionInsertionCount ?? 0) + 1,
+		},
+	};
+};
 
 /**
  * Resolves and finalises a pending typed agent mention. If the tracked mention
@@ -276,6 +307,7 @@ const commitPendingTypedAgentMention = (
 		state,
 		pendingTypedAgentMention.pos,
 		(attrs) => attrs.localId === pendingTypedAgentMention.localId,
+		pendingTypedAgentMention.name,
 	);
 
 	if (!pendingMentionDetails) {
@@ -295,6 +327,7 @@ const hasTrackedAgentMentionState = (pluginState: MentionPluginState) =>
 	Boolean(pluginState.pendingTypedAgentMention) ||
 	pluginState.lastInsertedAgentMentionId != null ||
 	pluginState.lastInsertedAgentMentionContext != null ||
+	pluginState.lastInsertedAgentMentionName != null ||
 	pluginState.lastInsertedAgentMentionParentNodeType != null;
 
 /**
@@ -302,13 +335,16 @@ const hasTrackedAgentMentionState = (pluginState: MentionPluginState) =>
  * replaceDocument swaps content wholesale, so pending typed mentions and
  * lastInserted* details from the previous document must be cleared together.
  */
-const clearTrackedAgentMentionState = (pluginState: MentionPluginState): MentionPluginState => ({
-	...pluginState,
-	pendingTypedAgentMention: null,
-	lastInsertedAgentMentionId: null,
-	lastInsertedAgentMentionContext: null,
-	lastInsertedAgentMentionParentNodeType: null,
-});
+const clearTrackedAgentMentionState = (pluginState: MentionPluginState): MentionPluginState => {
+	return {
+		...pluginState,
+		pendingTypedAgentMention: null,
+		lastInsertedAgentMentionId: null,
+		lastInsertedAgentMentionContext: null,
+		lastInsertedAgentMentionName: null,
+		lastInsertedAgentMentionParentNodeType: null,
+	};
+};
 
 interface CreateMentionPlugin {
 	api?: ExtractInjectionAPI<MentionsPlugin>;
@@ -557,6 +593,7 @@ export function createMentionPlugin({
 					if (shouldResolveAgentMentionState) {
 						let agentMentionId: string | null = null;
 						let agentMentionContext: string | null = null;
+						let agentMentionName: string | null = null;
 						let agentMentionParentNodeType: string | null = null;
 						let newCount = 0;
 						let oldAgentMentionId: string | null = null;
@@ -581,6 +618,7 @@ export function createMentionPlugin({
 											newState,
 											pos,
 											(attrs) => attrs.localId === params.localId,
+											params.name,
 										);
 									}
 									if (agentMentionId === null && node.attrs.id) {
@@ -588,10 +626,12 @@ export function createMentionPlugin({
 											newState,
 											pos,
 											(attrs) => attrs.id === node.attrs.id,
+											params?.name,
 										);
 										if (agentMentionDetails) {
 											agentMentionId = agentMentionDetails.id;
 											agentMentionContext = agentMentionDetails.context;
+											agentMentionName = agentMentionDetails.name;
 											agentMentionParentNodeType = agentMentionDetails.parentNodeType;
 										}
 									}
@@ -623,10 +663,12 @@ export function createMentionPlugin({
 							const survivorDetails = getSurvivingAgentMentionDetails(
 								newState,
 								newPluginState.lastInsertedAgentMentionId,
+								newPluginState.lastInsertedAgentMentionName,
 							);
 							if (survivorDetails) {
 								agentMentionId = survivorDetails.id;
 								agentMentionContext = survivorDetails.context;
+								agentMentionName = survivorDetails.name;
 								agentMentionParentNodeType = survivorDetails.parentNodeType;
 								resolvedFromFullDocFallback = true;
 							}
@@ -655,6 +697,7 @@ export function createMentionPlugin({
 								pendingTypedAgentMention: {
 									id: pendingTypedAgentMentionDetailsForState.id,
 									localId: pendingTypedAgentMentionLocalId,
+									name: pendingTypedAgentMentionDetailsForState.name,
 									nodeSize: pendingTypedAgentMentionDetailsForState.nodeSize,
 									pos: pendingTypedAgentMentionDetailsForState.pos,
 									resetCount: 1,
@@ -668,6 +711,7 @@ export function createMentionPlugin({
 								pendingTypedAgentMention: null,
 								lastInsertedAgentMentionId: agentMentionId,
 								lastInsertedAgentMentionContext: agentMentionContext,
+								lastInsertedAgentMentionName: agentMentionName,
 								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
 								...(newInsertionCount !== undefined
 									? { lastAgentMentionInsertionCount: newInsertionCount }
@@ -677,6 +721,7 @@ export function createMentionPlugin({
 						} else if (
 							agentMentionId !== (newPluginState.lastInsertedAgentMentionId ?? null) ||
 							agentMentionContext !== (newPluginState.lastInsertedAgentMentionContext ?? null) ||
+							agentMentionName !== (newPluginState.lastInsertedAgentMentionName ?? null) ||
 							agentMentionParentNodeType !==
 								(newPluginState.lastInsertedAgentMentionParentNodeType ?? null) ||
 							newInsertionCount !== undefined
@@ -685,6 +730,7 @@ export function createMentionPlugin({
 								...newPluginState,
 								lastInsertedAgentMentionId: agentMentionId,
 								lastInsertedAgentMentionContext: agentMentionContext,
+								lastInsertedAgentMentionName: agentMentionName,
 								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
 								...(newInsertionCount !== undefined
 									? { lastAgentMentionInsertionCount: newInsertionCount }
@@ -743,6 +789,7 @@ export function createMentionPlugin({
 						newState,
 						pendingTypedAgentMention.pos,
 						(attrs) => attrs.localId === pendingTypedAgentMention.localId,
+						pendingTypedAgentMention.name,
 					);
 
 					if (!pendingMentionDetails) {

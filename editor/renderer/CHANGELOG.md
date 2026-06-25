@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 133.5.7
+
+### Patch Changes
+
+- [`66d869b3fdc74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66d869b3fdc74) -
+  [ux] Style changes to fix tables with rounded corners.
+- Updated dependencies
+
+## 133.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.5.4
+
+### Patch Changes
+
+- [`78424bc9d614f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78424bc9d614f) -
+  Improve rounded table selected-node and Remix block highlight styling behind a feature gate
+
 ## 133.5.3
 
 ### Patch Changes
@@ -21,7 +48,7 @@
 - [`1c816e537f4d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c816e537f4d0) -
   [NO-ISSUE] remove platform-component-visual-refresh from status node
 - [`ee28cf33718b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee28cf33718b0) -
-  Add @atlassian/react-compiler-gating as a runtime dependency to enable React Compiler platform
+  Add @atlaskit/react-compiler-gating as a runtime dependency to enable React Compiler platform
   gating.
 - Updated dependencies
 

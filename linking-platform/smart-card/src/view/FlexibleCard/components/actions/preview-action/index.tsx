@@ -10,8 +10,8 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
+import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import Action from '../action';
 
 import type { PreviewActionProps } from './types';
@@ -27,7 +27,7 @@ const PreviewAction = ({
 	const data = context?.actions?.[ActionName.PreviewAction];
 	const hasPreviewPanel = data?.hasPreviewPanel;
 
-	const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
+	const { product } = useRovoConfig();
 
 	const onClick = useCallback(() => {
 		if (data?.invokeAction) {
@@ -47,7 +47,8 @@ const PreviewAction = ({
 					color="currentColor"
 					spacing="spacious"
 					label=""
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+					(!!product && product === 'CONFLUENCE')
 						? { size: props.iconSize }
 						: {})}
 				/>
@@ -58,12 +59,13 @@ const PreviewAction = ({
 				color="currentColor"
 				spacing="spacious"
 				label=""
-				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
+				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+				(!!product && product === 'CONFLUENCE')
 					? { size: props.iconSize }
 					: {})}
 			/>
 		);
-	}, [hasPreviewPanel, props.iconSize, isRovoBlockCardExperimentEnabled]);
+	}, [hasPreviewPanel, props.iconSize, product]);
 
 	const actionLabel = useMemo(() => {
 		// Only use panel message if experiment is enabled and hasPreviewPanel is true

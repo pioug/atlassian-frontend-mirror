@@ -4,7 +4,6 @@ import type { ProductType } from '@atlaskit/linking-common';
 
 import { ActionName, ElementName, SmartLinkSize } from '../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
-import { isBlockCardRovoActionExperimentEnabled } from '../../../../state/hooks/use-block-card-rovo-action-experiment';
 import { isFlexibleUiElement } from '../../../../utils/flexible';
 import * as Elements from '../elements';
 
@@ -93,7 +92,6 @@ export const filterActionItems = (
 	context?: FlexibleUiDataContext,
 	product?: ProductType,
 ): ActionItem[] => {
-	const isBlockCard3PExperimentEnabled = isBlockCardRovoActionExperimentEnabled(product);
 	return items.filter((item) => {
 		switch (item.name) {
 			case ActionName.DeleteAction:
@@ -102,11 +100,10 @@ export const filterActionItems = (
 				// Named and custom actions that user defines.
 				return Boolean(ActionName[item.name]);
 			case ActionName.RovoChatAction:
-				if (isBlockCard3PExperimentEnabled) {
+				if (!!product && product === 'CONFLUENCE') {
 					return Boolean(ActionName[item.name]);
 				}
 				// same as default case below
-				// remove on cleanup of platform_sl_3p_auth_rovo_block_card_kill_switch
 				if (context?.actions === undefined) {
 					return false;
 				}

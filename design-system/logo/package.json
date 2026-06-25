@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "21.1.1",
+	"version": "21.1.2",
 	"description": "A logo is a visual representation of a brand or app. It can be a word, an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -38,9 +38,9 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},

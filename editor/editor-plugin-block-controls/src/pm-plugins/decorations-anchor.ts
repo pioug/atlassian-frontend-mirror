@@ -61,10 +61,6 @@ const shouldIgnoreNode = (
 	depth: number,
 	parent?: PMNode | null,
 ) => {
-	const isEmbedCard = node.type.name === 'embedCard';
-
-	const isMediaSingle = node.type.name === 'mediaSingle';
-
 	const nodeTypes = node.type.schema.nodes;
 
 	const isTable = node.type.name === nodeTypes?.table?.name;
@@ -97,13 +93,7 @@ const shouldIgnoreNode = (
 		return true;
 	}
 
-	return (isEmbedCard || isMediaSingle) &&
-		['wrap-right', 'wrap-left'].includes(node.attrs.layout) &&
-		!editorExperiment('platform_editor_fix_selection_wrapped_media_embed', true, {
-			exposure: true,
-		})
-		? true
-		: ignore_nodes.includes(node.type.name);
+	return ignore_nodes.includes(node.type.name);
 };
 
 /**

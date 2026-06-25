@@ -3,13 +3,12 @@ import React, { useCallback, useMemo } from 'react';
 import { useIntl, type MessageDescriptor } from 'react-intl';
 
 import type { Valign } from '@atlaskit/adf-schema/layout-column';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 import type AlignPositionTopIcon from '@atlaskit/icon-lab/core/align-position-top';
 
-import {
-	closeActiveTableMenu,
-	setMultipleCellAttrsEditorCommand,
-} from '../../../../pm-plugins/commands';
+import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
+import { setCellVerticalAlignmentWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../../../../pm-plugins/plugin-factory';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
@@ -38,7 +37,11 @@ export const VerticalAlignDropdownItem = ({
 
 		const { targetCellPosition } = getPluginState(editorView.state);
 		api.core.actions.execute(({ tr }) => {
-			setMultipleCellAttrsEditorCommand({ valign: value }, targetCellPosition)({ tr });
+			setCellVerticalAlignmentWithAnalytics(api.analytics?.actions)(
+				INPUT_METHOD.TABLE_CONTEXT_MENU,
+				value,
+				targetCellPosition,
+			)({ tr });
 			closeActiveTableMenu(api)({ tr });
 			return tr;
 		});

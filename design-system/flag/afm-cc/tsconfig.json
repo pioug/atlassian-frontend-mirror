@@ -56,6 +56,9 @@
 			"path": "../../primitives/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../theme/afm-cc/tsconfig.json"
 		},
 		{
@@ -66,9 +69,6 @@
 		},
 		{
 			"path": "../../visually-hidden/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		}
 	]
 }

@@ -62,6 +62,9 @@
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../rovo-agent-analytics/afm-products/tsconfig.json"
 		},
 		{
@@ -75,9 +78,6 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		}
 	]
 }

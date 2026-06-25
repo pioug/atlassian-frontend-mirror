@@ -21,9 +21,8 @@ import {
 	withOuterListeners,
 } from '@atlaskit/editor-common/ui';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Focusable, Text } from '@atlaskit/primitives/compiled';
-import Tabs, { Tab, TabList, useTab, useTabPanel } from '@atlaskit/tabs';
+import Tabs, { TabList, useTab, useTabPanel } from '@atlaskit/tabs';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { RegisterInsertTab } from '../mediaInsertPluginType';
@@ -174,7 +173,6 @@ export const MediaInsertPicker = ({
 	customizedUrlValidation,
 	customizedHelperMessage,
 }: MediaInsertPickerProps): React.JSX.Element | null => {
-	const isMediaInsertTabWithAnalyticsEnabled = fg('media_insert_tab_with_analytics');
 	// Tabs registered by other plugins via `api.mediaInsert.actions.registerInsertTab(...)`.
 	// Read once per render; the registry is mutated only at plugin setup time so this is stable
 	// for the lifetime of an editor instance.
@@ -206,12 +204,8 @@ export const MediaInsertPicker = ({
 	const intl = useIntl();
 	const focusEditor = useFocusEditor({ editorView });
 	const { autofocusRef, onPositionCalculated } = useUnholyAutofocus();
-	const tabCount = isMediaInsertTabWithAnalyticsEnabled
-		? registeredTabs.length + (isOnlyExternalLinks ? 1 : 2)
-		: 0;
-	const linkTabIndex = isMediaInsertTabWithAnalyticsEnabled
-		? getLinkTabIndex(registeredTabs.length, isOnlyExternalLinks)
-		: 0;
+	const tabCount = registeredTabs.length + (isOnlyExternalLinks ? 1 : 2);
+	const linkTabIndex = getLinkTabIndex(registeredTabs.length, isOnlyExternalLinks);
 	const getTabAnalyticsMetadata = React.useCallback(
 		(selectedTabIndex: number): TabAnalyticsMetadata => {
 			const registeredTab = registeredTabs[selectedTabIndex];
@@ -266,7 +260,7 @@ export const MediaInsertPicker = ({
 	// initially opened tab needs its viewed analytics event dispatched from an
 	// effect. The ref keeps this to once per picker open without setting state.
 	React.useEffect(() => {
-		if (!isMediaInsertTabWithAnalyticsEnabled || !isOpen) {
+		if (!isOpen) {
 			hasDispatchedInitialTabViewedEventRef.current = false;
 			return;
 		}
@@ -293,13 +287,7 @@ export const MediaInsertPicker = ({
 		};
 		dispatchAnalyticsEvent(payload);
 		hasDispatchedInitialTabViewedEventRef.current = true;
-	}, [
-		dispatchAnalyticsEvent,
-		getTabAnalyticsMetadata,
-		isMediaInsertTabWithAnalyticsEnabled,
-		isOpen,
-		mediaProvider,
-	]);
+	}, [dispatchAnalyticsEvent, getTabAnalyticsMetadata, isOpen, mediaProvider]);
 	const handleTabChange = React.useCallback(
 		(selectedTabIndex: number, analyticsEvent: UIAnalyticsEvent) => {
 			const selectedTabMetadata = getTabAnalyticsMetadata(selectedTabIndex);
@@ -393,25 +381,22 @@ export const MediaInsertPicker = ({
 					<MediaInsertWrapper ref={setOutsideClickTargetRef}>
 						<Tabs
 							id="media-insert-tab-navigation"
-							analyticsContext={
-								isMediaInsertTabWithAnalyticsEnabled ? tabsAnalyticsContext : undefined
-							}
-							onChange={isMediaInsertTabWithAnalyticsEnabled ? handleTabChange : undefined}
+							analyticsContext={tabsAnalyticsContext}
+							onChange={handleTabChange}
 						>
 							<Box paddingBlockEnd="space.150">
 								<TabList>
-									{isMediaInsertTabWithAnalyticsEnabled &&
-										registeredTabs.map((tab, index) => (
-											<TabWithAnalytics
-												key={tab.key}
-												onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
-												selectedTabIndex={index}
-												tabCount={tabCount}
-											>
-												{tab.label}
-											</TabWithAnalytics>
-										))}
-									{isMediaInsertTabWithAnalyticsEnabled && !isOnlyExternalLinks && (
+									{registeredTabs.map((tab, index) => (
+										<TabWithAnalytics
+											key={tab.key}
+											onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
+											selectedTabIndex={index}
+											tabCount={tabCount}
+										>
+											{tab.label}
+										</TabWithAnalytics>
+									))}
+									{!isOnlyExternalLinks && (
 										<TabWithAnalytics
 											onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
 											selectedTabIndex={registeredTabs.length}
@@ -420,23 +405,13 @@ export const MediaInsertPicker = ({
 											{fileTabTitle}
 										</TabWithAnalytics>
 									)}
-									{isMediaInsertTabWithAnalyticsEnabled && (
-										<TabWithAnalytics
-											onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
-											selectedTabIndex={linkTabIndex}
-											tabCount={tabCount}
-										>
-											{intl.formatMessage(mediaInsertMessages.linkTabTitle)}
-										</TabWithAnalytics>
-									)}
-									{!isMediaInsertTabWithAnalyticsEnabled &&
-										registeredTabs.map((tab) => <Tab key={tab.key}>{tab.label}</Tab>)}
-									{!isMediaInsertTabWithAnalyticsEnabled && !isOnlyExternalLinks && (
-										<Tab>{fileTabTitle}</Tab>
-									)}
-									{!isMediaInsertTabWithAnalyticsEnabled && (
-										<Tab>{intl.formatMessage(mediaInsertMessages.linkTabTitle)}</Tab>
-									)}
+									<TabWithAnalytics
+										onSelectTabForAnalytics={setSelectedTabAnalyticsMetadata}
+										selectedTabIndex={linkTabIndex}
+										tabCount={tabCount}
+									>
+										{intl.formatMessage(mediaInsertMessages.linkTabTitle)}
+									</TabWithAnalytics>
 								</TabList>
 							</Box>
 							{registeredTabs.map(({ key, component: TabComponent }) => (

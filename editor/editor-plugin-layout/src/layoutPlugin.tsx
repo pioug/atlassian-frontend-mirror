@@ -45,7 +45,6 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from './layoutPluginType';
@@ -127,7 +126,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 		]);
 	}
 
-	if (expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+	if (expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
 		api?.uiControlRegistry?.actions.register(getLayoutColumnMenuComponents({ api }));
 	}
 
@@ -161,7 +160,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 				},
 			] as Array<PMPlugin>;
 
-			if (expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)) {
+			if (expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)) {
 				plugins.push({
 					name: 'layoutKeymap',
 					plugin: () => createLayoutKeymapPlugin({ api }),
@@ -459,8 +458,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			return (
 				<>
 					{editorExperiment('advanced_layouts', true) ? <GlobalStylesWrapper /> : null}
-					{expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) &&
-					editorView ? (
+					{expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) && editorView ? (
 						<LayoutColumnMenu
 							api={api}
 							editorView={editorView}

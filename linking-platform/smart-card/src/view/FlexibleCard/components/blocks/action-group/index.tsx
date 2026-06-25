@@ -23,7 +23,6 @@ import {
 	useFlexibleUiContext,
 	useFlexibleUiOptionContext,
 } from '../../../../../state/flexible-ui-context';
-import { isBlockCardRovoActionExperimentEnabled } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import { RovoChatPromptKey } from '../../../../common/rovo-chat-utils';
 import { sizeToButtonSpacing } from '../../utils';
@@ -95,9 +94,6 @@ const ActionGroup = ({
 	);
 	const isMoreThenTwoItems = renderableActionItems.length > visibleButtonsNum;
 	const rovoChatAction = context?.actions?.[ActionName.RovoChatAction];
-	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(
-		rovoChatAction?.product,
-	);
 
 	const onOpenChange = useCallback(
 		(attrs: { isOpen: boolean }) => {
@@ -116,7 +112,7 @@ const ActionGroup = ({
 	}, [isOpen, onOpenChange]);
 
 	const actionButtons = useMemo(() => {
-		if (!!rovoChatAction && is3PBlockExperimentEnabled) {
+		if (!!rovoChatAction && rovoChatAction.product === 'CONFLUENCE') {
 			const rovoActions = [
 				...(containerWidth >= REDUCED_ACTIONS_SIZE
 					? renderableActionItems.slice(0, visibleButtonsNum - 1)
@@ -162,7 +158,6 @@ const ActionGroup = ({
 		size,
 		visibleButtonsNum,
 		rovoChatAction,
-		is3PBlockExperimentEnabled,
 		containerWidth,
 	]);
 
@@ -170,7 +165,7 @@ const ActionGroup = ({
 		let actionItems: ActionItem[];
 		if (
 			!!rovoChatAction &&
-			is3PBlockExperimentEnabled &&
+			rovoChatAction.product === 'CONFLUENCE' &&
 			containerWidth < OVERFLOW_ONLY_ACTIONS_SIZE
 		) {
 			actionItems = [
@@ -186,7 +181,7 @@ const ActionGroup = ({
 			];
 		} else if (
 			!!rovoChatAction &&
-			is3PBlockExperimentEnabled &&
+			rovoChatAction.product === 'CONFLUENCE' &&
 			containerWidth < REDUCED_ACTIONS_SIZE
 		) {
 			actionItems = renderableActionItems;
@@ -213,7 +208,7 @@ const ActionGroup = ({
 							<Button
 								{...props}
 								spacing={
-									!!rovoChatAction && is3PBlockExperimentEnabled
+									!!rovoChatAction && rovoChatAction.product === 'CONFLUENCE'
 										? size === SmartLinkSize.XLarge
 											? 'default'
 											: 'compact'
@@ -222,7 +217,9 @@ const ActionGroup = ({
 								testId="action-group-more-button"
 								iconBefore={moreIcon}
 								ref={triggerRef}
-								{...(is3PBlockExperimentEnabled ? { appearance } : {})}
+								{...(!!rovoChatAction && rovoChatAction.product === 'CONFLUENCE'
+									? { appearance }
+									: {})}
 							/>
 						</Tooltip>
 					)}
@@ -245,7 +242,6 @@ const ActionGroup = ({
 		ui?.zIndex,
 		visibleButtonsNum,
 		rovoChatAction,
-		is3PBlockExperimentEnabled,
 		containerWidth,
 	]);
 

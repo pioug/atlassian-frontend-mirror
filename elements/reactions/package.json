@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "35.2.2",
+	"version": "35.2.5",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -17,7 +17,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -38,6 +38,7 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
+		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/link": "workspace:^",
@@ -48,6 +49,7 @@
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/portal": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tabs": "workspace:^",
@@ -57,7 +59,6 @@
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/util-service-support": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"focus-trap": "root:*"

@@ -87,12 +87,13 @@ const isRefreshEmojiPickerEnabled = (): boolean => {
 };
 
 const atlassianCategory = 'ATLASSIAN' as CategoryGroupKey;
+const productivityAtlassianSubcategory = 'Productivity';
 const atlassianSubcategoryOrder = [
 	'Faces',
 	'Hands',
 	'Reactions',
 	'Objects',
-	'Productivity',
+	productivityAtlassianSubcategory,
 	'Logos',
 ];
 
@@ -218,6 +219,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[]
 	>([]);
 	const [lastYourUploadsRow, setLastYourUploadsRow] = useState(0);
+	const [activeAtlassianSubcategory, setActiveAtlassianSubcategory] = useState<string | null>(null);
 	const categoryTracker = useMemo(() => new CategoryTracker(), []);
 	const [categoriesChanged, setCategoriesChanged] = useState(false);
 	const isTeamojiExperimentEnabled = isRefreshEmojiPickerEnabled();
@@ -296,6 +298,26 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		[addToCategoryMap, isTeamojiExperimentEnabled],
 	);
 
+	const findAtlassianSubcategoryToActivate = useCallback(
+		(startIndex: number) => {
+			const row = virtualItems[startIndex];
+			if (row instanceof CategoryHeadingItem && row.props.id === atlassianCategory) {
+				const nextAtlassianEmojiRow = virtualItems
+					.slice(startIndex + 1)
+					.find(
+						(item): item is EmojisRowItem =>
+							item instanceof EmojisRowItem && item.props.category === atlassianCategory,
+					);
+				return nextAtlassianEmojiRow?.props.title || row.props.title;
+			}
+			if (row instanceof EmojisRowItem && row.props.category === atlassianCategory) {
+				return row.props.title;
+			}
+			return null;
+		},
+		[virtualItems],
+	);
+
 	/**
 	 * onRowsRendered callback function
 	 *
@@ -320,6 +342,12 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			if (!query) {
 				// Calculate category in view - only relevant if categories shown, i.e. no query
 				const currentCategory = findCategoryToActivate(rowItem);
+				if (isTeamojiExperimentEnabled) {
+					const currentAtlassianSubcategory = findAtlassianSubcategoryToActivate(startIndex);
+					if (activeAtlassianSubcategory !== currentAtlassianSubcategory) {
+						setActiveAtlassianSubcategory(currentAtlassianSubcategory);
+					}
+				}
 				if (currentCategory !== null && activeCategoryId !== currentCategory) {
 					if (onCategoryActivated) {
 						onCategoryActivated(currentCategory);
@@ -327,7 +355,15 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				}
 			}
 		},
-		[virtualItems, query, activeCategoryId, onCategoryActivated],
+		[
+			virtualItems,
+			query,
+			activeAtlassianSubcategory,
+			activeCategoryId,
+			findAtlassianSubcategoryToActivate,
+			isTeamojiExperimentEnabled,
+			onCategoryActivated,
+		],
 	);
 
 	const buildEmojiGroupedByCategory = useCallback(
@@ -689,6 +725,9 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				onToneSelectorCancelled={onToneSelectorCancelled}
 				toneEmoji={toneEmoji}
 				activeCategoryId={isTeamojiExperimentEnabled ? activeCategoryId : undefined}
+				activeAtlassianSubcategory={
+					isTeamojiExperimentEnabled ? activeAtlassianSubcategory : undefined
+				}
 				productivityColorPreviewEmojis={
 					isTeamojiExperimentEnabled ? productivityColorPreviewEmojis : undefined
 				}

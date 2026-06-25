@@ -11,7 +11,6 @@ import { RovoIcon } from '@atlaskit/logo';
 
 import { CardDisplay } from '../../../constants';
 import { messages } from '../../../messages';
-import { isBlockCardRovoActionExperimentEnabled } from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import type { SendPromptMessageData } from '../../../state/hooks/use-rovo-chat';
 import AiChapterIcon from '../../FlexibleCard/assets/ai-chapter-icon';
 import AIEditIcon from '../../FlexibleCard/assets/ai-edit-icon';
@@ -92,8 +91,6 @@ export const getPromptAction = ({
 		contextShort: intl.formatMessage(messages.rovo_prompt_context_generic),
 	};
 
-	const isBlockCard3PExperimentEnabled = isBlockCardRovoActionExperimentEnabled(product);
-
 	switch (promptKey) {
 		case RovoChatPromptKey.RECOMMEND_OTHER_SOURCES:
 			const label_recommend = intl.formatMessage(
@@ -161,12 +158,7 @@ export const getPromptAction = ({
 				{ ignoreTag: true },
 			);
 			return {
-				icon:
-					cardAppearance === CardDisplay.Block && isBlockCard3PExperimentEnabled ? (
-						<AiChatIcon label={label_summarize} size={iconSize} />
-					) : (
-						<AIEditIcon />
-					),
+				icon: <AiChatIcon label={label_summarize} size={iconSize} />,
 				content: label_summarize,
 				tooltipMessage: label_summarize,
 				data: {
@@ -232,7 +224,7 @@ export const getPromptAction = ({
 			);
 			return {
 				icon:
-					cardAppearance === CardDisplay.Block && isBlockCard3PExperimentEnabled ? (
+					cardAppearance === CardDisplay.Block && !!product && product === 'CONFLUENCE' ? (
 						<RovoIcon label={label_ask_rovo_anything} size={'xxsmall'} shouldUseHexLogo />
 					) : (
 						<AISearchIcon />

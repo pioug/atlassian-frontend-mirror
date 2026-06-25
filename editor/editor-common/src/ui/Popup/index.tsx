@@ -7,7 +7,7 @@ import rafSchedule from 'raf-schd';
 import { createPortal, flushSync } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { Position } from './utils';
@@ -293,7 +293,7 @@ export default class Popup extends React.Component<Props, State> {
 		this.focusTrap = createFocusTrap(
 			popup,
 			editorExperiment('platform_editor_block_menu', true) ||
-				expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
+				expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 				? trapConfig
 				: defaultTrapConfig,
 		);

@@ -1,0 +1,1 @@
+export { isReactCompilerActivePlatform } from './isReactCompilerActivePlatform';

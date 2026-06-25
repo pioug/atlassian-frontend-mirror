@@ -18,6 +18,8 @@ export type VCObserverEntryType =
 	| 'mutation:rll-placeholder'
 	| 'mutation:third-party-element'
 	| 'mutation:third-party-attribute'
+	| 'mutation:gen-ai-element'
+	| 'mutation:gen-ai-attribute'
 	| 'mutation:smart-answers-element'
 	| 'mutation:smart-answers-attribute'
 	| 'mutation:ssr-placeholder'

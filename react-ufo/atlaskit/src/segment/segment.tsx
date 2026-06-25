@@ -57,7 +57,7 @@ import generateId from '../short-id';
 import scheduleOnPaint from './schedule-on-paint';
 import SsrRenderProfiler from './ssr-render-profiler';
 
-export type UFOSegmentType = 'third-party' | 'first-party';
+export type UFOSegmentType = 'third-party' | 'gen-ai' | 'first-party';
 
 export type Props = {
 	name: string;

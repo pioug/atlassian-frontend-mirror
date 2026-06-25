@@ -13,7 +13,7 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"devDependencies": {
-		"@atlassian/react-compiler-gating": "workspace:^",
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"es6-promise": "root:*",
 		"fetch-mock": "root:*",
 		"jest-extended": "root:*",
@@ -33,7 +33,7 @@
 		"react-compiler": {
 			"enabled": false,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},

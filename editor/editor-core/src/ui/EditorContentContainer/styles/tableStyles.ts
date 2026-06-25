@@ -4,6 +4,8 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { scrollbarStyles } from './scrollbarStyles';
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
@@ -165,4 +167,35 @@ export const tableContentModeStyles: SerializedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 		width: 'unset !important',
 	},
+});
+/**
+ * SSR-safe rounded corners for the outermost table cells.
+ *
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
+export const tableRoundedCornerStyles: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-top][data-reaches-left], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-top][data-reaches-left]':
+		{
+			borderTopLeftRadius: token('radius.xlarge'),
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-top][data-reaches-right], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-top][data-reaches-right]':
+		{
+			borderTopRightRadius: token('radius.xlarge'),
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-bottom][data-reaches-left], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-bottom][data-reaches-left]':
+		{
+			borderBottomLeftRadius: token('radius.xlarge'),
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-bottom][data-reaches-right], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-bottom][data-reaches-right]':
+		{
+			borderBottomRightRadius: token('radius.xlarge'),
+		},
 });

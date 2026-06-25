@@ -4,11 +4,13 @@
  */
 import { useIntl } from 'react-intl';
 import {
+	defaultEmojiHeight,
 	type EmojiId,
 	type OnEmojiEvent,
 	type EmojiProvider,
 	ResourcedEmoji,
 } from '@atlaskit/emoji';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { messages } from '../shared/i18n';
 import { isLeftClick } from '../shared/utils';
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
@@ -64,9 +66,18 @@ const styles = cssMap({
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 	},
+
+	emojiSlot: {
+		minWidth: '20px',
+	},
+
+	hoverableReactionPickerSelectorEmojiSlot: {
+		minWidth: '16px',
+	},
 });
 
 export const RENDER_BUTTON_TESTID = 'button-emoji-id';
+export const RENDER_BUTTON_EMOJI_SLOT_TESTID = 'button-emoji-slot-id';
 
 export interface EmojiButtonProps {
 	/**
@@ -104,6 +115,30 @@ export const EmojiButton = ({
 	};
 
 	const intl = useIntl();
+	const emojiHeight = hoverableReactionPickerSelectorEmoji
+		? RESOURCED_EMOJI_COMPACT_HEIGHT
+		: defaultEmojiHeight;
+	const emoji = (
+		<ResourcedEmoji
+			emojiProvider={emojiProvider}
+			emojiId={emojiId}
+			fitToHeight={
+				hoverableReactionPickerSelectorEmoji ? RESOURCED_EMOJI_COMPACT_HEIGHT : undefined
+			}
+		/>
+	);
+	const reservedEmoji = hoverableReactionPickerSelectorEmoji ? (
+		<span
+			css={styles.hoverableReactionPickerSelectorEmojiSlot}
+			data-testid={RENDER_BUTTON_EMOJI_SLOT_TESTID}
+		>
+			<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={emojiHeight} />
+		</span>
+	) : (
+		<span css={styles.emojiSlot} data-testid={RENDER_BUTTON_EMOJI_SLOT_TESTID}>
+			<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={emojiHeight} />
+		</span>
+	);
 
 	return (
 		<Pressable
@@ -118,13 +153,14 @@ export const EmojiButton = ({
 					: styles.emojiButton
 			}
 		>
-			<ResourcedEmoji
-				emojiProvider={emojiProvider}
-				emojiId={emojiId}
-				fitToHeight={
-					hoverableReactionPickerSelectorEmoji ? RESOURCED_EMOJI_COMPACT_HEIGHT : undefined
-				}
-			/>
+			{/* eslint-disable-next-line @atlaskit/platform/use-recommended-utils */}
+			{FeatureGates.getExperimentValue(
+				'platform_teamoji_26_refresh_emoji_picker',
+				'isEnabled',
+				false,
+			)
+				? reservedEmoji
+				: emoji}
 		</Pressable>
 	);
 };

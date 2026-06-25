@@ -7,7 +7,6 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 import { ActionName, CardAction } from '../../../constants';
 import type { RovoChatActionData } from '../../../state/flexible-ui-context/types';
 import { getDefinitionId, getExtensionKey, getResourceType } from '../../../state/helpers';
-import { isBlockCardRovoActionExperimentEnabled } from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import type { RovoConfig } from '../../../state/hooks/use-rovo-config';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 import { getIsRovoChatEnabled } from '../../../utils/rovo';
@@ -53,9 +52,6 @@ const extractRovoChatAction = ({
 
 	const extensionKey = getExtensionKey(response);
 	const isGoogleProvider = extensionKey === 'google-object-provider';
-	const is3PBlockExperimentEnabled = isBlockCardRovoActionExperimentEnabled(
-		rovoConfig?.product ?? product,
-	);
 
 	const isInlineExperimentEnabled =
 		fg('platform_sl_3p_auth_inline_tailored_cta_killswitch') &&
@@ -65,7 +61,7 @@ const extractRovoChatAction = ({
 	const is3PBlockPostAuthActionsEnabled =
 		extensionKey !== undefined &&
 		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
-		is3PBlockExperimentEnabled;
+		rovoConfig?.product === 'CONFLUENCE';
 
 	const isSupportedFeature =
 		is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled || isInlineExperimentEnabled;

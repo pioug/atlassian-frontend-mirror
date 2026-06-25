@@ -16,6 +16,7 @@ import type {
 	HoldInfo,
 	InteractionMetrics,
 	InteractionType,
+	MetricVariantCategory,
 	LifecycleMarkType,
 	LoadProfilerEventInfo,
 	Mark,
@@ -584,6 +585,7 @@ export function addHold(
 				if (interaction.hold3pActive) {
 					const current3pHold = interaction.hold3pActive.get(id);
 					if (current3pHold != null) {
+						recordMetricVariantCategoryEnd(currentInteraction, current3pHold.labelStack, end);
 						if (!currentInteraction.hold3pInfo) {
 							currentInteraction.hold3pInfo = [];
 						}
@@ -632,6 +634,7 @@ export function addCompletedHold(
 ): void {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
+		recordMetricVariantCategoryEnd(interaction, labelStack, end);
 		ensureExtendedHoldInfo(interaction).push({ labelStack, name, start, end });
 	}
 }
@@ -656,6 +659,7 @@ export function removeHoldByID(interactionId: string, id: string): void {
 		if (interaction.hold3pActive) {
 			const current3pHold = interaction.hold3pActive.get(id);
 			if (currentInteraction != null && current3pHold != null) {
+				recordMetricVariantCategoryEnd(currentInteraction, current3pHold.labelStack, end);
 				if (!currentInteraction.hold3pInfo) {
 					currentInteraction.hold3pInfo = [];
 				}
@@ -812,16 +816,102 @@ function pushToQueue(id: string, data: InteractionMetrics) {
 
 let handleInteraction = pushToQueue;
 
+const isKnownMetricVariantCategory = (type: unknown): type is MetricVariantCategory =>
+	type === 'third-party' || type === 'gen-ai';
+
+const isMetricVariantCategoryEnabled = (category: MetricVariantCategory): boolean =>
+	category === 'third-party' || fg('platform_ufo_gen_ai_segment');
+
+const hasMetricVariantCategory = (
+	labelStack: LabelStack | null | undefined,
+	category: MetricVariantCategory,
+): boolean =>
+	labelStack?.some(
+		(label) =>
+			'type' in label && label.type === category && isMetricVariantCategoryEnabled(category),
+	) ?? false;
+
+const hasAnyMetricVariantCategory = (labelStack: LabelStack | null | undefined): boolean =>
+	labelStack?.some(
+		(label) =>
+			'type' in label &&
+			isKnownMetricVariantCategory(label.type) &&
+			isMetricVariantCategoryEnabled(label.type),
+	) ?? false;
+
+const getMetricVariantCategories = (
+	labelStack: LabelStack | null | undefined,
+): MetricVariantCategory[] => {
+	const categories = new Set<MetricVariantCategory>();
+	labelStack?.forEach((label) => {
+		if (
+			'type' in label &&
+			isKnownMetricVariantCategory(label.type) &&
+			isMetricVariantCategoryEnabled(label.type)
+		) {
+			categories.add(label.type);
+		}
+	});
+	return [...categories];
+};
+
+const hasMetricVariantCategoryInHoldData = (
+	interaction: InteractionMetrics,
+	category: MetricVariantCategory,
+): boolean =>
+	interaction.holdInfo.some((hold) => hasMetricVariantCategory(hold.labelStack, category)) ||
+	[...(interaction.holdActive.values() ?? [])].some((hold) =>
+		hasMetricVariantCategory(hold.labelStack, category),
+	) ||
+	[...(interaction.hold3pInfo ?? [])].some((hold) =>
+		hasMetricVariantCategory(hold.labelStack, category),
+	) ||
+	[...(interaction.hold3pActive?.values() ?? [])].some((hold) =>
+		hasMetricVariantCategory(hold.labelStack, category),
+	);
+
+const recordMetricVariantCategoryEnd = (
+	interaction: InteractionMetrics,
+	labelStack: LabelStack | null | undefined,
+	end: number,
+): void => {
+	const categories = getMetricVariantCategories(labelStack);
+	if (categories.length === 0) {
+		return;
+	}
+
+	interaction.metricCategoryEnds = interaction.metricCategoryEnds ?? {};
+	categories.forEach((category) => {
+		interaction.metricCategoryEnds![category] = Math.max(
+			interaction.metricCategoryEnds![category] ?? 0,
+			end,
+		);
+	});
+};
+
+const recordActiveMetricVariantCategoryEnds = (
+	interaction: InteractionMetrics,
+	end: number,
+): void => {
+	interaction.hold3pActive?.forEach((hold) => {
+		recordMetricVariantCategoryEnd(interaction, hold.labelStack, end);
+	});
+};
+
+const hasActiveMetricVariantCategory = (
+	interaction: InteractionMetrics,
+	category: MetricVariantCategory,
+): boolean =>
+	[...(interaction.hold3pActive?.values() ?? [])].some((hold) =>
+		hasMetricVariantCategory(hold.labelStack, category),
+	);
+
 function shouldMoveHoldToExtendedBucket(
 	interaction: InteractionMetrics,
 	hold: Pick<HoldActive, 'start' | 'labelStack'>,
 ): boolean {
-	const isExplicitlyThirdParty = hold.labelStack.some(
-		(label) => 'type' in label && label.type === 'third-party',
-	);
-
 	return (
-		isExplicitlyThirdParty ||
+		hasAnyMetricVariantCategory(hold.labelStack) ||
 		(interaction.end !== 0 && hold.start > interaction.end && fg('platform_ufo_metric_variants'))
 	);
 }
@@ -860,21 +950,42 @@ function ensureMetricWindows(interaction: InteractionMetrics): void {
 		return;
 	}
 
+	const shouldExcludeGenAI = fg('platform_ufo_gen_ai_segment');
+	const hasGenAI = shouldExcludeGenAI && hasMetricVariantCategoryInHoldData(interaction, 'gen-ai');
+	const hasThirdParty = hasMetricVariantCategoryInHoldData(interaction, 'third-party');
+	const includeThirdPartyEnd =
+		interaction.metricCategoryEnds?.['third-party'] !== undefined
+			? Math.max(interaction.metricCategoryEnds['third-party'], interaction.end)
+			: interaction.end3p;
+	const includeGenAIEnd =
+		interaction.metricCategoryEnds?.['gen-ai'] !== undefined
+			? Math.max(interaction.metricCategoryEnds['gen-ai'], interaction.end)
+			: undefined;
+
 	interaction.metricWindows = {
 		...interaction.metricWindows,
 		standard: {
 			start: interaction.start,
 			end: interaction.end,
 			includeCategories: [],
-			excludeCategories: ['third-party'],
+			excludeCategories: shouldExcludeGenAI ? ['third-party', 'gen-ai'] : ['third-party'],
 		},
 	};
 
-	if (interaction.end3p !== undefined) {
+	if (includeThirdPartyEnd !== undefined && (hasThirdParty || !hasGenAI)) {
 		interaction.metricWindows['include-third-party'] = {
 			start: interaction.start,
-			end: interaction.end3p,
+			end: includeThirdPartyEnd,
 			includeCategories: ['third-party'],
+			excludeCategories: [],
+		};
+	}
+
+	if (hasGenAI && includeGenAIEnd !== undefined) {
+		interaction.metricWindows['include-gen-ai'] = {
+			start: interaction.start,
+			end: includeGenAIEnd,
+			includeCategories: ['gen-ai'],
 			excludeCategories: [],
 		};
 	}
@@ -1057,28 +1168,35 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 			activeSubmitted = false;
 		};
 
-		const noMoreActive3pHolds =
+		const noMoreActiveMetricVariantHolds =
 			interaction.hold3pActive?.size === 0 || interaction.hold3pActive === undefined;
 
-		// If using raw data third party behavior, wait for 3p holds to clear
-		if (shouldUseRawDataThirdParty) {
-			// If there are no non-3p holds active, mark the interaction as successful
-			// but don't finish until 3p holds are cleared
-			if (noMoreActiveHolds && !noMoreActive3pHolds) {
+		const shouldUseSeparatedMetricVariantBehavior =
+			shouldUseRawDataThirdParty || hasActiveMetricVariantCategory(interaction, 'gen-ai');
+
+		// If using separated metric variant behavior, wait for extended category holds to clear.
+		// The backing fields still use their legacy 3P names because they are part of the existing
+		// third-party payload contract, but this bucket now also drives client metric windows.
+		if (shouldUseSeparatedMetricVariantBehavior) {
+			// If there are no standard holds active, mark the interaction as successful
+			// but don't finish until extended metric variant holds are cleared.
+			if (noMoreActiveHolds && !noMoreActiveMetricVariantHolds) {
 				// Mark interaction as successful by setting endTime, but don't finish yet
 				if (endTime !== undefined && interaction.end === 0) {
 					interaction.end = endTime;
 				}
 				moveLateActiveHoldsToExtendedBucket(interaction);
 				ensureMetricWindows(interaction);
-				// Wait for 3p holds to clear before finishing
+				// Wait for extended metric variant holds to clear before finishing.
 				return;
 			}
 
-			// If all holds (including 3p) are cleared, finish the interaction
-			if (noMoreActiveHolds && noMoreActive3pHolds) {
+			// If all holds, including extended metric variant holds, are cleared, finish the interaction.
+			if (noMoreActiveHolds && noMoreActiveMetricVariantHolds) {
 				if (!activeSubmitted) {
-					// Set end3p to current time when 3p holds cleared, but ensure it's at least interaction.end
+					// Set the legacy third-party end marker when extended metric variant holds clear,
+					// preserving existing 3P payload behavior while category-specific end times are
+					// recorded separately in metricCategoryEnds.
 					const currentTime = endTime ?? performance.now();
 					interaction.end3p =
 						interaction.end !== 0 && currentTime < interaction.end ? interaction.end : currentTime;
@@ -1105,7 +1223,12 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				postInteraction();
 			}
 			// Send separated third-party event when extra interaction metrics is enabled
-			if (isInteractionExtraMetricsEnabled() && noMoreActiveHolds && noMoreActive3pHolds) {
+			if (
+				shouldUseRawDataThirdParty &&
+				isInteractionExtraMetricsEnabled() &&
+				noMoreActiveHolds &&
+				noMoreActiveMetricVariantHolds
+			) {
 				const data = {
 					...interaction,
 					end: endTime || interaction.end,
@@ -1137,7 +1260,11 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 
 				postInteraction();
 			}
-			if (isInteractionExtraMetricsEnabled() && noMoreActiveHolds && noMoreActive3pHolds) {
+			if (
+				isInteractionExtraMetricsEnabled() &&
+				noMoreActiveHolds &&
+				noMoreActiveMetricVariantHolds
+			) {
 				const data = {
 					...interaction,
 					end: endTime!,
@@ -1163,11 +1290,14 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 		);
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
 		const has3pHoldsActive = interaction.hold3pActive && interaction.hold3pActive.size > 0;
+		const shouldUseSeparatedMetricVariantBehavior =
+			shouldUseRawDataThirdParty || hasActiveMetricVariantCategory(interaction, 'gen-ai');
 
-		// If only third-party holds are active, finish as successful instead of aborting
-		if (shouldUseRawDataThirdParty && noMoreActiveHolds && has3pHoldsActive) {
+		// If only extended metric variant holds are active, finish as successful instead of aborting
+		if (shouldUseSeparatedMetricVariantBehavior && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
 			interaction.end3p = performance.now();
+			recordActiveMetricVariantCategoryEnds(interaction, interaction.end3p);
 			addLifecycleObservation(interaction, {
 				type: abortReason === 'timeout' ? 'timeout_expired' : 'page_unloaded',
 				timestamp: interaction.end3p,
@@ -1210,12 +1340,15 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		);
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
 		const has3pHoldsActive = interaction.hold3pActive && interaction.hold3pActive.size > 0;
+		const shouldUseSeparatedMetricVariantBehavior =
+			shouldUseRawDataThirdParty || hasActiveMetricVariantCategory(interaction, 'gen-ai');
 
-		// If only third-party holds are active, finish as successful instead of aborting
-		if (shouldUseRawDataThirdParty && noMoreActiveHolds && has3pHoldsActive) {
+		// If only extended metric variant holds are active, finish as successful instead of aborting
+		if (shouldUseSeparatedMetricVariantBehavior && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
 			// Set end3p to current time, but ensure it's at least interaction.end
 			interaction.end3p = performance.now();
+			recordActiveMetricVariantCategoryEnds(interaction, interaction.end3p);
 			addLifecycleObservation(interaction, {
 				type: 'new_interaction_started',
 				timestamp: interaction.end3p,
@@ -1278,11 +1411,14 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		);
 		const noMoreActiveHolds = interaction.holdActive.size === 0;
 		const has3pHoldsActive = interaction.hold3pActive && interaction.hold3pActive.size > 0;
+		const shouldUseSeparatedMetricVariantBehavior =
+			shouldUseRawDataThirdParty || hasActiveMetricVariantCategory(interaction, 'gen-ai');
 
-		// If only third-party holds are active, finish as successful instead of aborting
-		if (shouldUseRawDataThirdParty && noMoreActiveHolds && has3pHoldsActive) {
+		// If only extended metric variant holds are active, finish as successful instead of aborting
+		if (shouldUseSeparatedMetricVariantBehavior && noMoreActiveHolds && has3pHoldsActive) {
 			const endTime = interaction.end !== 0 ? interaction.end : performance.now();
 			interaction.end3p = performance.now();
+			recordActiveMetricVariantCategoryEnds(interaction, interaction.end3p);
 			addLifecycleObservation(interaction, {
 				type: abortReason === 'transition' ? 'transition_started' : 'new_interaction_started',
 				timestamp: interaction.end3p,

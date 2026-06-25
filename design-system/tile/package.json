@@ -3,7 +3,7 @@
 		"react-compiler": {
 			"enabled": true,
 			"gating": {
-				"source": "@atlassian/react-compiler-gating",
+				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
@@ -30,9 +30,9 @@
 		"./types": "./src/entry-points/types.tsx"
 	},
 	"dependencies": {
+		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
-		"@atlassian/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},

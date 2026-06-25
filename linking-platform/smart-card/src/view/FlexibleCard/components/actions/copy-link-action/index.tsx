@@ -8,8 +8,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
-import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
+import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import Action from '../action';
 
 import { type CopyLinkActionProps } from './types';
@@ -25,7 +25,7 @@ const CopyLinkAction = ({
 	const data = context?.actions?.[ActionName.CopyLinkAction];
 	const [tooltipMessage, setTooltipMessage] = useState(messages.copy_url_to_clipboard);
 
-	const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
+	const { product } = useRovoConfig();
 
 	const onClick = useCallback(() => {
 		if (data?.invokeAction) {
@@ -49,7 +49,8 @@ const CopyLinkAction = ({
 					color="currentColor"
 					label=""
 					spacing="spacious"
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+					(!!product && product === 'CONFLUENCE')
 						? { size: props.iconSize }
 						: {})}
 				/>

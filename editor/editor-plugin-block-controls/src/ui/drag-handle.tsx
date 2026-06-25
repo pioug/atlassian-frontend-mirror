@@ -618,7 +618,7 @@ export const DragHandle = ({
 
 				if (
 					nodeType === 'layoutColumn' &&
-					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
+					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 				) {
 					tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, false));
 				}
@@ -677,7 +677,7 @@ export const DragHandle = ({
 
 				if (
 					nodeType === 'layoutColumn' &&
-					expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
+					expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 				) {
 					tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, false));
 				}
@@ -784,7 +784,7 @@ export const DragHandle = ({
 
 					if (
 						nodeType === 'layoutColumn' &&
-						expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true)
+						expValEquals('platform_editor_layout_column_menu', 'isEnabled', true)
 					) {
 						tr.setMeta('toggleLayoutColumnMenu', buildToggleLayoutColumnMenuMeta(startPos, true));
 					}
@@ -1165,7 +1165,7 @@ export const DragHandle = ({
 			mSelect?.anchor !== undefined
 				? view.state.doc.resolve(mSelect?.anchor)
 				: view.state.selection.$anchor;
-		const isLayoutColumnMenuEnabled = expValEqualsNoExposure(
+		const isLayoutColumnMenuEnabled = expValEquals(
 			'platform_editor_layout_column_menu',
 			'isEnabled',
 			true,
@@ -1187,11 +1187,7 @@ export const DragHandle = ({
 		: formatMessage(blockControlsMessages.dragToMove);
 
 	// Create a string version for aria-label
-	const dragHandleAriaLabel = expValEqualsNoExposure(
-		'platform_editor_block_menu',
-		'isEnabled',
-		true,
-	)
+	const dragHandleAriaLabel = expValEquals('platform_editor_block_menu', 'isEnabled', true)
 		? formatMessage(blockControlsMessages.dragToMoveClickToOpen, { br: ' ' })
 		: formatMessage(blockControlsMessages.dragToMove);
 
@@ -1330,8 +1326,7 @@ export const DragHandle = ({
 				(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
 					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
 						fg('platform_editor_content_mode_button_mvp')) ||
-					(editorExperiment('platform_editor_block_menu', true) &&
-						fg('platform_editor_block_menu_jira_patch_1'))) &&
+					editorExperiment('platform_editor_block_menu', true)) &&
 					dragHandleButtonScaledStyles,
 			]}
 			ref={buttonRef}
@@ -1494,7 +1489,7 @@ export const DragHandle = ({
 
 	const tooltipContent =
 		isLayoutColumn &&
-		expValEqualsNoExposure('platform_editor_layout_column_menu', 'isEnabled', true) &&
+		expValEquals('platform_editor_layout_column_menu', 'isEnabled', true) &&
 		currentUserIntent === 'layoutColumnMenuPopupOpen' ? null : (
 			<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />
 		);

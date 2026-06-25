@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import Avatar from '@atlaskit/avatar';
+import Button from '@atlaskit/button/new';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import {
@@ -261,6 +262,32 @@ const Actions = ({
 			{regularActions.map((action, index) => {
 				const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
 
+				if (isKudos && fg('fix_give_kudos_btn_incorrect_role')) {
+					const kudosButton = (
+						<Button
+							appearance="default"
+							key={action.id || index}
+							onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+								onActionClick(action, args, event, index)
+							}
+							autoFocus={index === 0 && isTriggeredUsingKeyboard && !isRenderedInPortal}
+							id={`action-button-${action.id}`}
+							aria-labelledby={`action-button-${action.id} profilecard-name-label`}
+						>
+							{action.label}
+							<AnimationWrapper>
+								<KudosBlobAnimation />
+							</AnimationWrapper>
+						</Button>
+					);
+
+					return (
+						<AnimatedKudosButton key={`profile-card-action-kudos_${action.id || index}`}>
+							{kudosButton}
+						</AnimatedKudosButton>
+					);
+				}
+
 				const button = (
 					<TeamsLinkButton
 						appearance="default"
@@ -283,6 +310,7 @@ const Actions = ({
 					</TeamsLinkButton>
 				);
 
+				// TODO: Remove this once fix_give_kudos_btn_incorrect_role is fully rolled out
 				if (isKudos) {
 					return (
 						<AnimatedKudosButton key={`profile-card-action-kudos_${action.id || index}`}>

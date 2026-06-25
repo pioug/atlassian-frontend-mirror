@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ced2179e9e0992ccb4af61b51b4f10a3>>
+ * @codegen <<SignedSource::3ee8292a79b161f2b692708d346bda7d>>
  * @codegenCommand yarn workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -18,10 +18,8 @@ const svg = `<svg height="100%" viewBox="0 0 24 24">
 /**
  * __AdminIcon__
  *
- * A temporary component to represent the icon for Admin.
- * @deprecated This component has been replaced by the component `AdminIcon` in `@atlaskit/logo`.
- * Please migrate any usages of this temporary component, using the prop `shouldUseNewLogoDesign` where necessary
- * to enable the new design by default.
+ * An internal component to represent the icon for Admin.
+ * Do not use this internal component directly — use `AdminIcon` from `@atlaskit/logo` instead.
  *
  */
 export function AdminIcon({

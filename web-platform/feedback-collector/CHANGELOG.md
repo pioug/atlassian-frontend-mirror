@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 16.1.2
+
+### Patch Changes
+
+- [`309a7bd882781`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/309a7bd882781) -
+  Add a dialogRef prop for accessing the rendered feedback dialog container.
+
 ## 16.1.1
 
 ### Patch Changes

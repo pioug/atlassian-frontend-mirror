@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { ActionName, CardDisplay, ElementName, SmartLinkPosition } from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getExtensionKey } from '../../../state/helpers';
-import useBlockCardRovoActionExperiment from '../../../state/hooks/use-block-card-rovo-action-experiment';
+import useBlockCardRovoAction from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import { RovoChatPromptKey } from '../../common/rovo-chat-utils';
 import FlexibleCard from '../../FlexibleCard';
@@ -81,30 +81,9 @@ const ResolvedView = ({
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
 	const extensionKey = getExtensionKey(cardState.details);
-	const { isEnabled: is3PRovoBlockExperimentEnabled } = useBlockCardRovoActionExperiment(
-		url,
-		actionOptions,
-	);
+	const is3PRovoBlockRovoActionEnabled = useBlockCardRovoAction(url, actionOptions);
 
-	const rovoConfig = is3PRovoBlockExperimentEnabled
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useRovoConfig()
-		: undefined;
-
-	const showRovoResolvedView = is3PRovoBlockExperimentEnabled
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useMemo(
-				() =>
-					cardState?.status === 'resolved' &&
-					cardState.details &&
-					extractRovoChatAction({
-						response: cardState.details,
-						rovoConfig,
-						actionOptions: actionOptions,
-					}) !== undefined,
-				[actionOptions, cardState?.details, cardState?.status, rovoConfig],
-			)
-		: undefined;
+	const rovoConfig = useRovoConfig();
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { safari = false } = useMemo(() => browser(), []);
@@ -118,7 +97,7 @@ const ResolvedView = ({
 	);
 
 	const prompts = useMemo(() => {
-		if (is3PRovoBlockExperimentEnabled) {
+		if (is3PRovoBlockRovoActionEnabled) {
 			const defaultPrompts = [RovoChatPromptKey.KEY_HIGHLIGHTS];
 
 			const linkType = cardState.details?.data?.['@type'];
@@ -142,28 +121,35 @@ const ResolvedView = ({
 			return [RovoChatPromptKey.SUMMARIZE_LINK, ...defaultPrompts];
 		}
 		return [];
-	}, [cardState?.details?.data, extensionKey, is3PRovoBlockExperimentEnabled]);
+	}, [cardState?.details?.data, extensionKey, is3PRovoBlockRovoActionEnabled]);
 
-	const footerActions: ActionItem[] = useMemo(
-		() =>
-			showRovoResolvedView && is3PRovoBlockExperimentEnabled
-				? [
-						{
-							name: ActionName.RovoChatAction,
-							prompts: prompts,
-							iconSize: 'small',
-							cardAppearance: CardDisplay.Block,
-						},
-						{ name: ActionName.FollowAction, iconSize: 'small' },
-						{ name: ActionName.DownloadAction, iconSize: 'small' },
-					]
-				: [
-						{ name: ActionName.FollowAction, hideIcon: true },
-						{ name: ActionName.PreviewAction, hideIcon: true },
-						{ name: ActionName.DownloadAction, hideIcon: true },
-					],
-		[showRovoResolvedView, prompts, is3PRovoBlockExperimentEnabled],
-	);
+	const footerActions: ActionItem[] = useMemo(() => {
+		const showRovoResolvedView =
+			cardState?.status === 'resolved' &&
+			cardState.details &&
+			extractRovoChatAction({
+				response: cardState.details,
+				rovoConfig,
+				actionOptions: actionOptions,
+			}) !== undefined;
+
+		return showRovoResolvedView && is3PRovoBlockRovoActionEnabled
+			? [
+					{
+						name: ActionName.RovoChatAction,
+						prompts: prompts,
+						iconSize: 'small',
+						cardAppearance: CardDisplay.Block,
+					},
+					{ name: ActionName.FollowAction, iconSize: 'small' },
+					{ name: ActionName.DownloadAction, iconSize: 'small' },
+				]
+			: [
+					{ name: ActionName.FollowAction, hideIcon: true },
+					{ name: ActionName.PreviewAction, hideIcon: true },
+					{ name: ActionName.DownloadAction, hideIcon: true },
+				];
+	}, [prompts, is3PRovoBlockRovoActionEnabled, cardState, rovoConfig, actionOptions]);
 
 	const uiOptions = FlexibleCardUiOptions;
 	uiOptions.enableSnippetRenderer = true;

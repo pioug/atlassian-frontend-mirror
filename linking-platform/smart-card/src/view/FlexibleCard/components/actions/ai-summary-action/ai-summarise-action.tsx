@@ -12,7 +12,7 @@ import type {
 	AISummaryState,
 	AISummaryStatus,
 } from '../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
-import { useBlockCardRovoActionExperimentNoExposure } from '../../../../../state/hooks/use-block-card-rovo-action-experiment';
+import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import Action from '../action';
 
 import type { AISummaryActionProps } from './types';
@@ -31,7 +31,7 @@ export function AISummariseAction({
 		summariseUrl: () => Promise<AISummaryState> | undefined;
 	}): React.JSX.Element {
 	const { fireEvent } = useAnalyticsEvents();
-	const isRovoBlockCardExperimentEnabled = useBlockCardRovoActionExperimentNoExposure();
+	const { product } = useRovoConfig();
 
 	const onCompleted = useCallback(
 		(state: AISummaryState) => {
@@ -64,7 +64,8 @@ export function AISummariseAction({
 					spacing="spacious"
 					color="currentColor"
 					label="Summarise with AI"
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') || isRovoBlockCardExperimentEnabled
+					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
+					(!!product && product === 'CONFLUENCE')
 						? { size: props.iconSize }
 						: {})}
 				/>

@@ -6502,6 +6502,33 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
+	// SSR-safe rounded corners for the outermost table cells. Mirrors tableRoundedCornerStyles in
+	// ./styles/tableStyles.ts. See EDITOR-7600. The data-reaches-* attributes are emitted during SSR,
+	// but the corner-radius CSS previously lived only in the table plugin's client-only <Global> styles,
+	// so corners rendered square on the server. Gated (at application site) by
+	// platform_editor_table_q4_loveability + platform_editor_table_q4_patch_1.
+	tableRoundedCornerStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-top][data-reaches-left], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-top][data-reaches-left]':
+			{
+				borderTopLeftRadius: token('radius.xlarge'),
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-top][data-reaches-right], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-top][data-reaches-right]':
+			{
+				borderTopRightRadius: token('radius.xlarge'),
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-bottom][data-reaches-left], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-bottom][data-reaches-left]':
+			{
+				borderBottomLeftRadius: token('radius.xlarge'),
+			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror .pm-table-wrapper > table > tbody > tr > td[data-reaches-bottom][data-reaches-right], .ProseMirror .pm-table-wrapper > table > tbody > tr > th[data-reaches-bottom][data-reaches-right]':
+			{
+				borderBottomRightRadius: token('radius.xlarge'),
+			},
+	},
 	tableLayoutFixes: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'.pm-table-header-content-wrap :not(.fabric-editor-alignment), .pm-table-header-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark, .pm-table-cell-content-wrap :not(p, .fabric-editor-block-mark) + div.fabric-editor-block-mark':
@@ -8048,6 +8075,11 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				fg('platform_editor_bordered_panel_nested_in_table') &&
 					editorContentStyles.tableSharedStyle_with_platform_editor_bordered_panel_nested_in_table,
 				editorContentStyles.tableEmptyRowStyles,
+				// SSR-safe rounded corners. Gated to match the table plugin migration that drops
+				// roundedTableCellCornerStyles() from the client-only <Global> styles.
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+					fg('platform_editor_table_q4_patch_1') &&
+					editorContentStyles.tableRoundedCornerStyles,
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					editorContentStyles.tableContentModeStyles,
 				editorContentStyles.hyperLinkFloatingToolbarStyles,

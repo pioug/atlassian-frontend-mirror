@@ -47,7 +47,8 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 
 ## Development notes
 
-- Knowledge-index standards page: `.agents/knowledge-index/domains/media/units/atlaskit-media-core/standards-and-patterns.md`
+- Knowledge-index standards page:
+  `.agents/knowledge-index/domains/media/units/atlaskit-media-core/standards-and-patterns.md`
 - Foundational package — no internal Media package dependencies
 - No feature flags registered
 - Runtime dependencies: `@babel/runtime`, `eventemitter2`, `lru_map`, `rxjs`

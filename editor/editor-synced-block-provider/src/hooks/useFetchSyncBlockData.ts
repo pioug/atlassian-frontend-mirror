@@ -4,8 +4,9 @@ import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/anal
 import { isSSR } from '@atlaskit/editor-common/core-utils';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ProviderFactory, MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { SyncBlockError } from '../common/types';
+import { isProviderNotReadyError, SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
 import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManager';
 import { fetchErrorPayload } from '../utils/errorHandling';
@@ -42,8 +43,23 @@ export const useFetchSyncBlockData = (
 		return { syncBlockInstance: null, isLoading: true };
 	});
 
+	// On Jira the data provider is wired asynchronously, so the manager can be
+	// constructed with `dataProvider === undefined`. Fetching/subscribing in that
+	// window throws `Data provider not set`, logged as a false fetch error
+	// (EDITOR-7860). Gate on readiness; once the provider resolves a new manager
+	// instance is created so `referenceManager` changes identity and the effect
+	// below re-runs, subscribing exactly once.
+	const isDataProviderReady = fg('platform_editor_blocks_patch_3')
+		? (manager.referenceManager.hasDataProvider?.() ?? false)
+		: true;
+
 	const reloadData = useCallback(async () => {
 		if (isLoading) {
+			return;
+		}
+
+		// Not ready: skip fetch, emit no error (see readiness note above).
+		if (!isDataProviderReady) {
 			return;
 		}
 
@@ -58,9 +74,19 @@ export const useFetchSyncBlockData = (
 			// Fetch sync block data, the `subscribeToSyncBlock` will update the state once data is fetched
 			await manager.referenceManager.fetchSyncBlocksData([syncBlockNode]);
 		} catch (error) {
+			// EDITOR-7860: benign not-ready throw — emit no error and stay loading
+			// so it resolves on retry once the provider is wired. Checked before
+			// `logException` so the benign case produces no exception-tracker noise.
+			// Gate-off behaviour is unchanged.
+			if (isProviderNotReadyError(error) && fg('platform_editor_blocks_patch_3')) {
+				setFetchState((prev) => ({ ...prev, isLoading: true }));
+				return;
+			}
+
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/useFetchSyncBlockData',
 			});
+
 			fireAnalyticsEvent?.(
 				fetchErrorPayload(
 					(error as Error).message,
@@ -80,12 +106,26 @@ export const useFetchSyncBlockData = (
 			return;
 		}
 		setFetchState((prev) => ({ ...prev, isLoading: false }));
-	}, [isLoading, localId, manager.referenceManager, resourceId, fireAnalyticsEvent]);
+	}, [
+		isLoading,
+		isDataProviderReady,
+		localId,
+		manager.referenceManager,
+		resourceId,
+		fireAnalyticsEvent,
+	]);
 
 	useEffect(() => {
 		if (isSSR()) {
 			// in SSR, we don't need to subscribe to updates,
 			// instead we rely on pre-fetched data ONLY, see initialization of syncBlockInstance above
+			return;
+		}
+
+		// Not ready: skip subscribe (it would trigger a batched fetch and a false
+		// error) and keep `isLoading: true`. `isDataProviderReady` is in the deps,
+		// so the effect re-runs and subscribes once the provider resolves.
+		if (!isDataProviderReady) {
 			return;
 		}
 
@@ -100,7 +140,7 @@ export const useFetchSyncBlockData = (
 		return () => {
 			unsubscribe();
 		};
-	}, [localId, manager.referenceManager, resourceId]);
+	}, [isDataProviderReady, localId, manager.referenceManager, resourceId]);
 
 	const ssrProviders = useMemo(() => {
 		return resourceId ? manager.referenceManager.getSSRProviders(resourceId) : null;

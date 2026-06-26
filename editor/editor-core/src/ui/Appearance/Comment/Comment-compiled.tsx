@@ -1,0 +1,439 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+/**
+ * Compiled branch of the `platform_editor_core_non_ecc_static_css` experiment.
+ * Used via `componentWithCondition` in `Comment.tsx`.
+ *
+ * Cleanup: delete this file once the experiment has shipped.
+ */
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
+import classnames from 'classnames';
+import { useIntl } from 'react-intl';
+
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
+import {
+	useSharedPluginState,
+	useSharedPluginStateWithSelector,
+} from '@atlaskit/editor-common/hooks';
+import messages from '@atlaskit/editor-common/messages';
+import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
+import { WidthConsumer, WidthProvider } from '@atlaskit/editor-common/ui';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
+import type { BlockMenuPlugin } from '@atlaskit/editor-plugin-block-menu';
+import type { MaxContentSizePlugin } from '@atlaskit/editor-plugins/max-content-size';
+import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
+import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
+import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { token } from '@atlaskit/tokens';
+
+import type { EditorAppearanceComponentProps } from '../../../types/editor-appearance-component';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
+import ClickAreaBlock from '../../Addon/ClickAreaBlock';
+import { contentComponentClickWrapper } from '../../Addon/ClickAreaBlock/contentComponentWrapper';
+import EditorContentContainer from '../../EditorContentContainer/EditorContentContainer';
+import PluginSlot from '../../PluginSlot';
+import { getPrimaryToolbarComponents } from '../../Toolbar/getPrimaryToolbarComponents';
+import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
+import WithFlash from '../../WithFlash';
+
+import { CommentToolbar } from './CommentToolbar';
+import { MainToolbar } from './Toolbar';
+
+const commentEditorCompiledStyles = cssMap({
+	// Remove when platform_editor_comment_editor_border_radius is cleaned up
+	commentEditorOld: {
+		display: 'flex',
+		flexDirection: 'column',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.less-margin > .ProseMirror': {
+			marginTop: token('space.150'),
+			marginRight: token('space.100'),
+			marginBottom: token('space.100'),
+			marginLeft: token('space.100'),
+		},
+		minWidth: '272px',
+		height: 'auto',
+		backgroundColor: token('color.background.input'),
+		border: `${token('border.width')} solid ${token('color.border.input')}`,
+		boxSizing: 'border-box',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		borderRadius: token('radius.small', '3px'),
+		maxWidth: 'inherit',
+		wordWrap: 'break-word',
+	},
+	commentEditor: {
+		display: 'flex',
+		flexDirection: 'column',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.less-margin > .ProseMirror': {
+			marginTop: token('space.150'),
+			marginRight: token('space.100'),
+			marginBottom: token('space.100'),
+			marginLeft: token('space.100'),
+		},
+		minWidth: '272px',
+		height: 'auto',
+		backgroundColor: token('color.background.input'),
+		border: `${token('border.width')} solid ${token('color.border.input')}`,
+		boxSizing: 'border-box',
+		borderRadius: token('radius.medium', '6px'),
+		maxWidth: 'inherit',
+		wordWrap: 'break-word',
+	},
+	modernisedEditor: {
+		borderRadius: token('radius.xlarge', '12px'),
+	},
+	secondaryToolbar: {
+		boxSizing: 'border-box',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		display: 'flex',
+		paddingTop: token('space.150'),
+		paddingRight: token('space.025'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.025'),
+	},
+	mainToolbarCustomComponentsSlotNew: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+		alignItems: 'center',
+		flexGrow: 1,
+		paddingRight: token('space.250'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> div': {
+			display: 'flex',
+			flexShrink: 0,
+		},
+	},
+	mainToolbarCustomComponentsSlotPaddingOverride: {
+		paddingRight: 0,
+	},
+	mainToolbarCustomComponentsSlotTwoLineToolbar: {
+		// value from MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT (490)
+		'@media (max-width: 490px)': {
+			paddingRight: 0,
+		},
+	},
+	contentAreaMaxHeight: {
+		maxHeight: 'var(--comment-editor-max-height)',
+		overflowY: 'auto',
+	},
+});
+
+const appearance: EditorAppearance = 'comment';
+
+type ComponentProps = EditorAppearanceComponentProps<
+	[
+		OptionalPlugin<MediaPlugin>,
+		OptionalPlugin<MaxContentSizePlugin>,
+		OptionalPlugin<PrimaryToolbarPlugin>,
+		OptionalPlugin<ToolbarPlugin>,
+		OptionalPlugin<BlockMenuPlugin>,
+	]
+>;
+
+export const CommentEditorWithIntlCompiled: {
+	(props: ComponentProps): React.JSX.Element;
+	displayName: string;
+} = (props: ComponentProps): React.JSX.Element => {
+	const { editorAPI } = props;
+
+	// Get useStandardNodeWidth from block menu plugin shared state
+	// Only access editorAPI when the experiment is enabled to avoid performance impact
+	const useStandardNodeWidth =
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		(editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);
+
+	const { editorViewMode, primaryToolbarComponentsState, maxContentSizeReached } =
+		useSharedPluginStateWithSelector(
+			editorAPI,
+			['maxContentSize', 'primaryToolbar', 'editorViewMode'],
+			(states) => ({
+				maxContentSizeReached: !!states.maxContentSizeState?.maxContentSizeReached,
+				primaryToolbarComponentsState: states.primaryToolbarState?.components,
+				editorViewMode: states.editorViewModeState?.mode,
+			}),
+		);
+
+	const primaryToolbarState = getPrimaryToolbarComponents(editorAPI, primaryToolbarComponentsState);
+	const { mediaState } = useSharedPluginState(editorAPI, ['media']);
+	const intl = useIntl();
+	const {
+		editorDOMElement,
+		editorView,
+		editorActions,
+		eventDispatcher,
+		providerFactory,
+		contentComponents,
+		customContentComponents,
+		customPrimaryToolbarComponents,
+		primaryToolbarComponents: primaryToolbarComponentsProp,
+		customSecondaryToolbarComponents,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+		maxHeight,
+		minHeight = 150,
+		onSave,
+		onCancel,
+		disabled,
+		dispatchAnalyticsEvent,
+		useStickyToolbar,
+		pluginHooks,
+		featureFlags,
+		innerRef,
+		isEditorModernisationEnabled,
+	} = props;
+
+	const showSecondaryToolbar = !!onSave || !!onCancel || !!customSecondaryToolbarComponents;
+	const containerElement = React.useRef<HTMLDivElement>(null);
+
+	// Wrapper container for toolbar and content area
+	const wrapperElementRef = useMemo(
+		() => innerRef || React.createRef<HTMLDivElement>(),
+		[innerRef],
+	);
+
+	const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
+
+	useEffect(() => {
+		if (mediaState) {
+			mediaState.subscribeToUploadInProgressState(setSaveButtonDisabled);
+		}
+		return () => mediaState?.unsubscribeFromUploadInProgressState(setSaveButtonDisabled);
+	}, [mediaState]);
+
+	const handleSave = useCallback(() => {
+		if (editorView && onSave) {
+			onSave(editorView);
+		}
+	}, [editorView, onSave]);
+
+	const handleCancel = useCallback(() => {
+		if (editorView && onCancel) {
+			onCancel(editorView);
+		}
+	}, [editorView, onCancel]);
+
+	const isShortcutToFocusToolbar = useCallback((event: KeyboardEvent) => {
+		//Alt + F9 to reach first element in this main toolbar
+		return event.altKey && (event.key === 'F9' || event.keyCode === 120);
+	}, []);
+
+	// When primary toolbar components is undefined, do not show two line editor toolbar
+	const isTwoLineToolbarEnabled = !!customPrimaryToolbarComponents;
+
+	const handleEscape = useCallback(
+		(event: KeyboardEvent) => {
+			if (!editorView?.hasFocus()) {
+				editorView?.focus();
+			}
+			event.preventDefault();
+			event.stopPropagation();
+		},
+		[editorView],
+	);
+
+	let primaryToolbarComponents = primaryToolbarComponentsProp;
+	if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
+		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
+	}
+	const isToolbarAIFCEnabled = Boolean(editorAPI?.toolbar);
+
+	const wrapperStyle = useMemo(
+		() =>
+			({
+				minHeight: `${minHeight}px`,
+				...(maxHeight ? { '--comment-editor-max-height': `${maxHeight}px` } : {}),
+			}) as React.CSSProperties,
+		[minHeight, maxHeight],
+	);
+
+	const customToolbarSlot = (
+		<div
+			css={[
+				commentEditorCompiledStyles.mainToolbarCustomComponentsSlotNew,
+				isTwoLineToolbarEnabled &&
+					commentEditorCompiledStyles.mainToolbarCustomComponentsSlotTwoLineToolbar,
+				isToolbarAIFCEnabled &&
+					commentEditorCompiledStyles.mainToolbarCustomComponentsSlotPaddingOverride,
+			]}
+		>
+			{customPrimaryToolbarComponents as React.ReactNode}
+		</div>
+	);
+
+	return (
+		<WithFlash animate={maxContentSizeReached}>
+			<WidthProvider>
+				<div
+					css={[
+						expValEquals('platform_editor_comment_editor_border_radius', 'isEnabled', true)
+							? commentEditorCompiledStyles.commentEditor
+							: commentEditorCompiledStyles.commentEditorOld,
+						isEditorModernisationEnabled && commentEditorCompiledStyles.modernisedEditor,
+					]}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic minHeight/maxHeight from props
+					style={wrapperStyle}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className="akEditor"
+					ref={wrapperElementRef}
+				>
+					<MainToolbar
+						isEditorModernisationEnabled={isEditorModernisationEnabled}
+						useStickyToolbar={useStickyToolbar}
+						twoLineEditorToolbar={isTwoLineToolbarEnabled}
+						isNewToolbarEnabled={isToolbarAIFCEnabled}
+					>
+						{isToolbarAIFCEnabled ? (
+							<ToolbarArrowKeyNavigationProvider
+								editorView={editorView}
+								childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+								isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+								handleEscape={handleEscape}
+								editorAppearance={appearance}
+								useStickyToolbar={useStickyToolbar}
+								intl={intl}
+							>
+								<CommentToolbar
+									editorAPI={editorAPI}
+									editorView={editorView}
+									editorAppearance={appearance}
+									disabled={!!disabled}
+									popupsBoundariesElement={popupsBoundariesElement}
+									popupsScrollableElement={popupsScrollableElement}
+									popupsMountPoint={popupsMountPoint}
+								/>
+								{customPrimaryToolbarComponents ? customToolbarSlot : null}
+							</ToolbarArrowKeyNavigationProvider>
+						) : (
+							<ToolbarArrowKeyNavigationProvider
+								editorView={editorView}
+								childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+								isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+								handleEscape={handleEscape}
+								editorAppearance={appearance}
+								useStickyToolbar={useStickyToolbar}
+								intl={intl}
+							>
+								<Toolbar
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									editorView={editorView!}
+									editorActions={editorActions}
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									eventDispatcher={eventDispatcher!}
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+									providerFactory={providerFactory!}
+									appearance={appearance}
+									items={primaryToolbarComponents}
+									popupsMountPoint={popupsMountPoint}
+									popupsBoundariesElement={popupsBoundariesElement}
+									popupsScrollableElement={popupsScrollableElement}
+									disabled={!!disabled}
+									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+									containerElement={containerElement.current}
+									twoLineEditorToolbar={isTwoLineToolbarEnabled}
+								/>
+								{customToolbarSlot}
+							</ToolbarArrowKeyNavigationProvider>
+						)}
+					</MainToolbar>
+					<ClickAreaBlock editorView={editorView} editorDisabled={disabled}>
+						<WidthConsumer>
+							{({ width }) => {
+								return (
+									<EditorContentContainer
+										ref={containerElement}
+										css={maxHeight && commentEditorCompiledStyles.contentAreaMaxHeight}
+										isScrollable={maxHeight ? true : undefined}
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+										className={classnames('ak-editor-content-area', {
+											'less-margin': width < akEditorMobileBreakoutPoint,
+										})}
+										featureFlags={featureFlags}
+										viewMode={editorViewMode}
+										appearance={appearance}
+										useStandardNodeWidth={useStandardNodeWidth}
+									>
+										{customContentComponents && 'before' in customContentComponents
+											? contentComponentClickWrapper(customContentComponents.before)
+											: contentComponentClickWrapper(customContentComponents)}
+										<PluginSlot
+											editorView={editorView}
+											editorActions={editorActions}
+											eventDispatcher={eventDispatcher}
+											dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+											providerFactory={providerFactory}
+											appearance={appearance}
+											items={contentComponents}
+											popupsMountPoint={popupsMountPoint}
+											popupsBoundariesElement={popupsBoundariesElement}
+											popupsScrollableElement={popupsScrollableElement}
+											containerElement={containerElement.current}
+											disabled={!!disabled}
+											wrapperElement={wrapperElementRef.current}
+											pluginHooks={pluginHooks}
+										/>
+										{editorDOMElement}
+										{customContentComponents && 'after' in customContentComponents
+											? contentComponentClickWrapper(customContentComponents.after)
+											: null}
+									</EditorContentContainer>
+								);
+							}}
+						</WidthConsumer>
+					</ClickAreaBlock>
+				</div>
+
+				{showSecondaryToolbar && (
+					<div
+						css={commentEditorCompiledStyles.secondaryToolbar}
+						data-testid="ak-editor-secondary-toolbar"
+					>
+						<ButtonGroup>
+							{!!onSave && (
+								<Button
+									appearance="primary"
+									onClick={handleSave}
+									testId="comment-save-button"
+									isDisabled={disabled || saveButtonDisabled}
+									interactionName="editor-comment-save-button"
+								>
+									{intl.formatMessage(messages.saveButton)}
+								</Button>
+							)}
+							{!!onCancel && (
+								<Button
+									appearance="subtle"
+									onClick={handleCancel}
+									testId="comment-cancel-button"
+									isDisabled={disabled}
+									interactionName="editor-comment-cancel-button"
+								>
+									{intl.formatMessage(messages.cancelButton)}
+								</Button>
+							)}
+						</ButtonGroup>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+						<span style={{ flexGrow: 1 }} />
+						{customSecondaryToolbarComponents}
+					</div>
+				)}
+			</WidthProvider>
+		</WithFlash>
+	);
+};
+
+CommentEditorWithIntlCompiled.displayName = 'CommentEditorAppearance';

@@ -5,7 +5,6 @@ import { createADFFromHTML } from '@atlaskit/editor-common/utils/create-adf-from
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { i18n } from './i18n';
@@ -70,8 +69,6 @@ export function placeholderPluginOptions({ intl, options }: Props): PlaceholderP
 		isPlaceholderHidden: options.isPlaceholderHidden,
 		withEmptyParagraph: fg('platform_editor_ai_aifc_streaming'),
 		isRovoLLMEnabled: options.isRovoLLMEnabled,
-		enableLoadingSpinner:
-			options.enableLoadingSpinner ??
-			expValEquals('confluence_load_editor_title_on_transition', 'contentPlaceholder', true),
+		enableLoadingSpinner: options.enableLoadingSpinner ?? true,
 	};
 }

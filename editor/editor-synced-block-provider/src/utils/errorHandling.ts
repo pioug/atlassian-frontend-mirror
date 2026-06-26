@@ -10,12 +10,73 @@ import type {
 	SyncBlockEventPayload,
 } from '@atlaskit/editor-common/analytics';
 
+import { SyncBlockError } from '../common/types';
+
 export const stringifyError = (error: unknown): string | undefined => {
 	try {
 		return JSON.stringify(error);
 	} catch {
 		return undefined;
 	}
+};
+
+/**
+ * The set of categorical failure reasons emitted on synced-block operational error
+ * events (EDITOR-7796). These let the analytics dashboard break delete/update/create
+ * failures down by cause (Block Service / HG / Relay) instead of relying on the
+ * free-text `error` blob. Mirrors the {@link SyncBlockError} enum values, plus an
+ * `unknown` fallback for unclassifiable errors.
+ */
+export type SyncBlockErrorReason = `${SyncBlockError}` | 'unknown';
+
+const SYNC_BLOCK_ERROR_REASONS: ReadonlySet<string> = new Set(Object.values(SyncBlockError));
+
+/**
+ * Maps a result `error` field (which may be a {@link SyncBlockError} enum value such as
+ * `'not_found'`, or an arbitrary stringified blob) to a stable categorical
+ * {@link SyncBlockErrorReason} for analytics grouping. Anything that is not a known
+ * `SyncBlockError` value collapses to `'unknown'` so the dashboard never has to group on
+ * free-text error blobs.
+ */
+export const classifyErrorReason = (error?: string): SyncBlockErrorReason => {
+	if (error && SYNC_BLOCK_ERROR_REASONS.has(error)) {
+		return error as SyncBlockErrorReason;
+	}
+	return 'unknown';
+};
+
+/**
+ * Extra, optional analytics attributes describing WHY an operational synced-block
+ * action failed. Spread conditionally so we never emit `undefined` keys (EDITOR-7796).
+ */
+export type ErrorAttributionAttributes = {
+	/** Categorical failure cause for dashboard grouping. */
+	reason?: SyncBlockErrorReason;
+	/** Backend HTTP status code when the failure came from a `BlockError`. */
+	statusCode?: number;
+};
+
+/**
+ * Builds the {@link ErrorAttributionAttributes} for a failed synced-block operation from
+ * the raw result `error` field and optional backend `statusCode`. Returns `undefined`
+ * when the `platform_editor_blocks_patch_3` gate is OFF, so the new `reason`/`statusCode`
+ * attributes are only emitted once the gate is rolled out (EDITOR-7796).
+ *
+ * `gateEnabled` is injected by the caller (the store managers evaluate `fg(...)`) so this
+ * helper stays pure and trivially unit-testable for both gate states.
+ */
+export const buildErrorAttribution = (
+	gateEnabled: boolean,
+	error?: string,
+	statusCode?: number,
+): ErrorAttributionAttributes | undefined => {
+	if (!gateEnabled) {
+		return undefined;
+	}
+	return {
+		reason: classifyErrorReason(error),
+		...(statusCode !== undefined && { statusCode }),
+	};
 };
 
 // `sourceProduct` is threaded through every helper so analytics
@@ -29,11 +90,18 @@ export const getErrorPayload = <T extends ACTION_SUBJECT_ID>(
 	error: string,
 	resourceId?: string,
 	sourceProduct?: string,
+	attribution?: ErrorAttributionAttributes,
 ): OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	T,
-	{ error: string; resourceId?: string; sourceProduct?: string }
+	{
+		error: string;
+		resourceId?: string;
+		sourceProduct?: string;
+		reason?: SyncBlockErrorReason;
+		statusCode?: number;
+	}
 > => ({
 	action: ACTION.ERROR,
 	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
@@ -43,6 +111,8 @@ export const getErrorPayload = <T extends ACTION_SUBJECT_ID>(
 		error,
 		...(resourceId && { resourceId }),
 		...(sourceProduct && { sourceProduct }),
+		...(attribution?.reason && { reason: attribution.reason }),
+		...(attribution?.statusCode !== undefined && { statusCode: attribution.statusCode }),
 	},
 });
 
@@ -62,31 +132,54 @@ export const updateErrorPayload = (
 	error: string,
 	resourceId?: string,
 	sourceProduct?: string,
+	attribution?: ErrorAttributionAttributes,
 ): SyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE, error, resourceId, sourceProduct);
+	getErrorPayload(
+		ACTION_SUBJECT_ID.SYNCED_BLOCK_UPDATE,
+		error,
+		resourceId,
+		sourceProduct,
+		attribution,
+	);
 export const updateReferenceErrorPayload = (
 	error: string,
 	resourceId?: string,
 	sourceProduct?: string,
+	attribution?: ErrorAttributionAttributes,
 ): RendererSyncBlockEventPayload =>
 	getErrorPayload(
 		ACTION_SUBJECT_ID.REFERENCE_SYNCED_BLOCK_UPDATE,
 		error,
 		resourceId,
 		sourceProduct,
+		attribution,
 	);
 export const createErrorPayload = (
 	error: string,
 	resourceId?: string,
 	sourceProduct?: string,
+	attribution?: ErrorAttributionAttributes,
 ): SyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE, error, resourceId, sourceProduct);
+	getErrorPayload(
+		ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+		error,
+		resourceId,
+		sourceProduct,
+		attribution,
+	);
 export const deleteErrorPayload = (
 	error: string,
 	resourceId?: string,
 	sourceProduct?: string,
+	attribution?: ErrorAttributionAttributes,
 ): SyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE, error, resourceId, sourceProduct);
+	getErrorPayload(
+		ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE,
+		error,
+		resourceId,
+		sourceProduct,
+		attribution,
+	);
 export const updateCacheErrorPayload = (
 	error: string,
 	resourceId?: string,

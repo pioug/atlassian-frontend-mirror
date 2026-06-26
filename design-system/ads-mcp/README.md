@@ -21,6 +21,7 @@ to help ensure your interfaces are accessible to all users.
 
 - [Available Tools](#available-tools)
   - [Design System Tools](#design-system-tools)
+  - [Atlaskit Fallback Research Tools](#atlaskit-fallback-research-tools)
   - [Accessibility Tools](#accessibility-tools)
 - [Accessibility Features](#accessibility-features)
   - [Example Usage](#example-usage)
@@ -54,46 +55,74 @@ to help ensure your interfaces are accessible to all users.
 
 - `ads_get_all_tokens` - Get all available design tokens for colors, spacing, typography, etc.
 - `ads_search_tokens` - Search for specific design tokens by name, description, or example values
-- `ads_get_all_components` - Get all available components with basic information (full catalog)
-- `ads_search_components` - Search for components by name, description, category, or package name
+- `ads_get_all_components` - Get all canonical ADS components with basic information (full catalog)
+- `ads_search_components` - Search canonical ADS components by name, description, category, or
+  package name
 - `ads_get_all_icons` - Get all available icons from the design system
 - `ads_search_icons` - Search for specific icons by name, keywords, or categorization
 - `ads_plan` - Search for multiple design system resources (tokens, icons, components) in a single
   efficient operation
 
+Use `ads_*` tools first for standard UI work. They are the canonical source for ADS components,
+tokens, icons, foundations, accessibility, lint rules, i18n, and migrations.
+
+### Atlaskit Fallback Research Tools
+
+- `atlaskit_get_components` - Get a compact inventory of public `@atlaskit/*` component packages
+  outside the ADS catalog
+- `atlaskit_search_components` - Search non-ADS public `@atlaskit/*` components with examples and
+  props
+- `atlaskit_get_hooks` - Get a compact inventory of public `@atlaskit/*` hooks outside the ADS
+  catalog
+- `atlaskit_search_hooks` - Search non-ADS public `@atlaskit/*` hooks with usage details
+- `atlaskit_get_utilities` - Get a compact inventory of public `@atlaskit/*` utilities outside the
+  ADS catalog
+- `atlaskit_search_utilities` - Search non-ADS public `@atlaskit/*` utilities with usage details
+
+Use `atlaskit_*` tools for fallback research when an ADS search has no useful match, or when you are
+looking for a public `@atlaskit/*` package that is not part of ADS. Do not treat Atlaskit results as
+equal-priority replacements for ADS components in standard UI decisions.
+
 #### Design System Tools Usage
 
 ```typescript
-// Search for components (recommended approach)
-const buttonComponents = await search_components({
+// Search for canonical ADS components (recommended approach)
+const buttonComponents = await ads_search_components({
 	terms: ['button', 'click'],
 	limit: 3,
 });
 
 // Search for specific tokens
-const colorTokens = await search_tokens({
+const colorTokens = await ads_search_tokens({
 	terms: ['color.text', 'primary'],
 	limit: 5,
 });
 
 // Search for icons
-const addIcons = await search_icons({
+const addIcons = await ads_search_icons({
 	terms: ['add', 'plus', 'create'],
 	limit: 2,
 });
 
 // Search for multiple resources at once (most efficient for complex UI patterns)
-const designResources = await plan({
-	tokens_search: ['color.text', 'space.100', 'radius.small'],
-	icons_search: ['add', 'edit', 'delete'],
-	components_search: ['Button', 'TextField', 'Modal'],
+const designResources = await ads_plan({
+	tokens: ['color.text', 'space.100', 'radius.small'],
+	icons: ['add', 'edit', 'delete'],
+	components: ['Button', 'TextField', 'Modal'],
+	atlaskitComponents: [],
+	limit: 2,
+});
+
+// Search public @atlaskit/* packages only when ADS has no useful match
+const atlaskitComponents = await atlaskit_search_components({
+	terms: ['editor-core', 'onboarding'],
 	limit: 2,
 });
 
 // Get all available items (fallback when search doesn't find what you need)
-const allComponents = await get_all_components();
-const allTokens = await get_all_tokens();
-const allIcons = await get_all_icons();
+const allComponents = await ads_get_all_components();
+const allTokens = await ads_get_all_tokens();
+const allIcons = await ads_get_all_icons();
 ```
 
 ### Accessibility Tools
@@ -124,19 +153,19 @@ The ADS MCP server includes comprehensive accessibility analysis and guidance:
 
 ```typescript
 // Analyze a component for accessibility issues using axe-core
-const analysis = await analyze_a11y({
+const analysis = await ads_analyze_a11y({
 	code: `<button onClick={handleClose}><CloseIcon /></button>`,
 	componentName: 'CloseButton',
 	includePatternAnalysis: true, // Also include pattern-based analysis
 });
 
 // Get specific accessibility guidelines
-const guidelines = await get_a11y_guidelines({
+const guidelines = await ads_get_a11y_guidelines({
 	topic: 'buttons',
 });
 
 // Get fix suggestions for a violation
-const fixes = await suggest_a11y_fixes({
+const fixes = await ads_suggest_a11y_fixes({
 	violation: 'Button missing accessible label',
 	code: `<button onClick={handleClose}><CloseIcon /></button>`,
 });

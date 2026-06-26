@@ -207,7 +207,10 @@ export class MentionNodeView implements NodeView {
 	private getDisabledState(
 		mentionProvider: MentionProvider | undefined,
 	): MentionDisabledState | undefined {
-		const input: MentionDisabledStateInput = { id: this.node.attrs.id };
+		const input: MentionDisabledStateInput = {
+			id: this.node.attrs.id,
+			userType: this.node.attrs.userType,
+		};
 		return mentionProvider?.getMentionDisabledState?.(input);
 	}
 

@@ -152,6 +152,7 @@ export interface MentionDisabledState {
  */
 export interface MentionDisabledStateInput {
 	id: string;
+	userType?: string;
 }
 
 export interface ResourceProvider<Result> {

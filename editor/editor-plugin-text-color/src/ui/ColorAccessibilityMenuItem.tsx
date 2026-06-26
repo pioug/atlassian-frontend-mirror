@@ -15,6 +15,7 @@ import {
 } from '@atlaskit/editor-palette';
 import AccessibilityIcon from '@atlaskit/icon/core/accessibility';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { getTokenValue, token } from '@atlaskit/tokens';
 
@@ -162,7 +163,15 @@ export const ColorAccessibilityMenuItem = ({
 	return (
 		<Box xcss={styles.container}>
 			<Inline alignBlock="center" space="space.050">
-				<AccessibilityIcon label="" size="medium" />
+				<AccessibilityIcon
+					label=""
+					size="medium"
+					color={
+						fg('platform_editor_lovability_text_bg_color_patch_1')
+							? token('color.icon.subtle')
+							: undefined
+					}
+				/>
 				<Text as="span" size="small" color="color.text.subtle">
 					{formatMessage(messages.accessibility)}
 				</Text>

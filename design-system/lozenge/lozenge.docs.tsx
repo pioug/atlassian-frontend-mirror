@@ -22,6 +22,7 @@ const documentation: StructuredContentSource = {
 				"Don't choose lozenge only because Tag lacks a capability; pick the component that matches the label's meaning.",
 				'Always combine color with a concise, accurate label.',
 				'Use Badge for tallies/scores and Tag for descriptive metadata.',
+				'If users need to click the lozenge to switch status via a dropdown, use LozengeDropdownTrigger instead — it is purpose-built for interactive status switching.',
 			],
 			contentGuidelines: [
 				'Use clear, concise text; use accurate labels (e.g. "Error", "Warning")',
@@ -59,9 +60,9 @@ const documentation: StructuredContentSource = {
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
-				'Use for status switching—only open a dropdown or popup to allow quick status changes',
-				'Use spacious sizing when displayed alongside buttons',
-				"Don't use to communicate other information like additional status details; use lozenge instead",
+				'Use for status switching—only open a dropdown or popup to allow quick status changes.',
+				'Use spacious sizing when displayed alongside buttons.',
+				"Don't use to communicate other information like additional status details; use Lozenge instead for non-interactive status display.",
 			],
 			contentGuidelines: [
 				'Use clear, concise status labels',

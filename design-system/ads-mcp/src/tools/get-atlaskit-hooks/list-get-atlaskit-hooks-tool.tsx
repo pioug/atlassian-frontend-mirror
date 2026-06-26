@@ -6,10 +6,10 @@ import { zodToJsonSchema } from '../../helpers';
 
 export const listGetAtlaskitHooksTool: Tool = {
 	name: 'atlaskit_get_hooks',
-	description: `Returns the names and packages of all atlaskit hooks excluding hooks covered by the Atlassian Design System.
+	description: `Returns a compact inventory of public \`@atlaskit/*\` hooks that are not covered by the Atlassian Design System (ADS) catalog. Output is names and packages only.
 
 WHEN TO USE:
-Use this when you want to see what hooks are available without the full metadata payload.
+Use this for fallback discovery when you need a non-ADS \`@atlaskit/*\` hook inventory without the full metadata payload. For usage guidance, parameters, and return values, use \`atlaskit_search_hooks\`.
 
 No parameters.`,
 	annotations: {

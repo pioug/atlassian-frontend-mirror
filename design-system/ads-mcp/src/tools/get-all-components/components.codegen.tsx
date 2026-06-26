@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::ca027fa25ebfebe972ae3a385e13319e>>
+ * @codegen <<SignedSource::213789378961bb4a394b789c8cc40b98>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:ads-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -305,7 +305,9 @@ export const components: ComponentMcpPayload[] = [
 			'Use for displaying counts, scores, or status indicators for a single item or label',
 			'Use with one item/label only to avoid ambiguity',
 			'Keep badge content concise and meaningful',
-			'Use appropriate appearance variants for different contexts',
+			'Use appropriate appearance variants for different contexts. Default semantic appearances: neutral, success, danger, warning, information, discovery, and inverse.',
+			'Bold semantic appearances (successBold, dangerBold, warningBold, informationBold, discoveryBold) give higher visual prominence.',
+			'Only use bold semantic badges for elements of high importance, such as notification counts. Avoid bold badges for elements that are secondary to other labels (e.g. alongside a lozenge).',
 			'Position badges near relevant content',
 			'Consider maximum value display limits',
 			'Add a tooltip when the badge has an icon or needs extra context.',
@@ -324,7 +326,18 @@ export const components: ComponentMcpPayload[] = [
 			'Provide meaningful context for numeric values',
 			'Consider alternative text for non-numeric badges',
 		],
-		keywords: ['badge', 'indicator', 'numeric', 'tally', 'score', 'count', 'status'],
+		keywords: [
+			'badge',
+			'indicator',
+			'numeric',
+			'tally',
+			'score',
+			'count',
+			'status',
+			'bold',
+			'appearance',
+			'notification',
+		],
 		category: 'status-indicators',
 		examples: [
 			'import Badge from \'@atlaskit/badge\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Badge appearance="primary">5</Badge>\n\t\t<Badge appearance="important" max={99}>\n\t\t\t150\n\t\t</Badge>\n\t</>\n);\nexport default Examples;',
@@ -482,7 +495,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['breadcrumbs', 'navigation', 'hierarchy', 'path', 'location'],
 		category: 'navigation',
 		examples: [
-			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nconst Example = (): React.JSX.Element => (\n\t<Breadcrumbs maxItems={3}>\n\t\t<BreadcrumbsItem href="/" text="Home" />\n\t\t<BreadcrumbsItem href="/category" text="Category" />\n\t\t<BreadcrumbsItem href="/category/products" text="Products" />\n\t\t<BreadcrumbsItem text="Current Page" />\n\t</Breadcrumbs>\n);\nexport default Example;',
+			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nimport { BreadcrumbsCurrentItem } from \'@atlaskit/breadcrumbs/breadcrumbs-current-item\';\nconst Example = (): React.JSX.Element => (\n\t<Breadcrumbs maxItems={3}>\n\t\t<BreadcrumbsItem href="/" text="Home" />\n\t\t<BreadcrumbsItem href="/category" text="Category" />\n\t\t<BreadcrumbsItem href="/category/products" text="Products" />\n\t\t<BreadcrumbsCurrentItem href="/category/products/current-page" text="Current Page" />\n\t</Breadcrumbs>\n);\nexport default Example;',
 		],
 		props: [
 			{
@@ -491,29 +504,10 @@ export const components: ComponentMcpPayload[] = [
 				description: 'The items to be included inside the Breadcrumbs wrapper.',
 			},
 			{
-				name: 'defaultExpanded',
-				type: 'boolean',
-			},
-			{
 				name: 'ellipsisLabel',
 				type: 'string',
-				description: 'Text to be used as an accessible label for the ellipsis button.',
-			},
-			{
-				name: 'isExpanded',
-				type: 'boolean',
 				description:
-					'Override collapsing of the nav when there are more than the maximum number of items.',
-			},
-			{
-				name: 'itemsAfterCollapse',
-				type: 'number',
-				description: 'If max items is exceeded, the number of items to show after the ellipsis.',
-			},
-			{
-				name: 'itemsBeforeCollapse',
-				type: 'number',
-				description: 'If max items is exceeded, the number of items to show before the ellipsis.',
+					'Text to be used as an accessible label for the ellipsis button that reveals\ncollapsed breadcrumb items in a popup.',
 			},
 			{
 				name: 'label',
@@ -521,16 +515,11 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Text to be used as label of navigation region that wraps the breadcrumbs.',
 			},
 			{
-				name: 'maxItems',
-				type: 'number',
+				name: 'size',
+				type: '"medium" | "small"',
 				description:
-					'Set the maximum number of breadcrumbs to display. When there are more\nthan the maximum number, only the first and last will be shown, with an\nellipsis in between.',
-			},
-			{
-				name: 'onExpand',
-				type: '(event: MouseEvent<Element, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
-				description:
-					'A function to be called when you are in the collapsed view and click the ellipsis.',
+					"The size variant of the breadcrumbs. Use `'small'` for a compact presentation\nwith smaller text (`font.body.small`) and smaller icons.",
+				defaultValue: "'medium'",
 			},
 		],
 	},
@@ -558,23 +547,37 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['breadcrumbs', 'item', 'navigation', 'link', 'hierarchy'],
 		category: 'navigation',
 		examples: [
-			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nconst BreadcrumbsDefaultExample = (): React.JSX.Element => {\n\treturn (\n\t\t<Breadcrumbs>\n\t\t\t<BreadcrumbsItem href="/item" text="Item 1" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 2" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 3" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 4" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 5" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 6" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 7" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 8" />\n\t\t</Breadcrumbs>\n\t);\n};\nexport default BreadcrumbsDefaultExample;',
+			'import Breadcrumbs, { BreadcrumbsItem } from \'@atlaskit/breadcrumbs\';\nimport { BreadcrumbsCurrentItem } from \'@atlaskit/breadcrumbs/breadcrumbs-current-item\';\nconst BreadcrumbsDefaultExample = (): React.JSX.Element => {\n\treturn (\n\t\t<Breadcrumbs>\n\t\t\t<BreadcrumbsItem href="/item" text="Item 1" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 2" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 3" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 4" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 5" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 6" />\n\t\t\t<BreadcrumbsItem href="/item" text="Item 7" />\n\t\t\t<BreadcrumbsCurrentItem href="/item" text="Item 8" />\n\t\t</Breadcrumbs>\n\t);\n};\nexport default BreadcrumbsDefaultExample;',
 		],
 		props: [
+			{
+				name: '_overflowRef',
+				type: '(el: HTMLLIElement) => void',
+			},
+			{
+				name: 'aria-current',
+				type: 'boolean | "page"',
+			},
+			{
+				name: 'aria-label',
+				type: 'string',
+				description: 'Accessible label applied to the interactive breadcrumb control.',
+			},
+			{
+				name: 'aria-labelledby',
+				type: 'string',
+				description:
+					'Accessible labelling relationship applied to the interactive breadcrumb control.',
+			},
+			{
+				name: 'elemBefore',
+				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'An element to display before the breadcrumb.',
+			},
 			{
 				name: 'href',
 				type: 'string',
 				description: 'The url or path which the breadcrumb should act as a link to.',
-			},
-			{
-				name: 'iconAfter',
-				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
-				description: 'An icon to display after the breadcrumb.',
-			},
-			{
-				name: 'iconBefore',
-				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
-				description: 'An icon to display before the breadcrumb.',
 			},
 			{
 				name: 'onClick',
@@ -595,6 +598,11 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string',
 				description: 'The text to appear within the breadcrumb as a link.',
 				isRequired: true,
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description: 'Advisory text applied to the interactive breadcrumb control.',
 			},
 			{
 				name: 'truncationWidth',
@@ -690,7 +698,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "danger" | "primary" | "subtle" | "warning" | "discovery"',
+				type: '"default" | "danger" | "primary" | "rovo" | "subtle" | "warning" | "discovery"',
 				description: 'The button style variation.',
 			},
 			{
@@ -786,7 +794,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'appearance',
-				type: '"default" | "primary" | "discovery" | "subtle"',
+				type: '"default" | "primary" | "rovo" | "discovery" | "subtle"',
 				description: 'The button style variation.\nThe button style variation.',
 			},
 			{
@@ -1439,6 +1447,188 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string',
 				description:
 					'The type of comment. This will be rendered in a lozenge at the top of the comment, before the main content.',
+			},
+		],
+	},
+	{
+		name: 'DateLabel',
+		package: '@atlaskit/date-label',
+		description:
+			'A date label displays a date as a label, with an optional appearance to communicate a meaningful condition such as a due or overdue date.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use to display a date as a label on an object (for example a due date), not for entering or selecting a date.',
+			'Use the appearance to communicate a meaningful condition: neutral by default, warning for approaching dates, and danger for overdue or critical dates.',
+			'A leading icon is shown by default and is appearance-driven (calendar, warning, or danger). Set `hasIconBefore={false}` to hide it.',
+			'Use spacious sizing when the date label is displayed alongside buttons.',
+			'For entering or selecting a date in a form, use DatePicker from @atlaskit/datetime-picker instead.',
+			'If users need to click the date label to change the date via a dropdown, use DateLabelDropdownTrigger instead — it is purpose-built for interactive date switching.',
+		],
+		contentGuidelines: [
+			'Keep the date format concise and consistent with the surrounding experience.',
+			'Pair the appearance with a label that makes the condition clear; do not rely on color alone.',
+			'Use a single date value per label.',
+		],
+		accessibilityGuidelines: [
+			'Do not rely on color alone to convey a date’s condition; ensure the date text is meaningful on its own.',
+			'Ensure sufficient color contrast for the date text across all appearances.',
+			'Provide clear, descriptive text for screen readers.',
+		],
+		keywords: ['date', 'label', 'date label', 'due date', 'overdue', 'lozenge'],
+		category: 'status-indicators',
+		examples: [
+			'/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from \'@atlaskit/css\';\nimport DateLabel from \'@atlaskit/date-label\';\nimport { token } from \'@atlaskit/tokens\';\nconst styles = cssMap({\n\twrapper: {\n\t\tdisplay: \'flex\',\n\t\tgap: token(\'space.100\'),\n\t\tflexWrap: \'wrap\',\n\t},\n});\n/**\n * Basic example showing all three appearances of DateLabel with icons (default).\n */\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<div css={styles.wrapper}>\n\t\t\t<DateLabel label="29 Jul 2026" appearance="neutral" testId="date-label" />\n\t\t\t<DateLabel label="29 Jul 2026" appearance="warning" />\n\t\t\t<DateLabel label="29 Jul 2026" appearance="danger" />\n\t\t</div>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"neutral" | "warning" | "danger"',
+				description:
+					'Controls the visual style of the date label.\n- `neutral` — default grey border style\n- `warning` — orange border, used for upcoming/near-due dates\n- `danger` — red border, used for overdue dates',
+				defaultValue: '"neutral"',
+			},
+			{
+				name: 'hasIconBefore',
+				type: 'boolean',
+				description:
+					'When `true`, an icon is displayed before the label text.\nThe icon shown depends on the `appearance`:\n- `neutral` → CalendarIcon\n- `warning` → ClockIcon\n- `danger` → WarningOutlineIcon',
+				defaultValue: 'true',
+			},
+			{
+				name: 'iconLabel',
+				type: 'string',
+				description:
+					"The accessible label for the icon. This is passed to the icon's `label` prop\nand is read by screen readers to convey the icon's meaning.\n\nDefaults to a contextual string based on the `appearance`:\n- `neutral` → `'Calendar'`\n- `warning` → `'Warning'`\n- `danger` → `'Danger'`\n\nSet to `''` to mark the icon as decorative (when the label text alone is sufficient).",
+			},
+			{
+				name: 'isSpacious',
+				type: 'boolean',
+				description:
+					'When `true`, increases the padding and height of the date label for use in\nmore spacious layouts (e.g. forms or detail views). Sets the height to 32px\nand increases horizontal padding.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description: 'The text content to display inside the date label.',
+				isRequired: true,
+			},
+			{
+				name: 'maxWidth',
+				type: 'string | number',
+				description:
+					"The maximum width of the date label. Accepts a number (treated as px) or\na string (e.g. `'50%'`). When the label text exceeds this width it will be\ntruncated with an ellipsis.",
+				defaultValue: '180',
+			},
+		],
+	},
+	{
+		name: 'DateLabelDropdownTrigger',
+		package: '@atlaskit/date-label',
+		description:
+			'Date label dropdown trigger displays a date as a label and enables changing the date through a menu or popup.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use to enable date selection—only open a dropdown or popup to allow changing the date.',
+			'Use spacious sizing when displayed alongside buttons.',
+			'Do not use to communicate other information about the date; use DateLabel instead for non-interactive date display.',
+			'Do not use for date entry in forms; use DatePicker from @atlaskit/datetime-picker instead.',
+		],
+		contentGuidelines: [
+			'Keep the date format concise and consistent with the surrounding experience.',
+			'Do not rely on color alone; pair the appearance with clear date text.',
+		],
+		accessibilityGuidelines: [
+			'Do not rely on color alone to convey a date’s condition; ensure the date text is meaningful on its own.',
+			'Ensure the trigger is operable by keyboard and exposes an accessible name.',
+		],
+		keywords: ['date', 'label', 'dropdown', 'trigger', 'date label', 'menu', 'interactive'],
+		category: 'status-indicators',
+		examples: [
+			'/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from \'@atlaskit/css\';\nimport { DateLabelDropdownTrigger } from \'@atlaskit/date-label\';\nimport { Text } from \'@atlaskit/primitives/compiled\';\nimport { token } from \'@atlaskit/tokens\';\nconst styles = cssMap({\n\tcolumn: {\n\t\tdisplay: \'flex\',\n\t\tflexDirection: \'column\',\n\t\tgap: token(\'space.200\'),\n\t},\n\trow: {\n\t\tdisplay: \'flex\',\n\t\tgap: token(\'space.100\'),\n\t\tflexWrap: \'wrap\',\n\t\talignItems: \'center\',\n\t},\n});\n/**\n * DateLabelDropdownTrigger — an interactive date label that acts as a dropdown trigger.\n * Renders as a button with hover, pressed, and focus ring states, plus a chevron icon.\n */\nexport default function DropdownTrigger(): React.JSX.Element {\n\treturn (\n\t\t<div css={styles.column}>\n\t\t\t<div css={styles.row}>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="neutral"\n\t\t\t\t\ttestId="date-label-dropdown-neutral"\n\t\t\t\t/>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="warning"\n\t\t\t\t\ttestId="date-label-dropdown-warning"\n\t\t\t\t/>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="danger"\n\t\t\t\t\ttestId="date-label-dropdown-danger"\n\t\t\t\t/>\n\t\t\t</div>\n\t\t\t<div css={styles.row}>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="neutral"\n\t\t\t\t\tisSpacious\n\t\t\t\t\ttestId="date-label-dropdown-neutral-spacious"\n\t\t\t\t/>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="warning"\n\t\t\t\t\tisSpacious\n\t\t\t\t\ttestId="date-label-dropdown-warning-spacious"\n\t\t\t\t/>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="danger"\n\t\t\t\t\tisSpacious\n\t\t\t\t\ttestId="date-label-dropdown-danger-spacious"\n\t\t\t\t/>\n\t\t\t</div>\n\t\t\t<div css={styles.row}>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="neutral"\n\t\t\t\t\thasIconBefore={false}\n\t\t\t\t\ttestId="date-label-dropdown-no-icon"\n\t\t\t\t/>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="neutral"\n\t\t\t\t\thasIconBefore={false}\n\t\t\t\t\tisSpacious\n\t\t\t\t\ttestId="date-label-dropdown-no-icon-spacious"\n\t\t\t\t/>\n\t\t\t</div>\n\t\t\t<div css={styles.row}>\n\t\t\t\t<Text>Selected:</Text>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="neutral"\n\t\t\t\t\tisSelected\n\t\t\t\t\ttestId="date-label-dropdown-neutral-selected"\n\t\t\t\t/>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="warning"\n\t\t\t\t\tisSelected\n\t\t\t\t\ttestId="date-label-dropdown-warning-selected"\n\t\t\t\t/>\n\t\t\t\t<DateLabelDropdownTrigger\n\t\t\t\t\tlabel="29 Jul 2026"\n\t\t\t\t\tappearance="danger"\n\t\t\t\t\tisSelected\n\t\t\t\t\ttestId="date-label-dropdown-danger-selected"\n\t\t\t\t/>\n\t\t\t</div>\n\t\t</div>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'appearance',
+				type: '"neutral" | "warning" | "danger"',
+				description:
+					'Controls the visual style of the trigger.\n- `neutral` — default grey border style\n- `warning` — orange border, used for upcoming/near-due dates\n- `danger` — red border, used for overdue dates',
+				defaultValue: '"neutral"',
+			},
+			{
+				name: 'aria-controls',
+				type: 'string',
+				description:
+					'Identifies the popup element that this trigger controls.\nShould match the `id` of the popup content for screen readers.',
+			},
+			{
+				name: 'aria-expanded',
+				type: 'boolean',
+				description: 'Announces to assistive technology whether the popup is currently open.',
+			},
+			{
+				name: 'aria-haspopup',
+				type: 'boolean | "dialog"',
+				description: 'Informs assistive technology that this element triggers a popup.',
+			},
+			{
+				name: 'aria-label',
+				type: 'string',
+				description:
+					'Defines a string value that labels the trigger element for assistive technology.\nIf not provided, the `label` text is used as the accessible name.',
+			},
+			{
+				name: 'hasIconBefore',
+				type: 'boolean',
+				description:
+					'When `true`, an icon is displayed before the label text.\nThe icon shown depends on the `appearance`:\n- `neutral` → CalendarIcon\n- `warning` → ClockIcon\n- `danger` → WarningOutlineIcon',
+				defaultValue: 'true',
+			},
+			{
+				name: 'iconLabel',
+				type: 'string',
+				description:
+					"The accessible label for the leading icon. This is passed to the icon's `label` prop\nand is read by screen readers to convey the icon's meaning.\n\nDefaults to a contextual string based on the `appearance`:\n- `neutral` → `'Calendar'`\n- `warning` → `'Warning'`\n- `danger` → `'Danger'`\n\nSet to `''` to mark the icon as decorative (when the label text alone is sufficient).",
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description:
+					'When `true`, a spinner replaces the chevron icon and the trigger becomes non-interactive,\nindicating that an async operation is in progress (for example, saving a date selection).',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isSelected',
+				type: 'boolean',
+				description:
+					'When `true`, renders the trigger in a selected/active state using the pressed\nbackground colour for the current appearance. Use this when the associated\ndropdown is open or the date has been chosen.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isSpacious',
+				type: 'boolean',
+				description:
+					'When `true`, increases the padding and height of the trigger to 32px\nand uses the body font size for more spacious layouts.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'The text content to display inside the trigger (e.g. a formatted date string).',
+				isRequired: true,
+			},
+			{
+				name: 'maxWidth',
+				type: 'string | number',
+				description:
+					"The maximum width of the trigger. Accepts a number (treated as px) or\na string (e.g. `'50%'`). Label text exceeding this width is truncated with an ellipsis.",
+				defaultValue: '200',
+			},
+			{
+				name: 'onClick',
+				type: '(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void',
+				description: 'Callback fired when the trigger button is clicked.',
 			},
 		],
 	},
@@ -4433,13 +4623,15 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Lozenge',
 		package: '@atlaskit/lozenge',
 		description:
-			"A lozenge is a visual indicator used to highlight an item's status for quick recognition.",
+			'A lozenge is a prominent, compact label used to communicate a meaningful attribute that affects how people understand, prioritize or act on an object.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Subtle (default): for long tables and general use',
-			'Bold: use sparingly (e.g. Pipeline/Jira status)',
-			'Always combine color with a concise, accurate label',
-			'Use Badge for tallies/counts; use Tag for labels',
+			'Use lozenge when a label communicates a meaningful attribute: status, system state, priority, permissions, or a promotional label.',
+			'Only migrate a lozenge to Tag when the label is purely categorisation or descriptive metadata (topics, attributes, groupings).',
+			"Don't choose lozenge only because Tag lacks a capability; pick the component that matches the label's meaning.",
+			'Always combine color with a concise, accurate label.',
+			'Use Badge for tallies/scores and Tag for descriptive metadata.',
+			'If users need to click the lozenge to switch status via a dropdown, use LozengeDropdownTrigger instead — it is purpose-built for interactive status switching.',
 		],
 		contentGuidelines: [
 			'Use clear, concise text; use accurate labels (e.g. "Error", "Warning")',
@@ -4484,12 +4676,12 @@ export const components: ComponentMcpPayload[] = [
 		name: 'LozengeDropdownTrigger',
 		package: '@atlaskit/lozenge',
 		description:
-			"Lozenge dropdown trigger displays an item's status and enables switching through a menu.",
+			'Lozenge dropdown trigger enables a lozenge to be interactive, and opens a dropdown to update the selection.',
 		status: 'open-beta',
 		usageGuidelines: [
-			'Use for status switching—only open a dropdown or popup to allow quick status changes',
-			'Use spacious sizing when displayed alongside buttons',
-			"Don't use to communicate other information like additional status details; use lozenge instead",
+			'Use for status switching—only open a dropdown or popup to allow quick status changes.',
+			'Use spacious sizing when displayed alongside buttons.',
+			"Don't use to communicate other information like additional status details; use Lozenge instead for non-interactive status display.",
 		],
 		contentGuidelines: [
 			'Use clear, concise status labels',
@@ -5524,7 +5716,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'enteringAnimationXcss',
-				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", object, ""> & {} & XCSSPseudo<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", never, never, object> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", DesignTokenStyles, ""> & {} & XCSSPseudo<...> & XCSSMediaQuery<...> & { ...; } & { ...; })',
 				description: 'CSS properties to apply to the entering animation.',
 			},
 			{
@@ -5534,7 +5726,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'exitingAnimationXcss',
-				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", object, ""> & {} & XCSSPseudo<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", never, never, object> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				type: 'false | (XCSSValue<"animationDelay" | "animationDuration" | "animationName" | "animationTimingFunction", DesignTokenStyles, ""> & {} & XCSSPseudo<...> & XCSSMediaQuery<...> & { ...; } & { ...; })',
 				description: 'CSS properties to apply to the exiting animation.',
 			},
 			{
@@ -5788,6 +5980,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider positioning constraints',
 			'Handle responsive positioning',
 			'Use appropriate z-index management',
+			'Under the platform-dst-top-layer feature flag, Popper renders into the browser top layer via @atlaskit/top-layer. The render-prop ref and placement keep their meaning, but style and arrowProps.style are inert (the browser owns positioning) and the modifiers and strategy props are ignored at runtime.',
 		],
 		contentGuidelines: [
 			'Ensure positioned content is accessible',
@@ -5810,7 +6003,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'children',
 				type: '(childrenProps: PopperChildrenProps) => React.ReactNode',
 				description: 'Returns the element to be positioned.',
-				defaultValue: 'defaultChildrenFn',
 			},
 			{
 				name: 'modifiers',
@@ -5822,32 +6014,27 @@ export const components: ComponentMcpPayload[] = [
 				type: '[number, number]',
 				description:
 					'Distance the popup should be offset from the reference in the format of [along, away] (units in px).\nDefaults to [0, 8] - which means the popup will be 8px away from the edge of the reference specified\nby the `placement` prop.',
-				defaultValue: 'defaultOffset',
 			},
 			{
 				name: 'placement',
 				type: 'AutoPlacement | BasePlacement | VariationPlacement',
 				description: 'Which side of the Reference to show on.',
-				defaultValue: '"bottom-start"',
 			},
 			{
 				name: 'referenceElement',
 				type: 'HTMLElement | VirtualElement',
 				description: 'Replacement reference element to position popper relative to.',
-				defaultValue: 'undefined',
 			},
 			{
 				name: 'shouldFitViewport',
 				type: 'boolean',
 				description:
 					'Determines if the popper will have a `max-width` and `max-height` set to\nconstrain it to the viewport.',
-				defaultValue: 'false',
 			},
 			{
 				name: 'strategy',
-				type: '"fixed" | "absolute"',
+				type: '"absolute" | "fixed"',
 				description: "Placement strategy used. Can be 'fixed' or 'absolute'",
-				defaultValue: '"fixed"',
 			},
 		],
 	},
@@ -6975,6 +7162,11 @@ export const components: ComponentMcpPayload[] = [
 				description:
 					'Describes what the indicator represents to assistive technology. The selected index number will be appended to the label.',
 				defaultValue: '"tab"',
+			},
+			{
+				name: 'getAriaLabel',
+				type: '(index: number) => string',
+				description: 'Returns the accessible label for each selectable indicator.',
 			},
 			{
 				name: 'onSelect',
@@ -10352,7 +10544,7 @@ export const components: ComponentMcpPayload[] = [
 	{
 		name: 'SimpleTag',
 		package: '@atlaskit/tag',
-		description: 'A tag is a compact label used to classify, organize, and categorize information.',
+		description: 'A tag is a subtle, compact label used to categorize and organize content.',
 		status: 'open-beta',
 		usageGuidelines: [
 			'Use for non-interactive categorization and labelling',
@@ -10419,14 +10611,15 @@ export const components: ComponentMcpPayload[] = [
 	{
 		name: 'Tag',
 		package: '@atlaskit/tag',
-		description: 'A tag is a compact label used to classify, organize, and categorize information.',
+		description: 'A tag is a subtle, compact label used to categorize and organize content.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Use for object-related content; for people, teams, projects, spaces use AvatarTag',
-			"Don't use for status or state—use lozenge instead",
-			'Use TagGroup to control layout of multiple tags',
-			"Don't use tags within user-generated text (e.g. editor)",
-			'Tags can be non-interactive, links, or removable (isRemovable)',
+			'Use for descriptive or contextual metadata such as categories, attributes, topics, and groupings; for people, teams, projects, spaces use AvatarTag.',
+			"Don't use for meaningful attributes like status, state, priority, or permissions—use lozenge instead.",
+			'Use the trailingMetric prop to show a count or metric that supports the label (e.g. a roll-up of sub-tags).',
+			'Use TagGroup to control layout of multiple tags.',
+			"Don't use tags within user-generated text (e.g. editor).",
+			'Tags can be non-interactive, links, or removable (isRemovable).',
 		],
 		contentGuidelines: [
 			'Use clear, descriptive tag labels',

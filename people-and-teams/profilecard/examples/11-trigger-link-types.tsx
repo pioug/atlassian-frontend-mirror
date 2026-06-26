@@ -4,11 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import ProfileCardClient from '../src/client/ProfileCardClient';
-import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/Team';
-import teamData from '../src/mocks/team-data';
-import { type Team } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
 
@@ -62,43 +58,9 @@ const TriggerText = ({ children }: { children: React.ReactNode }) => {
 	return <Box xcss={styles.triggerText}>{children}</Box>;
 };
 
-const team = teamData({});
-
-class MockTeamClient extends TeamProfileCardClient {
-	makeRequest(): Promise<Team> {
-		return Promise.resolve(team);
-	}
-}
-
-const args = {
-	cacheSize: 10,
-	maxCacheAge: 0,
-	url: 'DUMMY',
-	cloudId: 'site-id',
-};
-
-const profileClient = new ProfileCardClient(args, {
-	teamClient: new MockTeamClient(args),
-});
-
-interface TriggerKind {
-	trigger: 'hover' | 'click' | 'hover-click';
-	triggerLinkType: 'none' | 'link' | 'clickable-link';
-	color: string;
-	whiteText?: boolean;
-}
-
-function Trigger(props: TriggerKind) {
+function Trigger() {
 	return (
-		<TeamProfilecardTrigger
-			orgId="DUMMY"
-			resourceClient={profileClient}
-			teamId="team"
-			viewProfileLink="about:blank"
-			trigger={props.trigger}
-			triggerLinkType={props.triggerLinkType}
-			// actions={actions.slice(0, props.numActions)}
-		>
+		<TeamProfilecardTrigger>
 			<TriggerText>trigger</TriggerText>
 		</TeamProfilecardTrigger>
 	);
@@ -171,21 +133,21 @@ const TriggerTypeTable = (): React.JSX.Element => (
 						</Text>
 					</Head>
 					<Cell>
-						<Trigger trigger="hover" triggerLinkType="none" color={'#FFF0B3'} />
+						<Trigger />
 						<p>
 							Only recommended for use cases where you are already wrapping the trigger in something
 							like a link.
 						</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="hover" triggerLinkType="link" color={'#FFF0B3'} />
+						<Trigger />
 						<p>
 							This is confusing for screen-reader users. The trigger is a link that they cannot
 							click through. (They can still open in new tab)
 						</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="hover" triggerLinkType="clickable-link" color={'#ABF5D1'} />
+						<Trigger />
 						<p>
 							This is okay for use cases where the trigger is primarily a link to the team profile
 							and the card is secondary.
@@ -201,18 +163,18 @@ const TriggerTypeTable = (): React.JSX.Element => (
 						</Text>
 					</Head>
 					<Cell>
-						<Trigger trigger="click" triggerLinkType="none" color={'#FFBDAD'} />
+						<Trigger />
 						<p>Confusing for screen reader users. No indication that this is interactible.</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="click" triggerLinkType="link" color={'#00875A'} whiteText />
+						<Trigger />
 						<p>
 							The most highly recommended behaviour. Easy to interact with and suitable for mouse
 							and keyboard/screen-reader users. Link is also very useful.
 						</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="click" triggerLinkType="clickable-link" color={'#FFBDAD'} />
+						<Trigger />
 						<p>
 							This behaviour doesn't make much sense, since trying to open the profile card by
 							clicking just navigates you away.
@@ -228,19 +190,19 @@ const TriggerTypeTable = (): React.JSX.Element => (
 						</Text>
 					</Head>
 					<Cell>
-						<Trigger trigger="hover-click" triggerLinkType="none" color={'#FFBDAD'} />
+						<Trigger />
 						<p>Not useful to keyboard/screen-reader users.</p>
 						<p>Either of the above combinations would be better than this.</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="hover-click" triggerLinkType="link" color={'#ABF5D1'} />
+						<Trigger />
 						<p>
 							The perfect scenario for when mouse users cannot click the trigger, e.g. in an inline
 							edit (like a Jira team field).
 						</p>
 					</Cell>
 					<Cell>
-						<Trigger trigger="hover-click" triggerLinkType="clickable-link" color={'#FFBDAD'} />
+						<Trigger />
 						<p>
 							Not substantially different from a hover-only clickable-link, as keyboard users cannot
 							reasonably open the profile card in either case.

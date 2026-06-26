@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 14.1.5
+
+### Patch Changes
+
+- [`a07646d6c829b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a07646d6c829b) -
+  Fix code block language selection analytics attributes
+- Updated dependencies
+
+## 14.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.3
 
 ### Patch Changes

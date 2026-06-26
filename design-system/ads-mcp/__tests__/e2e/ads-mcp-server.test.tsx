@@ -15,6 +15,15 @@ import { components as allComponents } from '../../src/tools/get-all-components/
 import { atlaskitComponents } from '../../src/tools/get-atlaskit-components/atlaskit-components.codegen';
 import { testData } from '../__fixtures__/data';
 
+const atlaskitToolNames = [
+	'atlaskit_get_components',
+	'atlaskit_search_components',
+	'atlaskit_get_hooks',
+	'atlaskit_search_hooks',
+	'atlaskit_get_utilities',
+	'atlaskit_search_utilities',
+];
+
 describe('ADS MCP Server E2E', () => {
 	let client: Client;
 	let transport: StdioClientTransport;
@@ -74,6 +83,18 @@ describe('ADS MCP Server E2E', () => {
 			expect.arrayContaining([expect.objectContaining({ name: 'atlaskit_get_components' })]),
 		);
 	});
+
+	it.each(atlaskitToolNames)(
+		'lists %s with public @atlaskit/* routing guidance',
+		async (toolName) => {
+			const listedTools = (await client.listTools()).tools;
+			const tool = listedTools.find((listedTool) => listedTool.name === toolName);
+
+			expect(tool).toEqual(expect.objectContaining({ name: toolName }));
+			expect(tool?.description).toContain('@atlaskit/*');
+			expect(tool?.description).toContain('ADS');
+		},
+	);
 
 	it('Gets all the tokens', async () => {
 		const expectedTokenNames = allTokens.map(({ name }) => expect.objectContaining({ name }));

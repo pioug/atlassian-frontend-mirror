@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "71.5.3",
+	"version": "71.6.0",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -120,6 +120,7 @@
 		"./emoji-placeholder": "./src/components/common/EmojiPlaceholder.tsx",
 		"./emoji-repository": "./src/api/EmojiRepository.ts",
 		"./emoji-resource": "./src/api/EmojiResource.ts",
+		"./unicode-emoji-image": "./src/util/renderUnicodeEmojiToImagePath.ts",
 		"./emoji-type-ahead": "./src/components/typeahead/EmojiTypeAhead.tsx",
 		"./emoji-type-ahead-item": "./src/components/typeahead/EmojiTypeAheadItem.tsx",
 		"./emoji-type-ahead-list": "./src/components/typeahead/EmojiTypeAheadList.tsx",

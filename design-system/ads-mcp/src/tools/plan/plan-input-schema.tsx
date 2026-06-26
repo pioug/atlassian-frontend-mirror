@@ -39,18 +39,18 @@ export const planInputSchema: z.ZodObject<
 	components: z
 		.array(z.string())
 		.describe(
-			'Search terms for ADS components. Use `[]` if you only need tokens or icons. Prefer **at least two** terms per non-empty list when known.',
+			'Search terms for canonical ADS components. Use `[]` if you only need tokens, icons, or explicit Atlaskit fallback research. Prefer **at least two** terms per non-empty list when known.',
 		),
 	atlaskitComponents: z
 		.array(z.string())
 		.describe(
-			'Search terms for Atlaskit components. Use `[]` if you only need core ADS components. Prefer **at least two** terms per non-empty list when known.',
+			'Search terms for public `@atlaskit/*` components outside the ADS catalog. Use only as explicit fallback research when ADS component search is not enough; this is not auto-populated from `components`. Use `[]` if you only need canonical ADS components. Prefer **at least two** terms per non-empty list when known.',
 		),
 	limit: z
 		.number()
 		.default(2)
 		.describe(
-			'Max matches **per term** for each non-empty list (default 2). Same limit applies to tokens, icons, and both ADS and atlaskit component searches.',
+			'Max matches **per term** for each non-empty list (default 2). Same limit applies to tokens, icons, ADS components, and explicit Atlaskit component fallback searches.',
 		)
 		.optional(),
 });

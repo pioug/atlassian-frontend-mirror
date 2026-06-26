@@ -70,6 +70,9 @@
 			"path": "../../ai-mate/rovo-triggers/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/section-message/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/select/tsconfig.app.json"
 		},
 		{
@@ -101,6 +104,9 @@
 		},
 		{
 			"path": "../ptc-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
 		}
 	]
 }

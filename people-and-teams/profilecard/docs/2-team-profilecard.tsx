@@ -1,29 +1,22 @@
 import React from 'react';
 
-import { AtlassianInternalWarning, code, Example, md, Props } from '@atlaskit/docs';
-import { TeamsLink } from '@atlaskit/teams-app-internal-navigation/teams-link';
+import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 
 const _default_1: any = md`
   ${(<AtlassianInternalWarning />)}
 
-  A React component that wraps a trigger, such that when interacted a user profile card pops up.
+  ## Deprecated
 
-  It's recommended to talk to us, in particular our team's designers, on Slack at
-  #help-people-and-teams-xpc before integrating this in your product. This is for the purpose of
-  design's understanding, as it is important that design understands the consumer / your use
-  case(s), and we are happy to chat further if the current design doesn't meet your needs.
+  **TeamProfileCardTrigger is deprecated and no longer provides any profile card functionality.**
+  It simply renders its children as-is without any popup or interaction behavior.
 
-  ## Usage
+  ### Migration
 
-  ### Using the ProfileCardTrigger
+  Use \`TeamProfileCardWithTrigger\` from \`@atlassian/team-profilecard\` instead:
 
   ${code`
-import ProfileCardTrigger from '@atlaskit/profilecard/user';
-import ProfileClient from '@atlaskit/profilecard/client';
-
-const profileClient = new ProfileClient({
-  url: 'https://directory-graphql-service/endpoint' // GraphQL service endpoint
-});
+// Before (deprecated - no longer works)
+import { TeamProfileCardTrigger } from '@atlaskit/profilecard';
 
 <TeamProfileCardTrigger
   orgId="SOME-ORG-ID"
@@ -32,47 +25,29 @@ const profileClient = new ProfileClient({
 >
   <Avatar ... />
 </TeamProfileCardTrigger>
+
+// After (use this instead)
+import { TeamProfileCardWithTrigger } from '@atlassian/team-profilecard/trigger';
+
+<TeamProfileCardWithTrigger
+  teamAri={toTeamARI(teamId)}
+  cloudId={cloudId}
+  userId={userId}
+  trigger="hover"
+  showFlag={addFlag}
+>
+  <Avatar ... />
+</TeamProfileCardWithTrigger>
   `}
 
-  ${(
-		<Example
-			packageName="@atlaskit/profilecard"
-			Component={require('../examples/09-team-profilecard-trigger').default}
-			title="Profilecard"
-			source={require('!!raw-loader!../examples/09-team-profilecard-trigger')}
-		/>
-	)}
+  ### Key differences
 
-  Here are some relevant examples for better understanding the \`trigger\` and \`triggerLinkType\`
-  props:
-
-  ${(
-		<ul>
-			<li>
-				<TeamsLink
-					href="/examples/people-and-teams/profilecard/trigger-link-types"
-					intent="reference"
-				>
-					Trigger link types
-				</TeamsLink>
-			</li>
-			<li>
-				<TeamsLink
-					href="/examples/people-and-teams/profilecard/team-profilecard-trigger"
-					intent="reference"
-				>
-					Team profilecard trigger
-				</TeamsLink>
-			</li>
-		</ul>
-	)}
-
-  ${(
-		<Props
-			heading="TeamProfileCardTrigger Props..."
-			props={require('!!extract-react-types-loader!../src/components/Team/TeamProfileCardTrigger')}
-		/>
-	)}
-
+  - **teamAri** replaces \`teamId\` and \`orgId\` - use \`toTeamARI(teamId)\` from \`@atlaskit/teams-client\`
+  - **cloudId** is now a required prop
+  - **userId** is the viewing user's account ID
+  - **showFlag** replaces \`addFlag\` for displaying flag notifications
+  - **trigger** accepts \`'hover'\`, \`'click'\`, or \`['hover', 'click']\` instead of \`'hover-click'\`
+  - **placement** replaces \`position\` for popup placement
+  - **resourceClient** is no longer needed - the new component handles data fetching internally via Relay
 `;
 export default _default_1;

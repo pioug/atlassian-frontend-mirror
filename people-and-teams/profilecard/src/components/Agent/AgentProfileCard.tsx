@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap } from '@atlaskit/css';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -188,12 +189,25 @@ const AgentProfileCard = ({
 	// isRovoDev naturally becomes false, falling through to the agentNamedId avatar lookup.
 	const isRovoDev = agent.creator_type === 'ROVO_DEV' && agent.name.toLowerCase() === 'rovo dev';
 
+	// Currently, both Jira Coding Agent and Rovo Dev does not support conversations and chat.
+	// We previously disabled these for Rovo Dev but we forgot to do the same changes for JCA
+	// They are actually the same, just different names.
+	const isRovoDevOrJiraCodingAgent =
+		isRovoDev ||
+		(agent.creator_type === 'ROVO_DEV' && agent.name.toLowerCase() === 'jira coding agent');
+
 	const shouldShowConversationStarters =
-		!isRovoDev &&
+		(isRovoDevOrJiraCodingAgent &&
+		FeatureGates.getExperimentValue('jira_hide_conversations_for_jca', 'isEnabled', false)
+			? false
+			: !isRovoDev) &&
 		!(fg('jira_ai_hide_conversation_starters_profilecard') && hideConversationStarters);
 
 	const shouldShowAgentActions =
-		!isRovoDev && !(hideAgentActions && fg('issue_view_agent_discovery_fast_follows'));
+		(isRovoDevOrJiraCodingAgent &&
+		FeatureGates.getExperimentValue('jira_hide_conversations_for_jca', 'isEnabled', false)
+			? false
+			: !isRovoDev) && !(hideAgentActions && fg('issue_view_agent_discovery_fast_follows'));
 
 	return (
 		<AgentProfileCardWrapper>

@@ -13,6 +13,8 @@ import { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 const styles = cssMap({
+	// originally from fullPageEditorWrapper in packages/editor/editor-core/src/ui/Appearance/FullPage/StyledComponents.ts
+	// clean up above comment when tidy up platform_editor_core_non_ecc_static_css
 	root: {
 		minWidth: '340px',
 		height: '100%',

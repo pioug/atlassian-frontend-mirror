@@ -98,19 +98,17 @@ export const changeLanguage =
 
 		const node = state.doc.nodeAt(pos);
 		const localId = node?.attrs.localId;
-		const previousAutoDetectEntry: AutoDetectEntry | undefined =
+		const shouldIncludeAutoDetectionContext =
 			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
-			fg('platform_editor_code_block_language_detection_flow')
-				? autoDetectPluginKey.getState(state)?.languageDetectionMap[localId]
-				: undefined;
+			fg('platform_editor_code_block_language_detection_flow');
+		const previousAutoDetectEntry: AutoDetectEntry | undefined = shouldIncludeAutoDetectionContext
+			? autoDetectPluginKey.getState(state)?.languageDetectionMap[localId]
+			: undefined;
 		const tr = state.tr
 			.setNodeMarkup(pos, codeBlock, { ...node?.attrs, language })
 			.setMeta('scrollIntoView', false);
 
-		if (
-			expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true) &&
-			fg('platform_editor_code_block_language_detection_flow')
-		) {
+		if (shouldIncludeAutoDetectionContext) {
 			tr.setMeta(autoDetectPluginKey, {
 				type: ACTIONS.REMOVE_AUTO_DETECT_ENTRY,
 				data: { localId },
@@ -130,8 +128,12 @@ export const changeLanguage =
 				attributes: {
 					language: language ?? 'none',
 					...(selectionSource ? { selectionSource } : {}),
-					autoDetectionResult: previousAutoDetectEntry?.detectionResult,
-					autoDetectedLanguage: previousAutoDetectEntry?.autoDetectedLanguage,
+					...(shouldIncludeAutoDetectionContext
+						? {
+								autoDetectionResult: previousAutoDetectEntry?.detectionResult,
+								autoDetectedLanguage: previousAutoDetectEntry?.autoDetectedLanguage,
+							}
+						: {}),
 				},
 				eventType: EVENT_TYPE.TRACK,
 			})(result);

@@ -582,6 +582,14 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				transparent
 			);
 			z-index: ${rowControlsZIndex + 5};
+		}
+		${
+			fg('platform_editor_col_insert_patch_1')
+				? // Shift the mask left by the numbered column width so it sits to the left of it.
+					`.${ClassName.TABLE_CONTAINER}.${ClassName.TABLE_STICKY}[data-number-column='true']:has(tr.sticky)::before {
+			transform: translateX(calc(-1 * (${DRAG_HANDLE_WIDTH}px + ${token('space.150')} + ${akEditorTableNumberColumnWidth}px)));
+		}`
+				: ``
 		}`
 		: ``}
 
@@ -1462,9 +1470,15 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		margin-left: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? `-${akEditorTableNumberColumnWidth + 1}px`
 			: `-${akEditorTableNumberColumnWidth}px`};
-		margin-top: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-			? `-${stickyRowOffsetTop + 1}px`
-			: `-${stickyRowOffsetTop}px`};
+		${
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? fg('platform_editor_table_q4_patch_2')
+					? // Anchor the mask with an explicit `top` so `vertical-align` (data-valign) on the cell
+						// doesn't shift it; the calc reproduces the previous top-aligned offset.
+						`top: calc(${token('space.100')} - ${stickyRowOffsetTop + 1}px);`
+					: `margin-top: -${stickyRowOffsetTop + 1}px;`
+				: `margin-top: -${stickyRowOffsetTop}px;`
+		}
 		outline: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? 'none'
 			: expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true)
@@ -1528,9 +1542,20 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${fg('platform_editor_table_sticky_header_patch_1')
 		? `.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
 			outline: none;
-			border-left: unset;
-			border-top: unset;
-			background: ${tableCellDeleteColor};
+			${
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+				fg('platform_editor_table_q4_patch_2')
+					? // Recolour the corner edges to the delete border and composite the translucent danger
+						// fill over the mask's gray so it matches the adjacent cells instead of reading as transparent.
+						`border-left: 1px solid ${tableBorderDeleteColor};
+							border-top: 1px solid ${tableBorderDeleteColor};
+							border-bottom: 1px solid ${tableBorderDeleteColor};
+							background-color: ${token('color.background.accent.gray.subtlest')};
+							background-image: linear-gradient(${tableCellDeleteColor}, ${tableCellDeleteColor});`
+					: `border-left: unset;
+						border-top: unset;
+						background: ${tableCellDeleteColor};`
+			}
 		}
 		.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED}.${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;

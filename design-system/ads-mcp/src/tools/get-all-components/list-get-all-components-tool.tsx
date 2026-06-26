@@ -6,7 +6,7 @@ import { zodToJsonSchema } from '../../helpers/zod-to-json-schema';
 
 export const listGetAllComponentsTool: Tool = {
 	name: 'ads_get_all_components',
-	description: `Returns **every** Atlassian Design System component record as separate JSON text chunks (full catalog; large payload).
+	description: `Returns **every** canonical Atlassian Design System (ADS) component record as separate JSON text chunks (full catalog; large payload). For non-ADS public \`@atlaskit/*\` packages, use \`atlaskit_get_components\` or \`atlaskit_search_components\`.
 
 WHEN TO USE:
 Last resort when \`ads_plan\` / \`ads_search_components\` is insufficient and you must enumerate all components. Prefer search for normal component picking.

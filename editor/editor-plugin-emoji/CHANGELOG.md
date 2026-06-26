@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-emoji
 
+## 13.0.15
+
+### Patch Changes
+
+- [`6563ceb049527`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6563ceb049527) -
+  Add selected-state styling for unicode emoji in the editor.
+- Updated dependencies
+
+## 13.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.13
 
 ### Patch Changes

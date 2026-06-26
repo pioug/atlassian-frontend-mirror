@@ -56,12 +56,40 @@ export class SyncBlockSubscriptionManager {
 	// the new component to subscribe and cancel the pending deletion.
 	private pendingCacheDeletions = new Map<ResourceId, ReturnType<typeof setTimeout>>();
 
-	// Reconnection with exponential backoff
+	// Reconnection with exponential backoff.
 	private static readonly INITIAL_RETRY_DELAY_MS = 1000;
 	private static readonly RETRY_BACKOFF_MULTIPLIER = 2;
-	private static readonly MAX_RETRY_ATTEMPTS = 5;
+	private static readonly MAX_RETRY_ATTEMPTS = 5; // legacy (gate OFF)
+	private static readonly MAX_RETRY_ATTEMPTS_HARDENED = 8; // gate ON (EDITOR-7861)
+	private static readonly MAX_RETRY_DELAY_MS = 30000; // backoff cap (gate ON)
 	private retryAttempts = new Map<ResourceId, number>();
 	private pendingRetries = new Map<ResourceId, ReturnType<typeof setTimeout>>();
+
+	// EDITOR-7861: higher ceiling lets transient WS-gateway drops self-heal
+	// before a terminal failure is surfaced.
+	private getMaxRetryAttempts(): number {
+		return fg('platform_editor_blocks_patch_3')
+			? SyncBlockSubscriptionManager.MAX_RETRY_ATTEMPTS_HARDENED
+			: SyncBlockSubscriptionManager.MAX_RETRY_ATTEMPTS;
+	}
+
+	// Backoff delay for the given attempt.
+	// Gate OFF: pure exponential (1s, 2s, 4s, 8s, 16s).
+	// Gate ON (EDITOR-7861): exponential capped at MAX_RETRY_DELAY_MS with equal
+	// jitter (capped/2 + random*capped/2) — de-synchronises simultaneous
+	// reconnects while guaranteeing a non-zero delay (full jitter could hit 0).
+	private getReconnectionDelay(attempts: number): number {
+		const exponential =
+			SyncBlockSubscriptionManager.INITIAL_RETRY_DELAY_MS *
+			Math.pow(SyncBlockSubscriptionManager.RETRY_BACKOFF_MULTIPLIER, attempts);
+
+		if (!fg('platform_editor_blocks_patch_3')) {
+			return exponential;
+		}
+
+		const half = Math.min(exponential, SyncBlockSubscriptionManager.MAX_RETRY_DELAY_MS) / 2;
+		return Math.round(half + Math.random() * half);
+	}
 
 	constructor(private deps: SyncBlockSubscriptionManagerDeps) {}
 
@@ -300,13 +328,19 @@ export class SyncBlockSubscriptionManager {
 					location:
 						'editor-synced-block-provider/syncBlockSubscriptionManager/graphql-subscription',
 				});
-				this.deps.getFireAnalyticsEvent()?.(
-					fetchErrorPayload(
-						error.message,
-						resourceId,
-						getSourceProductFromResourceIdSafe(resourceId),
-					),
-				);
+				// EDITOR-7861: a single socket drop is usually transient and
+				// recovers on reconnect, so under the gate we don't fire a
+				// user-facing error here — it's only surfaced on exhaustion (see
+				// scheduleReconnection). Gate OFF keeps the legacy fire-on-drop.
+				if (!fg('platform_editor_blocks_patch_3')) {
+					this.deps.getFireAnalyticsEvent()?.(
+						fetchErrorPayload(
+							error.message,
+							resourceId,
+							getSourceProductFromResourceIdSafe(resourceId),
+						),
+					);
+				}
 				this.handleSubscriptionTerminated(resourceId);
 			},
 			() => {
@@ -338,15 +372,15 @@ export class SyncBlockSubscriptionManager {
 		}
 	}
 
-	/**
-	 * Schedules a reconnection attempt with exponential backoff.
-	 * Delay = INITIAL_RETRY_DELAY_MS * (RETRY_BACKOFF_MULTIPLIER ^ attempts)
-	 * e.g. 1s, 2s, 4s, 8s, 16s
-	 */
+	// Schedules a reconnection with backoff (see getMaxRetryAttempts /
+	// getReconnectionDelay for the gated behaviour).
 	private scheduleReconnection(resourceId: ResourceId): void {
 		const attempts = this.retryAttempts.get(resourceId) ?? 0;
+		const maxAttempts = this.getMaxRetryAttempts();
 
-		if (attempts >= SyncBlockSubscriptionManager.MAX_RETRY_ATTEMPTS) {
+		if (attempts >= maxAttempts) {
+			// Exhausted all attempts — the only place a WS drop surfaces as a
+			// fetch error under the gate (EDITOR-7861).
 			const errorMessage = `Subscription reconnection failed after ${attempts} attempts`;
 			logException(new Error(errorMessage), {
 				location: 'editor-synced-block-provider/syncBlockSubscriptionManager/max-retries-exhausted',
@@ -357,9 +391,7 @@ export class SyncBlockSubscriptionManager {
 			return;
 		}
 
-		const delay =
-			SyncBlockSubscriptionManager.INITIAL_RETRY_DELAY_MS *
-			Math.pow(SyncBlockSubscriptionManager.RETRY_BACKOFF_MULTIPLIER, attempts);
+		const delay = this.getReconnectionDelay(attempts);
 
 		const timer = setTimeout(() => {
 			this.pendingRetries.delete(resourceId);

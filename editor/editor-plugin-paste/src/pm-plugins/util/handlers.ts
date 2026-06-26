@@ -279,7 +279,32 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 		// then we can replace the selection with our slice.
 		const pastingIntoExtendedPanel =
 			selectionIsPanel && panel.validContent(transformedSlice.content);
+
+		// A task slice carrying its own open taskList wrapper would, on a plain replaceSelection,
+		// nest that wrapper inside the current item and add an extra taskList level. Unwrapping one
+		// level keeps the pasted task(s) at the same level. Guarded by a kill switch.
+		const isOpenTaskListSlice =
+			transformedSlice.content.firstChild?.type === taskList &&
+			transformedSlice.openStart >= 2 &&
+			transformedSlice.openEnd >= 1;
+		// Restrict the unwrap to a taskItem destination: its task content is schema-invalid inside a
+		// decisionItem (decisionList only accepts decisionItem), so decisionItem must fall through to
+		// the normal replaceSelection path.
+		const pastingIntoTaskItem = hasParentNodeOfType([taskItem])(selection);
 		if (
+			expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+			!fg('platform_editor_flexible_list_kill_switch_1') &&
+			isOpenTaskListSlice &&
+			pastingIntoTaskItem &&
+			!selectionIsPanel
+		) {
+			const unwrappedSlice = new Slice(
+				transformedSlice.content.firstChild.content,
+				transformedSlice.openStart - 1,
+				transformedSlice.openEnd - 1,
+			);
+			tr.replaceSelection(unwrappedSlice).scrollIntoView();
+		} else if (
 			((transformedSliceIsValidNode || selectionIsValidNode) &&
 				!pastingIntoExtendedPanel &&
 				!(
@@ -1616,8 +1641,19 @@ export function handleRichText(
 				sliceHasList
 			) {
 				tr.replaceSelection(slice);
+			} else if (
+				expValEquals('platform_editor_flexible_list_indentation', 'isEnabled', true) &&
+				!fg('platform_editor_flexible_list_kill_switch_1') &&
+				checkTaskListInList(state, slice) &&
+				!checkIfSelectionInNestedList(state)
+			) {
+				// Corrected task-into-list insertion is gated behind the flexible list indentation
+				// experiment and protected by the kill switch.
+				tr = insertSliceForTaskInsideList({ tr, slice });
 			} else if (checkTaskListInList(state, slice) && !checkIfSelectionInNestedList(state)) {
-				insertSliceForTaskInsideList({ tr, slice });
+				// Legacy path (experiment OFF or kill switch ON): preserve the previous over-nesting
+				// behaviour via the function's internal fallback.
+				tr = insertSliceForTaskInsideList({ tr, slice });
 			} else {
 				// need safeInsert rather than replaceSelection, so that nodes aren't split in half
 				// e.g. when pasting a layout into a table, replaceSelection splits the table in half and adds the layout in the middle

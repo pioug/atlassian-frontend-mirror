@@ -1,5 +1,47 @@
 # @atlaskit/profilecard
 
+## 26.4.0
+
+### Minor Changes
+
+- [`cd097a2111788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd097a2111788) -
+  Republish packages depending on `@atlaskit/react-compiler-gating` so their published dependency
+  reference is updated to the renamed `@atlaskit/react-compiler-gating` scope.
+
+  The earlier rename of `@atlassian/react-compiler-gating` to `@atlaskit/react-compiler-gating` only
+  bumped the renamed package itself, so dependent packages were never republished and their
+  published versions still referenced the old `@atlassian/react-compiler-gating` name, which is not
+  available in the public npm registry. This minor bump republishes all affected packages with the
+  corrected dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.3.1
+
+### Patch Changes
+
+- [`cd735de700f7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd735de700f7d) -
+  Clean up teams_app_react_19_upgrade
+- [`29c887747740d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29c887747740d) -
+  [ux] Hide conversation for Jira Coding Agent as users won't be able to use it anyway because JCA
+  team have not supported it. Rolling out this change under SPRT experiment gate because Jira does
+  not allow FG anymore
+
+## 26.3.0
+
+### Minor Changes
+
+- [`13f4e85f3bb9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/13f4e85f3bb9c) -
+  Clean up code referencing the old team profile card
+
+## 26.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.2.3
 
 ### Patch Changes

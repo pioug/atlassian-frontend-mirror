@@ -4,7 +4,6 @@ import type { DocNode } from '@atlaskit/adf-schema';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { EMPTY_PARAGRAPH_TIMEOUT_DELAY, pluginKey } from '../placeholderPlugin';
@@ -129,13 +128,9 @@ export default function createPlugin(
 		},
 		props: {
 			decorations(editorState) {
-				if (
-					expValEquals('confluence_load_editor_title_on_transition', 'contentPlaceholder', true)
-				) {
-					// @ts-ignore quick fix which needs follow up to use standard apis
-					if (editorState.collabEditPlugin$ && editorState.collabEditPlugin$.isReady !== true) {
-						return;
-					}
+				// @ts-ignore quick fix which needs follow up to use standard apis
+				if (editorState.collabEditPlugin$ && editorState.collabEditPlugin$.isReady !== true) {
+					return;
 				}
 				const {
 					hasPlaceholder,

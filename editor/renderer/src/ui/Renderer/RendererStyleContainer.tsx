@@ -2964,10 +2964,6 @@ const scaledDenseUnicodeEmojiStylesNew = css({
 	[`:is(h5, h6, p) [data-emoji-type="unicode"]`]: {
 		'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
 	},
-	// sync with platform/packages/linking-platform/smart-card/src/view/InlineCard/IconAndTitleLayout/index.tsx
-	[`[data-testid="icon-wrapper"] [data-emoji-type="unicode"]`]: {
-		'--emoji-common-unicode-size': `${defaultInlineEmojiHeight}px`,
-	},
 });
 
 const scaledEmojiStyles = css({
@@ -3037,10 +3033,6 @@ const scaledUnicodeEmojiStylesNew = css({
 	},
 	[`:is(h5, h6, p) [data-emoji-type="unicode"]`]: {
 		'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
-	},
-	// sync with platform/packages/linking-platform/smart-card/src/view/InlineCard/IconAndTitleLayout/index.tsx
-	[`[data-testid="icon-wrapper"] [data-emoji-type="unicode"]`]: {
-		'--emoji-common-unicode-size': `${defaultInlineEmojiHeight}px`,
 	},
 });
 

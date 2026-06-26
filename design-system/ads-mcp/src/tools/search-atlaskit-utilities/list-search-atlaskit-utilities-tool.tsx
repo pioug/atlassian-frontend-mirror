@@ -7,10 +7,10 @@ import { searchAtlaskitUtilitiesInputSchema } from './search-atlaskit-utilities-
 
 export const listSearchAtlaskitUtilitiesTool: Tool = {
 	name: 'atlaskit_search_utilities',
-	description: `Search for atlaskit utilities (functions, constants, types) by name, package, category, description, or keywords.
+	description: `Search public \`@atlaskit/*\` utilities (functions, constants, types) outside the Atlassian Design System (ADS) catalog by name, package, category, description, or keywords.
 
 WHEN TO USE:
-Use this when you want to find a utility but don't know its exact name or package.`,
+Use this for fallback research when you want to find a non-ADS \`@atlaskit/*\` utility but do not know its exact name or package.`,
 	annotations: {
 		title: 'Search Atlaskit utilities',
 		readOnlyHint: true,

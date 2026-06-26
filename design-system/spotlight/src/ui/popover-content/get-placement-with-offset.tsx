@@ -10,21 +10,11 @@ const DEFAULT_GAP = token('space.050');
 type TOffsetTuple = readonly [number | null | undefined, number | null | undefined];
 type TCrossAxisShift = NonNullable<NonNullable<TPlacementOptions['offset']>['crossAxisShift']>;
 
-function normalizeOffsetMember({
-	value,
-}: {
-	value: number | null | undefined;
-}): number {
+function normalizeOffsetMember({ value }: { value: number | null | undefined }): number {
 	return value ?? 0;
 }
 
-function addCssLength({
-	base,
-	delta,
-}: {
-	base: number | string;
-	delta: number;
-}): number | string {
+function addCssLength({ base, delta }: { base: number | string; delta: number }): number | string {
 	if (delta === 0) {
 		return base;
 	}

@@ -179,13 +179,6 @@ export const editorExperimentsConfig: {
 	// new format to avoid collisions with other users when updating the file
 	// Editor Platform experiments
 	// lwoollard experiments
-	// Added 22-12-2025
-	confluence_load_editor_title_on_transition: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 05-03-2026
 	platform_editor_ai_headingautocomplete: {
 		defaultValue: boolean;
@@ -1995,14 +1988,6 @@ export const editorExperimentsConfig: {
 			confluence: 'cwr_page_tree_auto_finalize',
 		},
 		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 22-12-2025
-	confluence_load_editor_title_on_transition: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_load_editor_title_on_transition',
-		},
-		param: 'contentPlaceholder',
 		defaultValue: false,
 	}),
 	// Added 02-12-2025

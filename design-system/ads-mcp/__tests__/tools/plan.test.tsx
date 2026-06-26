@@ -1,3 +1,4 @@
+import { listPlanTool } from '../../src/tools/plan/list-plan-tool';
 import { planTool } from '../../src/tools/plan/plan-tool';
 import { searchAtlaskitComponentsTool } from '../../src/tools/search-atlaskit-components/search-atlaskit-components-tool';
 import { searchComponentsTool } from '../../src/tools/search-components/search-components-tool';
@@ -61,6 +62,14 @@ describe('ads_plan tool', () => {
 		jest.clearAllMocks();
 	});
 
+	it('describes explicit Atlaskit fallback without naming non-existent tools', () => {
+		expect(listPlanTool.description).toContain('atlaskit_search_components');
+		expect(listPlanTool.description).toContain('@atlaskit/*');
+		expect(listPlanTool.description).toContain('ADS-FIRST ROUTING');
+		expect(listPlanTool.description).toContain('does not auto-populate');
+		expect(listPlanTool.description).not.toContain('ads_search_atlaskit_components');
+	});
+
 	it('Errors if all of the search parameters are empty', async () => {
 		const result = await planTool({
 			tokens: [],
@@ -73,7 +82,7 @@ describe('ads_plan tool', () => {
 			content: [
 				{
 					type: 'text',
-					text: 'Error: At least one search type (tokens_search, icons_search, components_search, or atlaskit_components_search) must be provided with search terms',
+					text: 'Error: At least one search type (tokens, icons, components, or atlaskitComponents) must be provided with search terms',
 				},
 			],
 		});
@@ -83,7 +92,7 @@ describe('ads_plan tool', () => {
 		['search_components', searchComponentsTool, 'components'],
 		['search_icons', searchIconsTool, 'icons'],
 		['search_tokens', searchTokensTool, 'tokens'],
-		['search_atlaskit_components', searchAtlaskitComponentsTool, 'atlaskitComponents'],
+		['atlaskit_search_components', searchAtlaskitComponentsTool, 'atlaskitComponents'],
 	])('Skips calling the %s tool if no terms are provided', async (_, tool, argumentKey) => {
 		const defaultToolCallParameters = {
 			tokens: [''],
@@ -100,7 +109,7 @@ describe('ads_plan tool', () => {
 		['search_components', searchComponentsTool, 'componentsFound'],
 		['search_icons', searchIconsTool, 'iconsFound'],
 		['search_tokens', searchTokensTool, 'tokensFound'],
-		['search_atlaskit_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
+		['atlaskit_search_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
 	])(
 		'Sets the count to zero if there is an error from the %s tool',
 		async (_, tool, resultCountIndex) => {
@@ -121,7 +130,7 @@ describe('ads_plan tool', () => {
 		['search_components', searchComponentsTool, 'componentsFound'],
 		['search_icons', searchIconsTool, 'iconsFound'],
 		['search_tokens', searchTokensTool, 'tokensFound'],
-		['search_atlaskit_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
+		['atlaskit_search_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
 	])(
 		'Sets the count to zero if the content type from %s is not "text"',
 		async (_, tool, resultCountIndex) => {
@@ -142,7 +151,7 @@ describe('ads_plan tool', () => {
 		['search_components', searchComponentsTool, 'componentsFound'],
 		['search_icons', searchIconsTool, 'iconsFound'],
 		['search_tokens', searchTokensTool, 'tokensFound'],
-		['search_atlaskit_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
+		['atlaskit_search_components', searchAtlaskitComponentsTool, 'atlaskitComponentsFound'],
 	])(
 		'Sets the count to zero if the content from %s is not valid JSON',
 		async (_, tool, resultCountIndex) => {

@@ -16,6 +16,7 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { emojiIdToEmoji } from '@atlaskit/emoji/emoji-id-to-emoji';
 import type {
 	EmojiDescription,
 	ImageRepresentation,
@@ -27,6 +28,7 @@ import type {
 } from '@atlaskit/emoji/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -225,7 +227,15 @@ export class EmojiNodeView implements NodeView {
 				return;
 			}
 
-			const emojiRepresentation = emojiDescription?.representation;
+			const unicodeEmoji =
+				id && expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
+					? emojiIdToEmoji(id)
+					: undefined;
+			const emojiRepresentation = unicodeEmoji
+				? {
+						unicodeEmoji,
+					}
+				: emojiDescription?.representation;
 			if (!EmojiNodeView.isEmojiRepresentationSupported(emojiRepresentation)) {
 				EmojiNodeView.logError(new Error('Emoji representation is not supported'));
 
@@ -425,17 +435,15 @@ export class EmojiNodeView implements NodeView {
 		}
 		const spanElement = doc.createElement('span');
 
-		spanElement.classList.add(EmojiSharedCssClassName.EMOJI_IMAGE);
-
-		spanElement.style.textAlign = 'center';
-		spanElement.style.alignContent = 'center';
+		spanElement.classList.add(EmojiSharedCssClassName.EMOJI_UNICODE);
 		spanElement.textContent = emoji;
-		spanElement.style.fontSize = `max(1em, ${defaultEmojiHeight}px)`;
-		spanElement.style.width = `max(calc(1em + 2px), ${defaultEmojiHeight + 2}px)`;
-		spanElement.style.height = `max(calc(1em + 2px), ${defaultEmojiHeight + 2}px)`;
-		spanElement.style.lineHeight = '0';
-		spanElement.style.margin = '0';
-		spanElement.style.padding = '0';
+		spanElement.style.display = 'inline-flex';
+		spanElement.style.fontSize = `var(--emoji-common-unicode-size, ${defaultEmojiHeight}px)`;
+		spanElement.style.alignItems = 'center';
+		spanElement.style.aspectRatio = '1/1';
+		spanElement.style.lineHeight = '1em';
+		spanElement.style.margin = '-1px 0';
+		spanElement.style.verticalAlign = 'middle'; // to keep vertical alignment consistent with images
 
 		return spanElement;
 	}

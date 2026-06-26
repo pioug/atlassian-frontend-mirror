@@ -101,19 +101,6 @@ export default function Example(): React.JSX.Element {
 		],
 	};
 
-	const teamActions = [
-		{
-			label: 'Team Thing',
-			id: 'team-thing',
-			callback: () => {},
-		},
-		{
-			label: 'Wat!',
-			id: 'team-thing-1',
-			callback: () => {},
-		},
-	];
-
 	return (
 		<ExampleWrapper>
 			<MainStage>
@@ -142,55 +129,22 @@ export default function Example(): React.JSX.Element {
 					/>
 				</Wrap>
 				<Wrap>
-					<TeamProfilecardTrigger
-						{...defaultProps}
-						teamId={teamClientData.team.id}
-						actions={[]}
-						trigger="click"
-						viewingUserId={'viewerId'}
-						addFlag={addFlag}
-						viewProfileLink="/"
-					>
+					<TeamProfilecardTrigger>
 						<strong>The Kudos Team (clickable)</strong>
 					</TeamProfilecardTrigger>
 				</Wrap>
 				<Wrap>
-					<TeamProfilecardTrigger
-						{...defaultProps}
-						teamId={teamClientData.team.id}
-						actions={[]}
-						trigger="hover"
-						viewingUserId={'viewerId'}
-						addFlag={addFlag}
-						viewProfileLink="/"
-					>
+					<TeamProfilecardTrigger>
 						<strong>The Kudos Team</strong>
 					</TeamProfilecardTrigger>
 				</Wrap>
 				<Wrap>
-					<TeamProfilecardTrigger
-						{...defaultProps}
-						teamId={teamClientData.team.id}
-						actions={teamActions}
-						trigger="hover"
-						viewingUserId={'viewerId'}
-						addFlag={addFlag}
-						viewProfileLink="/"
-					>
+					<TeamProfilecardTrigger>
 						<strong>The Kudos Team with meatballs</strong>
 					</TeamProfilecardTrigger>
 				</Wrap>
 				<Wrap>
-					<TeamProfilecardTrigger
-						{...defaultProps}
-						cloudId={undefined}
-						teamId={teamClientData.team.id}
-						actions={[]}
-						trigger="hover"
-						viewingUserId={'viewerId'}
-						addFlag={addFlag}
-						viewProfileLink="/"
-					>
+					<TeamProfilecardTrigger>
 						<strong>The Kudos Team without site</strong>
 					</TeamProfilecardTrigger>
 				</Wrap>

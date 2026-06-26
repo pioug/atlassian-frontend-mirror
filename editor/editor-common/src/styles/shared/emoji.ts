@@ -12,6 +12,8 @@ export const EmojiSharedCssClassName: {
 	EMOJI_PLACEHOLDER: string;
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	EMOJI_SPRITE: string;
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
+	EMOJI_UNICODE: string;
 } = {
 	EMOJI_CONTAINER: 'emojiView-content-wrap',
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
@@ -22,4 +24,6 @@ export const EmojiSharedCssClassName: {
 	EMOJI_IMAGE: emojiImage,
 	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	EMOJI_PLACEHOLDER: emojiPlaceholder,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
+	EMOJI_UNICODE: 'emoji-common-emoji-unicode',
 };

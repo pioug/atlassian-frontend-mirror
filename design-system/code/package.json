@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "18.0.1",
+	"version": "18.2.0",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,6 +62,7 @@
 		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/theme": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
@@ -120,6 +121,9 @@
 	"homepage": "https://atlassian.design/components/code/",
 	"platform-feature-flags": {
 		"platform-dst-shape-theme-default": {
+			"type": "boolean"
+		},
+		"platform-code-highlight-markdown-safe": {
 			"type": "boolean"
 		}
 	}

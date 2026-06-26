@@ -22,6 +22,7 @@ const documentation: StructuredContentSource = {
 				'A leading icon is shown by default and is appearance-driven (calendar, warning, or danger). Set `hasIconBefore={false}` to hide it.',
 				'Use spacious sizing when the date label is displayed alongside buttons.',
 				'For entering or selecting a date in a form, use DatePicker from @atlaskit/datetime-picker instead.',
+				'If users need to click the date label to change the date via a dropdown, use DateLabelDropdownTrigger instead — it is purpose-built for interactive date switching.',
 			],
 			contentGuidelines: [
 				'Keep the date format concise and consistent with the surrounding experience.',
@@ -58,7 +59,7 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use to enable date selection—only open a dropdown or popup to allow changing the date.',
 				'Use spacious sizing when displayed alongside buttons.',
-				'Do not use to communicate other information about the date; use DateLabel instead.',
+				'Do not use to communicate other information about the date; use DateLabel instead for non-interactive date display.',
 				'Do not use for date entry in forms; use DatePicker from @atlaskit/datetime-picker instead.',
 			],
 			contentGuidelines: [

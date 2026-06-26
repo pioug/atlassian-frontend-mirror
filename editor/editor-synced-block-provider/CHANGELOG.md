@@ -1,5 +1,46 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.2.0
+
+### Minor Changes
+
+- [`f13db8731461d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f13db8731461d) -
+  [EDITOR-7860] Gate synced block reference fetch and subscribe on data-provider readiness so
+  reference blocks no longer attempt to fetch before the (asynchronously wired) provider is ready.
+  This removes spurious "Data provider not set" fetch errors on Jira and keeps reference blocks
+  loading correctly once the provider resolves.
+
+  This also hardens the not-ready / torn-down window: a teardown-aware `hasDataProvider()` (also
+  checks `isDestroyed`), a tagged `ProviderNotReadyError` thrown at the fetch source, and catch-site
+  suppression in the hook, store manager and batch fetcher so an in-flight or queued fetch on an
+  orphaned manager re-queues for retry instead of emitting a false fetch error. All behaviour is
+  behind the `platform_editor_blocks_patch_3` feature gate.
+
+## 8.1.10
+
+### Patch Changes
+
+- [`b4cfc35a62476`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4cfc35a62476) -
+  Improve the reliability of synced-block real-time updates. Transient WebSocket drops now recover
+  silently via a more resilient reconnection strategy (more retry attempts, capped exponential
+  backoff with jitter) instead of being reported as failures. A failure is only surfaced once
+  reconnection is genuinely exhausted. Behind a feature gate.
+- Updated dependencies
+
+## 8.1.9
+
+### Patch Changes
+
+- [`a4e834c2647ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4e834c2647ac) -
+  Add failure reason and HTTP status code attributes to synced block delete, update and create
+  operational error analytics, so failures can be broken down by cause.
+
+## 8.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.7
 
 ### Patch Changes

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { matchers } from '@emotion/jest';
-import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { render } from '@atlassian/testing-library';
 
 jest.mock('@atlaskit/feature-gate-js-client', () => ({
 	__esModule: true,
@@ -93,12 +93,30 @@ const defaultProps = {
 	wrapperElement: null,
 };
 
-const renderComponent = (props: Partial<typeof defaultProps> = {}) =>
-	render(
+const removeContainerQueryStyles = () => {
+	document.querySelectorAll('style').forEach((style) => {
+		if (style.textContent?.includes('@container')) {
+			// jest's CSS parser used by toHaveCompiledCss does not support @container yet.
+			// Remove only the unsupported container query block while preserving the rest of
+			// the compiled style tag for assertions in this test.
+			style.textContent = style.textContent.replace(
+				/@container[^{]*\{[^{}]*(\{[^{}]*\}[^{}]*)*\}/gu,
+				'',
+			);
+		}
+	});
+};
+
+const renderComponent = (props: Partial<typeof defaultProps> = {}) => {
+	const result = render(
 		<IntlProvider locale="en">
+			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
 			<FullPageContentArea {...defaultProps} {...props} />
 		</IntlProvider>,
 	);
+	removeContainerQueryStyles();
+	return result;
+};
 
 const mockFg = fg as jest.MockedFunction<typeof fg>;
 const mockExpValEqualsNoExposure = expValEqualsNoExposure as jest.MockedFunction<
@@ -143,7 +161,9 @@ describe('FullPageContentArea - scroll gutter rendering', () => {
 			throw new Error('Expected scroll gutter to be rendered.');
 		}
 		expect(contentRegion).toHaveAttribute('data-markdown-mode-hide-scroll-gutter', 'true');
-		expect(scrollGutter).toHaveStyleRule('display', 'none');
+		expect(scrollGutter).toHaveCompiledCss({
+			display: 'none',
+		});
 	});
 
 	it('removes prose width constraints in markdown mode when the MVP layout is active', () => {
@@ -163,8 +183,10 @@ describe('FullPageContentArea - scroll gutter rendering', () => {
 		if (!(contentRegion instanceof HTMLElement)) {
 			throw new Error('Expected content region to be rendered.');
 		}
-		expect(contentRegion).toHaveStyleRule('max-width', 'none');
-		expect(contentRegion).toHaveStyleRule('width', '100%');
+		expect(contentRegion).toHaveCompiledCss({
+			maxWidth: 'none',
+		});
+		expect(contentRegion).toHaveCompiledCss({ width: '100%' });
 	});
 
 	eeTest.describe('platform_editor_blocks', 'when experiment is enabled').variant(true, () => {

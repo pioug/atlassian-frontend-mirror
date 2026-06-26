@@ -3,6 +3,7 @@ import type { Experience } from '@atlaskit/editor-common/experiences';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode, Fragment } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncBlockError } from '../common/types';
 import type {
@@ -25,6 +26,7 @@ import {
 	createSuccessPayload,
 	deleteSuccessPayload,
 	fetchReferencesErrorPayload,
+	buildErrorAttribution,
 } from '../utils/errorHandling';
 import {
 	getCreateSourceExperience,
@@ -341,6 +343,7 @@ export class SourceSyncBlockStoreManager {
 				return true;
 			} else {
 				this.saveExperience?.failure();
+				const attributionEnabled = fg('platform_editor_blocks_patch_3');
 				writeResults
 					.filter((result) => !result.resourceId || result.error)
 					.forEach((result) => {
@@ -349,6 +352,7 @@ export class SourceSyncBlockStoreManager {
 								result.error || 'Failed to write data',
 								result.resourceId,
 								getSourceProductFromResourceIdSafe(result.resourceId),
+								buildErrorAttribution(attributionEnabled, result.error, result.statusCode),
 							),
 						);
 					});
@@ -359,8 +363,16 @@ export class SourceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/sourceSyncBlockStoreManager',
 			});
-			// Top-level flush failure is not tied to a single resourceId.
-			this.fireAnalyticsEvent?.(updateErrorPayload((error as Error).message));
+			// Top-level flush failure is not tied to a single resourceId. There is no structured
+			// SyncBlockError/status here, so the attribution `reason` falls back to `unknown`.
+			this.fireAnalyticsEvent?.(
+				updateErrorPayload(
+					(error as Error).message,
+					undefined,
+					undefined,
+					buildErrorAttribution(fg('platform_editor_blocks_patch_3')),
+				),
+			);
 
 			return false;
 		} finally {
@@ -532,6 +544,11 @@ export class SourceSyncBlockStoreManager {
 								result.error || 'Failed to create bodied sync block',
 								resourceId,
 								getSourceProductFromResourceIdSafe(resourceId),
+								buildErrorAttribution(
+									fg('platform_editor_blocks_patch_3'),
+									result.error,
+									result.statusCode,
+								),
 							),
 						);
 					}
@@ -631,6 +648,7 @@ export class SourceSyncBlockStoreManager {
 				};
 
 				this.deleteExperience?.failure();
+				const attributionEnabled = fg('platform_editor_blocks_patch_3');
 				results.forEach((result) => {
 					if (result.success) {
 						this.fireAnalyticsEvent?.(
@@ -645,6 +663,7 @@ export class SourceSyncBlockStoreManager {
 								result.error || 'Failed to delete synced block',
 								result.resourceId,
 								getSourceProductFromResourceIdSafe(result.resourceId),
+								buildErrorAttribution(attributionEnabled, result.error, result.statusCode),
 							),
 						);
 					}
@@ -654,6 +673,9 @@ export class SourceSyncBlockStoreManager {
 			syncBlockIds.forEach(callback);
 			return isDeleteSuccessful;
 		} catch (error) {
+			// Thrown (non-result) failure — no structured SyncBlockError/status is available,
+			// so the attribution `reason` falls back to `unknown` when the gate is on.
+			const attribution = buildErrorAttribution(fg('platform_editor_blocks_patch_3'));
 			syncBlockIds.forEach((Ids) => {
 				this.setPendingDeletion(Ids, false);
 				this.fireAnalyticsEvent?.(
@@ -661,6 +683,7 @@ export class SourceSyncBlockStoreManager {
 						(error as Error).message,
 						Ids.resourceId,
 						getSourceProductFromResourceIdSafe(Ids.resourceId),
+						attribution,
 					),
 				);
 			});

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "24.3.0",
+	"version": "24.3.3",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -153,6 +153,12 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_q4_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_col_insert_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_table_q4_patch_2": {
 			"type": "boolean"
 		},
 		"platform_editor_enable_table_scaling": {

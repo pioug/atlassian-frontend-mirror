@@ -2,7 +2,7 @@ import type { ACTION, ACTION_SUBJECT } from './enums';
 import type { OperationalAEP, TrackAEP } from './utils';
 
 export type AiSuggestionsEntryPoint = 'primaryToolbar' | 'commentsEmptyState';
-export type AiSuggestionInteractionPoint = 'sidebar' | 'card';
+export type AiSuggestionInteractionPoint = 'sidebar' | 'card' | 'statusBar';
 
 type NoDiffSuggestionAEP = OperationalAEP<
 	ACTION.NO_DIFF_FOUND,

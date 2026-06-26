@@ -7,10 +7,10 @@ import { searchAtlaskitComponentsInputSchema } from './search-atlaskit-component
 
 export const listSearchAtlaskitComponentsTool: Tool = {
 	name: 'atlaskit_search_components',
-	description: `Searches the bundled Atlaskit component catalog. Returns JSON objects with **name**, **package**, **examples**, and **props** for each match (trimmed payload).
+	description: `Searches the bundled public \`@atlaskit/*\` component catalog outside the Atlassian Design System (ADS) component catalog. Returns JSON objects with **name**, **package**, **examples**, and **props** for each match (trimmed payload).
 
 WHEN TO USE:
-**Selecting which Atlaskit component to use**—package name, examples, and props—before implementation. Use when searching for specific Atlaskit components that might not be in the core ADS catalog.`,
+Use this for fallback research when \`ads_search_components\` or \`ads_plan.components\` does not find a useful ADS component, or when the user asks about a specific public \`@atlaskit/*\` package that is not part of ADS. Prefer canonical ADS components first for standard UI.`,
 	annotations: {
 		title: 'Search Atlaskit components',
 		readOnlyHint: true,

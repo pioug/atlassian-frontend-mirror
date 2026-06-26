@@ -46,6 +46,12 @@ export type SyncBlockInstance = {
 export type DeleteSyncBlockResult = {
 	error?: string;
 	resourceId: ResourceId;
+	/**
+	 * HTTP status code from the backend (Block Service) when the failure originated
+	 * from a `BlockError`. Surfaced so failure analytics can break down delete/update
+	 * failures by status code (EDITOR-7796). Undefined for non-HTTP failures.
+	 */
+	statusCode?: number;
 	success: boolean;
 };
 
@@ -91,6 +97,12 @@ export type WriteSyncBlockResult = {
 	error?: string;
 	resourceId?: ResourceId;
 	status?: SyncBlockStatus;
+	/**
+	 * HTTP status code from the backend (Block Service) when the failure originated
+	 * from a `BlockError`. Surfaced so failure analytics can break down update
+	 * failures by status code (EDITOR-7796). Undefined for non-HTTP failures.
+	 */
+	statusCode?: number;
 };
 
 export type SourceInfoFetchData = {
@@ -100,6 +112,12 @@ export type SourceInfoFetchData = {
 
 export type UpdateReferenceSyncBlockResult = {
 	error?: string;
+	/**
+	 * HTTP status code from the backend when the failure originated from a `BlockError`.
+	 * Surfaced so reference-update failure analytics can break down failures by status
+	 * code (EDITOR-7796). Undefined for non-HTTP failures.
+	 */
+	statusCode?: number;
 	success: boolean;
 };
 

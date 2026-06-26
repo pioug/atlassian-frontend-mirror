@@ -1,5 +1,35 @@
 # @atlaskit/ads-mcp
 
+## 1.3.0
+
+### Minor Changes
+
+- [`f5a335ff3aa42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5a335ff3aa42) -
+  Improve MCP tool routing guidance for ADS and public Atlaskit package fallback research.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.1
+
+### Patch Changes
+
+- [`71a1b5554a400`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71a1b5554a400) -
+  Add DateLabel and DateLabelDropdownTrigger to ADS MCP components, with cross-reference usage
+  guidelines between them. Also add cross-reference guidelines between Lozenge and
+  LozengeDropdownTrigger.
+- [`66f7f783523ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66f7f783523ce) -
+  Remove unused legacy get-all-components dataset file
+
+## 1.2.0
+
+### Minor Changes
+
+- [`3439f139ad289`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3439f139ad289) -
+  Refresh ADS MCP generated component metadata for updated ADS references, including token-aware
+  type signatures and latest component/guideline surfaces.
+
 ## 1.1.0
 
 ### Minor Changes

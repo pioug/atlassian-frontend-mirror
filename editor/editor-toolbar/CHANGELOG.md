@@ -1,5 +1,37 @@
 # @atlaskit/editor-toolbar
 
+## 2.1.0
+
+### Minor Changes
+
+- [`cd097a2111788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd097a2111788) -
+  Republish packages depending on `@atlaskit/react-compiler-gating` so their published dependency
+  reference is updated to the renamed `@atlaskit/react-compiler-gating` scope.
+
+  The earlier rename of `@atlassian/react-compiler-gating` to `@atlaskit/react-compiler-gating` only
+  bumped the renamed package itself, so dependent packages were never republished and their
+  published versions still referenced the old `@atlassian/react-compiler-gating` name, which is not
+  available in the public npm registry. This minor bump republishes all affected packages with the
+  corrected dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.11
+
+### Patch Changes
+
+- [`262d8099a9e63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/262d8099a9e63) -
+  [ux] [EDITOR-7851] address minor UI fixes for platform_editor_lovability_text_bg_color experiment
+  behind platform_editor_lovability_text_bg_color_patch_1
+
+## 2.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.9
 
 ### Patch Changes

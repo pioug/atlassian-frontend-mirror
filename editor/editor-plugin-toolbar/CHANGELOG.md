@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 9.0.11
+
+### Patch Changes
+
+- [`44469412345de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44469412345de) -
+  Clean up feature gate `platform_editor_toolbar_open_experience_fix_2`
+- Updated dependencies
+
+## 9.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.9
 
 ### Patch Changes

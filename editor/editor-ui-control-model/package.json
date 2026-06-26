@@ -70,7 +70,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-ui-control-model",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"description": "Rendering logic and model-types for Editor controls registry ( editor-plugin-ui-control-registry)",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

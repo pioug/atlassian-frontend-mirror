@@ -465,6 +465,7 @@ export const writeDataBatch = async (
 			return data.map((block) => ({
 				error: mapBlockError(error),
 				resourceId: block.resourceId,
+				statusCode: error.status,
 			}));
 		}
 		return data.map((block) => ({ error: stringifyError(error), resourceId: block.resourceId }));
@@ -719,7 +720,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			return { resourceId };
 		} catch (error) {
 			if (error instanceof BlockError) {
-				return { error: mapBlockError(error), resourceId };
+				return { error: mapBlockError(error), resourceId, statusCode: error.status };
 			}
 			return { error: stringifyError(error), resourceId };
 		}
@@ -753,7 +754,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			return { resourceId };
 		} catch (error) {
 			if (error instanceof BlockError) {
-				return { error: mapBlockError(error), resourceId };
+				return { error: mapBlockError(error), resourceId, statusCode: error.status };
 			}
 			return { error: stringifyError(error), resourceId };
 		}
@@ -791,7 +792,12 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 					// hence returns successful result for 404 error
 					return { resourceId, success: true };
 				}
-				return { resourceId, success: false, error: mapBlockError(error) };
+				return {
+					resourceId,
+					success: false,
+					error: mapBlockError(error),
+					statusCode: error.status,
+				};
 			}
 			return { resourceId, success: false, error: stringifyError(error) };
 		}
@@ -832,7 +838,12 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				) {
 					// block already exists, proceed to delete
 				} else if (createError instanceof BlockError) {
-					return { resourceId, success: false, error: mapBlockError(createError) };
+					return {
+						resourceId,
+						success: false,
+						error: mapBlockError(createError),
+						statusCode: createError.status,
+					};
 				} else {
 					return { resourceId, success: false, error: stringifyError(createError) };
 				}
@@ -841,7 +852,12 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			return { resourceId, success: true, error: undefined };
 		} catch (error) {
 			if (error instanceof BlockError) {
-				return { resourceId, success: false, error: mapBlockError(error) };
+				return {
+					resourceId,
+					success: false,
+					error: mapBlockError(error),
+					statusCode: error.status,
+				};
 			}
 			return { resourceId, success: false, error: stringifyError(error) };
 		}
@@ -887,7 +903,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 			return { success: true };
 		} catch (error) {
 			if (error instanceof BlockError) {
-				return { success: false, error: mapBlockError(error) };
+				return { success: false, error: mapBlockError(error), statusCode: error.status };
 			}
 			return { success: false, error: stringifyError(error) };
 		}
@@ -966,6 +982,7 @@ class BlockServiceADFWriteProvider implements ADFWriteProvider {
 				return data.map((block) => ({
 					error: mapBlockError(error),
 					resourceId: block.resourceId,
+					statusCode: error.status,
 				}));
 			}
 			return data.map((block) => ({ error: stringifyError(error), resourceId: block.resourceId }));

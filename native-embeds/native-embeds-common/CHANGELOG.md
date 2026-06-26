@@ -1,5 +1,13 @@
 # @atlaskit/native-embeds-common
 
+## 2.0.2
+
+### Patch Changes
+
+- [`eeb90fdfdad94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eeb90fdfdad94) -
+  Add generated i18n runtime package dependencies
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

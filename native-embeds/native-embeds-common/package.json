@@ -34,6 +34,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/afm-i18n-platform-native-embeds-native-embeds-common": "root:*",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*"
 	},
@@ -89,7 +90,7 @@
 		}
 	},
 	"name": "@atlaskit/native-embeds-common",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "A shared package for native embeds to be used across experiences and plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

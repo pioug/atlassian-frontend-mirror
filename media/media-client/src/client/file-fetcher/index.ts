@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators/map';
 import uuid from 'uuid/v4';
 import type Dataloader from 'dataloader';
 import { type AuthProvider, authToOwner } from '@atlaskit/media-core';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
@@ -419,10 +418,7 @@ export class FileFetcherImpl implements FileFetcher {
 
 			resolve({ value: blob as Blob, origin: 'remote' });
 		});
-		const name =
-			anonymizeFilename && fg('platform_media_upload_external_anonymize_filename')
-				? crypto.randomUUID()
-				: url.split('/').pop() || '';
+		const name = anonymizeFilename ? crypto.randomUUID() : url.split('/').pop() || '';
 		// we create a initial fileState with the minimum info that we have at this point
 		const fileState: ProcessingFileState = {
 			status: 'processing',

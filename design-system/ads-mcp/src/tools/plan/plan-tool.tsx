@@ -43,7 +43,7 @@ export const planTool = async ({
 			content: [
 				{
 					type: 'text',
-					text: 'Error: At least one search type (tokens_search, icons_search, components_search, or atlaskit_components_search) must be provided with search terms',
+					text: 'Error: At least one search type (tokens, icons, components, or atlaskitComponents) must be provided with search terms',
 				},
 			],
 		};

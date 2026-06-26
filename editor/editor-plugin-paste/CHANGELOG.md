@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-paste
 
+## 13.3.0
+
+### Minor Changes
+
+- [`3f5a55729ccfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f5a55729ccfa) -
+  Fix over-nesting (auto-indent) when pasting a task/action into a bullet list item under the
+  flexible list schema (EDITOR-6738), behind kill switch platform_editor_flexible_list_kill_switch_1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.2
 
 ### Patch Changes

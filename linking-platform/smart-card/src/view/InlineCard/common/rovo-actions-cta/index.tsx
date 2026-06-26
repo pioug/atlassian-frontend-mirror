@@ -6,8 +6,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { cssMap, cx, jsx } from '@atlaskit/css';
-import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
+import { cssMap, jsx } from '@atlaskit/css';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -23,35 +22,14 @@ import { getPromptAction, RovoChatPromptKey } from '../../../common/rovo-chat-ut
 import { ActionButton } from '../action-button';
 
 const styles = cssMap({
-	innerContainer: {
-		display: 'inline',
-		backgroundClip: 'padding-box',
-		boxDecorationBreak: 'clone',
-		paddingLeft: token('space.075'),
-		paddingRight: token('space.075'),
-	},
-	rovoIcon: {
-		color: token('color.text.inverse'),
-		cursor: 'pointer',
-		backgroundColor: token('color.background.selected.bold'),
-		borderTopRightRadius: token('radius.xsmall'),
-		borderBottomRightRadius: token('radius.xsmall'),
-		paddingTop: token('space.025'),
-		paddingBottom: token('space.025'),
-	},
 	text: {
-		display: 'inline',
 		paddingLeft: token('space.075'),
+		display: 'inline-flex',
+		alignItems: 'center',
+		verticalAlign: 'middle',
+		marginTop: token('space.negative.025'),
 	},
 });
-
-export const RovoActionsCta = ({ testId }: { testId?: string }): JSX.Element => {
-	return (
-		<Box xcss={cx(styles.innerContainer, styles.rovoIcon)} testId={testId}>
-			<RovoChatIcon label="Rovo" color={token('color.icon.inverse')} size="small" />
-		</Box>
-	);
-};
 
 export const InlineRovoActionButton = ({
 	testId,

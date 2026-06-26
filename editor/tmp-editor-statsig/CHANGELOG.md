@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 114.0.0
+
+### Major Changes
+
+- [`a8c135d0b7bfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8c135d0b7bfb) -
+  Cleanup experiment `confluence_load_editor_title_on_transition`. The placeholder loading spinner
+  and the collab-not-ready placeholder skip during transitions are now always enabled, and the
+  experiment definition has been removed from the editor statsig config.
+
 ## 113.0.0
 
 ### Major Changes

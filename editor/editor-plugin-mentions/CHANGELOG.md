@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.5.0
+
+### Minor Changes
+
+- [`1e60d10b9bddf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e60d10b9bddf) -
+  Fix agent mention chip not rendering as disabled after the last @-mentioned agent is dismissed via
+  the input hat (TREX-1692). An agent chip is now enabled only when its id is the active agent
+  (selectedAgentIds.at(-1)) and disabled otherwise; the rule is scoped to agent chips via the
+  mention node's userType (now forwarded through MentionDisabledStateInput) so people mentions are
+  never affected.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.4.4
 
 ### Patch Changes

@@ -1557,7 +1557,7 @@ const editorContentStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'.ProseMirror .ak-editor-selected-node.danger': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
 				...dangerBorderStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1567,6 +1567,24 @@ const editorContentStyles = cssMap({
 	},
 	// Emoji node view styles
 	emojiStyles: {
+		'.ProseMirror [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
+		},
+		'.ProseMirror h1 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${scaledEmojiHeightH1}px`,
+		},
+		'.ProseMirror h2 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${scaledEmojiHeightH2}px`,
+		},
+		'.ProseMirror h3 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${scaledEmojiHeightH3}px`,
+		},
+		'.ProseMirror h4 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${scaledEmojiHeightH4}px`,
+		},
+		'.ProseMirror :is(h5, h6, p) [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
+		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'.ProseMirror .emojiView-content-wrap': {
 			display: 'inline-block',
@@ -1583,10 +1601,13 @@ const editorContentStyles = cssMap({
 			verticalAlign: 'middle',
 			userSelect: 'all',
 		},
+		'.ProseMirror .emoji-common-emoji-unicode': {
+			cursor: 'pointer',
+		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'.ProseMirror .ak-editor-selected-node': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 				...emojiSelectionStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1599,6 +1620,24 @@ const editorContentStyles = cssMap({
 		},
 	},
 	emojiDenseStyles: {
+		'.ProseMirror [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
+		},
+		'.ProseMirror h1 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${denseEmojiHeightH1}px`,
+		},
+		'.ProseMirror h2 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${denseEmojiHeightH2}px`,
+		},
+		'.ProseMirror h3 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${denseEmojiHeightH3}px`,
+		},
+		'.ProseMirror h4 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${denseEmojiHeightH4}px`,
+		},
+		'.ProseMirror :is(h5, h6, p) [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
+		},
 		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
 			width: `${defaultDenseEmojiHeight}px`,
 			height: `${defaultDenseEmojiHeight}px`,
@@ -5207,6 +5246,24 @@ const editorContentStyles = cssMap({
 		},
 	},
 	scaledEmojiStyles: {
+		'.ProseMirror [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
+		},
+		'.ProseMirror h1 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${scaledEmojiHeightH1}px`,
+		},
+		'.ProseMirror h2 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${scaledEmojiHeightH2}px`,
+		},
+		'.ProseMirror h3 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${scaledEmojiHeightH3}px`,
+		},
+		'.ProseMirror h4 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${scaledEmojiHeightH4}px`,
+		},
+		'.ProseMirror :is(h5, h6, p) [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
+		},
 		'.ProseMirror .emojiView-content-wrap': {
 			display: 'inline-block',
 		},
@@ -5222,8 +5279,11 @@ const editorContentStyles = cssMap({
 			verticalAlign: 'middle',
 			userSelect: 'all',
 		},
+		'.ProseMirror .emoji-common-emoji-unicode': {
+			cursor: 'pointer',
+		},
 		'.ProseMirror .ak-editor-selected-node': {
-			'.emoji-common-emoji-sprite, .emoji-common-emoji-image': {
+			'.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 				...emojiSelectionStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -5260,6 +5320,24 @@ const editorContentStyles = cssMap({
 		},
 	},
 	scaledEmojiDenseStyles: {
+		'.ProseMirror [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
+		},
+		'.ProseMirror h1 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${denseEmojiHeightH1}px`,
+		},
+		'.ProseMirror h2 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${denseEmojiHeightH2}px`,
+		},
+		'.ProseMirror h3 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${denseEmojiHeightH3}px`,
+		},
+		'.ProseMirror h4 [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${denseEmojiHeightH4}px`,
+		},
+		'.ProseMirror :is(h5, h6, p) [data-emoji-type="unicode"]': {
+			'--emoji-common-unicode-size': `${defaultDenseEmojiHeight}px`,
+		},
 		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
 			width: defaultDenseEmojiHeight,
 			height: defaultDenseEmojiHeight,

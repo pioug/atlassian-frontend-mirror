@@ -7,10 +7,10 @@ import { searchAtlaskitHooksInputSchema } from './search-atlaskit-hooks-input-sc
 
 export const listSearchAtlaskitHooksTool: Tool = {
 	name: 'atlaskit_search_hooks',
-	description: `Search for atlaskit hooks by name, package, category, description, or keywords.
+	description: `Search public \`@atlaskit/*\` hooks outside the Atlassian Design System (ADS) catalog by name, package, category, description, or keywords.
 
 WHEN TO USE:
-Use this when you want to find a hook but don't know its exact name or package.`,
+Use this for fallback research when you want to find a non-ADS \`@atlaskit/*\` hook but do not know its exact name or package.`,
 	annotations: {
 		title: 'Search Atlaskit hooks',
 		readOnlyHint: true,

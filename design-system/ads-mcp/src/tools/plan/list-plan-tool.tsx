@@ -7,10 +7,13 @@ import { planInputSchema } from './plan-input-schema';
 
 export const listPlanTool: Tool = {
 	name: 'ads_plan',
-	description: `Runs **ads_search_tokens**, **ads_search_icons**, **ads_search_components**, and **ads_search_atlaskit_components** in one call and returns a single JSON payload (each section only if that list was non-empty). Use this as the default way to discover ADS **tokens**, **icons**, and **components** (including legacy/broader Atlaskit) for a UI task.
+	description: `Runs **ads_search_tokens**, **ads_search_icons**, **ads_search_components**, and optionally **atlaskit_search_components** in one call and returns a single JSON payload (each section only if that list was non-empty). Use this as the default way to discover ADS **tokens**, **icons**, and **components** for a UI task.
 
 WHEN TO USE:
-**Implementing or iterating on a UI**—new screen, feature, or polish—and you need candidate **token** names, **icon** imports, and **component** packages/props in one pass. Also use when exploring ADS building blocks before you write code.
+**Implementing or iterating on a UI**—new screen, feature, or polish—and you need candidate **token** names, **icon** imports, and **ADS component** packages/props in one pass. Also use when exploring ADS building blocks before you write code.
+
+ADS-FIRST ROUTING:
+Use \`components\` for canonical ADS components. Use \`atlaskitComponents\` only as explicit fallback research for public \`@atlaskit/*\` packages outside the ADS catalog, or after ADS component search has no useful match. This tool does not auto-populate \`atlaskitComponents\` from \`components\`.
 
 At least one of \`tokens\`, \`icons\`, \`components\`, or \`atlaskitComponents\` must contain search terms (use \`[]\` for lists you do not need).
 
@@ -24,7 +27,7 @@ Example request:
 	"tokens": ["spacing", "inverted text", "background primary", "animation"],
 	"icons": ["search", "folder", "user"],
 	"components": ["button", "input", "select", "heading"],
-	"atlaskitComponents": ["inline-dialog", "onboarding", "page-layout"]
+	"atlaskitComponents": ["editor-core", "onboarding", "page-layout"]
 }
 \`\`\`
 

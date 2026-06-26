@@ -17,6 +17,7 @@ import Foxpro from '../../../examples/foxpro';
 import Gherkin from '../../../examples/gherkin';
 import Handlebars from '../../../examples/handlebars';
 import Jsx from '../../../examples/jsx';
+import MarkdownFencedCodeJsx from '../../../examples/markdown-fenced-code-jsx';
 import ObjectPascal from '../../../examples/object-pascal';
 import Qml from '../../../examples/qml';
 import ExampleSQL from '../../../examples/sql';
@@ -60,3 +61,33 @@ snapshot(ExampleSQL, defaultColourThemeVariant);
 snapshot(ExampleABAP, defaultColourThemeVariant);
 snapshot(Gherkin, defaultColourThemeVariant);
 snapshot(Toml, defaultColourThemeVariant);
+
+// Markdown fenced code: gate ON — HTML/JSX tags preserved + inner tokens highlighted
+snapshot(MarkdownFencedCodeJsx, {
+	variants: [
+		{
+			name: 'light mode markdown safe gate on',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+	featureFlags: {
+		'platform-code-highlight-markdown-safe': true,
+	},
+});
+
+// Markdown fenced code: gate OFF — HTML/JSX tags lost
+snapshot(MarkdownFencedCodeJsx, {
+	variants: [
+		{
+			name: 'light mode markdown safe gate off',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+	featureFlags: {
+		'platform-code-highlight-markdown-safe': false,
+	},
+});

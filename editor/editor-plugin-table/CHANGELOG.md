@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-table
 
+## 24.3.3
+
+### Patch Changes
+
+- [`e79324e600259`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e79324e600259) -
+  [ED] Add gated testid (pm-table-contextual-menu-button) to the table cell options button to anchor
+  the Post Office changeboarding spotlight (cc-editor-table-cell-menu-changes), gated behind the
+  platform_editor_table_menu_updates experiment
+- Updated dependencies
+
+## 24.3.2
+
+### Patch Changes
+
+- [`e2d2174c6df03`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2d2174c6df03) -
+  [ED] Fix several numbered-column table mask rendering issues.
+  - Behind `platform_editor_col_insert_patch_1`: shift the sticky header row-insert mask left by the
+    numbered column width so it sits to the left of the numbered column instead of overlapping its
+    first cell.
+  - Behind `platform_editor_table_q4_patch_2`: anchor the numbered-column corner mask with an
+    explicit `top` so vertical alignment on the first header cell no longer shifts it, and recolour
+    the mask's borders/fill in the hover-to-delete state so the corner is not left transparent.
+
+- Updated dependencies
+
+## 24.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.3.0
 
 ### Minor Changes

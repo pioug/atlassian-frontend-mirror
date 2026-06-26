@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/image",
-	"version": "4.0.1",
+	"version": "4.1.0",
 	"description": "An image that changes in light or dark themes.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

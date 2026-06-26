@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-text-color
 
+## 12.3.4
+
+### Patch Changes
+
+- [`262d8099a9e63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/262d8099a9e63) -
+  [ux] [EDITOR-7851] address minor UI fixes for platform_editor_lovability_text_bg_color experiment
+  behind platform_editor_lovability_text_bg_color_patch_1
+- Updated dependencies
+
+## 12.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.2
 
 ### Patch Changes

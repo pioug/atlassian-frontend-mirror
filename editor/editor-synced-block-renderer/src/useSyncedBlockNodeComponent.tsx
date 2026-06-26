@@ -15,6 +15,7 @@ import type {
 	SyncedBlockProvider,
 	SyncBlockPrefetchData,
 } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockRendererOptions } from './types';
 import { SyncedBlockNodeComponentRenderer } from './ui/SyncedBlockNodeComponentRenderer';
@@ -67,6 +68,18 @@ export const useMemoizedSyncedBlockNodeComponent = ({
 
 	// Initial fetch sync block data (will use SSR data as initial cache, or the prefetched data if available)
 	useEffect(() => {
+		// On Jira the data provider resolves asynchronously (and is nulled on
+		// `destroy()`), so an eager fetch can throw `Data provider not set`
+		// (EDITOR-7860). Skip until ready; the effect re-runs (referenceManager
+		// identity changes) once the provider resolves, fetching exactly once.
+		// Readiness is nested under the gate so it is not consulted when the gate
+		// is off (today's behaviour), while `fg()` stays a standalone condition so
+		// gate exposure is tracked (@atlaskit/platform/no-preconditioning).
+		if (fg('platform_editor_blocks_patch_3')) {
+			if (!(syncBlockStoreManager.referenceManager.hasDataProvider?.() ?? false)) {
+				return;
+			}
+		}
 		syncBlockStoreManager.referenceManager.fetchSyncBlocksData(syncBlockNodes);
 	}, [syncBlockNodes, syncBlockStoreManager.referenceManager]);
 

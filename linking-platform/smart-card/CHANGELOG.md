@@ -1,5 +1,36 @@
 # @atlaskit/smart-card
 
+## 45.5.0
+
+### Minor Changes
+
+- [`cd097a2111788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd097a2111788) -
+  Republish packages depending on `@atlaskit/react-compiler-gating` so their published dependency
+  reference is updated to the renamed `@atlaskit/react-compiler-gating` scope.
+
+  The earlier rename of `@atlassian/react-compiler-gating` to `@atlaskit/react-compiler-gating` only
+  bumped the renamed package itself, so dependent packages were never republished and their
+  published versions still referenced the old `@atlassian/react-compiler-gating` name, which is not
+  available in the public npm registry. This minor bump republishes all affected packages with the
+  corrected dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.4.3
+
+### Patch Changes
+
+- [`3ce73b2cce528`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ce73b2cce528) -
+  [ux] NO-ISSUE Fixing the inline card tailored CTA text alignment
+
+## 45.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.4.1
 
 ### Patch Changes

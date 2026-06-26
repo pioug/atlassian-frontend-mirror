@@ -1,5 +1,55 @@
 # @atlaskit/editor-core
 
+## 221.5.0
+
+### Minor Changes
+
+- [`cd097a2111788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd097a2111788) -
+  Republish packages depending on `@atlaskit/react-compiler-gating` so their published dependency
+  reference is updated to the renamed `@atlaskit/react-compiler-gating` scope.
+
+  The earlier rename of `@atlassian/react-compiler-gating` to `@atlaskit/react-compiler-gating` only
+  bumped the renamed package itself, so dependent packages were never republished and their
+  published versions still referenced the old `@atlassian/react-compiler-gating` name, which is not
+  available in the public npm registry. This minor bump republishes all affected packages with the
+  corrected dependency.
+
+### Patch Changes
+
+- [`6e885938419af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e885938419af) -
+  Fix scrollbar behaviour in the markdown source view (MVP layout): CodeMirror now owns its own
+  scrolling so its native horizontal and vertical scrollbars sit at the viewport edges with the
+  status-bar footer in-flow below them, and the editor's scroll container no longer renders a
+  redundant second vertical scrollbar. The top content inset is applied inside the scroller so it no
+  longer leaves a gap above the vertical scrollbar.
+- Updated dependencies
+
+## 221.4.1
+
+### Patch Changes
+
+- [`6563ceb049527`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6563ceb049527) -
+  Add selected-state styling for unicode emoji in the editor.
+- Updated dependencies
+
+## 221.4.0
+
+### Minor Changes
+
+- [`6d48bbf99477b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d48bbf99477b) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.3.6
 
 ### Patch Changes

@@ -2,6 +2,12 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_non_ecc_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/Appearance/FullPage/FullPage-compiled.tsx
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const fullPageEditorWrapper: SerializedStyles = css({
 	minWidth: '340px',
@@ -11,6 +17,12 @@ export const fullPageEditorWrapper: SerializedStyles = css({
 	boxSizing: 'border-box',
 });
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_non_ecc_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/Appearance/FullPage/FullPageContentArea-compiled.tsx
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const contentAreaWrapper: SerializedStyles = css({
 	width: '100%',
@@ -24,6 +36,12 @@ export const contentAreaWrapper: SerializedStyles = css({
 	contain: 'layout style inline-size',
 });
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_non_ecc_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/Appearance/FullPage/FullPageContentArea-compiled.tsx
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
 export const sidebarArea: SerializedStyles = css({
 	height: '100%',
@@ -39,22 +57,5 @@ export const sidebarArea: SerializedStyles = css({
 		position: 'sticky',
 		top: 0,
 		alignSelf: 'flex-start',
-	},
-});
-
-// initially hide until we have a containerWidth and can properly size them,
-// otherwise they can cause the editor width to extend which is non-recoverable
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports -- Ignored via go/DSP-18766
-export const editorContentAreaHideContainer: SerializedStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.fabric-editor--full-width-mode': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.pm-table-container, .code-block, .extension-container': {
-			display: 'none',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'.multiBodiedExtension--container': {
-			display: 'none',
-		},
 	},
 });

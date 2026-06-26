@@ -6,8 +6,6 @@ import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import ProfileCardClient from '../src/client/ProfileCardClient';
-import TeamProfileCardClient from '../src/client/TeamProfileCardClient';
 import TeamProfilecardTrigger from '../src/components/Team';
 import teamData from '../src/mocks/team-data';
 import { type Team } from '../src/types';
@@ -42,48 +40,9 @@ const Container = ({ children }: { children: React.ReactNode }) => {
 	return <Box xcss={styles.container}>{children}</Box>;
 };
 
-const teams: Record<string, { displayName: string; largeHeaderImageUrl: string }> = {
-	'Air-Guitar': {
-		displayName: 'Air-Guitar',
-		largeHeaderImageUrl:
-			'https://teams-directory-frontend.stg-east.frontend.public.atl-paas.net/assets/gradients/1.svg',
-	},
-	Bongos: {
-		displayName: 'Bongos',
-		largeHeaderImageUrl:
-			'https://teams-directory-frontend.stg-east.frontend.public.atl-paas.net/assets/gradients/2.svg',
-	},
-	Clappers: {
-		displayName: 'Clappers',
-		largeHeaderImageUrl:
-			'https://teams-directory-frontend.stg-east.frontend.public.atl-paas.net/assets/gradients/4.svg',
-	},
-};
-
 const baseTeam: { team: Team } = {
 	team: teamData({}),
 };
-
-const actions = [
-	{
-		label: 'Secondary',
-		callback: () => {},
-		link: 'about:blank',
-	},
-	{
-		label: 'Option with callback',
-		callback: () => alert('First option clicked'),
-	},
-	{
-		label: 'Option with link',
-		link: 'about:blank',
-	},
-	{
-		label: 'Option with both',
-		callback: () => alert('Third option clicked'),
-		link: 'about:blank',
-	},
-];
 
 interface OptionType {
 	label: string;
@@ -95,27 +54,6 @@ const selectOptions: OptionType[] = [
 	{ label: 'Bongos', value: 'Bongos' },
 	{ label: 'Clappers', value: 'Clappers' },
 ];
-
-class MockTeamClient extends TeamProfileCardClient {
-	makeRequest(teamId: string): Promise<Team> {
-		const team: Team = {
-			...baseTeam.team,
-			...(teams[teamId] || {}),
-		};
-		return Promise.resolve(team);
-	}
-}
-
-const args = {
-	cacheSize: 10,
-	maxCacheAge: 0,
-	url: 'DUMMY',
-	cloudId: 'site-id',
-};
-
-const profileClient = new ProfileCardClient(args, {
-	teamClient: new MockTeamClient(args),
-});
 
 function MiniEditor(props: {
 	label: string;
@@ -153,14 +91,7 @@ function MiniEditor(props: {
 							display: 'inline-block',
 						}}
 					>
-						<TeamProfilecardTrigger
-							orgId="DUMMY"
-							resourceClient={profileClient}
-							teamId={value.value}
-							viewProfileLink="about:blank"
-							trigger={props.trigger}
-							actions={actions.slice(0, props.numActions)}
-						>
+						<TeamProfilecardTrigger>
 							<strong
 								style={{
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

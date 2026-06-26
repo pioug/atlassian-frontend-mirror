@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::9a2dd503a8c88989c93926372eaa84c1>>
+ * @codegen <<SignedSource::c074026b3760583a882b411542329528>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:atlaskit-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -910,6 +910,18 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'prebuiltEditorState',
+				type: 'EditorState',
+				description:
+					"Pre-built EditorState from ReactEditorView's ssrDeps.\nWhen provided, skips internal EditorState creation to avoid double work.",
+			},
+			{
+				name: 'prebuiltPMPlugins',
+				type: 'SafePlugin<any>[]',
+				description:
+					"Pre-built SafePlugins from ReactEditorView's ssrDeps.\nWhen provided, skips internal PM plugin creation to avoid double work.",
+			},
+			{
 				name: 'schema',
 				type: 'Schema<any, any>',
 				isRequired: true,
@@ -1315,6 +1327,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'Allows for customisation of text in the link picker.',
 			},
 			{
+				name: 'disableManualUrlInsert',
+				type: 'boolean',
+				description:
+					'When true, disables the Insert button when the user has manually typed a URL but no search\nresult has been selected. This prevents inserting external/manual links when only\nresult-based links are desired.',
+			},
+			{
 				name: 'disableWidth',
 				type: 'boolean',
 				description: 'Disables the default width containing the link picker.',
@@ -1590,6 +1608,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'getExtensionHeight',
 				type: '(node: PMNode) => string',
+			},
+			{
+				name: 'headingIdPrefix',
+				type: 'string',
+				description:
+					'Optional prefix to prepend to all generated heading IDs.\nUsed by nested renderers to namespace heading IDs and avoid collisions with the host page.',
 			},
 			{
 				name: 'includeNodesCountInStats',

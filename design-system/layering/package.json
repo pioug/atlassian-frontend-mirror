@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "4.0.1",
+	"version": "4.1.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

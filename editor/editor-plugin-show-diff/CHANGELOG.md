@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.1.9
+
+### Patch Changes
+
+- [`86eb94526dc1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86eb94526dc1d) -
+  [EDITOR-7841] Fix bug where diff widgets missing margin when the diff is the first node of the
+  document
+- Updated dependencies
+
+## 10.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.7
 
 ### Patch Changes

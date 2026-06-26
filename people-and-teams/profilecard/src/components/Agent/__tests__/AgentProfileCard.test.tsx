@@ -5,6 +5,10 @@ import { IntlProvider } from 'react-intl';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
+import {
+	clearFeatureGatesOverrides,
+	overrideFeatureGatesExperiment,
+} from '@atlassian/ptc-test-utils/feature-gates-test-helpers';
 
 import { ProfileClient } from '../../../index';
 import { getMockProfileClient } from '../../../mocks';
@@ -53,6 +57,7 @@ describe('ProfileCardTrigger', () => {
 		hideAiDisclaimer = false,
 		hideConversationStarters = false,
 		hideAgentActions = false,
+		agentOverride = agent,
 	}: {
 		isLoading?: boolean;
 		hasError?: boolean;
@@ -60,11 +65,12 @@ describe('ProfileCardTrigger', () => {
 		hideAiDisclaimer?: boolean;
 		hideConversationStarters?: boolean;
 		hideAgentActions?: boolean;
+		agentOverride?: RovoAgentProfileCardInfo;
 	}) => {
 		return renderWithAnalyticsListener(
 			<IntlProvider locale="en">
 				<AgentProfileCard
-					agent={agent}
+					agent={agentOverride}
 					resourceClient={mockClient}
 					isLoading={isLoading}
 					hasError={hasError}
@@ -265,6 +271,73 @@ describe('ProfileCardTrigger', () => {
 			it('should render agent actions even when hideAgentActions is true', () => {
 				renderWithIntl({ hideAgentActions: true });
 				expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
+			});
+		});
+	});
+
+	describe('jira_hide_conversations_for_jca experiment', () => {
+		const conversationStarterText = agent.user_defined_conversation_starters![0];
+
+		// creator_type is 'ROVO_DEV' for both the original Rovo Dev agent and the renamed
+		// Jira Coding Agent - they are distinguished by name only.
+		const rovoDevAgent: RovoAgentProfileCardInfo = {
+			...agent,
+			name: 'Rovo Dev',
+			creator_type: 'ROVO_DEV',
+		};
+		const jiraCodingAgent: RovoAgentProfileCardInfo = {
+			...agent,
+			name: 'Jira Coding Agent',
+			creator_type: 'ROVO_DEV',
+		};
+
+		afterEach(() => {
+			clearFeatureGatesOverrides();
+		});
+
+		describe('when the experiment is enabled', () => {
+			beforeEach(async () => {
+				await overrideFeatureGatesExperiment('jira_hide_conversations_for_jca', {
+					isEnabled: true,
+				});
+			});
+
+			it('should hide conversation starters and agent actions for the Jira Coding Agent', () => {
+				renderWithIntl({ agentOverride: jiraCodingAgent });
+				expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
+			});
+
+			it('should hide conversation starters and agent actions for Rovo Dev', () => {
+				renderWithIntl({ agentOverride: rovoDevAgent });
+				expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
+			});
+
+			it('should still show conversation starters and agent actions for a regular agent', () => {
+				renderWithIntl({});
+				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
+			});
+		});
+
+		describe('when the experiment is disabled', () => {
+			it('should show conversation starters and agent actions for the Jira Coding Agent', () => {
+				renderWithIntl({ agentOverride: jiraCodingAgent });
+				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
+				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
+			});
+
+			it('should hide conversation starters and agent actions for Rovo Dev', () => {
+				renderWithIntl({ agentOverride: rovoDevAgent });
+				expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
+				expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
+			});
+
+			it('should still show conversation starters and agent actions for a regular agent', () => {
+				renderWithIntl({});
+				expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
 				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
 			});
 		});

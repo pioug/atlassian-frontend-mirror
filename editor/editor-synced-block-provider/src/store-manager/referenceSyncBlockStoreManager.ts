@@ -8,7 +8,7 @@ import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { SyncBlockError } from '../common/types';
+import { isProviderNotReadyError, ProviderNotReadyError, SyncBlockError } from '../common/types';
 import type {
 	BlockInstanceId,
 	ResourceId,
@@ -24,6 +24,7 @@ import type {
 	SyncBlockSourceInfo,
 } from '../providers/types';
 import {
+	buildErrorAttribution,
 	cacheDeletionForcedPayload,
 	fetchErrorPayload,
 	fetchSuccessPayload,
@@ -143,6 +144,8 @@ export class ReferenceSyncBlockStoreManager {
 			getSubscriptions: () => this._subscriptionManager.getSubscriptions(),
 			fetchSyncBlocksData: (nodes) => this.fetchSyncBlocksData(nodes),
 			getFireAnalyticsEvent: () => this.fireAnalyticsEvent,
+			// EDITOR-7860: skip + re-queue fetches while not ready / torn down.
+			isProviderReady: () => this.hasDataProvider(),
 		});
 
 		// The provider might have SSR data cache already set, so we need to update the cache in session memory storage
@@ -151,6 +154,17 @@ export class ReferenceSyncBlockStoreManager {
 
 	public isReferenceBlock(node: PMNode): boolean {
 		return node.type.name === 'syncBlock';
+	}
+
+	/**
+	 * Whether the async data provider is wired and the manager is not torn down.
+	 * Consumers gate fetch/subscribe on this to avoid a false `Data provider not
+	 * set` fetch error (EDITOR-7860). The `isDestroyed` check covers managers
+	 * orphaned mid-flight during an async provider swap, where `dataProvider`
+	 * alone is insufficient.
+	 */
+	public hasDataProvider(): boolean {
+		return !this.isDestroyed && !!this.dataProvider;
 	}
 
 	/**
@@ -535,6 +549,11 @@ export class ReferenceSyncBlockStoreManager {
 		}
 
 		if (!this.dataProvider) {
+			// EDITOR-7860: tag the throw so catch sites can suppress the benign
+			// not-ready/torn-down case. Gate-off keeps the legacy throw + message.
+			if (fg('platform_editor_blocks_patch_3')) {
+				throw new ProviderNotReadyError();
+			}
 			throw new Error('Data provider not set');
 		}
 
@@ -959,6 +978,12 @@ export class ReferenceSyncBlockStoreManager {
 
 			return this._subscriptionManager.subscribeToSyncBlock(resourceId, localId, callback);
 		} catch (error) {
+			// EDITOR-7860: benign not-ready/torn-down case — suppress both the
+			// exception-tracker log and the analytics event (checked first so the
+			// benign case stays fully silent). Gate-off behaviour is unchanged.
+			if (isProviderNotReadyError(error) && fg('platform_editor_blocks_patch_3')) {
+				return () => {};
+			}
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 			});
@@ -1068,6 +1093,13 @@ export class ReferenceSyncBlockStoreManager {
 				this.fireAnalyticsEvent?.(
 					updateReferenceErrorPayload(
 						updateResult.error || 'Failed to update reference synced blocks on the document',
+						undefined,
+						undefined,
+						buildErrorAttribution(
+							fg('platform_editor_blocks_patch_3'),
+							updateResult.error,
+							updateResult.statusCode,
+						),
 					),
 				);
 			}
@@ -1078,7 +1110,16 @@ export class ReferenceSyncBlockStoreManager {
 			});
 			this.saveExperience?.failure({ reason: (error as Error).message });
 			// No `resourceId` available in this catch — sourceProduct is intentionally omitted.
-			this.fireAnalyticsEvent?.(updateReferenceErrorPayload((error as Error).message));
+			// No structured SyncBlockError/status here, so the attribution `reason` falls back
+			// to `unknown` when the gate is on.
+			this.fireAnalyticsEvent?.(
+				updateReferenceErrorPayload(
+					(error as Error).message,
+					undefined,
+					undefined,
+					buildErrorAttribution(fg('platform_editor_blocks_patch_3')),
+				),
+			);
 		} finally {
 			if (!success) {
 				// set isCacheDirty back to true for cases where it failed to update the reference synced blocks on the BE

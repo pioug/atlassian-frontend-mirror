@@ -2,7 +2,9 @@ import rafSchedule from 'raf-schd';
 
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { isProviderNotReadyError } from '../common/types';
 import type { ResourceId, BlockInstanceId, SyncBlockNode } from '../common/types';
 import type { SubscriptionCallback } from '../providers/types';
 import { fetchErrorPayload } from '../utils/errorHandling';
@@ -12,6 +14,13 @@ export interface SyncBlockBatchFetcherDeps {
 	fetchSyncBlocksData: (nodes: SyncBlockNode[]) => Promise<void>;
 	getFireAnalyticsEvent: () => ((payload: RendererSyncBlockEventPayload) => void) | undefined;
 	getSubscriptions: () => Map<ResourceId, { [localId: BlockInstanceId]: SubscriptionCallback }>;
+	/**
+	 * Returns true when the data provider is wired and not torn down. When false,
+	 * the fetcher skips and re-queues so the IDs are fetched once ready, avoiding
+	 * the false `Data provider not set` errors (EDITOR-7860). Optional; when
+	 * omitted, behaviour is unchanged.
+	 */
+	isProviderReady?: () => boolean;
 }
 
 /**
@@ -34,6 +43,17 @@ export class SyncBlockBatchFetcher {
 				return;
 			}
 
+			// EDITOR-7860: not ready — skip and leave resourceIds queued for the
+			// next batch once the provider resolves. Gate-off is unchanged (the
+			// readiness check is nested under the gate so it is not consulted when
+			// the gate is off, and `fg()` stays a standalone condition so gate
+			// exposure is still tracked — satisfies @atlaskit/platform/no-preconditioning).
+			if (fg('platform_editor_blocks_patch_3')) {
+				if (this.deps.isProviderReady && !this.deps.isProviderReady()) {
+					return;
+				}
+			}
+
 			const resourceIds = Array.from(this.pendingFetchRequests);
 
 			const syncBlockNodes = resourceIds.map((resId) => {
@@ -50,6 +70,18 @@ export class SyncBlockBatchFetcher {
 			this.deps
 				.fetchSyncBlocksData(syncBlockNodes)
 				.catch((error) => {
+					// EDITOR-7860: benign not-ready throw — re-queue for retry and emit
+					// nothing (no analytics, no exception-tracker noise). Checked before
+					// `logException` so the benign case stays silent. Re-schedule so the
+					// re-queued IDs are retried on the next frame even if no further
+					// `queueFetch()` arrives. Gate-off behaviour is unchanged.
+					if (isProviderNotReadyError(error) && fg('platform_editor_blocks_patch_3')) {
+						resourceIds.forEach((resId) => this.pendingFetchRequests.add(resId));
+						if (!this.isDestroyed) {
+							this.scheduledBatchFetch();
+						}
+						return;
+					}
 					logException(error, {
 						location: 'editor-synced-block-provider/syncBlockBatchFetcher/batchedFetchSyncBlocks',
 					});

@@ -168,6 +168,13 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 				iconBefore={<ExpandIcon label="" color="currentColor" size="small" />}
 				aria-label={labelCellOptions}
 				aria-expanded={isCellMenuOpen}
+				// Stable anchor used by the Post Office changeboarding spotlight
+				// (cc-editor-table-cell-menu-changes) to target the cell options button.
+				testId={
+					expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)
+						? 'pm-table-contextual-menu-button'
+						: undefined
+				}
 			/>
 		</div>
 	);

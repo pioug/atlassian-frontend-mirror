@@ -1,5 +1,7 @@
 import { type AST } from 'refractor';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import flattenCodeTree from '../../lib/process/flatten-code-tree';
 
 const textTestNode: AST.Text = { type: 'text', value: 'text' };
@@ -97,5 +99,47 @@ describe('flattenCodeTree', () => {
 		expect(flattenedTree[1].properties.className).toEqual(
 			expect.arrayContaining(['testClassName', 'testClassName2', 'testClassName3']),
 		);
+	});
+
+	describe('code-block class reset (platform-code-highlight-markdown-safe gate)', () => {
+		const codeBlockNode: AST.Element = {
+			type: 'element',
+			tagName: 'span',
+			properties: {
+				className: ['code-block', 'language-jsx'],
+			},
+			children: [
+				{
+					type: 'element',
+					tagName: 'span',
+					properties: { className: ['token', 'plain-text'] },
+					children: [{ type: 'text', value: 'hello' }],
+				},
+			],
+		};
+
+		it('gate ON: resets ancestor classes when entering code-block node', () => {
+			passGate('platform-code-highlight-markdown-safe');
+			const flattenedTree = flattenCodeTree([codeBlockNode], 0, [
+				'ancestor-class',
+			]) as AST.Element[];
+
+			expect(flattenedTree).toHaveLength(1);
+			// child should NOT inherit 'ancestor-class' — reset by isCodeBlock
+			expect(flattenedTree[0].properties.className).not.toContain('ancestor-class');
+			expect(flattenedTree[0].properties.className).toContain('token');
+			expect(flattenedTree[0].properties.className).toContain('plain-text');
+		});
+
+		it('gate OFF: concatenates ancestor classes into code-block node children', () => {
+			failGate('platform-code-highlight-markdown-safe');
+			const flattenedTree = flattenCodeTree([codeBlockNode], 0, [
+				'ancestor-class',
+			]) as AST.Element[];
+
+			expect(flattenedTree).toHaveLength(1);
+			// child SHOULD inherit 'ancestor-class' — isCodeBlock is false
+			expect(flattenedTree[0].properties.className).toContain('ancestor-class');
+		});
 	});
 });

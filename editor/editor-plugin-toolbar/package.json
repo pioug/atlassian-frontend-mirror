@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar",
-	"version": "9.0.9",
+	"version": "9.0.11",
 	"description": "Toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -53,9 +53,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_mode_override": {
-			"type": "boolean"
-		},
-		"platform_editor_toolbar_open_experience_fix_2": {
 			"type": "boolean"
 		}
 	},

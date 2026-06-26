@@ -1,5 +1,43 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 10.2.0
+
+### Minor Changes
+
+- [`f13db8731461d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f13db8731461d) -
+  [EDITOR-7860] Gate synced block reference fetch and subscribe on data-provider readiness so
+  reference blocks no longer attempt to fetch before the (asynchronously wired) provider is ready.
+  This removes spurious "Data provider not set" fetch errors on Jira and keeps reference blocks
+  loading correctly once the provider resolves.
+
+  This also hardens the not-ready / torn-down window: a teardown-aware `hasDataProvider()` (also
+  checks `isDestroyed`), a tagged `ProviderNotReadyError` thrown at the fetch source, and catch-site
+  suppression in the hook, store manager and batch fetcher so an in-flight or queued fetch on an
+  orphaned manager re-queues for retry instead of emitting a false fetch error. All behaviour is
+  behind the `platform_editor_blocks_patch_3` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.0
+
+### Minor Changes
+
+- [`cd097a2111788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd097a2111788) -
+  Republish packages depending on `@atlaskit/react-compiler-gating` so their published dependency
+  reference is updated to the renamed `@atlaskit/react-compiler-gating` scope.
+
+  The earlier rename of `@atlassian/react-compiler-gating` to `@atlaskit/react-compiler-gating` only
+  bumped the renamed package itself, so dependent packages were never republished and their
+  published versions still referenced the old `@atlassian/react-compiler-gating` name, which is not
+  available in the public npm registry. This minor bump republishes all affected packages with the
+  corrected dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.2
 
 ### Patch Changes

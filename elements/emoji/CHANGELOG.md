@@ -1,5 +1,26 @@
 # @atlaskit/emoji
 
+## 71.6.0
+
+### Minor Changes
+
+- [`6d48bbf99477b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d48bbf99477b) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+## 71.5.5
+
+### Patch Changes
+
+- [`1388b698b0ad1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1388b698b0ad1) -
+  Add a public entry point for rendering unicode emoji to image URLs.
+
+## 71.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.5.3
 
 ### Patch Changes

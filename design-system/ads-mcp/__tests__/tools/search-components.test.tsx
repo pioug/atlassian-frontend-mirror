@@ -1,3 +1,4 @@
+import { listSearchComponentsTool } from '../../src/tools/search-components/list-search-components-tool';
 import { searchComponentsTool } from '../../src/tools/search-components/search-components-tool';
 
 /**
@@ -44,7 +45,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['tag'], ['Tag', 'TagGroup']],
 
 	// Date & progress
-	[['date'], ['DateTimePicker', 'DatePicker']],
+	[['date'], ['DateLabel', 'DateLabelDropdownTrigger']],
 	[['calendar'], ['Calendar', 'DatePicker']],
 	[['progress'], ['ProgressTracker', 'ProgressIndicator']],
 
@@ -74,6 +75,12 @@ const expectedComponentResults: [string[], string[]][] = [
 ];
 
 describe('search_components tool', () => {
+	it('describes ADS-only search with Atlaskit fallback routing', () => {
+		expect(listSearchComponentsTool.description).toContain('canonical ADS component');
+		expect(listSearchComponentsTool.description).toContain('@atlaskit/*');
+		expect(listSearchComponentsTool.description).toContain('atlaskit_search_components');
+	});
+
 	it('Returns empty results if there are no search terms', async () => {
 		const result = await searchComponentsTool({ terms: [] });
 		expect(result).toEqual({
@@ -101,11 +108,16 @@ describe('search_components tool', () => {
 		expect(result).toEqual({
 			content: [
 				{
-					text: expect.stringContaining("Error: No components found for 'DOES NOT EXIST XYZ123'"),
+					text: expect.stringContaining(
+						"Error: No ADS components found for 'DOES NOT EXIST XYZ123'",
+					),
 					type: 'text',
 				},
 			],
 		});
+		const text = result.content[0].type === 'text' ? result.content[0].text : '';
+		expect(text).toContain('call atlaskit_search_components with the same terms');
+		expect(text).toContain('public @atlaskit/* package');
 	});
 
 	it('Deduplicates input terms so duplicate search strings do not duplicate the same component', async () => {

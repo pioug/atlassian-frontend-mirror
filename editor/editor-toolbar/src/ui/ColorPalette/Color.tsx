@@ -7,6 +7,8 @@ import React, { useCallback, memo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 import Tooltip from '@atlaskit/tooltip';
@@ -24,6 +26,22 @@ const buttonWrapperStyles = css({
 	paddingBottom: token('space.025'),
 	paddingLeft: token('space.025'),
 	borderRadius: token('radius.small', '4px'),
+	'&:focus-within, &:focus, &:hover': {
+		borderColor: token('color.border'),
+	},
+});
+
+const buttonWrapperStylesNew = css({
+	borderColor: 'transparent',
+	borderStyle: 'solid',
+	borderWidth: token('border.width'),
+	display: 'flex',
+	alignItems: 'center',
+	paddingTop: token('space.025'),
+	paddingRight: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
+	borderRadius: token('radius.medium', '6px'),
 	'&:focus-within, &:focus, &:hover': {
 		borderColor: token('color.border'),
 	},
@@ -87,6 +105,39 @@ export const Color: React.NamedExoticComponent<ColorProps> = memo<ColorProps>(
 			},
 			[onKeyDown, value, label],
 		);
+
+		if (
+			expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+			fg('platform_editor_lovability_text_bg_color_patch_1')
+		) {
+			return (
+				<Tooltip content={label}>
+					<span css={buttonWrapperStylesNew}>
+						<button
+							type="button"
+							css={buttonStyles}
+							aria-label={label}
+							role="radio"
+							aria-checked={isSelected}
+							onClick={handleClick}
+							onKeyDown={handleKeyDown}
+							onMouseDown={handleMouseDown}
+							tabIndex={tabIndex}
+							style={{
+								backgroundColor: colorStyle || token('color.background.input'),
+								border: `${token('border.width')} solid ${borderColor}`,
+							}}
+							autoFocus={autoFocus}
+						>
+							{!decorator && isSelected && (
+								<EditorDoneIcon color={checkMarkColor as IconColor} label="" />
+							)}
+							{decorator}
+						</button>
+					</span>
+				</Tooltip>
+			);
+		}
 
 		return (
 			<Tooltip content={label}>

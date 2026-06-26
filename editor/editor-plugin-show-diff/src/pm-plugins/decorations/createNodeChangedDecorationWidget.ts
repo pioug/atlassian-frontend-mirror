@@ -5,6 +5,7 @@ import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
 import type { ColorScheme } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
@@ -353,5 +354,42 @@ export const createNodeChangedDecorationWidget = ({
 			}),
 		),
 	);
+
+	// When a single block node is purely deleted at the very start of the doc (first child),
+	// the deleted widget decoration overlaps with the existing first child's decoration.
+	// To fix this, we insert an additional empty widget span before the deleted content
+	// to push it down and create visual separation.
+	//
+	// Conditions for the placeholder:
+	// 1. isPureDeletion: change.fromB === change.toB — nothing was inserted at the same position.
+	//    Node type changes (e.g. paragraph → heading) have both a deletion and an insertion,
+	//    so fromB !== toB — we skip the placeholder in that case.
+	// 2. isSingleBlock: exactly one block node was deleted (not inline, not multi-block).
+	// 3. safeInsertPos: that it is the first node
+	const isPureDeletion = change.fromB === change.toB;
+	const isSingleBlock = slice.content.childCount === 1 && slice.content.firstChild?.isBlock;
+	const resolvedPos = newDoc.resolve(change.fromB);
+	const isFirstDocChild = resolvedPos.depth === 0 && resolvedPos.index(0) === 0;
+
+	if (
+		isFirstDocChild &&
+		isSingleBlock &&
+		isPureDeletion &&
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+	) {
+		const emptyWidgetSpan = document.createElement('span');
+		emptyWidgetSpan.style.display = 'block';
+		// Use a design token for the margin to keep spacing consistent with the design system
+		emptyWidgetSpan.style.marginTop = token('space.100');
+		const widget = Decoration.widget(safeInsertPos, emptyWidgetSpan, {
+			...buildDiffDecorationSpec({
+				decorationType: 'widget',
+				diffId: crypto.randomUUID(),
+			}),
+		});
+
+		decorations.push(widget);
+	}
+
 	return decorations;
 };

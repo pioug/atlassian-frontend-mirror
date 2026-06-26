@@ -1,5 +1,42 @@
 # @atlaskit/mention
 
+## 27.5.0
+
+### Minor Changes
+
+- [`cd097a2111788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd097a2111788) -
+  Republish packages depending on `@atlaskit/react-compiler-gating` so their published dependency
+  reference is updated to the renamed `@atlaskit/react-compiler-gating` scope.
+
+  The earlier rename of `@atlassian/react-compiler-gating` to `@atlaskit/react-compiler-gating` only
+  bumped the renamed package itself, so dependent packages were never republished and their
+  published versions still referenced the old `@atlassian/react-compiler-gating` name, which is not
+  available in the public npm registry. This minor bump republishes all affected packages with the
+  corrected dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.4.0
+
+### Minor Changes
+
+- [`6d48bbf99477b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d48bbf99477b) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+## 27.3.0
+
+### Minor Changes
+
+- [`1e60d10b9bddf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e60d10b9bddf) -
+  Fix agent mention chip not rendering as disabled after the last @-mentioned agent is dismissed via
+  the input hat (TREX-1692). An agent chip is now enabled only when its id is the active agent
+  (selectedAgentIds.at(-1)) and disabled otherwise; the rule is scoped to agent chips via the
+  mention node's userType (now forwarded through MentionDisabledStateInput) so people mentions are
+  never affected.
+
 ## 27.2.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 37.1.2
+
+### Patch Changes
+
+- [`c16e1619c15f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c16e1619c15f1) -
+  Clean up platform_media_upload_external_anonymize_filename feature flag; anonymizing the external
+  upload filename is now controlled solely by the anonymizeFilename argument
+
 ## 37.1.1
 
 ### Patch Changes

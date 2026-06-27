@@ -18,7 +18,7 @@ import type {
 import { flatmap, getStepRange, isEmptyDocument, mapChildren } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
@@ -723,6 +723,42 @@ const getPreviousLayoutColumnValign = (
 
 const hasLayoutColumnContent = (node: Node): boolean => !isEmptyDocument(node);
 
+/**
+ * Remaps a selection through a position mapping, preserving its type. Used after replacing a
+ * layout section's contents so the selection stays in its column instead of being mapped out
+ * of the layout. Returns `undefined` if no valid selection can be derived (NodeSelection
+ * whose node is no longer selectable falls back to a nearby caret).
+ */
+const remapSelectionThroughMapping = (
+	selection: Selection,
+	mapping: Mapping,
+	doc: Node,
+): Selection | undefined => {
+	const docSize = doc.content.size;
+	const clamp = (pos: number) => Math.min(Math.max(pos, 0), docSize);
+
+	if (selection instanceof NodeSelection) {
+		const mappedPos = clamp(mapping.map(selection.from));
+		const nodeAtPos = doc.nodeAt(mappedPos);
+		if (nodeAtPos && NodeSelection.isSelectable(nodeAtPos)) {
+			return NodeSelection.create(doc, mappedPos);
+		}
+		return TextSelection.findFrom(doc.resolve(mappedPos), 1, true) ?? undefined;
+	}
+
+	if (selection instanceof TextSelection) {
+		const mappedFrom = clamp(mapping.map(selection.from));
+		const mappedTo = clamp(mapping.map(selection.to));
+		try {
+			return TextSelection.create(doc, mappedFrom, mappedTo);
+		} catch {
+			return undefined;
+		}
+	}
+
+	return undefined;
+};
+
 const mapLayoutColumnPreservedSelection = (tr: Transaction, api: LayoutPluginAPI) => {
 	const insertMeta = tr.getMeta(LAYOUT_COLUMN_INSERT_META) as LayoutColumnInsertMeta | undefined;
 	if (insertMeta) {
@@ -821,11 +857,33 @@ const insertLayoutColumnAt =
 			side,
 		} satisfies LayoutColumnInsertMeta);
 
+		// Capture the selection before the section content is replaced (the replace below maps
+		// it out of the layout by default). The menu path restores its own preserved selection
+		// afterwards, so this restoration only matters for the cursor-in-column case.
+		const originalSelection = tr.selection;
+
 		tr.replaceWith(
 			layoutSectionPos + 1,
 			layoutSectionPos + layoutSectionNode.nodeSize - 1,
 			columnWidth(updatedLayoutSectionNode, tr.doc.type.schema, redistributedWidths),
 		);
+
+		// Inserting left shifts positions at/after the new column right by its size; inserting
+		// right leaves them unchanged. Remap the original selection through that mapping.
+		if (!fg('platform_editor_layout_column_menu_kill_switch_1')) {
+			const insertMapping =
+				side === 'left'
+					? new Mapping([new StepMap([insertedColumnPos, 0, newColumn.nodeSize])])
+					: new Mapping();
+			const restoredSelection = remapSelectionThroughMapping(
+				originalSelection,
+				insertMapping,
+				tr.doc,
+			);
+			if (restoredSelection) {
+				tr.setSelection(restoredSelection);
+			}
+		}
 		editorAnalyticsAPI?.attachAnalyticsEvent({
 			action: ACTION.INSERTED,
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -1120,11 +1178,43 @@ export const deleteLayoutColumn =
 
 		const updatedLayoutSectionNode = layoutSectionNode.copy(Fragment.fromArray(remainingColumns));
 
+		// The cursor-in-column (keyboard) path has a plain text selection; the menu path has a
+		// column NodeSelection whose post-delete landing is owned by the block-controls
+		// preserved-selection plugin, so we only restore the caret for the former.
+		const hadTextSelection = tr.selection instanceof TextSelection;
+
 		tr.replaceWith(
 			layoutSectionPos + 1,
 			layoutSectionPos + layoutSectionNode.nodeSize - 1,
 			columnWidth(updatedLayoutSectionNode, tr.doc.type.schema, redistributed),
 		);
+
+		// Land the caret in a remaining column — the one now occupying the deleted slot, or the
+		// last column when the deleted slot no longer exists. Otherwise the replace above maps
+		// the caret out of the layout to the following paragraph.
+		const remainingColumnCount = remainingColumns.length;
+		if (
+			hadTextSelection &&
+			!fg('platform_editor_layout_column_menu_kill_switch_1') &&
+			remainingColumnCount > 0
+		) {
+			const targetColumnIndex = Math.min(startIndex, remainingColumnCount - 1);
+			const updatedSectionNode = tr.doc.nodeAt(layoutSectionPos);
+			if (updatedSectionNode) {
+				let columnOffset = 1;
+				for (let columnIndex = 0; columnIndex < targetColumnIndex; columnIndex++) {
+					columnOffset += updatedSectionNode.child(columnIndex).nodeSize;
+				}
+				// +1 to land inside the column's first child rather than on the column boundary.
+				const caretPos = layoutSectionPos + columnOffset + 1;
+				if (caretPos >= 0 && caretPos <= tr.doc.content.size) {
+					const caretSelection = TextSelection.findFrom(tr.doc.resolve(caretPos), 1, true);
+					if (caretSelection) {
+						tr.setSelection(caretSelection);
+					}
+				}
+			}
+		}
 
 		emitDeleteColumnAnalytics(redistributed.length);
 		tr.setMeta('scrollIntoView', false);

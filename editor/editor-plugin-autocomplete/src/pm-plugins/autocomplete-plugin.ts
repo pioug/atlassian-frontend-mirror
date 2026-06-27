@@ -215,6 +215,12 @@ export interface AutocompletePluginOptions {
 	 */
 	getVectorsBinaryUrl?: () => Promise<string>;
 	/**
+	 * Subscription for hosts with live external context (e.g. Rovo chat). The plugin
+	 * re-fetches via getContext() on each notification and unsubscribes on destroy.
+	 * Only meaningful alongside `getContext`; without it each notification is a no-op.
+	 */
+	subscribeToContextUpdates?: (onContextUpdated: () => void) => () => void;
+	/**
 	 * User locale used to determine whether autocomplete should run.
 	 * Defaults to browser locale when omitted.
 	 */
@@ -329,6 +335,7 @@ export const createAutocompletePlugin = (
 	 * user has already typed several words before the promise resolved.
 	 */
 	let currentView: EditorView | null = null;
+	let unsubscribeFromContextUpdates: (() => void) | undefined;
 	/**
 	 * Set after accepting a suggestion so the next doc-change update
 	 * skips scheduling a new prediction for the just-inserted text.
@@ -792,66 +799,85 @@ export const createAutocompletePlugin = (
 			},
 		},
 
-		view: () => ({
-			update: (view: EditorView, prevState: EditorState) => {
-				if (!isAutocompleteEnabled) {
-					return;
-				}
+		view: (editorView: EditorView) => {
+			// Capture up front so a subscription notification before the first PM
+			// transaction can still drive slowLaneClient.updateContext (gated on currentView).
+			currentView = editorView;
 
-				currentView = view;
-				if (!prevState.doc.eq(view.state.doc)) {
-					if (justAccepted) {
-						justAccepted = false;
+			// Push channel for hosts that keep producing context after mount (e.g. Rovo chat).
+			if (isAutocompleteEnabled && options?.subscribeToContextUpdates) {
+				unsubscribeFromContextUpdates = options.subscribeToContextUpdates(() => {
+					// Bypass throttle for freshness; the in-flight guard prevents overlap.
+					refreshContext({ source: 'subscription', allowThrottle: false });
+				});
+			}
 
-						// Snapshot the post-acceptance text so follow-up transactions hit
-						// the dismissedContext guard and abort until the user types again.
-						dismissedContext = getTextBeforeCursor(view.state);
-
-						if (debounceTimer) {
-							clearTimeout(debounceTimer);
-						}
+			return {
+				update: (view: EditorView, prevState: EditorState) => {
+					if (!isAutocompleteEnabled) {
 						return;
 					}
 
-					maybeUpdateSessionFrequency(view, prevState);
+					currentView = view;
+					if (!prevState.doc.eq(view.state.doc)) {
+						if (justAccepted) {
+							justAccepted = false;
 
-					const textBefore = getTextBeforeCursor(view.state);
-					if (isWordBoundary(textBefore)) {
-						slowLaneClient.updateContext(
-							buildSlowLaneText(view.state.doc.textContent, resolvedContext),
-						);
+							// Snapshot the post-acceptance text so follow-up transactions hit
+							// the dismissedContext guard and abort until the user types again.
+							dismissedContext = getTextBeforeCursor(view.state);
 
-						// Context may not have resolved on first focus (e.g. comment
-						// thread still loading). Retry on word boundaries until we have
-						// the parent comment, throttled so we don't refetch constantly
-						// and capped so non-comment editors stop retrying entirely.
-						if (
-							!resolvedContext?.parentCommentContent &&
-							wordBoundaryRefreshAttempts < MAX_CONTEXT_REFRESH_ATTEMPTS
-						) {
-							// Only count the attempt when a fetch actually started, so an
-							// in-flight or throttled no-op doesn't burn the retry budget.
-							if (refreshContext({ source: 'word-boundary' })) {
-								wordBoundaryRefreshAttempts++;
+							if (debounceTimer) {
+								clearTimeout(debounceTimer);
+							}
+							return;
+						}
+
+						maybeUpdateSessionFrequency(view, prevState);
+
+						const textBefore = getTextBeforeCursor(view.state);
+						if (isWordBoundary(textBefore)) {
+							slowLaneClient.updateContext(
+								buildSlowLaneText(view.state.doc.textContent, resolvedContext),
+							);
+
+							// Context may not have resolved on first focus (e.g. comment
+							// thread still loading). Retry on word boundaries until we have
+							// the parent comment, throttled so we don't refetch constantly
+							// and capped so non-comment editors stop retrying entirely.
+							// Skipped for push-channel hosts (subscribeToContextUpdates): they
+							// never grow parentCommentContent, so polling only burns the budget.
+							if (
+								!options?.subscribeToContextUpdates &&
+								!resolvedContext?.parentCommentContent &&
+								wordBoundaryRefreshAttempts < MAX_CONTEXT_REFRESH_ATTEMPTS
+							) {
+								// Only count the attempt when a fetch actually started, so an
+								// in-flight or throttled no-op doesn't burn the retry budget.
+								if (refreshContext({ source: 'word-boundary' })) {
+									wordBoundaryRefreshAttempts++;
+								}
 							}
 						}
-					}
 
-					schedulePrediction(view);
-				}
-			},
-			destroy: () => {
-				destroyed = true;
-				currentView = null;
-				if (debounceTimer) {
-					clearTimeout(debounceTimer);
-				}
-				if (hasDestroy(slowLaneClient)) {
-					slowLaneClient.destroy();
-				}
-				ingestedContextTexts.clear();
-				setDefaultSlowLaneClient(null);
-			},
-		}),
+						schedulePrediction(view);
+					}
+				},
+				destroy: () => {
+					destroyed = true;
+					currentView = null;
+					unsubscribeFromContextUpdates?.();
+					unsubscribeFromContextUpdates = undefined;
+					if (debounceTimer) {
+						clearTimeout(debounceTimer);
+					}
+					if (hasDestroy(slowLaneClient)) {
+						slowLaneClient.destroy();
+					}
+					ingestedContextTexts.clear();
+					setDefaultSlowLaneClient(null);
+				},
+			};
+		},
 	});
 };

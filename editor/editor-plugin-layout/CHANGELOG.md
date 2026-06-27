@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 13.3.0
+
+### Minor Changes
+
+- [`5b844f57bfad8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b844f57bfad8) -
+  [ED-7731] Preserve the editor selection when inserting, deleting, or resizing layout columns with
+  the cursor inside a column, instead of moving it out of the layout. Gated behind
+  platform_editor_layout_column_menu_kill_switch_1.
+
 ## 13.2.4
 
 ### Patch Changes

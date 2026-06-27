@@ -628,17 +628,20 @@ export const messages: Messages = defineMessages({
 	learn_more: {
 		id: 'fabric.media.learn_more',
 		defaultMessage: 'Learn More',
-		description: '',
+		description:
+			'Link label in the media UI that navigates the user to additional documentation or help content.',
 	},
 	accounts: {
 		id: 'fabric.media.accounts',
 		defaultMessage: 'Accounts',
-		description: '',
+		description:
+			'Section heading or tab label in the media file picker listing connected cloud storage accounts.',
 	},
 	actions: {
 		id: 'fabric.media.actions',
 		defaultMessage: 'Actions',
-		description: '',
+		description:
+			'Label for the actions menu or toolbar in the media viewer that contains available file operations.',
 	},
 	error_hint_retry: {
 		id: 'fabric.media.error_hint_retry',
@@ -653,7 +656,8 @@ export const messages: Messages = defineMessages({
 	close: {
 		id: 'fabric.media.close',
 		defaultMessage: 'Close',
-		description: '',
+		description:
+			'Button label in the media viewer or dialog that dismisses the current modal or overlay.',
 	},
 	could_not_load_editor: {
 		id: 'fabric.media.could_not_load_editor',
@@ -673,57 +677,63 @@ export const messages: Messages = defineMessages({
 	annotate: {
 		id: 'fabric.media.annotate',
 		defaultMessage: 'Annotate',
-		description: '',
+		description: 'Button label in the media viewer toolbar that opens the image annotation editor.',
 	},
 	annotate_tool_arrow: {
 		id: 'fabric.media.annotate.tool.arrow',
 		defaultMessage: 'Arrow',
-		description: '',
+		description: 'Label for the arrow drawing tool in the media image annotation editor toolbar.',
 	},
 	annotate_tool_text: {
 		id: 'fabric.media.annotate.tool.text',
 		defaultMessage: 'Text',
-		description: '',
+		description: 'Label for the text tool in the media image annotation editor toolbar.',
 	},
 	annotate_tool_shape: {
 		id: 'fabric.media.annotate.tool.shape',
 		defaultMessage: 'Shape',
-		description: '',
+		description: 'Label for the shape drawing tool in the media image annotation editor toolbar.',
 	},
 	annotate_tool_brush: {
 		id: 'fabric.media.annotate.tool.brush',
 		defaultMessage: 'Brush',
-		description: '',
+		description:
+			'Label for the freehand brush drawing tool in the media image annotation editor toolbar.',
 	},
 	annotate_tool_blur: {
 		id: 'fabric.media.annotate.tool.blur',
 		defaultMessage: 'Blur',
-		description: '',
+		description:
+			'Label for the blur tool in the media image annotation editor used to obscure areas of an image.',
 	},
 	annotate_tool_line_thickness: {
 		id: 'fabric.media.annotate.tool.line.thickness',
 		defaultMessage: 'Line thickness',
-		description: '',
+		description:
+			'Label for the line thickness selector in the media image annotation editor toolbar.',
 	},
 	annotate_tool_color: {
 		id: 'fabric.media.annotate.tool.color',
 		defaultMessage: 'Color',
-		description: '',
+		description: 'Label for the color picker in the media image annotation editor toolbar.',
 	},
 	annotate_confirmation_close_anyway: {
 		id: 'fabric.media.annotate.confirmation.close.anyway',
 		defaultMessage: 'Close anyway',
-		description: '',
+		description:
+			'Button label in the annotation editor confirmation dialog that discards unsaved changes and closes the editor.',
 	},
 	annotate_confirmation_heading: {
 		id: 'fabric.media.annotate.confirmation.heading',
 		defaultMessage: 'Unsaved changes',
-		description: '',
+		description:
+			'Heading of the confirmation dialog shown when the user tries to close the annotation editor with unsaved changes.',
 	},
 	annotate_confirmation_content: {
 		id: 'fabric.media.annotate.confirmation.content',
 		defaultMessage: 'You have some unsaved changes. Are you sure you want to leave?',
-		description: '',
+		description:
+			'Body text of the confirmation dialog asking the user whether to discard unsaved annotation changes.',
 	},
 	drop_your_files_here: {
 		id: 'fabric.media.drop_your_files_here',
@@ -761,12 +771,12 @@ export const messages: Messages = defineMessages({
 	play: {
 		id: 'fabric.media.play',
 		defaultMessage: 'Play',
-		description: '',
+		description: 'Accessible label for the play button in the media video or audio player.',
 	},
 	pause: {
 		id: 'fabric.media.pause',
 		defaultMessage: 'Pause',
-		description: '',
+		description: 'Accessible label for the pause button in the media video or audio player.',
 	},
 	disable_fullscreen: {
 		id: 'fabric.media.disable_fullscreen',
@@ -791,52 +801,61 @@ export const messages: Messages = defineMessages({
 	download: {
 		id: 'fabric.media.download',
 		defaultMessage: 'Download',
-		description: '',
+		description:
+			"Button label in the media viewer toolbar that triggers downloading the current file to the user's device.",
 	},
 	download_disabled_security_policy: {
 		id: 'fabric.media.download_disabled_security_policy',
 		defaultMessage: "Download is blocked by your organization's security policy.",
-		description: '',
+		description:
+			"Tooltip or message shown on the disabled download button when the org's security policy prevents file downloads.",
 	},
 	unknown: {
 		id: 'fabric.media.unknown',
 		defaultMessage: 'unknown',
-		description: '',
+		description: 'File type label used in the media UI when the file type cannot be determined.',
 	},
 	document: {
 		id: 'fabric.media.document',
 		defaultMessage: 'document',
-		description: '',
+		description:
+			'File type label used in the media UI to categorise files such as PDFs and office documents.',
 	},
 	audio: {
 		id: 'fabric.media.audio',
 		defaultMessage: 'audio',
-		description: '',
+		description:
+			'File type label used in the media UI to categorise audio files such as MP3 or WAV.',
 	},
 	video: {
 		id: 'fabric.media.video',
 		defaultMessage: 'video',
-		description: '',
+		description:
+			'File type label used in the media UI to categorise video files such as MP4 or MOV.',
 	},
 	image: {
 		id: 'fabric.media.image',
 		defaultMessage: 'image',
-		description: '',
+		description:
+			'File type label used in the media UI to categorise image files such as PNG or JPEG.',
 	},
 	archive: {
 		id: 'fabric.media.archive',
 		defaultMessage: 'archive',
-		description: '',
+		description:
+			'File type label used in the media UI to categorise compressed archive files such as ZIP.',
 	},
 	email: {
 		id: 'fabric.media.email',
 		defaultMessage: 'email',
-		description: '',
+		description:
+			'File type label used in the media UI to categorise email files such as EML or MSG.',
 	},
 	text: {
 		id: 'fabric.media.text',
 		defaultMessage: 'text',
-		description: '',
+		description:
+			'File type label used in the media UI to categorise plain text files such as TXT or CSV.',
 	},
 	displayThumbnail: {
 		id: 'fabric.media.display_thumbnail',
@@ -847,7 +866,8 @@ export const messages: Messages = defineMessages({
 	search: {
 		id: 'fabric.media.search',
 		defaultMessage: 'search',
-		description: '',
+		description:
+			'Accessible label for the search input or button in the media file picker used to find files.',
 	},
 	view: {
 		id: 'fabric.media.view',

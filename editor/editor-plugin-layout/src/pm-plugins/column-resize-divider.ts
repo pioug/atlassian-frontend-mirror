@@ -10,12 +10,42 @@ import {
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MIN_LAYOUT_COLUMN_WIDTH_PERCENT } from './consts';
+
+/**
+ * Re-creates a selection at the same positions against the resized document. A resize only
+ * changes width attrs (not node count, order, or size), so the original positions are still
+ * valid. Returns `undefined` if no valid selection can be made.
+ */
+const remapResizeSelection = (selection: Selection, doc: Node): Selection | undefined => {
+	const docSize = doc.content.size;
+	const clamp = (pos: number) => Math.min(Math.max(pos, 0), docSize);
+
+	if (selection instanceof NodeSelection) {
+		const pos = clamp(selection.from);
+		const nodeAtPos = doc.nodeAt(pos);
+		if (nodeAtPos && NodeSelection.isSelectable(nodeAtPos)) {
+			return NodeSelection.create(doc, pos);
+		}
+		return TextSelection.findFrom(doc.resolve(pos), 1, true) ?? undefined;
+	}
+
+	if (selection instanceof TextSelection) {
+		try {
+			return TextSelection.create(doc, clamp(selection.from), clamp(selection.to));
+		} catch {
+			return undefined;
+		}
+	}
+
+	return undefined;
+};
 
 // Class names for the column resize divider widget — must stay in sync with layout.ts in editor-core
 const layoutColumnDividerClassName = 'layout-column-divider';
@@ -82,9 +112,21 @@ const dispatchColumnWidths = (
 		}
 	});
 
+	// Capture the selection before the replace below, which otherwise maps the caret out of
+	// the layout to the following paragraph. Restored at the same positions afterwards.
+	const shouldPreserveSelection = !fg('platform_editor_layout_column_menu_kill_switch_1');
+	const selectionBeforeResize = shouldPreserveSelection ? state.selection : null;
+
 	tr.replaceWith(sectionPos + 1, sectionPos + sectionNode.nodeSize - 1, Fragment.from(newColumns));
 	tr.setMeta('layoutColumnResize', true);
 	tr.setMeta('scrollIntoView', false);
+
+	if (selectionBeforeResize) {
+		const restoredSelection = remapResizeSelection(selectionBeforeResize, tr.doc);
+		if (restoredSelection) {
+			tr.setSelection(restoredSelection);
+		}
+	}
 
 	if (fg('platform_editor_layout_resize_analytics')) {
 		editorAnalyticsAPI?.attachAnalyticsEvent({

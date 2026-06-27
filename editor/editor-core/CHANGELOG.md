@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 221.5.1
+
+### Patch Changes
+
+- [`0bdcdc112c8b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bdcdc112c8b0) -
+  migrate compiled css for comment and fullpage
+
 ## 221.5.0
 
 ### Minor Changes

@@ -715,7 +715,7 @@ interface VocabularyJson {
  * array and a sparse numeric-keyed object are emitted identically as named
  * exports. Kept in lock-step with the matching helper in local-slow-lane-client.ts.
  */
-const unwrapJsonModule = <T>(mod: unknown, shape: 'object' | 'array'): T | null => {
+function unwrapJsonModule<T>(mod: unknown, shape: 'object' | 'array'): T | null {
 	if (mod == null || typeof mod !== 'object') {
 		return null;
 	}
@@ -743,7 +743,7 @@ const unwrapJsonModule = <T>(mod: unknown, shape: 'object' | 'array'): T | null 
 	}
 
 	return null;
-};
+}
 
 export const loadVectorsAsync = async (options?: {
 	getBinaryUrl?: () => Promise<string>;

@@ -3,3 +3,7 @@
 
 export { autocompletePlugin } from './autocompletePlugin';
 export type { AutocompletePlugin } from './autocompletePluginType';
+export type {
+	AutocompleteContext,
+	AutocompletePluginOptions,
+} from './pm-plugins/autocomplete-plugin';

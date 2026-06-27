@@ -15,7 +15,7 @@ import { css, jsx } from '@compiled/react';
 import type { Valign } from '@atlaskit/adf-schema/layout-column';
 import { WidthProvider } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // localized styles, was from clearNextSiblingMarginTopStyle in @atlaskit/editor-common/ui
 const clearNextSiblingMarginTopStyle = css({
@@ -61,13 +61,12 @@ const clearNextSiblingBlockMarkMarginTopStyle = css({
 export const LayoutSectionCompiled = (
 	props: React.PropsWithChildren<{ valign?: Valign; width?: number }>,
 ): React.JSX.Element => {
-	const isLayoutColumnMenuEnabled = expValEqualsNoExposure(
+	const isLayoutColumnMenuEnabled = expValEquals(
 		'platform_editor_layout_column_menu',
 		'isEnabled',
 		true,
 	);
-	// Pure rollout gate: no A/B exposure analysis is planned for this rendering switch.
-	const isLayoutColumnValignRenderingEnabled = expValEqualsNoExposure(
+	const isLayoutColumnValignRenderingEnabled = expValEquals(
 		'platform_editor_layout_column_valign_rendering',
 		'isEnabled',
 		true,

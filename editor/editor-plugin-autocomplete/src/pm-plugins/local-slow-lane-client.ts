@@ -369,7 +369,7 @@ let bePayloadDataPromise: Promise<void> | undefined;
  * :param shape: `'object'` if the source JSON is `{...}`, `'array'` if `[...]`.
  * :returns: The parsed JSON value, or `null` if neither interop mode applies.
  */
-const unwrapJsonModule = <T>(mod: unknown, shape: 'object' | 'array'): T | null => {
+function unwrapJsonModule<T>(mod: unknown, shape: 'object' | 'array'): T | null {
 	if (mod == null || typeof mod !== 'object') {
 		return null;
 	}
@@ -411,7 +411,7 @@ const unwrapJsonModule = <T>(mod: unknown, shape: 'object' | 'array'): T | null 
 	}
 
 	return null;
-};
+}
 
 /**
  * Lazily load and build the BE-parity lookup tables from their JSON payloads.
@@ -1004,14 +1004,15 @@ export const createLocalSlowLaneClient = (
 		const lmText = truncateToLastNWords(text, BE_PARITY.MAX_CONTEXT_TOKENS);
 		const semanticText = truncateToLastNWords(text, BE_PARITY.MAX_CONTEXT_WORDS);
 		const arcticInput = wrapForArctic(semanticText);
-		const captureCompletionTime = <T>(
+		function captureCompletionTime<T>(
 			promise: Promise<T>,
 			onResolved: (resolvedAt: number) => void,
-		): Promise<T> =>
-			promise.then((value: T) => {
+		): Promise<T> {
+			return promise.then((value: T) => {
 				onResolved(performance.now());
 				return value;
 			});
+		}
 
 		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console

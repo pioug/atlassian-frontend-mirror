@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 12.1.5
+
+### Patch Changes
+
+- [`334e0e991c129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/334e0e991c129) -
+  Restore mention typeahead section titles after clearing the query
+
 ## 12.1.4
 
 ### Patch Changes

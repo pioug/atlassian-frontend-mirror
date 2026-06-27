@@ -8,6 +8,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
 import { updateQuery } from '../pm-plugins/commands/update-query';
@@ -193,8 +194,11 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 		useEffect(() => {
 			const { current: view } = editorViewRef;
 			const pluginState = getPluginState(view.state);
+			const shouldSkipEmptyQuery =
+				!expVal('platform_editor_typeahead_empty_query_fix', 'isEnabled', false) &&
+				query.length === 0;
 
-			if (query.length === 0 || query === pluginState?.query || !pluginState?.triggerHandler) {
+			if (shouldSkipEmptyQuery || query === pluginState?.query || !pluginState?.triggerHandler) {
 				return;
 			}
 

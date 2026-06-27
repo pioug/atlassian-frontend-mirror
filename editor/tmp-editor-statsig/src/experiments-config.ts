@@ -1959,6 +1959,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-25
+	platform_editor_typeahead_empty_query_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -2580,7 +2587,7 @@ export const editorExperimentsConfig: {
 	// Added 2025-07-15
 	platform_editor_preview_panel_responsiveness: createBooleanExperiment({
 		productKeys: {
-			confluence: 'confluence_preview_panels_exp',
+			confluence: 'platform_editor_preview_panel_responsiveness',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4204,6 +4211,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'aifc-confluence-editor-csp-fix',
 			jira: 'aifc-confluence-editor-csp-fix',
+		},
+		param: 'value',
+		defaultValue: false,
+	}),
+	// Added 2026-06-25
+	platform_editor_typeahead_empty_query_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_typeahead_empty_query_fix',
 		},
 		param: 'value',
 		defaultValue: false,

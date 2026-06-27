@@ -1,5 +1,12 @@
 # @atlaskit/native-embeds-common
 
+## 2.0.3
+
+### Patch Changes
+
+- [`8c5ee69cd39e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c5ee69cd39e2) -
+  Update i18n NPM package versions
+
 ## 2.0.2
 
 ### Patch Changes

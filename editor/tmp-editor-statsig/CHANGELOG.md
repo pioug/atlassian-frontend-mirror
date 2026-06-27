@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 114.1.0
+
+### Minor Changes
+
+- [`dec1185b3c97a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dec1185b3c97a) -
+  Remove the archived Confluence preview panels experiment key from the editor experiment
+  configuration.
+
 ## 114.0.0
 
 ### Major Changes

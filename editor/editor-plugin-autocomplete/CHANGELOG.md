@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.0.4
+
+### Patch Changes
+
+- [`ac12ed0b41ef4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac12ed0b41ef4) -
+  Refactor contextual autocomplete wiring so the conversation-store-aware ChatInput owns the
+  autocomplete context bridge (getContext + subscribeToContextUpdates) via a new
+  useAutocompleteEditorContext hook, and the shared RovoChatPromptInput simply forwards a single
+  `autocomplete` prop to the editor preset. Removes the duplicated keying / listener-set plumbing
+  from the reusable input.
+
+  Adds an optional `subscribeToContextUpdates` option to the autocomplete plugin so host surfaces
+  that stream context after mount (e.g. Rovo chat messages) can push refreshes, complementing the
+  existing word-boundary retry that only covers a one-time, still-loading comment thread.
+
 ## 4.0.3
 
 ### Patch Changes

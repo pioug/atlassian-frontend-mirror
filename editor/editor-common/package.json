@@ -852,9 +852,6 @@
 		"rovo_chat_enable_skills_ui_m1": {
 			"type": "boolean"
 		},
-		"forge-ui-extensionnodeview-stop-event-for-textarea": {
-			"type": "boolean"
-		},
 		"platform_fix_macro_renders_in_layouts": {
 			"type": "boolean"
 		},

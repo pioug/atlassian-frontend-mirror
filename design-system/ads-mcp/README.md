@@ -455,6 +455,26 @@ running it from, but you should force it like so:
 }
 ```
 
+## Maintainer release workflow (AFM)
+
+When ADS structured content changes:
+
+1. From `platform/`, run combined codegen once:
+
+```bash
+yarn workspace @af/ads-ai-tooling codegen
+```
+
+2. Commit updated generated MCP outputs in this package.
+3. Create and ship the `@atlaskit/ads-mcp` changeset/release as usual.
+4. Wait for the package publish.
+5. Renovate should bump it in
+   [atlassian-mcp-micros](https://bitbucket.org/atlassian/atlassian-mcp-micros/).
+6. Redeploy `atlassian-mcp-micros` after the bump lands (async pipeline).
+
+For other generated targets (skills/DESIGN.md/offerings), follow `platform/tmp/*-instructions.md`
+and the destination README in `atlassian/skills`.
+
 ## FAQs
 
 1. I'm seeing an error like "Error: Cannot find module

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
@@ -54,6 +54,35 @@ const hoverStyles = css({
 		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
 	},
 });
+
+const MemoizedWidthContextProvider = ({
+	rendererContainerWidth,
+	children,
+}: {
+	rendererContainerWidth: number;
+	children: React.ReactNode;
+}): jsx.JSX.Element => {
+	const widthContextValue = useMemo(
+		() => createWidthContext(rendererContainerWidth),
+		[rendererContainerWidth],
+	);
+
+	return <WidthContext.Provider value={widthContextValue}>{children}</WidthContext.Provider>;
+};
+
+const LegacyWidthContextProvider = ({
+	rendererContainerWidth,
+	children,
+}: {
+	rendererContainerWidth: number;
+	children: React.ReactNode;
+}): jsx.JSX.Element => {
+	return (
+		<WidthContext.Provider value={createWidthContext(rendererContainerWidth)}>
+			{children}
+		</WidthContext.Provider>
+	);
+};
 
 const InlineExtension = (props: Props): jsx.JSX.Element => {
 	const {
@@ -158,10 +187,15 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 			</div>
 		</Fragment>
 	);
-	return (
-		<WidthContext.Provider value={createWidthContext(rendererContainerWidth)}>
+
+	return expValEquals('enghealth-53346_fix_redaction_marker_editor', 'isEnabled', true) ? (
+		<MemoizedWidthContextProvider rendererContainerWidth={rendererContainerWidth}>
 			{inlineExtensionInternal}
-		</WidthContext.Provider>
+		</MemoizedWidthContextProvider>
+	) : (
+		<LegacyWidthContextProvider rendererContainerWidth={rendererContainerWidth}>
+			{inlineExtensionInternal}
+		</LegacyWidthContextProvider>
 	);
 };
 

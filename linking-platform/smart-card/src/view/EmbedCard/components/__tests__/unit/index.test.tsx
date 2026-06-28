@@ -69,7 +69,6 @@ describe('ExpandedFrame', () => {
 			'overflow-y': expect.any(String),
 		});
 	});
-
 	it('should not allow scrolling (or clip content) when setOverflow is false even if allowScrollBar is true', async () => {
 		render(<ExpandedFrame allowScrollBar={true} setOverflow={false} />);
 		expect(await screen.findByTestId('embed-content-wrapper')).not.toHaveCompiledCss({
@@ -87,17 +86,21 @@ describe('ExpandedFrame', () => {
 	});
 
 	it('should not render header and frame when frameStyle = "hide" & href is provided', async () => {
-		const { container } = render(<ExpandedFrame frameStyle="hide" href="some.url" />);
+		render(<ExpandedFrame frameStyle="hide" href="some.url" text="some text" />);
 		expect(await screen.findByTestId('expanded-frame')).toBeDefined();
-		const embedHeaderElements = container.getElementsByClassName('embed-header');
-		expect(embedHeaderElements).toHaveLength(0);
+		expect(screen.queryByRole('link', { name: 'some text' })).not.toBeInTheDocument();
 	});
 
 	it('should not render header and frame when frameStyle = "hide" & placeholder is true', async () => {
-		const { container } = render(<ExpandedFrame frameStyle="hide" isPlaceholder={true} />);
+		render(
+			<ExpandedFrame
+				frameStyle="hide"
+				icon={<span data-testid="header-icon" />}
+				isPlaceholder={true}
+			/>,
+		);
 		expect(await screen.findByTestId('expanded-frame')).toBeDefined();
-		const embedHeaderElements = container.getElementsByClassName('embed-header');
-		expect(embedHeaderElements).toHaveLength(0);
+		expect(screen.queryByTestId('header-icon')).not.toBeInTheDocument();
 	});
 
 	it('No tooltip is rendered by default', () => {

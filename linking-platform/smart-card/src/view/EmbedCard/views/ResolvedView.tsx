@@ -1,21 +1,140 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
+import { cssMap, jsx } from '@compiled/react';
+import Loadable from 'react-loadable';
+
 import LinkGlyph from '@atlaskit/icon/core/link';
+import { type JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
 import { useThemeObserver } from '@atlaskit/tokens';
 
+import { CardDisplay } from '../../../constants';
+import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
+import { getExtensionKey } from '../../../state/helpers';
+import useEmbedRovoActionsFooterExperiment from '../../../state/hooks/use-embed-rovo-actions-footer-experiment';
+import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import { getPreviewUrlWithTheme, isProfileType } from '../../../utils';
+import type { InternalCardActionOptions as CardActionOptions } from '../../Card/types';
+import { getRovoPostAuthPromptKeys } from '../../common/rovo-post-auth-prompts';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { Frame } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
 import { type ContextViewModel, type FrameStyle } from '../types';
 import { useEmbedResolvePostMessageListener } from '../useEmbedResolvePostMessageListener';
 
+const EmbedRovoActionsFooter = Loadable({
+	loader: () =>
+		import(
+			/* webpackChunkName: "smart-card-embed-rovo-actions-footer" */ '../components/rovo-actions-footer'
+		).then((module) => module.default),
+	loading: () => null,
+});
+EmbedRovoActionsFooter.displayName = 'lazy(EmbedRovoActionsFooter)';
+
+const styles = cssMap({
+	contentWithFooter: {
+		display: 'flex',
+		flexDirection: 'column',
+		height: '100%',
+		minHeight: 0,
+	},
+	frameWithFooter: {
+		flexGrow: 1,
+		minHeight: 0,
+	},
+	footer: {
+		display: 'flex',
+		justifyContent: 'flex-start',
+	},
+});
+
+type EmbedFrameWithRovoFooterProps = {
+	actionOptions?: CardActionOptions;
+	details?: JsonLd.Response;
+	frame: React.ReactNode;
+	link: string;
+	testId: string;
+};
+
+const EmbedFrameWithRovoFooter = ({
+	actionOptions,
+	details,
+	frame,
+	link,
+	testId,
+}: EmbedFrameWithRovoFooterProps) => {
+	const { rovoOptions, product } = useRovoConfig();
+	const { isEnabled: isEmbedRovoActionsFooterEnabled } = useEmbedRovoActionsFooterExperiment(
+		link,
+		actionOptions,
+		rovoOptions,
+		product,
+	);
+	const rovoActionData = React.useMemo(
+		() =>
+			isEmbedRovoActionsFooterEnabled && details
+				? extractRovoChatAction({
+						response: details,
+						rovoConfig: { rovoOptions, product },
+						product,
+						actionOptions,
+						appearance: CardDisplay.Embed,
+						isEmbedRovoActionsFooterExperimentEnabled: isEmbedRovoActionsFooterEnabled,
+					})
+				: undefined,
+		[actionOptions, details, isEmbedRovoActionsFooterEnabled, product, rovoOptions],
+	);
+	const prompts = React.useMemo(() => {
+		if (!isEmbedRovoActionsFooterEnabled) {
+			return [];
+		}
+
+		return getRovoPostAuthPromptKeys({
+			extensionKey: getExtensionKey(details),
+		});
+	}, [details, isEmbedRovoActionsFooterEnabled]);
+	const footer = React.useMemo(
+		() =>
+			rovoActionData && prompts.length > 0 ? (
+				<EmbedRovoActionsFooter
+					actionData={rovoActionData}
+					prompts={prompts}
+					testId={`${testId}-rovo-actions-footer`}
+				/>
+			) : undefined,
+		[prompts, rovoActionData, testId],
+	);
+
+	return footer ? (
+		<div css={styles.contentWithFooter}>
+			<div css={styles.frameWithFooter}>{frame}</div>
+			<div css={styles.footer}>{footer}</div>
+		</div>
+	) : (
+		frame
+	);
+};
+
+const EmbedFrameWithoutRovoFooter = ({ frame }: EmbedFrameWithRovoFooterProps) => frame;
+
+const EmbedFrameWithOptionalRovoFooter = componentWithFG(
+	'platform_sl_3p_auth_rovo_embed_footer_kill_switch',
+	EmbedFrameWithRovoFooter,
+	EmbedFrameWithoutRovoFooter,
+);
+
 export interface EmbedCardResolvedViewProps {
+	actionOptions?: CardActionOptions;
 	/** Component to prompt for competitor link */
 	CompetitorPrompt?: React.ComponentType<{ linkType?: string; sourceUrl: string }>;
 	/** The context view model */
 	context?: ContextViewModel;
+	details?: JsonLd.Response;
 	/** The extension key */
 	extensionKey?: string;
 	/** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
@@ -60,8 +179,10 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 > = React.forwardRef<HTMLIFrameElement, EmbedCardResolvedViewProps>(
 	(
 		{
+			actionOptions,
 			link,
 			context,
+			details,
 			onClick,
 			onAuxClick,
 			onContextMenu,
@@ -122,6 +243,30 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 		}
 
 		const [isMouseOver, setMouseOver] = React.useState(false);
+		const frame = (
+			<Frame
+				url={previewUrl}
+				isTrusted={isTrusted}
+				testId={testId}
+				ref={embedIframeRef}
+				onIframeDwell={onIframeDwell}
+				onIframeFocus={onIframeFocus}
+				onIframeMouseEnter={onIframeMouseEnter}
+				onIframeMouseLeave={onIframeMouseLeave}
+				isMouseOver={isMouseOver}
+				title={text}
+				extensionKey={extensionKey}
+			/>
+		);
+		const frameWithFooter = (
+			<EmbedFrameWithOptionalRovoFooter
+				actionOptions={actionOptions}
+				details={details}
+				frame={frame}
+				link={link}
+				testId={testId}
+			/>
+		);
 
 		return (
 			<ExpandedFrame
@@ -146,19 +291,7 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 					onIframeMouseLeave?.();
 				}}
 			>
-				<Frame
-					url={previewUrl}
-					isTrusted={isTrusted}
-					testId={testId}
-					ref={embedIframeRef}
-					onIframeDwell={onIframeDwell}
-					onIframeFocus={onIframeFocus}
-					onIframeMouseEnter={onIframeMouseEnter}
-					onIframeMouseLeave={onIframeMouseLeave}
-					isMouseOver={isMouseOver}
-					title={text}
-					extensionKey={extensionKey}
-				/>
+				{frameWithFooter}
 			</ExpandedFrame>
 		);
 	},

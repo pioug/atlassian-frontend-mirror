@@ -148,6 +148,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-19
+	'enghealth-53346_fix_redaction_marker_editor': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-01
 	platform_editor_ai_normalized_telemetry: {
 		defaultValue: boolean;
@@ -845,6 +852,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links (boolean: isEnabled)
 	platform_sl_3p_preauth_social_proof_inline_cta: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-15 — Embed card footer rovo action experiment for resolved 3P smart links in confluence (boolean: isEnabled)
+	platform_sl_3p_auth_rovo_embed_footer_exp: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2013,6 +2027,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-19
+	'enghealth-53346_fix_redaction_marker_editor': createBooleanExperiment({
+		productKeys: {
+			jira: 'enghealth-53346_fix_redaction_marker_editor',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 03-09-2025
 	cc_editor_interactivity_monitoring: createBooleanExperiment({
 		productKeys: {
@@ -2963,6 +2985,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_sl_3p_preauth_social_proof_inline_cta',
 			jira: 'platform_sl_3p_preauth_social_proof_inline_cta',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-15 — Embed card footer rovo action for resolved 3P smart links in confluence
+	platform_sl_3p_auth_rovo_embed_footer_exp: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_sl_3p_auth_rovo_embed_footer_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

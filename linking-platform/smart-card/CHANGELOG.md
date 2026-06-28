@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 45.6.0
+
+### Minor Changes
+
+- [`0c3036cbf6b5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c3036cbf6b5c) -
+  Add gated Rovo actions footer experiment for eligible resolved 3P Smart Link embeds in Confluence.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.5.0
 
 ### Minor Changes

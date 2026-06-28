@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.5.0",
+	"version": "45.6.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -318,6 +318,13 @@
 		},
 		"smart-card-inline-resolved-view-refactor": {
 			"type": "boolean"
+		},
+		"platform_sl_3p_auth_rovo_embed_footer_kill_switch": {
+			"type": "boolean"
+		},
+		"platform_sl_3p_auth_rovo_embed_footer_exp": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"dfo-fix-preview-dynamic-style": {
 			"type": "boolean"

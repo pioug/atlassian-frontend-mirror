@@ -116,6 +116,8 @@ export const EmbedCard: React.ForwardRefExoticComponent<
 					return (
 						<EmbedCardResolvedView
 							{...resolvedViewProps}
+							actionOptions={actionOptions}
+							details={details}
 							isSelected={isSelected}
 							frameStyle={frameStyle}
 							inheritDimensions={inheritDimensions}

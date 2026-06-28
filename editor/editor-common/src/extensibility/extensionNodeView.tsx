@@ -285,13 +285,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			return false;
 		}
 
-		if (fg('forge-ui-extensionnodeview-stop-event-for-textarea')) {
-			return (
-				event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement
-			);
-		}
-
-		return event.target instanceof HTMLInputElement;
+		return event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
 	}
 
 	getContentDOM():

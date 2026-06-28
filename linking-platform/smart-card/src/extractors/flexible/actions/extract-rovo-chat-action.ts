@@ -17,6 +17,7 @@ type ExtractInvokeRovoChatActionParam = {
 	actionOptions?: CardActionOptions;
 	appearance?: FlexibleCardProps['appearance'];
 	id?: string;
+	isEmbedRovoActionsFooterExperimentEnabled?: boolean;
 	product?: ProductType;
 	response: JsonLd.Response;
 	rovoConfig?: RovoConfig;
@@ -37,6 +38,7 @@ const extractRovoChatAction = ({
 	actionOptions,
 	appearance,
 	id,
+	isEmbedRovoActionsFooterExperimentEnabled,
 	product,
 	response,
 	rovoConfig,
@@ -62,9 +64,13 @@ const extractRovoChatAction = ({
 		extensionKey !== undefined &&
 		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
 		rovoConfig?.product === 'CONFLUENCE';
+	const is3PEmbedPostAuthActionsEnabled = isEmbedRovoActionsFooterExperimentEnabled === true;
 
 	const isSupportedFeature =
-		is3PAuthRovoActionEnabled || is3PBlockPostAuthActionsEnabled || isInlineExperimentEnabled;
+		is3PAuthRovoActionEnabled ||
+		is3PBlockPostAuthActionsEnabled ||
+		isInlineExperimentEnabled ||
+		is3PEmbedPostAuthActionsEnabled;
 	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);

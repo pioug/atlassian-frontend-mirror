@@ -44,6 +44,7 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	cwr_blank_object_experiment: false,
 	platform_editor_feedback_mandatory_rating: false,
 	platform_editor_preview_panel_responsiveness: false,
+	'enghealth-53346_fix_redaction_marker_editor': false,
 	platform_editor_toolbar_aifc: false,
 	'test-new-experiments-package': false,
 	platform_editor_exp_lazy_node_views: false,

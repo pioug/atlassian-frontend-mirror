@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 16.1.5
+
+### Patch Changes
+
+- [`73743eb8b36e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73743eb8b36e6) -
+  CLeanup prefer static regex violations
+- Updated dependencies
+
 ## 16.1.4
 
 ### Patch Changes

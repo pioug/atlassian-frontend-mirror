@@ -47,6 +47,9 @@ import type {
 	WriteSyncBlockResult,
 } from '../types';
 
+const BLOCK_ARI_TO_RESOURCE_ID_REGEX = /^ari:cloud:blocks:.*:synced-block\/(.+)$/;
+const EXTRACT_RESOURCE_ID_FROM_BLOCK_ARI_REGEX = /ari:cloud:blocks:[^:]+:synced-block\/(.+)$/;
+
 const mapBlockError = (error: BlockError): SyncBlockError => {
 	switch (error.status) {
 		case 400:
@@ -114,7 +117,7 @@ export const blockAriToResourceId = (blockAri: string): ResourceId | null => {
 	// The regex captures the full path after synced-block/
 	// e.g. ari:cloud:blocks:DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5:synced-block/confluence-page/455232061495/e8cf64e3-1b6e-489b-ad86-8465b0905bb4
 	// should return confluence-page/455232061495/e8cf64e3-1b6e-489b-ad86-8465b0905bb4
-	const match = blockAri.match(/^ari:cloud:blocks:.*:synced-block\/(.+)$/);
+	const match = blockAri.match(BLOCK_ARI_TO_RESOURCE_ID_REGEX);
 	return match?.[1] || null;
 };
 
@@ -212,7 +215,7 @@ export const fetchReferences = async (
  * Block ARI format: ari:cloud:blocks:<cloudId>:synced-block/<resourceId>
  */
 export const extractResourceIdFromBlockAri = (blockAri: string): string | undefined => {
-	const match = blockAri.match(/ari:cloud:blocks:[^:]+:synced-block\/(.+)$/);
+	const match = blockAri.match(EXTRACT_RESOURCE_ID_FROM_BLOCK_ARI_REGEX);
 	return match?.[1];
 };
 
@@ -367,11 +370,14 @@ export const batchFetchData = async (
 			}));
 		}
 
-		// If batch request fails, return error for all resourceIds
+		// If batch request fails, return error for all resourceIds. Capture the HTTP
+		// status from `BlockError` so fetch analytics can break failures down by
+		// statusCode (EDITOR-7862); undefined for non-HTTP failures.
 		return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
 			error: {
 				type: error instanceof BlockError ? mapBlockError(error) : SyncBlockError.Errored,
 				reason: (error as Error).message,
+				...(error instanceof BlockError && { statusCode: error.status }),
 			},
 			resourceId: blockNodeIdentifier.resourceId,
 		}));
@@ -534,8 +540,10 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 			};
 		} catch (error) {
 			if (error instanceof BlockError) {
+				// Capture the HTTP status so fetch analytics can break failures down by
+				// statusCode (EDITOR-7862).
 				return {
-					error: { type: mapBlockError(error), reason: error.message },
+					error: { type: mapBlockError(error), reason: error.message, statusCode: error.status },
 					resourceId,
 				};
 			}

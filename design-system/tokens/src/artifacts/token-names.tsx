@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1f64d7a1e3392b669ad5c7bfd53c7403>>
+ * @codegen <<SignedSource::277dd7c0cf86c7859aa259537c97339f>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -9,6 +9,8 @@ const tokens = {
 	'motion.avatar.hovered': '--ds-avatar-hovered',
 	'motion.blanket.enter': '--ds-blanket-enter',
 	'motion.blanket.exit': '--ds-blanket-exit',
+	'motion.button.hovered': '--ds-button-hovered',
+	'motion.button.pressed': '--ds-button-pressed',
 	'motion.duration.instant': '--ds-duration-instant',
 	'motion.duration.long': '--ds-duration-long',
 	'motion.duration.medium': '--ds-duration-medium',
@@ -573,6 +575,8 @@ export type CSSTokenMap = {
 	'motion.avatar.hovered': 'var(--ds-avatar-hovered)';
 	'motion.blanket.enter': 'var(--ds-blanket-enter)';
 	'motion.blanket.exit': 'var(--ds-blanket-exit)';
+	'motion.button.hovered': 'var(--ds-button-hovered)';
+	'motion.button.pressed': 'var(--ds-button-pressed)';
 	'motion.duration.instant': 'var(--ds-duration-instant)';
 	'motion.duration.long': 'var(--ds-duration-long)';
 	'motion.duration.medium': 'var(--ds-duration-medium)';

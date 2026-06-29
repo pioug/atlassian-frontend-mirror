@@ -1,5 +1,12 @@
 # @atlaskit/json-schema-generator
 
+## 4.0.1
+
+### Patch Changes
+
+- [`346f91cfe1997`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/346f91cfe1997) -
+  Clean up prefer static regex violations
+
 ## 4.0.0
 
 ### Major Changes

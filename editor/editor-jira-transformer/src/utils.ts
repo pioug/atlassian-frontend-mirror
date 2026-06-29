@@ -17,6 +17,10 @@ import type { Mark, Node as PMNode, Schema, NodeType } from '@atlaskit/editor-pr
 
 import { mapImageToEmoji } from './emojiHelper';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const WHITESPACE_ONLY_REGEX = /^\s*$/;
+
 /**
  * Ensure that each node in the fragment is a block, wrapping
  * in a block node if necessary.
@@ -251,9 +255,7 @@ export function convert(
 						if (child.type === schema.nodes.media) {
 							mediaArray.push(child);
 							return;
-							// Ignored via go/ees005
-							// eslint-disable-next-line require-unicode-regexp
-						} else if (!(child.isText && /^\s*$/.test(child.text || ''))) {
+						} else if (!(child.isText && WHITESPACE_ONLY_REGEX.test(child.text || ''))) {
 							hasNonMediaChildren = true;
 						}
 						contentArray.push(child);

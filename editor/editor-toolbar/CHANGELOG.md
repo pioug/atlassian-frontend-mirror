@@ -1,5 +1,22 @@
 # @atlaskit/editor-toolbar
 
+## 2.1.2
+
+### Patch Changes
+
+- [`7ebb725ea5629`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ebb725ea5629) -
+  Remove pressed semantics from toolbar popup triggers, gated behind jira_editor_a11y_toolbar_fixes
+- Updated dependencies
+
+## 2.1.1
+
+### Patch Changes
+
+- [`cc7e55c918e23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc7e55c918e23) -
+  [ux] Adds info icon next to visually disabled table column sort buttons with a tooltip explaining
+  that sort won't work when merged cells present.
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

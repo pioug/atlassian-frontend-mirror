@@ -26,7 +26,11 @@ import ButtonLoading from '../../examples/constellation/new-button/button/button
 Use default buttons for most actions that aren't the main call to action for a page or area. Default
 buttons are less prominent than primary buttons.
 
-<Example Component={ButtonDefault} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonDefault}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Appearance
 
@@ -36,7 +40,11 @@ Use a primary button to call attention to a [form](/components/form) submission 
 most important call to action on a page. Primary buttons should only appear once per area, but not
 every screen needs a primary button.
 
-<Example Component={ButtonPrimary} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonPrimary}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 The placement of the primary button typically matches the alignment of the button(s) in the layout.
 Review
@@ -50,7 +58,11 @@ Subtle buttons are best used in spaces where it's already clear items can be int
 toolbars or groups of buttons next to each other. Avoid using them in other situations, as they
 aren't as obviously clickable as other button styles.
 
-<Example Component={ButtonSubtle} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonSubtle}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Warning
 
@@ -59,27 +71,43 @@ Warning buttons confirm actions that may cause a significant change or a loss of
 Warnings alert people of a problem that might happen if they proceed. These appearances are often
 used in confirmation modals.
 
-<Example Component={ButtonWarning} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonWarning}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Danger
 
 A danger button appears as a final confirmation for a destructive and irreversible action, such as
 deleting.
 
-<Example Component={ButtonDanger} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonDanger}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Discovery
 
 A discovery button can be used as the call to action for new experiences.
 
-<Example Component={ButtonDiscovery} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonDiscovery}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Rovo
 
 Use a Rovo button for primary Rovo or AI actions, such as opening Rovo Chat or starting a
 Rovo-powered workflow.
 
-<Example Component={ButtonRovo} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonRovo}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## States
 
@@ -92,27 +120,43 @@ Disabled buttons can cause accessibility issues (disabled elements are not in th
 wherever possible, avoid using `isDisabled`. Instead, use [validation](/components/button/usage) or
 other techniques to show users how to proceed.
 
-<Example Component={ButtonDisabled} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonDisabled}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Selected
 
 Set `isSelected` to indicate the button is selected.
 
-<Example Component={ButtonSelected} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonSelected}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Loading
 
 When a button is still loading and not actionable, a loading spinner can be displayed in place of
 the button label. This also disables the button and blocks user interaction.
 
-<Example Component={ButtonLoading} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonLoading}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Spacing
 
 Button spacing depends on the surrounding UI. Default spacing is used for most use cases, `compact`
 for tables.
 
-<Example Component={ButtonSpacing} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonSpacing}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Full width
 
@@ -120,7 +164,11 @@ Buttons can expand to full width to fill the parent container. This is sometimes
 forms. Follow the [alignment guidance](/components/button/usage#alignment-and-positioning) for more
 options.
 
-<Example Component={ButtonFullWidth} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonFullWidth}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Button with icon
 
@@ -131,19 +179,31 @@ Buttons may include an icon before or after the text label. For an icon-only but
 
 Display an icon before the text.
 
-<Example Component={ButtonWithIconBefore} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonWithIconBefore}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Icon after
 
 Display an icon after the text.
 
-<Example Component={ButtonWithIconAfter} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonWithIconAfter}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Overriding icon props
 
 Use the `iconBefore` or `iconAfter` render prop to override the default icon props.
 
-<Example Component={ButtonWithIconBeforeSize} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonWithIconBeforeSize}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Truncation
 
@@ -157,7 +217,11 @@ The truncation is implemented with styles, so screen readers will still read the
 
 For more information see [truncation](/foundations/content/language-and-grammar#truncation).
 
-<Example Component={ButtonTruncation} packageName="@atlaskit/button" />
+<Example
+	Component={ButtonTruncation}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Custom buttons
 

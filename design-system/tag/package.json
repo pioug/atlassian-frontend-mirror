@@ -29,22 +29,22 @@
 		"website": {
 			"name": "Tag",
 			"category": "Labels",
+			"status": {
+				"type": "ready-for-ga",
+				"description": "The new tag is stable and ready for adoption. Visual updates are currently behind the `platform-dst-lozenge-tag-badge-visual-uplifts` feature flag."
+			},
 			"subPages": [
 				{
 					"title": "Tag",
 					"id": "tag",
 					"status": {
-						"type": "beta",
-						"description": "New and ready to use. These visual updates are currently behind the feature flag: `platform-dst-lozenge-tag-badge-visual-uplifts`. We'll provide comms and support for any major changes."
+						"type": "intent-to-deprecate",
+						"description": "We're planning to deprecate this component. If you have the Atlassian feature flag integration, use the new tag. Otherwise, the old experience will switch to the new one automatically when we clean up the feature flag."
 					}
 				},
 				{
 					"title": "AvatarTag",
-					"id": "avatar-tag",
-					"status": {
-						"type": "beta",
-						"description": "New and ready to use. We'll provide comms and support for any major changes."
-					}
+					"id": "avatar-tag"
 				}
 			]
 		}

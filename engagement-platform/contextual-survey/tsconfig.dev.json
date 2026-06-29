@@ -1,6 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
 	"include": [
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -52,6 +54,9 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		}
 	]
 }

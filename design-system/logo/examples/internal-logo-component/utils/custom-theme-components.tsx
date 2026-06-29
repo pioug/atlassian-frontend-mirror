@@ -1,37 +1,27 @@
 import React from 'react';
 
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
-import {
-	AssetsIcon,
-	AssetsLogo,
-	AssetsLogoCS,
-} from '../../../src/artifacts/logo-components/assets';
-import {
-	ConfluenceIcon,
-	ConfluenceLogo,
-	ConfluenceLogoCS,
-} from '../../../src/artifacts/logo-components/confluence';
-import {
-	CustomerServiceManagementIcon,
-	CustomerServiceManagementLogo,
-	CustomerServiceManagementLogoCS,
-} from '../../../src/artifacts/logo-components/customer-service-management';
-import { JiraIcon, JiraLogo, JiraLogoCS } from '../../../src/artifacts/logo-components/jira';
-import {
-	JiraProductDiscoveryIcon,
-	JiraProductDiscoveryLogo,
-	JiraProductDiscoveryLogoCS,
-} from '../../../src/artifacts/logo-components/jira-product-discovery';
-import {
-	JiraServiceManagementIcon,
-	JiraServiceManagementLogo,
-	JiraServiceManagementLogoCS,
-} from '../../../src/artifacts/logo-components/jira-service-management';
-import {
-	TrelloIcon,
-	TrelloLogo,
-	TrelloLogoCS,
-} from '../../../src/artifacts/logo-components/trello';
+import { AssetsIcon } from '../../../src/artifacts/logo-components/assets/icon';
+import { AssetsLogo } from '../../../src/artifacts/logo-components/assets/logo';
+import { AssetsLogoCS } from '../../../src/artifacts/logo-components/assets/logo-cs';
+import { ConfluenceIcon } from '../../../src/artifacts/logo-components/confluence/icon';
+import { ConfluenceLogo } from '../../../src/artifacts/logo-components/confluence/logo';
+import { ConfluenceLogoCS } from '../../../src/artifacts/logo-components/confluence/logo-cs';
+import { CustomerServiceManagementIcon } from '../../../src/artifacts/logo-components/customer-service-management/icon';
+import { CustomerServiceManagementLogo } from '../../../src/artifacts/logo-components/customer-service-management/logo';
+import { CustomerServiceManagementLogoCS } from '../../../src/artifacts/logo-components/customer-service-management/logo-cs';
+import { JiraProductDiscoveryIcon } from '../../../src/artifacts/logo-components/jira-product-discovery/icon';
+import { JiraProductDiscoveryLogo } from '../../../src/artifacts/logo-components/jira-product-discovery/logo';
+import { JiraProductDiscoveryLogoCS } from '../../../src/artifacts/logo-components/jira-product-discovery/logo-cs';
+import { JiraServiceManagementIcon } from '../../../src/artifacts/logo-components/jira-service-management/icon';
+import { JiraServiceManagementLogo } from '../../../src/artifacts/logo-components/jira-service-management/logo';
+import { JiraServiceManagementLogoCS } from '../../../src/artifacts/logo-components/jira-service-management/logo-cs';
+import { JiraIcon } from '../../../src/artifacts/logo-components/jira/icon';
+import { JiraLogo } from '../../../src/artifacts/logo-components/jira/logo';
+import { JiraLogoCS } from '../../../src/artifacts/logo-components/jira/logo-cs';
+import { TrelloIcon } from '../../../src/artifacts/logo-components/trello/icon';
+import { TrelloLogo } from '../../../src/artifacts/logo-components/trello/logo';
+import { TrelloLogoCS } from '../../../src/artifacts/logo-components/trello/logo-cs';
 import type { AppIconProps, AppLogoProps } from '../../../src/utils/types';
 /* eslint-enable @atlaskit/platform/use-entrypoints-in-examples */
 

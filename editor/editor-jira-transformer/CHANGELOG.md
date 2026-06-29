@@ -1,5 +1,13 @@
 # @atlaskit/editor-jira-transformer
 
+## 20.0.2
+
+### Patch Changes
+
+- [`24d7483e9519e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24d7483e9519e) -
+  Cleans up prefer static regex violations
+- Updated dependencies
+
 ## 20.0.1
 
 ### Patch Changes

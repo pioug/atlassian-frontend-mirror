@@ -103,48 +103,8 @@ export default function generateComponents(
 		});
 	});
 
-	// Iterate over each folder in target directory and add index file
-	fs.readdirSync(path.resolve(root!, 'src', targetDirectory)).forEach((folder) => {
-		fs.ensureFileSync(path.resolve(root!, 'src', targetDirectory, folder, 'index.tsx'));
-		fs.writeFileSync(
-			path.resolve(root!, 'src', targetDirectory, folder, 'index.tsx'),
-			createSignedArtifact(
-				format(getIndexJSX(path.resolve(root!, 'src', targetDirectory), folder), 'tsx'),
-				'yarn workspace @atlaskit/logo generate:components',
-			),
-		);
-	});
-
 	return assets;
 }
-
-/**
- * Generates index files for each folder in the target directory
- * @param targetDirectory Target directory under where logo components are generated
- */
-const getIndexJSX = (targetDirectory: string, logoName: string): string => {
-	const name = logoName
-		.split('-')
-		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-		.join('');
-	// Detect which logos are available in each folder (logo, logo-cs, icon)
-	const logoFiles = fs.readdirSync(path.resolve(targetDirectory, logoName));
-
-	const logoTypeMap = {
-		logo: `${name}Logo`,
-		'logo-cs': `${name}LogoCS`,
-		icon: `${name}Icon`,
-	};
-	type LogoTypeKey = keyof typeof logoTypeMap;
-	const logoTypes: LogoTypeKey[] = ['logo', 'logo-cs', 'icon'];
-	const supportedLogoTypes = logoTypes.filter((logoType) =>
-		logoFiles.some((logoFile) => logoFile === `${logoType}.tsx`),
-	);
-
-	return `
-		${supportedLogoTypes.map((logoType) => `export { ${logoTypeMap[logoType]} } from './${logoType}';`).join('\n')}
-	`;
-};
 
 /**
  *

@@ -186,4 +186,60 @@ describe('ssr module', () => {
 			});
 		});
 	});
+
+	describe('ssr success breakdown payload', () => {
+		it('returns breakdown object; undefined when not configured, null, or throws', () => {
+			jest.isolateModules(() => {
+				const ssr = require('./index');
+				const breakdown = {
+					servedStaticFallback: false,
+					notRendered: false,
+					hadRuntimeError: false,
+					circuitBreakerOpen: false,
+					hadFailedResources: false,
+					fetchAborted: false,
+					emittedSuspenseFallback: false,
+					hadEarlyFlushFailure: false,
+					hadRouteResourceFailure: false,
+					failedResources: [],
+					failedResourceCount: 0,
+					failedRouteResources: [],
+					failedRouteResourceCount: 0,
+				};
+
+				// returns object
+				ssr.configure({
+					getDoneMark: () => 1,
+					getFeatureFlags: () => ({}),
+					getSsrSuccessBreakdown: () => breakdown,
+				});
+				expect(ssr.getSSRSuccessBreakdown()).toEqual(breakdown);
+
+				// returns null -> undefined
+				ssr.configure({
+					getDoneMark: () => 1,
+					getFeatureFlags: () => ({}),
+					getSsrSuccessBreakdown: () => null,
+				});
+				expect(ssr.getSSRSuccessBreakdown()).toBeUndefined();
+
+				// missing getSsrSuccessBreakdown -> undefined (exercises the
+				// `!config?.getSsrSuccessBreakdown` guard; this is the real
+				// "not configured" path that the create-payload wrapper test
+				// can't reach because the wrapper unconditionally delegates.)
+				ssr.configure({ getDoneMark: () => 1, getFeatureFlags: () => ({}) } as any);
+				expect(ssr.getSSRSuccessBreakdown()).toBeUndefined();
+
+				// throws -> undefined
+				ssr.configure({
+					getDoneMark: () => 1,
+					getFeatureFlags: () => ({}),
+					getSsrSuccessBreakdown: () => {
+						throw new Error('boom');
+					},
+				});
+				expect(ssr.getSSRSuccessBreakdown()).toBeUndefined();
+			});
+		});
+	});
 });

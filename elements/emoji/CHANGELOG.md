@@ -1,5 +1,15 @@
 # @atlaskit/emoji
 
+## 71.6.1
+
+### Patch Changes
+
+- [`ad79f1670a54c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ad79f1670a54c) -
+  Persist productivity emoji colour selection
+- [`85dc85818cf2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85dc85818cf2d) -
+  Use empty refresh emoji picker footer space for the scrollable emoji list
+- Updated dependencies
+
 ## 71.6.0
 
 ### Minor Changes

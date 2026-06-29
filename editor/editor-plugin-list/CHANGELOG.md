@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-list
 
+## 14.1.5
+
+### Patch Changes
+
+- [`346f91cfe1997`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/346f91cfe1997) -
+  Clean up prefer static regex violations
+- Updated dependencies
+
 ## 14.1.4
 
 ### Patch Changes

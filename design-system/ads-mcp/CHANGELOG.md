@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.3.1
+
+### Patch Changes
+
+- [`84967ba6663a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84967ba6663a1) -
+  Add missing Atlaskit utilities and hooks tools to the MCP server.
+
 ## 1.3.0
 
 ### Minor Changes

@@ -60,6 +60,7 @@ import getPayloadSize from './utils/get-payload-size';
 import { getReactUFOPayloadVersion } from './utils/get-react-ufo-payload-version';
 import getSSRDoneTimeValue from './utils/get-ssr-done-time-value';
 import getSSRSuccessUtil from './utils/get-ssr-success';
+import getSSRSuccessBreakdownUtil from './utils/get-ssr-success-breakdown';
 import getVCMetrics from './utils/get-vc-metrics';
 import { getVisibilityStateFromPerformance } from './utils/get-visibility-state-from-performance';
 import { optimizeApdex } from './utils/optimize-apdex';
@@ -199,10 +200,14 @@ function getPPSMetrics(interaction: InteractionMetrics) {
 
 function getSSRProperties(type: InteractionType) {
 	const ssrPhases = getSSRPhaseSuccess(type);
+	const ssrSuccessBreakdown = getSSRSuccessBreakdownUtil();
 
 	return {
 		'ssr:success': ssrPhases?.done != null ? ssrPhases.done : getSSRSuccessUtil(type),
 		'ssr:featureFlags': getSSRFeatureFlags(type),
+		...(ssrSuccessBreakdown !== undefined
+			? { 'ssr:success:breakdown': ssrSuccessBreakdown }
+			: null),
 		...(ssrPhases?.earlyFlush != null
 			? {
 					'ssr:earlyflush:success': ssrPhases.earlyFlush,

@@ -17,6 +17,9 @@ import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirro
 
 import { isConvertableToCodeBlock, transformToCodeBlockAction } from './transform-to-code-block';
 
+// eslint-disable-next-line require-unicode-regexp
+const THREE_TILDE_RULE_REGEX = /(?!\s)(`{3,})$/;
+
 export function createCodeBlockInputRule(
 	schema: Schema,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
@@ -52,8 +55,7 @@ function getCodeBlockRules(
 
 	const validMatchLength = (match: RegExpExecArray) => match.length > 0 && match[0].length === 3;
 
-	// eslint-disable-next-line require-unicode-regexp
-	const threeTildeRule = createRule(/(?!\s)(`{3,})$/, (state, match, start, end) => {
+	const threeTildeRule = createRule(THREE_TILDE_RULE_REGEX, (state, match, start, end) => {
 		if (!validMatchLength(match)) {
 			return null;
 		}

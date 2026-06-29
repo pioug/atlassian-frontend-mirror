@@ -174,6 +174,8 @@ interface MinimalGpu {
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const DEFAULT_DEBOUNCE_MS = 300;
+// eslint-disable-next-line require-unicode-regexp
+const OOM_REGEX = /\boom\b/;
 
 export const LOCAL_MLC_CAUSAL_MODEL_ID = 'SmolLM2-135M-Instruct-q0f16-MLC';
 
@@ -769,8 +771,7 @@ export const createLocalSlowLaneClient = (
 		}
 		if (
 			lower.includes('out of memory') ||
-			// eslint-disable-next-line require-unicode-regexp
-			/\boom\b/.test(lower) ||
+			OOM_REGEX.test(lower) ||
 			lower.includes('allocation') ||
 			lower.includes('exceeds') ||
 			lower.includes('buffer size') ||

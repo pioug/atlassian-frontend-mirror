@@ -25,7 +25,13 @@ export const defaultProductivityColor: ProductivityColor = 'blue';
 const isProductivityColor = (color: string | null): color is ProductivityColor =>
 	!!color && productivityColorSet.has(color);
 
+let selectedProductivityColor: ProductivityColor | undefined;
+
 export const getStoredProductivityColor = (): ProductivityColor => {
+	if (selectedProductivityColor) {
+		return selectedProductivityColor;
+	}
+
 	if (typeof window === 'undefined' || !storageAvailable('localStorage')) {
 		return defaultProductivityColor;
 	}
@@ -41,6 +47,8 @@ export const getStoredProductivityColor = (): ProductivityColor => {
 };
 
 export const storeProductivityColor = (color: ProductivityColor): void => {
+	selectedProductivityColor = color;
+
 	if (typeof window === 'undefined' || !storageAvailable('localStorage')) {
 		return;
 	}

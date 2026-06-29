@@ -1,5 +1,7 @@
 /* eslint-disable require-unicode-regexp  */
 
+const JIRA_WORK_ITEM_ARI_REGEX = /ari:cloud:jira:([^:]+):issue\/(\d+)/;
+
 /**
  * Generates the Jira work item ARI
  * @param workItemId - the ID of the work item
@@ -22,7 +24,7 @@ export const getJiraWorkItemAri = ({
  * @returns the Jira work item ID
  */
 export const getJiraWorkItemIdFromAri = ({ ari }: { ari: string }): string => {
-	const match = ari.match(/ari:cloud:jira:([^:]+):issue\/(\d+)/);
+	const match = ari.match(JIRA_WORK_ITEM_ARI_REGEX);
 	if (match?.[2]) {
 		return match[2];
 	}

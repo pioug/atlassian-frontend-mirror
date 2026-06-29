@@ -33,9 +33,12 @@ export const useSmartLinkCrossProductUrlWrapper = ({
 	// xpcProduct takes precedence over product — it identifies the host product for XPC analytics
 	// without affecting link resolution (which uses the `product` prop separately).
 	const effectiveProduct = xpcProduct ?? product;
+	const effectiveBridge = bridgeProduct ?? SMART_LINKS_XPC_BRIDGE;
+	const effectiveProductForWrapper = effectiveProduct?.toLowerCase() ?? 'unknown';
+
 	const wrapUrl = useCrossProductUrlWrapper({
-		bridge: bridgeProduct ?? SMART_LINKS_XPC_BRIDGE,
-		product: effectiveProduct?.toLowerCase() ?? 'unknown',
+		bridge: effectiveBridge,
+		product: effectiveProductForWrapper,
 		...(xpcSubProduct ? { subProduct: xpcSubProduct } : {}),
 	});
 
@@ -62,7 +65,10 @@ export const useSmartLinkCrossProductUrlWrapper = ({
 
 			return wrapUrl(url);
 		},
-		[details, effectiveProduct, wrapUrl],
+		// Keep bridge/subproduct in the dependency array so consumers that memoize this callback
+		// refresh when mini-modal context updates from smartLinks to rovo-chat.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[details, effectiveBridge, effectiveProduct, wrapUrl, xpcSubProduct],
 	);
 };
 

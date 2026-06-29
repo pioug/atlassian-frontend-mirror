@@ -5,6 +5,10 @@ import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prose
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ROW_OR_TABLE_ROLE_REGEX = /row|table/;
+
 type RangePos = {
 	$from: ResolvedPos;
 	$to: ResolvedPos;
@@ -64,9 +68,9 @@ function isCellBoundarySelection({ $from, $to }: RangePos): boolean {
 			break;
 		}
 	}
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return afterFrom === beforeTo && /row|table/.test($from.node(depth).type.spec.tableRole);
+	return (
+		afterFrom === beforeTo && ROW_OR_TABLE_ROLE_REGEX.test($from.node(depth).type.spec.tableRole)
+	);
 }
 
 function isTextSelectionAcrossSameTableCells({ $from, $to }: RangePos): boolean {

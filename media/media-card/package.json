@@ -189,7 +189,15 @@
 		"platform_media_ssr_data_seed": {
 			"type": "boolean"
 		},
+		"create_modernization_ga_fixes_drop_3": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"create_modernization_ga_fixes_drop_2": {
+			"referenceOnly": true,
+			"type": "boolean"
+		},
+		"platform_create_work_item_modernization": {
 			"referenceOnly": true,
 			"type": "boolean"
 		}

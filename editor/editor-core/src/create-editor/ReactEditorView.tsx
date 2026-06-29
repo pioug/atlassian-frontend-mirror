@@ -655,6 +655,13 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				);
 				const evictedFromApi = pluginInjectionAPI.current.retainPlugins(keptPluginNames);
 
+				if (fg('platform_editor_reconfigure_reconcile_plugin_api')) {
+					// `retainPlugins` mutates the plugin registry in place. Refresh
+					// the cached editor API proxy so consumers memoized by API identity
+					// see added or removed plugin APIs without waiting for a full reload.
+					pluginInjectionAPI.current.invalidateAPI();
+				}
+
 				if (dropped.length > 0 || evictedFromApi.length > 0) {
 					// eslint-disable-next-line no-console
 					console.warn('[reconfigureState] Cleanup summary:', {

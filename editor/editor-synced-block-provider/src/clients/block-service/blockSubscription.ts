@@ -9,6 +9,9 @@ import { convertContentUpdatedAt } from '../../utils/utils';
 
 const GRAPHQL_WS_ENDPOINT = '/gateway/api/graphql/subscriptions';
 
+// eslint-disable-next-line require-unicode-regexp
+const EXTRACT_RESOURCE_ID_FROM_BLOCK_ARI_REGEX = /ari:cloud:blocks:[^:]+:synced-block\/(.+)$/;
+
 let blockServiceClient: Client | null = null;
 
 /**
@@ -188,8 +191,7 @@ export const extractGraphQLWSErrorMessage = (error: unknown): string => {
  * @returns The resourceId portion of the ARI
  */
 const extractResourceIdFromBlockAri = (blockAri: string): string | null => {
-	// eslint-disable-next-line require-unicode-regexp
-	const match = blockAri.match(/ari:cloud:blocks:[^:]+:synced-block\/(.+)$/);
+	const match = blockAri.match(EXTRACT_RESOURCE_ID_FROM_BLOCK_ARI_REGEX);
 	return match?.[1] || null;
 };
 

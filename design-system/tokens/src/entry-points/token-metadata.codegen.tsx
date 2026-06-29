@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::ae4acbb8ddfe6f3a0c28dc3479fd9d0d>>
+ * @codegen <<SignedSource::f426ab76bcc3fa997a67bb81393b359f>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -54,6 +54,20 @@ export const tokens: Token[] = [
 		path: ['motion', 'blanket', 'exit'],
 		description: 'Use for blanket exit transitions.',
 		exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.button.hovered',
+		path: ['motion', 'button', 'hovered'],
+		description: 'Use for button hover state transitions.',
+		exampleValue: 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.button.pressed',
+		path: ['motion', 'button', 'pressed'],
+		description: 'Use for button pressed state transitions.',
+		exampleValue: 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{

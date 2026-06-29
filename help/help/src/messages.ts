@@ -558,7 +558,7 @@ export const messages: {
 	help_panel_search_back: {
 		id: 'helpPanel.search.back',
 		defaultMessage: 'Back',
-		description: '',
+		description: 'Back navigation button label in the help panel search view.',
 	},
 	help_search_tab: {
 		id: 'help.search_tab.search',

@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-analytics
 
+## 5.2.0
+
+### Minor Changes
+
+- [`7e764916a0baa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7e764916a0baa) -
+  [ux] Bring tool auto-pick up and auto-selection back into skills package, allowing tools to be
+  pushed onto consuming agent config page
+
 ## 5.1.0
 
 ### Minor Changes

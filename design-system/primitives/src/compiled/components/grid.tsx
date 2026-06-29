@@ -179,7 +179,8 @@ const gridAutoFlowMap = cssMap({
  *
  * @example
  * ```tsx
- * import { Grid, Box } from '@atlaskit/primitives'
+ * import { Box } from '@atlaskit/primitives/compiled'
+ * import { Grid } from '@atlaskit/primitives/compiled/grid'
  *
  * const Component = () => (
  *   <Grid gap="space.100" gridColumns="1fr 1fr">

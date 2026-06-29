@@ -10,6 +10,7 @@ import type {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { removeMark, toggleMark } from '@atlaskit/editor-common/mark';
+import { FORMAT_SELECTION_SYNC_META } from '@atlaskit/editor-common/selection';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import {
 	REMOVE_HIGHLIGHT_COLOR,
@@ -17,11 +18,21 @@ import {
 	highlightColorPaletteNew,
 } from '@atlaskit/editor-common/ui-color';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { HighlightPluginAction, highlightPluginKey } from '../pm-plugins/main';
 
 import { getActiveColor } from './color';
+
+const maybeSyncSelectionAfterFormat = (tr: Transaction) => {
+	if (
+		tr.docChanged &&
+		expValEquals('platform_editor_fix_selection_text_color_change', 'isEnabled', true)
+	) {
+		tr.setMeta(FORMAT_SELECTION_SYNC_META, true);
+	}
+};
 
 export const changeColor =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
@@ -47,6 +58,8 @@ export const changeColor =
 
 			toggleMark(backgroundColor, { color })({ tr });
 		}
+
+		maybeSyncSelectionAfterFormat(tr);
 
 		return tr;
 	};

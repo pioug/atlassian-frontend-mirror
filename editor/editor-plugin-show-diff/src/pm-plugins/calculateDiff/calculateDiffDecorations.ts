@@ -21,6 +21,7 @@ import type {
 import { areDocsEqualByBlockStructureAndText } from '../areDocsEqualByBlockStructureAndText';
 import { createDocMarginAnchorWidget } from '../decorations/createAnchorDecorationWidgets';
 import { createBlockChangedDecoration } from '../decorations/createBlockChangedDecoration';
+import { createGranularBlockReferenceWidget } from '../decorations/createGranularBlockReferenceWidget';
 import { createInlineChangedDecoration } from '../decorations/createInlineChangedDecoration';
 import { createNodeChangedDecorationWidget } from '../decorations/createNodeChangedDecorationWidget';
 import { extractDiffDescriptors } from '../decorations/decorationKeys';
@@ -32,7 +33,7 @@ import { getMarkChangeRanges } from '../decorations/utils/getMarkChangeRanges';
 import type { ShowDiffPluginState } from '../main';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
-import { diffBySteps } from './diffBySteps';
+import { diffBySteps, getStepChanges } from './diffBySteps';
 import { groupChangesByBlock } from './groupChangesByBlock';
 import { optimizeChanges } from './optimizeChanges';
 import { simplifySteps } from './simplifySteps';
@@ -214,19 +215,24 @@ const calculateDiffDecorationsInner = ({
 	if (showIndicators && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 		decorations.push(createDocMarginAnchorWidget());
 	}
-	changes.forEach((change) => {
+
+	// Our default operations are insertions, so it should match the opposite of isInverted.
+	const isInserted = !isInverted;
+
+	const createDecorationsForChange = (change: Change, showGranularWithBlock: boolean): void => {
 		const isActive =
 			activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
-		// Our default operations are insertions, so it should match the opposite of isInverted.
-		const isInserted = !isInverted;
 
 		if (change.inserted.length > 0) {
+			// shouldHideDeleted for block/node decorations: suppressed when isInverted + hideDeletedDiffs,
+			// or when showGranularWithBlock (block reference widget is shown instead).
+			// isInverted gates both — on an inverted diff the inserted side is visually the deleted side.
 			const shouldHideDeleted = expValEquals(
 				'platform_editor_diff_plugin_extended',
 				'isEnabled',
 				true,
 			)
-				? isInverted && hideDeletedDiffs
+				? isInverted && (hideDeletedDiffs || showGranularWithBlock) && change.deleted.length > 0
 				: false;
 			decorations.push(
 				...createInlineChangedDecoration({
@@ -263,7 +269,7 @@ const calculateDiffDecorationsInner = ({
 				'isEnabled',
 				true,
 			)
-				? !isInverted && hideDeletedDiffs
+				? !isInverted && (hideDeletedDiffs || showGranularWithBlock) && change.inserted.length > 0
 				: false;
 			if (!shouldHideDeleted) {
 				decorations.push(
@@ -284,7 +290,91 @@ const calculateDiffDecorationsInner = ({
 				);
 			}
 		}
-	});
+	};
+
+	if (
+		diffType === 'step' &&
+		expValEquals('platform_editor_diff_granular_extended', 'isEnabled', true)
+	) {
+		// Uses getStepChanges instead of getChanges so that we have per-step granularity metadata.
+		// Specifically, we need to know how many granular changes each step produced in order to
+		// apply the shouldHideDeleted suppression threshold (> 3 granular changes per step).
+		// getChanges returns a flat Change[] with no per-step grouping, making this count impossible
+		// to derive after the fact without re-introducing per-change metadata.
+		const stepChanges = getStepChanges(originalDoc, steps);
+		stepChanges.forEach(({ isGranular, changes: stepChangeList }) => {
+			const granularCount = isGranular ? stepChangeList.length : 0;
+
+			// Calculate the average ratio of changed content on both A (original) and B (new)
+			// sides of the diff. If 30% or more of the block has changed on average, we show
+			// the block reference widget even if the granular change count is below the threshold.
+			// Block length is derived from the enclosing text block boundaries rather than the
+			// first/last change positions, so unchanged words at the start/end are accounted for.
+			let avgChangedRatio = 0;
+			if (isGranular && stepChangeList.length > 0) {
+				const first = stepChangeList[0];
+				const last = stepChangeList[stepChangeList.length - 1];
+
+				const resolvedA = originalDoc.resolve(first.fromA);
+				const resolvedB = tr.doc.resolve(first.fromB);
+				let blockStartA = first.fromA;
+				let blockEndA = last.toA;
+				let blockStartB = first.fromB;
+				let blockEndB = last.toB;
+				for (let depth = resolvedA.depth; depth >= 0; depth--) {
+					const node = resolvedA.node(depth);
+					if (node.isTextblock) {
+						blockStartA = resolvedA.start(depth);
+						blockEndA = blockStartA + node.nodeSize - 2; // exclude open/close tokens
+						break;
+					}
+				}
+				for (let depth = resolvedB.depth; depth >= 0; depth--) {
+					const node = resolvedB.node(depth);
+					if (node.isTextblock) {
+						blockStartB = resolvedB.start(depth);
+						blockEndB = blockStartB + node.nodeSize - 2; // exclude open/close tokens
+						break;
+					}
+				}
+
+				const blockLengthA = blockEndA - blockStartA;
+				const blockLengthB = blockEndB - blockStartB;
+				const totalChangedA = stepChangeList.reduce((sum, c) => sum + (c.toA - c.fromA), 0);
+				const totalChangedB = stepChangeList.reduce((sum, c) => sum + (c.toB - c.fromB), 0);
+				const ratioA = blockLengthA > 0 ? totalChangedA / blockLengthA : 0;
+				const ratioB = blockLengthB > 0 ? totalChangedB / blockLengthB : 0;
+				avgChangedRatio = (ratioA + ratioB) / 2;
+			}
+
+			const showGranularWithBlock =
+				isGranular && granularCount !== 1 && (granularCount > 3 || avgChangedRatio >= 0.3);
+			stepChangeList.forEach((change) => {
+				createDecorationsForChange(change, showGranularWithBlock);
+			});
+			if (showGranularWithBlock && stepChangeList.length > 0) {
+				const lastChange = stepChangeList[stepChangeList.length - 1];
+				const granularBlockDiffId = crypto.randomUUID();
+				const blockWidgets = createGranularBlockReferenceWidget({
+					change: lastChange,
+					originalDoc,
+					newDoc: tr.doc,
+					isInverted,
+					nodeViewSerializer,
+					colorScheme,
+					intl,
+					activeIndexPos,
+					diffId: granularBlockDiffId,
+					showIndicators,
+				});
+				decorations.push(...blockWidgets);
+			}
+		});
+	} else {
+		changes.forEach((change) => {
+			createDecorationsForChange(change, /* showGranularWithBlock */ false);
+		});
+	}
 	getMarkChangeRanges(steps).forEach((change) => {
 		const isActive =
 			activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;

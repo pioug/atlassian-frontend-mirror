@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 7.2.0
+
+### Minor Changes
+
+- [`6cee291426484`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cee291426484) -
+  Added `shouldRenderToParent` prop to `AgentDropdownMenu` and enabled for the actions dropdown on
+  the View Agent modal
+
 ## 7.1.0
 
 ### Minor Changes

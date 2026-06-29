@@ -2,6 +2,7 @@ import { type createPayloads } from '../create-payload';
 import type { LabelStackTrieLookupTable } from '../create-payload/common/utils/label-stack-registry';
 import type { HiddenTimingItem } from '../hidden-timing';
 import { type LabelStack } from '../interaction-context';
+import type { SsrSuccessBreakdown } from '../ssr';
 import { type VCObserver } from '../vc/vc-observer';
 
 import type {
@@ -153,6 +154,7 @@ export type ReactUFOPayload = {
 			'event:network:rtt': number;
 			'event:network:downlink': number;
 			'ssr:success': boolean;
+			'ssr:success:breakdown'?: SsrSuccessBreakdown;
 			'ssr:featureFlags?': Record<string, boolean | string | number>;
 			'metric:fp': number;
 			'metric:fcp': number;

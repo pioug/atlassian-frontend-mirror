@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-text-color
 
+## 12.3.6
+
+### Patch Changes
+
+- [`294e8295a274f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/294e8295a274f) -
+  [ux] [EDITOR-7863] Keep the color menu open when clicking inside the palette.
+
+## 12.3.5
+
+### Patch Changes
+
+- [`283c55290e6cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/283c55290e6cc) -
+  Preserve visual selection after applying text color or highlight
+- Updated dependencies
+
 ## 12.3.4
 
 ### Patch Changes

@@ -17,6 +17,10 @@ import {
 } from '@atlaskit/adf-schema/schema-jira';
 import type { Transformer } from '@atlaskit/editor-common/types';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const FRAGMENT_HREF_REGEX = /^#/;
+
 export type CustomEncoder = (userId: string) => string;
 
 export interface JIRACustomEncoders {
@@ -314,9 +318,7 @@ export class JIRATransformer implements Transformer<string> {
 						const href = mark.attrs['href'];
 
 						/** JIRA always expects external-link attribute set on links created via editor unless its #fragment */
-						// Ignored via go/ees005
-						// eslint-disable-next-line require-unicode-regexp
-						if (!href.match(/^#/)) {
+						if (!href.match(FRAGMENT_HREF_REGEX)) {
 							linkElem.setAttribute('class', 'external-link');
 							linkElem.setAttribute('rel', 'nofollow');
 						}

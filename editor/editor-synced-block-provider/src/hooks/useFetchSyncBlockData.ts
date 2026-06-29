@@ -9,7 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { isProviderNotReadyError, SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
 import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManager';
-import { fetchErrorPayload } from '../utils/errorHandling';
+import { buildFetchErrorAttribution, fetchErrorPayload } from '../utils/errorHandling';
 import { createSyncBlockNode, getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 type SSRProviders = { media?: MediaProvider | null };
@@ -92,6 +92,10 @@ export const useFetchSyncBlockData = (
 					(error as Error).message,
 					resourceId,
 					getSourceProductFromResourceIdSafe(resourceId),
+					buildFetchErrorAttribution(
+						fg('platform_editor_blocks_patch_3'),
+						(error as Error).message,
+					),
 				),
 			);
 

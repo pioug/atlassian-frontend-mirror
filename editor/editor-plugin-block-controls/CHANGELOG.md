@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.1.4
+
+### Patch Changes
+
+- [`283c55290e6cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/283c55290e6cc) -
+  Preserve visual selection after applying text color or highlight
+- Updated dependencies
+
 ## 13.1.3
 
 ### Patch Changes

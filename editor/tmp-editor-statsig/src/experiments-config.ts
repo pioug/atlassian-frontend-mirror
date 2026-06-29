@@ -563,6 +563,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-25
+	jira_editor_a11y_toolbar_fixes: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-06-24
 	platform_editor_find_and_replace_improvements: {
 		defaultValue: boolean;
@@ -657,6 +664,13 @@ export const editorExperimentsConfig: {
 	}; //Added 2025-11-19
 	// Added 2026-05-26
 	platform_editor_agent_mentions: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-25
+	platform_editor_plus_menu_aria_label: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1472,6 +1486,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-24
+	platform_editor_diff_granular_extended: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-10
 	platform_editor_fix_media_toolbar_border_dropdown: {
 		defaultValue: boolean;
@@ -1926,6 +1947,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-01
 	platform_editor_lovability_text_bg_color: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-25
+	platform_editor_fix_selection_text_color_change: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2419,6 +2447,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-25
+	platform_editor_plus_menu_aria_label: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_plus_menu_aria_label',
+			jira: 'platform_editor_plus_menu_aria_label',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-10-31
 	platform_editor_lovability_suppress_toolbar_event: createBooleanExperiment({
 		productKeys: {
@@ -2651,6 +2688,15 @@ export const editorExperimentsConfig: {
 		param: 'cohort',
 		values: ['control', 'test'],
 		defaultValue: 'control',
+	}),
+	// Added 2026-06-25
+	jira_editor_a11y_toolbar_fixes: createBooleanExperiment({
+		productKeys: {
+			confluence: 'jira_editor_a11y_toolbar_fixes',
+			jira: 'jira_editor_a11y_toolbar_fixes',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
 	}),
 	// Added 2026-04-30 (QS-9895)
 	linking_platform_track_non_primary_3p_clicks: createBooleanExperiment({
@@ -3558,6 +3604,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-24
+	platform_editor_diff_granular_extended: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_diff_granular_extended',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-03-10
 	platform_editor_fix_media_toolbar_border_dropdown: createBooleanExperiment({
 		productKeys: {
@@ -4192,6 +4246,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_lovability_text_bg_color',
 			jira: 'platform_editor_lovability_text_bg_color',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-25
+	platform_editor_fix_selection_text_color_change: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_selection_text_color_change',
+			jira: 'platform_editor_fix_selection_text_color_change',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

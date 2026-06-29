@@ -35,27 +35,28 @@ export const messages: {
 	help_loading: {
 		id: 'helpPanel.loading',
 		defaultMessage: 'Loading',
-		description: '',
+		description: 'Loading indicator text shown in the help panel while content is being fetched.',
 	},
 	help_panel_header_title: {
 		id: 'helpPanel.header.title',
 		defaultMessage: 'Help',
-		description: '',
+		description: 'Title displayed in the header of the help panel.',
 	},
 	help_panel_header_back: {
 		id: 'helpPanel.header.back',
 		defaultMessage: 'Back',
-		description: '',
+		description: 'Back navigation button label in the help panel header.',
 	},
 	help_panel_header_close: {
 		id: 'helpPanel.header.close',
 		defaultMessage: 'Close',
-		description: '',
+		description: 'Close button label in the help panel header.',
 	},
 	help_panel_header_close_button: {
 		id: 'helpPanel.header.close.button',
 		defaultMessage: 'Close Help Panel',
-		description: '',
+		description:
+			'Aria-label for the close button in the help panel header; provides a more descriptive name for screen readers than the visible "Close" label (helpPanel.header.close). Translators should use a phrase that conveys closing the entire help panel.',
 	},
 	help_panel_new_chat_button: {
 		id: 'helpPanel.header.new.chat.button',

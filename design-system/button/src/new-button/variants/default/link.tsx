@@ -57,6 +57,12 @@ const styles = cssMap({
 	baseT26Shape: {
 		borderRadius: token('radius.medium', '6px'),
 	},
+	interactiveMotion: {
+		transition: token('motion.button.hovered'),
+		'&:active': {
+			transition: token('motion.button.pressed'),
+		},
+	},
 	// Required due to Jira's AUI CSS reset: https://product-fabric.atlassian.net/browse/DSP-15687
 	linkDecorationUnset: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
@@ -410,6 +416,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 			xcss={cx(
 				styles.base,
 				fg('platform-dst-shape-theme-default') && styles.baseT26Shape,
+				!isDisabled && fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
 				appearance === 'default' && defaultStyles.root,
 				appearance === 'primary' && primaryStyles.root,
 				appearance === 'rovo' && rovoStyles.root,

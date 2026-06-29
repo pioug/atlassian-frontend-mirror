@@ -23,7 +23,11 @@ import LinkIconButtonSelected from '../../examples/constellation/new-button/link
 For buttons that are links for navigation rather than on-page actions. Link icon buttons render an
 `<a>` tag instead of a `<button>`. They accept anchor tag HTML attributes, including `href`.
 
-<Example Component={LinkIconButton} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButton}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Routing
 
@@ -52,14 +56,22 @@ see how to set this up in
 Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` will be used for the
 tooltip content.
 
-<Example Component={LinkIconButtonTooltip} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonTooltip}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Overriding tooltip props
 
 Use the `tooltip` prop to override the default tooltip props. It accepts all
 [tooptip props](/components/tooltip/code), excluding `children`.
 
-<Example Component={LinkIconButtonTooltipOptions} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonTooltipOptions}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Appearance
 
@@ -69,20 +81,32 @@ A primary button calls attention to the most important action on a page or in an
 buttons aren't common because critical actions should typically use
 [a button with a label for clarity](/components/button).
 
-<Example Component={LinkIconButtonPrimary} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonPrimary}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Subtle
 
 Use a `subtle` icon button for secondary actions.
 
-<Example Component={LinkIconButtonSubtle} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonSubtle}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Spacing
 
 Icon button spacing depends on the surrounding UI. Default spacing is used for most use cases and
 `compact` for tables or smaller spaces.
 
-<Example Component={LinkIconButtonSpacing} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonSpacing}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Shape
 
@@ -91,13 +115,21 @@ Icon button spacing depends on the surrounding UI. Default spacing is used for m
 Only use circle icon buttons in the top navigation or other areas that already have circular
 buttons.
 
-<Example Component={LinkIconButtonCircle} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonCircle}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Overriding icon props
 
 Use the `icon` render prop to override the default icon props.
 
-<Example Component={LinkIconButtonIconOverrides} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonIconOverrides}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Advanced href usage with TypeScript
 
@@ -122,10 +154,18 @@ using this accessible technique:
 - Adds `role="link"`
 - Removes `href` attribute
 
-<Example Component={LinkIconButtonDisabled} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonDisabled}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Selected
 
 Set `isSelected` to indicate the button is selected.
 
-<Example Component={LinkIconButtonSelected} packageName="@atlaskit/button" />
+<Example
+	Component={LinkIconButtonSelected}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>

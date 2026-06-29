@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 15.0.11
+
+### Patch Changes
+
+- [`24d7483e9519e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24d7483e9519e) -
+  Cleans up prefer static regex violations
+- Updated dependencies
+
 ## 15.0.10
 
 ### Patch Changes

@@ -79,13 +79,221 @@ export const buildErrorAttribution = (
 	};
 };
 
+/**
+ * The set of categorical failure reasons emitted on synced-block fetch/subscribe
+ * operational error events (EDITOR-7862). Extends the write-path
+ * {@link SyncBlockErrorReason} set with read-path-specific buckets so the analytics
+ * dashboard can break fetch failures down by cause instead of regex-matching the
+ * free-text `error` blob.
+ *
+ * The read path surfaces several causes the write-path `SyncBlockError` enum does not
+ * model (benign source-state transitions, permission denials, WebSocket lifecycle, and
+ * client-side readiness errors), so those are added here. Known `SyncBlockError` enum
+ * values (`not_found`, `forbidden`, ...) still pass through unchanged.
+ */
+export type SyncBlockFetchErrorReason =
+	| SyncBlockErrorReason
+	// Benign source-state transitions — the source is intentionally gone/unavailable,
+	// not a genuine system failure.
+	| 'source_deleted'
+	| 'source_unpublished'
+	| 'source_unsynced'
+	| 'source_not_found'
+	// Working-as-designed permission outcomes.
+	| 'permission_denied'
+	| 'unauthenticated'
+	// Genuine system failures specific to the realtime/read path.
+	| 'websocket_drop'
+	| 'websocket_exhausted'
+	| 'network'
+	| 'data_provider_not_ready';
+
+/**
+ * Fetch reasons that represent benign (working-as-designed) outcomes rather than genuine
+ * system failures. The dashboard uses this to compute a "true error rate" by excluding
+ * benign reasons via the structured `reason` attribute instead of brittle free-text regex
+ * (EDITOR-7862).
+ */
+export const FETCH_BENIGN_REASONS: ReadonlySet<SyncBlockFetchErrorReason> = new Set([
+	'source_deleted',
+	'source_unpublished',
+	'source_unsynced',
+	'source_not_found',
+	'permission_denied',
+	'unauthenticated',
+	// Mirror the benign write-path enum equivalents so already-classified errors are
+	// treated consistently.
+	'not_found',
+	'forbidden',
+	'unpublished',
+	// NOTE: `entity_not_found` and `offline` are intentionally NOT benign.
+	// - `entity_not_found` is retried up to ENTITY_NOT_FOUND_MAX_RETRIES (analytics are
+	//   suppressed during retries); by the time the error event fires, retries are
+	//   exhausted and it is a genuine failure.
+	// - `offline` is genuine client connectivity loss, not a working-as-designed outcome.
+	// Both still emit `reason` (so they can be inspected) but are counted as true errors.
+]);
+
+/**
+ * Ordered list of substring matchers mapping known free-text fetch/subscribe error
+ * strings to a categorical {@link SyncBlockFetchErrorReason}. Each entry is a list of
+ * lowercase needles; if ANY needle is found (case-insensitively) in the raw `error`
+ * string, the entry's reason is used. Order matters: more specific entries must precede
+ * more general ones.
+ *
+ * Plain `String.includes` substring matching is used deliberately instead of `RegExp`:
+ * it sidesteps the `require-unicode-regexp` lint rule AND the declaration build's lower
+ * compile target (which rejects the regex `u` flag with TS1501), while being faster and
+ * easier to read. Doing this classification in code (rather than in dashboard SQL) keeps
+ * the buckets versioned with the source strings that produce them (EDITOR-7862).
+ */
+const FETCH_REASON_MATCHERS: ReadonlyArray<
+	readonly [ReadonlyArray<string>, SyncBlockFetchErrorReason]
+> = [
+	// Benign: source-state transitions (deletionReason values + free text).
+	[['source-document-deleted'], 'source_deleted'],
+	[['source-block-deleted'], 'source_deleted'],
+	[['source-block-unpublished'], 'source_unpublished'],
+	[['source-block-unsynced'], 'source_unsynced'],
+	[['does not exist'], 'source_not_found'],
+	[['unpublished'], 'source_unpublished'],
+	// Working-as-designed permission outcomes.
+	[['unauthenticated'], 'unauthenticated'],
+	[['not permitted to read synced block'], 'permission_denied'],
+	[['bulk permission check failed'], 'permission_denied'],
+	[['permission denied'], 'permission_denied'],
+	// Genuine system failures.
+	[['reconnection failed after'], 'websocket_exhausted'],
+	// `reconnect to the subscription` (not a bare `reconnect`) avoids false positives on
+	// unrelated DB/GraphQL "reconnect" messages while still matching the WS-drop string.
+	[['websocket', 'reconnect to the subscription', 'subscription terminated'], 'websocket_drop'],
+	[['429', 'rate limit', 'rate-limit', 'ratelimit'], 'rate_limited'],
+	// `econnrefused`/`econnreset` (not a bare `econn`, which would also match `reconnect`).
+	[['network', 'failed to fetch', 'econnrefused', 'econnreset', 'timed out', 'timeout'], 'network'],
+	[['data provider not set'], 'data_provider_not_ready'],
+];
+
+/**
+ * Maps a fetch/subscribe `error` field — which may be a {@link SyncBlockError} enum
+ * value, a {@link DeletionReason} value, or an arbitrary free-text/JSON blob — to a
+ * stable categorical {@link SyncBlockFetchErrorReason} for analytics grouping.
+ *
+ * Resolution order:
+ * 1. Known `SyncBlockError` enum value → passed through (via {@link classifyErrorReason}).
+ * 2. Known free-text substring → mapped to a fetch-specific bucket.
+ * 3. Anything else (including opaque blobs like `errored`-only payloads or
+ *    `ErrorEvent: "undefined"`) → `'unknown'`, so the dashboard never groups on free text.
+ *
+ * Note: the bare string `'errored'` IS a `SyncBlockError` enum value and therefore
+ * classifies as `'errored'` (not `'unknown'`); only genuinely unrecognised strings
+ * collapse to `'unknown'`.
+ */
+export const classifyFetchErrorReason = (error?: string): SyncBlockFetchErrorReason => {
+	const enumReason = classifyErrorReason(error);
+	if (enumReason !== 'unknown') {
+		return enumReason;
+	}
+	if (error) {
+		const haystack = error.toLowerCase();
+		for (const [needles, reason] of FETCH_REASON_MATCHERS) {
+			if (needles.some((needle) => haystack.includes(needle))) {
+				return reason;
+			}
+		}
+	}
+	return 'unknown';
+};
+
+/**
+ * Extra, optional analytics attributes describing WHY a fetch/subscribe synced-block
+ * action failed. Spread conditionally so we never emit `undefined` keys (EDITOR-7862).
+ *
+ * Adds `benign` on top of the shared {@link ErrorAttributionAttributes} so the dashboard
+ * can compute a true error rate (`genuine / total`) without any free-text regex.
+ */
+export type FetchErrorAttributionAttributes = {
+	/**
+	 * Categorical fetch failure cause for dashboard grouping. Declared standalone (not via
+	 * `ErrorAttributionAttributes & ...`) because intersecting two `reason?` properties
+	 * narrows the type to the write-path {@link SyncBlockErrorReason}; we need the wider
+	 * {@link SyncBlockFetchErrorReason} here (EDITOR-7862).
+	 */
+	reason?: SyncBlockFetchErrorReason;
+	/** Backend HTTP status code when the failure came from a `BlockError`. */
+	statusCode?: number;
+	/**
+	 * Whether the reason is a benign/working-as-designed outcome (not a true failure).
+	 * Required (not optional) so this type structurally discriminates fetch attribution
+	 * from the write-path {@link ErrorAttributionAttributes}; this lets {@link getErrorPayload}
+	 * overload-resolve the correct (wider) `reason` type per path. `buildFetchErrorAttribution`
+	 * always sets it, so requiring it costs nothing.
+	 */
+	benign: boolean;
+};
+
+/**
+ * Builds the {@link FetchErrorAttributionAttributes} for a failed fetch/subscribe
+ * synced-block operation from the raw `error` field and optional backend `statusCode`.
+ * Returns `undefined` when the `platform_editor_blocks_patch_3` gate is OFF, so the new
+ * `reason`/`statusCode`/`benign` attributes are only emitted once the gate is rolled out
+ * (EDITOR-7862). The existing free-text `error` attribute is always left unchanged.
+ *
+ * `gateEnabled` is injected by the caller (the store managers evaluate `fg(...)`) so this
+ * helper stays pure and trivially unit-testable for both gate states.
+ */
+export const buildFetchErrorAttribution = (
+	gateEnabled: boolean,
+	error?: string,
+	statusCode?: number,
+): FetchErrorAttributionAttributes | undefined => {
+	if (!gateEnabled) {
+		return undefined;
+	}
+	const reason = classifyFetchErrorReason(error);
+	return {
+		reason,
+		benign: FETCH_BENIGN_REASONS.has(reason),
+		...(statusCode !== undefined && { statusCode }),
+	};
+};
+
 // `sourceProduct` is threaded through every helper so analytics
 // events can be attributed to the source product (`confluence-page` vs `jira-work-item`).
 // All helpers accept it as an optional trailing argument; the spread-only-when-truthy
 // pattern below ensures we never emit `sourceProduct: undefined` (which would dirty the
 // event schema with empty keys).
 
-export const getErrorPayload = <T extends ACTION_SUBJECT_ID>(
+/**
+ * Shared operational ERROR payload builder for synced-block events.
+ *
+ * Overloaded so the emitted `reason` type stays accurate per path (raised in review on
+ * EDITOR-7862): fetch/subscribe callers pass a {@link FetchErrorAttributionAttributes}
+ * (discriminated by its required `benign` field) and get the wider
+ * {@link SyncBlockFetchErrorReason}; write-path callers pass an
+ * {@link ErrorAttributionAttributes} (or nothing) and keep the narrower
+ * {@link SyncBlockErrorReason}, so write-path payloads never claim to carry fetch-only
+ * buckets like `source_deleted` they never emit.
+ */
+export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
+	actionSubjectId: T,
+	error: string,
+	resourceId: string | undefined,
+	sourceProduct: string | undefined,
+	attribution: FetchErrorAttributionAttributes,
+): OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	T,
+	{
+		error: string;
+		resourceId?: string;
+		sourceProduct?: string;
+		reason?: SyncBlockFetchErrorReason;
+		statusCode?: number;
+		benign?: boolean;
+	}
+>;
+export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 	actionSubjectId: T,
 	error: string,
 	resourceId?: string,
@@ -102,26 +310,64 @@ export const getErrorPayload = <T extends ACTION_SUBJECT_ID>(
 		reason?: SyncBlockErrorReason;
 		statusCode?: number;
 	}
-> => ({
-	action: ACTION.ERROR,
-	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-	actionSubjectId,
-	eventType: EVENT_TYPE.OPERATIONAL,
-	attributes: {
-		error,
-		...(resourceId && { resourceId }),
-		...(sourceProduct && { sourceProduct }),
-		...(attribution?.reason && { reason: attribution.reason }),
-		...(attribution?.statusCode !== undefined && { statusCode: attribution.statusCode }),
-	},
-});
+>;
+export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
+	actionSubjectId: T,
+	error: string,
+	resourceId?: string,
+	sourceProduct?: string,
+	attribution?: ErrorAttributionAttributes | FetchErrorAttributionAttributes,
+): OperationalAEP<
+	ACTION.ERROR,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	T,
+	{
+		error: string;
+		resourceId?: string;
+		sourceProduct?: string;
+		reason?: SyncBlockFetchErrorReason;
+		statusCode?: number;
+		benign?: boolean;
+	}
+> {
+	return {
+		action: ACTION.ERROR,
+		actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+		actionSubjectId,
+		eventType: EVENT_TYPE.OPERATIONAL,
+		attributes: {
+			error,
+			...(resourceId && { resourceId }),
+			...(sourceProduct && { sourceProduct }),
+			...(attribution?.reason && { reason: attribution.reason }),
+			...(attribution?.statusCode !== undefined && { statusCode: attribution.statusCode }),
+			// `benign` is only present on fetch/subscribe attribution (EDITOR-7862). It is a
+			// boolean (never UGC); the `'benign' in attribution` check both guards the
+			// write-path attribution (which has no `benign`) and narrows the union so
+			// `attribution.benign` is accessible.
+			...(attribution && 'benign' in attribution && { benign: attribution.benign }),
+		},
+	};
+}
 
 export const fetchErrorPayload = (
 	error: string,
 	resourceId?: string,
 	sourceProduct?: string,
+	attribution?: FetchErrorAttributionAttributes,
 ): RendererSyncBlockEventPayload =>
-	getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH, error, resourceId, sourceProduct);
+	// Branch on attribution presence so each call resolves to a concrete overload: with
+	// attribution it hits the fetch overload (wider `reason`); without it (gate OFF) it
+	// hits the no-attribution overload. Both produce a fetch event regardless.
+	attribution
+		? getErrorPayload(
+				ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
+				error,
+				resourceId,
+				sourceProduct,
+				attribution,
+			)
+		: getErrorPayload(ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH, error, resourceId, sourceProduct);
 export const getSourceInfoErrorPayload = (
 	error: string,
 	resourceId?: string,

@@ -4,7 +4,6 @@ import React, { type ReactNode, useRef } from 'react';
 import { cssMap as cssMapCompiled, keyframes as keyframescompiled } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -94,14 +93,14 @@ const styles = cssMap({
 		overflow: 'hidden',
 	},
 	cardContainerActiveUser: {
-		backgroundImage: `linear-gradient(to bottom, ${token('color.background.brand.bold')} 0%, ${token('color.background.brand.bold')} 100%)`,
+		backgroundImage: `linear-gradient(to bottom, ${token(
+			'color.background.brand.bold',
+		)} 0%, ${token('color.background.brand.bold')} 100%)`,
 	},
 	cardContainerDisabledUser: {
-		backgroundImage: `linear-gradient(to bottom, ${token('color.background.disabled')} 0%, ${token('color.background.disabled')} 100%)`,
-	},
-	cardContainerWithElevationDEPRECATED: {
-		boxShadow: token('elevation.shadow.overlay'),
-		borderRadius: token('radius.small'),
+		backgroundImage: `linear-gradient(to bottom, ${token('color.background.disabled')} 0%, ${token(
+			'color.background.disabled',
+		)} 100%)`,
 	},
 	cardContainerWithElevation: {
 		boxShadow: token('elevation.shadow.overlay'),
@@ -159,9 +158,9 @@ const styles = cssMap({
 		animationName: `${kudosButtonAnimationTransformationCompiled}`,
 		animationIterationCount: 1,
 		animationDuration: '3s',
-		backgroundImage: `radial-gradient(circle, ${token('color.background.information.pressed')} 0%, ${token(
-			'color.background.discovery.pressed',
-		)} 25%, transparent 50%)`,
+		backgroundImage: `radial-gradient(circle, ${token(
+			'color.background.information.pressed',
+		)} 0%, ${token('color.background.discovery.pressed')} 25%, transparent 50%)`,
 	},
 	appTitleLabel: {
 		color: token('color.text'),
@@ -331,10 +330,7 @@ export const CardContainer = ({
 		xcss={cx(
 			styles.cardContainer,
 			isDisabledUser ? styles.cardContainerDisabledUser : styles.cardContainerActiveUser,
-			!withoutElevation &&
-				(fg('enable_teams_t26_design_drop_core_experiences')
-					? styles.cardContainerWithElevation
-					: styles.cardContainerWithElevationDEPRECATED),
+			!withoutElevation && styles.cardContainerWithElevation,
 		)}
 	>
 		{children}

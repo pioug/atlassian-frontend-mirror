@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.1
+
+### Patch Changes
+
+- [`195c9c16f01b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/195c9c16f01b8) -
+  Add optional `getSsrSuccessBreakdown` callback to `SSRConfig` and expose `ssr:success:breakdown`
+  field on the UFO payload when the callback returns a non-undefined value. This is a purely
+  additive, non-breaking change.
+
 ## 7.3.0
 
 ### Minor Changes

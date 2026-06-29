@@ -41,11 +41,6 @@ const styles = cssMap({
 		top: token('space.300'),
 		left: token('space.200'),
 	},
-	cardContainerStylesDEPRECATED: {
-		borderRadius: token('radius.large'),
-		boxShadow: token('elevation.shadow.overlay'),
-		position: 'relative',
-	},
 	cardContainerStyles: {
 		borderRadius: token('radius.large'),
 		boxShadow: token('elevation.shadow.overlay'),
@@ -211,13 +206,7 @@ const AgentProfileCard = ({
 
 	return (
 		<AgentProfileCardWrapper>
-			<Box
-				xcss={
-					fg('enable_teams_t26_design_drop_core_experiences')
-						? styles.cardContainerStyles
-						: styles.cardContainerStylesDEPRECATED
-				}
-			>
+			<Box xcss={styles.cardContainerStyles}>
 				<AgentBanner
 					agentId={agent.id}
 					agentNamedId={agent.external_config_reference ?? agent.named_id}

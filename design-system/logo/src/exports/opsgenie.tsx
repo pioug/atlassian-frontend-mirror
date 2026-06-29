@@ -1,4 +1,4 @@
-import { OpsgenieIcon as NewOpsgenieIcon } from '../artifacts/logo-components/opsgenie';
+import { OpsgenieIcon as NewOpsgenieIcon } from '../artifacts/logo-components/opsgenie/icon';
 import { createFeatureFlaggedComponent } from '../create-feature-flagged-component';
 import { OpsgenieIcon as LegacyOpsgenieIcon } from '../legacy-logos/opsgenie';
 import type { LogoProps } from '../types';

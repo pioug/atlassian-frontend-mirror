@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 15.2.0
+
+### Minor Changes
+
+- [`65bef1e41e5fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65bef1e41e5fd) -
+  Add motion.button.hovered and motion.button.pressed motion tokens, and apply button background
+  motion uplift behind the platform-dst-motion-uplift-button feature gate.
+
 ## 15.1.0
 
 ### Minor Changes

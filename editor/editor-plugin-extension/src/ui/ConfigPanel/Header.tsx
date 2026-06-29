@@ -23,6 +23,10 @@ import { token } from '@atlaskit/tokens';
 
 import { HelpLink } from './HelpLink';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const DESCRIPTION_PERIOD_REGEX = /([^.])$/;
+
 const iconWidth = 40;
 const buttonWidth = 40;
 const margin = 16;
@@ -176,13 +180,7 @@ const Header = ({
 				<Box xcss={descriptionStyles}>
 					<Text as="p" testId="config-panel-header-description">
 						{description && (
-							<Fragment>
-								{
-									// Ignored via go/ees005
-									// eslint-disable-next-line require-unicode-regexp
-									description.replace(/([^.])$/, '$1.')
-								}{' '}
-							</Fragment>
+							<Fragment>{description.replace(DESCRIPTION_PERIOD_REGEX, '$1.')} </Fragment>
 						)}
 						{deprecation?.isDeprecated && deprecation?.message && (
 							<Box paddingBlockStart="space.150">{deprecation.message}</Box>

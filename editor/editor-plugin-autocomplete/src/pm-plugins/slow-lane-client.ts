@@ -29,6 +29,8 @@ export interface TypeaheadEncodingsResponse {
 
 // eslint-disable-next-line require-unicode-regexp
 const WORD_BOUNDARY_CHARS = /[\s.,;:!?]/;
+// eslint-disable-next-line require-unicode-regexp
+const TRAILING_SLASH_REGEX = /\/$/;
 const DEFAULT_DEBOUNCE_MS = 300;
 
 /**
@@ -94,8 +96,7 @@ export const createSlowLaneClient = (
 			return;
 		}
 
-		// eslint-disable-next-line require-unicode-regexp
-		const url = `${baseUrl.replace(/\/$/, '')}${endpoint}`;
+		const url = `${baseUrl.replace(TRAILING_SLASH_REGEX, '')}${endpoint}`;
 		const payload: TypeaheadEncodingsRequest = {
 			text,
 			session_id: sessionId,

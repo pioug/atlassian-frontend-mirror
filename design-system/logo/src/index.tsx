@@ -1,165 +1,88 @@
-import {
-	AdminIcon as NewAdminIcon,
-	AdminLogoCS as NewAdminLogo,
-} from './artifacts/logo-components/admin';
-import {
-	AlignIcon as NewAlignIcon,
-	AlignLogoCS as NewAlignLogo,
-} from './artifacts/logo-components/align';
-import {
-	AnalyticsIcon as NewAnalyticsIcon,
-	AnalyticsLogoCS as NewAnalyticsLogo,
-} from './artifacts/logo-components/analytics';
-import {
-	AssetsIcon as NewAssetsIcon,
-	AssetsLogoCS as NewAssetsLogo,
-} from './artifacts/logo-components/assets';
-import {
-	BambooIcon as NewBambooIcon,
-	BambooLogoCS as NewBambooLogo,
-} from './artifacts/logo-components/bamboo';
-import {
-	BitbucketIcon as NewBitbucketIcon,
-	BitbucketLogoCS as NewBitbucketLogo,
-} from './artifacts/logo-components/bitbucket';
-import {
-	BitbucketDataCenterIcon as NewBitbucketDataCenterIcon,
-	BitbucketDataCenterLogoCS as NewBitbucketDataCenterLogo,
-} from './artifacts/logo-components/bitbucket-data-center';
-import {
-	ChatIcon as NewChatIcon,
-	ChatLogoCS as NewChatLogo,
-} from './artifacts/logo-components/chat';
-import {
-	CompanyHubIcon as NewCompanyHubIcon,
-	CompanyHubLogo as NewCompanyHubLogo,
-} from './artifacts/logo-components/company-hub';
-import {
-	CompassIcon as NewCompassIcon,
-	CompassLogoCS as NewCompassLogo,
-} from './artifacts/logo-components/compass';
-import {
-	ConfluenceIcon as NewConfluenceIcon,
-	ConfluenceLogoCS as NewConfluenceLogo,
-} from './artifacts/logo-components/confluence';
-import {
-	ConfluenceDataCenterIcon as NewConfluenceDataCenterIcon,
-	ConfluenceDataCenterLogoCS as NewConfluenceDataCenterLogo,
-} from './artifacts/logo-components/confluence-data-center';
-import {
-	CrowdIcon as NewCrowdIcon,
-	CrowdLogoCS as NewCrowdLogo,
-} from './artifacts/logo-components/crowd';
-import { CustomLinkIcon as NewCustomLinkIcon } from './artifacts/logo-components/custom-link';
-import {
-	CustomerServiceManagementIcon as NewCustomerServiceManagementIcon,
-	CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo,
-} from './artifacts/logo-components/customer-service-management';
-import { DxIcon as NewDXIcon } from './artifacts/logo-components/dx';
-import {
-	FeedbackIcon as NewFeedbackIcon,
-	FeedbackLogoCS as NewFeedbackLogo,
-} from './artifacts/logo-components/feedback';
-import {
-	FocusIcon as NewFocusIcon,
-	FocusLogoCS as NewFocusLogo,
-} from './artifacts/logo-components/focus';
-import {
-	GoalsIcon as NewGoalsIcon,
-	GoalsLogoCS as NewGoalsLogo,
-} from './artifacts/logo-components/goals';
-import {
-	GuardIcon as NewGuardIcon,
-	GuardLogoCS as NewGuardLogo,
-} from './artifacts/logo-components/guard';
-import {
-	GuardDetectIcon as NewGuardDetectIcon,
-	GuardDetectLogo as NewGuardDetectLogo,
-} from './artifacts/logo-components/guard-detect';
-import {
-	HomeIcon as NewHomeIcon,
-	HomeLogoCS as NewHomeLogo,
-} from './artifacts/logo-components/home';
-import { HubIcon as NewHubIcon, HubLogoCS as NewHubLogo } from './artifacts/logo-components/hub';
-import {
-	JiraIcon as NewJiraIcon,
-	JiraLogoCS as NewJiraLogo,
-} from './artifacts/logo-components/jira';
-import { JiraCodingAgentIcon as NewJiraCodingAgentIcon } from './artifacts/logo-components/jira-coding-agent';
-import {
-	JiraDataCenterIcon as NewJiraDataCenterIcon,
-	JiraDataCenterLogoCS as NewJiraDataCenterLogo,
-} from './artifacts/logo-components/jira-data-center';
-import {
-	JiraProductDiscoveryIcon as NewJPDIcon,
-	JiraProductDiscoveryLogoCS as NewJPDLogo,
-} from './artifacts/logo-components/jira-product-discovery';
-import {
-	JiraServiceManagementIcon as NewJSMIcon,
-	JiraServiceManagementLogoCS as NewJSMLogo,
-} from './artifacts/logo-components/jira-service-management';
-import {
-	JiraServiceManagementDataCenterIcon as NewJiraServiceManagementDataCenterIcon,
-	JiraServiceManagementDataCenterLogoCS as NewJiraServiceManagementDataCenterLogo,
-} from './artifacts/logo-components/jira-service-management-data-center';
-import {
-	LoomIcon as NewLoomIcon,
-	LoomLogoCS as NewLoomLogo,
-} from './artifacts/logo-components/loom';
-import { LoomAttributionLogoCS as NewLoomAttributionLogo } from './artifacts/logo-components/loom-attribution';
-import {
-	LoomInternalIcon as NewLoomInternalIcon,
-	LoomInternalLogoCS as NewLoomInternalLogo,
-} from './artifacts/logo-components/loom-internal';
-import { MoreAtlassianAppsIcon as NewMoreAtlassianAppsIcon } from './artifacts/logo-components/more-atlassian-apps';
-import {
-	OpsgenieIcon as NewOpsgenieIcon,
-	OpsgenieLogoCS as NewOpsgenieLogo,
-} from './artifacts/logo-components/opsgenie';
-import {
-	ProjectsIcon as NewProjectsIcon,
-	ProjectsLogoCS as NewProjectsLogo,
-} from './artifacts/logo-components/projects';
-import {
-	RovoIcon as NewRovoIcon,
-	RovoLogoCS as NewRovoLogo,
-} from './artifacts/logo-components/rovo';
-import {
-	RovoDevIcon as NewRovoDevIcon,
-	RovoDevLogoCS as NewRovoDevLogo,
-} from './artifacts/logo-components/rovo-dev';
-import {
-	RovoDevAgentIcon as NewRovoDevAgentIcon,
-	RovoDevAgentLogoCS as NewRovoDevAgentLogo,
-} from './artifacts/logo-components/rovo-dev-agent';
-import {
-	RovoHexIcon as NewRovoHexIcon,
-	RovoHexLogoCS as NewRovoHexLogo,
-} from './artifacts/logo-components/rovo-hex';
-import {
-	SearchIcon as SearchNewIcon,
-	SearchLogoCS as SearchNewLogoCS,
-} from './artifacts/logo-components/search';
-import {
-	StatuspageIcon as NewStatuspageIcon,
-	StatuspageLogoCS as NewStatuspageLogo,
-} from './artifacts/logo-components/statuspage';
-import {
-	StudioIcon as StudioNewIcon,
-	StudioLogoCS as StudioNewLogoCS,
-} from './artifacts/logo-components/studio';
-import {
-	TalentIcon as NewTalentIcon,
-	TalentLogoCS as NewTalentLogo,
-} from './artifacts/logo-components/talent';
-import {
-	TeamsIcon as NewTeamsIcon,
-	TeamsLogoCS as NewTeamsLogo,
-} from './artifacts/logo-components/teams';
-import {
-	TrelloIcon as NewTrelloIcon,
-	TrelloLogoCS as NewTrelloLogo,
-} from './artifacts/logo-components/trello';
+import { AdminIcon as NewAdminIcon } from './artifacts/logo-components/admin/icon';
+import { AdminLogoCS as NewAdminLogo } from './artifacts/logo-components/admin/logo-cs';
+import { AlignIcon as NewAlignIcon } from './artifacts/logo-components/align/icon';
+import { AlignLogoCS as NewAlignLogo } from './artifacts/logo-components/align/logo-cs';
+import { AnalyticsIcon as NewAnalyticsIcon } from './artifacts/logo-components/analytics/icon';
+import { AnalyticsLogoCS as NewAnalyticsLogo } from './artifacts/logo-components/analytics/logo-cs';
+import { AssetsIcon as NewAssetsIcon } from './artifacts/logo-components/assets/icon';
+import { AssetsLogoCS as NewAssetsLogo } from './artifacts/logo-components/assets/logo-cs';
+import { BambooIcon as NewBambooIcon } from './artifacts/logo-components/bamboo/icon';
+import { BambooLogoCS as NewBambooLogo } from './artifacts/logo-components/bamboo/logo-cs';
+import { BitbucketDataCenterIcon as NewBitbucketDataCenterIcon } from './artifacts/logo-components/bitbucket-data-center/icon';
+import { BitbucketDataCenterLogoCS as NewBitbucketDataCenterLogo } from './artifacts/logo-components/bitbucket-data-center/logo-cs';
+import { BitbucketIcon as NewBitbucketIcon } from './artifacts/logo-components/bitbucket/icon';
+import { BitbucketLogoCS as NewBitbucketLogo } from './artifacts/logo-components/bitbucket/logo-cs';
+import { ChatIcon as NewChatIcon } from './artifacts/logo-components/chat/icon';
+import { ChatLogoCS as NewChatLogo } from './artifacts/logo-components/chat/logo-cs';
+import { CompanyHubIcon as NewCompanyHubIcon } from './artifacts/logo-components/company-hub/icon';
+import { CompanyHubLogo as NewCompanyHubLogo } from './artifacts/logo-components/company-hub/logo';
+import { CompassIcon as NewCompassIcon } from './artifacts/logo-components/compass/icon';
+import { CompassLogoCS as NewCompassLogo } from './artifacts/logo-components/compass/logo-cs';
+import { ConfluenceDataCenterIcon as NewConfluenceDataCenterIcon } from './artifacts/logo-components/confluence-data-center/icon';
+import { ConfluenceDataCenterLogoCS as NewConfluenceDataCenterLogo } from './artifacts/logo-components/confluence-data-center/logo-cs';
+import { ConfluenceIcon as NewConfluenceIcon } from './artifacts/logo-components/confluence/icon';
+import { ConfluenceLogoCS as NewConfluenceLogo } from './artifacts/logo-components/confluence/logo-cs';
+import { CrowdIcon as NewCrowdIcon } from './artifacts/logo-components/crowd/icon';
+import { CrowdLogoCS as NewCrowdLogo } from './artifacts/logo-components/crowd/logo-cs';
+import { CustomLinkIcon as NewCustomLinkIcon } from './artifacts/logo-components/custom-link/icon';
+import { CustomerServiceManagementIcon as NewCustomerServiceManagementIcon } from './artifacts/logo-components/customer-service-management/icon';
+import { CustomerServiceManagementLogoCS as NewCustomerServiceManagementLogo } from './artifacts/logo-components/customer-service-management/logo-cs';
+import { DxIcon as NewDXIcon } from './artifacts/logo-components/dx/icon';
+import { FeedbackIcon as NewFeedbackIcon } from './artifacts/logo-components/feedback/icon';
+import { FeedbackLogoCS as NewFeedbackLogo } from './artifacts/logo-components/feedback/logo-cs';
+import { FocusIcon as NewFocusIcon } from './artifacts/logo-components/focus/icon';
+import { FocusLogoCS as NewFocusLogo } from './artifacts/logo-components/focus/logo-cs';
+import { GoalsIcon as NewGoalsIcon } from './artifacts/logo-components/goals/icon';
+import { GoalsLogoCS as NewGoalsLogo } from './artifacts/logo-components/goals/logo-cs';
+import { GuardDetectIcon as NewGuardDetectIcon } from './artifacts/logo-components/guard-detect/icon';
+import { GuardDetectLogo as NewGuardDetectLogo } from './artifacts/logo-components/guard-detect/logo';
+import { GuardIcon as NewGuardIcon } from './artifacts/logo-components/guard/icon';
+import { GuardLogoCS as NewGuardLogo } from './artifacts/logo-components/guard/logo-cs';
+import { HomeIcon as NewHomeIcon } from './artifacts/logo-components/home/icon';
+import { HomeLogoCS as NewHomeLogo } from './artifacts/logo-components/home/logo-cs';
+import { HubIcon as NewHubIcon } from './artifacts/logo-components/hub/icon';
+import { HubLogoCS as NewHubLogo } from './artifacts/logo-components/hub/logo-cs';
+import { JiraCodingAgentIcon as NewJiraCodingAgentIcon } from './artifacts/logo-components/jira-coding-agent/icon';
+import { JiraDataCenterIcon as NewJiraDataCenterIcon } from './artifacts/logo-components/jira-data-center/icon';
+import { JiraDataCenterLogoCS as NewJiraDataCenterLogo } from './artifacts/logo-components/jira-data-center/logo-cs';
+import { JiraProductDiscoveryIcon as NewJPDIcon } from './artifacts/logo-components/jira-product-discovery/icon';
+import { JiraProductDiscoveryLogoCS as NewJPDLogo } from './artifacts/logo-components/jira-product-discovery/logo-cs';
+import { JiraServiceManagementDataCenterIcon as NewJiraServiceManagementDataCenterIcon } from './artifacts/logo-components/jira-service-management-data-center/icon';
+import { JiraServiceManagementDataCenterLogoCS as NewJiraServiceManagementDataCenterLogo } from './artifacts/logo-components/jira-service-management-data-center/logo-cs';
+import { JiraServiceManagementIcon as NewJSMIcon } from './artifacts/logo-components/jira-service-management/icon';
+import { JiraServiceManagementLogoCS as NewJSMLogo } from './artifacts/logo-components/jira-service-management/logo-cs';
+import { JiraIcon as NewJiraIcon } from './artifacts/logo-components/jira/icon';
+import { JiraLogoCS as NewJiraLogo } from './artifacts/logo-components/jira/logo-cs';
+import { LoomAttributionLogoCS as NewLoomAttributionLogo } from './artifacts/logo-components/loom-attribution/logo-cs';
+import { LoomInternalIcon as NewLoomInternalIcon } from './artifacts/logo-components/loom-internal/icon';
+import { LoomInternalLogoCS as NewLoomInternalLogo } from './artifacts/logo-components/loom-internal/logo-cs';
+import { LoomIcon as NewLoomIcon } from './artifacts/logo-components/loom/icon';
+import { LoomLogoCS as NewLoomLogo } from './artifacts/logo-components/loom/logo-cs';
+import { MoreAtlassianAppsIcon as NewMoreAtlassianAppsIcon } from './artifacts/logo-components/more-atlassian-apps/icon';
+import { OpsgenieIcon as NewOpsgenieIcon } from './artifacts/logo-components/opsgenie/icon';
+import { OpsgenieLogoCS as NewOpsgenieLogo } from './artifacts/logo-components/opsgenie/logo-cs';
+import { ProjectsIcon as NewProjectsIcon } from './artifacts/logo-components/projects/icon';
+import { ProjectsLogoCS as NewProjectsLogo } from './artifacts/logo-components/projects/logo-cs';
+import { RovoDevAgentIcon as NewRovoDevAgentIcon } from './artifacts/logo-components/rovo-dev-agent/icon';
+import { RovoDevAgentLogoCS as NewRovoDevAgentLogo } from './artifacts/logo-components/rovo-dev-agent/logo-cs';
+import { RovoDevIcon as NewRovoDevIcon } from './artifacts/logo-components/rovo-dev/icon';
+import { RovoDevLogoCS as NewRovoDevLogo } from './artifacts/logo-components/rovo-dev/logo-cs';
+import { RovoHexIcon as NewRovoHexIcon } from './artifacts/logo-components/rovo-hex/icon';
+import { RovoHexLogoCS as NewRovoHexLogo } from './artifacts/logo-components/rovo-hex/logo-cs';
+import { RovoIcon as NewRovoIcon } from './artifacts/logo-components/rovo/icon';
+import { RovoLogoCS as NewRovoLogo } from './artifacts/logo-components/rovo/logo-cs';
+import { SearchIcon as SearchNewIcon } from './artifacts/logo-components/search/icon';
+import { SearchLogoCS as SearchNewLogoCS } from './artifacts/logo-components/search/logo-cs';
+import { StatuspageIcon as NewStatuspageIcon } from './artifacts/logo-components/statuspage/icon';
+import { StatuspageLogoCS as NewStatuspageLogo } from './artifacts/logo-components/statuspage/logo-cs';
+import { StudioIcon as StudioNewIcon } from './artifacts/logo-components/studio/icon';
+import { StudioLogoCS as StudioNewLogoCS } from './artifacts/logo-components/studio/logo-cs';
+import { TalentIcon as NewTalentIcon } from './artifacts/logo-components/talent/icon';
+import { TalentLogoCS as NewTalentLogo } from './artifacts/logo-components/talent/logo-cs';
+import { TeamsIcon as NewTeamsIcon } from './artifacts/logo-components/teams/icon';
+import { TeamsLogoCS as NewTeamsLogo } from './artifacts/logo-components/teams/logo-cs';
+import { TrelloIcon as NewTrelloIcon } from './artifacts/logo-components/trello/icon';
+import { TrelloLogoCS as NewTrelloLogo } from './artifacts/logo-components/trello/logo-cs';
 import { createFeatureFlaggedComponent } from './create-feature-flagged-component';
 import { createFeatureFlaggedServiceCollectionComponent } from './create-feature-flagged-service-collection-component';
 import {

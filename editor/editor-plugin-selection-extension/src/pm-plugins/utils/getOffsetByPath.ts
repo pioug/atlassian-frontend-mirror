@@ -1,5 +1,8 @@
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+const NUMERIC_KEY_REGEX = /^[0-9]+$/u;
+
 // TODO: ED-28434 - move this to a shared package
 // mirror code from https://bitbucket.org/atlassian/pf-adf-service/src/master/src/lib/update/get-offset.ts
 export interface NodeOffset {
@@ -34,8 +37,7 @@ export function getOffsetByPath(
 
 	for (let i = 1; i < len; i++) {
 		const key = parts[i];
-		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-		if (ref instanceof Fragment && /^[0-9]+$/u.test(key)) {
+		if (ref instanceof Fragment && NUMERIC_KEY_REGEX.test(key)) {
 			let index = parseInt(key, 10);
 			if (index >= ref.childCount) {
 				throw new Error(`JSON pointer "${pointer}" points to non-existing location.`);

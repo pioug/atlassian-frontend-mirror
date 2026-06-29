@@ -48,6 +48,11 @@ const MAX_INGESTED_CONTEXT_TEXTS = 50;
 // on every word boundary for the plugin's lifetime.
 const MAX_CONTEXT_REFRESH_ATTEMPTS = 5;
 
+// eslint-disable-next-line require-unicode-regexp
+const TRAILING_NON_BOUNDARY_TOKEN_REGEX = /([^\s.,;:!?]*)$/;
+// eslint-disable-next-line require-unicode-regexp
+const WORD_BOUNDARY_CHARS_REGEX = /[\s.,;:!?]/;
+
 const hasDestroy = (
 	client: ReturnType<typeof createSlowLaneClient> | LocalSlowLaneClient,
 ): client is LocalSlowLaneClient => 'destroy' in client && typeof client.destroy === 'function';
@@ -305,8 +310,7 @@ const getTypedLengthForPrediction = (textBefore: string): number => {
 		return 0;
 	}
 
-	// eslint-disable-next-line require-unicode-regexp
-	const trailingToken = textBefore.match(/([^\s.,;:!?]*)$/)?.[1] ?? '';
+	const trailingToken = textBefore.match(TRAILING_NON_BOUNDARY_TOKEN_REGEX)?.[1] ?? '';
 	return trailingToken.length;
 };
 
@@ -647,16 +651,14 @@ export const createAutocompletePlugin = (
 		}
 
 		const lastChar = newText[newText.length - 1];
-		// eslint-disable-next-line require-unicode-regexp
-		if (!/[\s.,;:!?]/.test(lastChar)) {
+		if (!WORD_BOUNDARY_CHARS_REGEX.test(lastChar)) {
 			return;
 		}
 
 		// Only fire if the previous state did not already end on a boundary,
 		// so we don't double-count when multiple boundary chars are inserted.
 		const prevLastChar = prevText[prevText.length - 1];
-		// eslint-disable-next-line require-unicode-regexp
-		if (prevLastChar && /[\s.,;:!?]/.test(prevLastChar)) {
+		if (prevLastChar && WORD_BOUNDARY_CHARS_REGEX.test(prevLastChar)) {
 			return;
 		}
 

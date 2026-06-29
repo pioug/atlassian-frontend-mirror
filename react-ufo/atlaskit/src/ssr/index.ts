@@ -7,6 +7,22 @@ export type ReportedTimings = {
 
 export type SSRFeatureFlags = { [key: string]: FeatureFlagValue };
 
+export type SsrSuccessBreakdown = {
+	servedStaticFallback: boolean;
+	notRendered: boolean;
+	hadRuntimeError: boolean;
+	circuitBreakerOpen: boolean;
+	hadFailedResources: boolean;
+	fetchAborted: boolean;
+	emittedSuspenseFallback: boolean;
+	hadEarlyFlushFailure: boolean;
+	hadRouteResourceFailure: boolean;
+	failedResources: string[];
+	failedResourceCount: number;
+	failedRouteResources: string[];
+	failedRouteResourceCount: number;
+};
+
 export type SSRConfig = {
 	/**
 	 * Used to represent whether SSR as a whole was considered successful. You can consider this the success of the "render" phase success.
@@ -36,6 +52,7 @@ export type SSRConfig = {
 	};
 	getFeatureFlags: () => SSRFeatureFlags | null;
 	getTimings?: () => ReportedTimings | null;
+	getSsrSuccessBreakdown?: () => SsrSuccessBreakdown | undefined;
 };
 
 const NESTED_METRIC_SEPARATOR = '/';
@@ -224,6 +241,19 @@ export function getSSRFeatureFlags(): SSRFeatureFlags | undefined {
 
 	try {
 		return config.getFeatureFlags() ?? undefined;
+		// eslint-disable-next-line no-empty
+	} catch {}
+	return undefined;
+}
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export function getSSRSuccessBreakdown(): SsrSuccessBreakdown | undefined {
+	if (!config?.getSsrSuccessBreakdown) {
+		return undefined;
+	}
+
+	try {
+		return config.getSsrSuccessBreakdown() ?? undefined;
 		// eslint-disable-next-line no-empty
 	} catch {}
 	return undefined;

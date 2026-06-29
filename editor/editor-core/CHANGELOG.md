@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 221.5.3
+
+### Patch Changes
+
+- [`8d898bba30d43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d898bba30d43) -
+  Added editor-core example for max content size plugin
+- Updated dependencies
+
+## 221.5.2
+
+### Patch Changes
+
+- [`eb16de0d842fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb16de0d842fa) -
+  Reconcile editor plugin APIs during gated preset reconfiguration so Markdown mode layout and
+  styling update correctly when converting between Markdown and live doc views.
+- Updated dependencies
+
 ## 221.5.1
 
 ### Patch Changes

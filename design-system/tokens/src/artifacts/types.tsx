@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a062597f03623b7ee28f88666760e276>>
+ * @codegen <<SignedSource::68705b9f161167cf5fb2849ccec8a074>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -9,6 +9,8 @@ export type ActiveTokens =
 	| 'motion.avatar.hovered'
 	| 'motion.blanket.enter'
 	| 'motion.blanket.exit'
+	| 'motion.button.hovered'
+	| 'motion.button.pressed'
 	| 'motion.duration.instant'
 	| 'motion.duration.long'
 	| 'motion.duration.medium'

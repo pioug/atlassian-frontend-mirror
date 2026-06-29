@@ -25,6 +25,7 @@ import type {
 } from '../providers/types';
 import {
 	buildErrorAttribution,
+	buildFetchErrorAttribution,
 	cacheDeletionForcedPayload,
 	fetchErrorPayload,
 	fetchSuccessPayload,
@@ -595,7 +596,20 @@ export class ReferenceSyncBlockStoreManager {
 					syncBlockInstance.error?.type ||
 					'Returned sync block instance does not have resource id';
 				// No resourceId means we cannot derive a sourceProduct here; intentionally omit.
-				this.fireAnalyticsEvent?.(fetchErrorPayload(payload));
+				// Classify on the structured `type` first, falling back to the free-text
+				// `reason`/payload (EDITOR-7862).
+				this.fireAnalyticsEvent?.(
+					fetchErrorPayload(
+						payload,
+						undefined,
+						undefined,
+						buildFetchErrorAttribution(
+							fg('platform_editor_blocks_patch_3'),
+							syncBlockInstance.error?.type || syncBlockInstance.error?.reason || payload,
+							syncBlockInstance.error?.statusCode,
+						),
+					),
+				);
 				return;
 			}
 
@@ -646,12 +660,20 @@ export class ReferenceSyncBlockStoreManager {
 					fg('platform_synced_block_patch_13');
 
 				if (!isRetryingEntityNotFound) {
+					// Classify on the structured `type` (a `SyncBlockError` enum value) first,
+					// falling back to the free-text `reason` so source-state/permission strings
+					// are still bucketed (EDITOR-7862). The emitted `error` attribute is unchanged.
 					this.fireAnalyticsEvent?.(
 						fetchErrorPayload(
 							syncBlockInstance.error.reason || syncBlockInstance.error.type,
 							syncBlockInstance.resourceId,
 							syncBlockInstance.data?.product ??
 								getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
+							buildFetchErrorAttribution(
+								fg('platform_editor_blocks_patch_3'),
+								syncBlockInstance.error.type || syncBlockInstance.error.reason,
+								syncBlockInstance.error.statusCode,
+							),
 						),
 					);
 				}
@@ -987,7 +1009,17 @@ export class ReferenceSyncBlockStoreManager {
 			logException(error as Error, {
 				location: 'editor-synced-block-provider/referenceSyncBlockStoreManager',
 			});
-			this.fireAnalyticsEvent?.(fetchErrorPayload((error as Error).message));
+			this.fireAnalyticsEvent?.(
+				fetchErrorPayload(
+					(error as Error).message,
+					undefined,
+					undefined,
+					buildFetchErrorAttribution(
+						fg('platform_editor_blocks_patch_3'),
+						(error as Error).message,
+					),
+				),
+			);
 			return () => {};
 		}
 	}

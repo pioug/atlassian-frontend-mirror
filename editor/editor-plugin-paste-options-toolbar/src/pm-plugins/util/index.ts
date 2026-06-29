@@ -1,5 +1,9 @@
 import type { Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ESCAPE_LINKS_URL_REGEX = /^(https?|ftp|jamfselfservice):\/\/[^\s"'>]+$/;
+
 export function isPastedFromFabricEditor(pastedFrom: string): boolean {
 	return pastedFrom === 'fabric-editor';
 }
@@ -10,9 +14,7 @@ export function escapeLinks(text: string): string {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	return text.replace(/(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s"'>]+)/g, (str) => {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s"'>]+$/) ? `<${str}>` : str;
+		return str.match(ESCAPE_LINKS_URL_REGEX) ? `<${str}>` : str;
 	});
 }
 

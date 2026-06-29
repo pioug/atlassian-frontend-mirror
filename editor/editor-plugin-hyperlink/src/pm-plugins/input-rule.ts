@@ -19,6 +19,10 @@ import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { toolbarKey } from './toolbar-buttons';
 
+// [something](link) should convert to a hyperlink
+// eslint-disable-next-line require-unicode-regexp
+const MARKDOWN_LINK_RULE_REGEX = /(^|[^!])\[(.*?)\]\((\S+)\)$/;
+
 /**
  * Called when space after link, but not on enter
  */
@@ -105,9 +109,7 @@ export function createInputRulePlugin(
 
 	const urlWithASpaceRule = createLinkInputRule(LinkMatcher.create(), editorAnalyticsApi);
 
-	// [something](link) should convert to a hyperlink
-	// eslint-disable-next-line require-unicode-regexp
-	const markdownLinkRule = createRule(/(^|[^!])\[(.*?)\]\((\S+)\)$/, (state, match, start, end) => {
+	const markdownLinkRule = createRule(MARKDOWN_LINK_RULE_REGEX, (state, match, start, end) => {
 		const { schema } = state;
 		const [, prefix, linkText, linkUrl] = match;
 

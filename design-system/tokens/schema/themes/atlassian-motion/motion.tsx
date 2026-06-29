@@ -30,6 +30,22 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		button: {
+			hovered: {
+				value: {
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor'],
+				},
+			},
+			pressed: {
+				value: {
+					duration: 'Duration150',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor'],
+				},
+			},
+		},
 		flag: {
 			enter: {
 				value: {

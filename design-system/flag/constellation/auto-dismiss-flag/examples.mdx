@@ -13,7 +13,11 @@ import AutoDismissFlagActions from '../../examples/constellation/auto-dismiss-fl
 
 Use `AutoDismissFlag` to create a flag that will be dismissed automatically in eight seconds.
 
-<Example Component={AutoDismissFlagDefault} packageName="@atlaskit/flag" />
+<Example
+	Component={AutoDismissFlagDefault}
+	packageName="@atlaskit/flag"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Appearance
 
@@ -28,14 +32,22 @@ miss their important notification.
 Use `appearance="info"` to alert people to additional information without requiring an action. These
 are also used for loading states.
 
-<Example Component={AutoDismissFlagInfo} packageName="@atlaskit/flag" />
+<Example
+	Component={AutoDismissFlagInfo}
+	packageName="@atlaskit/flag"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Success
 
 Use `appearance="success"` to let people know that they have completed an action. Reaffirm the
 outcome and let the user continue.
 
-<Example Component={AutoDismissFlagSuccess} packageName="@atlaskit/flag" />
+<Example
+	Component={AutoDismissFlagSuccess}
+	packageName="@atlaskit/flag"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Actions
 
@@ -47,4 +59,8 @@ Be mindful that many people won't be able to read and decide to select a link wi
 seconds that an auto dismiss flag is available to them. If it's important that people can select the
 link, use a regular [flag](/components/flag/examples) instead.
 
-<Example Component={AutoDismissFlagActions} packageName="@atlaskit/flag" />
+<Example
+	Component={AutoDismissFlagActions}
+	packageName="@atlaskit/flag"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>

@@ -7,6 +7,13 @@ import type { Step, StepMap } from '@atlaskit/editor-prosemirror/transform';
 
 import { optimizeChanges } from './optimizeChanges';
 
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const WORD_CHAR_REGEX = /[\p{L}\p{N}_]/u;
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const PUNCTUATION_REGEX = /\p{P}/u;
+// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
+const WHITESPACE_REGEX = /\s/u;
+
 const mapPosition = (mapping: Mapping, pos: number): number => mapping.map(pos);
 
 /**
@@ -103,16 +110,12 @@ const expandToWordBoundaries = (
 		const next = chars[idx + 1];
 
 		return (
-			// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-			/[\p{L}\p{N}_]/u.test(ch) ||
-			// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-			(/\p{P}/u.test(ch) &&
+			WORD_CHAR_REGEX.test(ch) ||
+			(PUNCTUATION_REGEX.test(ch) &&
 				typeof prev === 'string' &&
 				typeof next === 'string' &&
-				// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-				!/\s/u.test(prev) &&
-				// @ts-ignore TS1501: This regular expression flag is only available when targeting 'es6' or later.
-				!/\s/u.test(next))
+				!WHITESPACE_REGEX.test(prev) &&
+				!WHITESPACE_REGEX.test(next))
 		);
 	};
 
@@ -282,6 +285,11 @@ const shouldCheckGranularDiff = (
 	);
 };
 
+type StepChanges = {
+	changes: Change[];
+	isGranular: boolean;
+};
+
 export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 	const changes: Change[] = [];
 	let currentDoc = originalDoc;
@@ -437,4 +445,157 @@ export const diffBySteps = (originalDoc: PMNode, steps: Step[]): Change[] => {
 	}
 
 	return mergeOverlappingByNewDocRange(changes);
+};
+
+/**
+ * A fork of `diffBySteps` that returns changes grouped per step, rather than as a flat list.
+ *
+ * Why forked rather than refactoring `diffBySteps`:
+ * - `diffBySteps` returns a flat `Change[]` and is consumed by the existing decoration path.
+ *   Changing its return shape would require threading per-step metadata through all callers,
+ *   adding complexity to a stable code path.
+ * - The per-step grouping is only needed for the `platform_editor_diff_granular_extended` gate,
+ *   where we need to know how many granular changes a single step produced in order to decide
+ *   whether to suppress deleted decorations (threshold: > 3 granular changes per step).
+ * - Keeping the two functions separate means each has a clear, focused contract and neither
+ *   accumulates the other's concerns. Shared logic (mapping helpers, `mergeOverlappingByNewDocRange`,
+ *   `shouldCheckGranularDiff`, etc.) is already extracted and reused by both.
+ */
+export const getStepChanges = (originalDoc: PMNode, steps: Step[]): StepChanges[] => {
+	const result: StepChanges[] = [];
+	let currentDoc = originalDoc;
+	const successfulStepMaps = [];
+	const rangedSteps: Array<{
+		before: PMNode;
+		doc: PMNode;
+		from: number;
+		mapIndex: number;
+		step: Step;
+		stepMap: StepMap;
+		to: number;
+	}> = [];
+
+	for (const step of steps) {
+		const before = currentDoc;
+		const stepResult = step.apply(currentDoc);
+		if (stepResult.failed !== null || !stepResult.doc) {
+			continue;
+		}
+
+		const stepMap = step.getMap();
+		const rangeStep = step as Step & { from?: number; to?: number };
+		if (typeof rangeStep.from === 'number' && typeof rangeStep.to === 'number') {
+			rangedSteps.push({
+				before,
+				doc: stepResult.doc,
+				from: rangeStep.from,
+				to: rangeStep.to,
+				mapIndex: successfulStepMaps.length,
+				step,
+				stepMap,
+			});
+		}
+
+		successfulStepMaps.push(stepMap);
+		currentDoc = stepResult.doc;
+	}
+
+	for (const rangedStep of rangedSteps) {
+		const originalToBeforeStep = createMapping(successfulStepMaps.slice(0, rangedStep.mapIndex));
+		const beforeStepToOriginal = originalToBeforeStep.invert();
+
+		const fromA = mapPosition(beforeStepToOriginal, rangedStep.from);
+		const toA = mapPosition(beforeStepToOriginal, rangedStep.to);
+
+		const fromAfterStep = rangedStep.stepMap.map(rangedStep.from, -1);
+		const toAfterStep = rangedStep.stepMap.map(rangedStep.to, 1);
+		const afterStepToFinal = createMapping(successfulStepMaps.slice(rangedStep.mapIndex + 1));
+
+		const fromB = mapPosition(afterStepToFinal, fromAfterStep);
+		const toB = mapPosition(afterStepToFinal, toAfterStep);
+
+		if (
+			shouldCheckGranularDiff(rangedStep.step, rangedStep.before, rangedStep.from, rangedStep.to)
+		) {
+			const granularStepChanges = ChangeSet.create(rangedStep.before).addSteps(
+				rangedStep.doc,
+				[rangedStep.stepMap],
+				null,
+			);
+
+			const optimizedGranularStepChanges = optimizeChanges(
+				simplifyChanges(granularStepChanges.changes, rangedStep.doc),
+			);
+
+			const stepChanges: Change[] = [];
+			for (const granularChange of optimizedGranularStepChanges) {
+				const expandedA = expandToWordBoundaries(
+					rangedStep.before,
+					granularChange.fromA,
+					granularChange.toA,
+				);
+				const expandedB = expandToWordBoundaries(
+					rangedStep.doc,
+					granularChange.fromB,
+					granularChange.toB,
+				);
+
+				const aLeftDelta = granularChange.fromA - expandedA.from;
+				const aRightDelta = expandedA.to - granularChange.toA;
+				const bLeftDelta = granularChange.fromB - expandedB.from;
+				const bRightDelta = expandedB.to - granularChange.toB;
+
+				let finalA = expandedA;
+				let finalB = expandedB;
+
+				if (aLeftDelta > bLeftDelta || aRightDelta > bRightDelta) {
+					const extraLeft = Math.max(0, aLeftDelta - bLeftDelta);
+					const extraRight = Math.max(0, aRightDelta - bRightDelta);
+					finalB = expandToWordBoundaries(
+						rangedStep.doc,
+						Math.max(expandedB.from - extraLeft, 0),
+						expandedB.to + extraRight,
+					);
+				}
+
+				if (bLeftDelta > aLeftDelta || bRightDelta > aRightDelta) {
+					const extraLeft = Math.max(0, bLeftDelta - aLeftDelta);
+					const extraRight = Math.max(0, bRightDelta - aRightDelta);
+					finalA = expandToWordBoundaries(
+						rangedStep.before,
+						Math.max(expandedA.from - extraLeft, 0),
+						expandedA.to + extraRight,
+					);
+				}
+
+				stepChanges.push({
+					fromA: mapPosition(beforeStepToOriginal, finalA.from),
+					toA: mapPosition(beforeStepToOriginal, finalA.to),
+					fromB: mapPosition(afterStepToFinal, finalB.from),
+					toB: mapPosition(afterStepToFinal, finalB.to),
+					deleted: createSpans(Math.max(0, finalA.to - finalA.from)),
+					inserted: createSpans(Math.max(0, finalB.to - finalB.from)),
+				});
+			}
+
+			result.push({ isGranular: true, changes: mergeOverlappingByNewDocRange(stepChanges) });
+			continue;
+		}
+
+		result.push({
+			isGranular: false,
+			changes: [
+				{
+					fromA,
+					toA,
+					fromB,
+					toB,
+					deleted: createSpans(Math.max(0, toA - fromA)),
+					inserted: createSpans(Math.max(0, toB - fromB)),
+				},
+			],
+		});
+	}
+
+	return result;
 };

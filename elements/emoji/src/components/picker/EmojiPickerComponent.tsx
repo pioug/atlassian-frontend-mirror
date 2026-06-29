@@ -885,7 +885,20 @@ const EmojiPickerComponent = ({
 		};
 	}, [emojiProvider, onProviderChange]);
 
+	const uploadEnabled = isUploadSupported && !uploading;
 	const showPreview = isRefreshEmojiPickerEnabled() ? !uploading : selectedEmoji && !uploading;
+	const shouldRenderFooter =
+		showPreview &&
+		!(emojiToDelete && isRefreshEmojiPickerEnabled()) &&
+		!(query && filteredEmojis.length === 0 && isRefreshEmojiPickerEnabled()) &&
+		(Boolean(selectedEmoji) || uploadEnabled || !isRefreshEmojiPickerEnabled());
+	const useFooterSpaceForList =
+		showPreview &&
+		!selectedEmoji &&
+		!uploadEnabled &&
+		!emojiToDelete &&
+		!(query && filteredEmojis.length === 0) &&
+		isRefreshEmojiPickerEnabled();
 
 	return (
 		<div
@@ -948,7 +961,7 @@ const EmojiPickerComponent = ({
 					uploading={uploading}
 					emojiToDelete={emojiToDelete}
 					uploadErrorMessage={formattedErrorMessage}
-					uploadEnabled={isUploadSupported && !uploading}
+					uploadEnabled={uploadEnabled}
 					onUploadEmoji={onUploadEmoji}
 					onUploadCancelled={onUploadCancelled}
 					onDeleteEmoji={onDeleteEmoji}
@@ -957,16 +970,15 @@ const EmojiPickerComponent = ({
 					onOpenUpload={onOpenUpload}
 					size={size}
 					activeCategoryId={activeCategory}
+					useFooterSpaceForList={useFooterSpaceForList}
 				/>
-				{showPreview &&
-					!(emojiToDelete && isRefreshEmojiPickerEnabled()) &&
-					!(query && filteredEmojis.length === 0 && isRefreshEmojiPickerEnabled()) && (
-						<EmojiPickerFooter
-							selectedEmoji={selectedEmoji}
-							uploadEnabled={isUploadSupported && !uploading}
-							onOpenUpload={onOpenUpload}
-						/>
-					)}
+				{shouldRenderFooter && (
+					<EmojiPickerFooter
+						selectedEmoji={selectedEmoji}
+						uploadEnabled={uploadEnabled}
+						onOpenUpload={onOpenUpload}
+					/>
+				)}
 			</div>
 		</div>
 	);

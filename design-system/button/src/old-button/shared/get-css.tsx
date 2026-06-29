@@ -223,7 +223,9 @@ export function getCss({
 		position: 'relative',
 		textAlign: 'center',
 		textDecoration: 'none',
-		transition: 'background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
+		transition: fg('platform-dst-motion-uplift-button')
+			? `${token('motion.button.hovered')}, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)`
+			: 'background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
 		whiteSpace: 'nowrap',
 		cursor: 'pointer',
 		height: heights[spacing],

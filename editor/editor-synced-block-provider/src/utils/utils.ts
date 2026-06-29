@@ -11,6 +11,8 @@ import type {
 	SyncBlockProduct,
 } from '../common/types';
 
+const GET_CONTENT_ID_AND_PRODUCT_REGEX = /^(confluence-page|jira-work-item)\/([^/]+)/;
+
 const normalizeSyncBlockJSONContentInternal = <T extends JSONNode | undefined>(
 	content: T[],
 	options: { convertPanelC1ToPanel: boolean },
@@ -147,7 +149,7 @@ export const getContentIdAndProductFromResourceId = (
 	sourceContentId: string;
 	sourceProduct: SyncBlockProduct;
 } => {
-	const match = resourceId.match(/^(confluence-page|jira-work-item)\/([^/]+)/);
+	const match = resourceId.match(GET_CONTENT_ID_AND_PRODUCT_REGEX);
 	if (match?.[2]) {
 		return {
 			sourceProduct: match[1] as SyncBlockProduct,

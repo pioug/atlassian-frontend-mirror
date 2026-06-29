@@ -8,6 +8,7 @@ import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
+import { useIntl } from 'react-intl';
 import { Grid, List } from 'react-virtualized';
 import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
@@ -37,6 +38,7 @@ import {
 } from '../../constants';
 import useContainerWidth from '../../hooks/use-container-width';
 import useFocus from '../../hooks/use-focus';
+import commonMessages from '../../messages';
 import type { SelectedItemProps } from '../../types';
 import { Modes } from '../../types';
 
@@ -261,6 +263,14 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 		selectedCategoryIndex,
 		selectedItemIndex,
 	} = props;
+	const { formatMessage } = useIntl();
+	const elementListAriaLabel = expValEquals(
+		'platform_editor_plus_menu_aria_label',
+		'isEnabled',
+		true,
+	)
+		? formatMessage(commonMessages.elementListAriaLabel)
+		: undefined;
 
 	const rowRenderer = useMemo(
 		() =>
@@ -352,6 +362,7 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 			overscanRowCount={3}
 			containerRole="presentation"
 			role="listbox"
+			aria-label={elementListAriaLabel}
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(selectedItemIndex !== undefined && {
@@ -393,6 +404,15 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 		selectedCategoryIndex,
 		selectedItemIndex,
 	} = props;
+
+	const { formatMessage } = useIntl();
+	const elementListAriaLabel = expValEquals(
+		'platform_editor_plus_menu_aria_label',
+		'isEnabled',
+		true,
+	)
+		? formatMessage(commonMessages.elementListAriaLabel)
+		: undefined;
 
 	const columnWidth = (containerWidth - ELEMENT_ITEM_PADDING * 2) / columnCount;
 	const rowCount = Math.ceil(items.length / columnCount);
@@ -488,6 +508,7 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 			containerRole="row"
 			cellRenderer={cellRenderer}
 			height={height}
+			aria-label={elementListAriaLabel}
 			width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
 			/**
 			 * Refresh Grid on WidthObserver value change.

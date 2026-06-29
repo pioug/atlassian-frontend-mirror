@@ -23,7 +23,11 @@ child items).
 
 You can customise the `content` of each item, but make sure your data matches the expected schema.
 
-<Example Component={BasicTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={BasicTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Advanced
 
@@ -31,7 +35,11 @@ For advanced usage, you can compose `Cell`, `Header`, `Headers`, `Row`, and `Row
 
 This approach lets you customize the structure of your data.
 
-<Example Component={AdvancedTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={AdvancedTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Uncontrolled
 
@@ -39,7 +47,11 @@ In an uncontrolled table, expanding and collapsing each row is handled automatic
 
 Use the `isDefaultExpanded` prop to change whether a row is expanded by default.
 
-<Example Component={UncontrolledTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={UncontrolledTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Controlled
 
@@ -47,14 +59,22 @@ Use the `isExpanded` prop to manually control whether a row is expanded or not.
 
 Respond to user interaction by providing callbacks to the `onExpand` and `onCollapse` props.
 
-<Example Component={ControlledTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={ControlledTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Custom children
 
 You can use other components as children instead of additional rows and items. For example, use an
 empty state when table children don’t exist.
 
-<Example Component={CustomChildTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={CustomChildTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Loading states
 
@@ -65,14 +85,22 @@ Each nesting level can be displayed in a loading state. Use this when loading da
 To display the root level in a loading state, ensure that the `items` value provided to `Rows` is
 `undefined`.
 
-<Example Component={LoadingStateRootTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={LoadingStateRootTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Nested
 
 To display a nested level in a loading state, ensure that the `items` value provided to the
 corresponding `Row` is `undefined`.
 
-<Example Component={LoadingStateNestedTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={LoadingStateNestedTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Managing data
 
@@ -83,13 +111,21 @@ loading data asynchronously.
 
 The `appendItems` method will add to the existing items.
 
-<Example Component={AsyncAppendTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={AsyncAppendTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Update items
 
 The `updateItems` method will replace the existing items.
 
-<Example Component={AsyncUpdateTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={AsyncUpdateTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Expand and collapse on row click
 
@@ -100,7 +136,11 @@ Don’t use this prop if interactive elements like a button or dropdown menu exi
 Clicking on those elements will trigger the row to unexpectedly expand or collapse, along with the
 default behavior of the interactive element.
 
-<Example Component={ShouldExpandOnClickTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={ShouldExpandOnClickTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Accessibility
 
@@ -108,7 +148,11 @@ default behavior of the interactive element.
 
 Use either the `label` or `referencedLabel` prop to provide an accessible name for the table.
 
-<Example Component={AddAccessibleName} packageName="@atlaskit/table-tree" />
+<Example
+	Component={AddAccessibleName}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Extended accessible label for expand and collapse button
 
@@ -118,4 +162,8 @@ column's cell to the row's expand button.
 
 For example, the first expand button below would read "Expand chapter 1: clean code row".
 
-<Example Component={ExtendedExpandLabelTableTreeExample} packageName="@atlaskit/table-tree" />
+<Example
+	Component={ExtendedExpandLabelTableTreeExample}
+	packageName="@atlaskit/table-tree"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>

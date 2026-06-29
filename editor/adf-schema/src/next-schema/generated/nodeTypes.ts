@@ -5,2452 +5,2613 @@
  */
 
 import {
-	createPMNodeSpecFactory,
-	type PMNodeSpecFactoryInstance,
+  createPMNodeSpecFactory,
+  type PMNodeSpecFactoryInstance,
 } from '../../schema/createPMSpecFactory';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import type { InlineDefinition, BlockDefinition, BlockRootOnlyDefinition } from './nodeGroupTypes';
+import type {
+  InlineDefinition,
+  BlockDefinition,
+  BlockRootOnlyDefinition,
+} from './nodeGroupTypes';
 
 import type {
-	AlignmentMark,
-	AnnotationMark,
-	BackgroundColorMark,
-	BorderMark,
-	BreakoutMark,
-	CodeMark,
-	ConfluenceInlineCommentMark,
-	DataConsumerMark,
-	EmMark,
-	FontSizeMark,
-	FragmentMark,
-	IndentationMark,
-	LinkMark,
-	StrikeMark,
-	StrongMark,
-	SubsupMark,
-	TextColorMark,
-	TypeAheadQueryMark,
-	UnderlineMark,
-	UnsupportedMarkMark,
-	UnsupportedNodeAttributeMark,
+  AlignmentMark,
+  AnnotationMark,
+  BackgroundColorMark,
+  BorderMark,
+  BreakoutMark,
+  CodeMark,
+  ConfluenceInlineCommentMark,
+  DataConsumerMark,
+  EmMark,
+  FontSizeMark,
+  FragmentMark,
+  IndentationMark,
+  LinkMark,
+  StrikeMark,
+  StrongMark,
+  SubsupMark,
+  TextColorMark,
+  TypeAheadQueryMark,
+  UnderlineMark,
+  UnsupportedMarkMark,
+  UnsupportedNodeAttributeMark,
 } from './markTypes';
 
 export interface BlockCardNodeAttributes0 {
-	localId?: string;
-	url?: string;
-	datasource: Record<string, unknown>;
-	width?: number;
-	layout?:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
+  localId?: string;
+  url?: string;
+  datasource: Record<string, unknown>;
+  width?: number;
+  layout?:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
 }
 
 export interface BlockCardNodeAttributes1 {
-	url: string;
-	localId?: string;
+  url: string;
+  localId?: string;
 }
 
 export interface BlockCardNodeAttributes2 {
-	data: Record<string, unknown>;
-	localId?: string;
+  data: Record<string, unknown>;
+  localId?: string;
 }
 
 export interface BlockCardDefinition {
-	type: 'blockCard';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: BlockCardNodeAttributes0 | BlockCardNodeAttributes1 | BlockCardNodeAttributes2;
+  type: 'blockCard';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs:
+    | BlockCardNodeAttributes0
+    | BlockCardNodeAttributes1
+    | BlockCardNodeAttributes2;
 }
 
 export type BlockCardNode = PMNode & BlockCardDefinition;
 
 export const blockCard: PMNodeSpecFactoryInstance<BlockCardNode> =
-	createPMNodeSpecFactory<BlockCardNode>({
-		group: 'block',
-		attrs: {
-			localId: { default: null },
-			url: { default: null },
-			datasource: { default: null },
-			width: { default: null },
-			layout: { default: null },
-			data: { default: null },
-		},
-		selectable: true,
-		draggable: true,
-	});
+  createPMNodeSpecFactory<BlockCardNode>({
+    group: 'block',
+    attrs: {
+      localId: { default: null },
+      url: { default: null },
+      datasource: { default: null },
+      width: { default: null },
+      layout: { default: null },
+      data: { default: null },
+    },
+    selectable: true,
+    draggable: true,
+  });
 
 export interface BlockquoteDefinition {
-	type: 'blockquote';
-	content: Array<
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| ExtensionWithMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| OrderedListDefinition
-		| ParagraphWithNoMarksDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'blockquote';
+  content: Array<
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | ExtensionWithMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | ParagraphWithNoMarksDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
 }
 
 export type BlockquoteNode = PMNode & BlockquoteDefinition;
 
 export const blockquote: PMNodeSpecFactoryInstance<BlockquoteNode> =
-	createPMNodeSpecFactory<BlockquoteNode>({
-		content:
-			'(paragraph | orderedList | bulletList | unsupportedBlock | codeBlock | mediaSingle | mediaGroup | extension)+',
-		marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		group: 'block',
-		attrs: { localId: { default: null } },
-		selectable: true,
-		defining: true,
-	});
+  createPMNodeSpecFactory<BlockquoteNode>({
+    content:
+      '(paragraph | orderedList | bulletList | unsupportedBlock | codeBlock | mediaSingle | mediaGroup | extension)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: true,
+    defining: true,
+  });
 
 export interface BlockquoteLegacyDefinition {
-	type: 'blockquote';
-	content: Array<ParagraphDefinition | UnsupportedBlockDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'blockquote';
+  content: Array<ParagraphDefinition | UnsupportedBlockDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
 }
 
 export type BlockquoteLegacyNode = PMNode & BlockquoteLegacyDefinition;
 
 export const blockquoteLegacy: PMNodeSpecFactoryInstance<BlockquoteLegacyNode> =
-	createPMNodeSpecFactory<BlockquoteLegacyNode>({
-		content: '(paragraph | unsupportedBlock)+',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: { localId: { default: null } },
-		selectable: true,
-		defining: true,
-	});
+  createPMNodeSpecFactory<BlockquoteLegacyNode>({
+    content: '(paragraph | unsupportedBlock)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: true,
+    defining: true,
+  });
 
 export interface BlockTaskItemDefinition {
-	type: 'blockTaskItem';
-	content: Array<
-		| ExtensionWithMarksDefinition
-		| ExtensionWithMarksDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| ParagraphWithNoMarksDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId: string; state: 'TODO' | 'DONE' };
+  type: 'blockTaskItem';
+  content: Array<
+    | ExtensionWithMarksDefinition
+    | ExtensionWithMarksDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | ParagraphWithNoMarksDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId: string; state: 'TODO' | 'DONE' };
 }
 
 export type BlockTaskItemNode = PMNode & BlockTaskItemDefinition;
 
 export const blockTaskItem: PMNodeSpecFactoryInstance<BlockTaskItemNode> =
-	createPMNodeSpecFactory<BlockTaskItemNode>({
-		content: '(paragraph | extension) (paragraph | extension)*',
-		marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		attrs: { localId: { default: '' }, state: { default: 'TODO' } },
-		selectable: false,
-		defining: true,
-	});
+  createPMNodeSpecFactory<BlockTaskItemNode>({
+    content: '(paragraph | extension) (paragraph | extension)*',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: { localId: { default: '' }, state: { default: 'TODO' } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface BodiedExtensionDefinition {
-	type: 'bodiedExtension';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TableDefinition
-		| TableWithNestedTableDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		extensionKey: string;
-		extensionType: string;
-		parameters?: Record<string, unknown>;
-		text?: string;
-		layout?: 'wide' | 'full-width' | 'default';
-		localId?: string;
-	};
+  type: 'bodiedExtension';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TableWithNestedTableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'wide' | 'full-width' | 'default';
+    localId?: string;
+  };
 }
 
 export type BodiedExtensionNode = PMNode & BodiedExtensionDefinition;
 
 export const bodiedExtension: PMNodeSpecFactoryInstance<BodiedExtensionNode> =
-	createPMNodeSpecFactory<BodiedExtensionNode>({
-		content:
-			'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock)+',
-		marks: 'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: {
-			extensionKey: { default: '' },
-			extensionType: { default: '' },
-			parameters: { default: null },
-			text: { default: null },
-			layout: { default: 'default' },
-			localId: { default: null },
-		},
-		selectable: true,
-		defining: true,
-		isolating: true,
-	});
+  createPMNodeSpecFactory<BodiedExtensionNode>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock)+',
+    marks:
+      'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+    defining: true,
+    isolating: true,
+  });
 
 export interface BodiedExtensionWithMarksDefinition {
-	type: 'bodiedExtension';
-	marks: Array<
-		DataConsumerMark | FragmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
-	>;
-	attrs: {
-		extensionKey: string;
-		extensionType: string;
-		parameters?: Record<string, unknown>;
-		text?: string;
-		layout?: 'wide' | 'full-width' | 'default';
-		localId?: string;
-	};
+  type: 'bodiedExtension';
+  marks: Array<
+    | DataConsumerMark
+    | FragmentMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'wide' | 'full-width' | 'default';
+    localId?: string;
+  };
 }
 
-export type BodiedExtensionWithMarksNode = PMNode & BodiedExtensionWithMarksDefinition;
+export type BodiedExtensionWithMarksNode = PMNode &
+  BodiedExtensionWithMarksDefinition;
 
 export const bodiedExtensionWithMarks: PMNodeSpecFactoryInstance<BodiedExtensionWithMarksNode> =
-	createPMNodeSpecFactory<BodiedExtensionWithMarksNode>({
-		marks: 'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: {
-			extensionKey: { default: '' },
-			extensionType: { default: '' },
-			parameters: { default: null },
-			text: { default: null },
-			layout: { default: 'default' },
-			localId: { default: null },
-		},
-		selectable: true,
-		defining: true,
-		isolating: true,
-	});
+  createPMNodeSpecFactory<BodiedExtensionWithMarksNode>({
+    marks:
+      'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+    defining: true,
+    isolating: true,
+  });
 
 export interface BodiedSyncBlockDefinition {
-	type: 'bodiedSyncBlock';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BlockquoteLegacyDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| ConfluenceUnsupportedBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExpandDefinition
-		| HeadingDefinition
-		| HeadingWithAlignmentDefinition
-		| HeadingWithIndentationDefinition
-		| HeadingWithNoMarksDefinition
-		| LayoutSectionDefinition
-		| LayoutSectionFullDefinition
-		| LayoutSectionWithSingleColumnStage0Definition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleDefinition
-		| MediaSingleFullDefinition
-		| MediaSingleWidthTypeDefinition
-		| OrderedListDefinition
-		| PanelC1Definition
-		| PanelDefinition
-		| ParagraphDefinition
-		| ParagraphWithAlignmentDefinition
-		| ParagraphWithIndentationDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TableDefinition
-		| TableWithNestedTableDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { resourceId: string; localId: string };
+  type: 'bodiedSyncBlock';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BlockquoteLegacyDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | ConfluenceUnsupportedBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExpandDefinition
+    | HeadingDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | LayoutSectionDefinition
+    | LayoutSectionFullDefinition
+    | LayoutSectionWithSingleColumnStage0Definition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleDefinition
+    | MediaSingleFullDefinition
+    | MediaSingleWidthTypeDefinition
+    | OrderedListDefinition
+    | PanelC1Definition
+    | PanelDefinition
+    | ParagraphDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithIndentationDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TableWithNestedTableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { resourceId: string; localId: string };
 }
 
 export type BodiedSyncBlockNode = PMNode & BodiedSyncBlockDefinition;
 
 export const bodiedSyncBlock: PMNodeSpecFactoryInstance<BodiedSyncBlockNode> =
-	createPMNodeSpecFactory<BodiedSyncBlockNode>({
-		content:
-			'(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel | panel_c1 | rule | table | taskList | unsupportedBlock)+',
-		marks:
-			'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation breakout link fragment',
-		attrs: { resourceId: { default: '' }, localId: { default: '' } },
-		selectable: true,
-		isolating: true,
-	});
+  createPMNodeSpecFactory<BodiedSyncBlockNode>({
+    content:
+      '(paragraph | blockCard | blockquote | bulletList | codeBlock | confluenceUnsupportedBlock | decisionList | embedCard | expand | heading | layoutSection | mediaGroup | mediaSingle | orderedList | panel | panel_c1 | rule | table | taskList | unsupportedBlock)+',
+    marks:
+      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation breakout link fragment',
+    attrs: { resourceId: { default: '' }, localId: { default: '' } },
+    selectable: true,
+    isolating: true,
+  });
 
 export interface BulletListDefinition {
-	type: 'bulletList';
-	content: Array<ListItemDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'bulletList';
+  content: Array<ListItemDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
 }
 
 export type BulletListNode = PMNode & BulletListDefinition;
 
 export const bulletList: PMNodeSpecFactoryInstance<BulletListNode> =
-	createPMNodeSpecFactory<BulletListNode>({
-		content: 'listItem+',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: { localId: { default: null } },
-		selectable: false,
-	});
+  createPMNodeSpecFactory<BulletListNode>({
+    content: 'listItem+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
 
 export interface CaptionDefinition {
-	type: 'caption';
-	content: Array<
-		| DateDefinition
-		| DateStage0Definition
-		| EmojiDefinition
-		| EmojiStage0Definition
-		| HardBreakDefinition
-		| InlineCardDefinition
-		| InlineCardStage0Definition
-		| MentionDefinition
-		| MentionStage0Definition
-		| PlaceholderDefinition
-		| StatusDefinition
-		| StatusStage0Definition
-		| TextCodeInlineDefinition
-		| TextFormattedDefinition
-		| UnsupportedInlineDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'caption';
+  content: Array<
+    | DateDefinition
+    | DateStage0Definition
+    | EmojiDefinition
+    | EmojiStage0Definition
+    | HardBreakDefinition
+    | InlineCardDefinition
+    | InlineCardStage0Definition
+    | MentionDefinition
+    | MentionStage0Definition
+    | PlaceholderDefinition
+    | StatusDefinition
+    | StatusStage0Definition
+    | TextCodeInlineDefinition
+    | TextFormattedDefinition
+    | UnsupportedInlineDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
 }
 
 export type CaptionNode = PMNode & CaptionDefinition;
 
-export const caption: PMNodeSpecFactoryInstance<CaptionNode> = createPMNodeSpecFactory<CaptionNode>(
-	{
-		content:
-			'(hardBreak | mention | emoji | date | placeholder | inlineCard | status | text | unsupportedInline)*',
-		marks: '_',
-		attrs: { localId: { default: null } },
-		selectable: false,
-		isolating: true,
-	},
-);
+export const caption: PMNodeSpecFactoryInstance<CaptionNode> =
+  createPMNodeSpecFactory<CaptionNode>({
+    content:
+      '(hardBreak | mention | emoji | date | placeholder | inlineCard | status | text | unsupportedInline)*',
+    marks: '_',
+    attrs: { localId: { default: null } },
+    selectable: false,
+    isolating: true,
+  });
 
 export interface CodeBlockDefinition {
-	type: 'codeBlock';
-	content: Array<TextWithNoMarksDefinition | UnsupportedInlineDefinition>;
-	attrs: {
-		language?: string;
-		uniqueId?: string;
-		localId?: string;
-		wrap?: boolean;
-		hideLineNumbers?: boolean;
-	};
+  type: 'codeBlock';
+  content: Array<TextWithNoMarksDefinition | UnsupportedInlineDefinition>;
+  attrs: {
+    language?: string;
+    uniqueId?: string;
+    localId?: string;
+    wrap?: boolean;
+    hideLineNumbers?: boolean;
+  };
 }
 
 export type CodeBlockNode = PMNode & CodeBlockDefinition;
 
 export const codeBlock: PMNodeSpecFactoryInstance<CodeBlockNode> =
-	createPMNodeSpecFactory<CodeBlockNode>({
-		content: '(text | unsupportedInline)*',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: {
-			language: { default: null },
-			uniqueId: { default: null },
-			localId: { default: null },
-			wrap: { default: null },
-			hideLineNumbers: { default: false },
-		},
-		code: true,
-		defining: true,
-	});
+  createPMNodeSpecFactory<CodeBlockNode>({
+    content: '(text | unsupportedInline)*',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: {
+      language: { default: null },
+      uniqueId: { default: null },
+      localId: { default: null },
+      wrap: { default: null },
+      hideLineNumbers: { default: false },
+    },
+    code: true,
+    defining: true,
+  });
 
 export interface CodeBlockRootOnlyDefinition {
-	type: 'codeBlock';
-	content: Array<TextWithNoMarksDefinition | UnsupportedInlineDefinition>;
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		language?: string;
-		uniqueId?: string;
-		localId?: string;
-		wrap?: boolean;
-		hideLineNumbers?: boolean;
-	};
+  type: 'codeBlock';
+  content: Array<TextWithNoMarksDefinition | UnsupportedInlineDefinition>;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    language?: string;
+    uniqueId?: string;
+    localId?: string;
+    wrap?: boolean;
+    hideLineNumbers?: boolean;
+  };
 }
 
 export type CodeBlockRootOnlyNode = PMNode & CodeBlockRootOnlyDefinition;
 
 export const codeBlockRootOnly: PMNodeSpecFactoryInstance<CodeBlockRootOnlyNode> =
-	createPMNodeSpecFactory<CodeBlockRootOnlyNode>({
-		content: '(text | unsupportedInline)*',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		attrs: {
-			language: { default: null },
-			uniqueId: { default: null },
-			localId: { default: null },
-			wrap: { default: null },
-			hideLineNumbers: { default: false },
-		},
-		code: true,
-		defining: true,
-	});
+  createPMNodeSpecFactory<CodeBlockRootOnlyNode>({
+    content: '(text | unsupportedInline)*',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    attrs: {
+      language: { default: null },
+      uniqueId: { default: null },
+      localId: { default: null },
+      wrap: { default: null },
+      hideLineNumbers: { default: false },
+    },
+    code: true,
+    defining: true,
+  });
 
 export interface ConfluenceJiraIssueDefinition {
-	type: 'confluenceJiraIssue';
-	attrs: {
-		issueKey: string;
-		macroId?: string;
-		schemaVersion?: string;
-		server?: string;
-		serverId?: string;
-	};
+  type: 'confluenceJiraIssue';
+  attrs: {
+    issueKey: string;
+    macroId?: string;
+    schemaVersion?: string;
+    server?: string;
+    serverId?: string;
+  };
 }
 
 export type ConfluenceJiraIssueNode = PMNode & ConfluenceJiraIssueDefinition;
 
 export const confluenceJiraIssue: PMNodeSpecFactoryInstance<ConfluenceJiraIssueNode> =
-	createPMNodeSpecFactory<ConfluenceJiraIssueNode>({
-		group: 'inline',
-		inline: true,
-		atom: true,
-		attrs: {
-			issueKey: { default: '' },
-			macroId: { default: null },
-			schemaVersion: { default: null },
-			server: { default: null },
-			serverId: { default: null },
-		},
-	});
+  createPMNodeSpecFactory<ConfluenceJiraIssueNode>({
+    group: 'inline',
+    inline: true,
+    atom: true,
+    attrs: {
+      issueKey: { default: '' },
+      macroId: { default: null },
+      schemaVersion: { default: null },
+      server: { default: null },
+      serverId: { default: null },
+    },
+  });
 
 export interface ConfluenceUnsupportedBlockDefinition {
-	type: 'confluenceUnsupportedBlock';
-	attrs: { cxhtml: string };
+  type: 'confluenceUnsupportedBlock';
+  attrs: { cxhtml: string };
 }
 
-export type ConfluenceUnsupportedBlockNode = PMNode & ConfluenceUnsupportedBlockDefinition;
+export type ConfluenceUnsupportedBlockNode = PMNode &
+  ConfluenceUnsupportedBlockDefinition;
 
 export const confluenceUnsupportedBlock: PMNodeSpecFactoryInstance<ConfluenceUnsupportedBlockNode> =
-	createPMNodeSpecFactory<ConfluenceUnsupportedBlockNode>({
-		group: 'block',
-		attrs: { cxhtml: { default: null } },
-	});
+  createPMNodeSpecFactory<ConfluenceUnsupportedBlockNode>({
+    group: 'block',
+    attrs: { cxhtml: { default: null } },
+  });
 
 export interface ConfluenceUnsupportedInlineDefinition {
-	type: 'confluenceUnsupportedInline';
-	attrs: { cxhtml: string };
+  type: 'confluenceUnsupportedInline';
+  attrs: { cxhtml: string };
 }
 
-export type ConfluenceUnsupportedInlineNode = PMNode & ConfluenceUnsupportedInlineDefinition;
+export type ConfluenceUnsupportedInlineNode = PMNode &
+  ConfluenceUnsupportedInlineDefinition;
 
 export const confluenceUnsupportedInline: PMNodeSpecFactoryInstance<ConfluenceUnsupportedInlineNode> =
-	createPMNodeSpecFactory<ConfluenceUnsupportedInlineNode>({
-		group: 'inline',
-		inline: true,
-		atom: true,
-		attrs: { cxhtml: { default: null } },
-	});
+  createPMNodeSpecFactory<ConfluenceUnsupportedInlineNode>({
+    group: 'inline',
+    inline: true,
+    atom: true,
+    attrs: { cxhtml: { default: null } },
+  });
 
 export interface DateDefinition {
-	type: 'date';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { timestamp: string; localId?: string };
+  type: 'date';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { timestamp: string; localId?: string };
 }
 
 export type DateNode = PMNode & DateDefinition;
 
-export const date: PMNodeSpecFactoryInstance<DateNode> = createPMNodeSpecFactory<DateNode>({
-	group: 'inline',
-	inline: true,
-	attrs: { timestamp: { default: '' }, localId: { default: null } },
-	selectable: true,
-});
+export const date: PMNodeSpecFactoryInstance<DateNode> =
+  createPMNodeSpecFactory<DateNode>({
+    group: 'inline',
+    inline: true,
+    attrs: { timestamp: { default: '' }, localId: { default: null } },
+    selectable: true,
+  });
 
 export interface DateStage0Definition {
-	type: 'date';
-	marks: Array<AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { timestamp: string; localId?: string };
+  type: 'date';
+  marks: Array<
+    AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { timestamp: string; localId?: string };
 }
 
 export type DateStage0Node = PMNode & DateStage0Definition;
 
 export const dateStage0: PMNodeSpecFactoryInstance<DateStage0Node> =
-	createPMNodeSpecFactory<DateStage0Node>({
-		group: 'inline',
-		inline: true,
-		attrs: { timestamp: { default: '' }, localId: { default: null } },
-		selectable: true,
-	});
+  createPMNodeSpecFactory<DateStage0Node>({
+    group: 'inline',
+    inline: true,
+    attrs: { timestamp: { default: '' }, localId: { default: null } },
+    selectable: true,
+  });
 
 export interface DecisionItemDefinition {
-	type: 'decisionItem';
-	content: Array<InlineDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId: string; state: string };
+  type: 'decisionItem';
+  content: Array<InlineDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId: string; state: string };
 }
 
 export type DecisionItemNode = PMNode & DecisionItemDefinition;
 
 export const decisionItem: PMNodeSpecFactoryInstance<DecisionItemNode> =
-	createPMNodeSpecFactory<DecisionItemNode>({
-		content: 'inline*',
-		marks: '_',
-		attrs: { localId: { default: '' }, state: { default: 'DECIDED' } },
-		defining: true,
-	});
+  createPMNodeSpecFactory<DecisionItemNode>({
+    content: 'inline*',
+    marks: '_',
+    attrs: { localId: { default: '' }, state: { default: 'DECIDED' } },
+    defining: true,
+  });
 
 export interface DecisionListDefinition {
-	type: 'decisionList';
-	content: Array<DecisionItemDefinition | UnsupportedBlockDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId: string };
+  type: 'decisionList';
+  content: Array<DecisionItemDefinition | UnsupportedBlockDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId: string };
 }
 
 export type DecisionListNode = PMNode & DecisionListDefinition;
 
 export const decisionList: PMNodeSpecFactoryInstance<DecisionListNode> =
-	createPMNodeSpecFactory<DecisionListNode>({
-		content: '(decisionItem | unsupportedBlock)+',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: { localId: { default: '' } },
-		selectable: false,
-		defining: true,
-	});
+  createPMNodeSpecFactory<DecisionListNode>({
+    content: '(decisionItem | unsupportedBlock)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: { localId: { default: '' } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface DocDefinition {
-	type: 'doc';
-	content: Array<
-		| BlockDefinition
-		| BlockRootOnlyDefinition
-		| BodiedSyncBlockDefinition
-		| CodeBlockRootOnlyDefinition
-		| ExpandRootOnlyDefinition
-		| LayoutSectionDefinition
-		| LayoutSectionFullDefinition
-		| LayoutSectionWithSingleColumnStage0Definition
-		| PanelRootOnlyStage0Definition
-		| RuleRootOnlyStage0Definition
-		| SyncBlockDefinition
-	>;
+  type: 'doc';
+  content: Array<
+    | BlockDefinition
+    | BlockRootOnlyDefinition
+    | BodiedSyncBlockDefinition
+    | CodeBlockRootOnlyDefinition
+    | ExpandRootOnlyDefinition
+    | LayoutSectionDefinition
+    | LayoutSectionFullDefinition
+    | LayoutSectionWithSingleColumnStage0Definition
+    | PanelRootOnlyStage0Definition
+    | RuleRootOnlyStage0Definition
+    | SyncBlockDefinition
+  >;
 }
 
 export type DocNode = PMNode & DocDefinition;
 
-export const doc: PMNodeSpecFactoryInstance<DocNode> = createPMNodeSpecFactory<DocNode>({
-	content:
-		'(block | codeBlock | panel | rule | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
-	marks:
-		'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment breakout',
-});
+export const doc: PMNodeSpecFactoryInstance<DocNode> =
+  createPMNodeSpecFactory<DocNode>({
+    content:
+      '(block | codeBlock | panel | rule | layoutSection | blockRootOnly | expand | syncBlock | bodiedSyncBlock)+',
+    marks:
+      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment breakout',
+  });
 
 export interface EmbedCardDefinition {
-	type: 'embedCard';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		url: string;
-		layout:
-			| 'wide'
-			| 'full-width'
-			| 'center'
-			| 'wrap-right'
-			| 'wrap-left'
-			| 'align-end'
-			| 'align-start';
-		width?: number;
-		originalHeight?: number;
-		originalWidth?: number;
-		localId?: string;
-	};
+  type: 'embedCard';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    url: string;
+    layout:
+      | 'wide'
+      | 'full-width'
+      | 'center'
+      | 'wrap-right'
+      | 'wrap-left'
+      | 'align-end'
+      | 'align-start';
+    width?: number;
+    originalHeight?: number;
+    originalWidth?: number;
+    localId?: string;
+  };
 }
 
 export type EmbedCardNode = PMNode & EmbedCardDefinition;
 
 export const embedCard: PMNodeSpecFactoryInstance<EmbedCardNode> =
-	createPMNodeSpecFactory<EmbedCardNode>({
-		group: 'block',
-		attrs: {
-			url: { default: '' },
-			layout: { default: 'center' },
-			width: { default: 100 },
-			originalHeight: { default: null },
-			originalWidth: { default: null },
-			localId: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<EmbedCardNode>({
+    group: 'block',
+    attrs: {
+      url: { default: '' },
+      layout: { default: 'center' },
+      width: { default: 100 },
+      originalHeight: { default: null },
+      originalWidth: { default: null },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface EmojiDefinition {
-	type: 'emoji';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { shortName: string; id?: string; text?: string; localId?: string };
+  type: 'emoji';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { shortName: string; id?: string; text?: string; localId?: string };
 }
 
 export type EmojiNode = PMNode & EmojiDefinition;
 
-export const emoji: PMNodeSpecFactoryInstance<EmojiNode> = createPMNodeSpecFactory<EmojiNode>({
-	group: 'inline',
-	inline: true,
-	attrs: {
-		shortName: { default: '' },
-		id: { default: '' },
-		text: { default: '' },
-		localId: { default: null },
-	},
-	selectable: true,
-});
+export const emoji: PMNodeSpecFactoryInstance<EmojiNode> =
+  createPMNodeSpecFactory<EmojiNode>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      shortName: { default: '' },
+      id: { default: '' },
+      text: { default: '' },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface EmojiStage0Definition {
-	type: 'emoji';
-	marks: Array<AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { shortName: string; id?: string; text?: string; localId?: string };
+  type: 'emoji';
+  marks: Array<
+    AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { shortName: string; id?: string; text?: string; localId?: string };
 }
 
 export type EmojiStage0Node = PMNode & EmojiStage0Definition;
 
 export const emojiStage0: PMNodeSpecFactoryInstance<EmojiStage0Node> =
-	createPMNodeSpecFactory<EmojiStage0Node>({
-		group: 'inline',
-		inline: true,
-		attrs: {
-			shortName: { default: '' },
-			id: { default: '' },
-			text: { default: '' },
-			localId: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<EmojiStage0Node>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      shortName: { default: '' },
+      id: { default: '' },
+      text: { default: '' },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface ExpandDefinition {
-	type: 'expand';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| NestedExpandWithNoMarksDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TableDefinition
-		| TableWithNestedTableDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	attrs: { title?: string; __expanded?: boolean; localId?: string };
+  type: 'expand';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TableWithNestedTableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  attrs: { title?: string; __expanded?: boolean; localId?: string };
 }
 
 export type ExpandNode = PMNode & ExpandDefinition;
 
-export const expand: PMNodeSpecFactoryInstance<ExpandNode> = createPMNodeSpecFactory<ExpandNode>({
-	content:
-		'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
-	marks: 'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
-	group: 'block',
-	attrs: {
-		title: { default: '' },
-		__expanded: { default: true },
-		localId: { default: null },
-	},
-	selectable: true,
-	isolating: true,
-});
+export const expand: PMNodeSpecFactoryInstance<ExpandNode> =
+  createPMNodeSpecFactory<ExpandNode>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
+    group: 'block',
+    attrs: {
+      title: { default: '' },
+      __expanded: { default: true },
+      localId: { default: null },
+    },
+    selectable: true,
+    isolating: true,
+  });
 
 export interface ExpandRootOnlyDefinition {
-	type: 'expand';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| NestedExpandWithNoMarksDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TableDefinition
-		| TableWithNestedTableDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { title?: string; __expanded?: boolean; localId?: string };
+  type: 'expand';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TableWithNestedTableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { title?: string; __expanded?: boolean; localId?: string };
 }
 
 export type ExpandRootOnlyNode = PMNode & ExpandRootOnlyDefinition;
 
 export const expandRootOnly: PMNodeSpecFactoryInstance<ExpandRootOnlyNode> =
-	createPMNodeSpecFactory<ExpandRootOnlyNode>({
-		content:
-			'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
-		marks: 'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
-		attrs: {
-			title: { default: '' },
-			__expanded: { default: true },
-			localId: { default: null },
-		},
-		selectable: true,
-		isolating: true,
-	});
+  createPMNodeSpecFactory<ExpandRootOnlyNode>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | blockCard | embedCard | extension | unsupportedBlock | nestedExpand)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute fragment dataConsumer',
+    attrs: {
+      title: { default: '' },
+      __expanded: { default: true },
+      localId: { default: null },
+    },
+    selectable: true,
+    isolating: true,
+  });
 
 export interface ExtensionDefinition {
-	type: 'extension';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		extensionKey: string;
-		extensionType: string;
-		parameters?: Record<string, unknown>;
-		text?: string;
-		layout?: 'wide' | 'full-width' | 'default';
-		localId?: string;
-	};
+  type: 'extension';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'wide' | 'full-width' | 'default';
+    localId?: string;
+  };
 }
 
 export type ExtensionNode = PMNode & ExtensionDefinition;
 
 export const extension: PMNodeSpecFactoryInstance<ExtensionNode> =
-	createPMNodeSpecFactory<ExtensionNode>({
-		group: 'block',
-		atom: true,
-		attrs: {
-			extensionKey: { default: '' },
-			extensionType: { default: '' },
-			parameters: { default: null },
-			text: { default: null },
-			layout: { default: 'default' },
-			localId: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<ExtensionNode>({
+    group: 'block',
+    atom: true,
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface ExtensionWithMarksDefinition {
-	type: 'extension';
-	marks: Array<
-		DataConsumerMark | FragmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
-	>;
-	attrs: {
-		extensionKey: string;
-		extensionType: string;
-		parameters?: Record<string, unknown>;
-		text?: string;
-		layout?: 'wide' | 'full-width' | 'default';
-		localId?: string;
-	};
+  type: 'extension';
+  marks: Array<
+    | DataConsumerMark
+    | FragmentMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'wide' | 'full-width' | 'default';
+    localId?: string;
+  };
 }
 
 export type ExtensionWithMarksNode = PMNode & ExtensionWithMarksDefinition;
 
 export const extensionWithMarks: PMNodeSpecFactoryInstance<ExtensionWithMarksNode> =
-	createPMNodeSpecFactory<ExtensionWithMarksNode>({
-		group: 'block',
-		atom: true,
-		attrs: {
-			extensionKey: { default: '' },
-			extensionType: { default: '' },
-			parameters: { default: null },
-			text: { default: null },
-			layout: { default: 'default' },
-			localId: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<ExtensionWithMarksNode>({
+    group: 'block',
+    atom: true,
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface ExtensionFrameStage0Definition {
-	type: 'extensionFrame';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BodiedExtensionWithMarksDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TableDefinition
-		| TableWithNestedTableDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<
-		DataConsumerMark | FragmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
-	>;
+  type: 'extensionFrame';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BodiedExtensionWithMarksDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TableWithNestedTableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<
+    | DataConsumerMark
+    | FragmentMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
 }
 
 export type ExtensionFrameStage0Node = PMNode & ExtensionFrameStage0Definition;
 
 export const extensionFrameStage0: PMNodeSpecFactoryInstance<ExtensionFrameStage0Node> =
-	createPMNodeSpecFactory<ExtensionFrameStage0Node>({
-		content:
-			'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | extension | bodiedExtension | unsupportedBlock | blockCard | embedCard)+',
-		marks: 'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
-		attrs: {},
-		selectable: false,
-		definingAsContext: false,
-		definingForContent: true,
-		isolating: true,
-	});
+  createPMNodeSpecFactory<ExtensionFrameStage0Node>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaGroup | mediaSingle | decisionList | taskList | table | extension | bodiedExtension | unsupportedBlock | blockCard | embedCard)+',
+    marks:
+      'dataConsumer fontSize fragment unsupportedMark unsupportedNodeAttribute',
+    attrs: {},
+    selectable: false,
+    definingAsContext: false,
+    definingForContent: true,
+    isolating: true,
+  });
 
 export interface HardBreakDefinition {
-	type: 'hardBreak';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { text?: '\n'; localId?: string };
+  type: 'hardBreak';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { text?: '\n'; localId?: string };
 }
 
 export type HardBreakNode = PMNode & HardBreakDefinition;
 
 export const hardBreak: PMNodeSpecFactoryInstance<HardBreakNode> =
-	createPMNodeSpecFactory<HardBreakNode>({
-		group: 'inline',
-		inline: true,
-		attrs: { text: { default: '\n' }, localId: { default: null } },
-		selectable: false,
-		linebreakReplacement: true,
-	});
+  createPMNodeSpecFactory<HardBreakNode>({
+    group: 'inline',
+    inline: true,
+    attrs: { text: { default: '\n' }, localId: { default: null } },
+    selectable: false,
+    linebreakReplacement: true,
+  });
 
 export interface HeadingDefinition {
-	type: 'heading';
-	content: Array<InlineDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { level: number; localId?: string };
+  type: 'heading';
+  content: Array<InlineDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { level: number; localId?: string };
 }
 
 export type HeadingNode = PMNode & HeadingDefinition;
 
-export const heading: PMNodeSpecFactoryInstance<HeadingNode> = createPMNodeSpecFactory<HeadingNode>(
-	{
-		content: 'inline*',
-		marks:
-			'link em strong strike subsup underline textColor annotation backgroundColor typeAheadQuery confluenceInlineComment unsupportedNodeAttribute unsupportedMark code dataConsumer fragment border',
-		group: 'block',
-		attrs: { level: { default: 1 }, localId: { default: null } },
-		selectable: false,
-		defining: true,
-	},
-);
+export const heading: PMNodeSpecFactoryInstance<HeadingNode> =
+  createPMNodeSpecFactory<HeadingNode>({
+    content: 'inline*',
+    marks:
+      'link em strong strike subsup underline textColor annotation backgroundColor typeAheadQuery confluenceInlineComment unsupportedNodeAttribute unsupportedMark code dataConsumer fragment border',
+    group: 'block',
+    attrs: { level: { default: 1 }, localId: { default: null } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface HeadingWithAlignmentDefinition {
-	type: 'heading';
-	marks: Array<AlignmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { level: number; localId?: string };
+  type: 'heading';
+  marks: Array<
+    AlignmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { level: number; localId?: string };
 }
 
 export type HeadingWithAlignmentNode = PMNode & HeadingWithAlignmentDefinition;
 
 export const headingWithAlignment: PMNodeSpecFactoryInstance<HeadingWithAlignmentNode> =
-	createPMNodeSpecFactory<HeadingWithAlignmentNode>({
-		group: 'block',
-		attrs: { level: { default: 1 }, localId: { default: null } },
-		selectable: false,
-		defining: true,
-	});
+  createPMNodeSpecFactory<HeadingWithAlignmentNode>({
+    group: 'block',
+    attrs: { level: { default: 1 }, localId: { default: null } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface HeadingWithIndentationDefinition {
-	type: 'heading';
-	marks: Array<IndentationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { level: number; localId?: string };
+  type: 'heading';
+  marks: Array<
+    IndentationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { level: number; localId?: string };
 }
 
-export type HeadingWithIndentationNode = PMNode & HeadingWithIndentationDefinition;
+export type HeadingWithIndentationNode = PMNode &
+  HeadingWithIndentationDefinition;
 
 export const headingWithIndentation: PMNodeSpecFactoryInstance<HeadingWithIndentationNode> =
-	createPMNodeSpecFactory<HeadingWithIndentationNode>({
-		group: 'block',
-		attrs: { level: { default: 1 }, localId: { default: null } },
-		selectable: false,
-		defining: true,
-	});
+  createPMNodeSpecFactory<HeadingWithIndentationNode>({
+    group: 'block',
+    attrs: { level: { default: 1 }, localId: { default: null } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface HeadingWithNoMarksDefinition {
-	type: 'heading';
-	attrs: { level: number; localId?: string };
+  type: 'heading';
+  attrs: { level: number; localId?: string };
 }
 
 export type HeadingWithNoMarksNode = PMNode & HeadingWithNoMarksDefinition;
 
 export const headingWithNoMarks: PMNodeSpecFactoryInstance<HeadingWithNoMarksNode> =
-	createPMNodeSpecFactory<HeadingWithNoMarksNode>({
-		group: 'block',
-		attrs: { level: { default: 1 }, localId: { default: null } },
-		selectable: false,
-		defining: true,
-	});
+  createPMNodeSpecFactory<HeadingWithNoMarksNode>({
+    group: 'block',
+    attrs: { level: { default: 1 }, localId: { default: null } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface ImageDefinition {
-	type: 'image';
-	attrs: { src: string; alt?: string; title?: string };
+  type: 'image';
+  attrs: { src: string; alt?: string; title?: string };
 }
 
 export type ImageNode = PMNode & ImageDefinition;
 
-export const image: PMNodeSpecFactoryInstance<ImageNode> = createPMNodeSpecFactory<ImageNode>({
-	group: 'inline',
-	inline: true,
-	attrs: {
-		src: { default: '' },
-		alt: { default: '' },
-		title: { default: null },
-	},
-	draggable: true,
-});
+export const image: PMNodeSpecFactoryInstance<ImageNode> =
+  createPMNodeSpecFactory<ImageNode>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      src: { default: '' },
+      alt: { default: '' },
+      title: { default: null },
+    },
+    draggable: true,
+  });
 
 export interface InlineCardNodeAttributes0 {
-	url: string;
-	localId?: string;
+  url: string;
+  localId?: string;
 }
 
 export interface InlineCardNodeAttributes1 {
-	data: Record<string, unknown>;
-	localId?: string;
+  data: Record<string, unknown>;
+  localId?: string;
 }
 
 export interface InlineCardDefinition {
-	type: 'inlineCard';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: InlineCardNodeAttributes0 | InlineCardNodeAttributes1;
+  type: 'inlineCard';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: InlineCardNodeAttributes0 | InlineCardNodeAttributes1;
 }
 
 export type InlineCardNode = PMNode & InlineCardDefinition;
 
 export const inlineCard: PMNodeSpecFactoryInstance<InlineCardNode> =
-	createPMNodeSpecFactory<InlineCardNode>({
-		group: 'inline',
-		inline: true,
-		attrs: {
-			url: { default: null },
-			localId: { default: null },
-			data: { default: null },
-		},
-		selectable: true,
-		draggable: true,
-	});
+  createPMNodeSpecFactory<InlineCardNode>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      url: { default: null },
+      localId: { default: null },
+      data: { default: null },
+    },
+    selectable: true,
+    draggable: true,
+  });
 
 export interface InlineCardStage0NodeAttributes0 {
-	url: string;
-	localId?: string;
+  url: string;
+  localId?: string;
 }
 
 export interface InlineCardStage0NodeAttributes1 {
-	data: Record<string, unknown>;
-	localId?: string;
+  data: Record<string, unknown>;
+  localId?: string;
 }
 
 export interface InlineCardStage0Definition {
-	type: 'inlineCard';
-	marks: Array<AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: InlineCardStage0NodeAttributes0 | InlineCardStage0NodeAttributes1;
+  type: 'inlineCard';
+  marks: Array<
+    AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: InlineCardStage0NodeAttributes0 | InlineCardStage0NodeAttributes1;
 }
 
 export type InlineCardStage0Node = PMNode & InlineCardStage0Definition;
 
 export const inlineCardStage0: PMNodeSpecFactoryInstance<InlineCardStage0Node> =
-	createPMNodeSpecFactory<InlineCardStage0Node>({
-		group: 'inline',
-		inline: true,
-		attrs: {
-			url: { default: null },
-			localId: { default: null },
-			data: { default: null },
-		},
-		selectable: true,
-		draggable: true,
-	});
+  createPMNodeSpecFactory<InlineCardStage0Node>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      url: { default: null },
+      localId: { default: null },
+      data: { default: null },
+    },
+    selectable: true,
+    draggable: true,
+  });
 
 export interface InlineExtensionDefinition {
-	type: 'inlineExtension';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		extensionKey: string;
-		extensionType: string;
-		parameters?: Record<string, unknown>;
-		text?: string;
-		localId?: string;
-	};
+  type: 'inlineExtension';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    localId?: string;
+  };
 }
 
 export type InlineExtensionNode = PMNode & InlineExtensionDefinition;
 
 export const inlineExtension: PMNodeSpecFactoryInstance<InlineExtensionNode> =
-	createPMNodeSpecFactory<InlineExtensionNode>({
-		group: 'inline',
-		inline: true,
-		attrs: {
-			extensionKey: { default: '' },
-			extensionType: { default: '' },
-			parameters: { default: null },
-			text: { default: null },
-			localId: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<InlineExtensionNode>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface InlineExtensionWithMarksDefinition {
-	type: 'inlineExtension';
-	marks: Array<
-		DataConsumerMark | FragmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
-	>;
-	attrs: {
-		extensionKey: string;
-		extensionType: string;
-		parameters?: Record<string, unknown>;
-		text?: string;
-		localId?: string;
-	};
+  type: 'inlineExtension';
+  marks: Array<
+    | DataConsumerMark
+    | FragmentMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    localId?: string;
+  };
 }
 
-export type InlineExtensionWithMarksNode = PMNode & InlineExtensionWithMarksDefinition;
+export type InlineExtensionWithMarksNode = PMNode &
+  InlineExtensionWithMarksDefinition;
 
 export const inlineExtensionWithMarks: PMNodeSpecFactoryInstance<InlineExtensionWithMarksNode> =
-	createPMNodeSpecFactory<InlineExtensionWithMarksNode>({
-		group: 'inline',
-		inline: true,
-		attrs: {
-			extensionKey: { default: '' },
-			extensionType: { default: '' },
-			parameters: { default: null },
-			text: { default: null },
-			localId: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<InlineExtensionWithMarksNode>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface LayoutColumnDefinition {
-	type: 'layoutColumn';
-	content: Array<BlockDefinition | UnsupportedBlockDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		width: number;
-		localId?: string;
-		valign?: 'top' | 'middle' | 'bottom';
-	};
+  type: 'layoutColumn';
+  content: Array<BlockDefinition | UnsupportedBlockDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    width: number;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
 }
 
 export type LayoutColumnNode = PMNode & LayoutColumnDefinition;
 
 export const layoutColumn: PMNodeSpecFactoryInstance<LayoutColumnNode> =
-	createPMNodeSpecFactory<LayoutColumnNode>({
-		content: '(block | unsupportedBlock)+',
-		marks:
-			'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment',
-		attrs: {
-			width: { default: undefined },
-			localId: { default: null },
-			valign: { default: null },
-		},
-		selectable: false,
-		isolating: true,
-	});
+  createPMNodeSpecFactory<LayoutColumnNode>({
+    content: '(block | unsupportedBlock)+',
+    marks:
+      'unsupportedMark unsupportedNodeAttribute fontSize alignment indentation dataConsumer fragment',
+    attrs: {
+      width: { default: undefined },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+  });
 
 export interface LayoutSectionDefinition {
-	type: 'layoutSection';
-	content: Array<LayoutColumnDefinition | UnsupportedBlockDefinition | UnsupportedBlockDefinition>;
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'layoutSection';
+  content: Array<
+    | LayoutColumnDefinition
+    | UnsupportedBlockDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
 }
 
 export type LayoutSectionNode = PMNode & LayoutSectionDefinition;
 
 export const layoutSection: PMNodeSpecFactoryInstance<LayoutSectionNode> =
-	createPMNodeSpecFactory<LayoutSectionNode>({
-		content: '(layoutColumn | unsupportedBlock){1,3} unsupportedBlock*',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		attrs: { localId: { default: null } },
-		isolating: true,
-	});
+  createPMNodeSpecFactory<LayoutSectionNode>({
+    content: '(layoutColumn | unsupportedBlock){1,3} unsupportedBlock*',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    attrs: { localId: { default: null } },
+    isolating: true,
+  });
 
 export interface LayoutSectionFullDefinition {
-	type: 'layoutSection';
-	content: Array<LayoutColumnDefinition | UnsupportedBlockDefinition>;
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'layoutSection';
+  content: Array<LayoutColumnDefinition | UnsupportedBlockDefinition>;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
 }
 
 export type LayoutSectionFullNode = PMNode & LayoutSectionFullDefinition;
 
 export const layoutSectionFull: PMNodeSpecFactoryInstance<LayoutSectionFullNode> =
-	createPMNodeSpecFactory<LayoutSectionFullNode>({
-		content: '(layoutColumn | unsupportedBlock){2,3}',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		attrs: { localId: { default: null } },
-		isolating: true,
-	});
+  createPMNodeSpecFactory<LayoutSectionFullNode>({
+    content: '(layoutColumn | unsupportedBlock){2,3}',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    attrs: { localId: { default: null } },
+    isolating: true,
+  });
 
 export interface LayoutSectionWithSingleColumnStage0Definition {
-	type: 'layoutSection';
-	content: Array<LayoutColumnDefinition | UnsupportedBlockDefinition | UnsupportedBlockDefinition>;
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { columnRuleStyle?: 'solid'; localId?: string };
+  type: 'layoutSection';
+  content: Array<
+    | LayoutColumnDefinition
+    | UnsupportedBlockDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { columnRuleStyle?: 'solid'; localId?: string };
 }
 
 export type LayoutSectionWithSingleColumnStage0Node = PMNode &
-	LayoutSectionWithSingleColumnStage0Definition;
+  LayoutSectionWithSingleColumnStage0Definition;
 
 export const layoutSectionWithSingleColumnStage0: PMNodeSpecFactoryInstance<LayoutSectionWithSingleColumnStage0Node> =
-	createPMNodeSpecFactory<LayoutSectionWithSingleColumnStage0Node>({
-		content: '(layoutColumn | unsupportedBlock){1,5} unsupportedBlock*',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		attrs: { columnRuleStyle: { default: null }, localId: { default: null } },
-		isolating: true,
-	});
+  createPMNodeSpecFactory<LayoutSectionWithSingleColumnStage0Node>({
+    content: '(layoutColumn | unsupportedBlock){1,5} unsupportedBlock*',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    attrs: { columnRuleStyle: { default: null }, localId: { default: null } },
+    isolating: true,
+  });
 
 export interface ListItemDefinition {
-	type: 'listItem';
-	content: Array<
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| ExtensionWithMarksDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| OrderedListDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'listItem';
+  content: Array<
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | ExtensionWithMarksDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
 }
 
 export type ListItemNode = PMNode & ListItemDefinition;
 
 export const listItem: PMNodeSpecFactoryInstance<ListItemNode> =
-	createPMNodeSpecFactory<ListItemNode>({
-		content:
-			'(paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)+',
-		marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		attrs: { localId: { default: null } },
-		selectable: false,
-		defining: true,
-	});
+  createPMNodeSpecFactory<ListItemNode>({
+    content:
+      '(paragraph | bulletList | orderedList | taskList | mediaSingle | codeBlock | unsupportedBlock | extension)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: { localId: { default: null } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface MediaNodeAttributes0 {
-	type: 'link' | 'file';
-	localId?: string;
-	id: string;
-	alt?: string;
-	collection: string;
-	height?: number;
-	occurrenceKey?: string;
-	width?: number;
-	__contextId?: string;
-	__displayType?: 'file' | 'thumbnail';
-	__external?: boolean;
-	__fileMimeType?: string;
-	__fileName?: number;
-	__fileSize?: string;
-	__mediaTraceId?: string;
+  type: 'link' | 'file';
+  localId?: string;
+  id: string;
+  alt?: string;
+  collection: string;
+  height?: number;
+  occurrenceKey?: string;
+  width?: number;
+  __contextId?: string;
+  __displayType?: 'file' | 'thumbnail';
+  __external?: boolean;
+  __fileMimeType?: string;
+  __fileName?: number;
+  __fileSize?: string;
+  __mediaTraceId?: string;
 }
 
 export interface MediaNodeAttributes1 {
-	type: 'external';
-	localId?: string;
-	alt?: string;
-	height?: number;
-	width?: number;
-	url: string;
-	__external?: boolean;
+  type: 'external';
+  localId?: string;
+  alt?: string;
+  height?: number;
+  width?: number;
+  url: string;
+  __external?: boolean;
 }
 
 export interface MediaDefinition {
-	type: 'media';
-	marks: Array<
-		| AnnotationMark
-		| BorderMark
-		| DataConsumerMark
-		| LinkMark
-		| UnsupportedMarkMark
-		| UnsupportedNodeAttributeMark
-	>;
-	attrs: MediaNodeAttributes0 | MediaNodeAttributes1;
+  type: 'media';
+  marks: Array<
+    | AnnotationMark
+    | BorderMark
+    | DataConsumerMark
+    | LinkMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: MediaNodeAttributes0 | MediaNodeAttributes1;
 }
 
 export type MediaNode = PMNode & MediaDefinition;
 
-export const media: PMNodeSpecFactoryInstance<MediaNode> = createPMNodeSpecFactory<MediaNode>({
-	attrs: {
-		type: { default: 'file' },
-		localId: { default: null },
-		id: { default: '' },
-		alt: { default: '' },
-		collection: { default: '' },
-		height: { default: null },
-		occurrenceKey: { default: null },
-		width: { default: null },
-		__contextId: { default: null },
-		__displayType: { default: null },
-		__external: { default: false },
-		__fileMimeType: { default: null },
-		__fileName: { default: null },
-		__fileSize: { default: null },
-		__mediaTraceId: { default: null },
-		url: { default: null },
-	},
-	selectable: true,
-});
+export const media: PMNodeSpecFactoryInstance<MediaNode> =
+  createPMNodeSpecFactory<MediaNode>({
+    attrs: {
+      type: { default: 'file' },
+      localId: { default: null },
+      id: { default: '' },
+      alt: { default: '' },
+      collection: { default: '' },
+      height: { default: null },
+      occurrenceKey: { default: null },
+      width: { default: null },
+      __contextId: { default: null },
+      __displayType: { default: null },
+      __external: { default: false },
+      __fileMimeType: { default: null },
+      __fileName: { default: null },
+      __fileSize: { default: null },
+      __mediaTraceId: { default: null },
+      url: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface MediaGroupDefinition {
-	type: 'mediaGroup';
-	content: Array<MediaDefinition | UnsupportedBlockDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  type: 'mediaGroup';
+  content: Array<MediaDefinition | UnsupportedBlockDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
 }
 
 export type MediaGroupNode = PMNode & MediaGroupDefinition;
 
 export const mediaGroup: PMNodeSpecFactoryInstance<MediaGroupNode> =
-	createPMNodeSpecFactory<MediaGroupNode>({
-		content: '(media | unsupportedBlock)+',
-		marks: 'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: {},
-		selectable: false,
-	});
+  createPMNodeSpecFactory<MediaGroupNode>({
+    content: '(media | unsupportedBlock)+',
+    marks:
+      'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: {},
+    selectable: false,
+  });
 
 export interface MediaInlineDefinition {
-	type: 'mediaInline';
-	marks: Array<
-		| AnnotationMark
-		| BorderMark
-		| DataConsumerMark
-		| LinkMark
-		| UnsupportedMarkMark
-		| UnsupportedNodeAttributeMark
-	>;
-	attrs: {
-		type?: 'link' | 'file' | 'image';
-		localId?: string;
-		url?: string;
-		id: string;
-		alt?: string;
-		collection: string;
-		occurrenceKey?: string;
-		width?: number;
-		height?: number;
-		__fileName?: string;
-		__fileSize?: number;
-		__fileMimeType?: string;
-		__displayType?: 'file' | 'thumbnail';
-		__contextId?: string;
-		__mediaTraceId?: string;
-		__external?: boolean;
-		data?: Record<string, unknown>;
-	};
+  type: 'mediaInline';
+  marks: Array<
+    | AnnotationMark
+    | BorderMark
+    | DataConsumerMark
+    | LinkMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    type?: 'link' | 'file' | 'image';
+    localId?: string;
+    url?: string;
+    id: string;
+    alt?: string;
+    collection: string;
+    occurrenceKey?: string;
+    width?: number;
+    height?: number;
+    __fileName?: string;
+    __fileSize?: number;
+    __fileMimeType?: string;
+    __displayType?: 'file' | 'thumbnail';
+    __contextId?: string;
+    __mediaTraceId?: string;
+    __external?: boolean;
+    data?: Record<string, unknown>;
+  };
 }
 
 export type MediaInlineNode = PMNode & MediaInlineDefinition;
 
 export const mediaInline: PMNodeSpecFactoryInstance<MediaInlineNode> =
-	createPMNodeSpecFactory<MediaInlineNode>({
-		group: 'inline',
-		inline: true,
-		attrs: {
-			type: { default: 'file' },
-			localId: { default: null },
-			url: { default: null },
-			id: { default: '' },
-			alt: { default: '' },
-			collection: { default: '' },
-			occurrenceKey: { default: null },
-			width: { default: null },
-			height: { default: null },
-			__fileName: { default: null },
-			__fileSize: { default: null },
-			__fileMimeType: { default: null },
-			__displayType: { default: null },
-			__contextId: { default: null },
-			__mediaTraceId: { default: null },
-			__external: { default: false },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<MediaInlineNode>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      type: { default: 'file' },
+      localId: { default: null },
+      url: { default: null },
+      id: { default: '' },
+      alt: { default: '' },
+      collection: { default: '' },
+      occurrenceKey: { default: null },
+      width: { default: null },
+      height: { default: null },
+      __fileName: { default: null },
+      __fileSize: { default: null },
+      __fileMimeType: { default: null },
+      __displayType: { default: null },
+      __contextId: { default: null },
+      __mediaTraceId: { default: null },
+      __external: { default: false },
+    },
+    selectable: true,
+  });
 
 export interface MediaSingleNodeAttributes0 {
-	localId?: string;
-	width?: number;
-	layout:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
-	widthType?: 'percentage';
+  localId?: string;
+  width?: number;
+  layout:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
+  widthType?: 'percentage';
 }
 
 export interface MediaSingleNodeAttributes1 {
-	localId?: string;
-	width: number;
-	widthType: 'pixel';
-	layout:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
+  localId?: string;
+  width: number;
+  widthType: 'pixel';
+  layout:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
 }
 
 export interface MediaSingleDefinition {
-	type: 'mediaSingle';
-	marks: Array<LinkMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: MediaSingleNodeAttributes0 | MediaSingleNodeAttributes1;
+  type: 'mediaSingle';
+  marks: Array<LinkMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: MediaSingleNodeAttributes0 | MediaSingleNodeAttributes1;
 }
 
 export type MediaSingleNode = PMNode & MediaSingleDefinition;
 
 export const mediaSingle: PMNodeSpecFactoryInstance<MediaSingleNode> =
-	createPMNodeSpecFactory<MediaSingleNode>({
-		group: 'block',
-		atom: true,
-		attrs: { layout: { default: 'center' }, width: { default: null } },
-		selectable: true,
-		content: 'media|unsupportedBlock+|media unsupportedBlock+',
-		marks: 'annotation border link unsupportedMark unsupportedNodeAttribute',
-	});
+  createPMNodeSpecFactory<MediaSingleNode>({
+    group: 'block',
+    atom: true,
+    attrs: { layout: { default: 'center' }, width: { default: null } },
+    selectable: true,
+    content: 'media|unsupportedBlock+|media unsupportedBlock+',
+    marks: 'annotation border link unsupportedMark unsupportedNodeAttribute',
+  });
 
 export interface MediaSingleCaptionNodeAttributes0 {
-	localId?: string;
-	width?: number;
-	layout:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
-	widthType?: 'percentage';
+  localId?: string;
+  width?: number;
+  layout:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
+  widthType?: 'percentage';
 }
 
 export interface MediaSingleCaptionNodeAttributes1 {
-	localId?: string;
-	width: number;
-	widthType: 'pixel';
-	layout:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
+  localId?: string;
+  width: number;
+  widthType: 'pixel';
+  layout:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
 }
 
 export interface MediaSingleCaptionDefinition {
-	type: 'mediaSingle';
-	content: Array<
-		CaptionDefinition | MediaDefinition | UnsupportedBlockDefinition | UnsupportedBlockDefinition
-	>;
-	attrs: MediaSingleCaptionNodeAttributes0 | MediaSingleCaptionNodeAttributes1;
+  type: 'mediaSingle';
+  content: Array<
+    | CaptionDefinition
+    | MediaDefinition
+    | UnsupportedBlockDefinition
+    | UnsupportedBlockDefinition
+  >;
+  attrs: MediaSingleCaptionNodeAttributes0 | MediaSingleCaptionNodeAttributes1;
 }
 
 export type MediaSingleCaptionNode = PMNode & MediaSingleCaptionDefinition;
 
 export const mediaSingleCaption: PMNodeSpecFactoryInstance<MediaSingleCaptionNode> =
-	createPMNodeSpecFactory<MediaSingleCaptionNode>({
-		content: 'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
-		marks: 'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		atom: false,
-		attrs: { layout: { default: 'center' }, width: { default: null } },
-		selectable: true,
-	});
+  createPMNodeSpecFactory<MediaSingleCaptionNode>({
+    content:
+      'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
+    marks:
+      'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    atom: false,
+    attrs: { layout: { default: 'center' }, width: { default: null } },
+    selectable: true,
+  });
 
 export interface MediaSingleFullNodeAttributes0 {
-	localId?: string;
-	width?: number;
-	layout:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
-	widthType?: 'percentage';
+  localId?: string;
+  width?: number;
+  layout:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
+  widthType?: 'percentage';
 }
 
 export interface MediaSingleFullNodeAttributes1 {
-	localId?: string;
-	width: number;
-	widthType: 'pixel';
-	layout:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
+  localId?: string;
+  width: number;
+  widthType: 'pixel';
+  layout:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
 }
 
 export interface MediaSingleFullDefinition {
-	type: 'mediaSingle';
-	content: Array<MediaDefinition | UnsupportedBlockDefinition>;
-	attrs: MediaSingleFullNodeAttributes0 | MediaSingleFullNodeAttributes1;
+  type: 'mediaSingle';
+  content: Array<MediaDefinition | UnsupportedBlockDefinition>;
+  attrs: MediaSingleFullNodeAttributes0 | MediaSingleFullNodeAttributes1;
 }
 
 export type MediaSingleFullNode = PMNode & MediaSingleFullDefinition;
 
 export const mediaSingleFull: PMNodeSpecFactoryInstance<MediaSingleFullNode> =
-	createPMNodeSpecFactory<MediaSingleFullNode>({
-		content: 'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
-		marks: 'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		atom: false,
-		attrs: {
-			localId: { default: null },
-			width: { default: null },
-			layout: { default: 'center' },
-			widthType: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<MediaSingleFullNode>({
+    content:
+      'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
+    marks:
+      'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    atom: false,
+    attrs: {
+      localId: { default: null },
+      width: { default: null },
+      layout: { default: 'center' },
+      widthType: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface MediaSingleWidthTypeNodeAttributes0 {
-	localId?: string;
-	width?: number;
-	layout:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
-	widthType?: 'percentage';
+  localId?: string;
+  width?: number;
+  layout:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
+  widthType?: 'percentage';
 }
 
 export interface MediaSingleWidthTypeNodeAttributes1 {
-	localId?: string;
-	width: number;
-	widthType: 'pixel';
-	layout:
-		| 'wide'
-		| 'full-width'
-		| 'center'
-		| 'wrap-right'
-		| 'wrap-left'
-		| 'align-end'
-		| 'align-start';
+  localId?: string;
+  width: number;
+  widthType: 'pixel';
+  layout:
+    | 'wide'
+    | 'full-width'
+    | 'center'
+    | 'wrap-right'
+    | 'wrap-left'
+    | 'align-end'
+    | 'align-start';
 }
 
 export interface MediaSingleWidthTypeDefinition {
-	type: 'mediaSingle';
-	content: Array<MediaDefinition | UnsupportedBlockDefinition>;
-	attrs: MediaSingleWidthTypeNodeAttributes0 | MediaSingleWidthTypeNodeAttributes1;
+  type: 'mediaSingle';
+  content: Array<MediaDefinition | UnsupportedBlockDefinition>;
+  attrs:
+    | MediaSingleWidthTypeNodeAttributes0
+    | MediaSingleWidthTypeNodeAttributes1;
 }
 
 export type MediaSingleWidthTypeNode = PMNode & MediaSingleWidthTypeDefinition;
 
 export const mediaSingleWidthType: PMNodeSpecFactoryInstance<MediaSingleWidthTypeNode> =
-	createPMNodeSpecFactory<MediaSingleWidthTypeNode>({
-		content: 'media|unsupportedBlock+|media unsupportedBlock+',
-		marks: 'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		atom: true,
-		attrs: {
-			localId: { default: null },
-			width: { default: null },
-			layout: { default: 'center' },
-			widthType: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<MediaSingleWidthTypeNode>({
+    content: 'media|unsupportedBlock+|media unsupportedBlock+',
+    marks:
+      'dataConsumer link annotation border unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    atom: true,
+    attrs: {
+      localId: { default: null },
+      width: { default: null },
+      layout: { default: 'center' },
+      widthType: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface MentionDefinition {
-	type: 'mention';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		id: string;
-		localId?: string;
-		text?: string;
-		accessLevel?: string;
-		userType?: 'DEFAULT' | 'SPECIAL' | 'APP';
-	};
+  type: 'mention';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    id: string;
+    localId?: string;
+    text?: string;
+    accessLevel?: string;
+    userType?: 'DEFAULT' | 'SPECIAL' | 'APP';
+  };
 }
 
 export type MentionNode = PMNode & MentionDefinition;
 
-export const mention: PMNodeSpecFactoryInstance<MentionNode> = createPMNodeSpecFactory<MentionNode>(
-	{
-		group: 'inline',
-		inline: true,
-		attrs: {
-			id: { default: '' },
-			localId: { default: null },
-			text: { default: '' },
-			accessLevel: { default: '' },
-			userType: { default: null },
-		},
-		selectable: true,
-	},
-);
+export const mention: PMNodeSpecFactoryInstance<MentionNode> =
+  createPMNodeSpecFactory<MentionNode>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      id: { default: '' },
+      localId: { default: null },
+      text: { default: '' },
+      accessLevel: { default: '' },
+      userType: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface MentionStage0Definition {
-	type: 'mention';
-	marks: Array<AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		id: string;
-		localId?: string;
-		text?: string;
-		accessLevel?: string;
-		userType?: 'DEFAULT' | 'SPECIAL' | 'APP';
-	};
+  type: 'mention';
+  marks: Array<
+    AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    id: string;
+    localId?: string;
+    text?: string;
+    accessLevel?: string;
+    userType?: 'DEFAULT' | 'SPECIAL' | 'APP';
+  };
 }
 
 export type MentionStage0Node = PMNode & MentionStage0Definition;
 
 export const mentionStage0: PMNodeSpecFactoryInstance<MentionStage0Node> =
-	createPMNodeSpecFactory<MentionStage0Node>({
-		group: 'inline',
-		inline: true,
-		attrs: {
-			id: { default: '' },
-			localId: { default: null },
-			text: { default: '' },
-			accessLevel: { default: '' },
-			userType: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<MentionStage0Node>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      id: { default: '' },
+      localId: { default: null },
+      text: { default: '' },
+      accessLevel: { default: '' },
+      userType: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface MultiBodiedExtensionStage0Definition {
-	type: 'multiBodiedExtension';
-	content: Array<ExtensionFrameStage0Definition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		extensionKey: string;
-		extensionType: string;
-		parameters?: Record<string, unknown>;
-		text?: string;
-		layout?: 'default' | 'wide' | 'full-width';
-		localId?: string;
-	};
+  type: 'multiBodiedExtension';
+  content: Array<ExtensionFrameStage0Definition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    extensionKey: string;
+    extensionType: string;
+    parameters?: Record<string, unknown>;
+    text?: string;
+    layout?: 'default' | 'wide' | 'full-width';
+    localId?: string;
+  };
 }
 
-export type MultiBodiedExtensionStage0Node = PMNode & MultiBodiedExtensionStage0Definition;
+export type MultiBodiedExtensionStage0Node = PMNode &
+  MultiBodiedExtensionStage0Definition;
 
 export const multiBodiedExtensionStage0: PMNodeSpecFactoryInstance<MultiBodiedExtensionStage0Node> =
-	createPMNodeSpecFactory<MultiBodiedExtensionStage0Node>({
-		content: 'extensionFrame+',
-		marks: 'unsupportedNodeAttribute unsupportedMark',
-		group: 'blockRootOnly',
-		attrs: {
-			extensionKey: { default: '' },
-			extensionType: { default: '' },
-			parameters: { default: null },
-			text: { default: null },
-			layout: { default: 'default' },
-			localId: { default: null },
-		},
-		selectable: true,
-		definingAsContext: true,
-	});
+  createPMNodeSpecFactory<MultiBodiedExtensionStage0Node>({
+    content: 'extensionFrame+',
+    marks: 'unsupportedNodeAttribute unsupportedMark',
+    group: 'blockRootOnly',
+    attrs: {
+      extensionKey: { default: '' },
+      extensionType: { default: '' },
+      parameters: { default: null },
+      text: { default: null },
+      layout: { default: 'default' },
+      localId: { default: null },
+    },
+    selectable: true,
+    definingAsContext: true,
+  });
 
 export interface NestedExpandDefinition {
-	type: 'nestedExpand';
-	content: Array<
-		| BlockquoteDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { title?: string; __expanded?: boolean; localId?: string };
+  type: 'nestedExpand';
+  content: Array<
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { title?: string; __expanded?: boolean; localId?: string };
 }
 
 export type NestedExpandNode = PMNode & NestedExpandDefinition;
 
 export const nestedExpand: PMNodeSpecFactoryInstance<NestedExpandNode> =
-	createPMNodeSpecFactory<NestedExpandNode>({
-		content:
-			'(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | panel | blockquote | unsupportedBlock | extension)+',
-		marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		attrs: {
-			title: { default: '' },
-			__expanded: { default: true },
-			localId: { default: null },
-		},
-		selectable: true,
-		isolating: true,
-	});
+  createPMNodeSpecFactory<NestedExpandNode>({
+    content:
+      '(paragraph | heading | mediaSingle | mediaGroup | codeBlock | bulletList | orderedList | taskList | decisionList | rule | panel | blockquote | unsupportedBlock | extension)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      title: { default: '' },
+      __expanded: { default: true },
+      localId: { default: null },
+    },
+    selectable: true,
+    isolating: true,
+  });
 
 export interface NestedExpandWithNoMarksDefinition {
-	type: 'nestedExpand';
-	attrs: { title?: string; __expanded?: boolean; localId?: string };
+  type: 'nestedExpand';
+  attrs: { title?: string; __expanded?: boolean; localId?: string };
 }
 
-export type NestedExpandWithNoMarksNode = PMNode & NestedExpandWithNoMarksDefinition;
+export type NestedExpandWithNoMarksNode = PMNode &
+  NestedExpandWithNoMarksDefinition;
 
 export const nestedExpandWithNoMarks: PMNodeSpecFactoryInstance<NestedExpandWithNoMarksNode> =
-	createPMNodeSpecFactory<NestedExpandWithNoMarksNode>({
-		attrs: {
-			title: { default: '' },
-			__expanded: { default: true },
-			localId: { default: null },
-		},
-		selectable: true,
-		isolating: true,
-	});
+  createPMNodeSpecFactory<NestedExpandWithNoMarksNode>({
+    attrs: {
+      title: { default: '' },
+      __expanded: { default: true },
+      localId: { default: null },
+    },
+    selectable: true,
+    isolating: true,
+  });
 
 export interface OrderedListDefinition {
-	type: 'orderedList';
-	content: Array<ListItemDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { order?: number; localId?: string };
+  type: 'orderedList';
+  content: Array<ListItemDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { order?: number; localId?: string };
 }
 
 export type OrderedListNode = PMNode & OrderedListDefinition;
 
 export const orderedList: PMNodeSpecFactoryInstance<OrderedListNode> =
-	createPMNodeSpecFactory<OrderedListNode>({
-		content: 'listItem+',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: { order: { default: 1 }, localId: { default: null } },
-		selectable: false,
-	});
+  createPMNodeSpecFactory<OrderedListNode>({
+    content: 'listItem+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: { order: { default: 1 }, localId: { default: null } },
+    selectable: false,
+  });
 
 export interface PanelDefinition {
-	type: 'panel';
-	content: Array<
-		| BlockCardDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| OrderedListDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		panelType: 'info' | 'note' | 'tip' | 'warning' | 'error' | 'success' | 'custom';
-		panelIcon?: string;
-		panelIconId?: string;
-		panelIconText?: string;
-		panelColor?: string;
-		localId?: string;
-	};
+  type: 'panel';
+  content: Array<
+    | BlockCardDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    panelType:
+      | 'info'
+      | 'note'
+      | 'tip'
+      | 'warning'
+      | 'error'
+      | 'success'
+      | 'custom';
+    panelIcon?: string;
+    panelIconId?: string;
+    panelIconText?: string;
+    panelColor?: string;
+    localId?: string;
+  };
 }
 
 export type PanelNode = PMNode & PanelDefinition;
 
-export const panel: PMNodeSpecFactoryInstance<PanelNode> = createPMNodeSpecFactory<PanelNode>({
-	content:
-		'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
-	marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-	group: 'block',
-	attrs: {
-		panelType: { default: 'info' },
-		panelIcon: { default: null },
-		panelIconId: { default: null },
-		panelIconText: { default: null },
-		panelColor: { default: null },
-		localId: { default: null },
-	},
-	selectable: true,
-});
+export const panel: PMNodeSpecFactoryInstance<PanelNode> =
+  createPMNodeSpecFactory<PanelNode>({
+    content:
+      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    group: 'block',
+    attrs: {
+      panelType: { default: 'info' },
+      panelIcon: { default: null },
+      panelIconId: { default: null },
+      panelIconText: { default: null },
+      panelColor: { default: null },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface PanelC1Definition {
-	type: 'panel';
-	content: Array<
-		| BlockCardDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| OrderedListDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TableDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		panelType: 'info' | 'note' | 'tip' | 'warning' | 'error' | 'success' | 'custom';
-		panelIcon?: string;
-		panelIconId?: string;
-		panelIconText?: string;
-		panelColor?: string;
-		localId?: string;
-	};
+  type: 'panel';
+  content: Array<
+    | BlockCardDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    panelType:
+      | 'info'
+      | 'note'
+      | 'tip'
+      | 'warning'
+      | 'error'
+      | 'success'
+      | 'custom';
+    panelIcon?: string;
+    panelIconId?: string;
+    panelIconText?: string;
+    panelColor?: string;
+    localId?: string;
+  };
 }
 
 export type PanelC1Node = PMNode & PanelC1Definition;
 
-export const panelC1: PMNodeSpecFactoryInstance<PanelC1Node> = createPMNodeSpecFactory<PanelC1Node>(
-	{
-		content:
-			'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension | table)+',
-		marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		group: 'block',
-		attrs: {
-			panelType: { default: 'info' },
-			panelIcon: { default: null },
-			panelIconId: { default: null },
-			panelIconText: { default: null },
-			panelColor: { default: null },
-			localId: { default: null },
-		},
-		selectable: true,
-	},
-);
+export const panelC1: PMNodeSpecFactoryInstance<PanelC1Node> =
+  createPMNodeSpecFactory<PanelC1Node>({
+    content:
+      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension | table)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    group: 'block',
+    attrs: {
+      panelType: { default: 'info' },
+      panelIcon: { default: null },
+      panelIconId: { default: null },
+      panelIconText: { default: null },
+      panelColor: { default: null },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface PanelRootOnlyStage0Definition {
-	type: 'panel';
-	content: Array<
-		| BlockCardDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| OrderedListDefinition
-		| ParagraphWithFontSizeDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		panelType: 'info' | 'note' | 'tip' | 'warning' | 'error' | 'success' | 'custom';
-		panelIcon?: string;
-		panelIconId?: string;
-		panelIconText?: string;
-		panelColor?: string;
-		localId?: string;
-	};
+  type: 'panel';
+  content: Array<
+    | BlockCardDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | OrderedListDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    panelType:
+      | 'info'
+      | 'note'
+      | 'tip'
+      | 'warning'
+      | 'error'
+      | 'success'
+      | 'custom';
+    panelIcon?: string;
+    panelIconId?: string;
+    panelIconText?: string;
+    panelColor?: string;
+    localId?: string;
+  };
 }
 
 export type PanelRootOnlyStage0Node = PMNode & PanelRootOnlyStage0Definition;
 
 export const panelRootOnlyStage0: PMNodeSpecFactoryInstance<PanelRootOnlyStage0Node> =
-	createPMNodeSpecFactory<PanelRootOnlyStage0Node>({
-		content:
-			'(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
-		marks: 'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		attrs: {
-			panelType: { default: 'info' },
-			panelIcon: { default: null },
-			panelIconId: { default: null },
-			panelIconText: { default: null },
-			panelColor: { default: null },
-			localId: { default: null },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<PanelRootOnlyStage0Node>({
+    content:
+      '(paragraph | heading | bulletList | orderedList | blockCard | mediaGroup | mediaSingle | codeBlock | taskList | rule | decisionList | unsupportedBlock | extension)+',
+    marks:
+      'fontSize unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      panelType: { default: 'info' },
+      panelIcon: { default: null },
+      panelIconId: { default: null },
+      panelIconText: { default: null },
+      panelColor: { default: null },
+      localId: { default: null },
+    },
+    selectable: true,
+  });
 
 export interface ParagraphDefinition {
-	type: 'paragraph';
-	content: Array<InlineDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'paragraph';
+  content: Array<InlineDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
 }
 
 export type ParagraphNode = PMNode & ParagraphDefinition;
 
 export const paragraph: PMNodeSpecFactoryInstance<ParagraphNode> =
-	createPMNodeSpecFactory<ParagraphNode>({
-		content: 'inline*',
-		marks:
-			'link em strong strike subsup underline textColor annotation backgroundColor typeAheadQuery confluenceInlineComment unsupportedNodeAttribute unsupportedMark code dataConsumer fragment border',
-		group: 'block',
-		attrs: { localId: { default: null } },
-		selectable: false,
-	});
+  createPMNodeSpecFactory<ParagraphNode>({
+    content: 'inline*',
+    marks:
+      'link em strong strike subsup underline textColor annotation backgroundColor typeAheadQuery confluenceInlineComment unsupportedNodeAttribute unsupportedMark code dataConsumer fragment border',
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
 
 export interface ParagraphWithAlignmentDefinition {
-	type: 'paragraph';
-	marks: Array<AlignmentMark | FontSizeMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'paragraph';
+  marks: Array<
+    | AlignmentMark
+    | FontSizeMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
 }
 
-export type ParagraphWithAlignmentNode = PMNode & ParagraphWithAlignmentDefinition;
+export type ParagraphWithAlignmentNode = PMNode &
+  ParagraphWithAlignmentDefinition;
 
 export const paragraphWithAlignment: PMNodeSpecFactoryInstance<ParagraphWithAlignmentNode> =
-	createPMNodeSpecFactory<ParagraphWithAlignmentNode>({
-		group: 'block',
-		attrs: { localId: { default: null } },
-		selectable: false,
-	});
+  createPMNodeSpecFactory<ParagraphWithAlignmentNode>({
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
 
 export interface ParagraphWithFontSizeDefinition {
-	type: 'paragraph';
-	marks: Array<FontSizeMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'paragraph';
+  marks: Array<
+    FontSizeMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
 }
 
-export type ParagraphWithFontSizeNode = PMNode & ParagraphWithFontSizeDefinition;
+export type ParagraphWithFontSizeNode = PMNode &
+  ParagraphWithFontSizeDefinition;
 
 export const paragraphWithFontSize: PMNodeSpecFactoryInstance<ParagraphWithFontSizeNode> =
-	createPMNodeSpecFactory<ParagraphWithFontSizeNode>({
-		attrs: { localId: { default: null } },
-		selectable: false,
-	});
+  createPMNodeSpecFactory<ParagraphWithFontSizeNode>({
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
 
 export interface ParagraphWithIndentationDefinition {
-	type: 'paragraph';
-	marks: Array<FontSizeMark | IndentationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'paragraph';
+  marks: Array<
+    | FontSizeMark
+    | IndentationMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
 }
 
-export type ParagraphWithIndentationNode = PMNode & ParagraphWithIndentationDefinition;
+export type ParagraphWithIndentationNode = PMNode &
+  ParagraphWithIndentationDefinition;
 
 export const paragraphWithIndentation: PMNodeSpecFactoryInstance<ParagraphWithIndentationNode> =
-	createPMNodeSpecFactory<ParagraphWithIndentationNode>({
-		group: 'block',
-		attrs: { localId: { default: null } },
-		selectable: false,
-	});
+  createPMNodeSpecFactory<ParagraphWithIndentationNode>({
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
 
 export interface ParagraphWithNoMarksDefinition {
-	type: 'paragraph';
-	attrs: { localId?: string };
+  type: 'paragraph';
+  attrs: { localId?: string };
 }
 
 export type ParagraphWithNoMarksNode = PMNode & ParagraphWithNoMarksDefinition;
 
 export const paragraphWithNoMarks: PMNodeSpecFactoryInstance<ParagraphWithNoMarksNode> =
-	createPMNodeSpecFactory<ParagraphWithNoMarksNode>({
-		group: 'block',
-		attrs: { localId: { default: null } },
-		selectable: false,
-	});
+  createPMNodeSpecFactory<ParagraphWithNoMarksNode>({
+    group: 'block',
+    attrs: { localId: { default: null } },
+    selectable: false,
+  });
 
 export interface PlaceholderDefinition {
-	type: 'placeholder';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { text: string; localId?: string };
+  type: 'placeholder';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { text: string; localId?: string };
 }
 
 export type PlaceholderNode = PMNode & PlaceholderDefinition;
 
 export const placeholder: PMNodeSpecFactoryInstance<PlaceholderNode> =
-	createPMNodeSpecFactory<PlaceholderNode>({
-		marks: '',
-		group: 'inline',
-		inline: true,
-		attrs: { text: { default: '' }, localId: { default: null } },
-		selectable: false,
-	});
+  createPMNodeSpecFactory<PlaceholderNode>({
+    marks: '',
+    group: 'inline',
+    inline: true,
+    attrs: { text: { default: '' }, localId: { default: null } },
+    selectable: false,
+  });
 
 export interface RuleDefinition {
-	type: 'rule';
-	attrs: { localId?: string };
+  type: 'rule';
+  attrs: { localId?: string };
 }
 
 export type RuleNode = PMNode & RuleDefinition;
 
-export const rule: PMNodeSpecFactoryInstance<RuleNode> = createPMNodeSpecFactory<RuleNode>({
-	group: 'block',
-	attrs: { localId: { default: null } },
-});
+export const rule: PMNodeSpecFactoryInstance<RuleNode> =
+  createPMNodeSpecFactory<RuleNode>({
+    group: 'block',
+    attrs: { localId: { default: null } },
+  });
 
 export interface RuleRootOnlyStage0Definition {
-	type: 'rule';
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'rule';
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { localId?: string };
 }
 
 export type RuleRootOnlyStage0Node = PMNode & RuleRootOnlyStage0Definition;
 
 export const ruleRootOnlyStage0: PMNodeSpecFactoryInstance<RuleRootOnlyStage0Node> =
-	createPMNodeSpecFactory<RuleRootOnlyStage0Node>({
-		attrs: { localId: { default: null } },
-	});
+  createPMNodeSpecFactory<RuleRootOnlyStage0Node>({
+    attrs: { localId: { default: null } },
+  });
 
 export interface StatusDefinition {
-	type: 'status';
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		text: string;
-		color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
-		localId?: string;
-		style?: string;
-	};
+  type: 'status';
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    text: string;
+    color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
+    localId?: string;
+    style?: string;
+  };
 }
 
 export type StatusNode = PMNode & StatusDefinition;
 
-export const status: PMNodeSpecFactoryInstance<StatusNode> = createPMNodeSpecFactory<StatusNode>({
-	group: 'inline',
-	inline: true,
-	attrs: {
-		text: { default: '' },
-		color: { default: '' },
-		localId: { default: '' },
-		style: { default: '' },
-	},
-	selectable: true,
-});
+export const status: PMNodeSpecFactoryInstance<StatusNode> =
+  createPMNodeSpecFactory<StatusNode>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      text: { default: '' },
+      color: { default: '' },
+      localId: { default: '' },
+      style: { default: '' },
+    },
+    selectable: true,
+  });
 
 export interface StatusStage0Definition {
-	type: 'status';
-	marks: Array<AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		text: string;
-		color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
-		localId?: string;
-		style?: string;
-	};
+  type: 'status';
+  marks: Array<
+    AnnotationMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    text: string;
+    color: 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
+    localId?: string;
+    style?: string;
+  };
 }
 
 export type StatusStage0Node = PMNode & StatusStage0Definition;
 
 export const statusStage0: PMNodeSpecFactoryInstance<StatusStage0Node> =
-	createPMNodeSpecFactory<StatusStage0Node>({
-		group: 'inline',
-		inline: true,
-		attrs: {
-			text: { default: '' },
-			color: { default: '' },
-			localId: { default: '' },
-			style: { default: '' },
-		},
-		selectable: true,
-	});
+  createPMNodeSpecFactory<StatusStage0Node>({
+    group: 'inline',
+    inline: true,
+    attrs: {
+      text: { default: '' },
+      color: { default: '' },
+      localId: { default: '' },
+      style: { default: '' },
+    },
+    selectable: true,
+  });
 
 export interface SyncBlockDefinition {
-	type: 'syncBlock';
-	marks: Array<BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { resourceId: string; localId: string };
+  type: 'syncBlock';
+  marks: Array<
+    BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: { resourceId: string; localId: string };
 }
 
 export type SyncBlockNode = PMNode & SyncBlockDefinition;
 
 export const syncBlock: PMNodeSpecFactoryInstance<SyncBlockNode> =
-	createPMNodeSpecFactory<SyncBlockNode>({
-		attrs: { resourceId: { default: '' }, localId: { default: '' } },
-		selectable: true,
-	});
+  createPMNodeSpecFactory<SyncBlockNode>({
+    attrs: { resourceId: { default: '' }, localId: { default: '' } },
+    selectable: true,
+  });
 
 export interface TableDefinition {
-	type: 'table';
-	content: Array<TableRowDefinition>;
-	marks: Array<FragmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		displayMode?: 'default' | 'fixed';
-		isNumberColumnEnabled?: boolean;
-		layout?: 'wide' | 'full-width' | 'center' | 'align-end' | 'align-start' | 'default';
-		localId?: string;
-		width?: number;
-		__autoSize?: boolean;
-	};
+  type: 'table';
+  content: Array<TableRowDefinition>;
+  marks: Array<
+    FragmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    displayMode?: 'default' | 'fixed';
+    isNumberColumnEnabled?: boolean;
+    layout?:
+      | 'wide'
+      | 'full-width'
+      | 'center'
+      | 'align-end'
+      | 'align-start'
+      | 'default';
+    localId?: string;
+    width?: number;
+    __autoSize?: boolean;
+  };
 }
 
 export type TableNode = PMNode & TableDefinition;
 
-export const table: PMNodeSpecFactoryInstance<TableNode> = createPMNodeSpecFactory<TableNode>({
-	content: 'tableRow+',
-	marks: 'unsupportedMark unsupportedNodeAttribute',
-	group: 'block',
-	attrs: {
-		displayMode: { default: null },
-		isNumberColumnEnabled: { default: false },
-		layout: { default: 'default' },
-		localId: { default: '' },
-		width: { default: null },
-		__autoSize: { default: false },
-	},
-	selectable: true,
-	isolating: true,
-	tableRole: 'table',
-});
+export const table: PMNodeSpecFactoryInstance<TableNode> =
+  createPMNodeSpecFactory<TableNode>({
+    content: 'tableRow+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: {
+      displayMode: { default: null },
+      isNumberColumnEnabled: { default: false },
+      layout: { default: 'default' },
+      localId: { default: '' },
+      width: { default: null },
+      __autoSize: { default: false },
+    },
+    selectable: true,
+    isolating: true,
+    tableRole: 'table',
+  });
 
 export interface TableWithNestedTableDefinition {
-	type: 'table';
-	content: Array<TableRowWithNestedTableDefinition>;
-	marks: Array<FragmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		displayMode?: 'default' | 'fixed';
-		isNumberColumnEnabled?: boolean;
-		layout?: 'wide' | 'full-width' | 'center' | 'align-end' | 'align-start' | 'default';
-		localId?: string;
-		width?: number;
-		__autoSize?: boolean;
-	};
+  type: 'table';
+  content: Array<TableRowWithNestedTableDefinition>;
+  marks: Array<
+    FragmentMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
+  >;
+  attrs: {
+    displayMode?: 'default' | 'fixed';
+    isNumberColumnEnabled?: boolean;
+    layout?:
+      | 'wide'
+      | 'full-width'
+      | 'center'
+      | 'align-end'
+      | 'align-start'
+      | 'default';
+    localId?: string;
+    width?: number;
+    __autoSize?: boolean;
+  };
 }
 
 export type TableWithNestedTableNode = PMNode & TableWithNestedTableDefinition;
 
 export const tableWithNestedTable: PMNodeSpecFactoryInstance<TableWithNestedTableNode> =
-	createPMNodeSpecFactory<TableWithNestedTableNode>({
-		content: 'tableRow+',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: {
-			displayMode: { default: null },
-			isNumberColumnEnabled: { default: false },
-			layout: { default: 'default' },
-			localId: { default: '' },
-			width: { default: null },
-			__autoSize: { default: false },
-		},
-		selectable: true,
-		isolating: true,
-		tableRole: 'table',
-	});
+  createPMNodeSpecFactory<TableWithNestedTableNode>({
+    content: 'tableRow+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: {
+      displayMode: { default: null },
+      isNumberColumnEnabled: { default: false },
+      layout: { default: 'default' },
+      localId: { default: '' },
+      width: { default: null },
+      __autoSize: { default: false },
+    },
+    selectable: true,
+    isolating: true,
+    tableRole: 'table',
+  });
 
 export interface TableCellDefinition {
-	type: 'tableCell';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithAlignmentDefinition
-		| HeadingWithIndentationDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| NestedExpandWithNoMarksDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithAlignmentDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		colspan?: number;
-		rowspan?: number;
-		colwidth?: Array<number>;
-		background?: string;
-		localId?: string;
-		valign?: 'top' | 'middle' | 'bottom';
-	};
+  type: 'tableCell';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    colspan?: number;
+    rowspan?: number;
+    colwidth?: Array<number>;
+    background?: string;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
 }
 
 export type TableCellNode = PMNode & TableCellDefinition;
 
 export const tableCell: PMNodeSpecFactoryInstance<TableCellNode> =
-	createPMNodeSpecFactory<TableCellNode>({
-		content:
-			'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
-		marks: 'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		attrs: {
-			colspan: { default: 1 },
-			rowspan: { default: 1 },
-			colwidth: { default: null },
-			background: { default: null },
-			localId: { default: null },
-			valign: { default: null },
-		},
-		selectable: false,
-		isolating: true,
-		tableRole: 'cell',
-	});
+  createPMNodeSpecFactory<TableCellNode>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock)+',
+    marks:
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      colspan: { default: 1 },
+      rowspan: { default: 1 },
+      colwidth: { default: null },
+      background: { default: null },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+    tableRole: 'cell',
+  });
 
 export interface TableCellWithNestedTableDefinition {
-	type: 'tableCell';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithAlignmentDefinition
-		| HeadingWithIndentationDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| NestedExpandWithNoMarksDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithAlignmentDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TableDefinition
-		| TaskListDefinition
-		| UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		colspan?: number;
-		rowspan?: number;
-		colwidth?: Array<number>;
-		background?: string;
-		localId?: string;
-		valign?: 'top' | 'middle' | 'bottom';
-	};
+  type: 'tableCell';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    colspan?: number;
+    rowspan?: number;
+    colwidth?: Array<number>;
+    background?: string;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
 }
 
-export type TableCellWithNestedTableNode = PMNode & TableCellWithNestedTableDefinition;
+export type TableCellWithNestedTableNode = PMNode &
+  TableCellWithNestedTableDefinition;
 
 export const tableCellWithNestedTable: PMNodeSpecFactoryInstance<TableCellWithNestedTableNode> =
-	createPMNodeSpecFactory<TableCellWithNestedTableNode>({
-		content:
-			'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
-		marks: 'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		attrs: {
-			colspan: { default: 1 },
-			rowspan: { default: 1 },
-			colwidth: { default: null },
-			background: { default: null },
-			localId: { default: null },
-			valign: { default: null },
-		},
-		selectable: false,
-		isolating: true,
-		tableRole: 'cell',
-	});
+  createPMNodeSpecFactory<TableCellWithNestedTableNode>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | unsupportedBlock | table)+',
+    marks:
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      colspan: { default: 1 },
+      rowspan: { default: 1 },
+      colwidth: { default: null },
+      background: { default: null },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+    tableRole: 'cell',
+  });
 
 export interface TableHeaderDefinition {
-	type: 'tableHeader';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithAlignmentDefinition
-		| HeadingWithIndentationDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| NestedExpandDefinition
-		| NestedExpandWithNoMarksDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithAlignmentDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TaskListDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		colspan?: number;
-		rowspan?: number;
-		colwidth?: Array<number>;
-		background?: string;
-		localId?: string;
-		valign?: 'top' | 'middle' | 'bottom';
-	};
+  type: 'tableHeader';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TaskListDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    colspan?: number;
+    rowspan?: number;
+    colwidth?: Array<number>;
+    background?: string;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
 }
 
 export type TableHeaderNode = PMNode & TableHeaderDefinition;
 
 export const tableHeader: PMNodeSpecFactoryInstance<TableHeaderNode> =
-	createPMNodeSpecFactory<TableHeaderNode>({
-		content:
-			'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
-		marks: 'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		attrs: {
-			colspan: { default: 1 },
-			rowspan: { default: 1 },
-			colwidth: { default: null },
-			background: { default: null },
-			localId: { default: null },
-			valign: { default: null },
-		},
-		selectable: false,
-		isolating: true,
-		tableRole: 'header_cell',
-	});
+  createPMNodeSpecFactory<TableHeaderNode>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand)+',
+    marks:
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      colspan: { default: 1 },
+      rowspan: { default: 1 },
+      colwidth: { default: null },
+      background: { default: null },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+    tableRole: 'header_cell',
+  });
 
 export interface TableHeaderWithNestedTableDefinition {
-	type: 'tableHeader';
-	content: Array<
-		| BlockCardDefinition
-		| BlockquoteDefinition
-		| BulletListDefinition
-		| CodeBlockDefinition
-		| DecisionListDefinition
-		| EmbedCardDefinition
-		| ExtensionWithMarksDefinition
-		| HeadingWithAlignmentDefinition
-		| HeadingWithIndentationDefinition
-		| HeadingWithNoMarksDefinition
-		| MediaGroupDefinition
-		| MediaSingleCaptionDefinition
-		| MediaSingleFullDefinition
-		| NestedExpandDefinition
-		| NestedExpandWithNoMarksDefinition
-		| OrderedListDefinition
-		| PanelDefinition
-		| ParagraphWithAlignmentDefinition
-		| ParagraphWithNoMarksDefinition
-		| RuleDefinition
-		| TableDefinition
-		| TaskListDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: {
-		colspan?: number;
-		rowspan?: number;
-		colwidth?: Array<number>;
-		background?: string;
-		localId?: string;
-		valign?: 'top' | 'middle' | 'bottom';
-	};
+  type: 'tableHeader';
+  content: Array<
+    | BlockCardDefinition
+    | BlockquoteDefinition
+    | BulletListDefinition
+    | CodeBlockDefinition
+    | DecisionListDefinition
+    | EmbedCardDefinition
+    | ExtensionWithMarksDefinition
+    | HeadingWithAlignmentDefinition
+    | HeadingWithIndentationDefinition
+    | HeadingWithNoMarksDefinition
+    | MediaGroupDefinition
+    | MediaSingleCaptionDefinition
+    | MediaSingleFullDefinition
+    | NestedExpandDefinition
+    | NestedExpandWithNoMarksDefinition
+    | OrderedListDefinition
+    | PanelDefinition
+    | ParagraphWithAlignmentDefinition
+    | ParagraphWithNoMarksDefinition
+    | RuleDefinition
+    | TableDefinition
+    | TaskListDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: {
+    colspan?: number;
+    rowspan?: number;
+    colwidth?: Array<number>;
+    background?: string;
+    localId?: string;
+    valign?: 'top' | 'middle' | 'bottom';
+  };
 }
 
-export type TableHeaderWithNestedTableNode = PMNode & TableHeaderWithNestedTableDefinition;
+export type TableHeaderWithNestedTableNode = PMNode &
+  TableHeaderWithNestedTableDefinition;
 
 export const tableHeaderWithNestedTable: PMNodeSpecFactoryInstance<TableHeaderWithNestedTableNode> =
-	createPMNodeSpecFactory<TableHeaderWithNestedTableNode>({
-		content:
-			'(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
-		marks: 'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
-		attrs: {
-			colspan: { default: 1 },
-			rowspan: { default: 1 },
-			colwidth: { default: null },
-			background: { default: null },
-			localId: { default: null },
-			valign: { default: null },
-		},
-		selectable: false,
-		isolating: true,
-		tableRole: 'header_cell',
-	});
+  createPMNodeSpecFactory<TableHeaderWithNestedTableNode>({
+    content:
+      '(paragraph | panel | blockquote | orderedList | bulletList | rule | heading | codeBlock | mediaSingle | mediaGroup | decisionList | taskList | blockCard | embedCard | extension | nestedExpand | table)+',
+    marks:
+      'fontSize alignment unsupportedMark unsupportedNodeAttribute dataConsumer fragment',
+    attrs: {
+      colspan: { default: 1 },
+      rowspan: { default: 1 },
+      colwidth: { default: null },
+      background: { default: null },
+      localId: { default: null },
+      valign: { default: null },
+    },
+    selectable: false,
+    isolating: true,
+    tableRole: 'header_cell',
+  });
 
 export interface TableRowDefinition {
-	type: 'tableRow';
-	content: Array<TableCellDefinition | TableHeaderDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'tableRow';
+  content: Array<TableCellDefinition | TableHeaderDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
 }
 
 export type TableRowNode = PMNode & TableRowDefinition;
 
 export const tableRow: PMNodeSpecFactoryInstance<TableRowNode> =
-	createPMNodeSpecFactory<TableRowNode>({
-		content: '(tableCell | tableHeader)+',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		attrs: { localId: { default: null } },
-		selectable: false,
-		tableRole: 'row',
-	});
+  createPMNodeSpecFactory<TableRowNode>({
+    content: '(tableCell | tableHeader)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    attrs: { localId: { default: null } },
+    selectable: false,
+    tableRole: 'row',
+  });
 
 export interface TableRowWithNestedTableDefinition {
-	type: 'tableRow';
-	content: Array<TableCellWithNestedTableDefinition | TableHeaderWithNestedTableDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId?: string };
+  type: 'tableRow';
+  content: Array<
+    TableCellWithNestedTableDefinition | TableHeaderWithNestedTableDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId?: string };
 }
 
-export type TableRowWithNestedTableNode = PMNode & TableRowWithNestedTableDefinition;
+export type TableRowWithNestedTableNode = PMNode &
+  TableRowWithNestedTableDefinition;
 
 export const tableRowWithNestedTable: PMNodeSpecFactoryInstance<TableRowWithNestedTableNode> =
-	createPMNodeSpecFactory<TableRowWithNestedTableNode>({
-		content: '(tableCell | tableHeader)+',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		attrs: { localId: { default: null } },
-		selectable: false,
-		tableRole: 'row',
-	});
+  createPMNodeSpecFactory<TableRowWithNestedTableNode>({
+    content: '(tableCell | tableHeader)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    attrs: { localId: { default: null } },
+    selectable: false,
+    tableRole: 'row',
+  });
 
 export interface TaskItemDefinition {
-	type: 'taskItem';
-	content: Array<InlineDefinition>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId: string; state: 'TODO' | 'DONE' };
+  type: 'taskItem';
+  content: Array<InlineDefinition>;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId: string; state: 'TODO' | 'DONE' };
 }
 
 export type TaskItemNode = PMNode & TaskItemDefinition;
 
 export const taskItem: PMNodeSpecFactoryInstance<TaskItemNode> =
-	createPMNodeSpecFactory<TaskItemNode>({
-		content: 'inline*',
-		marks: '_',
-		attrs: { localId: { default: '' }, state: { default: 'TODO' } },
-		selectable: false,
-		defining: true,
-	});
+  createPMNodeSpecFactory<TaskItemNode>({
+    content: 'inline*',
+    marks: '_',
+    attrs: { localId: { default: '' }, state: { default: 'TODO' } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface TaskListDefinition {
-	type: 'taskList';
-	content: Array<
-		BlockTaskItemDefinition | TaskItemDefinition | TaskListDefinition | UnsupportedBlockDefinition
-	>;
-	marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
-	attrs: { localId: string };
+  type: 'taskList';
+  content: Array<
+    | BlockTaskItemDefinition
+    | TaskItemDefinition
+    | TaskListDefinition
+    | UnsupportedBlockDefinition
+  >;
+  marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
+  attrs: { localId: string };
 }
 
 export type TaskListNode = PMNode & TaskListDefinition;
 
 export const taskList: PMNodeSpecFactoryInstance<TaskListNode> =
-	createPMNodeSpecFactory<TaskListNode>({
-		content: '(taskItem | taskList | unsupportedBlock | blockTaskItem)+',
-		marks: 'unsupportedMark unsupportedNodeAttribute',
-		group: 'block',
-		attrs: { localId: { default: '' } },
-		selectable: false,
-		defining: true,
-	});
+  createPMNodeSpecFactory<TaskListNode>({
+    content: '(taskItem | taskList | unsupportedBlock | blockTaskItem)+',
+    marks: 'unsupportedMark unsupportedNodeAttribute',
+    group: 'block',
+    attrs: { localId: { default: '' } },
+    selectable: false,
+    defining: true,
+  });
 
 export interface TextDefinition {
-	type: 'text';
+  type: 'text';
 }
 
 export type TextNode = PMNode & TextDefinition;
 
-export const text: PMNodeSpecFactoryInstance<TextNode> = createPMNodeSpecFactory<TextNode>({
-	group: 'inline',
-});
+export const text: PMNodeSpecFactoryInstance<TextNode> =
+  createPMNodeSpecFactory<TextNode>({ group: 'inline' });
 
 export interface TextCodeInlineDefinition {
-	type: 'text';
-	marks: Array<
-		AnnotationMark | CodeMark | LinkMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
-	>;
+  type: 'text';
+  marks: Array<
+    | AnnotationMark
+    | CodeMark
+    | LinkMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
 }
 
 export type TextCodeInlineNode = PMNode & TextCodeInlineDefinition;
 
 export const textCodeInline: PMNodeSpecFactoryInstance<TextCodeInlineNode> =
-	createPMNodeSpecFactory<TextCodeInlineNode>({ group: 'inline' });
+  createPMNodeSpecFactory<TextCodeInlineNode>({ group: 'inline' });
 
 export interface TextFormattedDefinition {
-	type: 'text';
-	marks: Array<
-		| AnnotationMark
-		| BackgroundColorMark
-		| ConfluenceInlineCommentMark
-		| EmMark
-		| LinkMark
-		| StrikeMark
-		| StrongMark
-		| SubsupMark
-		| TextColorMark
-		| TypeAheadQueryMark
-		| UnderlineMark
-		| UnsupportedMarkMark
-		| UnsupportedNodeAttributeMark
-	>;
+  type: 'text';
+  marks: Array<
+    | AnnotationMark
+    | BackgroundColorMark
+    | ConfluenceInlineCommentMark
+    | EmMark
+    | LinkMark
+    | StrikeMark
+    | StrongMark
+    | SubsupMark
+    | TextColorMark
+    | TypeAheadQueryMark
+    | UnderlineMark
+    | UnsupportedMarkMark
+    | UnsupportedNodeAttributeMark
+  >;
 }
 
 export type TextFormattedNode = PMNode & TextFormattedDefinition;
 
 export const textFormatted: PMNodeSpecFactoryInstance<TextFormattedNode> =
-	createPMNodeSpecFactory<TextFormattedNode>({ group: 'inline' });
+  createPMNodeSpecFactory<TextFormattedNode>({ group: 'inline' });
 
 export interface TextWithNoMarksDefinition {
-	type: 'text';
+  type: 'text';
 }
 
 export type TextWithNoMarksNode = PMNode & TextWithNoMarksDefinition;
 
 export const textWithNoMarks: PMNodeSpecFactoryInstance<TextWithNoMarksNode> =
-	createPMNodeSpecFactory<TextWithNoMarksNode>({});
+  createPMNodeSpecFactory<TextWithNoMarksNode>({});
 
 export interface UnsupportedBlockDefinition {
-	type: 'unsupportedBlock';
-	attrs: { originalValue: Record<string, unknown> };
+  type: 'unsupportedBlock';
+  attrs: { originalValue: Record<string, unknown> };
 }
 
 export type UnsupportedBlockNode = PMNode & UnsupportedBlockDefinition;
 
 export const unsupportedBlock: PMNodeSpecFactoryInstance<UnsupportedBlockNode> =
-	createPMNodeSpecFactory<UnsupportedBlockNode>({
-		group: 'block',
-		atom: true,
-		attrs: { originalValue: { default: {} } },
-		selectable: true,
-	});
+  createPMNodeSpecFactory<UnsupportedBlockNode>({
+    group: 'block',
+    atom: true,
+    attrs: { originalValue: { default: {} } },
+    selectable: true,
+  });
 
 export interface UnsupportedInlineDefinition {
-	type: 'unsupportedInline';
-	attrs: { originalValue: Record<string, unknown> };
+  type: 'unsupportedInline';
+  attrs: { originalValue: Record<string, unknown> };
 }
 
 export type UnsupportedInlineNode = PMNode & UnsupportedInlineDefinition;
 
 export const unsupportedInline: PMNodeSpecFactoryInstance<UnsupportedInlineNode> =
-	createPMNodeSpecFactory<UnsupportedInlineNode>({
-		group: 'inline',
-		inline: true,
-		attrs: { originalValue: { default: {} } },
-		selectable: true,
-	});
+  createPMNodeSpecFactory<UnsupportedInlineNode>({
+    group: 'inline',
+    inline: true,
+    attrs: { originalValue: { default: {} } },
+    selectable: true,
+  });

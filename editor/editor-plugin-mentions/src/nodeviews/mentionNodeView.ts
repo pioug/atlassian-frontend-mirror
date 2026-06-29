@@ -30,7 +30,9 @@ type HTMLAttributes = Partial<
 } & { class: string };
 
 // @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-const getAccessibilityLabelFromName = (name: string) => name.replace(/^@/u, '');
+const AT_PREFIX_REGEX = /^@/u;
+
+const getAccessibilityLabelFromName = (name: string) => name.replace(AT_PREFIX_REGEX, '');
 
 const toDOM = (node: PMNode): DOMOutputSpec => {
 	// packages/elements/mention/src/components/Mention/index.tsx

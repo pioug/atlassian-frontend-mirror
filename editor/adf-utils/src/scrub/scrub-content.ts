@@ -2,6 +2,16 @@ import type { ValueReplacements } from './default-value-replacements';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 const DUMMY_TEXT = `Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum`;
+
+// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+const DECIMAL_DIGIT_REGEX = /^\p{Nd}$/u;
+// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+const OTHER_SYMBOL_REGEX = /^\p{So}$/u;
+// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+const CURRENCY_SYMBOL_REGEX = /^\p{Sc}$/u;
+// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+const PUNCT_SEP_CONTROL_REGEX = /^[\p{P}\p{Z}\p{C}]$/u;
+
 const DUMMY_DIGITS = ['2', '7', '4', '3', '5', '9', '1', '8', '0', '5'];
 
 const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
@@ -58,24 +68,19 @@ export const scrubStr = (val: string, offset = 0): string => {
 	// something like "".split('')
 	return [...val]
 		.map((char, index, chars) => {
-			// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-			if (/^\p{Nd}$/u.test(char)) {
+			if (DECIMAL_DIGIT_REGEX.test(char)) {
 				// Decimal digits
 				return scrubNum(parseInt(char, 10), index).toString();
-				// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-			} else if (/^\p{So}$/u.test(char)) {
+			} else if (OTHER_SYMBOL_REGEX.test(char)) {
 				// Emoji
 				return chars[index - 1]?.codePointAt(0) === 8205 ? '' : '⭐️';
-				// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-			} else if (/^\p{Sc}$/u.test(char)) {
+			} else if (CURRENCY_SYMBOL_REGEX.test(char)) {
 				// Currency
 				return '$';
-				// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-			} else if (/^[\p{P}\p{Z}\p{C}]$/u.test(char)) {
+			} else if (PUNCT_SEP_CONTROL_REGEX.test(char)) {
 				// Punctuation, Seperators, Control
 				return char;
-				// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-			} else if (char.codePointAt(0) === 65039 && /^\p{So}$/u.test(chars[index - 1])) {
+			} else if (char.codePointAt(0) === 65039 && OTHER_SYMBOL_REGEX.test(chars[index - 1])) {
 				// Ingore compound emoji control char
 				return '';
 			} else {

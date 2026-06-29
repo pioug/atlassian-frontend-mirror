@@ -483,7 +483,6 @@ export type InsertPromptPayload = PayloadCore<
 		avatarUrl?: string;
 		/**
 		 * Optional files to attach to the chat input alongside the prompt.
-		 * Gated by the enable_rovo_static_prompt_file_uploads experiment.
 		 */
 		files?: UploadedFile[];
 	} & PlaceholderParam
@@ -744,6 +743,9 @@ export type Payload =
 	| WhiteboardContextPayload
 	| JiraCreateContextPayload
 	| JiraInlineAgentCreationAgentAssignedPayload
+	| JiraWorkItemsCreatingPayload
+	| JiraWorkItemsCreatedPayload
+	| JiraWorkItemsCreateFailedPayload
 	| DatabaseContextPayload
 	| ForgeAppAuthSuccess
 	| ForgeAppAuthFailure
@@ -827,6 +829,64 @@ export const JIRA_INLINE_AGENT_CREATION_AGENT_ASSIGNED_EVENT =
 export type JiraInlineAgentCreationAgentAssignedPayload = PayloadCore<
 	typeof JIRA_INLINE_AGENT_CREATION_AGENT_ASSIGNED_EVENT,
 	{ issueId: string }
+>;
+
+/**
+ * Published right before the `create-work-items` skill calls the bulk-create API, carrying the draft
+ * work items the user submitted. Subscribers (e.g. the Jira list view) can use the draft fields to
+ * render optimistic rows immediately, ahead of the (potentially slow) create request. Correlate this
+ * batch with the follow-up {@link JIRA_WORK_ITEMS_CREATED_EVENT} / {@link JIRA_WORK_ITEMS_CREATE_FAILED_EVENT}
+ * via `invocationId`.
+ */
+export const JIRA_WORK_ITEMS_CREATING_EVENT = 'jira-work-items-creating' as const;
+
+export type JiraWorkItemCreatingDraft = {
+	/** Skill invocation id of this draft; used as the optimistic row's stable id. */
+	invocationId: string;
+	/** Draft summary, used to render the optimistic row immediately. */
+	summary: string;
+};
+
+export type JiraWorkItemsCreatingPayload = PayloadCore<
+	typeof JIRA_WORK_ITEMS_CREATING_EVENT,
+	{
+		/**
+		 * Identifies this batch across the creating/created/failed lifecycle events. Conceptually a
+		 * per-batch id, distinct from the per-suggestion {@link JiraWorkItemCreatingDraft.invocationId}
+		 * ids; on the FE it is derived from the first draft's invocation id (unique per submission,
+		 * stable across the three events).
+		 */
+		invocationId: string;
+		/** Draft work items submitted for creation (parents and their children, flattened). */
+		draftWorkItems: JiraWorkItemCreatingDraft[];
+	}
+>;
+
+export const JIRA_WORK_ITEMS_CREATED_EVENT = 'jira-work-items-created' as const;
+
+export type JiraWorkItemsCreatedPayload = PayloadCore<
+	typeof JIRA_WORK_ITEMS_CREATED_EVENT,
+	{
+		/** Identifies the batch; matches the {@link JIRA_WORK_ITEMS_CREATING_EVENT} `invocationId`. */
+		invocationId: string;
+		/** Ids of the work items created by the skill, used by subscribers to fetch their data. */
+		createdIssueIds: string[];
+	}
+>;
+
+/**
+ * Published when the `create-work-items` skill fails to create the work items it announced via a
+ * {@link JIRA_WORK_ITEMS_CREATING_EVENT}. Subscribers use `invocationId` to revert any optimistic
+ * rows they rendered for that batch.
+ */
+export const JIRA_WORK_ITEMS_CREATE_FAILED_EVENT = 'jira-work-items-create-failed' as const;
+
+export type JiraWorkItemsCreateFailedPayload = PayloadCore<
+	typeof JIRA_WORK_ITEMS_CREATE_FAILED_EVENT,
+	{
+		/** Identifies the batch; matches the {@link JIRA_WORK_ITEMS_CREATING_EVENT} `invocationId` to revert its optimistic rows. */
+		invocationId: string;
+	}
 >;
 
 export type Callback = (payload: Payload) => void;

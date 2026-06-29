@@ -12,6 +12,7 @@ import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual'
 import {
 	customCategory,
 	defaultEmojiPickerSize,
+	emojiPickerPreviewHeight,
 	frequentCategory,
 	searchCategory,
 	userCustomTitle,
@@ -133,6 +134,7 @@ export interface Props {
 	uploadEnabled: boolean;
 	uploadErrorMessage?: Message;
 	uploading: boolean;
+	useFooterSpaceForList?: boolean;
 }
 
 export interface State {}
@@ -210,6 +212,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		onProductivityColorSelected,
 		activeCategoryId,
 		selectedProductivityColor,
+		useFooterSpaceForList,
 	} = props;
 
 	const { formatMessage } = useIntl();
@@ -713,9 +716,11 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			return sizes.categoryHeadingHeight + sizes.noResultsHeight + emojiPickerHeightOffset(size);
 		}
 		return isTeamojiExperimentEnabled
-			? sizes.listHeightNew + emojiPickerHeightOffset(size)
+			? sizes.listHeightNew +
+					emojiPickerHeightOffset(size) +
+					(useFooterSpaceForList ? emojiPickerPreviewHeight : 0)
 			: sizes.listHeight + emojiPickerHeightOffset(size);
-	}, [size, query, visibleEmojis.length, isTeamojiExperimentEnabled]);
+	}, [size, query, visibleEmojis.length, isTeamojiExperimentEnabled, useFooterSpaceForList]);
 
 	return (
 		<EmojiPickerTabPanel showSearchResults={!!query}>

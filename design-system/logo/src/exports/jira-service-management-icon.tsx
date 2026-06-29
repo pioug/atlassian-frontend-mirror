@@ -1,4 +1,4 @@
-import { JiraServiceManagementIcon as NewJSIcon } from '../artifacts/logo-components/jira-service-management';
+import { JiraServiceManagementIcon as NewJSIcon } from '../artifacts/logo-components/jira-service-management/icon';
 import { createFeatureFlaggedServiceCollectionComponent } from '../create-feature-flagged-service-collection-component';
 import { JiraServiceManagementIcon as LegacyJSIcon } from '../legacy-logos/jira-service-management';
 import type { LogoProps } from '../types';

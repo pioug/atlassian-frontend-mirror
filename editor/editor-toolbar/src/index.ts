@@ -43,6 +43,7 @@ export { HeadingOneIcon } from './ui/icons/HeadingOneIcon';
 export { HeadingSixIcon } from './ui/icons/HeadingSixIcon';
 export { HeadingThreeIcon } from './ui/icons/HeadingThreeIcon';
 export { HeadingTwoIcon } from './ui/icons/HeadingTwoIcon';
+export { InformationCircleIcon } from './ui/icons/InformationCircleIcon';
 export { ItalicIcon } from './ui/icons/ItalicIcon';
 export { LinkIcon } from './ui/icons/LinkIcon';
 export { ListBulletedIcon } from './ui/icons/ListBulletedIcon';

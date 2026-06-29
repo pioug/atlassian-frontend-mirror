@@ -1,61 +1,112 @@
 ---
 order: 0
+title: Tag
+description: A tag is a subtle, compact label used to categorize and organize content.
 ---
 
-import TagDefault from '../../examples/constellation/tag-default';
-import TagLink from '../../examples/constellation/tag-link';
-import TagRemovable from '../../examples/constellation/tag-removable';
-import TagRemovableLink from '../../examples/constellation/tag-removable-link';
-import TagRounded from '../../examples/constellation/tag-rounded';
-import TagRoundedLink from '../../examples/constellation/tag-rounded-link';
-
-import TagColors from '../../examples/constellation/tag-colors';
-import TagMaxLength from '../../examples/constellation/tag-max-length';
+import TagNewDefault from '../../examples/constellation/tag-new-default';
+import TagNewColors from '../../examples/constellation/tag-new-colors';
+import TagNewLink from '../../examples/constellation/tag-new-link';
+import TagNewRemovable from '../../examples/constellation/tag-new-removable';
+import TagNewWithIcon from '../../examples/constellation/tag-new-with-icon';
+import TagNewLinkWithIcon from '../../examples/constellation/tag-new-link-with-icon';
+import TagNewMaxWidth from '../../examples/constellation/tag-new-max-width';
+import TagNewSwatchBefore from '../../examples/constellation/tag-new-swatch-before';
+import TagNewTrailingMetric from '../../examples/constellation/tag-new-trailing-metric';
 
 ## Default
 
 The default form of a tag, where `text` is required. Tags with static text can be used as a flag or
-as a reference to an object or attribute.
+as a reference to an object or attribute. By default, tags are removable.
 
-<Example Component={TagDefault} packageName="@atlaskit/tag" />
+<Example
+	Component={TagNewDefault}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
-## Tag link
+## Colors
+
+Tags are available in a range of colors to help you organize and categorize information.
+
+<Example
+	Component={TagNewColors}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
+
+## Link
 
 A tag with an `href` can link to more information on the tagged item.
 
-<Example Component={TagLink} packageName="@atlaskit/tag" />
+<Example
+	Component={TagNewLink}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
-## Removable
+## Non-removable
 
-Once a tag has been removed, it cannot be re-rendered. Removable tags are visible in "edit" mode or
-in multi-select controls.
+Set `isRemovable` to false to prevent users from removing the tag. Tags are removable by default.
 
-<Example Component={TagRemovable} packageName="@atlaskit/tag" />
+<Example
+	Component={TagNewRemovable}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
-## Removable link
+## With icon
 
-A removable tag with an `href` can link to more information.
+Use `elemBefore` to add an icon or other element before the tag text.
 
-<Example Component={TagRemovableLink} packageName="@atlaskit/tag" />
+<Example
+	Component={TagNewWithIcon}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
-## Color
+## Link with icon
 
-The color theme for background and text.
+Tags can combine both a link and an icon element.
 
-<Example Component={TagColors} packageName="@atlaskit/tag" />
+<Example
+	Component={TagNewLinkWithIcon}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
-## Text max length
+## Max width
 
-Once the text reaches 180px, it is truncated with an ellipsis.
+Use `maxWidth` to control the maximum width of the tag. When the tag exceeds this width, it will be
+truncated with an ellipsis.
 
-Avoid truncation wherever possible by using short text in tags.
+<Example
+	Component={TagNewMaxWidth}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
-<Example Component={TagMaxLength} packageName="@atlaskit/tag" />
+## Trailing metric
 
-## Focus
+Use `trailingMetric` to render a trailing metric after the tag text for compact counts or short
+supplementary values. The trailing metric uses background subtler accent tokens.
 
-When a tag is deleted, focus should go to the next focusable element on the page.
+<Example
+	Component={TagNewTrailingMetric}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>
 
-If you remove a tag element from the DOM and don't set the focus, it returns to the body element at
-the top of the page. And for people using assistive technology, this means they'll need to navigate
-through the entire page to return to where they originally were, which we don’t want.
+## Swatch before
+
+Tags that use color as a wayfinding method (such as Jira epic or parent labels) can leverage the
+`swatchBefore` property to increase prominence of that color. Pass `true` to use the tag's own
+color, or pass a background design token to use a custom color.
+
+This prop is early access and may be changed in the future.
+
+<Example
+	Component={TagNewSwatchBefore}
+	packageName="@atlaskit/tag"
+	featureFlagDefaults={{ 'platform-dst-lozenge-tag-badge-visual-uplifts': true }}
+/>

@@ -1,5 +1,41 @@
 # @atlaskit/editor-statsig-tmp
 
+## 114.6.0
+
+### Minor Changes
+
+- [`283c55290e6cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/283c55290e6cc) -
+  Preserve visual selection after applying text color or highlight
+
+## 114.5.0
+
+### Minor Changes
+
+- [`e27cc2a34b7c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e27cc2a34b7c7) -
+  Update the editor plus menu virtualized list accessible label under the
+  `platform_editor_plus_menu_aria_label` experiment.
+- [`0096393101f67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0096393101f67) -
+  EDITOR-7831: Register dynamic granular diffs gate
+
+### Patch Changes
+
+- Updated dependencies
+
+## 114.4.0
+
+### Minor Changes
+
+- [`8465ec8b9145c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8465ec8b9145c) -
+  Fix decorative AI toolbar menu icons being announced by screen readers
+
+## 114.3.0
+
+### Minor Changes
+
+- [`5d42cea730a1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d42cea730a1b) -
+  [ENGHEALTH-53346] Gate the inline extension width-context memoization fix behind a Jira
+  experiment.
+
 ## 114.2.0
 
 ### Minor Changes

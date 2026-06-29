@@ -178,6 +178,10 @@ export class SourceSyncBlockStoreManager {
 			const { localId, resourceId } = syncBlockNode.attrs;
 
 			if (!localId || !resourceId) {
+				// Identifiers not populated yet: benign timing case, skip as a no-op.
+				if (fg('platform_editor_blocks_patch_4')) {
+					return false;
+				}
 				throw new Error('Local ID or resource ID is not set');
 			}
 

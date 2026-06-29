@@ -21,7 +21,19 @@ import type {
 	DeletionReason,
 } from '../common/types';
 
-type SyncBlockErrorInfo = { reason?: string; sourceAri?: string; type: SyncBlockError };
+type SyncBlockErrorInfo = {
+	reason?: string;
+	sourceAri?: string;
+	/**
+	 * HTTP status code from the backend (Block Service) when a fetch/subscribe failure
+	 * originated from a `BlockError`. Surfaced so fetch failure analytics can break down
+	 * read-path failures by status code (EDITOR-7862). Undefined for non-HTTP failures
+	 * (e.g. JSON parse errors, missing-content NotFound, or backend error responses that
+	 * only carry a string `code`).
+	 */
+	statusCode?: number;
+	type: SyncBlockError;
+};
 
 /**
  * The instance of a sync block, containing its data and metadata.

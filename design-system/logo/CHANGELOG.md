@@ -1,5 +1,21 @@
 # @atlaskit/logo
 
+## 21.3.0
+
+### Minor Changes
+
+- [`6dbd37709ec20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6dbd37709ec20) -
+  Remove internal barrel files and add individual subpath entry-points as part of Volt module
+  compliance.
+  - Added 83 new subpath entry-points (44 icon, 39 logo-cs) so consumers can import granularly, e.g.
+    `@atlaskit/logo/confluence/icon`, `@atlaskit/logo/jira/logo`
+  - Removed 44 generated `index.tsx` barrel files from `src/artifacts/logo-components/<slug>/`
+  - Rewrote all internal imports in `src/index.tsx` and `src/exports/` to point directly at the leaf
+    files (`/icon`, `/logo-cs`, `/logo`) instead of going through artifact barrels
+  - Updated the `generate:components` codegen to no longer produce artifact barrel `index.tsx` files
+
+  Existing consumers importing from `@atlaskit/logo` (the root barrel) are unaffected.
+
 ## 21.2.0
 
 ### Minor Changes

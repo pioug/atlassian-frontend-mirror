@@ -11,16 +11,28 @@ import ExpandableExample from '../../examples/expandable';
 A table is composed of simple composable elements. In its base form these UI elements are purely
 presentational.
 
-<Example Component={BasicAKTableExample} packageName="@atlaskit/table" />
+<Example
+	Component={BasicAKTableExample}
+	packageName="@atlaskit/table"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Basic data table
 
 A data table is used to display dynamic data.
 
-<Example Component={AKTableExample} packageName="@atlaskit/table" />
+<Example
+	Component={AKTableExample}
+	packageName="@atlaskit/table"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Expandable
 
 Expanding row functionality can be added using composable elements.
 
-<Example Component={ExpandableExample} packageName="@atlaskit/table" />
+<Example
+	Component={ExpandableExample}
+	packageName="@atlaskit/table"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>

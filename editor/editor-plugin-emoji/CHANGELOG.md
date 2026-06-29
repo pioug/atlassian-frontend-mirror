@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 13.0.16
+
+### Patch Changes
+
+- [`73743eb8b36e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73743eb8b36e6) -
+  CLeanup prefer static regex violations
+- Updated dependencies
+
 ## 13.0.15
 
 ### Patch Changes

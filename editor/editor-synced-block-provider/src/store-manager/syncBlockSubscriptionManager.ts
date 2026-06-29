@@ -12,7 +12,11 @@ import type {
 	TitleSubscriptionCallback,
 	Unsubscribe,
 } from '../providers/types';
-import { fetchErrorPayload, fetchSuccessPayload } from '../utils/errorHandling';
+import {
+	buildFetchErrorAttribution,
+	fetchErrorPayload,
+	fetchSuccessPayload,
+} from '../utils/errorHandling';
 import { resolveSyncBlockInstance } from '../utils/resolveSyncBlockInstance';
 import { getSourceProductFromResourceIdSafe } from '../utils/utils';
 
@@ -138,7 +142,17 @@ export class SyncBlockSubscriptionManager {
 					location:
 						'editor-synced-block-provider/syncBlockSubscriptionManager/notifySubscriptionChangeListeners',
 				});
-				this.deps.getFireAnalyticsEvent()?.(fetchErrorPayload((error as Error).message));
+				this.deps.getFireAnalyticsEvent()?.(
+					fetchErrorPayload(
+						(error as Error).message,
+						undefined,
+						undefined,
+						buildFetchErrorAttribution(
+							fg('platform_editor_blocks_patch_3'),
+							(error as Error).message,
+						),
+					),
+				);
 			}
 		});
 	}
@@ -332,6 +346,9 @@ export class SyncBlockSubscriptionManager {
 				// recovers on reconnect, so under the gate we don't fire a
 				// user-facing error here — it's only surfaced on exhaustion (see
 				// scheduleReconnection). Gate OFF keeps the legacy fire-on-drop.
+				// This branch only runs when the gate is OFF, so buildFetchErrorAttribution
+				// would return undefined; the structured attribution (EDITOR-7862) is therefore
+				// applied at the gate-ON exhaustion site in scheduleReconnection instead.
 				if (!fg('platform_editor_blocks_patch_3')) {
 					this.deps.getFireAnalyticsEvent()?.(
 						fetchErrorPayload(
@@ -386,7 +403,12 @@ export class SyncBlockSubscriptionManager {
 				location: 'editor-synced-block-provider/syncBlockSubscriptionManager/max-retries-exhausted',
 			});
 			this.deps.getFireAnalyticsEvent()?.(
-				fetchErrorPayload(errorMessage, resourceId, getSourceProductFromResourceIdSafe(resourceId)),
+				fetchErrorPayload(
+					errorMessage,
+					resourceId,
+					getSourceProductFromResourceIdSafe(resourceId),
+					buildFetchErrorAttribution(fg('platform_editor_blocks_patch_3'), errorMessage),
+				),
 			);
 			return;
 		}
@@ -510,12 +532,20 @@ export class SyncBlockSubscriptionManager {
 		} else {
 			const errorMessage = syncBlockInstance.error?.reason || syncBlockInstance.error?.type;
 
+			// Prefer the structured `type` (a `SyncBlockError` enum value) for classification
+			// and fall back to the free-text `reason` so source-state/permission strings are
+			// still bucketed (EDITOR-7862). The emitted free-text `error` attribute is unchanged.
 			this.deps.getFireAnalyticsEvent()?.(
 				fetchErrorPayload(
 					errorMessage,
 					syncBlockInstance.resourceId,
 					syncBlockInstance.data?.product ??
 						getSourceProductFromResourceIdSafe(syncBlockInstance.resourceId),
+					buildFetchErrorAttribution(
+						fg('platform_editor_blocks_patch_3'),
+						syncBlockInstance.error?.type || syncBlockInstance.error?.reason,
+						syncBlockInstance.error?.statusCode,
+					),
 				),
 			);
 		}

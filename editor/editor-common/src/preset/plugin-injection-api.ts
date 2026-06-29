@@ -415,6 +415,13 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 		return editorAPICache.get(this)!;
 	}
 
+	// Internal helper for preset reconfiguration. Some consumers memoize plugin
+	// APIs by the top-level proxy identity, so callers must invalidate that proxy
+	// when the registered plugin set changes.
+	invalidateAPI = (): void => {
+		editorAPICache.delete(this);
+	};
+
 	onEditorViewUpdated = ({ newEditorState, oldEditorState }: EditorStateDiff): void => {
 		this.sharedStateAPI.notifyListeners({
 			newEditorState,

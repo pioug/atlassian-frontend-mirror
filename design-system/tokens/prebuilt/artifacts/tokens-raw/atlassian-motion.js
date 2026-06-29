@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::33ce7f44e704e6b32332ffdfac5776e4>>
+ * @codegen <<SignedSource::0da4ebca0733e0690ada987e93adf7d8>>
  * @codegenCommand yarn build tokens
  */
 
@@ -160,6 +160,66 @@ var tokens = [{
   "name": "motion.blanket.exit",
   "path": ["motion", "blanket", "exit"],
   "cleanName": "motion.blanket.exit"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "15.1.0",
+    "description": "Use for button hover state transitions."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "properties": ["background-color"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "15.1.0",
+      "description": "Use for button hover state transitions."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EasePracticalOut",
+      "properties": ["BackgroundColor"]
+    }
+  },
+  "name": "motion.button.hovered",
+  "path": ["motion", "button", "hovered"],
+  "cleanName": "motion.button.hovered"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "15.1.0",
+    "description": "Use for button pressed state transitions."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+    "properties": ["background-color"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "15.1.0",
+      "description": "Use for button pressed state transitions."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EasePracticalOut",
+      "properties": ["BackgroundColor"]
+    }
+  },
+  "name": "motion.button.pressed",
+  "path": ["motion", "button", "pressed"],
+  "cleanName": "motion.button.pressed"
 }, {
   "attributes": {
     "group": "motionDuration",

@@ -2,6 +2,7 @@ import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/anal
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ResourceId } from '../common/types';
 import type {
@@ -9,7 +10,7 @@ import type {
 	SyncBlockDataProviderInterface,
 	SyncBlockRendererProviderCreator,
 } from '../providers/types';
-import { fetchErrorPayload } from '../utils/errorHandling';
+import { buildFetchErrorAttribution, fetchErrorPayload } from '../utils/errorHandling';
 import { parseResourceId } from '../utils/resourceId';
 import { getSourceProductFromResourceIdSafe } from '../utils/utils';
 
@@ -40,6 +41,7 @@ export class SyncBlockProviderFactoryManager {
 					error.message,
 					resourceId,
 					getSourceProductFromResourceIdSafe(resourceId),
+					buildFetchErrorAttribution(fg('platform_editor_blocks_patch_3'), error.message),
 				),
 			);
 			return undefined;
@@ -86,6 +88,10 @@ export class SyncBlockProviderFactoryManager {
 						(error as Error).message,
 						resourceId,
 						getSourceProductFromResourceIdSafe(resourceId),
+						buildFetchErrorAttribution(
+							fg('platform_editor_blocks_patch_3'),
+							(error as Error).message,
+						),
 					),
 				);
 			}
@@ -185,6 +191,10 @@ export class SyncBlockProviderFactoryManager {
 					resourceId,
 					// Prefer cached product when available; fall back to parsing resourceId.
 					syncBlock.data.product ?? getSourceProductFromResourceIdSafe(resourceId),
+					buildFetchErrorAttribution(
+						fg('platform_editor_blocks_patch_3'),
+						'Sync block source ari or product not found',
+					),
 				),
 			);
 			return;

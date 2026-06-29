@@ -31,6 +31,10 @@
 		"outDir": "../../../tsDist/@atlaskit__atlassian-notifications/app",
 		"isolatedDeclarations": true
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

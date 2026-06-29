@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e2c90de3fa6bd9d4da20a85c310b97e2>>
+ * @codegen <<SignedSource::b2d303b792f34e79bc8bec909f423cd3>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -142,6 +142,8 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-avatar-hovered: transform 250ms linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1);
   --ds-blanket-enter: 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100;
   --ds-blanket-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0;
+  --ds-button-hovered: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1);
+  --ds-button-pressed: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-duration-instant: 0ms;
   --ds-duration-long: 250ms;
   --ds-duration-medium: 200ms;

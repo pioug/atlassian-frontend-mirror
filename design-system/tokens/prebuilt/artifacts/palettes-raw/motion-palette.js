@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61e5f6306081ee114d542ad7b43b7e1c>>
+ * @codegen <<SignedSource::556be44c5e53598ba2b686ba8de043eb>>
  * @codegenCommand yarn build tokens
  */
 
@@ -677,6 +677,21 @@ var tokens = [{
   },
   "name": "motion.keyframe.SlideOutTop8px",
   "path": ["motion", "keyframe", "SlideOutTop8px"]
+}, {
+  "value": "background-color",
+  "attributes": {
+    "group": "motionProperty"
+  },
+  "filePath": "schema/palettes/motion-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "background-color",
+    "attributes": {
+      "group": "motionProperty"
+    }
+  },
+  "name": "motion.properties.BackgroundColor",
+  "path": ["motion", "properties", "BackgroundColor"]
 }, {
   "value": "transform",
   "attributes": {

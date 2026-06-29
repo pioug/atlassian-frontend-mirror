@@ -110,6 +110,9 @@
 		},
 		{
 			"path": "../../data/ufo-external/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		}
 	]
 }

@@ -1,5 +1,22 @@
 # @atlaskit/rovo-triggers
 
+## 9.4.0
+
+### Minor Changes
+
+- [`46cbcf754d99c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46cbcf754d99c) -
+  Publish `creating`/`created`/`failed` work item lifecycle events from the Rovo create-work-items
+  flow, behind the `jira_ai_create_work_items` feature gate, so subscribers can reconcile optimistic
+  rows with creation results.
+
+## 9.3.1
+
+### Patch Changes
+
+- [`30314bb11ad77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30314bb11ad77) -
+  Cleanup experiment `enable_rovo_static_prompt_file_uploads`. Static prompt file uploads are now
+  permanently enabled.
+
 ## 9.3.0
 
 ### Minor Changes

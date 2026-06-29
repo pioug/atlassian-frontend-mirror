@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.0.5
+
+### Patch Changes
+
+- [`73743eb8b36e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73743eb8b36e6) -
+  CLeanup prefer static regex violations
+- Updated dependencies
+
 ## 4.0.4
 
 ### Patch Changes

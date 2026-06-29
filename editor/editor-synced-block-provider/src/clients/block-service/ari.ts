@@ -1,6 +1,11 @@
 /* eslint-disable require-unicode-regexp */
 import type { SyncBlockProduct } from '../../common/types';
 
+const GET_LOCAL_ID_FROM_BLOCK_RESOURCE_ID_REGEX =
+	/ari:cloud:blocks:[^:]+:synced-block\/([a-zA-Z0-9-]+)/;
+const JIRA_SOURCE_ARI_REGEX = /ari:cloud:jira:.*/;
+const CONFLUENCE_SOURCE_ARI_REGEX = /ari:cloud:confluence:.*/;
+
 /**
  * Generates the block ARI from the source page ARI and the source block's resource ID.
  * @param cloudId - the cloudId of the block. E.G the cloudId of the confluence page, or the cloudId of the Jira instance
@@ -47,7 +52,7 @@ export const generateBlockAriFromReference = ({
  * @returns the localId of the block node. A randomly generated UUID
  */
 export const getLocalIdFromBlockResourceId = (ari: string): string => {
-	const match = ari.match(/ari:cloud:blocks:[^:]+:synced-block\/([a-zA-Z0-9-]+)/);
+	const match = ari.match(GET_LOCAL_ID_FROM_BLOCK_RESOURCE_ID_REGEX);
 	if (match?.[1]) {
 		return match[1];
 	}
@@ -55,11 +60,11 @@ export const getLocalIdFromBlockResourceId = (ari: string): string => {
 };
 
 export const getProductFromSourceAri = (ari?: string): SyncBlockProduct | undefined => {
-	const jiraMatch = ari?.search(/ari:cloud:jira:.*/);
+	const jiraMatch = ari?.search(JIRA_SOURCE_ARI_REGEX);
 	if (jiraMatch !== -1) {
 		return 'jira-work-item';
 	}
-	const confluenceMatch = ari?.search(/ari:cloud:confluence:.*/);
+	const confluenceMatch = ari?.search(CONFLUENCE_SOURCE_ARI_REGEX);
 	if (confluenceMatch !== -1) {
 		return 'confluence-page';
 	}

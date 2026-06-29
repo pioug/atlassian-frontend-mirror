@@ -17,7 +17,12 @@ import FlagsInModalDialogExample from '../../examples/constellation/flag-group-i
 
 Use `FlagGroup` to group a set of related flags, with entry and exit animation.
 
-<Example Component={FlagGroup} packageName="@atlaskit/flag" featureFlagSwitchers={['motion']} />
+<Example
+	Component={FlagGroup}
+	packageName="@atlaskit/flag"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+	featureFlagSwitchers={['motion']}
+/>
 
 ## Using in modal components
 
@@ -30,5 +35,6 @@ instead of `React.Portal`.
 <Example
 	Component={FlagsInModalDialogExample}
 	packageName="@atlaskit/flag"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
 	featureFlagSwitchers={['motion']}
 />

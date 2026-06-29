@@ -1,15 +1,54 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * Structured content components from design-system *.docs.tsx files
+ * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::c074026b3760583a882b411542329528>>
+ * @codegen <<SignedSource::999acbcad5b6a38dac9cb18c47addfef>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:atlaskit-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
 import type { ComponentMcpPayload } from '../get-all-components/types';
 
 export const atlaskitComponents: ComponentMcpPayload[] = [
+	{
+		name: 'FabricAnalyticsListeners',
+		package: '@atlaskit/analytics-listeners',
+		description:
+			'A container component that mounts a set of pre-configured analytics listeners for common Atlassian channels (elements, editor, navigation, etc.).',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Mount this component near the root of your application to ensure all child components events are captured.',
+			'Provide an `AnalyticsWebClient` instance to the `client` prop to handle the actual event transmission.',
+			'Use `excludedChannels` to disable specific listeners if they are not needed or cause conflicts.',
+		],
+		keywords: ['analytics', 'listeners', 'fabric', 'atlassian'],
+		category: 'analytics',
+		examples: [
+			"import { AnalyticsContext } from '@atlaskit/analytics-next';\nimport FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';\nimport { FabricChannel } from '../src/types';\nimport {\n\tcreateAnalyticsWebClientMock,\n\tcreateComponentWithAnalytics,\n\tcreateComponentWithAttributesWithAnalytics,\n} from './helpers';\nconst DummyElementsComponent = createComponentWithAnalytics(FabricChannel.elements);\nconst DummyElementsComponentWithAttributes = createComponentWithAttributesWithAnalytics(\n\tFabricChannel.elements,\n);\nconst DummyAtlaskitComponent = createComponentWithAnalytics(FabricChannel.atlaskit);\nconst DummyNavigationComponent = createComponentWithAnalytics(FabricChannel.navigation);\nconst DummyNotificationsComponent = createComponentWithAnalytics(FabricChannel.notifications);\nconst DummyLinkingPlatformComponent = createComponentWithAnalytics(FabricChannel.linkingPlatform);\nconst myOnClickHandler = () => {\n\tconsole.log('Button clicked ! Yay!');\n};\nfunction Example(): React.JSX.Element {\n\treturn (\n\t\t<FabricAnalyticsListeners client={createAnalyticsWebClientMock()}>\n\t\t\t<div>\n\t\t\t\t<DummyElementsComponent onClick={myOnClickHandler} />\n\t\t\t\t<AnalyticsContext data={{ issueId: 100, greeting: 'hello' }}>\n\t\t\t\t\t<AnalyticsContext data={{ issueId: 200 }}>\n\t\t\t\t\t\t<DummyElementsComponentWithAttributes onClick={myOnClickHandler} />\n\t\t\t\t\t</AnalyticsContext>\n\t\t\t\t</AnalyticsContext>\n\t\t\t\t<DummyAtlaskitComponent onClick={myOnClickHandler} />\n\t\t\t\t<AnalyticsContext\n\t\t\t\t\tdata={{\n\t\t\t\t\t\tcomponent: 'page',\n\t\t\t\t\t\tpackageName: '@atlaskit/page',\n\t\t\t\t\t\tpackageVersion: '2.0.1',\n\t\t\t\t\t\tattributes: { pageName: 'myPage' },\n\t\t\t\t\t\tsource: 'homePage',\n\t\t\t\t\t}}\n\t\t\t\t>\n\t\t\t\t\t<AnalyticsContext\n\t\t\t\t\t\tdata={{\n\t\t\t\t\t\t\tcomponent: 'myComponent',\n\t\t\t\t\t\t\tpackageName: '@atlaskit/my-component',\n\t\t\t\t\t\t\tpackageVersion: '1.0.0',\n\t\t\t\t\t\t\tattributes: { customAttr: true },\n\t\t\t\t\t\t\tsource: 'componentPage',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t<DummyNavigationComponent onClick={myOnClickHandler} />\n\t\t\t\t\t</AnalyticsContext>\n\t\t\t\t</AnalyticsContext>\n\t\t\t\t<AnalyticsContext data={{ attributes: { customAttribute: 'yes!' } }}>\n\t\t\t\t\t<DummyNotificationsComponent onClick={myOnClickHandler} />\n\t\t\t\t</AnalyticsContext>\n\t\t\t\t<DummyLinkingPlatformComponent onClick={myOnClickHandler} />\n\t\t\t</div>\n\t\t</FabricAnalyticsListeners>\n\t);\n}\nObject.assign(Example, {\n\tmeta: {\n\t\tnoListener: true,\n\t},\n});\nexport default Example;",
+			"import { AnalyticsContext } from '@atlaskit/analytics-next';\nimport FabricAnalyticsListeners, { FabricChannel } from '../src';\nimport {\n\tcreateAnalyticsWebClientMock,\n\tcreateComponentWithAnalytics,\n\tcreateComponentWithAttributesWithAnalytics,\n} from './helpers';\nconst DummyElementsComponent = createComponentWithAnalytics(FabricChannel.elements);\nconst DummyElementsComponentWithAttributes = createComponentWithAttributesWithAnalytics(\n\tFabricChannel.elements,\n);\nconst DummyAtlaskitComponent = createComponentWithAnalytics(FabricChannel.atlaskit);\nconst myOnClickHandler = () => {\n\tconsole.log('Button clicked ! Yay!');\n};\nfunction Example(): React.JSX.Element {\n\treturn (\n\t\t<FabricAnalyticsListeners\n\t\t\tclient={createAnalyticsWebClientMock()}\n\t\t\texcludedChannels={[FabricChannel.atlaskit]}\n\t\t>\n\t\t\t<div>\n\t\t\t\t<p>Excluding analytics listener</p>\n\t\t\t\t<DummyElementsComponent onClick={myOnClickHandler} />\n\t\t\t\t<AnalyticsContext data={{ issueId: 100, greeting: 'hello' }}>\n\t\t\t\t\t<AnalyticsContext data={{ issueId: 200 }}>\n\t\t\t\t\t\t<DummyElementsComponentWithAttributes onClick={myOnClickHandler} />\n\t\t\t\t\t</AnalyticsContext>\n\t\t\t\t</AnalyticsContext>\n\t\t\t\t<DummyAtlaskitComponent onClick={myOnClickHandler} />\n\t\t\t</div>\n\t\t</FabricAnalyticsListeners>\n\t);\n}\nObject.assign(Example, {\n\tmeta: {\n\t\tnoListener: true,\n\t},\n});\nexport default Example;",
+			"import Button from '@atlaskit/button/new';\nimport { token } from '@atlaskit/tokens';\nimport {\n\tcreateAnalyticsWebClientMock,\n\tcreateComponentWithAnalytics,\n\tIncorrectEventType,\n} from './helpers';\nimport { LOG_LEVEL } from '../src';\nimport FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';\nimport { FabricChannel } from '../src/types';\nconst DummyElementsComponentWithAnalytics = createComponentWithAnalytics(FabricChannel.elements);\nconst DummyAtlaskitComponentWithAnalytics = createComponentWithAnalytics(FabricChannel.atlaskit);\nconst AtlaskitIncorrectEventType = IncorrectEventType(FabricChannel.atlaskit);\nconst myOnClickHandler = () => {\n\tconsole.log('Button clicked');\n};\nconst logLevels = [\n\t{ name: 'DEBUG', level: LOG_LEVEL.DEBUG },\n\t{ name: 'INFO', level: LOG_LEVEL.INFO },\n\t{ name: 'WARN', level: LOG_LEVEL.WARN },\n\t{ name: 'ERROR', level: LOG_LEVEL.ERROR },\n\t{ name: 'OFF', level: LOG_LEVEL.OFF },\n];\nclass Example extends React.Component {\n\tstate = {\n\t\tloggingLevelIdx: 0,\n\t};\n\tchangeLogLevel = (): void => {\n\t\tthis.setState({\n\t\t\tloggingLevelIdx: (this.state.loggingLevelIdx + 1) % logLevels.length,\n\t\t});\n\t};\n\trender(): React.JSX.Element {\n\t\tconst logLevel = logLevels[this.state.loggingLevelIdx];\n\t\treturn (\n\t\t\t<FabricAnalyticsListeners client={createAnalyticsWebClientMock()} logLevel={logLevel.level}>\n\t\t\t\t<div>\n\t\t\t\t\t{\n\t\t\t\t\t<div style={{ display: 'flex', alignItems: 'center' }}>\n\t\t\t\t\t\t<Button appearance=\"primary\" onClick={this.changeLogLevel}>\n\t\t\t\t\t\t\tChange log level\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<div\n\t\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\t\tpadding: `${token('space.200', '16px')} ${token('space.100', '8px')}`,\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tLevel: {logLevel.name}\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t{\n\t\t\t\t\t<div style={{ display: 'block' }}>\n\t\t\t\t\t\t<DummyElementsComponentWithAnalytics onClick={myOnClickHandler} />\n\t\t\t\t\t</div>\n\t\t\t\t\t{\n\t\t\t\t\t<div style={{ display: 'block' }}>\n\t\t\t\t\t\t<DummyAtlaskitComponentWithAnalytics onClick={myOnClickHandler} />\n\t\t\t\t\t</div>\n\t\t\t\t\t{\n\t\t\t\t\t<div style={{ display: 'block' }}>\n\t\t\t\t\t\t<AtlaskitIncorrectEventType onClick={myOnClickHandler} />\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</FabricAnalyticsListeners>\n\t\t);\n\t}\n}\nObject.assign(Example, {\n\tmeta: {\n\t\tnoListener: true,\n\t},\n});\nexport default Example;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Children!',
+			},
+			{
+				name: 'client',
+				type: 'AnalyticsWebClient | Promise<AnalyticsWebClient>',
+			},
+			{
+				name: 'excludedChannels',
+				type: 'FabricChannel[]',
+				description: 'A list of individual listeners to exclude, identified by channel',
+			},
+			{
+				name: 'logLevel',
+				type: 'number',
+			},
+		],
+	},
 	{
 		name: 'Conversation',
 		package: '@atlaskit/conversation',
@@ -929,6 +968,599 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'Emoji',
+		package: '@atlaskit/emoji',
+		description: 'A component for displaying a single emoji.',
+		status: 'general-availability',
+		usageGuidelines: ['Use `Emoji` to render a specific emoji by its ID or short name.'],
+		keywords: ['emoji', 'display'],
+		category: 'elements',
+		examples: [
+			"// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling\nimport { getEmojiRepository } from '@atlaskit/util-data-test/get-emoji-repository';\nimport { Emoji } from '../src/element';\nimport { IntlProvider } from 'react-intl';\nconst emojiService = getEmojiRepository();\nexport const renderEmoji = (fitToHeight: number = 24): React.JSX.Element => {\n\tconst blueStar = emojiService.findById('atlassian-blue_star');\n\tconst blueStarEmoji = blueStar ? (\n\t\t<Emoji emoji={blueStar} showTooltip={true} fitToHeight={fitToHeight} />\n\t) : (\n\t\t<span>[blueStar emoji not found]</span>\n\t);\n\tconst wtf = emojiService.findByShortName(':wtf:');\n\tconst wtfEmoji = wtf ? (\n\t\t<Emoji emoji={wtf} showTooltip={true} fitToHeight={fitToHeight} selected={true} />\n\t) : (\n\t\t<span>[wtf emoji not found]</span>\n\t);\n\tconst grimacing = emojiService.findByShortName(':grimacing:');\n\tconst grimacingEmoji = grimacing ? (\n\t\t<Emoji emoji={grimacing} showTooltip={true} fitToHeight={fitToHeight} />\n\t) : (\n\t\t<span>[grimacing emoji not found]</span>\n\t);\n\treturn (\n\t\t<div style={{ lineHeight: `${fitToHeight}px` }}>\n\t\t\t{blueStarEmoji}\n\t\t\t{wtfEmoji}\n\t\t\t{grimacingEmoji}\n\t\t\tEmoji at {fitToHeight}px.\n\t\t</div>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<div>{renderEmoji(12)}</div>\n\t\t\t<br />\n\t\t\t<div>{renderEmoji()}</div>\n\t\t\t<br />\n\t\t\t<div>{renderEmoji(40)}</div>\n\t\t\t<br />\n\t\t\t<div>{renderEmoji(64)}</div>\n\t\t\t<br />\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'autoWidth',
+				type: 'boolean',
+				description:
+					"Auto Width takes the constraint of height and enables native scaling based on the emojis image.\nThis is primarily used when rendering emojis for SSR as the component does not know the width and height\nat the time of the render. It overrides the emoji representations width with 'auto' on the images width attribute\n\nUsed only for image based emojis",
+			},
+			{
+				name: 'disableLazyLoad',
+				type: 'boolean',
+				description: 'Disables lazy load on images',
+			},
+			{
+				name: 'editorEmoji',
+				type: 'boolean',
+				description:
+					'This should only be set when the emoji is being used in the Editor.\nCurrently when set -- this prevents any aria labels being added.\nThis is acceptable in Editor -- as it uses another technique to announce the emoji nodes.',
+			},
+			{
+				name: 'emoji',
+				type: 'EmojiDescription',
+				description: 'The emoji to render',
+				isRequired: true,
+			},
+			{
+				name: 'fitToHeight',
+				type: 'number',
+				description: 'Fits emoji to height in pixels, keeping aspect ratio',
+			},
+			{
+				name: 'onDelete',
+				type: 'OnEmojiEvent<any>',
+				description: 'Called when an emoji is deleted',
+			},
+			{
+				name: 'onFocus',
+				type: 'OnEmojiEvent<any>',
+				description: 'Called when the mouse moves over the emoji.',
+			},
+			{
+				name: 'onLoadError',
+				type: 'OnEmojiEvent<HTMLImageElement>',
+				description: 'Callback for if an emoji image fails to load.',
+			},
+			{
+				name: 'onLoadSuccess',
+				type: '(emoji: EmojiDescription) => void',
+				description: 'Callback for if an emoji image succesfully loads.',
+			},
+			{
+				name: 'onMouseMove',
+				type: 'OnEmojiEvent<any>',
+				description: 'Called when the mouse moves over the emoji.',
+			},
+			{
+				name: 'onSelected',
+				type: 'OnEmojiEvent<any>',
+				description: 'Called when an emoji is selected',
+			},
+			{
+				name: 'preventFocusOnMouseDown',
+				type: 'boolean',
+				description:
+					'Prevent mouse selection from moving browser focus to the emoji.\nKeyboard selection still keeps focus on the emoji for grid navigation.',
+			},
+			{
+				name: 'renderUnicodeEmojiAsImage',
+				type: 'boolean',
+				description:
+					'Renders unicode emoji through an image representation when a fixed height is supplied.\nDefaults to `true`.',
+			},
+			{
+				name: 'selected',
+				type: 'boolean',
+				description: 'Show the emoji as selected',
+			},
+			{
+				name: 'selectOnHover',
+				type: 'boolean',
+				description:
+					'Automatically show the emoji as selected based on mouse hover.\nCSS, fast, does not require a re-render, but selected state not\nexternally controlled via props.',
+			},
+			{
+				name: 'shouldBeInteractive',
+				type: 'boolean',
+				description:
+					'Indicates whether emoji is an interactive element (tab index and role) or just a view',
+			},
+			{
+				name: 'showDelete',
+				type: 'boolean',
+				description: 'Show a delete button on mouse hover\nUsed only for custom emoji',
+			},
+			{
+				name: 'showTooltip',
+				type: 'boolean',
+				description: 'Show a tooltip on mouse hover.',
+			},
+		],
+	},
+	{
+		name: 'EmojiPicker',
+		package: '@atlaskit/emoji',
+		description: 'A component that provides a searchable picker for emojis.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `EmojiPicker` when you need to allow users to select an emoji from a list.',
+			'Requires an `EmojiResource` to fetch and manage emoji data.',
+		],
+		keywords: ['emoji', 'picker', 'select'],
+		category: 'elements',
+		examples: [
+			"import {\n\tUsageShowAndClearComponent,\n\ttype UsagingShowingProps,\n} from '../example-helpers/demo-emoji-usage-components';\nimport type { EmojiProvider } from '../src/resource';\nimport { EmojiPicker } from '../src/picker';\nimport { EmojiResource } from '../src/api/EmojiResource';\nimport { IntlProvider } from 'react-intl';\nconst config = {\n\tproviders: [{ url: 'https://api-private.stg.atlassian.com/emoji/standard' }],\n};\nclass UsageShowingEmojiPickerTextInput extends UsageShowAndClearComponent {\n\tconstructor(props: UsagingShowingProps) {\n\t\tsuper(props);\n\t}\n\tgetWrappedComponent() {\n\t\tconst { emojiResource } = this.props;\n\t\treturn (\n\t\t\t<EmojiPicker\n\t\t\t\tonSelection={this.onSelection}\n\t\t\t\temojiProvider={Promise.resolve(emojiResource as EmojiProvider)}\n\t\t\t/>\n\t\t);\n\t}\n}\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<UsageShowingEmojiPickerTextInput emojiResource={new EmojiResource(config)} />\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'emojiProvider',
+				type: 'Promise<EmojiProvider>',
+				description: 'Emoji Resource instance',
+				isRequired: true,
+			},
+			{
+				name: 'hideToneSelector',
+				type: 'boolean',
+				description: 'Flag to disable tone selector.',
+			},
+			{
+				name: 'onPickerRef',
+				type: 'PickerRefHandler',
+				description: 'Callback to handle picker reference.',
+			},
+			{
+				name: 'onSelection',
+				type: 'OnEmojiEvent<any>',
+				description: 'Callback to be executed on emoji selection.',
+			},
+			{
+				name: 'size',
+				type: '"small" | "medium" | "large"',
+				description: "Size of Emoji Picker. default value is 'medium'.",
+			},
+		],
+	},
+	{
+		name: 'EmojiTypeAhead',
+		package: '@atlaskit/emoji',
+		description: 'A component that provides emoji suggestions based on user input.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `EmojiTypeAhead` to provide a shortcut-based emoji selection experience (e.g., typing `:smile`).',
+		],
+		keywords: ['emoji', 'typeahead', 'autocomplete'],
+		category: 'elements',
+		examples: [
+			"import { layers } from '@atlaskit/theme/constants';\nimport React, { useRef, useState } from 'react';\n// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { lorem, onClose, onOpen, onSelection } from '../example-helpers';\nimport SearchTextInput from '../example-helpers/demo-search-text-input';\nimport type { TypeaheadProps } from '../example-helpers/typeahead-props';\nimport { EmojiTypeAhead } from '../src/typeahead';\nimport type { EmojiId, OptionalEmojiDescription } from '../src/types';\nimport debug from '../src/util/logger';\nimport { IntlProvider } from 'react-intl';\nconst loremContent = (\n\t<div>\n\t\t{\n\t\t<p style={{ width: '400px' }}>{lorem}</p>\n\t</div>\n);\nexport const EmojiTypeAheadTextInput = (\n\tprops: React.PropsWithChildren<TypeaheadProps>,\n): React.JSX.Element => {\n\tconst emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();\n\tconst [active, setActive] = useState<boolean>(false);\n\tconst [query, setQuery] = useState<string>('');\n\tconst { onSelection, label, emojiProvider, position } = props;\n\tdebug('demo-emoji-text-input.render', position);\n\tconst target = position ? '#demo-input' : undefined;\n\tconst showEmojiPopup = () => {\n\t\tsetActive(true);\n\t};\n\tconst hideEmojiPopup = () => {\n\t\tsetActive(false);\n\t};\n\tconst handleSelection = (emojiId: EmojiId, emoji: OptionalEmojiDescription) => {\n\t\thideEmojiPopup();\n\t\tonSelection(emojiId, emoji);\n\t};\n\tconst updateSearch = (event: React.ChangeEvent<HTMLInputElement>) => {\n\t\tif (active) {\n\t\t\tsetQuery(event.target.value || '');\n\t\t}\n\t};\n\tconst handleSearchTextInputChange = (query: React.ChangeEvent<HTMLInputElement>) => {\n\t\tupdateSearch(query);\n\t};\n\tconst handleSearchTextInputUp = () => {\n\t\temojiTypeAheadRef.current?.selectPrevious();\n\t};\n\tconst handleSearchTextInputDown = () => {\n\t\temojiTypeAheadRef.current?.selectNext();\n\t};\n\tconst handleSearchTextInputEnter = () => {\n\t\temojiTypeAheadRef.current?.chooseCurrentSelection();\n\t};\n\tconst handleEmojiTypeAheadRef = (ref: EmojiTypeAhead | null) => {\n\t\temojiTypeAheadRef.current = ref;\n\t};\n\tconst handleEmojiTypeAheadSelection = (emojiId: EmojiId, emoji: OptionalEmojiDescription) => {\n\t\thandleSelection(emojiId, emoji);\n\t};\n\tconst searchInput = (\n\t\t<SearchTextInput\n\t\t\tinputId=\"demo-input\"\n\t\t\tlabel={label}\n\t\t\tonChange={handleSearchTextInputChange}\n\t\t\tonUp={handleSearchTextInputUp}\n\t\t\tonDown={handleSearchTextInputDown}\n\t\t\tonEnter={handleSearchTextInputEnter}\n\t\t\tonEscape={hideEmojiPopup}\n\t\t\tonFocus={showEmojiPopup}\n\t\t\tonBlur={hideEmojiPopup}\n\t\t/>\n\t);\n\tlet emojiTypeAhead;\n\tif (active) {\n\t\temojiTypeAhead = (\n\t\t\t<EmojiTypeAhead\n\t\t\t\ttarget={target}\n\t\t\t\tposition={position}\n\t\t\t\tonSelection={handleEmojiTypeAheadSelection}\n\t\t\t\tonOpen={onOpen}\n\t\t\t\tonClose={onClose}\n\t\t\t\tref={handleEmojiTypeAheadRef}\n\t\t\t\tquery={query}\n\t\t\t\temojiProvider={emojiProvider}\n\t\t\t\tzIndex={layers.modal()}\n\t\t\t/>\n\t\t);\n\t}\n\treturn (\n\t\t<div style={{ padding: '10px' }}>\n\t\t\t{searchInput}\n\t\t\t{emojiTypeAhead}\n\t\t\t{loremContent}\n\t\t</div>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<EmojiTypeAheadTextInput\n\t\t\t\tlabel=\"Emoji search\"\n\t\t\t\tonSelection={onSelection}\n\t\t\t\temojiProvider={getEmojiResource()}\n\t\t\t\tposition=\"below\"\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'emojiProvider',
+				type: 'Promise<EmojiProvider>',
+				description: 'Emoji Resource instance',
+				isRequired: true,
+			},
+			{
+				name: 'listLimit',
+				type: 'number',
+				description: 'Number of results to be displayed in the search results list',
+			},
+			{
+				name: 'offsetX',
+				type: 'number',
+			},
+			{
+				name: 'offsetY',
+				type: 'number',
+			},
+			{
+				name: 'onClose',
+				type: 'OnLifecycle',
+				description: 'Callback to be executed when typeahead component disappears',
+			},
+			{
+				name: 'onOpen',
+				type: 'OnLifecycle',
+				description: 'Callback to be executed when typeahead component is being shown',
+			},
+			{
+				name: 'onSelection',
+				type: 'OnEmojiEvent<any>',
+				description: 'Callback to be executed when user selects an emoji.',
+			},
+			{
+				name: 'position',
+				type: '"above" | "below" | "auto"',
+			},
+			{
+				name: 'query',
+				type: 'string',
+				description: 'Search query.',
+			},
+			{
+				name: 'target',
+				type: 'string | HTMLElement',
+				description: 'CSS selector, or target HTML element',
+			},
+			{
+				name: 'zIndex',
+				type: 'string | number',
+			},
+		],
+	},
+	{
+		name: 'FeedbackCollector',
+		package: '@atlaskit/feedback-collector',
+		description: 'The main component for collecting user feedback.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `FeedbackCollector` to trigger a feedback form from your application.',
+			'Provide `onClose` and `onSubmit` handlers to manage the feedback flow.',
+		],
+		keywords: ['feedback', 'collector', 'atlassian'],
+		category: 'web-platform',
+		examples: [
+			"import React, { useRef, useState } from 'react';\nimport Button from '@atlaskit/button/new';\nimport { FlagGroup } from '@atlaskit/flag';\nimport FeedbackCollector, { FeedbackFlag } from '../src';\nconst ENTRYPOINT_ID: string = 'e0d501eb-7386-4ba7-aedc-68dc1dde485a';\nconst name: string = 'Feedback Sender';\nconst aaid: string = 'test-aaid';\nconst DisplayFeedback = () => {\n\tconst ref = useRef<HTMLElement | null>(null);\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst [displayFlag, setDisplayFlag] = useState(false);\n\tconst open = () => setIsOpen(true);\n\tconst close = () => setIsOpen(false);\n\tconst displayFlagTrue = () => setDisplayFlag(true);\n\tconst hideFlag = () => setDisplayFlag(false);\n\treturn (\n\t\t<div>\n\t\t\t<Button appearance=\"primary\" onClick={open}>\n\t\t\t\tDisplay Feedback\n\t\t\t</Button>\n\t\t\t{isOpen && (\n\t\t\t\t<FeedbackCollector\n\t\t\t\t\tlocale={'en'}\n\t\t\t\t\turl={'https://api-private.atlassian.com'}\n\t\t\t\t\tonClose={close}\n\t\t\t\t\tonSubmit={displayFlagTrue}\n\t\t\t\t\tatlassianAccountId={aaid}\n\t\t\t\t\tname={name}\n\t\t\t\t\tentrypointId={ENTRYPOINT_ID}\n\t\t\t\t\tshouldReturnFocusRef={ref}\n\t\t\t\t/>\n\t\t\t)}\n\t\t\t<FlagGroup onDismissed={hideFlag}>{displayFlag && <FeedbackFlag />}</FlagGroup>\n\t\t</div>\n\t);\n};\nexport default (): React.JSX.Element => (\n\t<>\n\t\t<>Click the button to display the feedback collector.</>\n\t\t<DisplayFeedback />\n\t</>\n);",
+		],
+		props: [
+			{
+				name: 'additionalFields',
+				type: 'FieldType[]',
+				description: 'Additional fields to send to the widget service *',
+				isRequired: true,
+			},
+			{
+				name: 'anonymousFeedback',
+				type: 'boolean',
+				description: 'Override to mark feedback as anonymous',
+			},
+			{
+				name: 'atlassianAccountId',
+				type: 'string',
+				description: "Optional parameter for feedback submitter's Atlassian Account ID",
+			},
+			{
+				name: 'canBeContactedAgreeValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the agree value for the "can be contacted" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'canBeContactedDeclineValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the decline value for the "can be contacted" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'canBeContactedFieldId',
+				type: 'string',
+				description:
+					'Override the default id for the "can be contacted" custom field in your widget service *',
+				isRequired: true,
+			},
+			{
+				name: 'canBeContactedLabel',
+				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'Message which will be shown next to the can be contacted checkbox',
+			},
+			{
+				name: 'canBeContactedLink',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Link which will be shown below the can be contacted checkbox',
+			},
+			{
+				name: 'cancelButtonLabel',
+				type: 'string',
+				description: 'Message for cancel button label',
+			},
+			{
+				name: 'customContent',
+				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'Optional custom modal content',
+			},
+			{
+				name: 'customerNameDefaultValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the default value for the "customer name" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'customerNameFieldId',
+				type: 'string',
+				description:
+					'Override the default id for the "customer name" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'customFeedbackOptions',
+				type: 'OptionType[]',
+				description: 'Custom Select feedback options',
+			},
+			{
+				name: 'customFeedbackUrl',
+				type: 'string',
+				description:
+					'A custom URL for the Feedback Collector API, this field takes priority over `url`',
+			},
+			{
+				name: 'customGatewayUrl',
+				type: 'string',
+				description: 'A custom URL for the Stargate gateway, this field takes priority over `url`',
+			},
+			{
+				name: 'customTextAreaLabel',
+				type: 'string',
+				description: 'Optional custom label for TextArea when showTypeField is false',
+			},
+			{
+				name: 'descriptionDefaultValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the default value for the "description" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'descriptionFieldId',
+				type: 'string',
+				description:
+					'Override the default id for the "description" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'dialogRef',
+				type: 'RefObject<HTMLElement>',
+				description: 'Ref to the rendered feedback dialog container',
+			},
+			{
+				name: 'disableSubmitButton',
+				type: 'boolean',
+				description: 'Disable submit button to allow custom content to handle validation',
+			},
+			{
+				name: 'email',
+				type: 'string',
+				description: "Optional parameter for feedback submitter's email address",
+			},
+			{
+				name: 'enrolInResearchLabel',
+				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'Message which will be shown next to the enrol in research checkbox',
+			},
+			{
+				name: 'enrolInResearchLink',
+				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'Message which will be shown below the enrol in research checkbox',
+			},
+			{
+				name: 'enrollInResearchAgreeValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the agree value for the "enroll in research" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'enrollInResearchDeclineValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the decline value for the "enroll in research" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'enrollInResearchFieldId',
+				type: 'string',
+				description:
+					'Override the default id for the "enroll in research" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'entrypointId',
+				type: 'string',
+				description:
+					'The id of the entrypoint in the feedback service; to acquire your entrypointId, visit the #feedback-collectors channel',
+				isRequired: true,
+			},
+			{
+				name: 'feedbackGroupLabels',
+				type: '{ bug?: SelectOptionDetails; comment?: SelectOptionDetails; suggestion?: SelectOptionDetails; question?: SelectOptionDetails; ... 5 more ...; other?: SelectOptionDetails; }',
+				description: 'Message for select option labels and field labels',
+			},
+			{
+				name: 'feedbackTitle',
+				type: 'string | number',
+				description: 'Message which will be shown as the title of the feedback dialog',
+			},
+			{
+				name: 'feedbackTitleDetails',
+				type: 'string | number | ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'Message which will be shown below the title of the feedback dialog',
+			},
+			{
+				name: 'locale',
+				type: 'string',
+				description: 'Locale for i18n',
+				isRequired: true,
+			},
+			{
+				name: 'name',
+				type: 'string',
+				description: 'The customer name',
+			},
+			{
+				name: 'onCancel',
+				type: '(...args: any[]) => void',
+				description:
+					'Optional function that will be called when the cancel button is clicked, in addition to onClose.',
+			},
+			{
+				name: 'onClose',
+				type: '(...args: any[]) => void',
+				description:
+					'Function that will be called to initiate the exit transition.\nWhen triggered by the cancel button the originating event and Atlaskit UI analytics\nevent are forwarded; programmatic close paths (e.g. after submit) invoke it with no\narguments. Typed as a variadic `any[]` to maximise backward compatibility with\nconsumers that declared any conceivable signature for this callback.',
+				isRequired: true,
+			},
+			{
+				name: 'onSubmit',
+				type: '(formFields: FormFields) => void',
+				description:
+					'Function that will be called optimistically after a delay when the feedback is submitted.',
+				isRequired: true,
+			},
+			{
+				name: 'selectLabel',
+				type: 'string',
+				description: 'Optional custom label for select field',
+			},
+			{
+				name: 'shouldGetEntitlementDetails',
+				type: 'boolean',
+				description: 'Whether to request email details and product entitlements',
+			},
+			{
+				name: 'shouldReturnFocusRef',
+				type: 'RefObject<HTMLElement>',
+				description: 'Optional ref to return focus to after feedback form is closed',
+			},
+			{
+				name: 'showDefaultTextFields',
+				type: 'boolean',
+				description: 'Override to hide the default text fields for feedback',
+			},
+			{
+				name: 'showRequiredFieldsSummary',
+				type: 'boolean',
+				description: 'Optional to show or hide the required fields summary',
+			},
+			{
+				name: 'showTypeField',
+				type: 'boolean',
+				description: 'Override to hide the feedback type select drop down for the feedback',
+				isRequired: true,
+			},
+			{
+				name: 'submitButtonLabel',
+				type: 'string',
+				description: 'Message for submit button label',
+			},
+			{
+				name: 'summaryDefaultValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the default value for the "summary" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'summaryFieldId',
+				type: 'string',
+				description:
+					'Override the default id for the "summary" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'summaryPlaceholder',
+				type: 'string',
+				description: 'Message which will be shown inside the summary text field',
+			},
+			{
+				name: 'summaryTruncateLength',
+				type: 'number',
+				description:
+					'Number of characters that the "summary" field accepts, the rest will be truncated',
+				isRequired: true,
+			},
+			{
+				name: 'timeoutOnSubmit',
+				type: 'number',
+				description: 'After this delay the onSubmit callback will be triggered optimistically',
+				isRequired: true,
+			},
+			{
+				name: 'typeBugDefaultValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the default value for the "Bug" type of response in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'typeCommentDefaultValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the default value for the "Comment" type of response in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'typeEmptyDefaultValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the default value for the "Empty" type of response in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'typeFieldId',
+				type: 'string',
+				description: 'Override the default id for the "type" custom field in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'typeQuestionDefaultValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the default value for the "Question" type of response in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'typeSuggestionDefaultValue',
+				type: 'string | Object | Object[]',
+				description:
+					'Override the default value for the "Suggestion" type of response in your widget service',
+				isRequired: true,
+			},
+			{
+				name: 'url',
+				type: 'string',
+				description:
+					'Override the URL for all HTTPS calls, only needed if service is not behind stargate (like the Atlaskit frontend itself)',
+			},
+		],
+	},
+	{
+		name: 'FeedbackButton',
+		package: '@atlaskit/feedback-collector',
+		description: 'A button component used to trigger the feedback collector.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `FeedbackButton` to provide a consistent trigger for the feedback collector.',
+		],
+		keywords: ['feedback', 'button', 'trigger'],
+		category: 'web-platform',
+		examples: [
+			"import { FeedbackButton } from '../src';\nexport default (): React.JSX.Element => <FeedbackButton locale={'en'} entrypointId={'key1'} />;",
+		],
+		props: [
+			{
+				name: 'atlassianAccountId',
+				type: 'string',
+			},
+			{
+				name: 'entrypointId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'locale',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'shouldGetEntitlementDetails',
+				type: 'boolean',
+			},
+		],
+	},
+	{
 		name: 'AssetsConfigModal',
 		package: '@atlaskit/link-datasource',
 		description:
@@ -1447,6 +2079,1301 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'url',
 				type: 'string',
 				description: 'The url of the linked resource for editing.',
+			},
+		],
+	},
+	{
+		name: 'AvatarPickerDialog',
+		package: '@atlaskit/media-avatar-picker',
+		description: 'Main dialog component that orchestrates the avatar selection experience.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `AvatarPickerDialog` when you need to allow users to upload or select an avatar.',
+		],
+		keywords: ['media', 'avatar', 'picker', 'upload'],
+		category: 'media',
+		examples: [
+			"import { tallImage } from '@atlaskit/media-test-helpers';\nimport StatefulAvatarPickerDialog from '../example-helpers/StatefulAvatarPickerDialog';\nexport default (): React.JSX.Element => (\n\t<StatefulAvatarPickerDialog placeholder={<div>Loading...</div>} imageSource={tallImage} />\n);",
+		],
+		props: [
+			{
+				name: 'avatars',
+				type: 'Avatar[]',
+				description:
+					'This property is used to provide an array of pre-defined avatars. The **Avatar** object is a simple type with a single **dataURI: string** property. For convenience, this type is exported from the **@atlassian/media-avatar-picker** module along with the **AvatarPickerDialog** component.',
+				isRequired: true,
+			},
+			{
+				name: 'defaultSelectedAvatar',
+				type: 'Avatar',
+				description:
+					'This property is used along with the **avatar** property. It allows you to set the currently selected pre-defined avatar. By default, there is no pre-defined avatar selected, even if the **avatars** property is set.',
+			},
+			{
+				name: 'errorMessage',
+				type: 'string',
+				description:
+					'This optional property allows the consumer to display an error message. This may occur from a call to a service. The string is clipped if greater than 125 charaters (approximately 3 lines within the dialog).',
+			},
+			{
+				name: 'imageSource',
+				type: 'string',
+				description:
+					'This optional property is used to set the selected image so that the component opens up with it visible already. The value should be a valid dataURI string. If an invalid dataURI is given, the bad format error state will be triggered and a message shown.',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description: 'This optional property is used while the avatar is loaded.',
+			},
+			{
+				name: 'maxImageSize',
+				type: 'number',
+				description:
+					'This optional property allows the consumer to define the maximum image size that can be uploaded.',
+			},
+			{
+				name: 'onAvatarPicked',
+				type: '((avatar: Avatar) => void) | ((avatar: Avatar, altText: string) => void)',
+				description:
+					'This property is raised when the user clicks the **Save** button and there is a pre-defined avatar selected, and no image selected. An **Avatar** object with a **dataURI** property is passed.\nThis property is raised when the user clicks the **Save** button and there is a pre-defined avatar selected, and no image selected. Two arguments are passed, an **Avatar** object with a **dataURI** property, and an **altText** string.',
+				isRequired: true,
+			},
+			{
+				name: 'onCancel',
+				type: '() => void',
+				description:
+					'This property is raised when the user clicks **Cancel** button.\n **Note** this does not close the dialog.\nIt is up to the consumer to re-render and remove the dialog from the UI.',
+				isRequired: true,
+			},
+			{
+				name: 'onImagePicked',
+				type: '((file: File, crop: CropProperties) => void) | ((file: File, crop: CropProperties, altText: string) => void)',
+				description:
+					'This property is raised when the user clicks the **Save** button and there is a selected image.\nTwo arguments are passed, the **file:File** which is a blob, and the crop settings which is an object containing **x:number**,**y:number**, and **size:number** values, which are all relative to the coordinates of the selected image. **Note** due to limitations on Safari <= 10.0 and IE11, a **Blob** object will be returned instead of a **File**.\nThis still allows access to the image byte data to facilitate uploads, essentially minus the filename and date attributes.\nThis property is raised when the user clicks the **Save** button and there is a selected image.\nThree arguments are passed, the **file:File** which is a blob, the crop settings which is an object containing **x:number**,**y:number**, and **size:number** values, which are all relative to the coordinates of the selected image, and **altText:string**. **Note** due to limitations on Safari <= 10.0 and IE11, a **Blob** object will be returned instead of a **File**.\nThis still allows access to the image byte data to facilitate uploads, essentially minus the filename and date attributes.',
+			},
+			{
+				name: 'onImagePickedDataURI',
+				type: '((dataUri: string) => void) | ((dataUri: string, altText: string) => void)',
+				description:
+					'This property is raised when the user clicks the **Save** button and there is a selected image. The selected image is provided as a dataURI string.\nThis property is raised when the user clicks the **Save** button and there is a selected image. The selected image is provided as a dataURI string, and the user-specified alt text is provided as an altText string.',
+			},
+			{
+				name: 'outputSize',
+				type: 'number',
+				description:
+					'The target width/height of the resulting (square) avatar. Leave blank for default (200x200)',
+			},
+			{
+				name: 'placeholder',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'predefinedAvatarsText',
+				type: 'string',
+				description: 'This property describes the text related to the Avatar.',
+			},
+			{
+				name: 'primaryButtonText',
+				type: 'string',
+				description: 'The primary button text. The default is _Save_.',
+			},
+			{
+				name: 'requireAltText',
+				type: 'boolean',
+				description:
+					'This property allows the consumer to specify whether or not the user should be required to enter alt text.\nThis property allows the consumer to specify whether or not the user should be required to enter alt text.',
+			},
+			{
+				name: 'selectAvatarLabel',
+				type: 'string',
+				description:
+					'This optional property allows the consumer to define a custom label for select default avatar. The default is _Select a default avatar_.',
+			},
+			{
+				name: 'showMoreAvatarsButtonLabel',
+				type: 'string',
+				description:
+					'This optional property allows the consumer to define a custom label for the default avatars show more button. The default is _Show more_.',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description: 'The title text for the dialog. The default is _Upload an avatar_.',
+			},
+		],
+	},
+	{
+		name: 'ImageCropper',
+		package: '@atlaskit/media-avatar-picker',
+		description: 'Interactive component for cropping uploaded images.',
+		status: 'general-availability',
+		usageGuidelines: ['Use `ImageCropper` for standalone image cropping functionality.'],
+		keywords: ['media', 'crop', 'image'],
+		category: 'media',
+		examples: [
+			"import { IntlProvider } from 'react-intl';\nimport ImageCropper from '../src/image-cropper';\nimport { tallImage } from '@atlaskit/media-test-helpers';\nconst naturalWidth = 5360;\nconst onImageLoaded = (img: HTMLImageElement) =>\n\tconsole.log('onImageLoaded', img.naturalWidth, img.naturalHeight);\nconst onRemoveImage = () => console.log('onRemoveImage');\nconst onImageError = (errorMessage: string) => console.log('onImageError', errorMessage);\nexport default (): React.JSX.Element => (\n\t<IntlProvider locale=\"en\">\n\t\t<div>\n\t\t\t<div>\n\t\t\t\t<h1>default</h1>\n\t\t\t\t<ImageCropper\n\t\t\t\t\timageOrientation={1}\n\t\t\t\t\timageSource={tallImage}\n\t\t\t\t\timageWidth={naturalWidth}\n\t\t\t\t\ttop={-80}\n\t\t\t\t\tleft={-80}\n\t\t\t\t\tonDragStarted={() => console.log('DragStarted')}\n\t\t\t\t\tonImageLoaded={onImageLoaded}\n\t\t\t\t\tonRemoveImage={onRemoveImage}\n\t\t\t\t\tonImageError={onImageError}\n\t\t\t\t/>\n\t\t\t</div>\n\t\t\t<div>\n\t\t\t\t<h1>when image width is not set</h1>\n\t\t\t\t<ImageCropper\n\t\t\t\t\timageOrientation={1}\n\t\t\t\t\timageSource={tallImage}\n\t\t\t\t\ttop={-50}\n\t\t\t\t\tleft={-115}\n\t\t\t\t\tonImageLoaded={onImageLoaded}\n\t\t\t\t\tonRemoveImage={onRemoveImage}\n\t\t\t\t\tonImageError={onImageError}\n\t\t\t\t/>\n\t\t\t</div>\n\t\t\t<div>\n\t\t\t\t<h1>with custom container size</h1>\n\t\t\t\t<ImageCropper\n\t\t\t\t\timageOrientation={1}\n\t\t\t\t\timageSource={tallImage}\n\t\t\t\t\timageWidth={naturalWidth}\n\t\t\t\t\tonImageLoaded={onImageLoaded}\n\t\t\t\t\ttop={-50}\n\t\t\t\t\tleft={-115}\n\t\t\t\t\tcontainerSize={400}\n\t\t\t\t\tonRemoveImage={onRemoveImage}\n\t\t\t\t\tonImageError={onImageError}\n\t\t\t\t/>\n\t\t\t</div>\n\t\t\t<div>\n\t\t\t\t<h1>with circular mask</h1>\n\t\t\t\t<ImageCropper\n\t\t\t\t\timageOrientation={1}\n\t\t\t\t\timageSource={tallImage}\n\t\t\t\t\timageWidth={naturalWidth}\n\t\t\t\t\ttop={-70}\n\t\t\t\t\tleft={-90}\n\t\t\t\t\tisCircularMask={true}\n\t\t\t\t\tonImageLoaded={onImageLoaded}\n\t\t\t\t\tonRemoveImage={onRemoveImage}\n\t\t\t\t\tonImageError={onImageError}\n\t\t\t\t/>\n\t\t\t</div>\n\t\t</div>\n\t</IntlProvider>\n);",
+		],
+		props: [
+			{
+				name: 'containerSize',
+				type: 'number',
+			},
+			{
+				name: 'imageHeight',
+				type: 'number',
+			},
+			{
+				name: 'imageOrientation',
+				type: 'number',
+				isRequired: true,
+			},
+			{
+				name: 'imageSource',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'imageWidth',
+				type: 'number',
+			},
+			{
+				name: 'isCircularMask',
+				type: 'boolean',
+			},
+			{
+				name: 'left',
+				type: 'number',
+				isRequired: true,
+			},
+			{
+				name: 'moveImage',
+				type: '(key: string) => void',
+			},
+			{
+				name: 'onDragStarted',
+				type: '(x: number, y: number) => void',
+			},
+			{
+				name: 'onImageError',
+				type: '(errorMessage: string) => void',
+				isRequired: true,
+			},
+			{
+				name: 'onImageLoaded',
+				type: '(image: HTMLImageElement) => void',
+				isRequired: true,
+			},
+			{
+				name: 'onRemoveImage',
+				type: '() => void',
+				isRequired: true,
+			},
+			{
+				name: 'top',
+				type: 'number',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'Card',
+		package: '@atlaskit/media-card',
+		description: 'The main component for displaying media files as cards.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `Card` to display media files in a grid or list.',
+			'Requires a `MediaClient` instance and a file identifier.',
+		],
+		keywords: ['media', 'card', 'file', 'display'],
+		category: 'media',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@emotion/react';\nimport { Component, type SyntheticEvent } from 'react';\nimport {\n\tdefaultCollectionName,\n\tgenericFileId,\n\taudioFileId,\n\taudioNoCoverFileId,\n\tvideoFileId,\n\tvideoProcessingFailedId,\n\tdocFileId,\n\tlargePdfFileId,\n\tarchiveFileId,\n\tunknownFileId,\n\terrorFileId,\n\tgifFileId,\n\tnoMetadataFileId,\n\tcreateUploadMediaClientConfig,\n\temptyImageFileId,\n} from '@atlaskit/media-test-helpers';\nimport Button from '@atlaskit/button/new';\nimport { Card } from '../src';\nimport {\n\tUploadController,\n\ttype FileIdentifier,\n\tMediaClient,\n\ttype MediaSubscribable,\n} from '@atlaskit/media-client';\nimport { cardWrapperStyles, cardFlowHeaderStyles } from '../example-helpers/styles';\nimport { MainWrapper } from '../example-helpers';\nconst mediaClientConfig = createUploadMediaClientConfig();\nconst mediaClient = new MediaClient(mediaClientConfig);\nexport interface ComponentProps {}\ntype fileId = {\n\tid: string;\n\tname?: string;\n};\nexport interface ComponentState {\n\tfileIds: fileId[];\n}\nconst fileIds = [\n\t{ id: genericFileId.id, name: 'Generic file' },\n\t{ id: audioFileId.id, name: 'Audio file' },\n\t{ id: audioNoCoverFileId.id, name: 'Audio no cover file' },\n\t{ id: videoFileId.id, name: 'Video file' },\n\t{ id: gifFileId.id, name: 'Gif file' },\n\t{ id: videoProcessingFailedId.id, name: 'Video processing failed' },\n\t{ id: errorFileId.id, name: 'Error file' },\n\t{ id: docFileId.id, name: 'Doc file' },\n\t{ id: largePdfFileId.id, name: 'Large pdf file' },\n\t{ id: archiveFileId.id, name: 'Archive file' },\n\t{ id: unknownFileId.id, name: 'Unknown file' },\n\t{ id: noMetadataFileId.id, name: 'No metadata file' },\n\t{ id: emptyImageFileId.id, name: 'Empty image file' },\n];\nclass Example extends Component<ComponentProps, ComponentState> {\n\tuploadController?: UploadController;\n\tstate: ComponentState = {\n\t\tfileIds,\n\t};\n\trenderCards() {\n\t\tconst { fileIds } = this.state;\n\t\tconst cards = fileIds.map(({ id, name }) => {\n\t\t\tconst identifier: FileIdentifier = {\n\t\t\t\tid,\n\t\t\t\tmediaItemType: 'file',\n\t\t\t\tcollectionName: defaultCollectionName,\n\t\t\t};\n\t\t\treturn (\n\t\t\t\t<div css={cardWrapperStyles} key={id}>\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<h3>{name}</h3>\n\t\t\t\t\t\t<Card\n\t\t\t\t\t\t\tmediaClientConfig={mediaClientConfig}\n\t\t\t\t\t\t\tidentifier={identifier}\n\t\t\t\t\t\t\tshouldEnableDownloadButton\n\t\t\t\t\t\t\tshouldOpenMediaViewer\n\t\t\t\t\t\t/>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t);\n\t\t});\n\t\treturn <div>{cards}</div>;\n\t}\n\tcancelUpload = () => {\n\t\tif (this.uploadController) {\n\t\t\tthis.uploadController.abort();\n\t\t}\n\t};\n\tuploadFile = async (event: SyntheticEvent<HTMLInputElement>) => {\n\t\tif (!event.currentTarget.files || !event.currentTarget.files.length) {\n\t\t\treturn;\n\t\t}\n\t\tconst file = event.currentTarget.files[0];\n\t\tconst uplodableFile = {\n\t\t\tcontent: file,\n\t\t\tname: file.name,\n\t\t\tcollection: defaultCollectionName,\n\t\t\tmimeType: file.type,\n\t\t};\n\t\tconst uploadController = new UploadController();\n\t\tconst stream = mediaClient.file.upload(uplodableFile, uploadController);\n\t\tthis.uploadController = uploadController;\n\t\tthis.addStream(stream);\n\t};\n\taddStream = (stream: MediaSubscribable) => {\n\t\tlet isIdSaved = false;\n\t\tconst subscription = stream.subscribe({\n\t\t\tnext: (state) => {\n\t\t\t\tconst { fileIds } = this.state;\n\t\t\t\tif (!isIdSaved && state.status === 'uploading') {\n\t\t\t\t\tisIdSaved = true;\n\t\t\t\t\tthis.setState({\n\t\t\t\t\t\tfileIds: [{ id: state.id }, ...fileIds],\n\t\t\t\t\t});\n\t\t\t\t}\n\t\t\t\tif (state.status === 'processing') {\n\t\t\t\t\t// here we have the public id, AKA upload is finished\n\t\t\t\t\tconsole.log('public id', state.id);\n\t\t\t\t\tsubscription.unsubscribe();\n\t\t\t\t}\n\t\t\t},\n\t\t\tcomplete() {\n\t\t\t\tconsole.log('stream complete');\n\t\t\t},\n\t\t\terror(error) {\n\t\t\t\tconsole.log('stream error', error);\n\t\t\t},\n\t\t});\n\t};\n\trender() {\n\t\treturn (\n\t\t\t<React.Fragment>\n\t\t\t\t{\n\t\t\t\t<div css={cardFlowHeaderStyles}>\n\t\t\t\t\tUpload file <input type=\"file\" onChange={this.uploadFile} />\n\t\t\t\t\t<Button appearance=\"primary\" onClick={this.cancelUpload}>\n\t\t\t\t\t\tCancel upload\n\t\t\t\t\t</Button>\n\t\t\t\t</div>\n\t\t\t\t{this.renderCards()}\n\t\t\t</React.Fragment>\n\t\t);\n\t}\n}\nexport default (): React.JSX.Element => (\n\t<MainWrapper>\n\t\t<Example />\n\t</MainWrapper>\n);\n// We export the example without FFs dropdown for SSR test:\n// packages/media/media-card/src/__tests__/unit/server-side-hydrate.tsx\nexport const SSR = (): React.JSX.Element => <Example />;",
+		],
+		props: [
+			{
+				name: 'actions',
+				type: 'CardAction[]',
+			},
+			{
+				name: 'alt',
+				type: 'string',
+			},
+			{
+				name: 'appearance',
+				type: '"auto" | "image" | "square" | "horizontal"',
+			},
+			{
+				name: 'backgroundColor',
+				type: 'Globals | DataType.Color',
+			},
+			{
+				name: 'contextId',
+				type: 'string',
+				description: 'Retrieve auth based on a given context.',
+			},
+			{
+				name: 'dimensions',
+				type: 'CardDimensions',
+			},
+			{
+				name: 'disableOverlay',
+				type: 'boolean',
+			},
+			{
+				name: 'fallbackMediaNameFetcher',
+				type: '(id: string) => Promise<string>',
+				description:
+					'Optional fallback fetcher to retrieve the media filename from another service.\nWorkaround for #hot-301450 where media service is missing filenames for DC -> Cloud migrated media.\nReceives the file ID and should resolve to the filename string.',
+			},
+			{
+				name: 'featureFlags',
+				type: 'MediaFeatureFlags',
+			},
+			{
+				name: 'identifier',
+				type: 'FileIdentifier | ExternalImageIdentifier',
+				description: 'Instance of file identifier.',
+				isRequired: true,
+			},
+			{
+				name: 'includeHashForDuplicateFiles',
+				type: 'boolean',
+				description: 'Sets options for viewer *',
+			},
+			{
+				name: 'isAIGenerating',
+				type: 'boolean',
+			},
+			{
+				name: 'isLazy',
+				type: 'boolean',
+				description: 'Lazy loads the media file.',
+			},
+			{
+				name: 'mediaClientConfig',
+				type: 'MediaClientConfig',
+				isRequired: true,
+			},
+			{
+				name: 'mediaSettings',
+				type: '{ canUpdateVideoCaptions?: boolean; }',
+				description: 'General Media Settings',
+			},
+			{
+				name: 'mediaViewerExtensions',
+				type: 'MediaViewerExtensions',
+				description: 'Extensions for the media viewer (e.g. comment button in header).',
+			},
+			{
+				name: 'mediaViewerItems',
+				type: 'Identifier[]',
+				description: 'Media file list to display in Media Viewer.',
+			},
+			{
+				name: 'onClick',
+				type: 'CardOnClickCallback',
+			},
+			{
+				name: 'onError',
+				type: '(reason: "upload" | "metadata-fetch" | "error-file-state" | "failed-processing" | "remote-preview-fetch" | "remote-preview-not-ready" | "remote-preview-fetch-ssr" | "local-preview-get" | ... 20 more ... | "download") => void',
+				description: 'General Error handling include status errors and display errors',
+			},
+			{
+				name: 'onFullscreenChange',
+				type: '(fullscreen: boolean) => void',
+				description:
+					'Callback function to be called when video enters and exit fullscreen.\n`fullscreen = true` indicates video enters fullscreen\n`fullscreen = false` indicates video exits fullscreen',
+			},
+			{
+				name: 'onMouseEnter',
+				type: '(result: CardEvent) => void',
+			},
+			{
+				name: 'onPreviewRender',
+				type: '(fileId: string) => void',
+			},
+			{
+				name: 'originalDimensions',
+				type: 'NumericalCardDimensions',
+			},
+			{
+				name: 'resizeMode',
+				type: '"crop" | "fit" | "full-fit" | "stretchy-fit"',
+			},
+			{
+				name: 'selectable',
+				type: 'boolean',
+			},
+			{
+				name: 'selected',
+				type: 'boolean',
+			},
+			{
+				name: 'shouldEnableDownloadButton',
+				type: 'boolean',
+				description: 'Enables the download button for media file.',
+			},
+			{
+				name: 'shouldHideTooltip',
+				type: 'boolean',
+				description: 'Disable tooltip for the card',
+			},
+			{
+				name: 'shouldOpenMediaViewer',
+				type: 'boolean',
+				description: 'Uses media MediaViewer to preview the media file.',
+			},
+			{
+				name: 'ssr',
+				type: '"client" | "server"',
+				description: 'Server-Side-Rendering modes are "server" and "client"',
+			},
+			{
+				name: 'ssrFileState',
+				type: 'UploadingFileState | ProcessingFileState | ProcessedFileState | ErrorFileState | ProcessingFailedState',
+				description:
+					"Pre-hydrated SSR metadata from a Relay fragment.\nWhen provided and `fg('platform_media_ssr_data_seed')` is on, the card seeds\n`useFileState` with this data and skips the `items()` API call for files\nwhose `processingStatus` is `succeeded`.\n@see https://product-fabric.atlassian.net/browse/BMPT-7914",
+			},
+			{
+				name: 'titleBoxBgColor',
+				type: 'string',
+			},
+			{
+				name: 'titleBoxIcon',
+				type: 'string',
+			},
+			{
+				name: 'useInlinePlayer',
+				type: 'boolean',
+				description: 'Uses the inline player for media file.',
+			},
+			{
+				name: 'videoControlsWrapperRef',
+				type: '((instance: HTMLDivElement) => void) | React.RefObject<HTMLDivElement>',
+			},
+			{
+				name: 'viewerOptions',
+				type: 'ViewerOptionsProps',
+			},
+		],
+	},
+	{
+		name: 'Browser',
+		package: '@atlaskit/media-picker',
+		description: 'A component that triggers the native browser file dialog.',
+		status: 'general-availability',
+		usageGuidelines: ['Use `Browser` to allow users to select files from their computer.'],
+		keywords: ['media', 'picker', 'upload', 'browser'],
+		category: 'media',
+		examples: [
+			"import { Component } from 'react';\nimport {\n\tdefaultCollectionName,\n\tdefaultMediaPickerCollectionName,\n\tmediaPickerAuthProvider,\n} from '@atlaskit/media-test-helpers';\nimport Button from '@atlaskit/button/new';\nimport DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';\nimport {\n\tMainWrapper,\n\tUploadPreviews,\n\ttype AuthEnvironment,\n\tPopupHeader,\n\tPopupContainer,\n} from '../example-helpers';\nimport { type UploadParams, type BrowserConfig } from '../src/types';\nimport { Browser } from '../src/';\nimport { type FileState, MediaClient } from '@atlaskit/media-client';\nimport { type MediaClientConfig } from '@atlaskit/media-core';\nexport interface BrowserWrapperState {\n\tcollectionName: string;\n\tauthEnvironment: AuthEnvironment;\n\tmediaClient?: MediaClient;\n\tbrowseConfig?: BrowserConfig;\n}\nclass BrowserWrapper extends Component<{}, BrowserWrapperState> {\n\tdropzoneContainer?: HTMLDivElement;\n\tprivate browseFn: Function = () => {};\n\tstate: BrowserWrapperState = {\n\t\tauthEnvironment: 'client',\n\t\tcollectionName: defaultMediaPickerCollectionName,\n\t};\n\tcomponentDidMount() {\n\t\tconst mediaClientConfig: MediaClientConfig = {\n\t\t\tauthProvider: mediaPickerAuthProvider(),\n\t\t};\n\t\tconst uploadParams: UploadParams = {\n\t\t\tcollection: this.state.collectionName,\n\t\t};\n\t\tconst browseConfig: BrowserConfig = {\n\t\t\tmultiple: true,\n\t\t\tfileExtensions: ['image/jpeg', 'image/png', 'video/mp4'],\n\t\t\tuploadParams,\n\t\t};\n\t\tconst mediaClient = new MediaClient(mediaClientConfig);\n\t\tmediaClient.on('file-added', this.onFileAdded);\n\t\tthis.setState({\n\t\t\tmediaClient,\n\t\t\tbrowseConfig,\n\t\t});\n\t}\n\tonFileAdded = (fileState: FileState) => {\n\t\tconsole.log('onFileAdded', fileState);\n\t};\n\tonOpen = () => {\n\t\tif (this.browseFn) {\n\t\t\tthis.browseFn();\n\t\t}\n\t};\n\tonCollectionChange = (\n\t\te: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>,\n\t) => {\n\t\tif (!(e.currentTarget instanceof HTMLElement)) {\n\t\t\treturn;\n\t\t}\n\t\tconst { innerText: collectionName } = e.currentTarget;\n\t\tconst { browseConfig } = this.state;\n\t\tif (!browseConfig) {\n\t\t\treturn;\n\t\t}\n\t\tconst uploadParams: UploadParams = {\n\t\t\tcollection: collectionName,\n\t\t};\n\t\tthis.setState({\n\t\t\tcollectionName,\n\t\t\tbrowseConfig: {\n\t\t\t\t...browseConfig,\n\t\t\t\tuploadParams,\n\t\t\t},\n\t\t});\n\t};\n\tonAuthTypeChange = (e: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => {\n\t\tif (!(e.currentTarget instanceof HTMLElement)) {\n\t\t\treturn;\n\t\t}\n\t\tconst { innerText: authEnvironment } = e.currentTarget;\n\t\tthis.setState({ authEnvironment: authEnvironment as AuthEnvironment });\n\t};\n\tonBrowseFn = (browse: () => void) => {\n\t\tthis.browseFn = browse;\n\t};\n\trender() {\n\t\tconst { collectionName, authEnvironment, mediaClient, browseConfig } = this.state;\n\t\tif (!browseConfig || !mediaClient) {\n\t\t\treturn null;\n\t\t}\n\t\treturn (\n\t\t\t<MainWrapper>\n\t\t\t\t<PopupContainer>\n\t\t\t\t\t<PopupHeader>\n\t\t\t\t\t\t<Button appearance=\"primary\" onClick={this.onOpen}>\n\t\t\t\t\t\t\tOpen\n\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t<DropdownMenu trigger={collectionName} shouldRenderToParent>\n\t\t\t\t\t\t\t<DropdownItem onClick={this.onCollectionChange}>\n\t\t\t\t\t\t\t\t{defaultMediaPickerCollectionName}\n\t\t\t\t\t\t\t</DropdownItem>\n\t\t\t\t\t\t\t<DropdownItem onClick={this.onCollectionChange}>{defaultCollectionName}</DropdownItem>\n\t\t\t\t\t\t</DropdownMenu>\n\t\t\t\t\t\t<DropdownMenu trigger={authEnvironment} shouldRenderToParent>\n\t\t\t\t\t\t\t<DropdownItem onClick={this.onAuthTypeChange}>client</DropdownItem>\n\t\t\t\t\t\t\t<DropdownItem onClick={this.onAuthTypeChange}>asap</DropdownItem>\n\t\t\t\t\t\t</DropdownMenu>\n\t\t\t\t\t</PopupHeader>\n\t\t\t\t\t<UploadPreviews>\n\t\t\t\t\t\t{({ onUploadsStart, onError, onPreviewUpdate }) => (\n\t\t\t\t\t\t\t<Browser\n\t\t\t\t\t\t\t\tonBrowseFn={this.onBrowseFn}\n\t\t\t\t\t\t\t\tmediaClientConfig={mediaClient.config}\n\t\t\t\t\t\t\t\tconfig={browseConfig}\n\t\t\t\t\t\t\t\tonUploadsStart={onUploadsStart}\n\t\t\t\t\t\t\t\tonError={onError}\n\t\t\t\t\t\t\t\tonPreviewUpdate={onPreviewUpdate}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</UploadPreviews>\n\t\t\t\t</PopupContainer>\n\t\t\t</MainWrapper>\n\t\t);\n\t}\n}\nexport default (): React.JSX.Element => <BrowserWrapper />;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: '(browse: () => void) => ReactChild',
+			},
+			{
+				name: 'config',
+				type: 'BrowserConfig',
+			},
+			{
+				name: 'featureFlags',
+				type: 'MediaFeatureFlags',
+			},
+			{
+				name: 'isOpen',
+				type: 'boolean',
+				description:
+					'when true, the dialog will show when the component is rendered\n(NOTE: without this value, no dialog will appear unless you use the **onBrowserFn** hook)',
+			},
+			{
+				name: 'mediaClientConfig',
+				type: 'MediaClientConfig',
+				isRequired: true,
+			},
+			{
+				name: 'onBrowseFn',
+				type: '(browse: () => void) => void',
+				description:
+					'This prop will be mainly used for those contexts (like Editor) where there is no react lifecylce and we cannot rerender easily.\nOtherwise, isOpen prop is preferred.',
+			},
+			{
+				name: 'onCancelFn',
+				type: '(cancel: (uniqueIdentifier: string) => void) => void',
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+			},
+			{
+				name: 'onEnd',
+				type: '(payload: UploadEndEventPayload) => void',
+			},
+			{
+				name: 'onError',
+				type: '(payload: UploadErrorEventPayload) => void',
+			},
+			{
+				name: 'onPreviewUpdate',
+				type: '(payload: UploadPreviewUpdateEventPayload) => void',
+			},
+			{
+				name: 'onUploadsStart',
+				type: '(payload: UploadsStartEventPayload) => void',
+			},
+		],
+	},
+	{
+		name: 'Dropzone',
+		package: '@atlaskit/media-picker',
+		description: 'A component that provides a drag-and-drop area for file uploads.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `Dropzone` to allow users to upload files by dragging them onto a specific area.',
+		],
+		keywords: ['media', 'picker', 'upload', 'dropzone'],
+		category: 'media',
+		examples: [
+			"import { Component } from 'react';\nimport {\n\tdefaultMediaPickerCollectionName,\n\tcreateUploadMediaClientConfig,\n\tcreateStorybookMediaClientConfig,\n\tfakeMediaClient,\n} from '@atlaskit/media-test-helpers';\nimport Button from '@atlaskit/button/new';\nimport Toggle from '@atlaskit/toggle';\nimport Spinner from '@atlaskit/spinner';\nimport { type FileState } from '@atlaskit/media-client';\nimport {\n\tMainWrapper,\n\tUploadPreviews,\n\tDropzoneContainer,\n\tPopupHeader,\n\tPopupContainer,\n\tDropzoneContentWrapper,\n\tDropzoneItemsInfo,\n} from '../example-helpers';\nimport { Dropzone } from '../src';\nimport { type DropzoneConfig, type UploadsStartEventPayload } from '../src/types';\nexport interface DropzoneWrapperState {\n\tisConnectedToUsersCollection: boolean;\n\tisActive: boolean;\n\tisFetchingLastItems: boolean;\n\tlastItems: any[];\n\tdropzoneContainer?: HTMLElement;\n\tfileIds: string[];\n}\nconst mediaClientConfig = createUploadMediaClientConfig();\nconst nonUserMediaClientConfig = createStorybookMediaClientConfig({\n\tauthType: 'asap',\n});\nclass DropzoneWrapper extends Component<{}, DropzoneWrapperState> {\n\tdropzoneContainer?: HTMLDivElement;\n\tstate: DropzoneWrapperState = {\n\t\tisConnectedToUsersCollection: true,\n\t\tisActive: true,\n\t\tisFetchingLastItems: true,\n\t\tlastItems: [],\n\t\tfileIds: [],\n\t};\n\tonUploadsStart = (payload: UploadsStartEventPayload) => {\n\t\tconst fileIds = payload.files.map(({ id }) => id);\n\t\tthis.setState({ fileIds });\n\t};\n\trenderDragZone = () => {\n\t\tconst { isConnectedToUsersCollection, isActive, dropzoneContainer } = this.state;\n\t\tif (!isActive || !dropzoneContainer) {\n\t\t\treturn null;\n\t\t}\n\t\tconst dropzoneMediaClient = isConnectedToUsersCollection\n\t\t\t? fakeMediaClient(mediaClientConfig)\n\t\t\t: fakeMediaClient(nonUserMediaClientConfig);\n\t\tdropzoneMediaClient.on('file-added', this.onFileUploaded);\n\t\tconst config: DropzoneConfig = {\n\t\t\tcontainer: this.state.dropzoneContainer,\n\t\t\tuploadParams: {\n\t\t\t\tcollection: defaultMediaPickerCollectionName,\n\t\t\t},\n\t\t};\n\t\treturn (\n\t\t\t<UploadPreviews>\n\t\t\t\t{({ onUploadsStart, onError, onPreviewUpdate }) => (\n\t\t\t\t\t<Dropzone\n\t\t\t\t\t\tmediaClientConfig={dropzoneMediaClient.config}\n\t\t\t\t\t\tconfig={config}\n\t\t\t\t\t\tonUploadsStart={(payload) => {\n\t\t\t\t\t\t\tthis.onUploadsStart(payload);\n\t\t\t\t\t\t\tonUploadsStart(payload);\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tonError={onError}\n\t\t\t\t\t\tonPreviewUpdate={onPreviewUpdate}\n\t\t\t\t\t/>\n\t\t\t\t)}\n\t\t\t</UploadPreviews>\n\t\t);\n\t};\n\tonFileUploaded = (fileState: FileState) => {\n\t\tconsole.log('onFileUploaded', fileState);\n\t};\n\tsaveDropzoneContainer = async (element: HTMLDivElement) => {\n\t\tthis.setState({ dropzoneContainer: element });\n\t};\n\tonConnectionChange = () => {\n\t\tconst isConnectedToUsersCollection = !this.state.isConnectedToUsersCollection;\n\t\tthis.setState({ isConnectedToUsersCollection });\n\t};\n\tonActiveChange = () => {\n\t\tconst { isActive } = this.state;\n\t\tthis.setState({ isActive: !isActive });\n\t};\n\trenderLastItems = () => {\n\t\tconst { isFetchingLastItems, lastItems } = this.state;\n\t\tif (isFetchingLastItems) {\n\t\t\treturn <Spinner size=\"large\" />;\n\t\t}\n\t\treturn lastItems.map((item, key) => {\n\t\t\tconst { id, details } = item;\n\t\t\t// details are not always present in the response\n\t\t\tconst name = details ? details.name : '<no-details>';\n\t\t\tconst mediaType = details ? details.mediaType : '<no-details>';\n\t\t\treturn (\n\t\t\t\t<div key={key}>\n\t\t\t\t\t{id} | {name} |{mediaType}\n\t\t\t\t</div>\n\t\t\t);\n\t\t});\n\t};\n\trender() {\n\t\tconst { isConnectedToUsersCollection, isActive } = this.state;\n\t\treturn (\n\t\t\t<MainWrapper>\n\t\t\t\t<PopupContainer>\n\t\t\t\t\t<PopupHeader>\n\t\t\t\t\t\t<Button appearance=\"danger\">Cancel uploads</Button>\n\t\t\t\t\t\tConnected to users collection\n\t\t\t\t\t\t<Toggle\n\t\t\t\t\t\t\tdefaultChecked={isConnectedToUsersCollection}\n\t\t\t\t\t\t\tonChange={this.onConnectionChange}\n\t\t\t\t\t\t/>\n\t\t\t\t\t\tActive\n\t\t\t\t\t\t<Toggle defaultChecked={isActive} onChange={this.onActiveChange} />\n\t\t\t\t\t</PopupHeader>\n\t\t\t\t\t<DropzoneContentWrapper>\n\t\t\t\t\t\t<DropzoneContainer isActive={isActive} ref={this.saveDropzoneContainer} />\n\t\t\t\t\t\t<DropzoneItemsInfo>\n\t\t\t\t\t\t\t{this.renderDragZone()}\n\t\t\t\t\t\t\t<h1>User collection items</h1>\n\t\t\t\t\t\t\t{this.renderLastItems()}\n\t\t\t\t\t\t</DropzoneItemsInfo>\n\t\t\t\t\t</DropzoneContentWrapper>\n\t\t\t\t</PopupContainer>\n\t\t\t</MainWrapper>\n\t\t);\n\t}\n}\nexport default (): React.JSX.Element => <DropzoneWrapper />;",
+		],
+		props: [
+			{
+				name: 'config',
+				type: 'LocalUploadConfig & DropzoneConfig',
+				description: '',
+				isRequired: true,
+			},
+			{
+				name: 'featureFlags',
+				type: 'MediaFeatureFlags',
+			},
+			{
+				name: 'mediaClientConfig',
+				type: 'MediaClientConfig',
+				isRequired: true,
+			},
+			{
+				name: 'onCancelFn',
+				type: '(cancel: (uniqueIdentifier: string) => void) => void',
+			},
+			{
+				name: 'onDragEnter',
+				type: '(payload: DropzoneDragEnterEventPayload) => void',
+			},
+			{
+				name: 'onDragLeave',
+				type: '(payload: DropzoneDragLeaveEventPayload) => void',
+			},
+			{
+				name: 'onDrop',
+				type: '() => void',
+			},
+			{
+				name: 'onEnd',
+				type: '(payload: UploadEndEventPayload) => void',
+			},
+			{
+				name: 'onError',
+				type: '(payload: UploadErrorEventPayload) => void',
+			},
+			{
+				name: 'onPreviewUpdate',
+				type: '(payload: UploadPreviewUpdateEventPayload) => void',
+			},
+			{
+				name: 'onUploadsStart',
+				type: '(payload: UploadsStartEventPayload) => void',
+			},
+		],
+	},
+	{
+		name: 'Mention',
+		package: '@atlaskit/mention',
+		description: 'A component for displaying a single mention.',
+		status: 'general-availability',
+		usageGuidelines: ['Use `Mention` to render a mention for a user or team.'],
+		keywords: ['mention', 'user', 'team'],
+		category: 'elements',
+		examples: [
+			"import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';\nimport AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';\nimport { onMentionEvent } from '../example-helpers/index';\nimport Mention from '../src/components/Mention';\nimport { ELEMENTS_CHANNEL } from '../src/_constants';\nimport debug from '../src/util/logger';\nimport { mockMentionData as mentionData } from '../src/__tests__/unit/_test-helpers';\nimport {\n\tMENTION_ID_HIGHLIGHTED,\n\tMENTION_ID_WITH_CONTAINER_ACCESS,\n\tMENTION_ID_WITH_NO_ACCESS,\n} from '../src/__tests__/unit/_test-constants';\nimport { IntlProvider } from 'react-intl';\nconst padding = { padding: '10px' };\nconst listenerHandler = (e: UIAnalyticsEvent) => {\n\tdebug('Analytics Next handler - payload:', e.payload, ' context: ', e.context);\n};\nconst handler = (_mentionId: string, text: string, event?: any, analytics?: any) => {\n\tdebug('Old Analytics handler: ', text, ' ', event, ' - analytics: ', analytics);\n};\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<div >\n\t\t\t\t{\n\t\t\t\t<div style={padding}>\n\t\t\t\t\t<AnalyticsListener onEvent={listenerHandler} channel={ELEMENTS_CHANNEL}>\n\t\t\t\t\t\t<Mention\n\t\t\t\t\t\t\t{...mentionData}\n\t\t\t\t\t\t\tid={MENTION_ID_WITH_CONTAINER_ACCESS}\n\t\t\t\t\t\t\taccessLevel={'CONTAINER'}\n\t\t\t\t\t\t\tonClick={handler}\n\t\t\t\t\t\t\tonMouseEnter={onMentionEvent}\n\t\t\t\t\t\t\tonMouseLeave={onMentionEvent}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</AnalyticsListener>\n\t\t\t\t</div>\n\t\t\t\t{\n\t\t\t\t<div style={padding}>\n\t\t\t\t\t<Mention\n\t\t\t\t\t\t{...mentionData}\n\t\t\t\t\t\tid={MENTION_ID_HIGHLIGHTED}\n\t\t\t\t\t\tisHighlighted={true}\n\t\t\t\t\t\tonClick={onMentionEvent}\n\t\t\t\t\t\tonMouseEnter={onMentionEvent}\n\t\t\t\t\t\tonMouseLeave={onMentionEvent}\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t\t{\n\t\t\t\t<div style={padding}>\n\t\t\t\t\t<Mention\n\t\t\t\t\t\t{...mentionData}\n\t\t\t\t\t\tid={MENTION_ID_WITH_NO_ACCESS}\n\t\t\t\t\t\taccessLevel={'NONE'}\n\t\t\t\t\t\tonClick={onMentionEvent}\n\t\t\t\t\t\tonMouseEnter={onMentionEvent}\n\t\t\t\t\t\tonMouseLeave={onMentionEvent}\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t\t{\n\t\t\t\t<div style={padding}>\n\t\t\t\t\t<Mention\n\t\t\t\t\t\t{...mentionData}\n\t\t\t\t\t\ttext=\"\"\n\t\t\t\t\t\tonClick={onMentionEvent}\n\t\t\t\t\t\tonMouseEnter={onMentionEvent}\n\t\t\t\t\t\tonMouseLeave={onMentionEvent}\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t\t{/* Disabled variant (with tooltip). The chip is automatically kept tab-focusable\n\t\t\t\t    and gets aria-disabled + aria-label by the component itself. */}\n\t\t\t\t{\n\t\t\t\t<div style={padding}>\n\t\t\t\t\t<Mention\n\t\t\t\t\t\t{...mentionData}\n\t\t\t\t\t\tisDisabled\n\t\t\t\t\t\tdisabledTooltip=\"Only one agent can be active at a time\"\n\t\t\t\t\t\tonClick={onMentionEvent}\n\t\t\t\t\t\tonMouseEnter={onMentionEvent}\n\t\t\t\t\t\tonMouseLeave={onMentionEvent}\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t\t{/* Disabled variant without a tooltip — chip is still in the DISABLED visual state\n\t\t\t\t    but has no on-hover affordance. */}\n\t\t\t\t{\n\t\t\t\t<div style={padding}>\n\t\t\t\t\t<Mention\n\t\t\t\t\t\t{...mentionData}\n\t\t\t\t\t\tisDisabled\n\t\t\t\t\t\tonClick={onMentionEvent}\n\t\t\t\t\t\tonMouseEnter={onMentionEvent}\n\t\t\t\t\t\tonMouseLeave={onMentionEvent}\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'accessLevel',
+				type: 'string',
+			},
+			{
+				name: 'disabledTooltip',
+				type: 'string',
+				description:
+					'Tooltip text shown on hover when the chip is disabled. Ignored when\n`isDisabled` is false. When omitted, no tooltip is rendered even if\n`isDisabled` is true.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				description:
+					'When true, the mention chip is rendered in its disabled visual state\n(`MentionType.DISABLED`) and click handlers are not invoked. Takes\nprecedence over `isHighlighted` and the restricted state.',
+			},
+			{
+				name: 'isHighlighted',
+				type: 'boolean',
+			},
+			{
+				name: 'localId',
+				type: 'string',
+			},
+			{
+				name: 'onClick',
+				type: '(mentionId: string, text: string, event?: SyntheticEvent<HTMLSpanElement, Event>) => void',
+			},
+			{
+				name: 'onHover',
+				type: '() => void',
+			},
+			{
+				name: 'onMouseEnter',
+				type: '(mentionId: string, text: string, event?: SyntheticEvent<HTMLSpanElement, Event>) => void',
+			},
+			{
+				name: 'onMouseLeave',
+				type: '(mentionId: string, text: string, event?: SyntheticEvent<HTMLSpanElement, Event>) => void',
+			},
+			{
+				name: 'ssrPlaceholderId',
+				type: 'string',
+			},
+			{
+				name: 'text',
+				type: 'string',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'MentionPicker',
+		package: '@atlaskit/mention',
+		description: 'A component that provides a searchable picker for mentions.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `MentionPicker` to allow users to select a user or team to mention.',
+			'Requires a `MentionResource` to fetch and manage mention data.',
+		],
+		keywords: ['mention', 'picker', 'select'],
+		category: 'elements',
+		examples: [
+			"import MentionTextInput from '../example-helpers/demo-mention-text-input';\nimport { onSelection, resourceProvider, MockPresenceResource } from '../example-helpers';\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<MentionTextInput\n\t\t\tlabel=\"User search\"\n\t\t\tonSelection={onSelection}\n\t\t\tresourceProvider={resourceProvider}\n\t\t\tpresenceProvider={new MockPresenceResource()}\n\t\t/>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'forwardedRef',
+				type: '((instance: any) => void) | RefObject<any>',
+			},
+			{
+				name: 'offsetX',
+				type: 'number',
+			},
+			{
+				name: 'offsetY',
+				type: 'number',
+			},
+			{
+				name: 'onClose',
+				type: 'OnClose',
+			},
+			{
+				name: 'onOpen',
+				type: 'OnOpen',
+			},
+			{
+				name: 'onSelection',
+				type: 'OnMentionEvent',
+			},
+			{
+				name: 'position',
+				type: '"above" | "below" | "auto"',
+			},
+			{
+				name: 'presenceProvider',
+				type: 'PresenceProvider',
+			},
+			{
+				name: 'query',
+				type: 'string',
+			},
+			{
+				name: 'resourceProvider',
+				type: 'MentionProvider',
+				isRequired: true,
+			},
+			{
+				name: 'target',
+				type: 'string',
+			},
+			{
+				name: 'zIndex',
+				type: 'string | number',
+			},
+		],
+	},
+	{
+		name: 'TopNav',
+		package: '@atlaskit/navigation-system',
+		description: 'The horizontal top navigation bar component.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Render `TopNav` within the `Root` component to provide global navigation and actions.',
+		],
+		keywords: ['navigation', 'top-nav', 'header'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@compiled/react';\nimport AKBadge from '@atlaskit/badge';\nimport { cssMap } from '@atlaskit/css';\nimport AtlassianIntelligenceIcon from '@atlaskit/icon/core/atlassian-intelligence';\nimport SearchIcon from '@atlaskit/icon/core/search';\nimport { ConfluenceIcon } from '@atlaskit/logo';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';\nimport {\n\tTopNav,\n\tTopNavEnd,\n\tTopNavMiddle,\n\tTopNavStart,\n} from '@atlaskit/navigation-system/layout/top-nav';\nimport {\n\tAppLogo,\n\tAppSwitcher,\n\tChatButton,\n\tCreateButton,\n\tEndItem,\n\tHelp,\n\tProfile,\n\tSearch,\n\tSettings,\n} from '@atlaskit/navigation-system/top-nav-items';\nimport { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';\nimport { Flex } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { WithResponsiveViewport } from './utils/example-utils';\nimport { MockSearch } from './utils/mock-search';\nconst iconSpacingStyles = cssMap({\n\tspace050: {\n\t\tpaddingBlock: token('space.050'),\n\t\tpaddingInline: token('space.050'),\n\t},\n});\nconst Badge = () => <AKBadge appearance=\"important\">{5}</AKBadge>;\nexport const TopNavigationExample: () => JSX.Element = () => (\n\t<WithResponsiveViewport>\n\t\t{/**\n\t\t * Wrapping in `Root to ensure the TopNav height is set correctly, as it would in a proper composed usage.\n\t\t * Root sets the top bar height CSS variable that TopNav uses to set its height\n\t\t */}\n\t\t<Root>\n\t\t\t<TopNav>\n\t\t\t\t<TopNavStart\n\t\t\t\t\tsideNavToggleButton={\n\t\t\t\t\t\t<SideNavToggleButton collapseLabel=\"Collapse sidebar\" expandLabel=\"Expand sidebar\" />\n\t\t\t\t\t}\n\t\t\t\t>\n\t\t\t\t\t<AppSwitcher label=\"App switcher\" onClick={() => alert('app switcher')} />\n\t\t\t\t\t<AppLogo\n\t\t\t\t\t\thref=\"http://www.atlassian.design\"\n\t\t\t\t\t\ticon={ConfluenceIcon}\n\t\t\t\t\t\tname=\"Confluence\"\n\t\t\t\t\t\tlabel=\"Home page\"\n\t\t\t\t\t/>\n\t\t\t\t</TopNavStart>\n\t\t\t\t<TopNavMiddle>\n\t\t\t\t\t<Search onClick={() => alert('mobile search')} label=\"Search\" />\n\t\t\t\t\t<CreateButton onClick={() => alert('create')}>Create</CreateButton>\n\t\t\t\t</TopNavMiddle>\n\t\t\t\t<TopNavEnd>\n\t\t\t\t\t<ChatButton onClick={() => alert('chat')}>Chat</ChatButton>\n\t\t\t\t\t<EndItem\n\t\t\t\t\t\ticon={AtlassianIntelligenceIcon}\n\t\t\t\t\t\tonClick={() => alert('inshelligence')}\n\t\t\t\t\t\tlabel=\"Atlassian Intelligence\"\n\t\t\t\t\t/>\n\t\t\t\t\t<Help onClick={() => alert('help')} label=\"Help\" />\n\t\t\t\t\t<Notifications\n\t\t\t\t\t\tbadge={Badge}\n\t\t\t\t\t\tonClick={() => alert('notifications')}\n\t\t\t\t\t\tlabel=\"Notifications\"\n\t\t\t\t\t/>\n\t\t\t\t\t<Settings onClick={() => alert('settings')} label=\"Settings\" />\n\t\t\t\t\t<Profile onClick={() => alert('User settings')} label=\"Your profile\" />\n\t\t\t\t</TopNavEnd>\n\t\t\t</TopNav>\n\t\t</Root>\n\t</WithResponsiveViewport>\n);\nexport const SearchRightElem: () => JSX.Element = () => (\n\t<WithResponsiveViewport>\n\t\t<Root>\n\t\t\t<TopNav>\n\t\t\t\t<TopNavStart sideNavToggleButton={null}>\n\t\t\t\t\t<AppSwitcher label=\"App switcher\" onClick={() => alert('app switcher')} />\n\t\t\t\t</TopNavStart>\n\t\t\t\t<TopNavMiddle>\n\t\t\t\t\t<Search\n\t\t\t\t\t\ticonBefore={AtlassianIntelligenceIcon}\n\t\t\t\t\t\telemAfter={\n\t\t\t\t\t\t\t<Flex xcss={iconSpacingStyles.space050}>\n\t\t\t\t\t\t\t\t<SearchIcon color={token('color.icon')} label=\"\" />\n\t\t\t\t\t\t\t</Flex>\n\t\t\t\t\t\t}\n\t\t\t\t\t\tonClick={() => alert('mobile search')}\n\t\t\t\t\t\tlabel=\"Search\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CreateButton onClick={() => alert('create')}>Create</CreateButton>\n\t\t\t\t</TopNavMiddle>\n\t\t\t\t<TopNavEnd>\n\t\t\t\t\t<Settings onClick={() => alert('settings')} label=\"Settings\" />\n\t\t\t\t</TopNavEnd>\n\t\t\t</TopNav>\n\t\t</Root>\n\t</WithResponsiveViewport>\n);\nexport const TopNavigationEnlargedSearchInput: () => JSX.Element = () => (\n\t<WithResponsiveViewport>\n\t\t<Root>\n\t\t\t<TopNav>\n\t\t\t\t<TopNavStart sideNavToggleButton={null}>\n\t\t\t\t\t<AppSwitcher label=\"App switcher\" onClick={() => alert('app switcher')} />\n\t\t\t\t</TopNavStart>\n\t\t\t\t<div>\n\t\t\t\t\t<TopNavMiddle>\n\t\t\t\t\t\t<MockSearch isEnlarged />\n\t\t\t\t\t\t<CreateButton onClick={() => alert('create')}>Create</CreateButton>\n\t\t\t\t\t</TopNavMiddle>\n\t\t\t\t</div>\n\t\t\t\t<TopNavEnd>\n\t\t\t\t\t<Settings onClick={() => alert('settings')} label=\"Settings\" />\n\t\t\t\t</TopNavEnd>\n\t\t\t</TopNav>\n\t\t</Root>\n\t</WithResponsiveViewport>\n);\nexport default TopNavigationExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'The content of the layout area.\nShould include `TopNavStart`, `TopNavMiddle`, and `TopNavEnd`.',
+				isRequired: true,
+			},
+			{
+				name: 'customTheme',
+				type: '{ backgroundColor: string | RGB; highlightColor: string | RGB; }',
+				description:
+					'Custom theme for the top navigation. This is a port of Nav 3 functionality, and not recommended for new usage,\nas it does not align with our future vision.',
+			},
+			{
+				name: 'height',
+				type: 'number',
+				description:
+					'Not intended for long term use. This is added to support the migration to the new page layout.\nWe may replace this prop in a future release.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description:
+					"The `id` attribute of the slot. Used to connect the layout slot's skip link to the layout element.\nIf not provided, a unique ID will be generated.",
+			},
+			{
+				name: 'skipLinkLabel',
+				type: 'string',
+				description: "The label for this slot's skip link. Defaults to the slot's `label` value.",
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"backgroundColor", DesignTokenStyles, ""> & {} & XCSSPseudo<"backgroundColor", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				description: 'Bounded style overrides.',
+			},
+		],
+	},
+	{
+		name: 'ProfileCard',
+		package: '@atlaskit/profilecard',
+		description: 'A component for displaying user information in a card.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `ProfileCard` to show user details like name, avatar, and contact info.',
+		],
+		keywords: ['profile', 'user', 'card'],
+		category: 'people-and-teams',
+		examples: [
+			"import { ProfileCard } from '../src';\nimport { profiles } from '../src/mocks';\nimport { reportingLinesData } from '../src/mocks/reporting-lines-data';\nimport ExampleWrapper from './helper/example-wrapper';\nimport { MainStage } from './helper/main-stage';\nconst avatarImage = profiles[4].User.avatarUrl;\nexport default function Example(): React.JSX.Element {\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t<MainStage>\n\t\t\t\t<ProfileCard\n\t\t\t\t\tavatarUrl={avatarImage}\n\t\t\t\t\tfullName=\"Rosalyn Franklin\"\n\t\t\t\t\tmeta=\"Manager\"\n\t\t\t\t\tnickname=\"rfranklin\"\n\t\t\t\t\temail=\"rfranklin@acme.com\"\n\t\t\t\t\ttimestring=\"18:45\"\n\t\t\t\t\tlocation=\"Somewhere, World\"\n\t\t\t\t\tactions={[\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t},\n\t\t\t\t\t]}\n\t\t\t\t\treportingLines={reportingLinesData}\n\t\t\t\t\treportingLinesProfileUrl=\"/\"\n\t\t\t\t\tonReportingLinesClick={(user) => {\n\t\t\t\t\t\tconsole.log('Clicked on ' + user.pii?.name);\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t</MainStage>\n\t\t</ExampleWrapper>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'accountType',
+				type: 'string',
+			},
+			{
+				name: 'actions',
+				type: 'ProfileCardAction[]',
+			},
+			{
+				name: 'addFlag',
+				type: '(flag: any) => void',
+			},
+			{
+				name: 'agentActions',
+				type: 'AgentActionsType',
+			},
+			{
+				name: 'avatarUrl',
+				type: 'string',
+			},
+			{
+				name: 'clientFetchProfile',
+				type: '() => void',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+			},
+			{
+				name: 'companyName',
+				type: 'string',
+			},
+			{
+				name: 'customLozenges',
+				type: 'LozengeProps[]',
+			},
+			{
+				name: 'disabledAccountMessage',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+			},
+			{
+				name: 'disabledAriaAttributes',
+				type: 'boolean',
+			},
+			{
+				name: 'email',
+				type: 'string',
+			},
+			{
+				name: 'errorType',
+				type: '{ reason: "default" | "NotFound"; }',
+			},
+			{
+				name: 'fireEvent',
+				type: '<K extends keyof AnalyticsEventAttributes>(params_0: K, ...params_1: OptionalIfUndefined<AnalyticsEventAttributes[K]>) => void',
+			},
+			{
+				name: 'fullName',
+				type: 'string',
+			},
+			{
+				name: 'hasDisabledAccountLozenge',
+				type: 'boolean',
+			},
+			{
+				name: 'hasError',
+				type: 'boolean',
+			},
+			{
+				name: 'hideAgentConversationStarters',
+				type: 'boolean',
+				description: 'When true (and feature-gated), hide the agent conversation starters section',
+			},
+			{
+				name: 'isBot',
+				type: 'boolean',
+			},
+			{
+				name: 'isCurrentUser',
+				type: 'boolean',
+			},
+			{
+				name: 'isKudosEnabled',
+				type: 'boolean',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+			},
+			{
+				name: 'isRenderedInPortal',
+				type: 'boolean',
+				description:
+					"Indicates whether the profile card is rendered in a portal.\n\nIf true, the profile card will auto-focus the name element when opened for better accessibility,\nkeeping the user's focus in the tab trap.",
+			},
+			{
+				name: 'isServiceAccount',
+				type: 'boolean',
+			},
+			{
+				name: 'isTriggeredUsingKeyboard',
+				type: 'boolean',
+			},
+			{
+				name: 'location',
+				type: 'string',
+			},
+			{
+				name: 'meta',
+				type: 'string',
+			},
+			{
+				name: 'nickname',
+				type: 'string',
+			},
+			{
+				name: 'onReportingLinesClick',
+				type: '(user: ReportingLinesUser) => false | void',
+				description:
+					"Click handler when user clicks on manager's and direct reports' user avatar, un-clickable otherwise.\nReturning false will prevent the default behavior of opening the reporting lines page.",
+			},
+			{
+				name: 'openKudosDrawer',
+				type: '() => void',
+			},
+			{
+				name: 'reportingLines',
+				type: 'TeamCentralReportingLinesData',
+				description: 'Show manager and direct reports section on profile hover card, if available',
+			},
+			{
+				name: 'reportingLinesProfileUrl',
+				type: 'string',
+				description:
+					"Base URL to populate href value for manager's and direct reports' user avatar",
+			},
+			{
+				name: 'status',
+				type: '"active" | "inactive" | "closed"',
+			},
+			{
+				name: 'statusModifiedDate',
+				type: 'number',
+			},
+			{
+				name: 'teamCentralBaseUrl',
+				type: 'string',
+			},
+			{
+				name: 'timestring',
+				type: 'string',
+			},
+			{
+				name: 'userId',
+				type: 'string',
+			},
+			{
+				name: 'withoutElevation',
+				type: 'boolean',
+			},
+		],
+	},
+	{
+		name: 'ProfileCardTrigger',
+		package: '@atlaskit/profilecard',
+		description: 'A component that triggers a profile card on hover or click.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `ProfileCardTrigger` to wrap an element (like an avatar) that should show a profile card.',
+		],
+		keywords: ['profile', 'trigger', 'hover'],
+		category: 'people-and-teams',
+		examples: [
+			"import React, { useState } from 'react';\n// Simulating import from '@atlaskit/profilecard/user'\nimport ProfileCardTrigger from '../src/components/User';\nimport { BlankSpace } from './helper/blank-space';\nimport ExampleWrapper from './helper/example-wrapper';\nimport { MainStage } from './helper/main-stage';\nimport { Section } from './helper/section';\nimport { getMockProfileClient } from './helper/util';\nconst mockClient = getMockProfileClient(10, 0);\nconst mockClientForInactiveAccount = getMockProfileClient(10, 0, {\n\tstatus: 'inactive',\n});\nconst mockClientForClosedAccountAndCustomMessage = getMockProfileClient(10, 0, {\n\tstatus: 'closed',\n\tdisabledAccountMessage:\n\t\t'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.',\n\thasDisabledAccountLozenge: false,\n});\nconst defaultProps = {\n\tcloudId: 'DUMMY-10ae0bf3-157e-43f7-be45-f1bb13b39048',\n\tresourceClient: mockClient,\n};\nexport default function Example(): React.JSX.Element {\n\tconst [clickCount, setCount] = useState(0);\n\tconst [externalPropExampleIsVisible, setExternalPropExampleIsVisible] = useState(false);\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t<MainStage>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>Profilecard triggered by hover</h4>\n\t\t\t\t\t<p>\n\t\t\t\t\t\tInput for testing with focus <input type=\"text\" />\n\t\t\t\t\t</p>\n\t\t\t\t\t<span>\n\t\t\t\t\t\tLorem ipsum{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\t\tactions={[\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>hover over me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>Profilecard triggered by click</h4>\n\t\t\t\t\t<span>\n\t\t\t\t\t\tLorem ipsum{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\t\tactions={[\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>click me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>Profilecard triggered by external prop</h4>\n\t\t\t\t\t<span>\n\t\t\t\t\t\tLorem ipsum{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\t\tisVisible={externalPropExampleIsVisible}\n\t\t\t\t\t\t\tactions={[\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>click me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t\t<button\n\t\t\t\t\t\t\ttype=\"button\"\n\t\t\t\t\t\t\tonClick={() => setExternalPropExampleIsVisible(!externalPropExampleIsVisible)}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tToggle external prop\n\t\t\t\t\t\t</button>\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>Profilecard triggered for closed account</h4>\n\t\t\t\t\t<span>\n\t\t\t\t\t\tLorem ipsum{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\t\tresourceClient={getMockProfileClient(10, 0, {\n\t\t\t\t\t\t\t\tstatus: 'closed',\n\t\t\t\t\t\t\t})}\n\t\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>click me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>Profilecard triggered for inactive account</h4>\n\t\t\t\t\t<span>\n\t\t\t\t\t\tLorem ipsum{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\t\tresourceClient={mockClientForInactiveAccount}\n\t\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>click me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>Profilecard triggered for customer account</h4>\n\t\t\t\t\t<span>\n\t\t\t\t\t\tLorem ipsum{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"3\"\n\t\t\t\t\t\t\tresourceClient={getMockProfileClient(10, 0, {\n\t\t\t\t\t\t\t\taccountType: 'customer',\n\t\t\t\t\t\t\t})}\n\t\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\t\tactions={[\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t\t\t\tshouldRender: (data: any) => data && data.accountType !== 'customer',\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>click me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>Counting clicks of parent container</h4>\n\t\t\t\t\t{/**\n\t\t\t\t\t * If the user clicks on the trigger then we don't want that click\n\t\t\t\t\t * event to propagate out to parent containers. For example when\n\t\t\t\t\t * clicking a mention lozenge in an inline-edit.\n\t\t\t\t\t *\n\t\t\t\t\t * This example has the parent span counting how many times it was\n\t\t\t\t\t * clicked so we can easily verify that it's not triggered when\n\t\t\t\t\t * clicking the profile card trigger.\n\t\t\t\t\t */}\n\t\t\t\t\t<span\n\t\t\t\t\t\trole=\"presentation\"\n\t\t\t\t\t\ttabIndex={-1}\n\t\t\t\t\t\tonClick={() => setCount((c) => c + 1)}\n\t\t\t\t\t\tonKeyDown={() => setCount((c) => c + 1)}\n\t\t\t\t\t>\n\t\t\t\t\t\tLorem ipsum. Parent clicked {clickCount} times!{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\t\tresourceClient={mockClientForClosedAccountAndCustomMessage}\n\t\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>click me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>\n\t\t\t\t\t\tProfilecard triggered for closed account and custom message and not show status lozenge\n\t\t\t\t\t</h4>\n\t\t\t\t\t<span>\n\t\t\t\t\t\tLorem ipsum{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\t\tresourceClient={mockClientForClosedAccountAndCustomMessage}\n\t\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>click me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<Section>\n\t\t\t\t\t<h4>Profilecard trigger hidden from screen readers</h4>\n\t\t\t\t\t<span>\n\t\t\t\t\t\tLorem ipsum{' '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\t\tactions={[\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t\tariaHideProfileTrigger\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>hover over me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>\n\t\t\t\t\t\t{' or '}\n\t\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\t\tuserId=\"3\"\n\t\t\t\t\t\t\tresourceClient={getMockProfileClient(10, 0, {\n\t\t\t\t\t\t\t\taccountType: 'customer',\n\t\t\t\t\t\t\t})}\n\t\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\t\tactions={[\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t\t\t\tshouldRender: (data: any) => data && data.accountType !== 'customer',\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t]}\n\t\t\t\t\t\t\tariaHideProfileTrigger\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<strong>click me</strong>\n\t\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t\tdolor sit amet\n\t\t\t\t\t</span>\n\t\t\t\t</Section>\n\t\t\t\t<BlankSpace>Scroll down to test focus behaviour</BlankSpace>\n\t\t\t\t<Section>\n\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\tactions={[\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t]}\n\t\t\t\t\t>\n\t\t\t\t\t\t<strong>Hover me.</strong>\n\t\t\t\t\t</ProfileCardTrigger>{' '}\n\t\t\t\t\t|||{' '}\n\t\t\t\t\t<ProfileCardTrigger\n\t\t\t\t\t\t{...defaultProps}\n\t\t\t\t\t\tuserId=\"1\"\n\t\t\t\t\t\ttrigger=\"click\"\n\t\t\t\t\t\tactions={[\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\tlabel: 'View profile',\n\t\t\t\t\t\t\t\tid: 'view-profile',\n\t\t\t\t\t\t\t\tcallback: () => {},\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t]}\n\t\t\t\t\t>\n\t\t\t\t\t\t<strong>Click me.</strong>\n\t\t\t\t\t</ProfileCardTrigger>\n\t\t\t\t</Section>\n\t\t\t</MainStage>\n\t\t</ExampleWrapper>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'actions',
+				type: 'ProfileCardAction[]',
+				defaultValue: '[]',
+			},
+			{
+				name: 'addFlag',
+				type: '(flag: any) => void',
+			},
+			{
+				name: 'agentActions',
+				type: 'AgentActionsType',
+			},
+			{
+				name: 'ariaHideProfileTrigger',
+				type: 'boolean',
+				defaultValue: 'false',
+			},
+			{
+				name: 'ariaLabel',
+				type: 'string',
+			},
+			{
+				name: 'ariaLabelledBy',
+				type: 'string',
+			},
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				description:
+					"A cloudId can be provided, and we'll verify that the target userId is an\n\tactual user in the specified site.\n\n\tInstead you can omit the cloudId and we won't do such a check.\n\n\tIf you have a cloudId and only want to show users who are in that site\n\tthen please provide it. If you're a site-less product or don't care about\n\tverifying that the shown user is in a particular site, don't provide a\n\tcloudId.",
+			},
+			{
+				name: 'disabledAriaAttributes',
+				type: 'boolean',
+			},
+			{
+				name: 'hideAgentConversationStarters',
+				type: 'boolean',
+				description:
+					'Hide the conversation starters. Defaults to false (conversation starters are shown by default).',
+			},
+			{
+				name: 'hideAgentMoreActions',
+				type: 'boolean',
+			},
+			{
+				name: 'hideAiDisclaimer',
+				type: 'boolean',
+			},
+			{
+				name: 'hideDelay',
+				type: 'number',
+				description:
+					'The delay in milliseconds before the profile card is hidden.\nPS: This is ignored when the isVisible is false or the trigger is clicked.',
+			},
+			{
+				name: 'isRenderedInPortal',
+				type: 'boolean',
+				description:
+					"Indicates whether the profile card is rendered in a portal.\n\nIf true, the profile card will auto-focus the name element when opened for better accessibility,\nkeeping the user's focus in the tab trap.",
+			},
+			{
+				name: 'isVisible',
+				type: 'boolean',
+			},
+			{
+				name: 'offset',
+				type: '[number, number]',
+			},
+			{
+				name: 'onReportingLinesClick',
+				type: '(user: ReportingLinesUser) => void',
+			},
+			{
+				name: 'onVisibilityChange',
+				type: '(isVisible: boolean) => void',
+			},
+			{
+				name: 'position',
+				type: '"bottom-start" | "auto" | "auto-start" | "auto-end" | "bottom" | "bottom-end" | "left-start" | "left" | "left-end" | "top-end" | "top" | "top-start" | "right-end" | "right" | "right-start"',
+				defaultValue: '"bottom-start"',
+			},
+			{
+				name: 'prepopulatedData',
+				type: 'PrepopulatedData',
+			},
+			{
+				name: 'product',
+				type: 'string',
+			},
+			{
+				name: 'reportingLinesProfileUrl',
+				type: 'string',
+			},
+			{
+				name: 'resourceClient',
+				type: 'ProfileClient',
+				isRequired: true,
+			},
+			{
+				name: 'showDelay',
+				type: 'number',
+				description:
+					'The delay in milliseconds before the profile card is shown.\nPS: This is ignored when the isVisible is true or the trigger is clicked.',
+			},
+			{
+				name: 'ssrPlaceholderId',
+				type: 'string',
+			},
+			{
+				name: 'trigger',
+				type: '"hover" | "click"',
+				defaultValue: '"hover"',
+			},
+			{
+				name: 'userId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'viewingUserId',
+				type: 'string',
+			},
+		],
+	},
+	{
+		name: 'ConnectedReactionPicker',
+		package: '@atlaskit/reactions',
+		description: 'A reaction picker component pre-wired with a reactions store.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `ConnectedReactionPicker` to allow users to add reactions to content.',
+			'Requires a `ReactionsStore` to manage reaction state.',
+		],
+		keywords: ['reactions', 'picker', 'emoji'],
+		category: 'elements',
+		examples: [
+			"import { type EmojiProvider } from '@atlaskit/emoji/resource';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { ConnectedReactionPicker, ConnectedReactionsView, type StorePropInput } from '../src';\nimport { ExampleWrapper, Example, Constants } from './utils';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t{(store: StorePropInput) => (\n\t\t\t\t<>\n\t\t\t\t\t<p>\n\t\t\t\t\t\t<strong>Memory store and Connected Picker view (same store)</strong>\n\t\t\t\t\t</p>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'Regular picker view'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionPicker\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${Constants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${Constants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'Use picker to add reaction, it will update reactions in a separate ConnectedReactionsView component below.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${Constants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${Constants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t</>\n\t\t\t)}\n\t\t</ExampleWrapper>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'allowAllEmojis',
+				type: 'boolean',
+				description:
+					'Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)',
+			},
+			{
+				name: 'ari',
+				type: 'string',
+				description: 'Individual id for a reaction',
+				isRequired: true,
+			},
+			{
+				name: 'containerAri',
+				type: 'string',
+				description: 'Wrapper id for reactions list',
+				isRequired: true,
+			},
+			{
+				name: 'disabled',
+				type: 'boolean',
+				description: 'Enable/Disable the button to be clickable (defaults to false)',
+			},
+			{
+				name: 'emojiPickerSize',
+				type: '"small" | "medium" | "large"',
+				description: 'Optional emoji picker size to control the size of emoji picker',
+			},
+			{
+				name: 'emojiProvider',
+				type: 'Promise<EmojiProvider>',
+				description: 'Provider for loading emojis',
+				isRequired: true,
+			},
+			{
+				name: 'hoverableReactionPicker',
+				type: 'boolean',
+				description: 'Optional prop for hoverable reaction picker',
+			},
+			{
+				name: 'hoverableReactionPickerDelay',
+				type: 'number',
+				description:
+					'Optional prop to set a delay for the reaction picker when it opens/closes on hover',
+			},
+			{
+				name: 'isListItem',
+				type: 'boolean',
+				description: 'Optional prop to say if the reactions component is in a list',
+			},
+			{
+				name: 'miniMode',
+				type: 'boolean',
+				description: 'apply "miniMode" className to the button',
+			},
+			{
+				name: 'onCancel',
+				type: '() => void',
+				description: 'Optional event handler when the emoji picker is clicked outside and closed',
+			},
+			{
+				name: 'onOpen',
+				type: '() => void',
+				description: 'Optional event handler when the emoji picker is opened',
+			},
+			{
+				name: 'onShowMore',
+				type: '() => void',
+				description: 'Optional event handler when the custom emoji picker icon is selected',
+			},
+			{
+				name: 'pickerQuickReactionEmojiIds',
+				type: 'EmojiId[]',
+				description:
+					'Optional emojis shown for user to select from when the reaction add button is clicked (defaults to pre-defined list of emojis {@link DefaultReactions})',
+			},
+			{
+				name: 'reactionPickerPlacement',
+				type: 'AutoPlacement | BasePlacement | VariationPlacement',
+				description: 'Optional prop for controlling the picker location',
+			},
+			{
+				name: 'reactionPickerPopperZIndex',
+				type: 'number',
+				description: 'Optional zIndex for the reaction picker popper',
+			},
+			{
+				name: 'reactionPickerStrategy',
+				type: '"absolute" | "fixed"',
+				description: 'Optional prop to set the strategy of the reaction picker popup',
+			},
+			{
+				name: 'reactionPickerTriggerIcon',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Optional prop for controlling icon inside Trigger',
+			},
+			{
+				name: 'reactionPickerTriggerText',
+				type: 'string',
+				description: 'Optional prop for controlling text of the trigger button',
+			},
+			{
+				name: 'showAddReactionText',
+				type: 'boolean',
+				description: 'Optional prop for displaying text to add a reaction',
+			},
+			{
+				name: 'showOpaqueBackground',
+				type: 'boolean',
+				description:
+					'Optional prop for using an opaque button background instead of a transparent background',
+			},
+			{
+				name: 'store',
+				type: 'Store | Promise<Store>',
+				description:
+					'Reference to the store.\n@remarks\nThis was initially implemented with a sync and Async versions and will be replaced with just a sync Store in a future release (Please use only the sync version)',
+				isRequired: true,
+			},
+			{
+				name: 'subtleReactionsSummaryAndPicker',
+				type: 'boolean',
+				description: 'Optional prop for applying subtle styling to reaction summary and picker',
+			},
+			{
+				name: 'tooltipContent',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Tooltip content for trigger button',
+			},
+		],
+	},
+	{
+		name: 'ConnectedReactionsView',
+		package: '@atlaskit/reactions',
+		description: 'A component for displaying the current reactions on a piece of content.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `ConnectedReactionsView` to show the list of reactions and allow users to toggle their own reactions.',
+		],
+		keywords: ['reactions', 'view', 'display'],
+		category: 'elements',
+		examples: [
+			"import { type EmojiProvider } from '@atlaskit/emoji/resource';\nimport { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';\nimport { ConnectedReactionsView, type StorePropInput } from '../src';\nimport { ExampleWrapper, Example, Constants as ExampleConstants } from './utils';\nimport { DefaultReactions } from '../src/shared/constants';\nexport default (): React.JSX.Element => {\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t{(store: StorePropInput) => (\n\t\t\t\t<>\n\t\t\t\t\t{/* Example 1 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with a built in memory store and different emoji populated and several are selected.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t{/* Example 2 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with miniMode for add reaction button'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tminiMode\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowAllEmojis\" prop - Show the \"more emoji\" selector icon for choosing emoji icons\n\t\t\t\t\t\tbeyond the default list of emojis (defaults to DEFAULT_REACTION_EMOJI_IDS)\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 3 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with allowAllEmojis prop set to true (Select custom emojis from the picker instead of just a pre-defined list)'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}2`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 4 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with allowAllEmojis flag set is not provided or false'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}3`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"pickerQuickReactionEmojiIds\" prop - emojis shown for user to select from the picker\n\t\t\t\t\t\tpopup when the reaction add button is clicked\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 5 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with non-empty pickerQuickReactionEmojiIds array populated a single item'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}4`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[{ id: '1f44d', shortName: ':thumbsup:' }]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 6 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with empty pickerQuickReactionEmojiIds array (shows the full picker selector)'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}5`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"quickReactionEmojis\" prop - emojis that will be shown in the the primary view even if\n\t\t\t\t\t\tthe reaction count is zero and no emojis were created on the post/reply yet\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 7 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with quickReactionEmojis array without any emoji (undefined or empty array) added to the container|ari item'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}6`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t\tpickerQuickReactionEmojiIds={[]}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 8 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with quickReactionEmojis array with some quick emoji icons selections to choose'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}7`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tquickReactionEmojis={{\n\t\t\t\t\t\t\t\t\tari: `${ExampleConstants.AriPrefix}7`,\n\t\t\t\t\t\t\t\t\tcontainerAri: `${ExampleConstants.ContainerAriPrefix}1`,\n\t\t\t\t\t\t\t\t\temojiIds: DefaultReactions.slice(3, 5).map((item) => item.id ?? ''),\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 9 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with large emoji picker, emojiPickerSize could be small, medium or large (default to medium).'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}7`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\temojiPickerSize=\"large\"\n\t\t\t\t\t\t\t\tallowAllEmojis\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowUserDialog\" prop - enables a link within the reaction tooltip to show a full user\n\t\t\t\t\t\tlist associated with all reactions\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 10 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'Connected reactions with reactions dialog enabled'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowUserDialog\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t<strong\n\t\t\t\t\t\tstyle={{\n\t\t\t\t\t\t\tfontSize: '14px',\n\t\t\t\t\t\t\tmarginLeft: '10px',\n\t\t\t\t\t\t\ttextDecoration: 'underline',\n\t\t\t\t\t\t}}\n\t\t\t\t\t>\n\t\t\t\t\t\t\"allowUserDialog\" prop with callbacks - enables a link within the reaction tooltip to\n\t\t\t\t\t\tshow a full user list associated with all reactions with event callbacks shown\n\t\t\t\t\t</strong>\n\t\t\t\t\t{/* Example 11 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'Connected reactions with reactions dialog enabled and callbacks shown as alert dialogs'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tallowUserDialog\n\t\t\t\t\t\t\t\tonDialogCloseCallback={(e, event) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogCloseCallback event`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\tonDialogOpenCallback={(emojiId, source) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogOpenCallback event with emojiId = ${emojiId}, source = ${source}`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\tonDialogSelectReactionCallback={(emojiId: string) => {\n\t\t\t\t\t\t\t\t\talert(`onDialogSelectReactionCallback event with emojiId = ${emojiId}`);\n\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<hr role=\"presentation\" />\n\t\t\t\t\t{/* Example 11 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={\n\t\t\t\t\t\t\t'\"ConnectedReactionsView\" with a built in memory store and particle emojis enabled.'\n\t\t\t\t\t\t}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tparticleEffectByEmojiEnabled\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t{/* Example 12 */}\n\t\t\t\t\t<Example\n\t\t\t\t\t\ttitle={'\"ConnectedReactionsView\" with isViewOnly'}\n\t\t\t\t\t\tbody={\n\t\t\t\t\t\t\t<ConnectedReactionsView\n\t\t\t\t\t\t\t\tstore={store}\n\t\t\t\t\t\t\t\tcontainerAri={`${ExampleConstants.ContainerAriPrefix}1`}\n\t\t\t\t\t\t\t\tari={`${ExampleConstants.AriPrefix}1`}\n\t\t\t\t\t\t\t\temojiProvider={getEmojiResource() as Promise<EmojiProvider>}\n\t\t\t\t\t\t\t\tisViewOnly\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t</>\n\t\t\t)}\n\t\t</ExampleWrapper>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'allowAllEmojis',
+				type: 'boolean',
+				description:
+					'Optional Show the "more emoji" selector icon for choosing emoji beyond the default list of emojis (defaults to false)',
+			},
+			{
+				name: 'allowSelectFromSummaryView',
+				type: 'boolean',
+				description:
+					'Optional prop for controlling if we can select emojis and display UI via summary view picker',
+			},
+			{
+				name: 'allowUserDialog',
+				type: 'boolean',
+				description: 'Optional prop from checking a feature gate for rendering Reactions Dialog',
+			},
+			{
+				name: 'ari',
+				type: 'string',
+				description: 'Individual id for a reaction',
+				isRequired: true,
+			},
+			{
+				name: 'containerAri',
+				type: 'string',
+				description: 'Wrapper id for reactions list',
+				isRequired: true,
+			},
+			{
+				name: 'emojiPickerSize',
+				type: '"small" | "medium" | "large"',
+				description: 'Optional emoji picker size to control the size of emoji picker',
+			},
+			{
+				name: 'emojiProvider',
+				type: 'Promise<EmojiProvider>',
+				description: 'Provider for loading emojis',
+				isRequired: true,
+			},
+			{
+				name: 'isViewOnly',
+				type: 'boolean',
+				description:
+					'Optional prop for controlling if the reactions component is view only, disabling adding reactions',
+			},
+			{
+				name: 'miniMode',
+				type: 'boolean',
+				description: 'apply "miniMode" className to the button',
+			},
+			{
+				name: 'onDialogCloseCallback',
+				type: '(e: KeyboardOrMouseEvent, analyticEvent: UIAnalyticsEvent) => void',
+				description: 'Optional callback function called when closing reactions dialog',
+			},
+			{
+				name: 'onDialogOpenCallback',
+				type: '(emojiId: string, source?: string) => void',
+				description: 'Optional callback function called when opening reactions dialog',
+			},
+			{
+				name: 'onDialogSelectReactionCallback',
+				type: '(emojiId: string) => void',
+				description:
+					'Optional callback function called when selecting a reaction in reactions dialog',
+			},
+			{
+				name: 'onlyRenderPicker',
+				type: 'boolean',
+				description: 'Optional prop to hide the user reactions and only render the picker',
+			},
+			{
+				name: 'onReactionSuccess',
+				type: '(action: ReactionUpdateType, ari: string, emojiId: string, count: number) => void',
+				description: 'Callback function when a reaction is successfully added',
+			},
+			{
+				name: 'particleEffectByEmojiEnabled',
+				type: 'boolean',
+				description: 'Optional boolean to control if particle animation on reactions appear',
+			},
+			{
+				name: 'pickerQuickReactionEmojiIds',
+				type: 'EmojiId[]',
+				description:
+					'Optional emojis shown for user to select from when the reaction add button is clicked (defaults to pre-defined list of emojis {@link DefaultReactions})',
+			},
+			{
+				name: 'quickReactionEmojis',
+				type: 'QuickReactionEmojiSummary',
+				description:
+					'quickReactionEmojiIds are emojis that will be shown in the the primary view even if the reaction count is zero',
+			},
+			{
+				name: 'reactionPickerPopperZIndex',
+				type: 'number',
+				description: 'Optional zIndex for the reaction picker popper',
+			},
+			{
+				name: 'store',
+				type: 'Store | Promise<Store>',
+				description:
+					'Reference to the store.\n@remarks\nThis was initially implemented with a sync and Async versions and will be replaced with just a sync Store in a future release (Please use only the sync version)',
+				isRequired: true,
+			},
+			{
+				name: 'subtleReactionsSummaryAndPicker',
+				type: 'boolean',
+				description: 'Optional prop for applying subtle styling to reaction summary and picker',
+			},
+			{
+				name: 'summaryViewEnabled',
+				type: 'boolean',
+				description:
+					'Enables a summary view for displaying reactions. If enabled and the number of reactions meets or exceeds the summaryViewThreshold, reactions will be shown in a more aggregated format.',
 			},
 		],
 	},
@@ -2770,6 +4697,329 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'isLinkComponent',
 				type: 'boolean',
+			},
+		],
+	},
+	{
+		name: 'UserPicker',
+		package: '@atlaskit/user-picker',
+		description: 'The main user picker component.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use `UserPicker` for selecting users or teams in forms or filters.',
+			'Supports `isMulti` for selecting multiple items.',
+		],
+		keywords: ['user-picker', 'select', 'user', 'team'],
+		category: 'elements',
+		examples: [
+			"import React, { useState } from 'react';\nimport { ExampleWrapper } from '../example-helpers/ExampleWrapper';\nimport UserPicker, { type OptionData } from '../src';\nconst Example = (): React.JSX.Element => {\n\tconst [selectedUser, setSelectedUser] = useState<OptionData>();\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t{({ options, onInputChange, onSelection }) => (\n\t\t\t\t<UserPicker\n\t\t\t\t\tfieldId=\"example\"\n\t\t\t\t\toptions={options}\n\t\t\t\t\tonChange={(option) => {\n\t\t\t\t\t\tif (option) {\n\t\t\t\t\t\t\tsetSelectedUser(option as OptionData);\n\t\t\t\t\t\t}\n\t\t\t\t\t}}\n\t\t\t\t\tonInputChange={onInputChange}\n\t\t\t\t\tonSelection={onSelection}\n\t\t\t\t\tvalue={selectedUser}\n\t\t\t\t\topenMenuOnFocus={false}\n\t\t\t\t/>\n\t\t\t)}\n\t\t</ExampleWrapper>\n\t);\n};\nexport default Example;",
+			"import { ExampleWrapper } from '../example-helpers/ExampleWrapper';\nimport UserPicker from '../src';\nconst Example = (): React.JSX.Element => {\n\treturn (\n\t\t<ExampleWrapper>\n\t\t\t{({ options, onInputChange, onSelection }) => (\n\t\t\t\t<UserPicker\n\t\t\t\t\tfieldId=\"example\"\n\t\t\t\t\toptions={options}\n\t\t\t\t\tonChange={console.log}\n\t\t\t\t\tonInputChange={onInputChange}\n\t\t\t\t\tonSelection={onSelection}\n\t\t\t\t\tisMulti\n\t\t\t\t\tmaxPickerHeight={120}\n\t\t\t\t/>\n\t\t\t)}\n\t\t</ExampleWrapper>\n\t);\n};\nexport default Example;",
+		],
+		props: [
+			{
+				name: 'addMoreMessage',
+				type: 'string',
+			},
+			{
+				name: 'allowEmail',
+				type: 'boolean',
+			},
+			{
+				name: 'anchor',
+				type: 'ComponentClass<any, any> | FunctionComponent<any>',
+			},
+			{
+				name: 'appearance',
+				type: '"normal" | "compact"',
+			},
+			{
+				name: 'ariaDescribedBy',
+				type: 'string',
+			},
+			{
+				name: 'ariaLabel',
+				type: 'string',
+			},
+			{
+				name: 'ariaLabelledBy',
+				type: 'string',
+			},
+			{
+				name: 'ariaLive',
+				type: '"polite" | "off" | "assertive"',
+			},
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+			},
+			{
+				name: 'captureMenuScroll',
+				type: 'boolean',
+			},
+			{
+				name: 'clearValueLabel',
+				type: 'string',
+			},
+			{
+				name: 'closeMenuOnScroll',
+				type: 'boolean | EventListener',
+			},
+			{
+				name: 'components',
+				type: '{ Option?: ComponentType<OptionProps<OptionData, boolean, GroupBase<OptionData>>>; Group?: ComponentType<GroupProps<OptionData, boolean, GroupBase<...>>>; ... 19 more ...; ValueContainer?: ComponentType<...>; }',
+			},
+			{
+				name: 'customGroupAnalyticsLabels',
+				type: '{ user?: string; team?: string; email?: string; group?: string; custom?: string; external_user?: string; }',
+			},
+			{
+				name: 'customGroupLabels',
+				type: '{ user?: ReactNode; team?: ReactNode; email?: ReactNode; group?: ReactNode; custom?: ReactNode; external_user?: ReactNode; }',
+			},
+			{
+				name: 'defaultValue',
+				type: 'Value | OptionIdentifier | OptionIdentifier[]',
+			},
+			{
+				name: 'disableInput',
+				type: 'boolean',
+			},
+			{
+				name: 'emailLabel',
+				type: 'string',
+			},
+			{
+				name: 'fieldId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'footer',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+			},
+			{
+				name: 'forwardedRef',
+				type: '((instance: UserPickerRef) => void) | MutableRefObject<UserPickerRef>',
+			},
+			{
+				name: 'groupByTypeOrder',
+				type: 'NonNullable<"user" | "team" | "email" | "group" | "custom" | "external_user">[]',
+			},
+			{
+				name: 'header',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+			},
+			{
+				name: 'height',
+				type: 'string | number',
+			},
+			{
+				name: 'includeTeamsUpdates',
+				type: 'boolean',
+			},
+			{
+				name: 'inputId',
+				type: 'string',
+			},
+			{
+				name: 'isClearable',
+				type: 'boolean',
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+			},
+			{
+				name: 'isFooterFocused',
+				type: 'boolean',
+			},
+			{
+				name: 'isHeaderFocused',
+				type: 'boolean',
+			},
+			{
+				name: 'isInvalid',
+				type: 'boolean',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+			},
+			{
+				name: 'isMulti',
+				type: 'boolean',
+			},
+			{
+				name: 'isValidEmail',
+				type: '(inputText: string) => EmailValidationResponse',
+			},
+			{
+				name: 'loadOptions',
+				type: 'LoadOptions',
+			},
+			{
+				name: 'loadOptionsErrorMessage',
+				type: '(value: { inputValue: string; }) => ReactNode',
+			},
+			{
+				name: 'loadUserSource',
+				type: 'LoadUserSource',
+			},
+			{
+				name: 'maxOptions',
+				type: 'number',
+			},
+			{
+				name: 'maxPickerHeight',
+				type: 'number',
+			},
+			{
+				name: 'menuIsOpen',
+				type: 'boolean',
+			},
+			{
+				name: 'menuMinWidth',
+				type: 'number',
+			},
+			{
+				name: 'menuPortalTarget',
+				type: 'HTMLElement',
+			},
+			{
+				name: 'menuPosition',
+				type: '"absolute" | "fixed"',
+			},
+			{
+				name: 'menuShouldBlockScroll',
+				type: 'boolean',
+			},
+			{
+				name: 'minHeight',
+				type: 'string | number',
+			},
+			{
+				name: 'name',
+				type: 'string',
+			},
+			{
+				name: 'noBorder',
+				type: 'boolean',
+			},
+			{
+				name: 'noOptionsMessage',
+				type: 'ReactNode | ((value: { inputValue: string; }) => ReactNode)',
+			},
+			{
+				name: 'onBlur',
+				type: '(sessionId?: string) => void',
+			},
+			{
+				name: 'onChange',
+				type: '(value: Value, action: ActionTypes) => void',
+			},
+			{
+				name: 'onClear',
+				type: '(sessionId?: string) => void',
+			},
+			{
+				name: 'onClose',
+				type: '(sessionId?: string) => void',
+			},
+			{
+				name: 'onFocus',
+				type: '(sessionId?: string) => void',
+			},
+			{
+				name: 'onInputChange',
+				type: '(query?: string, sessionId?: string) => void',
+			},
+			{
+				name: 'onKeyDown',
+				type: '(event: KeyboardEvent<Element>) => void',
+			},
+			{
+				name: 'onOpen',
+				type: '(sessionId?: string) => void',
+			},
+			{
+				name: 'onSelection',
+				type: '(value: Value, sessionId?: string, baseUserPicker?: BaseUserPickerWithoutAnalytics) => void',
+			},
+			{
+				name: 'open',
+				type: 'boolean',
+			},
+			{
+				name: 'openMenuOnClick',
+				type: 'boolean',
+			},
+			{
+				name: 'openMenuOnFocus',
+				type: 'boolean',
+			},
+			{
+				name: 'options',
+				type: 'OptionData[]',
+			},
+			{
+				name: 'placeholder',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+			},
+			{
+				name: 'placeholderAvatar',
+				type: '"team" | "person"',
+			},
+			{
+				name: 'popupSelectProps',
+				type: 'PopupSelectProps<OptionData, false, ModifierList>',
+			},
+			{
+				name: 'required',
+				type: 'boolean',
+			},
+			{
+				name: 'search',
+				type: 'string',
+			},
+			{
+				name: 'setIsFooterFocused',
+				type: '(value: SetStateAction<boolean>) => void',
+			},
+			{
+				name: 'setIsHeaderFocused',
+				type: '(value: SetStateAction<boolean>) => void',
+			},
+			{
+				name: 'showClearIndicator',
+				type: 'boolean',
+			},
+			{
+				name: 'strategy',
+				type: '"absolute" | "fixed"',
+			},
+			{
+				name: 'styles',
+				type: '{ clearIndicator?: (base: any, props: ClearIndicatorProps<OptionType, false, GroupBase<OptionType>>) => any; container?: (base: any, props: ContainerProps<...>) => any; ... 18 more ...; valueContainer?: (base: any, props: ValueContainerProps<...>) => any; }',
+			},
+			{
+				name: 'subtle',
+				type: 'boolean',
+			},
+			{
+				name: 'suggestEmailsForDomain',
+				type: 'string',
+			},
+			{
+				name: 'textFieldBackgroundColor',
+				type: 'boolean',
+			},
+			{
+				name: 'value',
+				type: 'OptionData | OptionData[]',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
 			},
 		],
 	},

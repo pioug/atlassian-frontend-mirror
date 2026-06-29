@@ -4,6 +4,7 @@ import type { ReactNode, Ref } from 'react';
 import { cssMap, cx } from '@atlaskit/css';
 import type { TriggerProps } from '@atlaskit/popup';
 import { Pressable } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
@@ -110,7 +111,13 @@ export const ToolbarButton: React.ForwardRefExoticComponent<
 					styles.button,
 					disabled ? styles.disabled : isSelected ? styles.selected : styles.enabled,
 				)}
-				aria-pressed={isSelected}
+				aria-pressed={
+					expValEquals('jira_editor_a11y_toolbar_fixes', 'isEnabled', true)
+						? Boolean(ariaHasPopup)
+							? undefined // No aria-pressed for dropdown buttons
+							: isSelected
+						: isSelected
+				}
 				aria-expanded={ariaExpanded}
 				aria-haspopup={ariaHasPopup}
 				aria-controls={ariaControls}
@@ -130,6 +137,9 @@ export const ToolbarButton: React.ForwardRefExoticComponent<
 					}
 				}}
 				data-toolbar-component="button"
+				data-selected={
+					expValEquals('jira_editor_a11y_toolbar_fixes', 'isEnabled', true) ? isSelected : undefined
+				}
 				interactionName={interactionName}
 			>
 				{iconBefore}

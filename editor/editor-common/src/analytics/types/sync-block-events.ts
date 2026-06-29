@@ -4,6 +4,43 @@ import type { InsertSourceSyncedBlockPayload } from './insert-events';
 import type { PasteSource } from './paste-events';
 import type { OperationalAEP, TrackAEP } from './utils';
 
+/**
+ * Categorical failure reason emitted on synced-block operational error events.
+ *
+ * The write path (EDITOR-7796) emits the {@link SyncBlockError} enum values plus
+ * `'unknown'`. The fetch/subscribe read path (EDITOR-7862) additionally emits
+ * read-path-specific buckets (benign source-state transitions, permission outcomes,
+ * WebSocket lifecycle, and client-side readiness). Kept as a string union here so the
+ * analytics event schema is the single source of truth and the provider package can map
+ * to it without `editor-common` depending on the provider.
+ */
+export type SyncedBlockErrorReasonAttribute =
+	// Write-path SyncBlockError enum values + unknown fallback.
+	| 'errored'
+	| 'not_found'
+	| 'forbidden'
+	| 'invalid_request'
+	| 'rate_limited'
+	| 'conflict'
+	| 'server_error'
+	| 'invalid_content'
+	| 'offline'
+	| 'unpublished'
+	| 'aborted'
+	| 'entity_not_found'
+	| 'unknown'
+	// Read-path (fetch/subscribe) specific buckets (EDITOR-7862).
+	| 'source_deleted'
+	| 'source_unpublished'
+	| 'source_unsynced'
+	| 'source_not_found'
+	| 'permission_denied'
+	| 'unauthenticated'
+	| 'websocket_drop'
+	| 'websocket_exhausted'
+	| 'network'
+	| 'data_provider_not_ready';
+
 type SyncedBlockErrorAttributes = {
 	error: string;
 	resourceId?: string;
@@ -12,6 +49,20 @@ type SyncedBlockErrorAttributes = {
 	 * Always optional because batch / subscription init paths fire without a `resourceId`.
 	 */
 	sourceProduct?: string;
+	/**
+	 * Categorical failure cause for dashboard grouping. Only emitted when the
+	 * `platform_editor_blocks_patch_3` gate is enabled (EDITOR-7796 / EDITOR-7862).
+	 */
+	reason?: SyncedBlockErrorReasonAttribute;
+	/** Backend HTTP status code when the failure came from a `BlockError`. */
+	statusCode?: number;
+	/**
+	 * Whether the failure reason is a benign/working-as-designed outcome (e.g. the source
+	 * was intentionally deleted/unpublished, or permission denied) rather than a genuine
+	 * system failure. Lets the dashboard compute a true error rate without free-text regex.
+	 * Only emitted on fetch/subscribe error events when the gate is enabled (EDITOR-7862).
+	 */
+	benign?: boolean;
 };
 
 type SyncedBlockSuccessAttributes = {

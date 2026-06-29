@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.1.12
+
+### Patch Changes
+
+- [`3d9bf2e6f248a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d9bf2e6f248a) -
+  Fix nested image in panel shifting left when showing suggestion diff
+- Updated dependencies
+
+## 10.1.11
+
+### Patch Changes
+
+- [`0096393101f67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0096393101f67) -
+  Render inverted granular step diffs as a hybrid (based on threshold): granular changed inline plus
+  a 'reference' block crossed out underneath
+- Updated dependencies
+
+## 10.1.10
+
+### Patch Changes
+
+- [`346f91cfe1997`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/346f91cfe1997) -
+  Clean up prefer static regex violations
+- Updated dependencies
+
 ## 10.1.9
 
 ### Patch Changes

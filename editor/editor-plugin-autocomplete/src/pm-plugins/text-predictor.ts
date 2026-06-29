@@ -29,6 +29,12 @@ import { getStoredContextVector, getStoredLmLogits } from './slow-lane-client';
 
 // eslint-disable-next-line require-unicode-regexp
 const PUNCTUATION_BOUNDARY_REGEX = /^[.,;:!?()\[\]{}"'`]+|[.,;:!?()\[\]{}"'`]+$/g;
+// eslint-disable-next-line require-unicode-regexp
+const WHITESPACE_SPLIT_REGEX = /\s+/;
+// eslint-disable-next-line require-unicode-regexp
+const SENTENCE_BOUNDARY_REGEX = /[\n.?!]+/;
+// eslint-disable-next-line require-unicode-regexp
+const TRAILING_WHITESPACE_REGEX = /\s$/;
 
 const MIN_PREFIX_LENGTH = 3;
 const MAX_CANDIDATES = 200;
@@ -275,8 +281,8 @@ const getContextVectorForScoring = (textBefore: string): Float32Array | null => 
 
 const tokenize = (text: string): string[] => {
 	const tokens: string[] = [];
-	// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace
-	for (const raw of text.toLowerCase().split(/\s+/)) {
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace
+	for (const raw of text.toLowerCase().split(WHITESPACE_SPLIT_REGEX)) {
 		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-split-replace
 		const clean = raw.replace(PUNCTUATION_BOUNDARY_REGEX, '');
 		if (clean.length >= 2) {
@@ -288,12 +294,10 @@ const tokenize = (text: string): string[] => {
 
 const extractPreviousWord = (text: string): string => {
 	// Only consider the current sentence/line the user is typing in.
-	// eslint-disable-next-line require-unicode-regexp
-	const sentences = text.split(/[\n.?!]+/);
+	const sentences = text.split(SENTENCE_BOUNDARY_REGEX);
 	const currentSentence = sentences[sentences.length - 1];
 
-	// eslint-disable-next-line require-unicode-regexp
-	const words = currentSentence.trimEnd().split(/\s+/);
+	const words = currentSentence.trimEnd().split(WHITESPACE_SPLIT_REGEX);
 	return words.length >= 2 ? words[words.length - 2] : '';
 };
 
@@ -442,8 +446,7 @@ export const predict = (textBefore: string): string | null => {
 	// }
 
 	// ── Step 2: Prefix completion (≥3 chars typed) ──────────────────────────
-	// eslint-disable-next-line require-unicode-regexp
-	if (textBefore.length > 0 && /\s$/.test(textBefore)) {
+	if (textBefore.length > 0 && TRAILING_WHITESPACE_REGEX.test(textBefore)) {
 		return null;
 	}
 

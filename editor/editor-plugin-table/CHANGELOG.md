@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 24.3.4
+
+### Patch Changes
+
+- [`cc7e55c918e23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc7e55c918e23) -
+  [ux] Adds info icon next to visually disabled table column sort buttons with a tooltip explaining
+  that sort won't work when merged cells present.
+- Updated dependencies
+
 ## 24.3.3
 
 ### Patch Changes

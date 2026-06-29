@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 20.2.0
+
+### Minor Changes
+
+- [`a02bbdc5849e2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a02bbdc5849e2) -
+  Promote compiled Flex and Grid primitives to general availability.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.0
 
 ### Minor Changes

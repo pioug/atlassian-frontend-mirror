@@ -1,4 +1,4 @@
-import { StatuspageIcon as NewStatuspageIcon } from '../artifacts/logo-components/statuspage';
+import { StatuspageIcon as NewStatuspageIcon } from '../artifacts/logo-components/statuspage/icon';
 import { createFeatureFlaggedComponent } from '../create-feature-flagged-component';
 import { StatuspageIcon as LegacyStatuspageIcon } from '../legacy-logos/statuspage';
 import type { LogoProps } from '../types';

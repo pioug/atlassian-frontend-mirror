@@ -9,6 +9,12 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const MS_PREFIX_REGEX = /^ms/;
+// @ts-ignore - TS1501 Older versions of TypeScript don't play nice with the u flag. With the current AFM TypeScript version, this *should* be fine, but the pipeline type check fails, hence why a ts-ignore is needed (over a ts-expect-error)
+const NON_WHITESPACE_REGEX = /\S/u;
+
 type SelectionType = 'anchor' | 'head';
 
 const selectionMarkerHighlightStyles = {
@@ -63,8 +69,11 @@ const selectionMarkerInlineCursorStyles = {
  */
 function hyphenate(property: string): string {
 	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(/^ms/, '-ms');
+	/* eslint-disable require-unicode-regexp */
+	return property
+		.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)
+		.replace(MS_PREFIX_REGEX, '-ms');
+	/* eslint-enable require-unicode-regexp */
 }
 
 type WidgetProps = { isHighlight: boolean; isInWord: boolean; type: SelectionType };
@@ -129,8 +138,8 @@ export const createWidgetDecoration = (
 	const lastCharacterOfBeforeNode = nodeBefore?.textContent?.slice(-1);
 	const firstCharacterOfAfterNode = nodeAfter?.textContent?.slice(0, 1);
 	const areAdjacentCharactersNonWhitespace =
-		// @ts-ignore - TS1501 Older versions of TypeScript don't play nice with the u flag. With the current AFM TypeScript version, this *should* be fine, but the pipeline type check fails, hence why a ts-ignore is needed (over a ts-expect-error)
-		/\S/u.test(lastCharacterOfBeforeNode || '') && /\S/u.test(firstCharacterOfAfterNode || '');
+		NON_WHITESPACE_REGEX.test(lastCharacterOfBeforeNode || '') &&
+		NON_WHITESPACE_REGEX.test(firstCharacterOfAfterNode || '');
 	const isInWord = Boolean(areTextNodes && areAdjacentCharactersNonWhitespace);
 
 	return [

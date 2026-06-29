@@ -22,6 +22,9 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { FindReplaceTooltipButton } from './FindReplaceTooltipButton';
 
+// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+const SPACE_REGEX = / /u;
+
 const replaceContainerStyles = xcss({
 	padding: 'space.100',
 });
@@ -257,7 +260,7 @@ const Replace = ({
 					<ValidMessage testId="message-success-replacement">
 						{fakeSuccessReplacementMessageUpdate
 							? // @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-								resultsReplace.replace(/ /u, '\u00a0')
+								resultsReplace.replace(SPACE_REGEX, '\u00a0')
 							: resultsReplace}
 					</ValidMessage>
 				</div>

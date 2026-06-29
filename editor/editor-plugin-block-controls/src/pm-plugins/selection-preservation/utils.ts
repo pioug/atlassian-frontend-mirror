@@ -1,4 +1,5 @@
 import { getDocument } from '@atlaskit/browser-apis';
+import { FORMAT_SELECTION_SYNC_META } from '@atlaskit/editor-common/selection';
 import type {
 	ReadonlyTransaction,
 	Selection,
@@ -23,6 +24,9 @@ export const getSelectionPreservationMeta = (tr: Transaction | ReadonlyTransacti
 	return tr.getMeta(selectionPreservationPluginKey) as SelectionPreservationMeta | undefined;
 };
 
+export const hasFormatSelectionSyncMeta = (tr: Transaction | ReadonlyTransaction): boolean =>
+	tr.getMeta(FORMAT_SELECTION_SYNC_META) === true;
+
 /**
  * Compares two selections for equality based on their from and to positions.
  *
@@ -44,8 +48,18 @@ export const compareSelections = (a?: Selection, b?: Selection): boolean => {
  * @param selection The current ProseMirror selection state to sync to DOM.
  * @param view The EditorView instance used to convert ProseMirror positions to DOM positions.
  */
-export const syncDOMSelection = (selection: Selection, view: EditorView): void => {
+export const syncDOMSelection = (
+	selection: Selection,
+	view: EditorView,
+	options?: { focusEditor?: boolean },
+): void => {
 	try {
+		if (options?.focusEditor && !view.hasFocus()) {
+			// The native browser selection is only painted while the editor owns focus.
+			// Formatting toolbar interactions can move focus away before we restore the range.
+			view.focus();
+		}
+
 		const domSelection = window.getSelection();
 		if (!domSelection) {
 			return;

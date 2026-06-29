@@ -22,6 +22,7 @@ import EmojiPicker, {
 	type Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
 import { emojiPickerHeightOffset } from '../../../../components/picker/utils';
+import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
 import {
 	SearchSourceTypes,
 	type EmojiDescription,
@@ -48,6 +49,8 @@ import {
 	defaultEmojiPickerSize,
 	emojiPickerHeight,
 	emojiPickerHeightWithPreview,
+	emojiPickerListHeightNew,
+	emojiPickerPreviewHeight,
 	frequentCategory,
 	selectedToneStorageKey,
 } from '../../../../util/constants';
@@ -271,6 +274,36 @@ describe('<EmojiPicker />', () => {
 				'height',
 				emojiPickerHeightWithPreview + emojiPickerHeightOffset(defaultEmojiPickerSize) + 'px',
 			);
+		});
+
+		it('should use footer space for the list when upload is unsupported and no emoji is selected', async () => {
+			const initializeCompletedSpy = jest
+				.spyOn(FeatureGates, 'initializeCompleted')
+				.mockReturnValue(true);
+			const getExperimentValueSpy = jest
+				.spyOn(FeatureGates, 'getExperimentValue')
+				.mockImplementation((experimentName, _parameterName, defaultValue) =>
+					experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+				);
+
+			try {
+				await helper.setupPicker({
+					emojiProvider: mockNonUploadingEmojiResourceFactory(new EmojiRepository(standardEmojis)),
+				});
+
+				const picker = screen.getByRole('dialog', { name: 'Emoji picker' });
+				expect(picker).toHaveCompiledCss(
+					'height',
+					emojiPickerHeightWithPreview + emojiPickerHeightOffset(defaultEmojiPickerSize) + 'px',
+				);
+				expect(screen.queryByTestId('emoji-picker-footer')).not.toBeInTheDocument();
+				expect(screen.getByTestId(virtualListScrollContainerTestId)).toHaveStyle({
+					height: `${emojiPickerListHeightNew + emojiPickerHeightOffset(defaultEmojiPickerSize) + emojiPickerPreviewHeight}px`,
+				});
+			} finally {
+				getExperimentValueSpy.mockRestore();
+				initializeCompletedSpy.mockRestore();
+			}
 		});
 
 		it('media emoji should render placeholder while loading', async () => {

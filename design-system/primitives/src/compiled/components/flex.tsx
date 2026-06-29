@@ -160,8 +160,8 @@ const styles = cssMap({
  *
  * @example
  * ```tsx
- * // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
- * import { Flex, Box } from '@atlaskit/primitives'
+ * import { Box } from '@atlaskit/primitives/compiled'
+ * import { Flex } from '@atlaskit/primitives/compiled/flex'
  *
  * const Component = () => (
  *   <Flex direction="column">

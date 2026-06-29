@@ -1,5 +1,58 @@
 # @atlaskit/editor-common
 
+## 116.17.2
+
+### Patch Changes
+
+- [`283c55290e6cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/283c55290e6cc) -
+  Preserve visual selection after applying text color or highlight
+- Updated dependencies
+
+## 116.17.1
+
+### Patch Changes
+
+- [`e27cc2a34b7c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e27cc2a34b7c7) -
+  Update the editor plus menu virtualized list accessible label under the
+  `platform_editor_plus_menu_aria_label` experiment.
+- [`cc7e55c918e23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc7e55c918e23) -
+  [ux] Adds info icon next to visually disabled table column sort buttons with a tooltip explaining
+  that sort won't work when merged cells present.
+- Updated dependencies
+
+## 116.17.0
+
+### Minor Changes
+
+- [`426eef1e61679`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/426eef1e61679) -
+  Add failure `reason`, HTTP `statusCode` and `benign` attributes to synced block fetch/subscribe
+  operational error analytics, so fetch failures can be broken down by cause (benign source-gone /
+  permission-denied vs genuine system failures) instead of regex-matching free text. Gated behind
+  `platform_editor_blocks_patch_3`; gate-off behaviour is unchanged.
+
+### Patch Changes
+
+- [`eb16de0d842fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb16de0d842fa) -
+  Reconcile editor plugin APIs during gated preset reconfiguration so Markdown mode layout and
+  styling update correctly when converting between Markdown and live doc views.
+- [`e20d01fe3d044`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e20d01fe3d044) -
+  Clean up platform_editor_add_code_block_localid now that code block local IDs are fully enabled.
+- Updated dependencies
+
+## 116.16.0
+
+### Minor Changes
+
+- [`5d42cea730a1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d42cea730a1b) -
+  [ENGHEALTH-53346] Gate the inline extension width-context memoization fix behind a Jira
+  experiment.
+
+### Patch Changes
+
+- [`4f29c6cc37a8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f29c6cc37a8a) -
+  Clean up ff forge-ui-extensionnodeview-stop-event-for-textarea
+- Updated dependencies
+
 ## 116.15.0
 
 ### Minor Changes

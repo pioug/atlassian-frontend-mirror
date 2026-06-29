@@ -1,4 +1,4 @@
-import { ConfluenceIcon as NewConfluenceIcon } from '../artifacts/logo-components/confluence';
+import { ConfluenceIcon as NewConfluenceIcon } from '../artifacts/logo-components/confluence/icon';
 import { createFeatureFlaggedComponent } from '../create-feature-flagged-component';
 import { ConfluenceIcon as LegacyConfluenceIcon } from '../legacy-logos/confluence';
 import type { LogoProps } from '../types';

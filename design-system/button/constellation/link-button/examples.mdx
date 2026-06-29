@@ -25,7 +25,11 @@ A button that triggers a link rather than an action. This will render an `<a>` t
 The default appearance is for secondary actions or general actions that aren't the most important in
 the area.
 
-<Example Component={LinkButtonDefault} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonDefault}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Routing
 
@@ -55,20 +59,32 @@ advanced usage to pass an object to `href`.
 
 Use a primary link button when the main call to action is to navigate to a new page or URL.
 
-<Example Component={LinkButtonPrimary} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonPrimary}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Rovo
 
 Use a Rovo link button when the primary Rovo or AI action navigates to another page or URL.
 
-<Example Component={LinkButtonRovo} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonRovo}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Subtle
 
 Use subtle buttons when the surrounding context makes it clear the text is interactive, like in
 navigation areas.
 
-<Example Component={LinkButtonSubtle} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonSubtle}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Warning
 
@@ -76,20 +92,32 @@ Warning appearances are designed to confirm someone wants to proceed despite a p
 unintended or inconvenient (but reversible) outcome. In general, try to avoid these unclear outcomes
 in the first place.
 
-<Example Component={LinkButtonWarning} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonWarning}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Danger
 
 Danger appearances are similar to warnings, but these should be reserved for situations with severe
 consequences, such as a permanent loss of data or an action that affects many users.
 
-<Example Component={LinkButtonDanger} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonDanger}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Discovery
 
 A discovery link button can be used as the call to action for new experiences.
 
-<Example Component={LinkButtonDiscovery} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonDiscovery}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Icon
 
@@ -99,7 +127,11 @@ comprehension. Most of the time, a text label alone is clearer.
 For buttons that open a link in a new tab or external website, use a link button with an icon after
 the text.
 
-<Example Component={LinkButtonIcon} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonIcon}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## States
 
@@ -109,4 +141,8 @@ Standard buttons use the `disabled` HTML attribute, however this doesn't exist f
 tags, so link buttons are disabled by removing the `href` attribute and adding
 `aria-disabled="true"` and `role="link"`.
 
-<Example Component={LinkButtonDisabled} packageName="@atlaskit/button" />
+<Example
+	Component={LinkButtonDisabled}
+	packageName="@atlaskit/button"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>

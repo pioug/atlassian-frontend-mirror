@@ -1,5 +1,27 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.3.1
+
+### Patch Changes
+
+- [`73743eb8b36e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73743eb8b36e6) -
+  CLeanup prefer static regex violations
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [`426eef1e61679`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/426eef1e61679) -
+  Add failure `reason`, HTTP `statusCode` and `benign` attributes to synced block fetch/subscribe
+  operational error analytics, so fetch failures can be broken down by cause (benign source-gone /
+  permission-denied vs genuine system failures) instead of regex-matching free text. Gated behind
+  `platform_editor_blocks_patch_3`; gate-off behaviour is unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.0
 
 ### Minor Changes

@@ -1352,6 +1352,10 @@ export interface MotionTokenSchema<BaseToken> {
 			exit: MotionToken<BaseToken>;
 			hovered: MotionToken<BaseToken>;
 		};
+		button: {
+			hovered: MotionToken<BaseToken>;
+			pressed: MotionToken<BaseToken>;
+		};
 		blanket: {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;

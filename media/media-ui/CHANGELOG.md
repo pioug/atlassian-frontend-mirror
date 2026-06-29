@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 30.5.1
+
+### Patch Changes
+
+- [`8a141c7aaddfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a141c7aaddfa) -
+  Improve i18n message descriptions with meaningful translator context for media-ui and
+  proforma-form-builder messages
+
 ## 30.5.0
 
 ### Minor Changes

@@ -9,7 +9,11 @@ import { useIntl } from 'react-intl';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button, { type ButtonProps, IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import DropdownMenu, {
+	type DropdownMenuProps,
+	DropdownItem,
+	DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
@@ -119,6 +123,7 @@ type AgentDropdownMenuProps = {
 	dropdownMenuTestId?: React.ComponentProps<typeof DropdownMenu>['testId'];
 	loadPermissionsOnMount?: boolean;
 	shouldTriggerStopPropagation?: boolean;
+	shouldRenderToParent?: DropdownMenuProps['shouldRenderToParent'];
 	loadAgentPermissions: () => Promise<{
 		isCreateEnabled?: boolean;
 		isEditEnabled: boolean;
@@ -153,6 +158,7 @@ export const AgentDropdownMenu = ({
 	loadAgentPermissions,
 	loadPermissionsOnMount,
 	shouldTriggerStopPropagation,
+	shouldRenderToParent,
 	agentName,
 	agentRef,
 	userPermissionsRef,
@@ -212,6 +218,7 @@ export const AgentDropdownMenu = ({
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
+			shouldRenderToParent={shouldRenderToParent}
 			isLoading={isLoading}
 			isOpen={isOpen}
 			testId={dropdownMenuTestId}

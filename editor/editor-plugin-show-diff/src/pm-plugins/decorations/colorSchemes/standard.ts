@@ -158,6 +158,12 @@ export const standardDecorationMarkerVariable: string = convertToInlineCss({
 	'--diff-decoration-marker-ring-width': '1px',
 });
 
+export const deletedDecorationMarkerVariable: string = convertToInlineCss({
+	'--diff-decoration-marker-color': token('color.border.accent.gray'),
+	'--diff-decoration-marker-ring-width': '1px',
+	opacity: 0.8,
+});
+
 export const addedCellOverlayStyle: string = convertToInlineCss({
 	position: 'absolute',
 	top: 0,

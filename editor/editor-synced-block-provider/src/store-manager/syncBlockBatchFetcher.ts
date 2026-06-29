@@ -7,7 +7,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { isProviderNotReadyError } from '../common/types';
 import type { ResourceId, BlockInstanceId, SyncBlockNode } from '../common/types';
 import type { SubscriptionCallback } from '../providers/types';
-import { fetchErrorPayload } from '../utils/errorHandling';
+import { buildFetchErrorAttribution, fetchErrorPayload } from '../utils/errorHandling';
 import { createSyncBlockNode, getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 export interface SyncBlockBatchFetcherDeps {
@@ -85,9 +85,18 @@ export class SyncBlockBatchFetcher {
 					logException(error, {
 						location: 'editor-synced-block-provider/syncBlockBatchFetcher/batchedFetchSyncBlocks',
 					});
+					const attribution = buildFetchErrorAttribution(
+						fg('platform_editor_blocks_patch_3'),
+						error.message,
+					);
 					resourceIds.forEach((resId) => {
 						this.deps.getFireAnalyticsEvent()?.(
-							fetchErrorPayload(error.message, resId, getSourceProductFromResourceIdSafe(resId)),
+							fetchErrorPayload(
+								error.message,
+								resId,
+								getSourceProductFromResourceIdSafe(resId),
+								attribution,
+							),
 						);
 					});
 				})

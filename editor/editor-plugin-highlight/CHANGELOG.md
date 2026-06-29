@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 12.1.10
+
+### Patch Changes
+
+- [`283c55290e6cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/283c55290e6cc) -
+  Preserve visual selection after applying text color or highlight
+- Updated dependencies
+
 ## 12.1.9
 
 ### Patch Changes

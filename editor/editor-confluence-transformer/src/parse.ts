@@ -37,6 +37,10 @@ import {
 	docContentWrapper,
 } from './content-wrapper';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const WORD_CHARS_END_REGEX = /\w+$/;
+
 const supportedSingleMediaLayouts = ['center', 'wrap-left', 'wrap-right', 'wide', 'full-width'];
 
 const convertedNodes = new WeakMap<Node, Fragment | PMNode>();
@@ -541,9 +545,7 @@ function convertCodeFromView(schema: Schema, node: Element): Fragment | PMNode |
 
 	let language;
 	if (node.className) {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		language = (node.className.match(/\w+$/) || [''])[0];
+		language = (node.className.match(WORD_CHARS_END_REGEX) || [''])[0];
 	}
 
 	return createCodeFragment(schema, content, language);

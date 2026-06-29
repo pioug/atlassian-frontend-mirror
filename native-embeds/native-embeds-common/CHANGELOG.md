@@ -1,5 +1,13 @@
 # @atlaskit/native-embeds-common
 
+## 2.0.4
+
+### Patch Changes
+
+- [`d9d79b8830e62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9d79b8830e62) -
+  [ux] Add generated i18n wrappers for native embeds
+- Updated dependencies
+
 ## 2.0.3
 
 ### Patch Changes

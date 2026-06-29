@@ -30,6 +30,7 @@ type FieldAttributes =
 			operation: 'change';
 			skillCount: number;
 			skillNames: string[];
+			toolsFromSkills?: number;
 	  }
 	| {
 			field: 'tools';

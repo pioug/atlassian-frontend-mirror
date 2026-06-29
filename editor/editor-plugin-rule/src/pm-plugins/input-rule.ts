@@ -82,6 +82,9 @@ const createHorizontalRuleAutoformat = (
 	return createHorizontalRule(state, start, end, INPUT_METHOD.FORMATTING, editorAnalyticsAPI);
 };
 
+// eslint-disable-next-line require-unicode-regexp
+const HORIZONTAL_RULE_AUTOFORMAT_REGEX = /^(\-\-\-|\*\*\*)$/;
+
 export function inputRulePlugin(
 	schema: Schema,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -91,8 +94,7 @@ export function inputRulePlugin(
 	if (schema.nodes.rule) {
 		// '---' and '***' for hr
 		rules.push(
-			// eslint-disable-next-line require-unicode-regexp
-			createRule(/^(\-\-\-|\*\*\*)$/, (state, _match, start, end) =>
+			createRule(HORIZONTAL_RULE_AUTOFORMAT_REGEX, (state, _match, start, end) =>
 				createHorizontalRuleAutoformat(state, start, end, editorAnalyticsAPI),
 			),
 		);

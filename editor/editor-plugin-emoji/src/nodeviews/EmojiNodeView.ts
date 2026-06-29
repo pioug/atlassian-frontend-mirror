@@ -37,6 +37,11 @@ import type { EmojiNodeDataProvider } from '../pm-plugins/providers/EmojiNodeDat
 
 import { emojiToDom } from './emojiNodeSpec';
 
+const SINGLE_EMOJI_REGEX =
+	// Regular expression to match a single emoji character
+	// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+	/^(\p{Emoji_Presentation}(?:[\u{1F3FB}-\u{1F3FF}])?|\p{Extended_Pictographic}\u{FE0F}(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)*|\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
+
 interface Params {
 	api: ExtractInjectionAPI<EmojiPlugin> | undefined;
 	emojiNodeDataProvider?: EmojiNodeDataProvider;
@@ -52,11 +57,7 @@ interface Params {
  * isSingleEmoji('😀') // true
  */
 export function isSingleEmoji(fallbackText: string): boolean {
-	// Regular expression to match a single emoji character
-	const emojiRegex =
-		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-		/^(\p{Emoji_Presentation}(?:[\u{1F3FB}-\u{1F3FF}])?|\p{Extended_Pictographic}\u{FE0F}(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)*|\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
-	return emojiRegex.test(fallbackText);
+	return SINGLE_EMOJI_REGEX.test(fallbackText);
 }
 
 /**

@@ -54,6 +54,8 @@ export { getSliceFromSelection } from './context-helpers';
 export { getFragmentsFromSelection } from './getFragmentsFromSelection';
 export { getLocalIdsFromSelection } from './getLocalIdsFromSelection';
 
+export { FORMAT_SELECTION_SYNC_META } from './format-sync-meta';
+
 export function getNodeSelectionAnalyticsPayload(
 	selection: Selection,
 ): AnalyticsEventPayload | undefined {

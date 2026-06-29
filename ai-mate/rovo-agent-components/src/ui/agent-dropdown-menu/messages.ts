@@ -18,7 +18,8 @@ const message: Record<MessageKeys, { id: string; defaultMessage: string; descrip
 		chatToAgentButton: {
 			id: 'rovo-chat.view-agent.chat-to-agent-button',
 			defaultMessage: 'Chat to agent',
-			description: 'Button to chat to agent',
+			description:
+				'Button in the agent dropdown menu that initiates a chat session with the selected Rovo agent.',
 		},
 		moreActionsLabel: {
 			id: 'rovo-chat.view-agent.more-actions-label',
@@ -33,17 +34,20 @@ const message: Record<MessageKeys, { id: string; defaultMessage: string; descrip
 		duplicateAgent: {
 			id: 'rovo-chat.view-agent.duplicate-agent',
 			defaultMessage: 'Duplicate agent',
-			description: 'Button to duplicate an agent',
+			description:
+				'Button in the agent dropdown menu that creates a duplicate copy of the selected Rovo agent.',
 		},
 		editAgent: {
 			id: 'rovo-chat.view-agent.edit-agent',
 			defaultMessage: 'Edit agent',
-			description: 'Button to edit an agent',
+			description:
+				'Button in the agent dropdown menu that opens the editor for the selected Rovo agent.',
 		},
 		deleteAgent: {
 			id: 'rovo-chat.view-agent.delete-agent',
 			defaultMessage: 'Delete agent',
-			description: 'Button to delete an agent',
+			description:
+				'Button in the agent dropdown menu that permanently removes the selected Rovo agent.',
 		},
 		copyLinkToProfile: {
 			id: 'rovo-chat.view-agent.copy-link-to-profile',
@@ -58,7 +62,8 @@ const message: Record<MessageKeys, { id: string; defaultMessage: string; descrip
 		viewAgent: {
 			id: 'rovo-chat.view-agents.view-agent',
 			defaultMessage: 'View agent',
-			description: 'Button to view an agent',
+			description:
+				'Button in the agent dropdown menu that opens the profile page for the selected Rovo agent.',
 		},
 		viewAgentFullProfile: {
 			id: 'rovo-chat.view-agents.view-agent-full-profile',

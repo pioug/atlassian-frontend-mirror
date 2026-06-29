@@ -20,6 +20,9 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { CustomError } from '../errors/custom-errors';
 
+// eslint-disable-next-line require-unicode-regexp
+const GCP_TENANT_PATTERN = /^.*-cdp-\w+\.jira-dev\.com$/;
+
 export const createLogger =
 	(prefix: string, color: string = 'blue') =>
 	// Ignored via go/ees005
@@ -367,7 +370,5 @@ export function isGCPtenant(hostname?: string): boolean {
 		return false;
 	}
 
-	// eslint-disable-next-line require-unicode-regexp
-	const gcpTenantPattern = /^.*-cdp-\w+\.jira-dev\.com$/;
-	return gcpTenantPattern.test(hostname);
+	return GCP_TENANT_PATTERN.test(hostname);
 }

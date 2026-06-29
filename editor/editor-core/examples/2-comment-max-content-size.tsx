@@ -1,0 +1,312 @@
+/* eslint-disable no-console */
+
+import React from 'react';
+
+import { IntlProvider } from 'react-intl';
+
+import { DevTools, getTranslations, LanguagePicker } from '@af/editor-examples-helpers/utils';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
+import { syncBlockMessages } from '@atlaskit/editor-common/messages';
+import { SYNCED_BLOCKS_DOCUMENTATION_URL } from '@atlaskit/editor-common/sync-block';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
+import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
+import LockCircleIcon from '@atlaskit/icon/core/lock-locked';
+import { token } from '@atlaskit/tokens';
+
+import ToolsDrawer from '../example-helpers/ToolsDrawer';
+import { name, version } from '../package.json';
+import type { EditorProps } from '../src';
+import { ComposableEditor } from '../src/composable-editor';
+import enMessages from '../src/i18n/en';
+import languages from '../src/i18n/languages';
+import { useUniversalPreset } from '../src/preset-universal';
+import CollapsedEditor from '../src/ui/CollapsedEditor';
+import EditorContext from '../src/ui/EditorContext';
+import ToolbarHelp from '../src/ui/ToolbarHelp';
+import WithEditorActions from '../src/ui/WithEditorActions';
+import { usePreset } from '../src/use-preset';
+
+const SAVE_ACTION = () => console.log('Save');
+const CANCEL_ACTION = () => console.log('Cancel');
+const EXPAND_ACTION = () => console.log('Expand');
+
+// A small limit so the example is easy to trigger in the browser
+const MAX_CONTENT_SIZE = 500;
+
+const exampleDocument = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{ type: 'text', text: 'Some example document with emojis ' },
+				{
+					type: 'emoji',
+					attrs: {
+						shortName: ':catchemall:',
+						id: 'atlassian-catchemall',
+						text: ':catchemall:',
+					},
+				},
+				{ type: 'text', text: ' and mentions ' },
+				{
+					type: 'mention',
+					attrs: { id: '0', text: '@Carolyn', accessLevel: '' },
+				},
+				{ type: 'text', text: '. ' },
+			],
+		},
+	],
+};
+
+export type Props = {
+	editorProps?: EditorProps;
+	replacementDoc?: any;
+};
+
+export type State = {
+	hasJquery?: boolean;
+	intlState: { locale: string; messages: { [key: string]: string } };
+	isExpanded?: boolean;
+	maxContentSizeReached?: boolean;
+};
+
+declare global {
+	interface Window {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		ATL_JQ_PAGE_PROPS: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		jQuery: any;
+	}
+}
+
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export class CommentEditorWithMaxContentSize extends React.Component<Props, State> {
+	state: {
+		hasJquery: boolean;
+		intlState: {
+			locale: string;
+			messages: {
+				'fabric.editor.chromeCollapsedPlaceholder': string;
+				'fabric.editor.editorAssistiveLabel': string;
+				'fabric.editor.headingLink.toolbarHelpTitle': string;
+			};
+		};
+		isExpanded: boolean;
+		maxContentSizeReached: boolean;
+	} = {
+		hasJquery: false,
+		isExpanded: false,
+		maxContentSizeReached: false,
+		intlState: { locale: 'en', messages: enMessages },
+	};
+
+	onMaxContentSizeReached = (reached: boolean): void => {
+		this.setState({ maxContentSizeReached: reached });
+	};
+
+	componentDidMount(): void {
+		delete window.jQuery;
+		this.loadJquery();
+	}
+
+	onFocus = (): void => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
+
+	private loadLocale = async (locale: string) => {
+		const messages = await getTranslations(locale);
+		this.setState({ ...this.state, intlState: { locale, messages } });
+	};
+
+	private getProperLanguageKey = (locale: string) => locale.replace('_', '-');
+
+	render(): React.JSX.Element {
+		if (!this.state.hasJquery) {
+			return <h3>Please wait, loading jQuery ...</h3>;
+		}
+
+		const { locale, messages } = this.state.intlState;
+
+		return (
+			<IntlProvider locale={this.getProperLanguageKey(locale)} messages={messages}>
+				<EditorContext>
+					<div>
+						<WithEditorActions
+							render={(actions) => (
+								<ButtonGroup>
+									<Button
+										onClick={() =>
+											actions.replaceDocument(this.props.replacementDoc || exampleDocument)
+										}
+									>
+										Load Document
+									</Button>
+									<Button onClick={() => actions.clear()}>Clear</Button>
+									<LanguagePicker
+										languages={languages}
+										locale={this.state.intlState.locale}
+										onChange={this.loadLocale}
+									/>
+								</ButtonGroup>
+							)}
+						/>
+						<ToolsDrawer
+							renderEditor={({
+								mentionProvider,
+								emojiProvider,
+								mediaProvider,
+								activityProvider,
+								taskDecisionProvider,
+								contextIdentifierProvider,
+								onChange,
+								disabled,
+							}: any) => (
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								<div style={{ padding: token('space.250') }}>
+									{this.state.maxContentSizeReached && (
+										<div>Maximum content size reached! No more content can be added.</div>
+									)}
+									<CollapsedEditor
+										placeholder="What do you want to say?"
+										isExpanded={this.state.isExpanded}
+										onFocus={this.onFocus}
+										onExpand={EXPAND_ACTION}
+									>
+										<ComposableEditorWrapper
+											appearance="comment"
+											placeholder="What do you want to say?"
+											allowAnalyticsGASV3={true}
+											shouldFocus={true}
+											quickInsert={true}
+											allowTextColor={true}
+											allowRule={true}
+											allowTables={{
+												advanced: true,
+												allowDistributeColumns: true,
+											}}
+											allowHelpDialog={true}
+											disabled={disabled}
+											activityProvider={activityProvider}
+											mentionProvider={mentionProvider}
+											emojiProvider={emojiProvider}
+											media={{
+												provider: mediaProvider,
+												allowMediaSingle: true,
+												allowResizing: true,
+											}}
+											textFormatting={{
+												responsiveToolbarMenu: true,
+											}}
+											taskDecisionProvider={taskDecisionProvider}
+											contextIdentifierProvider={contextIdentifierProvider}
+											onChange={onChange}
+											onSave={SAVE_ACTION}
+											onCancel={CANCEL_ACTION}
+											feedbackInfo={{
+												product: 'bitbucket',
+												packageVersion: version,
+												packageName: name,
+												labels: ['atlaskit-comment'],
+											}}
+											primaryToolbarComponents={
+												<>
+													<ToolbarHelp key="toolbar-help" editorApi={undefined} />
+												</>
+											}
+											allowExtension={true}
+											extensionHandlers={extensionHandlers}
+											secondaryToolbarComponents={[
+												<LockCircleIcon key="permission" label="Permissions" />,
+											]}
+											featureFlags={{
+												...this.props.editorProps?.featureFlags,
+												'table-drag-and-drop': true,
+											}}
+											{...this.props.editorProps}
+											pasteWarningOptions={{
+												cannotPasteSyncedBlock: {
+													title: syncBlockMessages.cannotPasteSyncedBlockTitle,
+													description: syncBlockMessages.cannotPasteSyncedBlockDescription,
+													urlHref: SYNCED_BLOCKS_DOCUMENTATION_URL,
+													urlText: syncBlockMessages.cannotPasteSyncedBlockAction,
+												},
+											}}
+											maxContentSize={MAX_CONTENT_SIZE}
+											onMaxContentSizeReached={this.onMaxContentSizeReached}
+										/>
+									</CollapsedEditor>
+								</div>
+							)}
+						/>
+						<WithEditorActions
+							render={(actions) => <DevTools editorView={actions._privateGetEditorView()} />}
+						/>
+					</div>
+				</EditorContext>
+			</IntlProvider>
+		);
+	}
+
+	private loadJquery = () => {
+		const scriptElem = document.createElement('script');
+		scriptElem.type = 'text/javascript';
+		scriptElem.src = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
+
+		scriptElem.onload = () => {
+			this.setState({
+				...this.state,
+				hasJquery: true,
+			});
+		};
+
+		document.body.appendChild(scriptElem);
+	};
+}
+
+type ComposableEditorWrapperProps = EditorProps & {
+	onMaxContentSizeReached?: (reached: boolean) => void;
+};
+
+const ComposableEditorWrapper = ({
+	onMaxContentSizeReached,
+	...props
+}: ComposableEditorWrapperProps) => {
+	const { maxContentSize, onChange } = props;
+	const universalPreset = useUniversalPreset({ props });
+	const { preset, editorApi } = usePreset(() => universalPreset, [universalPreset]);
+
+	const handleChange = React.useCallback(
+		(editorView: any, meta: { isDirtyChange: boolean; source: 'local' | 'remote' }) => {
+			if (editorView && onMaxContentSizeReached && maxContentSize) {
+				const docSize = editorView.state.doc.nodeSize;
+				onMaxContentSizeReached(docSize >= maxContentSize);
+			}
+			onChange?.(editorView, meta);
+		},
+		[onMaxContentSizeReached, maxContentSize, onChange],
+	);
+
+	return (
+		<ComposableEditor
+			preset={preset}
+			{...props}
+			onChange={handleChange}
+			primaryToolbarComponents={
+				<ToolbarHelp
+					titlePosition="top"
+					title="Help"
+					key="help"
+					editorApi={
+						props.allowHelpDialog ? (editorApi as ExtractInjectionAPI<HelpDialogPlugin>) : undefined
+					}
+				/>
+			}
+		/>
+	);
+};
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export default CommentEditorWithMaxContentSize;

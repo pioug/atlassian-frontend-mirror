@@ -1,4 +1,5 @@
 import { TypeFlags, SyntaxKind, ObjectFlags } from 'typescript';
+
 import type {
 	Node,
 	Type,
@@ -16,6 +17,13 @@ import type {
 	InterfaceDeclaration,
 	TypeAliasDeclaration,
 } from 'typescript';
+
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const DIGITS_ONLY_REGEX = /^\d+$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const PM_NAME_SUFFIX_REGEX = /_node|_mark$/;
 
 export type TagInfo = {
 	// Ignored via go/ees005
@@ -35,9 +43,7 @@ export function getTags(tagInfo: JSDocTagInfo[]): TagInfo {
 			return obj;
 		}
 		const val: string = text.map((text) => text.text).join('');
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		if (/^\d+$/.test(val)) {
+		if (DIGITS_ONLY_REGEX.test(val)) {
 			// Number
 			obj[name] = +val;
 		} else if (val === 'true') {
@@ -145,9 +151,7 @@ export function syntaxKindToName(kind: SyntaxKind): string {
 export function getPmName(name: string): string {
 	return (
 		name
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			.replace(/_node|_mark$/, '')
+			.replace(PM_NAME_SUFFIX_REGEX, '')
 			// @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/722076396/ADF+Change+22+Consistent+naming
 			.replace('table_row', 'tableRow')
 			.replace('table_header', 'tableHeader')

@@ -1,5 +1,7 @@
 /* eslint-disable require-unicode-regexp  */
 
+const CONFLUENCE_PAGE_ARI_REGEX = /ari:cloud:confluence:[^:]+:(page|blogpost)\/(\d+)/;
+
 /**
  * The type of the Confluence page
  */
@@ -34,7 +36,7 @@ export const getPageIdAndTypeFromConfluencePageAri = ({
 }: {
 	ari: string;
 }): { id: string; type: PAGE_TYPE } => {
-	const match = ari.match(/ari:cloud:confluence:[^:]+:(page|blogpost)\/(\d+)/);
+	const match = ari.match(CONFLUENCE_PAGE_ARI_REGEX);
 	if (match?.[2]) {
 		return {
 			type: match[1] as PAGE_TYPE,

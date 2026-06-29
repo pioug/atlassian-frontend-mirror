@@ -6,6 +6,17 @@ import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { createRuleForListType } from './create-list-input-rule';
 
+// Using UTF instead of • character
+// because of issue where product converted the
+// character into an escaped version.
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const BULLET_LIST_EXPRESSION = /^\s*([\*\-\u2022]) $/;
+
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ORDERED_LIST_EXPRESSION = /((^[1-9]{1}[0-9]{0,2})|^(0))[\.\)] $/;
+
 export default function inputRulePlugin(
 	schema: Schema,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
@@ -18,26 +29,17 @@ export default function inputRulePlugin(
 	if (bulletList) {
 		rules.push(
 			createRuleForListType({
-				// Using UTF instead of • character
-				// because of issue where product converted the
-				// character into an escaped version.
-				// Ignored via go/ees005
-				// eslint-disable-next-line require-unicode-regexp
-				expression: /^\s*([\*\-\u2022]) $/,
+				expression: BULLET_LIST_EXPRESSION,
 				listType: bulletList,
 				editorAnalyticsApi,
 			}),
 		);
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	const expression = /((^[1-9]{1}[0-9]{0,2})|^(0))[\.\)] $/;
-
 	if (orderedList) {
 		rules.push(
 			createRuleForListType({
-				expression,
+				expression: ORDERED_LIST_EXPRESSION,
 				listType: orderedList,
 				editorAnalyticsApi,
 			}),

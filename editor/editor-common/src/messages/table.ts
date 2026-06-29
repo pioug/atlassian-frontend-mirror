@@ -46,6 +46,11 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	canNotSortTableNoIcon: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cellAlignment: {
 		defaultMessage: string;
 		description: string;
@@ -738,6 +743,11 @@ export const messages: {
 	canNotSortTable: {
 		id: 'fabric.editor.canNotSortTable',
 		defaultMessage: `⚠️ You can't sort a table with merged cells`,
+		description: `Split your cells to enable this feature`,
+	},
+	canNotSortTableNoIcon: {
+		id: 'fabric.editor.canNotSortTableNoIcon',
+		defaultMessage: `You can't sort a table with merged cells`,
 		description: `Split your cells to enable this feature`,
 	},
 	distributeColumns: {

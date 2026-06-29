@@ -1,6 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
 	"include": [
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -40,6 +42,9 @@
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		},
 		{
 			"path": "../teams-app-internal-playground/tsconfig.app.json"

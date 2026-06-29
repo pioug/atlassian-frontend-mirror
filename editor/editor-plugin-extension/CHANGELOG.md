@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 15.0.12
+
+### Patch Changes
+
+- [`73743eb8b36e6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/73743eb8b36e6) -
+  CLeanup prefer static regex violations
+- Updated dependencies
+
 ## 15.0.11
 
 ### Patch Changes

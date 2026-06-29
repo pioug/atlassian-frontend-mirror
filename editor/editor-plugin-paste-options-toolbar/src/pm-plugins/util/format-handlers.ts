@@ -12,6 +12,10 @@ import type { PasteOptionsPluginState } from '../../types/types';
 
 import { escapeLinks } from './index';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const CODE_BLOCK_FENCE_REGEX = /```/;
+
 export const formatMarkdown = (
 	tr: Transaction,
 	pluginState: PasteOptionsPluginState,
@@ -214,9 +218,7 @@ export function getMarkdownSlice(
 	try {
 		let textInput: string = text;
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		const textSplitByCodeBlock = textInput.split(/```/);
+		const textSplitByCodeBlock = textInput.split(CODE_BLOCK_FENCE_REGEX);
 
 		for (let i = 0; i < textSplitByCodeBlock.length; i++) {
 			if (i % 2 === 0) {

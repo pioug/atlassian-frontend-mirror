@@ -17,6 +17,24 @@ import { getSelectedTableInfo, isTableSelected } from '@atlaskit/editor-tables/u
 import { isMediaBlobUrl } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const HTML_CONTAINS_SINGLE_FILE_REGEX = /<img .*>/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ESCAPE_LINKS_INNER_REGEX = /^(https?|ftp|jamfselfservice):\/\/[^\s>"]+$/;
+// Allows up to 3 leading spaces before ``` and optional trailing characters
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const OPENING_CODE_FENCE_REGEX = /^( {0,3})```.*$/;
+// Allows up to 3 leading spaces before ``` and optional trailing spaces or tabs
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const CLOSING_CODE_FENCE_REGEX = /^( {0,3})```[ 	]*$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const SPLIT_ON_ANCHOR_REGEX = /(?=<a)/;
+
 export function isPastedFromWord(html?: string): boolean {
 	return !!html && html.indexOf('urn:schemas-microsoft-com:office:word') >= 0;
 }
@@ -64,9 +82,7 @@ export const isSingleLine = (text: string): boolean => {
 };
 
 export function htmlContainsSingleFile(html: string): boolean {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return !!html.match(/<img .*>/) && !isMediaBlobUrl(html);
+	return !!html.match(HTML_CONTAINS_SINGLE_FILE_REGEX) && !isMediaBlobUrl(html);
 }
 
 export function getPasteSource(event: ClipboardEvent): PasteSource {
@@ -114,9 +130,7 @@ export function escapeLinks(text: string): string {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	return text.replace(/(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s>"]+)/g, (str) => {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s>"]+$/) ? `<${str}>` : str;
+		return str.match(ESCAPE_LINKS_INNER_REGEX) ? `<${str}>` : str;
 	});
 }
 
@@ -131,24 +145,16 @@ export function escapeLinks(text: string): string {
  */
 export function escapeBackslashAndLinksExceptCodeBlock(textInput: string): string {
 	// ref: https://spec.commonmark.org/0.31.2/#fenced-code-blocks
-	// Allows up to 3 leading spaces before ``` and optional trailing characters
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	const openingCodeFenceRegex = /^( {0,3})```.*$/;
-	// Allows up to 3 leading spaces before ``` and optional trailing spaces or tabs
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	const closingCodeFenceRegex = /^( {0,3})```[ \t]*$/;
 	let isInsideCodeBlock = false;
 	const lines = textInput.split('\n');
 	// In the splitted array, we traverse through every line and check if it will be parsed as a codeblock.
 	return lines
 		.map((line) => {
-			if (!isInsideCodeBlock && openingCodeFenceRegex.test(line)) {
+			if (!isInsideCodeBlock && OPENING_CODE_FENCE_REGEX.test(line)) {
 				isInsideCodeBlock = true;
 				return line;
 			}
-			if (isInsideCodeBlock && closingCodeFenceRegex.test(line)) {
+			if (isInsideCodeBlock && CLOSING_CODE_FENCE_REGEX.test(line)) {
 				isInsideCodeBlock = false;
 				return line;
 			}
@@ -298,9 +304,7 @@ export const htmlHasInvalidLinkTags = (html?: string): boolean => {
 // <li><a href="http://www.atlassian.com\"<a> href="http://www.atlassian.com\"http://www.atlassian.com</a></a></li>">
 export const removeDuplicateInvalidLinks = (html: string): string => {
 	if (htmlHasInvalidLinkTags(html)) {
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		const htmlArray = html.split(/(?=<a)/);
+		const htmlArray = html.split(SPLIT_ON_ANCHOR_REGEX);
 		const htmlArrayWithoutInvalidLinks = htmlArray.filter((item) => {
 			return (
 				!(item.includes('<a') && item.includes('"></a>')) &&

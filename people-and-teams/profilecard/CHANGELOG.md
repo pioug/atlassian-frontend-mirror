@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 26.4.1
+
+### Patch Changes
+
+- [`fdb6541658ba1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdb6541658ba1) -
+  Cleans up FG enable_teams_t26_design_drop_core_experiences
+- Updated dependencies
+
 ## 26.4.0
 
 ### Minor Changes

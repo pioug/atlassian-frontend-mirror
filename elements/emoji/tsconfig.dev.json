@@ -1,6 +1,8 @@
 {
 	"extends": "../../../tsconfig.base.json",
 	"include": [
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -123,6 +125,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		},
 		{
 			"path": "../../data/ufo-internal/tsconfig.app.json"

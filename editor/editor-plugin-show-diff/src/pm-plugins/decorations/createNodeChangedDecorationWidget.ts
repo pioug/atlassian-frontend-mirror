@@ -1,7 +1,6 @@
 import type { Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl';
 
-import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -10,140 +9,15 @@ import { token } from '@atlaskit/tokens';
 import type { ColorScheme } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
-import {
-	editingStyle,
-	editingStyleExtended,
-	editingStyleActive,
-	editingStyleActiveExtended,
-	deletedContentStyle,
-	deletedContentStyleActive,
-	deletedContentStyleNew,
-	deletedContentStyleUnbounded,
-	deletedInlineContentStyleExtended,
-} from './colorSchemes/standard';
-import {
-	traditionalInsertStyle,
-	traditionalInsertStyleActive,
-	getDeletedTraditionalInlineStyle,
-	deletedTraditionalContentStyleUnbounded,
-	deletedTraditionalContentStyleUnboundedActive,
-} from './colorSchemes/traditional';
 import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
 import { createChangedRowDecorationWidgets } from './createChangedRowDecorationWidgets';
 import { buildDiffDecorationSpec, buildAnchorDecorationKey } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
-import { wrapBlockNodeView } from './utils/wrapBlockNodeView';
-
-const getDeletedContentStyleUnbounded = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-): string => {
-	if (colorScheme === 'traditional' && isActive) {
-		return deletedTraditionalContentStyleUnboundedActive;
-	}
-	return colorScheme === 'traditional'
-		? deletedTraditionalContentStyleUnbounded
-		: deletedContentStyleUnbounded;
-};
-
-const getInsertedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
-	if (colorScheme === 'traditional') {
-		if (isActive) {
-			return traditionalInsertStyleActive;
-		}
-		return traditionalInsertStyle;
-	}
-	if (isActive) {
-		return expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-			? editingStyleActiveExtended
-			: editingStyleActive;
-	}
-	return expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-		? editingStyleExtended
-		: editingStyle;
-};
-const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
-	if (colorScheme === 'traditional') {
-		return getDeletedTraditionalInlineStyle(isActive);
-	}
-	// Merge into existing styles when cleaning up
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-		if (isActive) {
-			return deletedContentStyleActive + deletedInlineContentStyleExtended;
-		}
-		return deletedContentStyleNew + deletedInlineContentStyleExtended;
-	}
-	if (isActive) {
-		return deletedContentStyleActive;
-	}
-	return expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
-		? deletedContentStyleNew
-		: deletedContentStyle;
-};
-
-/**
- * CSS backgrounds don't work when applied to a wrapper around a paragraph, so
- * the wrapper needs to be injected inside the node around the child content
- */
-const injectInnerWrapper = ({
-	node,
-	colorScheme,
-	isActive,
-	isInserted,
-}: {
-	colorScheme?: 'standard' | 'traditional';
-	isActive?: boolean;
-	isInserted?: boolean;
-	node: HTMLElement;
-}) => {
-	const wrapper = document.createElement('span');
-	wrapper.setAttribute(
-		'style',
-		isInserted
-			? getInsertedContentStyle(colorScheme, isActive)
-			: getDeletedContentStyle(colorScheme, isActive),
-	);
-
-	[...node.childNodes].forEach((child) => {
-		const removedChild = node.removeChild(child);
-		wrapper.append(removedChild);
-	});
-
-	node.appendChild(wrapper);
-	return node;
-};
-
-const createContentWrapper = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-	isInserted: boolean = false,
-) => {
-	const wrapper = document.createElement('span');
-	const baseStyle = convertToInlineCss({
-		position: 'relative',
-		width: 'fit-content',
-	});
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-		if (isInserted) {
-			wrapper.setAttribute(
-				'style',
-				`${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}`,
-			);
-		} else {
-			wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
-			const strikethrough = document.createElement('span');
-			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
-			wrapper.append(strikethrough);
-		}
-	} else {
-		wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
-		const strikethrough = document.createElement('span');
-		strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
-		wrapper.append(strikethrough);
-	}
-
-	return wrapper;
-};
+import {
+	wrapBlockNodeView,
+	injectInnerWrapper,
+	createContentWrapper,
+} from './utils/wrapBlockNodeView';
 
 /**
  * This function is used to create a decoration widget to show content
@@ -215,6 +89,28 @@ export const createNodeChangedDecorationWidget = ({
 
 	// For non-table content, use the existing span wrapper approach
 	const dom = document.createElement('span');
+	// When mediaSingle nodes are rendered inside a widget decoration (e.g. as part of
+	// a replaced panel), the centering CSS (margin-left: 50%; transform: translateX(-50%))
+	// incorrectly applies because isNestedNode resolves to false (getPos returns 0).
+	// Observe DOM mutations and override the transform on .rich-media-item elements
+	// after React mounts to prevent the image from shifting outside its parent container.
+	let constrainMediaObserver: MutationObserver | undefined;
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		constrainMediaObserver = new MutationObserver(() => {
+			const richMediaItems = dom.querySelectorAll('.rich-media-item');
+			richMediaItems.forEach((el) => {
+				if (el instanceof HTMLElement) {
+					el.style.transform = 'none';
+					el.style.marginLeft = '0';
+					el.style.maxWidth = '100%';
+				}
+			});
+			if (richMediaItems.length > 0) {
+				constrainMediaObserver?.disconnect();
+			}
+		});
+		constrainMediaObserver.observe(dom, { childList: true, subtree: true });
+	}
 	const diffId = crypto.randomUUID();
 	const decorations: Decoration[] = [];
 
@@ -341,10 +237,8 @@ export const createNodeChangedDecorationWidget = ({
 	}
 
 	decorations.push(
-		Decoration.widget(
-			safeInsertPos,
-			dom,
-			buildDiffDecorationSpec({
+		Decoration.widget(safeInsertPos, dom, {
+			...buildDiffDecorationSpec({
 				decorationType: 'widget',
 				diffId,
 				isActive,
@@ -352,7 +246,8 @@ export const createNodeChangedDecorationWidget = ({
 					side: -1,
 				}),
 			}),
-		),
+			destroy: () => constrainMediaObserver?.disconnect(),
+		}),
 	);
 
 	// When a single block node is purely deleted at the very start of the doc (first child),

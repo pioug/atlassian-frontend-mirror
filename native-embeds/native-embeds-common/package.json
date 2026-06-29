@@ -23,7 +23,11 @@
 		"./embed-depth/constants": "./src/entry-points/embed-depth-constants.ts",
 		"./plugin-actions/types": "./src/entry-points/plugin-actions-types.ts",
 		"./types": "./src/entry-points/types.ts",
-		"./utils": "./src/entry-points/utils.ts"
+		"./utils": "./src/entry-points/utils.ts",
+		"./i18n/*": {
+			"publish": null,
+			"default": "./src/i18n/*.ts"
+		}
 	},
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
@@ -90,7 +94,7 @@
 		}
 	},
 	"name": "@atlaskit/native-embeds-common",
-	"version": "2.0.3",
+	"version": "2.0.4",
 	"description": "A shared package for native embeds to be used across experiences and plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

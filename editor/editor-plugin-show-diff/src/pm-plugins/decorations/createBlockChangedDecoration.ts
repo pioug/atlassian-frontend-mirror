@@ -6,6 +6,7 @@ import type { ColorScheme } from '../../showDiffPluginType';
 
 import {
 	standardDecorationMarkerVariable,
+	deletedDecorationMarkerVariable,
 	editingStyleQuoteNode,
 	editingStyleRuleNode,
 	editingStyleCardBlockNode,
@@ -79,6 +80,20 @@ const getBlockNodeStyle = ({
 		// Layout nodes do not need special styling
 		return undefined;
 	}
+	// Media nodes inside mediaSingle should not get position:relative
+	// as it shifts the image outside its parent container (e.g. panel)
+	if (nodeName === 'media') {
+		if (!isInserted && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			return isTraditional
+				? getDeletedTraditionalInlineStyle(false)
+				: deletedDecorationMarkerVariable;
+		}
+		return isTraditional
+			? isActive
+				? traditionalStyleNodeActive
+				: traditionalStyleNodeNew
+			: editingStyleNode;
+	}
 	if (['tableCell', 'tableHeader'].includes(nodeName)) {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			// This is used for positioning the cell overlay widget decorations
@@ -89,6 +104,18 @@ const getBlockNodeStyle = ({
 		// When gate is off, it should return undefined as above
 		return undefined;
 	}
+	if (nodeName === 'panel') {
+		if (!isInserted && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+			return isTraditional
+				? getDeletedTraditionalInlineStyle(false)
+				: deletedDecorationMarkerVariable;
+		}
+		return isTraditional
+			? isActive
+				? traditionalStyleNodeActive
+				: traditionalStyleNodeNew
+			: editingStyleNode;
+	}
 	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
 		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
 			if (isInserted) {
@@ -98,6 +125,13 @@ const getBlockNodeStyle = ({
 						? traditionalDecorationMarkerVariableNew
 						: standardDecorationMarkerVariable;
 			} else {
+				if (nodeName === 'listItem') {
+					return isTraditional && isActive
+						? traditionalDeletedDecorationMarkerVariableActive
+						: isTraditional
+							? traditionalDeletedDecorationMarkerVariableNew
+							: deletedDecorationMarkerVariable;
+				}
 				return isTraditional && isActive
 					? traditionalDeletedDecorationMarkerVariableActive
 					: isTraditional

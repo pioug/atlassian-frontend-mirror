@@ -20,20 +20,32 @@ current time text is bold, underlined, and highlighted blue.
 Add `clearControlLabel` to give the clear button an aria-label, and do not place the clear button in
 the tab order.
 
-<Example Component={TimePickerDefault} packageName="@atlaskit/datetime-picker" />
+<Example
+	Component={TimePickerDefault}
+	packageName="@atlaskit/datetime-picker"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Form
 
 When using the time picker with the form component, include a field label and helper text. For more
 information, see the [form component](/components/form/examples).
 
-<Example Component={TimePickerForm} packageName="@atlaskit/datetime-picker" />
+<Example
+	Component={TimePickerForm}
+	packageName="@atlaskit/datetime-picker"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Required
 
 How time picker works when the form is required.
 
-<Example Component={TimePickerRequired} packageName="@atlaskit/datetime-picker" />
+<Example
+	Component={TimePickerRequired}
+	packageName="@atlaskit/datetime-picker"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Validation
 
@@ -51,7 +63,11 @@ Keep helper text as short as possible. For complex information, provide a link t
 in a new browser tab. Use the [messaging guidelines](/foundations/content/designing-messages) for
 more help.
 
-<Example Component={TimePickerValidation} packageName="@atlaskit/datetime-picker" />
+<Example
+	Component={TimePickerValidation}
+	packageName="@atlaskit/datetime-picker"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Internationalization
 
@@ -59,7 +75,11 @@ more help.
 
 Use `locale` to display times in a format which is appropriate to users.
 
-<Example Component={TimePickerLocale} packageName="@atlaskit/datetime-picker" />
+<Example
+	Component={TimePickerLocale}
+	packageName="@atlaskit/datetime-picker"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Time formats
 
@@ -72,10 +92,18 @@ Where possible use locale for time formatting, instead of a custom format.
 
 Time formats should be informed by the user’s locale and the use case.
 
-<Example Component={TimePickerFormatting} packageName="@atlaskit/datetime-picker" />
+<Example
+	Component={TimePickerFormatting}
+	packageName="@atlaskit/datetime-picker"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Time editable
 
 This allows the time field to be edited via keyboard prompts.
 
-<Example Component={TimePickerEditable} packageName="@atlaskit/datetime-picker" />
+<Example
+	Component={TimePickerEditable}
+	packageName="@atlaskit/datetime-picker"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>

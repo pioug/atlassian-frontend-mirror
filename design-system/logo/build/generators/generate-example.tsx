@@ -18,23 +18,34 @@ export default function generateExample(root: string | undefined, assets: Assets
 
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
 ${Object.entries(assets)
-	.sort(([a], [b]) => a.localeCompare(b))
-	.map(([name, asset]) => {
+	.flatMap(([name, asset]) => {
 		const capitalisedName = name
 			.split('-')
 			.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 			.join('');
-		const imports: string[] = [];
+		const importLines: string[] = [];
 		if (asset.icon) {
-			imports.push(`${capitalisedName}Icon`);
+			importLines.push(
+				`import { ${capitalisedName}Icon } from '../../../src/artifacts/logo-components/${name}/icon';`,
+			);
 		}
 		if (asset.logo) {
-			imports.push(`${capitalisedName}Logo`);
+			importLines.push(
+				`import { ${capitalisedName}Logo } from '../../../src/artifacts/logo-components/${name}/logo';`,
+			);
 		}
 		if (asset['logo-cs']) {
-			imports.push(`${capitalisedName}LogoCS`);
+			importLines.push(
+				`import { ${capitalisedName}LogoCS } from '../../../src/artifacts/logo-components/${name}/logo-cs';`,
+			);
 		}
-		return `import { ${imports.join(', ')} } from '../../../src/artifacts/logo-components/${name}';`;
+		return importLines;
+	})
+	.sort((a, b) => {
+		// Extract path from import statement for sorting
+		const pathA = a.match(/from '([^']+)'/)?.[1] ?? a;
+		const pathB = b.match(/from '([^']+)'/)?.[1] ?? b;
+		return pathA.localeCompare(pathB);
 	})
 	.join('\n')}
 	import type { AppIconProps, AppLogoProps } from '../../../src/utils/types';

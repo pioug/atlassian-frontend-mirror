@@ -16,6 +16,8 @@ import {
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedContentStyleNew,
+	deletedContentStyleUnbounded,
+	deletedInlineContentStyleExtended,
 	deletedStyleQuoteNodeWithLozenge,
 	deletedStyleQuoteNodeWithLozengeActive,
 	editingContentStyleInBlockExtended,
@@ -30,6 +32,8 @@ import {
 	deletedTraditionalBlockOutlineNew,
 	deletedTraditionalBlockOutlineRoundedActive,
 	deletedTraditionalBlockOutlineRoundedNew,
+	deletedTraditionalContentStyleUnbounded,
+	deletedTraditionalContentStyleUnboundedActive,
 	getDeletedTraditionalInlineStyle,
 	deletedTraditionalStyleQuoteNode,
 	deletedTraditionalStyleQuoteNodeActive,
@@ -691,4 +695,106 @@ export const wrapBlockNodeView = ({
 			wrapBlockNode({ dom, nodeView, targetNode, colorScheme, intl, isActive, isInserted });
 		}
 	}
+};
+
+const getDeletedContentStyleUnbounded = (
+	colorScheme?: ColorScheme,
+	isActive: boolean = false,
+): string => {
+	if (colorScheme === 'traditional' && isActive) {
+		return deletedTraditionalContentStyleUnboundedActive;
+	}
+	return colorScheme === 'traditional'
+		? deletedTraditionalContentStyleUnbounded
+		: deletedContentStyleUnbounded;
+};
+
+const getInsertedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
+	if (colorScheme === 'traditional') {
+		return isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
+	}
+	if (isActive) {
+		return editingStyleActiveExtended;
+	}
+	return editingStyleExtended;
+};
+
+const getDeletedContentStyle = (colorScheme?: ColorScheme, isActive: boolean = false): string => {
+	if (colorScheme === 'traditional') {
+		return getDeletedTraditionalInlineStyle(isActive);
+	}
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		return (
+			(isActive ? deletedContentStyleActive : deletedContentStyleNew) +
+			deletedInlineContentStyleExtended
+		);
+	}
+	return isActive ? deletedContentStyleActive : deletedContentStyleNew;
+};
+
+/**
+ * Injects a styled inner wrapper span around the children of a block node element.
+ * CSS backgrounds don't work when applied to a wrapper around a paragraph, so
+ * the wrapper needs to be injected inside the node around the child content.
+ */
+export const injectInnerWrapper = ({
+	node,
+	colorScheme,
+	isActive,
+	isInserted,
+}: {
+	colorScheme?: ColorScheme;
+	isActive?: boolean;
+	isInserted?: boolean;
+	node: HTMLElement;
+}): HTMLElement => {
+	const wrapper = document.createElement('span');
+	wrapper.setAttribute(
+		'style',
+		isInserted
+			? getInsertedContentStyle(colorScheme, isActive)
+			: getDeletedContentStyle(colorScheme, isActive),
+	);
+
+	[...node.childNodes].forEach((child) => {
+		const removedChild = node.removeChild(child);
+		wrapper.append(removedChild);
+	});
+
+	node.appendChild(wrapper);
+	return node;
+};
+
+/**
+ * Creates a styled span wrapper for inline content within a change decoration.
+ */
+export const createContentWrapper = (
+	colorScheme?: ColorScheme,
+	isActive: boolean = false,
+	isInserted: boolean = false,
+): HTMLElement => {
+	const wrapper = document.createElement('span');
+	const baseStyle = convertToInlineCss({
+		position: 'relative',
+		width: 'fit-content',
+	});
+	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isInserted) {
+			wrapper.setAttribute(
+				'style',
+				`${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}`,
+			);
+		} else {
+			wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
+			const strikethrough = document.createElement('span');
+			strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
+			wrapper.append(strikethrough);
+		}
+	} else {
+		wrapper.setAttribute('style', `${baseStyle}${getDeletedContentStyle(colorScheme, isActive)}`);
+		const strikethrough = document.createElement('span');
+		strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
+		wrapper.append(strikethrough);
+	}
+	return wrapper;
 };

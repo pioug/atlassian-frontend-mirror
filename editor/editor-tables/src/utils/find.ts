@@ -6,6 +6,10 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '../table-map';
 import type { Rect } from '../table-map';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const CELL_ROLE_REGEX = /cell/i;
+
 // Iterates over parent nodes, returning the closest table node.
 export const findTable = (selection: Selection): ContentNodeWithPos | undefined =>
 	findParentNode((node) => node.type.spec.tableRole && node.type.spec.tableRole === 'table')(
@@ -23,9 +27,7 @@ export const findTableClosestToPos = ($pos: ResolvedPos): ContentNodeWithPos | u
 // Iterates over parent nodes, returning a table cell or a table header node closest to a given `$pos`.
 export const findCellClosestToPos = ($pos: ResolvedPos): ContentNodeWithPos | undefined => {
 	const predicate = (node: PMNode) =>
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp
-		node.type.spec.tableRole && /cell/i.test(node.type.spec.tableRole);
+		node.type.spec.tableRole && CELL_ROLE_REGEX.test(node.type.spec.tableRole);
 
 	return findParentNodeClosestToPos($pos, predicate);
 };

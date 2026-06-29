@@ -35,6 +35,12 @@ const baseTransitionPropertyTokens = {
 			group: 'motionProperty',
 		},
 	},
+	BackgroundColor: {
+		value: 'background-color',
+		attributes: {
+			group: 'motionProperty',
+		},
+	},
 } as const;
 
 const baseKeyframeTokens = {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-rule
 
+## 12.0.2
+
+### Patch Changes
+
+- [`346f91cfe1997`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/346f91cfe1997) -
+  Clean up prefer static regex violations
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

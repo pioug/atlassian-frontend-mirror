@@ -21,6 +21,10 @@ import { createJoinNodesRule, createWrappingTextBlockRule } from './utils';
 
 const MAX_HEADING_LEVEL = 6;
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const BLOCK_QUOTE_REGEX = /^\s*>\s$/;
+
 function getHeadingLevel(match: string[]): {
 	level: HeadingLevelsAndNormalText;
 } {
@@ -40,9 +44,7 @@ function headingRule(nodeType: NodeType, maxLevel: number) {
 }
 
 function blockQuoteRule(nodeType: NodeType) {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	return createJoinNodesRule(/^\s*>\s$/, nodeType) as InputRuleWrapper;
+	return createJoinNodesRule(BLOCK_QUOTE_REGEX, nodeType) as InputRuleWrapper;
 }
 
 /**

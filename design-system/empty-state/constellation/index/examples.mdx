@@ -20,7 +20,11 @@ import EmptyStateWithHeadingLevel from '../../examples/constellation/empty-state
 
 The only required part of an empty state is the header.
 
-<Example Component={EmptyStateDefault} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateDefault}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Custom heading level
 
@@ -31,13 +35,21 @@ level.
 
 Use the `headingLevel` prop to set the heading level of the header element.
 
-<Example Component={EmptyStateWithHeadingLevel} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateWithHeadingLevel}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Description
 
 Descriptions should add useful and relevant additional information.
 
-<Example Component={EmptyStateDescription} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateDescription}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Actions
 
@@ -45,27 +57,43 @@ Descriptions should add useful and relevant additional information.
 
 Use a primary action button to recommend the best next step that people can take.
 
-<Example Component={EmptyStatePrimaryAction} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStatePrimaryAction}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Secondary
 
 Use a secondary action button to recommend an alternate step that people could take.
 
-<Example Component={EmptyStateSecondaryAction} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateSecondaryAction}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Tertiary
 
 Use tertiary action buttons to link to external resources or documentation to further explain how to
 resolve the empty state.
 
-<Example Component={EmptyStateTertiaryAction} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateTertiaryAction}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Loading state
 
 Use the `isLoading` prop to indicate a loading state. This will show a spinner next to the action
 buttons when true.
 
-<Example Component={EmptyStateLoading} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateLoading}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Illustrations
 
@@ -74,14 +102,22 @@ buttons when true.
 You can display an image by supplying the `imageUrl` prop. This url will be passed directly into the
 `src` attribute of an `img` component.
 
-<Example Component={EmptyStateImageUrl} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateImageUrl}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Render image
 
 An alternate approach to displaying an image is to use the `renderImage` prop. This render prop
 approach will only be used if there is no `imageUrl` prop supplied.
 
-<Example Component={EmptyStateRenderImage} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateRenderImage}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Image dimensions
 
@@ -95,13 +131,21 @@ they will be passed in as props to the render function.
 If you are resizing a spot illustration to try and squeeze it into a layout, it's a good time to ask
 whether you should include the image at all.
 
-<Example Component={EmptyStateImageDimensions} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateImageDimensions}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Maximum image dimensions
 
 Applying `maxImageHeight` and `maxImageWidth` works in the same way.
 
-<Example Component={EmptyStateImageMaxDimensions} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateImageMaxDimensions}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ## Width
 
@@ -110,8 +154,16 @@ set to either `narrow` or `wide`.
 
 ### Narrow
 
-<Example Component={EmptyStateNarrow} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateNarrow}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>
 
 ### Wide
 
-<Example Component={EmptyStateWide} packageName="@atlaskit/empty-state" />
+<Example
+	Component={EmptyStateWide}
+	packageName="@atlaskit/empty-state"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
+/>

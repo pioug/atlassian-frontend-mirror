@@ -15,7 +15,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ButtonMenuItem',
-				package: '@atlaskit/side-nav-items',
+				package: '@atlaskit/side-nav-items/button-menu-item',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -40,7 +40,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'LinkMenuItem',
-				package: '@atlaskit/side-nav-items',
+				package: '@atlaskit/side-nav-items/link-menu-item',
 				type: 'named',
 				packagePath,
 				packageJson,

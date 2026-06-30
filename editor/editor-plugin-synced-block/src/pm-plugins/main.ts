@@ -16,14 +16,18 @@ import { mapSlice, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceAroundStep, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import {
 	convertPMNodesToSyncBlockNodes,
 	rebaseTransaction,
 } from '@atlaskit/editor-synced-block-provider';
-import type { SyncBlockStoreManager, DeletionReason } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type {
+	DeletionReason,
+	DeletionMechanism,
+} from '@atlaskit/editor-synced-block-provider/common/types';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -58,6 +62,18 @@ import {
 } from './utils/utils';
 
 export const syncedBlockPluginKey: PluginKey = new PluginKey('syncedBlockPlugin');
+
+/**
+ * Dedicated transaction-meta {@link PluginKey} the synced-block removal command
+ * sets so {@link getDeleteMechanism} can report a toolbar Delete as
+ * `deleteButton` (otherwise indistinguishable from a keyboard delete — both are
+ * plain ReplaceSteps). A separate key (rather than `syncedBlockPluginKey`, which
+ * carries plugin-state transitions read in `apply()`, or a bare string) keeps
+ * this transient signal uniquely namespaced and isolated. Only read behind
+ * `platform_editor_blocks_patch_4`.
+ */
+export const deleteMechanismMetaKey: PluginKey<DeletionMechanism> =
+	new PluginKey<DeletionMechanism>('syncedBlockDeleteMechanism');
 
 type SyncedBlockPluginState = {
 	activeFlag: ActiveFlag;
@@ -183,6 +199,54 @@ const getDeleteReason = (tr: Transaction): DeletionReason => {
 	return reason as DeletionReason;
 };
 
+/** Narrows the history plugin meta, matching the editor-plugin-card pattern. */
+const isHistoryMeta = (meta: unknown): meta is { redo: boolean } =>
+	typeof meta === 'object' && meta !== null && 'redo' in meta;
+
+/**
+ * Derive how a source bodiedSyncBlock removal was performed, for the `mechanism`
+ * analytics dimension. Each value names the user action; most-specific wins:
+ *  - `undo` / `redo` — history transaction.
+ *  - `deleteButton` — the explicit "Delete" control in the synced-block toolbar
+ *    (the removal command tags its transaction with {@link deleteMechanismMetaKey}).
+ *  - `selectionReplaced` — ReplaceStep on a node-selected block (the
+ *    accidental-overwrite path: block selected, then typed/pasted over).
+ *  - `keyboardDelete` — ReplaceStep removal at a caret/range selection
+ *    (Backspace/Delete key).
+ *  - `other` — anything else (unsync, conversion, code-dispatched, or a
+ *    structural `ReplaceAroundStep` such as wrap/lift/unwrap).
+ *
+ * Only a plain `ReplaceStep` counts as a direct user deletion. `ReplaceAroundStep`
+ * is used for wrapping/lifting/unwrapping content, not direct removal, so a
+ * removal carried by one is classified as `other` rather than misreported as a
+ * keyboard delete.
+ *
+ * `state` is the pre-transaction state, so its selection reflects what was
+ * selected when the edit was made.
+ */
+export const getDeleteMechanism = (tr: Transaction, state: EditorState): DeletionMechanism => {
+	const historyMeta = tr.getMeta(pmHistoryPluginKey);
+	if (historyMeta) {
+		return isHistoryMeta(historyMeta) && historyMeta.redo ? 'redo' : 'undo';
+	}
+
+	// The toolbar Delete control tags its transaction so we can report it
+	// distinctly from a keyboard delete (both produce a plain ReplaceStep).
+	if (tr.getMeta(deleteMechanismMetaKey) === 'deleteButton') {
+		return 'deleteButton';
+	}
+
+	const hasReplaceStep = tr.steps.some((step) => step instanceof ReplaceStep);
+	if (!hasReplaceStep) {
+		return 'other';
+	}
+
+	const { selection } = state;
+	const isNodeSelected =
+		selection instanceof NodeSelection && selection.node?.type.name === 'bodiedSyncBlock';
+	return isNodeSelected ? 'selectionReplaced' : 'keyboardDelete';
+};
+
 type FilterTransactionOnlineParams = {
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined;
 	bodiedSyncBlockAdded: ReturnType<typeof trackSyncBlocks>['added'];
@@ -246,14 +310,26 @@ const filterTransactionOnline = ({
 	});
 
 	if (bodiedSyncBlockRemoved.length > 0) {
-		// eslint-disable-next-line no-param-reassign
-		confirmationTransactionRef.current = tr;
+		if (!fg('platform_editor_blocks_patch_4')) {
+			// Legacy stash-and-rebase path: store the original delete transaction so it
+			// can be rebased against intervening edits and replayed on confirm. When
+			// platform_editor_blocks_patch_4 is on we instead recompute the delete fresh
+			// from the live document on confirm (see handleBodiedSyncBlockRemoval), so
+			// there is no need to stash the transaction here. See EDITOR-7889.
+			// eslint-disable-next-line no-param-reassign
+			confirmationTransactionRef.current = tr;
+		}
+		// Only derive the mechanism behind the gate — discarded gate-off.
+		const mechanism = fg('platform_editor_blocks_patch_4')
+			? getDeleteMechanism(tr, state)
+			: undefined;
 		return handleBodiedSyncBlockRemoval(
 			bodiedSyncBlockRemoved,
 			syncBlockStore,
 			api,
 			confirmationTransactionRef,
 			getDeleteReason(tr),
+			mechanism,
 		);
 	}
 
@@ -1129,17 +1205,22 @@ export const createPlugin = (
 				});
 			}
 
-			trs
-				.filter((tr) => tr.docChanged)
-				.forEach((tr) => {
-					if (confirmationTransactionRef.current) {
-						confirmationTransactionRef.current = rebaseTransaction(
-							confirmationTransactionRef.current,
-							tr,
-							newState,
-						);
-					}
-				});
+			// Legacy stash-and-rebase path. When platform_editor_blocks_patch_4 is on the
+			// delete is recomputed fresh from the live document on confirm, so there is
+			// no stashed transaction to rebase here. See EDITOR-7889.
+			if (!fg('platform_editor_blocks_patch_4')) {
+				trs
+					.filter((tr) => tr.docChanged)
+					.forEach((tr) => {
+						if (confirmationTransactionRef.current) {
+							confirmationTransactionRef.current = rebaseTransaction(
+								confirmationTransactionRef.current,
+								tr,
+								newState,
+							);
+						}
+					});
+			}
 
 			for (const tr of trs) {
 				if (tr.getMeta(pmHistoryPluginKey)) {

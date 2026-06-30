@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/insm",
-	"version": "1.0.11",
+	"version": "1.0.15",
 	"description": "INSM tooling measures user-perceived interactivity of a page",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

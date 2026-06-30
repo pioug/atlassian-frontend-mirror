@@ -1,5 +1,49 @@
 # @atlaskit/renderer
 
+## 133.7.6
+
+### Patch Changes
+
+- [`46ee61dd53e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ee61dd53e91) -
+  Remove stale experiment confluence_compact_text_format (FFCLEANUP-85812): inline final values
+  (flag enabled), simplify conditions, remove experiment config entries.
+- Updated dependencies
+
+## 133.7.5
+
+### Patch Changes
+
+- [`d4cb3caca585e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4cb3caca585e) -
+  De-enroll these packages from `isReactCompilerActivePlatform` to fix React Compiler runtime
+  failures behind the `confluence_enable_react-compiler-runtime-platform` experiment (HOT-303951):
+  the comment-add page freeze (renderer and its smart-card dependency) and smart answers / SAIN
+  crashes (search-page).
+- Updated dependencies
+
+## 133.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.7.3
+
+### Patch Changes
+
+- [`d4d3ad611bb7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4d3ad611bb7b) -
+  Add multi-bodied extension action analytics for active child changes and parameter updates.
+- Updated dependencies
+
+## 133.7.2
+
+### Patch Changes
+
+- [`2df690b75a773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2df690b75a773) -
+  Cleanup experiment `confluence_toc_nav_a11y`. Renderer headings now always set `tabIndex={-1}` for
+  table-of-contents keyboard focus accessibility, and the experiment definition has been removed
+  from the editor statsig config.
+- Updated dependencies
+
 ## 133.7.1
 
 ### Patch Changes

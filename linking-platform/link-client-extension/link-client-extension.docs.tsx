@@ -12,7 +12,7 @@ import packageJson from './package.json';
 const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
-	components: [
+	hooks: [
 		{
 			name: 'useSmartLinkClientExtension',
 			description:
@@ -28,7 +28,6 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use when you need to invoke Smart Link actions (POST to resolver /invoke) from custom UI. Pass the client from useSmartLinkContext; use the returned invoke for action execution.',
 			],
-			contentGuidelines: [],
 			accessibilityGuidelines: [],
 			keywords: [
 				'link-client-extension',
@@ -55,7 +54,6 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use when building UI that loads or displays datasource data (e.g. list of links from Jira, Confluence, Assets). Must be used inside SmartCardProvider. Use getDatasourceDetails, getDatasourceData, and getActionsDiscovery as needed.',
 			],
-			contentGuidelines: [],
 			accessibilityGuidelines: [],
 			keywords: ['link-client-extension', 'hooks', 'datasource', 'useDatasourceClientExtension'],
 			categories: ['linking', 'data-display'],

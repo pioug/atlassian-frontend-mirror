@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-emoji
 
+## 13.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.18
+
+### Patch Changes
+
+- [`72c43fec97039`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72c43fec97039) -
+  Fix the package types build target for Unicode emoji matching.
+
+## 13.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.16
 
 ### Patch Changes

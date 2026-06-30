@@ -1,45 +1,59 @@
 name: Mention Picker
-id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/51ba2b73-b329-481e-a904-9ec3fb9b8ae2'
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/51ba2b73-b329-481e-a904-9ec3fb9b8ae2
 description: A React component used to display user profiles in a list for 'Mention' functionality
 configVersion: 1
 typeId: UI_ELEMENT
-ownerId: 'ari:cloud:teams::team/8c518cea-39e4-4a9e-976b-2eec1db07eb2'
+ownerId: ari:cloud:teams::team/8c518cea-39e4-4a9e-976b-2eec1db07eb2 # Search PlEx
 fields:
   tier: 2
+  lifecycle: Active
+  isMonorepoProject: true
 links:
   - name: Root Repository
     type: REPOSITORY
     url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
   - name: ''
     type: REPOSITORY
-    url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/elements/mention/'
+    url: https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/elements/mention/
   - name: ''
     type: DASHBOARD
-    url: 'https://atlassian.signalfx.com/#/dashboard/D8fcwRTA4AA?groupId=D8fcwEEA0AA&configId=D8fcwSbAwAA'
+    url: https://atlassian.signalfx.com/#/dashboard/D8fcwRTA4AA?groupId=D8fcwEEA0AA&configId=D8fcwSbAwAA
   - name: ''
     type: ON_CALL
-    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/24075951-e992-4184-a5e4-ba89245072f9'
+    url: https://atlassian.app.opsgenie.com/settings/schedule/detail/24075951-e992-4184-a5e4-ba89245072f9
   - name: '#help-search'
     type: CHAT_CHANNEL
-    url: 'https://atlassian.slack.com/app_redirect?channel=help-search'
+    url: https://atlassian.slack.com/app_redirect?channel=help-search
   - name: ''
     type: PROJECT
-    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/SP/boards/684'
+    url: https://product-fabric.atlassian.net/jira/software/c/projects/SP/boards/684
   - name: ''
     type: DOCUMENT
-    url: 'https://hello.atlassian.net/wiki/spaces/SEARCH/overview'
+    url: https://hello.atlassian.net/wiki/spaces/SEARCH/overview
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/CFG8QANL9 # #help-search-plex
+  - name: Mention
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/elements/mention
 relationships: {}
 labels:
   - atlassian-platform
+  - platform-code
+  - platform-afm
 customFields:
-  - name: Dev Owner
+  - name: Department
+    type: text
+    value: Eng - Search PLEX
+  - name: Technical Owner
     type: user
-    value: null
-  - name: Product
+    value: ari:cloud:identity::user/712020:bc050a72-a59d-487f-8b54-73358ba67dd0 # David Lyon
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
     type: text
-    value: null
-  - name: Test
-    type: text
-    value: null
-# Learn more about formatting compass.yml:
-# https://go.atlassian.com/compass-yml-format
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

@@ -14,13 +14,13 @@ const packagePath = path.resolve(__dirname);
 const documentation: StructuredContentSource = {
 	components: [
 		{
-			name: 'Editor Confluence Transformer',
+			name: 'ConfluenceTransformer',
 			description: 'Editor Confluence Transformer',
 			status: 'general-availability',
 			import: {
-				name: 'Editor Confluence Transformer',
+				name: 'ConfluenceTransformer',
 				package: '@atlaskit/editor-confluence-transformer',
-				type: 'default',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},

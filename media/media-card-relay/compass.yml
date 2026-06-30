@@ -1,0 +1,35 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/c9b3c8bd-d6f7-4a33-8db6-a6de2eb54a29
+name: '@atlaskit/media-card-relay'
+ownerId: ari:cloud:identity::team/667c0568-296e-41a0-88ab-96da2498da72 # Media Experiences and Infrastructure
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Media Card Relay
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/media/media-card-relay
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Automation
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/5a13655f59f32201472fdffe # Jordan Chou
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
@@ -20,10 +22,10 @@ const styles = cssMap({
 	container: { width: '200px' },
 	block: {
 		borderRadius: token('radius.xsmall'),
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 });
 

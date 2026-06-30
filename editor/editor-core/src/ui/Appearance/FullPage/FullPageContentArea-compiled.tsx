@@ -438,8 +438,6 @@ const Content = React.forwardRef<
 		markdownPluginCurrentIsMarkdownMode;
 	const shouldHideScrollGutterForMarkdownMode =
 		isMarkdownModeExperimentEnabled && markdownPluginCurrentIsMarkdownMode;
-	const shouldUseMarkdownModeMvpLayout =
-		shouldHideProseMirrorForMarkdownMode && fg('platform_editor_md_mvp_layout');
 
 	return (
 		<div
@@ -454,7 +452,7 @@ const Content = React.forwardRef<
 				css={[
 					compiledStyles.contentAreaWrapper,
 					// TODO: EDITOR-7801 - When we remove emotion usage in editor-core, we can remove the any cast.
-					shouldUseMarkdownModeMvpLayout &&
+					shouldHideProseMirrorForMarkdownMode &&
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Type issue occurred due to compiled css migration
 						(compiledStyles.markdownModeContainerBackgroundStyle as any),
 				]}
@@ -492,7 +490,7 @@ const Content = React.forwardRef<
 								shouldHideScrollGutterForMarkdownMode &&
 									compiledStyles.hideEditorContentAreaScrollGutterWithAttributeStyle,
 								// TODO: EDITOR-7801 - When we remove emotion usage in editor-core, we can remove the any cast.
-								shouldUseMarkdownModeMvpLayout &&
+								shouldHideProseMirrorForMarkdownMode &&
 									// eslint-disable-next-line @typescript-eslint/no-explicit-any -- Type issue occurred due to compiled css migration
 									(compiledStyles.markdownModeContentAreaStyle as any),
 								compiledStyles.tableFullPageEditorStylesNew,

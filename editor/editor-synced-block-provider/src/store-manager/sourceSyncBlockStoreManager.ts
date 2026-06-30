@@ -13,6 +13,7 @@ import type {
 	SyncBlockNode,
 	BlockInstanceId,
 	DeletionReason,
+	DeletionMechanism,
 	ReferenceSyncBlockData,
 } from '../common/types';
 import type { SyncBlockDataProviderInterface, SyncBlockSourceInfo } from '../providers/types';
@@ -24,10 +25,12 @@ import {
 	getSourceInfoErrorPayload,
 	updateSuccessPayload,
 	createSuccessPayload,
+	createSuccessPayloadNew,
 	deleteSuccessPayload,
 	fetchReferencesErrorPayload,
 	buildErrorAttribution,
 } from '../utils/errorHandling';
+import type { DeleteSuccessEnrichment } from '../utils/errorHandling';
 import {
 	getCreateSourceExperience,
 	getDeleteSourceExperience,
@@ -66,6 +69,14 @@ type SyncBlockData = Data & {
 /** Maximum time (ms) flush() will wait for in-flight block creations before proceeding. */
 const FLUSH_CREATION_AWAIT_TIMEOUT_MS = 1000;
 
+/**
+ * Window (ms) within which a repeated `syncedBlockDelete` emission for the same
+ * resourceId is suppressed. The same logical removal can re-fire across
+ * rebased/remote/redo transactions; a short window collapses those bursts to one
+ * event while still allowing a genuine delete→recreate→delete later.
+ */
+const DELETE_DEDUPE_WINDOW_MS = 5000;
+
 // A store manager responsible for the lifecycle and state management of source sync blocks in an editor instance.
 // Designed to manage local in-memory state and synchronize with an external data provider.
 // Supports create, flush, and delete operations for source sync blocks.
@@ -85,6 +96,7 @@ export class SourceSyncBlockStoreManager {
 	private deletionRetryInfo?: {
 		deletionReason: DeletionReason;
 		destroyCallback: DestroyCallback;
+		mechanism?: DeletionMechanism;
 		onDelete: OnDelete;
 		onDeleteCompleted: OnCompletion;
 		syncBlockIds: SyncBlockAttrs[];
@@ -114,6 +126,13 @@ export class SourceSyncBlockStoreManager {
 	private saveExperience: Experience | undefined;
 	private deleteExperience: Experience | undefined;
 	private fetchSourceInfoExperience: Experience | undefined;
+
+	/**
+	 * resourceId -> timestamp (ms) of the last `syncedBlockDelete` emission, used
+	 * to suppress duplicates within {@link DELETE_DEDUPE_WINDOW_MS}. Only consulted
+	 * behind `platform_editor_blocks_patch_4`.
+	 */
+	private recentDeleteEmissions: Map<ResourceId, number> = new Map();
 
 	constructor(
 		dataProvider?: SyncBlockDataProviderInterface,
@@ -454,9 +473,18 @@ export class SourceSyncBlockStoreManager {
 		}
 
 		if (success) {
-			this.fireAnalyticsEvent?.(
-				createSuccessPayload(resourceId || '', getSourceProductFromResourceIdSafe(resourceId)),
-			);
+			const sourceProduct = getSourceProductFromResourceIdSafe(resourceId);
+			this.fireAnalyticsEvent?.(createSuccessPayload(resourceId || '', sourceProduct));
+			// Operational create-success event with the join key.
+			if (fg('platform_editor_blocks_patch_4')) {
+				this.fireAnalyticsEvent?.(
+					createSuccessPayloadNew(
+						resourceId || '',
+						this.syncBlockCache.get(resourceId)?.blockInstanceId,
+						sourceProduct,
+					),
+				);
+			}
 		} else {
 			// Delete the node from cache if fail to create so it's not flushed to BE
 			this.syncBlockCache.delete(resourceId || '');
@@ -603,11 +631,59 @@ export class SourceSyncBlockStoreManager {
 		}
 	};
 
+	/**
+	 * Drop dedupe entries older than {@link DELETE_DEDUPE_WINDOW_MS} so
+	 * `recentDeleteEmissions` stays bounded by the number of recent deletes.
+	 */
+	private pruneRecentDeleteEmissions(now: number): void {
+		for (const [resourceId, emittedAt] of this.recentDeleteEmissions) {
+			if (now - emittedAt >= DELETE_DEDUPE_WINDOW_MS) {
+				this.recentDeleteEmissions.delete(resourceId);
+			}
+		}
+	}
+
+	/**
+	 * Emit the `syncedBlockDelete` success event. Gate off: legacy payload. Gate
+	 * on: attaches `deletionReason`, `mechanism` and `blockInstanceId`, and
+	 * suppresses repeat emissions within {@link DELETE_DEDUPE_WINDOW_MS}. Must run
+	 * while the cache entry still exists so `blockInstanceId` is available.
+	 */
+	private emitDeleteSuccess(
+		resourceId: ResourceId,
+		reason: DeletionReason,
+		mechanism: DeletionMechanism | undefined,
+	): void {
+		const sourceProduct = getSourceProductFromResourceIdSafe(resourceId);
+
+		if (!fg('platform_editor_blocks_patch_4')) {
+			this.fireAnalyticsEvent?.(deleteSuccessPayload(resourceId, sourceProduct));
+			return;
+		}
+
+		const now = Date.now();
+		const lastEmittedAt = this.recentDeleteEmissions.get(resourceId);
+		if (lastEmittedAt !== undefined && now - lastEmittedAt < DELETE_DEDUPE_WINDOW_MS) {
+			return; // duplicate emission for the same logical removal
+		}
+		this.pruneRecentDeleteEmissions(now);
+		this.recentDeleteEmissions.set(resourceId, now);
+
+		const enrichment: DeleteSuccessEnrichment = {
+			blockInstanceId: this.syncBlockCache.get(resourceId)?.blockInstanceId,
+			deletionReason: reason,
+			mechanism,
+		};
+
+		this.fireAnalyticsEvent?.(deleteSuccessPayload(resourceId, sourceProduct, enrichment));
+	}
+
 	private async delete(
 		syncBlockIds: SyncBlockAttrs[],
 		onDelete: OnDelete,
 		onDeleteCompleted: OnCompletion,
 		reason: DeletionReason,
+		mechanism?: DeletionMechanism,
 	): Promise<boolean> {
 		try {
 			if (this.viewMode === 'view') {
@@ -635,17 +711,14 @@ export class SourceSyncBlockStoreManager {
 
 			if (isDeleteSuccessful) {
 				onDelete();
+				// Emit before the cache entry is deleted below, so blockInstanceId
+				// is still available to emitDeleteSuccess.
+				results.forEach((result) => {
+					this.emitDeleteSuccess(result.resourceId, reason, mechanism);
+				});
 				callback = (Ids: SyncBlockAttrs) => this.syncBlockCache.delete(Ids.resourceId);
 				this.clearPendingDeletion();
 				this.deleteExperience?.success();
-				results.forEach((result) => {
-					this.fireAnalyticsEvent?.(
-						deleteSuccessPayload(
-							result.resourceId,
-							getSourceProductFromResourceIdSafe(result.resourceId),
-						),
-					);
-				});
 			} else {
 				callback = (Ids: SyncBlockAttrs) => {
 					this.setPendingDeletion(Ids, false);
@@ -655,12 +728,7 @@ export class SourceSyncBlockStoreManager {
 				const attributionEnabled = fg('platform_editor_blocks_patch_3');
 				results.forEach((result) => {
 					if (result.success) {
-						this.fireAnalyticsEvent?.(
-							deleteSuccessPayload(
-								result.resourceId,
-								getSourceProductFromResourceIdSafe(result.resourceId),
-							),
-						);
+						this.emitDeleteSuccess(result.resourceId, reason, mechanism);
 					} else {
 						this.fireAnalyticsEvent?.(
 							deleteErrorPayload(
@@ -711,10 +779,11 @@ export class SourceSyncBlockStoreManager {
 		if (!this.deletionRetryInfo) {
 			return Promise.resolve();
 		}
-		const { syncBlockIds, onDelete, onDeleteCompleted, deletionReason } = this.deletionRetryInfo;
+		const { syncBlockIds, onDelete, onDeleteCompleted, deletionReason, mechanism } =
+			this.deletionRetryInfo;
 
 		if (this.confirmationCallback) {
-			await this.delete(syncBlockIds, onDelete, onDeleteCompleted, deletionReason);
+			await this.delete(syncBlockIds, onDelete, onDeleteCompleted, deletionReason, mechanism);
 		}
 	}
 
@@ -795,6 +864,8 @@ export class SourceSyncBlockStoreManager {
 			() => {}, // onDelete: no-op, document is being discarded
 			() => {}, // onDeleteCompleted: no-op
 			'source-block-unpublished',
+			// Cancel/discard cleanup is code-initiated, not a direct user edit.
+			'other',
 		);
 	}
 
@@ -812,6 +883,7 @@ export class SourceSyncBlockStoreManager {
 		onDelete: OnDelete,
 		onDeleteCompleted: OnCompletion,
 		destroyCallback: DestroyCallback,
+		mechanism?: DeletionMechanism,
 	): Promise<void> {
 		if (this.viewMode === 'view') {
 			return Promise.resolve();
@@ -825,6 +897,7 @@ export class SourceSyncBlockStoreManager {
 					onDelete,
 					onDeleteCompleted,
 					deletionReason,
+					mechanism,
 				);
 
 				if (!isDeleteSuccessful) {
@@ -835,6 +908,7 @@ export class SourceSyncBlockStoreManager {
 						onDeleteCompleted,
 						destroyCallback,
 						deletionReason,
+						mechanism,
 					};
 				} else {
 					destroyCallback();
@@ -904,6 +978,7 @@ export class SourceSyncBlockStoreManager {
 		this.postCreationFlushCallback = undefined;
 		this.pendingCreationPromises.clear();
 		this.creationsTimedOutDuringFlush.clear();
+		this.recentDeleteEmissions.clear();
 		this.dataProvider = undefined;
 		this.saveExperience?.abort({ reason: 'editorDestroyed' });
 		this.createExperience?.abort({ reason: 'editorDestroyed' });

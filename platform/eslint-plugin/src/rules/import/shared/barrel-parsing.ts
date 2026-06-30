@@ -287,14 +287,176 @@ function processExportWithModuleSpecifier({
 /**
  * Process local export statements (no module specifier)
  */
+function getExportInfoFromImportedBinding({
+	resolvedSource,
+	nameInSource,
+	isTypeOnly,
+	fs,
+	workspaceRoot,
+	depth,
+	visitedPackages,
+}: {
+	resolvedSource: string;
+	nameInSource: string;
+	isTypeOnly: boolean;
+	fs: FileSystem;
+	workspaceRoot?: string;
+	depth: number;
+	visitedPackages?: Set<string>;
+}): ExportInfo {
+	const potentialNestedExports = parseBarrelExports({
+		barrelFilePath: resolvedSource,
+		depth: depth + 1,
+		fs,
+		workspaceRoot,
+		visitedPackages,
+	});
+	const nestedExports = hasReExportsFromOtherFiles({
+		exportMap: potentialNestedExports,
+		sourceFilePath: resolvedSource,
+	})
+		? potentialNestedExports
+		: null;
+	const nestedExport = nestedExports?.get(nameInSource);
+
+	if (nestedExport) {
+		return {
+			...nestedExport,
+			isTypeOnly: isTypeOnly || nestedExport.isTypeOnly,
+		};
+	}
+
+	return {
+		path: resolvedSource,
+		isTypeOnly,
+		isDefaultExport: nameInSource === 'default',
+		originalName: nameInSource === 'default' ? 'default' : undefined,
+	};
+}
+
+function collectLocalExportedNames(sourceFile: ts.SourceFile): Set<string> {
+	const localExportedNames = new Set<string>();
+
+	for (const statement of sourceFile.statements) {
+		if (
+			!ts.isExportDeclaration(statement) ||
+			statement.moduleSpecifier ||
+			!statement.exportClause ||
+			!ts.isNamedExports(statement.exportClause)
+		) {
+			continue;
+		}
+
+		for (const element of statement.exportClause.elements) {
+			localExportedNames.add(element.propertyName?.text ?? element.name.text);
+		}
+	}
+
+	return localExportedNames;
+}
+
+function collectLocalImportExports({
+	sourceFile,
+	localExportedNames,
+	resolveModule,
+	fs,
+	workspaceRoot,
+	depth,
+	visitedPackages,
+}: {
+	sourceFile: ts.SourceFile;
+	localExportedNames: Set<string>;
+	resolveModule: (moduleSpecifier: string) => string | null;
+	fs: FileSystem;
+	workspaceRoot?: string;
+	depth: number;
+	visitedPackages?: Set<string>;
+}): Map<string, ExportInfo> {
+	const localImportExports = new Map<string, ExportInfo>();
+
+	if (localExportedNames.size === 0) {
+		return localImportExports;
+	}
+
+	for (const statement of sourceFile.statements) {
+		if (!ts.isImportDeclaration(statement)) {
+			continue;
+		}
+		if (!statement.importClause || !ts.isStringLiteral(statement.moduleSpecifier)) {
+			continue;
+		}
+
+		const importClause = statement.importClause;
+		const defaultImportName = importClause.name?.text;
+		const namedBindings = importClause.namedBindings;
+		const neededNamedElements =
+			namedBindings && ts.isNamedImports(namedBindings)
+				? namedBindings.elements.filter((element) => localExportedNames.has(element.name.text))
+				: [];
+		const needsDefaultImport = Boolean(
+			defaultImportName && localExportedNames.has(defaultImportName),
+		);
+
+		if (!needsDefaultImport && neededNamedElements.length === 0) {
+			continue;
+		}
+
+		const resolvedSource = resolveModule(statement.moduleSpecifier.text);
+		if (!resolvedSource) {
+			continue;
+		}
+
+		const isImportTypeOnly = importClause.phaseModifier === ts.SyntaxKind.TypeKeyword;
+		if (needsDefaultImport && defaultImportName) {
+			localImportExports.set(
+				defaultImportName,
+				getExportInfoFromImportedBinding({
+					resolvedSource,
+					nameInSource: 'default',
+					isTypeOnly: isImportTypeOnly,
+					fs,
+					workspaceRoot,
+					depth,
+					visitedPackages,
+				}),
+			);
+		}
+
+		for (const element of neededNamedElements) {
+			const nameInSource = element.propertyName?.text ?? element.name.text;
+			const localName = element.name.text;
+			const isElementTypeOnly = isImportTypeOnly || element.isTypeOnly;
+			const exportInfo = getExportInfoFromImportedBinding({
+				resolvedSource,
+				nameInSource,
+				isTypeOnly: isElementTypeOnly,
+				fs,
+				workspaceRoot,
+				depth,
+				visitedPackages,
+			});
+
+			localImportExports.set(localName, {
+				...exportInfo,
+				originalName:
+					exportInfo.originalName ?? (nameInSource === localName ? undefined : nameInSource),
+			});
+		}
+	}
+
+	return localImportExports;
+}
+
 function processLocalExportDeclaration({
 	statement,
 	barrelFilePath,
 	exports,
+	localImportExports,
 }: {
 	statement: ts.ExportDeclaration;
 	barrelFilePath: string;
 	exports: Map<string, ExportInfo>;
+	localImportExports: Map<string, ExportInfo>;
 }): void {
 	if (!statement.exportClause || !ts.isNamedExports(statement.exportClause)) {
 		return;
@@ -302,8 +464,22 @@ function processLocalExportDeclaration({
 
 	const isStatementTypeOnly = statement.isTypeOnly;
 	for (const element of statement.exportClause.elements) {
+		const localName = element.propertyName?.text ?? element.name.text;
+		const exportedName = element.name.text;
 		const isElementTypeOnly = isStatementTypeOnly || element.isTypeOnly;
-		exports.set(element.name.text, { path: barrelFilePath, isTypeOnly: isElementTypeOnly });
+		const importedExport = localImportExports.get(localName);
+
+		if (importedExport) {
+			exports.set(exportedName, {
+				...importedExport,
+				isTypeOnly: isElementTypeOnly || importedExport.isTypeOnly,
+				originalName:
+					importedExport.originalName ?? (exportedName === localName ? undefined : localName),
+			});
+			continue;
+		}
+
+		exports.set(exportedName, { path: barrelFilePath, isTypeOnly: isElementTypeOnly });
 	}
 }
 
@@ -427,6 +603,16 @@ export function parseBarrelExports({
 				}
 				return resolveImportPath({ basedir: barrelDir, importPath: moduleSpecifier, fs });
 			};
+			const localExportedNames = collectLocalExportedNames(sourceFile);
+			const localImportExports = collectLocalImportExports({
+				sourceFile,
+				localExportedNames,
+				resolveModule,
+				fs,
+				workspaceRoot,
+				depth,
+				visitedPackages,
+			});
 
 			for (const statement of sourceFile.statements) {
 				if (ts.isExportDeclaration(statement)) {
@@ -441,7 +627,12 @@ export function parseBarrelExports({
 							visitedPackages,
 						});
 					} else {
-						processLocalExportDeclaration({ statement, barrelFilePath, exports });
+						processLocalExportDeclaration({
+							statement,
+							barrelFilePath,
+							exports,
+							localImportExports,
+						});
 					}
 				} else {
 					processExportedDeclaration({ statement, barrelFilePath, exports });

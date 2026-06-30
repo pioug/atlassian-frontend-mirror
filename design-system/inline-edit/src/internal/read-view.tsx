@@ -68,6 +68,10 @@ const readViewWrapperStylesT26Shape = css({
 	borderRadius: token('radius.medium', '6px'),
 });
 
+const readViewWrapperMotionStyles = css({
+	transition: token('motion.button.hovered'), //move this into readViewWrapperStyles once fg is rolled out
+});
+
 const readViewFitContainerWidthStyles = css({
 	width: '100%',
 });
@@ -140,6 +144,7 @@ const ReadView: ({
 					readViewWrapperStyles,
 					readViewFitContainerWidth && readViewFitContainerWidthStyles,
 					fg('platform-dst-shape-theme-default') && readViewWrapperStylesT26Shape,
+					fg('platform-dst-motion-uplift-button') && readViewWrapperMotionStyles,
 				]}
 				/**
 				 * It is not normally acceptable to add click handlers to non-interactive elements

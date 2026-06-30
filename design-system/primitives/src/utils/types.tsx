@@ -276,6 +276,8 @@ export type BackgroundColorToken =
 	| 'elevation.surface.hovered'
 	| 'elevation.surface.pressed'
 	| 'elevation.surface.container'
+	| 'elevation.surface.container.hovered'
+	| 'elevation.surface.container.pressed'
 	| 'elevation.surface.overlay'
 	| 'elevation.surface.overlay.hovered'
 	| 'elevation.surface.overlay.pressed'

@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/5d49288b-af48-4ead-b9ba-f2bcdc4e0a5f
+name: '@atlaskit/anonymous-assets'
+ownerId: ari:cloud:identity::team/a460968f-72cf-464d-b81d-cb5a3449c537 # [Trust Scorecards team] Confluence - Flywheel.
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C08PHHERTM3 # #cc-flywheel-feature-discovery
+  - name: Anonymous Assets
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/elements/anonymous-assets
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Confluence AI Growth
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/5c2c04d3ab1c1d35825c4d72 # Kai Chen
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

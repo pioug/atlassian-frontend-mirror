@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/310efefe-e3c1-4b37-8288-1ae156078fd3
+name: '@atlaskit/forge-react-types'
+ownerId: ari:cloud:identity::team/og-dfedb647-25c0-4e84-a63e-771f5a4ebb7e # Ecosystem - Forge UI
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C02DJFNSL23 # #help-forge-ui
+  - name: Forge React Types
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/forge/forge-react-types
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Ecosystem - Developer Platform - UI
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/712020:a8aed1b3-eeff-4ba9-b0a3-832bf0bcd6f5 # Timothy van Dyke
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a1882f4b4e3305935325d612a706f4d0>>
+ * @codegen <<SignedSource::c3824b0f9105767c31359c60d802ce89>>
  * @codegenCommand yarn build tokens
  */
 
@@ -12401,13 +12401,70 @@ const tokens: Token[] = [
       },
       "value": "Neutral200"
     },
-    "name": "elevation.surface.container",
+    "name": "elevation.surface.container.[default]",
     "path": [
       "elevation",
       "surface",
-      "container"
+      "container",
+      "[default]"
     ],
     "cleanName": "elevation.surface.container"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "14.1.0",
+      "description": "Hovered state of elevation.surface.container"
+    },
+    "value": "#0515240F",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "14.1.0",
+        "description": "Hovered state of elevation.surface.container"
+      },
+      "value": "Neutral200A"
+    },
+    "name": "elevation.surface.container.hovered",
+    "path": [
+      "elevation",
+      "surface",
+      "container",
+      "hovered"
+    ],
+    "cleanName": "elevation.surface.container.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "14.1.0",
+      "description": "Pressed state of elevation.surface.container"
+    },
+    "value": "#0B120E24",
+    "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "14.1.0",
+        "description": "Pressed state of elevation.surface.container"
+      },
+      "value": "Neutral300A"
+    },
+    "name": "elevation.surface.container.pressed",
+    "path": [
+      "elevation",
+      "surface",
+      "container",
+      "pressed"
+    ],
+    "cleanName": "elevation.surface.container.pressed"
   },
   {
     "attributes": {

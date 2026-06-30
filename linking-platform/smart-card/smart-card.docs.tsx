@@ -287,6 +287,8 @@ const documentation: StructuredContentSource = {
 				},
 			],
 		},
+	],
+	hooks: [
 		{
 			name: 'useSmartLinkEvents',
 			description:
@@ -302,7 +304,6 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use when you need to fire Smart Link analytics (e.g. insert events) from custom UI that is not the default Card.',
 			],
-			contentGuidelines: [],
 			accessibilityGuidelines: [
 				'Use analytics events to understand usage; ensure event wiring does not change focus, interrupt screen readers, or alter semantics.',
 			],
@@ -332,7 +333,6 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use when building custom action UI (buttons, menus) that should expose Smart Link actions (e.g. Preview, Open) for a given URL.',
 			],
-			contentGuidelines: [],
 			accessibilityGuidelines: [
 				'When rendering actions from this hook (e.g. buttons or menus), provide accessible labels (e.g. from action.text) and ensure keyboard support.',
 			],

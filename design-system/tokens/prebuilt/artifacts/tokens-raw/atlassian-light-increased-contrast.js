@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::64ea7d47282565d7455a13230e33ce8b>>
+ * @codegen <<SignedSource::c72e90c186de3513e0a2ff7d217a02a2>>
  * @codegenCommand yarn build tokens
  */
 
@@ -9379,9 +9379,53 @@ var tokens = [{
       "description": "Use as a neutral container surface background."
     }
   },
-  "name": "elevation.surface.container",
-  "path": ["elevation", "surface", "container"],
+  "name": "elevation.surface.container.[default]",
+  "path": ["elevation", "surface", "container", "[default]"],
   "cleanName": "elevation.surface.container"
+}, {
+  "value": "#0515240F",
+  "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "14.1.0",
+    "description": "Hovered state of elevation.surface.container"
+  },
+  "original": {
+    "value": "Neutral200A",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "14.1.0",
+      "description": "Hovered state of elevation.surface.container"
+    }
+  },
+  "name": "elevation.surface.container.hovered",
+  "path": ["elevation", "surface", "container", "hovered"],
+  "cleanName": "elevation.surface.container.hovered"
+}, {
+  "value": "#0B120E24",
+  "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "14.1.0",
+    "description": "Pressed state of elevation.surface.container"
+  },
+  "original": {
+    "value": "Neutral300A",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "14.1.0",
+      "description": "Pressed state of elevation.surface.container"
+    }
+  },
+  "name": "elevation.surface.container.pressed",
+  "path": ["elevation", "surface", "container", "pressed"],
+  "cleanName": "elevation.surface.container.pressed"
 }, {
   "value": "#FFFFFF",
   "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",

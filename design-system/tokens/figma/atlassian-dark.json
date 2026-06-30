@@ -3835,6 +3835,24 @@
       },
       "value": "#303134"
     },
+    "Dark/elevation.surface.container.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "14.1.0",
+        "description": "Hovered state of elevation.surface.container"
+      },
+      "value": "#CECED912"
+    },
+    "Dark/elevation.surface.container.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "14.1.0",
+        "description": "Pressed state of elevation.surface.container"
+      },
+      "value": "#D9DAE71A"
+    },
     "Dark/elevation.surface.overlay": {
       "attributes": {
         "group": "paint",

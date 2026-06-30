@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';

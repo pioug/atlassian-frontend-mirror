@@ -1,5 +1,12 @@
 # @atlaskit/editor-palette
 
+## 3.1.2
+
+### Patch Changes
+
+- [`6949db5856550`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6949db5856550) -
+  Fixed in dark theme the bold yellow and yellow were the same color
+
 ## 3.1.1
 
 ### Patch Changes

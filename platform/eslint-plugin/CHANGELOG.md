@@ -1,5 +1,29 @@
 # @atlaskit/eslint-plugin-platform
 
+## 3.1.0
+
+### Minor Changes
+
+- [`2795e10c04333`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2795e10c04333) -
+  `no-module-level-eval` now flags module-level `FeatureGates.checkGate` and
+  `FeatureGates.getExperimentValue` calls imported from `@atlaskit/feature-gate-js-client`.
+  Evaluating these statsig client APIs at module load time can spam logs in tests and cause
+  production incidents, so they must be called inside a function/component body.
+
+## 3.0.4
+
+### Patch Changes
+
+- [`c1ed4b4f82735`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1ed4b4f82735) -
+  Tighten barrel-file linting and update affected packages.
+
+  The lint rule now catches local re-export patterns that previously looked safe. This changeset
+  covers the rule update plus the package import cleanup required by the stricter detection:
+  - avoid relative imports through local barrel files
+  - avoid Jest mocks that target barrel modules
+  - use concrete module paths for skeleton, dialog, no-results, product filter, and AI Mate type
+    imports
+
 ## 3.0.3
 
 ### Patch Changes

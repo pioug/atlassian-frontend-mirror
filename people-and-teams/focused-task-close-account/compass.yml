@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/4314bbe7-1968-47b5-8b5c-d97b9d9a1918
+name: '@atlaskit/focused-task-close-account'
+ownerId: ari:cloud:identity::team/d5846424-e774-4167-9092-adf18d04df75 # Collaboration Experience - Nexus
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C05R8TWUXR9 # #help-admin-experience
+  - name: Focused Task Close Account
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/people-and-teams/focused-task-close-account
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Collaboration Experience - Nexus
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/70121:6b6e05d4-76ef-4d8b-956a-d7a1cda712cb # Carol Hunter
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

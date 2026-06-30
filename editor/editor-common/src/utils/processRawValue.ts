@@ -1,4 +1,5 @@
 import {
+	panelC1FallbackTransform,
 	syncBlockFallbackTransform,
 	transformDedupeMarks,
 	transformIndentationMarks,
@@ -14,6 +15,7 @@ import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
@@ -94,14 +96,14 @@ const transformContainerNodesWithAnalytics = (
 		}
 	} catch (e) {
 		// eslint-disable-next-line no-console
-		console.error('Failed to transform one or more panels to panel_c1');
+		console.error('Failed to transform one or more panel container nodes');
 		if (dispatchAnalyticsEvent) {
 			dispatchAnalyticsEvent({
 				action: ACTION.DOCUMENT_PROCESSING_ERROR,
 				actionSubject: ACTION_SUBJECT.EDITOR,
 				eventType: EVENT_TYPE.OPERATIONAL,
 				attributes: {
-					errorMessage: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to transform panel to panel_c1' : undefined}`,
+					errorMessage: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to transform panel container nodes' : undefined}`,
 				},
 			});
 		}
@@ -142,6 +144,13 @@ export function processRawValueWithoutValidation(
 	const result = syncBlockFallbackTransform(schema, transformedAdf);
 	if (result.isTransformed && result.transformedAdf) {
 		transformedAdf = result.transformedAdf;
+	}
+
+	if (fg('platform_editor_panel_c1_fallback_transform')) {
+		const panelC1Result = panelC1FallbackTransform(schema, transformedAdf as ADFEntity);
+		if (panelC1Result.isTransformed && panelC1Result.transformedAdf) {
+			transformedAdf = panelC1Result.transformedAdf;
+		}
 	}
 
 	if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
@@ -314,6 +323,13 @@ export function processRawValue(
 					actionSubject: ACTION_SUBJECT.EDITOR,
 					eventType: EVENT_TYPE.OPERATIONAL,
 				});
+			}
+		}
+
+		if (fg('platform_editor_panel_c1_fallback_transform')) {
+			const panelC1Result = panelC1FallbackTransform(schema, transformedAdf as ADFEntity);
+			if (panelC1Result.isTransformed && panelC1Result.transformedAdf) {
+				transformedAdf = panelC1Result.transformedAdf;
 			}
 		}
 

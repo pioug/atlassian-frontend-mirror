@@ -150,7 +150,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
 				data-as-inline={asInline}
 				onMouseEnter={mouseEnterHandler}
-				tabIndex={expValEquals('confluence_toc_nav_a11y', 'isEnabled', true) ? -1 : undefined}
+				tabIndex={-1}
 			>
 				<>
 					{showAnchorLink && headingId && isRightAligned && (
@@ -246,7 +246,7 @@ function HeadingWithWrapper(props: HeadingProps): React.JSX.Element {
 				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
 				data-as-inline={asInline}
 				onMouseEnter={mouseEnterHandler}
-				tabIndex={expValEquals('confluence_toc_nav_a11y', 'isEnabled', true) ? -1 : undefined}
+				tabIndex={-1}
 			>
 				{props.children}
 			</HX>

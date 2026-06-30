@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, Fragment, type FunctionComponent } from 'react';
+import { type CSSProperties, Fragment, type FunctionComponent, type JSX } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 

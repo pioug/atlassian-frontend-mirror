@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { cssMap, jsx } from '@compiled/react';
 
 import { MetricText, Stack, Text } from '@atlaskit/primitives/compiled';
@@ -30,14 +32,14 @@ const styles = cssMap({
 		height: '200px',
 		borderRadius: token('radius.full'),
 		backgroundColor: token('elevation.surface'),
-		borderLeftColor: token('color.border.accent.magenta'),
-		borderLeftWidth: '32px',
-		borderRightColor: token('color.border.accent.lime'),
-		borderRightWidth: '32px',
-		borderTopColor: token('color.border.accent.orange'),
-		borderTopWidth: '32px',
-		borderBottomColor: token('color.border.accent.teal'),
-		borderBottomWidth: '32px',
+		borderInlineStartColor: token('color.border.accent.magenta'),
+		borderInlineStartWidth: '32px',
+		borderInlineEndColor: token('color.border.accent.lime'),
+		borderInlineEndWidth: '32px',
+		borderBlockStartColor: token('color.border.accent.orange'),
+		borderBlockStartWidth: '32px',
+		borderBlockEndColor: token('color.border.accent.teal'),
+		borderBlockEndWidth: '32px',
 		borderStyle: 'solid',
 	},
 });

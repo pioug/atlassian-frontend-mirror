@@ -10,7 +10,6 @@ import Tooltip from '@atlaskit/tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
-import { Pulse } from '../Pulse/Pulse';
 
 import { iconOnlySpacing } from './iconOnlySpacing';
 import { getButtonStyles } from './styles';
@@ -145,82 +144,78 @@ const FloatingToolbarButton = (
 							: onMouseLeave
 					}
 				>
-					<Pulse
-						pulse={!expValEquals('platform_editor_spotlight_migration', 'isEnabled', true) && pulse}
-					>
-						{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
-						<Button
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
-							className={className}
-							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-							ref={(buttonElement) => {
-								if (forwardedRef && editorExperiment('platform_synced_block', true)) {
-									if (typeof forwardedRef === 'function') {
-										forwardedRef(buttonElement);
-									} else if (typeof forwardedRef === 'object') {
-										(forwardedRef as React.MutableRefObject<HTMLElement | null>).current =
-											buttonElement;
-									}
+					{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
+					<Button
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
+						className={className}
+						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+						ref={(buttonElement) => {
+							if (forwardedRef && editorExperiment('platform_synced_block', true)) {
+								if (typeof forwardedRef === 'function') {
+									forwardedRef(buttonElement);
+								} else if (typeof forwardedRef === 'object') {
+									(forwardedRef as React.MutableRefObject<HTMLElement | null>).current =
+										buttonElement;
 								}
-							}}
-							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-							theme={(adgTheme, themeProps) => {
-								const { buttonStyles, ...rest } = adgTheme(themeProps);
-								return {
-									buttonStyles: {
-										...buttonStyles,
-										...customSpacing,
-										...(appearance === 'danger' &&
-											getButtonStyles({
-												appearance,
-												state: themeProps.state,
-												mode: themeProps.mode,
-											})),
-										...(areAnyNewToolbarFlagsEnabled ? customSizeAndPadding : {}),
-									},
-									...rest,
-								};
-							}}
-							aria-label={ariaLabel || title}
-							aria-pressed={ariaPressed}
-							aria-checked={ariaChecked}
-							role={isRadioButton ? 'radio' : undefined}
-							aria-expanded={ariaHasPopup ? selected : undefined}
-							aria-controls={ariaHasPopup ? areaControls : undefined}
-							spacing={areAnyNewToolbarFlagsEnabled ? 'default' : 'compact'}
-							href={href}
-							target={target}
-							appearance={appearance}
-							aria-haspopup={ariaHasPopup}
-							iconBefore={icon || undefined}
-							iconAfter={iconAfter}
-							onClick={handleOnClick}
-							onKeyDown={onKeyDown}
-							isSelected={selected}
-							isDisabled={disabled}
-							testId={testId}
-							interactionName={interactionName}
-							onMouseEnter={
-								expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-									? onMouseEnter
-									: undefined
 							}
-							onMouseLeave={
-								expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-									? onMouseLeave
-									: undefined
-							}
-							onFocus={onFocus}
-							onBlur={onBlur}
-							// @ts-ignore
-							// tabIndex set as 0 by default in the design system  ButtonBase component
-							// this is not expected for all buttons, we have to use tabIndex={null} for some cases
-							// should be fixed here https://a11y-internal.atlassian.net/browse/DST-287
-							tabIndex={tabIndex}
-						>
-							{children}
-						</Button>
-					</Pulse>
+						}}
+						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+						theme={(adgTheme, themeProps) => {
+							const { buttonStyles, ...rest } = adgTheme(themeProps);
+							return {
+								buttonStyles: {
+									...buttonStyles,
+									...customSpacing,
+									...(appearance === 'danger' &&
+										getButtonStyles({
+											appearance,
+											state: themeProps.state,
+											mode: themeProps.mode,
+										})),
+									...(areAnyNewToolbarFlagsEnabled ? customSizeAndPadding : {}),
+								},
+								...rest,
+							};
+						}}
+						aria-label={ariaLabel || title}
+						aria-pressed={ariaPressed}
+						aria-checked={ariaChecked}
+						role={isRadioButton ? 'radio' : undefined}
+						aria-expanded={ariaHasPopup ? selected : undefined}
+						aria-controls={ariaHasPopup ? areaControls : undefined}
+						spacing={areAnyNewToolbarFlagsEnabled ? 'default' : 'compact'}
+						href={href}
+						target={target}
+						appearance={appearance}
+						aria-haspopup={ariaHasPopup}
+						iconBefore={icon || undefined}
+						iconAfter={iconAfter}
+						onClick={handleOnClick}
+						onKeyDown={onKeyDown}
+						isSelected={selected}
+						isDisabled={disabled}
+						testId={testId}
+						interactionName={interactionName}
+						onMouseEnter={
+							expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+								? onMouseEnter
+								: undefined
+						}
+						onMouseLeave={
+							expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
+								? onMouseLeave
+								: undefined
+						}
+						onFocus={onFocus}
+						onBlur={onBlur}
+						// @ts-ignore
+						// tabIndex set as 0 by default in the design system  ButtonBase component
+						// this is not expected for all buttons, we have to use tabIndex={null} for some cases
+						// should be fixed here https://a11y-internal.atlassian.net/browse/DST-287
+						tabIndex={tabIndex}
+					>
+						{children}
+					</Button>
 				</div>
 			</Tooltip>
 		</>

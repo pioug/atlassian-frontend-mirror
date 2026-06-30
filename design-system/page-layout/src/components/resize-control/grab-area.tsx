@@ -8,6 +8,7 @@ import type { ComponentProps, FocusEvent, KeyboardEvent, MouseEvent } from 'reac
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { GRAB_AREA_LINE_SELECTOR, GRAB_AREA_SELECTOR } from '../../common/constants';
@@ -68,6 +69,10 @@ const lineStyles = css({
 	height: '100%',
 	backgroundColor: 'var(--ds-line)',
 	transition: 'background-color 200ms',
+});
+
+const lineMotionStyles = css({
+	transition: token('motion.button.hovered'),
 });
 
 const grabAreaLineSelector = { [GRAB_AREA_LINE_SELECTOR]: true };
@@ -138,7 +143,10 @@ const GrabArea: React.ForwardRefExoticComponent<
 				onBlur={onBlur}
 				{...rest}
 			>
-				<span css={lineStyles} {...grabAreaLineSelector} />
+				<span
+					css={[lineStyles, fg('platform-dst-motion-uplift-button') && lineMotionStyles]}
+					{...grabAreaLineSelector}
+				/>
 			</button>
 		);
 	},

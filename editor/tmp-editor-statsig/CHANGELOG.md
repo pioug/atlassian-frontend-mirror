@@ -1,5 +1,48 @@
 # @atlaskit/editor-statsig-tmp
 
+## 118.0.0
+
+### Major Changes
+
+- [`46ee61dd53e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ee61dd53e91) -
+  Remove stale experiment confluence_compact_text_format (FFCLEANUP-85812): inline final values
+  (flag enabled), simplify conditions, remove experiment config entries.
+
+## 117.0.0
+
+### Major Changes
+
+- [`6e2538f8383a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e2538f8383a1) -
+  Clean up experiment `platform_editor_spotlight_migration`. The floating toolbar button is no
+  longer wrapped in the now-removed `SpotlightPulse` onboarding effect; the orphaned internal
+  `Pulse` component (the last `@atlaskit/onboarding` usage in editor-common) has been removed.
+
+## 116.0.0
+
+### Major Changes
+
+- [`2e62212873ddd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e62212873ddd) -
+  Clean up experiment `platform_editor_macro_placeholder_array_guard`
+
+## 115.1.0
+
+### Minor Changes
+
+- [`2c2c8bf9e0f13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c2c8bf9e0f13) -
+  [EDITOR-7929] move the colors schema change behind a different experiment that can be rolled out
+  for graceful rendering
+- [`0219070f68f42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0219070f68f42) -
+  migrate from a11y feature gates to experiment
+
+## 115.0.0
+
+### Major Changes
+
+- [`2df690b75a773`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2df690b75a773) -
+  Cleanup experiment `confluence_toc_nav_a11y`. Renderer headings now always set `tabIndex={-1}` for
+  table-of-contents keyboard focus accessibility, and the experiment definition has been removed
+  from the editor statsig config.
+
 ## 114.6.0
 
 ### Minor Changes

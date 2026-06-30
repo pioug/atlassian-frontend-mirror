@@ -108,7 +108,7 @@ type ExampleState = {
 	output: string;
 };
 
-const Editor = (props: EditorProps) => {
+const ComposableEditorWrapper = (props: EditorProps) => {
 	const universalPreset = useUniversalPreset({ props });
 	const { preset } = usePreset(() => {
 		return universalPreset.add(highlightPlugin);
@@ -210,7 +210,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 					<EditorContext>
 						<WithEditorActions
 							render={(actions) => (
-								<Editor
+								<ComposableEditorWrapper
 									appearance="full-page"
 									allowTextColor={true}
 									allowTables={{

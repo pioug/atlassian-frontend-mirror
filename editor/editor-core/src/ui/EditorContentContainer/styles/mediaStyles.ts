@@ -515,8 +515,6 @@ export const mediaAlignmentStyles: SerializedStyles = css({
 	},
 });
 
-// When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
-// move this style into mediaStyles variable ⬆️
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in

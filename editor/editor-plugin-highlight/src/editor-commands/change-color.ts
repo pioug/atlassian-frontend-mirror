@@ -38,6 +38,7 @@ export const changeColor =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }): EditorCommand =>
 	({ tr }) => {
+		const { marks } = tr.doc.type.schema;
 		const { backgroundColor } = tr.doc.type.schema.marks;
 
 		if (!backgroundColor) {
@@ -51,6 +52,17 @@ export const changeColor =
 		if (color === REMOVE_HIGHLIGHT_COLOR) {
 			removeMark(backgroundColor)({ tr });
 		} else {
+			if (
+				expValEquals('platform_editor_lovability_color_schema_change', 'isEnabled', true) &&
+				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)
+			) {
+				const overrideMarks = ['textColor'];
+				overrideMarks.forEach((mark) => {
+					if (marks[mark]) {
+						removeMark(marks[mark])({ tr });
+					}
+				});
+			}
 			tr.setMeta(highlightPluginKey, {
 				type: HighlightPluginAction.CHANGE_COLOR,
 				color,

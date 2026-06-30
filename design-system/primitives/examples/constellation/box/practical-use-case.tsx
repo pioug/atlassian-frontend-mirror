@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import Avatar from '@atlaskit/avatar';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
@@ -17,10 +19,10 @@ const styles = cssMap({
 		display: 'flex',
 		flexDirection: 'column',
 		backgroundColor: token('elevation.surface.raised'),
-		paddingTop: token('space.150'),
-		paddingRight: token('space.150'),
-		paddingBottom: token('space.150'),
-		paddingLeft: token('space.150'),
+		paddingBlockStart: token('space.150'),
+		paddingInlineEnd: token('space.150'),
+		paddingBlockEnd: token('space.150'),
+		paddingInlineStart: token('space.150'),
 		transition: '200ms',
 		borderRadius: token('radius.small'),
 		boxShadow: token('elevation.shadow.raised'),

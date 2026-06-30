@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/be317fc6-1cb0-4df4-ad06-2fcfa55c08ae
+name: '@atlaskit/contextual-survey'
+ownerId: ari:cloud:identity::team/3be9118b-f10e-4ea8-b2f2-08efbf2c3dc7 # Personalization (Justin Wyne)
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C03QF99SDPA # #help-targeting-and-messaging
+  - name: Contextual Survey
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/engagement-platform/contextual-survey
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Platform - Post Office Orchestration
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/5df0b84b73b0bd0e4d8319d4 # Justin Wyne
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
@@ -12,24 +14,24 @@ const alignInlineItems = ['start', 'center', 'end'] as const;
 
 const styles = cssMap({
 	wrapper: {
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 	},
 	container: {
 		borderRadius: token('radius.xsmall'),
-		paddingTop: token('space.050'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.050'),
-		paddingLeft: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.050'),
+		paddingBlockEnd: token('space.050'),
+		paddingInlineStart: token('space.050'),
 	},
 	box: {
 		borderRadius: token('radius.xsmall'),
-		paddingTop: token('space.200'),
-		paddingRight: token('space.200'),
-		paddingBottom: token('space.200'),
-		paddingLeft: token('space.200'),
+		paddingBlockStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
 	},
 });
 

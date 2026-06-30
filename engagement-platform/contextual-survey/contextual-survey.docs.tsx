@@ -14,9 +14,9 @@ const documentation: StructuredContentSource = {
 				'A component used to gather feedback from users in a specific context within the product.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/contextual-survey',
-				type: 'default',
+				name: 'ContextualSurvey',
+				package: '@atlaskit/contextual-survey/ContextualSurvey',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},

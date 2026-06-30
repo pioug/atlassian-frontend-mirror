@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 7.3.0
+
+### Minor Changes
+
+- [`b84f653c93be0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b84f653c93be0) -
+  Update i18n NPM package versions for ai-mate,ai,ai-opt-in,insights-ai-platform (Group 2)
+
 ## 7.2.0
 
 ### Minor Changes

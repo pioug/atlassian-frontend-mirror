@@ -1,5 +1,62 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.1.0
+
+### Minor Changes
+
+- [`ecafba7c81b7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecafba7c81b7d) -
+  Enrich synced block deletion analytics so source-block deletions can be explained rather than just
+  counted. The source `syncedBlockDelete` operational event now carries `deletionReason` and a
+  `mechanism` dimension (undo/redo/deleteButton/keyboardDelete/selectionReplaced/other), and
+  repeated emissions for the same removal are de-duplicated. A real operational `syncedBlockCreate`
+  success event is now emitted, and the source bare-uuid join key is added to the copy event so
+  create/copy/delete can be correlated. All new attributes and events are gated behind
+  `platform_editor_blocks_patch_4`; gate-off behaviour is unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.21
+
+### Patch Changes
+
+- [`845de90a5f39e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/845de90a5f39e) -
+  [ux] Fix source synced block deletion intermittently failing when the document changes (from your
+  own edits or a collaborator's) while the delete confirmation dialog is open. The delete is now
+  recomputed from the current document on confirm, instead of replaying a stale transaction captured
+  when the dialog opened. Gated behind `platform_editor_blocks_patch_4`.
+
+## 10.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.15
 
 ### Patch Changes

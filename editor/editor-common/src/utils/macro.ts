@@ -1,5 +1,4 @@
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 export interface Params {
 	node: PmNode;
@@ -15,13 +14,7 @@ export const getExtensionLozengeData = ({
 	}
 	const { macroMetadata } = node.attrs.parameters;
 	// EDITOR-4007: guard against non-array placeholder to prevent `TypeError: ... forEach is not a function`.
-	const hasValidPlaceholder = expValEquals(
-		'platform_editor_macro_placeholder_array_guard',
-		'isEnabled',
-		true,
-	)
-		? macroMetadata && Array.isArray(macroMetadata.placeholder)
-		: macroMetadata && macroMetadata.placeholder;
+	const hasValidPlaceholder = macroMetadata && Array.isArray(macroMetadata.placeholder);
 	if (hasValidPlaceholder) {
 		let placeholderData;
 		// Ignored via go/ees005

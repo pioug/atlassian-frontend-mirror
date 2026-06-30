@@ -14,13 +14,13 @@ const packagePath = path.resolve(__dirname);
 const documentation: StructuredContentSource = {
 	components: [
 		{
-			name: 'Editor Markdown Transformer',
+			name: 'MarkdownTransformer',
 			description: 'Editor Markdown transformer',
 			status: 'general-availability',
 			import: {
-				name: 'Editor Markdown Transformer',
+				name: 'MarkdownTransformer',
 				package: '@atlaskit/editor-markdown-transformer',
-				type: 'default',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},
@@ -29,13 +29,7 @@ const documentation: StructuredContentSource = {
 			accessibilityGuidelines: [],
 			keywords: ['editor', 'editor-markdown-transformer', 'atlaskit'],
 			categories: ['editor'],
-			examples: [
-				{
-					name: 'Markdown transformer',
-					description: 'Transform between Markdown and ADF.',
-					source: path.resolve(packagePath, './examples/0-markdown-transformer.tsx'),
-				},
-			],
+			examples: [],
 		},
 	],
 };

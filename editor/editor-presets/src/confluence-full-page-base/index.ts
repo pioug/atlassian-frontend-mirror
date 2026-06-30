@@ -388,10 +388,10 @@ export function confluenceFullPageBasePreset(
 			[metricsPlugin, metricsPluginOptions({ options: pluginOptions.metrics })],
 			enabledOptionalPlugins.metrics,
 		)
-		.maybeAdd(
-			[contentFormatPlugin, contentFormatPluginOptions({ options: pluginOptions.contentFormat })],
-			expValEquals('confluence_compact_text_format', 'isEnabled', true),
-		)
+		.add([
+			contentFormatPlugin,
+			contentFormatPluginOptions({ options: pluginOptions.contentFormat }),
+		])
 		.maybeAdd(
 			[
 				codeBlockAdvancedPlugin,

@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 12.0.16
+
+### Patch Changes
+
+- [`46ee61dd53e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ee61dd53e91) -
+  Remove stale experiment confluence_compact_text_format (FFCLEANUP-85812): inline final values
+  (flag enabled), simplify conditions, remove experiment config entries.
+- Updated dependencies
+
+## 12.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.12
 
 ### Patch Changes

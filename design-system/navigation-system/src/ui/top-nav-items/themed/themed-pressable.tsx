@@ -35,6 +35,13 @@ const styles = cssMap({
 	rootT26Shape: {
 		borderRadius: token('radius.medium', '6px'),
 	},
+	// platform-dst-motion-uplift-button TODO: Merge into base after rollout
+	interactiveMotion: {
+		transition: token('motion.button.hovered'),
+		'&:active': {
+			transition: token('motion.button.pressed'),
+		},
+	},
 	border: {
 		'&::after': {
 			content: '""',
@@ -189,6 +196,7 @@ export const ThemedPressable: React.ForwardRefExoticComponent<
 				appearanceStyles[appearance],
 				isSelected && styles.selected,
 				isDisabled && styles.disabled,
+				fg('platform-dst-motion-uplift-button') && styles.interactiveMotion,
 			)}
 			isDisabled={isDisabled}
 		/>

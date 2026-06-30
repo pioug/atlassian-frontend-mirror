@@ -368,6 +368,81 @@ describe('<EmojiActions />', () => {
 				).toBeInTheDocument();
 			});
 
+			it('should position the productivity colour selector below the button when the page is scrolled', async () => {
+				const zeroSquareRed = {
+					...baseToneEmoji,
+					id: '0_zero_square_red',
+					shortName: ':0_zero_square_red:',
+					name: 'Zero square red',
+				};
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+				const originalPageXOffset = window.pageXOffset;
+				const originalPageYOffset = window.pageYOffset;
+				Object.defineProperty(window, 'pageXOffset', {
+					configurable: true,
+					value: 24,
+				});
+				Object.defineProperty(window, 'pageYOffset', {
+					configurable: true,
+					value: 120,
+				});
+
+				try {
+					await renderWithIntl(
+						<EmojiActions
+							{...props}
+							toneEmoji={toneEmoji}
+							activeCategoryId="ATLASSIAN"
+							activeAtlassianSubcategory="Productivity"
+							selectedProductivityColor="blue"
+							productivityColorPreviewEmojis={{
+								red: zeroSquareRed,
+								blue: zeroSquareBlue,
+							}}
+							onProductivityColorSelected={jest.fn()}
+						/>,
+					);
+
+					const productivityColorButton = screen.getByRole('button', {
+						name: 'Productivity emoji color selector',
+					});
+					productivityColorButton.getBoundingClientRect = jest.fn(() => ({
+						bottom: 60,
+						height: 40,
+						left: 10,
+						right: 50,
+						toJSON: jest.fn(),
+						top: 20,
+						width: 40,
+						x: 10,
+						y: 20,
+					}));
+					jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(180);
+
+					await userEvent.click(productivityColorButton);
+
+					const productivityColorSelector = screen.getByTestId(productivityColorSelectorTestId);
+					expect(productivityColorSelector.parentElement?.parentElement).toHaveStyle({
+						left: '-118px',
+						top: '184px',
+					});
+				} finally {
+					Object.defineProperty(window, 'pageXOffset', {
+						configurable: true,
+						value: originalPageXOffset,
+					});
+					Object.defineProperty(window, 'pageYOffset', {
+						configurable: true,
+						value: originalPageYOffset,
+					});
+				}
+			});
+
 			it.each(['Objects', 'Logos'])(
 				'should show productivity colour button for neighbouring %s Atlassian subcategory',
 				async (activeAtlassianSubcategory) => {

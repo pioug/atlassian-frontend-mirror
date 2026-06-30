@@ -75,6 +75,36 @@ type SyncedBlockSuccessAttributes = {
 	sourceProduct?: string;
 };
 
+/**
+ * Mirrors the provider's `DeletionReason` union as a string literal so the
+ * analytics schema is self-contained without `editor-common` depending on the
+ * provider. Kept in sync by a compile-time guard in the provider tests.
+ */
+export type SyncedBlockDeletionReasonAttribute =
+	| 'source-block-deleted'
+	| 'source-block-unsynced'
+	| 'source-block-unpublished';
+
+/**
+ * Mirrors the provider's `DeletionMechanism` union. Values name the user action:
+ * `undo`/`redo` (history), `deleteButton` (toolbar Delete control),
+ * `keyboardDelete` (Backspace/Delete on a caret/range), `selectionReplaced`
+ * (block selected then typed/pasted over), `other` (non-direct/code-dispatched).
+ */
+export type SyncedBlockDeletionMechanismAttribute =
+	| 'undo'
+	| 'redo'
+	| 'deleteButton'
+	| 'keyboardDelete'
+	| 'selectionReplaced'
+	| 'other';
+
+/** Delete-success enrichment, only populated behind `platform_editor_blocks_patch_4`. */
+type SyncedBlockDeleteSuccessAttributes = SyncedBlockSuccessAttributes & {
+	deletionReason?: SyncedBlockDeletionReasonAttribute;
+	mechanism?: SyncedBlockDeletionMechanismAttribute;
+};
+
 type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes;
 
 type SyncedBlockCopySuccessAttributes = SyncedBlockSuccessAttributes & {
@@ -177,7 +207,7 @@ export type SyncedBlockDeleteSuccessAEP = OperationalAEP<
 	ACTION.DELETED,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE,
-	SyncedBlockSuccessAttributes
+	SyncedBlockDeleteSuccessAttributes
 >;
 
 export type ReferenceSyncedBlockCreateSuccessAEP = OperationalAEP<

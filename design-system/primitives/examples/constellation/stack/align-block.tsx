@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';

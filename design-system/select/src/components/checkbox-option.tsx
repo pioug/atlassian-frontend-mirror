@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 
+import type { JSX } from 'react';
+
 import { css, jsx } from '@compiled/react';
 
 import { type IconProps } from '@atlaskit/icon';

@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 15.3.0
+
+### Minor Changes
+
+- [`8f588905041f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f588905041f4) -
+  Add two new interaction-state tokens for the neutral container surface:
+  `elevation.surface.container.hovered` and `elevation.surface.container.pressed`. Use these for
+  hovered and pressed states of elements built on `elevation.surface.container`.
+
 ## 15.2.0
 
 ### Minor Changes

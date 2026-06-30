@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { Grid } from '@atlaskit/primitives/compiled';
 

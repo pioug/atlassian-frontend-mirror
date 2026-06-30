@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.1.2",
+	"version": "2.1.6",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"react-compiler": {
@@ -177,9 +177,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_fix_t_at_is_not_a_function": {
-			"type": "boolean"
-		},
 		"cc_blocks_changeboarding": {
 			"type": "boolean"
 		},

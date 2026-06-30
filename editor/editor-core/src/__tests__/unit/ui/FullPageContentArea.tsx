@@ -140,7 +140,6 @@ describe('accessibility', () => {
 describe('FullPageContentArea - scroll gutter rendering', () => {
 	it('hides scroll gutters in markdown mode', () => {
 		mockExpValEqualsNoExposure.mockReturnValue(true);
-		mockFg.mockImplementation((gate) => gate === 'platform_editor_md_mvp_layout');
 
 		renderComponent({
 			editorAPI: createMockEditorAPI(
@@ -168,7 +167,6 @@ describe('FullPageContentArea - scroll gutter rendering', () => {
 
 	it('removes prose width constraints in markdown mode when the MVP layout is active', () => {
 		mockExpValEqualsNoExposure.mockReturnValue(true);
-		mockFg.mockImplementation((gate) => gate === 'platform_editor_md_mvp_layout');
 
 		renderComponent({
 			editorAPI: createMockEditorAPI(

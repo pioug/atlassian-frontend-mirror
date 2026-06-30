@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/adbec49b-925b-4a26-bc3a-c92f9451c831
+name: '@atlaskit/analytics-cross-product'
+ownerId: ari:cloud:identity::team/242b4e51-4743-4b5b-9199-f9629cb333e6 # Eng - Data Ingestion & Behavioral Events (Ajay Pillay (Inherited))
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/CFG85MPMX # #help-analytics-pipeline
+  - name: Analytics Cross Product
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/atlassian-analytics-pipeline/analytics-cross-product
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Data Ingestion & Behavioral Events
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/5bbd48f29fdce71068d2eaa2 # Saidur Rahman
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

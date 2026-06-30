@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.1.8
+
+### Patch Changes
+
+- [`46ee61dd53e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ee61dd53e91) -
+  Remove stale experiment confluence_compact_text_format (FFCLEANUP-85812): inline final values
+  (flag enabled), simplify conditions, remove experiment config entries.
+- Updated dependencies
+
+## 13.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.4
 
 ### Patch Changes

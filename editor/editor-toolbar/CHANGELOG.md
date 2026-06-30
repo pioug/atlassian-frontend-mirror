@@ -1,5 +1,31 @@
 # @atlaskit/editor-toolbar
 
+## 2.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.5
+
+### Patch Changes
+
+- [`e62296c84e38d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e62296c84e38d) -
+  Clean up feature gate `platform_editor_fix_t_at_is_not_a_function`
+- Updated dependencies
+
+## 2.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

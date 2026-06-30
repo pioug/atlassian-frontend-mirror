@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::5377d3666260be828ea690f4b3ef04b7>>
+ * @codegen <<SignedSource::e4f346932028cd8a142bb0610697ed47>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:atlaskit-utilities
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -37,110 +37,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		package: '@af/accessibility-testing',
 		examples: [],
 		kind: 'function',
-	},
-	{
-		name: 'announce',
-		description:
-			'Pushes a message to the shared visually-hidden live region (creating it lazily on first call). The update is debounced by ~1s so that focus-change events around the drag do not interrupt the announcement.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Call `announce` from drag lifecycle callbacks (`onDragStart`, `onDrop`, custom keyboard shortcuts) when the next state change has no other accessible signal.',
-			'Keep messages short and use the imperative ("Picked up card 3", "Moved to top of list") — long sentences are likely to be interrupted by the next focus change.',
-			'Localise messages at the call site; this package does no translation.',
-		],
-		accessibilityGuidelines: [
-			'Pairs with the rest of `@atlaskit/pragmatic-drag-and-drop-react-accessibility`. Use this when neither focus movement nor visible text already communicates the change to assistive tech.',
-		],
-		keywords: [
-			'pragmatic-drag-and-drop',
-			'pdnd',
-			'live-region',
-			'a11y',
-			'announce',
-			'screen-reader',
-		],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-live-region',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'message',
-				type: 'string',
-				description: 'Plain text to be read by screen readers.',
-			},
-		],
-		returns: {
-			type: 'void',
-		},
-		signature: '(message: string) => void',
-	},
-	{
-		name: 'attachClosestEdge',
-		description:
-			'Imported from `@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge`. Computes which of the `allowedEdges` of an element is closest to the pointer and stores the result against a private symbol in `userData`. Pair with `extractClosestEdge` in `onDrop` for type-safe lookup.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Call from inside a drop target `getData` so the closest edge tracks the pointer as it moves.',
-			'Always pair with `extractClosestEdge` — the value is stored against a non-public `Symbol` and is not directly accessible.',
-		],
-		keywords: ['pdnd', 'hitbox', 'attachClosestEdge', 'edge'],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-hitbox',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'userData',
-				type: 'Record<string | symbol, unknown>',
-				description:
-					'The data object you are returning from the drop target `getData`. Returned as a new object — non-mutating.',
-			},
-			{
-				name: 'opts',
-				type: '{ element: Element; input: Input; allowedEdges: Edge[] }',
-				description:
-					'`element` is the drop target DOM node, `input` is the pointer input from the drop event, `allowedEdges` is the subset of `top` | `right` | `bottom` | `left` that should be considered.',
-			},
-		],
-		returns: {
-			type: 'Record<string | symbol, unknown>',
-			description: 'A shallow copy of `userData` with the closest edge attached.',
-		},
-		signature:
-			'(userData: Record<string | symbol, unknown>, opts: { element: Element; input: Input; allowedEdges: Edge[] }) => Record<string | symbol, unknown>',
-	},
-	{
-		name: 'attachInstruction',
-		description:
-			'Imported from `@atlaskit/pragmatic-drag-and-drop-hitbox/list-item`. Computes a list-item drop instruction (reorder-before, reorder-after, or combine) based on the operations declared as available, then stores it against `userData`. Disabled operations are silently ignored so the hitbox auto-adjusts.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when implementing list reorder UI — pair with `extractInstruction` in `onDrop` to perform the actual move.',
-			'When all operations are `"not-available"` the helper returns `userData` unchanged; `extractInstruction` will then return `null`.',
-		],
-		keywords: ['pdnd', 'hitbox', 'attachInstruction', 'reorder', 'list-item'],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-hitbox',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'userData',
-				type: 'Record<string | symbol, unknown>',
-			},
-			{
-				name: 'opts',
-				type: "{ operations: { 'reorder-before'?: Availability; 'reorder-after'?: Availability; combine?: Availability }; element: Element; input: Input; axis?: Axis }",
-				description:
-					'Each operation defaults to `"not-available"`. `axis` defaults to `"vertical"` for traditional top-to-bottom lists.',
-			},
-		],
-		returns: {
-			type: 'Record<string | symbol, unknown>',
-		},
-		signature:
-			"(userData: Record<string | symbol, unknown>, opts: { operations: { [op: string]: 'available' | 'blocked' | 'not-available' }; element: Element; input: Input; axis?: 'horizontal' | 'vertical' }) => Record<string | symbol, unknown>",
 	},
 	{
 		name: 'autoA11yCheck',
@@ -193,6 +89,563 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		},
 		signature:
 			'(html?: Element | string, options?: JestAxeConfigureOptions) => Promise<AxeResults>',
+	},
+	{
+		name: 'resetA11yAuditSkip',
+		description:
+			'Clears the per-test skip flag set by `skipA11yAudit()`. Called automatically by the test setup so consumers rarely invoke this directly.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Only call this manually if you are running a custom jest harness that does not already invoke `autoA11yCheck()`.',
+		],
+		keywords: ['accessibility', 'a11y', 'resetA11yAuditSkip', 'jest', 'testing'],
+		category: 'testing',
+		package: '@af/accessibility-testing',
+		examples: [],
+		kind: 'function',
+		signature: '() => void',
+	},
+	{
+		name: 'shouldSkipA11yTest',
+		description:
+			'Returns true when the current jest test path falls under a package that is excluded from automatic auditing (e.g. tooling-only packages with no React surface).',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Used internally by `autoA11yCheck()`. Consumers typically should not call this directly — surface a skip via `skipA11yAudit()` instead.',
+		],
+		keywords: ['accessibility', 'a11y', 'shouldSkipA11yTest', 'jest', 'testing'],
+		category: 'testing',
+		package: '@af/accessibility-testing',
+		examples: [],
+		kind: 'function',
+		signature: '() => boolean',
+	},
+	{
+		name: 'skipA11yAudit',
+		description:
+			'Marks the current test so that `autoA11yCheck()` skips its audit. The skip is one-shot — it is cleared by `resetA11yAuditSkip()` between tests.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use sparingly. Prefer fixing the violation, or scoping the test to a smaller fixture, before reaching for a skip.',
+			'Always leave a comment next to the call explaining why the audit is skipped (e.g. tracked violation link or external library limitation).',
+		],
+		keywords: ['accessibility', 'a11y', 'skipA11yAudit', 'jest', 'testing'],
+		category: 'testing',
+		package: '@af/accessibility-testing',
+		examples: [],
+		kind: 'function',
+		signature: '() => void',
+	},
+	{
+		name: 'getSuspenseResource',
+		description:
+			'Creates a one-shot Suspense resource: `read()` throws a pending promise until the matching `load().complete()` or `load().fail()` is called. Use to drive a component into and out of a Suspense fallback inside a test.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Create a fresh resource per test — the internal state machine is one-shot and asserts when `load()` is called twice.',
+			'Always await `complete()` / `fail()` before making assertions about the post-fallback UI, otherwise React will not have committed the updated tree.',
+		],
+		keywords: ['testing', 'suspense', 'react', 'getSuspenseResource'],
+		category: 'testing',
+		package: '@af/react-unit-testing',
+		examples: [],
+		kind: 'function',
+		parameters: [],
+		returns: {
+			type: 'TResource',
+			description:
+				'`{ read, load }` — `read()` is what a component calls inside render to suspend, `load()` returns `{ complete, fail }` to resolve or reject the pending promise from the test body.',
+		},
+		signature: '() => TResource',
+	},
+	{
+		name: 'toBeSuspendable',
+		description:
+			'Jest matcher that asserts the given render thunk suspends at least once before settling. Imported for the side effect of registering itself onto `expect`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Pass a thunk that returns a `ReactNode` (`() => <App />`), not a component or an element directly. The matcher needs to re-invoke the thunk across renders.',
+			'Import the module once from your jest setup file — the matcher self-registers on import.',
+		],
+		keywords: ['testing', 'jest', 'matcher', 'suspense', 'toBeSuspendable'],
+		category: 'testing',
+		package: '@af/react-unit-testing',
+		examples: [],
+		kind: 'function',
+		signature: 'expect(() => ReactNode).toBeSuspendable()',
+	},
+	{
+		name: 'toPassStrictMode',
+		description:
+			'Jest matcher that asserts the given component does not log any of the known React Strict Mode warnings (legacy lifecycles, legacy context, etc.).',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Run on the root component you want to certify — strict-mode warnings bubble down, so a passing root means the whole subtree is clean.',
+			'Failures print the offending warning verbatim. Resolve by migrating off the deprecated API rather than suppressing the warning.',
+		],
+		keywords: ['testing', 'jest', 'matcher', 'strict-mode', 'toPassStrictMode'],
+		category: 'testing',
+		package: '@af/react-unit-testing',
+		examples: [],
+		kind: 'function',
+		signature: 'expect(() => ReactNode).toPassStrictMode()',
+	},
+	{
+		name: 'TResource',
+		description:
+			'Public shape of the value returned by `getSuspenseResource()`. Useful when stashing a resource on a ref or passing it between helpers.',
+		status: 'general-availability',
+		keywords: ['testing', 'suspense', 'type', 'TResource'],
+		category: 'testing',
+		package: '@af/react-unit-testing',
+		examples: [],
+		kind: 'type',
+		definition:
+			'type TResource = { read: () => void | never; load: () => { complete: () => Promise<void>; fail: () => Promise<void> } }',
+	},
+	{
+		name: 'createAndFireEvent',
+		description:
+			'Curried helper that builds a `UIAnalyticsEvent` for a payload and fires it on a channel in one go. The original event is also returned so the call site can keep working with it.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Reach for `createAndFireEvent` when you want a one-liner inside an event handler. For more complex flows, build and fire the event explicitly.',
+		],
+		keywords: ['analytics', 'utility', 'createAndFireEvent', 'analytics-next'],
+		category: 'analytics',
+		package: '@atlaskit/analytics-next',
+		examples: [],
+		kind: 'function',
+		parameters: [
+			{
+				name: 'channel',
+				type: 'string',
+				description: 'Optional channel to fire on.',
+				isOptional: true,
+			},
+			{
+				name: 'payload',
+				type: 'AnalyticsEventPayload',
+			},
+			{
+				name: 'createAnalyticsEvent',
+				type: 'CreateUIAnalyticsEvent',
+				description: 'The factory from `useAnalyticsEvents()` or `withAnalyticsEvents`.',
+			},
+		],
+		returns: {
+			type: 'UIAnalyticsEvent',
+			description: 'The original (un-cloned) consumer event so callers can attach further context.',
+		},
+		signature:
+			'(channel?: string) => (payload: AnalyticsEventPayload) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent',
+	},
+	{
+		name: 'isUIAnalyticsEvent',
+		description:
+			'Type-guard that returns true if the given value is a `UIAnalyticsEvent` (including instances from older copies of `analytics-next`).',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use in listener handlers when you receive events from third-party code and need to narrow before reading `.payload`.',
+		],
+		keywords: ['analytics', 'guard', 'isUIAnalyticsEvent', 'analytics-next'],
+		category: 'analytics',
+		package: '@atlaskit/analytics-next',
+		examples: [],
+		kind: 'function',
+		parameters: [
+			{
+				name: 'obj',
+				type: 'unknown',
+			},
+		],
+		returns: {
+			type: 'boolean',
+		},
+		signature: '(obj: unknown) => obj is UIAnalyticsEvent',
+	},
+	{
+		name: 'UIAnalyticsEventHandler',
+		description:
+			'Signature for any function that receives events from an `AnalyticsListener`. Implement to forward events to your analytics SDK.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Handlers must not throw — analytics must never crash product UI. The runtime swallows handler errors in production and logs them in development.',
+		],
+		keywords: ['analytics', 'type', 'handler', 'UIAnalyticsEventHandler', 'analytics-next'],
+		category: 'analytics',
+		package: '@atlaskit/analytics-next',
+		examples: [],
+		kind: 'type',
+		definition: '(event: UIAnalyticsEvent, channel?: string) => void',
+	},
+	{
+		name: 'quickInsertPlugin',
+		description: 'Quick insert plugin for @atlaskit/editor-core',
+		status: 'general-availability',
+		usageGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['editor', 'editor-plugin-quick-insert', 'atlaskit'],
+		category: 'editor',
+		import: {
+			name: 'quickInsertPlugin',
+			package: '@atlaskit/editor-plugin-quick-insert',
+			type: 'named',
+			packagePath:
+				'/Users/khall2/.codex/worktrees/bd80/atlassian-frontend-monorepo/platform/packages/editor/editor-plugin-quick-insert',
+			packageJson: {
+				name: '@atlaskit/editor-plugin-quick-insert',
+				version: '12.0.10',
+				description: 'Quick insert plugin for @atlaskit/editor-core',
+				author: 'Atlassian Pty Ltd',
+				license: 'Apache-2.0',
+				publishConfig: {
+					registry: 'https://registry.npmjs.org/',
+				},
+				atlassian: {
+					team: 'Editor: Lego',
+					singleton: true,
+				},
+				repository: 'https://bitbucket.org/atlassian/atlassian-frontend-mirror',
+				main: 'dist/cjs/index.js',
+				module: 'dist/esm/index.js',
+				'module:es2019': 'dist/es2019/index.js',
+				types: 'dist/types/index.d.ts',
+				sideEffects: ['*.compiled.css'],
+				'atlaskit:src': 'src/index.ts',
+				exports: {
+					'.': './src/index.ts',
+					'./quick-insert-plugin': './src/entry-points/quick-insert-plugin.tsx',
+					'./quick-insert-plugin-type': './src/entry-points/quick-insert-plugin-type.ts',
+				},
+				dependencies: {
+					'@atlaskit/button': 'workspace:^',
+					'@atlaskit/editor-plugin-analytics': 'workspace:^',
+					'@atlaskit/editor-plugin-connectivity': 'workspace:^',
+					'@atlaskit/editor-plugin-metrics': 'workspace:^',
+					'@atlaskit/editor-plugin-type-ahead': 'workspace:^',
+					'@atlaskit/editor-prosemirror': 'workspace:^',
+					'@atlaskit/icon': 'workspace:^',
+					'@atlaskit/modal-dialog': 'workspace:^',
+					'@atlaskit/platform-feature-flags': 'workspace:^',
+					'@atlaskit/tmp-editor-statsig': 'workspace:^',
+					'@atlaskit/tokens': 'workspace:^',
+					'@babel/runtime': 'root:*',
+					'@emotion/react': 'root:*',
+				},
+				peerDependencies: {
+					'@atlaskit/editor-common': 'workspace:^',
+					react: '^18.2.0',
+					'react-dom': '^18.2.0',
+					'react-intl': '^5.25.1 || ^6.0.0 || ^7.0.0',
+				},
+				devDependencies: {
+					'@atlassian/structured-docs-types': 'workspace:^',
+					'@testing-library/react': 'root:*',
+					react: 'root:*',
+					'react-dom': 'root:*',
+					'react-intl': 'root:*',
+					'wait-for-expect': 'root:*',
+				},
+				techstack: {
+					'@atlassian/frontend': {
+						'code-structure': ['editor-plugin'],
+						'import-structure': ['atlassian-conventions'],
+						'circular-dependencies': ['file-and-folder-level'],
+					},
+					'@repo/internal': {
+						'dom-events': 'use-bind-event-listener',
+						analytics: ['analytics-next'],
+						'design-tokens': ['color'],
+						theming: ['react-context'],
+						'ui-components': ['lite-mode'],
+						deprecation: 'no-deprecated-imports',
+						styling: ['emotion', 'emotion'],
+						imports: ['import-no-extraneous-disable-for-examples-and-docs'],
+					},
+				},
+				'platform-feature-flags': {
+					platform_editor_ease_of_use_metrics: {
+						type: 'boolean',
+					},
+					platform_editor_fix_space_triggering_ai: {
+						type: 'boolean',
+					},
+				},
+			},
+		},
+		package: '@atlaskit/editor-plugin-quick-insert',
+		examples: [],
+		kind: 'function',
+		signature: 'quickInsertPlugin: QuickInsertPlugin',
+	},
+	{
+		name: 'CustomAttributes',
+		description:
+			'Free-form attribute bag attached to an exposure event. Keys are validated against the reserved-attribute list at runtime — colliding with a reserved key throws.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Keep custom attribute names stable — downstream analytics queries pivot on them. Coordinate any rename with the data-platform team before shipping.',
+		],
+		keywords: ['feature-flag', 'type', 'CustomAttributes', 'exposure'],
+		category: 'experimentation',
+		package: '@atlaskit/feature-flag-client',
+		examples: [],
+		kind: 'type',
+		definition:
+			'type CustomAttributes = { [attributeName: string]: string | number | boolean | object }',
+	},
+	{
+		name: 'ExposureTriggerReason',
+		description:
+			'Enum describing why an exposure event was fired (auto vs. manual vs. consumer opt-in). Surfaced on the exposure event payload so downstream analytics can de-duplicate auto vs. manual fires.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the enum members rather than literal strings when calling `trackFeatureFlag({ triggerReason })` — the literal values change if the backend renames a reason.',
+		],
+		keywords: ['feature-flag', 'exposure', 'enum', 'ExposureTriggerReason'],
+		category: 'experimentation',
+		package: '@atlaskit/feature-flag-client',
+		examples: [],
+		kind: 'constant',
+		type: 'enum ExposureTriggerReason',
+		value:
+			'{ OptIn = "optInExposure", Manual = "manualExposure", Default = "defaultExposure", AutoExposure = "autoExposure", hasCustomAttributes = "hasCustomAttributes" }',
+	},
+	{
+		name: 'FeatureFlagClient',
+		description:
+			'Default export. The runtime client developers construct and interact with — it evaluates flags from an in-memory flag set, caches per-key flag wrappers, and fires exposure events through the supplied analytics handler. Construct one instance per app bootstrap and pass it through context.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Construct one client per app and pass it through context — do not new up additional clients per component, or duplicate exposures will fire.',
+			'Provide an `analyticsHandler` at construction time. Constructing without one is an error: the client will throw via `enforceAttributes`.',
+			'`isAutomaticExposuresEnabled` enables the TAC auto-exposure pipeline (downstream consumers opt in). `ignoreTypes: true` disables the runtime type guard on evaluation — only set in tests.',
+			'Prefer the typed value getters (`getBooleanValue`, `getVariantValue`, `getJSONValue`) over `getRawValue` so wrong-type explanations land in the exposure event.',
+			'`getJSONValue` does not fire an exposure — pair it with `trackFeatureFlag` if the consumer needs an exposure event for the JSON read.',
+			'If you need to short-circuit exposure firing (e.g. evaluate-then-decide flows), use `shouldTrackExposureEvent: false` paired with an explicit `trackFeatureFlag` call once the decision is made.',
+			'`setFlags` replaces or extends the in-memory flag set and invalidates cached wrappers for any keys it touches; safe to call after a late-arriving bootstrap payload.',
+			'`clear` drops the entire flag set, wrapper cache, and tracked-flag set — primarily useful in tests or when re-bootstrapping after a tenant switch.',
+		],
+		keywords: [
+			'feature-flag',
+			'feature-gate',
+			'experiment',
+			'switcheroo',
+			'FeatureFlagClient',
+			'client',
+		],
+		category: 'experimentation',
+		package: '@atlaskit/feature-flag-client',
+		examples: [],
+		kind: 'constant',
+		type: 'class FeatureFlagClient',
+		value:
+			'new FeatureFlagClient({ analyticsHandler, flags?, isAutomaticExposuresEnabled?, ignoreTypes? })\n  .setFlags(flags: Flags): void\n  .setAnalyticsHandler(analyticsHandler?: AnalyticsHandler): void\n  .setIsAutomaticExposuresEnabled(isEnabled: boolean): void\n  .getBooleanValue(flagKey, { default, exposureData?, shouldTrackExposureEvent? }): boolean\n  .getVariantValue(flagKey, { default, oneOf, exposureData?, shouldTrackExposureEvent? }): string\n  .getJSONValue(flagKey): object\n  .getRawValue(flagKey, { default, exposureData?, shouldTrackExposureEvent? }): FlagValue\n  .getFlagEvaluation<T>(flagKey, { default, exposureData?, shouldTrackExposureEvent? }): FlagShape<T>\n  .trackFeatureFlag(flagKey, options?: TrackFeatureFlagOptions): void\n  .clear(): void',
+	},
+	{
+		name: 'FlagValue',
+		description: 'Union of the value types a flag can return: `boolean | string | object`.',
+		status: 'general-availability',
+		keywords: ['feature-flag', 'type', 'FlagValue'],
+		category: 'experimentation',
+		package: '@atlaskit/feature-flag-client',
+		examples: [],
+		kind: 'type',
+		definition: 'type FlagValue = boolean | string | object',
+	},
+	{
+		name: 'convertToError',
+		description:
+			'Normalises any value thrown by a `try`/`catch` into an `Error` instance — useful at the boundary between untyped JS code (which can throw strings, objects, or `undefined`) and TypeScript code that wants a real `Error`.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use at every catch boundary that hands the error to logging, Sentry, or analytics — those consumers all assume a real `Error` with `.message` and a stack.',
+			'Object errors are JSON-serialised; circular objects fall back to `String(...)`, so the stack you log will reflect where `convertToError` was called, not where the original value was thrown.',
+		],
+		keywords: ['utility', 'convertToError', 'error', 'frontend-utilities'],
+		category: 'utilities',
+		package: '@atlaskit/frontend-utilities',
+		examples: [],
+		kind: 'function',
+		parameters: [
+			{
+				name: 'e',
+				type: 'unknown',
+				description: 'The caught value. Already-`Error` instances are returned unchanged.',
+			},
+		],
+		returns: {
+			type: 'Error',
+			description:
+				'The original value if it was already an `Error`; otherwise a freshly-constructed `Error` whose message describes the original (`JSON.stringify`d for objects, `String(...)`d otherwise).',
+		},
+		signature: '(e: unknown) => Error',
+	},
+	{
+		name: 'mockWindowStorage',
+		description:
+			'Test helper that replaces `window.localStorage` and/or `window.sessionStorage` with an in-memory `STORAGE_MOCK` so unit tests can exercise storage-dependent code without touching the real browser storage (and without crashing in jsdom environments where storage may be disabled).',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Call once per test (in `beforeEach`) — each call installs a fresh `STORAGE_MOCK`, so tests are isolated.',
+			'Handles SSR/jsdom environments where `window` may be undefined — safe to call in any Jest test.',
+			'Production code must never call this. It is wired up under the `./local-storage` subpath alongside the test mock.',
+		],
+		keywords: ['utility', 'mockWindowStorage', 'storage', 'test', 'frontend-utilities'],
+		category: 'utilities',
+		package: '@atlaskit/frontend-utilities',
+		examples: [],
+		kind: 'function',
+		parameters: [
+			{
+				name: 'storageToMock',
+				type: "('localStorage' | 'sessionStorage')[]",
+				description: 'Which storage objects to replace. Defaults to both.',
+				defaultValue: "['localStorage', 'sessionStorage']",
+				isOptional: true,
+			},
+		],
+		returns: {
+			type: 'void',
+		},
+		signature: "(storageToMock?: ('localStorage' | 'sessionStorage')[]) => void",
+	},
+	{
+		name: 'retryOnException',
+		description:
+			'Retries an async `invokeOperation` while the most recent error is in the `retryOn` allow-list, sleeping between attempts per `intervalsMS`. The sleep schedule defines both the number of retries and the delays between them — `intervalsMS: [0, 50, 100]` means "try once, then up to three retries at 0 ms, 50 ms, and 100 ms".',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Pre-baked schedules live in `@atlaskit/frontend-utilities/retry-operation`: `NO_RETRIES`, `UP_TO_TWO_INSTANT_RETRIES`, `DEFAULT_RETRIES` (`[0, 50, 100]`), `LAZY_LOAD_RETRIES` (`[100, 500, 1000]`). Prefer one of those over hand-rolled arrays so retry semantics stay consistent across products.',
+			'`retryOn` is allow-list, not deny-list — unmatched errors short-circuit and reject immediately. Throw `FailedFetchError` (or your own type that extends `Error`) from inside `invokeOperation` to opt into retries.',
+			'`captureException` should fire-and-forget — do not throw from it, or the retry loop bails. Use it for Sentry reporting on every attempt.',
+		],
+		keywords: ['utility', 'retryOnException', 'retry', 'fetch', 'frontend-utilities'],
+		category: 'utilities',
+		package: '@atlaskit/frontend-utilities',
+		examples: [],
+		kind: 'function',
+		parameters: [
+			{
+				name: 'invokeOperation',
+				type: '() => Promise<T>',
+				description: 'The async operation to attempt. Called once per attempt.',
+			},
+			{
+				name: 'config',
+				type: '{ intervalsMS?: readonly number[]; retryOn?: (typeof Error)[] | ((e: Error) => boolean); captureException?: (error: Error, tags?: Record<string, string>) => void; onRetry?: (previousErr: Error) => void }',
+				description:
+					'`intervalsMS` defaults to `NO_RETRIES` (no retries). `retryOn` defaults to `[FailedFetchError]`. `captureException` is called for every caught error, including the final one. `onRetry` fires only between attempts, never before the first.',
+			},
+		],
+		returns: {
+			type: 'Promise<T>',
+			description:
+				'Resolves with the operation result on the first successful attempt. Rejects with the last caught error once `intervalsMS` is exhausted or an unmatched error is thrown.',
+		},
+		signature: '<T>(invokeOperation: () => Promise<T>, config: RetryConfig) => Promise<T>',
+	},
+	{
+		name: 'simpleHash',
+		description:
+			'Deterministic 32-bit string hash rendered in base-36 (e.g. `"hello" -> "y2sl1f"`). Stable across runs for the same input. NOT cryptographic — collisions are easy and the algorithm is not suitable for security.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for stable cache keys, telemetry-bucket assignments, or generating short anonymous identifiers from a known input.',
+			'Do NOT use for password hashing, signing, or anything else where collisions or pre-image resistance matter.',
+			'Output is stable across runtimes — safe to embed in URLs and analytics events.',
+		],
+		keywords: ['utility', 'simpleHash', 'hash', 'frontend-utilities'],
+		category: 'utilities',
+		package: '@atlaskit/frontend-utilities',
+		examples: [],
+		kind: 'function',
+		parameters: [
+			{
+				name: 'str',
+				type: 'string',
+				description: 'Input to hash.',
+			},
+		],
+		returns: {
+			type: 'string',
+			description: 'Base-36 representation of a 32-bit signed-to-unsigned hash.',
+		},
+		signature: '(str: string) => string',
+	},
+	{
+		name: 'STORAGE_MOCK',
+		description:
+			'In-memory implementation of the DOM `Storage` interface used by `mockWindowStorage`. Exported directly so tests that need their own scoped mock (e.g. for `globalThis` shimming or browser-extension storage) can use it as a building block.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Prefer `mockWindowStorage()` for typical Jest setups. Reach for `STORAGE_MOCK` directly only when you need to install storage somewhere other than `window` (e.g. a worker global).',
+			'The mock is mutable and shared — wrap it with `{ ...STORAGE_MOCK }` before installing if you want per-test isolation manually.',
+		],
+		keywords: ['constant', 'STORAGE_MOCK', 'storage', 'test', 'frontend-utilities'],
+		category: 'utilities',
+		package: '@atlaskit/frontend-utilities',
+		examples: [],
+		kind: 'constant',
+		type: 'Storage',
+		value:
+			'{ length: 0; getItem(id); setItem(id, val); removeItem(id); clear(); key(index) } — backed by an in-memory `_data` record.',
+	},
+	{
+		name: 'init',
+		description: 'INSM tooling measures user-perceived interactivity of a page',
+		status: 'general-availability',
+		usageGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['editor', 'insm', 'atlaskit'],
+		category: 'editor',
+		import: {
+			name: 'init',
+			package: '@atlaskit/insm',
+			type: 'named',
+			packagePath:
+				'/Users/khall2/.codex/worktrees/bd80/atlassian-frontend-monorepo/platform/packages/editor/insm',
+			packageJson: {
+				name: '@atlaskit/insm',
+				version: '1.0.11',
+				description: 'INSM tooling measures user-perceived interactivity of a page',
+				author: 'Atlassian Pty Ltd',
+				license: 'Apache-2.0',
+				publishConfig: {
+					registry: 'https://registry.npmjs.org/',
+				},
+				atlassian: {
+					team: 'Editor: Lego',
+				},
+				repository: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo',
+				main: 'dist/cjs/index.js',
+				module: 'dist/esm/index.js',
+				'module:es2019': 'dist/es2019/index.js',
+				types: 'dist/types/index.d.ts',
+				'atlaskit:src': 'src/index.ts',
+				exports: {
+					'.': './src/index.ts',
+				},
+				dependencies: {
+					'@atlaskit/analytics-listeners': 'workspace:^',
+					'@atlaskit/tmp-editor-statsig': 'workspace:^',
+					'@babel/runtime': 'root:*',
+					'bowser-ultralight': 'root:*',
+				},
+				peerDependencies: {
+					react: '^18.2.0',
+				},
+				devDependencies: {
+					'@atlassian/structured-docs-types': 'workspace:^',
+					react: 'root:*',
+				},
+			},
+		},
+		package: '@atlaskit/insm',
+		examples: [],
+		kind: 'function',
+		signature: 'init(options: INSMOptions): void',
 	},
 	{
 		name: 'BaseUrls',
@@ -321,106 +774,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 			"type CardType = 'pending' | 'resolving' | 'resolved' | 'errored' | 'fallback' | 'unauthorized' | 'forbidden' | 'not_found'",
 	},
 	{
-		name: 'cleanup',
-		description:
-			'Removes the singleton live-region node from the DOM. No-op if `announce` has never been called. Mostly useful in tests to reset state between cases.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Call from a test teardown to keep the DOM tidy between runs. Production apps rarely need this — the node is harmless to leave in place.',
-		],
-		keywords: ['pragmatic-drag-and-drop', 'pdnd', 'live-region', 'cleanup', 'teardown'],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-live-region',
-		examples: [],
-		kind: 'function',
-		parameters: [],
-		returns: {
-			type: 'void',
-		},
-		signature: '() => void',
-	},
-	{
-		name: 'convertToError',
-		description:
-			'Normalises any value thrown by a `try`/`catch` into an `Error` instance — useful at the boundary between untyped JS code (which can throw strings, objects, or `undefined`) and TypeScript code that wants a real `Error`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use at every catch boundary that hands the error to logging, Sentry, or analytics — those consumers all assume a real `Error` with `.message` and a stack.',
-			'Object errors are JSON-serialised; circular objects fall back to `String(...)`, so the stack you log will reflect where `convertToError` was called, not where the original value was thrown.',
-		],
-		keywords: ['utility', 'convertToError', 'error', 'frontend-utilities'],
-		category: 'utilities',
-		package: '@atlaskit/frontend-utilities',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'e',
-				type: 'unknown',
-				description: 'The caught value. Already-`Error` instances are returned unchanged.',
-			},
-		],
-		returns: {
-			type: 'Error',
-			description:
-				'The original value if it was already an `Error`; otherwise a freshly-constructed `Error` whose message describes the original (`JSON.stringify`d for objects, `String(...)`d otherwise).',
-		},
-		signature: '(e: unknown) => Error',
-	},
-	{
-		name: 'createAndFireEvent',
-		description:
-			'Curried helper that builds a `UIAnalyticsEvent` for a payload and fires it on a channel in one go. The original event is also returned so the call site can keep working with it.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Reach for `createAndFireEvent` when you want a one-liner inside an event handler. For more complex flows, build and fire the event explicitly.',
-		],
-		keywords: ['analytics', 'utility', 'createAndFireEvent', 'analytics-next'],
-		category: 'analytics',
-		package: '@atlaskit/analytics-next',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'channel',
-				type: 'string',
-				description: 'Optional channel to fire on.',
-				isOptional: true,
-			},
-			{
-				name: 'payload',
-				type: 'AnalyticsEventPayload',
-			},
-			{
-				name: 'createAnalyticsEvent',
-				type: 'CreateUIAnalyticsEvent',
-				description: 'The factory from `useAnalyticsEvents()` or `withAnalyticsEvents`.',
-			},
-		],
-		returns: {
-			type: 'UIAnalyticsEvent',
-			description: 'The original (un-cloned) consumer event so callers can attach further context.',
-		},
-		signature:
-			'(channel?: string) => (payload: AnalyticsEventPayload) => (createAnalyticsEvent: CreateUIAnalyticsEvent) => UIAnalyticsEvent',
-	},
-	{
-		name: 'CustomAttributes',
-		description:
-			'Free-form attribute bag attached to an exposure event. Keys are validated against the reserved-attribute list at runtime — colliding with a reserved key throws.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Keep custom attribute names stable — downstream analytics queries pivot on them. Coordinate any rename with the data-platform team before shipping.',
-		],
-		keywords: ['feature-flag', 'type', 'CustomAttributes', 'exposure'],
-		category: 'experimentation',
-		package: '@atlaskit/feature-flag-client',
-		examples: [],
-		kind: 'type',
-		definition:
-			'type CustomAttributes = { [attributeName: string]: string | number | boolean | object }',
-	},
-	{
 		name: 'Datasource',
 		description:
 			'Public contract for a Datasource node — id, parameters bag (generic, defaults to `Record<string, unknown>`), and the view configs that describe how the resolved rows should render. Exchanged between the editor, Confluence/Jira renderers, and the resolver.',
@@ -447,18 +800,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		value: "'wide'",
 	},
 	{
-		name: 'Edge',
-		description:
-			'Imported from `@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge`. String literal union of the four cardinal edges of a drop target.',
-		status: 'general-availability',
-		keywords: ['pdnd', 'hitbox', 'Edge', 'type'],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-hitbox',
-		examples: [],
-		kind: 'type',
-		definition: "type Edge = 'top' | 'right' | 'bottom' | 'left'",
-	},
-	{
 		name: 'EnvironmentsKeys',
 		description:
 			'String union of the resolver environments understood by `getBaseUrl` / `getResolverUrl`. Three environments with two-or-three aliases each (`dev` / `development`, `stg` / `staging`, `prd` / `prod` / `production`), plus a special `custom` value that pairs with the `baseUrlOverride` arg for SSR / non-standard hosts.',
@@ -470,101 +811,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 		definition:
 			"type EnvironmentsKeys = 'dev' | 'development' | 'stg' | 'staging' | 'prd' | 'prod' | 'production' | 'custom'",
-	},
-	{
-		name: 'ExposureTriggerReason',
-		description:
-			'Enum describing why an exposure event was fired (auto vs. manual vs. consumer opt-in). Surfaced on the exposure event payload so downstream analytics can de-duplicate auto vs. manual fires.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the enum members rather than literal strings when calling `trackFeatureFlag({ triggerReason })` — the literal values change if the backend renames a reason.',
-		],
-		keywords: ['feature-flag', 'exposure', 'enum', 'ExposureTriggerReason'],
-		category: 'experimentation',
-		package: '@atlaskit/feature-flag-client',
-		examples: [],
-		kind: 'constant',
-		type: 'enum ExposureTriggerReason',
-		value:
-			'{ OptIn = "optInExposure", Manual = "manualExposure", Default = "defaultExposure", AutoExposure = "autoExposure", hasCustomAttributes = "hasCustomAttributes" }',
-	},
-	{
-		name: 'extractClosestEdge',
-		description:
-			'Imported from `@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge`. Reads the edge previously written by `attachClosestEdge`. Returns `null` if no edge was attached.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use in `onDrag` or `onDrop` to decide whether to render the drop indicator above/below/left/right of the target.',
-		],
-		keywords: ['pdnd', 'hitbox', 'extractClosestEdge', 'edge'],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-hitbox',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'userData',
-				type: 'Record<string | symbol, unknown>',
-				description:
-					'The `userData` produced by `attachClosestEdge`, typically read from the dropped target.',
-			},
-		],
-		returns: {
-			type: 'Edge | null',
-		},
-		signature: '(userData: Record<string | symbol, unknown>) => Edge | null',
-	},
-	{
-		name: 'extractInstruction',
-		description:
-			'Imported from `@atlaskit/pragmatic-drag-and-drop-hitbox/list-item`. Reads the instruction previously written by `attachInstruction`. Returns `null` when no instruction is available (e.g. all operations were blocked).',
-		status: 'general-availability',
-		keywords: ['pdnd', 'hitbox', 'extractInstruction', 'reorder', 'list-item'],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-hitbox',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'userData',
-				type: 'Record<string | symbol, unknown>',
-			},
-		],
-		returns: {
-			type: 'Instruction | null',
-		},
-		signature: '(userData: Record<string | symbol, unknown>) => Instruction | null',
-	},
-	{
-		name: 'FeatureFlagClient',
-		description:
-			'Default export. The runtime client developers construct and interact with — it evaluates flags from an in-memory flag set, caches per-key flag wrappers, and fires exposure events through the supplied analytics handler. Construct one instance per app bootstrap and pass it through context.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Construct one client per app and pass it through context — do not new up additional clients per component, or duplicate exposures will fire.',
-			'Provide an `analyticsHandler` at construction time. Constructing without one is an error: the client will throw via `enforceAttributes`.',
-			'`isAutomaticExposuresEnabled` enables the TAC auto-exposure pipeline (downstream consumers opt in). `ignoreTypes: true` disables the runtime type guard on evaluation — only set in tests.',
-			'Prefer the typed value getters (`getBooleanValue`, `getVariantValue`, `getJSONValue`) over `getRawValue` so wrong-type explanations land in the exposure event.',
-			'`getJSONValue` does not fire an exposure — pair it with `trackFeatureFlag` if the consumer needs an exposure event for the JSON read.',
-			'If you need to short-circuit exposure firing (e.g. evaluate-then-decide flows), use `shouldTrackExposureEvent: false` paired with an explicit `trackFeatureFlag` call once the decision is made.',
-			'`setFlags` replaces or extends the in-memory flag set and invalidates cached wrappers for any keys it touches; safe to call after a late-arriving bootstrap payload.',
-			'`clear` drops the entire flag set, wrapper cache, and tracked-flag set — primarily useful in tests or when re-bootstrapping after a tenant switch.',
-		],
-		keywords: [
-			'feature-flag',
-			'feature-gate',
-			'experiment',
-			'switcheroo',
-			'FeatureFlagClient',
-			'client',
-		],
-		category: 'experimentation',
-		package: '@atlaskit/feature-flag-client',
-		examples: [],
-		kind: 'constant',
-		type: 'class FeatureFlagClient',
-		value:
-			'new FeatureFlagClient({ analyticsHandler, flags?, isAutomaticExposuresEnabled?, ignoreTypes? })\n  .setFlags(flags: Flags): void\n  .setAnalyticsHandler(analyticsHandler?: AnalyticsHandler): void\n  .setIsAutomaticExposuresEnabled(isEnabled: boolean): void\n  .getBooleanValue(flagKey, { default, exposureData?, shouldTrackExposureEvent? }): boolean\n  .getVariantValue(flagKey, { default, oneOf, exposureData?, shouldTrackExposureEvent? }): string\n  .getJSONValue(flagKey): object\n  .getRawValue(flagKey, { default, exposureData?, shouldTrackExposureEvent? }): FlagValue\n  .getFlagEvaluation<T>(flagKey, { default, exposureData?, shouldTrackExposureEvent? }): FlagShape<T>\n  .trackFeatureFlag(flagKey, options?: TrackFeatureFlagOptions): void\n  .clear(): void',
 	},
 	{
 		name: 'filterSiteProducts',
@@ -589,17 +835,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		},
 		signature:
 			'(availableSitesProducts: AvailableSitesProductType[]) => (site: AvailableSite) => boolean',
-	},
-	{
-		name: 'FlagValue',
-		description: 'Union of the value types a flag can return: `boolean | string | object`.',
-		status: 'general-availability',
-		keywords: ['feature-flag', 'type', 'FlagValue'],
-		category: 'experimentation',
-		package: '@atlaskit/feature-flag-client',
-		examples: [],
-		kind: 'type',
-		definition: 'type FlagValue = boolean | string | object',
 	},
 	{
 		name: 'getBaseUrl',
@@ -628,33 +863,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 			type: 'string',
 		},
 		signature: '(envKey?: EnvironmentsKeys, baseUrlOverride?: string) => string',
-	},
-	{
-		name: 'getReorderDestinationIndex',
-		description:
-			'Imported from `@atlaskit/pragmatic-drag-and-drop-hitbox/list-item`. Pure function that returns the array index the dragged item should land at, given the start index, the index of the drop target, the closest edge of that target, and the axis. Use after `extractClosestEdge` to translate edge info into a concrete index for an array splice/move.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use as the final step of a list reorder in `onDrop` — apply the returned index to your array model.',
-		],
-		keywords: ['pdnd', 'hitbox', 'getReorderDestinationIndex', 'reorder'],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-hitbox',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'opts',
-				type: "{ startIndex: number; closestEdgeOfTarget: Edge | null; indexOfTarget: number; axis: 'vertical' | 'horizontal' }",
-			},
-		],
-		returns: {
-			type: 'number',
-			description:
-				'The destination index. If the start and target indices are the same, or either index is `-1`, the original `startIndex` is returned unchanged.',
-		},
-		signature:
-			"(opts: { startIndex: number; closestEdgeOfTarget: Edge | null; indexOfTarget: number; axis: 'horizontal' | 'vertical' }) => number",
 	},
 	{
 		name: 'getResolverUrl',
@@ -714,28 +922,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		signature: "({ meta }: { meta: JsonLd.Response['meta'] }) => CardType",
 	},
 	{
-		name: 'getSuspenseResource',
-		description:
-			'Creates a one-shot Suspense resource: `read()` throws a pending promise until the matching `load().complete()` or `load().fail()` is called. Use to drive a component into and out of a Suspense fallback inside a test.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Create a fresh resource per test — the internal state machine is one-shot and asserts when `load()` is called twice.',
-			'Always await `complete()` / `fail()` before making assertions about the post-fallback UI, otherwise React will not have committed the updated tree.',
-		],
-		keywords: ['testing', 'suspense', 'react', 'getSuspenseResource'],
-		category: 'testing',
-		package: '@af/react-unit-testing',
-		examples: [],
-		kind: 'function',
-		parameters: [],
-		returns: {
-			type: 'TResource',
-			description:
-				'`{ read, load }` — `read()` is what a component calls inside render to suspend, `load()` returns `{ complete, fail }` to resolve or reject the pending promise from the test body.',
-		},
-		signature: '() => TResource',
-	},
-	{
 		name: 'getUrl',
 		description:
 			'Selector that pulls the `CardState` for a given URL out of the Smart Card Redux store. Returns `{ status: "pending" }` as a default when no entry exists yet, so consumers can render their pending UI without an explicit null check.',
@@ -776,72 +962,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		examples: [],
 		kind: 'type',
 		definition: "interface InlineCardAdf { type: 'inlineCard'; attrs: { url: string } }",
-	},
-	{
-		name: 'Instruction',
-		description:
-			'Imported from `@atlaskit/pragmatic-drag-and-drop-hitbox/list-item`. Discriminated union describing what a drop on a list item should do. `operation` is one of `reorder-before` | `reorder-after` | `combine`. `blocked: true` signals the operation is logically valid but has been disallowed (so consumers can show a "not allowed" affordance).',
-		status: 'general-availability',
-		keywords: ['pdnd', 'hitbox', 'Instruction', 'type', 'reorder'],
-		category: 'drag-and-drop',
-		package: '@atlaskit/pragmatic-drag-and-drop-hitbox',
-		examples: [],
-		kind: 'type',
-		definition:
-			"type Instruction = { operation: 'reorder-before' | 'reorder-after' | 'combine'; blocked: boolean; axis: 'horizontal' | 'vertical' }",
-	},
-	{
-		name: 'isUIAnalyticsEvent',
-		description:
-			'Type-guard that returns true if the given value is a `UIAnalyticsEvent` (including instances from older copies of `analytics-next`).',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use in listener handlers when you receive events from third-party code and need to narrow before reading `.payload`.',
-		],
-		keywords: ['analytics', 'guard', 'isUIAnalyticsEvent', 'analytics-next'],
-		category: 'analytics',
-		package: '@atlaskit/analytics-next',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'obj',
-				type: 'unknown',
-			},
-		],
-		returns: {
-			type: 'boolean',
-		},
-		signature: '(obj: unknown) => obj is UIAnalyticsEvent',
-	},
-	{
-		name: 'mockWindowStorage',
-		description:
-			'Test helper that replaces `window.localStorage` and/or `window.sessionStorage` with an in-memory `STORAGE_MOCK` so unit tests can exercise storage-dependent code without touching the real browser storage (and without crashing in jsdom environments where storage may be disabled).',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Call once per test (in `beforeEach`) — each call installs a fresh `STORAGE_MOCK`, so tests are isolated.',
-			'Handles SSR/jsdom environments where `window` may be undefined — safe to call in any Jest test.',
-			'Production code must never call this. It is wired up under the `./local-storage` subpath alongside the test mock.',
-		],
-		keywords: ['utility', 'mockWindowStorage', 'storage', 'test', 'frontend-utilities'],
-		category: 'utilities',
-		package: '@atlaskit/frontend-utilities',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'storageToMock',
-				type: "('localStorage' | 'sessionStorage')[]",
-				description: 'Which storage objects to replace. Defaults to both.',
-				defaultValue: "['localStorage', 'sessionStorage']",
-				isOptional: true,
-			},
-		],
-		returns: {
-			type: 'void',
-		},
-		signature: "(storageToMock?: ('localStorage' | 'sessionStorage')[]) => void",
 	},
 	{
 		name: 'promiseDebounce',
@@ -928,193 +1048,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		},
 		signature:
 			'<T = JsonLd.Response>(method: string, url: string, data?: any, headers?: HeadersInit, statuses?: number[]) => Promise<T>',
-	},
-	{
-		name: 'resetA11yAuditSkip',
-		description:
-			'Clears the per-test skip flag set by `skipA11yAudit()`. Called automatically by the test setup so consumers rarely invoke this directly.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Only call this manually if you are running a custom jest harness that does not already invoke `autoA11yCheck()`.',
-		],
-		keywords: ['accessibility', 'a11y', 'resetA11yAuditSkip', 'jest', 'testing'],
-		category: 'testing',
-		package: '@af/accessibility-testing',
-		examples: [],
-		kind: 'function',
-		signature: '() => void',
-	},
-	{
-		name: 'retryOnException',
-		description:
-			'Retries an async `invokeOperation` while the most recent error is in the `retryOn` allow-list, sleeping between attempts per `intervalsMS`. The sleep schedule defines both the number of retries and the delays between them — `intervalsMS: [0, 50, 100]` means "try once, then up to three retries at 0 ms, 50 ms, and 100 ms".',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Pre-baked schedules live in `@atlaskit/frontend-utilities/retry-operation`: `NO_RETRIES`, `UP_TO_TWO_INSTANT_RETRIES`, `DEFAULT_RETRIES` (`[0, 50, 100]`), `LAZY_LOAD_RETRIES` (`[100, 500, 1000]`). Prefer one of those over hand-rolled arrays so retry semantics stay consistent across products.',
-			'`retryOn` is allow-list, not deny-list — unmatched errors short-circuit and reject immediately. Throw `FailedFetchError` (or your own type that extends `Error`) from inside `invokeOperation` to opt into retries.',
-			'`captureException` should fire-and-forget — do not throw from it, or the retry loop bails. Use it for Sentry reporting on every attempt.',
-		],
-		keywords: ['utility', 'retryOnException', 'retry', 'fetch', 'frontend-utilities'],
-		category: 'utilities',
-		package: '@atlaskit/frontend-utilities',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'invokeOperation',
-				type: '() => Promise<T>',
-				description: 'The async operation to attempt. Called once per attempt.',
-			},
-			{
-				name: 'config',
-				type: '{ intervalsMS?: readonly number[]; retryOn?: (typeof Error)[] | ((e: Error) => boolean); captureException?: (error: Error, tags?: Record<string, string>) => void; onRetry?: (previousErr: Error) => void }',
-				description:
-					'`intervalsMS` defaults to `NO_RETRIES` (no retries). `retryOn` defaults to `[FailedFetchError]`. `captureException` is called for every caught error, including the final one. `onRetry` fires only between attempts, never before the first.',
-			},
-		],
-		returns: {
-			type: 'Promise<T>',
-			description:
-				'Resolves with the operation result on the first successful attempt. Rejects with the last caught error once `intervalsMS` is exhausted or an unmatched error is thrown.',
-		},
-		signature: '<T>(invokeOperation: () => Promise<T>, config: RetryConfig) => Promise<T>',
-	},
-	{
-		name: 'shouldSkipA11yTest',
-		description:
-			'Returns true when the current jest test path falls under a package that is excluded from automatic auditing (e.g. tooling-only packages with no React surface).',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Used internally by `autoA11yCheck()`. Consumers typically should not call this directly — surface a skip via `skipA11yAudit()` instead.',
-		],
-		keywords: ['accessibility', 'a11y', 'shouldSkipA11yTest', 'jest', 'testing'],
-		category: 'testing',
-		package: '@af/accessibility-testing',
-		examples: [],
-		kind: 'function',
-		signature: '() => boolean',
-	},
-	{
-		name: 'simpleHash',
-		description:
-			'Deterministic 32-bit string hash rendered in base-36 (e.g. `"hello" -> "y2sl1f"`). Stable across runs for the same input. NOT cryptographic — collisions are easy and the algorithm is not suitable for security.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use for stable cache keys, telemetry-bucket assignments, or generating short anonymous identifiers from a known input.',
-			'Do NOT use for password hashing, signing, or anything else where collisions or pre-image resistance matter.',
-			'Output is stable across runtimes — safe to embed in URLs and analytics events.',
-		],
-		keywords: ['utility', 'simpleHash', 'hash', 'frontend-utilities'],
-		category: 'utilities',
-		package: '@atlaskit/frontend-utilities',
-		examples: [],
-		kind: 'function',
-		parameters: [
-			{
-				name: 'str',
-				type: 'string',
-				description: 'Input to hash.',
-			},
-		],
-		returns: {
-			type: 'string',
-			description: 'Base-36 representation of a 32-bit signed-to-unsigned hash.',
-		},
-		signature: '(str: string) => string',
-	},
-	{
-		name: 'skipA11yAudit',
-		description:
-			'Marks the current test so that `autoA11yCheck()` skips its audit. The skip is one-shot — it is cleared by `resetA11yAuditSkip()` between tests.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use sparingly. Prefer fixing the violation, or scoping the test to a smaller fixture, before reaching for a skip.',
-			'Always leave a comment next to the call explaining why the audit is skipped (e.g. tracked violation link or external library limitation).',
-		],
-		keywords: ['accessibility', 'a11y', 'skipA11yAudit', 'jest', 'testing'],
-		category: 'testing',
-		package: '@af/accessibility-testing',
-		examples: [],
-		kind: 'function',
-		signature: '() => void',
-	},
-	{
-		name: 'STORAGE_MOCK',
-		description:
-			'In-memory implementation of the DOM `Storage` interface used by `mockWindowStorage`. Exported directly so tests that need their own scoped mock (e.g. for `globalThis` shimming or browser-extension storage) can use it as a building block.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Prefer `mockWindowStorage()` for typical Jest setups. Reach for `STORAGE_MOCK` directly only when you need to install storage somewhere other than `window` (e.g. a worker global).',
-			'The mock is mutable and shared — wrap it with `{ ...STORAGE_MOCK }` before installing if you want per-test isolation manually.',
-		],
-		keywords: ['constant', 'STORAGE_MOCK', 'storage', 'test', 'frontend-utilities'],
-		category: 'utilities',
-		package: '@atlaskit/frontend-utilities',
-		examples: [],
-		kind: 'constant',
-		type: 'Storage',
-		value:
-			'{ length: 0; getItem(id); setItem(id, val); removeItem(id); clear(); key(index) } — backed by an in-memory `_data` record.',
-	},
-	{
-		name: 'toBeSuspendable',
-		description:
-			'Jest matcher that asserts the given render thunk suspends at least once before settling. Imported for the side effect of registering itself onto `expect`.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Pass a thunk that returns a `ReactNode` (`() => <App />`), not a component or an element directly. The matcher needs to re-invoke the thunk across renders.',
-			'Import the module once from your jest setup file — the matcher self-registers on import.',
-		],
-		keywords: ['testing', 'jest', 'matcher', 'suspense', 'toBeSuspendable'],
-		category: 'testing',
-		package: '@af/react-unit-testing',
-		examples: [],
-		kind: 'function',
-		signature: 'expect(() => ReactNode).toBeSuspendable()',
-	},
-	{
-		name: 'toPassStrictMode',
-		description:
-			'Jest matcher that asserts the given component does not log any of the known React Strict Mode warnings (legacy lifecycles, legacy context, etc.).',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Run on the root component you want to certify — strict-mode warnings bubble down, so a passing root means the whole subtree is clean.',
-			'Failures print the offending warning verbatim. Resolve by migrating off the deprecated API rather than suppressing the warning.',
-		],
-		keywords: ['testing', 'jest', 'matcher', 'strict-mode', 'toPassStrictMode'],
-		category: 'testing',
-		package: '@af/react-unit-testing',
-		examples: [],
-		kind: 'function',
-		signature: 'expect(() => ReactNode).toPassStrictMode()',
-	},
-	{
-		name: 'TResource',
-		description:
-			'Public shape of the value returned by `getSuspenseResource()`. Useful when stashing a resource on a ref or passing it between helpers.',
-		status: 'general-availability',
-		keywords: ['testing', 'suspense', 'type', 'TResource'],
-		category: 'testing',
-		package: '@af/react-unit-testing',
-		examples: [],
-		kind: 'type',
-		definition:
-			'type TResource = { read: () => void | never; load: () => { complete: () => Promise<void>; fail: () => Promise<void> } }',
-	},
-	{
-		name: 'UIAnalyticsEventHandler',
-		description:
-			'Signature for any function that receives events from an `AnalyticsListener`. Implement to forward events to your analytics SDK.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Handlers must not throw — analytics must never crash product UI. The runtime swallows handler errors in production and logs them in development.',
-		],
-		keywords: ['analytics', 'type', 'handler', 'UIAnalyticsEventHandler', 'analytics-next'],
-		category: 'analytics',
-		package: '@atlaskit/analytics-next',
-		examples: [],
-		kind: 'type',
-		definition: '(event: UIAnalyticsEvent, channel?: string) => void',
 	},
 	{
 		name: 'withFeatureFlaggedComponent',

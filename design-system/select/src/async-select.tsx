@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import AsyncReactSelect from '@atlaskit/react-select/async';
 
 import createSelect from './create-select';

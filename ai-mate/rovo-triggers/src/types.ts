@@ -500,6 +500,23 @@ export type InsertUrlsPayload = PayloadCore<
 	}
 >;
 
+/** Inserts a skill chip into the chat input at the current cursor position. */
+export type InsertSkillPayload = PayloadCore<
+	'insert-skill-into-prompt-input',
+	{
+		skill: {
+			id: string;
+			name: string;
+			slug: string;
+			description?: string;
+			product?: string;
+			iconName?: string;
+			color?: string;
+		};
+		skillSelectionSource?: string;
+	}
+>;
+
 /** Selects a conversation action by ID
  * - Used to programmatically open a specific action in the conversation actions list
  * - The action screen must be already open, and the actions list populated
@@ -714,6 +731,24 @@ export type SpaceSelectedPayload = PayloadCore<
 
 export type SpaceDeselectedPayload = PayloadCore<'space-deselected'>;
 
+/**
+ * Published by the Rovo chat custom-skill update action once the user confirms an
+ * `UpdateCustomSkillTool` action. Carries the confirmed skill content so the open
+ * Studio custom-skill view/edit page (matched by `skillAri`) can reflect the change
+ * optimistically in the Relay store without refetching.
+ */
+export type CustomSkillUpdatePayload = PayloadCore<
+	'custom-skill-update',
+	{
+		skillAri: string;
+		name: string;
+		displayName: string;
+		description: string;
+		instructions: string;
+		tools: { id: string; source: string; type: string }[];
+	}
+>;
+
 export type RecommendedSpacesSelectedPayload = PayloadCore<'recommended-spaces-selected'>;
 
 export type SmartlinksSubscriptionChangedPayload =
@@ -754,6 +789,7 @@ export type Payload =
 	| DashboardInsightsActionsPayload
 	| SetChatContextPayload
 	| InsertUrlsPayload
+	| InsertSkillPayload
 	| SelectActionPayload
 	| AddChartToDashboardPayload
 	| GenericExternalActionErrorPayload
@@ -774,6 +810,7 @@ export type Payload =
 	| SpaceSelectedPayload
 	| SpaceDeselectedPayload
 	| RecommendedSpacesSelectedPayload
+	| CustomSkillUpdatePayload
 	| TaskPlanConfirmedPayload
 	| TaskAskQuestionRenderedPayload
 	| TaskPlanRenderedPayload

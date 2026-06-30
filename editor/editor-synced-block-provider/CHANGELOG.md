@@ -1,5 +1,58 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.5.0
+
+### Minor Changes
+
+- [`ecafba7c81b7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecafba7c81b7d) -
+  Enrich synced block deletion analytics so source-block deletions can be explained rather than just
+  counted. The source `syncedBlockDelete` operational event now carries `deletionReason` and a
+  `mechanism` dimension (undo/redo/deleteButton/keyboardDelete/selectionReplaced/other), and
+  repeated emissions for the same removal are de-duplicated. A real operational `syncedBlockCreate`
+  success event is now emitted, and the source bare-uuid join key is added to the copy event so
+  create/copy/delete can be correlated. All new attributes and events are gated behind
+  `platform_editor_blocks_patch_4`; gate-off behaviour is unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.4.0
+
+### Minor Changes
+
+- [`5e439884aa23d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e439884aa23d) -
+  Add a readiness guard to the source synced-block cache-update path. When a `bodiedSyncBlock` node
+  is updated before its `localId`/`resourceId` has been populated (a benign timing/initialisation
+  ordering case), the cache update is now skipped as a no-op instead of throwing. This stops the
+  `Local ID or resource ID is not set` error from being logged and from firing the synced-block
+  update-cache operational error event, so it no longer counts as a genuine cache-update failure.
+  Gated behind `platform_editor_blocks_patch_4`.
+
 ## 8.3.1
 
 ### Patch Changes

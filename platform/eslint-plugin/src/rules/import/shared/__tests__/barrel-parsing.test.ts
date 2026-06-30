@@ -9,6 +9,7 @@ function createMockFs(files: Record<string, string>) {
 
 	const counters = {
 		readFileSync: 0,
+		readFileSyncPaths: [] as string[],
 		statSync: 0,
 	};
 
@@ -18,6 +19,7 @@ function createMockFs(files: Record<string, string>) {
 		},
 		readFileSync(path: string): string {
 			counters.readFileSync++;
+			counters.readFileSyncPaths.push(path);
 			if (!(path in files)) {
 				throw new Error(`ENOENT: ${path}`);
 			}
@@ -53,6 +55,50 @@ function createMockFs(files: Record<string, string>) {
 		},
 	};
 }
+
+describe('barrel-parsing / parseBarrelExports local import re-exports', () => {
+	it('only resolves local imports that are re-exported', () => {
+		const barrelFilePath = '/repo/index.ts';
+		const mock = createMockFs({
+			[barrelFilePath]: [
+				"import { used } from './used';",
+				"import { unused } from './unused-barrel';",
+				'',
+				'export { used };',
+			].join('\n'),
+			'/repo/used.ts': 'export const used = 1;\n',
+			'/repo/unused-barrel.ts': "export { expensive } from './expensive';\n",
+			'/repo/expensive.ts': 'export const expensive = 2;\n',
+		});
+
+		const exports = parseBarrelExports({ barrelFilePath, fs: mock.fs });
+
+		expect(exports.get('used')?.path).toBe('/repo/used.ts');
+		expect(exports.has('unused')).toBe(false);
+		expect(mock.counters.readFileSyncPaths).toEqual([barrelFilePath, '/repo/used.ts']);
+	});
+
+	it('marks local re-exports from import type declarations as type-only', () => {
+		const barrelFilePath = '/repo/index.ts';
+		const mock = createMockFs({
+			[barrelFilePath]: [
+				"import type { UsedClass } from './types';",
+				'',
+				'export { UsedClass };',
+			].join('\n'),
+			'/repo/types.ts': 'export class UsedClass {}\n',
+		});
+
+		const exports = parseBarrelExports({ barrelFilePath, fs: mock.fs });
+
+		expect(exports.get('UsedClass')).toEqual(
+			expect.objectContaining({
+				path: '/repo/types.ts',
+				isTypeOnly: true,
+			}),
+		);
+	});
+});
 
 describe('barrel-parsing / parseBarrelExports caching', () => {
 	it('memoizes barrel exports by file path and mtime', () => {

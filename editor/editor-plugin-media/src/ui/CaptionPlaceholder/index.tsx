@@ -1,3 +1,7 @@
+/* eslint-disable @atlaskit/design-system/use-primitives-text */
+// This had to be disabled to add an id and styles to a component that could not be replaced with Text
+// This was added in a experiment cleanup and should be removed if possible
+// Be sure to use primitives in this file as needed
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -6,14 +10,12 @@ import React, { useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { captionMessages as messages } from '@atlaskit/editor-common/media';
 import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Pressable, Text, xcss } from '@atlaskit/primitives';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -67,13 +69,7 @@ export const CaptionPlaceholder: React.ForwardRefExoticComponent<
 				onPointerDown={handlePointerDown}
 				// This id is just used for setting styles at the moment, if it's needed for anything more specific
 				// It may need to be generated to avoid overlap
-				id={
-					expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp'))
-						? CAPTION_PLACEHOLDER_ID
-						: undefined
-				}
+				id={CAPTION_PLACEHOLDER_ID}
 				data-id={CAPTION_PLACEHOLDER_ID}
 				data-testid="caption-placeholder"
 			>
@@ -91,7 +87,6 @@ export const CaptionPlaceholderButton: React.ForwardRefExoticComponent<
 	CaptionPlaceholderProps & React.RefAttributes<HTMLButtonElement>
 > = React.forwardRef<HTMLButtonElement, CaptionPlaceholderProps>(
 	({ onClick, placeholderMessage }, ref) => {
-		const intl = useIntl();
 		const handleMouseDown = useCallback((e: React.MouseEvent) => {
 			// In firefox, button is focused when mouse down, which make editor lose focus
 			// Hence we want to disabled it so that user can type in caption directly after click
@@ -113,24 +108,15 @@ export const CaptionPlaceholderButton: React.ForwardRefExoticComponent<
 				padding="space.0"
 				xcss={placeholderButton}
 			>
-				{expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-				(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-					fg('platform_editor_content_mode_button_mvp')) ? (
-					// This id is just used for setting styles at the moment, if it's needed for anything more specific
-					// It may need to be generated to avoid overlap
-					// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
-					<span css={placeholderText} id={CAPTION_PLACEHOLDER_ID}>
-						<FormattedMessage
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...computedPlaceholderMessage}
-						/>
-					</span>
-				) : (
-					<Text color="color.text.subtlest" size="large">
-						{intl.formatMessage(computedPlaceholderMessage)}
-					</Text>
-				)}
+				{/* This id is just used for setting styles at the moment, if it's needed for anything more
+				specific. It may need to be generated to avoid overlap*/}
+				<span css={placeholderText} id={CAPTION_PLACEHOLDER_ID}>
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...computedPlaceholderMessage}
+					/>
+				</span>
 			</Pressable>
 		);
 	},

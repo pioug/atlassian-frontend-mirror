@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import PersonIcon from '@atlaskit/icon/core/person';
 import { Bleed, Flex, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';

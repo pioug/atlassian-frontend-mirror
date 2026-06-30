@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
@@ -15,10 +17,10 @@ const styles = cssMap({
 		display: 'inline-block',
 
 		backgroundColor: token('color.background.brand.bold'),
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 
 		'&:hover': {
 			color: token('color.text.inverse'),

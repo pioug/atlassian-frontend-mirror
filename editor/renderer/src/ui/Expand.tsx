@@ -23,6 +23,7 @@ import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import _uniqueId from 'lodash/uniqueId';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
@@ -31,7 +32,6 @@ import type { AnalyticsEventPayload } from '../analytics/events';
 import { MODE, PLATFORM } from '../analytics/events';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import type { RendererAppearance, RendererContentMode } from './Renderer/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type StyleProps = {
 	children?: React.ReactNode;
@@ -334,11 +334,6 @@ function Expand({
 		setExpanded(true);
 	}, []);
 
-	const isCompactModeSupported =
-		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp'));
-	const isCompact = rendererContentMode === 'compact' && isCompactModeSupported;
 	const shouldRenderLazyChildren = hasLoadedChildren || loadBodyContent;
 	// Only render the lightweight text placeholder when lazy load is ON and
 	// children haven't been loaded yet. When lazy load is OFF, children are
@@ -495,7 +490,7 @@ function Expand({
 						</ExpandIconWrapper>
 					</Tooltip>
 				)}
-				<span css={[titleStyles, isCompact && titleStylesDense]} id={id}>
+				<span css={[titleStyles, rendererContentMode === 'compact' && titleStylesDense]} id={id}>
 					{title || intl.formatMessage(expandMessages.expandDefaultTitle)}
 				</span>
 			</TitleContainer>

@@ -1323,11 +1323,7 @@ export const DragHandle = ({
 					isFocused &&
 					keyboardFocusedDragHandleStyles,
 				editorExperiment('platform_editor_block_menu', true) ? focusedStyles : focusedStylesOld,
-				(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp')) ||
-					editorExperiment('platform_editor_block_menu', true)) &&
-					dragHandleButtonScaledStyles,
+				dragHandleButtonScaledStyles,
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

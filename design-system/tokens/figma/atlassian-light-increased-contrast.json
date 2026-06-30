@@ -3835,6 +3835,24 @@
         "description": "Use as a neutral container surface background."
       }
     },
+    "Light increased-contrast/elevation.surface.container.hovered": {
+      "value": "#0515240F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "14.1.0",
+        "description": "Hovered state of elevation.surface.container"
+      }
+    },
+    "Light increased-contrast/elevation.surface.container.pressed": {
+      "value": "#0B120E24",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "14.1.0",
+        "description": "Pressed state of elevation.surface.container"
+      }
+    },
     "Light increased-contrast/elevation.surface.overlay": {
       "value": "#FFFFFF",
       "attributes": {

@@ -57,9 +57,6 @@ import { tripleClickSelectAllExtension } from './extensions/tripleClickExtension
 import getLanguageName from './languages/getLanguageName';
 import { LanguageLoader } from './languages/loader';
 
-// Store last observed heights of code blocks
-const codeBlockHeights = new WeakMap<HTMLElement, number>();
-
 export interface ConfigProps {
 	allowCodeFolding: boolean;
 	api: ExtractInjectionAPI<CodeBlockAdvancedPlugin> | undefined;
@@ -89,7 +86,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private cleanupDisabledState: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
 	private pmFacet = Facet.define<DecorationSource>();
-	private ro?: ResizeObserver;
 	private unsubscribeContentFormat: (() => void) | undefined;
 	private invisibleAriaDescription?: HTMLSpanElement;
 	private config: ConfigProps;
@@ -108,16 +104,8 @@ class CodeBlockAdvancedNodeView implements NodeView {
 
 		this.view = view;
 		this.getPos = getPos;
-		const contentFormatSharedState = expValEquals(
-			'confluence_compact_text_format',
-			'isEnabled',
-			true,
-		)
-			? config.api?.contentFormat?.sharedState
-			: undefined;
-		this.contentMode = expValEquals('confluence_compact_text_format', 'isEnabled', true)
-			? contentFormatSharedState?.currentState?.()?.contentMode
-			: undefined;
+		const contentFormatSharedState = config.api?.contentFormat?.sharedState;
+		this.contentMode = contentFormatSharedState?.currentState?.()?.contentMode;
 
 		this.selectionAPI = config.api?.selection?.actions;
 		const getNode = () => this.node;
@@ -159,9 +147,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				config.allowCodeFolding ? [codeFoldingTheme] : [],
 				this.themeCompartment.of(
 					cmTheme({
-						contentMode: expValEquals('confluence_compact_text_format', 'isEnabled', true)
-							? this.contentMode
-							: undefined,
+						contentMode: this.contentMode,
 					}),
 				),
 				syntaxHighlighting(highlightStyle),
@@ -242,36 +228,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			);
 		}
 
-		// Observe size changes of the CodeMirror DOM and request a measurement pass
-		if (
-			!expValEquals('confluence_compact_text_format', 'isEnabled', true) &&
-			expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp')
-		) {
-			this.ro = new ResizeObserver((entries) => {
-				// Skip measurements when:
-				// 1. Currently updating (prevents feedback loops)
-				// 2. CodeMirror has focus (user is actively typing/editing)
-				if (this.updating || this.cm.hasFocus) {
-					return;
-				}
-
-				// Only trigger on height changes, not width or other dimension changes
-				for (const entry of entries) {
-					const currentHeight = entry.contentRect.height;
-					const lastHeight = codeBlockHeights.get(this.cm.contentDOM);
-					if (lastHeight !== undefined && lastHeight === currentHeight) {
-						return;
-					}
-					codeBlockHeights.set(this.cm.contentDOM, currentHeight);
-				}
-
-				// CodeMirror to re-measure when its content size changes
-				this.cm.requestMeasure();
-			});
-			this.ro.observe(this.cm.contentDOM);
-		}
-
 		if (expValEquals('platform_editor_code_block_q4_lovability', 'isEnabled', true)) {
 			this.cleanupBorderAreaMouseDown = bind(this.cm.scrollDOM, {
 				type: 'mousedown',
@@ -326,16 +282,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.cleanupBorderAreaMouseDown?.();
 		this.cleanupBorderAreaClick?.();
 		this.cleanupDisabledState?.();
-		if (expValEquals('confluence_compact_text_format', 'isEnabled', true)) {
-			this.unsubscribeContentFormat?.();
-		}
-		if (
-			!expValEquals('confluence_compact_text_format', 'isEnabled', true) &&
-			expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp')
-		) {
-			this.ro?.disconnect();
-		}
+		this.unsubscribeContentFormat?.();
 	}
 
 	forwardUpdate(update: ViewUpdate): void {

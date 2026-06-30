@@ -431,8 +431,6 @@ const Content = React.forwardRef<
 		markdownPluginCurrentIsMarkdownMode;
 	const shouldHideScrollGutterForMarkdownMode =
 		isMarkdownModeExperimentEnabled && markdownPluginCurrentIsMarkdownMode;
-	const shouldUseMarkdownModeMvpLayout =
-		shouldHideProseMirrorForMarkdownMode && fg('platform_editor_md_mvp_layout');
 
 	return (
 		<div
@@ -444,7 +442,7 @@ const Content = React.forwardRef<
 				css={[
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 					contentAreaWrapper,
-					shouldUseMarkdownModeMvpLayout && markdownModeContainerBackgroundStyle,
+					shouldHideProseMirrorForMarkdownMode && markdownModeContainerBackgroundStyle,
 				]}
 				data-testid={EDITOR_CONTAINER}
 				data-editor-container={'true'}
@@ -477,7 +475,7 @@ const Content = React.forwardRef<
 									hideEditorContentAreaProsemirrorWithAttributeStyle,
 								shouldHideScrollGutterForMarkdownMode &&
 									hideEditorContentAreaScrollGutterWithAttributeStyle,
-								shouldUseMarkdownModeMvpLayout && markdownModeContentAreaStyle,
+								shouldHideProseMirrorForMarkdownMode && markdownModeContentAreaStyle,
 								tableFullPageEditorStylesNew,
 								fullWidthNonChromelessBreakoutBlockTableStyle,
 								// for breakout resizing, there's no need to restrict the width of codeblocks as they're always wrapped in a breakout mark

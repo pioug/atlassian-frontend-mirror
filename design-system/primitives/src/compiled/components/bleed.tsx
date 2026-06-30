@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ReactNode } from 'react';
+import React, { type JSX, type ReactNode } from 'react';
 
 import { jsx } from '@compiled/react';
 

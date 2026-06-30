@@ -11,5 +11,6 @@ export type {
 	ReferenceSyncBlockData,
 	ReferencesSourceInfo,
 	DeletionReason,
+	DeletionMechanism,
 	SyncBlockPrefetchData,
 } from '../common/types';

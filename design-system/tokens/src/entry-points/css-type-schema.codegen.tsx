@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::294d96f6adb3504703f56b2d3df65a83>>
+ * @codegen <<SignedSource::8d175b6995b5bb60258e82cca397c158>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -74,6 +74,7 @@ export type BackgroundColorHovered =
 	| 'var(--ds-background-information-bold-hovered)'
 	| 'var(--ds-rovo-background-brand-bold-hovered)'
 	| 'var(--ds-surface-hovered)'
+	| 'var(--ds-surface-container-hovered)'
 	| 'var(--ds-surface-overlay-hovered)'
 	| 'var(--ds-surface-raised-hovered)'
 	| 'var(--ds-rovo-surface-overlay-hovered)';
@@ -145,6 +146,7 @@ export type BackgroundColorPressed =
 	| 'var(--ds-background-information-bold-pressed)'
 	| 'var(--ds-rovo-background-brand-bold-pressed)'
 	| 'var(--ds-surface-pressed)'
+	| 'var(--ds-surface-container-pressed)'
 	| 'var(--ds-surface-overlay-pressed)'
 	| 'var(--ds-surface-raised-pressed)'
 	| 'var(--ds-rovo-surface-overlay-pressed)';

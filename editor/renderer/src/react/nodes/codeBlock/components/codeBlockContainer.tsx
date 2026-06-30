@@ -9,8 +9,6 @@ import type { CodeBlockButtonContainerProps } from './codeBlockButtonContainer';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import CodeBlockButtonContainer from './codeBlockButtonContainer';
@@ -107,13 +105,7 @@ const CodeBlockContainer = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			data-local-id={localId}
-			css={[
-				codeBlockStyleOverrides,
-				(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp'))) &&
-					denseModeOverrides,
-			]}
+			css={[codeBlockStyleOverrides, denseModeOverrides]}
 		>
 			<CodeBlockButtonContainer
 				allowCopyToClipboard={allowCopyToClipboard}

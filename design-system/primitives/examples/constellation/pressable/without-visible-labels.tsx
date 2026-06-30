@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { ButtonGroup } from '@atlaskit/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';

@@ -1,6 +1,7 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { ADFEntity } from '../types';
 import { traverse } from '../traverse/traverse';
+import { panelC1FallbackTransform } from './panel-c1-fallback-transform';
 
 /**
  * Returns the set of parent node names whose content expression in the
@@ -23,7 +24,9 @@ const getPanelC1AllowedParentTypes = (schema: Schema): Set<string> => {
 };
 
 /**
- * Promotes nodes to their _c1 variant wherever the schema allows it.
+ * Applies schema-driven panel container transforms:
+ * - downgrades/restores `panel_c1` content via the fallback transform when gated on
+ * - promotes `panel` nodes to `panel_c1` wherever the schema allows it
  */
 export const transformContainerNodes = (
 	adf: ADFEntity,
@@ -35,10 +38,18 @@ export const transformContainerNodes = (
 } => {
 	let isTransformed: boolean = false;
 	const transformedNodeTypes = new Set<string>();
+	let transformedAdf: ADFEntity = adf;
+
+	const panelC1FallbackResult = panelC1FallbackTransform(schema, transformedAdf);
+	if (panelC1FallbackResult.isTransformed && panelC1FallbackResult.transformedAdf) {
+		isTransformed = true;
+		transformedNodeTypes.add('panel_c1');
+		transformedAdf = panelC1FallbackResult.transformedAdf;
+	}
 
 	const panelC1AllowedParents = getPanelC1AllowedParentTypes(schema);
 
-	const transformedAdf = traverse(adf, {
+	const promotedAdf = traverse(transformedAdf, {
 		panel: (node, parent) => {
 			const parentType = parent.node?.type;
 			if (parentType && panelC1AllowedParents.has(parentType)) {
@@ -51,7 +62,7 @@ export const transformContainerNodes = (
 	});
 
 	return {
-		transformedAdf,
+		transformedAdf: promotedAdf,
 		isTransformed,
 		transformedNodeTypes: Array.from(transformedNodeTypes),
 	};

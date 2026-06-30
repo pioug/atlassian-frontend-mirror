@@ -97,6 +97,34 @@ tester.run('feature-flags/no-module-level-eval', rule, {
                 }
             `,
 		},
+		{
+			name: 'FeatureGates.checkGate inside arrow function (statsig client)',
+			code: outdent`
+                import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+                const Component = () => {
+                    return FeatureGates.checkGate('my_gate') ? 'new' : 'old';
+                }
+            `,
+		},
+		{
+			name: 'FeatureGates.checkGate inside function declaration (statsig client)',
+			code: outdent`
+                import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+                function isEnabled() {
+                    return FeatureGates.checkGate('my_gate');
+                }
+            `,
+		},
+		{
+			name: 'checkGate from unrelated import is not flagged',
+			code: outdent`
+                import FeatureGates from 'some-other-lib';
+
+                const flag = FeatureGates.checkGate('my_gate');
+            `,
+		},
 	],
 	invalid: [
 		{
@@ -206,6 +234,35 @@ tester.run('feature-flags/no-module-level-eval', rule, {
                 import { dynamicConfigStringListIncludes } from '@atlaskit/tmp-editor-statsig/dynamic-config-value-contains';
 
                 const isAllowed = dynamicConfigStringListIncludes('my_config', 'value');
+            `,
+			errors: [{ messageId: 'noModuleLevelEval' }],
+		},
+		{
+			name: 'FeatureGates.checkGate stored into a module level variable (statsig client)',
+			code: outdent`
+                import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+                const isEnabled = FeatureGates.checkGate('my_gate');
+            `,
+			errors: [{ messageId: 'noModuleLevelEval' }],
+		},
+		{
+			name: 'FeatureGates.checkGate in a module level ternary (statsig client)',
+			code: outdent`
+                import FeatureGates from '@atlaskit/feature-gate-js-client';
+                import { NewComp } from 'new';
+                import { OldComp } from 'old';
+
+                export const Component = FeatureGates.checkGate('my_gate') ? NewComp : OldComp;
+            `,
+			errors: [{ messageId: 'noModuleLevelEval' }],
+		},
+		{
+			name: 'FeatureGates.getExperimentValue at module level (statsig client)',
+			code: outdent`
+                import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+                const variant = FeatureGates.getExperimentValue('my_exp', 'variant', 'control');
             `,
 			errors: [{ messageId: 'noModuleLevelEval' }],
 		},

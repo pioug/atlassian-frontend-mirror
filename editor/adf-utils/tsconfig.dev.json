@@ -49,6 +49,12 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-prosemirror/tsconfig.app.json"
+		},
+		{
+			"path": "../tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
 			"path": "../adf-schema-json/tsconfig.app.json"
 		},
 		{

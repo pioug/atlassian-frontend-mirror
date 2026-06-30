@@ -1,4 +1,5 @@
 // This import will be stripped on build
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -18,17 +19,18 @@ import { token } from '@atlaskit/tokens';
  * - **DO NOT**: store the output of these functions in any user-generated content or back-end.
  * - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color
  */
-
 export function hexToEditorTextPaletteColor<HexColor extends string>(
 	hexColor: HexColor,
 ): HexColor extends EditorTextPaletteKey
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
 		EditorTextPalette[HexColor]
 	: string | undefined {
+	const normalizedHexColor = hexColor ? hexColor.toUpperCase() : undefined;
+
 	// Ts ignore used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
 	// @ts-ignore
-	return editorTextPalette[hexColor.toUpperCase()];
+	return normalizedHexColor ? editorTextPalette[normalizedHexColor] : undefined;
 }
 type EditorTextPalette = typeof editorTextPalette;
 export type EditorTextPaletteKey = keyof EditorTextPalette;
@@ -139,7 +141,13 @@ export const editorTextPalette = {
 
 	// yellow
 	/** yellow - medium */
-	['#B38600']: token('color.icon.accent.yellow') as 'var(--ds-icon-accent-yellow, #B38600)',
+	get ['#B38600']():
+		| 'var(--ds-border-accent-yellow, #B38600)'
+		| 'var(--ds-icon-accent-yellow, #B38600)' {
+		return fg('platform_editor_lovability_text_bg_color_patch_1')
+			? (token('color.border.accent.yellow') as 'var(--ds-border-accent-yellow, #B38600)')
+			: (token('color.icon.accent.yellow') as 'var(--ds-icon-accent-yellow, #B38600)');
+	},
 	/** yellow - strong */
 	['#7F5F01']: token('color.text.accent.yellow') as 'var(--ds-text-accent-yellow, #7F5F01)',
 };

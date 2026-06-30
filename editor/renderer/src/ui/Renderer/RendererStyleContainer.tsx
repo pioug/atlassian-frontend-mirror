@@ -3235,12 +3235,6 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 		{ exposure: true },
 	);
 
-	const isCompactModeSupported =
-		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp'));
-	const isCompactModeEnabled = contentMode === 'compact' && isCompactModeSupported;
-
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 	const browser = getBrowserInfo();
 	return (
@@ -3309,12 +3303,12 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					? headingWithAlignmentStyles
 					: headingWithAlignmentStylesDuplicateAnchor,
 				ruleSharedStyles,
-				contentMode === 'compact' && isCompactModeSupported && extensionStyle,
+				contentMode === 'compact' && extensionStyle,
 				fg('platform_editor_typography_ugc')
-					? isCompactModeSupported
+					? contentMode === 'compact'
 						? paragraphStylesUGCScaledMargin
 						: paragraphSharedStylesWithEditorUGC
-					: isCompactModeSupported
+					: contentMode === 'compact'
 						? paragraphSharedStyleScaledMargin
 						: paragraphSharedStyles,
 				listsSharedStyles,
@@ -3413,13 +3407,13 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 							expValEquals('confluence_max_width_content_appearance', 'isEnabled', true)))) &&
 					responsiveBreakoutWidthFullWidth,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
-					? isCompactModeEnabled
+					? contentMode === 'compact'
 						? scaledDenseEmojiStyles
 						: scaledEmojiStyles
-					: isCompactModeEnabled
+					: contentMode === 'compact'
 						? denseStyles
 						: undefined,
-				isCompactModeEnabled ? scaledDenseUnicodeEmojiStylesNew : scaledUnicodeEmojiStylesNew,
+				contentMode === 'compact' ? scaledDenseUnicodeEmojiStylesNew : scaledUnicodeEmojiStylesNew,
 				editorExperiment('platform_synced_block', true) && syncBlockStyles,
 				centerWrapperStyles,
 				editorExperiment('platform_synced_block', true) && isInsideSyncBlock

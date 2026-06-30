@@ -14,13 +14,13 @@ const packagePath = path.resolve(__dirname);
 const documentation: StructuredContentSource = {
 	components: [
 		{
-			name: 'Email Renderer',
+			name: 'EmailSerializer',
 			description: 'Email renderer',
 			status: 'general-availability',
 			import: {
-				name: 'Email Renderer',
+				name: 'EmailSerializer',
 				package: '@atlaskit/email-renderer',
-				type: 'default',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},

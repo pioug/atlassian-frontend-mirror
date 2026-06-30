@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::277dd7c0cf86c7859aa259537c97339f>>
+ * @codegen <<SignedSource::7b6257e877f645abd5b56726d725bd76>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -487,6 +487,8 @@ var tokens = {
   'elevation.surface.hovered': '--ds-surface-hovered',
   'elevation.surface.pressed': '--ds-surface-pressed',
   'elevation.surface.container': '--ds-surface-container',
+  'elevation.surface.container.hovered': '--ds-surface-container-hovered',
+  'elevation.surface.container.pressed': '--ds-surface-container-pressed',
   'elevation.surface.overlay': '--ds-surface-overlay',
   'elevation.surface.overlay.hovered': '--ds-surface-overlay-hovered',
   'elevation.surface.overlay.pressed': '--ds-surface-overlay-pressed',

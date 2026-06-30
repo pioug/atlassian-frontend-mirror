@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { type JSX, useState } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';

@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/88d8be6b-b12c-49aa-9a90-7b9401899c4a
+name: '@atlaskit/platform-feature-flags-react'
+ownerId: ari:cloud:identity::team/2a6b500a-8560-4ab6-9b57-8ac47a73e0c4 # Eng - Jira Frontier - Growth - Makkuro (Luke Esther)
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C0141NRH2HL # #help-flywheel-makkuro
+  - name: Feature Flags React
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/feature-flags-react
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Jira Frontier - Growth - Makkuro
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/557057:11c4af15-e58e-4f41-9792-e6219d6d8468 # Luke Esther
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

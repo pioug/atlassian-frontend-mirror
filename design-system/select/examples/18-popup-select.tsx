@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
+import { Fragment, type JSX } from 'react';
 
 import { css, jsx } from '@compiled/react';
 

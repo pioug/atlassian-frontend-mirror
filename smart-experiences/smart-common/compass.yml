@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/a4f45f54-67d6-415d-9718-e1b94ebebcbe
+name: '@atlaskit/smart-common'
+ownerId: ari:cloud:identity::team/8c518cea-39e4-4a9e-976b-2eec1db07eb2 # Search PlEx
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/CFG8QANL9 # #help-search-plex
+  - name: Smart Common
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/smart-experiences/smart-common
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Search PLEX
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/712020:bc050a72-a59d-487f-8b54-73358ba67dd0 # David Lyon
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

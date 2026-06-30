@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback } from 'react';
+import { type JSX, useCallback } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Pressable } from '@atlaskit/primitives/compiled';
@@ -13,10 +13,10 @@ const styles = cssMap({
 		color: token('color.text.subtle'),
 		fontWeight: token('font.weight.medium'),
 		backgroundColor: token('color.background.neutral.subtle'),
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 
 		'&:hover': {
 			textDecoration: 'underline',

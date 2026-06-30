@@ -3,7 +3,6 @@ import {
 	akEditorFullPageDefaultFontSize,
 	akEditorFullPageDenseFontSize,
 } from '@atlaskit/editor-shared-styles';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * @param appearance
@@ -13,13 +12,8 @@ export function getBaseFontSize(
 	appearance?: EditorAppearance,
 	contentMode?: EditorContentMode,
 ): number | undefined {
-	if (
-		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-		expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
-	) {
-		if (contentMode === 'compact') {
-			return akEditorFullPageDenseFontSize;
-		}
+	if (contentMode === 'compact') {
+		return akEditorFullPageDenseFontSize;
 	}
 
 	if (appearance === undefined) {

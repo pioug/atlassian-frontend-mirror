@@ -1,12 +1,19 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { DeletionReason, SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type {
+	DeletionMechanism,
+	DeletionReason,
+} from '@atlaskit/editor-synced-block-provider/common/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 import { FLAG_ID } from '../../types';
 import type { ActiveFlag, SyncBlockInfo } from '../../types';
 import { syncedBlockPluginKey } from '../main';
+
+import { recomputeDeleteTransaction } from './recompute-delete-transaction';
 
 export type TransactionRef = { current: Transaction | undefined };
 
@@ -38,6 +45,7 @@ export const handleBodiedSyncBlockRemoval = (
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	confirmationTransactionRef: TransactionRef,
 	deletionReason: DeletionReason,
+	mechanism?: DeletionMechanism,
 ) => {
 	// Clear potential old pending deletion to retreat the deletion as first attempt
 	syncBlockStore.sourceManager.clearPendingDeletion();
@@ -50,6 +58,41 @@ export const handleBodiedSyncBlockRemoval = (
 		bodiedSyncBlockRemoved.map((node) => node.attrs),
 		deletionReason,
 		() => {
+			if (fg('platform_editor_blocks_patch_4')) {
+				// Recompute the delete fresh from the live document instead of
+				// replaying a stashed-and-rebased transaction. The stash/rebase
+				// approach produced stale, schema-invalid transactions when the
+				// document changed shape (local edits or remote collab) while the
+				// confirmation modal was open — the dominant signature being
+				// "Invalid content for node bodiedSyncBlock: <>". See EDITOR-7889.
+				api?.core?.actions.execute(({ tr }) => {
+					const recomputedTr = recomputeDeleteTransaction(
+						tr,
+						syncBlockStore.sourceManager.isSourceBlock,
+						bodiedSyncBlockRemoved.map((node) => node.attrs),
+					);
+
+					// The target node(s) no longer exist in the live document (e.g.
+					// a remote collaborator already removed them). There is nothing
+					// to delete locally, so return `null` to skip the dispatch
+					// entirely — dispatching the untouched transaction would be a
+					// no-op that still runs the plugin's filter/append hooks. The
+					// backend deletion has already been issued by the store manager.
+					if (!recomputedTr) {
+						return null;
+					}
+
+					recomputedTr.setMeta('isConfirmedSyncBlockDeletion', true);
+					if (!recomputedTr.getMeta(pmHistoryPluginKey)) {
+						// bodiedSyncBlock deletion is expected to be permanent (cannot undo)
+						// For a normal deletion (not triggered by undo), remove it from history so that it cannot be undone
+						recomputedTr.setMeta('addToHistory', false);
+					}
+					return recomputedTr;
+				});
+				return;
+			}
+
 			const confirmationTransaction = confirmationTransactionRef.current;
 			if (!confirmationTransaction) {
 				return;
@@ -92,6 +135,7 @@ export const handleBodiedSyncBlockRemoval = (
 		() => {
 			confirmationTransactionRef.current = undefined;
 		},
+		mechanism,
 	);
 	return false;
 };

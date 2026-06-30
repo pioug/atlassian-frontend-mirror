@@ -12,7 +12,7 @@ import packageJson from './package.json';
 const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
-	components: [
+	hooks: [
 		{
 			name: 'useSmartLinkLifecycleAnalytics',
 			description:
@@ -28,7 +28,6 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use when you need to track when links are created, updated, or deleted (e.g. after LinkCreate success, or when a user edits/removes a link). Must be used inside SmartCardProvider and with analytics-next.',
 			],
-			contentGuidelines: [],
 			accessibilityGuidelines: [
 				'Ensure analytics firing does not change focus, interrupt screen readers, or alter semantics.',
 			],
@@ -57,7 +56,6 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use when you need to track when datasources (e.g. Jira issues list, Confluence search list) are created, updated, or deleted. Must be used inside SmartCardProvider.',
 			],
-			contentGuidelines: [],
 			accessibilityGuidelines: [
 				'Ensure analytics firing does not change focus or alter semantics.',
 			],

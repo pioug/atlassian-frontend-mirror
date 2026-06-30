@@ -190,6 +190,9 @@
 			"path": "../../data/ufo-external/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/visually-hidden/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/width-detector/tsconfig.app.json"
 		},
 		{

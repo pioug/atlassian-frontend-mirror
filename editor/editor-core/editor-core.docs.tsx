@@ -18,8 +18,8 @@ const documentation: StructuredContentSource = {
 			description: 'A package contains Atlassian editor core functionality',
 			status: 'general-availability',
 			import: {
-				name: 'Editor',
-				package: '@atlaskit/editor-core',
+				name: 'ComposableEditor',
+				package: '@atlaskit/editor-core/composable-editor',
 				type: 'named',
 				packagePath,
 				packageJson,

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.3.2
+
+### Patch Changes
+
+- [`a8ef3be54555b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8ef3be54555b) -
+  Update generated structured docs skills
+
 ## 1.3.1
 
 ### Patch Changes

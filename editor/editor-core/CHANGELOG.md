@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 221.5.7
+
+### Patch Changes
+
+- [`46ee61dd53e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ee61dd53e91) -
+  Remove stale experiment confluence_compact_text_format (FFCLEANUP-85812): inline final values
+  (flag enabled), simplify conditions, remove experiment config entries.
+- Updated dependencies
+
+## 221.5.6
+
+### Patch Changes
+
+- [`32bf579c6f736`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32bf579c6f736) -
+  Cleaned up MVP markdown layout fg platform_editor_md_mvp_layout
+- Updated dependencies
+
+## 221.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.5.3
 
 ### Patch Changes

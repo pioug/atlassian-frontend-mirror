@@ -192,6 +192,7 @@ type MBEEventPayload = TrackAEP<
 	ACTION_SUBJECT.MULTI_BODIED_EXTENSION,
 	undefined,
 	{
+		changedParams?: string;
 		currentFramesCount: number;
 		extensionKey: string;
 		extensionType: string;

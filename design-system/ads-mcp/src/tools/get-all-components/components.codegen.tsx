@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::213789378961bb4a394b789c8cc40b98>>
+ * @codegen <<SignedSource::983d6ae1ff7763911989373903ab1009>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:ads-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2760,6 +2760,329 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'Dynamic table',
+		package: '@atlaskit/dynamic-table',
+		description:
+			'A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.',
+		status: 'general-availability',
+		keywords: [
+			'table',
+			'dynamic-table',
+			'data',
+			'rows',
+			'columns',
+			'sorting',
+			'pagination',
+			'drag and drop',
+			'ranking',
+		],
+		category: 'data display',
+		examples: [
+			'import DynamicTable from \'@atlaskit/dynamic-table\';\nimport { head, rows } from \'./content/sample-data\';\nexport default function TableUncontrolled(): React.JSX.Element {\n\treturn (\n\t\t<DynamicTable\n\t\t\thead={head}\n\t\t\trows={rows}\n\t\t\trowsPerPage={5}\n\t\t\tdefaultPage={1}\n\t\t\tloadingSpinnerSize="large"\n\t\t\tisRankable\n\t\t\ttestId="table"\n\t\t/>\n\t);\n}',
+			"import React, { useState } from 'react';\nimport Banner from '@atlaskit/banner';\nimport ButtonGroup from '@atlaskit/button/button-group';\nimport Button from '@atlaskit/button/new';\nimport { cssMap } from '@atlaskit/css';\nimport { DynamicTableStateless } from '@atlaskit/dynamic-table';\nimport WarningIcon from '@atlaskit/icon/core/status-warning';\nimport { Flex } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { head, rows } from './content/sample-data';\nconst iconSpacingStyles = cssMap({\n\tspace050: {\n\t\tpaddingBlock: token('space.050'),\n\t\tpaddingInline: token('space.050'),\n\t},\n});\nexport default function TableControlled(): React.JSX.Element {\n\tconst [pageNumber, setPageNumber] = useState(3);\n\tconst navigateTo = (pageNumber: number) => {\n\t\tsetPageNumber(pageNumber);\n\t};\n\treturn (\n\t\t<>\n\t\t\t<Banner\n\t\t\t\tappearance=\"warning\"\n\t\t\t\ticon={\n\t\t\t\t\t<Flex xcss={iconSpacingStyles.space050}>\n\t\t\t\t\t\t<WarningIcon label=\"\" />\n\t\t\t\t\t</Flex>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tThis is a stateless table example, which doesn't have pagination support. To navigate pages,\n\t\t\t\tuse the \"Previous page\" and \"Next page\" buttons.\n\t\t\t</Banner>\n\t\t\t<ButtonGroup label=\"Paging navigation\">\n\t\t\t\t<Button isDisabled={pageNumber === 1} onClick={() => navigateTo(pageNumber - 1)}>\n\t\t\t\t\tPrevious Page\n\t\t\t\t</Button>\n\t\t\t\t<Button isDisabled={pageNumber === 5} onClick={() => navigateTo(pageNumber + 1)}>\n\t\t\t\t\tNext Page\n\t\t\t\t</Button>\n\t\t\t</ButtonGroup>\n\t\t\t<DynamicTableStateless\n\t\t\t\thead={head}\n\t\t\t\trows={rows}\n\t\t\t\trowsPerPage={5}\n\t\t\t\tpage={pageNumber}\n\t\t\t\tloadingSpinnerSize=\"large\"\n\t\t\t\tisLoading={false}\n\t\t\t\tisFixedSize\n\t\t\t\tsortKey=\"term\"\n\t\t\t\tsortOrder=\"DESC\"\n\t\t\t\tonSort={() => console.log('onSort')}\n\t\t\t\tonSetPage={() => console.log('onSetPage')}\n\t\t\t/>\n\t\t</>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'caption',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Caption for the table styled as a heading. This appears before the table header, and is announced when people who use assistive technology land on the table.\nIf you don’t want the caption to appear on the page but do want it to be available for assistive technology, surround the caption with `<VisuallyHidden>`.',
+			},
+			{
+				name: 'defaultPage',
+				type: 'number',
+				description:
+					'When the table is initially rendered, use this to set which page number is shown by default.\nIn most circumstances, people will expect this to be page `1`.',
+			},
+			{
+				name: 'defaultSortKey',
+				type: 'string',
+				description:
+					"Sets which column the rows should be sorted by when the table is initially rendered.\nCorresponds to the `key`'s defined in the `head` prop.",
+			},
+			{
+				name: 'defaultSortOrder',
+				type: '"ASC" | "DESC"',
+				description:
+					'Default column sort order used when initially rendering.\nDefaults to `"ASC"`.',
+			},
+			{
+				name: 'emptyView',
+				type: 'ReactElement<any, string | JSXElementConstructor<any>>',
+				description: 'Shown when the table has no content.',
+			},
+			{
+				name: 'head',
+				type: 'HeadType',
+				description:
+					'Cells to be placed in the head of the table. Never put controls, like links and buttons in the table header.\nEach element in the head creates a new column.',
+			},
+			{
+				name: 'highlightedRowIndex',
+				type: 'number | number[]',
+				description:
+					'Use this to set if the row will be highlighted. Never use highlighted rows to indicate that a person has selected or focused on the row.',
+			},
+			{
+				name: 'isFixedSize',
+				type: 'boolean',
+				description:
+					'Use this to force columns to use their initial width regardless of the size of the content that loads in.',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description: 'Displays a loading spinner overlaid on top of the current page.',
+			},
+			{
+				name: 'isRankable',
+				type: 'boolean',
+				description: 'Use this to enable drag and drop sorting of table rows.',
+			},
+			{
+				name: 'isRankingDisabled',
+				type: 'boolean',
+				description:
+					'Disables being able to drop rows on the table.\nWe recommend using `isRankable` instead of this prop, and it will be deprecated in a future release.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'If you don’t use a caption, then you’ll need to use label to describe the table for assistive technologies.\nAvoid using both at the same time as they may conflict.\nRather than a screen reader speaking "Entering table", passing in an label allows a custom message like "Entering Jira work items table".',
+			},
+			{
+				name: 'loadingLabel',
+				type: 'string',
+				description:
+					'Use this to set a label for assistive technology that describes the loading state.\nThe default label is "Loading table". You can customize this to be more specific to your table, for example “Loading work items table”.',
+			},
+			{
+				name: 'loadingSpinnerSize',
+				type: '"small" | "large"',
+				description:
+					'Configuration of the loading spinner shown when `isLoading` is true.\nDefaults to `"large"` when a page has more than two rows, else `"small"`.',
+			},
+			{
+				name: 'onPageRowsUpdate',
+				type: '(pageRows: RowType[]) => void',
+				description: 'A callback that happens when the rows displayed on a page have changed.',
+			},
+			{
+				name: 'onRankEnd',
+				type: '(rankEnd: RankEnd) => void',
+				description: 'A callback that happens when a drop of a row has completed.',
+			},
+			{
+				name: 'onRankStart',
+				type: '(rankStart: RankStart) => void',
+				description: 'A callback that happens when a drag of a row has started.',
+			},
+			{
+				name: 'onSetPage',
+				type: '(page: number, UIAnalyticsEvent?: UIAnalyticsEvent) => void',
+				description: 'A callback that happens when the table page has changed.',
+			},
+			{
+				name: 'onSort',
+				type: '(data: any, UIAnalyticsEvent?: UIAnalyticsEvent) => void',
+				description:
+					'A callback that happens when a column heading has been sorted. Use this to provide custom sorting.',
+			},
+			{
+				name: 'page',
+				type: 'number',
+				description: 'Page the table should show.',
+			},
+			{
+				name: 'paginationi18n',
+				type: 'I18nShape',
+				description:
+					'Labels for the previous and next buttons used in pagination.\nDefaults to `"Previous"` and `"Next"`.',
+			},
+			{
+				name: 'rows',
+				type: 'RowType[]',
+				description:
+					"Rows to be placed in the table.\nEach row contains cells which should map to the ones defined in the head.\nRows accept standard HTML <tr> props in addition to those listed below.\nEnsure each cell has a unique `key` per column - this is used for both React's reconciliation of lists and column sorting.",
+			},
+			{
+				name: 'rowsPerPage',
+				type: 'number',
+				description:
+					'Use this to control how many rows should be displayed per page. If the number of rows exceed one page, this will enable pagination.',
+			},
+			{
+				name: 'sortKey',
+				type: 'string',
+				description:
+					"Column key that the rows should be sorted by.\nCorresponds to the `key`'s defined in the `head` prop.",
+			},
+			{
+				name: 'sortOrder',
+				type: '"ASC" | "DESC"',
+				description: 'Column sort order.',
+			},
+		],
+	},
+	{
+		name: 'DynamicTableStateless',
+		package: '@atlaskit/dynamic-table',
+		description:
+			'A stateless dynamic table for when you need to control pagination, sorting, and data externally. Use when integrating with custom state management.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when you need to control table state externally (e.g. server-side pagination, custom sort logic)',
+			'Use DynamicTable (stateful) when built-in pagination and sorting are sufficient',
+		],
+		keywords: ['table', 'dynamic-table', 'stateless', 'controlled', 'pagination', 'sorting'],
+		category: 'data display',
+		examples: [
+			"import React, { useState } from 'react';\nimport Banner from '@atlaskit/banner';\nimport ButtonGroup from '@atlaskit/button/button-group';\nimport Button from '@atlaskit/button/new';\nimport { cssMap } from '@atlaskit/css';\nimport { DynamicTableStateless } from '@atlaskit/dynamic-table';\nimport WarningIcon from '@atlaskit/icon/core/status-warning';\nimport { Flex } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { head, rows } from './content/sample-data';\nconst iconSpacingStyles = cssMap({\n\tspace050: {\n\t\tpaddingBlock: token('space.050'),\n\t\tpaddingInline: token('space.050'),\n\t},\n});\nexport default function TableControlled(): React.JSX.Element {\n\tconst [pageNumber, setPageNumber] = useState(3);\n\tconst navigateTo = (pageNumber: number) => {\n\t\tsetPageNumber(pageNumber);\n\t};\n\treturn (\n\t\t<>\n\t\t\t<Banner\n\t\t\t\tappearance=\"warning\"\n\t\t\t\ticon={\n\t\t\t\t\t<Flex xcss={iconSpacingStyles.space050}>\n\t\t\t\t\t\t<WarningIcon label=\"\" />\n\t\t\t\t\t</Flex>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tThis is a stateless table example, which doesn't have pagination support. To navigate pages,\n\t\t\t\tuse the \"Previous page\" and \"Next page\" buttons.\n\t\t\t</Banner>\n\t\t\t<ButtonGroup label=\"Paging navigation\">\n\t\t\t\t<Button isDisabled={pageNumber === 1} onClick={() => navigateTo(pageNumber - 1)}>\n\t\t\t\t\tPrevious Page\n\t\t\t\t</Button>\n\t\t\t\t<Button isDisabled={pageNumber === 5} onClick={() => navigateTo(pageNumber + 1)}>\n\t\t\t\t\tNext Page\n\t\t\t\t</Button>\n\t\t\t</ButtonGroup>\n\t\t\t<DynamicTableStateless\n\t\t\t\thead={head}\n\t\t\t\trows={rows}\n\t\t\t\trowsPerPage={5}\n\t\t\t\tpage={pageNumber}\n\t\t\t\tloadingSpinnerSize=\"large\"\n\t\t\t\tisLoading={false}\n\t\t\t\tisFixedSize\n\t\t\t\tsortKey=\"term\"\n\t\t\t\tsortOrder=\"DESC\"\n\t\t\t\tonSort={() => console.log('onSort')}\n\t\t\t\tonSetPage={() => console.log('onSetPage')}\n\t\t\t/>\n\t\t</>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'caption',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'Caption for the table styled as a heading. This appears before the table header, and is announced when people who use assistive technology land on the table.\nIf you don’t want the caption to appear on the page but do want it to be available for assistive technology, surround the caption with `<VisuallyHidden>`.',
+			},
+			{
+				name: 'emptyView',
+				type: 'React.ReactElement<any, string | React.JSXElementConstructor<any>>',
+				description: 'Shown when the table has no content.',
+			},
+			{
+				name: 'head',
+				type: 'HeadType',
+				description:
+					'Cells to be placed in the head of the table.\nEach element in the head creates a new column.',
+			},
+			{
+				name: 'highlightedRowIndex',
+				type: 'number | number[]',
+				description:
+					'Use this to set which rows will be highlighted. Never use highlighted rows to indicate that a person has selected or focused on the row.',
+			},
+			{
+				name: 'isFixedSize',
+				type: 'boolean',
+				description:
+					'Use this to force columns to use their initial width regardless of the size of the content that loads in.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean',
+				description: 'Displays a loading spinner overlaid on top of the current page.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isRankable',
+				type: 'boolean',
+				description: 'Use this to enable drag and drop sorting of table rows.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isRankingDisabled',
+				type: 'boolean',
+				description:
+					'Disables being able to drop rows on the table.\nWe recommend using `isRankable` instead of this prop, and it will be deprecated in a future release.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'If you don’t use a caption, then you’ll need to use label to describe the table for assistive technologies.\nAvoid using both at the same time as they may conflict.\nRather than a screen reader speaking "Entering table", passing in an label allows a custom message like "Entering Jira work items table".',
+			},
+			{
+				name: 'loadingLabel',
+				type: 'string',
+				description:
+					'Accessible name for loading states spinner. Can be used for internationalization. Default is "Loading table".',
+			},
+			{
+				name: 'loadingSpinnerSize',
+				type: '"small" | "large"',
+				description:
+					'Sets the size of the loading spinner when `isLoading` is true.\nDefaults to `"large"` when a page has more than two rows, otherwise it will be `"small"`.',
+			},
+			{
+				name: 'onPageRowsUpdate',
+				type: '(pageRows: RowType[]) => void',
+				description: 'A callback that happens when the rows displayed on a page have changed.',
+			},
+			{
+				name: 'onRankEnd',
+				type: '(rankEnd: RankEnd, uiAnalyticsEvent?: UIAnalyticsEvent) => void',
+				description: 'A callback that happens when a drop of a row has completed.',
+			},
+			{
+				name: 'onRankStart',
+				type: '(rankStart: RankStart) => void',
+				description: 'A callback that happens when a drag of a row has started.',
+				defaultValue: 'noop',
+			},
+			{
+				name: 'onSetPage',
+				type: '(page: number, UIAnalyticsEvent?: UIAnalyticsEvent) => void',
+				description:
+					'A callback that happens when the table page has changed.\nUse this when you want to control the pagination of the table.',
+				defaultValue: 'noop',
+			},
+			{
+				name: 'onSort',
+				type: '(data: any, UIAnalyticsEvent?: UIAnalyticsEvent) => void',
+				description:
+					'A callback that happens when a column heading has been sorted. Use this to provide custom sorting for the table.',
+			},
+			{
+				name: 'page',
+				type: 'number',
+				description:
+					"Page the table should show. Set by default to 1, so that it's never undefined.",
+				defaultValue: '1',
+			},
+			{
+				name: 'paginationi18n',
+				type: 'I18nShape',
+				description:
+					'Labels for the pagination wrapper, previous and next buttons used in pagination.\nDefaults to `"Page"`, `"Pagination"`, `"Previous"` and `"Next"`.',
+				defaultValue:
+					"{\n\t\tprev: 'Previous Page',\n\t\tnext: 'Next Page',\n\t\tlabel: 'Pagination',\n\t\tpageLabel: 'Page',\n\t}",
+			},
+			{
+				name: 'rows',
+				type: 'RowType[]',
+				description:
+					'Rows to be placed in the table.\nEach row contains cells which should map to the ones defined in the head.\n\nEnsure each cell has a unique `key` per column - this is used for both Reacts reconcilation of lists and column sorting.',
+			},
+			{
+				name: 'rowsPerPage',
+				type: 'number',
+				description: 'Controls how many rows should be displayed per page.',
+				defaultValue: 'Infinity',
+			},
+			{
+				name: 'sortKey',
+				type: 'string',
+				description:
+					"Column key that the rows should be sorted by.\nCorresponds to the `key`'s defined in the `head` prop.",
+			},
+			{
+				name: 'sortOrder',
+				type: '"ASC" | "DESC"',
+				description: 'Column sort order.',
+			},
+			{
+				name: 'totalRows',
+				type: 'number',
+				description: 'Total number of rows, in case of paginated data.',
+			},
+		],
+	},
+	{
 		name: 'EmptyState',
 		package: '@atlaskit/empty-state',
 		description:
@@ -4508,6 +4831,35 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'Layering',
+		package: '@atlaskit/layering',
+		description:
+			'Registers its subtree as a layer in the layering tree. When `isDisabled` is false, this layer participates in topmost-layer tracking; sibling hooks like `useCloseOnEscapePress` only fire on the layer that is actually on top.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Wrap the root of any layered surface (modal, popup, drawer, spotlight) in `<Layering>` so dismissal hooks can tell which layer is on top.',
+			'Leave `isDisabled` at its default while the layer is mounted but inactive (for example, a modal that is open but covered by a nested popup). The disabled layer stops claiming the top spot until it becomes active again.',
+		],
+		accessibilityGuidelines: [
+			'Layering does not render any DOM itself — it is purely a context provider. Keep the underlying surface accessible (focus trap, aria attributes, restore focus on close) using the host component, not this wrapper.',
+		],
+		keywords: ['layering', 'layer', 'modal', 'popup', 'drawer', 'spotlight', 'top-layer'],
+		category: 'layering',
+		examples: [],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				isRequired: true,
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean',
+				defaultValue: 'true',
+			},
+		],
+	},
+	{
 		name: 'Link',
 		package: '@atlaskit/link',
 		description: 'A component for navigation links.',
@@ -5711,7 +6063,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'enteringAnimation',
-				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-flag-enter)" | "var(--ds-flag-exit)" | ... 12 more ... | "var(--ds-spotlight-exit)"',
+				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 14 more ... | "var(--ds-spotlight-exit)"',
 				description: 'Motion token for the entering animation.',
 			},
 			{
@@ -5721,7 +6073,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'exitingAnimation',
-				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-flag-enter)" | "var(--ds-flag-exit)" | ... 12 more ... | "var(--ds-spotlight-exit)"',
+				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 14 more ... | "var(--ds-spotlight-exit)"',
 				description: 'Motion token for the exiting animation.',
 			},
 			{
@@ -5790,6 +6142,70 @@ export const components: ComponentMcpPayload[] = [
 				defaultValue: '50',
 			},
 		],
+	},
+	{
+		name: 'TopNav',
+		package: '@atlaskit/navigation-system',
+		description: 'The horizontal top navigation bar component.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Render `TopNav` within the `Root` component to provide global navigation and actions.',
+		],
+		keywords: ['navigation', 'top-nav', 'header'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { jsx } from '@compiled/react';\nimport AKBadge from '@atlaskit/badge';\nimport { cssMap } from '@atlaskit/css';\nimport AtlassianIntelligenceIcon from '@atlaskit/icon/core/atlassian-intelligence';\nimport SearchIcon from '@atlaskit/icon/core/search';\nimport { ConfluenceIcon } from '@atlaskit/logo';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';\nimport {\n\tTopNav,\n\tTopNavEnd,\n\tTopNavMiddle,\n\tTopNavStart,\n} from '@atlaskit/navigation-system/layout/top-nav';\nimport {\n\tAppLogo,\n\tAppSwitcher,\n\tChatButton,\n\tCreateButton,\n\tEndItem,\n\tHelp,\n\tProfile,\n\tSearch,\n\tSettings,\n} from '@atlaskit/navigation-system/top-nav-items';\nimport { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';\nimport { Flex } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nimport { WithResponsiveViewport } from './utils/example-utils';\nimport { MockSearch } from './utils/mock-search';\nconst iconSpacingStyles = cssMap({\n\tspace050: {\n\t\tpaddingBlock: token('space.050'),\n\t\tpaddingInline: token('space.050'),\n\t},\n});\nconst Badge = () => <AKBadge appearance=\"important\">{5}</AKBadge>;\nexport const TopNavigationExample: () => JSX.Element = () => (\n\t<WithResponsiveViewport>\n\t\t{/**\n\t\t * Wrapping in `Root to ensure the TopNav height is set correctly, as it would in a proper composed usage.\n\t\t * Root sets the top bar height CSS variable that TopNav uses to set its height\n\t\t */}\n\t\t<Root>\n\t\t\t<TopNav>\n\t\t\t\t<TopNavStart\n\t\t\t\t\tsideNavToggleButton={\n\t\t\t\t\t\t<SideNavToggleButton collapseLabel=\"Collapse sidebar\" expandLabel=\"Expand sidebar\" />\n\t\t\t\t\t}\n\t\t\t\t>\n\t\t\t\t\t<AppSwitcher label=\"App switcher\" onClick={() => alert('app switcher')} />\n\t\t\t\t\t<AppLogo\n\t\t\t\t\t\thref=\"http://www.atlassian.design\"\n\t\t\t\t\t\ticon={ConfluenceIcon}\n\t\t\t\t\t\tname=\"Confluence\"\n\t\t\t\t\t\tlabel=\"Home page\"\n\t\t\t\t\t/>\n\t\t\t\t</TopNavStart>\n\t\t\t\t<TopNavMiddle>\n\t\t\t\t\t<Search onClick={() => alert('mobile search')} label=\"Search\" />\n\t\t\t\t\t<CreateButton onClick={() => alert('create')}>Create</CreateButton>\n\t\t\t\t</TopNavMiddle>\n\t\t\t\t<TopNavEnd>\n\t\t\t\t\t<ChatButton onClick={() => alert('chat')}>Chat</ChatButton>\n\t\t\t\t\t<EndItem\n\t\t\t\t\t\ticon={AtlassianIntelligenceIcon}\n\t\t\t\t\t\tonClick={() => alert('inshelligence')}\n\t\t\t\t\t\tlabel=\"Atlassian Intelligence\"\n\t\t\t\t\t/>\n\t\t\t\t\t<Help onClick={() => alert('help')} label=\"Help\" />\n\t\t\t\t\t<Notifications\n\t\t\t\t\t\tbadge={Badge}\n\t\t\t\t\t\tonClick={() => alert('notifications')}\n\t\t\t\t\t\tlabel=\"Notifications\"\n\t\t\t\t\t/>\n\t\t\t\t\t<Settings onClick={() => alert('settings')} label=\"Settings\" />\n\t\t\t\t\t<Profile onClick={() => alert('User settings')} label=\"Your profile\" />\n\t\t\t\t</TopNavEnd>\n\t\t\t</TopNav>\n\t\t</Root>\n\t</WithResponsiveViewport>\n);\nexport const SearchRightElem: () => JSX.Element = () => (\n\t<WithResponsiveViewport>\n\t\t<Root>\n\t\t\t<TopNav>\n\t\t\t\t<TopNavStart sideNavToggleButton={null}>\n\t\t\t\t\t<AppSwitcher label=\"App switcher\" onClick={() => alert('app switcher')} />\n\t\t\t\t</TopNavStart>\n\t\t\t\t<TopNavMiddle>\n\t\t\t\t\t<Search\n\t\t\t\t\t\ticonBefore={AtlassianIntelligenceIcon}\n\t\t\t\t\t\telemAfter={\n\t\t\t\t\t\t\t<Flex xcss={iconSpacingStyles.space050}>\n\t\t\t\t\t\t\t\t<SearchIcon color={token('color.icon')} label=\"\" />\n\t\t\t\t\t\t\t</Flex>\n\t\t\t\t\t\t}\n\t\t\t\t\t\tonClick={() => alert('mobile search')}\n\t\t\t\t\t\tlabel=\"Search\"\n\t\t\t\t\t/>\n\t\t\t\t\t<CreateButton onClick={() => alert('create')}>Create</CreateButton>\n\t\t\t\t</TopNavMiddle>\n\t\t\t\t<TopNavEnd>\n\t\t\t\t\t<Settings onClick={() => alert('settings')} label=\"Settings\" />\n\t\t\t\t</TopNavEnd>\n\t\t\t</TopNav>\n\t\t</Root>\n\t</WithResponsiveViewport>\n);\nexport const TopNavigationEnlargedSearchInput: () => JSX.Element = () => (\n\t<WithResponsiveViewport>\n\t\t<Root>\n\t\t\t<TopNav>\n\t\t\t\t<TopNavStart sideNavToggleButton={null}>\n\t\t\t\t\t<AppSwitcher label=\"App switcher\" onClick={() => alert('app switcher')} />\n\t\t\t\t</TopNavStart>\n\t\t\t\t<div>\n\t\t\t\t\t<TopNavMiddle>\n\t\t\t\t\t\t<MockSearch isEnlarged />\n\t\t\t\t\t\t<CreateButton onClick={() => alert('create')}>Create</CreateButton>\n\t\t\t\t\t</TopNavMiddle>\n\t\t\t\t</div>\n\t\t\t\t<TopNavEnd>\n\t\t\t\t\t<Settings onClick={() => alert('settings')} label=\"Settings\" />\n\t\t\t\t</TopNavEnd>\n\t\t\t</TopNav>\n\t\t</Root>\n\t</WithResponsiveViewport>\n);\nexport default TopNavigationExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'The content of the layout area.\nShould include `TopNavStart`, `TopNavMiddle`, and `TopNavEnd`.',
+				isRequired: true,
+			},
+			{
+				name: 'customTheme',
+				type: '{ backgroundColor: string | RGB; highlightColor: string | RGB; }',
+				description:
+					'Custom theme for the top navigation. This is a port of Nav 3 functionality, and not recommended for new usage,\nas it does not align with our future vision.',
+			},
+			{
+				name: 'height',
+				type: 'number',
+				description:
+					'Not intended for long term use. This is added to support the migration to the new page layout.\nWe may replace this prop in a future release.',
+			},
+			{
+				name: 'id',
+				type: 'string',
+				description:
+					"The `id` attribute of the slot. Used to connect the layout slot's skip link to the layout element.\nIf not provided, a unique ID will be generated.",
+			},
+			{
+				name: 'skipLinkLabel',
+				type: 'string',
+				description: "The label for this slot's skip link. Defaults to the slot's `label` value.",
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"backgroundColor", DesignTokenStyles, ""> & {} & XCSSPseudo<"backgroundColor", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; })',
+				description: 'Bounded style overrides.',
+			},
+		],
+	},
+	{
+		name: 'Object',
+		package: '@atlaskit/object',
+		description: 'An object is an icon that represents an Atlassian-specific content type.',
+		status: 'general-availability',
+		keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
+		category: 'images and icons',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { allObjects } from '../examples-utils/all-objects';\nimport type { ObjectSize } from '../src/components/object/types';\nconst containerStyles = css({\n\tmaxWidth: '600px',\n});\nexport default function Objects(): JSX.Element {\n\tconst sizes: ObjectSize[] = ['small', 'medium'];\n\treturn (\n\t\t<div css={containerStyles}>\n\t\t\t<Flex gap=\"space.300\" wrap=\"wrap\">\n\t\t\t\t{allObjects.map((ObjectComponent) => {\n\t\t\t\t\tconst objectName = ObjectComponent.name;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Stack key={objectName} space=\"space.100\">\n\t\t\t\t\t\t\t<Heading size=\"xsmall\">{objectName}</Heading>\n\t\t\t\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t\t\t\t{sizes.map((size) => (\n\t\t\t\t\t\t\t\t\t<ObjectComponent key={`${objectName}-${size}`} size={size} />\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</Flex>\n\t\t</div>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { allObjectTiles } from '../examples-utils/all-object-tiles';\nimport type { ObjectTileSize } from '../src/components/object-tile/types';\nconst containerStyles = css({\n\tmaxWidth: '980px',\n});\nexport default function ObjectTiles(): JSX.Element {\n\tconst sizes: ObjectTileSize[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];\n\treturn (\n\t\t<div css={containerStyles}>\n\t\t\t<Flex gap=\"space.400\" wrap=\"wrap\">\n\t\t\t\t{allObjectTiles.map((ObjectTileComponent) => {\n\t\t\t\t\tconst objectName = ObjectTileComponent.name;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Stack key={objectName} space=\"space.100\">\n\t\t\t\t\t\t\t<Heading size=\"medium\">{objectName}</Heading>\n\t\t\t\t\t\t\t<Inline space=\"space.200\" alignBlock=\"center\">\n\t\t\t\t\t\t\t\t{sizes.flatMap((size) => [\n\t\t\t\t\t\t\t\t\t<ObjectTileComponent\n\t\t\t\t\t\t\t\t\t\tkey={`${objectName}-${size}-normal`}\n\t\t\t\t\t\t\t\t\t\tsize={size}\n\t\t\t\t\t\t\t\t\t\tisBold={false}\n\t\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t\t\t<ObjectTileComponent\n\t\t\t\t\t\t\t\t\t\tkey={`${objectName}-${size}-bold`}\n\t\t\t\t\t\t\t\t\t\tsize={size}\n\t\t\t\t\t\t\t\t\t\tisBold={true}\n\t\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t\t])}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</Flex>\n\t\t</div>\n\t);\n}",
+		],
+		props: [],
 	},
 	{
 		name: 'PageHeader',
@@ -6401,7 +6817,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Flex',
 		package: '@atlaskit/primitives',
 		description: 'A primitive Flex component for flexbox layout with compiled styling support.',
-		status: 'open-beta',
+		status: 'general-availability',
 		usageGuidelines: [
 			'Use for flexbox layout needs',
 			'Leverage compiled styling for performance',
@@ -6544,7 +6960,7 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Grid',
 		package: '@atlaskit/primitives',
 		description: 'A primitive Grid component for CSS Grid layout with compiled styling support.',
-		status: 'open-beta',
+		status: 'general-availability',
 		usageGuidelines: [
 			'Use for CSS Grid layout needs',
 			'Leverage compiled styling for performance',
@@ -10266,6 +10682,588 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'PopoverContent',
+		package: '@atlaskit/spotlight',
+		description: 'Renders the spotlight card content. Use with PopoverProvider and PopoverTarget.',
+		status: 'open-beta',
+		usageGuidelines: ['Placement is static—choose placement that prevents overflow'],
+		keywords: ['spotlight', 'popover', 'content', 'positioning'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'back',
+				type: '(event: BackEvent) => void',
+				description:
+					'Invoked when the user clicks `SpotlightSecondaryAction`. If an `onClick` handler is provided to `SpotlightSecondaryAction`\nthen that takes precedence, and `back` will be ignored.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.',
+				isRequired: true,
+			},
+			{
+				name: 'dismiss',
+				type: '(event: DismissEvent) => void',
+				description:
+					'Spotlights can be dismissed by:\n- Clicking the `SpotlightDismissControl`\n- Clicking any DOM element outside the spotlight (if `shouldDismissOnClickOutside === true`)\n- Pressing the Escape key\n\nThese events align to the React.MouseEvent<HTMLButtonElement, MouseEvent>, MouseEvent, and KeyboardEvent events respectively.\nDefaults to `true`.',
+				isRequired: true,
+			},
+			{
+				name: 'done',
+				type: '(event: DoneEvent) => void',
+				description:
+					'Invoked when the user clicks `SpotlightPrimaryAction`.\nIf an `onClick` handler is provided to SpotlightPrimaryAction then that takes precedence,\nand `done` will be ignored.\n\nIf `done` is passed to PopoverContent, then `next` cannot be passed. This will result in a type error.',
+			},
+			{
+				name: 'isVisible',
+				type: 'boolean',
+				description: 'Controls whether or not `PopoverContent` is visible. Defaults to `true`.',
+			},
+			{
+				name: 'motion',
+				type: 'React.ComponentClass<{ children: React.ReactNode; }, any> | React.FunctionComponent<{ children: React.ReactNode; }>',
+				description: 'The motion to be applied to the `SpotlightCard`.',
+			},
+			{
+				name: 'next',
+				type: '(event: NextEvent) => void',
+				description:
+					'Invoked when the user clicks `SpotlightPrimaryAction` in a tour.\nIf an `onClick` handler is provided to `SpotlightPrimaryAction` then that takes precedence,\nand `next` will be ignored.\n\nIf `next` is passed to `PopoverContent`, then `done` cannot be passed. This will result in a type error.',
+			},
+			{
+				name: 'offset',
+				type: '[number, number]',
+				description:
+					'Distance the spotlight should be offset from the target in the format of [along, away] (units in px).\nDefaults to [0, 2] - which means the spotlight will be 2px away from the edge of the target specified\nby the `placement` prop.',
+			},
+			{
+				name: 'placement',
+				type: '"top-start" | "top-center" | "top-end" | "bottom-start" | "bottom-center" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end"',
+				description: 'The position in relation to the target the content should be shown at.',
+				isRequired: true,
+			},
+			{
+				name: 'shouldDismissOnClickOutside',
+				type: 'boolean',
+				description:
+					"Controls whether the 'dismiss' action is invoked when the user clicks outside the content. Defaults to `true`.",
+			},
+		],
+	},
+	{
+		name: 'PopoverProvider',
+		package: '@atlaskit/spotlight',
+		description:
+			'Context provider for positioning spotlight content. Wrap with PopoverTarget and PopoverContent.',
+		status: 'open-beta',
+		usageGuidelines: ['Wraps the target element and spotlight content for positioning'],
+		keywords: ['spotlight', 'popover', 'provider', 'positioning'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'The to be rendered in `PopoverProvider`. This is intended to be `PopoverContent`, and `PopoverTarget`.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'PopoverTarget',
+		package: '@atlaskit/spotlight',
+		description:
+			'The element the spotlight is positioned relative to. Use with PopoverProvider and PopoverContent.',
+		status: 'open-beta',
+		usageGuidelines: ['Wrap the UI element the spotlight points to'],
+		keywords: ['spotlight', 'popover', 'target', 'positioning'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					'The content to be rendered in `PopoverTarget`. This is intended to be the element you want to point the spotlight at.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'SpotlightActions',
+		package: '@atlaskit/spotlight',
+		description: 'Container for spotlight footer action buttons or links.',
+		status: 'open-beta',
+		usageGuidelines: ['Container for primary and secondary action buttons or links'],
+		keywords: ['spotlight', 'actions', 'footer', 'buttons'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Elements to be rendered inside the `SpotlightActions`.',
+			},
+		],
+	},
+	{
+		name: 'SpotlightBody',
+		package: '@atlaskit/spotlight',
+		description: 'Main content area of a spotlight card.',
+		status: 'open-beta',
+		keywords: ['spotlight', 'body', 'content'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description:
+					'Textual content is required for all spotlights.\nIt should be brief and direct to quickly elaborate on the value.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'SpotlightCard',
+		package: '@atlaskit/spotlight',
+		description:
+			'A spotlight introduces users to points of interest, from focused messages to multi-step tours.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use for onboarding, feature discovery, or highlighting UI',
+			'Keep content to a single step when possible; max three steps for tours',
+			'Always include a dismiss control as the first focusable element',
+			'Use primary and secondary actions for buttons or links as needed',
+		],
+		accessibilityGuidelines: [
+			'Dismiss control must be first focusable element',
+			'Ensure spotlight content is understandable in seconds',
+		],
+		keywords: ['spotlight', 'onboarding', 'feature', 'discovery', 'card'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Elements to be rendered inside the `SpotlightCard`.',
+			},
+			{
+				name: 'placement',
+				type: '"top-start" | "top-center" | "top-end" | "bottom-start" | "bottom-center" | "bottom-end" | "right-start" | "right-end" | "left-start" | "left-end"',
+				description:
+					'The position in relation to the target the content should be shown at. Overrides `PopoverContent.placement`',
+			},
+		],
+	},
+	{
+		name: 'SpotlightDismissControl',
+		package: '@atlaskit/spotlight',
+		description:
+			'Required close/dismiss button for spotlight cards. Must be the first focusable element.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Required for all spotlights—must be the first focusable element for accessibility',
+		],
+		accessibilityGuidelines: ['Must be first focusable element for proper focus order'],
+		keywords: ['spotlight', 'dismiss', 'close', 'control'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'autoFocus',
+				type: 'boolean',
+				description:
+					'Specifies whether the dismiss button should be focused when the spotlight is rendered.\nFor spotlights that are triggered by user-action, this should be `true`. In the event that\na spotlight is rendered on page load, without explicit user interaction, this should be `false`.',
+				defaultValue: 'true',
+			},
+			{
+				name: 'onClick',
+				type: '(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void',
+				description: 'The action to take when the button is clicked.',
+			},
+		],
+	},
+	{
+		name: 'SpotlightFooter',
+		package: '@atlaskit/spotlight',
+		description: 'Footer section of a spotlight card. Contains action buttons or links.',
+		status: 'open-beta',
+		usageGuidelines: ['Contains primary and secondary action buttons or links'],
+		keywords: ['spotlight', 'footer', 'actions'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Elements to be rendered inside the `SpotlightFooter`.',
+			},
+		],
+	},
+	{
+		name: 'SpotlightHeader',
+		package: '@atlaskit/spotlight',
+		description: 'Header section of a spotlight card. Contains the headline and controls.',
+		status: 'open-beta',
+		usageGuidelines: ['Contains the headline and dismiss/control area'],
+		keywords: ['spotlight', 'header'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'Elements to be rendered inside the `SpotlightHeader`.',
+			},
+		],
+	},
+	{
+		name: 'SpotlightHeadline',
+		package: '@atlaskit/spotlight',
+		description: 'The headline/title of a spotlight card. Use within SpotlightHeader.',
+		status: 'open-beta',
+		usageGuidelines: ['Keep headlines concise and understandable in seconds'],
+		keywords: ['spotlight', 'headline', 'title'],
+		category: 'navigation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Flex, Text } from '@atlaskit/primitives/compiled';\nimport {\n\tPopoverContent,\n\tPopoverProvider,\n\tPopoverTarget,\n\tSpotlightActions,\n\tSpotlightBody,\n\tSpotlightCard,\n\tSpotlightControls,\n\tSpotlightDismissControl,\n\tSpotlightFooter,\n\tSpotlightHeader,\n\tSpotlightHeadline,\n\tSpotlightPrimaryAction,\n\tSpotlightSecondaryLink,\n} from '@atlaskit/spotlight';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\ttarget: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.100'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.100'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border.bold'),\n\t},\n});\nexport default (): JSX.Element => (\n\t<Flex>\n\t\t<PopoverProvider>\n\t\t\t<PopoverTarget>\n\t\t\t\t<div css={styles.target}>\n\t\t\t\t\t<Text>Target</Text>\n\t\t\t\t</div>\n\t\t\t</PopoverTarget>\n\t\t\t<PopoverContent isVisible={true} placement=\"right-end\" dismiss={() => {}}>\n\t\t\t\t<SpotlightCard>\n\t\t\t\t\t<SpotlightHeader>\n\t\t\t\t\t\t<SpotlightHeadline>Try the new experience</SpotlightHeadline>\n\t\t\t\t\t\t<SpotlightControls>\n\t\t\t\t\t\t\t<SpotlightDismissControl />\n\t\t\t\t\t\t</SpotlightControls>\n\t\t\t\t\t</SpotlightHeader>\n\t\t\t\t\t<SpotlightBody>\n\t\t\t\t\t\t<Text>\n\t\t\t\t\t\t\tWhen your primary or secondary control should navigate to a URL instead of performing\n\t\t\t\t\t\t\tan action, use SpotlightPrimaryLink and SpotlightSecondaryLink.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</SpotlightBody>\n\t\t\t\t\t<SpotlightFooter>\n\t\t\t\t\t\t<SpotlightActions>\n\t\t\t\t\t\t\t<SpotlightSecondaryLink\n\t\t\t\t\t\t\t\thref=\"https://atlassian.design/components/spotlight\"\n\t\t\t\t\t\t\t\ttarget=\"_blank\"\n\t\t\t\t\t\t\t\trel=\"noopener noreferrer\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\tLearn more\n\t\t\t\t\t\t\t</SpotlightSecondaryLink>\n\t\t\t\t\t\t\t<SpotlightPrimaryAction>Done</SpotlightPrimaryAction>\n\t\t\t\t\t\t</SpotlightActions>\n\t\t\t\t\t</SpotlightFooter>\n\t\t\t\t</SpotlightCard>\n\t\t\t</PopoverContent>\n\t\t</PopoverProvider>\n\t</Flex>\n);",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal',
+				description: 'A brief and direct title to clearly communicate the intent.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'Cell',
+		package: '@atlaskit/table-tree',
+		description: 'A single cell in a table tree row. Use within Row to display column data.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Avoid heavy indentation—affects scannability and screen magnification users',
+			'Prefer wrapping over truncation for accessibility',
+		],
+		keywords: ['table-tree', 'cell', 'table', 'data'],
+		category: 'text and data display',
+		examples: [],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Children content, used when composing a table tree from internal components',
+			},
+			{
+				name: 'columnIndex',
+				type: 'number',
+			},
+			{
+				name: 'indentLevel',
+				type: 'number',
+				description:
+					'Sets the indent level for the cell. Each indent level adds `25px` to the left padding.',
+			},
+			{
+				name: 'singleLine',
+				type: 'boolean',
+				description:
+					'Sets whether the cell contents should wrap or display on a single line and be truncated. For accessibility reasons, wrapping the content is strongly recommended.',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
+				description:
+					'The width of the header item. Takes a string, or a number representing the width in pixels.',
+			},
+		],
+	},
+	{
+		name: 'Header',
+		package: '@atlaskit/table-tree',
+		description:
+			'A single column header in a table tree. Use within Headers to define each column.',
+		status: 'general-availability',
+		usageGuidelines: ['Use for structured tabular data only—never for layout'],
+		keywords: ['table-tree', 'header', 'table', 'column'],
+		category: 'text and data display',
+		examples: [],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'The contents of the header.',
+			},
+			{
+				name: 'columnIndex',
+				type: 'number',
+			},
+			{
+				name: 'id',
+				type: 'string',
+			},
+			{
+				name: 'onClick',
+				type: '() => void',
+			},
+			{
+				name: 'role',
+				type: 'string',
+			},
+			{
+				name: 'width',
+				type: 'string | number',
+				description:
+					'Width of the header item. Takes a string, or a number representing the width in pixels.',
+			},
+		],
+	},
+	{
+		name: 'Headers',
+		package: '@atlaskit/table-tree',
+		description:
+			'Container for table column headers. Use with Header components to define columns.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Clearly label column headers with simple language',
+			'Provide an accessible name for the table',
+		],
+		keywords: ['table-tree', 'headers', 'table', 'columns'],
+		category: 'text and data display',
+		examples: [],
+		props: [
+			{
+				name: 'children',
+				type: 'ReactElement<any, string | React.JSXElementConstructor<any>> | ReactElement<any, string | React.JSXElementConstructor<any>>[]',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'Row',
+		package: '@atlaskit/table-tree',
+		description: 'A single row in a table tree. Use within Rows render prop for each data item.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Allow expand-on-click only when the row has no interactive elements (buttons, dropdowns)',
+		],
+		keywords: ['table-tree', 'row', 'table', 'expandable'],
+		category: 'text and data display',
+		examples: [],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'Children contained in the row. Should be one or more cell components.',
+			},
+			{
+				name: 'collapseLabel',
+				type: 'string',
+				description:
+					'This is the accessible name for the collapse chevron button, used to tell assistive technology what the button is for.',
+			},
+			{
+				name: 'data',
+				type: '{ id: string; }',
+				description:
+					"Data to render. Passed down by `item` and passed into `onExpand` and `onCollapse` callbacks.\nThis is normally set by the parent `item` component, and doesn't need to be configured.",
+			},
+			{
+				name: 'depth',
+				type: 'number',
+				description:
+					"The depth used for rendering an indent.\nThis is normally set by parent `item` component, and doesn't need to be configured.",
+			},
+			{
+				name: 'expandLabel',
+				type: 'string',
+				description:
+					'This is the accessible name for the expand chevron button, used to tell assistive technology what the button is for.',
+			},
+			{
+				name: 'hasChildren',
+				type: 'boolean',
+				description: 'Whether the row has children.',
+			},
+			{
+				name: 'isDefaultExpanded',
+				type: 'boolean',
+				description: 'Sets the default expanded state of the row.',
+			},
+			{
+				name: 'isExpanded',
+				type: 'boolean',
+				description: 'Controls the expanded state of the row.',
+			},
+			{
+				name: 'itemId',
+				type: 'string',
+				description: 'ID for the row item.',
+			},
+			{
+				name: 'items',
+				type: 'Item[]',
+				description:
+					'The data used to render the row and descendants. Pass down from `children` render prop.\n\n    In addition to these props, any other data can be added to the object, and it will\n    be provided as props when rendering each cell.',
+			},
+			{
+				name: 'mainColumnForExpandCollapseLabel',
+				type: 'string | number',
+				description:
+					'Adds detail to the expand and collapse row button\'s aria label by appending the value from the given column. If you don\'t set this prop, the aria label will read out "Expand `itemId` row".\n\n    Should be a string when we pass data via `items` property in the table tree. The value should be one of the property `columns` names in the table tree.\n\n    Should be a number  when we pass data via the `Rows` component as children in the table tree.',
+			},
+			{
+				name: 'onCollapse',
+				type: '(data: Item, analytics?: UIAnalyticsEvent) => void | Promise<void>',
+				description: 'Callback called when the row collapses.',
+			},
+			{
+				name: 'onExpand',
+				type: '(data: Item, analytics?: UIAnalyticsEvent) => void | Promise<void>',
+				description: 'Callback called when the row expands.',
+			},
+			{
+				name: 'renderChildren',
+				type: '() => React.ReactNode',
+				description:
+					"Children to render under the row.\nThis is normally set by the parent item component, and doesn't need to be configured.",
+			},
+			{
+				name: 'shouldExpandOnClick',
+				type: 'boolean',
+				description:
+					'Use this to set whether a row with children should expand when clicked anywhere within the row. If `false` or unset, a row with children will only expand when the chevron is clicked.\n\n    If your cells contain interactive elements, always set this to `false` to avoid unexpected expanding or collapsing.',
+			},
+		],
+	},
+	{
+		name: 'Rows',
+		package: '@atlaskit/table-tree',
+		description: 'Container for table tree rows. Renders expandable rows with nested data.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Place important information at top-level so users rarely need to expand',
+			'Limit indentation for scannability',
+			'Avoid truncation—prefer wrapping when content exceeds cell width',
+		],
+		keywords: ['table-tree', 'rows', 'table', 'data'],
+		category: 'text and data display',
+		examples: [],
+		props: [
+			{
+				name: 'items',
+				type: 'T[]',
+				description:
+					'The data used to render the set of rows. Will be passed down via the `children` render prop.\n\nIn addition to these props, any other data can be added to the object, and it will\nbe provided as props when rendering each cell.',
+			},
+			{
+				name: 'loadingLabel',
+				type: 'string',
+				description:
+					'This is an accessible name for the loading state\'s spinner.\nThe default text is "Loading".',
+				defaultValue: '"Loading"',
+			},
+			{
+				name: 'render',
+				type: '(args: T & { children?: T[]; content?: Content; }) => React.ReactElement<RowProps<T>, string | React.JSXElementConstructor<any>>',
+				description:
+					'Render function for child rows. Render props will contain an item from the\n`items` prop above.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'Table tree',
+		package: '@atlaskit/table-tree',
+		description:
+			'A table tree is an expandable table for showing nested hierarchies of information.',
+		status: 'general-availability',
+		keywords: ['table-tree', 'table', 'tree', 'expandable', 'nested', 'hierarchy', 'rows'],
+		category: 'text and data display',
+		examples: [
+			"import React, { PureComponent } from 'react';\nimport TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tree';\nimport staticData from './data-cleancode-toc.json';\nexport default class extends PureComponent<any, any> {\n\tstate: any = {\n\t\texpansionMap: {\n\t\t\t1: true,\n\t\t},\n\t};\n\trender(): React.JSX.Element {\n\t\tconst { expansionMap } = this.state;\n\t\treturn (\n\t\t\t<div>\n\t\t\t\t<TableTree>\n\t\t\t\t\t<Headers>\n\t\t\t\t\t\t<Header width={200}>Chapter title</Header>\n\t\t\t\t\t\t<Header width={120}>Numbering</Header>\n\t\t\t\t\t\t<Header width={100}>Page</Header>\n\t\t\t\t\t</Headers>\n\t\t\t\t\t<Rows\n\t\t\t\t\t\titems={staticData.children}\n\t\t\t\t\t\trender={({ title, numbering, page, children }: any) => (\n\t\t\t\t\t\t\t<Row\n\t\t\t\t\t\t\t\titemId={numbering}\n\t\t\t\t\t\t\t\titems={children}\n\t\t\t\t\t\t\t\thasChildren={children.length > 0}\n\t\t\t\t\t\t\t\tisExpanded={Boolean(expansionMap[numbering])}\n\t\t\t\t\t\t\t\tonExpand={() =>\n\t\t\t\t\t\t\t\t\tthis.setState({\n\t\t\t\t\t\t\t\t\t\texpansionMap: {\n\t\t\t\t\t\t\t\t\t\t\t...expansionMap,\n\t\t\t\t\t\t\t\t\t\t\t[numbering]: true,\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t})\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonCollapse={() =>\n\t\t\t\t\t\t\t\t\tthis.setState({\n\t\t\t\t\t\t\t\t\t\texpansionMap: {\n\t\t\t\t\t\t\t\t\t\t\t...expansionMap,\n\t\t\t\t\t\t\t\t\t\t\t[numbering]: false,\n\t\t\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\t\t})\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t<Cell singleLine>{title}</Cell>\n\t\t\t\t\t\t\t\t<Cell>{numbering}</Cell>\n\t\t\t\t\t\t\t\t<Cell>{page}</Cell>\n\t\t\t\t\t\t\t</Row>\n\t\t\t\t\t\t)}\n\t\t\t\t\t/>\n\t\t\t\t</TableTree>\n\t\t\t</div>\n\t\t);\n\t}\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description:
+					"The contents of the table.\nUse this when composing `Cell`, `Header`, `Headers`, `Row`, and `Rows` components.\nFor basic usage, it's simpler to specify table contents with the `items` prop instead.",
+			},
+			{
+				name: 'columns',
+				type: 'React.ElementType<any, keyof React.JSX.IntrinsicElements>[]',
+				description:
+					"Each column component is used to render the cells in that column.\nA cell's `content` value, specified in the data passed to `items`, is provided as props.",
+			},
+			{
+				name: 'columnWidths',
+				type: 'ColumnWidth[]',
+				description: 'The widths of the columns in the table.',
+			},
+			{
+				name: 'headers',
+				type: 'string[]',
+				description: 'The header text of the columns of the table.',
+			},
+			{
+				name: 'items',
+				type: 'Item[]',
+				description:
+					"The data used to render the table. If you're creating a basic table, use this prop instead of composing cell, header, headers, row, and rows components.\n\n    In addition to the `items` props, any other data can be added, and it will\n    be provided as props when rendering each cell.",
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'This is an `aria-label` attribute. Use the label to describe the table for assistive technologies.\nUsage of either this, or the `labelId` attribute is strongly recommended.',
+			},
+			{
+				name: 'mainColumnForExpandCollapseLabel',
+				type: 'string | number',
+				description:
+					'The value used to extend the expand or collapse button label in cases where `row` has child rows.\nIt should be a string when we pass data via the `items` property, the value should be one of the `columns` names.\nIt should be a number when we pass data via the `rows` component as children in the table tree.',
+			},
+			{
+				name: 'referencedLabel',
+				type: 'string',
+				description:
+					'This is an `aria-labelledby` attribute. Pass an ID for the element which should define an accessible name for the table.\nUsage of either this, or the `label` attribute is strongly recommended.',
+			},
+			{
+				name: 'shouldExpandOnClick',
+				type: 'boolean',
+				description:
+					"Use this to set whether a row with children should expand when clicked anywhere within the row. If `false` or unset, a row with children will only expand when the chevron is clicked.\n\n    If your cells contain interactive elements, always set this to `false` to avoid unexpected expanding or collapsing.\n\n    If you aren't using the `items` prop, `shouldExpandOnClick` should be used on the row component instead.",
+			},
+		],
+	},
+	{
 		name: 'Tabs',
 		package: '@atlaskit/tabs',
 		description:
@@ -10999,6 +11997,55 @@ export const components: ComponentMcpPayload[] = [
 				name: 'width',
 				type: 'string | number',
 				description: 'Sets maximum width of input.',
+			},
+		],
+	},
+	{
+		name: 'Tile',
+		package: '@atlaskit/tile',
+		description:
+			'A tile is a versatile, foundational container with baked-in sizing and radii properties for displaying elements in a tile shape.',
+		status: 'general-availability',
+		keywords: ['tile', 'icon', 'container', 'avatar', 'asset', 'emoji', 'logo', 'shape'],
+		category: 'images and icons',
+		examples: [
+			'import Tile from \'@atlaskit/tile\';\nexport default function Basic(): React.JSX.Element {\n\tconst insetCloudSVG = (\n\t\t<svg width="33" height="23" viewBox="0 0 33 23" fill="none" xmlns="http://www.w3.org/2000/svg">\n\t\t\t<path\n\t\t\t\tfillRule="evenodd"\n\t\t\t\tclipRule="evenodd"\n\t\t\t\td="M13.8077 2.44412C14.8395 1.37 16.2756 0.704854 17.8621 0.704854C19.9774 0.704854 21.8106 1.88003 22.7978 3.63104C23.674 3.23933 24.6231 3.03709 25.583 3.03758C29.3905 3.03758 32.4812 6.1518 32.4812 9.99462C32.4812 13.8375 29.3905 16.9517 25.583 16.9517C25.1176 16.9517 24.664 16.9049 24.2198 16.8165C23.356 18.356 21.7049 19.4019 19.8246 19.4019C19.0591 19.4034 18.3033 19.2298 17.6153 18.8942C16.7398 20.9508 14.7008 22.3963 12.327 22.3963C9.84735 22.3963 7.74379 20.8333 6.93291 18.6357C6.57201 18.7119 6.20415 18.7501 5.8353 18.7499C2.88561 18.7499 0.5 16.3291 0.5 13.3559C0.5 11.3581 1.57411 9.6188 3.16765 8.67866C2.82958 7.89987 2.65556 7.05979 2.65645 6.21079C2.65645 2.77928 5.44162 0.00585938 8.87313 0.00585938C10.8827 0.00585938 12.6807 0.963628 13.8089 2.45023"\n\t\t\t\tfill="#00A1E0"\n\t\t\t/>\n\t\t</svg>\n\t);\n\treturn (\n\t\t<Tile label="" backgroundColor="color.background.neutral" hasBorder testId="tile">\n\t\t\t{insetCloudSVG}\n\t\t</Tile>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'backgroundColor',
+				type: '"color.background.accent.lime.subtlest" | "color.background.accent.lime.subtler" | "color.background.accent.lime.subtle" | "color.background.accent.lime.bolder" | "color.background.accent.red.subtlest" | ... 53 more ... | "black"',
+				description:
+					'The background color of the tile.\n\nAccepts design tokens representing background color.\nDefaults to `color.background.neutral`.',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal',
+				description: 'The asset to be displayed inside the tile.\nThis should represent a noun.',
+			},
+			{
+				name: 'hasBorder',
+				type: 'boolean',
+				description: 'Whether the tile has a border.\n\nDefaults to `false`.',
+			},
+			{
+				name: 'isInset',
+				type: 'boolean',
+				description:
+					'Whether the tile applies internal inset / padding. Used to provide appropriate spacing for assets when needed. Defaults to `true`.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'The label for the icon.\n\nIf the tile is decorative, this can be set to an empty string.',
+				isRequired: true,
+			},
+			{
+				name: 'size',
+				type: '"xxsmall" | "xsmall" | "small" | "medium" | "large" | "xlarge"',
+				description:
+					'The size of the tile.\n\n- `xxsmall`: 16px\n- `xsmall`: 20px\n- `small`: 24px\n- `medium`: 32px\n- `large`: 40px\n- `xlarge`: 48px',
 			},
 		],
 	},

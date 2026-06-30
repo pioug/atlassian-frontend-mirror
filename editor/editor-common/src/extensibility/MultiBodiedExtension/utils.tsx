@@ -15,10 +15,15 @@ type AnalyticsActionTypes =
 	| ACTION.GET_CHILDREN
 	| ACTION.GET_CHILDREN_CONTAINER;
 
+type AnalyticsAttributes = {
+	changedParams?: string;
+};
+
 export const sendMBEAnalyticsEvent = (
 	action: AnalyticsActionTypes,
 	node: PmNode,
 	eventDispatcher: EventDispatcher,
+	attributes?: AnalyticsAttributes,
 ): void => {
 	const analyticsDispatch: AnalyticsDispatch = createDispatch(eventDispatcher);
 	analyticsDispatch(analyticsEventKey, {
@@ -31,6 +36,7 @@ export const sendMBEAnalyticsEvent = (
 				extensionKey: node.attrs.extensionKey,
 				localId: node.attrs.localId,
 				currentFramesCount: node.content.childCount,
+				...attributes,
 			},
 		},
 	});

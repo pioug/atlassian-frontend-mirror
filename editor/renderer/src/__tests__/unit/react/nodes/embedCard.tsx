@@ -19,9 +19,20 @@ jest.mock('@atlaskit/smart-card', () => {
 	const originalModule = jest.requireActual('@atlaskit/smart-card');
 	return {
 		...originalModule,
-		Card: jest.fn((props) => <originalModule.Card {...props} />),
+		Card: jest.fn(() => <div data-testid="smart-card" />),
 	};
 });
+
+jest.mock('@atlaskit/smart-card/ssr', () => ({
+	CardSSR: jest.fn(() => <div data-testid="smart-card-ssr" />),
+}));
+
+jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
+	// The width matrix verifies embed MediaSingle sizing. Keep the responsive
+	// preview-panel wrapper disabled so narrow widths do not intentionally render
+	// as block cards and remove the MediaSingle container under assertion.
+	editorExperiment: () => false,
+}));
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/EmbedCard', () => {

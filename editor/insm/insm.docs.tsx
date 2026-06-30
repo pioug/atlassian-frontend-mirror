@@ -12,23 +12,24 @@ import packageJson from './package.json';
 const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
-	components: [
+	utilities: [
 		{
-			name: 'Insm',
+			kind: 'function',
+			name: 'init',
 			description: 'INSM tooling measures user-perceived interactivity of a page',
 			status: 'general-availability',
 			import: {
-				name: 'Insm',
+				name: 'init',
 				package: '@atlaskit/insm',
-				type: 'default',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},
 			usageGuidelines: [],
-			contentGuidelines: [],
 			accessibilityGuidelines: [],
 			keywords: ['editor', 'insm', 'atlaskit'],
 			categories: ['editor'],
+			signature: 'init(options: INSMOptions): void',
 			examples: [],
 		},
 	],

@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/ba8958a0-76a6-4e55-86f6-e5e114e3c1ef
+name: '@atlaskit/embedded-confluence'
+ownerId: ari:cloud:identity::team/og-7802c162-a8d4-4276-839b-40471deaa8b6 # Confluence Integrations
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C0131PNA4GL # #cc-integrations-team
+  - name: Embedded Confluence Public
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/confluence/embedded-confluence-public
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Confluence Integrations
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/712020:5ee8f8d4-8949-4cb5-b8a4-4e2662c0028e # Joe Cohen
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

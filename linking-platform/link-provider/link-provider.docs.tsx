@@ -58,48 +58,6 @@ const documentation: StructuredContentSource = {
 			examples: [],
 		},
 		{
-			name: 'useSmartCardContext',
-			description:
-				'Hook to access the Smart Link context (store, client, config, extractors) from within the SmartCardProvider tree.',
-			status: 'general-availability',
-			import: {
-				name: 'useSmartCardContext',
-				package: '@atlaskit/link-provider',
-				type: 'named',
-				packagePath,
-				packageJson,
-			},
-			usageGuidelines: [
-				'Use when building custom components that need access to the link store, client, or extractors; must be used inside SmartCardProvider.',
-			],
-			contentGuidelines: [],
-			accessibilityGuidelines: [],
-			keywords: ['link-provider', 'hooks', 'context', 'useSmartCardContext'],
-			categories: ['linking'],
-			examples: [],
-		},
-		{
-			name: 'useSmartLinkContext',
-			description:
-				'Alias for useSmartCardContext. Hook to access the Smart Link context from within the SmartCardProvider tree.',
-			status: 'general-availability',
-			import: {
-				name: 'useSmartLinkContext',
-				package: '@atlaskit/link-provider',
-				type: 'named',
-				packagePath,
-				packageJson,
-			},
-			usageGuidelines: [
-				'Use when building custom components that need the link store, client, or config; must be used inside SmartCardProvider.',
-			],
-			contentGuidelines: [],
-			accessibilityGuidelines: [],
-			keywords: ['link-provider', 'hooks', 'context', 'useSmartLinkContext'],
-			categories: ['linking'],
-			examples: [],
-		},
-		{
 			name: 'SmartCardContext',
 			description:
 				'React context object for Smart Links. Prefer useSmartCardContext or useSmartLinkContext; use SmartCardContext.Consumer only when hooks are not available.',
@@ -139,6 +97,48 @@ const documentation: StructuredContentSource = {
 			accessibilityGuidelines: [],
 			keywords: ['link-provider', 'editor', 'EditorSmartCardProvider'],
 			categories: ['linking', 'editor'],
+			examples: [],
+		},
+	],
+	hooks: [
+		{
+			name: 'useSmartCardContext',
+			description:
+				'Hook to access the Smart Link context (store, client, config, extractors) from within the SmartCardProvider tree.',
+			status: 'general-availability',
+			import: {
+				name: 'useSmartCardContext',
+				package: '@atlaskit/link-provider',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
+			usageGuidelines: [
+				'Use when building custom components that need access to the link store, client, or extractors; must be used inside SmartCardProvider.',
+			],
+			accessibilityGuidelines: [],
+			keywords: ['link-provider', 'hooks', 'context', 'useSmartCardContext'],
+			categories: ['linking'],
+			examples: [],
+		},
+		{
+			name: 'useSmartLinkContext',
+			description:
+				'Alias for useSmartCardContext. Hook to access the Smart Link context from within the SmartCardProvider tree.',
+			status: 'general-availability',
+			import: {
+				name: 'useSmartLinkContext',
+				package: '@atlaskit/link-provider',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
+			usageGuidelines: [
+				'Use when building custom components that need the link store, client, or config; must be used inside SmartCardProvider.',
+			],
+			accessibilityGuidelines: [],
+			keywords: ['link-provider', 'hooks', 'context', 'useSmartLinkContext'],
+			categories: ['linking'],
 			examples: [],
 		},
 	],

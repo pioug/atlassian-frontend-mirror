@@ -12,6 +12,12 @@ const makeItem = (title: string, overrides?: Partial<QuickInsertItem>): QuickIns
 	...overrides,
 });
 
+/** Helper to create a skill item with extensionType set (as buildMenuItem does for extension items). */
+const makeSkillItem = (title: string, overrides?: Partial<QuickInsertItem>): QuickInsertItem => ({
+	...makeItem(title, overrides),
+	extensionType: 'com.atlassian.rovo.skill',
+});
+
 const makeResult = <T extends QuickInsertItem>(item: T, score: number) => ({
 	item,
 	score,
@@ -19,7 +25,7 @@ const makeResult = <T extends QuickInsertItem>(item: T, score: number) => ({
 
 describe('boostNativeResultsAboveSkills', () => {
 	it('should promote native item above a skill with a similar score', () => {
-		const skill = makeItem('Code Intelligence', { priority: 9000 });
+		const skill = makeSkillItem('Code Intelligence', { priority: 9000 });
 		const native = makeItem('Code snippet');
 
 		const results = [makeResult(skill, 0.1), makeResult(native, 0.15)];
@@ -30,7 +36,7 @@ describe('boostNativeResultsAboveSkills', () => {
 	});
 
 	it('should not promote native item when skill has a significantly better score', () => {
-		const skill = makeItem('Research Insights', { priority: 9000 });
+		const skill = makeSkillItem('Research Insights', { priority: 9000 });
 		const native = makeItem('Live search');
 
 		const results = [makeResult(skill, 0.05), makeResult(native, 0.3)];
@@ -52,8 +58,8 @@ describe('boostNativeResultsAboveSkills', () => {
 	});
 
 	it('should not change order when there are no native items', () => {
-		const a = makeItem('Skill A', { priority: 9000 });
-		const b = makeItem('Skill B', { priority: 9000 });
+		const a = makeSkillItem('Skill A', { priority: 9000 });
+		const b = makeSkillItem('Skill B', { priority: 9000 });
 
 		const results = [makeResult(a, 0.1), makeResult(b, 0.15)];
 
@@ -63,8 +69,8 @@ describe('boostNativeResultsAboveSkills', () => {
 	});
 
 	it('should promote multiple native items above multiple skills with similar scores', () => {
-		const skill1 = makeItem('Code Intelligence', { priority: 9000 });
-		const skill2 = makeItem('Code Review', { priority: 9000 });
+		const skill1 = makeSkillItem('Code Intelligence', { priority: 9000 });
+		const skill2 = makeSkillItem('Code Review', { priority: 9000 });
 		const native1 = makeItem('Code snippet');
 		const native2 = makeItem('Code block');
 
@@ -86,9 +92,9 @@ describe('boostNativeResultsAboveSkills', () => {
 	});
 
 	it('should handle mixed ordering with some skills having better scores', () => {
-		const skill1 = makeItem('Research Insights', { priority: 9000 });
+		const skill1 = makeSkillItem('Research Insights', { priority: 9000 });
 		const native1 = makeItem('Status');
-		const skill2 = makeItem('Report Builder', { priority: 9000 });
+		const skill2 = makeSkillItem('Report Builder', { priority: 9000 });
 		const native2 = makeItem('Heading');
 
 		// All scores within 0.2 of each other, so all native items get promoted
@@ -123,7 +129,7 @@ describe('boostNativeResultsAboveSkills', () => {
 	});
 
 	it('should not mutate the original array', () => {
-		const skill = makeItem('Code Intelligence', { priority: 9000 });
+		const skill = makeSkillItem('Code Intelligence', { priority: 9000 });
 		const native = makeItem('Code snippet');
 
 		const results = [makeResult(skill, 0.1), makeResult(native, 0.15)];
@@ -134,28 +140,74 @@ describe('boostNativeResultsAboveSkills', () => {
 		expect(results.map((r) => r.item.title)).toEqual(originalOrder);
 	});
 
-	it('should treat items with priority below threshold as native items', () => {
-		const lowPriority = makeItem('Panel', { priority: 500 });
-		const skill = makeItem('Code Intelligence', { priority: 9000 });
+	it('should treat high-priority native items without extensionType as native', () => {
+		// The Link item has priority 1200 (from the embeds experiment) but is
+		// a native editor item — it should NOT be classified as a skill.
+		const highPriorityNative = makeItem('Link', { priority: 1200 });
+		const skill = makeSkillItem('Code Intelligence', { priority: 9000 });
 		const native = makeItem('Code snippet');
 
 		const results = [
 			makeResult(skill, 0.1),
-			makeResult(lowPriority, 0.12),
+			makeResult(highPriorityNative, 0.12),
 			makeResult(native, 0.14),
 		];
 
 		const reranked = boostNativeResultsAboveSkills(results);
 
 		expect(reranked.map((r) => r.item.title)).toEqual([
-			'Panel',
+			'Link',
 			'Code snippet',
 			'Code Intelligence',
 		]);
 	});
 
+	it('should classify extension items as skills regardless of priority or categories', () => {
+		// An extension item with a non-AI category (e.g. Rovo Chat's 'Skills')
+		// should still be classified as a skill because it has extensionType.
+		const skill = makeSkillItem('Low Priority Skill', { priority: 100, categories: ['Skills'] });
+		const native = makeItem('Native');
+
+		const results = [makeResult(skill, 0.1), makeResult(native, 0.15)];
+
+		const reranked = boostNativeResultsAboveSkills(results);
+
+		expect(reranked.map((r) => r.item.title)).toEqual(['Native', 'Low Priority Skill']);
+	});
+
+	it('should not rerank high-priority native item (Link) above other native items', () => {
+		// Regression test: the Link item with priority 1200 (from the embeds experiment)
+		// should not be classified as a skill and should not be demoted below Figma/Drive.
+		const link = makeItem('Link', { priority: 1200 });
+		const figma = makeItem('Figma', { keywords: ['link'] });
+
+		// Fuse would score Link better (title match) and Figma worse (keyword match only)
+		const results = [makeResult(link, 0.05), makeResult(figma, 0.12)];
+
+		const reranked = boostNativeResultsAboveSkills(results);
+
+		// Link should stay above Figma — neither is a skill
+		expect(reranked.map((r) => r.item.title)).toEqual(['Link', 'Figma']);
+	});
+
+	it('should not treat non-Rovo extensions as skills', () => {
+		// Only Rovo skills (extensionType 'com.atlassian.rovo.skill') are
+		// classified as skills. Other extensions keep their original rank.
+		const thirdPartyExtension = makeItem('My Extension', {
+			extensionType: 'com.example.my-extension',
+		} as Partial<QuickInsertItem>);
+		const native = makeItem('Code snippet');
+
+		const results = [makeResult(thirdPartyExtension, 0.1), makeResult(native, 0.15)];
+
+		const reranked = boostNativeResultsAboveSkills(results);
+
+		// Third-party extension is NOT demoted — it's not a Rovo skill
+		expect(reranked.map((r) => r.item.title)).toEqual(['My Extension', 'Code snippet']);
+	});
+
 	it('should respect score proximity threshold boundary (exactly 0.2 difference)', () => {
-		const skill = makeItem('Skill', { priority: 9000 });
+		const skill = makeSkillItem('Skill', { priority: 9000 });
 		const native = makeItem('Native');
 
 		// Exactly 0.2 difference — should NOT promote (threshold is strict <)
@@ -167,7 +219,7 @@ describe('boostNativeResultsAboveSkills', () => {
 	});
 
 	it('should promote when score difference is just under threshold', () => {
-		const skill = makeItem('Skill', { priority: 9000 });
+		const skill = makeSkillItem('Skill', { priority: 9000 });
 		const native = makeItem('Native');
 
 		// Just under 0.2 — should promote
@@ -185,7 +237,7 @@ describe('find', () => {
 		.variant(true, () => {
 			it('should rank native "Code snippet" above skill "Code Intelligence" for query "code"', () => {
 				const items: QuickInsertItem[] = [
-					makeItem('Code Intelligence', {
+					makeSkillItem('Code Intelligence', {
 						priority: 9000,
 						keywords: ['code', 'intelligence'],
 					}),
@@ -204,7 +256,7 @@ describe('find', () => {
 
 			it('should not demote a skill that is a much better match than a native item', () => {
 				const items: QuickInsertItem[] = [
-					makeItem('Research Insights', {
+					makeSkillItem('Research Insights', {
 						priority: 9000,
 						keywords: ['research', 'insights'],
 					}),
@@ -223,7 +275,7 @@ describe('find', () => {
 
 			it('should sort by priority with skills at the bottom for empty query', () => {
 				const items: QuickInsertItem[] = [
-					makeItem('Code Intelligence', { priority: 9000 }),
+					makeSkillItem('Code Intelligence', { priority: 9000 }),
 					makeItem('Table', { priority: 1 }),
 					makeItem('Code snippet', { priority: 2 }),
 				];
@@ -239,7 +291,7 @@ describe('find', () => {
 		.variant(false, () => {
 			it('should use default Fuse.js ordering without boosting', () => {
 				const items: QuickInsertItem[] = [
-					makeItem('Code Intelligence', {
+					makeSkillItem('Code Intelligence', {
 						priority: 9000,
 						keywords: ['code', 'intelligence'],
 					}),

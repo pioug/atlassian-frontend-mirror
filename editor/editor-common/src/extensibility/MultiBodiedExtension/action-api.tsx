@@ -198,7 +198,7 @@ export const useMultiBodiedExtensionActions = ({
 				dispatch(tr);
 				return true;
 			},
-			updateParameters(parameters): boolean {
+			updateParameters(parameters, analyticsChangedParam?: string): boolean {
 				const { state, dispatch } = editorView;
 				const pos = getPos();
 				if (typeof pos !== 'number') {
@@ -220,7 +220,14 @@ export const useMultiBodiedExtensionActions = ({
 				const tr = state.tr.setNodeMarkup(pos, null, updatedParameters);
 				dispatch(tr);
 				if (eventDispatcher) {
-					sendMBEAnalyticsEvent(ACTION.UPDATE_PARAMETERS, node, eventDispatcher);
+					sendMBEAnalyticsEvent(
+						ACTION.UPDATE_PARAMETERS,
+						node,
+						eventDispatcher,
+						analyticsChangedParam && fg('confluence_frontend_native_tabs_extension')
+							? { changedParams: analyticsChangedParam }
+							: undefined,
+					);
 				}
 				return true;
 			},

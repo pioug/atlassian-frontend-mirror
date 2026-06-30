@@ -98,6 +98,28 @@ export type DeletionReason =
 	| 'source-block-unpublished';
 export type DeletionReasonResponse = DeletionReason | 'source-document-deleted';
 
+/**
+ * How a source bodiedSyncBlock removal was performed, derived from the
+ * originating transaction. Distinct from {@link DeletionReason} (the outcome):
+ * `mechanism` tells deliberate deletes apart from undos and accidental overwrites.
+ *
+ * Values name the user action that produced the removal:
+ *  - `undo` / `redo` — removal came from a history undo/redo.
+ *  - `deleteButton` — the explicit "Delete" control in the synced-block toolbar.
+ *  - `keyboardDelete` — Backspace/Delete key on a caret or range selection.
+ *  - `selectionReplaced` — the block was selected and replaced by typing or
+ *    pasting over it (the accidental-overwrite path).
+ *  - `other` — any non-direct removal (unsync, conversion, code-dispatched, or a
+ *    structural wrap/lift/unwrap edit).
+ */
+export type DeletionMechanism =
+	| 'undo'
+	| 'redo'
+	| 'deleteButton'
+	| 'keyboardDelete'
+	| 'selectionReplaced'
+	| 'other';
+
 export type SyncBlockPrefetchData = {
 	prefetchPromise: Promise<SyncBlockInstance[] | undefined>;
 	resourceIds: string[];

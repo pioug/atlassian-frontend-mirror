@@ -4,6 +4,7 @@ import React, {
 	forwardRef,
 	useImperativeHandle,
 	useRef,
+	type JSX,
 } from 'react';
 
 import type BaseSelect from '@atlaskit/react-select/base';

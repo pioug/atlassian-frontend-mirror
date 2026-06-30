@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::277dd7c0cf86c7859aa259537c97339f>>
+ * @codegen <<SignedSource::7b6257e877f645abd5b56726d725bd76>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -491,6 +491,8 @@ const tokens = {
 	'elevation.surface.hovered': '--ds-surface-hovered',
 	'elevation.surface.pressed': '--ds-surface-pressed',
 	'elevation.surface.container': '--ds-surface-container',
+	'elevation.surface.container.hovered': '--ds-surface-container-hovered',
+	'elevation.surface.container.pressed': '--ds-surface-container-pressed',
 	'elevation.surface.overlay': '--ds-surface-overlay',
 	'elevation.surface.overlay.hovered': '--ds-surface-overlay-hovered',
 	'elevation.surface.overlay.pressed': '--ds-surface-overlay-pressed',
@@ -1047,6 +1049,8 @@ export type CSSTokenMap = {
 	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
 	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
 	'elevation.surface.container': 'var(--ds-surface-container)';
+	'elevation.surface.container.hovered': 'var(--ds-surface-container-hovered)';
+	'elevation.surface.container.pressed': 'var(--ds-surface-container-pressed)';
 	'elevation.surface.overlay': 'var(--ds-surface-overlay)';
 	'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
 	'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';

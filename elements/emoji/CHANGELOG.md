@@ -1,5 +1,31 @@
 # @atlaskit/emoji
 
+## 71.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.6.3
+
+### Patch Changes
+
+- [`25f3fd2950876`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25f3fd2950876) -
+  Position emoji popups correctly when the page is scrolled
+- Updated dependencies
+
+## 71.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.6.1
 
 ### Patch Changes

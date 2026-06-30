@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-highlight
 
+## 12.1.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.12
+
+### Patch Changes
+
+- [`2c2c8bf9e0f13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c2c8bf9e0f13) -
+  [EDITOR-7929] move the colors schema change behind a different experiment that can be rolled out
+  for graceful rendering
+- Updated dependencies
+
+## 12.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.10
 
 ### Patch Changes

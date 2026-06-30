@@ -1,5 +1,36 @@
 # @atlaskit/adf-utils
 
+## 20.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.0
+
+### Minor Changes
+
+- [`ed550a5583074`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed550a5583074) -
+  Improve panel container fallback handling.
+
+## 20.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.0.12
 
 ### Patch Changes

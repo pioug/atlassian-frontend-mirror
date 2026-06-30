@@ -17,6 +17,28 @@ const isEnabled = ff('is_enabled');
 export const Component = ff('is_redesign') ? NewComponent : OldComponent;
 ```
 
+👎 Examples of **incorrect** code for this rule: `FeatureGates.checkGate` is called in module scope
+
+```tsx
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { OldComponent } from './old';
+import { NewComponent } from './new';
+
+const isEnabled = FeatureGates.checkGate('is_enabled');
+
+export const Component = FeatureGates.checkGate('is_redesign') ? NewComponent : OldComponent;
+```
+
+👍 Examples of **correct** code: evaluate the gate inside a function/component body
+
+```tsx
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
+export const Container = () => {
+	const isEnabled = FeatureGates.checkGate('is_enabled');
+};
+```
+
 👍 Examples of **correct** code to feature flag components: use ComponentWithFF
 
 ```tsx

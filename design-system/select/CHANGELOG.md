@@ -1,5 +1,23 @@
 # @atlaskit/select
 
+## 22.3.0
+
+### Minor Changes
+
+- [`fe2d23e30b442`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe2d23e30b442) -
+  [ux] Bumps Select so consumers pick up the voice-control accessible dropdown indicator from
+  `@atlaskit/react-select`. The dropdown chevron can be targeted by voice control when
+  `platform_dst_select_dropdown_voice_control` is enabled, while visual appearance and keyboard tab
+  order remain unchanged.
+
+### Patch Changes
+
+- [`86c21c639404f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86c21c639404f) -
+  Run `scoped-jsx` codemod, migrating atlaskit components and examples to import the JSX type from
+  React and use logical CSS properties. The change is required for components to be compatible with
+  React 19 version, which removed JSX from global scope.
+- Updated dependencies
+
 ## 22.2.0
 
 ### Minor Changes

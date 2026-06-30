@@ -149,12 +149,7 @@ const HoverLinkOverlay = ({
 	const [isHovered, setHovered] = useState(false);
 	const openTextWidthRef = useRef<number | null>(null);
 
-	const regularPadding =
-		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp'))
-			? DYNAMIC_PADDING_BLOCK
-			: token('space.025');
+	const regularPadding = DYNAMIC_PADDING_BLOCK;
 	const memoizedHoverLinkStyles = useMemo(
 		() => ({
 			paddingBlock: compactPadding ? '1px' : regularPadding,
@@ -164,13 +159,7 @@ const HoverLinkOverlay = ({
 	const hoverLinkStyles = expValEquals('platform_editor_perf_lint_cleanup', 'isEnabled', true)
 		? memoizedHoverLinkStyles
 		: {
-				paddingBlock: compactPadding
-					? '1px'
-					: expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						  (expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp'))
-						? DYNAMIC_PADDING_BLOCK
-						: token('space.025'),
+				paddingBlock: compactPadding ? '1px' : DYNAMIC_PADDING_BLOCK,
 			};
 
 	useLayoutEffect(() => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.6.0",
+	"version": "45.6.5",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,7 +19,7 @@
 	"atlassian": {
 		"i18n": true,
 		"react-compiler": {
-			"enabled": true,
+			"enabled": false,
 			"gating": {
 				"source": "@atlaskit/react-compiler-gating",
 				"importSpecifierName": "isReactCompilerActivePlatform"
@@ -286,9 +286,6 @@
 			"type": "boolean"
 		},
 		"platform_sl_3p_auth_rovo_action_kill_switch": {
-			"type": "boolean"
-		},
-		"platform_sl_connect_account_flag": {
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {

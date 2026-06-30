@@ -1166,7 +1166,11 @@ export interface SurfaceTokenSchema<BaseToken> {
 				hovered: PaintToken<BaseToken>;
 				pressed: PaintToken<BaseToken>;
 			};
-			container: PaintToken<BaseToken>;
+			container: {
+				'[default]': PaintToken<BaseToken>;
+				hovered: PaintToken<BaseToken>;
+				pressed: PaintToken<BaseToken>;
+			};
 		};
 	};
 }

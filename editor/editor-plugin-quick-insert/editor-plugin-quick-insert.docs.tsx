@@ -12,9 +12,10 @@ import packageJson from './package.json';
 const packagePath = path.resolve(__dirname);
 
 const documentation: StructuredContentSource = {
-	components: [
+	utilities: [
 		{
-			name: 'Editor Plugin Quick Insert',
+			kind: 'function',
+			name: 'quickInsertPlugin',
 			description: 'Quick insert plugin for @atlaskit/editor-core',
 			status: 'general-availability',
 			import: {
@@ -25,10 +26,10 @@ const documentation: StructuredContentSource = {
 				packageJson,
 			},
 			usageGuidelines: [],
-			contentGuidelines: [],
 			accessibilityGuidelines: [],
 			keywords: ['editor', 'editor-plugin-quick-insert', 'atlaskit'],
 			categories: ['editor'],
+			signature: 'quickInsertPlugin: QuickInsertPlugin',
 			examples: [],
 		},
 	],

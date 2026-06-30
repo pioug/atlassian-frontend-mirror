@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-palette",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"description": "The editor palette",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,10 +29,17 @@
 		"./text-background-color": "./src/entry-points/text-background-color.ts"
 	},
 	"dependencies": {
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
+	"platform-feature-flags": {
+		"platform_editor_lovability_text_bg_color_patch_1": {
+			"type": "boolean"
+		}
+	},
 	"devDependencies": {
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",

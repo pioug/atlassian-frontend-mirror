@@ -14,14 +14,14 @@ const packagePath = path.resolve(__dirname);
 const documentation: StructuredContentSource = {
 	components: [
 		{
-			name: 'EditorPerformanceMetrics',
+			name: 'PerformanceMetrics',
 			description:
 				'Experimental code to track Editor Full Page performance on some particular scenarios',
 			status: 'general-availability',
 			import: {
-				name: 'EditorPerformanceMetrics',
-				package: '@atlaskit/editor-performance-metrics',
-				type: 'default',
+				name: 'PerformanceMetrics',
+				package: '@atlaskit/editor-performance-metrics/react',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},

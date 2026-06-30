@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/ab877aad-8e65-43b8-b2dd-85e346c83947
+name: '@atlaskit/ufo-experience-key'
+ownerId: ari:cloud:identity::team/4b8538b2-2e27-401d-9ac1-e93bf730518b # UFO - Vulcans
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C09BJHBBN3C # #help-agg-platform
+  - name: Ufo Experience Key
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/ufo/ufo-experience-key
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Atlassian GraphQL Gateway
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/557058:e9d42ec6-1656-4d0d-8871-0c8e86d3148d # Felipe Reis
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

@@ -6,6 +6,7 @@ import {
 	type ComponentPropsWithoutRef,
 	type ComponentPropsWithRef,
 	forwardRef,
+	type JSX,
 	type ReactElement,
 	type ReactNode,
 } from 'react';

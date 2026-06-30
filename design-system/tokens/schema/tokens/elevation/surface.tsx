@@ -93,11 +93,29 @@ const surface: AttributeSchema<SurfaceTokenSchema<BaseToken>> = {
 				},
 			},
 			container: {
-				attributes: {
-					group: 'paint',
-					state: 'active',
-					introduced: '13.3.0',
-					description: 'Use as a neutral container surface background.',
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '13.3.0',
+						description: 'Use as a neutral container surface background.',
+					},
+				},
+				hovered: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '14.1.0',
+						description: 'Hovered state of elevation.surface.container',
+					},
+				},
+				pressed: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '14.1.0',
+						description: 'Pressed state of elevation.surface.container',
+					},
 				},
 			},
 		},

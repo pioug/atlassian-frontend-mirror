@@ -12,7 +12,6 @@ import {
 } from '@atlaskit/linking-common';
 import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { functionWithFG } from '@atlaskit/platform-feature-flags-react';
 import { ROVO_POST_MESSAGE_EVENT_TYPE } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { type ChatSmartLink3PPostAuthLaunchPayload } from '@atlaskit/rovo-triggers/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -20,7 +19,6 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
-import { noop } from '../../utils';
 import { getIsRovoChatEnabled } from '../../utils/rovo';
 import { type CardInnerAppearance } from '../../view/Card/types';
 import { startUfoExperience } from '../analytics';
@@ -102,12 +100,7 @@ export const useSmartCardActions = (
 	const invokeClientAction = useInvokeClientAction({});
 	const { fireEvent } = useAnalyticsEvents();
 
-	const useActionFlagsGated = functionWithFG<typeof useActionFlags | typeof noop>(
-		'platform_sl_connect_account_flag',
-		useActionFlags,
-		noop,
-	);
-	const flags = useActionFlagsGated();
+	const flags = useActionFlags();
 
 	const { store, rovoOptions } = useSmartLinkContext();
 	const rovoOptionsRef = useRef(rovoOptions);
@@ -280,13 +273,11 @@ export const useSmartCardActions = (
 							expValEquals('platform_sl_3p_post_auth_chat_open_exp', 'isEnabled', true);
 
 						if (status === 'unauthorized' && !isPostAuthChatTreatment) {
-							if (fg('platform_sl_connect_account_flag')) {
-								const provider = extractSmartLinkProvider(details);
-								flags?.showConnectFlag({
-									id: `smart-link-connect-success-${extensionKey}`,
-									provider,
-								});
-							}
+							const provider = extractSmartLinkProvider(details);
+							flags.showConnectFlag({
+								id: `smart-link-connect-success-${extensionKey}`,
+								provider,
+							});
 						}
 
 						reload();

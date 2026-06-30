@@ -1,5 +1,5 @@
 name: Media Card
-id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/6d687ccf-d7c3-4faf-90a7-7397622c140f'
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/6d687ccf-d7c3-4faf-90a7-7397622c140f
 description:
   This package provides the capability to display a preview of a file that has been already
   uploaded. It leverages the returned id opon a successful file upload and does all the work
@@ -7,39 +7,62 @@ description:
   the file.
 configVersion: 1
 typeId: UI_ELEMENT
-ownerId: 'ari:cloud:teams::team/3bee892f-cb1b-496c-b866-0f08d9e0296c'
+ownerId: ari:cloud:teams::team/3bee892f-cb1b-496c-b866-0f08d9e0296c # Media EXIF
 fields:
-  lifecycle: Active
   tier: 2
+  lifecycle: Active
+  isMonorepoProject: true
 labels:
   - atlassian-platform
+  - platform-code
+  - platform-afm
 links:
   - name: Root Repository
     type: REPOSITORY
     url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
   - name: ''
     type: REPOSITORY
-    url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/media/media-card/'
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/media/media-card/
   - name: ''
     type: DOCUMENT
-    url: 'https://atlaskit.atlassian.com/packages/media/media-card'
-  - name: '' # Tome Capability
+    url: https://atlaskit.atlassian.com/packages/media/media-card
+  - name: ''
     type: OTHER_LINK
-    url: 'https://tome.prod.atl-paas.net/capability/b7288340-829a-4e42-a694-6cd257dfe552'
+    url: https://tome.prod.atl-paas.net/capability/b7288340-829a-4e42-a694-6cd257dfe552
   - name: Media By Product
     type: DASHBOARD
-    url: 'https://atlassian.signalfx.com/#/dashboard/E-vk3wqAwAA?groupId=E-vkzo1AwAA&configId=E-vk5fsAwAA&startTime=-7d&endTime=Now'
+    url: https://atlassian.signalfx.com/#/dashboard/E-vk3wqAwAA?groupId=E-vkzo1AwAA&configId=E-vk5fsAwAA&startTime=-7d&endTime=Now
   - name: ''
     type: CHAT_CHANNEL
-    url: 'https://atlassian.slack.com/archives/C05J5GNHPLN'
+    url: https://atlassian.slack.com/archives/C05J5GNHPLN
   - name: ''
     type: ON_CALL
-    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b62291ff-4029-4f26-b7fc-d75d46d7aebc'
+    url: https://atlassian.app.opsgenie.com/settings/schedule/detail/b62291ff-4029-4f26-b7fc-d75d46d7aebc
   - name: ''
     type: PROJECT
-    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/BMPT/boards/5090'
+    url: https://product-fabric.atlassian.net/jira/software/c/projects/BMPT/boards/5090
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C05J5GNHPLN # #help-media-platform
+  - name: Media Card
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/media/media-card
 relationships:
   DEPENDS_ON:
-    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/652381b6-c323-4b50-bf31-c94941a0b6ef'
-# Learn more about formatting compass.yml:
-# https://go.atlassian.com/compass-yml-format
+    - ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/652381b6-c323-4b50-bf31-c94941a0b6ef
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Automation
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/712020:678ede01-221b-4b2f-9fce-adcc0b0d095e # Anupama Majety
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

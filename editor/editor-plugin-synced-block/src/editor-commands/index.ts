@@ -38,7 +38,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { syncedBlockPluginKey } from '../pm-plugins/main';
+import { deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
 import {
 	canBeConvertedToSyncBlock,
 	deferDispatch,
@@ -259,6 +259,10 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	const domNode = toDOM(referenceSyncBlockNode, schema);
 	copyDomNode(domNode, referenceSyncBlockNode.type, selection);
 
+	// Bare-uuid join key shared with the create/delete events: for a source
+	// bodiedSyncBlock its `localId` is the source uuid (copy was page-form only).
+	const sourceJoinKey = isBodiedSyncBlock ? syncBlockFindResult.node.attrs.localId : undefined;
+
 	deferDispatch(() => {
 		api?.core.actions.execute(({ tr }) => {
 			api?.analytics?.actions?.fireAnalyticsEvent({
@@ -269,6 +273,8 @@ const copySyncedBlockReferenceToClipboardInternal = (
 				attributes: {
 					resourceId: referenceSyncBlockNode.attrs.resourceId,
 					inputMethod,
+					...(sourceJoinKey &&
+						fg('platform_editor_blocks_patch_4') && { blockInstanceId: sourceJoinKey }),
 				},
 			});
 
@@ -362,6 +368,13 @@ export const removeSyncedBlock =
 
 		if (!removeTr) {
 			return false;
+		}
+
+		// Tag the transaction so analytics can report this as `deleteButton` rather
+		// than a keyboard delete (both produce a plain ReplaceStep). Gated so the
+		// gate-off transaction is unchanged.
+		if (fg('platform_editor_blocks_patch_4')) {
+			removeTr.setMeta(deleteMechanismMetaKey, 'deleteButton');
 		}
 
 		dispatch(removeTr);

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "6.1.0",
+	"version": "6.1.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -89,6 +89,7 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
+		"@atlaskit/visually-hidden": "workspace:^",
 		"@atlaskit/width-detector": "workspace:^",
 		"@atlassian/assets-workspace-host": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -217,6 +218,9 @@
 			"type": "boolean"
 		},
 		"platform_lp_sllv_richtext_margin_reset": {
+			"type": "boolean"
+		},
+		"navx-5290-sllv-modal-a11y-updates": {
 			"type": "boolean"
 		}
 	},

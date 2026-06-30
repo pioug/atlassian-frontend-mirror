@@ -26,7 +26,7 @@ const documentation: StructuredContentSource = {
 			import: {
 				name: 'FocusRing',
 				package: '@atlaskit/focus-ring',
-				type: 'named',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},

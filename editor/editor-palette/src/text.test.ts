@@ -1,3 +1,5 @@
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { hexToEditorTextPaletteColor } from './index';
 
 describe('hexToEditorTextPaletteColor', () => {
@@ -15,7 +17,6 @@ describe('hexToEditorTextPaletteColor', () => {
 		['#6A9A23', 'var(--ds-icon-accent-lime)'],
 		['#4C6B1F', 'var(--ds-text-accent-lime)'],
 		['#FFF0B3', 'var(--ds-background-accent-yellow-subtler)'],
-		['#B38600', 'var(--ds-icon-accent-yellow)'],
 		['#7F5F01', 'var(--ds-text-accent-yellow)'],
 		['#FFC400', 'var(--ds-background-accent-orange-subtle)'],
 		['#FF991F', 'var(--ds-icon-accent-orange)'],
@@ -40,5 +41,17 @@ describe('hexToEditorTextPaletteColor', () => {
 
 	test('supports loading via a lowercase value', () => {
 		expect(hexToEditorTextPaletteColor('#b3d4ff')).toBe('var(--ds-background-accent-blue-subtler)');
+	});
+
+	test('uses icon accent yellow for the yellow palette swatch when patch gate is disabled', () => {
+		failGate('platform_editor_lovability_text_bg_color_patch_1');
+
+		expect(hexToEditorTextPaletteColor('#B38600')).toBe('var(--ds-icon-accent-yellow)');
+	});
+
+	test('uses border accent yellow for the yellow palette swatch when patch gate is enabled', () => {
+		passGate('platform_editor_lovability_text_bg_color_patch_1');
+
+		expect(hexToEditorTextPaletteColor('#B38600')).toBe('var(--ds-border-accent-yellow)');
 	});
 });

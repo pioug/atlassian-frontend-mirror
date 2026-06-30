@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/449dee55-b81b-4858-9695-3f566a2c5d29
+name: '@atlaskit/node-data-provider'
+ownerId: ari:cloud:identity::team/ce353f56-2a90-491b-b272-b90dca4fffa2 # Editor FE Platform
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C03SD6QJWPP # #cc-editor-lego
+  - name: Node Data Provider
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/editor/node-data-provider
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Editor Frontend Platform
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/5ea93c14a4c57d0b8bd65a16 # Anand Raj
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

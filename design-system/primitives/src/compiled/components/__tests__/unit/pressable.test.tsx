@@ -135,7 +135,7 @@ describe('Pressable', () => {
 			expect(screen.getByTestId(testId)).not.toHaveAttribute('tabindex');
 		});
 
-		it('should set tabIndex to 0 by default for Safari ', () => {
+		it('should set tabIndex to 0 by default for Safari', () => {
 			const orginalNavigator = window.navigator;
 			Object.defineProperty(window.navigator, 'userAgent', { value: 'safari', writable: true });
 

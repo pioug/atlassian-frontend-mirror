@@ -5,11 +5,6 @@ import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
 import type { EditorContentMode } from '@atlaskit/editor-common/types';
-import {
-	relativeFontSizeToBase16,
-	akEditorFullPageDenseFontSize,
-} from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -424,16 +419,8 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 
 	// Dense content mode extensions styling fix - addresses EDITOR-1992
 	// When cleaning up the experiment, move this logic into the baseExtensionStyles above
-	const fontSize =
-		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-		expValEquals('cc_editor_ai_content_mode', 'variant', 'test')
-			? relativeFontSizeToBase16(akEditorFullPageDenseFontSize)
-			: undefined;
 	const denseExtensionStyles =
-		(contentMode === 'compact' &&
-			expValEquals('confluence_compact_text_format', 'isEnabled', true)) ||
-		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp'))
+		contentMode === 'compact'
 			? css({
 					// Table of Contents Macro
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -449,17 +436,7 @@ export const getExtensionStyles = (contentMode?: EditorContentMode): SerializedS
 							fontSize: 'var(--ak-editor-base-font-size)',
 						},
 				})
-			: contentMode === 'compact' &&
-				  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						expValEquals('cc_editor_ai_content_mode', 'variant', 'test'))
-				? css({
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-						'.extension-container a span': {
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-							fontSize,
-						},
-					})
-				: css({});
+			: css({});
 	const bodiedExtensionLayoutShiftFixStyles = expValEquals(
 		'platform_editor_bodiedextension_layoutshift_fix',
 		'isEnabled',

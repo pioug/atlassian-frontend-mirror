@@ -258,27 +258,6 @@ const documentation: StructuredContentSource = {
 			examples: [],
 		},
 		{
-			name: 'useLinkCreateCallback',
-			description:
-				'Hook that returns the link-create callback from LinkCreateCallbackProvider. Use to trigger or react to create success from child components.',
-			status: 'general-availability',
-			import: {
-				name: 'useLinkCreateCallback',
-				package: '@atlaskit/link-create',
-				type: 'named',
-				packagePath,
-				packageJson,
-			},
-			usageGuidelines: [
-				'Use inside a plugin or child of LinkCreateCallbackProvider when you need access to the create-success callback.',
-			],
-			contentGuidelines: [],
-			accessibilityGuidelines: [],
-			keywords: ['link-create', 'hooks', 'callback', 'useLinkCreateCallback'],
-			categories: ['linking', 'forms'],
-			examples: [],
-		},
-		{
 			name: 'LinkCreateExitWarningProvider',
 			description:
 				'Provider that enables an exit-confirmation when the user tries to leave the create flow with unsaved changes. Uses ExitWarningModalProvider internally.',
@@ -302,27 +281,6 @@ const documentation: StructuredContentSource = {
 			examples: [],
 		},
 		{
-			name: 'useWithExitWarning',
-			description:
-				'Hook that wires the current form or flow into the exit-warning behavior. Use when building custom create UI that should trigger the exit warning.',
-			status: 'general-availability',
-			import: {
-				name: 'useWithExitWarning',
-				package: '@atlaskit/link-create',
-				type: 'named',
-				packagePath,
-				packageJson,
-			},
-			usageGuidelines: [
-				'Use inside a component wrapped by LinkCreateExitWarningProvider when you need to register dirty state or trigger the exit warning modal.',
-			],
-			contentGuidelines: [],
-			accessibilityGuidelines: [],
-			keywords: ['link-create', 'hooks', 'exit', 'warning', 'useWithExitWarning'],
-			categories: ['linking', 'forms'],
-			examples: [],
-		},
-		{
 			name: 'CreateField',
 			description:
 				'Controller component that connects a form field to the create form state (name, validation, value). Use to build custom fields that participate in CreateForm.',
@@ -342,6 +300,48 @@ const documentation: StructuredContentSource = {
 				'Ensure the rendered control has an accessible name and that validation errors are associated (e.g. aria-describedby).',
 			],
 			keywords: ['link-create', 'form', 'field', 'CreateField'],
+			categories: ['linking', 'forms'],
+			examples: [],
+		},
+	],
+	hooks: [
+		{
+			name: 'useLinkCreateCallback',
+			description:
+				'Hook that returns the link-create callback from LinkCreateCallbackProvider. Use to trigger or react to create success from child components.',
+			status: 'general-availability',
+			import: {
+				name: 'useLinkCreateCallback',
+				package: '@atlaskit/link-create',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
+			usageGuidelines: [
+				'Use inside a plugin or child of LinkCreateCallbackProvider when you need access to the create-success callback.',
+			],
+			accessibilityGuidelines: [],
+			keywords: ['link-create', 'hooks', 'callback', 'useLinkCreateCallback'],
+			categories: ['linking', 'forms'],
+			examples: [],
+		},
+		{
+			name: 'useWithExitWarning',
+			description:
+				'Hook that wires the current form or flow into the exit-warning behavior. Use when building custom create UI that should trigger the exit warning.',
+			status: 'general-availability',
+			import: {
+				name: 'useWithExitWarning',
+				package: '@atlaskit/link-create',
+				type: 'named',
+				packagePath,
+				packageJson,
+			},
+			usageGuidelines: [
+				'Use inside a component wrapped by LinkCreateExitWarningProvider when you need to register dirty state or trigger the exit warning modal.',
+			],
+			accessibilityGuidelines: [],
+			keywords: ['link-create', 'hooks', 'exit', 'warning', 'useWithExitWarning'],
 			categories: ['linking', 'forms'],
 			examples: [],
 		},

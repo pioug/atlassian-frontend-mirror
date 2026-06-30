@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 10.2.0
+
+### Minor Changes
+
+- [`015a98b324278`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/015a98b324278) -
+  Adopt motion.button.hovered / motion.button.pressed tokens for hover/press background transitions
+  in custom button-like components (inline-edit read view, navigation-system top-nav pressable, and
+  page-layout resize control grab area), gated behind the platform-dst-motion-uplift-button feature
+  flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

@@ -6,8 +6,10 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { DatasourceAction } from '../../../../analytics/types';
 import type { DisplayViewModes } from '../../../../common/types';
@@ -57,6 +59,13 @@ const compactModeSwitcherStyles = css({
 
 const modeInputStyles = css({
 	display: 'none',
+});
+
+const modeFocusStyles = css({
+	'&:focus-within': {
+		outline: `2px solid ${token('color.border.focused')}`,
+		outlineOffset: token('space.025', '2px'),
+	},
 });
 
 const modeSwitcherLabelStyles = css({
@@ -129,6 +138,8 @@ export const ModeSwitcher = <T extends string = string>(
 		onOptionValueChange(event.currentTarget.value as T);
 	};
 
+	const RadioWrapper = fg('navx-5290-sllv-modal-a11y-updates') ? VisuallyHidden : React.Fragment;
+
 	return options.length > 0 ? (
 		<fieldset
 			css={[modeSwitcherStyles, isCompact && compactModeSwitcherStyles]}
@@ -151,21 +162,24 @@ export const ModeSwitcher = <T extends string = string>(
 									isDisabled && modeSwitcherDisabledStyles,
 									isOptionDisabled && modeSwitcherLabelDisabledStyles,
 									isOptionDisabled && modeSwitcherDisabledStyles,
+									fg('navx-5290-sllv-modal-a11y-updates') && modeFocusStyles,
 								]}
 								data-testid={`mode-toggle-${value}`}
 							>
 								{label}
-								{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
-								<input
-									aria-checked={isSelected}
-									aria-disabled={isOptionDisabled}
-									checked={isSelected}
-									css={modeInputStyles}
-									disabled={isOptionDisabled}
-									onChange={handleModeChange}
-									type="radio"
-									value={value}
-								/>
+								<RadioWrapper>
+									{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
+									<input
+										aria-checked={isSelected}
+										aria-disabled={isOptionDisabled}
+										checked={isSelected}
+										css={[fg('navx-5290-sllv-modal-a11y-updates') ? undefined : modeInputStyles]}
+										disabled={isOptionDisabled}
+										onChange={handleModeChange}
+										type="radio"
+										value={value}
+									/>
+								</RadioWrapper>
 							</label>
 						)}
 					</Tooltip>

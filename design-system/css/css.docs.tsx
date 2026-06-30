@@ -3,8 +3,9 @@ import path from 'path';
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
-	components: [
+	utilities: [
 		{
+			kind: 'function',
 			name: 'css',
 			description: 'A typed variant of Compiled CSS-in-JS adhering to the Atlassian Design System.',
 			status: 'open-beta',
@@ -31,6 +32,7 @@ const documentation: StructuredContentSource = {
 			categories: ['utility'],
 		},
 		{
+			kind: 'function',
 			name: 'cssMap',
 			description: 'A typed variant of Compiled CSS-in-JS adhering to the Atlassian Design System.',
 			status: 'open-beta',
@@ -58,6 +60,7 @@ const documentation: StructuredContentSource = {
 			categories: ['utility'],
 		},
 		{
+			kind: 'function',
 			name: 'cx',
 			description: 'A function for combining styles in an `xcss` prop to maintain correct typing.',
 			status: 'open-beta',

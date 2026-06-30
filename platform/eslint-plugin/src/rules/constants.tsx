@@ -11,6 +11,14 @@ export const EXPERIMENT_API_IMPORT_SOURCES: Set<string> = new Set([
 	'@atlaskit/tmp-editor-statsig/dynamic-config-value-contains',
 ]);
 
+// Direct statsig client libraries. These expose member-style APIs such as
+// `FeatureGates.checkGate(...)`. They are intentionally kept separate from
+// FEATURE_API_IMPORT_SOURCES (which is for the recommended `fg`/`ff` abstractions)
+// so that only structural rules like no-module-level-eval apply to them.
+export const STATSIG_LIB_IMPORT_SOURCES: Set<string> = new Set([
+	'@atlaskit/feature-gate-js-client',
+]);
+
 // List of libraries that we maintain or have worked on
 // - eg `@atlaskit/feature-gate-js-client` shouldn't be included in here
 export const FEATURE_API_IMPORT_SOURCES: Set<string> = new Set([

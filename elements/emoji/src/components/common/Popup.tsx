@@ -10,6 +10,11 @@ const getTargetNode = (target: string | Element): Element | null => {
 	return target;
 };
 
+const getWindowScroll = (): { x: number; y: number } => ({
+	x: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+	y: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0,
+});
+
 export interface Props {
 	children: ReactElement<any>;
 	horizontalAlign?: 'start' | 'end' | 'end-to-start';
@@ -49,8 +54,9 @@ const Popup = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 		const targetNode = getTargetNode(target);
 		if (targetNode && popup.current) {
 			const box = targetNode.getBoundingClientRect();
-			const top = box.bottom + (offsetY || 0);
-			const left = getLeftPosition(box);
+			const scroll = getWindowScroll();
+			const top = box.bottom + scroll.y + (offsetY || 0);
+			const left = getLeftPosition(box) + scroll.x;
 			popup.current.style.top = `${top}px`;
 			popup.current.style.bottom = '';
 			popup.current.style.left = `${left}px`;
@@ -64,8 +70,9 @@ const Popup = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 		const targetNode = getTargetNode(target);
 		if (targetNode && popup.current) {
 			const box = targetNode.getBoundingClientRect();
-			const bottom = window.innerHeight - box.top + (offsetY || 0);
-			const left = getLeftPosition(box);
+			const scroll = getWindowScroll();
+			const bottom = window.innerHeight - box.top - scroll.y + (offsetY || 0);
+			const left = getLeftPosition(box) + scroll.x;
 			popup.current.style.top = '';
 			popup.current.style.bottom = `${bottom}px`;
 			popup.current.style.left = `${left}px`;

@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 /**
  * This takes an adf hex color and returns a matching border palette color.
  *
@@ -60,10 +62,12 @@ export function hexToEditorTextPaletteColor<HexColor extends string>(
 	? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
 		EditorTextPalette[HexColor]
 	: string | undefined {
+	const normalizedHexColor = hexColor ? hexColor.toUpperCase() : undefined;
+
 	// Ts ignore was used to allow use of conditional return type
 	// (preferencing better type on consumption over safety in implementation)
 	// @ts-expect-error
-	return hexColor ? editorTextPalette[hexColor.toUpperCase()] : undefined;
+	return normalizedHexColor ? editorTextPalette[normalizedHexColor] : undefined;
 }
 type EditorTextPalette = typeof editorTextPalette;
 export type EditorTextPaletteKey = keyof EditorTextPalette;
@@ -129,7 +133,13 @@ export const editorTextPalette = {
 	/** magenta - strong */
 	'#943D73': 'var(--ds-text-accent-magenta, #943D73)',
 	/** yellow - medium */
-	'#B38600': 'var(--ds-icon-accent-yellow, #B38600)',
+	get ['#B38600']():
+		| 'var(--ds-border-accent-yellow, #B38600)'
+		| 'var(--ds-icon-accent-yellow, #B38600)' {
+		return fg('platform_editor_lovability_text_bg_color_patch_1')
+			? 'var(--ds-border-accent-yellow, #B38600)'
+			: 'var(--ds-icon-accent-yellow, #B38600)';
+	},
 	/** yellow - strong */
 	'#7F5F01': 'var(--ds-text-accent-yellow, #7F5F01)',
 };

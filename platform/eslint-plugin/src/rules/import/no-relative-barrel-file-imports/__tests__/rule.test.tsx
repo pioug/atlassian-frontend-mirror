@@ -168,6 +168,86 @@ describe('no-relative-barrel-file-imports', () => {
 		});
 	});
 
+	describe('local imported bindings re-exported from a barrel', () => {
+		const PKG = `${BASE}/pkg-local-import-re-export`;
+		const CONSUMER = `${PKG}/src/consumer.ts`;
+		const fs = createMockFs({
+			[`${W}/.git/config`]: '',
+			[`${PKG}/src/index.ts`]: outdent`
+				import { Products } from './common/product-context/products';
+				import { ProductNames as ImportedProductNames } from './common/product-context/product-names';
+				import { ProductKeys } from './common/product-context/product-keys';
+				import { ProductUrls as ImportedProductUrls } from './common/product-context/product-urls';
+
+				export { Products };
+				export { ImportedProductNames };
+				export { ProductKeys as ExportedProductKeys };
+				export { ImportedProductUrls as ExportedProductUrls };
+			`,
+			[`${PKG}/src/common/product-context/products.tsx`]: outdent`
+				export enum Products {
+					jira = 'JIRA',
+					confluence = 'CONFLUENCE',
+				}
+			`,
+			[`${PKG}/src/common/product-context/product-names.tsx`]: outdent`
+				export const ProductNames = {
+					jira: 'Jira',
+					confluence: 'Confluence',
+				};
+			`,
+			[`${PKG}/src/common/product-context/product-keys.tsx`]: outdent`
+				export const ProductKeys = {
+					jira: 'jira',
+					confluence: 'confluence',
+				};
+			`,
+			[`${PKG}/src/common/product-context/product-urls.tsx`]: outdent`
+				export const ProductUrls = {
+					jira: '/jira',
+					confluence: '/wiki',
+				};
+			`,
+			[CONSUMER]: '',
+		});
+
+		runWithFs('local-import-re-export', fs, {
+			valid: [],
+			invalid: [
+				{
+					code: `import { Products } from './index';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					output: `import { Products } from './common/product-context/products';`,
+				},
+				{
+					code: `import { Products as RenamedProducts } from './index';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					output: `import { Products as RenamedProducts } from './common/product-context/products';`,
+				},
+				{
+					code: `import { ImportedProductNames } from './index';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					output: `import { ProductNames as ImportedProductNames } from './common/product-context/product-names';`,
+				},
+				{
+					code: `import { ExportedProductKeys } from './index';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					output: `import { ProductKeys as ExportedProductKeys } from './common/product-context/product-keys';`,
+				},
+				{
+					code: `import { ExportedProductUrls } from './index';`,
+					filename: CONSUMER,
+					errors: [{ messageId: 'barrelImport' }],
+					output: `import { ProductUrls as ExportedProductUrls } from './common/product-context/product-urls';`,
+				},
+			],
+		});
+	});
+
 	describe('multiple imports from different sources', () => {
 		const PKG = `${BASE}/pkg-multi`;
 		const CONSUMER = `${PKG}/src/consumer.ts`;

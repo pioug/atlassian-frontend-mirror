@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useRef } from 'react';
+import { type JSX, useEffect, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Focusable } from '@atlaskit/primitives/compiled';

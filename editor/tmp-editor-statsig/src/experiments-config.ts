@@ -234,13 +234,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Addded 2025-12-04
-	confluence_compact_text_format: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Addded 2026-02-11
 	ai_speech_to_text_in_editor: {
 		defaultValue: boolean;
@@ -1180,13 +1173,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-30
-	platform_editor_spotlight_migration: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-18
 	platform_editor_fix_advanced_codeblocks_crlf_patch: {
 		defaultValue: boolean;
@@ -1589,13 +1575,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-23
-	confluence_toc_nav_a11y: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-30
 	platform_editor_ai_xstate_migration: {
 		defaultValue: boolean;
@@ -1710,13 +1689,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-11
 	platform_editor_table_menu_updates: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-02
-	platform_editor_macro_placeholder_array_guard: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1903,6 +1875,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-26
+	'a11y-fixes-week1-june-2026': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-21
 	fix_free_gen_prompt_bar_position: {
 		defaultValue: boolean;
@@ -2003,6 +1982,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-25
 	platform_editor_typeahead_empty_query_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-29
+	platform_editor_lovability_color_schema_change: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2882,14 +2868,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-12-04
-	confluence_compact_text_format: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_compact_text_format',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-05
 	platform_editor_abort_ufo_on_user_interaction: createBooleanExperiment({
 		productKeys: {
@@ -3723,14 +3701,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-23
-	confluence_toc_nav_a11y: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_toc_nav_a11y',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-25
 	platform_editor_improve_preset_builder_logging: createBooleanExperiment({
 		productKeys: {
@@ -3743,14 +3713,6 @@ export const editorExperimentsConfig: {
 	'cc-markdown-mode': createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc-markdown-mode',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-30
-	platform_editor_spotlight_migration: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_spotlight_migration',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3949,15 +3911,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2026-06-02
-	platform_editor_macro_placeholder_array_guard: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_macro_placeholder_array_guard',
-			jira: 'platform_editor_macro_placeholder_array_guard',
-		},
-		param: 'isEnabled',
-		defaultValue: true,
 	}),
 	platform_editor_table_close_cell_menu_on_move_exp: createBooleanExperiment({
 		productKeys: {
@@ -4181,6 +4134,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-26
+	'a11y-fixes-week1-june-2026': createBooleanExperiment({
+		productKeys: {
+			confluence: 'a11y-fixes-week1-june-2026',
+			jira: 'a11y-fixes-week1-june-2026',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-21
 	fix_free_gen_prompt_bar_position: createBooleanExperiment({
 		productKeys: {
@@ -4314,6 +4276,15 @@ export const editorExperimentsConfig: {
 			confluence: 'platform_editor_typeahead_empty_query_fix',
 		},
 		param: 'value',
+		defaultValue: false,
+	}),
+	// Added 2026-06-29
+	platform_editor_lovability_color_schema_change: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_color_schema_change',
+			jira: 'platform_editor_lovability_color_schema_change',
+		},
+		param: 'isEnabled',
 		defaultValue: false,
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

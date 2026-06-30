@@ -411,14 +411,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					placeholderWrapStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				codeBlockStyles,
-				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					codeBlockStylesWithEmUnits,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				contentMode === 'compact' && codeBlockStylesWithEmUnits,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				!fg('platform_editor_typography_ugc') && editorUGCTokensDefault,
 				fg('platform_editor_typography_ugc') &&
@@ -469,10 +463,6 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				diffListStyles,
 				// Condense vertical spacing between list items when content mode dense is active
 				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					getDenseListStyles(baseFontSize),
 				isFullPage &&
@@ -490,10 +480,6 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				mediaStyles,
 				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					mediaCaptionStyles,
 				// merge firstWrappedMediaStyles with mediaStyles when clean up platform_editor_fix_media_in_renderer
@@ -523,10 +509,6 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				tasksAndDecisionsStyles,
 				// condense vertical spacing between tasks/decisions items when content mode dense is active
 				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					getDenseTasksAndDecisionsStyles(baseFontSize),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -545,10 +527,6 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				!useStandardNodeWidth && expandStyles,
 				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					getDenseExpandTitleStyles(baseFontSize),
 				fg('platform_editor_nested_dnd_styles_changes')
@@ -722,21 +700,13 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				dateVanillaStyles,
 				fg('platform_editor_typography_ugc')
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						contentMode === 'compact' &&
-						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp')))
+						contentMode === 'compact'
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							paragraphStylesWithScaledMargin
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							paragraphStylesUGCRefreshed
 					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						contentMode === 'compact' &&
-						  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-								// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-								(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-									fg('platform_editor_content_mode_button_mvp')))
+						contentMode === 'compact'
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							paragraphStylesOldWithScaledMargin
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -824,11 +794,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						emojiStyles,
 				// Dense emoji scaling based on base font size
-				contentMode === 'compact' &&
-				(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp')))
+				contentMode === 'compact'
 					? expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							getScaledDenseEmojiStyles(baseFontSize)

@@ -14,13 +14,13 @@ const packagePath = path.resolve(__dirname);
 const documentation: StructuredContentSource = {
 	components: [
 		{
-			name: 'Editor Jira Transformer',
+			name: 'JIRATransformer',
 			description: "Editor JIRA transformer's",
 			status: 'general-availability',
 			import: {
-				name: 'Editor Jira Transformer',
+				name: 'JIRATransformer',
 				package: '@atlaskit/editor-jira-transformer',
-				type: 'default',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},
@@ -30,11 +30,6 @@ const documentation: StructuredContentSource = {
 			keywords: ['editor', 'editor-jira-transformer', 'atlaskit'],
 			categories: ['editor'],
 			examples: [
-				{
-					name: 'Jira transformer',
-					description: 'Basic Jira transformer usage.',
-					source: path.resolve(packagePath, './examples/0-jira-transformer.tsx'),
-				},
 				{
 					name: 'Jira HTML to ADF',
 					description: 'Transform Jira HTML to ADF.',

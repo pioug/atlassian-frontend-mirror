@@ -1,5 +1,27 @@
 # @atlaskit/primitives
 
+## 20.3.0
+
+### Minor Changes
+
+- [`8f588905041f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f588905041f4) -
+  Add two new interaction-state tokens for the neutral container surface:
+  `elevation.surface.container.hovered` and `elevation.surface.container.pressed`. Use these for
+  hovered and pressed states of elements built on `elevation.surface.container`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.2.1
+
+### Patch Changes
+
+- [`86c21c639404f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86c21c639404f) -
+  Run `scoped-jsx` codemod, migrating atlaskit components and examples to import the JSX type from
+  React and use logical CSS properties. The change is required for components to be compatible with
+  React 19 version, which removed JSX from global scope.
+
 ## 20.2.0
 
 ### Minor Changes

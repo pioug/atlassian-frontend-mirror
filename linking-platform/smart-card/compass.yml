@@ -1,5 +1,5 @@
 name: Smart Links
-id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/bee4b8ee-1ffd-432c-9fea-327a379f645d'
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/bee4b8ee-1ffd-432c-9fea-327a379f645d
 description:
   Smart Links transform ordinary URLs into rich, interactive elements—such as cards, embeds, and
   lists—directly within Atlassian products. This functionality allows users to preview, interact
@@ -7,33 +7,35 @@ description:
   workspace, streamlining collaboration and reducing context switching.
 configVersion: 1
 typeId: CAPABILITY
-ownerId: 'ari:cloud:identity::team/0e6dedf8-18d1-4531-b4b9-07648a425d47'
+ownerId: ari:cloud:identity::team/0e6dedf8-18d1-4531-b4b9-07648a425d47 # Eng - Navigation Experiences (Darko Zoroja)
 fields:
-  isMonorepoProject: false
   tier: 3
   lifecycle: Active
+  isMonorepoProject: false
 links:
   - name: Root Repository
     type: REPOSITORY
     url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
   - name: ''
     type: CHAT_CHANNEL
-    url: 'https://atlassian.enterprise.slack.com/archives/CFKGAQZRV'
+    url: https://atlassian.enterprise.slack.com/archives/CFKGAQZRV # #help-fe-linking-platform
   - name: ''
     type: ON_CALL
-    url: 'https://hello.jira.atlassian.cloud/jira/ops/teams/0e6dedf8-18d1-4531-b4b9-07648a425d47/on-call'
+    url: https://hello.jira.atlassian.cloud/jira/ops/teams/0e6dedf8-18d1-4531-b4b9-07648a425d47/on-call
   - name: ''
     type: PROJECT
-    url: 'https://hello.jira.atlassian.cloud/jira/software/projects/NAVX/boards/14605'
+    url: https://hello.jira.atlassian.cloud/jira/software/projects/NAVX/boards/14605
   - name: SignalFx - Smart Links
     type: DASHBOARD
-    url: 'https://atlassian.signalfx.com/#/dashboard/GcIfe4aA4AA?groupId=Fcva05QA4AA&configId=GcIfgHgA4AA&startTime=-1w&endTime=Now'
+    url: https://atlassian.signalfx.com/#/dashboard/GcIfe4aA4AA?groupId=Fcva05QA4AA&configId=GcIfgHgA4AA&startTime=-1w&endTime=Now
+  - name: Smart Card
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/linking-platform/smart-card
 relationships: null
-labels: null
+labels:
+  - platform-code
+  - platform-afm
 customFields:
-  - name: Anomaly-Detection
-    type: text
-    value: null
   - name: Compass Config-as-Code
     type: boolean
     value: true
@@ -43,43 +45,28 @@ customFields:
       - 6abcbe4f-1063-4cf7-8b32-58ebd01078da
   - name: Engineering Manager
     type: user
-    value: 'ari:cloud:identity::user/712020:3eb290b3-ff87-40f2-a7ef-4ee9d0ae10bd'
-  - name: FFP per month
-    type: number
-    value: null
+    value: ari:cloud:identity::user/712020:3eb290b3-ff87-40f2-a7ef-4ee9d0ae10bd
   - name: Is renovate enabled?
     type: boolean
     value: false
-  - name: Lineage
-    type: text
-    value: null
-  - name: Maintenance Time (hours/week)
-    type: number
-    value: null
   - name: Owner or Team Name
     type: single_select
-    value: 1e93a963-fa64-4c3a-aebb-cc835e418a0a # This means Yes
-  - name: Perimeter
-    type: single_select
-    value: null
-  - name: Perimeter (string)
-    type: text
-    value: null
-  - name: Product Owner
-    type: user
-    value: null
-  - name: Tech Debt
-    type: text
-    value: null
+    value: 1e93a963-fa64-4c3a-aebb-cc835e418a0a
   - name: Technical Owner
     type: user
-    value: null
+    value: ari:cloud:identity::user/712020:3eb290b3-ff87-40f2-a7ef-4ee9d0ae10bd # Darko Zoroja
   - name: anomaly-detection
     type: boolean
     value: false
-  - name: forge_runtime_node
-    type: single_select
-    value: null
-  - name: statsig_target_application
+  - name: Department
     type: text
-    value: null
+    value: Eng - Navigation Experiences
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

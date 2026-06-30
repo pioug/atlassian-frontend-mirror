@@ -14,13 +14,13 @@ const packagePath = path.resolve(__dirname);
 const documentation: StructuredContentSource = {
 	components: [
 		{
-			name: 'Editor Json Transformer',
+			name: 'JSONTransformer',
 			description: 'JSON transformer',
 			status: 'general-availability',
 			import: {
-				name: 'Editor Json Transformer',
+				name: 'JSONTransformer',
 				package: '@atlaskit/editor-json-transformer',
-				type: 'default',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},
@@ -30,11 +30,6 @@ const documentation: StructuredContentSource = {
 			keywords: ['editor', 'editor-json-transformer', 'atlaskit'],
 			categories: ['editor'],
 			examples: [
-				{
-					name: 'JSON transformer',
-					description: 'Transform between JSON and ADF.',
-					source: path.resolve(packagePath, './examples/0-json-transformer.tsx'),
-				},
 				{
 					name: 'Layouts',
 					description: 'JSON transformer with layout nodes.',

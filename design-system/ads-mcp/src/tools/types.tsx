@@ -20,3 +20,18 @@ export type DocsReturns = {
 	type: string;
 	description?: string;
 };
+
+export type ImportMetadata = {
+	name: string;
+	package: string;
+	type: 'default' | 'named';
+	packagePath: string;
+	packageJson: {
+		name: string;
+		version: string;
+		atlassian: {
+			team: string;
+		} & Record<string, unknown>;
+		exports: unknown;
+	} & Record<string, unknown>;
+};

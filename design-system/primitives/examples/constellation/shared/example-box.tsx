@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode } from 'react';
+import { type JSX, type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { type BackgroundColor, Box, type Space } from '@atlaskit/primitives/compiled';

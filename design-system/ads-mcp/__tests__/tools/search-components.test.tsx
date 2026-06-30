@@ -16,7 +16,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	],
 	[
 		['form', 'footer'],
-		['Form', 'FormFooter', 'ModalFooter'],
+		['Form', 'SpotlightFooter', 'FormFooter', 'ModalFooter'],
 	],
 
 	// Forms & inputs
@@ -26,10 +26,10 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['toggle'], ['Toggle', 'DropdownItemCheckbox']],
 
 	// Navigation & layout
-	[['tabs'], ['Tabs', 'CreatableSelect']],
+	[['tabs'], ['Tabs', 'Table tree']],
 	[['inline'], ['Inline', 'InlineEdit']],
 	[['popup'], ['Popup', 'PopupSelect']],
-	[['pagination'], ['Pagination', 'Breadcrumbs']],
+	[['pagination'], ['Pagination', 'Dynamic table']],
 	[['breadcrumb'], ['BreadcrumbsItem', 'Breadcrumbs']],
 	[['menu'], ['MenuGroup', 'DropdownMenu']],
 	[['dropdown'], ['DropdownItemCheckbox', 'DropdownItemRadio']],

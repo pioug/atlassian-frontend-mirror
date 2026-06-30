@@ -94,7 +94,12 @@ export type MultiBodiedExtensionActions = {
 	getChildrenCount: () => number;
 	removeChild: (index: number) => boolean;
 	reorderChildren: (fromIndex: number, toIndex: number) => boolean;
-	updateParameters: (parameters: Parameters) => boolean;
+	/**
+	 * `analyticsChangedParam` is the optional name/key of the parameter changed by the client.
+	 * It is reported in analytics as `changedParams`.
+	 * Example: `updateParameters({ tabs: updatedTabs }, '+tabColor,~tabTitle')`.
+	 */
+	updateParameters: (parameters: Parameters, analyticsChangedParam?: string) => boolean;
 };
 
 // DEPRECATED

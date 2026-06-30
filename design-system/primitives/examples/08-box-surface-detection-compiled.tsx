@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
@@ -17,10 +19,10 @@ const styles = cssMap({
 	},
 	header: {
 		position: 'absolute',
-		top: token('space.0'),
-		right: token('space.0'),
-		left: token('space.0'),
-		borderBottom: `${token('border.width')} solid ${token('color.border')}`,
+		insetBlockStart: token('space.0'),
+		insetInlineEnd: token('space.0'),
+		insetInlineStart: token('space.0'),
+		borderBlockEnd: `${token('border.width')} solid ${token('color.border')}`,
 		boxShadow: token('elevation.shadow.overflow'),
 	},
 });

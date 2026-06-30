@@ -8,7 +8,7 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
 import { jsx, css } from '@emotion/react';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext } from '../types';
 import type { Serializer } from '../../serializer';
@@ -23,6 +23,7 @@ import { useMultiBodiedExtensionContext } from './multiBodiedExtension/context';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { calcBreakoutWidthCss } from '../utils/breakout';
 import type { RendererAppearance } from '../../ui/Renderer/types';
+import AnalyticsContext from '../../analytics/analyticsContext';
 
 type Props = React.PropsWithChildren<{
 	// Ignored via go/ees005
@@ -195,6 +196,7 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 		rendererAppearance,
 	} = props;
 	const [activeChildIndex, setActiveChildIndex] = useState<number>(0);
+	const { fireAnalyticsEvent } = useContext(AnalyticsContext);
 	const { loading, extensionContext } = useMultiBodiedExtensionContext({
 		extensionHandlers,
 		extensionType,
@@ -208,6 +210,9 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 			<MultiBodiedExtensionChildrenContainer>{children}</MultiBodiedExtensionChildrenContainer>
 		),
 		allowBodiedOverride: extensionContext?.privateProps?.__allowBodiedOverride,
+		extensionKey,
+		extensionType,
+		fireAnalyticsEvent,
 	});
 
 	const renderContent = React.useCallback((): React.ReactNode => {

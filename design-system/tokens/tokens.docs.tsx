@@ -3,8 +3,9 @@ import path from 'path';
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
-	components: [
+	utilities: [
 		{
+			kind: 'function',
 			name: 'token',
 			description:
 				'Design tokens provide consistent, semantic values for colors, spacing, typography, motion, and other design properties across the Atlassian Design System. Use tokens instead of hardcoded values to ensure consistency and proper theming.',

@@ -6,7 +6,6 @@ import { css, jsx } from '@compiled/react';
 
 import Lozenge, { type LozengeProps, type NewLozengeProps } from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const wrapperStylesOld = css({
@@ -43,11 +42,6 @@ const wrapperStylesNewLozenge = css({
 
 type InlineLozengeProps = LozengeProps | NewLozengeProps;
 const InlineLozenge = (props: InlineLozengeProps): JSX.Element => {
-	const shouldAddLozengeAttribute =
-		expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp'));
-
 	if (fg('jfp-magma-platform-lozenge-jump-fix')) {
 		return (
 			<span
@@ -55,7 +49,7 @@ const InlineLozenge = (props: InlineLozengeProps): JSX.Element => {
 					wrapperStylesNew,
 					fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? wrapperStylesNewLozenge : undefined,
 				]}
-				{...(shouldAddLozengeAttribute && { 'data-inline-card-lozenge': true })}
+				data-inline-card-lozenge
 			>
 				<Lozenge {...props} />
 			</span>
@@ -68,7 +62,7 @@ const InlineLozenge = (props: InlineLozengeProps): JSX.Element => {
 				wrapperStylesOld,
 				fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? wrapperStylesNewLozenge : undefined,
 			]}
-			{...(shouldAddLozengeAttribute && { 'data-inline-card-lozenge': true })}
+			data-inline-card-lozenge
 		>
 			<Lozenge {...props} />
 		</span>

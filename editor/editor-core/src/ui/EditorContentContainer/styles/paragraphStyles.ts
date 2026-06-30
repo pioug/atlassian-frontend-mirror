@@ -9,8 +9,6 @@ import { token } from '@atlaskit/tokens';
 const blockNodesVerticalMargin = '0.75rem';
 const scaledBlockNodesVerticalMargin = '0.75em';
 
-// When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
-// simplify the name/ use the other paragraph style name
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in
@@ -30,8 +28,6 @@ export const paragraphStylesWithScaledMargin: SerializedStyles = css({
 	},
 });
 
-// When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
-// simplify the name/ use the other paragraph style name
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
  * If you need to make changes here, also update the corresponding style in

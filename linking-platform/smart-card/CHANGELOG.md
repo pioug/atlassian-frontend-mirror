@@ -1,5 +1,46 @@
 # @atlaskit/smart-card
 
+## 45.6.5
+
+### Patch Changes
+
+- [`46ee61dd53e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ee61dd53e91) -
+  Remove stale experiment confluence_compact_text_format (FFCLEANUP-85812): inline final values
+  (flag enabled), simplify conditions, remove experiment config entries.
+- Updated dependencies
+
+## 45.6.4
+
+### Patch Changes
+
+- [`d4cb3caca585e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4cb3caca585e) -
+  De-enroll these packages from `isReactCompilerActivePlatform` to fix React Compiler runtime
+  failures behind the `confluence_enable_react-compiler-runtime-platform` experiment (HOT-303951):
+  the comment-add page freeze (renderer and its smart-card dependency) and smart answers / SAIN
+  crashes (search-page).
+- Updated dependencies
+
+## 45.6.3
+
+### Patch Changes
+
+- [`313eb6637ec9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/313eb6637ec9d) -
+  Cleanup feature gate `platform_sl_connect_account_flag`. The connect success flag after 3P auth
+  and AI prism border radius are now always enabled.
+- Updated dependencies
+
+## 45.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.6.0
 
 ### Minor Changes

@@ -2277,8 +2277,7 @@ const editorContentStyles = cssMap({
 	},
 	// Dense content mode extensions styling fix - addresses EDITOR-1992
 	// When cleaning up the experiment, move this logic into the base styles above
-	// Used when (contentMode === 'compact' && expValEquals('confluence_compact_text_format', 'isEnabled', true))
-	// OR (expValEquals('cc_editor_ai_content_mode', 'variant', 'test') && fg('platform_editor_content_mode_button_mvp'))
+	// Used when (contentMode === 'compact')
 	extensionStylesDense: {
 		// Table of Contents Macro
 		'.extension-container [data-macro-name="toc"] * :not(.status-lozenge-span *)': {
@@ -2291,13 +2290,6 @@ const editorContentStyles = cssMap({
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontSize: 'var(--ak-editor-base-font-size)',
 			},
-	},
-	// Used when contentMode === 'compact' && (expValEquals('confluence_compact_text_format', 'isEnabled', true) || expValEquals('cc_editor_ai_content_mode', 'variant', 'test')))
-	extensionStylesLegacyDense: {
-		'.extension-container a span': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			fontSize: `calc(${akEditorFullPageDenseFontSize}rem / 16)`,
-		},
 	},
 	extensionDiffStyles: {
 		'.show-diff-changed-decoration-node > span .extension-container': {
@@ -4702,8 +4694,6 @@ const editorContentStyles = cssMap({
 			letterSpacing: '-0.005em',
 		},
 	},
-	// When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
-	// simplify the name/ use the other paragraph style name
 	paragraphStylesOldWithScaledMargin: {
 		'.ProseMirror p': {
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -4728,8 +4718,6 @@ const editorContentStyles = cssMap({
 			marginBottom: 0,
 		},
 	},
-	// When both platform_editor_content_mode_button_mvp & confluence_compact_text_format are cleaned up,
-	// simplify the name/ use the other paragraph style name
 	paragraphStylesWithScaledMargin: {
 		'.ProseMirror p': {
 			// The `editor.font.body` token is used for the UGC typography theme.
@@ -7835,12 +7823,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					fg('platform_editor_quick_insert_placeholder') &&
 					editorContentStyles.placeholderWrapStyles,
 				editorContentStyles.codeBlockStyles,
-				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
-					editorContentStyles.codeBlockStylesWithEmUnits,
+				contentMode === 'compact' && editorContentStyles.codeBlockStylesWithEmUnits,
 				!fg('platform_editor_typography_ugc') && editorContentStyles.editorUGCTokensDefault,
 				fg('platform_editor_typography_ugc') && editorContentStyles.editorUGCTokensRefreshed,
 				expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
@@ -7870,13 +7853,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.listItemHiddenMarkerStyles,
 				editorContentStyles.diffListStyles,
 				// Condense vertical spacing between list items when content mode dense is active
-				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
-					isDense &&
-					editorContentStyles.listsDenseStyles,
+				contentMode === 'compact' && isDense && editorContentStyles.listsDenseStyles,
 				isFullPage && editorContentStyles.listsStylesMarginLayoutShiftFix,
 				editorContentStyles.ruleStyles,
 				editorContentStyles.smartCardDiffStyles,
@@ -7884,12 +7861,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					? editorContentStyles.showDiffDeletedNodeStylesNew
 					: editorContentStyles.showDiffDeletedNodeStyles,
 				editorContentStyles.mediaStyles,
-				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
-					editorContentStyles.mediaCaptionStyles,
+				contentMode === 'compact' && editorContentStyles.mediaCaptionStyles,
 				// merge firstWrappedMediaStyles with mediaStyles when clean up platform_editor_fix_media_in_renderer
 				fg('platform_editor_fix_media_in_renderer') && editorContentStyles.firstWrappedMediaStyles,
 				editorContentStyles.telepointerStyle,
@@ -7906,40 +7878,19 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.mentionsStyles,
 				editorContentStyles.tasksAndDecisionsStyles,
 				// condense vertical spacing between tasks/decisions items when content mode dense is active
-				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
-					isDense &&
-					editorContentStyles.tasksAndDecisionsDenseStyles,
+				contentMode === 'compact' && isDense && editorContentStyles.tasksAndDecisionsDenseStyles,
 				editorContentStyles.gridStyles,
 				editorContentStyles.blockMarksStyles,
 				editorContentStyles.dateStyles,
 				editorContentStyles.extensionStyles,
-				((contentMode === 'compact' &&
-					expValEquals('confluence_compact_text_format', 'isEnabled', true)) ||
-					(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-						fg('platform_editor_content_mode_button_mvp'))) &&
-					editorContentStyles.extensionStylesDense,
-				contentMode === 'compact' &&
-					expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-					!expValEquals('confluence_compact_text_format', 'isEnabled', true) &&
-					!fg('platform_editor_content_mode_button_mvp') &&
-					editorContentStyles.extensionStylesLegacyDense,
+				contentMode === 'compact' && editorContentStyles.extensionStylesDense,
 				expValEquals('platform_editor_bodiedextension_layoutshift_fix', 'isEnabled', true) &&
 					editorContentStyles.bodiedExtensionLayoutShiftFix,
 				editorContentStyles.extensionDiffStyles,
 				editorContentStyles.expandStylesBase,
 				// Apply expand delta styles conditionally based on useStandardNodeWidth (negative margins or not)
 				!useStandardNodeWidth && editorContentStyles.expandStyles,
-				contentMode === 'compact' &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
-					isDense &&
-					editorContentStyles.expandDenseStyles,
+				contentMode === 'compact' && isDense && editorContentStyles.expandDenseStyles,
 				fg('platform_editor_nested_dnd_styles_changes')
 					? editorContentStyles.expandStylesMixin_fg_platform_editor_nested_dnd_styles_changes
 					: editorContentStyles.expandStylesMixin_without_fg_platform_editor_nested_dnd_styles_changes,
@@ -8056,18 +8007,10 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.linkingVisualRefreshV1Styles,
 				editorContentStyles.dateVanillaStyles,
 				fg('platform_editor_typography_ugc')
-					? contentMode === 'compact' &&
-						(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-								fg('platform_editor_content_mode_button_mvp')))
+					? contentMode === 'compact'
 						? editorContentStyles.paragraphStylesWithScaledMargin
 						: editorContentStyles.paragraphStylesUGCRefreshed
-					: contentMode === 'compact' &&
-						  (expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-								// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-								(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-									fg('platform_editor_content_mode_button_mvp')))
+					: contentMode === 'compact'
 						? editorContentStyles.paragraphStylesOldWithScaledMargin
 						: editorContentStyles.paragraphStylesOld,
 				editorContentStyles.linkStyles,
@@ -8122,16 +8065,10 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					: editorContentStyles.emojiStyles,
 				contentMode === 'compact' &&
 					isDense &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
 					expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) &&
 					editorContentStyles.scaledEmojiDenseStyles,
 				contentMode === 'compact' &&
 					isDense &&
-					(expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-						(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-							fg('platform_editor_content_mode_button_mvp'))) &&
 					!expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) &&
 					editorContentStyles.emojiDenseStyles,
 				editorContentStyles.panelViewStyles,

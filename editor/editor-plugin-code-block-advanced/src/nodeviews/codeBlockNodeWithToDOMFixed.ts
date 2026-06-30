@@ -23,19 +23,12 @@ const codeBlockClassNames = {
 
 const MATCH_NEWLINES = new RegExp('\n', 'gu');
 
-const getFontSize = () =>
-	expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-	(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-		fg('platform_editor_content_mode_button_mvp'))
-		? '0.875em'
-		: '0.875rem';
-
 const getGutterBaseStyle = () => ({
 	backgroundColor: token('color.background.neutral'),
 	position: 'relative',
 	flexShrink: 0,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	fontSize: getFontSize(),
+	fontSize: '0.875em',
 	boxSizing: 'content-box',
 });
 

@@ -1,5 +1,34 @@
 # @atlaskit/rovo-triggers
 
+## 9.6.0
+
+### Minor Changes
+
+- [`b6919a254df4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6919a254df4f) -
+  Wire skill selection from the skills modal directly into the chat prompt input.
+
+  Clicking a skill in the "See All Skills" modal now inserts a skill chip at the cursor position in
+  the chat input, instead of toggling selection. Adds `InsertSkillPayload` to rovo-triggers,
+  `isPressable` to `SkillCard`, `onSkillClick` to `SkillsList`/`AgentStudioSkills`, and handles the
+  new pubsub event in `ChatInputInternal`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.5.0
+
+### Minor Changes
+
+- [`c8c0516c05f0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8c0516c05f0e) -
+  Reflect chat-confirmed custom-skill updates on the Studio skill view/edit page without refetching
+  (behind studio_sync_custom_skill_chat_update). Adds a custom-skill-update rovo-trigger and
+  publishes it from the Rovo chat UpdateCustomSkillTool action.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.4.0
 
 ### Minor Changes

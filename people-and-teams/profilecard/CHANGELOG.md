@@ -1,5 +1,36 @@
 # @atlaskit/profilecard
 
+## 26.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.5.0
+
+### Minor Changes
+
+- [`278d493fc61aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/278d493fc61aa) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+- [`5341488e8189f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5341488e8189f) -
+  Remove Enzyme
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.4.1
 
 ### Patch Changes

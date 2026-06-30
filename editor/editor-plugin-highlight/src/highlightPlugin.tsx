@@ -61,7 +61,10 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 		name: 'highlight',
 
 		marks() {
-			if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
+			if (
+				expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) ||
+				expValEquals('platform_editor_lovability_color_schema_change', 'isEnabled', true)
+			) {
 				return [{ name: 'backgroundColor', mark: backgroundColor }];
 			}
 			// color is defined in platform/packages/editor/adf-schema/src/next-schema/marks/color.ts

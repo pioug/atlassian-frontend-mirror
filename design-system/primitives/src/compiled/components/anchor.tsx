@@ -5,6 +5,7 @@
 import {
 	type ComponentPropsWithoutRef,
 	forwardRef,
+	type JSX,
 	type ReactNode,
 	type Ref,
 	useCallback,

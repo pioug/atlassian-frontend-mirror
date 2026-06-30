@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "10.1.0",
+	"version": "10.2.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -193,6 +193,10 @@
 		},
 		"platform_dst_nav4_skip_link_a11y_1": {
 			"type": "boolean"
+		},
+		"platform-dst-motion-uplift-button": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"homepage": "https://atlassian.design/components/navigation-system"

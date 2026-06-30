@@ -67,7 +67,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_enable_single_player_step_merging: false,
 	platform_editor_find_and_replace_improvements: false,
 	platform_editor_reduce_noisy_steps_ncs: false,
-	confluence_compact_text_format: false,
 	platform_editor_paste_actions_menu: false,
 	platform_editor_diff_plugin_extended: false,
 	platform_editor_ai_rename_add_polish: false,

@@ -1,0 +1,38 @@
+configVersion: 1
+id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/aa119a2d-c36d-4cee-b799-a1953cf67506
+name: '@atlaskit/report-error'
+ownerId: ari:cloud:identity::team/og-6f328752-b58d-4afa-9a4c-19b6b1196e58 # Dev Infra - App Framework
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/C026LTWFZ47 # #uip-app-framework
+  - name: Report Error
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/data/report-error
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Application Framework
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/5d02eb769158620bc717eb17 # Jack Brown
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(2)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1

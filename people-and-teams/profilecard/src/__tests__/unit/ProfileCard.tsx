@@ -1,14 +1,13 @@
 import React from 'react';
 
 import { act, fireEvent, within } from '@testing-library/react';
-import { mount } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils';
+import { screen, userEvent } from '@atlassian/testing-library';
 
 import ProfileCard from '../../components/User/ProfileCard';
-import { ActionButtonGroup } from '../../styled/Card';
 import { moreActionsClicked, profileCardRendered } from '../../util/analytics';
 
 import { flexiTime } from './helper/_mock-analytics';
@@ -216,127 +215,178 @@ describe('ProfileCard', () => {
 		});
 
 		describe('Click behaviour (cmd+click, ctrl+click, etc)', () => {
-			const card = mount(<ProfileCard fullName="name" actions={actions} />);
-
-			it('should call callback handler for basic click', () => {
-				const spy = jest.fn().mockImplementation(() => {});
-				card.setProps({
-					actions: [
-						{
-							label: 'test',
-							callback: spy,
-						},
-					],
+			const renderActionCard = (
+				actionProps: Array<{ label: string; callback?: jest.Mock; link?: string }>,
+			) =>
+				renderComponent({
+					fullName: 'name',
+					actions: actionProps,
 				});
-				const actionsWrapper = card.find(ActionButtonGroup);
-				const event = { preventDefault: jest.fn() };
-				actionsWrapper.find('a').first().simulate('click', event);
+
+			const getActionElement = (label = 'test') => {
+				const actionText = screen.getByText(label);
+				const actionElement = actionText.closest('a');
+
+				if (!(actionElement instanceof HTMLAnchorElement)) {
+					throw new Error(`Expected an action element for "${label}"`);
+				}
+
+				return actionElement;
+			};
+
+			const getActionLink = (label = 'test') => {
+				const actionLink = screen.getByRole('link', { name: new RegExp(label, 'i') });
+
+				if (!(actionLink instanceof HTMLAnchorElement)) {
+					throw new Error(`Expected an action link for "${label}"`);
+				}
+
+				return actionLink;
+			};
+
+			const clickActionElement = async (
+				element: HTMLAnchorElement,
+				options: { modifierKey?: 'MetaLeft' | 'AltLeft' | 'ControlLeft' | 'ShiftLeft' } = {},
+			) => {
+				let defaultPrevented = false;
+				const captureDefaultPrevented = (event: MouseEvent) => {
+					const target = event.target;
+					if (target instanceof Node && element.contains(target)) {
+						defaultPrevented = event.defaultPrevented;
+					}
+				};
+				const user = userEvent.setup();
+
+				document.addEventListener('click', captureDefaultPrevented);
+				try {
+					if (options.modifierKey) {
+						await user.keyboard(`[${options.modifierKey}>]`);
+					}
+					await user.click(element);
+					if (options.modifierKey) {
+						await user.keyboard(`[/${options.modifierKey}]`);
+					}
+				} finally {
+					document.removeEventListener('click', captureDefaultPrevented);
+				}
+
+				return {
+					actionElement: element,
+					defaultPrevented,
+				};
+			};
+
+			it('should call callback handler for basic click', async () => {
+				const spy = jest.fn();
+				renderActionCard([
+					{
+						label: 'test',
+						callback: spy,
+					},
+				]);
+
+				const { defaultPrevented } = await clickActionElement(getActionElement());
 				expect(spy).toHaveBeenCalledTimes(1);
-				expect(event.preventDefault).toHaveBeenCalledTimes(1);
+				expect(defaultPrevented).toBe(true);
 			});
 
-			it('should call callback handler for cmd+click', () => {
-				const spy = jest.fn().mockImplementation(() => {});
-				card.setProps({
-					actions: [
-						{
-							label: 'test',
-							callback: spy,
-						},
-					],
+			it('should call callback handler for cmd+click', async () => {
+				const spy = jest.fn();
+				renderActionCard([
+					{
+						label: 'test',
+						callback: spy,
+					},
+				]);
+
+				const { defaultPrevented } = await clickActionElement(getActionElement('test'), {
+					modifierKey: 'MetaLeft',
 				});
-				const actionsWrapper = card.find(ActionButtonGroup);
-				const event = { preventDefault: jest.fn(), metaKey: true };
-				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).not.toHaveBeenCalled();
-				expect(event.preventDefault).not.toHaveBeenCalled();
+				expect(defaultPrevented).toBe(false);
 			});
 
-			it('should call callback handler for alt+click', () => {
-				const spy = jest.fn().mockImplementation(() => {});
-				card.setProps({
-					actions: [
-						{
-							label: 'test',
-							callback: spy,
-						},
-					],
+			it('should call callback handler for alt+click', async () => {
+				const spy = jest.fn();
+				renderActionCard([
+					{
+						label: 'test',
+						callback: spy,
+					},
+				]);
+
+				const { defaultPrevented } = await clickActionElement(getActionElement('test'), {
+					modifierKey: 'AltLeft',
 				});
-				const actionsWrapper = card.find(ActionButtonGroup);
-				const event = { preventDefault: jest.fn(), altKey: true };
-				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).not.toHaveBeenCalled();
-				expect(event.preventDefault).not.toHaveBeenCalled();
+				expect(defaultPrevented).toBe(false);
 			});
 
-			it('should call callback handler for ctrl+click', () => {
-				const spy = jest.fn().mockImplementation(() => {});
-				card.setProps({
-					actions: [
-						{
-							label: 'test',
-							callback: spy,
-						},
-					],
+			it('should call callback handler for ctrl+click', async () => {
+				const spy = jest.fn();
+				renderActionCard([
+					{
+						label: 'test',
+						callback: spy,
+					},
+				]);
+
+				const { defaultPrevented } = await clickActionElement(getActionElement('test'), {
+					modifierKey: 'ControlLeft',
 				});
-				const actionsWrapper = card.find(ActionButtonGroup);
-				const event = { preventDefault: jest.fn(), ctrlKey: true };
-				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).not.toHaveBeenCalled();
-				expect(event.preventDefault).not.toHaveBeenCalled();
+				expect(defaultPrevented).toBe(false);
 			});
 
-			it('should call callback handler for shift+click', () => {
-				const spy = jest.fn().mockImplementation(() => {});
-				card.setProps({
-					actions: [
-						{
-							label: 'test',
-							callback: spy,
-						},
-					],
+			it('should call callback handler for shift+click', async () => {
+				const spy = jest.fn();
+				renderActionCard([
+					{
+						label: 'test',
+						callback: spy,
+					},
+				]);
+
+				const { defaultPrevented } = await clickActionElement(getActionElement('test'), {
+					modifierKey: 'ShiftLeft',
 				});
-				const actionsWrapper = card.find(ActionButtonGroup);
-				const event = { preventDefault: jest.fn(), shiftKey: true };
-				actionsWrapper.find('a').first().simulate('click', event);
 				expect(spy).not.toHaveBeenCalled();
-				expect(event.preventDefault).not.toHaveBeenCalled();
+				expect(defaultPrevented).toBe(false);
 			});
 
-			it('link default behavior should be prevented if a callback is provided', () => {
-				const spy = jest.fn().mockImplementation(() => {});
-				const preventDefault = jest.fn().mockImplementation(() => {});
-				card.setProps({
-					actions: [
-						{
-							label: 'test',
-							callback: spy,
-							link: '#',
-						},
-					],
-				});
-				const actionButton = card.find(ActionButtonGroup).find('a[href]').first();
-				expect(actionButton.getDOMNode().getAttribute('href')).toBe('#');
-				actionButton.simulate('click', { preventDefault });
-				expect(spy.mock.calls.length).toBe(1);
-				expect(preventDefault.mock.calls.length).toBe(1);
+			it('link default behavior should be prevented if a callback is provided', async () => {
+				const spy = jest.fn();
+				renderActionCard([
+					{
+						label: 'test',
+						callback: spy,
+						link: '#',
+					},
+				]);
+
+				const { actionElement, defaultPrevented } = await clickActionElement(getActionLink());
+				expect(actionElement.getAttribute('href')).toBe('#');
+				expect(spy).toHaveBeenCalledTimes(1);
+				expect(defaultPrevented).toBe(true);
 			});
 
-			it('link default behaviour should not be prevented if no callback provided', () => {
-				const preventDefault = jest.fn().mockImplementation(() => {});
-				card.setProps({
-					actions: [
-						{
-							label: 'test',
-							link: '#',
-						},
-					],
-				});
-				const actionButton = card.find(ActionButtonGroup).find('a[href]').first();
-				expect(actionButton.getDOMNode().getAttribute('href')).toBe('#');
-				actionButton.simulate('click', { preventDefault });
-				expect(preventDefault.mock.calls.length).toBe(0);
+			it('link default behaviour should not be prevented if no callback provided', async () => {
+				renderActionCard([
+					{
+						label: 'test',
+						link: '#',
+					},
+				]);
+
+				const { actionElement, defaultPrevented } = await clickActionElement(getActionLink());
+				expect(actionElement.getAttribute('href')).toBe('#');
+				expect(defaultPrevented).toBe(false);
 			});
 		});
+	});
+
+	it('capture and report a11y violations', async () => {
+		const { container } = renderComponent();
+		await expect(container).toBeAccessible();
 	});
 });

@@ -5,7 +5,6 @@ import ConnectSuccessFlag from '../../../examples/vr-flag/vr-connect-success-fla
 snapshot(ConnectSuccessFlag, {
 	drawsOutsideBounds: true,
 	featureFlags: {
-		platform_sl_connect_account_flag: true,
 		'platform-dst-shape-theme-default': [true, false],
 	},
 });

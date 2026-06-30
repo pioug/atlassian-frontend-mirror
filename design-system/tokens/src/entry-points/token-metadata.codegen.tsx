@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::f426ab76bcc3fa997a67bb81393b359f>>
+ * @codegen <<SignedSource::21c954de6e2322a1410a431ab7f73072>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -5102,9 +5102,31 @@ export const tokens: Token[] = [
 	},
 	{
 		name: 'elevation.surface.container',
-		path: ['elevation', 'surface', 'container'],
+		path: ['elevation', 'surface', 'container', '[default]'],
 		description: 'Use as a neutral container surface background.',
 		exampleValue: '#F0F1F2',
+		usageGuidelines: {
+			usage:
+				'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'elevation.surface.container.hovered',
+		path: ['elevation', 'surface', 'container', 'hovered'],
+		description: 'Hovered state of elevation.surface.container',
+		exampleValue: '#0515240F',
+		usageGuidelines: {
+			usage:
+				'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'elevation.surface.container.pressed',
+		path: ['elevation', 'surface', 'container', 'pressed'],
+		description: 'Pressed state of elevation.surface.container',
+		exampleValue: '#0B120E24',
 		usageGuidelines: {
 			usage:
 				'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',

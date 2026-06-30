@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode } from 'react';
+import { type JSX, type ReactNode } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { Code } from '@atlaskit/code';
@@ -12,17 +12,17 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	list: {
-		paddingTop: token('space.0'),
-		paddingRight: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
+		paddingBlockStart: token('space.0'),
+		paddingInlineEnd: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 	},
 	definitionList: { paddingInlineStart: token('space.0') },
 	definitionListItem: {
-		marginTop: token('space.0'),
-		marginRight: token('space.0'),
-		marginBottom: token('space.0'),
-		marginLeft: token('space.0'),
+		marginBlockStart: token('space.0'),
+		marginInlineEnd: token('space.0'),
+		marginBlockEnd: token('space.0'),
+		marginInlineStart: token('space.0'),
 	},
 });
 

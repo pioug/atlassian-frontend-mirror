@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 6.1.1
+
+### Patch Changes
+
+- [`d28fdfa9eac28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d28fdfa9eac28) -
+  [ux] NAVX-5290 Adding keyboard focus for mode switcher and aria-label for site selector
+- Updated dependencies
+
 ## 6.1.0
 
 ### Minor Changes

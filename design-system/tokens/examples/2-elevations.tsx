@@ -55,6 +55,13 @@ const interactiveBackgroundStyles = {
 		surfacePressed: token('elevation.surface.overlay.pressed'),
 		shadow: token('elevation.shadow.overlay'),
 	},
+	container: {
+		label: 'elevation.surface.container',
+		surface: token('elevation.surface.container'),
+		surfaceHovered: token('elevation.surface.container.hovered'),
+		surfacePressed: token('elevation.surface.container.pressed'),
+		shadow: 'none',
+	},
 };
 
 const interactiveElevationStyles = {

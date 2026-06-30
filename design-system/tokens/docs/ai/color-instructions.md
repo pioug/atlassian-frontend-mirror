@@ -61,6 +61,12 @@ For Atlassian app surfaces, use `elevation.surface` for the page surface,
 `elevation.surface.sunken` for recessed grouping. Use Rovo-specific overlay tokens, such as
 `elevation.rovo.surface.overlay`, only for Rovo overlay surfaces.
 
+For interactive elements built on a neutral container, use
+`elevation.surface.container.hovered` for the hover state and
+`elevation.surface.container.pressed` for the pressed/active state, rather than reusing the
+non-container `elevation.surface.hovered`/`elevation.surface.pressed` tokens. Only apply these
+when the resting surface is `elevation.surface.container`.
+
 ## Text colors (`text-`)
 
 | Tailwind Class  | Tailwind Hex | Design Token                    | Token Hex |

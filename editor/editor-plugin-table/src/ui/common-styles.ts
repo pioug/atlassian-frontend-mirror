@@ -28,7 +28,6 @@ import {
 	MAX_BROWSER_SCROLLBAR_HEIGHT,
 	SelectionStyle,
 	relativeSizeToBaseFontSize,
-	relativeFontSizeToBase16,
 	akEditorSelectedBorderColor,
 } from '@atlaskit/editor-shared-styles';
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
@@ -1137,18 +1136,9 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		box-sizing: border-box;
 		margin-top: -1px;
 		padding-bottom: 2px;
-		padding: ${expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-			(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-				fg('platform_editor_content_mode_button_mvp'))
-				? relativeSizeToBaseFontSize(10)
-				: `10px`}
-			2px;
+		padding: ${relativeSizeToBaseFontSize(10)} 2px;
 		text-align: center;
-		font-size: ${expValEquals('confluence_compact_text_format', 'isEnabled', true) ||
-		(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-			fg('platform_editor_content_mode_button_mvp'))
-			? relativeSizeToBaseFontSize(14)
-			: relativeFontSizeToBase16(14)};
+		font-size: ${relativeSizeToBaseFontSize(14)};
 		background-color: ${tableHeaderCellBackgroundColor};
 		color: ${tableTextColor};
 		border-color: ${tableBorderColor};

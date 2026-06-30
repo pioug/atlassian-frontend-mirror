@@ -403,6 +403,17 @@ type ExtensionRenderedAsInlineAEP = OperationalAEP<
 	}
 >;
 
+export type MBEChangeActiveAnalyticsEvent = AEP<
+	ACTION.CHANGE_ACTIVE,
+	ACTION_SUBJECT.MULTI_BODIED_EXTENSION,
+	undefined,
+	{
+		extensionKey: string;
+		extensionType: string;
+	},
+	EVENT_TYPE.TRACK
+>;
+
 export type AnalyticsEventPayload<_T = void> =
 	| RendererStartAEP
 	| RendererRenderedAEP
@@ -440,7 +451,8 @@ export type AnalyticsEventPayload<_T = void> =
 	| ReferenceSyncedBlockUpdateErrorAEP
 	| SyncedBlockFetchSuccessAEP
 	| ExperienceEventPayload
-	| ExtensionRenderedAsInlineAEP;
+	| ExtensionRenderedAsInlineAEP
+	| MBEChangeActiveAnalyticsEvent;
 
 export type FireAnalyticsCallback = <T = void>(
 	payload: AnalyticsEventPayload<T>,

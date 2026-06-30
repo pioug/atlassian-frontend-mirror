@@ -1,4 +1,23 @@
-import { hexToEditorTextBackgroundPaletteColor } from '../../../utils/editor-palette';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import {
+	hexToEditorTextBackgroundPaletteColor,
+	hexToEditorTextPaletteColor,
+} from '../../../utils/editor-palette';
+
+describe('hexToEditorTextPaletteColor', () => {
+	it('should use icon accent yellow for #B38600 when patch gate is disabled', () => {
+		failGate('platform_editor_lovability_text_bg_color_patch_1');
+
+		expect(hexToEditorTextPaletteColor('#B38600')).toBe('var(--ds-icon-accent-yellow, #B38600)');
+	});
+
+	it('should use border accent yellow for #B38600 when patch gate is enabled', () => {
+		passGate('platform_editor_lovability_text_bg_color_patch_1');
+
+		expect(hexToEditorTextPaletteColor('#B38600')).toBe('var(--ds-border-accent-yellow, #B38600)');
+	});
+});
 
 describe('hexToEditorTextBackgroundPaletteColor', () => {
 	it('should return orange color for #FEDEC8', () => {

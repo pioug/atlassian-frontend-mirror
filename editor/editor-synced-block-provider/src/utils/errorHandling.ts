@@ -11,6 +11,7 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 
 import { SyncBlockError } from '../common/types';
+import type { DeletionMechanism, DeletionReason } from '../common/types';
 
 export const stringifyError = (error: unknown): string | undefined => {
 	try {
@@ -515,12 +516,25 @@ export const createSuccessPayload = (
 	};
 };
 
-export const createSuccessPayloadNew = (resourceId: string): SyncBlockEventPayload => ({
+/**
+ * Operational `syncedBlockCreate` success event (previously only error rows
+ * existed, so dashboards had no create denominator). Fired behind
+ * `platform_editor_blocks_patch_4` with the `blockInstanceId` join key.
+ */
+export const createSuccessPayloadNew = (
+	resourceId: string,
+	blockInstanceId?: string,
+	sourceProduct?: string,
+): SyncBlockEventPayload => ({
 	action: ACTION.INSERTED,
 	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
 	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
 	eventType: EVENT_TYPE.OPERATIONAL,
-	attributes: { resourceId },
+	attributes: {
+		resourceId,
+		...(blockInstanceId && { blockInstanceId }),
+		...(sourceProduct && { sourceProduct }),
+	},
 });
 
 export const updateSuccessPayload = (
@@ -539,13 +553,31 @@ export const updateSuccessPayload = (
 	},
 });
 
+/**
+ * Optional enrichment for the `syncedBlockDelete` success event behind
+ * `platform_editor_blocks_patch_4`. All fields optional so the gate-off payload
+ * is unchanged; `blockInstanceId` is the bare-uuid join key.
+ */
+export type DeleteSuccessEnrichment = {
+	blockInstanceId?: string;
+	deletionReason?: DeletionReason;
+	mechanism?: DeletionMechanism;
+};
+
 export const deleteSuccessPayload = (
 	resourceId: string,
 	sourceProduct?: string,
+	enrichment?: DeleteSuccessEnrichment,
 ): SyncBlockEventPayload => ({
 	action: ACTION.DELETED,
 	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
 	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_DELETE,
 	eventType: EVENT_TYPE.OPERATIONAL,
-	attributes: { resourceId, ...(sourceProduct && { sourceProduct }) },
+	attributes: {
+		resourceId,
+		...(sourceProduct && { sourceProduct }),
+		...(enrichment?.blockInstanceId && { blockInstanceId: enrichment.blockInstanceId }),
+		...(enrichment?.deletionReason && { deletionReason: enrichment.deletionReason }),
+		...(enrichment?.mechanism && { mechanism: enrichment.mechanism }),
+	},
 });

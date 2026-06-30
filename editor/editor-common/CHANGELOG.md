@@ -1,5 +1,68 @@
 # @atlaskit/editor-common
 
+## 116.19.0
+
+### Minor Changes
+
+- [`ecafba7c81b7d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecafba7c81b7d) -
+  Enrich synced block deletion analytics so source-block deletions can be explained rather than just
+  counted. The source `syncedBlockDelete` operational event now carries `deletionReason` and a
+  `mechanism` dimension (undo/redo/deleteButton/keyboardDelete/selectionReplaced/other), and
+  repeated emissions for the same removal are de-duplicated. A real operational `syncedBlockCreate`
+  success event is now emitted, and the source bare-uuid join key is added to the copy event so
+  create/copy/delete can be correlated. All new attributes and events are gated behind
+  `platform_editor_blocks_patch_4`; gate-off behaviour is unchanged.
+
+## 116.18.1
+
+### Patch Changes
+
+- [`46ee61dd53e91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46ee61dd53e91) -
+  Remove stale experiment confluence_compact_text_format (FFCLEANUP-85812): inline final values
+  (flag enabled), simplify conditions, remove experiment config entries.
+- Updated dependencies
+
+## 116.18.0
+
+### Minor Changes
+
+- [`ed550a5583074`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed550a5583074) -
+  Improve panel container fallback handling.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.17.5
+
+### Patch Changes
+
+- [`6e2538f8383a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e2538f8383a1) -
+  Clean up experiment `platform_editor_spotlight_migration`. The floating toolbar button is no
+  longer wrapped in the now-removed `SpotlightPulse` onboarding effect; the orphaned internal
+  `Pulse` component (the last `@atlaskit/onboarding` usage in editor-common) has been removed.
+- Updated dependencies
+
+## 116.17.4
+
+### Patch Changes
+
+- [`2e62212873ddd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e62212873ddd) -
+  Clean up experiment `platform_editor_macro_placeholder_array_guard`
+- [`d4d3ad611bb7b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4d3ad611bb7b) -
+  Add multi-bodied extension action analytics for active child changes and parameter updates.
+- [`3f159bc172788`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f159bc172788) -
+  Fix quick insert reranker misclassifying high-priority native items (e.g. Link) as skills. The
+  reranker now identifies skills by their AI category instead of a priority threshold, preventing
+  experiment interactions where native items with elevated priority were incorrectly demoted.
+- Updated dependencies
+
+## 116.17.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.17.2
 
 ### Patch Changes

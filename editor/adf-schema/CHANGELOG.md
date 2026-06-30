@@ -1,5 +1,31 @@
 # @atlaskit/adf-schema
 
+## 56.0.12
+
+### Patch Changes
+
+- [`6949db5856550`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6949db5856550) -
+  Fixed in dark theme the bold yellow and yellow were the same color
+- Updated dependencies
+
+## 56.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 56.0.8
 
 ### Patch Changes

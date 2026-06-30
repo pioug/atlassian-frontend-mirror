@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC } from 'react';
+import { type FC, type JSX } from 'react';
 
 import { css, jsx } from '@compiled/react';
 

@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
@@ -16,10 +18,10 @@ const styles = cssMap({
 		borderWidth: token('border.width'),
 		borderStyle: 'solid',
 		borderColor: token('color.border.discovery'),
-		paddingTop: token('space.100'),
-		paddingRight: token('space.100'),
-		paddingBottom: token('space.100'),
-		paddingLeft: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 		borderRadius: token('radius.small'),
 		transitionDuration: '200ms',
 		listStyle: 'none',

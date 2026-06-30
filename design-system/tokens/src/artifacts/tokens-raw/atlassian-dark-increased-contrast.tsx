@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::838152e5952609664294769ab5038ab9>>
+ * @codegen <<SignedSource::30d53c5799bc5ec6dd87b9b3ffa555f0>>
  * @codegenCommand yarn build tokens
  */
 
@@ -12401,13 +12401,70 @@ const tokens: Token[] = [
         "description": "Use as a neutral container surface background."
       }
     },
-    "name": "elevation.surface.container",
+    "name": "elevation.surface.container.[default]",
     "path": [
       "elevation",
       "surface",
-      "container"
+      "container",
+      "[default]"
     ],
     "cleanName": "elevation.surface.container"
+  },
+  {
+    "value": "#CECED912",
+    "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "14.1.0",
+      "description": "Hovered state of elevation.surface.container"
+    },
+    "original": {
+      "value": "DarkNeutral200A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "14.1.0",
+        "description": "Hovered state of elevation.surface.container"
+      }
+    },
+    "name": "elevation.surface.container.hovered",
+    "path": [
+      "elevation",
+      "surface",
+      "container",
+      "hovered"
+    ],
+    "cleanName": "elevation.surface.container.hovered"
+  },
+  {
+    "value": "#D9DAE71A",
+    "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "14.1.0",
+      "description": "Pressed state of elevation.surface.container"
+    },
+    "original": {
+      "value": "DarkNeutral250A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "14.1.0",
+        "description": "Pressed state of elevation.surface.container"
+      }
+    },
+    "name": "elevation.surface.container.pressed",
+    "path": [
+      "elevation",
+      "surface",
+      "container",
+      "pressed"
+    ],
+    "cleanName": "elevation.surface.container.pressed"
   },
   {
     "value": "#2B2C2F",

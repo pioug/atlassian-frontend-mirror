@@ -25,6 +25,7 @@ import type {
 import { PASTE_MENU_GAP_HORIZONTAL, PASTE_MENU_GAP_TOP } from '../../pm-plugins/constants';
 import { ToolbarDropdownOption } from '../../types/types';
 import { isToolbarVisible } from '../toolbar';
+import { isNotSingleLink } from '../utils/paste-menu-rules/isNotSingleLink';
 
 import { getVisibleKeys, hasVisibleButton } from './hasVisibleButton';
 import { PasteActionsMenuContent } from './PasteActionsMenuContent';
@@ -53,6 +54,10 @@ export const containsAgentMention = (slice?: Slice | null): boolean => {
 
 export const shouldSuppressPasteActionsForAgentMention = (slice?: Slice | null): boolean =>
 	expVal('platform_editor_agent_mentions', 'isEnabled', false) && containsAgentMention(slice);
+
+export const shouldSuppressPasteActionsForSingleLink = (slice?: Slice | null): boolean =>
+	expVal('platform_editor_fix_link_paste_menu', 'isEnabled', false) &&
+	!isNotSingleLink(slice ?? undefined);
 
 interface PasteActionsMenuProps {
 	api: ExtractInjectionAPI<PasteOptionsToolbarPlugin> | undefined;
@@ -297,7 +302,9 @@ export const PasteActionsMenu = ({
 	}));
 	const sliceForAgentMentionSuppression = lastContentPasted?.sourcePastedSlice;
 	const shouldSuppressPasteActions = useMemo(
-		() => shouldSuppressPasteActionsForAgentMention(sliceForAgentMentionSuppression),
+		() =>
+			shouldSuppressPasteActionsForAgentMention(sliceForAgentMentionSuppression) ||
+			shouldSuppressPasteActionsForSingleLink(sliceForAgentMentionSuppression),
 		[sliceForAgentMentionSuppression],
 	);
 	const prevShowToolbarRef = useRef(false);

@@ -56,6 +56,7 @@ export type MentionPluginOptions = MentionsPluginOptions;
 export type AgentMentionDetails = {
 	context: string | null;
 	id: string;
+	localId: string;
 	name: string | null;
 	nodeSize: number;
 	/**
@@ -87,6 +88,11 @@ export type MentionPluginState = {
 	 * Null when no agent mention is present in the document.
 	 */
 	lastInsertedAgentMentionId?: string | null;
+	/**
+	 * The local document-instance ID of the most recently inserted agent mention.
+	 * Used to distinguish multiple mentions of the same agent AAID.
+	 */
+	lastInsertedAgentMentionLocalId?: string | null;
 	/**
 	 * Display name of the most recently inserted agent mention.
 	 * Derived from the mention node text and used for Rovo nudge copy.

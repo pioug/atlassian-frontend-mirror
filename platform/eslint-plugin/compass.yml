@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/ffbf51cf-a600-492e-a826-333a985878fa
 name: '@atlaskit/eslint-plugin-platform'
-ownerId: ari:cloud:identity::team/9be50a1a-a131-434b-9432-e114277205af # AFM Experience (Greg Power)
+ownerId: ari:cloud:identity::team/0e3009f0-b6c0-4416-9a25-32b3830d4e85 # Eng - Loop Experiences
 labels:
   - platform-code
   - platform-afm
@@ -16,17 +16,17 @@ links:
     url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
   - name: Slack Channel
     type: CHAT_CHANNEL
-    url: https://atlassian.enterprise.slack.com/archives/CL6HC337Z # #help-afm
+    url: https://atlassian.enterprise.slack.com/archives/C09F5EWDER5 # #loop-experiences-team
   - name: Eslint Plugin
     type: REPOSITORY
     url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin
 customFields:
   - name: Department
     type: text
-    value: Eng - Dev Infra
+    value: Eng - Loop Experiences
   - name: Technical Owner
     type: user
-    value: ari:cloud:identity::user/557058:b8ef8c49-c789-4d00-a432-41c7b91a004b # Raja Bellebon
+    value: ari:cloud:identity::user/712020:c2da74e5-8cca-4402-bb4e-ae2f43857814 # Ben Calder
   - name: Required Reviewers Opt In
     type: boolean
     value: true

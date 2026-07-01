@@ -483,7 +483,7 @@ export const createTypeAheadConfig = ({
 						? {
 								lozenge: (
 									<Lozenge appearance="new">
-										{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabs)}
+										{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel)}
 									</Lozenge>
 								),
 							}

@@ -5,6 +5,7 @@
 import {
 	type KeyboardEventHandler,
 	type MouseEvent,
+	type ReactNode,
 	useEffect,
 	useLayoutEffect,
 	useState,
@@ -30,8 +31,10 @@ import AkButton from '@atlaskit/button/standard-button';
 import { Text } from '@atlaskit/primitives/compiled';
 import FocusLock from 'react-focus-lock';
 
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import type { EmojiUpload, Message } from '../../types';
 import * as ImageUtil from '../../util/image';
+import CreateEmojiWithRovo from './CreateEmojiWithRovo';
 import debug from '../../util/logger';
 import { messages } from '../i18n';
 import EmojiErrorMessage from './EmojiErrorMessage';
@@ -40,6 +43,7 @@ import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives/compiled';
 import { getDocument } from '@atlaskit/browser-apis';
@@ -175,6 +179,14 @@ export interface Props {
 	onFileChooserClicked?: () => void;
 	onUploadCancelled: () => void;
 	onUploadEmoji: OnUploadEmoji;
+	/**
+	 * Current Confluence page content id. When provided (and the
+	 * `confluence_ai_generated_emojis` experiment is on), the "Create an emoji
+	 * with Rovo" AI generation section is shown above the Emoji name field.
+	 */
+	contentId?: string;
+	/** Fires an analytics event (used by AI emoji generation). */
+	fireAnalytics?: (event: AnalyticsEventPayload) => void;
 }
 
 const disallowedReplacementsMap = new Map([
@@ -235,6 +247,8 @@ interface ChooseEmojiFileProps {
 	onUploadCancelled: () => void;
 	previewImage?: string;
 	uploadStatus?: UploadStatus;
+	/** Optional "Create an emoji with Rovo" section rendered above the name field. */
+	aiSection?: ReactNode;
 }
 
 type ChooseEmojiFilePropsType = ChooseEmojiFileProps & WrappedComponentProps;
@@ -250,6 +264,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 		nameErrorMessage,
 		previewImage,
 		uploadStatus,
+		aiSection,
 		intl,
 	} = props;
 	const { formatMessage } = intl;
@@ -313,6 +328,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						{errorMessage && <EmojiErrorMessage errorStyle="chooseFile" message={errorMessage} />}
 					</div>
 				</Box>
+				{aiSection}
 				<div>
 					<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
 						<FormattedMessage {...messages.emojiNameLabel} />
@@ -431,6 +447,8 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		onFileChooserClicked,
 		onUploadCancelled,
 		disableFocusLock = false,
+		contentId,
+		fireAnalytics,
 		intl,
 	} = props;
 	const [uploadStatus, setUploadStatus] = useState(
@@ -521,6 +539,16 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		setPreviewImage(undefined);
 	}, []);
 
+	// When the Rovo section generates an image, feed it into the existing upload
+	// form (same preview, name field and "Add emoji" button as a manual upload).
+	const onEmojiGenerated = useCallback((dataURL: string, suggestedName: string) => {
+		setFilename('rovo-emoji.png');
+		setPreviewImage(dataURL);
+		setChooseEmojiErrorMessage(undefined);
+		// Only auto-populate the name if the user hasn't already typed one.
+		setName((current) => current || sanitizeName(suggestedName));
+	}, []);
+
 	const errorOnUpload = useCallback(
 		(event: any): void => {
 			debug('File load error: ', event);
@@ -609,6 +637,20 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 	const isDuplicateNameError =
 		errorMessage !== null && errorMessage !== undefined && isRefreshEmojiPickerEnabled();
 
+	// "Create an emoji with Rovo" AI generation section. Only rendered when the
+	// experiment is on AND a page content id is available (the image generation
+	// backend requires it). It is rendered inside ChooseEmojiFile (between the
+	// drop area and the Emoji name field) so the generated image reuses the
+	// single shared name field and "Add emoji" button.
+	const aiSection =
+		contentId && expValEquals('confluence_ai_generated_emojis', 'isEnabled', true) ? (
+			<CreateEmojiWithRovo
+				contentId={contentId}
+				fireAnalytics={fireAnalytics}
+				onEmojiGenerated={onEmojiGenerated}
+			/>
+		) : null;
+
 	const content =
 		name && previewImage && !isRefreshEmojiPickerEnabled() ? (
 			<EmojiUploadPreview
@@ -631,6 +673,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 				uploadStatus={uploadStatus}
 				errorMessage={chooseEmojiErrorMessage}
 				nameErrorMessage={isDuplicateNameError ? errorMessage : undefined}
+				aiSection={aiSection}
 				intl={intl}
 			/>
 		);

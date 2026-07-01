@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 45.6.7
+
+### Patch Changes
+
+- [`97bff75e44905`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97bff75e44905) -
+  NAVX-5125 cleaning up sl a11y embed modal fg
+- [`d85240382e716`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d85240382e716) -
+  NO-ISSUE Shipping rovo action in block card for eligible providers only
+
+## 45.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.6.5
 
 ### Patch Changes

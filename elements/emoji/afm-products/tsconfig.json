@@ -53,6 +53,9 @@
 			"path": "../../../design-system/image/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/logo/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../media/media-client/afm-products/tsconfig.json"
 		},
 		{

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-limited-mode
 
+## 9.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.0.14
 
 ### Patch Changes

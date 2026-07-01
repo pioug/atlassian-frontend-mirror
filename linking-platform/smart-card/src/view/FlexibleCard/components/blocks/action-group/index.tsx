@@ -95,6 +95,14 @@ const ActionGroup = ({
 	const isMoreThenTwoItems = renderableActionItems.length > visibleButtonsNum;
 	const rovoChatAction = context?.actions?.[ActionName.RovoChatAction];
 
+	const isRovoActionsEnabled = useMemo(() => {
+		return (
+			!!rovoChatAction &&
+			rovoChatAction.product === 'CONFLUENCE' &&
+			items.some((action) => action.name === 'RovoChatAction')
+		);
+	}, [rovoChatAction, items]);
+
 	const onOpenChange = useCallback(
 		(attrs: { isOpen: boolean }) => {
 			setIsOpen(attrs.isOpen);
@@ -112,7 +120,7 @@ const ActionGroup = ({
 	}, [isOpen, onOpenChange]);
 
 	const actionButtons = useMemo(() => {
-		if (!!rovoChatAction && rovoChatAction.product === 'CONFLUENCE') {
+		if (isRovoActionsEnabled) {
 			const rovoActions = [
 				...(containerWidth >= REDUCED_ACTIONS_SIZE
 					? renderableActionItems.slice(0, visibleButtonsNum - 1)
@@ -157,17 +165,13 @@ const ActionGroup = ({
 		renderableActionItems,
 		size,
 		visibleButtonsNum,
-		rovoChatAction,
+		isRovoActionsEnabled,
 		containerWidth,
 	]);
 
 	const moreActionDropdown = useMemo(() => {
 		let actionItems: ActionItem[];
-		if (
-			!!rovoChatAction &&
-			rovoChatAction.product === 'CONFLUENCE' &&
-			containerWidth < OVERFLOW_ONLY_ACTIONS_SIZE
-		) {
+		if (isRovoActionsEnabled && containerWidth < OVERFLOW_ONLY_ACTIONS_SIZE) {
 			actionItems = [
 				...renderableActionItems,
 				{
@@ -179,11 +183,7 @@ const ActionGroup = ({
 				{ name: ActionName.CopyLinkAction, iconSize: 'small' },
 				{ name: ActionName.PreviewAction, iconSize: 'small' },
 			];
-		} else if (
-			!!rovoChatAction &&
-			rovoChatAction.product === 'CONFLUENCE' &&
-			containerWidth < REDUCED_ACTIONS_SIZE
-		) {
+		} else if (isRovoActionsEnabled && containerWidth < REDUCED_ACTIONS_SIZE) {
 			actionItems = renderableActionItems;
 		} else {
 			actionItems = isMoreThenTwoItems ? renderableActionItems.slice(visibleButtonsNum - 1) : [];
@@ -208,7 +208,7 @@ const ActionGroup = ({
 							<Button
 								{...props}
 								spacing={
-									!!rovoChatAction && rovoChatAction.product === 'CONFLUENCE'
+									isRovoActionsEnabled
 										? size === SmartLinkSize.XLarge
 											? 'default'
 											: 'compact'
@@ -217,9 +217,7 @@ const ActionGroup = ({
 								testId="action-group-more-button"
 								iconBefore={moreIcon}
 								ref={triggerRef}
-								{...(!!rovoChatAction && rovoChatAction.product === 'CONFLUENCE'
-									? { appearance }
-									: {})}
+								{...(isRovoActionsEnabled ? { appearance } : {})}
 							/>
 						</Tooltip>
 					)}
@@ -241,7 +239,7 @@ const ActionGroup = ({
 		size,
 		ui?.zIndex,
 		visibleButtonsNum,
-		rovoChatAction,
+		isRovoActionsEnabled,
 		containerWidth,
 	]);
 

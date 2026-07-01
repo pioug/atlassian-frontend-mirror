@@ -1,5 +1,22 @@
 # @atlaskit/adf-utils
 
+## 20.2.0
+
+### Minor Changes
+
+- [`5fb57a983b89b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fb57a983b89b) -
+  Remove panel_c1 fallback experiment gating
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.1.1
 
 ### Patch Changes

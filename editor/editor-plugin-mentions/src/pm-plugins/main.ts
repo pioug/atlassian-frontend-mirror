@@ -72,6 +72,7 @@ const getAgentMentionName = (text: unknown, fallbackName?: unknown): string | nu
 
 const AI_STREAMING_TRANSFORMATION_META_KEY = 'isAIStreamingTransformation' as const;
 const AGENT_MENTION_INACTIVITY_MS = 3000;
+const MAX_PENDING_TYPED_AGENT_MENTION_FOCUS_DEFERS = 20;
 
 const PACKAGE_NAME = process.env._PACKAGE_NAME_ as string;
 const PACKAGE_VERSION = process.env._PACKAGE_VERSION_ as string;
@@ -140,7 +141,8 @@ const getAgentMentionDetailsAtPos = (
 		node?.type !== mentionSchema ||
 		!isAgentUserType(node.attrs.userType) ||
 		!matchesMention(node.attrs) ||
-		!node.attrs.id
+		!node.attrs.id ||
+		!node.attrs.localId
 	) {
 		return null;
 	}
@@ -150,6 +152,7 @@ const getAgentMentionDetailsAtPos = (
 
 	return {
 		id: node.attrs.id as string,
+		localId: node.attrs.localId as string,
 		context: parentNode.textContent.trim() || null,
 		name: getAgentMentionName(node.attrs.text, fallbackName),
 		nodeSize: node.nodeSize,
@@ -162,33 +165,37 @@ const getAgentMentionDetailsAtPos = (
 
 /**
  * Finds an agent mention that survived a document change when the changed-range
- * scan did not find one. Prefers the previously tracked mention ID when present;
- * otherwise returns a surviving agent mention using the existing traversal order.
+ * scan did not find one. Uses the tracked localId as the mention instance identity
+ * so same-agent mentions elsewhere in the document cannot be selected as fallback.
  */
 const getSurvivingAgentMentionDetails = (
 	state: EditorState,
-	preferredId: string,
+	preferredLocalId: string,
 	preferredName?: string | null,
 ): AgentMentionDetails | null => {
 	const mentionSchema = state.schema.nodes.mention;
 	let result: AgentMentionDetails | null = null;
 
 	state.doc.descendants((node, pos) => {
-		if (result?.id === preferredId) {
+		if (result) {
 			return false;
 		}
-		if (node.type !== mentionSchema || !isAgentUserType(node.attrs.userType) || !node.attrs.id) {
+		if (
+			node.type !== mentionSchema ||
+			!isAgentUserType(node.attrs.userType) ||
+			node.attrs.localId !== preferredLocalId
+		) {
 			return true;
 		}
 
 		result = getAgentMentionDetailsAtPos(
 			state,
 			pos,
-			(attrs) => attrs.id === node.attrs.id,
-			node.attrs.id === preferredId ? preferredName : undefined,
+			(attrs) => attrs.localId === preferredLocalId,
+			preferredName,
 		);
 
-		return result?.id !== preferredId;
+		return !result;
 	});
 
 	return result;
@@ -285,6 +292,7 @@ const commitResolvedPendingTypedAgentMention = (
 			...pluginState,
 			pendingTypedAgentMention: null,
 			lastInsertedAgentMentionId: pendingMentionDetails.id,
+			lastInsertedAgentMentionLocalId: pendingMentionDetails.localId,
 			lastInsertedAgentMentionContext: pendingMentionDetails.context,
 			lastInsertedAgentMentionName: pendingMentionDetails.name,
 			lastInsertedAgentMentionParentNodeType: pendingMentionDetails.parentNodeType,
@@ -326,6 +334,7 @@ const commitPendingTypedAgentMention = (
 const hasTrackedAgentMentionState = (pluginState: MentionPluginState) =>
 	Boolean(pluginState.pendingTypedAgentMention) ||
 	pluginState.lastInsertedAgentMentionId != null ||
+	pluginState.lastInsertedAgentMentionLocalId != null ||
 	pluginState.lastInsertedAgentMentionContext != null ||
 	pluginState.lastInsertedAgentMentionName != null ||
 	pluginState.lastInsertedAgentMentionParentNodeType != null;
@@ -340,6 +349,7 @@ const clearTrackedAgentMentionState = (pluginState: MentionPluginState): Mention
 		...pluginState,
 		pendingTypedAgentMention: null,
 		lastInsertedAgentMentionId: null,
+		lastInsertedAgentMentionLocalId: null,
 		lastInsertedAgentMentionContext: null,
 		lastInsertedAgentMentionName: null,
 		lastInsertedAgentMentionParentNodeType: null,
@@ -588,16 +598,15 @@ export function createMentionPlugin({
 					});
 
 					const shouldResolveAgentMentionState =
-						stepsTouchMentions || Boolean(newPluginState.lastInsertedAgentMentionId);
+						stepsTouchMentions || Boolean(newPluginState.lastInsertedAgentMentionLocalId);
 
 					if (shouldResolveAgentMentionState) {
 						let agentMentionId: string | null = null;
+						let agentMentionLocalId: string | null = null;
 						let agentMentionContext: string | null = null;
 						let agentMentionName: string | null = null;
 						let agentMentionParentNodeType: string | null = null;
-						let newCount = 0;
-						let oldAgentMentionId: string | null = null;
-						let oldCount = 0;
+						const existingAgentMentionLocalIdsInChangedRanges = new Set<string>();
 						let pendingTypedAgentMentionDetails: AgentMentionDetails | null = null;
 
 						if (stepsTouchMentions) {
@@ -608,7 +617,6 @@ export function createMentionPlugin({
 									if (node.type !== mentionSchema || !isAgentUserType(node.attrs.userType)) {
 										return true;
 									}
-									newCount++;
 									if (
 										pendingTypedAgentMentionDetails === null &&
 										action === ACTIONS.SET_PENDING_TYPED_AGENT_MENTION &&
@@ -621,15 +629,16 @@ export function createMentionPlugin({
 											params.name,
 										);
 									}
-									if (agentMentionId === null && node.attrs.id) {
+									if (agentMentionLocalId === null && node.attrs.localId) {
 										const agentMentionDetails = getAgentMentionDetailsAtPos(
 											newState,
 											pos,
-											(attrs) => attrs.id === node.attrs.id,
+											(attrs) => attrs.localId === node.attrs.localId,
 											params?.name,
 										);
 										if (agentMentionDetails) {
 											agentMentionId = agentMentionDetails.id;
+											agentMentionLocalId = agentMentionDetails.localId;
 											agentMentionContext = agentMentionDetails.context;
 											agentMentionName = agentMentionDetails.name;
 											agentMentionParentNodeType = agentMentionDetails.parentNodeType;
@@ -646,9 +655,8 @@ export function createMentionPlugin({
 									if (node.type !== mentionSchema || !isAgentUserType(node.attrs.userType)) {
 										return true;
 									}
-									oldCount++;
-									if (oldAgentMentionId === null && node.attrs.id) {
-										oldAgentMentionId = node.attrs.id as string;
+									if (node.attrs.localId) {
+										existingAgentMentionLocalIdsInChangedRanges.add(node.attrs.localId as string);
 									}
 									return true;
 								});
@@ -659,14 +667,15 @@ export function createMentionPlugin({
 						// the doc changed but no step covered the tracked mention, the new-doc scan
 						// above finds nothing. Check whether any agent mention survived in the document.
 						let resolvedFromFullDocFallback = false;
-						if (agentMentionId === null && newPluginState.lastInsertedAgentMentionId) {
+						if (agentMentionId === null && newPluginState.lastInsertedAgentMentionLocalId) {
 							const survivorDetails = getSurvivingAgentMentionDetails(
 								newState,
-								newPluginState.lastInsertedAgentMentionId,
+								newPluginState.lastInsertedAgentMentionLocalId,
 								newPluginState.lastInsertedAgentMentionName,
 							);
 							if (survivorDetails) {
 								agentMentionId = survivorDetails.id;
+								agentMentionLocalId = survivorDetails.localId;
 								agentMentionContext = survivorDetails.context;
 								agentMentionName = survivorDetails.name;
 								agentMentionParentNodeType = survivorDetails.parentNodeType;
@@ -674,10 +683,43 @@ export function createMentionPlugin({
 							}
 						}
 
+						const trackedAgentMentionLocalId =
+							newPluginState.lastInsertedAgentMentionLocalId ?? null;
+						const changedRangeMentionIsNew =
+							agentMentionLocalId !== null &&
+							!existingAgentMentionLocalIdsInChangedRanges.has(agentMentionLocalId);
+
+						if (
+							agentMentionLocalId !== null &&
+							!changedRangeMentionIsNew &&
+							agentMentionLocalId !== trackedAgentMentionLocalId
+						) {
+							const survivorDetails = trackedAgentMentionLocalId
+								? getSurvivingAgentMentionDetails(
+										newState,
+										trackedAgentMentionLocalId,
+										newPluginState.lastInsertedAgentMentionName,
+									)
+								: null;
+
+							if (survivorDetails) {
+								agentMentionId = survivorDetails.id;
+								agentMentionLocalId = survivorDetails.localId;
+								agentMentionContext = survivorDetails.context;
+								agentMentionName = survivorDetails.name;
+								agentMentionParentNodeType = survivorDetails.parentNodeType;
+								resolvedFromFullDocFallback = true;
+							} else {
+								agentMentionId = null;
+								agentMentionLocalId = null;
+								agentMentionContext = null;
+								agentMentionName = null;
+								agentMentionParentNodeType = null;
+							}
+						}
+
 						const isNewInsertion =
-							agentMentionId !== null &&
-							!resolvedFromFullDocFallback &&
-							(oldAgentMentionId !== agentMentionId || newCount > oldCount);
+							agentMentionId !== null && !resolvedFromFullDocFallback && changedRangeMentionIsNew;
 						const isPendingTypedAgentMentionInsertion =
 							isNewInsertion &&
 							action === ACTIONS.SET_PENDING_TYPED_AGENT_MENTION &&
@@ -710,6 +752,7 @@ export function createMentionPlugin({
 								...newPluginState,
 								pendingTypedAgentMention: null,
 								lastInsertedAgentMentionId: agentMentionId,
+								lastInsertedAgentMentionLocalId: agentMentionLocalId,
 								lastInsertedAgentMentionContext: agentMentionContext,
 								lastInsertedAgentMentionName: agentMentionName,
 								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
@@ -720,6 +763,7 @@ export function createMentionPlugin({
 							hasPublicPluginStateChanged = true;
 						} else if (
 							agentMentionId !== (newPluginState.lastInsertedAgentMentionId ?? null) ||
+							agentMentionLocalId !== (newPluginState.lastInsertedAgentMentionLocalId ?? null) ||
 							agentMentionContext !== (newPluginState.lastInsertedAgentMentionContext ?? null) ||
 							agentMentionName !== (newPluginState.lastInsertedAgentMentionName ?? null) ||
 							agentMentionParentNodeType !==
@@ -729,6 +773,7 @@ export function createMentionPlugin({
 							newPluginState = {
 								...newPluginState,
 								lastInsertedAgentMentionId: agentMentionId,
+								lastInsertedAgentMentionLocalId: agentMentionLocalId,
 								lastInsertedAgentMentionContext: agentMentionContext,
 								lastInsertedAgentMentionName: agentMentionName,
 								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
@@ -838,17 +883,45 @@ export function createMentionPlugin({
 			const isAgentMentionsEnabled = editorExperiment('platform_editor_agent_mentions', true);
 			let pendingTypedAgentMentionTimer: ReturnType<typeof setTimeout> | undefined;
 			let pendingTypedAgentMentionTimerKey: string | null = null;
+			let pendingTypedAgentMentionFocusDeferCount = 0;
 
-			const clearPendingTypedAgentMentionTimer = () => {
+			/**
+			 * Clears the currently scheduled pending typed-agent-mention timer.
+			 *
+			 * By default this also resets the focus defer count because a new pending mention,
+			 * local edit reset, or cleanup should start a fresh escape-hatch window. Focus-based
+			 * retries pass `preserveFocusDeferCount` so repeated defers for the same pending
+			 * mention are counted toward the bounded retry cap.
+			 */
+			const clearPendingTypedAgentMentionTimer = ({
+				preserveFocusDeferCount = false,
+			}: { preserveFocusDeferCount?: boolean } = {}) => {
 				if (pendingTypedAgentMentionTimer) {
 					clearTimeout(pendingTypedAgentMentionTimer);
 					pendingTypedAgentMentionTimer = undefined;
 				}
 				pendingTypedAgentMentionTimerKey = null;
+				if (!preserveFocusDeferCount) {
+					pendingTypedAgentMentionFocusDeferCount = 0;
+				}
 			};
+
+			/**
+			 * Typed agent mentions intentionally wait before invoking the agent so content the
+			 * user adds next can become context. That context can be authored through
+			 * editor-adjacent UI, such as mention typeahead, date picker, or status picker,
+			 * where focus leaves the ProseMirror editor but remains in the active document.
+			 * Treat that as continued authoring activity by restarting the inactivity window.
+			 * This only defers the inactivity timer path: existing selection-change handling can
+			 * still publish or clear the pending mention sooner. After 20 focus defers (~1 minute),
+			 * publish anyway so pathological focus states cannot keep the mention pending indefinitely.
+			 */
+			const shouldDeferPendingTypedAgentMention = () =>
+				typeof document !== 'undefined' && document.hasFocus() && !editorView.hasFocus();
 
 			const schedulePendingTypedAgentMentionTimer = (
 				mentionPluginState: MentionPluginState | undefined,
+				{ preserveFocusDeferCount = false }: { preserveFocusDeferCount?: boolean } = {},
 			) => {
 				if (!isAgentMentionsEnabled) {
 					clearPendingTypedAgentMentionTimer();
@@ -866,7 +939,7 @@ export function createMentionPlugin({
 					return;
 				}
 
-				clearPendingTypedAgentMentionTimer();
+				clearPendingTypedAgentMentionTimer({ preserveFocusDeferCount });
 				pendingTypedAgentMentionTimerKey = timerKey;
 				pendingTypedAgentMentionTimer = setTimeout(() => {
 					const latestPendingTypedAgentMention = mentionPluginKey.getState(
@@ -881,6 +954,19 @@ export function createMentionPlugin({
 						return;
 					}
 
+					if (
+						shouldDeferPendingTypedAgentMention() &&
+						pendingTypedAgentMentionFocusDeferCount < MAX_PENDING_TYPED_AGENT_MENTION_FOCUS_DEFERS
+					) {
+						pendingTypedAgentMentionFocusDeferCount++;
+						pendingTypedAgentMentionTimerKey = null;
+						schedulePendingTypedAgentMentionTimer(mentionPluginKey.getState(editorView.state), {
+							preserveFocusDeferCount: true,
+						});
+						return;
+					}
+
+					pendingTypedAgentMentionFocusDeferCount = 0;
 					editorView.dispatch(
 						editorView.state.tr.setMeta(mentionPluginKey, {
 							action: ACTIONS.COMMIT_PENDING_TYPED_AGENT_MENTION,

@@ -8,6 +8,9 @@ export {
 export type { UFOExperienceSampledRecords, WithSamplingUFOExperience } from './samplingUfo';
 
 export {
+	aiGenerationStartedEvent,
+	aiGenerationCompletedEvent,
+	aiGenerationFailedEvent,
 	categoryClickedEvent,
 	createAndFireEventInElementsChannel,
 	closedPickerEvent,

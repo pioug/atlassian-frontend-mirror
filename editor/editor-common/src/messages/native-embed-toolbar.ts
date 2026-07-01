@@ -1,5 +1,13 @@
 import { defineMessages } from 'react-intl';
 
+/**
+ * @private
+ * @deprecated Native embed toolbar messages are now owned by
+ * `@atlassian/editor-plugin-native-embeds`. Use
+ * `nativeEmbedToolbarMessages` from
+ * `@atlassian/editor-plugin-native-embeds/src/messages/native-embed-toolbar`
+ * instead. This export is kept temporarily for backwards compatibility.
+ */
 export const nativeEmbedToolbarMessages: {
 	alwaysShowTitle: {
 		defaultMessage: string;

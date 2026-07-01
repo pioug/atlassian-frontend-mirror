@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste-options-toolbar",
-	"version": "13.0.16",
+	"version": "13.0.18",
 	"description": "Paste options toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -61,6 +61,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_agent_mentions": {
+			"type": "experiment"
+		},
+		"platform_editor_fix_link_paste_menu": {
 			"type": "experiment"
 		},
 		"platform_editor_paste_actions_menu_exposure": {

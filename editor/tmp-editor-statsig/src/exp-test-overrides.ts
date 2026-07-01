@@ -91,6 +91,7 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	cc_page_experiences_editor_image_generation: false,
 	confluence_advanced_header_image_generation_exp: false,
 	platform_use_unicode_emojis: false,
+	confluence_ai_generated_emojis: false,
 	platform_editor_emoji_hover_show_tooltip: false,
 	'aifc-confluence-editor-csp-fix': false,
 };

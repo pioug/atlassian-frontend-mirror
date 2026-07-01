@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::983d6ae1ff7763911989373903ab1009>>
+ * @codegen <<SignedSource::0b71a41f26600db341e2ed67e69a4c88>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:ads-components
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -6195,17 +6195,61 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'Object',
+		name: 'StoryObject',
 		package: '@atlaskit/object',
-		description: 'An object is an icon that represents an Atlassian-specific content type.',
+		description: 'An object icon component that represents an Atlassian story content type.',
 		status: 'general-availability',
 		keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
 		category: 'images and icons',
 		examples: [
 			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { allObjects } from '../examples-utils/all-objects';\nimport type { ObjectSize } from '../src/components/object/types';\nconst containerStyles = css({\n\tmaxWidth: '600px',\n});\nexport default function Objects(): JSX.Element {\n\tconst sizes: ObjectSize[] = ['small', 'medium'];\n\treturn (\n\t\t<div css={containerStyles}>\n\t\t\t<Flex gap=\"space.300\" wrap=\"wrap\">\n\t\t\t\t{allObjects.map((ObjectComponent) => {\n\t\t\t\t\tconst objectName = ObjectComponent.name;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Stack key={objectName} space=\"space.100\">\n\t\t\t\t\t\t\t<Heading size=\"xsmall\">{objectName}</Heading>\n\t\t\t\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t\t\t\t{sizes.map((size) => (\n\t\t\t\t\t\t\t\t\t<ObjectComponent key={`${objectName}-${size}`} size={size} />\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</Flex>\n\t\t</div>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'The label for the object.\n\nIf the object is decorative, this can be set to an empty string.\nIf not provided, will default to a human-readable version of the icon name.',
+				defaultValue: '"Story"',
+			},
+			{
+				name: 'size',
+				type: '"small" | "medium"',
+				description: 'The size of the object.\n\n- `small`: 12px\n- `medium`: 16px\n-',
+			},
+		],
+	},
+	{
+		name: 'WhiteboardObjectTile',
+		package: '@atlaskit/object',
+		description: 'An object tile component that represents an Atlassian whiteboard content type.',
+		status: 'general-availability',
+		keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
+		category: 'images and icons',
+		examples: [
 			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { allObjectTiles } from '../examples-utils/all-object-tiles';\nimport type { ObjectTileSize } from '../src/components/object-tile/types';\nconst containerStyles = css({\n\tmaxWidth: '980px',\n});\nexport default function ObjectTiles(): JSX.Element {\n\tconst sizes: ObjectTileSize[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];\n\treturn (\n\t\t<div css={containerStyles}>\n\t\t\t<Flex gap=\"space.400\" wrap=\"wrap\">\n\t\t\t\t{allObjectTiles.map((ObjectTileComponent) => {\n\t\t\t\t\tconst objectName = ObjectTileComponent.name;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Stack key={objectName} space=\"space.100\">\n\t\t\t\t\t\t\t<Heading size=\"medium\">{objectName}</Heading>\n\t\t\t\t\t\t\t<Inline space=\"space.200\" alignBlock=\"center\">\n\t\t\t\t\t\t\t\t{sizes.flatMap((size) => [\n\t\t\t\t\t\t\t\t\t<ObjectTileComponent\n\t\t\t\t\t\t\t\t\t\tkey={`${objectName}-${size}-normal`}\n\t\t\t\t\t\t\t\t\t\tsize={size}\n\t\t\t\t\t\t\t\t\t\tisBold={false}\n\t\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t\t\t<ObjectTileComponent\n\t\t\t\t\t\t\t\t\t\tkey={`${objectName}-${size}-bold`}\n\t\t\t\t\t\t\t\t\t\tsize={size}\n\t\t\t\t\t\t\t\t\t\tisBold={true}\n\t\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t\t])}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</Flex>\n\t\t</div>\n\t);\n}",
 		],
-		props: [],
+		props: [
+			{
+				name: 'isBold',
+				type: 'boolean',
+				description:
+					'Whether the object tile should be bold in appearance.\n\nDefaults to `false`.',
+			},
+			{
+				name: 'label',
+				type: 'string',
+				description:
+					'The label for the object tile.\n\nIf the object tile is decorative, this can be set to an empty string.\nIf not provided, will default to a human-readable version of the icon name.',
+				defaultValue: '"Whiteboard"',
+			},
+			{
+				name: 'size',
+				type: '"xsmall" | "small" | "medium" | "large" | "xlarge"',
+				description:
+					'The size of the tile.\n\nIf you need a smaller size, use a standard Object component instead –\nwhich is available in `12px` or `16px` sizes.\n\n- `xsmall`: 20px\n- `small`: 24px\n- `medium`: 32px\n- `large`: 40px\n- `xlarge`: 48px',
+			},
+		],
 	},
 	{
 		name: 'PageHeader',
@@ -6790,7 +6834,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['box', 'container', 'div', 'layout', 'primitive', 'compiled'],
 		category: 'primitive',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tbox: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tbackgroundColor: token('color.background.neutral.subtle'),\n\t},\n});\nconst _default_1: JSX.Element[] = [\n\t<Box padding=\"space.200\" backgroundColor=\"color.background.neutral.subtle\">\n\t\tBasic box\n\t</Box>,\n\t<Box xcss={styles.box}>Styled box</Box>,\n];\nexport default _default_1;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport type { JSX } from 'react';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tbox: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tbackgroundColor: token('color.background.neutral.subtle'),\n\t},\n});\nconst _default_1: JSX.Element[] = [\n\t<Box padding=\"space.200\" backgroundColor=\"color.background.neutral.subtle\">\n\t\tBasic box\n\t</Box>,\n\t<Box xcss={styles.box}>Styled box</Box>,\n];\nexport default _default_1;",
 		],
 		props: [
 			{
@@ -6802,7 +6846,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'backgroundColor',
-				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 214 more ... | "elevation.surface.raised.pressed"',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 216 more ... | "elevation.surface.raised.pressed"',
 				description: 'Token representing background color with a built-in fallback value.',
 			},
 			{

@@ -4,6 +4,7 @@ import { bind } from 'bind-event-listener';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
+import type { MentionAttributes } from '@atlaskit/adf-schema';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -32,7 +33,11 @@ export const profileCardRenderer = ({
 }): {
 	destroyProfileCard: () => void;
 	removeProfileCard: () => void;
+	updateNode: (nextNode: PMNode) => void;
 } => {
+	// Keep a mutable reference to the latest node so the click handler always
+	// reads up-to-date attrs
+	let currentNode = node;
 	let renderingProfileCard = false;
 	let navigatingToProfile = false;
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -61,7 +66,13 @@ export const profileCardRenderer = ({
 		portalProviderAPI.render(() => renderProfileCard(referenceElement), referenceElement, key);
 		cleanupSelection = api?.selection?.sharedState.onChange(({ nextSharedState }) => {
 			const selection = nextSharedState?.selection;
-			if (selection instanceof NodeSelection ? selection.node === node : false) {
+			if (
+				selection instanceof NodeSelection
+					? fg('platform_editor_reduced_agent_profile_card')
+						? selection.node.sameMarkup(currentNode)
+						: selection.node === node
+					: false
+			) {
 				return;
 			}
 			removeProfileCard?.();
@@ -69,9 +80,25 @@ export const profileCardRenderer = ({
 	};
 
 	const renderEditorProfileCard = (): void => {
+		const activeMention = fg('platform_editor_reduced_agent_profile_card')
+			? (() => {
+					// Read the display name from the DOM element at click time — this is
+					// always up-to-date even when node.attrs.text is absent
+					const primitiveText =
+						dom instanceof HTMLElement
+							? dom.querySelector('.editor-mention-primitive')?.textContent?.trim()
+							: undefined;
+					return {
+						attrs: {
+							...currentNode?.attrs,
+							text: currentNode?.attrs?.text || primitiveText || undefined,
+						} as MentionAttributes,
+					};
+				})()
+			: { attrs: node.attrs as MentionAttributes };
 		renderProfileCardPopup((referenceElement) => (
 			<ProfileCardComponent
-				activeMention={node}
+				activeMention={activeMention}
 				profilecardProvider={options?.profilecardProvider}
 				dom={referenceElement}
 				closeComponent={removeProfileCard}
@@ -129,7 +156,9 @@ export const profileCardRenderer = ({
 		type: 'click',
 		listener: () => {
 			if (fg('people-teams_migrate-user-profile-card')) {
-				const userId = node.attrs?.id;
+				const userId = fg('platform_editor_reduced_agent_profile_card')
+					? currentNode.attrs?.id
+					: node.attrs?.id;
 				if (!userId) {
 					return;
 				}
@@ -141,7 +170,13 @@ export const profileCardRenderer = ({
 						return;
 					}
 
-					if (isAgentMentionType(node.attrs?.userType)) {
+					if (
+						isAgentMentionType(
+							fg('platform_editor_reduced_agent_profile_card')
+								? currentNode.attrs?.userType
+								: node.attrs?.userType,
+						)
+					) {
 						renderEditorProfileCard();
 					} else {
 						renderDefaultProfileCard(userId, provider);
@@ -162,5 +197,8 @@ export const profileCardRenderer = ({
 			removeProfileCard?.();
 		},
 		removeProfileCard,
+		updateNode: (nextNode: PMNode): void => {
+			currentNode = nextNode;
+		},
 	};
 };

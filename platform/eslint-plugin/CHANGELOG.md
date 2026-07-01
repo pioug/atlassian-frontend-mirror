@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-platform
 
+## 3.1.1
+
+### Patch Changes
+
+- [`b268bb62fa803`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b268bb62fa803) -
+  Update ownership metadata for Loop Experiences reviewer routing.
+
 ## 3.1.0
 
 ### Minor Changes

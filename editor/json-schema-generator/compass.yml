@@ -24,6 +24,9 @@ customFields:
   - name: Department
     type: text
     value: Eng - Editor Collaboration Platform
+  - name: Trusted Reviewer Teams
+    type: text
+    value: ari:cloud:identity::team/cf6a670b-5252-4c68-a769-9207de366beb
   - name: Technical Owner
     type: user
     value: ari:cloud:identity::user/712020:d2fbbbd7-fd7c-4d3a-9f0a-7a97b6b26e40 # Michael Kimpton

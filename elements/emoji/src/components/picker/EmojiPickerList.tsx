@@ -54,6 +54,7 @@ import {
 	virtualItemRenderer,
 } from './EmojiPickerVirtualItems';
 import EmojiActions from '../common/EmojiActions';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import type { OnUploadEmoji } from '../common/EmojiUploadPicker';
 import type { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 import { emojiPickerHeightOffset, scrollToRow } from './utils';
@@ -106,6 +107,10 @@ export interface OnSearch {
 
 export interface Props {
 	activeCategoryId?: CategoryId | null;
+	/** Current Confluence page content id, enables AI emoji generation. */
+	contentId?: string;
+	/** Fires analytics events (used by AI emoji generation). */
+	fireAnalytics?: (event: AnalyticsEventPayload) => void;
 	currentUser?: User;
 	emojis: EmojiDescription[];
 	emojiToDelete?: EmojiDescription;
@@ -213,6 +218,8 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		activeCategoryId,
 		selectedProductivityColor,
 		useFooterSpaceForList,
+		contentId,
+		fireAnalytics,
 	} = props;
 
 	const { formatMessage } = useIntl();
@@ -756,6 +763,8 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				query={query}
 				onChange={onSearch}
 				resultsCount={visibleEmojis.length}
+				contentId={contentId}
+				fireAnalytics={fireAnalytics}
 			/>
 			<EmojiPickerListContextProvider initialEmojisFocus={{ rowIndex: 1, columnIndex: 0 }}>
 				<VirtualList

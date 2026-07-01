@@ -1,5 +1,4 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { traverse } from '../traverse/traverse';
 import type { ADFEntity, EntityParent } from '../types';
 
@@ -64,26 +63,27 @@ const wrappedNodeIsTable = (node: ADFEntity): boolean =>
 	(node.type === 'unsupportedBlock' && node.attrs?.originalValue?.type === 'table');
 
 const isTableInPanelSupported = (schema: Schema): boolean => {
-	const { table, panel_c1: panelC1 } = schema.nodes;
+	const { table, panel_c1 } = schema.nodes;
 
-	if (!table || !panelC1) {
+	if (!table || !panel_c1) {
 		return false;
 	}
 
-	return expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true);
+	return true;
 };
 
 /**
  * Schema-driven fallback for `panel_c1` (a panel that may hold a table), mirroring
- * `syncBlockFallbackTransform`. `panel_c1` only exists when the
- * `platform_editor_nest_table_in_panel` experiment is on; without it, loading a
- * document containing `panel_c1` would throw `Unknown node type: panel_c1`.
+ * `syncBlockFallbackTransform`. Schemas that do not declare `panel_c1` cannot load
+ * documents containing it and would otherwise throw `Unknown node type: panel_c1`.
  *
- * - Experiment off: rename `panel_c1` -> `panel` and wrap any `table` child in an LCM
- *   `extension` (keeps it visible/editable). Falls back to `unsupportedBlock` when
- *   `extension` is unavailable; no-ops when neither escape hatch exists.
- * - Experiment on: leave `panel_c1` untouched and restore wrapped tables. Restoration
- *   only fires inside a panel parent so tables wrapped elsewhere are left untouched.
+ * - Unsupported schema: rename `panel_c1` -> `panel` and wrap any `table` child in
+ *   an LCM `extension` (keeps it visible/editable). Falls back to
+ *   `unsupportedBlock` when `extension` is unavailable; no-ops when neither escape
+ *   hatch exists.
+ * - Supported schema: leave `panel_c1` untouched and restore wrapped tables.
+ *   Restoration only fires inside a panel parent so tables wrapped elsewhere are
+ *   left untouched.
  */
 export const panelC1FallbackTransform = (
 	schema: Schema,
@@ -150,9 +150,9 @@ export const panelC1FallbackTransform = (
 	};
 
 	const transformedAdf = traverse(adf, {
-		// Experiment off: downgrade to a plain `panel`, wrapping table children.
+		// Unsupported schema: downgrade to a plain `panel`, wrapping table children.
 		panel_c1: (node) => (shouldDowngrade ? downgradePanel(node) : node),
-		// Experiment on: restore tables wrapped as an LCM / unsupportedBlock.
+		// Supported schema: restore tables wrapped as an LCM / unsupportedBlock.
 		extension: (node, parent) => (shouldRestore ? restoreWrappedTable(node, parent) : node),
 		unsupportedBlock: (node, parent) => (shouldRestore ? restoreWrappedTable(node, parent) : node),
 	});

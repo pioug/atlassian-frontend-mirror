@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl';
 import type { JsonLd } from '@atlaskit/json-ld-types';
 import Link from '@atlaskit/link';
 import type { EnvironmentsKeys } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 
 import { Card } from '../../src';
@@ -24,9 +23,7 @@ const CardExample = ({
 }) => {
 	const fallback = useMemo(() => <span>😭Something went wrong.</span>, []);
 	const onError = useCallback((err: Error) => console.error(err.message), []);
-	const actionOptions = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-		? { hide: false, rovoChatAction: { optIn: true } }
-		: undefined;
+	const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
 	return (
 		<Stack space="space.100">

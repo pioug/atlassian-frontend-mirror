@@ -1,10 +1,10 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
-		"team": "Build Infra",
+		"team": "Loop Experiences",
 		"toolingLabels": [
 			"linting"
 		]

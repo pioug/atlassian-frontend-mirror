@@ -14,11 +14,7 @@ snapshot(SimpleMentionItem);
 snapshot(MentionItem);
 
 // Mention list
-snapshot(SimpleMentionList, {
-	featureFlags: {
-		'mentions-migrate-react-dom': [false, true],
-	},
-});
+snapshot(SimpleMentionList);
 
 // Error mention list
 snapshot(ErrorMentionList);

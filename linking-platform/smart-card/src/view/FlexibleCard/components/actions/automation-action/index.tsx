@@ -3,7 +3,6 @@ import React, { lazy, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import AutomationIcon from '@atlaskit/icon/core/automation';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
@@ -11,7 +10,6 @@ import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import { type AutomationActionData } from '../../../../../state/flexible-ui-context/types';
-import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import { useSmartLinkModal } from '../../../../../state/modal';
 import Action from '../action';
 import { type LinkActionProps } from '../types';
@@ -33,8 +31,6 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 	const context = useFlexibleUiContext();
 	const { fireEvent } = useAnalyticsEvents();
 	const automationActionData = context?.actions?.[ActionName.AutomationAction];
-
-	const { product: rovoProduct } = useRovoConfig();
 
 	const automationActionOnClick = useCallback(
 		(automationActionData: AutomationActionData) => {
@@ -99,10 +95,7 @@ const AutomationAction = (props: LinkActionProps): React.JSX.Element | null => {
 						spacing="spacious"
 						color="currentColor"
 						label={automationActionIconLabel}
-						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-						(!!rovoProduct && rovoProduct === 'CONFLUENCE')
-							? { size: props.iconSize }
-							: {})}
+						size={props.iconSize}
 					/>
 				}
 				testId="smart-action-automation-action"

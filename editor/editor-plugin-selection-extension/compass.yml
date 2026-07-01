@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/65300ac7-7367-49d8-8b6e-77b29f5d6342
 name: '@atlaskit/editor-plugin-selection-extension'
-ownerId: ari:cloud:identity::team/e611522d-1773-43e4-85a5-e62f7cde47d6 # Editor - Core Experiences
+ownerId: ari:cloud:identity::team/0250ee69-f755-47fd-a468-bf8a9d10a3c5 # Editor AI
 labels:
   - platform-code
   - platform-afm
@@ -24,6 +24,9 @@ customFields:
   - name: Department
     type: text
     value: Eng - Editor
+  - name: Trusted Reviewer Teams
+    type: text
+    value: ari:cloud:identity::team/cf6a670b-5252-4c68-a769-9207de366beb
   - name: Technical Owner
     type: user
     value: ari:cloud:identity::user/612646c53fe26c00694fbe6a # Chris Kimber

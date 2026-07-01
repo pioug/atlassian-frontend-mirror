@@ -39,35 +39,15 @@ const isParseableUrl = (text: string): boolean => {
 	}
 };
 
-/**
- * Returns true if the slice represents a single smart-link card node.
- * Handles two shapes:
- *  - paragraph > inlineCard|blockCard (smartlink from editor/renderer, wrapped in a paragraph)
- *  - inlineCard|blockCard             (top-level card with no paragraph wrapper)
- */
-const isSingleSmartLinkCard = (slice: Slice): boolean => {
-	const isSupportedCard = (node: PMNode): boolean =>
-		node.type.name === 'inlineCard' || node.type.name === 'blockCard';
+const isSupportedCard = (node: PMNode): boolean =>
+	node.type.name === 'inlineCard' || node.type.name === 'blockCard';
 
-	if (slice.content.childCount !== 1) {
-		return false;
-	}
-	const topNode = slice.content.child(0);
-
-	// Top-level inlineCard/blockCard (no paragraph wrapper)
-	if (isSupportedCard(topNode)) {
-		return true;
-	}
-
-	// paragraph > inlineCard/blockCard
-	if (topNode.type.name !== 'paragraph') {
-		return false;
-	}
-	if (topNode.childCount !== 1) {
-		return false;
-	}
-	return isSupportedCard(topNode.child(0));
-};
+const transparentSingleChildContainerNodeTypes = new Set([
+	'paragraph',
+	'listItem',
+	'bulletList',
+	'orderedList',
+]);
 
 /**
  * Returns the children of a Fragment, filtering out whitespace-only text nodes.
@@ -86,33 +66,39 @@ const significantChildren = (fragment: Fragment): PMNode[] => {
 };
 
 /**
- * Returns true if the slice represents a single bare link with no label.
- * Handles two shapes:
- *  - paragraph > text(link mark)  (standard rich-text paste, wrapped in a paragraph)
- *  - text(link mark)              (top-level text node with no paragraph wrapper)
- * Whitespace-only sibling text nodes are ignored in both cases.
+ * Returns true when the fragment contains exactly one meaningful leaf that
+ * satisfies `isSupportedLeaf`.
+ *
+ * Transparent single-child containers (paragraph, listItem, bulletList, and
+ * orderedList) are traversed recursively. Whitespace-only sibling text nodes
+ * are ignored at each level.
  */
-const isSingleBareLink = (slice: Slice): boolean => {
-	// Top-level text node with a link mark (no paragraph wrapper)
-	const significantTopChildren = significantChildren(slice.content);
-	if (significantTopChildren.length === 1 && isUrlOnlyLinkTextNode(significantTopChildren[0])) {
-		return true;
-	}
-
-	// paragraph > text(link mark)
-	if (slice.content.childCount !== 1) {
-		return false;
-	}
-	const topNode = slice.content.child(0);
-	if (topNode.type.name !== 'paragraph') {
-		return false;
-	}
-	const children = significantChildren(topNode.content);
+const containsExactlyOneMeaningfulLeaf = (
+	fragment: Fragment,
+	isSupportedLeaf: (node: PMNode) => boolean,
+): boolean => {
+	const children = significantChildren(fragment);
 	if (children.length !== 1) {
 		return false;
 	}
-	return isUrlOnlyLinkTextNode(children[0]);
+
+	const [child] = children;
+	if (isSupportedLeaf(child)) {
+		return true;
+	}
+
+	if (!transparentSingleChildContainerNodeTypes.has(child.type.name)) {
+		return false;
+	}
+
+	return containsExactlyOneMeaningfulLeaf(child.content, isSupportedLeaf);
 };
+
+const isSingleSmartLinkCard = (slice: Slice): boolean =>
+	containsExactlyOneMeaningfulLeaf(slice.content, isSupportedCard);
+
+const isSingleBareLink = (slice: Slice): boolean =>
+	containsExactlyOneMeaningfulLeaf(slice.content, isUrlOnlyLinkTextNode);
 
 /**
  * Returns `true` when the pasted content is NOT a single standalone link.

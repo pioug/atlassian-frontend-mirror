@@ -92,8 +92,9 @@ export const SiteSelector = (props: SiteSelectorProps): JSX.Element => {
 								testId={`${testId}__control`}
 								{...(fg('navx-5290-sllv-modal-a11y-updates')
 									? {
-											'aria-label':
-												selectedSiteOption?.label ?? formatMessage(siteSelectorMessages.chooseSite),
+											'aria-label': selectedSiteOption?.label
+												? `${formatMessage(siteSelectorMessages.chooseSite)}: ${selectedSiteOption.label}`
+												: formatMessage(siteSelectorMessages.chooseSite),
 										}
 									: {})}
 								autoFocus={true}

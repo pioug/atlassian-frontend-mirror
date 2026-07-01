@@ -53,12 +53,15 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 	const context = useFlexibleUiContext();
 	const rovoChatAction = context?.actions?.[ActionName.RovoChatAction];
 
-	const hasPreview =
-		!!rovoChatAction &&
-		!!rovoChatAction?.product &&
-		rovoChatAction?.product === 'CONFLUENCE' &&
-		!!context?.preview &&
-		!isPreviewBlockErrored;
+	const isRovoActionsEnabled = useMemo(() => {
+		return (
+			!!rovoChatAction &&
+			rovoChatAction.product === 'CONFLUENCE' &&
+			actions?.some((action) => action.name === 'RovoChatAction')
+		);
+	}, [rovoChatAction, actions]);
+
+	const hasPreview = isRovoActionsEnabled && !!context?.preview && !isPreviewBlockErrored;
 
 	const hasActions = useMemo(
 		() => filterActionItems(actions, context)?.length > 0,
@@ -87,7 +90,7 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 					appearance="subtle"
 					testId={`${testId}-provider`}
 					hideLabel={hasPreview}
-					css={[!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE' && providerStyles]}
+					css={[isRovoActionsEnabled && providerStyles]}
 				/>
 			)}
 			{actions && hasActions ? (
@@ -98,7 +101,7 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 					css={[
 						size === SmartLinkSize.XLarge && actionGroupStyles,
 						safari && safariStyles,
-						!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE' && rovoActionStyles,
+						isRovoActionsEnabled && rovoActionStyles,
 					]}
 					width={SmartLinkWidth.Flexible}
 				>
@@ -108,19 +111,9 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 					<ActionGroup
 						onDropdownOpenChange={onDropdownOpenChange}
 						items={actions}
-						appearance={
-							!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE' ? 'subtle' : 'default'
-						}
-						size={
-							!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE'
-								? SmartLinkSize.Small
-								: size
-						}
-						containerWidth={
-							!!rovoChatAction && rovoChatAction?.product === 'CONFLUENCE'
-								? containerWidth
-								: undefined
-						}
+						appearance={isRovoActionsEnabled ? 'subtle' : 'default'}
+						size={isRovoActionsEnabled ? SmartLinkSize.Small : size}
+						containerWidth={isRovoActionsEnabled ? containerWidth : undefined}
 					/>
 				</ElementGroup>
 			) : null}

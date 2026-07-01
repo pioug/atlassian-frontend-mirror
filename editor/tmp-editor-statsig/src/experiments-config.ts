@@ -669,6 +669,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-30
+	platform_editor_fix_link_paste_menu: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-09-16
 	platform_editor_prevent_taskitem_remount: {
 		defaultValue: boolean;
@@ -1250,13 +1257,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-04-01
-	confluence_fe_cwr_outcome_picker_prompt_autoselect: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-24
 	'cwr-modal-ui-refresh': {
 		defaultValue: boolean;
@@ -1350,6 +1350,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-16
 	platform_use_unicode_emojis: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-30
+	confluence_ai_generated_emojis: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2442,6 +2449,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-30
+	platform_editor_fix_link_paste_menu: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_link_paste_menu',
+			jira: 'platform_editor_fix_link_paste_menu',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2025-10-31
 	platform_editor_lovability_suppress_toolbar_event: createBooleanExperiment({
 		productKeys: {
@@ -3335,14 +3351,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-04-01
-	confluence_fe_cwr_outcome_picker_prompt_autoselect: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_fe_cwr_outcome_picker_prompt_autoselect',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-24
 	'cwr-modal-ui-refresh': createBooleanExperiment({
 		productKeys: {
@@ -3457,6 +3465,14 @@ export const editorExperimentsConfig: {
 			confluence: 'platform_use_unicode_emojis_confluence',
 			jira: 'platform_use_unicode_emojis_jira',
 			bitbucket: 'platform_use_unicode_emojis_bitbucket',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-30
+	confluence_ai_generated_emojis: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_ai_generated_emojis',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

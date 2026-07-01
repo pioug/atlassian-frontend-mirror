@@ -1,9 +1,10 @@
-# simple-xdm
+# @atlaskit/simple-xdm
 
 A simple library that allows to expose host API to an embedded iframe through the `postMessage` protocol.
 
-This has been migrated from [simple-xdm](https://bitbucket.org/atlassian/simple-xdm/src/master/).
-
+This package lives in AFM under `platform/packages/connect/simple-xdm`. It was migrated from the
+standalone [simple-xdm](https://bitbucket.org/atlassian/simple-xdm/src/master/) repository; new
+consumers should import from the AFM package name, `@atlaskit/simple-xdm`.
 
 ## Goals
 
@@ -39,8 +40,13 @@ Then point your browser at:
 
 ### Define your API
 
-Include `/dist/host.min.js` or `import host from 'simple-xdm/host';` on the host side. See `/example/product/product.html` for an example.
-Then you can use `host.defineModule` to define your API (see `/example/product/product.js`):
+Import the host entry point on the host side:
+
+```ts
+import host from '@atlaskit/simple-xdm/host';
+```
+
+Then you can use `host.defineModule` to define your API:
 
     host.defineModule('messages', {
         error: function(title, body, options) {
@@ -81,7 +87,11 @@ Code in the iframe can call this API using:
 
 ### Use the API in the iframe
 
-Include `/dist/iframe.min.js` or `import AP from 'simple-xdm/plugin';` on the iframe side. See `/example/addon/add-on.html` for an example.
+Import the plugin entry point in the iframe:
+
+```ts
+import AP from '@atlaskit/simple-xdm/plugin';
+```
 
 Use the API either through globals or modules:
 

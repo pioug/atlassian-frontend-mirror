@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 6.2.1
+
+### Patch Changes
+
+- [`c444cbe1f2607`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c444cbe1f2607) -
+  NAVX-5116 cleaning up link picker focus state fg
+- Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

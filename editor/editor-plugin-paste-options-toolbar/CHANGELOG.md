@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 13.0.18
+
+### Patch Changes
+
+- [`e8a2ffea2c9eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8a2ffea2c9eb) -
+  [ux] Paste actions popup no longer appears for link-only pastes.
+- Updated dependencies
+
+## 13.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.16
 
 ### Patch Changes

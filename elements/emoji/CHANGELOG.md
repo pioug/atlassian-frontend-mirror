@@ -1,5 +1,37 @@
 # @atlaskit/emoji
 
+## 71.7.0
+
+### Minor Changes
+
+- [`cdddb84518902`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdddb84518902) -
+  Add a "Create an emoji with Rovo" section to the emoji picker's "Add your own emoji" flow, behind
+  the `confluence_ai_generated_emojis` experiment.
+
+  When enabled (and a page `contentId` is supplied), a description input + generate button appear
+  above the Emoji name field. Generating produces an emoji-style image via the Confluence header
+  image backend (Gemini 2.5 Flash Image, 1:1 aspect ratio). The generated image flows into the
+  existing upload form — reusing the same preview, Emoji name field (auto-populated with a slugified
+  shortname) and "Add emoji" button — and is uploaded through the existing `SiteEmojiResource` path.
+  - New optional `EmojiPicker` `contentId` prop threads the current page content id down to enable
+    the AI section.
+  - New analytics events for AI emoji generation (started/completed/failed).
+  - Register the `confluence_ai_generated_emojis` experiment in `@atlaskit/tmp-editor-statsig` so it
+    can be checked via `expValEquals`.
+
+  When the experiment is off (or no `contentId` is supplied), only the existing manual upload flow
+  is shown.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.6.5
 
 ### Patch Changes

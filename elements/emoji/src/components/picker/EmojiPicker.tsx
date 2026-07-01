@@ -81,6 +81,12 @@ export const preloadEmojiPicker = (): void => {
 
 export interface Props extends LoadingProps {
 	/**
+	 * The current Confluence page content id. When provided (and the
+	 * `confluence_ai_generated_emojis` experiment is on), enables the
+	 * "Create an emoji with Rovo" AI generation section in the upload flow.
+	 */
+	contentId?: string;
+	/**
 	 * Flag to disable tone selector.
 	 */
 	hideToneSelector?: boolean;

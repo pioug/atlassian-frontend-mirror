@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 116.19.3
+
+### Patch Changes
+
+- [`7156c5346ce34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7156c5346ce34) -
+  Move native embed toolbar messages to the native embeds plugin
+
+## 116.19.2
+
+### Patch Changes
+
+- [`25b1301af566b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25b1301af566b) -
+  [ux] Make Labs lozenge text capitalised
+- Updated dependencies
+
+## 116.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.19.0
 
 ### Minor Changes

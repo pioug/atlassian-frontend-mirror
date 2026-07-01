@@ -1,5 +1,20 @@
 # @atlaskit/link-datasource
 
+## 6.1.3
+
+### Patch Changes
+
+- [`f4538424dda2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4538424dda2e) -
+  NAVX-5052 Cleaning up SLLV keyboard focus feature flag
+- Updated dependencies
+
+## 6.1.2
+
+### Patch Changes
+
+- [`3723d5e9201e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3723d5e9201e3) -
+  NAVX-5290 Updating aria label for site selector
+
 ## 6.1.1
 
 ### Patch Changes

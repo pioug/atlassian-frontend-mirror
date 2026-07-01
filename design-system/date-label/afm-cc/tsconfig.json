@@ -1,0 +1,37 @@
+{
+	"extends": "../../../../tsconfig.local-consumption.json",
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/mocks/*",
+		"../src/**/examples.*"
+	],
+	"compilerOptions": {
+		"outDir": "../../../../../confluence/tsDist/@atlaskit__date-label",
+		"rootDir": "../",
+		"composite": true,
+		"noCheck": true
+	},
+	"references": [
+		{
+			"path": "../../css/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../icon/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../icon-lab/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../spinner/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-cc/tsconfig.json"
+		}
+	]
+}

@@ -92,6 +92,7 @@ import {
 	type ProductivityColor,
 } from '../../util/productivity-colors';
 import { filterHiddenEmojis } from '../../util/hidden-emojis';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const isRefreshEmojiPickerEnabled = (): boolean => {
 	if (!FeatureGates.initializeCompleted()) {
@@ -154,6 +155,23 @@ const emojiPickerWrapper = css({
 	flex: 1,
 	minHeight: 0,
 	overflow: 'hidden',
+});
+
+// When the "Create an emoji with Rovo" section is shown in the upload panel the
+// picker needs more vertical room than the fixed upload height. Make it tall
+// enough to fit the whole section without scrolling, but still let it scroll as
+// a safety net on very short viewports.
+const emojiPickerWrapperScrollable = css({
+	overflowX: 'hidden',
+	overflowY: 'auto',
+});
+
+// When the AI emoji experiment is on, grow the upload panel from its default
+// height to 450px so the manual upload form + the slim "Create an emoji with
+// Rovo" section are both visible without scrolling.
+const withAiUploadHeight = css({
+	height: '450px',
+	maxHeight: 'calc(100vh - 86px)',
 });
 
 const withPreviewHeight = cssMap({
@@ -241,6 +259,12 @@ export interface PickerRefHandler {
 export interface Props {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	/**
+	 * The current Confluence page content id. When provided (and the
+	 * `confluence_ai_generated_emojis` experiment is on), enables the
+	 * "Create an emoji with Rovo" AI generation section in the upload flow.
+	 */
+	contentId?: string;
+	/**
 	 * Flag to disable tone selector.
 	 */
 	hideToneSelector?: boolean;
@@ -260,6 +284,7 @@ const EmojiPickerComponent = ({
 	onPickerRef,
 	hideToneSelector,
 	createAnalyticsEvent,
+	contentId,
 	size = defaultEmojiPickerSize,
 }: Props): JSX.Element => {
 	const { formatMessage } = useIntl();
@@ -900,6 +925,11 @@ const EmojiPickerComponent = ({
 		!(query && filteredEmojis.length === 0) &&
 		isRefreshEmojiPickerEnabled();
 
+	// When the AI emoji section is shown in the upload panel, grow the picker so
+	// the section isn't clipped by the fixed upload height.
+	const showAiUpload =
+		uploading && !!contentId && expValEquals('confluence_ai_generated_emojis', 'isEnabled', true);
+
 	return (
 		<div
 			css={[
@@ -913,6 +943,8 @@ const EmojiPickerComponent = ({
 							: showPreview
 								? withPreviewHeight[size]
 								: withoutPreviewHeight[size],
+				// Override the fixed upload height when the AI section is present.
+				showAiUpload && withAiUploadHeight,
 			]}
 			ref={setPickerRef}
 			data-emoji-picker-container
@@ -925,7 +957,7 @@ const EmojiPickerComponent = ({
 				onKeyPress={suppressKeyPress}
 				onKeyUp={suppressKeyPress}
 				onKeyDown={suppressKeyPress}
-				css={emojiPickerWrapper}
+				css={[emojiPickerWrapper, showAiUpload && emojiPickerWrapperScrollable]}
 			>
 				<CategorySelector
 					activeCategoryId={
@@ -971,6 +1003,8 @@ const EmojiPickerComponent = ({
 					size={size}
 					activeCategoryId={activeCategory}
 					useFooterSpaceForList={useFooterSpaceForList}
+					contentId={contentId}
+					fireAnalytics={fireAnalytics}
 				/>
 				{shouldRenderFooter && (
 					<EmojiPickerFooter

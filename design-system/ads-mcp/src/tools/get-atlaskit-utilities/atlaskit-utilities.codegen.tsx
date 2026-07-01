@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::e4f346932028cd8a142bb0610697ed47>>
+ * @codegen <<SignedSource::967196502e12df47cd3e9e9a05dcdaea>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:atlaskit-utilities
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -287,93 +287,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		accessibilityGuidelines: [],
 		keywords: ['editor', 'editor-plugin-quick-insert', 'atlaskit'],
 		category: 'editor',
-		import: {
-			name: 'quickInsertPlugin',
-			package: '@atlaskit/editor-plugin-quick-insert',
-			type: 'named',
-			packagePath:
-				'/Users/khall2/.codex/worktrees/bd80/atlassian-frontend-monorepo/platform/packages/editor/editor-plugin-quick-insert',
-			packageJson: {
-				name: '@atlaskit/editor-plugin-quick-insert',
-				version: '12.0.10',
-				description: 'Quick insert plugin for @atlaskit/editor-core',
-				author: 'Atlassian Pty Ltd',
-				license: 'Apache-2.0',
-				publishConfig: {
-					registry: 'https://registry.npmjs.org/',
-				},
-				atlassian: {
-					team: 'Editor: Lego',
-					singleton: true,
-				},
-				repository: 'https://bitbucket.org/atlassian/atlassian-frontend-mirror',
-				main: 'dist/cjs/index.js',
-				module: 'dist/esm/index.js',
-				'module:es2019': 'dist/es2019/index.js',
-				types: 'dist/types/index.d.ts',
-				sideEffects: ['*.compiled.css'],
-				'atlaskit:src': 'src/index.ts',
-				exports: {
-					'.': './src/index.ts',
-					'./quick-insert-plugin': './src/entry-points/quick-insert-plugin.tsx',
-					'./quick-insert-plugin-type': './src/entry-points/quick-insert-plugin-type.ts',
-				},
-				dependencies: {
-					'@atlaskit/button': 'workspace:^',
-					'@atlaskit/editor-plugin-analytics': 'workspace:^',
-					'@atlaskit/editor-plugin-connectivity': 'workspace:^',
-					'@atlaskit/editor-plugin-metrics': 'workspace:^',
-					'@atlaskit/editor-plugin-type-ahead': 'workspace:^',
-					'@atlaskit/editor-prosemirror': 'workspace:^',
-					'@atlaskit/icon': 'workspace:^',
-					'@atlaskit/modal-dialog': 'workspace:^',
-					'@atlaskit/platform-feature-flags': 'workspace:^',
-					'@atlaskit/tmp-editor-statsig': 'workspace:^',
-					'@atlaskit/tokens': 'workspace:^',
-					'@babel/runtime': 'root:*',
-					'@emotion/react': 'root:*',
-				},
-				peerDependencies: {
-					'@atlaskit/editor-common': 'workspace:^',
-					react: '^18.2.0',
-					'react-dom': '^18.2.0',
-					'react-intl': '^5.25.1 || ^6.0.0 || ^7.0.0',
-				},
-				devDependencies: {
-					'@atlassian/structured-docs-types': 'workspace:^',
-					'@testing-library/react': 'root:*',
-					react: 'root:*',
-					'react-dom': 'root:*',
-					'react-intl': 'root:*',
-					'wait-for-expect': 'root:*',
-				},
-				techstack: {
-					'@atlassian/frontend': {
-						'code-structure': ['editor-plugin'],
-						'import-structure': ['atlassian-conventions'],
-						'circular-dependencies': ['file-and-folder-level'],
-					},
-					'@repo/internal': {
-						'dom-events': 'use-bind-event-listener',
-						analytics: ['analytics-next'],
-						'design-tokens': ['color'],
-						theming: ['react-context'],
-						'ui-components': ['lite-mode'],
-						deprecation: 'no-deprecated-imports',
-						styling: ['emotion', 'emotion'],
-						imports: ['import-no-extraneous-disable-for-examples-and-docs'],
-					},
-				},
-				'platform-feature-flags': {
-					platform_editor_ease_of_use_metrics: {
-						type: 'boolean',
-					},
-					platform_editor_fix_space_triggering_ai: {
-						type: 'boolean',
-					},
-				},
-			},
-		},
 		package: '@atlaskit/editor-plugin-quick-insert',
 		examples: [],
 		kind: 'function',
@@ -600,48 +513,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		accessibilityGuidelines: [],
 		keywords: ['editor', 'insm', 'atlaskit'],
 		category: 'editor',
-		import: {
-			name: 'init',
-			package: '@atlaskit/insm',
-			type: 'named',
-			packagePath:
-				'/Users/khall2/.codex/worktrees/bd80/atlassian-frontend-monorepo/platform/packages/editor/insm',
-			packageJson: {
-				name: '@atlaskit/insm',
-				version: '1.0.11',
-				description: 'INSM tooling measures user-perceived interactivity of a page',
-				author: 'Atlassian Pty Ltd',
-				license: 'Apache-2.0',
-				publishConfig: {
-					registry: 'https://registry.npmjs.org/',
-				},
-				atlassian: {
-					team: 'Editor: Lego',
-				},
-				repository: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo',
-				main: 'dist/cjs/index.js',
-				module: 'dist/esm/index.js',
-				'module:es2019': 'dist/es2019/index.js',
-				types: 'dist/types/index.d.ts',
-				'atlaskit:src': 'src/index.ts',
-				exports: {
-					'.': './src/index.ts',
-				},
-				dependencies: {
-					'@atlaskit/analytics-listeners': 'workspace:^',
-					'@atlaskit/tmp-editor-statsig': 'workspace:^',
-					'@babel/runtime': 'root:*',
-					'bowser-ultralight': 'root:*',
-				},
-				peerDependencies: {
-					react: '^18.2.0',
-				},
-				devDependencies: {
-					'@atlassian/structured-docs-types': 'workspace:^',
-					react: 'root:*',
-				},
-			},
-		},
 		package: '@atlaskit/insm',
 		examples: [],
 		kind: 'function',

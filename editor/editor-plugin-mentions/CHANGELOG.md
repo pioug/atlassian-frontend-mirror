@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.5.9
+
+### Patch Changes
+
+- [`25b1301af566b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25b1301af566b) -
+  [ux] Make Labs lozenge text capitalised
+- [`d2f1039e54388`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f1039e54388) -
+  Defer typed agent mention nudges while focus remains in the active document but outside the
+  editor, such as when typeahead, date, or status picker UI is open.
+- Updated dependencies
+
+## 14.5.8
+
+### Patch Changes
+
+- [`14023b8bbf880`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14023b8bbf880) -
+  [ux] Shows reduced profile card when user lacks permission to read/access agent mention on page
+- Updated dependencies
+
+## 14.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.5.6
+
+### Patch Changes
+
+- [`8d0225546ac2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d0225546ac2c) -
+  Track agent mention prompt context by mention localId and keep context updates synced to Rovo.
+
 ## 14.5.5
 
 ### Patch Changes

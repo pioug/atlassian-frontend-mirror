@@ -10,7 +10,7 @@ import Loadable from 'react-loadable';
 import type { MentionAttributes } from '@atlaskit/adf-schema';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	ProfileCardClientData,
 	TeamCentralReportingLinesData,
@@ -120,7 +120,7 @@ export function ProfileCardComponent({
 	dom,
 	closeComponent,
 }: {
-	activeMention: PMNode;
+	activeMention: { attrs: MentionAttributes };
 	closeComponent: () => void;
 	dom: HTMLElement;
 	profilecardProvider?: Promise<ProfilecardProvider> | undefined;
@@ -158,27 +158,17 @@ export function ProfileCardComponent({
 	return (
 		<Popup referenceElement={dom}>
 			{isAgentMention && provider && id ? (
-				<AgentProfileCardContent accountId={id} provider={provider} />
+				<AgentProfileCardContent
+					accountId={id}
+					provider={provider}
+					text={fg('platform_editor_reduced_agent_profile_card') ? text : undefined}
+				/>
 			) : (
 				<UserProfileCardContent accessLevel={accessLevel} id={id} provider={provider} text={text} />
 			)}
 		</Popup>
 	);
 }
-
-const AgentProfileCardContent = ({
-	accountId,
-	provider,
-}: {
-	accountId: MentionAttributes['id'];
-	provider: ProfilecardProvider;
-}): JSX.Element => (
-	<AgentProfileCardResourcedLazy
-		accountId={accountId}
-		cloudId={provider.cloudId}
-		resourceClient={provider.resourceClient}
-	/>
-);
 
 const UserProfileCardContent = ({
 	accessLevel,
@@ -230,5 +220,32 @@ const UserProfileCardContent = ({
 				)}
 			/>
 		</LoadingWrapper>
+	);
+};
+
+const AgentProfileCardContent = ({
+	accountId,
+	provider,
+	text,
+}: {
+	accountId: MentionAttributes['id'];
+	provider: ProfilecardProvider;
+	text?: MentionAttributes['text'];
+}): JSX.Element => {
+	// eslint-disable-next-line require-unicode-regexp
+	const agentName = (text ?? '').replace(/^@/, '');
+	return fg('platform_editor_reduced_agent_profile_card') ? (
+		<AgentProfileCardResourcedLazy
+			accountId={accountId}
+			cloudId={provider.cloudId}
+			resourceClient={provider.resourceClient}
+			agentName={agentName}
+		/>
+	) : (
+		<AgentProfileCardResourcedLazy
+			accountId={accountId}
+			cloudId={provider.cloudId}
+			resourceClient={provider.resourceClient}
+		/>
 	);
 };

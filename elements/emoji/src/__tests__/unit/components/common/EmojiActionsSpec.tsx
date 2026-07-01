@@ -7,6 +7,8 @@ import React from 'react';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 import EmojiActions from '../../../../components/common/EmojiActions';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
+import { createEmojiWithRovoTestId } from '../../../../components/common/CreateEmojiWithRovo';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { productivityColorSelectorTestId } from '../../../../components/common/ProductivityColorSelector';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
@@ -42,6 +44,17 @@ const props = {
 	onOpenUpload: () => {},
 	onChange: () => {},
 	onToneSelected: jest.fn(),
+};
+
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn(() => false),
+}));
+const mockExpValEquals = expValEquals as jest.MockedFunction<typeof expValEquals>;
+const aiEmojiExperimentName = 'confluence_ai_generated_emojis';
+const setAiEmojiExperimentEnabled = (isEnabled: boolean) => {
+	mockExpValEquals.mockImplementation((experimentName) =>
+		experimentName === aiEmojiExperimentName ? isEnabled : false,
+	);
 };
 
 const keepPickerOpenOnUploadGate = 'platform_emoji_keep_picker_open_on_upload';
@@ -945,6 +958,40 @@ describe('<EmojiActions />', () => {
 
 			// Validate search bar does exist
 			expect(await screen.findByLabelText('Emoji name')).toBeInTheDocument();
+		});
+	});
+
+	describe('Create emoji with Rovo (AI) gating', () => {
+		const uploadProps = { ...props, uploading: true };
+
+		beforeEach(() => {
+			// The AI section is only rendered inside the refresh upload picker, so
+			// the refresh emoji picker experiment must be enabled for these tests.
+			setTeamojiExperimentEnabled(true);
+		});
+
+		it('renders the Rovo section when the experiment is on and a contentId is provided', async () => {
+			setAiEmojiExperimentEnabled(true);
+			await renderWithIntl(<EmojiActions {...uploadProps} contentId="content-123" />);
+
+			expect(await screen.findByTestId(createEmojiWithRovoTestId)).toBeInTheDocument();
+		});
+
+		it('does not render the Rovo section when the experiment is off', async () => {
+			setAiEmojiExperimentEnabled(false);
+			await renderWithIntl(<EmojiActions {...uploadProps} contentId="content-123" />);
+
+			// Wait for the upload panel to appear before asserting absence.
+			await screen.findByTestId(cancelEmojiUploadPickerTestId);
+			expect(screen.queryByTestId(createEmojiWithRovoTestId)).not.toBeInTheDocument();
+		});
+
+		it('does not render the Rovo section when contentId is missing (even if experiment on)', async () => {
+			setAiEmojiExperimentEnabled(true);
+			await renderWithIntl(<EmojiActions {...uploadProps} />);
+
+			await screen.findByTestId(cancelEmojiUploadPickerTestId);
+			expect(screen.queryByTestId(createEmojiWithRovoTestId)).not.toBeInTheDocument();
 		});
 	});
 });

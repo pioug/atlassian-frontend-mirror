@@ -17,6 +17,14 @@ import CachingClient from './CachingClient';
 import { getErrorAttributes } from './errorUtils';
 import { AGGQuery } from './graphqlUtils';
 
+export class AgentForbiddenError extends Error {
+	status = 403;
+	constructor() {
+		super('Agent access forbidden');
+		this.name = 'AgentForbiddenError';
+	}
+}
+
 const buildActivationIdQuery = (cloudId: string, product: string) => ({
 	query: `
 		query RovoAgentProfileCard_ActivationQuery($cloudId: ID!, $product: String!) {
@@ -204,7 +212,12 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 					mode: 'cors',
 					headers,
 				}),
-			).then((response) => response.json());
+			).then((response) => {
+				if (response.status === 403 && fg('platform_editor_reduced_agent_profile_card')) {
+					throw new AgentForbiddenError();
+				}
+				return response.json();
+			});
 		} else {
 			restPromise = fetch(
 				new Request(`${this.basePath()}/${id.value}`, {
@@ -213,7 +226,12 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 					mode: 'cors',
 					headers,
 				}),
-			).then((response) => response.json());
+			).then((response) => {
+				if (response.status === 403 && fg('platform_editor_reduced_agent_profile_card')) {
+					throw new AgentForbiddenError();
+				}
+				return response.json();
+			});
 		}
 
 		const aggStartTime = getPageTime();

@@ -131,6 +131,7 @@ export class MentionNodeView implements NodeView {
 	private cleanup: (() => void) | undefined;
 	private destroyProfileCard: (() => void) | undefined;
 	private removeProfileCard: (() => void) | undefined;
+	private updateProfileCardNode: ((nextNode: PMNode) => void) | undefined;
 	private mentionPrimitiveElement: HTMLElement | undefined;
 	private disabledTooltip:
 		| {
@@ -162,7 +163,7 @@ export class MentionNodeView implements NodeView {
 			this.subscribeToProviderDisabledStateChanges(nextSharedState?.mentionProvider);
 		});
 
-		const { destroyProfileCard, removeProfileCard } = profileCardRenderer({
+		const { destroyProfileCard, removeProfileCard, updateNode } = profileCardRenderer({
 			dom,
 			options,
 			portalProviderAPI,
@@ -181,6 +182,7 @@ export class MentionNodeView implements NodeView {
 		}
 		this.destroyProfileCard = destroyProfileCard;
 		this.removeProfileCard = removeProfileCard;
+		this.updateProfileCardNode = updateNode;
 	}
 
 	private setClassList(state: MentionState, disabledTooltip: string | undefined): void {
@@ -347,6 +349,9 @@ export class MentionNodeView implements NodeView {
 		}
 
 		this.node = node;
+		// Keep the profile card renderer's node reference in sync so that the
+		// click handler always reads up-to-date attrs.
+		this.updateProfileCardNode?.(node);
 		return true;
 	}
 

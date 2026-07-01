@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "71.6.5",
+	"version": "71.7.0",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/image": "workspace:^",
+		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-client-react": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
@@ -188,6 +189,10 @@
 	},
 	"platform-experiments": {
 		"platform_teamoji_26_refresh_emoji_picker": {
+			"param": "isEnabled",
+			"defaultValue": false
+		},
+		"confluence_ai_generated_emojis": {
 			"param": "isEnabled",
 			"defaultValue": false
 		}

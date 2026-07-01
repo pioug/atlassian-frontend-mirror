@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/e35e3ef0-06dc-425b-a05a-c41ec705b375
 name: '@atlaskit/toggle'
-ownerId: ari:cloud:identity::team/0f51d180-8c20-4e37-8e6a-404951268188 # Design System Almond
+ownerId: ari:cloud:identity::team/og-7ea5b0e8-d37c-4003-aae2-0bb5c4b00147 # Design System Team
 labels:
   - platform-code
   - platform-afm

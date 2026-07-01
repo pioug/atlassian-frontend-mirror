@@ -5,6 +5,7 @@ import { getAgentCreator } from '@atlaskit/rovo-agent-components/ui/AgentProfile
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 
+import { AgentForbiddenError } from '../../client/RovoAgentCardClient';
 import {
 	type AgentActionsType,
 	type Flag,
@@ -35,6 +36,8 @@ export type AgentProfileCardResourcedProps = {
 	hideConversationStarters?: boolean;
 	/** Hide the agent actions (chat button and dropdown menu). Defaults to false (agent actions are shown by default). */
 	hideAgentActions?: boolean;
+	/** Name shown in reduced card when user lacks permission */
+	agentName?: string;
 } & AgentActionsType;
 
 export const AgentProfileCardResourced = (
@@ -47,6 +50,7 @@ export const AgentProfileCardResourced = (
 		fg('jira_ai_fix_agent_profile_card_flashing') || fg('confluence_fix_agent_profile_card_flash'),
 	);
 	const [error, setError] = useState();
+	const [isPermitted, setIsPermitted] = useState<boolean>(true);
 
 	const { fireEvent } = useAnalyticsEventsNext();
 	const creatorUserId = useMemo(
@@ -157,7 +161,11 @@ export const AgentProfileCardResourced = (
 				creatorInfo: agentCreatorInfo,
 			});
 		} catch (err: any) {
-			setError(err);
+			if (err instanceof AgentForbiddenError && fg('platform_editor_reduced_agent_profile_card')) {
+				setIsPermitted(false);
+			} else {
+				setError(err);
+			}
 		} finally {
 			setIsLoading(false);
 		}
@@ -191,6 +199,37 @@ export const AgentProfileCardResourced = (
 		}
 		fetchData();
 	}, [fetchData]);
+
+	if (!isPermitted && fg('platform_editor_reduced_agent_profile_card')) {
+		return (
+			<AgentProfileCardWrapper>
+				<Suspense fallback={null}>
+					<AgentProfileCardLazy
+						agent={{
+							id: '',
+							named_id: '',
+							name: props.agentName ?? '',
+							description: '\u00A0',
+							creator_type: 'CUSTOMER',
+							is_default: false,
+							actor_type: 'AGENT',
+							user_defined_conversation_starters: null,
+							favourite: false,
+							favourite_count: 0,
+							identity_account_id: props.accountId,
+							creatorInfo: undefined,
+						}}
+						isLoading={false}
+						resourceClient={props.resourceClient}
+						cloudId={props.cloudId}
+						hideAgentActions={true}
+						hideConversationStarters={true}
+						hideAiDisclaimer={true}
+					/>
+				</Suspense>
+			</AgentProfileCardWrapper>
+		);
+	}
 
 	if (error || (!isLoading && !agentData)) {
 		return (

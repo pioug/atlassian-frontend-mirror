@@ -16,6 +16,31 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	createEmojiWithRovoTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoPromptPlaceholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoPromptAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoGenerateLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	allUploadsCustomCategory: {
 		defaultMessage: string;
 		description: string;
@@ -389,6 +414,34 @@ export const messages: {
 		defaultMessage: 'Add emoji',
 		description:
 			'Label for the submit button in the custom emoji upload panel that saves the new emoji to the workspace.',
+	},
+	createEmojiWithRovoTitle: {
+		id: 'fabric.emoji.ai.create.title',
+		defaultMessage: 'Create an emoji with Rovo',
+		description:
+			'Section heading for the AI emoji generation area where users describe an emoji and generate it with AI.',
+	},
+	createEmojiWithRovoPromptPlaceholder: {
+		id: 'fabric.emoji.ai.prompt.placeholder',
+		defaultMessage: 'Describe your emoji...',
+		description:
+			'Placeholder text for the input where the user describes the emoji they want the AI to generate.',
+	},
+	createEmojiWithRovoPromptAriaLabel: {
+		id: 'fabric.emoji.ai.prompt.ariaLabel',
+		defaultMessage: 'Describe the emoji you want to generate',
+		description: 'Accessible label for the AI emoji description input field.',
+	},
+	createEmojiWithRovoGenerateLabel: {
+		id: 'fabric.emoji.ai.generate.label',
+		defaultMessage: 'Generate',
+		description: 'Label for the button that triggers AI generation of the described emoji.',
+	},
+	createEmojiWithRovoError: {
+		id: 'fabric.emoji.ai.error',
+		defaultMessage: 'Something went wrong. Try a different description.',
+		description:
+			'Inline error message shown when AI emoji generation or upload fails, prompting the user to try again.',
 	},
 	retryLabel: {
 		id: 'fabric.emoji.retry.label',

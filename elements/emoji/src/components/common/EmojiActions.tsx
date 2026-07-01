@@ -34,6 +34,7 @@ import type {
 	ToneSelection,
 	ToneValueType,
 } from '../../types';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import type { CategoryId } from '../picker/categories';
 import EmojiDeletePreview, { type OnDeleteEmoji } from './EmojiDeletePreview';
 import EmojiUploadPicker, { type OnUploadEmoji } from './EmojiUploadPicker';
@@ -198,6 +199,16 @@ const ProductivityColorPopupContent = ({
 export interface Props {
 	activeCategoryId?: CategoryId | null;
 	activeAtlassianSubcategory?: string | null;
+	/**
+	 * Current Confluence page content id, required to enable AI emoji generation.
+	 * When undefined, the "Create an emoji with Rovo" section is not shown.
+	 */
+	contentId?: string;
+	/**
+	 * Fires an analytics event in the elements channel. Required for AI emoji
+	 * generation analytics.
+	 */
+	fireAnalytics?: (event: AnalyticsEventPayload) => void;
 	emojiToDelete?: EmojiDescription;
 	initialUploadName?: string;
 	onChange: (value: string) => void;
@@ -523,6 +534,8 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 					onFileChooserClicked={onFileChooserClicked}
 					errorMessage={uploadErrorMessage}
 					initialUploadName={initialUploadName}
+					contentId={props.contentId}
+					fireAnalytics={props.fireAnalytics}
 				/>
 			</div>
 		) : (
@@ -533,6 +546,8 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 					onFileChooserClicked={onFileChooserClicked}
 					errorMessage={uploadErrorMessage}
 					initialUploadName={initialUploadName}
+					contentId={props.contentId}
+					fireAnalytics={props.fireAnalytics}
 				/>
 			</div>
 		);

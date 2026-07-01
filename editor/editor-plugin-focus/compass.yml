@@ -24,6 +24,9 @@ customFields:
   - name: Department
     type: text
     value: Eng - Editor Frontend Platform
+  - name: Trusted Reviewer Teams
+    type: text
+    value: ari:cloud:identity::team/cf6a670b-5252-4c68-a769-9207de366beb
   - name: Technical Owner
     type: user
     value: ari:cloud:identity::user/5ea93c14a4c57d0b8bd65a16 # Anand Raj

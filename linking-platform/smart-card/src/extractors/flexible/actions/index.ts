@@ -92,18 +92,14 @@ export const extractFlexibleCardActions = ({
 			actionOptions,
 			aiSummaryConfig,
 		),
-		...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
-			? {
-					[ActionName.RovoChatAction]: extractRovoChatAction({
-						actionOptions,
-						appearance,
-						id,
-						product,
-						response,
-						rovoConfig,
-					}),
-				}
-			: undefined),
+		[ActionName.RovoChatAction]: extractRovoChatAction({
+			actionOptions,
+			appearance,
+			id,
+			product,
+			response,
+			rovoConfig,
+		}),
 		[InternalActionName.ViewRelatedLinksAction]: extractViewRelatedLinksAction(response),
 	};
 

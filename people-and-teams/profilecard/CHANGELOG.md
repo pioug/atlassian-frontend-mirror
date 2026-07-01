@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 26.5.4
+
+### Patch Changes
+
+- [`14023b8bbf880`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14023b8bbf880) -
+  [ux] Shows reduced profile card when user lacks permission to read/access agent mention on page
+
+## 26.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.5.2
 
 ### Patch Changes

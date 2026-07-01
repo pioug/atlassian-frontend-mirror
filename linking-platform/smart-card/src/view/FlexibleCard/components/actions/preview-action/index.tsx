@@ -4,14 +4,12 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import MediaServicesActualSizeIcon from '@atlaskit/icon/core/grow-diagonal';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
-import useRovoConfig from '../../../../../state/hooks/use-rovo-config';
 import Action from '../action';
 
 import type { PreviewActionProps } from './types';
@@ -27,8 +25,6 @@ const PreviewAction = ({
 	const data = context?.actions?.[ActionName.PreviewAction];
 	const hasPreviewPanel = data?.hasPreviewPanel;
 
-	const { product } = useRovoConfig();
-
 	const onClick = useCallback(() => {
 		if (data?.invokeAction) {
 			invoke(data.invokeAction);
@@ -43,15 +39,7 @@ const PreviewAction = ({
 		// Only use panel icon if experiment is enabled and hasPreviewPanel is true
 		if (expValEquals('platform_hover_card_preview_panel', 'cohort', 'test') && hasPreviewPanel) {
 			return (
-				<PanelRightIcon
-					color="currentColor"
-					spacing="spacious"
-					label=""
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-					(!!product && product === 'CONFLUENCE')
-						? { size: props.iconSize }
-						: {})}
-				/>
+				<PanelRightIcon color="currentColor" spacing="spacious" label="" size={props.iconSize} />
 			);
 		}
 		return (
@@ -59,13 +47,10 @@ const PreviewAction = ({
 				color="currentColor"
 				spacing="spacious"
 				label=""
-				{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ||
-				(!!product && product === 'CONFLUENCE')
-					? { size: props.iconSize }
-					: {})}
+				size={props.iconSize}
 			/>
 		);
-	}, [hasPreviewPanel, props.iconSize, product]);
+	}, [hasPreviewPanel, props.iconSize]);
 
 	const actionLabel = useMemo(() => {
 		// Only use panel message if experiment is enabled and hasPreviewPanel is true

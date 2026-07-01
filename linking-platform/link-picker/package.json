@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "6.2.0",
+	"version": "6.2.1",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -47,9 +47,6 @@
 			"type": "boolean"
 		},
 		"aifc_create_enabled": {
-			"type": "boolean"
-		},
-		"navx-4104-link-picker-a11y-focus-states": {
 			"type": "boolean"
 		},
 		"add-disable-manual-url-capability-technical": {

@@ -377,9 +377,7 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 						}
 					}
 
-					if (fg('navx-4104-link-picker-a11y-focus-states')) {
-						linkInputRef.current?.focus();
-					}
+					linkInputRef.current?.focus();
 
 					return dispatch({
 						invalidUrl: true,
@@ -545,7 +543,7 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 					css={[baseRootContainerStyles]}
 					// Use onSubmitCapture instead of onSubmit so that any possible parent form isn't submitted
 					onSubmitCapture={handleSubmit}
-					{...(fg('navx-4104-link-picker-a11y-focus-states') ? { noValidate: true } : {})}
+					noValidate={true}
 				>
 					<TrackMount />
 					{submitOnInputChange && (
@@ -595,16 +593,13 @@ export const LinkPicker: ComponentType<LinkPickerProps> = withLinkPickerAnalytic
 						autoFocus
 						clearLabel={intl.formatMessage(formMessages.clearLink)}
 						error={errorMessage || additionalError}
-						{...(fg('navx-4104-link-picker-a11y-focus-states')
-							? { validationMessage: intl.formatMessage(formMessages.linkInvalid) }
-							: {})}
 						spotlightTargetName="link-picker-search-field-spotlight-target"
 						aria-readonly={isSubmitting}
 						{...a11yList}
 						onClear={handleUrlClear}
 						onKeyDown={handleKeyDown}
 						onChange={handleChangeUrl}
-						inputRef={fg('navx-4104-link-picker-a11y-focus-states') ? mergedRefs : inputRef}
+						inputRef={mergedRefs}
 						isRequired
 					/>
 					{!hideDisplayText && (

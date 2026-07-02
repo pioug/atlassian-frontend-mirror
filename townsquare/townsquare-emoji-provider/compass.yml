@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/baad7241-2f25-4269-a1dd-405a774cd0b9
 name: '@atlaskit/townsquare-emoji-provider'
-ownerId: ari:cloud:identity::team/e7962cc2-c2ad-45ec-917c-00dc7f672409 # Platform Apps Linking Park (Connections)
+ownerId: ari:cloud:identity::team/0e8670d1-c5d6-4d09-a4e2-6758e55a459c # Townsquare
 labels:
   - platform-code
   - platform-afm
@@ -29,10 +29,10 @@ customFields:
     value: ari:cloud:identity::user/712020:06d4222d-810d-43ff-8b56-84e6ef5d982a # Josh Girvin
   - name: Required Reviewers Opt In
     type: boolean
-    value: true
+    value: false
   - name: Reviewer Selection Mechanism
     type: text
-    value: random(2)
+    value: random(1)
   - name: Required Reviewer Approvals
     type: number
     value: 1

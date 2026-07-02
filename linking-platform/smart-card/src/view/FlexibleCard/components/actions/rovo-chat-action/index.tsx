@@ -6,17 +6,11 @@ import { ActionName } from '../../../../../constants';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import useRovoChat, { type SendPromptMessageData } from '../../../../../state/hooks/use-rovo-chat';
-import { getPromptAction, RovoChatPromptKey } from '../../../../common/rovo-chat-utils';
+import { getPromptAction, type RovoChatPromptKey } from '../../../../common/rovo-chat-utils';
 import Action from '../action';
 import { type LinkActionProps } from '../types';
 
-const GOOGLE_PROMPTS = [
-	RovoChatPromptKey.RECOMMEND_OTHER_SOURCES,
-	RovoChatPromptKey.SHOW_OTHER_MENTIONS,
-	RovoChatPromptKey.SUGGEST_IMPROVEMENT,
-];
-
-const DEFAULT_PROMPTS = GOOGLE_PROMPTS;
+const DEFAULT_PROMPTS: RovoChatPromptKey[] = [];
 
 type RovoChatActionProps = LinkActionProps & {
 	prompts?: RovoChatPromptKey[];

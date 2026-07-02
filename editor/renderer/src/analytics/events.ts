@@ -8,6 +8,7 @@ import type {
 	TABLE_ACTION,
 	SyncedBlockSSRErrorAEP,
 	ExtensionType,
+	MediaRenderedAEP,
 } from '@atlaskit/editor-common/analytics';
 
 import type { AEP } from './enums';
@@ -451,6 +452,7 @@ export type AnalyticsEventPayload<_T = void> =
 	| ReferenceSyncedBlockUpdateErrorAEP
 	| SyncedBlockFetchSuccessAEP
 	| ExperienceEventPayload
+	| MediaRenderedAEP
 	| ExtensionRenderedAsInlineAEP
 	| MBEChangeActiveAnalyticsEvent;
 

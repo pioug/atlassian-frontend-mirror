@@ -138,6 +138,14 @@ export type MediaRenderErrorEvent = UIAEP<
 	undefined
 >;
 
+export type MediaRenderedAEP = TrackAEP<
+	ACTION.RENDERED,
+	ACTION_SUBJECT.MEDIA,
+	string | undefined,
+	{ infographicType: string; mediaId: string | undefined; pageMode: 'view' | 'edit' },
+	undefined
+>;
+
 export type MediaEventPayload =
 	| MediaLinkAEP
 	| MediaAltTextAction
@@ -148,4 +156,5 @@ export type MediaEventPayload =
 	| CaptionTrackAction
 	| ChangeMediaAEP
 	| MediaViewerEventAction
-	| MediaRenderErrorEvent;
+	| MediaRenderErrorEvent
+	| MediaRenderedAEP;

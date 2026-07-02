@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 71.7.1
+
+### Patch Changes
+
+- [`b50b33c7445ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b50b33c7445ff) -
+  Cleanup feature gate `increase-emoji-client-upload-timeout`. The emoji client upload timeout is
+  now permanently set to 30 seconds.
+- Updated dependencies
+
 ## 71.7.0
 
 ### Minor Changes

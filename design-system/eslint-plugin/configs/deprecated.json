@@ -64,6 +64,18 @@
 		"@atlaskit/field-text-area": {
 			"message": "field-text-area is deprecated. Please use '@atlaskit/textarea' instead."
 		},
+		"@atlaskit/focus-ring": {
+			"message": "FocusRing is deprecated. Use Focusable from @atlaskit/primitives/compiled/focusable instead."
+		},
+		"@atlaskit/focus-ring/focus-ring": {
+			"message": "FocusRing is deprecated. Use Focusable from @atlaskit/primitives/compiled/focusable instead."
+		},
+		"@atlaskit/focus-ring/use-focus-ring": {
+			"message": "useFocusRing is deprecated with FocusRing. Use Focusable from @atlaskit/primitives/compiled/focusable instead."
+		},
+		"@atlaskit/focus-ring/types": {
+			"message": "FocusRing types are deprecated. Use Focusable from @atlaskit/primitives/compiled/focusable instead."
+		},
 		"@atlaskit/navigation": {
 			"message": "navigation is deprecated. Please use '@atlaskit/atlassian-navigation' instead."
 		},
@@ -124,7 +136,7 @@
 				},
 				{
 					"importName": "focusRing",
-					"message": "The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead."
+					"message": "The focusRing mixin is deprecated. Use Focusable from @atlaskit/primitives/compiled/focusable instead."
 				},
 				{
 					"importName": "gridSize",
@@ -247,7 +259,7 @@
 				},
 				{
 					"importName": "focusRing",
-					"message": "The focusRing mixin is deprecated. Please use `@atlaskit/focus-ring` instead."
+					"message": "The focusRing mixin is deprecated. Use Focusable from @atlaskit/primitives/compiled/focusable instead."
 				},
 				{
 					"importName": "gridSize",

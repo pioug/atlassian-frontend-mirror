@@ -14,7 +14,6 @@ import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsCon
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -133,11 +132,7 @@ function ElementSearch({
 					</div>
 				}
 				placeholder={formatMessage(commonMessages.placeHolderMessage)}
-				aria-label={formatMessage(
-					fg('ally_30205_accessibility_label_fix')
-						? commonMessages.searchAriaLabelNew
-						: commonMessages.searchAriaLabel,
-				)}
+				aria-label={formatMessage(commonMessages.searchAriaLabelNew)}
 				aria-describedby="search-assistive"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="js-search-input"

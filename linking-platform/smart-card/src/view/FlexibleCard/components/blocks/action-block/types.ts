@@ -5,10 +5,6 @@ import type { BlockProps } from '../types';
 
 export type ActionBlockProps = {
 	/**
-	 * Whether the platform_sl_3p_auth_rovo_action experiment value is ON for current runtime
-	 */
-	isAny3pRovoActionsExperimentOn?: boolean;
-	/**
 	 * Callback once action is executed.
 	 */
 	onClick?: (name: FlexibleUiActionName) => void;

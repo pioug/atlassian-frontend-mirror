@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 45.6.9
+
+### Patch Changes
+
+- [`5005b8d4da66a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5005b8d4da66a) -
+  Add carousel view for EmbedCard - a contextual teaser that displays provider benefits via a slide
+  carousel.
+
+## 45.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.6.7
 
 ### Patch Changes

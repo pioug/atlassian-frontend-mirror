@@ -1,5 +1,27 @@
 # @atlaskit/profilecard
 
+## 26.7.0
+
+### Minor Changes
+
+- [`93235e9d6a758`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93235e9d6a758) -
+  Add a hideStarButton prop to the agent profile card (AgentProfileCard, AgentProfileCardResourced,
+  AgentProfileCardTrigger) so consumers can hide the favourite/star icon — e.g. for the Rovo profile
+  card and private agent profile card.
+
+## 26.6.0
+
+### Minor Changes
+
+- [`7fe653c5ef53b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fe653c5ef53b) -
+  Fix agent profile card favourite status not updating until page refresh.
+
+## 26.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.5.4
 
 ### Patch Changes

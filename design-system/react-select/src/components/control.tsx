@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, type ReactNode, type Ref } from 'react';
+import { type CSSProperties, type JSX, type ReactNode, type Ref } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
@@ -201,7 +201,9 @@ const Control: <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}
-			aria-disabled={isDisabled || undefined}
+			aria-disabled={
+				fg('platform_dst_select_disabled_a11y_fix') ? undefined : isDisabled || undefined
+			}
 		>
 			{children}
 		</div>

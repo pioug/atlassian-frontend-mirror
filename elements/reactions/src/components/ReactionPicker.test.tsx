@@ -26,6 +26,9 @@ jest.mock('../hooks/useDelayedState', () => ({
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn().mockReturnValue(false),
 }));
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
+	expValEquals: jest.fn().mockReturnValue(false),
+}));
 
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
@@ -233,11 +236,11 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		expect(listWrapper).toBeInTheDocument();
 	});
 
-	describe('aria-owns (a11y-fix-reaction-picker-aria-owns feature gate)', () => {
-		const { fg } = require('@atlaskit/platform-feature-flags');
+	describe('aria-owns (a11y-fixes-week3-may-2026 experiment)', () => {
+		const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
 
 		it('should NOT add aria-owns to trigger button when feature gate is OFF', async () => {
-			fg.mockReturnValue(false);
+			expValEquals.mockReturnValue(false);
 			renderWithIntl(renderPicker());
 			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
 			expect(triggerButton).not.toHaveAttribute('aria-owns');
@@ -251,7 +254,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		});
 
 		it('should NOT add aria-owns to trigger button when picker is closed and feature gate is ON', async () => {
-			fg.mockReturnValue(true);
+			expValEquals.mockReturnValue(true);
 			renderWithIntl(renderPicker());
 			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
 			// picker is closed initially
@@ -259,7 +262,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		});
 
 		it('should add aria-owns to trigger button when picker is open and feature gate is ON', async () => {
-			fg.mockReturnValue(true);
+			expValEquals.mockReturnValue(true);
 			renderWithIntl(renderPicker());
 			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
 
@@ -272,7 +275,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		});
 
 		it('should remove aria-owns from trigger button when picker is closed after being opened, feature gate ON', async () => {
-			fg.mockReturnValue(true);
+			expValEquals.mockReturnValue(true);
 			renderWithIntl(renderPicker());
 			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
 

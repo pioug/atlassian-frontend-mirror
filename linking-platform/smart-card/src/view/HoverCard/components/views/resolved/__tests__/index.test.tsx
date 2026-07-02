@@ -8,8 +8,7 @@ import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { GoogleDoc } from '@atlaskit/link-test-helpers';
 import type { CardState, ProductType } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { act, fireEvent, render, screen, within } from '@atlassian/testing-library';
+import { act, fireEvent, render } from '@atlassian/testing-library';
 
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
@@ -89,12 +88,10 @@ describe('HoverCardResolvedView', () => {
 		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
 		isAISummaryEnabled,
 		cardState,
-		showRovoResolvedView,
 	}: {
 		cardState: any;
 		isAISummaryEnabled?: boolean;
 		mockResponse?: JsonLd.Response;
-		showRovoResolvedView?: boolean;
 	}) => {
 		return (
 			<HoverCardResolvedView
@@ -106,7 +103,6 @@ describe('HoverCardResolvedView', () => {
 				cardState={cardState}
 				titleBlockProps={titleBlockProps}
 				isAISummaryEnabled={isAISummaryEnabled}
-				showRovoResolvedView={showRovoResolvedView}
 			/>
 		);
 	};
@@ -123,11 +119,9 @@ describe('HoverCardResolvedView', () => {
 	const setup = ({
 		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
 		isAISummaryEnabled,
-		showRovoResolvedView,
 	}: {
 		isAISummaryEnabled?: boolean;
 		mockResponse?: JsonLd.Response;
-		showRovoResolvedView?: boolean;
 	} = {}) => {
 		cardState = getCardState({
 			data: mockResponse.data,
@@ -141,7 +135,6 @@ describe('HoverCardResolvedView', () => {
 				cardState={cardState}
 				mockResponse={mockResponse}
 				isAISummaryEnabled={isAISummaryEnabled}
-				showRovoResolvedView={showRovoResolvedView}
 			/>,
 			{ wrapper },
 		);
@@ -361,89 +354,27 @@ describe('HoverCardResolvedView', () => {
 				);
 			});
 
-			ffTest.off('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
-				it('should render AIFooterBlock when Rovo feature flag is off', async () => {
-					const { findByTestId, queryByTestId } = setup({ mockResponse: GoogleDoc });
+			it('should render AIFooterBlock when Rovo feature flag is off', async () => {
+				const { findByTestId, queryByTestId } = setup({ mockResponse: GoogleDoc });
 
-					const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
-					expect(footerBlock).toBeInTheDocument();
-					expect(
-						queryByTestId('smart-hover-card-footer-block-resolved-view'),
-					).not.toBeInTheDocument();
-				});
-
-				it('should render AIFooterBlock when experiment is on but kill switch prevails', async () => {
-					const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-					(expValEquals as jest.Mock).mockReturnValue(true);
-
-					const { findByTestId, queryByTestId } = setup({ mockResponse: GoogleDoc });
-
-					const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
-					expect(footerBlock).toBeInTheDocument();
-					expect(
-						queryByTestId('smart-hover-card-footer-block-resolved-view'),
-					).not.toBeInTheDocument();
-				});
+				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
+				expect(footerBlock).toBeInTheDocument();
+				expect(
+					queryByTestId('smart-hover-card-footer-block-resolved-view'),
+				).not.toBeInTheDocument();
 			});
 
-			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
-				beforeEach(() => {
-					const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-					(expValEquals as jest.Mock).mockReturnValue(true);
-				});
+			it('should render AIFooterBlock when experiment is on but kill switch prevails', async () => {
+				const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
+				(expValEquals as jest.Mock).mockReturnValue(true);
 
-				it('should render ResolvedHoverCardFooterBlock instead of AIFooterBlock when Rovo is enabled', async () => {
-					const { findByTestId, queryByTestId } = setup({
-						mockResponse: GoogleDoc,
-						showRovoResolvedView: true,
-					});
+				const { findByTestId, queryByTestId } = setup({ mockResponse: GoogleDoc });
 
-					const footerBlock = await findByTestId('smart-hover-card-footer-block-resolved-view');
-					expect(footerBlock).toBeInTheDocument();
-					expect(queryByTestId('smart-ai-footer-block-resolved-view')).not.toBeInTheDocument();
-				});
-
-				it('should pass onActionClick to ResolvedHoverCardFooterBlock', async () => {
-					const { findByTestId } = setup({ mockResponse: GoogleDoc, showRovoResolvedView: true });
-
-					const footerBlock = await findByTestId('smart-hover-card-footer-block-resolved-view');
-					expect(footerBlock).toBeInTheDocument();
-				});
-
-				it('should render AI summary action in ResolvedHoverCardFooterBlock when Rovo is enabled', async () => {
-					setup({
-						mockResponse: GoogleDoc,
-						showRovoResolvedView: true,
-						isAISummaryEnabled: true,
-					});
-
-					const actionBlock = await screen.findByTestId('smart-block-action');
-					const aiSummaryInActionBlock = within(actionBlock).queryByTestId(
-						'smart-action-ai-summary-action-summarise-action',
-					);
-					expect(aiSummaryInActionBlock).not.toBeInTheDocument();
-
-					const footerBlock = await screen.findByTestId(
-						'smart-hover-card-footer-block-resolved-view',
-					);
-					const aiSummaryInFooterBlock = within(footerBlock).queryByTestId(
-						'smart-action-ai-summary-action-summarise-action',
-					);
-					expect(aiSummaryInFooterBlock).toBeInTheDocument();
-				});
-
-				it('should render AI path when platform_sl_3p_auth_rovo_action experiment is off', async () => {
-					const { expValEquals } = require('@atlaskit/tmp-editor-statsig/exp-val-equals');
-					(expValEquals as jest.Mock).mockReturnValue(false);
-
-					const { findByTestId, queryByTestId } = setup({ mockResponse: GoogleDoc });
-
-					const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
-					expect(footerBlock).toBeInTheDocument();
-					expect(
-						queryByTestId('smart-hover-card-footer-block-resolved-view'),
-					).not.toBeInTheDocument();
-				});
+				const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
+				expect(footerBlock).toBeInTheDocument();
+				expect(
+					queryByTestId('smart-hover-card-footer-block-resolved-view'),
+				).not.toBeInTheDocument();
 			});
 		});
 	});

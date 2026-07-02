@@ -18,8 +18,8 @@ import RovoChatAction from '../index';
 
 describe('RovoChatAction', () => {
 	const sendPromptMessageMock = jest.fn();
-	const btnAction1Text = 'Recommend other sources';
-	const btnAction2Text = 'Show other mentions';
+	const btnAction1Text = 'Summarize';
+	const btnAction2Text = 'Explain';
 
 	const setup = (props?: Partial<React.ComponentProps<typeof RovoChatAction>>) => {
 		const onEvent = jest.fn();
@@ -52,15 +52,14 @@ describe('RovoChatAction', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	it('renders default stack item action', async () => {
+	it('does not renders item action by default', async () => {
 		setup();
-		const elements = await screen.findAllByRole('button');
-		expect(elements.length).toBe(3);
-		expect(elements[0]).toHaveTextContent(btnAction1Text);
+		const elements = screen.queryAllByRole('button');
+		expect(elements.length).toBe(0);
 	});
 
 	it('renders defined stack item action', async () => {
-		setup({ prompts: [RovoChatPromptKey.SHOW_OTHER_MENTIONS] });
+		setup({ prompts: [RovoChatPromptKey.EXPLAIN_CODE] });
 		const elements = await screen.findAllByRole('button');
 		expect(elements.length).toBe(1);
 		expect(elements[0]).toHaveTextContent(btnAction2Text);
@@ -74,7 +73,7 @@ describe('RovoChatAction', () => {
 
 	it('should send prompt message on click', async () => {
 		const user = userEvent.setup();
-		setup();
+		setup({ prompts: [RovoChatPromptKey.SUMMARIZE_LINK] });
 
 		const element = await screen.findByText(btnAction1Text);
 		await user.click(element);
@@ -83,6 +82,9 @@ describe('RovoChatAction', () => {
 		expect(sendPromptMessageMock).toHaveBeenCalledWith({
 			name: btnAction1Text,
 			dialogues: [],
+			mode: {
+				fastModeEnabled: true,
+			},
 			prompt: expect.any(Object),
 		});
 	});
@@ -90,7 +92,7 @@ describe('RovoChatAction', () => {
 	it('should trigger on click callback', async () => {
 		const onClickMock = jest.fn();
 		const user = userEvent.setup();
-		setup({ onClick: onClickMock });
+		setup({ onClick: onClickMock, prompts: [RovoChatPromptKey.SUMMARIZE_LINK] });
 
 		const element = await screen.findByText(btnAction1Text);
 		await user.click(element);
@@ -103,7 +105,7 @@ describe('RovoChatAction', () => {
 			.spyOn(useRovoChat, 'default')
 			.mockReturnValueOnce({ isRovoChatEnabled: false, sendPromptMessage: sendPromptMessageMock });
 
-		setup();
+		setup({ prompts: [RovoChatPromptKey.SUMMARIZE_LINK] });
 		const elements = screen.queryAllByRole('button');
 		expect(elements.length).toBe(0);
 	});
@@ -113,7 +115,7 @@ describe('RovoChatAction', () => {
 		const invoke = jest.fn();
 		const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
 
-		setup();
+		setup({ prompts: [RovoChatPromptKey.SUMMARIZE_LINK] });
 
 		const element = await screen.findByText(btnAction1Text);
 		await user.click(element);
@@ -127,7 +129,7 @@ describe('RovoChatAction', () => {
 			display: 'hoverCardPreview',
 			extensionKey: 'google-object-provider',
 			id: 'uid',
-			prompt: 'recommend-other-sources',
+			prompt: 'summarize-link',
 			resourceType: 'r1',
 		});
 
@@ -137,7 +139,7 @@ describe('RovoChatAction', () => {
 	describe('with tooltip', () => {
 		it('renders tooltip', async () => {
 			const user = userEvent.setup();
-			setup();
+			setup({ prompts: [RovoChatPromptKey.SUMMARIZE_LINK] });
 
 			const element = await screen.findByText(btnAction1Text);
 			await user.hover(element);
@@ -148,7 +150,7 @@ describe('RovoChatAction', () => {
 
 		it('renders stack item tooltip', async () => {
 			const user = userEvent.setup();
-			setup({ as: 'stack-item' });
+			setup({ as: 'stack-item', prompts: [RovoChatPromptKey.SUMMARIZE_LINK] });
 
 			const element = await screen.findByText(btnAction1Text);
 			await user.hover(element);

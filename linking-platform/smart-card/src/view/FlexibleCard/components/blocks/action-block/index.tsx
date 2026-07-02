@@ -7,7 +7,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type FlexibleUiActionName, ActionName, SmartLinkSize } from '../../../../../constants';
@@ -81,17 +80,11 @@ const ActionBlock = ({
 	spaceInline,
 	className,
 	testId = 'smart-block-action',
-	isAny3pRovoActionsExperimentOn,
 }: ActionBlockProps): JSX.Element | null => {
 	di(ActionFooter);
 
 	const context = useFlexibleUiContext();
 	const ui = useFlexibleUiOptionContext();
-
-	const isRovoChatActionAvailable =
-		isAny3pRovoActionsExperimentOn && fg('platform_sl_3p_auth_rovo_action_kill_switch')
-			? context?.actions?.[ActionName.RovoChatAction] !== undefined
-			: undefined;
 
 	const [message, setMessage] = useState<ActionMessage>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -124,14 +117,9 @@ const ActionBlock = ({
 			return;
 		}
 
-		const arr = fg('platform_sl_3p_auth_rovo_action_kill_switch')
-			? isRovoChatActionAvailable
-				? [ActionName.RovoChatAction]
-				: (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
-						(name) => name !== ActionName.RovoChatAction,
-					)
-			: (Object.keys(context.actions) as FlexibleUiActionName[]);
-
+		const arr = (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
+			(name) => name !== ActionName.RovoChatAction,
+		);
 		arr.sort(sort);
 
 		const renderAction = (name: FlexibleUiActionName) => {
@@ -158,7 +146,6 @@ const ActionBlock = ({
 		return arr.map((name) => renderAction(name));
 	}, [
 		context?.actions,
-		isRovoChatActionAvailable,
 		spaceInline,
 		onError,
 		onLoadingChange,

@@ -21,6 +21,37 @@ const DisabledSelects = (): React.JSX.Element => (
 			]}
 			placeholder=""
 		/>
+		<Label htmlFor="disabled-single-with-value">
+			Disabled Single Select with pre-selected value (searchable)
+		</Label>
+		<Select
+			inputId="disabled-single-with-value"
+			isDisabled
+			testId="react-select-single-disabled-with-value"
+			defaultValue={{ label: 'Melbourne', value: 'melbourne' }}
+			options={[
+				{ label: 'Brisbane', value: 'brisbane' },
+				{ label: 'Canberra', value: 'canberra' },
+				{ label: 'Melbourne', value: 'melbourne' },
+				{ label: 'Sydney', value: 'sydney' },
+			]}
+		/>
+		<Label htmlFor="disabled-single-with-value-non-searchable">
+			Disabled Single Select with pre-selected value (non-searchable)
+		</Label>
+		<Select
+			inputId="disabled-single-with-value-non-searchable"
+			isDisabled
+			isSearchable={false}
+			testId="react-select-single-disabled-with-value-non-searchable"
+			defaultValue={{ label: 'Sydney', value: 'sydney' }}
+			options={[
+				{ label: 'Brisbane', value: 'brisbane' },
+				{ label: 'Canberra', value: 'canberra' },
+				{ label: 'Melbourne', value: 'melbourne' },
+				{ label: 'Sydney', value: 'sydney' },
+			]}
+		/>
 		<Label htmlFor="disabled-multi">Disabled Multi Select</Label>
 		{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 		<Select

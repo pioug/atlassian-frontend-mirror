@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/focus-ring",
-	"version": "4.1.0",
-	"description": "A focus ring clearly indicates which item has keyboard focus.",
+	"version": "4.2.0",
+	"description": "Deprecated. Use Focusable from @atlaskit/primitives/compiled/focusable instead.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
@@ -20,8 +20,8 @@
 			"name": "Focus ring",
 			"category": "Forms and input",
 			"status": {
-				"type": "intent-to-deprecate",
-				"description": "We are planning on deprecating Focus ring component. We recommend using the Focusable primitive component instead.",
+				"type": "deprecated",
+				"description": "Focus ring is deprecated. Use Focusable from [Primitives](/components/primitives/focusable) instead.",
 				"actions": [
 					{
 						"text": "View Focusable primitive documentation",
@@ -62,6 +62,7 @@
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/section-message": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",

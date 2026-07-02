@@ -53,7 +53,7 @@ export function placeholderPluginOptions({ intl, options }: Props): PlaceholderP
 			return undefined;
 		}
 
-		if (shouldShowSpaceShortcut && fg('platform_editor_ai_aifc_space_shortcut')) {
+		if (shouldShowSpaceShortcut) {
 			return createADFFromHTML(
 				intl.formatMessage(i18n.placeholderADF, {
 					code: (parts) => `<code>${parts}</code>`,

@@ -3268,7 +3268,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? headingAnchorStyles
 					: headingAnchorStylesDuplicateAnchor,
-				fg('ally_30945_accessibility_outline_fix') && headingAnchorButtonFocusVisibleStyles,
+				headingAnchorButtonFocusVisibleStyles,
 				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
 					? hideHeadingCopyLinkWrapperStyles
 					: hideHeadingCopyLinkWrapperStylesDuplicateAnchor,

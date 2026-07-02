@@ -4,6 +4,7 @@ export type {
 	ExtensionConfiguration,
 	ExtensionMenuItemConfiguration,
 	ExtensionToolbarItemConfiguration,
+	GetMenuItemsContext,
 	InsertAdfAtEndOfDocResult,
 	LinkInsertionOption,
 	ReplaceWithAdfResult,

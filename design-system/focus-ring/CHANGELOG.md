@@ -1,5 +1,13 @@
 # @atlaskit/focus-ring
 
+## 4.2.0
+
+### Minor Changes
+
+- [`7c344654b5d24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c344654b5d24) -
+  Deprecates FocusRing, useFocusRing, and their entrypoints. Use `Focusable` from
+  `@atlaskit/primitives/compiled/focusable` instead.
+
 ## 4.1.0
 
 ### Minor Changes

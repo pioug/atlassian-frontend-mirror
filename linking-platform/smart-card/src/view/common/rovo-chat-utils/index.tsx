@@ -13,16 +13,12 @@ import { CardDisplay } from '../../../constants';
 import { messages } from '../../../messages';
 import type { SendPromptMessageData } from '../../../state/hooks/use-rovo-chat';
 import AiChapterIcon from '../../FlexibleCard/assets/ai-chapter-icon';
-import AIEditIcon from '../../FlexibleCard/assets/ai-edit-icon';
 import AISearchIcon from '../../FlexibleCard/assets/ai-search-icon';
 import type Action from '../../FlexibleCard/components/actions/action';
 import type { ActionProps } from '../../FlexibleCard/components/actions/action/types';
 import htmlToAdf from '../../FlexibleCard/components/actions/rovo-chat-action/html-to-adf';
 
 export enum RovoChatPromptKey {
-	RECOMMEND_OTHER_SOURCES = 'recommend-other-sources',
-	SHOW_OTHER_MENTIONS = 'show-other-mentions',
-	SUGGEST_IMPROVEMENT = 'suggest-improvement',
 	SUMMARIZE_LINK = 'summarize-link',
 	KEY_HIGHLIGHTS = 'key-highlights',
 	ASK_ROVO_ANYTHING = 'ask-rovo-anything',
@@ -42,7 +38,6 @@ export enum RovoChatPromptKey {
 
 type CurrentContextType = {
 	contextLong: string;
-	contextShort: string;
 };
 
 type PromptActionProps = {
@@ -60,7 +55,6 @@ const getContext = (intl: IntlShape, product?: ProductType): CurrentContextType 
 		case 'CONFLUENCE':
 			return {
 				contextLong: intl.formatMessage(messages.rovo_prompt_context_confluence_page),
-				contextShort: intl.formatMessage(messages.rovo_prompt_context_confluence_page_short),
 			};
 		case 'JSW':
 		case 'JWM':
@@ -68,7 +62,6 @@ const getContext = (intl: IntlShape, product?: ProductType): CurrentContextType 
 		case 'JPD':
 			return {
 				contextLong: intl.formatMessage(messages.rovo_prompt_context_jira_work_item),
-				contextShort: intl.formatMessage(messages.rovo_prompt_context_jira_work_item_short),
 			};
 	}
 };
@@ -86,70 +79,11 @@ export const getPromptAction = ({
 			data: SendPromptMessageData;
 	  })
 	| undefined => {
-	const { contextLong, contextShort } = getContext(intl, product) ?? {
+	const { contextLong } = getContext(intl, product) ?? {
 		contextLong: intl.formatMessage(messages.rovo_prompt_context_generic),
-		contextShort: intl.formatMessage(messages.rovo_prompt_context_generic),
 	};
 
 	switch (promptKey) {
-		case RovoChatPromptKey.RECOMMEND_OTHER_SOURCES:
-			const label_recommend = intl.formatMessage(
-				messages.rovo_prompt_button_recommend_other_sources,
-			);
-			const html_recommend = intl.formatMessage(
-				messages.rovo_prompt_message_recommend_other_sources,
-				{ context: contextLong, url },
-				{ ignoreTag: true },
-			);
-			return {
-				icon: <AIEditIcon />,
-				content: label_recommend,
-				tooltipMessage: label_recommend,
-				data: {
-					name: label_recommend,
-					dialogues: [],
-					prompt: htmlToAdf(html_recommend),
-				},
-			};
-		case RovoChatPromptKey.SHOW_OTHER_MENTIONS:
-			const label_other_mentions = intl.formatMessage(
-				messages.rovo_prompt_button_show_other_mentions,
-			);
-			const html_other_mentions = intl.formatMessage(
-				messages.rovo_prompt_message_show_other_mentions,
-				{ context: contextLong, url },
-				{ ignoreTag: true },
-			);
-			return {
-				icon: <AiChapterIcon />,
-				content: label_other_mentions,
-				tooltipMessage: label_other_mentions,
-				data: {
-					name: label_other_mentions,
-					dialogues: [],
-					prompt: htmlToAdf(html_other_mentions),
-				},
-			};
-		case RovoChatPromptKey.SUGGEST_IMPROVEMENT:
-			const label_improvement = intl.formatMessage(
-				messages.rovo_prompt_button_suggest_improvement,
-				{ context: contextShort },
-			);
-			const html_improvement = intl.formatMessage(
-				messages.rovo_prompt_message_suggest_improvement,
-				{ context: contextLong, url },
-				{ ignoreTag: true },
-			);
-			return {
-				icon: <AISearchIcon />,
-				content: label_improvement,
-				tooltipMessage: label_improvement,
-				data: {
-					name: label_improvement,
-					dialogues: [],
-					prompt: htmlToAdf(html_improvement),
-				},
-			};
 		case RovoChatPromptKey.SUMMARIZE_LINK:
 			const label_summarize = intl.formatMessage(messages.ai_summarize);
 			const html_summarize = intl.formatMessage(

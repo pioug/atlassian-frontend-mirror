@@ -4,6 +4,7 @@
  */
 import {
 	type CSSProperties,
+	type JSX,
 	type ReactNode,
 	useCallback,
 	useLayoutEffect,

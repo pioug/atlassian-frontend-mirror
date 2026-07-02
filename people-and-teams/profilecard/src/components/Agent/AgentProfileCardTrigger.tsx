@@ -133,6 +133,7 @@ export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 					resourceClient={props.resourceClient}
 					onDeleteAgent={props.onDeleteAgent}
 					addFlag={props.addFlag}
+					hideStarButton={props.hideStarButton}
 				/>
 			</Suspense>
 		);

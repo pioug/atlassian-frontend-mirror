@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { ComponentType, CSSProperties, MouseEvent, ReactNode } from 'react';
+import type { ComponentType, CSSProperties, JSX, MouseEvent, ReactNode } from 'react';
 
 import { css, cssMap, cx, jsx } from '@compiled/react';
 

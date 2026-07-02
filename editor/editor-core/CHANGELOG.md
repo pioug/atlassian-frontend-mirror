@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 221.5.10
+
+### Patch Changes
+
+- [`65633dab110fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65633dab110fd) -
+  fix: resolve flaky tests in modal-element and inline-nodes-arrowkeys-placeholder specs by waiting
+  for editor stability and list items before assertions
+- Updated dependencies
+
+## 221.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.5.8
 
 ### Patch Changes

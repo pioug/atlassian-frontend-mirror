@@ -741,7 +741,7 @@ export default class UploadingEmojiResource
 	uploadCustomEmoji(
 		upload: EmojiUpload,
 		retry: boolean = false,
-		timeout: number = fg('increase-emoji-client-upload-timeout') ? 30_000 : 12_000,
+		timeout: number = 30_000,
 	): Promise<EmojiDescription> {
 		return this.isUploadSupported().then((supported: boolean) => {
 			if (!supported || !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)) {

@@ -295,12 +295,12 @@ export const messages: {
 	help_loading: {
 		id: 'help.loading',
 		defaultMessage: 'Loading',
-		description: 'Loading text',
+		description: 'Loading indicator text shown while help content is being fetched',
 	},
 	help_header: {
 		id: 'help.header',
 		defaultMessage: 'Help',
-		description: 'Header text',
+		description: 'Title displayed in the header of the help panel',
 	},
 	help_header_whats_new: {
 		id: 'help.header_whats_new',
@@ -310,12 +310,12 @@ export const messages: {
 	help_close: {
 		id: 'help.close',
 		defaultMessage: 'Close',
-		description: 'Close text',
+		description: 'Label for the button that closes the help panel',
 	},
 	help_navigation_back: {
 		id: 'help.navigation.back',
 		defaultMessage: 'Back',
-		description: 'Back text',
+		description: 'Label for the back navigation button in the help panel',
 	},
 	help_search_placeholder: {
 		id: 'help.search.placeholder',
@@ -325,17 +325,17 @@ export const messages: {
 	help_article_rating_title: {
 		id: 'help.article_rating.title',
 		defaultMessage: 'Was this helpful?',
-		description: 'Rating article title text',
+		description: 'Title asking users to rate whether the help article was useful',
 	},
 	help_article_rating_option_yes: {
 		id: 'help.article_rating.option.yes',
 		defaultMessage: 'Yes',
-		description: '"Yes" text used in the article rating options',
+		description: 'Affirmative option in the help article rating component',
 	},
 	help_article_rating_option_no: {
 		id: 'help.article_rating.option.no',
 		defaultMessage: 'No',
-		description: '"No" text used in the article rating options',
+		description: 'Negative option in the help article rating component',
 	},
 	help_article_rating_form_title: {
 		id: 'help.article_rating.form.title',

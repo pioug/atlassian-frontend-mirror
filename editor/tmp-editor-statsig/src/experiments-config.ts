@@ -105,6 +105,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-30
+	'agent-managed-blocks-stop-block-template': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-09-01
 	cc_editor_ai_content_mode: {
 		defaultValue: 'control' | 'test';
@@ -1103,6 +1110,13 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'slot-four' | 'slot-two';
 		values: ('control' | 'slot-four' | 'slot-two')[];
 	};
+	// Added 2026-06-30
+	cc_fix_editor_context_on_cwr_followups: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-08
 	cc_fd_wb_jira_quick_insert_experiment: {
 		defaultValue: boolean;
@@ -1707,14 +1721,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-04-14
-	platform_editor_ai_rename_add_polish: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-
 	cc_dnd_smart_link_changeboard_platform_css: {
 		defaultValue: boolean;
 		param: string;
@@ -1884,6 +1890,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-26
 	'a11y-fixes-week1-june-2026': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-06-29
+	'a11y-fixes-week3-may-2026': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2154,6 +2167,14 @@ export const editorExperimentsConfig: {
 	'agent-managed_blocks_mvp': createBooleanExperiment({
 		productKeys: {
 			confluence: 'agent-managed_blocks_mvp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-30
+	'agent-managed-blocks-stop-block-template': createBooleanExperiment({
+		productKeys: {
+			confluence: 'agent-managed-blocks-stop-block-template',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3823,6 +3844,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-06-30
+	cc_fix_editor_context_on_cwr_followups: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_fix_editor_context_on_cwr_followups',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-14
 	improve_3p_smart_link_resolve_rate: createBooleanExperiment({
 		productKeys: {
@@ -3932,14 +3961,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_table_close_cell_menu_on_move_exp',
 			jira: 'platform_editor_table_close_cell_menu_on_move_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-14
-	platform_editor_ai_rename_add_polish: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_rename_add_polish',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4155,6 +4176,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'a11y-fixes-week1-june-2026',
 			jira: 'a11y-fixes-week1-june-2026',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-06-29
+	'a11y-fixes-week3-may-2026': createBooleanExperiment({
+		productKeys: {
+			confluence: 'a11y-fixes-week3-may-2026',
+			jira: 'a11y-fixes-week3-may-2026',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

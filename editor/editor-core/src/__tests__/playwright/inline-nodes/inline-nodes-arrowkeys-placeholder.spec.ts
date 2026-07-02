@@ -41,6 +41,7 @@ test.describe(`inline-nodes - placeholder`, () => {
 				anchor: 7,
 				head: 7,
 			});
+			await editor.waitForEditorStable();
 			await editor.keyboard.press('ArrowLeft');
 			await expect(editor).toHaveSelection({
 				type: 'text',
@@ -91,6 +92,7 @@ test.describe(`inline-nodes - placeholder`, () => {
 				anchor: 1,
 				head: 1,
 			});
+			await editor.waitForEditorStable();
 			await editor.keyboard.press('ArrowRight');
 			await expect(editor).toHaveSelection({
 				type: 'text',
@@ -128,6 +130,7 @@ test.describe(`inline-nodes - placeholder`, () => {
 				anchor: 7,
 				head: 7,
 			});
+			await editor.waitForEditorStable();
 			await editor.keyboard.press('ArrowLeft');
 			await expect(editor).toHaveSelection({
 				type: 'text',
@@ -157,6 +160,7 @@ test.describe(`inline-nodes - placeholder`, () => {
 				anchor: 4,
 				head: 4,
 			});
+			await editor.waitForEditorStable();
 
 			await editor.keyboard.press('ArrowLeft');
 			await expect(editor).toHaveSelection({
@@ -190,6 +194,7 @@ test.describe(`inline-nodes - placeholder`, () => {
 				anchor: 1,
 				head: 1,
 			});
+			await editor.waitForEditorStable();
 
 			await editor.keyboard.press('ArrowRight');
 			await expect(editor).toHaveSelection({

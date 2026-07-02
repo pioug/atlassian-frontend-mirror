@@ -1,5 +1,16 @@
 # @atlaskit/reactions
 
+## 35.5.0
+
+### Minor Changes
+
+- [`c37e285a66ad2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c37e285a66ad2) -
+  [ux] batch migrate from a11y feature gates to experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.4.5
 
 ### Patch Changes

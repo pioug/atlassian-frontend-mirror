@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-deprecated-imports, @atlassian/testing-library/prefer-atlassian-testing-library, testing-library/no-container -- Preserve existing mention test coverage while focus-ring usage is reviewed separately. */
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // Commented due to HOT-111922

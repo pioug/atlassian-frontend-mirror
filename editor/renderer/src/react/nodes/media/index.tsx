@@ -320,6 +320,33 @@ class Media extends PureComponent<MediaProps, object> {
 	}
 	private handleMediaLinkClickFn;
 
+	private getDataConsumerMark = (): DataConsumerDefinition | undefined =>
+		fg('cc-maui-add-mark-for-remix-generated-images')
+			? (this.props.marks.find(
+					(m) =>
+						m.type === 'dataConsumer' ||
+						(m.type as unknown as { name: string })?.name === 'dataConsumer',
+				) as DataConsumerDefinition | undefined)
+			: undefined;
+
+	componentDidMount(): void {
+		const dataConsumerMark = this.getDataConsumerMark();
+		const infographicType = dataConsumerMark?.attrs.sources?.[0];
+		if (infographicType && this.props.fireAnalyticsEvent) {
+			this.props.fireAnalyticsEvent({
+				action: ACTION.RENDERED,
+				actionSubject: ACTION_SUBJECT.MEDIA,
+				actionSubjectId: this.props.id,
+				eventType: EVENT_TYPE.TRACK,
+				attributes: {
+					infographicType,
+					pageMode: 'view',
+					mediaId: this.props.id,
+				},
+			});
+		}
+	}
+
 	private renderCard = (providers: Providers = {}) => {
 		const { contextIdentifierProvider } = providers;
 		const {
@@ -343,13 +370,7 @@ class Media extends PureComponent<MediaProps, object> {
 			| BorderMarkDefinition
 			| undefined;
 
-		const dataConsumerMark = fg('cc-maui-add-mark-for-remix-generated-images')
-			? (this.props.marks.find(
-					(m) =>
-						m.type === 'dataConsumer' ||
-						(m.type as unknown as { name: string })?.name === 'dataConsumer',
-				) as DataConsumerDefinition | undefined)
-			: undefined;
+		const dataConsumerMark = this.getDataConsumerMark();
 
 		const linkMark = this.props.marks.find(this.props.isLinkMark) as LinkDefinition | undefined;
 

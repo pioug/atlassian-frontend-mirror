@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.4.0
+
+### Minor Changes
+
+- [`c012f03a95a5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c012f03a95a5a) -
+  Remove modal `autoFocus` rule because type has been updated to remove unwanted case.
+
 ## 1.3.2
 
 ### Patch Changes

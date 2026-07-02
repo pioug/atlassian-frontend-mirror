@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
+/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-deprecated-imports, @atlaskit/platform/no-direct-document-usage -- Preserve old-button behavior while focus-ring usage is reviewed separately. */
 /**
  * @jsxRuntime classic
  * @jsx jsx

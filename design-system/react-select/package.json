@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "4.2.0",
+	"version": "4.3.0",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -73,8 +73,8 @@
 		"use-isomorphic-layout-effect": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -88,8 +88,8 @@
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
 		"jest-in-case": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"tiny-invariant": "root:*"
 	},
 	"platform-feature-flags": {
@@ -118,6 +118,9 @@
 			"type": "boolean"
 		},
 		"platform_dst_select_dropdown_voice_control": {
+			"type": "boolean"
+		},
+		"platform_dst_select_disabled_a11y_fix": {
 			"type": "boolean"
 		}
 	},

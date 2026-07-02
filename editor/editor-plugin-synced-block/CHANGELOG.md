@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.1.2
+
+### Patch Changes
+
+- [`70c2b083643f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70c2b083643f1) -
+  [ux] Fix creating a synced block from the block menu or toolbar so the caret is placed inside the
+  new block and the editor is re-focused, matching the slash-command behaviour. Previously the
+  cursor was left outside the newly created synced block.
+- Updated dependencies
+
 ## 10.1.1
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @atlaskit/editor-statsig-tmp
 
+## 120.0.0
+
+### Major Changes
+
+- [`5ca7a33774e69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ca7a33774e69) -
+  Clean up experiment `platform_editor_ai_rename_add_polish`. Removes the now-unused
+  `addPolishTitle` AI config item message and the redundant title override in the paste menu.
+
+### Minor Changes
+
+- [`c37e285a66ad2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c37e285a66ad2) -
+  [ux] batch migrate from a11y feature gates to experiment
+
+## 119.3.0
+
+### Minor Changes
+
+- [`67aed651369bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67aed651369bd) -
+  [ux] Fixes an issue where editorContext was coming from underlying page, rather than open
+  stagingarea
+
 ## 119.2.0
 
 ### Minor Changes

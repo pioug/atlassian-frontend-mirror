@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-deprecated-imports, @typescript-eslint/ban-types -- Preserve existing mention implementation while focus-ring usage is reviewed separately. */
 import React from 'react';
 import FocusRing from '@atlaskit/focus-ring';
 

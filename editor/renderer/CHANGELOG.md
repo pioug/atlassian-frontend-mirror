@@ -1,5 +1,26 @@
 # @atlaskit/renderer
 
+## 133.7.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.7.9
+
+### Patch Changes
+
+- [`155028f4665ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/155028f4665ee) -
+  Clean up the `ally_30945_accessibility_outline_fix` feature gate.
+
+## 133.7.8
+
+### Patch Changes
+
+- [`a72d5084ae782`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a72d5084ae782) -
+  Add a rendered analytics event for remix generated images
+- Updated dependencies
+
 ## 133.7.7
 
 ### Patch Changes

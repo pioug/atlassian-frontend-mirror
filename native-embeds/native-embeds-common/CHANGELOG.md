@@ -1,5 +1,12 @@
 # @atlaskit/native-embeds-common
 
+## 2.0.5
+
+### Patch Changes
+
+- [`56d5d8d23bed9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56d5d8d23bed9) -
+  Bump native embeds i18n packages to include French and Portuguese (Brazil) translations.
+
 ## 2.0.4
 
 ### Patch Changes

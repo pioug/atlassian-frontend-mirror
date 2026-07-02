@@ -36,6 +36,8 @@ export type AgentProfileCardResourcedProps = {
 	hideConversationStarters?: boolean;
 	/** Hide the agent actions (chat button and dropdown menu). Defaults to false (agent actions are shown by default). */
 	hideAgentActions?: boolean;
+	/** Hide the favourite (star) button. Defaults to false (the star is shown). */
+	hideStarButton?: boolean;
 	/** Name shown in reduced card when user lacks permission */
 	agentName?: string;
 } & AgentActionsType;
@@ -225,6 +227,7 @@ export const AgentProfileCardResourced = (
 						hideAgentActions={true}
 						hideConversationStarters={true}
 						hideAiDisclaimer={true}
+						hideStarButton={props.hideStarButton}
 					/>
 				</Suspense>
 			</AgentProfileCardWrapper>
@@ -261,6 +264,7 @@ export const AgentProfileCardResourced = (
 				hideAiDisclaimer={props.hideAiDisclaimer}
 				hideConversationStarters={props.hideConversationStarters}
 				hideAgentActions={props.hideAgentActions}
+				hideStarButton={props.hideStarButton}
 			/>
 		</Suspense>
 	);

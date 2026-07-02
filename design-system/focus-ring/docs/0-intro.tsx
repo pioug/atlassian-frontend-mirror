@@ -5,6 +5,9 @@ const _default_1: any = md`
 
 A focus ring is used to visually indicate the currently focused item.
 
+Focus ring is deprecated. Use \`Focusable\` from
+\`@atlaskit/primitives/compiled/focusable\` instead.
+
 ## Usage
 
 \`import FocusRing from '@atlaskit/focus-ring';\`

@@ -12,11 +12,9 @@ import {
 	functionUnionWithCondition,
 } from '@atlaskit/platform-feature-flags-react';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
-import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getClickUrl, getDefinitionId, getExtensionKey, getServices } from '../../../state/helpers';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
 import { useSmartLinkCrossProductUrlWrapperGated } from '../../../state/hooks/use-smart-link-cross-product-url-wrapper';
@@ -90,7 +88,6 @@ const HoverCardContent = ({
 	onDismiss,
 	actionOptions,
 	hoverPreviewOptions,
-	showRovoResolvedView,
 }: HoverCardContentProps): React.JSX.Element | null => {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
@@ -313,9 +310,7 @@ const HoverCardContent = ({
 			if (isResolved) {
 				return (
 					<HoverCardResolvedView
-						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
-							? { actionOptions, showRovoResolvedView }
-							: undefined)}
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { actionOptions } : undefined)}
 						cardState={cardState}
 						extensionKey={extensionKey}
 						flexibleCardProps={flexibleCardProps}
@@ -378,9 +373,7 @@ const HoverCardContent = ({
 			if (cardState.status === 'resolved') {
 				return (
 					<HoverCardResolvedView
-						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
-							? { actionOptions, showRovoResolvedView }
-							: undefined)}
+						{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { actionOptions } : undefined)}
 						cardState={cardState}
 						extensionKey={extensionKey}
 						flexibleCardProps={flexibleCardProps}
@@ -408,51 +401,28 @@ const HoverCardContent = ({
 };
 
 const HoverCardContentWithViewVariant = (props: HoverCardContentProps): React.JSX.Element => {
-	const { cardState, actionOptions } = props;
-	const rovoConfig = useRovoConfig();
-	const isResolved = useIsResolvedView(props);
 	const showPreauthBetterHovercard = useIsShowPreauthBetterHovercard(props);
-
-	const showRovoResolvedView = useMemo(
-		() =>
-			isResolved &&
-			cardState.details &&
-			extractRovoChatAction({
-				response: cardState.details,
-				rovoConfig,
-				actionOptions,
-			}) !== undefined,
-		[actionOptions, cardState.details, rovoConfig, isResolved],
-	);
 
 	const data = useMemo(() => {
 		let viewVariant = 'default';
-		if (
-			showRovoResolvedView &&
-			expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true)
-		) {
-			viewVariant = 'rovo-resolved-view';
-		} else if (showPreauthBetterHovercard) {
+		if (showPreauthBetterHovercard) {
 			viewVariant = 'rovo-unauthorised-view';
 		}
 		return {
 			attributes: { viewVariant },
 		};
-	}, [showRovoResolvedView, showPreauthBetterHovercard]);
+	}, [showPreauthBetterHovercard]);
 
 	return (
 		<AnalyticsContext data={data}>
-			<HoverCardContent {...props} showRovoResolvedView={showRovoResolvedView} />
+			<HoverCardContent {...props} />
 		</AnalyticsContext>
 	);
 };
 
 const _default_1: React.FC<HoverCardContentProps> = componentWithCondition(
 	() => {
-		// We need to read both of them to sutisfy some of the tests that expect both to be checked.
-		const flagA = fg('platform_sl_3p_preauth_better_hovercard_killswitch');
-		const flagB = fg('platform_sl_3p_auth_rovo_action_kill_switch');
-		return flagA || flagB;
+		return fg('platform_sl_3p_preauth_better_hovercard_killswitch');
 	},
 	HoverCardContentWithViewVariant,
 	HoverCardContent,

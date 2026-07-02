@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 

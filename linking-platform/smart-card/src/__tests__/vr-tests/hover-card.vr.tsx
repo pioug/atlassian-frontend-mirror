@@ -2,7 +2,6 @@ import { snapshot } from '@af/visual-regression';
 
 import HoverCardActions from '../../../examples/vr-hover-card/vr-hover-card-actions';
 import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-can-open-positioning';
-import { HoverCardRovoChatActionGoogle } from '../../../examples/vr-hover-card/vr-hover-card-rovo-chat-action';
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
 import HoverCardWithEntities from '../../../examples/vr-hover-card/vr-hover-cards-entities';
 import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ssr-error';
@@ -77,22 +76,6 @@ snapshot(HoverCardActions, {
 	],
 	featureFlags: {
 		'navx-1895-new-logo-design': true,
-	},
-	waitForReactLazy: true,
-});
-
-snapshot(HoverCardRovoChatActionGoogle, {
-	description: 'hover card with google rovo chat action',
-	drawsOutsideBounds: true,
-	states: [
-		{
-			state: 'hovered',
-			selector: { byTestId: 'hover-card-trigger-wrapper' },
-		},
-	],
-	featureFlags: {
-		platform_sl_3p_auth_rovo_action_kill_switch: true,
-		platform_sl_3p_auth_rovo_action: true,
 	},
 	waitForReactLazy: true,
 });

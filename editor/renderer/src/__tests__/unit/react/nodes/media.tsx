@@ -355,6 +355,124 @@ describe('Media', () => {
 		});
 	});
 
+	describe('remix infographic analytics', () => {
+		const dataConsumerMark = {
+			type: 'dataConsumer',
+			attrs: { sources: ['remix:infographic:charlie'] },
+		} as any;
+
+		ffTest.on(
+			'cc-maui-add-mark-for-remix-generated-images',
+			'media node with dataConsumer mark',
+			() => {
+				it('fires a rendered track event with infographicType and renderer context on mount', () => {
+					const fireAnalyticsEvent = jest.fn();
+					renderWithIntl(
+						<Media
+							type={mediaNode.attrs.type as MediaType}
+							id={mediaNode.attrs.id}
+							collection={mediaNode.attrs.collection}
+							marks={[dataConsumerMark]}
+							isLinkMark={() => false}
+							isBorderMark={() => false}
+							fireAnalyticsEvent={fireAnalyticsEvent}
+							isDrafting={false}
+						/>,
+					);
+
+					expect(fireAnalyticsEvent).toHaveBeenCalledTimes(1);
+					expect(fireAnalyticsEvent).toHaveBeenCalledWith({
+						action: 'rendered',
+						actionSubject: 'media',
+						actionSubjectId: mediaNode.attrs.id,
+						eventType: 'track',
+						attributes: {
+							infographicType: 'remix:infographic:charlie',
+							pageMode: 'view',
+							mediaId: mediaNode.attrs.id,
+						},
+					});
+				});
+			},
+		);
+
+		ffTest.off(
+			'cc-maui-add-mark-for-remix-generated-images',
+			'media node with dataConsumer mark',
+			() => {
+				it('does not fire a rendered event on mount', () => {
+					const fireAnalyticsEvent = jest.fn();
+					renderWithIntl(
+						<Media
+							type={mediaNode.attrs.type as MediaType}
+							id={mediaNode.attrs.id}
+							collection={mediaNode.attrs.collection}
+							marks={[dataConsumerMark]}
+							isLinkMark={() => false}
+							isBorderMark={() => false}
+							fireAnalyticsEvent={fireAnalyticsEvent}
+							isDrafting={false}
+						/>,
+					);
+
+					expect(fireAnalyticsEvent).not.toHaveBeenCalled();
+				});
+			},
+		);
+
+		ffTest.on(
+			'cc-maui-add-mark-for-remix-generated-images',
+			'media node without dataConsumer mark',
+			() => {
+				it('does not fire a rendered event on mount', () => {
+					const fireAnalyticsEvent = jest.fn();
+					renderWithIntl(
+						<Media
+							type={mediaNode.attrs.type as MediaType}
+							id={mediaNode.attrs.id}
+							collection={mediaNode.attrs.collection}
+							marks={[]}
+							isLinkMark={() => false}
+							isBorderMark={() => false}
+							fireAnalyticsEvent={fireAnalyticsEvent}
+							isDrafting={false}
+						/>,
+					);
+
+					expect(fireAnalyticsEvent).not.toHaveBeenCalled();
+				});
+			},
+		);
+
+		ffTest.on(
+			'cc-maui-add-mark-for-remix-generated-images',
+			'media node with dataConsumer mark with empty sources',
+			() => {
+				it('does not fire a rendered event on mount', () => {
+					const fireAnalyticsEvent = jest.fn();
+					const emptySourcesMark = {
+						type: 'dataConsumer',
+						attrs: { sources: [] },
+					} as any;
+					renderWithIntl(
+						<Media
+							type={mediaNode.attrs.type as MediaType}
+							id={mediaNode.attrs.id}
+							collection={mediaNode.attrs.collection}
+							marks={[emptySourcesMark]}
+							isLinkMark={() => false}
+							isBorderMark={() => false}
+							fireAnalyticsEvent={fireAnalyticsEvent}
+							isDrafting={false}
+						/>,
+					);
+
+					expect(fireAnalyticsEvent).not.toHaveBeenCalled();
+				});
+			},
+		);
+	});
+
 	it('should render a media component without alt text if FF is off', async () => {
 		const { container } = render(
 			<MediaClientProvider clientConfig={mediaClientConfig}>

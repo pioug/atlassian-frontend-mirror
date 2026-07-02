@@ -39,6 +39,7 @@ import { RepositionOnUpdate } from './RepositionOnUpdate';
 
 import { token } from '@atlaskit/tokens';
 import Portal from '@atlaskit/portal';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 const pickerStyle = css({
 	verticalAlign: 'middle',
@@ -484,7 +485,8 @@ export const ReactionPicker: React.MemoExoticComponent<
 								ariaAttributes={{
 									'aria-expanded': isPopupTrayOpen,
 									'aria-controls': PICKER_CONTROL_ID,
-									...(isPopupTrayOpen && fg('a11y-fix-reaction-picker-aria-owns')
+									...(isPopupTrayOpen &&
+									expValEquals('a11y-fixes-week3-may-2026', 'isEnabled', true)
 										? { 'aria-owns': PICKER_CONTROL_ID }
 										: {}),
 								}}

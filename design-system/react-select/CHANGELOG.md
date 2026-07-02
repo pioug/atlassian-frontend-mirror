@@ -1,5 +1,20 @@
 # @atlaskit/react-select
 
+## 4.3.0
+
+### Minor Changes
+
+- [`5fb4f1f2962b1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fb4f1f2962b1) -
+  Fix React 19 type incompatibilities and add React 19 as a supported peer dependency.
+
+## 4.2.1
+
+### Patch Changes
+
+- [`e4d8c83fbe0b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4d8c83fbe0b3) -
+  Fix the accessibility of disabled Select components so screen readers correctly announce the
+  disabled state and selected value. This fix is currently behind a feature flag.
+
 ## 4.2.0
 
 ### Minor Changes

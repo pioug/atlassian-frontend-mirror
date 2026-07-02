@@ -108,7 +108,10 @@ describe('TitleBlock', () => {
 		];
 
 		describe.each<[SmartLinkStatus, ActionName[]]>([
-			[SmartLinkStatus.Resolved, Object.values(ActionName)],
+			[
+				SmartLinkStatus.Resolved,
+				Object.values(ActionName).filter((action) => action !== ActionName.RovoChatAction),
+			],
 			[SmartLinkStatus.Resolving, nonResolvedAllowedActions],
 			[SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
 			[SmartLinkStatus.Errored, nonResolvedAllowedActions],

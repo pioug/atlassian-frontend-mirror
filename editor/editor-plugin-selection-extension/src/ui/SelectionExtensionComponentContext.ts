@@ -4,6 +4,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { SelectionExtensionPlugin } from '../selectionExtensionPluginType';
+import type { ExtensionSource, SelectionExtensionLocation } from '../types';
 
 /*
  * Common context passed down to selection extension components
@@ -12,8 +13,8 @@ type SelectionExtensionComponentContextValue = {
 	api: ExtractInjectionAPI<SelectionExtensionPlugin>;
 	editorView: EditorView;
 	extensionKey: string;
-	extensionSource: string;
-	extensionLocation: 'inline-toolbar' | 'primary-toolbar' | 'block-menu';
+	extensionLocation: SelectionExtensionLocation;
+	extensionSource: ExtensionSource;
 };
 
 const SelectionExtensionComponentContext = createContext<

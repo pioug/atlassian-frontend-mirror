@@ -6,11 +6,6 @@ export const aiConfigItemMessages: {
 		description: string;
 		id: string;
 	};
-	addPolishTitle: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	adjustLengthNestingParentShortTitle: {
 		defaultMessage: string;
 		description: string;
@@ -986,12 +981,6 @@ export const aiConfigItemMessages: {
 		defaultMessage: 'Summarize writing',
 		description:
 			'Title for Atlassian Intelligence "Summarize writing" in editor selection floating toolbar',
-	},
-	addPolishTitle: {
-		id: 'fabric.editor.ai.config.item.addPolish.title',
-		defaultMessage: 'Add polish',
-		description:
-			'Describes an option to use Atlassian Intelligence to polish the content currently selected by the user',
 	},
 	addPolishDescription: {
 		id: 'fabric.editor.ai.config.item.addPolish.description',

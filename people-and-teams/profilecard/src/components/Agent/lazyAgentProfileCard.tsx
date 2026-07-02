@@ -18,6 +18,7 @@ export const AgentProfileCardLazy: LazyExoticComponent<
 		hideAiDisclaimer,
 		hideConversationStarters,
 		hideAgentActions,
+		hideStarButton,
 	}: AgentProfileCardProps) => React.JSX.Element
 > = lazy(
 	() =>

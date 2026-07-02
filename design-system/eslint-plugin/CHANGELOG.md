@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 15.3.0
+
+### Minor Changes
+
+- [`c012f03a95a5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c012f03a95a5a) -
+  Remove modal `autoFocus` rule because type has been updated to remove unwanted case.
+
+## 15.2.0
+
+### Minor Changes
+
+- [`7c344654b5d24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c344654b5d24) -
+  Deprecates FocusRing, useFocusRing, and their entrypoints. Use `Focusable` from
+  `@atlaskit/primitives/compiled/focusable` instead.
+
 ## 15.1.2
 
 ### Patch Changes

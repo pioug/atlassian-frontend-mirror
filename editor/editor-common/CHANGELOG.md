@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 116.20.0
+
+### Minor Changes
+
+- [`5ca7a33774e69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ca7a33774e69) -
+  Clean up experiment `platform_editor_ai_rename_add_polish`. Removes the now-unused
+  `addPolishTitle` AI config item message and the redundant title override in the paste menu.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.19.5
+
+### Patch Changes
+
+- [`9416cb872d58f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9416cb872d58f) -
+  Clean up the `ally_30205_accessibility_label_fix` feature gate.
+
+## 116.19.4
+
+### Patch Changes
+
+- [`a72d5084ae782`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a72d5084ae782) -
+  Add a rendered analytics event for remix generated images
+- Updated dependencies
+
 ## 116.19.3
 
 ### Patch Changes

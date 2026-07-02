@@ -1,3 +1,4 @@
+import type { DocNode } from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { Providers, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
@@ -54,7 +55,7 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 export type MentionPluginOptions = MentionsPluginOptions;
 
 export type AgentMentionDetails = {
-	context: string | null;
+	context: DocNode;
 	id: string;
 	localId: string;
 	name: string | null;
@@ -69,6 +70,7 @@ export type AgentMentionDetails = {
 	 */
 	parentStart: number;
 	pos: number;
+	prompt: string | null;
 };
 
 export type MentionPluginState = {
@@ -79,10 +81,10 @@ export type MentionPluginState = {
 	 */
 	lastAgentMentionInsertionCount?: number;
 	/**
-	 * Plain-text content of the block node containing the agent mention.
+	 * Prompt-safe ADF context from the direct parent of the agent mention.
 	 * Used as a prompt context for Rovo chat.
 	 */
-	lastInsertedAgentMentionContext?: string | null;
+	lastInsertedAgentMentionContext?: DocNode | null;
 	/**
 	 * The ID of the most recently inserted agent (APP | AGENT userType) mention.
 	 * Null when no agent mention is present in the document.
@@ -103,6 +105,11 @@ export type MentionPluginState = {
 	 * (e.g. 'taskItem', 'paragraph'). Determines auto-send vs. draft behaviour.
 	 */
 	lastInsertedAgentMentionParentNodeType?: string | null;
+	/**
+	 * Plain-text prompt from the direct parent of the agent mention.
+	 * Preserves the pre-ADF fallback behaviour for chat input drafts.
+	 */
+	lastInsertedAgentMentionPrompt?: string | null;
 	mentionProvider?: MentionProvider;
 	mentions?: Array<MentionDescription>;
 	/**

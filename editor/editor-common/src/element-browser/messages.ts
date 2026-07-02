@@ -6,7 +6,6 @@ type MessageKeys =
 	| 'elementAfterInputMessage'
 	| 'elementListAriaLabel'
 	| 'placeHolderMessage'
-	| 'searchAriaLabel'
 	| 'searchAriaLabelNew';
 
 const message: Record<MessageKeys, { defaultMessage: string; description?: string; id: string }> =
@@ -28,12 +27,6 @@ const message: Record<MessageKeys, { defaultMessage: string; description?: strin
 			defaultMessage: 'Select element',
 			description:
 				'The text is used as an aria-label for the element browser listbox. It provides an accessible name for screen readers to identify the list of elements that can be selected and inserted.',
-		},
-		searchAriaLabel: {
-			id: 'fabric.editor.elementbrowser.searchbar.ariaLabel',
-			defaultMessage: 'Search',
-			description:
-				'The text is used as an aria-label for the search input field in the element browser. It provides an accessible name for screen readers to identify the search field.',
 		},
 		searchAriaLabelNew: {
 			id: 'fabric.editor.elementbrowser.searchbar.ariaLabel.new',

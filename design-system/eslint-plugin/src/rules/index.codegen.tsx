@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d404a0bd62a78d4bad7ee376df0bd475>>
+ * @codegen <<SignedSource::d527850500d4518cc654415fd5f4fbc0>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -15,7 +15,6 @@ import ensureProperXcssUsage from './ensure-proper-xcss-usage';
 import iconLabel from './icon-label';
 import lozengeBadgeTagLabellingSystemMigration from './lozenge-badge-tag-labelling-system-migration';
 import noBannedImports from './no-banned-imports';
-import noBooleanAutofocusOnModalDialog from './no-boolean-autofocus-on-modal-dialog';
 import noCssTaggedTemplateExpression from './no-css-tagged-template-expression';
 import noDarkThemeVrTests from './no-dark-theme-vr-tests';
 import noDeprecatedApis from './no-deprecated-apis';
@@ -96,7 +95,6 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'icon-label': iconLabel,
 	'lozenge-badge-tag-labelling-system-migration': lozengeBadgeTagLabellingSystemMigration,
 	'no-banned-imports': noBannedImports,
-	'no-boolean-autofocus-on-modal-dialog': noBooleanAutofocusOnModalDialog,
 	'no-css-tagged-template-expression': noCssTaggedTemplateExpression,
 	'no-dark-theme-vr-tests': noDarkThemeVrTests,
 	'no-deprecated-apis': noDeprecatedApis,

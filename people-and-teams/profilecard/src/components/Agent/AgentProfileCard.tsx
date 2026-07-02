@@ -77,6 +77,7 @@ const AgentProfileCard = ({
 	hideAiDisclaimer = false,
 	hideConversationStarters = false,
 	hideAgentActions = false,
+	hideStarButton = false,
 }: AgentProfileCardProps): React.JSX.Element => {
 	const {
 		onEditAgent,
@@ -237,7 +238,7 @@ const AgentProfileCard = ({
 							agentName={agent.name}
 							isStarred={isStarred}
 							onStarToggle={handleSetFavourite}
-							showStarButton={!isRovoDev}
+							showStarButton={!isRovoDev && !hideStarButton}
 							isHidden={agent.visibility === 'PRIVATE'}
 							creatorRender={
 								agent.creatorInfo?.type && (

@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen } from '@atlassian/testing-library';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { type SmartLinkStatus } from '../../../../../../constants';
 import { ActionName } from '../../../../../../constants';
-import * as useAISummary from '../../../../../../state/hooks/use-ai-summary';
 import ActionBlock from '../index';
 import type { ActionBlockProps } from '../types';
 jest.mock('../../../../../../state/hooks/use-invoke', () => jest.fn());
@@ -100,77 +98,5 @@ describe('ActionBlock', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = setup();
 		await expect(container).toBeAccessible();
-	});
-
-	describe('isAny3pRovoActionsExperimentOn', () => {
-		it('renders actions excluding Rovo when isAny3pRovoActionsExperimentOn is false', async () => {
-			setup({ isAny3pRovoActionsExperimentOn: false }, undefined, getContextWithoutRovo());
-
-			await screen.findByTestId('smart-action-preview-action');
-			await screen.findByTestId('smart-action-ai-summary-action-summarise-action');
-			expect(screen.queryByTestId('smart-action-rovo-chat-action-1')).not.toBeInTheDocument();
-			// No Rovo in context (kill switch off) → 7 actions
-			expect(screen.getAllByRole('button').length).toBe(7);
-		});
-
-		it('renders actions excluding Rovo when isAny3pRovoActionsExperimentOn is undefined', async () => {
-			setup(undefined, undefined, getContextWithoutRovo());
-
-			await screen.findByTestId('smart-action-preview-action');
-			await screen.findByTestId('smart-action-ai-summary-action-summarise-action');
-			expect(screen.queryByTestId('smart-action-rovo-chat-action-1')).not.toBeInTheDocument();
-			// No Rovo in context (kill switch off) → 7 actions
-			expect(screen.getAllByRole('button').length).toBe(7);
-		});
-
-		ffTest.off('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
-			it('renders actions excluding Rovo when experiment is on but kill switch is off', async () => {
-				// When kill switch is off, extractor never adds Rovo → use context without Rovo
-				setup({ isAny3pRovoActionsExperimentOn: true }, undefined, getContextWithoutRovo());
-
-				await screen.findByTestId('smart-action-preview-action');
-				await screen.findByTestId('smart-action-ai-summary-action-summarise-action');
-				expect(screen.queryByTestId('smart-action-rovo-chat-action-1')).not.toBeInTheDocument();
-				// No Rovo in context → 7 actions
-				expect(screen.getAllByRole('button').length).toBe(7);
-			});
-		});
-
-		ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
-			it('renders only RovoChatAction when experiment and kill switch on and Rovo action in context', async () => {
-				jest.spyOn(useAISummary, 'useAISummary').mockReturnValue({
-					summariseUrl: jest.fn(),
-					state: { status: 'done', content: 'this is a summary' },
-				});
-
-				setup({ isAny3pRovoActionsExperimentOn: true });
-
-				const rovoAction = await screen.findByTestId('smart-action-rovo-chat-action-1');
-				expect(rovoAction).toBeInTheDocument();
-				// RovoChatAction renders 3 prompt buttons
-				expect(screen.getAllByRole('button').length).toBe(3);
-			});
-
-			it('renders other actions (excluding Rovo) when experiment and kill switch on but no Rovo in context', async () => {
-				jest.spyOn(useAISummary, 'useAISummary').mockReturnValue({
-					summariseUrl: jest.fn(),
-					state: { status: 'done', content: 'this is a summary' },
-				});
-
-				const contextWithoutRovo = {
-					...context,
-					actions: {
-						...context.actions,
-						[ActionName.RovoChatAction]: undefined,
-					},
-				};
-				setup({ isAny3pRovoActionsExperimentOn: true }, undefined, contextWithoutRovo);
-
-				await screen.findByTestId('smart-action-preview-action');
-				expect(screen.queryByTestId('smart-action-rovo-chat-action-1')).not.toBeInTheDocument();
-				// All actions except Rovo (7)
-				expect(screen.getAllByRole('button').length).toBe(7);
-			});
-		});
 	});
 });

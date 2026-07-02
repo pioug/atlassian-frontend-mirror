@@ -6,6 +6,7 @@ import memoizeOne from 'memoize-one';
 
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type {
 	ContextIdentifierProvider,
 	MediaProvider,
@@ -120,8 +121,30 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		return false;
 	}
 
+	private getDataConsumerMark = () =>
+		fg('cc-maui-add-mark-for-remix-generated-images')
+			? this.props.node.marks.find((m) => m.type.name === 'dataConsumer')
+			: undefined;
+
 	async componentDidMount(): Promise<void> {
 		this.handleNewNode(this.props);
+
+		const { node, pluginInjectionApi } = this.props;
+		const dataConsumerMark = this.getDataConsumerMark();
+		const infographicType = dataConsumerMark?.attrs.sources?.[0];
+		if (infographicType) {
+			pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent({
+				action: ACTION.RENDERED,
+				actionSubject: ACTION_SUBJECT.MEDIA,
+				actionSubjectId: node.attrs.id,
+				eventType: EVENT_TYPE.TRACK,
+				attributes: {
+					infographicType,
+					pageMode: 'edit',
+					mediaId: node.attrs.id,
+				},
+			});
+		}
 
 		const { contextIdentifierProvider } = this.props;
 		this.setState({
@@ -320,9 +343,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 			this.props;
 
 		const borderMark = node.marks.find((m) => m.type.name === 'border');
-		const dataConsumerMark = fg('cc-maui-add-mark-for-remix-generated-images')
-			? node.marks.find((m) => m.type.name === 'dataConsumer')
-			: undefined;
+		const dataConsumerMark = this.getDataConsumerMark();
 
 		const { viewMediaClientConfig, viewAndUploadMediaClientConfig, contextIdentifierProvider } =
 			this.state;

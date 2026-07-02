@@ -1,5 +1,12 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 10.2.1
+
+### Patch Changes
+
+- [`c4fffdc4dec73`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4fffdc4dec73) -
+  Include asset files in the published package so they render correctly for consumers.
+
 ## 10.2.0
 
 ### Minor Changes

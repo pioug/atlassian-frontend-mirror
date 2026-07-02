@@ -16,6 +16,7 @@ import { USER_ARI_PREFIX } from '../util/rovoAgentUtils';
 import CachingClient from './CachingClient';
 import { getErrorAttributes } from './errorUtils';
 import { AGGQuery } from './graphqlUtils';
+import { SHARED_CACHE_MAX_AGE, sharedAgentProfileCache } from './sharedAgentProfileCache';
 
 export class AgentForbiddenError extends Error {
 	status = 403;
@@ -143,6 +144,39 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 
 	private basePath() {
 		return '/gateway/api/assist/rovo/v1/agents';
+	}
+
+	private sharedCacheKey(idValue: string): string {
+		return `${this.options.cloudId ?? ''}:${idValue}`;
+	}
+
+	getCachedProfile(idValue: string): RovoAgentCardClientResult | null {
+		if (!fg('platform_editor_agent_profile_card_favourite_sync')) {
+			return super.getCachedProfile(idValue);
+		}
+
+		const key = this.sharedCacheKey(idValue);
+		const cached = sharedAgentProfileCache.get(key);
+		if (!cached) {
+			return null;
+		}
+		if (cached.expire < Date.now()) {
+			sharedAgentProfileCache.delete(key);
+			return null;
+		}
+		return cached.profile;
+	}
+
+	setCachedProfile(idValue: string, profile: RovoAgentCardClientResult): void {
+		if (!fg('platform_editor_agent_profile_card_favourite_sync')) {
+			super.setCachedProfile(idValue, profile);
+			return;
+		}
+
+		sharedAgentProfileCache.set(this.sharedCacheKey(idValue), {
+			expire: Date.now() + (this.config.cacheMaxAge || SHARED_CACHE_MAX_AGE),
+			profile,
+		});
 	}
 
 	private async getActivationId(cloudId: string, product: string): Promise<string | null> {
@@ -308,7 +342,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 
 			this.makeRequest(id, analytics)
 				.then((data) => {
-					if (this.cache) {
+					if (this.cache || fg('platform_editor_agent_profile_card_favourite_sync')) {
 						this.setCachedProfile(id.value, data);
 					}
 					if (analytics) {
@@ -435,6 +469,10 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 						});
 					}
 
+					if (fg('platform_editor_agent_profile_card_favourite_sync')) {
+						this.syncFavouriteToCache(agentId, isFavourite);
+					}
+
 					resolve();
 				})
 				.catch((error: unknown) => {
@@ -450,6 +488,45 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 
 					reject(error);
 				});
+		});
+	}
+
+	/**
+	 * Keeps the shared agent profile cache in sync with the favourite state
+	 */
+	private syncFavouriteToCache(agentId: string, isFavourite: boolean): void {
+		const prefix = `${this.options.cloudId ?? ''}:`;
+		const keysToUpdate: string[] = [];
+		sharedAgentProfileCache.forEach((cached, key) => {
+			if (key.startsWith(prefix) && cached.profile?.restData?.id === agentId) {
+				keysToUpdate.push(key);
+			}
+		});
+
+		keysToUpdate.forEach((key) => {
+			const cached = sharedAgentProfileCache.get(key);
+			if (!cached) {
+				return;
+			}
+
+			const { restData } = cached.profile;
+			const wasFavourite = restData.favourite;
+			const currentCount = restData.favourite_count ?? 0;
+			const favouriteCount = isFavourite
+				? currentCount + (wasFavourite ? 0 : 1)
+				: Math.max(0, currentCount - (wasFavourite ? 1 : 0));
+
+			sharedAgentProfileCache.set(key, {
+				...cached,
+				profile: {
+					...cached.profile,
+					restData: {
+						...restData,
+						favourite: isFavourite,
+						favourite_count: favouriteCount,
+					},
+				},
+			});
 		});
 	}
 

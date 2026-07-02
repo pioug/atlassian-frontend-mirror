@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { css, jsx } from '@compiled/react';
 
 // Assistive text to describe visual elements. Hidden for sighted users.

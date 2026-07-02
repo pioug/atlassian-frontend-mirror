@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "35.4.5",
+	"version": "35.5.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -149,9 +149,6 @@
 			"type": "boolean"
 		},
 		"platform_suppression_removal_fix_reactions": {
-			"type": "boolean"
-		},
-		"a11y-fix-reaction-picker-aria-owns": {
 			"type": "boolean"
 		},
 		"platform_reactions_view_more_styling_fix": {

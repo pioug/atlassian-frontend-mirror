@@ -59,9 +59,7 @@ export default function MenuPortalCustomTargetExample(): React.ReactNode {
 					defaultMenuIsOpen
 				/>
 			</div>
-			<div id="react-select-custom-portal-target" css={styles.customTarget}>
-				custom portal target
-			</div>
+			<div id="react-select-custom-portal-target" css={styles.customTarget} />
 		</div>
 	);
 }

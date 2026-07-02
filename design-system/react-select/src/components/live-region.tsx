@@ -46,7 +46,7 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	const messages = useMemo(
 		() => ({
 			...defaultAriaLiveMessages,
-			...(ariaLiveMessages || {}),
+			...ariaLiveMessages,
 		}),
 		[ariaLiveMessages],
 	);

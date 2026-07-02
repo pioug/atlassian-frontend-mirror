@@ -343,6 +343,7 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 	product?: string;
 	viewingUserId?: string;
 	onDeleteAgent?: (agentId: string) => { restore: () => void };
+	hideStarButton?: boolean;
 }
 
 export type AgentProfileCardProps = {
@@ -363,6 +364,8 @@ export type AgentProfileCardProps = {
 	hideConversationStarters?: boolean;
 	/** Hide the agent actions (chat button and dropdown menu). Defaults to false (agent actions are shown by default). */
 	hideAgentActions?: boolean;
+	/** Hide the favourite (star) button. Defaults to false (the star is shown). */
+	hideStarButton?: boolean;
 } & AgentActionsType;
 
 export type StatusType = 'active' | 'inactive' | 'closed';

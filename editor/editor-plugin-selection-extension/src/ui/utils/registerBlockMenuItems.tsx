@@ -15,11 +15,14 @@ import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-m
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SelectionExtensionPlugin } from '../../selectionExtensionPluginType';
-import type { ExtensionConfiguration } from '../../types';
+import type { ExtensionConfiguration, GetMenuItemsContext } from '../../types';
 import { SelectionExtensionMenuItems } from '../menu/SelectionExtensionMenuItems';
 import { SelectionExtensionComponentContextProvider } from '../SelectionExtensionComponentContext';
+
+import { getBlockMenuTriggerExtensionKey } from './getBlockMenuTriggerExtensionKey';
 
 type RegisterBlockMenuItemsOptions = {
 	api: ExtractInjectionAPI<SelectionExtensionPlugin> | undefined;
@@ -46,6 +49,23 @@ export function registerBlockMenuItems({
 		if (!api?.blockMenu) {
 			return;
 		}
+
+		const getMenuItemsContext = (): GetMenuItemsContext => ({
+			blockMenuTriggerExtensionKey: getBlockMenuTriggerExtensionKey({
+				api,
+				editorView: editorViewRef?.current,
+			}),
+			extensionKey: key,
+			extensionSource: source,
+			extensionLocation: 'block-menu',
+		});
+
+		const getMenuItems = () =>
+			blockMenu.getMenuItems(
+				expValEquals('agent-managed-blocks-stop-block-template', 'isEnabled', true)
+					? getMenuItemsContext()
+					: undefined,
+			);
 
 		/**
 		 * Renders the registered selection-extension menu items with the correct block-menu context.
@@ -74,7 +94,7 @@ export function registerBlockMenuItems({
 		if (blockMenu.placement === 'featured-section' && fg('platform_editor_block_menu_v2_patch_2')) {
 			// Block menu sections do not support isHidden. Check menu items before registering
 			// the section to avoid rendering an orphan separator when there are no items.
-			if (blockMenu.getMenuItems().length === 0 || !blockMenu.sectionKey) {
+			if (getMenuItems().length === 0 || !blockMenu.sectionKey) {
 				return;
 			}
 
@@ -133,7 +153,7 @@ export function registerBlockMenuItems({
 			componentsToRegister.push({
 				type: 'block-menu-item' as const,
 				key: `selection-extension-${key}`,
-				isHidden: () => blockMenu.getMenuItems().length === 0,
+				isHidden: () => getMenuItems().length === 0,
 				parent: {
 					type: 'block-menu-section' as const,
 					key: TRANSFORM_CREATE_MENU_SECTION.key,

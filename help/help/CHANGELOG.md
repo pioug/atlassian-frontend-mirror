@@ -1,5 +1,12 @@
 # @atlaskit/help
 
+## 11.0.2
+
+### Patch Changes
+
+- [`2114e0503a86f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2114e0503a86f) -
+  Update i18n message descriptions
+
 ## 11.0.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/editor-presets
 
+## 5.0.19
+
+### Patch Changes
+
+- [`d129b4a5b7e21`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d129b4a5b7e21) -
+  Clean up feature gate `platform_editor_ai_aifc_space_shortcut`
+
+## 5.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.17
 
 ### Patch Changes

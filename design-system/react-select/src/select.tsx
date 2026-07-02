@@ -7,6 +7,7 @@ import React, {
 	Component,
 	type FocusEventHandler,
 	type FormEventHandler,
+	type JSX,
 	type KeyboardEventHandler,
 	type MouseEventHandler,
 	type ReactNode,
@@ -2214,6 +2215,8 @@ export default class Select<
 
 		const id = inputId || this.getElementId('input');
 
+		const isDisabledA11yFixEnabled = fg('platform_dst_select_disabled_a11y_fix');
+
 		// aria attributes makes the JSX "noisy", separated for clarity
 		const ariaAttributes = {
 			...(!this.props.isSearchable && fg('platform_fix_autocomplete_aria_for_select')
@@ -2240,8 +2243,14 @@ export default class Select<
 				!fg('select_issearchable_aria-readonly_fix') && {
 					'aria-readonly': true,
 				}),
+			// Using aria-disabled so the element remains in the a11y tree.
+			...(isDisabledA11yFixEnabled && {
+				'aria-disabled': isDisabled || undefined,
+			}),
 			...this.calculateDescription(),
 		};
+
+		const effectiveTabIndex = isDisabledA11yFixEnabled && isDisabled ? -1 : tabIndex;
 
 		if (!isSearchable) {
 			// use a dummy input to maintain focus/blur functionality
@@ -2253,7 +2262,7 @@ export default class Select<
 					onChange={noop}
 					onFocus={this.onInputFocus}
 					disabled={isDisabled}
-					tabIndex={tabIndex}
+					tabIndex={effectiveTabIndex}
 					inputMode="none"
 					form={form}
 					value=""
@@ -2280,7 +2289,7 @@ export default class Select<
 				onChange={this.handleInputChange}
 				onFocus={this.onInputFocus}
 				spellCheck="false"
-				tabIndex={tabIndex}
+				tabIndex={effectiveTabIndex}
 				form={form}
 				type="text"
 				value={inputValue}
@@ -2373,7 +2382,11 @@ export default class Select<
 				{...commonProps}
 				data={singleValue}
 				isDisabled={isDisabled}
-				innerProps={{ id: this.getElementId('single-value') }}
+				innerProps={{
+					id: this.getElementId('single-value'),
+					// Hide from AT so the value is only announced via aria-describedby on the combobox.
+					...(isDisabled && fg('platform_dst_select_disabled_a11y_fix') && { 'aria-hidden': true }),
+				}}
 			>
 				{this.formatOptionLabel(singleValue, 'value')}
 			</SingleValue>

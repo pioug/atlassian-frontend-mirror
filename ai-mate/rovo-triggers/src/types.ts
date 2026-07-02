@@ -124,7 +124,8 @@ export type CreationContextParams = {
 		| 'remix_object'
 		| 'remix_custom'
 		| 'chat_edit'
-		| 'chat_view';
+		| 'chat_view'
+		| 'keep_existing_page_structure';
 	contentTypes?: string[];
 	blocks?: string[];
 	spaceKey?: string;

@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/79a5d92b-9ddc-40ee-a7ae-73a38dcd4bdc
 name: '@atlaskit/comment'
-ownerId: ari:cloud:identity::team/og-7ea5b0e8-d37c-4003-aae2-0bb5c4b00147 # Design System Team
+ownerId: ari:cloud:identity::team/be19136e-6275-419f-be0c-fcee844b8684 # Design System Engineers
 labels:
   - platform-code
   - platform-afm
@@ -32,7 +32,7 @@ customFields:
     value: true
   - name: Reviewer Selection Mechanism
     type: text
-    value: random(2)
+    value: random(3)
   - name: Required Reviewer Approvals
     type: number
     value: 1

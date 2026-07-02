@@ -23,10 +23,10 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import {
 	NodeSelection,
+	Selection,
 	TextSelection,
 	type EditorState,
 	type Transaction,
-	type Selection,
 } from '@atlaskit/editor-prosemirror/state';
 import {
 	findSelectedNodeOfType,
@@ -56,6 +56,64 @@ type createSyncedBlockProps = {
 	syncBlockStore: SyncBlockStoreManager;
 	tr: Transaction;
 	typeAheadInsert?: TypeAheadInsert;
+};
+
+/**
+ * Place the caret on the first editable position inside the newly created bodied
+ * sync block, identified by its unique localId.
+ *
+ * - Empty selection: lands inside the block's empty paragraph.
+ * - Converted content: lands at the start of the first editable child.
+ *
+ * `createSyncedBlock` builds the node but neither `safeInsert` (empty case) nor
+ * `replaceWith` (convert case) leaves the selection inside the new block, so
+ * without this the caret ends up outside/adjacent to the block after creation
+ * from the block menu or toolbar (EDITOR-7949). The typeahead path avoids this
+ * because `typeAheadInsert` positions the caret for us.
+ *
+ * Note: when created from the block menu, block-controls' selection preservation
+ * is active and will restore a whole-node NodeSelection over this caret. The
+ * caller (block-menu item) is responsible for calling `stopPreservingSelection`
+ * in the same flow so the caret survives — mirroring the block-menu delete item.
+ */
+const placeCaretInsideBodiedSyncBlock = (tr: Transaction, localId: string): Transaction => {
+	const bodiedSyncBlockType = tr.doc.type.schema.nodes.bodiedSyncBlock;
+
+	let blockPos: number | undefined;
+	tr.doc.descendants((node, pos) => {
+		if (blockPos !== undefined) {
+			return false;
+		}
+		if (node.type === bodiedSyncBlockType && node.attrs.localId === localId) {
+			blockPos = pos;
+			return false;
+		}
+		return true;
+	});
+
+	if (blockPos === undefined) {
+		return tr;
+	}
+
+	// Find the first valid text position at or after the block's start. `findFrom`
+	// with textOnly=true descends into the first editable child (empty paragraph or
+	// start of the converted content), which is exactly what we want for both cases.
+	const selection = Selection.findFrom(tr.doc.resolve(blockPos), 1, true);
+	if (selection) {
+		tr.setSelection(selection).scrollIntoView();
+	} else {
+		// Fallback: `bodiedSyncBlock` is always created with a paragraph as its first
+		// child, so a text position should always be found above. This guards against
+		// future schema changes where the first child isn't immediately text-editable
+		// — place the caret just inside the block rather than leaving it outside.
+		// `blockPos + 1` is the position immediately after the block's opening token,
+		// which is a node boundary rather than a valid text position, so use
+		// `TextSelection.near` to snap forward to the nearest selectable cursor. It
+		// also clamps to the document bounds internally, so no explicit end-of-doc
+		// check is required.
+		tr.setSelection(TextSelection.near(tr.doc.resolve(blockPos + 1), 1)).scrollIntoView();
+	}
+	return tr;
 };
 
 export const createSyncedBlock = ({
@@ -96,6 +154,12 @@ export const createSyncedBlock = ({
 			tr = typeAheadInsert(newBodiedSyncBlockNode);
 		} else {
 			tr = safeInsert(newBodiedSyncBlockNode)(tr).scrollIntoView();
+			// safeInsert does not move the selection into the new block, so place the
+			// caret inside the block's empty paragraph so typing continues inside the
+			// synced block (EDITOR-7949).
+			if (fg('platform_editor_blocks_patch_4')) {
+				tr = placeCaretInsideBodiedSyncBlock(tr, newBodiedSyncBlockNode.attrs.localId);
+			}
 		}
 	} else {
 		const conversionInfo = canBeConvertedToSyncBlock(tr.selection);
@@ -133,8 +197,14 @@ export const createSyncedBlock = ({
 
 		tr.replaceWith(conversionInfo.from, conversionInfo.to, newBodiedSyncBlockNode).scrollIntoView();
 
-		// set selection to the start of the previous selection for the position taken up by the start of the new synced block
-		tr.setSelection(TextSelection.create(tr.doc, conversionInfo.from));
+		if (fg('platform_editor_blocks_patch_4')) {
+			// Place the caret on the first editable position inside the converted
+			// content so typing continues inside the synced block (EDITOR-7949).
+			tr = placeCaretInsideBodiedSyncBlock(tr, newBodiedSyncBlockNode.attrs.localId);
+		} else {
+			// set selection to the start of the previous selection for the position taken up by the start of the new synced block
+			tr.setSelection(TextSelection.create(tr.doc, conversionInfo.from));
+		}
 	}
 
 	return tr;

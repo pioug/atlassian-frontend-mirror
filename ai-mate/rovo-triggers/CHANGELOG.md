@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 9.7.0
+
+### Minor Changes
+
+- [`e4beedcb8b94c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4beedcb8b94c) -
+  Add keep_existing_page_structure experience value to CreationContextParams
+
 ## 9.6.0
 
 ### Minor Changes

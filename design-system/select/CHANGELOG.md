@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 22.3.1
+
+### Patch Changes
+
+- [`e4d8c83fbe0b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e4d8c83fbe0b3) -
+  Fix the accessibility of disabled Select components so screen readers correctly announce the
+  disabled state and selected value. This fix is currently behind a feature flag.
+- Updated dependencies
+
 ## 22.3.0
 
 ### Minor Changes

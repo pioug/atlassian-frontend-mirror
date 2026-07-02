@@ -1,4 +1,4 @@
-import type { MentionUserType } from '@atlaskit/adf-schema';
+import type { DocNode, MentionUserType } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -35,6 +35,7 @@ import type {
 	MentionPluginState,
 } from '../types';
 
+import { getAgentMentionParentContext } from './agent-mention-context';
 import { mentionPluginKey } from './key';
 import { canMentionBeCreatedInRange } from './utils';
 
@@ -150,11 +151,15 @@ const getAgentMentionDetailsAtPos = (
 	const $mentionPos = state.doc.resolve(Math.min(pos + node.nodeSize, state.doc.content.size));
 	const parentNode = $mentionPos.node($mentionPos.depth);
 
+	const id = node.attrs.id as string;
+	const name = getAgentMentionName(node.attrs.text, fallbackName);
+
 	return {
-		id: node.attrs.id as string,
+		id,
 		localId: node.attrs.localId as string,
-		context: parentNode.textContent.trim() || null,
-		name: getAgentMentionName(node.attrs.text, fallbackName),
+		context: getAgentMentionParentContext(parentNode, node.attrs.localId as string),
+		name,
+		prompt: parentNode.textContent.trim() || null,
 		nodeSize: node.nodeSize,
 		parentEnd: $mentionPos.end($mentionPos.depth),
 		parentNodeType: parentNode.type.name ?? null,
@@ -295,6 +300,7 @@ const commitResolvedPendingTypedAgentMention = (
 			lastInsertedAgentMentionLocalId: pendingMentionDetails.localId,
 			lastInsertedAgentMentionContext: pendingMentionDetails.context,
 			lastInsertedAgentMentionName: pendingMentionDetails.name,
+			lastInsertedAgentMentionPrompt: pendingMentionDetails.prompt,
 			lastInsertedAgentMentionParentNodeType: pendingMentionDetails.parentNodeType,
 			lastAgentMentionInsertionCount: (pluginState.lastAgentMentionInsertionCount ?? 0) + 1,
 		},
@@ -337,6 +343,7 @@ const hasTrackedAgentMentionState = (pluginState: MentionPluginState) =>
 	pluginState.lastInsertedAgentMentionLocalId != null ||
 	pluginState.lastInsertedAgentMentionContext != null ||
 	pluginState.lastInsertedAgentMentionName != null ||
+	pluginState.lastInsertedAgentMentionPrompt != null ||
 	pluginState.lastInsertedAgentMentionParentNodeType != null;
 
 /**
@@ -352,6 +359,7 @@ const clearTrackedAgentMentionState = (pluginState: MentionPluginState): Mention
 		lastInsertedAgentMentionLocalId: null,
 		lastInsertedAgentMentionContext: null,
 		lastInsertedAgentMentionName: null,
+		lastInsertedAgentMentionPrompt: null,
 		lastInsertedAgentMentionParentNodeType: null,
 	};
 };
@@ -603,8 +611,9 @@ export function createMentionPlugin({
 					if (shouldResolveAgentMentionState) {
 						let agentMentionId: string | null = null;
 						let agentMentionLocalId: string | null = null;
-						let agentMentionContext: string | null = null;
+						let agentMentionContext: DocNode | null = null;
 						let agentMentionName: string | null = null;
+						let agentMentionPrompt: string | null = null;
 						let agentMentionParentNodeType: string | null = null;
 						const existingAgentMentionLocalIdsInChangedRanges = new Set<string>();
 						let pendingTypedAgentMentionDetails: AgentMentionDetails | null = null;
@@ -641,6 +650,7 @@ export function createMentionPlugin({
 											agentMentionLocalId = agentMentionDetails.localId;
 											agentMentionContext = agentMentionDetails.context;
 											agentMentionName = agentMentionDetails.name;
+											agentMentionPrompt = agentMentionDetails.prompt;
 											agentMentionParentNodeType = agentMentionDetails.parentNodeType;
 										}
 									}
@@ -678,6 +688,7 @@ export function createMentionPlugin({
 								agentMentionLocalId = survivorDetails.localId;
 								agentMentionContext = survivorDetails.context;
 								agentMentionName = survivorDetails.name;
+								agentMentionPrompt = survivorDetails.prompt;
 								agentMentionParentNodeType = survivorDetails.parentNodeType;
 								resolvedFromFullDocFallback = true;
 							}
@@ -755,6 +766,7 @@ export function createMentionPlugin({
 								lastInsertedAgentMentionLocalId: agentMentionLocalId,
 								lastInsertedAgentMentionContext: agentMentionContext,
 								lastInsertedAgentMentionName: agentMentionName,
+								lastInsertedAgentMentionPrompt: agentMentionPrompt,
 								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
 								...(newInsertionCount !== undefined
 									? { lastAgentMentionInsertionCount: newInsertionCount }
@@ -764,8 +776,8 @@ export function createMentionPlugin({
 						} else if (
 							agentMentionId !== (newPluginState.lastInsertedAgentMentionId ?? null) ||
 							agentMentionLocalId !== (newPluginState.lastInsertedAgentMentionLocalId ?? null) ||
-							agentMentionContext !== (newPluginState.lastInsertedAgentMentionContext ?? null) ||
 							agentMentionName !== (newPluginState.lastInsertedAgentMentionName ?? null) ||
+							agentMentionPrompt !== (newPluginState.lastInsertedAgentMentionPrompt ?? null) ||
 							agentMentionParentNodeType !==
 								(newPluginState.lastInsertedAgentMentionParentNodeType ?? null) ||
 							newInsertionCount !== undefined
@@ -776,6 +788,7 @@ export function createMentionPlugin({
 								lastInsertedAgentMentionLocalId: agentMentionLocalId,
 								lastInsertedAgentMentionContext: agentMentionContext,
 								lastInsertedAgentMentionName: agentMentionName,
+								lastInsertedAgentMentionPrompt: agentMentionPrompt,
 								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
 								...(newInsertionCount !== undefined
 									? { lastAgentMentionInsertionCount: newInsertionCount }

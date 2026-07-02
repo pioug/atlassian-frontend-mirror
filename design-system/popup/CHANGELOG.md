@@ -1,5 +1,15 @@
 # @atlaskit/popup
 
+## 5.1.1
+
+### Patch Changes
+
+- [`662546a79c2bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/662546a79c2bc) -
+  Guard the `update()` call in `RepositionOnUpdate` so it is only invoked when the Popper
+  render-prop `update` is a function. On Safari the Popper instance can be undefined when the layout
+  effect fires, which previously threw `TypeError: e.update is not a function` and left consumers
+  (such as the Jira status transition popup) stuck with an indefinite spinner.
+
 ## 5.1.0
 
 ### Minor Changes

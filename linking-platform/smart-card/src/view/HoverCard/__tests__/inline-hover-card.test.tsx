@@ -19,15 +19,13 @@ import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-p
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { act, render, screen, waitFor, within, userEvent } from '@atlassian/testing-library';
+import { act, render, screen, waitFor, userEvent } from '@atlassian/testing-library';
 
-import { CardSSR } from '../../../ssr';
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
 import {
-	mockBaseResponse,
 	mockConfluenceResponse,
 	mockSSRResponse,
 	mockUnauthorisedResponse,
@@ -263,56 +261,6 @@ describe('HoverCard', () => {
 					</Provider>,
 				);
 				await expect(container).toBeAccessible();
-			});
-		});
-
-		describe('with rovo chat prompt experiment', () => {
-			const mock = {
-				...mockBaseResponse,
-				meta: { ...mockBaseResponse.meta, key: 'google-object-provider' },
-			};
-			const rovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
-			const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
-
-			ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
-				eeTest
-					.describe('platform_sl_3p_auth_rovo_action', 'rovo chat on inline card')
-					.variant(true, () => {
-						it('should enable rovoChat experiment via actionOptions prop', async () => {
-							await setup({
-								extraCardProps: { actionOptions },
-								mock,
-								rovoOptions,
-							});
-
-							const actionBlock = await screen.findByTestId('smart-block-action');
-							const rovoChatAction = await within(actionBlock).findByTestId(
-								'smart-action-rovo-chat-action-1',
-							);
-							expect(rovoChatAction).toBeInTheDocument();
-						});
-
-						it('should enable rovoChat experiment via actionOptions prop with CardSSR', async () => {
-							await setup({
-								component: (
-									<CardSSR
-										actionOptions={actionOptions}
-										appearance="inline"
-										url={mockUrl}
-										showHoverPreview={true}
-									/>
-								),
-								mock,
-								rovoOptions,
-							});
-
-							const actionBlock = await screen.findByTestId('smart-block-action');
-							const rovoChatAction = await within(actionBlock).findByTestId(
-								'smart-action-rovo-chat-action-1',
-							);
-							expect(rovoChatAction).toBeInTheDocument();
-						});
-					});
 			});
 		});
 

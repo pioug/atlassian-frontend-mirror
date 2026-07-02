@@ -57,6 +57,7 @@ describe('ProfileCardTrigger', () => {
 		hideAiDisclaimer = false,
 		hideConversationStarters = false,
 		hideAgentActions = false,
+		hideStarButton = false,
 		agentOverride = agent,
 	}: {
 		isLoading?: boolean;
@@ -65,6 +66,7 @@ describe('ProfileCardTrigger', () => {
 		hideAiDisclaimer?: boolean;
 		hideConversationStarters?: boolean;
 		hideAgentActions?: boolean;
+		hideStarButton?: boolean;
 		agentOverride?: RovoAgentProfileCardInfo;
 	}) => {
 		return renderWithAnalyticsListener(
@@ -78,10 +80,23 @@ describe('ProfileCardTrigger', () => {
 					hideAiDisclaimer={hideAiDisclaimer}
 					hideConversationStarters={hideConversationStarters}
 					hideAgentActions={hideAgentActions}
+					hideStarButton={hideStarButton}
 				/>
 			</IntlProvider>,
 		);
 	};
+
+	describe('hideStarButton', () => {
+		it('shows the favourite (star) button by default', () => {
+			renderWithIntl({});
+			expect(screen.getByRole('button', { name: /favourites/i })).toBeInTheDocument();
+		});
+
+		it('hides the favourite (star) button when hideStarButton is true', () => {
+			renderWithIntl({ hideStarButton: true });
+			expect(screen.queryByRole('button', { name: /favourites/i })).not.toBeInTheDocument();
+		});
+	});
 
 	describe('analytics', () => {
 		const profileCardEvent = {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.5.10
+
+### Patch Changes
+
+- [`1448830a87645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1448830a87645) -
+  Preserve ADF-backed editor agent mention prompt context through Rovo chat drafts and sends.
+- Updated dependencies
+
 ## 14.5.9
 
 ### Patch Changes

@@ -1,5 +1,4 @@
 import { waitFor } from '@testing-library/react';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import type {
 	OnProviderChange,
 	SecurityOptions,
@@ -264,59 +263,31 @@ describe('UploadingEmojiResource', () => {
 					});
 			});
 
-			ffTest(
-				'increase-emoji-client-upload-timeout',
-				() => {
-					const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
-					const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
-					hasUploadTokenStub.returns(Promise.resolve(true));
-					const uploadEmojiStub = siteEmojiResource.uploadEmoji;
+			test('uploadCustomEmoji succeeds with 30s timeout when upload completes within the timeout', () => {
+				const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
+				const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
+				hasUploadTokenStub.returns(Promise.resolve(true));
+				const uploadEmojiStub = siteEmojiResource.uploadEmoji;
 
-					uploadEmojiStub.returns(
-						new Promise((resolve) => {
-							setTimeout(() => {
-								resolve(mediaEmoji);
-							}, 12000 * 2);
-						}),
-					);
+				uploadEmojiStub.returns(
+					new Promise((resolve) => {
+						setTimeout(() => {
+							resolve(mediaEmoji);
+						}, 12000 * 2);
+					}),
+				);
 
-					const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
-					emojiResource.fetchEmojiProvider();
-					return emojiResource
-						.uploadCustomEmoji(upload, false)
-						.then((emoji) => {
-							expect(emoji).toEqual(mediaEmoji);
-						})
-						.catch(() => {
-							expect('Should not error').toEqual('but it did');
-						});
-				},
-				() => {
-					const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
-					const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
-					hasUploadTokenStub.returns(Promise.resolve(true));
-					const uploadEmojiStub = siteEmojiResource.uploadEmoji;
-
-					uploadEmojiStub.returns(
-						new Promise((resolve) => {
-							setTimeout(() => {
-								resolve(mediaEmoji);
-							}, 12000 * 2);
-						}),
-					);
-
-					const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
-					emojiResource.fetchEmojiProvider();
-					return emojiResource
-						.uploadCustomEmoji(upload, false)
-						.then(() => {
-							expect('Should not succeed').toEqual('but it did');
-						})
-						.catch((err) => {
-							expect(err.message).toEqual('uploadCustomEmoji timed out');
-						});
-				},
-			);
+				const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+				emojiResource.fetchEmojiProvider();
+				return emojiResource
+					.uploadCustomEmoji(upload, false)
+					.then((emoji) => {
+						expect(emoji).toEqual(mediaEmoji);
+					})
+					.catch(() => {
+						expect('Should not error').toEqual('but it did');
+					});
+			});
 		});
 	});
 

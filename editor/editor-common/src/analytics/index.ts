@@ -94,6 +94,7 @@ export type {
 	CaptionTrackAction,
 	MediaResizeTrackAction,
 	MediaInputResizeTrackAction,
+	MediaRenderedAEP,
 } from './types/media-events';
 
 export type { MoveContentEventPayload } from './types/move-content-events';

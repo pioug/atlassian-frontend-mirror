@@ -9,6 +9,7 @@ import userEvent from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
+import __noop from '@atlaskit/ds-lib/noop';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type { FilterOptionOption } from '../../filters';
@@ -55,7 +56,7 @@ const BASIC_PROPS: BasicProps = {
 	value: null,
 };
 
-const noop = () => {};
+const noop = __noop;
 
 beforeEach(() => {
 	skipA11yAudit();
@@ -3256,6 +3257,67 @@ describe('accessibility > aria-readonly with select_issearchable_aria-readonly_f
 
 			const input = screen.getByTestId(`${testId}-select--input`);
 			expect(input).not.toHaveAttribute('aria-readonly');
+		});
+	});
+});
+
+describe('accessibility > disabled combobox', () => {
+	ffTest.on('platform_dst_select_disabled_a11y_fix', 'with flag enabled', () => {
+		it('disabled select announces disabled state to screen readers', () => {
+			render(<Select {...BASIC_PROPS} isDisabled />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			const control = screen.getByTestId(`${testId}-select--control`);
+
+			expect(input).toHaveAttribute('role', 'combobox');
+			expect(input).toHaveAttribute('aria-disabled', 'true');
+			expect(input).toHaveAttribute('tabindex', '-1');
+			// Native disabled is preserved for backwards compatibility with existing tests.
+			expect(input).toBeDisabled();
+			expect(control).not.toHaveAttribute('aria-disabled');
+		});
+
+		it('disabled select with a value announces the value as part of the combobox', () => {
+			render(<Select {...BASIC_PROPS} isDisabled value={OPTIONS[0]} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			const describedByIds = input.getAttribute('aria-describedby')?.split(' ') ?? [];
+			const singleValueId = describedByIds.find((id) => id.endsWith('single-value'));
+			expect(singleValueId).toBeTruthy();
+
+			// eslint-disable-next-line testing-library/no-node-access
+			const singleValue = document.getElementById(singleValueId!);
+			expect(singleValue).toBeInTheDocument();
+			expect(singleValue).toHaveAttribute('aria-hidden', 'true');
+			expect(singleValue).toHaveTextContent(OPTIONS[0].label);
+		});
+
+		it('non-searchable disabled select announces disabled state to screen readers', () => {
+			render(<Select {...BASIC_PROPS} isDisabled isSearchable={false} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			expect(input).toHaveAttribute('role', 'combobox');
+			expect(input).toHaveAttribute('aria-disabled', 'true');
+			expect(input).toHaveAttribute('tabindex', '-1');
+			expect(input).toBeDisabled();
+		});
+	});
+
+	ffTest.off('platform_dst_select_disabled_a11y_fix', 'with flag disabled', () => {
+		it('disabled select does not announce disabled state on the combobox', () => {
+			render(<Select {...BASIC_PROPS} isDisabled value={OPTIONS[0]} />);
+
+			const input = screen.getByTestId(`${testId}-select--input`);
+			const control = screen.getByTestId(`${testId}-select--control`);
+			const describedByIds = input.getAttribute('aria-describedby')?.split(' ') ?? [];
+			const singleValueId = describedByIds.find((id) => id.endsWith('single-value'));
+			expect(singleValueId).toBeTruthy();
+
+			// eslint-disable-next-line testing-library/no-node-access
+			const singleValue = document.getElementById(singleValueId!);
+			expect(input).not.toHaveAttribute('aria-disabled');
+			expect(control).toHaveAttribute('aria-disabled', 'true');
+			expect(singleValue).not.toHaveAttribute('aria-hidden');
 		});
 	});
 });

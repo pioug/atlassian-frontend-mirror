@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
 import { type JsonLd } from '@atlaskit/json-ld-types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
@@ -20,7 +19,6 @@ import {
 	ActionBlock,
 	AIFooterBlock,
 	AISummaryBlock,
-	ResolvedHoverCardFooterBlock,
 	MetadataBlock,
 	SnippetBlock,
 	TitleBlock,
@@ -62,17 +60,12 @@ const HoverCardResolvedView = ({
 	flexibleCardProps,
 	isAISummaryEnabled,
 	onActionClick,
-	showRovoResolvedView,
 	titleBlockProps,
 	id,
 }: HoverCardResolvedProps): JSX.Element => {
 	di(useAISummaryAction);
 
 	const { fireEvent } = useAnalyticsEvents();
-	// We want to fire exposure event only for those cases when user otherwise can see the experiment which would be controlled
-	// by all the other condition defined above as a result of what was defined in actionOptions as well as in CardContext.
-	const is3PAuthRovoActionsExperimentOn =
-		showRovoResolvedView && expValEquals('platform_sl_3p_auth_rovo_action', 'isEnabled', true);
 
 	useEffect(() => {
 		// Since this hover view is only rendered on resolved status,
@@ -127,11 +120,7 @@ const HoverCardResolvedView = ({
 				size={SmartLinkSize.Medium}
 			/>
 			{isAISummaryEnabled ? (
-				<AISummaryBlock
-					aiSummaryMinHeight={aiSummaryMinHeight}
-					placeholder={snippet}
-					isAny3pRovoActionsExperimentOn={is3PAuthRovoActionsExperimentOn}
-				/>
+				<AISummaryBlock aiSummaryMinHeight={aiSummaryMinHeight} placeholder={snippet} />
 			) : (
 				snippet
 			)}
@@ -142,17 +131,8 @@ const HoverCardResolvedView = ({
 				css={hiddenSnippetStyles}
 				isHidden={true}
 			/>
-			<ActionBlock
-				onClick={onActionClick}
-				spaceInline="space.100"
-				css={[actionBlockCss]}
-				isAny3pRovoActionsExperimentOn={is3PAuthRovoActionsExperimentOn}
-			/>
-			{is3PAuthRovoActionsExperimentOn ? (
-				<ResolvedHoverCardFooterBlock onActionClick={onActionClick} />
-			) : (
-				<AIFooterBlock />
-			)}
+			<ActionBlock onClick={onActionClick} spaceInline="space.100" css={[actionBlockCss]} />
+			<AIFooterBlock />
 		</FlexibleCard>
 	);
 };

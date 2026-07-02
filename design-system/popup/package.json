@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "5.1.0",
+	"version": "5.1.1",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

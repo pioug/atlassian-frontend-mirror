@@ -49,6 +49,36 @@ const CreateSyncedBlockDropdownItem = ({
 	}
 
 	const onClick = () => {
+		if (fg('platform_editor_blocks_patch_4')) {
+			// Insert the synced block, close the block menu, and stop preserving the
+			// selection — all in a single transaction, mirroring the block-menu delete
+			// item. Stopping preservation is required so the caret that
+			// insertSyncedBlock places inside the new block survives; otherwise
+			// block-controls restores a whole-node NodeSelection over it, hiding the
+			// caret (EDITOR-7949). Then re-focus the editor so the caret is active,
+			// but only when the transaction was actually dispatched — otherwise a
+			// failed insertion would still steal DOM focus into the editor.
+			const dispatched = api?.core?.actions.execute(({ tr }) => {
+				// If the insertion fails, bail out without closing the menu or
+				// stopping selection preservation — otherwise we would dispatch an
+				// effectively-empty transaction and close the menu despite nothing
+				// having been inserted.
+				const result = api?.syncedBlock.commands.insertSyncedBlock()({ tr });
+				if (!result) {
+					return null;
+				}
+				api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true })({ tr });
+				api?.blockControls?.commands?.stopPreservingSelection()({ tr });
+				return tr;
+			});
+			if (dispatched) {
+				api?.core?.actions.focus();
+			}
+			return;
+		}
+
+		// Legacy behaviour: insert then close the block menu as two separate executes
+		// (batching them caused selection collisions — EDITOR-2751).
 		api?.core?.actions.execute(api?.syncedBlock.commands.insertSyncedBlock());
 		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};

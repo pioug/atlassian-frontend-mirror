@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 
+import type { JSX } from 'react';
+
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';

@@ -92,6 +92,14 @@ export type ExtensionConfiguration = {
 };
 
 export type ExtensionSource = 'first-party' | 'external';
+export type SelectionExtensionLocation = 'inline-toolbar' | 'primary-toolbar' | 'block-menu';
+
+export type GetMenuItemsContext = {
+  blockMenuTriggerExtensionKey?: string | undefined;
+  extensionKey?: string;
+  extensionLocation?: SelectionExtensionLocation;
+  extensionSource?: ExtensionSource;
+};
 
 export type ToolbarExtensionConfiguration = {
   getMenuItems?: GetMenuItemsFn;
@@ -105,7 +113,7 @@ export type BlockMenuExtensionConfiguration = {
 
 export type GetToolbarItemFn = () => ExtensionToolbarItemConfiguration;
 
-export type GetMenuItemsFn = () => Array<ExtensionMenuItemConfiguration>;
+export type GetMenuItemsFn = (context?: GetMenuItemsContext) => Array<ExtensionMenuItemConfiguration>;
 
 export type GetNestedMenuItemsFn = () => Array<ExtensionMenuItemNestedConfiguration>;
 

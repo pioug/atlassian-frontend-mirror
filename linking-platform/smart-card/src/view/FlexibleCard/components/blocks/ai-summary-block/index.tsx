@@ -6,7 +6,7 @@ import {
 	useFlexibleUiContext,
 } from '../../../../../state/flexible-ui-context';
 
-import AISummaryBlockResolvedView, { RovoSummaryBlockResolvedView } from './resolved';
+import AISummaryBlockResolvedView from './resolved';
 import { type AISummaryBlockProps } from './types';
 
 /**
@@ -17,7 +17,6 @@ import { type AISummaryBlockProps } from './types';
  * @see Block
  */
 const AISummaryBlock = ({
-	isAny3pRovoActionsExperimentOn,
 	testId = 'smart-ai-summary-block',
 	...props
 }: AISummaryBlockProps): React.JSX.Element | null => {
@@ -32,17 +31,6 @@ const AISummaryBlock = ({
 
 	if (!actionData?.url) {
 		return null;
-	}
-
-	if (isAny3pRovoActionsExperimentOn) {
-		return (
-			<RovoSummaryBlockResolvedView
-				{...props}
-				size={props.size ?? cardContext?.ui?.size}
-				testId={testId}
-				url={actionData.url}
-			/>
-		);
 	}
 
 	return (

@@ -178,6 +178,7 @@ import {
 	pragmaticResizerStylesCodeBlockLegacy,
 	pragmaticResizerStylesCodeBlockSyncedBlockPatch,
 	pragmaticResizerStylesForTooltip,
+	pragmaticResizerStylesPanelAndRule,
 	pragmaticResizerStylesSyncedBlock,
 	pragmaticResizerStylesWithReducedEditorGutter,
 	pragmaticStylesLayoutFirstNodeResizeHandleFix,
@@ -229,6 +230,7 @@ import {
 	tableRoundedCornerStyles,
 	tableLayoutFixesWithFontSize,
 	tableContentModeStyles,
+	tableContentModeNestedTableStyles,
 } from './styles/tableStyles';
 import {
 	decisionDangerStyles,
@@ -722,6 +724,14 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						pragmaticResizerStyles
 					: undefined,
+				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					expValEqualsNoExposure(
+						'platform_editor_lovability_resize_dividers_panels',
+						'isEnabled',
+						true,
+					) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					pragmaticResizerStylesPanelAndRule,
 				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true)
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						editorExperiment('platform_synced_block', true)
@@ -828,6 +838,10 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					tableContentModeStyles,
+				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
+					fg('platform_editor_table_nested_renderer_fix') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					tableContentModeNestedTableStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				hyperLinkFloatingToolbarStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

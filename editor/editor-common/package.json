@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "116.20.0",
+	"version": "116.21.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -751,6 +751,8 @@
 	"devDependencies": {
 		"@atlaskit/media-core": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
@@ -786,6 +788,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"rovo_chat_agent_selection": {
+			"type": "boolean"
+		},
 		"confluence_frontend_native_tabs_extension": {
 			"type": "boolean"
 		},
@@ -847,9 +852,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_sentry_breadcrumbs": {
-			"type": "boolean"
-		},
-		"rovo_chat_enable_skills_ui_m1": {
 			"type": "boolean"
 		},
 		"platform_fix_macro_renders_in_layouts": {

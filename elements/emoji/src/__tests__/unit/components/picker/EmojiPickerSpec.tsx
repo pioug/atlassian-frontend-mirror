@@ -149,6 +149,23 @@ describe('<EmojiPicker />', () => {
 		);
 
 	const getUpdatedList = () => screen.getByRole('grid', { name: 'Emojis' });
+	const withRefreshEmojiPicker = async (test: () => Promise<void>) => {
+		const initializeCompletedSpy = jest
+			.spyOn(FeatureGates, 'initializeCompleted')
+			.mockReturnValue(true);
+		const getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((experimentName, _parameterName, defaultValue) =>
+				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+			);
+
+		try {
+			await test();
+		} finally {
+			getExperimentValueSpy.mockRestore();
+			initializeCompletedSpy.mockRestore();
+		}
+	};
 
 	describe('analytics for component lifecycle', () => {
 		it('should fire analytics when component unmounts', async () => {
@@ -345,6 +362,69 @@ describe('<EmojiPicker />', () => {
 			expect(previewEmoji).toBeVisible();
 
 			expect(previewEmoji).toHaveAttribute('aria-label', helper.allEmojis[0].shortName);
+		});
+
+		it('should keep preview after emoji blur when upload is unsupported', async () => {
+			await withRefreshEmojiPicker(async () => {
+				await helper.setupPicker({
+					emojiProvider: mockNonUploadingEmojiResourceFactory(new EmojiRepository(standardEmojis)),
+					hideToneSelector: true,
+				});
+				const list = getUpdatedList();
+
+				const emojis = await helper.emojisVisible(list);
+				const hoverButton = emojis[0];
+				const hoveredEmojiLabel = hoverButton.getAttribute('aria-label') as string;
+				expect(hoveredEmojiLabel).toBeTruthy();
+				await userEvent.hover(hoverButton);
+
+				const footer = await helper.findEmojiPreview();
+				expect(within(footer).getAllByRole('img', { name: hoveredEmojiLabel })[0]).toHaveAttribute(
+					'aria-label',
+					hoveredEmojiLabel,
+				);
+
+				fireEvent.blur(hoverButton.parentElement as HTMLElement);
+
+				expect(within(footer).getAllByRole('img', { name: hoveredEmojiLabel })[0]).toHaveAttribute(
+					'aria-label',
+					hoveredEmojiLabel,
+				);
+			});
+		});
+
+		it('should clear preview after emoji blur when upload is supported', async () => {
+			await withRefreshEmojiPicker(async () => {
+				await helper.setupPicker({
+					emojiProvider: getEmojiResourcePromise({
+						uploadSupported: true,
+					}),
+					hideToneSelector: true,
+				});
+				const list = getUpdatedList();
+
+				const emojis = await helper.emojisVisible(list);
+				const hoverButton = emojis[0];
+				const hoveredEmojiLabel = hoverButton.getAttribute('aria-label') as string;
+				expect(hoveredEmojiLabel).toBeTruthy();
+				await userEvent.hover(hoverButton);
+
+				const footer = await helper.findEmojiPreview();
+				expect(within(footer).getAllByRole('img', { name: hoveredEmojiLabel })[0]).toHaveAttribute(
+					'aria-label',
+					hoveredEmojiLabel,
+				);
+
+				fireEvent.blur(hoverButton.parentElement as HTMLElement);
+
+				await waitFor(() => {
+					expect(
+						within(footer).queryAllByRole('img', {
+							name: hoveredEmojiLabel,
+						}),
+					).toHaveLength(0);
+				});
+			});
 		});
 	});
 

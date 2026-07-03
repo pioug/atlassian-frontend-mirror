@@ -16,7 +16,7 @@ import { type ResolvedHoverCardFooterBlockProps } from '../types';
 
 describe('ResolvedHoverCardFooterBlock', () => {
 	ffTest.both('navx-1895-new-logo-design', '', () => {
-		ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', '', () => {
+		ffTest.on('platform_sl_action_refactoring', '', () => {
 			const testIdBase = 'some-test-id';
 			const renderResolvedHoverCardFooterBlock = (
 				props?: ResolvedHoverCardFooterBlockProps,

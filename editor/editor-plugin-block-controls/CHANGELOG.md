@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.1.11
+
+### Patch Changes
+
+- [`92638385edd0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92638385edd0e) -
+  [ux] [EDITOR-7888] add breakout resizing support for panel and rule nodes behind experiment
+  `platform_editor_lovability_resize_dividers_panels`.
+- Updated dependencies
+
 ## 13.1.10
 
 ### Patch Changes

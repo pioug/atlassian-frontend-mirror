@@ -72,6 +72,11 @@ const documentation: StructuredContentSource = {
 					),
 				},
 			],
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=81007-1077',
+				figmaNodeId: '81007:1077',
+			},
 			keywords: ['button', 'action', 'click', 'submit', 'form', 'interactive', 'cta'],
 			categories: ['form', 'interaction'],
 		},

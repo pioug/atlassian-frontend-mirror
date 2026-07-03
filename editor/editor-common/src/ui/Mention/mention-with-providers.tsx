@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
+import type { MentionUserType } from '@atlaskit/adf-schema';
 import { ResourcedMention } from '@atlaskit/mention/element';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 
@@ -16,6 +17,7 @@ export interface Props {
 	mentionProvider?: Promise<MentionProvider>;
 	profilecardProvider?: Promise<ProfilecardProvider>;
 	text: string;
+	userType?: MentionUserType;
 }
 
 export interface State {
@@ -43,6 +45,7 @@ export const MentionWithProviders: React.MemoExoticComponent<
 		profilecardProvider: profilecardProviderResolver,
 		text,
 		localId,
+		userType,
 	}: Props): React.JSX.Element => {
 		const [profilecardProvider, setProfilecardProvider] = useState<ProfilecardProvider | null>(
 			null,
@@ -87,6 +90,7 @@ export const MentionWithProviders: React.MemoExoticComponent<
 				text={text}
 				accessLevel={accessLevel}
 				localId={localId}
+				userType={userType}
 				mentionProvider={mentionProvider}
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

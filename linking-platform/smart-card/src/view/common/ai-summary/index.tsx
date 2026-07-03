@@ -5,8 +5,6 @@
 import { css, jsx } from '@compiled/react';
 import Markdown from 'markdown-to-jsx';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { AISummaryProps } from './types';
@@ -23,11 +21,7 @@ const baseStyle = css({
 	userSelect: 'text',
 });
 
-const textStyleNew = css({
-	color: token('color.text'),
-});
-
-const textStyleOld = css({
+const textStyle = css({
 	color: token('color.text.subtle'),
 });
 
@@ -46,16 +40,12 @@ const AISummary = ({
 		return null;
 	}
 
-	const is3pExperimentEnabled =
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('platform_sl_3p_auth_rovo_action_kill_switch') &&
-		expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true);
 	return (
 		<Markdown
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
-			css={[baseStyle, is3pExperimentEnabled ? textStyleNew : textStyleOld]}
+			css={[baseStyle, textStyle]}
 			children={content}
 			options={{
 				forceWrapper: true,

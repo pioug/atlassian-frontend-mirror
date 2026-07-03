@@ -23,6 +23,10 @@ import { isInsertionTransaction } from './isInsertionTransaction';
 import { pluginKey } from './key';
 import { createReducer } from './reducer';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const ASCII_CHAR_REGEX = /^[\x00-\x7F]$/;
+
 const hasValidTypeAheadStep = (tr: ReadonlyTransaction): InsertTypeAheadStep | null => {
 	const steps = tr.steps.filter((step) => step instanceof InsertTypeAheadStep);
 
@@ -176,9 +180,7 @@ export function createPlugin({
 								// data='/') would cause the Enter-confirm to open the typeahead.
 								// Matches any single ASCII character (U+0000–U+007F).
 								// No 'u' flag needed for ASCII-only ranges.
-								// Ignored via go/ees005
-								// eslint-disable-next-line require-unicode-regexp
-								if (/^[\x00-\x7F]$/.test(pendingData)) {
+								if (ASCII_CHAR_REGEX.test(pendingData)) {
 									return false;
 								}
 								const pattern = new RegExp(`^(${handler.customRegex})$`, 'u');

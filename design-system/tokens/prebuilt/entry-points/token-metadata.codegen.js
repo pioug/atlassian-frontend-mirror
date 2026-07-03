@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::21c954de6e2322a1410a431ab7f73072>>
+ * @codegen <<SignedSource::f35dfcf54e048ebb8d0fbfc38f3a1eb9>>
  * @codegenCommand yarn build tokens
  */
 
@@ -4292,7 +4292,7 @@ var tokens = exports.tokens = [{
   name: 'elevation.surface.container',
   path: ['elevation', 'surface', 'container', '[default]'],
   description: 'Use as a neutral container surface background.',
-  exampleValue: '#F0F1F2',
+  exampleValue: '#17171708',
   usageGuidelines: {
     usage: 'The base color for app and component surfaces. Raised and overlay surfaces should be used in concert with shadows (e.g. elevation.surface.raised should be used with elevation.shadow.raised)',
     cssProperties: ['background-color']

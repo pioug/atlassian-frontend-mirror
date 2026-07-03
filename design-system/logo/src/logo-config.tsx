@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import { createFeatureFlaggedServiceCollectionComponent } from './create-feature-flagged-service-collection-component';
 import { tempSizeWrapper } from './temp-size-wrapper';
 import { type LogoProps } from './types';
 import { type AppIconProps, type AppLogoProps } from './utils/types';
@@ -16,45 +13,35 @@ export const createFeatureFlaggedRovoComponent: (
 	...props
 }: LogoProps & {
 	/**
-	 * When the feature flag `platform-logo-rebrand-rovo-hex` is set to false, this flag changes the rovo logo to a tile.
-	 * After the hex design is rolled out, this prop will do nothing - it is maintained for now to enable backwards compatibility and safe roll-out
+	 * @deprecated This prop no longer has any effect. The new logo design is now always used following the full launch of the `platform-logo-rebrand` feature flag. This prop is maintained for backwards compatibility only and will be removed in a future release.
 	 */
 	shouldUseNewLogoDesign?: boolean;
 	/**
-	 * Forces the new rovo hex logo to be used.
+	 * @deprecated This prop no longer has any effect. The Rovo hex logo is now always used following the full launch of the `platform-logo-rebrand-rovo-hex` feature flag. This prop is maintained for backwards compatibility only and will be removed in a future release.
 	 */
 	shouldUseHexLogo?: boolean;
 }) => React.JSX.Element = (
-	LegacyComponent: React.ComponentType<LogoProps>,
-	NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
+	_LegacyComponent: React.ComponentType<LogoProps>,
+	_NewComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 	NewHexComponent: React.ComponentType<AppLogoProps> | React.ComponentType<AppIconProps>,
 ) => {
 	const RovoHexWrapped = tempSizeWrapper(NewHexComponent);
-	const RovoServiceCollectionWrapped = createFeatureFlaggedServiceCollectionComponent(
-		LegacyComponent,
-		NewComponent,
-	);
 
 	return ({
-		shouldUseHexLogo,
+		shouldUseHexLogo: _shouldUseHexLogo,
 		...props
 	}: LogoProps & {
 		/**
-		 * When the feature flag `platform-logo-rebrand-rovo-hex` is set to false, this flag changes the rovo logo to a tile.
-		 * After the hex design is rolled out, this prop will do nothing - it is maintained for now to enable backwards compatibility and safe roll-out
+		 * @deprecated This prop no longer has any effect. The new logo design is now always used following the full launch of the `platform-logo-rebrand` feature flag. This prop is maintained for backwards compatibility only and will be removed in a future release.
 		 */
 		shouldUseNewLogoDesign?: boolean;
 		/**
-		 * Forces the new rovo hex logo to be used.
+		 * @deprecated This prop no longer has any effect. The Rovo hex logo is now always used following the full launch of the `platform-logo-rebrand-rovo-hex` feature flag. This prop is maintained for backwards compatibility only and will be removed in a future release.
 		 */
 		shouldUseHexLogo?: boolean;
 	}): React.JSX.Element => {
-		// Return hex logo if feature flag enabled. Otherwise revert to old set of components
-		if (fg('platform-logo-rebrand-rovo-hex') || shouldUseHexLogo) {
-			return <RovoHexWrapped {...props} />;
-		} else {
-			return <RovoServiceCollectionWrapped {...props} />;
-		}
+		// Hex logo is now always used (platform-logo-rebrand-rovo-hex fully launched)
+		return <RovoHexWrapped {...props} />;
 	};
 };
 

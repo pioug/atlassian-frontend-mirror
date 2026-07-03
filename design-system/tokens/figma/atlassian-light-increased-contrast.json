@@ -3827,7 +3827,7 @@
       }
     },
     "Light increased-contrast/elevation.surface.container": {
-      "value": "#F0F1F2",
+      "value": "#17171708",
       "attributes": {
         "group": "paint",
         "state": "active",

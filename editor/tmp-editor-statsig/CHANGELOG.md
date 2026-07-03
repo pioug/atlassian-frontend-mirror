@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 120.1.0
+
+### Minor Changes
+
+- [`6a73f3cc58350`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a73f3cc58350) -
+  Hide block template action for agent-managed blocks behind the agent-managed block template
+  experiment.
+
 ## 120.0.0
 
 ### Major Changes

@@ -29,10 +29,35 @@ type HTMLAttributes = Partial<
 	[key: `data-${string}`]: string;
 } & { class: string };
 
-// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
-const AT_PREFIX_REGEX = /^@/u;
+// eslint-disable-next-line require-unicode-regexp
+const AT_PREFIX_REGEX = /^@/;
 
 const getAccessibilityLabelFromName = (name: string) => name.replace(AT_PREFIX_REGEX, '');
+
+// Workaround: AI-rewritten pages may store the raw AAID (e.g. '@712020:uuid') in attrs.text for
+// APP/AGENT mentions instead of the display name. Detect this so we can fall through to provider
+// resolution. Pattern: '@digits:uuid' — distinct from plain-UUID human AAIDs (no numeric prefix).
+const AAID_MENTION_TEXT_PATTERN =
+	// eslint-disable-next-line require-unicode-regexp
+	/^@\d+:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Returns true if `text` looks like a raw AAID rather than a display name. */
+const isMentionTextAnAaid = (text: string): boolean => AAID_MENTION_TEXT_PATTERN.test(text);
+
+const isAgentMentionsExperimentEnabled = (): boolean =>
+	expVal('platform_editor_agent_mentions', 'isEnabled', false);
+
+/**
+ * Returns true if the node is an APP/AGENT mention whose stored text is a raw
+ * AAID (e.g. '@712020:uuid') rather than a resolved display name.
+ * All AAID-workaround guards should go through this helper so the checks stay
+ * consistent and can't drift apart.
+ */
+const isAgentAaidText = (node: PMNode, isAgentMentionsEnabled: boolean): boolean =>
+	isAgentMentionsEnabled &&
+	(node.attrs.userType === 'APP' || node.attrs.userType === 'AGENT') &&
+	!!node.attrs.text &&
+	isMentionTextAnAaid(node.attrs.text);
 
 const toDOM = (node: PMNode): DOMOutputSpec => {
 	// packages/elements/mention/src/components/Mention/index.tsx
@@ -51,11 +76,14 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 		mentionAttrs = { ...mentionAttrs, 'data-local-id': node.attrs.localId };
 	}
 
-	if (expVal('platform_editor_agent_mentions', 'isEnabled', false) && node.attrs.userType) {
+	const isAgentMentionsEnabled = isAgentMentionsExperimentEnabled();
+
+	if (isAgentMentionsEnabled && node.attrs.userType) {
 		mentionAttrs = { ...mentionAttrs, 'data-user-type': node.attrs.userType };
 	}
 
 	const browser = getBrowserInfo();
+	const hasAgentAaidText = isAgentAaidText(node, isAgentMentionsEnabled);
 
 	return [
 		'span',
@@ -71,7 +99,7 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 				spellcheck: 'false',
 				class: primitiveClassName,
 			},
-			node.attrs.text || '@…',
+			node.attrs.text && !hasAgentAaidText ? node.attrs.text : '@…',
 		],
 		browser.android
 			? [
@@ -95,8 +123,15 @@ const processName = (name: MentionNameDetails): string => {
 const handleProviderName = async (
 	mentionProvider: MentionProvider | undefined,
 	node: PMNode,
+	isAgentMentionsEnabled: boolean,
 ): Promise<string | undefined> => {
-	if (isResolvingMentionProvider(mentionProvider) && node.attrs.id && !node.attrs.text) {
+	// Also resolve when text is a raw AAID — provider will return the real display name.
+	const textIsAaid = isAgentAaidText(node, isAgentMentionsEnabled);
+	if (
+		isResolvingMentionProvider(mentionProvider) &&
+		node.attrs.id &&
+		(!node.attrs.text || textIsAaid)
+	) {
 		const nameDetail = mentionProvider?.resolveMentionName(node.attrs.id);
 		const resolvedNameDetail = await nameDetail;
 		return processName(resolvedNameDetail);
@@ -172,7 +207,8 @@ export class MentionNodeView implements NodeView {
 		});
 		// Accessibility attributes - based on `packages/people-and-teams/profilecard/src/components/User/ProfileCardTrigger.tsx`
 		if (this.domElement && options?.profilecardProvider) {
-			if (node.attrs.text) {
+			const isAgentMentionsEnabled = isAgentMentionsExperimentEnabled();
+			if (node.attrs.text && !isAgentAaidText(node, isAgentMentionsEnabled)) {
 				this.domElement.setAttribute('aria-label', getAccessibilityLabelFromName(node.attrs.text));
 			}
 			this.domElement.setAttribute('aria-expanded', 'false');
@@ -275,8 +311,10 @@ export class MentionNodeView implements NodeView {
 		}
 	}
 
-	private setTextContent(name: string | undefined) {
-		if (name && !this.node.attrs.text && this.mentionPrimitiveElement) {
+	private setTextContent(name: string | undefined, isAgentMentionsEnabled: boolean) {
+		// Also overwrite when text is a raw AAID so the resolved name takes precedence.
+		const textIsAaid = isAgentAaidText(this.node, isAgentMentionsEnabled);
+		if (name && (!this.node.attrs.text || textIsAaid) && this.mentionPrimitiveElement) {
 			this.mentionPrimitiveElement.textContent = name;
 		}
 	}
@@ -292,6 +330,7 @@ export class MentionNodeView implements NodeView {
 	}
 
 	private async updateState(mentionProvider: MentionProvider | undefined) {
+		const isAgentMentionsEnabled = isAgentMentionsExperimentEnabled();
 		const isHighlighted = expValEquals(
 			'platform_editor_vc90_transition_mentions',
 			'isEnabled',
@@ -319,18 +358,16 @@ export class MentionNodeView implements NodeView {
 		// the chip is already disabled.
 		this.syncDisabledTooltip(disabledState);
 
-		const name = await handleProviderName(mentionProvider, this.node);
-		this.setTextContent(name);
+		const name = await handleProviderName(mentionProvider, this.node, isAgentMentionsEnabled);
+		this.setTextContent(name, isAgentMentionsEnabled);
 		// Only overwrite the disabled-state aria-label with the name-based one
 		// when the chip is NOT disabled; otherwise the disabled reason set in
 		// `setClassList` would be silently clobbered, regressing a11y.
-		if (
-			name &&
-			this.domElement &&
-			this.config.options?.profilecardProvider &&
-			newState !== 'disabled'
-		) {
-			this.domElement.setAttribute('aria-label', getAccessibilityLabelFromName(name));
+		if (this.domElement && this.config.options?.profilecardProvider && newState !== 'disabled') {
+			const text = name ?? this.node.attrs.text;
+			if (text && !isAgentAaidText(this.node, isAgentMentionsEnabled)) {
+				this.domElement.setAttribute('aria-label', getAccessibilityLabelFromName(text));
+			}
 		}
 	}
 

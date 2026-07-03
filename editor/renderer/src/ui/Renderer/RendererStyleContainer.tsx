@@ -2278,6 +2278,17 @@ const tableContentModeStyles = css({
 	},
 });
 
+const tableContentModeNestedTableStyles = css({
+	// Nested tables may sit inside expands, extensions, or other blocks within the parent cell.
+	[`.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .${TableSharedCssClassName.TABLE_CONTAINER} > table,
+		.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .${TableSharedCssClassName.TABLE_CONTAINER} > .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
+		.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .${TableSharedCssClassName.TABLE_CONTAINER} > .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
+		{
+			width: 'max-content !important',
+			maxWidth: '100%',
+		},
+});
+
 const tableRendererHeaderStylesForTableCellOnly = css({
 	[`.${TableSharedCssClassName.TABLE_CONTAINER} > table,
 		.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
@@ -3370,6 +3381,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					roundedTableRemixBlockHighlightStyles,
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					tableContentModeStyles,
+				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
+					fg('platform_editor_table_nested_renderer_fix') &&
+					tableContentModeNestedTableStyles,
 				tableRendererHeaderStylesForTableCellOnly,
 				fg('platform_editor_bordered_panel_nested_in_table') && tableRendererNestedPanelStyles,
 				isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,

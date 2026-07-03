@@ -19,6 +19,7 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin, BreakoutPluginState } from './breakoutPluginType';
@@ -236,7 +237,17 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 				{
 					name: 'breakout-resizing',
 					plugin: ({ getIntl, nodeViewPortalProviderAPI }) =>
-						createResizingPlugin(api, getIntl, nodeViewPortalProviderAPI, options),
+						createResizingPlugin(
+							api,
+							getIntl,
+							nodeViewPortalProviderAPI,
+							options,
+							expValEqualsNoExposure(
+								'platform_editor_lovability_resize_dividers_panels',
+								'isEnabled',
+								true,
+							),
+						),
 				},
 			];
 		}

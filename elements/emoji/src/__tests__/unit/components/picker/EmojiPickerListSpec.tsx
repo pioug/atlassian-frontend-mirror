@@ -226,6 +226,19 @@ describe('<EmojiPickerList />', () => {
 			expect(images[1]).toHaveAttribute('data-emoji-id', atlassianEmojis[0].id);
 		});
 
+		it('should show new-format atlassian emojis under the atlassian category when teamoji experiment is disabled', async () => {
+			const productivityEmoji = createProductivityEmoji('blue');
+
+			renderEmojiPickerList({
+				emojis: [productivityEmoji],
+			});
+
+			expect(
+				await screen.findByText(messages.productivityCategory.defaultMessage),
+			).toBeInTheDocument();
+			expect(screen.getByTestId('image-emoji-:0_zero_square_blue:')).toBeInTheDocument();
+		});
+
 		it('should not render emojis with a hidden metadata tag', async () => {
 			setTeamojiExperimentEnabled(true);
 			const visibleEmoji: EmojiDescription = {

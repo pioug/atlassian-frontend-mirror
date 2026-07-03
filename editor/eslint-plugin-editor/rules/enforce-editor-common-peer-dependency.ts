@@ -1,5 +1,8 @@
 import { ESLintUtils } from '@typescript-eslint/utils';
 
+const MODULE_EXPORTS_REGEX = /^.*?module\.exports\s*=\s*/u;
+const TRAILING_SEMICOLON_REGEX = /;\s*$/u;
+
 const rule = ESLintUtils.RuleCreator.withoutDocs<[], 'enforceCommonPeerDependency'>({
 	defaultOptions: [],
 	meta: {
@@ -24,8 +27,8 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<[], 'enforceCommonPeerDependenc
 				const sourceCode = context.getSourceCode().text;
 				// Extract the JSON part from the module.exports wrapper
 				const jsonString = sourceCode
-					.replace(/^.*?module\.exports\s*=\s*/u, '')
-					.replace(/;\s*$/u, '');
+					.replace(MODULE_EXPORTS_REGEX, '')
+					.replace(TRAILING_SEMICOLON_REGEX, '');
 
 				try {
 					// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)

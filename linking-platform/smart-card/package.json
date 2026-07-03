@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.6.9",
+	"version": "45.6.11",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -285,7 +285,7 @@
 		"jfp-magma-platform-lozenge-jump-fix": {
 			"type": "boolean"
 		},
-		"platform_sl_3p_auth_rovo_action_kill_switch": {
+		"platform_sl_action_refactoring": {
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {
@@ -348,6 +348,9 @@
 			"type": "boolean"
 		},
 		"dfo_issue_view_remote_data_srr_group": {
+			"type": "boolean"
+		},
+		"navx-4719-a11y-embed-modal-focus-states": {
 			"type": "boolean"
 		}
 	},

@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 26.8.0
+
+### Minor Changes
+
+- [`663afd59ab193`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/663afd59ab193) -
+  Agent mentions in Rovo chat history now open the agent profile card on click (behind the
+  rovo_chat_agent_selection gate). The renderer and editor-common Mention now thread the mention
+  userType so an 'APP' (agent) mention renders an AgentProfileCardTrigger; AgentProfileCardTrigger
+  now honors a passed trigger prop.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.7.0
 
 ### Minor Changes

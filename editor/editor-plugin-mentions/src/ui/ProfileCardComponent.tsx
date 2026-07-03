@@ -22,6 +22,9 @@ import { token } from '@atlaskit/tokens';
 
 import { Popup } from './PopperWrapper';
 
+// eslint-disable-next-line require-unicode-regexp
+const LEADING_AT_SIGN_RE = /^@/;
+
 const AgentProfileCardResourcedLazy = Loadable({
 	loader: () =>
 		import(
@@ -232,8 +235,7 @@ const AgentProfileCardContent = ({
 	provider: ProfilecardProvider;
 	text?: MentionAttributes['text'];
 }): JSX.Element => {
-	// eslint-disable-next-line require-unicode-regexp
-	const agentName = (text ?? '').replace(/^@/, '');
+	const agentName = (text ?? '').replace(LEADING_AT_SIGN_RE, '');
 	return fg('platform_editor_reduced_agent_profile_card') ? (
 		<AgentProfileCardResourcedLazy
 			accountId={accountId}

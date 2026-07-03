@@ -29,7 +29,7 @@ type BaseLogoProps = {
 	 */
 	testId?: string;
 	/**
-	 * For logos that support it, enables the new logo design ahead of an upcoming feature flag roll-out.
+	 * @deprecated This prop no longer has any effect. The new logo design is now always used following the full launch of the `platform-logo-rebrand` feature flag. This prop is maintained for backwards compatibility only and will be removed in a future release.
 	 */
 	shouldUseNewLogoDesign?: boolean;
 };

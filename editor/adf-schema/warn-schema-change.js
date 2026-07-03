@@ -1,3 +1,6 @@
+const NEXT_SCHEMA_FILES_PATTERN = /.*\/adf-schema\/packages\/adf-schema\/src\/next-schema\/.*/u;
+const SCHEMA_FILES_PATTERN = /.*\/adf-schema\/packages\/adf-schema\/src\/schema\/.*/u;
+
 module.exports = {
 	meta: {
 		type: 'suggestion',
@@ -8,8 +11,8 @@ module.exports = {
 	},
 	create(context) {
 		const { filename } = context;
-		const nextSchemaFilesPattern = /.*\/adf-schema\/packages\/adf-schema\/src\/next-schema\/.*/u;
-		const schemaFilesPattern = /.*\/adf-schema\/packages\/adf-schema\/src\/schema\/.*/u;
+		const nextSchemaFilesPattern = NEXT_SCHEMA_FILES_PATTERN;
+		const schemaFilesPattern = SCHEMA_FILES_PATTERN;
 
 		const isInSchemaOrNextSchema =
 			filename.match(nextSchemaFilesPattern) || filename.match(schemaFilesPattern);

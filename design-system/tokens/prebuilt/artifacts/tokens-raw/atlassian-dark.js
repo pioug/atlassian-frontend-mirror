@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2e672d19b65c7a5830d056e45908afa9>>
+ * @codegen <<SignedSource::2fbfb362b08e633e9481608613ecee4a>>
  * @codegenCommand yarn build tokens
  */
 
@@ -9367,7 +9367,7 @@ var tokens = [{
     "introduced": "13.3.0",
     "description": "Use as a neutral container surface background."
   },
-  "value": "#303134",
+  "value": "#BDBDBD0A",
   "filePath": "schema/themes/atlassian-dark/elevation/surface.tsx",
   "isSource": true,
   "original": {
@@ -9377,7 +9377,7 @@ var tokens = [{
       "introduced": "13.3.0",
       "description": "Use as a neutral container surface background."
     },
-    "value": "DarkNeutral300"
+    "value": "DarkNeutral100A"
   },
   "name": "elevation.surface.container.[default]",
   "path": ["elevation", "surface", "container", "[default]"],

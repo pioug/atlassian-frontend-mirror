@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 24.3.12
+
+### Patch Changes
+
+- [`df00c17a7cb79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df00c17a7cb79) -
+  Improve nested table sizing inside fit-to-content tables and snapshot the rendered table layout
+  during auto-conversion so the persisted parent table width matches the page-load view.
+
 ## 24.3.11
 
 ### Patch Changes

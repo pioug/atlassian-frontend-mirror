@@ -53,13 +53,9 @@ const extractRovoChatAction = ({
 	}
 
 	const extensionKey = getExtensionKey(response);
-	const isGoogleProvider = extensionKey === 'google-object-provider';
-
 	const isInlineExperimentEnabled =
 		fg('platform_sl_3p_auth_inline_tailored_cta_killswitch') &&
 		expValEqualsNoExposure('platform_sl_3p_auth_inline_tailored_cta', 'isEnabled', true);
-	const is3PAuthRovoActionEnabled =
-		isGoogleProvider && fg('platform_sl_3p_auth_rovo_action_kill_switch');
 	const is3PBlockPostAuthActionsEnabled =
 		extensionKey !== undefined &&
 		ELIGIBLE_EXTENSION_KEYS.has(extensionKey) &&
@@ -67,10 +63,7 @@ const extractRovoChatAction = ({
 	const is3PEmbedPostAuthActionsEnabled = isEmbedRovoActionsFooterExperimentEnabled === true;
 
 	const isSupportedFeature =
-		is3PAuthRovoActionEnabled ||
-		is3PBlockPostAuthActionsEnabled ||
-		isInlineExperimentEnabled ||
-		is3PEmbedPostAuthActionsEnabled;
+		is3PBlockPostAuthActionsEnabled || isInlineExperimentEnabled || is3PEmbedPostAuthActionsEnabled;
 	const isOptIn = actionOptions?.rovoChatAction?.optIn === true;
 
 	const url = extractSmartLinkUrl(response);

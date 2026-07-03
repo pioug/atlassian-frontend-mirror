@@ -1,5 +1,36 @@
 # @atlaskit/renderer
 
+## 133.8.2
+
+### Patch Changes
+
+- [`c2986ab2c7a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2986ab2c7a01) -
+  Cleans up prefer static regex violations and enables e18e rule
+- Updated dependencies
+
+## 133.8.1
+
+### Patch Changes
+
+- [`df00c17a7cb79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df00c17a7cb79) -
+  Improve nested table sizing inside fit-to-content tables and snapshot the rendered table layout
+  during auto-conversion so the persisted parent table width matches the page-load view.
+- Updated dependencies
+
+## 133.8.0
+
+### Minor Changes
+
+- [`663afd59ab193`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/663afd59ab193) -
+  Agent mentions in Rovo chat history now open the agent profile card on click (behind the
+  rovo_chat_agent_selection gate). The renderer and editor-common Mention now thread the mention
+  userType so an 'APP' (agent) mention renders an AgentProfileCardTrigger; AgentProfileCardTrigger
+  now honors a passed trigger prop.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.7.10
 
 ### Patch Changes

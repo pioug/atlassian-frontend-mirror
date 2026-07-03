@@ -252,7 +252,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				const categoryDefinition = isTeamojiExperimentEnabled
 					? CategoryDescriptionMapNew[category]
 					: CategoryDescriptionMap[category];
-				if (!categoryDefinition && isTeamojiExperimentEnabled) {
+				if (!categoryDefinition) {
 					return categoryToGroupMap;
 				}
 				categoryToGroupMap[category] = {
@@ -292,6 +292,8 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 						}
 						subcategory.emojis.push(emoji);
 					}
+				} else if (emoji.type === 'ATLASSIAN' && emoji.category !== frequentCategory) {
+					addToCategoryMap(categoryToGroupMap, emoji, atlassianCategory);
 				} else {
 					addToCategoryMap(categoryToGroupMap, emoji, emoji.category as CategoryId);
 				}
@@ -553,7 +555,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 					// Optimisation - avoid re-rendering unaffected groups for the current selectedShortcut
 					// by not passing it to irrelevant groups
 					categoryTracker.add(
-						isTeamojiExperimentEnabled
+						isTeamojiExperimentEnabled || group.category === atlassianCategory
 							? (group.category as CategoryId)
 							: (group.emojis[0].category as CategoryId),
 						items.length,

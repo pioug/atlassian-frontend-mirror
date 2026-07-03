@@ -54,6 +54,9 @@ const TS_TYPED_VAR_REGEX = /\b(?:const|let|var)\s+[\w$]+\s*:\s*[A-Za-z_$][\w$<>|
 const TS_RETURN_TYPE_REGEX =
 	/\)\s*:\s*(?:Promise<)?[A-Za-z_$][\w$<>|\[\],\s]*(?:>|\s)?\s*=>?\s*[{;]/;
 const TS_ADVANCED_REGEX = /\b(?:as\s+const|implements\s+[A-Z_$]|enum\s+[A-Z_$])/;
+const TS_ACCESS_MODIFIER_REGEX = /\b(?:private|protected|public|readonly)\s+[\w$]+\s*=/;
+const TS_TYPED_ARROW_PARAM_REGEX =
+	/\([^)]{0,500}\b[\w$]+\??:\s*[A-Za-z_$][\w$<>{}\[\]|&,\s.?]{0,200}[^)]{0,500}\)\s*(?::\s*[A-Za-z_$][\w$<>{}\[\]|&,\s.?]{0,200})?\s*=>/;
 
 // javascript regexes
 const JS_VAR_REGEX = /\b(?:const|let|var)\s+[\w$]+\s*=/;
@@ -116,16 +119,15 @@ const scorePatterns = (code: string, patterns: Array<[RegExp, number]>): number 
 const scoreEnhancedTypeScriptPatterns = (code: string): number =>
 	fg('platform_editor_code_block_dogfooding_patch')
 		? scorePatterns(code, [
-				[/\b(?:private|protected|public|readonly)\s+[\w$]+\s*=/, 5],
-				[
-					/\([^)]{0,500}\b[\w$]+\??:\s*[A-Za-z_$][\w$<>{}\[\]|&,\s.?]{0,200}[^)]{0,500}\)\s*(?::\s*[A-Za-z_$][\w$<>{}\[\]|&,\s.?]{0,200})?\s*=>/,
-					5,
-				],
+				[TS_ACCESS_MODIFIER_REGEX, 5],
+				[TS_TYPED_ARROW_PARAM_REGEX, 5],
 			])
 		: 0;
 
 const looksLikeHtmlTagPair = (code: string): boolean => {
 	const openTags = new Set<string>();
+	// Ignored via go/ees019
+	// eslint-disable-next-line e18e/prefer-static-regex
 	const tagPattern = /<\/?([a-z][a-z0-9-]*)\b[^<>]{0,500}>/gi;
 	let match: RegExpExecArray | null;
 

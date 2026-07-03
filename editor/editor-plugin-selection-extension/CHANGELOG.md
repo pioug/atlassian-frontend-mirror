@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 15.0.18
+
+### Patch Changes
+
+- [`6a73f3cc58350`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a73f3cc58350) -
+  Hide block template action for agent-managed blocks behind the agent-managed block template
+  experiment.
+- Updated dependencies
+
 ## 15.0.17
 
 ### Patch Changes

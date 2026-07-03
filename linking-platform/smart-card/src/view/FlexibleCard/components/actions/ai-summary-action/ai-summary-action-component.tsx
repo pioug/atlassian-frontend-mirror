@@ -28,7 +28,7 @@ export const AISummaryActionComponent = (
 	}, [onLoadingChange, status]);
 
 	return status === 'done' ? (
-		fg('platform_sl_3p_auth_rovo_action_kill_switch') ? (
+		fg('platform_sl_action_refactoring') ? (
 			<CopySummaryActionNew {...props} summary={content} testId={testId} />
 		) : (
 			<CopySummaryAction {...props} testId={testId} content={content} />

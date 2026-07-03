@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "21.3.0",
+	"version": "21.3.1",
 	"description": "A logo is a visual representation of a brand or app. It can be a word, an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -209,12 +209,6 @@
 		"./guard-detect/logo": "./src/exports/guard-detect-logo-new.tsx"
 	},
 	"platform-feature-flags": {
-		"platform-logo-rebrand": {
-			"type": "boolean"
-		},
-		"platform-logo-rebrand-rovo-hex": {
-			"type": "boolean"
-		},
 		"assets-platform-branding": {
 			"type": "boolean"
 		},

@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 15.3.1
+
+### Patch Changes
+
+- [`48454686cbc98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48454686cbc98) -
+  Updated the `elevation.surface.container` token value to use an alpha neutral so it blends with
+  the surface beneath it. It now maps to `Neutral100A` in the light theme and `DarkNeutral100A` in
+  the dark theme.
+
 ## 15.3.0
 
 ### Minor Changes

@@ -27,83 +27,18 @@ describe('extractRovoChatAction', () => {
 	const rovoConfig = { rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true } };
 	const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 
-	ffTest.on('platform_sl_3p_auth_rovo_action_kill_switch', 'returns Rovo Chat action', () => {
-		it('returns Rovo Chat action', () => {
-			const action = extractRovoChatAction({
-				actionOptions,
-				appearance: 'hoverCardPreview',
-				product: 'JSM',
-				id: 'uid',
-				response,
-				rovoConfig,
-			});
-
-			expect(action).toEqual({
-				invokeAction: {
-					actionSubjectId: 'rovoChatPrompt',
-					actionType: 'RovoChatAction',
-					definitionId: 'd1',
-					display: 'hoverCardPreview',
-					extensionKey: 'google-object-provider',
-					id: 'uid',
-					resourceType: 'r1',
-				},
-				product: 'JSM',
-				url: 'https://my.url.com',
-			});
+	it('returns undefined for Google provider when exp1 killswitch is off', () => {
+		const action = extractRovoChatAction({
+			actionOptions,
+			appearance: 'hoverCardPreview',
+			product: 'JSM',
+			id: 'uid',
+			response,
+			rovoConfig,
 		});
+
+		expect(action).toBeUndefined();
 	});
-
-	ffTest.off(
-		'platform_sl_3p_auth_rovo_action_kill_switch',
-		'returns undefined for Google provider when exp1 killswitch is off',
-		() => {
-			it('returns undefined for Google provider when exp1 killswitch is off', () => {
-				const action = extractRovoChatAction({
-					actionOptions,
-					appearance: 'hoverCardPreview',
-					product: 'JSM',
-					id: 'uid',
-					response,
-					rovoConfig,
-				});
-
-				expect(action).toBeUndefined();
-			});
-		},
-	);
-
-	// Isolation: platform_sl_3p_auth_rovo_action_kill_switch must not affect non-Google links
-	ffTest.on(
-		'platform_sl_3p_auth_rovo_action_kill_switch',
-		'platform_sl_3p_auth_rovo_action_kill_switch on - isolation: does not affect non-Google links',
-		() => {
-			it('does not show Rovo actions for non-Google links even when platform_sl_3p_auth_rovo_action_kill_switch is on', () => {
-				const nonGoogleResponse: JsonLd.Response = {
-					data: TEST_DOCUMENT,
-					meta: {
-						...TEST_RESOLVED_META_DATA,
-						definitionId: 'd1',
-						key: 'slack-object-provider',
-						resourceType: 'r1',
-						supportedFeature: ['RovoActions'],
-					},
-				};
-
-				const action = extractRovoChatAction({
-					actionOptions,
-					appearance: 'hoverCardPreview',
-					product: 'JSM',
-					id: 'uid',
-					response: nonGoogleResponse,
-					rovoConfig,
-				});
-
-				// Waanya's KS only applies to google-object-provider
-				expect(action).toBeUndefined();
-			});
-		},
-	);
 
 	// Block card experiment (NAVX-4814): uses ELIGIBLE_EXTENSION_KEYS allowlist instead of supportsRovoActions
 	it('does not return Rovo Chat action for eligible provider when product is ineligible', () => {

@@ -1,5 +1,19 @@
 # @atlaskit/eslint-plugin-platform
 
+## 3.1.2
+
+### Patch Changes
+
+- [`0af52c9020b98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0af52c9020b98) -
+  Add `expand-motion-shorthand` rule to `@atlaskit/eslint-plugin-design-system` so it is documented
+  on the design system website. Expands `transition` and `animation` CSS shorthand properties into
+  their individual sub-properties so values can be replaced with motion tokens.
+
+  Deprecate the `compiled/expand-motion-shorthand` rule in `@atlaskit/eslint-plugin-platform` in
+  favour of `@atlaskit/design-system/expand-motion-shorthand`.
+
+- Updated dependencies
+
 ## 3.1.1
 
 ### Patch Changes

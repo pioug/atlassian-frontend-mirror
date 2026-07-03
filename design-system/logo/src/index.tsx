@@ -1266,15 +1266,7 @@ export const TrelloLogo: ({
  *
  * The Rovo icon without an accompanying wordmark.
  *
- * By default, with no feature flags turned on, this will display a flat hex design.
- *
- * A colorful hex logo will render if:
- * 	- the feature flag `platform-logo-rebrand-rovo-hex` is set to true
- *  - the prop `shouldUseHexLogo` is set to true
- *
- * Finally, for backwards compatibility, if the prop `shouldUseNewLogoDesign` is set to true, or the following feature flags are set,
- * a tile will be rendered:
- * - `platform-logo-rebrand`
+ * This will display the colorful hex design.
  *
  * - [Examples](https://atlassian.design/components/logo/examples)
  * - [Code](https://atlassian.design/components/logo/code)

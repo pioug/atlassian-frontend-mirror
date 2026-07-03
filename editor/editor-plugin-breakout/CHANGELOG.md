@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.1.0
+
+### Minor Changes
+
+- [`92638385edd0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92638385edd0e) -
+  [EDITOR-7888] add graceful rendering for panels and rules with breakout marks behind FG
+  `platform_editor_lovability_resize_gracefully`.
+
+### Patch Changes
+
+- [`92638385edd0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92638385edd0e) -
+  [ux] [EDITOR-7888] add breakout resizing support for panel and rule nodes behind experiment
+  `platform_editor_lovability_resize_dividers_panels`.
+- Updated dependencies
+
 ## 12.0.18
 
 ### Patch Changes

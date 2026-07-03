@@ -18,6 +18,10 @@ import type { PastePlugin, ActiveFlag } from '../../pastePluginType';
 import { FLAG_TYPE } from '../../pastePluginType';
 import { pluginKey } from '../../pm-plugins/plugin-factory';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const RESOURCE_ID_REGEX = /data-resource-id="(confluence-page|jira-work-item)\//;
+
 enum FLAG_ID {
 	CANNOT_PASTE_CONTENT = 'cannot-paste-content',
 }
@@ -105,8 +109,7 @@ const getSourceProductFromRawHtml = (
 	// The capture group already constrains the match to exactly these two literals,
 	// so the assertion is safe. This mirrors `getContentIdAndProductFromResourceId`
 	// in `@atlaskit/editor-synced-block-provider`.
-	// eslint-disable-next-line require-unicode-regexp
-	const match = rawHtml.match(/data-resource-id="(confluence-page|jira-work-item)\//);
+	const match = rawHtml.match(RESOURCE_ID_REGEX);
 	return match?.[1] as 'confluence-page' | 'jira-work-item' | undefined;
 };
 

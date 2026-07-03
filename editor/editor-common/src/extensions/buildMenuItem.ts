@@ -26,8 +26,7 @@ export function buildMenuItem<T extends Parameters>(
 		description: extensionModule.description || manifest.description,
 		summary: manifest.summary,
 		documentationUrl: manifest.documentationUrl,
-		...((fg('cc_fd_wb_create_priority_in_slash_menu_enabled') ||
-			fg('rovo_chat_enable_skills_ui_m1')) && {
+		...(fg('cc_fd_wb_create_priority_in_slash_menu_enabled') && {
 			priority: extensionModule.priority,
 		}),
 		...(extensionModule.lozenge != null && { lozenge: extensionModule.lozenge }),

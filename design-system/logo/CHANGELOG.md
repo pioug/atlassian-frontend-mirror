@@ -1,5 +1,16 @@
 # @atlaskit/logo
 
+## 21.3.1
+
+### Patch Changes
+
+- [`f24eb9181feee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f24eb9181feee) -
+  Cleanup feature gates `platform-logo-rebrand` and `platform-logo-rebrand-rovo-hex`. The new visual
+  refresh logos and Rovo hex logo design are now permanently enabled.
+
+  Deprecated the `shouldUseNewLogoDesign` prop on `LogoProps` and the `shouldUseHexLogo` prop on
+  Rovo logo components — these props are now no-ops and will be removed in a future release.
+
 ## 21.3.0
 
 ### Minor Changes

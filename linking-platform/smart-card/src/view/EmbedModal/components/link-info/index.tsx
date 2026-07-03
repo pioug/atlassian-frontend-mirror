@@ -13,6 +13,7 @@ import VidFullScreenOnIcon from '@atlaskit/icon/core/fullscreen-enter';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { CloseButton, useModal } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -100,6 +101,7 @@ const LinkInfo = ({
 	size,
 	testId,
 	title,
+	focusRef,
 }: LinkInfoProps): JSX.Element => {
 	const { onClose } = useModal();
 	const { formatMessage } = useIntl();
@@ -112,9 +114,10 @@ const LinkInfo = ({
 				label={formatMessage(messages.download)}
 				onClick={onDownloadButtonClick}
 				testId={`${testId}-download`}
+				{...(fg('navx-4719-a11y-embed-modal-focus-states') ? { focusRef } : {})}
 			/>
 		),
-		[onDownloadButtonClick, testId, formatMessage],
+		[onDownloadButtonClick, testId, formatMessage, focusRef],
 	);
 
 	const urlButton = useMemo(() => {
@@ -137,10 +140,13 @@ const LinkInfo = ({
 					onClick={onViewButtonClick}
 					testId={`${testId}-url`}
 					role={'link'}
+					{...(fg('navx-4719-a11y-embed-modal-focus-states')
+						? { focusRef: !onDownloadButtonClick ? focusRef : undefined }
+						: {})}
 				/>
 			);
 		}
-	}, [onViewButtonClick, providerName, testId, formatMessage]);
+	}, [onViewButtonClick, providerName, testId, formatMessage, onDownloadButtonClick, focusRef]);
 
 	const sizeButton = useMemo(() => {
 		const isFullScreen = size === MAX_MODAL_SIZE;

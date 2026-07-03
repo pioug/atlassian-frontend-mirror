@@ -779,20 +779,20 @@ describe('EmojiRepository', () => {
 			expect(repository.getDynamicCategoryList()).toEqual(['ATLASSIAN', 'CUSTOM', 'FREQUENT']);
 		});
 
-		it('keeps atlassian subcategory values separate when teamoji experiment is disabled', () => {
-			const atlassianFaces: EmojiDescription = {
+		it('groups atlassian subcategory values under ATLASSIAN when teamoji experiment is disabled', () => {
+			const atlassianProductivity: EmojiDescription = {
 				...atlassianTest,
-				id: 'atlassian-faces',
-				category: 'FACES',
+				id: 'atlassian-productivity',
+				category: 'PRODUCTIVITY',
 			};
 			const frequentAtlassian: EmojiDescription = {
 				...atlassianTest,
 				id: 'frequent-atlassian',
 				category: frequentCategory,
 			};
-			const repository = new EmojiRepository([atlassianFaces, frequentAtlassian]);
+			const repository = new EmojiRepository([atlassianProductivity, frequentAtlassian]);
 
-			expect(repository.getDynamicCategoryList()).toEqual(['FACES', 'FREQUENT']);
+			expect(repository.getDynamicCategoryList()).toEqual(['ATLASSIAN', 'FREQUENT']);
 		});
 
 		it('groups atlassian subcategory values under ATLASSIAN but preserves FREQUENT when teamoji experiment is enabled', () => {
@@ -812,20 +812,23 @@ describe('EmojiRepository', () => {
 			expect(repository.getDynamicCategoryList()).toEqual(['ATLASSIAN', 'FREQUENT']);
 		});
 
-		it('does not find atlassian subcategory emojis by top-level ATLASSIAN category when teamoji experiment is disabled', () => {
-			const atlassianFaces: EmojiDescription = {
+		it('finds new-format atlassian emojis by top-level ATLASSIAN category when teamoji experiment is disabled', () => {
+			const atlassianProductivity: EmojiDescription = {
 				...atlassianTest,
-				id: 'atlassian-faces',
-				category: 'FACES',
+				id: 'atlassian-productivity',
+				category: 'PRODUCTIVITY',
 			};
-			const atlassianHands: EmojiDescription = {
+			const atlassianLogos: EmojiDescription = {
 				...atlassianTest,
-				id: 'atlassian-hands',
-				category: 'HANDS',
+				id: 'atlassian-logos',
+				category: 'LOGOS',
 			};
-			const repository = new EmojiRepository([atlassianFaces, atlassianHands, standardTest]);
+			const repository = new EmojiRepository([atlassianProductivity, atlassianLogos, standardTest]);
 
-			expect(repository.findInCategory('ATLASSIAN')).toEqual([]);
+			expect(repository.findInCategory('ATLASSIAN').map((emoji) => emoji.id)).toEqual([
+				atlassianProductivity.id,
+				atlassianLogos.id,
+			]);
 		});
 
 		it('finds atlassian subcategory emojis by top-level ATLASSIAN category when teamoji experiment is enabled', () => {

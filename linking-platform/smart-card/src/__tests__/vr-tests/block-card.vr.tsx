@@ -118,7 +118,7 @@ snapshot(BlockCardAtlas, {
 
 snapshot(BlockCardResolvedIconVariations, {
 	description:
-		'block card resolved icon variations (ResolvedClient iconTestUrls — flexible extractSmartLinkIcon path)',
+		'block card resolved icon variations (ResolvedClient iconTestUrls - flexible extractSmartLinkIcon path)',
 	featureFlags: {
 		platform_sl_3p_preauth_better_hovercard_killswitch: true,
 		platform_sl_3p_preauth_better_hovercard: true,

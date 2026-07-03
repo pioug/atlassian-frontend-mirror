@@ -3833,7 +3833,7 @@
         "introduced": "13.3.0",
         "description": "Use as a neutral container surface background."
       },
-      "value": "#303134"
+      "value": "#BDBDBD0A"
     },
     "Dark/elevation.surface.container.hovered": {
       "attributes": {

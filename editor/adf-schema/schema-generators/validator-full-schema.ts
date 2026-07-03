@@ -3,6 +3,8 @@ import { adfToValidatorSpec } from '@atlaskit/adf-schema-generator';
 import adfNode from '../src/next-schema/full-schema.adf';
 import { writeToFile } from './helpers/writeToFile';
 
+const VALID_JS_IDENTIFIER_REGEX = /^[a-zA-Z_$][\w$]*$/u;
+
 const outputPath = path.join('src', 'validator-schema', 'generated');
 
 const indent = (level: number) => '\n' + '  '.repeat(level);
@@ -55,7 +57,7 @@ function serializeValidatorJson(value: unknown, depth = 0): string {
 		}
 		const inner = entries
 			.map(([k, v]) => {
-				const keyName = /^[a-zA-Z_$][\w$]*$/u.test(k) ? k : JSON.stringify(k);
+				const keyName = VALID_JS_IDENTIFIER_REGEX.test(k) ? k : JSON.stringify(k);
 				return `${keyName}: ${serializeValidatorJson(v, depth + 1)}`;
 			})
 			.join(`,${indent(depth + 1)}`);
@@ -139,7 +141,7 @@ function serializeValidatorType(value: unknown, depth = 0, siblings: unknown[] =
 		const sortedKeys = [...allKeys].sort((a, b) => a.localeCompare(b));
 		const inner = sortedKeys
 			.map((k) => {
-				const keyName = /^[a-zA-Z_$][\w$]*$/u.test(k) ? k : JSON.stringify(k);
+				const keyName = VALID_JS_IDENTIFIER_REGEX.test(k) ? k : JSON.stringify(k);
 				if (k in selfRecord) {
 					const siblingsForK = siblingObjects.filter((s) => k in s).map((s) => s[k]);
 					return `${keyName}: ${serializeValidatorType(selfRecord[k], depth + 1, siblingsForK)}`;

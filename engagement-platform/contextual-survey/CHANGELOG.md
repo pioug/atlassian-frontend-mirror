@@ -1,5 +1,12 @@
 # @atlaskit/contextual-survey
 
+## 7.0.2
+
+### Patch Changes
+
+- [`61965f74ee8b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/61965f74ee8b8) -
+  Include asset files in the published package so they render correctly for consumers.
+
 ## 7.0.1
 
 ### Patch Changes

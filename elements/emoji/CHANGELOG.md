@@ -1,5 +1,20 @@
 # @atlaskit/emoji
 
+## 71.7.3
+
+### Patch Changes
+
+- [`f294eca9448a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f294eca9448a6) -
+  If emoji upload is disabled, retain previously selected emoji in preview
+
+## 71.7.2
+
+### Patch Changes
+
+- [`209d9185455f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/209d9185455f8) -
+  Ensure Atlassian emoji category lookups include new backend metadata format
+- Updated dependencies
+
 ## 71.7.1
 
 ### Patch Changes

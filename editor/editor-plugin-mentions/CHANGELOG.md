@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.5.12
+
+### Patch Changes
+
+- [`c2986ab2c7a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2986ab2c7a01) -
+  Cleans up prefer static regex violations and enables e18e rule
+- Updated dependencies
+
+## 14.5.11
+
+### Patch Changes
+
+- [`48dd7ce8c1cb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48dd7ce8c1cb2) -
+  EDITOR-7322 - fix mention pill getting overwritten with aaid
+- Updated dependencies
+
 ## 14.5.10
 
 ### Patch Changes

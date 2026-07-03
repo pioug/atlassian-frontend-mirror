@@ -19,7 +19,6 @@ import type { ResolvedHoverCardFooterBlockProps } from './types';
 
 /**
  * Allowed footer actions for HoverCard, in display order. Fetched from context.
- * @featureGate platform_sl_3p_auth_rovo_action_kill_switch
  */
 const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [ActionName.RovoChatAction];
 
@@ -106,6 +105,8 @@ const ResolvedHoverCardFooterBlock = ({
 		return arr.map((name) => {
 			const Action = name in Actions ? Actions[name as keyof typeof Actions] : undefined;
 
+			// Note: For the spinner to render properly, e.g. AI summary action,
+			// the spinner need to be updated. See FIX-ME comment on ActionButton
 			return Action ? (
 				<Action
 					key={name}

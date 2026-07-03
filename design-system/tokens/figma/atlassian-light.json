@@ -3833,7 +3833,7 @@
         "introduced": "13.3.0",
         "description": "Use as a neutral container surface background."
       },
-      "value": "#F0F1F2"
+      "value": "#17171708"
     },
     "Light/elevation.surface.container.hovered": {
       "attributes": {

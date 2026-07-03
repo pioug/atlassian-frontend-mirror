@@ -143,7 +143,7 @@ export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 		<ProfileCardTrigger<RovoAgentProfileCardInfo>
 			{...props}
 			ref={ref}
-			trigger="hover"
+			trigger={props.trigger ?? 'hover'}
 			renderProfileCard={renderProfileCard}
 			fetchProfile={fetchAgentProfile}
 			fireAnalytics={fireEvent}

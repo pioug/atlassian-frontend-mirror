@@ -240,8 +240,10 @@ export default class EmojiRepository {
 	findInCategory(categoryId: CategoryId): EmojiDescription[] {
 		if (categoryId === frequentCategory) {
 			return this.getFrequentlyUsed();
-		} else if (isRefreshEmojiPickerEnabled() && categoryId === 'ATLASSIAN') {
-			return this.all().emojis.filter((emoji) => emoji.type === 'ATLASSIAN');
+		} else if (categoryId === 'ATLASSIAN') {
+			return this.all().emojis.filter(
+				(emoji) => emoji.category === categoryId || emoji.type === 'ATLASSIAN',
+			);
 		} else {
 			return this.all().emojis.filter((emoji) => emoji.category === categoryId);
 		}
@@ -383,7 +385,7 @@ export default class EmojiRepository {
 		const categorySet = new Set<CategoryId>();
 
 		this.emojis.forEach((emoji) => {
-			categorySet.add(this.getDynamicCategoryForEmoji(emoji, isRefreshEmojiPickerEnabled()));
+			categorySet.add(this.getDynamicCategoryForEmoji(emoji));
 			this.addToMaps(emoji);
 		});
 
@@ -437,7 +439,7 @@ export default class EmojiRepository {
 	}
 
 	private addToDynamicCategories(emoji: EmojiDescription): void {
-		const category = this.getDynamicCategoryForEmoji(emoji, isRefreshEmojiPickerEnabled());
+		const category = this.getDynamicCategoryForEmoji(emoji);
 		if (
 			defaultCategories.indexOf(category) === -1 &&
 			this.dynamicCategoryList.indexOf(category) === -1
@@ -446,12 +448,9 @@ export default class EmojiRepository {
 		}
 	}
 
-	private getDynamicCategoryForEmoji(
-		emoji: EmojiDescription,
-		isTeamojiRefreshEnabled: boolean,
-	): CategoryId {
+	private getDynamicCategoryForEmoji(emoji: EmojiDescription): CategoryId {
 		const category = getCategoryId(emoji);
-		if (isTeamojiRefreshEnabled && emoji.type === 'ATLASSIAN' && category !== frequentCategory) {
+		if (emoji.type === 'ATLASSIAN' && category !== frequentCategory) {
 			return 'ATLASSIAN';
 		}
 		return category;

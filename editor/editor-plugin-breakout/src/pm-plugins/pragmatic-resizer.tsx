@@ -12,12 +12,18 @@ import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/elem
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import type { BaseEventPayload, ElementDragType } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import Tooltip from '@atlaskit/tooltip';
 
 const getNodeName = (nodeName?: string) => {
 	if (nodeName === 'layoutSection') {
 		return 'layout';
 	} else if (nodeName === 'codeBlock' || nodeName === 'expand') {
+		return nodeName;
+	} else if (
+		(nodeName === 'rule' || nodeName === 'panel') &&
+		expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
+	) {
 		return nodeName;
 	} else {
 		return 'node';
@@ -28,6 +34,8 @@ export const resizeHandleMessage: Record<string, MessageDescriptor> = {
 	expand: messages.resizeExpand,
 	codeBlock: messages.resizeCodeBlock,
 	layout: messages.resizeLayout,
+	rule: messages.resizeRule,
+	panel: messages.resizePanel,
 	node: messages.resizeElement,
 };
 

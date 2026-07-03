@@ -1,6 +1,7 @@
 import { getDefaultCodeBlockAttrs } from '@atlaskit/editor-common/code-block';
 import { breakoutResizableNodes } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { removeDisallowedMarks } from '../marks';
 import type { TransformStep } from '../types';
@@ -41,8 +42,18 @@ export const wrapStep: TransformStep = (nodes, context) => {
 			? getDefaultCodeBlockAttrs()
 			: {};
 
-	const sourceSupportsBreakout = breakoutResizableNodes.includes(fromNode.type.name);
-	const targetSupportsBreakout = breakoutResizableNodes.includes(targetNodeType.name);
+	// platform_editor_lovability_resize_dividers_panels supports breakout resizing on panels and rules,
+	// but rule is NOT a supported transform source/target
+	const breakoutResizableNodesList = expValEqualsNoExposure(
+		'platform_editor_lovability_resize_dividers_panels',
+		'isEnabled',
+		true,
+	)
+		? [...breakoutResizableNodes, 'panel']
+		: breakoutResizableNodes;
+
+	const sourceSupportsBreakout = breakoutResizableNodesList.includes(fromNode.type.name);
+	const targetSupportsBreakout = breakoutResizableNodesList.includes(targetNodeType.name);
 	const shouldPreserveBreakout = sourceSupportsBreakout && targetSupportsBreakout;
 
 	let marks;

@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::8e16837e609d762cf346e601229251ed>>
+ * @codegen <<SignedSource::3bbdbca95f5fa75615cd94d08fdd15d4>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -503,7 +503,7 @@ const defaultTokenValues = {
 	'elevation.surface': '#FFFFFF',
 	'elevation.surface.hovered': '#F0F1F2',
 	'elevation.surface.pressed': '#DDDEE1',
-	'elevation.surface.container': '#F0F1F2',
+	'elevation.surface.container': '#17171708',
 	'elevation.surface.container.hovered': '#0515240F',
 	'elevation.surface.container.pressed': '#0B120E24',
 	'elevation.surface.overlay': '#FFFFFF',

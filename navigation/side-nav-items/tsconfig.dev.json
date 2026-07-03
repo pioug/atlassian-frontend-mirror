@@ -4,6 +4,7 @@
 		"./*.docs.tsx",
 		"./package.json",
 		"**/docs/**/*",
+		"./expandable-menu.docs.tsx",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
 		"**/__perf__/**/*",

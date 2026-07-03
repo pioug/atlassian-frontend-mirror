@@ -168,6 +168,60 @@ export const tableContentModeStyles: SerializedStyles = css({
 		width: 'unset !important',
 	},
 });
+
+/**
+ * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
+ * If you need to make changes here, also update the corresponding style in
+ * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
+ * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
+export const tableContentModeNestedTableStyles: SerializedStyles = css({
+	// Reset the base `margin-right: -1px` (ED-16212) that clips content-mode tables by 1px.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"]': {
+		maxWidth: 'none',
+		marginRight: 0,
+	},
+
+	// Let the resizer/wrapper chain grow to content width before the max-width cap.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.resizer-item:has(table[data-initial-width-mode="content"]), .pm-table-container:has(> .pm-table-wrapper > table[data-initial-width-mode="content"]), .pm-table-wrapper:has(> table[data-initial-width-mode="content"])':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			maxWidth: 'var(--ak-editor-table-max-width) !important',
+		},
+
+	// Nested content-mode table: size to content, reset base max-width and margin.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper > table':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+			maxWidth: 'none',
+			marginRight: 0,
+		},
+
+	// Stop nested table col widths from constraining parent table measurement.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper > table > colgroup > col':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'unset !important',
+		},
+
+	// Let the nested table container/wrapper grow to content width before the cap.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container, .ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+			maxWidth: 'none',
+			overflowX: 'visible',
+		},
+});
 /**
  * SSR-safe rounded corners for the outermost table cells.
  *

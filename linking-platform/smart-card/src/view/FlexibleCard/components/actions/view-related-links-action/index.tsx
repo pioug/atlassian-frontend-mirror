@@ -43,14 +43,12 @@ const ViewRelatedLinksAction = ({
 	return actionData ? (
 		<Action
 			content={<FormattedMessage {...messages.related_links_view_related_links} />}
-			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
+			{...(fg('platform_sl_action_refactoring')
 				? { tooltipMessage: <FormattedMessage {...messages.related_links_view_related_links} /> }
 				: {})}
 			icon={
 				<RelatedLinksActionIcon
-					{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
-						? { iconSize: props.iconSize }
-						: {})}
+					{...(fg('platform_sl_action_refactoring') ? { iconSize: props.iconSize } : {})}
 				/>
 			}
 			onClick={onClick}

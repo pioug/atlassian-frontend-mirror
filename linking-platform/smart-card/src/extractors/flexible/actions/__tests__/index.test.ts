@@ -1,6 +1,3 @@
-import type { JsonLd } from '@atlaskit/json-ld-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { CardAction } from '../../../../constants';
 import { ActionName } from '../../../../index';
 import {
@@ -350,29 +347,5 @@ describe('extractFlexibleCardActions', () => {
 				hasPreviewPanel: expect.any(Boolean),
 			},
 		});
-	});
-
-	describe('with RovoChatAction', () => {
-		const response: JsonLd.Response = {
-			data: TEST_DOCUMENT,
-			meta: {
-				...TEST_RESOLVED_META_DATA,
-				key: 'google-object-provider',
-			},
-		};
-		const rovoConfig = { rovoOptions: { isRovoEnabled: true, isRovoLLMEnabled: true } };
-		const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
-
-		ffTest(
-			'platform_sl_3p_auth_rovo_action_kill_switch',
-			() => {
-				const actions = extractFlexibleCardActions({ actionOptions, response, rovoConfig });
-				expect(actions?.RovoChatAction).toBeTruthy();
-			},
-			() => {
-				const actions = extractFlexibleCardActions({ actionOptions, response, rovoConfig });
-				expect(actions?.RovoChatAction).toBeUndefined();
-			},
-		);
 	});
 });

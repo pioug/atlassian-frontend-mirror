@@ -8,7 +8,6 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import type { TriggerProps } from '@atlaskit/tooltip';
 
@@ -69,16 +68,17 @@ const ActionButton = ({
 		}
 	}, [isDisabled, isLoading, onClickCallback]);
 
-	const is3pExperimentEnabled =
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('platform_sl_3p_auth_rovo_action_kill_switch') &&
-		expValEqualsNoExposure('platform_sl_3p_auth_rovo_action', 'isEnabled', true);
+	// FIX-ME: This is required for ResolvedHoverCardFooterBlock action to show proper size
+	// ResolvedHoverCardFooterBlock is currently not used but keeping inside the code base for
+	// upcoming experiment to refresh HoverCard design
+	// If ResolvedHoverCardFooterBlock is cleaned up, this code can be removed.
+	const showSpinnerSize24 = false;
 
 	const icon =
 		iconOption && isLoading ? (
 			<ActionIcon
 				icon={
-					is3pExperimentEnabled ? (
+					showSpinnerSize24 ? (
 						<Box xcss={styles.spinner}>
 							<Spinner size={16} testId={`${testId}-loading`} />
 						</Box>
@@ -99,7 +99,7 @@ const ActionButton = ({
 			testId={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style}
-			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch') ? { 'aria-label': ariaLabel } : {})}
+			{...(fg('platform_sl_action_refactoring') ? { 'aria-label': ariaLabel } : {})}
 		>
 			<Inline alignBlock="center" grow="fill" space={space}>
 				{icon}

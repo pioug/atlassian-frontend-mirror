@@ -1,45 +1,55 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-	maxWidthLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	fullWidthLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	wideWidthLabel: {
-		id: string;
+	maxWidthLabel: {
 		defaultMessage: string;
 		description: string;
-	};
-	resizeHandle: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	resizeExpand: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	resizeCodeBlock: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	resizeLayout: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	resizeElement: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	resizeExpand: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	resizeHandle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	resizeLayout: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	resizePanel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	resizeRule: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	wideWidthLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	maxWidthLabel: {
@@ -83,5 +93,15 @@ export const messages: {
 		id: 'fabric.editor.breakout.resizeElement',
 		defaultMessage: 'Resize element',
 		description: 'Tooltip displayed on custom element (node) width resize handle',
+	},
+	resizeRule: {
+		id: 'fabric.editor.breakout.resizeRule',
+		defaultMessage: 'Resize divider',
+		description: 'Tooltip displayed on custom divider width resize handle',
+	},
+	resizePanel: {
+		id: 'fabric.editor.breakout.resizePanel',
+		defaultMessage: 'Resize panel',
+		description: 'Tooltip displayed on custom panel width resize handle',
 	},
 });

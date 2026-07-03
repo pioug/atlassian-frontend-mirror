@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c3824b0f9105767c31359c60d802ce89>>
+ * @codegen <<SignedSource::42495b1d7f7f513759ca1fe63c2aa3ca>>
  * @codegenCommand yarn build tokens
  */
 
@@ -12389,7 +12389,7 @@ const tokens: Token[] = [
       "introduced": "13.3.0",
       "description": "Use as a neutral container surface background."
     },
-    "value": "#F0F1F2",
+    "value": "#17171708",
     "filePath": "schema/themes/atlassian-light/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -12399,7 +12399,7 @@ const tokens: Token[] = [
         "introduced": "13.3.0",
         "description": "Use as a neutral container surface background."
       },
-      "value": "Neutral200"
+      "value": "Neutral100A"
     },
     "name": "elevation.surface.container.[default]",
     "path": [

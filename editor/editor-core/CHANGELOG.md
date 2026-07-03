@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 221.5.13
+
+### Patch Changes
+
+- [`df00c17a7cb79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df00c17a7cb79) -
+  Improve nested table sizing inside fit-to-content tables and snapshot the rendered table layout
+  during auto-conversion so the persisted parent table width matches the page-load view.
+- Updated dependencies
+
+## 221.5.12
+
+### Patch Changes
+
+- [`92638385edd0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92638385edd0e) -
+  [ux] [EDITOR-7888] add breakout resizing support for panel and rule nodes behind experiment
+  `platform_editor_lovability_resize_dividers_panels`.
+- Updated dependencies
+
+## 221.5.11
+
+### Patch Changes
+
+- [`de423ca734ec8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de423ca734ec8) -
+  Clean up fully-launched `rovo_chat_enable_skills_ui_m1` feature gate
+- Updated dependencies
+
 ## 221.5.10
 
 ### Patch Changes

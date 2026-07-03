@@ -1,6 +1,7 @@
 /* eslint-disable @repo/internal/react/no-class-components */
 import React, { PureComponent } from 'react';
 
+import type { MentionUserType } from '@atlaskit/adf-schema';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ProviderFactory, WithProviders } from '../../provider-factory';
@@ -21,6 +22,7 @@ export interface MentionProps {
 	localId?: string;
 	providers?: ProviderFactory;
 	text: string;
+	userType?: MentionUserType;
 }
 
 export interface MentionState {
@@ -44,7 +46,7 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 	}
 
 	private renderWithProvider = (providers: Providers) => {
-		const { accessLevel, eventHandlers, id, text, localId } = this.props;
+		const { accessLevel, eventHandlers, id, text, localId, userType } = this.props;
 		const { mentionProvider, profilecardProvider } = providers;
 
 		return (
@@ -53,6 +55,7 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 				text={text}
 				accessLevel={accessLevel}
 				localId={localId}
+				userType={userType}
 				eventHandlers={eventHandlers}
 				mentionProvider={mentionProvider}
 				profilecardProvider={profilecardProvider}

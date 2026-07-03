@@ -91,9 +91,7 @@ const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
 	return (
 		<ServerAction
 			content={<FormattedMessage {...label} />}
-			{...(fg('platform_sl_3p_auth_rovo_action_kill_switch')
-				? { ariaLabel: intl.formatMessage(label) }
-				: {})}
+			{...(fg('platform_sl_action_refactoring') ? { ariaLabel: intl.formatMessage(label) } : {})}
 			icon={followIcon}
 			testId="smart-action-follow-action"
 			tooltipMessage={<FormattedMessage {...tooltipMessage} />}

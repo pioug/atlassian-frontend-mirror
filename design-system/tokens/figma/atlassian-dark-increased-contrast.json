@@ -3827,7 +3827,7 @@
       }
     },
     "Dark increased-contrast/elevation.surface.container": {
-      "value": "#303134",
+      "value": "#BDBDBD0A",
       "attributes": {
         "group": "paint",
         "state": "active",

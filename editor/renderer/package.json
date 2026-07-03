@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "133.7.10",
+	"version": "133.8.2",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -265,6 +265,9 @@
 			"referenceOnly": true
 		},
 		"platform_nested_table_style_override": {
+			"type": "boolean"
+		},
+		"platform_editor_table_nested_renderer_fix": {
 			"type": "boolean"
 		},
 		"cc-maui-add-mark-for-remix-generated-images": {

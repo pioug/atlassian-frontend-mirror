@@ -14,6 +14,10 @@ import { getEntryPointDataForPlugin } from './entrypoint-data';
 import { generateAllPluginTests } from './generate-tests';
 import { formatCode, sortObjectKeys } from './util';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const TESTS_FOLDER_REGEX = /editor-plugin-.*-tests$/;
+
 // Interfaces for dependency tracking
 interface Dependencies {
 	[key: string]: string;
@@ -70,9 +74,7 @@ function getPluginFolderNames(): string[] {
 		(folder) =>
 			folder.startsWith('editor-plugin-') &&
 			!foldersToIgnore.includes(folder) &&
-			// Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			!/editor-plugin-.*-tests$/.test(folder),
+			!TESTS_FOLDER_REGEX.test(folder),
 	);
 }
 

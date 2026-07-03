@@ -1,0 +1,37 @@
+## Examples
+
+This rule expands `transition` and `animation` CSS shorthand properties into their individual
+sub-properties. Expanding shorthands enables the
+[`use-tokens-motion`](/components/eslint-plugin-design-system/use-tokens-motion/usage) rule to
+target `transitionDuration`, `transitionTimingFunction`, `animationDuration`, and
+`animationTimingFunction` individually. This rule auto-fixes the expansion.
+
+### Incorrect
+
+```jsx
+const styles = css({
+  transition: 'opacity 200ms cubic-bezier(0.4, 0, 0, 1) 0ms',
+  ^^^^^^^^^^^
+  animation: 'fade 150ms ease-in 0ms 1 normal none running',
+  ^^^^^^^^^^
+});
+```
+
+### Correct
+
+```jsx
+const styles = css({
+	transitionProperty: 'opacity',
+	transitionDuration: '200ms',
+	transitionTimingFunction: 'cubic-bezier(0.4, 0, 0, 1)',
+	transitionDelay: '0ms',
+	animationName: 'fade',
+	animationDuration: '150ms',
+	animationTimingFunction: 'ease-in',
+	animationDelay: '0ms',
+	animationIterationCount: '1',
+	animationDirection: 'normal',
+	animationFillMode: 'none',
+	animationPlayState: 'running',
+});
+```

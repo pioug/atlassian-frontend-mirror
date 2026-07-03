@@ -42,7 +42,7 @@ const elevation: ValueSchema<SurfaceTokenSchema<BaseToken>> = {
 			},
 			container: {
 				'[default]': {
-					value: 'DarkNeutral300',
+					value: 'DarkNeutral100A',
 				},
 				hovered: {
 					value: 'DarkNeutral200A',

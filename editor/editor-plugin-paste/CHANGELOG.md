@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 13.3.8
+
+### Patch Changes
+
+- [`c2986ab2c7a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2986ab2c7a01) -
+  Cleans up prefer static regex violations and enables e18e rule
+- Updated dependencies
+
 ## 13.3.7
 
 ### Patch Changes

@@ -220,16 +220,16 @@ export interface AutocompletePluginOptions {
 	 */
 	getVectorsBinaryUrl?: () => Promise<string>;
 	/**
+	 * User locale used to determine whether autocomplete should run.
+	 * Defaults to browser locale when omitted.
+	 */
+	locale?: string;
+	/**
 	 * Subscription for hosts with live external context (e.g. Rovo chat). The plugin
 	 * re-fetches via getContext() on each notification and unsubscribes on destroy.
 	 * Only meaningful alongside `getContext`; without it each notification is a no-op.
 	 */
 	subscribeToContextUpdates?: (onContextUpdated: () => void) => () => void;
-	/**
-	 * User locale used to determine whether autocomplete should run.
-	 * Defaults to browser locale when omitted.
-	 */
-	locale?: string;
 	/**
 	 * When true, uses on-device inference via WebGPU (MLC WebLLM) instead of
 	 * the network-based slow-lane backend. Defaults to false (network client).
@@ -262,6 +262,8 @@ const buildSlowLaneText = (docText: string, context?: AutocompleteContext): stri
 const createMidWordCharacterRegex = (): RegExp | null => {
 	try {
 		// string-built regex avoids TS1501 under the package's ES5 build target
+		// Ignored via go/ees019
+		// eslint-disable-next-line e18e/prefer-static-regex
 		return new RegExp('[\\p{L}\\p{N}_]', 'u');
 	} catch {
 		return null;

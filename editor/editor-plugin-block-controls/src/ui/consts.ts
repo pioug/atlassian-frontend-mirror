@@ -2,6 +2,7 @@ import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import { breakoutResizableNodes as breakoutResizableNodesNew } from '@atlaskit/editor-common/utils';
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -61,8 +62,12 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string): number
 	}
 
 	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
-		? breakoutResizableNodesNew
-		: breakoutResizableNodes;
+		? expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
+			? [...breakoutResizableNodesNew, 'rule', 'panel']
+			: breakoutResizableNodesNew
+		: expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
+			? [...breakoutResizableNodes, 'rule', 'panel']
+			: breakoutResizableNodes;
 
 	if (
 		editorExperiment('platform_editor_breakout_resizing', true) &&
@@ -85,11 +90,15 @@ export const dragHandleGap = (nodeType: string, parentNodeType?: string): number
 	return DRAG_HANDLE_DEFAULT_GAP;
 };
 
-// use for returning hap only for root level elements
+// use for returning gap only for root level elements
 export const rootElementGap = (nodeType: string): number => {
 	const breakoutResizableNodesList = editorExperiment('platform_synced_block', true)
-		? breakoutResizableNodesNew
-		: breakoutResizableNodes;
+		? expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
+			? [...breakoutResizableNodesNew, 'rule', 'panel']
+			: breakoutResizableNodesNew
+		: expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
+			? [...breakoutResizableNodes, 'rule', 'panel']
+			: breakoutResizableNodes;
 
 	if (
 		nodeTypeExcludeList.includes(nodeType) ||

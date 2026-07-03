@@ -1,7 +1,16 @@
 import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 
-export const getBreakoutResizableNodeTypes = (schema: Schema): Set<NodeType> => {
-	const { expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock } = schema.nodes;
+export const getBreakoutResizableNodeTypes = (
+	schema: Schema,
+	isRuleAndPanelResizingEnabled: boolean = false,
+): Set<NodeType> => {
+	const { expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock, rule, panel } =
+		schema.nodes;
 
-	return new Set([expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock]);
+	const breakoutResizableNodeTypes = [expand, codeBlock, layoutSection, syncBlock, bodiedSyncBlock];
+	if (isRuleAndPanelResizingEnabled) {
+		breakoutResizableNodeTypes.push(rule, panel);
+	}
+
+	return new Set(breakoutResizableNodeTypes);
 };

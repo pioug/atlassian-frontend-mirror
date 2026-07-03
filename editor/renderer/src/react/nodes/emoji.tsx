@@ -24,9 +24,12 @@ import type { EmojiAttributes } from '@atlaskit/adf-schema';
  * can apply the same custom-emoji fallback heuristic without depending on a
  * plugin package.
  */
+
 function isSingleEmoji(fallbackText: string): boolean {
 	const emojiRegex =
+		// Ignored via go/ees019
 		// @ts-ignore - TS1501 TypeScript 5.9.2 upgrade
+		// eslint-disable-next-line e18e/prefer-static-regex
 		/^(\p{Emoji_Presentation}(?:[\u{1F3FB}-\u{1F3FF}])?|\p{Extended_Pictographic}\u{FE0F}(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)*|\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?(?:\u{200D}\p{Extended_Pictographic}\u{FE0F}?(?:[\u{1F3FB}-\u{1F3FF}])?)+|\p{Regional_Indicator}\p{Regional_Indicator})$/u;
 	return emojiRegex.test(fallbackText);
 }

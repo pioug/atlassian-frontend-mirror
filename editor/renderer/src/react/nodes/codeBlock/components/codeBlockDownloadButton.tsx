@@ -18,6 +18,13 @@ import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const FILENAME_COMMENT_REGEX = /^(?:#|\/\/|<!--)\s*([\w.\-]+)\s*(?:-->)?$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+const FILE_EXTENSION_STRIP_REGEX = /\.[^.]+$/;
+
 type Props = {
 	content: string;
 	language: string | null;
@@ -72,16 +79,14 @@ const getFileExtension = (language: string | null): string => {
 };
 
 const suggestBaseName = (content: string): string => {
-	// eslint-disable-next-line require-unicode-regexp
-	const filenameCommentPattern = /^(?:#|\/\/|<!--)\s*([\w.\-]+)\s*(?:-->)?$/;
 	const firstMeaningfulLine = content.split('\n').find((l) => l.trim()) ?? '';
-	const filenameMatch = firstMeaningfulLine.trim().match(filenameCommentPattern);
+	const filenameMatch = firstMeaningfulLine.trim().match(FILENAME_COMMENT_REGEX);
 	if (filenameMatch) {
-		// eslint-disable-next-line require-unicode-regexp
-		return filenameMatch[1].replace(/\.[^.]+$/, '') || 'rovo-snippet';
+		return filenameMatch[1].replace(FILE_EXTENSION_STRIP_REGEX, '') || 'rovo-snippet';
 	}
 	const cleaned = firstMeaningfulLine
-		// eslint-disable-next-line require-unicode-regexp
+		// Ignored via go/ees005, go/ees019
+		// eslint-disable-next-line require-unicode-regexp, e18e/prefer-static-regex
 		.replace(/[^a-zA-Z0-9\s]/g, ' ')
 		.trim()
 		// eslint-disable-next-line require-unicode-regexp

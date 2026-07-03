@@ -387,13 +387,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		it('should include priority property when feature gate is enabled and priority is set', async () => {
 			const mockFg = fg as jest.MockedFunction<typeof fg>;
 			mockFg.mockImplementation((gateName) => {
-				if (
-					gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled' ||
-					gateName === 'rovo_chat_enable_skills_ui_m1'
-				) {
-					return true;
-				}
-				return false;
+				return gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled';
 			});
 
 			// Create extensions with priority values
@@ -440,13 +434,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 
 		it('should not include priority property when feature gate is disabled', async () => {
 			const mockFg = fg as jest.MockedFunction<typeof fg>;
-			mockFg.mockImplementation((gateName) => {
-				if (
-					gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled' ||
-					gateName === 'rovo_chat_enable_skills_ui_m1'
-				) {
-					return false;
-				}
+			mockFg.mockImplementation(() => {
 				return false;
 			});
 
@@ -481,10 +469,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		it('should not include priority property when feature gate is enabled but priority is not set', async () => {
 			const mockFg = fg as jest.MockedFunction<typeof fg>;
 			mockFg.mockImplementation((gateName) => {
-				return (
-					gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled' ||
-					gateName === 'rovo_chat_enable_skills_ui_m1'
-				);
+				return gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled';
 			});
 
 			const quickInsertProvider = await extensionProviderToQuickInsertProvider(

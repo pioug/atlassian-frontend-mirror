@@ -6,6 +6,9 @@ import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { createExternalMediaNode } from '../ui/hooks/utils';
 
+// eslint-disable-next-line require-unicode-regexp
+const MARKDOWN_IMAGE_REGEX = /!\[(.*)\]\((\S+)\)$/;
+
 export function inputRulePlugin(
 	schema: Schema,
 	featureFlags: FeatureFlags,
@@ -16,7 +19,7 @@ export function inputRulePlugin(
 
 	// ![something](link) should convert to an image
 	// eslint-disable-next-line require-unicode-regexp
-	const imageRule = createRule(/!\[(.*)\]\((\S+)\)$/, (state, match, start, end) => {
+	const imageRule = createRule(MARKDOWN_IMAGE_REGEX, (state, match, start, end) => {
 		const { schema } = state;
 		const attrs = {
 			src: match[2],

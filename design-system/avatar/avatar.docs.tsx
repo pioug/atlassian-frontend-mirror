@@ -42,6 +42,11 @@ const documentation: StructuredContentSource = {
 					source: path.resolve(__dirname, './examples/ai/avatar.tsx'),
 				},
 			],
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=11159-23191',
+				figmaNodeId: '11159:23191',
+			},
 			keywords: ['avatar', 'user', 'profile', 'image', 'presence', 'status', 'representation'],
 			categories: ['images', 'data-display'],
 		},

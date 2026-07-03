@@ -219,6 +219,7 @@ export const createPlugin = (
 			const domAtPos = editorView.domAtPos.bind(editorView);
 			editorViewRef = editorView;
 			let contentModeSizeTableId: number | null = null;
+			let hasMeasuredContentModeTables = false;
 			let focusListenerBinding: UnbindFn | null = null;
 
 			if (
@@ -234,9 +235,19 @@ export const createPlugin = (
 				focusListenerBinding = bind(editorView.dom, {
 					type: 'focus',
 					listener: () => {
+						if (fg('platform_editor_table_nested_renderer_fix')) {
+							if (hasMeasuredContentModeTables || contentModeSizeTableId) {
+								return;
+							}
+
+							hasMeasuredContentModeTables = true;
+							applyMeasuredWidthToAllTables(editorView, pluginInjectionApi);
+							return;
+						}
 						if (contentModeSizeTableId) {
 							return;
 						}
+
 						contentModeSizeTableId = requestAnimationFrame(() => {
 							if (!editorViewRef) {
 								return;

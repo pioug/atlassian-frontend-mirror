@@ -178,6 +178,7 @@ export const createResizingPlugin = (
 	getIntl: () => IntlShape,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	options?: BreakoutPluginOptions,
+	isRuleAndPanelResizingEnabled: boolean = false,
 ): SafePlugin<
 	| BreakoutPluginState
 	| {
@@ -208,10 +209,12 @@ export const createResizingPlugin = (
 			let newTr = newState.tr;
 			let hasDocChanged = false;
 
-			const { expand, codeBlock, layoutSection } = newState.schema.nodes;
+			const { expand, codeBlock, layoutSection, rule, panel } = newState.schema.nodes;
 			const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
-				? getBreakoutResizableNodeTypes(newState.schema)
-				: new Set([expand, codeBlock, layoutSection]);
+				? getBreakoutResizableNodeTypes(newState.schema, isRuleAndPanelResizingEnabled)
+				: isRuleAndPanelResizingEnabled
+					? new Set([expand, codeBlock, layoutSection, rule, panel])
+					: new Set([expand, codeBlock, layoutSection]);
 
 			const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
 

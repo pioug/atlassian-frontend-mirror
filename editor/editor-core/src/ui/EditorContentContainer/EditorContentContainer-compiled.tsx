@@ -4995,6 +4995,27 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
+	pragmaticResizerStylesPanelAndRule: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					alignSelf: 'center',
+					height: '40px',
+				},
+			},
+		},
+	},
 	pragmaticStylesLayoutFirstNodeResizeHandleFix: {
 		'.fabric-editor-breakout-mark': {
 			'&:has([data-prosemirror-node-name="layoutSection"].first-node-in-document)': {
@@ -6555,6 +6576,52 @@ const editorContentStyles = cssMap({
 			width: 'unset !important',
 		},
 	},
+	tableContentModeNestedTableStyles: {
+		// Reset the base `margin-right: -1px` (ED-16212) that clips content-mode tables by 1px.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'.ProseMirror .pm-table-wrapper table[data-initial-width-mode="content"]': {
+			maxWidth: 'none',
+			marginRight: 0,
+		},
+
+		// Let the resizer/wrapper chain grow to content width before the max-width cap.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.resizer-item:has(table[data-initial-width-mode="content"]), .pm-table-container:has(> .pm-table-wrapper > table[data-initial-width-mode="content"]), .pm-table-wrapper:has(> table[data-initial-width-mode="content"])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				width: 'max-content !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				maxWidth: 'var(--ak-editor-table-max-width) !important',
+			},
+
+		// Nested content-mode table: size to content, reset base max-width and margin.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper > table':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				width: 'max-content !important',
+				maxWidth: 'none',
+				marginRight: 0,
+			},
+
+		// Stop nested table col widths from constraining parent table measurement.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper > table > colgroup > col':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				width: 'unset !important',
+			},
+
+		// Let the nested table container/wrapper grow to content width before the cap.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container, .ProseMirror table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .pm-table-container > .pm-table-wrapper':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				width: 'max-content !important',
+				maxWidth: 'none',
+				overflowX: 'visible',
+			},
+	},
 	tableEmptyRowStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'.ProseMirror .pm-table-wrapper': {
@@ -8020,6 +8087,13 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
 					editorContentStyles.pragmaticResizerStyles,
 				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
+					expValEqualsNoExposure(
+						'platform_editor_lovability_resize_dividers_panels',
+						'isEnabled',
+						true,
+					) &&
+					editorContentStyles.pragmaticResizerStylesPanelAndRule,
+				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
 					editorExperiment('platform_synced_block', true) &&
 					editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch,
 				expValEqualsNoExposure('platform_editor_breakout_resizing', 'isEnabled', true) &&
@@ -8097,6 +8171,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.tableRoundedCornerStyles,
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					editorContentStyles.tableContentModeStyles,
+				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
+					fg('platform_editor_table_nested_renderer_fix') &&
+					editorContentStyles.tableContentModeNestedTableStyles,
 				editorContentStyles.hyperLinkFloatingToolbarStyles,
 				editorContentStyles.selectionToolbarAnimationStyles,
 				editorExperiment('platform_editor_block_menu', true) && [

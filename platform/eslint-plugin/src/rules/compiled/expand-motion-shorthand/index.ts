@@ -293,8 +293,12 @@ export const expandTransitionShorthand: Rule.RuleModule = {
 	meta: {
 		type: 'suggestion',
 		fixable: 'code',
+		deprecated: true,
+		replacedBy: ['@atlaskit/design-system/expand-motion-shorthand'],
 		docs: {
 			url: 'https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/platform/eslint-plugin/src/rules/compiled/expand-transition-shorthand/',
+			description:
+				'@deprecated Use `@atlaskit/design-system/expand-motion-shorthand` instead. This rule has moved to the design-system plugin.',
 		},
 		messages: {
 			expandTransitionShorthand:

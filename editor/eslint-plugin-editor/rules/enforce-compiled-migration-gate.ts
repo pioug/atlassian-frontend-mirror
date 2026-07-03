@@ -1,6 +1,8 @@
 import { ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 
 const EXPERIMENT_NAME = 'platform_editor_static_css';
+const JSX_PRAGMA_REGEX = /\*\s*@jsx\s+jsx\b/u;
+const EMOTION_IMPORT_SOURCE_REGEX = /@jsxImportSource\s+@emotion\/react/u;
 
 /**
  * Recursively checks whether a css prop expression is gated by the migration experiment.
@@ -90,8 +92,7 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<
 
 		const wrappedComponents = new Set<string>();
 		const hasEmotionPragma =
-			/\*\s*@jsx\s+jsx\b/u.test(sourceText) ||
-			/@jsxImportSource\s+@emotion\/react/u.test(sourceText);
+			JSX_PRAGMA_REGEX.test(sourceText) || EMOTION_IMPORT_SOURCE_REGEX.test(sourceText);
 
 		return {
 			// Phase 1: track identifiers assigned from withCompiledMigration(...)

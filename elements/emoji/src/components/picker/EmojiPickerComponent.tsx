@@ -349,11 +349,12 @@ const EmojiPickerComponent = ({
 		[selectedEmoji],
 	);
 
+	const uploadEnabled = isUploadSupported && !uploading;
 	const onEmojiLeave = useCallback(() => {
-		if (isRefreshEmojiPickerEnabled()) {
+		if (isRefreshEmojiPickerEnabled() && uploadEnabled) {
 			setSelectedEmoji(undefined);
 		}
-	}, []);
+	}, [uploadEnabled]);
 
 	const onCategoryActivated = useCallback(
 		(category: CategoryId | null) => {
@@ -910,7 +911,6 @@ const EmojiPickerComponent = ({
 		};
 	}, [emojiProvider, onProviderChange]);
 
-	const uploadEnabled = isUploadSupported && !uploading;
 	const showPreview = isRefreshEmojiPickerEnabled() ? !uploading : selectedEmoji && !uploading;
 	const shouldRenderFooter =
 		showPreview &&

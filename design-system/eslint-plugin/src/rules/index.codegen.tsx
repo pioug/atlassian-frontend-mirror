@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d527850500d4518cc654415fd5f4fbc0>>
+ * @codegen <<SignedSource::56038bd879a1d1c73de3addd961ade97>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -12,6 +12,7 @@ import ensureDesignTokenUsage from './ensure-design-token-usage';
 import ensureDesignTokenUsagePreview from './ensure-design-token-usage-preview';
 import ensureIconColor from './ensure-icon-color';
 import ensureProperXcssUsage from './ensure-proper-xcss-usage';
+import expandMotionShorthand from './expand-motion-shorthand';
 import iconLabel from './icon-label';
 import lozengeBadgeTagLabellingSystemMigration from './lozenge-badge-tag-labelling-system-migration';
 import noBannedImports from './no-banned-imports';
@@ -92,6 +93,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'ensure-design-token-usage/preview': ensureDesignTokenUsagePreview,
 	'ensure-icon-color': ensureIconColor,
 	'ensure-proper-xcss-usage': ensureProperXcssUsage,
+	'expand-motion-shorthand': expandMotionShorthand,
 	'icon-label': iconLabel,
 	'lozenge-badge-tag-labelling-system-migration': lozengeBadgeTagLabellingSystemMigration,
 	'no-banned-imports': noBannedImports,

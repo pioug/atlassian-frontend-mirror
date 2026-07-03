@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 45.6.11
+
+### Patch Changes
+
+- [`a6bff0d62fbcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6bff0d62fbcd) -
+  NAVX-4719 Adding keyboard focus support for embed modal
+- [`3d8749ffa2391`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d8749ffa2391) -
+  Clean up platform_sl_3p_auth_rovo_action_kill_switch
+
+## 45.6.10
+
+### Patch Changes
+
+- [`e1ed54d330de5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1ed54d330de5) -
+  Cleanup platform_sl_3p_auth_rovo_action (no ship)
+- Updated dependencies
+
 ## 45.6.9
 
 ### Patch Changes

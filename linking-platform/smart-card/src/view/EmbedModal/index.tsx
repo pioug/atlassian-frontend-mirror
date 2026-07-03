@@ -1,6 +1,7 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../constants';
@@ -116,6 +117,31 @@ const EmbedModal = ({
 		previewUrl = getPreviewUrlWithTheme(previewUrl, themeState);
 	}
 
+	const focusRef = useRef<HTMLButtonElement>(null);
+	const hasRestoredFocus = useRef(false);
+
+	useEffect(() => {
+		if (!isOpen || !fg('navx-4719-a11y-embed-modal-focus-states')) {
+			hasRestoredFocus.current = false;
+			return;
+		}
+		const handleWindowBlur = () => {
+			if (hasRestoredFocus.current) return;
+			setTimeout(() => {
+				// document.hasFocus() returns true when focus moved to an
+				// iframe on the same page, false when the window itself
+				// lost focus (e.g. user switched browser tabs)
+				if (!document.hasFocus()) return;
+				hasRestoredFocus.current = true;
+				focusRef.current?.focus();
+			}, 0);
+		};
+		window.addEventListener('blur', handleWindowBlur);
+		return () => {
+			window.removeEventListener('blur', handleWindowBlur);
+		};
+	}, [isOpen]);
+
 	return (
 		<ModalTransition>
 			{isOpen && (
@@ -143,6 +169,7 @@ const EmbedModal = ({
 						size={width}
 						title={title}
 						testId={testId}
+						{...(fg('navx-4719-a11y-embed-modal-focus-states') ? { focusRef } : {})}
 					/>
 					<ModalBody>
 						<EmbedContent

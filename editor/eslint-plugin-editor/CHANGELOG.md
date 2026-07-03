@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-editor
 
+## 2.0.1
+
+### Patch Changes
+
+- [`c2986ab2c7a01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2986ab2c7a01) -
+  Cleans up prefer static regex violations and enables e18e rule
+
 ## 2.0.0
 
 ### Major Changes

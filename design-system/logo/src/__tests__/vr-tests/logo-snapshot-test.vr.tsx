@@ -7,9 +7,8 @@ import Sizes from '../../../examples/5-sizes';
 import DefensiveStyling from '../../../examples/6-defensive-styling';
 
 // Test basic examples
-snapshot(Basic, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
+snapshot(Basic);
 snapshot(Appearance, {
-	featureFlags: { 'platform-logo-rebrand': [false, true] },
 	variants: [
 		{
 			name: 'Light',
@@ -19,14 +18,5 @@ snapshot(Appearance, {
 		},
 	],
 });
-snapshot(Sizes, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
-snapshot(DefensiveStyling, { featureFlags: { 'platform-logo-rebrand': [false, true] } });
-
-const BasicWithRovoHex = Basic;
-
-snapshot(BasicWithRovoHex, {
-	featureFlags: {
-		'platform-logo-rebrand': [true],
-		'platform-logo-rebrand-rovo-hex': [true],
-	},
-});
+snapshot(Sizes);
+snapshot(DefensiveStyling);

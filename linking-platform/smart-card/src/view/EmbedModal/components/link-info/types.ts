@@ -3,7 +3,7 @@ import type { RefObject } from 'react';
 import { type IconProps } from '../../../common/Icon';
 
 export type LinkInfoProps = {
-	focusRef?: RefObject<HTMLHeadingElement>;
+	focusRef?: RefObject<HTMLButtonElement>;
 	icon?: IconProps;
 	onDownloadButtonClick?: () => void;
 	onResizeButtonClick?: () => void;

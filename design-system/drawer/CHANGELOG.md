@@ -1,5 +1,17 @@
 # @atlaskit/drawer
 
+## 13.2.0
+
+### Minor Changes
+
+- [`e297058763bc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e297058763bc0) -
+  Add a top-layer rendering path for `Drawer` behind the `platform-dst-top-layer` feature gate. Some
+  focus-management and labelling props behave slightly differently on the native dialog path.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.1
 
 ### Patch Changes

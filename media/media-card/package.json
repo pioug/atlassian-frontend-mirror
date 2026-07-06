@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "81.2.6",
+	"version": "81.3.0",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,7 +33,8 @@
 		"./inlinePlayerWrapperStyles": "./src/card/inlinePlayerWrapperStyles.ts",
 		"./loader": "./src/inline/loader.tsx",
 		"./mediaInlineCardAnalytics": "./src/inline/mediaInlineCardAnalytics.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./mediaCommon": "./src/mediaCommon.ts"
 	},
 	"atlassian": {
 		"react-compiler": {
@@ -121,9 +122,6 @@
 	},
 	"platform-feature-flags": {
 		"cc-maui-phase-2": {
-			"type": "boolean"
-		},
-		"platform_editor_maui_edit": {
 			"type": "boolean"
 		},
 		"enable_sampling_mediacardrender_succeeded": {

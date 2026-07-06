@@ -46,6 +46,29 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		listitem: {
+			hovered: {
+				value: {
+					duration: 'Duration050',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor', 'BorderColor', 'Color'],
+				},
+			},
+			pressed: {
+				value: {
+					duration: 'Duration100',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor', 'BorderColor', 'Color'],
+				},
+			},
+			selected: {
+				value: {
+					duration: 'Duration100',
+					curve: 'EasePracticalOut',
+					properties: ['BackgroundColor', 'BorderColor', 'Color'],
+				},
+			},
+		},
 		flag: {
 			enter: {
 				value: {

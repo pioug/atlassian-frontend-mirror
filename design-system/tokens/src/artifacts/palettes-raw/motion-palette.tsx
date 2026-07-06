@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::556be44c5e53598ba2b686ba8de043eb>>
+ * @codegen <<SignedSource::0518f07e5d5a82a51f5342d8e9a81b61>>
  * @codegenCommand yarn build tokens
  */
 
@@ -864,6 +864,46 @@ const tokens: Token[] = [
       "motion",
       "properties",
       "BackgroundColor"
+    ]
+  },
+  {
+    "value": "border-color",
+    "attributes": {
+      "group": "motionProperty"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "border-color",
+      "attributes": {
+        "group": "motionProperty"
+      }
+    },
+    "name": "motion.properties.BorderColor",
+    "path": [
+      "motion",
+      "properties",
+      "BorderColor"
+    ]
+  },
+  {
+    "value": "color",
+    "attributes": {
+      "group": "motionProperty"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "color",
+      "attributes": {
+        "group": "motionProperty"
+      }
+    },
+    "name": "motion.properties.Color",
+    "path": [
+      "motion",
+      "properties",
+      "Color"
     ]
   },
   {

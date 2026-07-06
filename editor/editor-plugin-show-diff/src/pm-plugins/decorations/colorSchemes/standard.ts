@@ -63,7 +63,7 @@ export const deletedContentStyleNew: string = convertToInlineCss({
 	color: token('color.text.accent.gray'),
 	textDecoration: 'line-through',
 	position: 'relative',
-	opacity: 0.8,
+	opacity: 0.83,
 });
 
 /**

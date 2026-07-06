@@ -912,7 +912,7 @@ function shouldMoveHoldToExtendedBucket(
 ): boolean {
 	return (
 		hasAnyMetricVariantCategory(hold.labelStack) ||
-		(interaction.end !== 0 && hold.start > interaction.end && fg('platform_ufo_metric_variants'))
+		(interaction.end !== 0 && hold.start > interaction.end)
 	);
 }
 
@@ -927,7 +927,7 @@ function ensureExtendedHoldInfo(interaction: InteractionMetrics): HoldInfo[] {
 }
 
 function moveLateActiveHoldsToExtendedBucket(interaction: InteractionMetrics): void {
-	if (!fg('platform_ufo_metric_variants') || interaction.end === 0) {
+	if (interaction.end === 0) {
 		return;
 	}
 
@@ -942,10 +942,6 @@ function moveLateActiveHoldsToExtendedBucket(interaction: InteractionMetrics): v
 }
 
 function ensureMetricWindows(interaction: InteractionMetrics): void {
-	if (!fg('platform_ufo_metric_variants')) {
-		return;
-	}
-
 	if (interaction.end === 0) {
 		return;
 	}
@@ -995,10 +991,6 @@ function addLifecycleObservation(
 	interaction: InteractionMetrics,
 	observation: NonNullable<InteractionMetrics['lifecycleObservations']>[number],
 ): void {
-	if (!fg('platform_ufo_metric_variants')) {
-		return;
-	}
-
 	interaction.lifecycleObservations = interaction.lifecycleObservations ?? [];
 	interaction.lifecycleObservations.push(observation);
 }

@@ -1,7 +1,7 @@
 /**
  * Entry Point: @atlaskit/media-card
  */
-export type { NumericalCardDimensions } from '@atlaskit/media-common';
+export type { NumericalCardDimensions } from './mediaCommon';
 
 export type { CardAction, CardEventHandler } from './card/actions';
 

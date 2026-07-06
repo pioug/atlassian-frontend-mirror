@@ -63,9 +63,7 @@ describe('Raw Data Third Party Behavior', () => {
 		interactionExtraMetrics.reset();
 	});
 
-	it('should move non-3P holds that start after standard TTAI to extended hold info when clean breakdowns is enabled', () => {
-		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_metric_variants');
-
+	it('should move non-3P holds that start after standard TTAI to extended hold info', () => {
 		const interactionId = 'metric-variants-interaction';
 		const startTime = 1000;
 		mockPerformanceNow.mockReturnValue(startTime);
@@ -112,9 +110,7 @@ describe('Raw Data Third Party Behavior', () => {
 		remove3pHold();
 	});
 
-	it('should move non-3P addHoldByID holds that start after standard TTAI to extended hold info when clean breakdowns is enabled', () => {
-		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_metric_variants');
-
+	it('should move non-3P addHoldByID holds that start after standard TTAI to extended hold info', () => {
 		const interactionId = 'metric-variants-by-id-interaction';
 		const startTime = 1000;
 		mockPerformanceNow.mockReturnValue(startTime);
@@ -159,51 +155,7 @@ describe('Raw Data Third Party Behavior', () => {
 		remove3pHold();
 	});
 
-	it('should keep non-3P holds that start after standard TTAI in holdInfo when metric variants is disabled', () => {
-		mockFg.mockReturnValue(false);
-
-		const interactionId = 'legacy-standard-breakdowns-interaction';
-		const startTime = 1000;
-		mockPerformanceNow.mockReturnValue(startTime);
-
-		addNewInteraction(interactionId, 'test-ufo-name', 'page_load', startTime, 1, null, null, null);
-
-		const interaction = interactions.get(interactionId);
-		expect(interaction).toBeDefined();
-
-		const remove3pHold = addHold(
-			interactionId,
-			[{ name: 'segment1', type: 'third-party' as const }],
-			'3p-hold',
-			false,
-		);
-		const removeStandardHold = addHold(
-			interactionId,
-			[{ name: 'segment1' }],
-			'standard-hold',
-			false,
-		);
-
-		mockPerformanceNow.mockReturnValue(2000);
-		removeStandardHold();
-		tryComplete(interactionId, 2000);
-
-		mockPerformanceNow.mockReturnValue(2500);
-		const removeLateHold = addHold(interactionId, [{ name: 'segment1' }], 'late-hold', false);
-		expect(interaction!.holdActive.size).toBe(1);
-
-		mockPerformanceNow.mockReturnValue(2600);
-		removeLateHold();
-
-		expect(interaction!.holdInfo.map((hold) => hold.name)).toEqual(['standard-hold', 'late-hold']);
-		expect(interaction!.hold3pInfo?.map((hold) => hold.name)).not.toContain('late-hold');
-
-		remove3pHold();
-	});
-
 	it('should populate metric windows and lifecycle observations when new interaction happens after standard TTAI', () => {
-		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_metric_variants');
-
 		const interactionId = 'metric-variant-interaction';
 		const startTime = 1000;
 		mockPerformanceNow.mockReturnValue(startTime);
@@ -263,10 +215,7 @@ describe('Raw Data Third Party Behavior', () => {
 
 	describe('GenAI metric variant behavior', () => {
 		it('waits for GenAI holds and emits an include-gen-ai metric window', () => {
-			mockFg.mockImplementation(
-				(flag: string) =>
-					flag === 'platform_ufo_metric_variants' || flag === 'platform_ufo_gen_ai_segment',
-			);
+			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_gen_ai_segment');
 			setUFOConfig({
 				enabled: true,
 				product: 'test-product',
@@ -331,10 +280,7 @@ describe('Raw Data Third Party Behavior', () => {
 		});
 
 		it('uses the core end time when GenAI holds finish before core holds', () => {
-			mockFg.mockImplementation(
-				(flag: string) =>
-					flag === 'platform_ufo_metric_variants' || flag === 'platform_ufo_gen_ai_segment',
-			);
+			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_gen_ai_segment');
 			setUFOConfig({
 				enabled: true,
 				product: 'test-product',
@@ -391,10 +337,7 @@ describe('Raw Data Third Party Behavior', () => {
 
 	describe('GenAI metric variant abort behavior', () => {
 		it('finishes as successful and emits include-gen-ai when abort is called with only a GenAI hold active', () => {
-			mockFg.mockImplementation(
-				(flag: string) =>
-					flag === 'platform_ufo_metric_variants' || flag === 'platform_ufo_gen_ai_segment',
-			);
+			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_gen_ai_segment');
 			setUFOConfig({
 				enabled: true,
 				product: 'test-product',

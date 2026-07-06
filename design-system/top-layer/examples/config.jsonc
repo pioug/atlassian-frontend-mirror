@@ -50,6 +50,7 @@
 		"139-testing-hint-no-close-auto.tsx",
 		"140-testing-arrow-navigation.tsx",
 		"150-testing-native-api-timing.tsx",
+		"152-testing-nested-dialog-escape.tsx",
 	],
 	"exampleDependencies": [],
 }

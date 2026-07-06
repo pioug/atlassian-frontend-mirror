@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::3bbdbca95f5fa75615cd94d08fdd15d4>>
+ * @codegen <<SignedSource::bfd937af25bbf8f571c3091308b78f07>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -56,6 +56,12 @@ const defaultTokenValues = {
 	'motion.keyframe.slide.out.left.short': 'SlideOutLeft8px',
 	'motion.keyframe.slide.out.right.short': 'SlideOutRight8px',
 	'motion.keyframe.slide.out.top.short': 'SlideOutTop8px',
+	'motion.listitem.hovered':
+		'background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1)',
+	'motion.listitem.pressed':
+		'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
+	'motion.listitem.selected':
+		'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
 	'motion.modal.enter': '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100',
 	'motion.modal.exit': '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95',
 	'motion.popup.enter.bottom':

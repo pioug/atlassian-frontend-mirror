@@ -42,6 +42,12 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	 * Takes priority over `MentionProvider.shouldHighlightMention()` if both are present.
 	 */
 	currentUserId?: string;
+	/**
+	 * Optional getter injected by Rovo-aware consumers to check whether the Rovo
+	 * panel is currently open. When provided, the mentions plugin uses it to
+	 * suppress the agent-mention nudge when Rovo is already visible.
+	 */
+	getIsRovoPanelOpen?: () => boolean;
 	handleMentionsChanged?: MentionsChangedHandler;
 	mentionProvider?: Providers['mentionProvider'];
 	sanitizePrivateContent?: boolean;
@@ -122,6 +128,12 @@ export type MentionPluginState = {
 		localId: string;
 		name: string | null;
 		nodeSize: number;
+		/**
+		 * ProseMirror node type of the direct parent of the pending agent mention
+		 * (e.g. 'taskItem', 'paragraph'). Used in the inactivity timer to skip the
+		 * getIsRovoPanelOpen() suppression check for task-item mentions.
+		 */
+		parentNodeType: string | null;
 		pos: number;
 		/**
 		 * Generation value for the inactivity timer. This changes when local edits

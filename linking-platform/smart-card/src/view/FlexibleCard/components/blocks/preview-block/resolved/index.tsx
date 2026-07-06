@@ -6,8 +6,6 @@ import { useCallback, useLayoutEffect, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { MediaPlacement } from '../../../../../../constants';
 import { Preview } from '../../../elements';
 import Block from '../../block';
@@ -53,24 +51,7 @@ const PreviewBlockResolvedView = ({
 	className,
 	...blockProps
 }: PreviewBlockProps): JSX.Element => {
-	const [dynamicStyles, setDynamicStyles] = useState<React.CSSProperties>(() => {
-		if (fg('dfo-fix-preview-dynamic-style')) {
-			if (placement === MediaPlacement.Left || placement === MediaPlacement.Right) {
-				const containerPadding = ignoreContainerPadding ? '0px' : 'var(--container-padding)';
-				const newStyle: React.CSSProperties = {
-					...style,
-					position: 'absolute',
-					top: containerPadding,
-					bottom: containerPadding,
-					width: `calc(var(--preview-block-width) - ${containerPadding})`,
-					...(placement === MediaPlacement.Left ? { left: containerPadding } : {}),
-					...(placement === MediaPlacement.Right ? { right: containerPadding } : {}),
-				};
-				return newStyle;
-			}
-		}
-		return style ?? {};
-	});
+	const [dynamicStyles, setDynamicStyles] = useState<React.CSSProperties>(style ?? {});
 
 	const updateStyles = useCallback(() => {
 		if (placement === MediaPlacement.Left || placement === MediaPlacement.Right) {

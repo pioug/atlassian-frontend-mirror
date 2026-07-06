@@ -76,6 +76,15 @@ type TDialogBaseProps = {
 	 */
 	shouldHideBackdrop?: boolean;
 	/**
+	 * Called after the entry animation completes (or immediately on open when
+	 * there is no animation or reduced motion is active). Also fires on initial
+	 * mount with `isOpen={true}`.
+	 *
+	 * Use this for external lifecycle coordination, e.g. firing an
+	 * `onOpenComplete` callback once the dialog has finished animating in.
+	 */
+	onEnterFinish?: () => void;
+	/**
 	 * Called after the exit animation completes (or immediately on close when
 	 * there is no animation or reduced motion is active).
 	 *

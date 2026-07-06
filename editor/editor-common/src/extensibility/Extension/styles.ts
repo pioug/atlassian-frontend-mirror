@@ -5,6 +5,20 @@ import type { SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+/**
+ * CSS custom property that controls the vertical margin between editor block elements
+ *
+ * Consumers can opt in to custom block spacing by setting this property on any ancestor of the
+ * editor content (typically `:root` or the editor wrapper). When the property is unset, every block
+ * margin rule falls back to its original token/value, so this is a no-op for all existing consumers.
+ *
+ * The editor only emits the `var(...)` block-margin rules when the
+ * `platform_editor_extension_block_spacing` editor experiment is enabled, so the hook can be
+ * disabled centrally and its SSR/layout performance impact can be tracked. Setting this property
+ * has no effect while the experiment is off.
+ */
+export const EXTENSION_BLOCK_SPACING_VAR = '--ak-editor-extension-block-spacing';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperDefault: SerializedStyles = css({
 	background: token('color.background.neutral'),

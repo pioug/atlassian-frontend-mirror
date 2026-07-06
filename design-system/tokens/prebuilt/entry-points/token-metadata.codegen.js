@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::f35dfcf54e048ebb8d0fbfc38f3a1eb9>>
+ * @codegen <<SignedSource::e6de6baec1b48fe35939eaaf7219f5b0>>
  * @codegenCommand yarn build tokens
  */
 
@@ -351,6 +351,33 @@ var tokens = exports.tokens = [{
   path: ['motion', 'keyframe', 'slide', 'out', 'top', 'short'],
   description: 'Use for short slide-out transitions where an element exits upward by 8px from its starting position.',
   exampleValue: 'SlideOutTop8px',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.listitem.hovered',
+  path: ['motion', 'listitem', 'hovered'],
+  description: 'Use for list item hover state transitions.',
+  exampleValue: 'background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1)',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.listitem.pressed',
+  path: ['motion', 'listitem', 'pressed'],
+  description: 'Use for list item pressed state transitions.',
+  exampleValue: 'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.listitem.selected',
+  path: ['motion', 'listitem', 'selected'],
+  description: 'Use for list item selected state transitions.',
+  exampleValue: 'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
   usageGuidelines: {
     usage: '',
     cssProperties: []

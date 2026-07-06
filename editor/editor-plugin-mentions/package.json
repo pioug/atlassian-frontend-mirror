@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "14.5.12",
+	"version": "14.5.13",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -123,9 +123,6 @@
 			"type": "boolean"
 		},
 		"people-teams_migrate-user-profile-card": {
-			"type": "boolean"
-		},
-		"platform_editor_agent_mentions": {
 			"type": "boolean"
 		},
 		"rovo_chat_agent_selection": {

@@ -1,11 +1,12 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
+import { matchers } from '@emotion/jest';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen, waitFor, within } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
-import EmojiActions from '../../../../components/common/EmojiActions';
+import EmojiActions, { emojiActionsTestId } from '../../../../components/common/EmojiActions';
 import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
 import { createEmojiWithRovoTestId } from '../../../../components/common/CreateEmojiWithRovo';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -15,6 +16,8 @@ import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import type { EmojiDescriptionWithVariations } from '../../../../types';
 import { generateSkinVariation, imageEmoji } from '../../_test-data';
 import { renderWithIntl } from '../../_testing-library';
+
+expect.extend(matchers);
 
 const baseToneEmoji = {
 	...imageEmoji,
@@ -301,18 +304,6 @@ describe('<EmojiActions />', () => {
 				const productivityColorButton = screen.getByRole('button', {
 					name: 'Productivity emoji color selector',
 				});
-				productivityColorButton.getBoundingClientRect = jest.fn(() => ({
-					bottom: 60,
-					height: 40,
-					left: 10,
-					right: 50,
-					toJSON: jest.fn(),
-					top: 20,
-					width: 40,
-					x: 10,
-					y: 20,
-				}));
-				jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(180);
 				expect(productivityColorButton).toHaveAttribute('aria-expanded', 'false');
 				expect(
 					within(productivityColorButton).getByTestId('image-emoji-:0_zero_square_blue:'),
@@ -324,9 +315,17 @@ describe('<EmojiActions />', () => {
 				expect(productivityColorSelector).toBeVisible();
 				expect(productivityColorButton).toBeVisible();
 				expect(productivityColorButton).toHaveAttribute('aria-expanded', 'true');
-				expect(productivityColorSelector.parentElement?.parentElement).toHaveStyle({
-					left: '-142px',
-				});
+
+				const productivityColorPopupPosition = productivityColorSelector.parentElement
+					?.parentElement as HTMLElement;
+				const productivityColorPopupAnchor =
+					productivityColorPopupPosition.parentElement as HTMLElement;
+				expect(productivityColorPopupAnchor).toContainElement(productivityColorButton);
+				expect(productivityColorPopupAnchor).toContainElement(productivityColorPopupPosition);
+				expect(productivityColorPopupAnchor).toHaveCompiledCss('position', 'relative');
+				expect(productivityColorPopupAnchor).toHaveCompiledCss('display', 'inline-flex');
+				expect(productivityColorPopupPosition).toHaveCompiledCss('position', 'absolute');
+				expect(productivityColorPopupPosition).toHaveCompiledCss('right', '0');
 
 				await userEvent.click(screen.getByTestId('productivity-color-red--radio-input'));
 
@@ -381,7 +380,7 @@ describe('<EmojiActions />', () => {
 				).toBeInTheDocument();
 			});
 
-			it('should position the productivity colour selector below the button when the page is scrolled', async () => {
+			it('should keep the productivity colour selector anchored to the button when the page is scrolled', async () => {
 				const zeroSquareRed = {
 					...baseToneEmoji,
 					id: '0_zero_square_red',
@@ -394,66 +393,43 @@ describe('<EmojiActions />', () => {
 					shortName: ':0_zero_square_blue:',
 					name: 'Zero square blue',
 				};
-				const originalPageXOffset = window.pageXOffset;
-				const originalPageYOffset = window.pageYOffset;
-				Object.defineProperty(window, 'pageXOffset', {
-					configurable: true,
-					value: 24,
+
+				await renderWithIntl(
+					<EmojiActions
+						{...props}
+						toneEmoji={toneEmoji}
+						activeCategoryId="ATLASSIAN"
+						activeAtlassianSubcategory="Productivity"
+						selectedProductivityColor="blue"
+						productivityColorPreviewEmojis={{
+							red: zeroSquareRed,
+							blue: zeroSquareBlue,
+						}}
+						onProductivityColorSelected={jest.fn()}
+					/>,
+				);
+
+				const productivityColorButton = screen.getByRole('button', {
+					name: 'Productivity emoji color selector',
 				});
-				Object.defineProperty(window, 'pageYOffset', {
-					configurable: true,
-					value: 120,
-				});
 
-				try {
-					await renderWithIntl(
-						<EmojiActions
-							{...props}
-							toneEmoji={toneEmoji}
-							activeCategoryId="ATLASSIAN"
-							activeAtlassianSubcategory="Productivity"
-							selectedProductivityColor="blue"
-							productivityColorPreviewEmojis={{
-								red: zeroSquareRed,
-								blue: zeroSquareBlue,
-							}}
-							onProductivityColorSelected={jest.fn()}
-						/>,
-					);
+				await userEvent.click(productivityColorButton);
 
-					const productivityColorButton = screen.getByRole('button', {
-						name: 'Productivity emoji color selector',
-					});
-					productivityColorButton.getBoundingClientRect = jest.fn(() => ({
-						bottom: 60,
-						height: 40,
-						left: 10,
-						right: 50,
-						toJSON: jest.fn(),
-						top: 20,
-						width: 40,
-						x: 10,
-						y: 20,
-					}));
-					jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(180);
+				const emojiActions = screen.getByTestId(emojiActionsTestId);
+				const productivityColorSelector = screen.getByTestId(productivityColorSelectorTestId);
+				const productivityColorPopupPosition = productivityColorSelector.parentElement
+					?.parentElement as HTMLElement;
+				const productivityColorPopupAnchor =
+					productivityColorPopupPosition.parentElement as HTMLElement;
 
-					await userEvent.click(productivityColorButton);
+				fireEvent.scroll(window);
+				fireEvent.scroll(emojiActions);
 
-					const productivityColorSelector = screen.getByTestId(productivityColorSelectorTestId);
-					expect(productivityColorSelector.parentElement?.parentElement).toHaveStyle({
-						left: '-118px',
-						top: '184px',
-					});
-				} finally {
-					Object.defineProperty(window, 'pageXOffset', {
-						configurable: true,
-						value: originalPageXOffset,
-					});
-					Object.defineProperty(window, 'pageYOffset', {
-						configurable: true,
-						value: originalPageYOffset,
-					});
-				}
+				expect(emojiActions).toContainElement(productivityColorSelector);
+				expect(productivityColorPopupAnchor).toContainElement(productivityColorButton);
+				expect(productivityColorPopupAnchor).toContainElement(productivityColorPopupPosition);
+				expect(productivityColorPopupPosition).toHaveCompiledCss('position', 'absolute');
+				expect(productivityColorPopupPosition).toHaveCompiledCss('right', '0');
 			});
 
 			it.each(['Objects', 'Logos'])(
@@ -893,8 +869,9 @@ describe('<EmojiActions />', () => {
 				expect(onParentClick).not.toHaveBeenCalled();
 			});
 
-			it('should not bubble the upload cancel click to parent containers when the gate is on', async () => {
-				passGate(keepPickerOpenOnUploadGate);
+			it('should not bubble the upload cancel click to parent containers when the teamoji refresh experiment is on', async () => {
+				failGate(keepPickerOpenOnUploadGate);
+				setTeamojiExperimentEnabled(true);
 				const onUploadCancelled = jest.fn();
 				const onParentClick = jest.fn();
 

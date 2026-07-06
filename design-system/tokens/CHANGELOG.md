@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 15.4.0
+
+### Minor Changes
+
+- [`ff40331e58db6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff40331e58db6) -
+  Add motion.listitem.hovered (50ms), motion.listitem.pressed (100ms), and motion.listitem.selected
+  (100ms) motion tokens for list-item interaction states. All use the ease practical out curve and
+  transition background-color, border-color, and color.
+
 ## 15.3.1
 
 ### Patch Changes

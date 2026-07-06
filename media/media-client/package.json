@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "37.1.2",
+	"version": "37.2.0",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,8 @@
 		"./media-store/types": "./src/client/media-store/types.ts",
 		"./media-subscribable/types": "./src/utils/mediaSubscribable/types.ts",
 		"./media": "./src/models/media.ts",
+		"./media-core": "./src/media-core.ts",
+		"./media-state": "./src/media-state.ts",
 		"./mobile-upload": "./src/models/mobile-upload.ts",
 		"./polling": "./src/utils/polling/index.ts",
 		"./polling/errors": "./src/utils/polling/errors.ts",

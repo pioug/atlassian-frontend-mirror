@@ -1110,7 +1110,7 @@ const handleXCSSProp: CodeConsolidator = ({
 	) {
 		xcssValidatorInitializer = xcssValidatorInitializer.getExpression();
 	}
-	const xcssValidator = `${xcssValidatorDeclaration.getName()} = ${xcssValidatorInitializer.getText()}`;
+	const xcssValidator = `${xcssValidatorDeclaration.getName()}: XCSSPropsValidator<XCSSValidatorParam> = ${xcssValidatorInitializer.getText()} as unknown as XCSSPropsValidator<XCSSValidatorParam>`;
 	const XCSSPropType = xcssValidatorfile
 		.getTypeAliasOrThrow('XCSSProp')
 		.setIsExported(false)

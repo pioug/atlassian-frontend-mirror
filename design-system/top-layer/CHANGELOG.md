@@ -1,5 +1,17 @@
 # @atlaskit/top-layer
 
+## 1.3.0
+
+### Minor Changes
+
+- [`e297058763bc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e297058763bc0) -
+  Add an `onEnterFinish` lifecycle callback to `Dialog`, and scope its Escape (cancel) handling to
+  the dialog the event targets.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

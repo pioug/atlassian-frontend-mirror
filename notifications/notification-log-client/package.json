@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/notification-log-client",
-	"version": "9.0.0",
+	"version": "10.0.0",
 	"description": "Client APIs for notification-log service",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -6,16 +6,7 @@
 import { css, jsx } from '@emotion/react';
 // eslint-disable-line no-console
 import React from 'react';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
-setBooleanFeatureFlagResolver((flag) => {
-	if (flag === 'platform_editor_maui_edit') {
-		return true;
-	}
-	return false;
-});
 
 const applyMauiLoadingBarOverride = (enabled: boolean) => {
 	setupEditorExperiments(

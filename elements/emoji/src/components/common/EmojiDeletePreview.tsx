@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Component, type ComponentType, type FC } from 'react';
+import { Component, type ComponentType, type FC, type MouseEvent } from 'react';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import FeatureGates from '@atlaskit/feature-gate-js-client';
@@ -159,7 +159,14 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		}
 	}
 
-	private onSubmit = () => {
+	private stopClickPropagationForRefreshEmojiPicker = (event?: MouseEvent<HTMLElement>) => {
+		if (isRefreshEmojiPickerEnabled()) {
+			event?.stopPropagation();
+		}
+	};
+
+	private onSubmit = (event?: MouseEvent<HTMLElement>) => {
+		this.stopClickPropagationForRefreshEmojiPicker(event);
 		const { emoji, onDeleteEmoji, onCloseDelete } = this.props;
 		if (!this.state.loading) {
 			this.setState({ loading: true });
@@ -176,7 +183,8 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		}
 	};
 
-	private onCancel = () => {
+	private onCancel = (event?: MouseEvent<HTMLElement>) => {
+		this.stopClickPropagationForRefreshEmojiPicker(event);
 		this.props.onCloseDelete();
 	};
 

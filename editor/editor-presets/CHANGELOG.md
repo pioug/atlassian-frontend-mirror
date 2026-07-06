@@ -1,5 +1,13 @@
 # @atlaskit/editor-presets
 
+## 5.0.20
+
+### Patch Changes
+
+- [`d8df4ec19d384`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8df4ec19d384) -
+  Suppresses nudge from agent mention when rovo chat is open
+- Updated dependencies
+
 ## 5.0.19
 
 ### Patch Changes

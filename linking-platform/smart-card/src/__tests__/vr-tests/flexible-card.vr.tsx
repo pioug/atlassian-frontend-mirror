@@ -159,7 +159,6 @@ snapshot(FlexibleUiBlockPreviewXLarge, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': true,
-		'dfo-fix-preview-dynamic-style': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -167,7 +166,6 @@ snapshot(FlexibleUiBlockPreviewLarge, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': true,
-		'dfo-fix-preview-dynamic-style': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -175,7 +173,6 @@ snapshot(FlexibleUiBlockPreviewMedium, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': true,
-		'dfo-fix-preview-dynamic-style': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -183,7 +180,6 @@ snapshot(FlexibleUiBlockPreviewSmall, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': true,
-		'dfo-fix-preview-dynamic-style': [true, false],
 	},
 	waitForReactLazy: true,
 });
@@ -191,14 +187,12 @@ snapshot(FlexibleUiBlockPreviewMixedPadding, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 		'navx-1895-new-logo-design': true,
-		'dfo-fix-preview-dynamic-style': [true, false],
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockPreviewOverrideCSS, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'dfo-fix-preview-dynamic-style': [true, false],
 	},
 	waitForReactLazy: true,
 });

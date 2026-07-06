@@ -43,7 +43,6 @@ import ToneSelector from './ToneSelector';
 import ProductivityColorSelector, {
 	productivityColorSelectorId,
 } from './ProductivityColorSelector';
-import Popup from './Popup';
 import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
 import { messages } from '../i18n';
 import AkButton from '@atlaskit/button/standard-button';
@@ -52,7 +51,6 @@ import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import { emojiPickerAddEmoji } from './styles';
 import { DEFAULT_TONE } from '../../util/constants';
 import { Box } from '@atlaskit/primitives/compiled';
-import { layers } from '@atlaskit/theme/constants';
 import type { ProductivityColor } from '../../util/productivity-colors';
 
 const isRefreshEmojiPickerEnabled = (): boolean => {
@@ -108,6 +106,21 @@ const productivityColorPopup = css({
 	paddingRight: token('space.075'),
 	paddingBottom: token('space.075'),
 	paddingLeft: token('space.075'),
+});
+
+const productivityColorPopupAnchor = css({
+	position: 'relative',
+	display: 'inline-flex',
+});
+
+// Matches the ADS tooltip layer so the selector sits above picker content.
+const productivityColorPopupZIndex = 9999;
+
+const productivityColorPopupPosition = css({
+	position: 'absolute',
+	top: `calc(100% + ${token('space.050')})`,
+	right: '0%',
+	zIndex: productivityColorPopupZIndex,
 });
 
 const previewFooter = css({
@@ -243,7 +256,7 @@ export const AddOwnEmoji = (props: AddOwnEmojiProps): JSX.Element => {
 	const { onOpenUpload, uploadEnabled } = props;
 	const handleOpenUpload = useCallback(
 		(event: MouseEvent<HTMLElement>) => {
-			if (fg('platform_emoji_keep_picker_open_on_upload')) {
+			if (fg('platform_emoji_keep_picker_open_on_upload') || isRefreshEmojiPickerEnabled()) {
 				event.preventDefault();
 				event.stopPropagation();
 			}
@@ -388,32 +401,28 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 
 		return (
 			<div css={emojiToneSelectorContainer}>
-				{showToneSelector && tonePreviewButtonRef.current && (
-					<Popup
-						target={tonePreviewButtonRef.current}
-						relativePosition="below"
-						horizontalAlign="end-to-start"
-						offsetY={4}
-						zIndex={layers.tooltip()}
-					>
-						<ProductivityColorPopupContent
-							colorPreviewEmojis={productivityColorPreviewEmojis}
-							focusSelectedColorOnMount={focusSelectedProductivityColorOnMount}
-							selectedColor={selectedProductivityColor}
-							onColorSelected={onProductivityColorSelectedHandler}
-						/>
-					</Popup>
-				)}
-				<TonePreviewButton
-					ref={tonePreviewButtonRef}
-					ariaControls={productivityColorSelectorId}
-					ariaExpanded={showToneSelector}
-					emoji={previewEmoji}
-					selectOnHover
-					onKeyDown={onProductivityColorPreviewKeyDown}
-					onSelected={onProductivityColorToggle}
-					ariaLabelText={formatMessage(messages.emojiSelectColorButtonAriaLabelText)}
-				/>
+				<div css={productivityColorPopupAnchor}>
+					<TonePreviewButton
+						ref={tonePreviewButtonRef}
+						ariaControls={productivityColorSelectorId}
+						ariaExpanded={showToneSelector}
+						emoji={previewEmoji}
+						selectOnHover
+						onKeyDown={onProductivityColorPreviewKeyDown}
+						onSelected={onProductivityColorToggle}
+						ariaLabelText={formatMessage(messages.emojiSelectColorButtonAriaLabelText)}
+					/>
+					{showToneSelector && (
+						<div css={productivityColorPopupPosition}>
+							<ProductivityColorPopupContent
+								colorPreviewEmojis={productivityColorPreviewEmojis}
+								focusSelectedColorOnMount={focusSelectedProductivityColorOnMount}
+								selectedColor={selectedProductivityColor}
+								onColorSelected={onProductivityColorSelectedHandler}
+							/>
+						</div>
+					)}
+				</div>
 			</div>
 		);
 	}

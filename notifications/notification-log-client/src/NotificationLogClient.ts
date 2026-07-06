@@ -12,7 +12,7 @@ export default class NotificationLogClient implements NotificationLogProvider {
 	private graphQLBaseUrl: string;
 	private cloudId?: string;
 	private source: string;
-	private collabContextRoutingAri?: string;
+	private collabContextRoutingAri: string | undefined;
 
 	constructor({
 		graphQLBaseUrl = DEFAULT_GRAPHQL_BASE_URL,
@@ -21,7 +21,8 @@ export default class NotificationLogClient implements NotificationLogProvider {
 		collabContextRoutingAri,
 	}: {
 		cloudId?: string;
-		collabContextRoutingAri?: string;
+		/** Required to support collaboration contexts. You must provide the ari of the site/workspace the user is currently viewing. Pass `undefined` if not applicable. */
+		collabContextRoutingAri?: string | undefined;
 		graphQLBaseUrl?: string;
 		source?: string;
 	} = {}) {

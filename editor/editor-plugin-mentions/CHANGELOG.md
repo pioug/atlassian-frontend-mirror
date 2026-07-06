@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.5.13
+
+### Patch Changes
+
+- [`d8df4ec19d384`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8df4ec19d384) -
+  Suppresses nudge from agent mention when rovo chat is open
+
 ## 14.5.12
 
 ### Patch Changes

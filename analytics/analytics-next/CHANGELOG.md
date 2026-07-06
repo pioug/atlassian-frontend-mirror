@@ -1,5 +1,20 @@
 # @atlaskit/analytics-next
 
+## 12.2.0
+
+### Minor Changes
+
+- [`5818788ddb350`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5818788ddb350) -
+  Adds the `analytics-next-lock-context-type` feature gate (default off). When enabled,
+  `AnalyticsContext`, `AnalyticsListener` and `AnalyticsErrorBoundary` lock their Modern/Legacy
+  choice to the value read at first mount instead of re-reading the
+  `analytics-next-use-legacy-context` gate on every render. That gate resolves asynchronously, so
+  re-reading it caused the rendered component **type** to switch (Modern to Legacy) after mount,
+  forcing React to unmount and remount the whole subtree below the provider (a full-page flash plus
+  scroll reset on first interaction). With the gate off, behaviour is unchanged. When on, the choice
+  is frozen per mount, which removes the remount; Legacy remains a superset of Modern, so no
+  analytics context is dropped.
+
 ## 12.1.0
 
 ### Minor Changes

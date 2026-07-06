@@ -3,7 +3,6 @@ import { expect, test } from './fixtures';
 test.describe('ReactUFO: metric variants', () => {
 	test.use({
 		examplePage: 'basic-three-sections',
-		featureFlags: ['platform_ufo_metric_variants'],
 	});
 
 	test('custom.interaction-metrics includes standard metric window when enabled', async ({

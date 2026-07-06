@@ -41,9 +41,11 @@ export type FileCardProps = {
 	onDelete?: () => void;
 
 	/**
-	 * Callback when the file is downloaded
+	 * Callback when the file is downloaded.
+	 * Can return a Blob or Promise<Blob> to have FileCard trigger the browser download automatically,
+	 * or return void to handle the download manually.
 	 */
-	onDownload?: () => void;
+	onDownload?: () => Blob | Promise<Blob | void> | void;
 
 	/**
 	 * Test ID for testing

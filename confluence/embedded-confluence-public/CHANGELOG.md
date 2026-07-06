@@ -1,5 +1,12 @@
 # @atlaskit/embedded-confluence
 
+## 6.2.0
+
+### Minor Changes
+
+- [`c2d43ab375005`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2d43ab375005) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 6.1.0
 
 ### Minor Changes

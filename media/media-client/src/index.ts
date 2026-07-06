@@ -102,7 +102,7 @@ export type {
 	ProcessingFailedState,
 	MediaFileArtifact,
 	MediaFileArtifacts,
-} from '@atlaskit/media-state';
+} from './media-state';
 
 export type {
 	MobileUpload,
@@ -186,7 +186,7 @@ export type {
 	AuthProviderFailedEventPayload,
 } from './client/events';
 
-export type { MediaClientConfig } from '@atlaskit/media-core';
+export type { MediaClientConfig } from './media-core';
 
 export { globalMediaEventEmitter } from './globalMediaEventEmitter';
 
@@ -210,4 +210,4 @@ export { RECENTS_COLLECTION, MAX_RESOLUTION } from './constants';
 
 export { getFileStreamsCache } from './file-streams-cache';
 
-export { ChunkHashAlgorithm } from '@atlaskit/media-core';
+export { ChunkHashAlgorithm } from './media-core';

@@ -177,9 +177,7 @@ describe('Payload Creation with Third-Party Holds', () => {
 		expect(Array.isArray(interactionMetrics?.hold3pInfo)).toBe(true);
 	});
 
-	it('should include generic metricWindows, lifecycleObservations, and window-specific profiler timings when metric variants are enabled', async () => {
-		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_metric_variants');
-
+	it('should include generic metricWindows, lifecycleObservations, and window-specific profiler timings', async () => {
 		const interaction: InteractionMetrics = {
 			id: 'test-interaction',
 			start: 1000,

@@ -1,5 +1,37 @@
 # @atlaskit/editor-statsig-tmp
 
+## 120.2.0
+
+### Minor Changes
+
+- [`bbf34983a5daf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbf34983a5daf) -
+  Add an opt-in `--ak-editor-extension-block-spacing` CSS custom property hook that controls the
+  vertical margin between editor block elements (paragraphs, lists, panels, code blocks,
+  blockquotes, smart cards and extension wrappers).
+
+  `@atlaskit/editor-common` declares and exports `EXTENSION_BLOCK_SPACING_VAR` from the
+  `@atlaskit/editor-common/extensibility` entry point. When the new
+  `platform_editor_extension_block_spacing` editor experiment is enabled, the block-margin rules in
+  `@atlaskit/editor-core` (both the Compiled and Emotion `EditorContentContainer` paths) and the
+  extension wrappers in `editor-common` read from this variable, falling back to their original
+  values (e.g. `var(--ak-editor-extension-block-spacing, 0.75rem)`).
+
+  The change is gated behind the experiment so it can be disabled centrally and its SSR/layout
+  performance impact tracked. When the experiment is off — the default for every consumer — the
+  original margin values are used and there is no visual change.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 120.1.1
+
+### Patch Changes
+
+- [`ec37e1d233675`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec37e1d233675) -
+  [EDITOR-5943] Remove flag platform_editor_diff_plugin_extended override for VR tests
+- Updated dependencies
+
 ## 120.1.0
 
 ### Minor Changes

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 export const MAX_TIMING_NAME_LENGTH = 255;
 
 const GQL_OPERATION_PARAMS = ['operation', 'operationName', 'q'];
@@ -21,7 +19,7 @@ export function sanitizeTimingName(name: string): string {
 		return name;
 	}
 
-	if (isGqlUrl(name) && fg('platform_ufo_exclude_gql_timings_from_length_trim')) {
+	if (isGqlUrl(name)) {
 		return name;
 	}
 

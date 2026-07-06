@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "5.1.0",
+	"version": "5.2.0",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,8 @@
 		"./editor": "./src/editor/index.ts",
 		"./provider": "./src/provider.tsx",
 		"./responses": "./src/client/types/responses.ts",
-		"./types": "./src/state/context/types.ts"
+		"./types": "./src/state/context/types.ts",
+		"./linking-common": "./src/linking-common.ts"
 	},
 	"dependencies": {
 		"@atlaskit/json-ld-types": "workspace:^",

@@ -39,6 +39,7 @@ interface DependenciesDiffResult {
 const foldersToIgnore: string[] = [
 	'editor-plugin-code-block-advanced',
 	'editor-plugin-native-embeds',
+	'editor-plugin-ai-selection-context',
 ];
 
 // Locate the root directory of the project

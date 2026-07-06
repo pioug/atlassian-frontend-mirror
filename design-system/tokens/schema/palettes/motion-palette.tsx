@@ -41,6 +41,18 @@ const baseTransitionPropertyTokens = {
 			group: 'motionProperty',
 		},
 	},
+	BorderColor: {
+		value: 'border-color',
+		attributes: {
+			group: 'motionProperty',
+		},
+	},
+	Color: {
+		value: 'color',
+		attributes: {
+			group: 'motionProperty',
+		},
+	},
 } as const;
 
 const baseKeyframeTokens = {

@@ -45,6 +45,7 @@ import {
 	maxModeReizeFixStyles,
 } from './styles/baseStyles';
 import { blockMarksStyles } from './styles/blockMarksStyles';
+import { blockSpacingVarScaledStyles, blockSpacingVarStyles } from './styles/blockSpacingStyles';
 import {
 	blockquoteDangerStyles,
 	blockquoteSelectedNodeStyles,
@@ -356,6 +357,13 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 	};
 
 	const browser = getBrowserInfo();
+
+	// Evaluate the block-spacing experiment once per render.
+	const isBlockSpacingEnabled = expValEquals(
+		'platform_editor_extension_block_spacing',
+		'isEnabled',
+		true,
+	);
 
 	return (
 		<div
@@ -871,6 +879,16 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					nestedPanelDangerStyles,
 				],
+				// Block spacing hook — opt-in via --ak-editor-extension-block-spacing.
+				// Applied last so the var-based margins override the base block margins by source
+				// order. Gated by an experiment so it can be disabled.
+				isBlockSpacingEnabled &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					blockSpacingVarStyles,
+				isBlockSpacingEnabled &&
+					contentMode === 'compact' &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					blockSpacingVarScaledStyles,
 			]}
 			data-editor-scroll-container={isScrollable ? 'true' : undefined}
 			data-testid="editor-content-container"

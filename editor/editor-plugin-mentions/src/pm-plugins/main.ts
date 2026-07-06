@@ -41,6 +41,7 @@ import { canMentionBeCreatedInRange } from './utils';
 
 export const ACTIONS = {
 	COMMIT_PENDING_TYPED_AGENT_MENTION: 'COMMIT_PENDING_TYPED_AGENT_MENTION',
+	DISCARD_PENDING_TYPED_AGENT_MENTION: 'DISCARD_PENDING_TYPED_AGENT_MENTION',
 	SET_PENDING_TYPED_AGENT_MENTION: 'SET_PENDING_TYPED_AGENT_MENTION',
 	SET_PROVIDER: 'SET_PROVIDER',
 };
@@ -239,6 +240,7 @@ const getPendingTypedAgentMentionAfterDocChange = (
 				localId: pendingTypedAgentMention.localId,
 				name: pendingMentionDetails.name,
 				nodeSize: pendingMentionDetails.nodeSize,
+				parentNodeType: pendingMentionDetails.parentNodeType,
 				pos: pendingMentionDetails.pos,
 				resetCount,
 			}
@@ -379,6 +381,10 @@ export function createMentionPlugin({
 }: CreateMentionPlugin): SafePlugin<MentionPluginState> {
 	let mentionProvider: MentionProvider;
 
+	// Injected by Rovo-aware consumers only. Non-Rovo consumers omit this field
+	// entirely so this plugin incurs zero bundle cost from rovo-experience-api.
+	const getIsRovoPanelOpen = options?.getIsRovoPanelOpen;
+
 	const sendAnalytics = (
 		event: string,
 		actionSubject: string,
@@ -466,6 +472,24 @@ export function createMentionPlugin({
 						newPluginState = commitResult.pluginState;
 						hasPublicPluginStateChanged =
 							hasPublicPluginStateChanged || commitResult.hasPublicPluginStateChanged;
+						break;
+					}
+					case ACTIONS.DISCARD_PENDING_TYPED_AGENT_MENTION: {
+						// Silently discard the pending typed agent mention without committing it.
+						const pendingTypedAgentMentionToDiscard = newPluginState.pendingTypedAgentMention;
+						if (
+							!isAgentMentionsExperimentEnabled ||
+							!pendingTypedAgentMentionToDiscard ||
+							pendingTypedAgentMentionToDiscard.localId !== params?.localId ||
+							pendingTypedAgentMentionToDiscard.resetCount !== params?.resetCount
+						) {
+							break;
+						}
+						newPluginState = {
+							...newPluginState,
+							pendingTypedAgentMention: null,
+						};
+						hasPublicPluginStateChanged = true;
 						break;
 					}
 					case ACTIONS.SET_PROVIDER:
@@ -752,6 +776,7 @@ export function createMentionPlugin({
 									localId: pendingTypedAgentMentionLocalId,
 									name: pendingTypedAgentMentionDetailsForState.name,
 									nodeSize: pendingTypedAgentMentionDetailsForState.nodeSize,
+									parentNodeType: pendingTypedAgentMentionDetailsForState.parentNodeType,
 									pos: pendingTypedAgentMentionDetailsForState.pos,
 									resetCount: 1,
 								},
@@ -782,19 +807,28 @@ export function createMentionPlugin({
 								(newPluginState.lastInsertedAgentMentionParentNodeType ?? null) ||
 							newInsertionCount !== undefined
 						) {
-							newPluginState = {
-								...newPluginState,
-								lastInsertedAgentMentionId: agentMentionId,
-								lastInsertedAgentMentionLocalId: agentMentionLocalId,
-								lastInsertedAgentMentionContext: agentMentionContext,
-								lastInsertedAgentMentionName: agentMentionName,
-								lastInsertedAgentMentionPrompt: agentMentionPrompt,
-								lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
-								...(newInsertionCount !== undefined
-									? { lastAgentMentionInsertionCount: newInsertionCount }
-									: {}),
-							};
-							hasPublicPluginStateChanged = true;
+							// Suppress the nudge for pasted/non-typed agent mentions when Rovo is already
+							// open.
+							const isTaskItemMentionForPaste = agentMentionParentNodeType === 'taskItem';
+							if (!isTaskItemMentionForPaste && isNewInsertion && getIsRovoPanelOpen?.()) {
+								// Rovo is already open — skip setting lastInsertedAgentMention* so the
+								// downstream nudge listener never fires.
+							} else {
+								// Not suppressed — update state so the nudge fires normally.
+								newPluginState = {
+									...newPluginState,
+									lastInsertedAgentMentionId: agentMentionId,
+									lastInsertedAgentMentionLocalId: agentMentionLocalId,
+									lastInsertedAgentMentionContext: agentMentionContext,
+									lastInsertedAgentMentionName: agentMentionName,
+									lastInsertedAgentMentionPrompt: agentMentionPrompt,
+									lastInsertedAgentMentionParentNodeType: agentMentionParentNodeType,
+									...(newInsertionCount !== undefined
+										? { lastAgentMentionInsertionCount: newInsertionCount }
+										: {}),
+								};
+								hasPublicPluginStateChanged = true;
+							}
 						}
 					}
 				}
@@ -864,13 +898,26 @@ export function createMentionPlugin({
 						) ||
 						isSelectionOutsideDirectParent(newState, pendingMentionDetails)
 					) {
-						const commitResult = commitResolvedPendingTypedAgentMention(
-							newPluginState,
-							pendingMentionDetails,
-						);
-						newPluginState = commitResult.pluginState;
-						hasPublicPluginStateChanged =
-							hasPublicPluginStateChanged || commitResult.hasPublicPluginStateChanged;
+						// Suppress the nudge when Rovo chat is already open, mirroring the same
+						// guard used in the inactivity-timer path. Task-item mentions are
+						// exempt because they auto-fire the mini modal and never show a nudge.
+						if (pendingMentionDetails.parentNodeType !== 'taskItem' && getIsRovoPanelOpen?.()) {
+							// Discard without committing so lastInsertedAgentMention* fields are
+							// never set and the downstream nudge listener never fires.
+							newPluginState = {
+								...newPluginState,
+								pendingTypedAgentMention: null,
+							};
+							hasPublicPluginStateChanged = true;
+						} else {
+							const commitResult = commitResolvedPendingTypedAgentMention(
+								newPluginState,
+								pendingMentionDetails,
+							);
+							newPluginState = commitResult.pluginState;
+							hasPublicPluginStateChanged =
+								hasPublicPluginStateChanged || commitResult.hasPublicPluginStateChanged;
+						}
 					}
 				}
 
@@ -955,6 +1002,26 @@ export function createMentionPlugin({
 				clearPendingTypedAgentMentionTimer({ preserveFocusDeferCount });
 				pendingTypedAgentMentionTimerKey = timerKey;
 				pendingTypedAgentMentionTimer = setTimeout(() => {
+					{
+						// Suppress the agent-mention nudge when the Rovo panel is already open,
+						// but only for non-task-item mentions.
+						const isTaskItemMention = pendingTypedAgentMention.parentNodeType === 'taskItem';
+						if (!isTaskItemMention && getIsRovoPanelOpen?.()) {
+							// Dispatch a discard so pendingTypedAgentMention is nulled out of plugin
+							// state.
+							editorView.dispatch(
+								editorView.state.tr.setMeta(mentionPluginKey, {
+									action: ACTIONS.DISCARD_PENDING_TYPED_AGENT_MENTION,
+									params: {
+										localId: pendingTypedAgentMention.localId,
+										resetCount: pendingTypedAgentMention.resetCount,
+									},
+								}),
+							);
+							return;
+						}
+					}
+
 					const latestPendingTypedAgentMention = mentionPluginKey.getState(
 						editorView.state,
 					)?.pendingTypedAgentMention;

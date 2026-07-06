@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::8d175b6995b5bb60258e82cca397c158>>
+ * @codegen <<SignedSource::3a16f793aa7c04318ad73540e7f28f01>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -500,6 +500,9 @@ export type Motion =
 	| 'var(--ds-flag-enter)'
 	| 'var(--ds-flag-exit)'
 	| 'var(--ds-flag-reposition)'
+	| 'var(--ds-listitem-hovered)'
+	| 'var(--ds-listitem-pressed)'
+	| 'var(--ds-listitem-selected)'
 	| 'var(--ds-modal-enter)'
 	| 'var(--ds-modal-exit)'
 	| 'var(--ds-popup-enter-bottom)'

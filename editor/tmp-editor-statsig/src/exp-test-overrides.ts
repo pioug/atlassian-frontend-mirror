@@ -68,7 +68,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_find_and_replace_improvements: false,
 	platform_editor_reduce_noisy_steps_ncs: false,
 	platform_editor_paste_actions_menu: false,
-	platform_editor_diff_plugin_extended: false,
 	platform_editor_table_fit_to_content_on_demand: false,
 	platform_editor_table_fit_to_content_auto_convert: false,
 	platform_editor_table_q4_loveability: false,

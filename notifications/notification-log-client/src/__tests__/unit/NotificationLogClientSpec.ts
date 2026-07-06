@@ -27,7 +27,10 @@ describe('NotificationLogClient', () => {
 	it('should resolve count unseen notifications with cloudId', () => {
 		mockGraphQLResponse(cloudIdResponse);
 
-		const provider = new NotificationLogClient({ cloudId: '123' });
+		const provider = new NotificationLogClient({
+			cloudId: '123',
+			collabContextRoutingAri: undefined,
+		});
 		return provider.countUnseenNotifications().then(({ count }) => {
 			expect(count).toEqual(5);
 		});

@@ -609,7 +609,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 
 	const cancelUpload = useCallback(
 		(event?: MouseEvent<HTMLElement>) => {
-			if (fg('platform_emoji_keep_picker_open_on_upload')) {
+			if (fg('platform_emoji_keep_picker_open_on_upload') || isRefreshEmojiPickerEnabled()) {
 				event?.preventDefault();
 				event?.stopPropagation();
 			}

@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 26.8.1
+
+### Patch Changes
+
+- [`b86f203741439`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b86f203741439) -
+  Revert unnecessary aria attribute changes on profile card trigger
+- Updated dependencies
+
 ## 26.8.0
 
 ### Minor Changes

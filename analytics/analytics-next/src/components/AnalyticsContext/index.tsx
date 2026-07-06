@@ -9,8 +9,13 @@ import ModernAnalyticsContext from './ModernAnalyticsContext';
 import type { AnalyticsContextFunction } from './types';
 
 const AnalyticsContext: AnalyticsContextFunction = (props) => {
-	const isModernContext =
+	const computeIsModernContext = () =>
 		isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
+	// Gated by analytics-next-lock-context-type: capture the value once at mount so a late gate flip can't swap the component type and remount the subtree. While locked the gate is not re-read on later renders.
+	const [lockedIsModernContext] = React.useState(computeIsModernContext);
+	const isModernContext = fg('analytics-next-lock-context-type')
+		? lockedIsModernContext
+		: computeIsModernContext();
 
 	return isModernContext ? (
 		<ModernAnalyticsContext {...props} />

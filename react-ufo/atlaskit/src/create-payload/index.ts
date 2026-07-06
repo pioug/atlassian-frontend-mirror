@@ -366,9 +366,7 @@ function objectToArray(obj: Record<string, any> = {}) {
 function getResourceTimingsPayload(resourceTimings: ResourceTimings) {
 	const legacyResourceTimings = objectToArray(resourceTimings) as ResourceTiming[];
 
-	return fg('platform_ufo_compress_resource_timings')
-		? compactResourceTimings(legacyResourceTimings)
-		: legacyResourceTimings;
+	return compactResourceTimings(legacyResourceTimings);
 }
 
 function getBM3SubmetricsTimings(submetrics?: BM3Event[]) {
@@ -488,7 +486,7 @@ function getReactProfilerTimingsByMetricWindow(
 	reactUFOVersion: ReturnType<typeof getReactUFOPayloadVersion>,
 	registry?: LabelStackRegistry,
 ) {
-	if (!fg('platform_ufo_metric_variants') || !interaction.metricWindows) {
+	if (!interaction.metricWindows) {
 		return {};
 	}
 
@@ -660,31 +658,29 @@ async function createInteractionMetricsPayload(
 		const shouldInclude3pHolds = shouldUseRawDataThirdPartyBehavior(ufoName, type);
 
 		const metricVariantPayload = interaction.metricWindows
-			? fg('platform_ufo_metric_variants')
-				? {
-						...getReactProfilerTimingsByMetricWindow(interaction, reactUFOVersion, registry),
-						metricWindows: Object.fromEntries(
-							Object.entries(interaction.metricWindows).map(([name, window]) => [
-								name,
-								window
-									? {
-											...window,
-											start: Math.round(window.start),
-											end: Math.round(window.end),
-										}
-									: window,
-							]),
-						),
-						...(interaction.lifecycleObservations
-							? {
-									lifecycleObservations: interaction.lifecycleObservations.map((observation) => ({
-										...observation,
-										timestamp: Math.round(observation.timestamp),
-									})),
-								}
-							: {}),
-					}
-				: {}
+			? {
+					...getReactProfilerTimingsByMetricWindow(interaction, reactUFOVersion, registry),
+					metricWindows: Object.fromEntries(
+						Object.entries(interaction.metricWindows).map(([name, window]) => [
+							name,
+							window
+								? {
+										...window,
+										start: Math.round(window.start),
+										end: Math.round(window.end),
+									}
+								: window,
+						]),
+					),
+					...(interaction.lifecycleObservations
+						? {
+								lifecycleObservations: interaction.lifecycleObservations.map((observation) => ({
+									...observation,
+									timestamp: Math.round(observation.timestamp),
+								})),
+							}
+						: {}),
+				}
 			: {};
 
 		const basePayload = {
@@ -770,12 +766,10 @@ async function createInteractionMetricsPayload(
 
 	const newUFOName = sanitizeUfoName(ufoName);
 	const resourceTimings = getResourceTimings(start, end);
-	const standardReactProfilerTimings = fg('platform_ufo_metric_variants')
-		? getReactProfilerTimingsForWindow(
-				interaction.reactProfilerTimings,
-				interaction.metricWindows?.standard,
-			)
-		: interaction.reactProfilerTimings;
+	const standardReactProfilerTimings = getReactProfilerTimingsForWindow(
+		interaction.reactProfilerTimings,
+		interaction.metricWindows?.standard,
+	);
 
 	const [finalVCMetrics, paintMetrics, batteryInfo] = await Promise.all([
 		vcMetrics || (await getVCMetrics(interaction)),

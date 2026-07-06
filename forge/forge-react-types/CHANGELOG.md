@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 2.1.1
+
+### Patch Changes
+
+- [`9caf2b96e0878`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9caf2b96e0878) -
+  Widen onDownload type to accept Blobs for default browser download
+
 ## 2.1.0
 
 ### Minor Changes

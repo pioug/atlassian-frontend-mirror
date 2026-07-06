@@ -35,6 +35,9 @@
 			"path": "../../css/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../ds-lib/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../icon/afm-cc/tsconfig.json"
 		},
 		{
@@ -42,6 +45,9 @@
 		},
 		{
 			"path": "../../motion/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
 		},
 		{
 			"path": "../../portal/afm-cc/tsconfig.json"
@@ -54,6 +60,9 @@
 		},
 		{
 			"path": "../../tokens/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../top-layer/afm-cc/tsconfig.json"
 		}
 	]
 }

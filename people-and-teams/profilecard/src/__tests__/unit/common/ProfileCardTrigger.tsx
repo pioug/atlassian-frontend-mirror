@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl';
 
 import { Text } from '@atlaskit/primitives/compiled';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 
 import ProfileCardTrigger from '../../../components/common/ProfileCardTrigger';
@@ -165,48 +164,22 @@ describe('ProfileCardTrigger', () => {
 			return triggerEl;
 		};
 
-		describe('when disabledAriaAttributes is not set', () => {
-			it('keeps the aria attributes provided by the popup trigger', async () => {
-				renderWithIntl({ trigger: 'click' });
+		it('keeps the aria attributes provided by the popup trigger when disabledAriaAttributes is not set', async () => {
+			renderWithIntl({ trigger: 'click' });
 
-				const triggerEl = await openPopupAndGetTrigger();
-				// The popup trigger should retain its aria attributes when they are not disabled.
-				expect(triggerEl).toHaveAttribute('aria-haspopup');
-				expect(triggerEl).toHaveAttribute('aria-expanded');
-				expect(triggerEl).toHaveAttribute('aria-controls');
-			});
+			const triggerEl = await openPopupAndGetTrigger();
+			// The popup trigger should retain its aria attributes when they are not disabled.
+			expect(triggerEl).toHaveAttribute('aria-haspopup');
+			expect(triggerEl).toHaveAttribute('aria-expanded');
 		});
 
-		describe('when disabledAriaAttributes is set', () => {
-			ffTest.on(
-				'fix_aria_attribute_violation_on_agent_card_trigger',
-				'feature gate enabled',
-				() => {
-					it('removes aria-expanded, aria-haspopup and aria-controls from the trigger', async () => {
-						renderWithIntl({ trigger: 'click', disabledAriaAttributes: true });
+		it('removes aria-expanded and aria-haspopup from the trigger when disabledAriaAttributes is set', async () => {
+			const { container } = renderWithIntl({ trigger: 'click', disabledAriaAttributes: true });
 
-						const triggerEl = await openPopupAndGetTrigger();
-						expect(triggerEl).not.toHaveAttribute('aria-expanded');
-						expect(triggerEl).not.toHaveAttribute('aria-haspopup');
-						expect(triggerEl).not.toHaveAttribute('aria-controls');
-					});
-				},
-			);
-
-			ffTest.off(
-				'fix_aria_attribute_violation_on_agent_card_trigger',
-				'feature gate disabled',
-				() => {
-					it('removes aria-expanded and aria-haspopup but keeps aria-controls on the trigger', async () => {
-						renderWithIntl({ trigger: 'click', disabledAriaAttributes: true });
-
-						const triggerEl = await openPopupAndGetTrigger();
-						expect(triggerEl).not.toHaveAttribute('aria-expanded');
-						expect(triggerEl).not.toHaveAttribute('aria-haspopup');
-						expect(triggerEl).toHaveAttribute('aria-controls');
-					});
-				},
-			);
+			const triggerEl = await openPopupAndGetTrigger();
+			expect(triggerEl).not.toHaveAttribute('aria-expanded');
+			expect(triggerEl).not.toHaveAttribute('aria-haspopup');
+			await expect(container).toBeAccessible();
 		});
 	});
 });

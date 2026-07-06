@@ -1360,6 +1360,11 @@ export interface MotionTokenSchema<BaseToken> {
 			hovered: MotionToken<BaseToken>;
 			pressed: MotionToken<BaseToken>;
 		};
+		listitem: {
+			hovered: MotionToken<BaseToken>;
+			pressed: MotionToken<BaseToken>;
+			selected: MotionToken<BaseToken>;
+		};
 		blanket: {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;

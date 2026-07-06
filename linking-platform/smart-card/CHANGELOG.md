@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 45.7.0
+
+### Minor Changes
+
+- [`c2d43ab375005`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2d43ab375005) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.6.12
+
+### Patch Changes
+
+- [`1968a82691db8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1968a82691db8) -
+  Remove dfo-fix-preview-dynamic-style FG
+- Updated dependencies
+
 ## 45.6.11
 
 ### Patch Changes

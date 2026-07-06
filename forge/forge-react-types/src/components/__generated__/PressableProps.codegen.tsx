@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - PressableProps
  *
- * @codegen <<SignedSource::c9ede9c913730287f862a552834817d4>>
+ * @codegen <<SignedSource::ced15b527a058bf8dcff2ee1bf042cfb>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/pressable/index.tsx <<SignedSource::1aa90ffdcfb58d322bcb08b186ba73bf>>
  */
@@ -93,7 +93,7 @@ const borderRadiusSupportedValues = [
 	...borderRadiusTokens,
 	'border.radius',
 ] as unknown as Array<BorderRadius>;
-const xcssValidator = makeXCSSValidator({
+const xcssValidator: XCSSPropsValidator<XCSSValidatorParam> = makeXCSSValidator({
 	// text related props
 	textAlign: {
 		allowCSS: true,
@@ -216,7 +216,7 @@ const xcssValidator = makeXCSSValidator({
 	position: {
 		supportedValues: ['relative', 'static'],
 	},
-});
+}) as unknown as XCSSPropsValidator<XCSSValidatorParam>;
 type XCSSProp = ReturnType<typeof xcssValidator>;
 
 export type PressableProps = {

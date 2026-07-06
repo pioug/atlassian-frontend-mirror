@@ -1,5 +1,14 @@
 # @atlaskit/notification-log-service
 
+## 10.0.0
+
+### Major Changes
+
+- [`de195f1e0fca6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de195f1e0fca6) -
+  Updated `collabContextRoutingAri` prop to be required. This prop is required to support
+  collaboration contexts and takes in the ARI of the site/workspace the user is currently viewing,
+  or `undefined` if not applicable.
+
 ## 9.0.0
 
 ### Major Changes

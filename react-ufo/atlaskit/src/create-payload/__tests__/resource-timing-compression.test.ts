@@ -1,5 +1,3 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import type { InteractionMetrics } from '../../common';
 import { setUFOConfig } from '../../config';
 import { unpackResourceTimings } from '../../resource-timing/common/utils/compact-resource-timing';
@@ -151,40 +149,7 @@ describe('resource timing compression payload', () => {
 		global.performance = originalPerformance;
 		global.PerformanceObserver = originalPerformanceObserver;
 	});
-
-	it('emits legacy resource timing entries when compression gate is off', async () => {
-		failGate('platform_ufo_compress_resource_timings');
-
-		const payloads = await createPayloads('test-interaction', interaction);
-		const interactionMetrics = getInteractionMetrics(payloads);
-
-		expect(interactionMetrics.resourceTimings).toEqual([
-			{
-				label: 'https://example.com/static/app.js',
-				data: expect.objectContaining({
-					startTime: 10,
-					duration: 40,
-					type: 'script',
-					transferType: 'network',
-					size: 1024,
-				}),
-			},
-			{
-				label: 'https://example.com/gateway/api?operationName=GetIssue',
-				data: expect.objectContaining({
-					startTime: 20,
-					duration: 70,
-					type: 'fetch',
-					requestStart: 25,
-					size: 2048,
-				}),
-			},
-		]);
-	});
-
-	it('emits compact resource timing entries when compression gate is on', async () => {
-		passGate('platform_ufo_compress_resource_timings');
-
+	it('emits compact resource timing entries', async () => {
 		const payloads = await createPayloads('test-interaction', interaction);
 		const interactionMetrics = getInteractionMetrics(payloads);
 

@@ -1986,6 +1986,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-06-26 — HUBS-850 — opt-in CSS var hook for editor block spacing
+	platform_editor_extension_block_spacing: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-19
 	platform_editor_lovability_resize_dividers_panels: {
 		defaultValue: boolean;
@@ -4299,6 +4306,17 @@ export const editorExperimentsConfig: {
 		param: 'useCcSmarts',
 		defaultValue: false,
 	}),
+
+	// Added 2026-06-24 — HUBS-850 — gates the --ak-editor-extension-block-spacing block-margin hook
+	platform_editor_extension_block_spacing: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_extension_block_spacing',
+			jira: 'platform_editor_extension_block_spacing',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2026-06-19
 	platform_editor_lovability_resize_dividers_panels: createBooleanExperiment({
 		productKeys: {

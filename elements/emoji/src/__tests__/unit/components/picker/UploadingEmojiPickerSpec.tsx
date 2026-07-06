@@ -430,6 +430,35 @@ describe('<UploadingEmojiPicker />', () => {
 			expect(screen.queryByTestId('emoji-picker-footer')).not.toBeInTheDocument();
 		});
 
+		it('does not bubble the refresh footer add emoji click to document handlers', async () => {
+			setTeamojiExperimentEnabled(true);
+			const handleDocumentClick = jest.fn();
+			document.addEventListener('click', handleDocumentClick);
+
+			try {
+				await helper.setupPicker({
+					emojiProvider,
+					hideToneSelector: true,
+				});
+				await emojiProvider;
+
+				await waitFor(() => {
+					expect(helperTestingLibrary.getEmojiPickerFooter()).toBeInTheDocument();
+				});
+
+				await userEvent.click(
+					within(helperTestingLibrary.getEmojiPickerFooter()).getByRole('button', {
+						name: 'Add emoji',
+					}),
+				);
+
+				expect(screen.getByTestId(uploadEmojiNameInputTestId)).toBeInTheDocument();
+				expect(handleDocumentClick).not.toHaveBeenCalled();
+			} finally {
+				document.removeEventListener('click', handleDocumentClick);
+			}
+		});
+
 		it('defaults empty emoji name to file name in refresh upload flow', async () => {
 			setTeamojiExperimentEnabled(true);
 

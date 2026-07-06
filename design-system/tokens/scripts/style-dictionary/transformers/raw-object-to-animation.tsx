@@ -12,6 +12,8 @@ export const rawObjectToAnimation = ({
 			.map((keyframe: string) => `${duration}ms ${curve} ${keyframe}${delay ? ` ${delay}ms` : ''}`)
 			.join(', ');
 	} else {
-		return `${properties.join(' ')} ${duration}ms ${curve}${delay ? ` ${delay}ms` : ''}`;
+		return properties
+			.map((property: string) => `${property} ${duration}ms ${curve}${delay ? ` ${delay}ms` : ''}`)
+			.join(', ');
 	}
 };

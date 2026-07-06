@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 81.3.0
+
+### Minor Changes
+
+- [`c2d43ab375005`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2d43ab375005) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- [`ca7a91886092f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca7a91886092f) -
+  Clean up feature gate `platform_editor_maui_edit`
+- Updated dependencies
+
 ## 81.2.6
 
 ### Patch Changes

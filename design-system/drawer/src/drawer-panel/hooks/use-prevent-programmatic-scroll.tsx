@@ -2,6 +2,8 @@ import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 /**
  * Returns how far the body is scrolled from the top of the viewport.
  *
@@ -40,6 +42,11 @@ export default function usePreventProgrammaticScroll(): number {
 	}, [scrollTopOffset]);
 
 	useEffect(() => {
+		// The top-layer drawer relies on native modality + `DialogScrollLock`; the
+		// programmatic-scroll guard is intentionally dropped under the flag.
+		if (fg('platform-dst-top-layer')) {
+			return;
+		}
 		return bind(window, {
 			type: 'scroll',
 			listener: onWindowScroll,

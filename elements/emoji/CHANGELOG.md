@@ -1,5 +1,23 @@
 # @atlaskit/emoji
 
+## 71.7.5
+
+### Patch Changes
+
+- [`2e769066c051f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e769066c051f) -
+  Stop propagation to stop Add emoji click closing picker
+- [`400e0ad47f25f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/400e0ad47f25f) -
+  Do not close picker on cancel/delete emoji in post update
+- Updated dependencies
+
+## 71.7.4
+
+### Patch Changes
+
+- [`eaa674ef4c640`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eaa674ef4c640) -
+  The popup for productivity color picker should render relative to, and move with picker
+- Updated dependencies
+
 ## 71.7.3
 
 ### Patch Changes

@@ -11,6 +11,8 @@
 		"42-drawer-stacking-contexts.tsx",
 		"92-blanket-testing.tsx",
 		"94-surface-detection.tsx",
+		"97-ssr-initial-open.tsx",
+		"98-testing-initial-focus-matrix.tsx",
 	],
 	"exampleDependencies": [],
 }

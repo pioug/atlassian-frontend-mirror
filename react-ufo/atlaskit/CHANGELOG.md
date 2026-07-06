@@ -1,5 +1,28 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.4
+
+### Patch Changes
+
+- [`bb9eb81035c60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb9eb81035c60) -
+  Clean up feature gate `platform_ufo_metric_variants`, making metric variant window behavior
+  permanent.
+
+## 7.3.3
+
+### Patch Changes
+
+- [`7ad5da8c88f95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7ad5da8c88f95) -
+  Cleanup feature gate platform_ufo_exclude_gql_timings_from_length_trim
+
+## 7.3.2
+
+### Patch Changes
+
+- [`8d1c8711c938c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d1c8711c938c) -
+  Cleanup feature gate `platform_ufo_compress_resource_timings`. Resource timings are now always
+  emitted in the compact format.
+
 ## 7.3.1
 
 ### Patch Changes
@@ -174,7 +197,7 @@
 ### Minor Changes
 
 - [`e7fca8b60a40b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7fca8b60a40b) -
-  Separate standard and extended UFO breakdown timings behind platform_ufo_metric_variants.
+  Separate standard and extended UFO breakdown timings.
 
 ## 6.5.1
 
@@ -356,8 +379,7 @@
 ### Minor Changes
 
 - [`1541e3b95393e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1541e3b95393e) -
-  Add generic metric windows and lifecycle observations to custom.interaction-metrics behind
-  platform_ufo_metric_variants.
+  Add generic metric windows and lifecycle observations to custom.interaction-metrics.
 
 ## 5.18.0
 

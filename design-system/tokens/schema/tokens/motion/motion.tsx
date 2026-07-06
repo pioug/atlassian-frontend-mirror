@@ -47,6 +47,32 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		listitem: {
+			hovered: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '15.4.0',
+					description: 'Use for list item hover state transitions.',
+				},
+			},
+			pressed: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '15.4.0',
+					description: 'Use for list item pressed state transitions.',
+				},
+			},
+			selected: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '15.4.0',
+					description: 'Use for list item selected state transitions.',
+				},
+			},
+		},
 		blanket: {
 			enter: {
 				attributes: {

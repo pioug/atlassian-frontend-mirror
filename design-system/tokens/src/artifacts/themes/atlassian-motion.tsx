@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2d303b792f34e79bc8bec909f423cd3>>
+ * @codegen <<SignedSource::166d14a2d04c69da890b7d45e130938c>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -176,6 +176,9 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-keyframe-slide-out-left-short: SlideOutLeft8px;
   --ds-keyframe-slide-out-right-short: SlideOutRight8px;
   --ds-keyframe-slide-out-top-short: SlideOutTop8px;
+  --ds-listitem-hovered: background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1);
+  --ds-listitem-pressed: background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1);
+  --ds-listitem-selected: background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-modal-enter: 250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100;
   --ds-modal-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95;
   --ds-popup-enter-bottom: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100;

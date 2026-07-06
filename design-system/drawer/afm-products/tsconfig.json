@@ -35,6 +35,9 @@
 			"path": "../../css/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../ds-lib/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../icon/afm-products/tsconfig.json"
 		},
 		{
@@ -42,6 +45,9 @@
 		},
 		{
 			"path": "../../motion/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../portal/afm-products/tsconfig.json"
@@ -54,6 +60,9 @@
 		},
 		{
 			"path": "../../tokens/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../top-layer/afm-products/tsconfig.json"
 		}
 	]
 }

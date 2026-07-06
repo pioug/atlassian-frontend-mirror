@@ -76,6 +76,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 		children,
 		isOpen,
 		onClose,
+		onEnterFinish,
 		onExitFinish,
 		animate,
 		style,
@@ -96,6 +97,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 		isOpen,
 		animate,
 		elementRef: ownRef,
+		onEnterFinish,
 		onExitFinish,
 	});
 
@@ -144,6 +146,14 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// Handle native Escape (cancel event)
 	const handleCancel = useCallback(
 		(event: React.SyntheticEvent<HTMLDialogElement>) => {
+			// Only handle a cancel targeting THIS dialog. Native `cancel` does not
+			// bubble, but React's synthetic event bubbles up the component tree, so
+			// for nested dialogs (one rendered inside another's DOM subtree) the
+			// inner dialog's Escape would otherwise also fire an ancestor dialog's
+			// handler and close it too. Mirrors the backdrop-click target guard below.
+			if (event.target !== event.currentTarget) {
+				return;
+			}
 			event.preventDefault();
 			onClose({ reason: 'escape' });
 		},

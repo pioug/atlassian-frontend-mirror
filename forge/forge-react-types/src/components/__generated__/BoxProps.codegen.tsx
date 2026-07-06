@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::c6a23cb4ea0286f55b137d3e4f30ab86>>
+ * @codegen <<SignedSource::40a9a07bac30844b91c0ad9ba7f8c12b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::6b93e6d932cf03314cad0e426df1eff4>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/index.tsx <<SignedSource::2b5c4e2d3ee02b00f78935460cc1a0e5>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
@@ -93,7 +93,7 @@ const borderRadiusSupportedValues = [
 	...borderRadiusTokens,
 	'border.radius',
 ] as unknown as Array<BorderRadius>;
-const xcssValidator = makeXCSSValidator({
+const xcssValidator: XCSSPropsValidator<XCSSValidatorParam> = makeXCSSValidator({
 	// text related props
 	textAlign: {
 		allowCSS: true,
@@ -216,7 +216,7 @@ const xcssValidator = makeXCSSValidator({
 	position: {
 		supportedValues: ['relative', 'static'],
 	},
-});
+}) as unknown as XCSSPropsValidator<XCSSValidatorParam>;
 type XCSSProp = ReturnType<typeof xcssValidator>;
 
 export type BoxProps = {

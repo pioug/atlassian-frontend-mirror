@@ -9,6 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 import ScrollLock from 'react-scrolllock';
 import { mergeRefs } from 'use-callback-ref';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type DrawerContentProps } from '../types';
@@ -75,13 +76,24 @@ export const DrawerContent: ({
 	useEnsureIsInsideDrawer();
 	usePreventProgrammaticScroll();
 
+	const content = (
+		<DrawerContentBase scrollContentLabel={scrollContentLabel} xcss={xcss}>
+			{children}
+		</DrawerContentBase>
+	);
+
+	// Under the top-layer flag, background scroll is handled by `DialogScrollLock`
+	// (rendered by `DrawerTopLayer`), so we skip `react-scrolllock` here to avoid
+	// double-locking the body. See the top-layer migration scroll decision.
+	if (fg('platform-dst-top-layer')) {
+		return content;
+	}
+
 	return (
 		<ScrollLock>
 			{/* An intermediate component is used to work around the behaviour of react-scrolllock
 			overriding its child ref. Enabling us to merge the ref from react-scrolllock with our ref. */}
-			<DrawerContentBase scrollContentLabel={scrollContentLabel} xcss={xcss}>
-				{children}
-			</DrawerContentBase>
+			{content}
 		</ScrollLock>
 	);
 };

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0da4ebca0733e0690ada987e93adf7d8>>
+ * @codegen <<SignedSource::8853edc4b4dcb8c3da021c68347e80c9>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1276,6 +1276,135 @@ const tokens: Token[] = [
       "short"
     ],
     "cleanName": "motion.keyframe.slide.out.top.short"
+  },
+  {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "15.4.0",
+      "description": "Use for list item hover state transitions."
+    },
+    "value": {
+      "duration": 50,
+      "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+      "properties": [
+        "background-color",
+        "border-color",
+        "color"
+      ]
+    },
+    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motion",
+        "state": "active",
+        "introduced": "15.4.0",
+        "description": "Use for list item hover state transitions."
+      },
+      "value": {
+        "duration": "Duration050",
+        "curve": "EasePracticalOut",
+        "properties": [
+          "BackgroundColor",
+          "BorderColor",
+          "Color"
+        ]
+      }
+    },
+    "name": "motion.listitem.hovered",
+    "path": [
+      "motion",
+      "listitem",
+      "hovered"
+    ],
+    "cleanName": "motion.listitem.hovered"
+  },
+  {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "15.4.0",
+      "description": "Use for list item pressed state transitions."
+    },
+    "value": {
+      "duration": 100,
+      "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+      "properties": [
+        "background-color",
+        "border-color",
+        "color"
+      ]
+    },
+    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motion",
+        "state": "active",
+        "introduced": "15.4.0",
+        "description": "Use for list item pressed state transitions."
+      },
+      "value": {
+        "duration": "Duration100",
+        "curve": "EasePracticalOut",
+        "properties": [
+          "BackgroundColor",
+          "BorderColor",
+          "Color"
+        ]
+      }
+    },
+    "name": "motion.listitem.pressed",
+    "path": [
+      "motion",
+      "listitem",
+      "pressed"
+    ],
+    "cleanName": "motion.listitem.pressed"
+  },
+  {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "15.4.0",
+      "description": "Use for list item selected state transitions."
+    },
+    "value": {
+      "duration": 100,
+      "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
+      "properties": [
+        "background-color",
+        "border-color",
+        "color"
+      ]
+    },
+    "filePath": "schema/themes/atlassian-motion/motion.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motion",
+        "state": "active",
+        "introduced": "15.4.0",
+        "description": "Use for list item selected state transitions."
+      },
+      "value": {
+        "duration": "Duration100",
+        "curve": "EasePracticalOut",
+        "properties": [
+          "BackgroundColor",
+          "BorderColor",
+          "Color"
+        ]
+      }
+    },
+    "name": "motion.listitem.selected",
+    "path": [
+      "motion",
+      "listitem",
+      "selected"
+    ],
+    "cleanName": "motion.listitem.selected"
   },
   {
     "attributes": {

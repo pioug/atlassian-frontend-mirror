@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.6.11",
+	"version": "45.7.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -241,6 +241,7 @@
 		"./hooks": "./src/hooks.ts",
 		"./hover-card": "./src/hoverCard.ts",
 		"./link-url": "./src/linkUrl.ts",
+		"./link-provider": "./src/linkProvider.ts",
 		"./preload-lazy-card-with-url-content": "./src/preloadLazyCardWithUrlContent.ts",
 		"./i18n/*": {
 			"publish": null,
@@ -322,9 +323,6 @@
 		"platform_sl_3p_auth_rovo_embed_footer_exp": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"dfo-fix-preview-dynamic-style": {
-			"type": "boolean"
 		},
 		"platform_sl_icons_refactor": {
 			"type": "boolean"

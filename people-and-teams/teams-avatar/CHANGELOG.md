@@ -1,5 +1,13 @@
 # @atlaskit/teams-avatar
 
+## 3.1.1
+
+### Patch Changes
+
+- [`c1363affce29a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1363affce29a) -
+  Make the ADS fixes from the now-launched feature gate permanent.
+- Updated dependencies
+
 ## 3.1.0
 
 ### Minor Changes

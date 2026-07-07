@@ -216,7 +216,10 @@ export class ResizingMarkView implements NodeView {
 			const nodeName = view.state.doc.nodeAt(pos)?.type.name;
 
 			// if the node is a panel or a rule, do NOT set up the resizer callbacks
-			if ((nodeName && ['panel', 'rule'].includes(nodeName)) || this.isResizingInitialised) {
+			if (
+				(nodeName && ['panel', 'rule', 'panel_c1'].includes(nodeName)) ||
+				this.isResizingInitialised
+			) {
 				return;
 			}
 

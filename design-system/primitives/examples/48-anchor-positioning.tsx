@@ -22,8 +22,8 @@ export default function Default(): React.JSX.Element {
 			<Grid>
 				<Box xcss={styles.topBox}></Box>
 				<Box xcss={styles.bottomBox}>
-					{[...Array(20).keys()].map(() => (
-						<Box>
+					{[...Array(20).keys()].map((index) => (
+						<Box key={index}>
 							<Anchor testId="anchor-default" href="/home" target="_blank">
 								I am an anchor
 							</Anchor>

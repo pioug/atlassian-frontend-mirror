@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-highlight
 
+## 12.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.17
 
 ### Patch Changes

@@ -4,11 +4,22 @@ import {
 	SpotlightCollectionBackgroundColors,
 } from '@af/design-system-docs-ui';
 import { Stack } from '@atlaskit/primitives/compiled';
+import Image from '@atlaskit/image';
 
 import tourUseDo from '../images/tour-use-do.png';
 import tourUseDont from '../images/tour-use-dont.png';
-import principlesDo from '../images/principles-of-use-do.png';
-import principlesDont from '../images/principles-of-use-dont.png';
+import singleStepLight from '../images/single-step-light.png';
+import singleStepDark from '../images/single-step-dark.png';
+import triggeredSpotlightLight from '../images/triggered-spotlight-light.png';
+import triggeredSpotlightDark from '../images/triggered-spotlight-dark.png';
+import principlesDoLight from '../images/principles-of-use-do-light.png';
+import principlesDoDark from '../images/principles-of-use-do-dark.png';
+import principlesDontLight from '../images/principles-of-use-dont-light.png';
+import principlesDontDark from '../images/principles-of-use-dont-dark.png';
+import spotlightAnatomyLight from '../images/spotlight-anatomy-light.png';
+import spotlightAnatomyDark from '../images/spotlight-anatomy-dark.png';
+import colorApplicationLight from '../images/color-application-light.png';
+import colorApplicationDark from '../images/color-application-dark.png';
 
 ## Usage
 
@@ -26,7 +37,11 @@ the core experience instead.
 The ideal spotlight experience is lightweight and a single-step. Always try to limit your experience
 to one spotlight to prevent information overload for the user.
 
-![Example of a single-step spotlight with content about Jira tasks pointing at a task on a Jira board.](../images/single-step.png)
+<Image
+	src={singleStepLight}
+	srcDark={singleStepDark}
+	alt="Example of a single-step spotlight with content about Jira tasks pointing at a task on a Jira board."
+/>
 
 ### Multi-step tour
 
@@ -79,7 +94,11 @@ experience, they should not use a step count or “Back” CTA.
 
 **In this example, a banner triggers a spotlight that opens a dropdown**
 
-![Example of a single-step spotlight with content that combines the example content of the multi-step tour next to it.](../images/triggered-spotlight.png)
+<Image
+	src={triggeredSpotlightLight}
+	srcDark={triggeredSpotlightDark}
+	alt="Example of a single-step spotlight with content that combines the example content of the multi-step tour next to it."
+/>
 
 ## Spotlight use cases
 
@@ -103,7 +122,8 @@ also activate UI.
 	<DoDont
 		type="do"
 		image={{
-			url: principlesDo,
+			url: principlesDoLight,
+			urlDarkMode: principlesDoDark,
 			alt: 'Example of spotlight with content that explains what Rovo is.',
 		}}
 	>
@@ -112,7 +132,8 @@ also activate UI.
 	<DoDont
 		type="dont"
 		image={{
-			url: principlesDont,
+			url: principlesDontLight,
+			urlDarkMode: principlesDontDark,
 			alt: 'Example of a spotlight with content that promotes purchasing collections to get Rovo.',
 		}}
 	>
@@ -122,7 +143,11 @@ also activate UI.
 
 ## Parts
 
-![Example spotlight with a diagram that points to the elements that exist within a spotlight.](../images/spotlight-anatomy.png)
+<Image
+	src={spotlightAnatomyLight}
+	srcDark={spotlightAnatomyDark}
+	alt="Example spotlight with a diagram that points to the elements that exist within a spotlight."
+/>
 
 <SpotlightTable />
 
@@ -141,7 +166,11 @@ The cognitive load necessary for comprehension should determine the level of com
 
 ### Color application
 
-![Example spotlight with a diagram that points to the background color then outlines that it should be the right collection color.](../images/color-application.png)
+<Image
+	src={colorApplicationLight}
+	srcDark={colorApplicationDark}
+	alt="Example spotlight with a diagram that points to the background color then outlines that it should be the right collection color."
+/>
 
 - Use solid color for the background color to drive focus to the main UI elements
 - Incorporate the collection color into background color to further strengthen the color association

@@ -15,6 +15,7 @@ import ensureReactPeerDepsInDevDeps from './rules/ensure-react-peer-deps-in-dev-
 import expandBorderShorthand from './rules/compiled/expand-border-shorthand';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
+import noInternalDependenciesInPublicPackages from './rules/no-internal-dependencies-in-public-packages';
 import noModuleLevelEval from './rules/feature-gating/no-module-level-eval';
 import noModuleLevelEvalNav4 from './rules/feature-gating/no-module-level-eval-nav4';
 import staticFeatureFlags from './rules/feature-gating/static-feature-flags';
@@ -47,6 +48,7 @@ import visitExampleTypeImportRequired from './rules/visit-example-type-import-re
 import editorExampleTypeImportRequired from './rules/editor-example-type-import-required';
 import ensureUseSyncExternalStoreServerSnapshot from './rules/ensure-use-sync-external-store-server-snapshot';
 import noXcssInCx from './rules/no-xcss-in-cx';
+import noStatsigVersionBump from './rules/no-statsig-version-bump';
 import { join, normalize } from 'node:path';
 import { readFileSync } from 'node:fs';
 
@@ -94,6 +96,7 @@ const rules: {
 	'no-pre-post-install-scripts': Rule.RuleModule;
 	'no-invalid-storybook-decorator-usage': Rule.RuleModule;
 	'ensure-publish-valid': Rule.RuleModule;
+	'no-internal-dependencies-in-public-packages': Rule.RuleModule;
 	'no-module-level-eval': Rule.RuleModule;
 	'no-module-level-eval-nav4': Rule.RuleModule;
 	'static-feature-flags': Rule.RuleModule;
@@ -123,6 +126,7 @@ const rules: {
 	'ensure-use-sync-external-store-server-snapshot': Rule.RuleModule;
 	'use-motion-token-values': Rule.RuleModule;
 	'expand-motion-shorthand': Rule.RuleModule;
+	'no-statsig-version-bump': Rule.RuleModule;
 } = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
 	'ensure-test-runner-arguments': ensureTestRunnerArguments,
@@ -141,6 +145,7 @@ const rules: {
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
 	'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
 	'ensure-publish-valid': ensurePublishValid,
+	'no-internal-dependencies-in-public-packages': noInternalDependenciesInPublicPackages,
 	'no-module-level-eval': noModuleLevelEval,
 	'no-module-level-eval-nav4': noModuleLevelEvalNav4,
 	'static-feature-flags': staticFeatureFlags,
@@ -170,6 +175,7 @@ const rules: {
 	'ensure-use-sync-external-store-server-snapshot': ensureUseSyncExternalStoreServerSnapshot,
 	'use-motion-token-values': useMotionTokenValues,
 	'expand-motion-shorthand': expandMotionShorthand,
+	'no-statsig-version-bump': noStatsigVersionBump,
 };
 
 const commonConfig = {
@@ -183,6 +189,8 @@ const commonConfig = {
 	'@atlaskit/platform/no-direct-document-usage': 'warn',
 	'@atlaskit/platform/no-set-immediate': 'error',
 	'@atlaskit/platform/no-xcss-in-cx': 'error',
+	// Prevents bumping @statsig/js-client or @statsig/client-core to versions with a known CPU regression (HOT-303669)
+	'@atlaskit/platform/no-statsig-version-bump': 'error',
 	// Compiled: rules that are not included via `@compiled/recommended
 	'@atlaskit/platform/expand-border-shorthand': 'error',
 	'@atlaskit/platform/expand-background-shorthand': 'error',
@@ -248,6 +256,7 @@ const plugin: {
 		'no-pre-post-install-scripts': Rule.RuleModule;
 		'no-invalid-storybook-decorator-usage': Rule.RuleModule;
 		'ensure-publish-valid': Rule.RuleModule;
+		'no-internal-dependencies-in-public-packages': Rule.RuleModule;
 		'no-module-level-eval': Rule.RuleModule;
 		'no-module-level-eval-nav4': Rule.RuleModule;
 		'static-feature-flags': Rule.RuleModule;

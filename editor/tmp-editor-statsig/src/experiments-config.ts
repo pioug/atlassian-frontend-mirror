@@ -1021,13 +1021,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-01-22
-	platform_editor_ai_loading_responsive_width: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-22
 	platform_editor_nested_drag_handle_icon: {
 		defaultValue: boolean;
 		param: string;
@@ -1902,13 +1895,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-21
-	fix_free_gen_prompt_bar_position: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-05-25
 	platform_editor_use_html_plus_streaming_parser: {
 		defaultValue: boolean;
@@ -2009,6 +1995,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-25
 	platform_editor_typeahead_empty_query_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-02
+	platform_editor_media_download_fallback_name: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -3162,15 +3155,6 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-01-22
-	platform_editor_ai_loading_responsive_width: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_loading_responsive_width',
-			jira: 'platform_editor_ai_loading_responsive_width',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-01-22
 	platform_editor_nested_drag_handle_icon: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nested_drag_handle_icon',
@@ -4196,14 +4180,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-21
-	fix_free_gen_prompt_bar_position: createBooleanExperiment({
-		productKeys: {
-			confluence: 'fix_free_gen_prompt_bar_position',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-05-25
 	// HTML+ v2 incremental tool-call streaming contract — gates the new
 	// PartialStreamParserV2 / ToolCallProcessorV2 / AdfChunkStrategyV2 stack
@@ -4340,6 +4316,14 @@ export const editorExperimentsConfig: {
 			confluence: 'platform_editor_typeahead_empty_query_fix',
 		},
 		param: 'value',
+		defaultValue: false,
+	}),
+	// Added 2026-07-02
+	platform_editor_media_download_fallback_name: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_media_download_fallback_name',
+		},
+		param: 'isEnabled',
 		defaultValue: false,
 	}),
 	// Added 2026-06-29

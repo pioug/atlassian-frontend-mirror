@@ -1,5 +1,29 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.7
+
+### Patch Changes
+
+- [`b4d10b23fa133`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b4d10b23fa133) -
+  Cleanup feature gate `platform_ufo_disable_ufo_names_config`. The `disabledUfoNames` config
+  suppression behavior is now unconditionally active across `create-payload`,
+  `create-interaction-extra-metrics-payload`, and `create-post-interaction-log-payload`.
+
+## 7.3.6
+
+### Patch Changes
+
+- [`988b750a8dc0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/988b750a8dc0d) -
+  Cleanup feature gate platform_enable_better_page_visibility
+
+## 7.3.5
+
+### Patch Changes
+
+- [`ec94823f4b129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec94823f4b129) -
+  Cleanup feature gate `ufo_detect_aborting_interaction_during_ssr`. The SSR abort interaction
+  marker is now always collected and emitted in the interaction metrics payload.
+
 ## 7.3.4
 
 ### Patch Changes

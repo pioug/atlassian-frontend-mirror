@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 26.8.3
+
+### Patch Changes
+
+- [`47de4247d963e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47de4247d963e) -
+  Remove aria-controls attribute from non interactive profile card trigger
+- Updated dependencies
+
+## 26.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.8.1
 
 ### Patch Changes

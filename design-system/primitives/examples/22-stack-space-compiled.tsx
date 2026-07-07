@@ -47,7 +47,7 @@ export default (): JSX.Element => (
 	<div data-testid="stack-example" css={styles.container}>
 		<Inline space="space.100">
 			{spaceItems.map((space) => (
-				<Stack alignInline="center">
+				<Stack key={space} alignInline="center">
 					{space}
 					<Stack space={space}>
 						<Box xcss={styles.box} backgroundColor="color.background.discovery.bold" />

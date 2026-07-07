@@ -8,8 +8,11 @@ import { Inline, Stack } from '@atlaskit/primitives/compiled';
 export default function ObjectLabelling(): React.JSX.Element {
 	return (
 		<Stack space="space.200">
-			<Heading size="medium">Non-decorative object with a label</Heading>
-			<IdeaObject label="Idea" />
+			<Heading size="medium">Non-decorative object with a default label</Heading>
+			{/* No label prop needed - defaults to the content type name "Idea" */}
+			<IdeaObject />
+			<Heading size="medium">Non-decorative object with a custom label</Heading>
+			<IdeaObject label="Create an Idea" />
 			<Heading size="medium">Decorative object without a label</Heading>
 			<Inline space="space.100" alignBlock="center">
 				{/* This object is already described by accompanying text, so no label is needed */}

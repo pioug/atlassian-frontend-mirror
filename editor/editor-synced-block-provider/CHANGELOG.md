@@ -1,5 +1,21 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.5.4
+
+### Patch Changes
+
+- [`1b4390dfedd97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b4390dfedd97) -
+  Rename the internal analytics payload builder `createSuccessPayloadNew` to
+  `createSuccessOperationalPayload` to make the operational-vs-track distinction clear at the call
+  site. This is a pure rename with no behavioural or payload change.
+- Updated dependencies
+
+## 8.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.2
 
 ### Patch Changes

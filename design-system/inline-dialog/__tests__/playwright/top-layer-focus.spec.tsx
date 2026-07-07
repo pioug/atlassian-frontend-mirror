@@ -68,6 +68,16 @@ test.describe('Inline dialog: top-layer focus contract', () => {
 		await expect(first).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(second).toBeFocused();
+
+		// Tabbing past the last focusable wraps within the role="dialog" popover:
+		// `useFocusWrap` prevents focus from escaping to page content behind it.
+		const content = page.getByTestId('default-inline-dialog-content');
+		await page.keyboard.press('Tab');
+		const focusWithinContent = await content.evaluate(
+			(contentElement) =>
+				document.activeElement !== null && contentElement.contains(document.activeElement),
+		);
+		expect(focusWithinContent).toBe(true);
 	});
 
 	// WCAG 2.4.3 Focus Order + WAI-ARIA APG Dialog pattern

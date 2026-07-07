@@ -1355,6 +1355,12 @@ const editorContentStyles = cssMap({
 		paddingBottom: token('space.250'),
 		paddingLeft: token('space.250'),
 	},
+	// Establishes a container-query context on the content area for non-full-page
+	// appearances so `cqw`-based content sizing (native embeds, media) resolves against the
+	// sidebar-aware editor width instead of the viewport. See containerTypeStyles.ts (emotion twin).
+	nonFullPageContainerTypeStyles: {
+		containerType: 'inline-size',
+	},
 	cursorStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'.ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor)': {
@@ -5107,6 +5113,14 @@ const editorContentStyles = cssMap({
 					height: 'calc(100% - 12px)',
 				},
 			},
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel_c1"])': {
+				'> .pm-breakout-resize-handle-container--right': {
+					right: '-4px',
+				},
+				'> .pm-breakout-resize-handle-container': {
+					height: 'calc(100% - 12px)',
+				},
+			},
 			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"])': {
 				'> .pm-breakout-resize-handle-container--right': {
 					right: '-4px',
@@ -8233,6 +8247,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.layoutResponsiveStylesForView,
 				isComment && editorContentStyles.commentEditorStyles,
 				isComment && editorContentStyles.tableCommentEditorStyles,
+				(isComment || isChromeless) &&
+					fg('platform_comment_container_query') &&
+					editorContentStyles.nonFullPageContainerTypeStyles,
 				isFullPage && editorContentStyles.fullPageEditorStyles,
 				isFullPage && editorContentStyles.scrollbarStyles,
 				fg('platform_editor_nested_dnd_styles_changes')

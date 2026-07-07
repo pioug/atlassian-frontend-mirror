@@ -66,6 +66,7 @@ import {
 } from './styles/codeBlockStyles';
 import { codeMarkStyles, codeMarkStylesA11yFix } from './styles/codeMarkStyles';
 import { commentEditorStyles } from './styles/commentEditorStyles';
+import { nonFullPageContainerTypeStyles } from './styles/containerTypeStyles';
 import { cursorStyles } from './styles/cursorStyles';
 import { dangerDateStyles, dateStyles, dateVanillaStyles } from './styles/dateStyles';
 import {
@@ -787,6 +788,15 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				isComment && commentEditorStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				isComment && tableCommentEditorStyles,
+				// Non-full-page appearances (comment, chromeless) have no `container-type` ancestor,
+				// so `cqw`-based content sizing (native embeds, media) falls back to the viewport and
+				// does not shrink when a sidebar narrows the content column. Make the content area a
+				// query container so `--ak-editor-max-container-width` resolves against the actual
+				// (sidebar-aware) editor width. Full-page keeps using the `editor-area` container.
+				(isComment || isChromeless) &&
+					fg('platform_comment_container_query') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					nonFullPageContainerTypeStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				isFullPage && fullPageEditorStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

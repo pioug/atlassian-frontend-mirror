@@ -22,7 +22,7 @@ export default (): jsx.JSX.Element => (
 	<Stack testId="inline-example" space="space.100" alignInline="start">
 		<Stack space="space.100">
 			{growItems.map((grow) => (
-				<Stack alignInline="center">
+				<Stack key={grow} alignInline="center">
 					{grow}
 					<Box
 						backgroundColor="color.background.neutral"

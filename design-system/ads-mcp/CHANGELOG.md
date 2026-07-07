@@ -1,5 +1,26 @@
 # @atlaskit/ads-mcp
 
+## 1.5.1
+
+### Patch Changes
+
+- [`ee5671e8a1284`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee5671e8a1284) -
+  Regenerate structured content with debarreled example imports.
+
+## 1.5.0
+
+### Minor Changes
+
+- [`8da670316e06f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8da670316e06f) -
+  Carry designSource (figmaUrl, figmaNodeId) into MCP component payloads and expose it in component
+  search results
+
+### Patch Changes
+
+- [`8da670316e06f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8da670316e06f) -
+  Carry designSource into MCP component payloads and search output
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

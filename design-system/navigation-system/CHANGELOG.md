@@ -1,5 +1,15 @@
 # @atlassian/navigation-system
 
+## 10.3.0
+
+### Minor Changes
+
+- [`a3b0e6c4eeab7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3b0e6c4eeab7) -
+  Apply button motion tokens (motion.button.hovered / motion.button.pressed) to top-nav
+  ThemedAnchor, gated behind platform-dst-motion-uplift-button, for parity with ThemedPressable.
+  Also enables the gate by default in the top nav button constellation example so the motion is
+  previewed in the docs.
+
 ## 10.2.0
 
 ### Minor Changes

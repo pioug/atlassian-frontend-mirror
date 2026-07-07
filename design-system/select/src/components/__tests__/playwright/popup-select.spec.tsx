@@ -7,9 +7,6 @@ test.describe('PopupSelect', () => {
 			'design-system',
 			'select',
 			'popup-select',
-			{
-				'react-18-mode': 'legacy',
-			},
 		);
 		const button = page.getByTestId('button-for-testing');
 		await button.click();
@@ -25,11 +22,9 @@ test.describe('PopupSelect', () => {
 			'design-system',
 			'select',
 			'popup-select',
-			{
-				'react-18-mode': 'legacy',
-			},
 		);
 		const button = page.getByTestId('button-for-testing');
+		await expect(button).toBeVisible();
 		await page.keyboard.press('Tab');
 		await expect(button).toBeFocused();
 		await page.keyboard.press('ArrowDown');

@@ -52,7 +52,7 @@ export const handleKeyDown =
 		const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
 		const isBracketKey = event.code === 'BracketRight' || event.code === 'BracketLeft';
 		if (metaKey && event.altKey && isBracketKey) {
-			const { expand, codeBlock, layoutSection, rule, panel } = view.state.schema.nodes;
+			const { expand, codeBlock, layoutSection, rule, panel, panel_c1 } = view.state.schema.nodes;
 
 			const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
 				? getBreakoutResizableNodeTypes(
@@ -68,7 +68,7 @@ export const handleKeyDown =
 							'isEnabled',
 							true,
 					  )
-					? new Set([expand, codeBlock, layoutSection, rule, panel])
+					? new Set([expand, codeBlock, layoutSection, rule, panel, panel_c1])
 					: new Set([expand, codeBlock, layoutSection]);
 
 			const result = getAncestorResizableNode(view, breakoutResizableNodes);

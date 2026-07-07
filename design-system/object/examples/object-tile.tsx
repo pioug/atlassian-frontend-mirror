@@ -4,7 +4,7 @@
  */
 
 import { css, jsx } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 import { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

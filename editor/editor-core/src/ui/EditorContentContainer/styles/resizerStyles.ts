@@ -715,6 +715,17 @@ export const pragmaticResizerStylesPanelAndRule: SerializedStyles = css({
 			},
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="panel_c1"])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container--right': {
+				right: '-4px',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> .pm-breakout-resize-handle-container': {
+				height: 'calc(100% - 12px)',
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"])': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'> .pm-breakout-resize-handle-container--right': {

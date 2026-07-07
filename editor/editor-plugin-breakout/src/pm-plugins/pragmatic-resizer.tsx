@@ -21,7 +21,7 @@ const getNodeName = (nodeName?: string) => {
 	} else if (nodeName === 'codeBlock' || nodeName === 'expand') {
 		return nodeName;
 	} else if (
-		(nodeName === 'rule' || nodeName === 'panel') &&
+		(nodeName === 'rule' || nodeName === 'panel' || nodeName === 'panel_c1') &&
 		expValEqualsNoExposure('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
 	) {
 		return nodeName;
@@ -36,6 +36,7 @@ export const resizeHandleMessage: Record<string, MessageDescriptor> = {
 	layout: messages.resizeLayout,
 	rule: messages.resizeRule,
 	panel: messages.resizePanel,
+	panel_c1: messages.resizePanel,
 	node: messages.resizeElement,
 };
 

@@ -63,7 +63,7 @@ test.describe('Date picker: top-layer focus contract', () => {
 		await expect(combobox).toBeFocused();
 	});
 
-	test('focus movement: Tab cycles between focusables inside the calendar dialog', async ({
+	test('focus movement: Tab moves focus and keeps it inside the calendar dialog', async ({
 		page,
 	}) => {
 		await page.visitExample<typeof import('../../examples/testing-top-layer-focus.tsx')>(
@@ -75,11 +75,23 @@ test.describe('Date picker: top-layer focus contract', () => {
 
 		await page.getByTestId('date-picker--container').click();
 
+		const calendar = page.getByRole('dialog', { name: 'calendar' });
+		await expect(calendar).toBeVisible();
+
 		const previousYearButton = page.getByTestId('date-picker--calendar--previous-year');
 		await expect(previousYearButton).toBeFocused();
 
 		// `useFocusWrap` keeps Tab inside the dialog for role="dialog" popovers.
 		await page.keyboard.press('Tab');
 		await expect(previousYearButton).not.toBeFocused();
+
+		// Focus must stay within the calendar dialog: for a role="dialog" popover
+		// `useFocusWrap` intercepts Tab so focus never escapes to page content
+		// behind the popover.
+		const focusWithinCalendar = await calendar.evaluate(
+			(calendarElement) =>
+				document.activeElement !== null && calendarElement.contains(document.activeElement),
+		);
+		expect(focusWithinCalendar).toBe(true);
 	});
 });

@@ -1,11 +1,6 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { InteractionMetrics } from '../../common';
 import { setUFOConfig } from '../../config';
 import { createPayloads } from '../index';
-
-jest.mock('@atlaskit/platform-feature-flags');
-const mockFg = fg as jest.Mock;
 
 const minimalInteraction: InteractionMetrics = {
 	id: 'test-interaction',
@@ -45,7 +40,7 @@ const minimalInteraction: InteractionMetrics = {
 	minorInteractions: [],
 };
 
-describe('createPayloads – platform_ufo_disable_ufo_names_config', () => {
+describe('createPayloads – disabledUfoNames config', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
 		setUFOConfig({
@@ -55,8 +50,7 @@ describe('createPayloads – platform_ufo_disable_ufo_names_config', () => {
 		});
 	});
 
-	it('returns empty array when feature flag is on and interaction ufo name is in config.disabledUfoNames', async () => {
-		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_disable_ufo_names_config');
+	it('returns empty array when interaction ufo name is in config.disabledUfoNames', async () => {
 		setUFOConfig({
 			enabled: true,
 			product: 'test-product',
@@ -69,8 +63,7 @@ describe('createPayloads – platform_ufo_disable_ufo_names_config', () => {
 		expect(payloads).toEqual([]);
 	});
 
-	it('returns empty array when feature flag is on and ufo name override is in config.disabledUfoNames', async () => {
-		mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_disable_ufo_names_config');
+	it('returns empty array when ufo name override is in config.disabledUfoNames', async () => {
 		setUFOConfig({
 			enabled: true,
 			product: 'test-product',
@@ -90,7 +83,7 @@ describe('createPayloads – platform_ufo_disable_ufo_names_config', () => {
 		expect(payloads).toEqual([]);
 	});
 
-	describe('when feature flag is on but config.disabledUfoNames is not defined or empty', () => {
+	describe('when config.disabledUfoNames is not defined or empty', () => {
 		const originalPerformance = global.performance;
 		const originalPerformanceObserver = global.PerformanceObserver;
 
@@ -137,7 +130,6 @@ describe('createPayloads – platform_ufo_disable_ufo_names_config', () => {
 		});
 
 		it('does not return early when disabledUfoNames is undefined', async () => {
-			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_disable_ufo_names_config');
 			setUFOConfig({
 				enabled: true,
 				product: 'test-product',
@@ -152,7 +144,6 @@ describe('createPayloads – platform_ufo_disable_ufo_names_config', () => {
 		});
 
 		it('does not return early when disabledUfoNames is empty array', async () => {
-			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_disable_ufo_names_config');
 			setUFOConfig({
 				enabled: true,
 				product: 'test-product',

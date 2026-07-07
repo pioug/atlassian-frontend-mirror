@@ -37,7 +37,7 @@ export default (): jsx.JSX.Element => (
 			<Stack space="space.100" testId="inline-space">
 				<Heading size="large">space</Heading>
 				{spaceItems.map((space) => (
-					<Inline>
+					<Inline key={space}>
 						<span css={spaceValueStyles}>{space}</span>
 						<Inline space={space}>
 							<Box
@@ -58,7 +58,7 @@ export default (): jsx.JSX.Element => (
 			<Stack space="space.100" testId="inline-rowSpace">
 				<Heading size="large">rowSpace</Heading>
 				{spaceItems.map((space) => (
-					<Box xcss={containerStyles}>
+					<Box key={space} xcss={containerStyles}>
 						<Inline>
 							<span css={spaceValueStyles}>{space}</span>
 							<Inline rowSpace={space} shouldWrap>

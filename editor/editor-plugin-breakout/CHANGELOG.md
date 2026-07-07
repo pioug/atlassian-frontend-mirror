@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.2.0
+
+### Minor Changes
+
+- [`319eb8550d286`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/319eb8550d286) -
+  [ux] [EDITOR-7978] add resizing support to the panel_c1 node behind resizer experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

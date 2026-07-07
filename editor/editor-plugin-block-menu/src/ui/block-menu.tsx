@@ -28,7 +28,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -286,7 +285,6 @@ const BlockMenu = ({
 	}));
 	const { onDropdownOpenChanged } = useBlockMenu();
 	const targetHandleRef = editorView?.dom?.querySelector<HTMLElement>(DRAG_HANDLE_SELECTOR);
-	const shouldCloseBlockMenuOnResize = fg('platform_editor_block_menu_jira_patch_4');
 	const closeMenu = React.useCallback(() => {
 		api?.core.actions.execute(({ tr }) => {
 			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
@@ -300,7 +298,7 @@ const BlockMenu = ({
 	}, [api, currentUserIntent, onDropdownOpenChanged]);
 
 	useCloseBlockMenuOnResize({
-		isEnabled: Boolean(isMenuOpen && shouldCloseBlockMenuOnResize),
+		isEnabled: Boolean(isMenuOpen),
 		mountTo,
 		boundariesElement,
 		scrollableElement,

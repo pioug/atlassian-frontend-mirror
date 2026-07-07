@@ -84,6 +84,8 @@ describe('validate invalid schema', () => {
 		'rule-with-attrs.json',
 		// now valid with flexible list indentation support - listItem can have list as first child
 		'listItem-with-list-as-first-child.json',
+		// stage0
+		'panel-with-unknown-attr.json',
 	];
 	const expectAnyErrorList = [
 		'extension-with-empty-local-id.json',

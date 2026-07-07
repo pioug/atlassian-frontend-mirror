@@ -1,5 +1,15 @@
 # @atlaskit/object
 
+## 2.1.1
+
+### Patch Changes
+
+- [`a715574244fd8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a715574244fd8) -
+  Updated labelling examples to demonstrate that the `label` prop is optional and defaults to a
+  meaningful content type name (e.g. "Bug", "Epic", "Page"). No label prop is required for standard
+  non-decorative use.
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

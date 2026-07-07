@@ -40,10 +40,13 @@ export type LanguagePickerProps = {
 	onSelection: (
 		option: LanguagePickerOption,
 		selectionSource: LanguagePickerSelectionSource,
+		interactionMethod?: LanguagePickerInteractionMethod,
 	) => void;
 	recentLanguageValues?: string[];
 	triggerSpacing?: 'default' | 'compact';
 };
+
+export type LanguagePickerInteractionMethod = 'keyboard' | 'mouse';
 
 const pickerOptionStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -60,9 +63,6 @@ const styles = cssMap({
 
 	trigger: {
 		maxWidth: '200px',
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		button: {
@@ -73,6 +73,12 @@ const styles = cssMap({
 				content: 'none',
 			},
 		},
+	},
+
+	legacyTriggerTextOverflow: {
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
 	},
 });
 
@@ -147,6 +153,10 @@ export const LanguagePicker = ({
 	const [hasSearchQuery, setHasSearchQuery] = useState(false);
 	const [lockedPopperPlacement, setLockedPopperPlacement] = useState<PopupSelectPopperPlacement>();
 	const inputValueRef = useRef('');
+	// PopupSelect restores focus based on the trigger/open interaction, not the option
+	// interaction. Keep this tied to the trigger so keyboard-open + mouse-select still follows
+	// the keyboard focus path.
+	const interactionMethodRef = useRef<LanguagePickerInteractionMethod>('keyboard');
 	const optionsByValue = useMemo(
 		() => new Map(languagePickerOptions.map((option) => [option.value, option])),
 		[languagePickerOptions],
@@ -192,7 +202,11 @@ export const LanguagePicker = ({
 				? 'search'
 				: (option.selectionSource ?? 'all');
 
-			onSelection(option, selectionSource);
+			if (fg('platform_editor_code_block_ga_patch_1')) {
+				onSelection(option, selectionSource, interactionMethodRef.current);
+			} else {
+				onSelection(option, selectionSource);
+			}
 		},
 		[onSelection],
 	);
@@ -230,26 +244,64 @@ export const LanguagePicker = ({
 			focusWithoutScrolling(event.currentTarget);
 		}
 	}, []);
+	const handleTriggerMouseUp = useCallback((event: React.MouseEvent<HTMLElement>) => {
+		if (fg('platform_editor_code_block_ga_patch_1')) {
+			interactionMethodRef.current = 'mouse';
+			// Focus the trigger before PopupSelect opens so FocusLock restores focus to the
+			// trigger after a mouse selection. Relying on the button's default mouse focus is too
+			// late here; FocusLock can still remember the code block as the previous focus target.
+			focusWithoutScrolling(event.currentTarget);
+		}
+	}, []);
+	const handleTriggerKeyDownCapture = useCallback(() => {
+		interactionMethodRef.current = 'keyboard';
+	}, []);
 	const renderTarget = useCallback(
-		({ isOpen, ref, onKeyDown, 'aria-controls': ariaControls }: PopupSelectTargetProps) => (
-			<div css={styles.trigger}>
+		({
+			isOpen,
+			ref,
+			onKeyDown,
+			'aria-controls': ariaControls,
+			'aria-expanded': ariaExpanded,
+			'aria-haspopup': ariaHasPopup,
+		}: PopupSelectTargetProps) => (
+			<div
+				css={[
+					styles.trigger,
+					!fg('platform_editor_code_block_ga_patch_1') && styles.legacyTriggerTextOverflow,
+				]}
+			>
 				<Button
 					spacing={triggerSpacing}
 					shouldFitContainer
-					onMouseDown={handleTriggerMouseDown}
+					onMouseDown={
+						fg('platform_editor_code_block_ga_patch_1') ? undefined : handleTriggerMouseDown
+					}
+					onMouseUp={fg('platform_editor_code_block_ga_patch_1') ? handleTriggerMouseUp : undefined}
+					onKeyDownCapture={
+						fg('platform_editor_code_block_ga_patch_1') ? handleTriggerKeyDownCapture : undefined
+					}
 					onKeyDown={onKeyDown}
 					ref={ref}
 					iconAfter={ChevronDownIcon}
 					appearance="subtle"
 					isSelected={isOpen}
 					aria-controls={ariaControls}
+					aria-expanded={fg('platform_editor_code_block_ga_patch_1') ? ariaExpanded : undefined}
+					aria-haspopup={fg('platform_editor_code_block_ga_patch_1') ? ariaHasPopup : undefined}
 					testId="code-block-language-picker-trigger"
 				>
 					{label}
 				</Button>
 			</div>
 		),
-		[label, triggerSpacing, handleTriggerMouseDown],
+		[
+			label,
+			triggerSpacing,
+			handleTriggerMouseDown,
+			handleTriggerMouseUp,
+			handleTriggerKeyDownCapture,
+		],
 	);
 
 	return (

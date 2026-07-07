@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { ADFEntity, ADFEntityMark } from '../types';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
@@ -403,6 +404,12 @@ const unsupportedNodeAttributesContent = (
  * under the base spec must also be valid under the variant.
  */
 const getVariantSpecOverrides = (): Record<string, string> => {
+	if (fg('platform_editor_lovability_resize_gracefully')) {
+		return {
+			panel: 'panel_root_only',
+			rule: 'rule_root_only',
+		};
+	}
 	return {};
 };
 

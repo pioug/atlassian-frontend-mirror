@@ -521,7 +521,7 @@ export const createSuccessPayload = (
  * existed, so dashboards had no create denominator). Fired behind
  * `platform_editor_blocks_patch_4` with the `blockInstanceId` join key.
  */
-export const createSuccessPayloadNew = (
+export const createSuccessOperationalPayload = (
 	resourceId: string,
 	blockInstanceId?: string,
 	sourceProduct?: string,

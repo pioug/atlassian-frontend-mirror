@@ -5,14 +5,14 @@
  */
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/Avatar';
 import { IconButton } from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-import Lozenge from '@atlaskit/lozenge';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
 import { Stack } from '@atlaskit/primitives/compiled';
 import { COLLAPSE_ELEM_BEFORE, LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';

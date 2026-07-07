@@ -300,6 +300,10 @@ export class EmojiNodeView implements NodeView {
 			return;
 		}
 
+		if (isSSR()) {
+			return;
+		}
+
 		const tooltipId =
 			typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
 				? `emoji-tooltip-${crypto.randomUUID()}`

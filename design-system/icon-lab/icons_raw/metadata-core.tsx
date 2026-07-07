@@ -2929,7 +2929,7 @@ const metadata: IconMetadata = {
 		keywords: ['JSM', 'journey', 'lifecycle', 'map', 'process'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon-lab',
-		team: 'JSM Grape Soju',
+		team: 'JSM Getting Started',
 		status: 'published',
 		id: '60320:16792',
 		usage: 'Reserved for representing Journeys in JSM.',

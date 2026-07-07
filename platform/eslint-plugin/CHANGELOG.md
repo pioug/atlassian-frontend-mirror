@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 3.2.0
+
+### Minor Changes
+
+- [`14f03d61ed044`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/14f03d61ed044) -
+  Created new rule `@atlaskit/platform/no-internal-dependencies-in-public-packages` which ensures
+  that internal dependencies are not used in public packages
+
 ## 3.1.2
 
 ### Patch Changes

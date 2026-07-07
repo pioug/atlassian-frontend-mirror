@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/primitives",
-	"version": "20.3.0",
+	"version": "20.4.0",
 	"description": "Primitives are token-backed low-level building blocks.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -149,7 +149,7 @@
 		"tiny-invariant": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -185,8 +185,8 @@
 		"@testing-library/user-event": "root:*",
 		"csstype": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"react-resource-router": "root:*",
 		"ts-node": "root:*"
 	},

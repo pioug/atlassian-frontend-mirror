@@ -35,6 +35,9 @@
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../editor/tmp-editor-statsig/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../media-core/afm-products/tsconfig.json"
 		},
 		{

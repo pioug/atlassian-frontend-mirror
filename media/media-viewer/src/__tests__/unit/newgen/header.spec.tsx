@@ -576,6 +576,31 @@ describe('<Header />', () => {
 				const fileName = await screen.findByTestId('media-viewer-file-name');
 				await waitFor(() => expect(fileName).toHaveTextContent('unknown'));
 			});
+
+			it('passes fallbackMediaName to ToolbarDownloadButton when file has no name', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithNoName();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				const fetchedName = 'fallback-download-name.jpg';
+				const fallbackMediaNameFetcher = jest.fn().mockResolvedValue(fetchedName);
+
+				render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<Header
+								intl={fakeIntl}
+								identifier={identifier}
+								traceContext={traceContext}
+								fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+							/>
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
+
+				await waitFor(() => expect(fallbackMediaNameFetcher).toHaveBeenCalledWith(fileItem.id));
+
+				const downloadButton = await screen.findByTestId('media-viewer-download-button');
+				expect(downloadButton).toBeInTheDocument();
+			});
 		});
 
 	eeTest

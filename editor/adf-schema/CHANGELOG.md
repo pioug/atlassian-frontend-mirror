@@ -1,5 +1,22 @@
 # @atlaskit/adf-schema
 
+## 56.1.0
+
+### Minor Changes
+
+- [`319eb8550d286`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/319eb8550d286) -
+  [ux] [EDITOR-7978] add resizing support to the panel_c1 node behind resizer experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 56.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 56.0.15
 
 ### Patch Changes

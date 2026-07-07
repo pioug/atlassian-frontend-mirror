@@ -25,7 +25,7 @@ export default (): React.JSX.Element => (
 	<Box testId="stack-example" padding="space.100">
 		<Inline space="space.100">
 			{spaceItems.map((space) => (
-				<Stack alignInline="center">
+				<Stack key={space} alignInline="center">
 					{space}
 					<Stack space={space}>
 						<Box

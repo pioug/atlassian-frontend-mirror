@@ -29,6 +29,7 @@ import {
 	createFailedPreviewDownloadButtonClickedEvent,
 } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { DownloadButtonWrapper } from './styleWrappers';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { MediaViewerError } from './errors';
 import Tooltip from '@atlaskit/tooltip';
 import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
@@ -77,12 +78,18 @@ const createItemDownloader =
 			collectionName?: string;
 			traceContext: MediaTraceContext;
 			createAnalyticsEvent: CreateUIAnalyticsEvent;
+			fallbackMediaName?: string;
 		},
 	) =>
 	async () => {
-		const { collectionName, traceContext, createAnalyticsEvent } = options;
+		const { collectionName, traceContext, createAnalyticsEvent, fallbackMediaName } = options;
 		const id = file.id;
-		const name = !isErrorFileState(file) ? file.name : undefined;
+		const fileStateName = !isErrorFileState(file) ? file.name : undefined;
+		const name =
+			fileStateName ||
+			(expValEquals('platform_editor_media_download_fallback_name', 'isEnabled', true)
+				? fallbackMediaName
+				: undefined);
 
 		mediaClient.file
 			.downloadBinary(id, name, collectionName, traceContext)
@@ -125,6 +132,7 @@ type DownloadItemProps = {
 	children?: ReactNode;
 	iconBefore?: DownloadButtonProps['iconBefore'];
 	traceContext: MediaTraceContext;
+	fallbackMediaName?: string;
 };
 
 const DownloadItem = ({
@@ -137,6 +145,7 @@ const DownloadItem = ({
 	traceContext,
 	iconBefore,
 	children,
+	fallbackMediaName,
 }: DownloadItemProps) => {
 	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -148,6 +157,7 @@ const DownloadItem = ({
 		collectionName: collectionName,
 		createAnalyticsEvent,
 		traceContext,
+		fallbackMediaName,
 	});
 
 	return (
@@ -220,6 +230,7 @@ export type ToolbarDownloadButtonProps = {
 	identifier: Identifier;
 	mediaClient: MediaClient;
 	traceContext: MediaTraceContext;
+	fallbackMediaName?: string;
 };
 
 export const ToolbarDownloadButton = ({
@@ -227,6 +238,7 @@ export const ToolbarDownloadButton = ({
 	mediaClient,
 	identifier,
 	traceContext,
+	fallbackMediaName,
 }: ToolbarDownloadButtonProps): React.JSX.Element | null => {
 	// TODO [MS-1731]: make it work for external files as well
 	if (isExternalImageIdentifier(identifier)) {
@@ -244,6 +256,7 @@ export const ToolbarDownloadButton = ({
 			collectionName={identifier.collectionName}
 			traceContext={traceContext}
 			iconBefore={downloadIcon}
+			fallbackMediaName={fallbackMediaName}
 		/>
 	);
 };

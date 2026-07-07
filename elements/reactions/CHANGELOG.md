@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 35.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.5.0
 
 ### Minor Changes

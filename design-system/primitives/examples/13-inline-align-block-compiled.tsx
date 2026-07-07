@@ -47,7 +47,7 @@ export default (): JSX.Element => (
 	<div data-testid="inline-example" css={styles.wrapper}>
 		<Inline space="space.200">
 			{alignBlockItems.map((alignBlock) => (
-				<Stack key={alignBlock} alignInline="center" space="space.025">
+				<Stack key={alignBlock ?? 'default'} alignInline="center" space="space.025">
 					{alignBlock ?? '(default)'}
 					<Box backgroundColor="color.background.neutral" xcss={styles.container}>
 						<Inline space="space.050" alignBlock={alignBlock}>

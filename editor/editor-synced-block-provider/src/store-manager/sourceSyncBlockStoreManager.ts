@@ -25,7 +25,7 @@ import {
 	getSourceInfoErrorPayload,
 	updateSuccessPayload,
 	createSuccessPayload,
-	createSuccessPayloadNew,
+	createSuccessOperationalPayload,
 	deleteSuccessPayload,
 	fetchReferencesErrorPayload,
 	buildErrorAttribution,
@@ -478,7 +478,7 @@ export class SourceSyncBlockStoreManager {
 			// Operational create-success event with the join key.
 			if (fg('platform_editor_blocks_patch_4')) {
 				this.fireAnalyticsEvent?.(
-					createSuccessPayloadNew(
+					createSuccessOperationalPayload(
 						resourceId || '',
 						this.syncBlockCache.get(resourceId)?.blockInstanceId,
 						sourceProduct,

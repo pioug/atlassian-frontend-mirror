@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-emoji
 
+## 13.0.25
+
+### Patch Changes
+
+- [`c8476b968b952`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8476b968b952) -
+  Prevent emoji hover tooltips from rendering during SSR.
+
+## 13.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.23
 
 ### Patch Changes

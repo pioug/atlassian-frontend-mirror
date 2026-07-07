@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.18
 
 ### Patch Changes

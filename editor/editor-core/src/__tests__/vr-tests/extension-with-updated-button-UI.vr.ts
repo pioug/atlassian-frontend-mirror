@@ -13,11 +13,11 @@ import {
 } from './extension-with-updated-button-UI.fixtures';
 
 snapshot(BlockExtension);
-snapshot(BlockExtensionWithSmartLink);
+snapshot(BlockExtensionWithSmartLink, { waitForReactLazy: true });
 snapshot(BodiedExtension);
-snapshot(BodiedExtensionWithSmartLink);
+snapshot(BodiedExtensionWithSmartLink, { waitForReactLazy: true });
 snapshot(InlineExtension);
-snapshot(InlineExtensionCenterAligned);
-snapshot(InlineExtensionRightAligned);
-snapshot(InlineExtensionWithSmartLink);
-snapshot(HeadingWithInlineExtension);
+snapshot(InlineExtensionCenterAligned, { waitForReactLazy: true });
+snapshot(InlineExtensionRightAligned, { waitForReactLazy: true });
+snapshot(InlineExtensionWithSmartLink, { waitForReactLazy: true });
+snapshot(HeadingWithInlineExtension, { waitForReactLazy: true });

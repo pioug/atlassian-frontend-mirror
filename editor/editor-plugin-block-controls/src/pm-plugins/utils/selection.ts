@@ -10,7 +10,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { CellSelection } from '@atlaskit/editor-tables';
 import { getTableSelectionClosesToPos } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { getBlockControlsMeta, key } from '../main';
@@ -122,7 +121,6 @@ export const mapPreservedSelection = (
 	// of a preserved block selection, keep the mapped end position on the left side of the
 	// inserted paragraph so it is not included in the preserved selection.
 	const shouldTrimTrailingParagraph =
-		fg('platform_editor_block_menu_jira_patch_2') &&
 		tr.getMeta(INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META) === true;
 	const to = shouldTrimTrailingParagraph
 		? mapping.map(selection.to, -1)

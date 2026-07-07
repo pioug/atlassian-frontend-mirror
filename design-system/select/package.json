@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "22.3.1",
+	"version": "22.4.0",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -73,8 +73,8 @@
 		"shallow-equal": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0",
+		"react-dom": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "workspace:^",
@@ -99,8 +99,8 @@
 		"ast-types": "root:*",
 		"jest-in-case": "root:*",
 		"jscodeshift": "root:*",
-		"react": "root:*",
-		"react-dom": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
 		"react-select-event": "root:*",
 		"tiny-invariant": "root:*"
 	},

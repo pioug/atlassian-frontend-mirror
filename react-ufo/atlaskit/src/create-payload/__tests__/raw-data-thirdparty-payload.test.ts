@@ -169,8 +169,11 @@ describe('Payload Creation with Third-Party Holds', () => {
 
 		expect(mainPayload).toBeDefined();
 
+		const properties = mainPayload?.attributes?.properties as any;
+		expect(properties?.['ufo:hasAbortingInteractionDuringSSR']).toBe(false);
+
 		// Verify that hold3pActive and hold3pInfo are included in the payload
-		const interactionMetrics = (mainPayload?.attributes?.properties as any)?.interactionMetrics;
+		const interactionMetrics = properties?.interactionMetrics;
 		expect(interactionMetrics?.hold3pActive).toBeDefined();
 		expect(Array.isArray(interactionMetrics?.hold3pActive)).toBe(true);
 		expect(interactionMetrics?.hold3pInfo).toBeDefined();

@@ -592,8 +592,7 @@ async function createInteractionMetricsPayload(
 	const isPageLoad = type === 'page_load';
 
 	const calculatePageVisibilityFromTheStartOfPageLoad =
-		(config.enableBetterPageVisibilityApi ?? fg('platform_enable_better_page_visibility')) &&
-		isPageLoadEvent;
+		config.enableBetterPageVisibilityApi && isPageLoadEvent;
 
 	const moreAccuratePageVisibilityAtTTI = calculatePageVisibilityFromTheStartOfPageLoad
 		? getMoreAccuratePageVisibilityUpToTTI(interaction)
@@ -835,11 +834,7 @@ async function createInteractionMetricsPayload(
 
 				'ufo:pageVisibilityTimeline': getPageVisibilityTimeline(start, end),
 
-				...(fg('ufo_detect_aborting_interaction_during_ssr')
-					? {
-							'ufo:hasAbortingInteractionDuringSSR': getHasAbortingEventDuringSSR(),
-						}
-					: {}),
+				'ufo:hasAbortingInteractionDuringSSR': getHasAbortingEventDuringSSR(),
 
 				// root
 				...getBrowserMetadataToLegacyFormat(),
@@ -1052,11 +1047,9 @@ export async function createPayloads(
 	const ufoNameOverride = getUfoNameOverride(interaction);
 	const modifiedInteraction = { ...interaction, ufoName: ufoNameOverride };
 
-	if (fg('platform_ufo_disable_ufo_names_config')) {
-		const config = getConfig();
-		if (config?.disabledUfoNames && config?.disabledUfoNames.includes(ufoNameOverride)) {
-			return [];
-		}
+	const config = getConfig();
+	if (config?.disabledUfoNames && config?.disabledUfoNames.includes(ufoNameOverride)) {
+		return [];
 	}
 
 	const payloads: (CriticalMetricsPayload | InteractionMetricsPayloadResult)[] = [];

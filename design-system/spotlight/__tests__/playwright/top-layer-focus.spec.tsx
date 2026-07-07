@@ -91,5 +91,15 @@ test.describe('Spotlight: top-layer focus contract', () => {
 
 		await page.keyboard.press('Tab');
 		await expect(page.getByTestId('default-spotlight-primary')).toBeFocused();
+
+		// Tabbing past the last focusable wraps within the role="dialog" spotlight:
+		// `useFocusWrap` keeps focus inside the card rather than letting it escape
+		// to page content behind it.
+		await page.keyboard.press('Tab');
+		const focusWithinSpotlight = await spotlight.evaluate(
+			(spotlightElement) =>
+				document.activeElement !== null && spotlightElement.contains(document.activeElement),
+		);
+		expect(focusWithinSpotlight).toBe(true);
 	});
 });

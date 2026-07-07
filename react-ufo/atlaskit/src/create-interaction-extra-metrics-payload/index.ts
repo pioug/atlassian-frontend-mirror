@@ -167,11 +167,8 @@ async function createInteractionExtraLogPayload(
 		return null;
 	}
 
-	if (fg('platform_ufo_disable_ufo_names_config')) {
-		const config = getConfig();
-		if (config?.disabledUfoNames && config?.disabledUfoNames.includes(sanitisedUfoName)) {
-			return null;
-		}
+	if (config?.disabledUfoNames && config?.disabledUfoNames.includes(sanitisedUfoName)) {
+		return null;
 	}
 
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);

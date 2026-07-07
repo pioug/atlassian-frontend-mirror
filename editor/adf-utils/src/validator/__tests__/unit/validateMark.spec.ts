@@ -242,10 +242,7 @@ describe('validate Mark', () => {
 				type: 'unsupportedChild',
 			};
 			const initialEntity = {
-				type: 'panel',
-				attrs: {
-					panelType: 'info',
-				},
+				type: 'blockquote',
 				marks: [unsupportedParentAdfMark],
 				content: [
 					{
@@ -314,10 +311,7 @@ describe('validate Mark', () => {
 		() => {
 			const redundantProps = ['marks', 'unknownProp'];
 			const initialEntity = {
-				type: 'panel',
-				attrs: {
-					panelType: 'success',
-				},
+				type: 'blockquote',
 				content: [
 					{
 						type: 'paragraph',
@@ -342,7 +336,7 @@ describe('validate Mark', () => {
 				expect.anything(),
 				expect.objectContaining({
 					code: 'REDUNDANT_PROPERTIES',
-					message: `panel: redundant props found: ${redundantProps.join(', ')}.`,
+					message: `blockquote: redundant props found: ${redundantProps.join(', ')}.`,
 					meta: { props: redundantProps },
 				}),
 				{},

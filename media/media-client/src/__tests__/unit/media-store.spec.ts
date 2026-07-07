@@ -26,6 +26,7 @@ import { type Auth } from '@atlaskit/media-core';
 import * as requestModule from '../../utils/request';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { nextTick } from '@atlaskit/media-common/test-helpers';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 const requestModuleMock = jest.spyOn(requestModule, 'request');
 
@@ -2164,6 +2165,45 @@ describe('MediaStore', () => {
 					`${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=123&token=${token}`,
 				);
 			});
+
+			eeTest
+				.describe(
+					'platform_editor_media_download_fallback_name',
+					'name appears as URL query param when experiment is on',
+				)
+				.variant(true, () => {
+					it('should include name in binary URL query params when name is provided', async () => {
+						const url = await mediaStore.getFileBinaryURL(
+							'1234',
+							'some-collection-name',
+							undefined,
+							'my-file.pdf',
+						);
+						expect(url).toContain('name=my-file.pdf');
+					});
+
+					it('should not include name param in URL when name is not provided', async () => {
+						const url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+						expect(url).not.toContain('name=');
+					});
+				});
+
+			eeTest
+				.describe(
+					'platform_editor_media_download_fallback_name',
+					'name does not appear as URL query param when experiment is off',
+				)
+				.variant(false, () => {
+					it('should not include name in binary URL even when name is provided', async () => {
+						const url = await mediaStore.getFileBinaryURL(
+							'1234',
+							'some-collection-name',
+							undefined,
+							'my-file.pdf',
+						);
+						expect(url).not.toContain('name=');
+					});
+				});
 		});
 
 		describe('getArtifactURL()', () => {

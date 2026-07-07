@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "221.6.0",
+	"version": "221.7.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -164,6 +164,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_comment_container_query": {
+			"type": "boolean"
+		},
 		"platform_editor_reconfigure_filter_plugins": {
 			"type": "boolean"
 		},

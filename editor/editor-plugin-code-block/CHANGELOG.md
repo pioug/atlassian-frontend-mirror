@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 14.1.15
+
+### Patch Changes
+
+- [`be1ffe44994f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be1ffe44994f0) -
+  Fix code block language picker trigger focus and overflow behavior
+- Updated dependencies
+
+## 14.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.13
 
 ### Patch Changes

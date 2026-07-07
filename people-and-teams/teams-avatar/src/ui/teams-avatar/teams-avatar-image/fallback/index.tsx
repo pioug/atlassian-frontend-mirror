@@ -1,14 +1,10 @@
 import React from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	wrapperOld: {
-		display: 'flex',
-	},
 	wrapper: {
 		display: 'flex',
 		overflow: 'hidden',
@@ -33,12 +29,7 @@ export function FallbackAvatar({
 	...props
 }: React.SVGProps<SVGSVGElement> & { compact?: boolean }): React.JSX.Element {
 	return (
-		<Box
-			xcss={cx(
-				fg('yurree_jjj_3_ads_fixes') ? styles.wrapper : styles.wrapperOld,
-				compact ? styles.compactWrapperSpacing : styles.wrapperSpacing,
-			)}
-		>
+		<Box xcss={cx(styles.wrapper, compact ? styles.compactWrapperSpacing : styles.wrapperSpacing)}>
 			<svg
 				width="32"
 				height="32"

@@ -1,5 +1,16 @@
 # @atlaskit/select
 
+## 22.4.0
+
+### Minor Changes
+
+- [`eda41efb5e798`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eda41efb5e798) -
+  Add React 19 as supported peer dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.3.1
 
 ### Patch Changes

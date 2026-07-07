@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "16.1.11",
+	"version": "16.1.13",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -102,7 +102,6 @@
 			],
 			"deprecation": "no-deprecated-imports",
 			"styling": [
-				"emotion",
 				"emotion"
 			],
 			"imports": [
@@ -111,9 +110,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_block_menu_jira_patch_2": {
-			"type": "boolean"
-		},
 		"platform_editor_change_normal_text_icon": {
 			"type": "boolean"
 		},

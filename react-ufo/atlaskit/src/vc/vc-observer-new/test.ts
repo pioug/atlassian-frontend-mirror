@@ -12,7 +12,7 @@ import type { VCObserverEntry } from './types';
 import ViewportObserver from './viewport-observer';
 import WindowEventObserver from './window-event-observer';
 
-import VCObserverNew, { type VCObserverNewConfig } from './index';
+import VCObserverNew, { getHasAbortingEventDuringSSR, type VCObserverNewConfig } from './index';
 
 // Mock dependencies
 jest.mock('./viewport-observer');
@@ -154,6 +154,7 @@ describe('VCObserverNew', () => {
 					eventType: 'keydown',
 				},
 			});
+			expect(getHasAbortingEventDuringSSR()).toBe(true);
 
 			// Verify window.__SSR_ABORT_LISTENERS__ was NOT deleted
 			expect(window.__SSR_ABORT_LISTENERS__).toBeDefined();

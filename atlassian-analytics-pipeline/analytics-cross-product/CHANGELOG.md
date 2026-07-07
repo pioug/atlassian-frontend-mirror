@@ -1,5 +1,13 @@
 # @atlaskit/analytics-cross-product
 
+## 2.1.0
+
+### Minor Changes
+
+- [`6b9f343eca6ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b9f343eca6ce) -
+  Clean up rolled-out cross_product_wrapper_react_safe feature gate; useCrossProductUrlWrapper now
+  always uses the React-safe implementation
+
 ## 2.0.0
 
 ### Major Changes

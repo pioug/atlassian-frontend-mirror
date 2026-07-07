@@ -13,7 +13,6 @@ import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockTypePlugin } from '../blockTypePluginType';
@@ -166,9 +165,7 @@ export const createPlugin = (
 						newState.schema.nodes.paragraph.create(),
 					);
 
-					return fg('platform_editor_block_menu_jira_patch_2')
-						? tr.setMeta(INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META, true)
-						: tr;
+					return tr.setMeta(INSERTED_TRAILING_PARAGRAPH_TO_LAST_NODE_META, true);
 				}
 			}
 		},

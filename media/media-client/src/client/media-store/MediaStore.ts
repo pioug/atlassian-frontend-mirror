@@ -1,3 +1,4 @@
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import {
 	type AuthContext,
 	type MediaApiConfig,
@@ -393,6 +394,7 @@ export class MediaStore implements MediaApi {
 		id: string,
 		collectionName?: string,
 		maxAge: number = FILE_CACHE_MAX_AGE,
+		name?: string,
 	): Promise<string> {
 		const auth = await this.resolveAuth({ collectionName });
 
@@ -401,6 +403,9 @@ export class MediaStore implements MediaApi {
 				dl: true,
 				collection: collectionName,
 				'max-age': maxAge,
+				...(name && expValEquals('platform_editor_media_download_fallback_name', 'isEnabled', true)
+					? { name }
+					: {}),
 			},
 			auth,
 		};

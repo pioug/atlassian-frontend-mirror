@@ -12,8 +12,11 @@ import {
 	type LanguagePickerOption,
 	type LanguagePickerSelectionSource,
 } from './language-picker-options';
-import type { LanguagePickerProps } from './LanguagePicker';
-import { LanguagePicker } from './LanguagePicker';
+import {
+	LanguagePicker,
+	type LanguagePickerInteractionMethod,
+	type LanguagePickerProps,
+} from './LanguagePicker';
 import { getRecentLanguages, saveRecentLanguage } from './recent-languages';
 
 type CodeBlockLanguagePickerProps = Omit<
@@ -42,7 +45,11 @@ export const CodeBlockLanguagePicker = ({
 	}, []);
 
 	const handleSelection = useCallback(
-		(option: LanguagePickerOption, selectionSource: LanguagePickerSelectionSource) => {
+		(
+			option: LanguagePickerOption,
+			selectionSource: LanguagePickerSelectionSource,
+			interactionMethod?: LanguagePickerInteractionMethod,
+		) => {
 			const command: Command =
 				option.value === DETECT_LANGUAGE_VALUE &&
 				fg('platform_editor_code_block_language_detection_flow')
@@ -51,10 +58,20 @@ export const CodeBlockLanguagePicker = ({
 			const commandSucceeded = command(editorView.state, editorView.dispatch);
 
 			if (fg('platform_editor_code_block_dogfooding_patch')) {
-				requestAnimationFrame(() => {
-					// Let PopupSelect/FocusLock finish returning focus to the trigger, then restore the editor.
-					api?.core.actions.focus({ scrollIntoView: false });
-				});
+				if (fg('platform_editor_code_block_ga_patch_1')) {
+					if (interactionMethod === 'mouse') {
+						requestAnimationFrame(() => {
+							// Mouse-opened picker should return editing focus to the code block. Keyboard-opened
+							// picker keeps focus on the trigger to avoid CodeMirror DOM focus without cm.hasFocus.
+							api?.core.actions.focus({ scrollIntoView: false });
+						});
+					}
+				} else {
+					requestAnimationFrame(() => {
+						// Let PopupSelect/FocusLock finish returning focus to the trigger, then restore the editor.
+						api?.core.actions.focus({ scrollIntoView: false });
+					});
+				}
 			}
 
 			if (commandSucceeded && option.value !== DETECT_LANGUAGE_VALUE) {

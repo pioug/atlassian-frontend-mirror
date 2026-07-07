@@ -282,7 +282,12 @@ export interface MediaApi {
 		abortController?: AbortController,
 	) => Promise<Blob>;
 
-	getFileBinaryURL: (id: string, collectionName?: string) => Promise<string>;
+	getFileBinaryURL: (
+		id: string,
+		collectionName?: string,
+		maxAge?: number,
+		name?: string,
+	) => Promise<string>;
 
 	getArtifactURL: (
 		artifacts: MediaFileArtifacts,

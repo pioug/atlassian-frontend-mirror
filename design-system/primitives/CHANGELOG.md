@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 20.4.0
+
+### Minor Changes
+
+- [`eda41efb5e798`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eda41efb5e798) -
+  Add React 19 as supported peer dependency.
+
 ## 20.3.0
 
 ### Minor Changes

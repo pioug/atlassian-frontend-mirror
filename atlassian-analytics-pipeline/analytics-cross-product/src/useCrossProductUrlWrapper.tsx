@@ -25,67 +25,6 @@ export type CrossProductUrlOptions = {
 };
 
 /**
- * @private
- * @deprecated Use `useCrossProductUrlWrapper` instead. This implementation is preserved behind
- * the `cross_product_wrapper_react_safe` feature gate and will be removed once the gate is fully
- * rolled out.
- *
- * This React hook is called with the correct bridge, product and sub-product parameters.
- * It returns a function that can be used to generate URLs with cross-product interaction parameters.
- *
- * @param options - Properties object that contains the following parameters:
- *
- * @returns A function that appends interaction session ID and other cross-product interaction parameters to a given URL.
- */
-function useCrossProductUrlWrapper_DEPRECATED(
-	options: CrossProductUrlOptions,
-): (url: string) => string {
-	const [interactionSessionId, setInteractionSessionId] = useState<string>('');
-	const { bridge, product, subProduct } = options;
-	const isEnabled = fg('atlaskit-analytics-cross-product');
-	let interactionSessionClient: InteractionSessionTracking | undefined;
-
-	useEffect(() => {
-		if (isEnabled) {
-			// Fetch interaction session client from window object
-			interactionSessionClient = GlobalInteractionSessionTracking.getInstance();
-
-			// Fetch any initial interaction session ID
-			if (interactionSessionClient) {
-				const currentSessionId = interactionSessionClient.getCurrentInteractionSessionId();
-				currentSessionId && setInteractionSessionId(currentSessionId);
-			}
-
-			// Add event listener that subscribes to any future interaction session ID updates
-			const unbind: UnbindFn = bind(document, {
-				type: INTERACTION_SESSION_ID_UPDATED_EVENT,
-				listener: () => {
-					// Re-attempt fetch Global interactionSessionClient if not present already
-					if (!interactionSessionClient) {
-						interactionSessionClient = GlobalInteractionSessionTracking.getInstance();
-					}
-
-					if (interactionSessionClient) {
-						const currentSessionId = interactionSessionClient.getCurrentInteractionSessionId();
-						currentSessionId && setInteractionSessionId(currentSessionId);
-					}
-				},
-			});
-
-			return unbind;
-		}
-		return () => {};
-	}, [interactionSessionClient, isEnabled]);
-
-	if (!isEnabled || !interactionSessionId) {
-		return (url: string) => url;
-	}
-
-	return (url: string) =>
-		generateUrlWithParams(url, bridge, interactionSessionId, product, subProduct);
-}
-
-/**
  * This React hook is called with the correct bridge, product and sub-product parameters.
  * It returns a function that can be used to generate URLs with cross-product interaction parameters.
  *
@@ -145,29 +84,5 @@ function useCrossProductUrlWrapper(options: CrossProductUrlOptions): (url: strin
 	);
 }
 
-/**
- * Default export — this React hook is called with the correct bridge, product and sub-product
- * parameters. It returns a function that can be used to generate URLs with cross-product
- * interaction parameters.
- *
- * Routes to the new React-safe implementation (`useCrossProductUrlWrapper`) when the
- * `cross_product_wrapper_react_safe` feature gate is enabled, otherwise falls back to the
- * previous behaviour preserved in `useCrossProductUrlWrapper_DEPRECATED`.
- *
- * @param options - Properties object that contains the following parameters:
- *
- * @returns A function that appends interaction session ID and other cross-product interaction parameters to a given URL.
- */
-export default function useCrossProductUrlWrapperDispatcher(
-	options: CrossProductUrlOptions,
-): (url: string) => string {
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	if (fg('cross_product_wrapper_react_safe')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		return useCrossProductUrlWrapper(options);
-	}
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	return useCrossProductUrlWrapper_DEPRECATED(options);
-}
-
-export { useCrossProductUrlWrapper, useCrossProductUrlWrapper_DEPRECATED };
+export default useCrossProductUrlWrapper;
+export { useCrossProductUrlWrapper };

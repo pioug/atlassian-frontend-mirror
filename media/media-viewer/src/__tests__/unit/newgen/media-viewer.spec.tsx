@@ -743,7 +743,12 @@ describe('<MediaViewer />', () => {
 
 			fireEvent.click(downloadButton);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -870,7 +875,12 @@ describe('<MediaViewer />', () => {
 			expect(downloadButton).toBeInTheDocument();
 			fireEvent.click(downloadButton);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1004,7 +1014,12 @@ describe('<MediaViewer />', () => {
 			const proceed = await screen.findByText('Proceed with download');
 			await user.click(proceed);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1140,7 +1155,12 @@ describe('<MediaViewer />', () => {
 			const proceed = await screen.findByText('Proceed with download');
 			await user.click(proceed);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1276,7 +1296,12 @@ describe('<MediaViewer />', () => {
 
 			fireEvent.click(downloadButton);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },
@@ -1374,7 +1399,12 @@ describe('<MediaViewer />', () => {
 			expect(downloadButton).toBeInTheDocument();
 			fireEvent.click(downloadButton);
 
-			expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+			expect(getFileBinaryURL).toHaveBeenCalledWith(
+				fileItem.id,
+				fileItem.collection,
+				undefined,
+				fileItem.details.name,
+			);
 			await waitFor(() => {
 				expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
 					traceContext: { traceId: expect.any(String) },

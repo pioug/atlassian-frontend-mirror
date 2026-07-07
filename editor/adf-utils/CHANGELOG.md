@@ -1,5 +1,22 @@
 # @atlaskit/adf-utils
 
+## 20.3.0
+
+### Minor Changes
+
+- [`07f04b52fa5f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07f04b52fa5f6) -
+  [EDITOR-7979] add variants to adf-utils validator
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.2.1
 
 ### Patch Changes

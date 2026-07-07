@@ -268,6 +268,7 @@ export const Header = ({
 							identifier={identifier}
 							mediaClient={mediaClient}
 							traceContext={traceContext}
+							fallbackMediaName={fallbackMediaName}
 						/>
 					),
 				})}

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 11.1.13
+
+### Patch Changes
+
+- [`1e9a079140e1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e9a079140e1f) -
+  Clean up launched block menu Jira patch feature gates.
+- Updated dependencies
+
+## 11.1.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.11
 
 ### Patch Changes

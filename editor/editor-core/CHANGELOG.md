@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 221.7.0
+
+### Minor Changes
+
+- [`5214dcad2fc6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5214dcad2fc6d) -
+  Fix editor content responsiveness (native embeds and media) in non-full-page appearances such as
+  Jira's comment editor. The content area now establishes a container-query context (container-type:
+  inline-size) for comment/chromeless appearances so --ak-editor-max-container-width resolves
+  against the sidebar-aware editor width instead of the viewport. Behind feature gate
+  platform_comment_container_query; full-page is unchanged (keeps the editor-area container).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.6.2
+
+### Patch Changes
+
+- [`319eb8550d286`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/319eb8550d286) -
+  [ux] [EDITOR-7978] add resizing support to the panel_c1 node behind resizer experiment
+- Updated dependencies
+
+## 221.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.6.0
 
 ### Minor Changes

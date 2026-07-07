@@ -36,3 +36,6 @@ customFields:
   - name: Required Reviewer Approvals
     type: number
     value: 1
+  - name: Reviewer Team
+    type: text
+    value: ari:cloud:identity::team/2235412c-58a4-4641-b164-44934dad3151

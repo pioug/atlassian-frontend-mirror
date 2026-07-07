@@ -309,7 +309,12 @@ describe('FileFetcher', () => {
 			it('should call getFileBinaryURL', () => {
 				const { mediaStore, fileFetcher } = setup();
 				fileFetcher.downloadBinary(fileId, fileName, collectionName);
-				expect(mediaStore.getFileBinaryURL).toHaveBeenCalledWith(fileId, collectionName);
+				expect(mediaStore.getFileBinaryURL).toHaveBeenCalledWith(
+					fileId,
+					collectionName,
+					undefined,
+					fileName,
+				);
 			});
 
 			it('should create a link', async () => {

@@ -17,7 +17,7 @@ export default (): React.JSX.Element => (
 	<Box testId="stack-example" padding="space.100">
 		<Inline space="space.100">
 			{growItems.map((grow) => (
-				<Stack alignInline="center">
+				<Stack key={grow} alignInline="center">
 					{grow}
 					<Box xcss={containerStyles} backgroundColor="color.background.neutral">
 						<Stack grow={grow}>

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 14.2.15
+
+### Patch Changes
+
+- [`bea4da79c297d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bea4da79c297d) -
+  [ux] EDITOR-7679 use fallback media name for filename in download
+- Updated dependencies
+
+## 14.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.13
 
 ### Patch Changes

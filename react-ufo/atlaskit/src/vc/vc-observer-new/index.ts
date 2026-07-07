@@ -225,9 +225,7 @@ export default class VCObserverNew {
 								},
 							});
 
-							if (fg('ufo_detect_aborting_interaction_during_ssr')) {
-								hasAbortingEventDuringSSR = true;
-							}
+							hasAbortingEventDuringSSR = true;
 						}
 					});
 				}

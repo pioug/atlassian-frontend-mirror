@@ -3,7 +3,19 @@ export interface LongPressSelectionPluginOptions {
 	useLongPressSelection?: boolean;
 }
 
+export interface AdditionalNodeContextFragment {
+	/**
+	 * Additional attributes for the node context fragment
+	 */
+	[key: string]: unknown;
+	type: string;
+}
+
 export type SelectionContext = {
+	/**
+	 * Map of node local IDs to additional node context fragments
+	 */
+	additionalNodeContext?: Record<string, AdditionalNodeContextFragment> | null;
 	/**
 	 * End index of the selection inside the last node of the selection
 	 */

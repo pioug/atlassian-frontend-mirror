@@ -3,8 +3,8 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::0b71a41f26600db341e2ed67e69a4c88>>
- * @codegenCommand yarn workspace @af/ads-ai-tooling codegen:ads-components
+ * @codegen <<SignedSource::d61d7d9de53c81d03bf6e68477d2c368>>
+ * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
 import type { ComponentMcpPayload } from './types';
@@ -35,6 +35,10 @@ export const components: ComponentMcpPayload[] = [
 			'Use consistent naming conventions across your app',
 			'Keep names concise but meaningful',
 		],
+		designSource: {
+			figmaUrl:
+				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=11159-23191',
+		},
 		keywords: ['avatar', 'user', 'profile', 'image', 'presence', 'status', 'representation'],
 		category: 'images',
 		examples: [
@@ -688,6 +692,10 @@ export const components: ComponentMcpPayload[] = [
 			'Always provide meaningful labels for screen readers',
 			'Provide loading state announcements for async actions',
 		],
+		designSource: {
+			figmaUrl:
+				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=81007-1077',
+		},
 		keywords: ['button', 'action', 'click', 'submit', 'form', 'interactive', 'cta'],
 		category: 'form',
 		examples: [
@@ -4958,12 +4966,6 @@ export const components: ComponentMcpPayload[] = [
 				defaultValue: '"Atlassian"',
 			},
 			{
-				name: 'shouldUseNewLogoDesign',
-				type: 'boolean',
-				description:
-					'For logos that support it, enables the new logo design ahead of an upcoming feature flag roll-out.',
-			},
-			{
 				name: 'size',
 				type: '"xxsmall" | "xsmall" | "small" | "medium" | "large" | "xlarge"',
 				description: 'The size of the icon.',
@@ -6063,7 +6065,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'enteringAnimation',
-				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 14 more ... | "var(--ds-spotlight-exit)"',
+				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 17 more ... | "var(--ds-spotlight-exit)"',
 				description: 'Motion token for the entering animation.',
 			},
 			{
@@ -6073,7 +6075,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'exitingAnimation',
-				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 14 more ... | "var(--ds-spotlight-exit)"',
+				type: '"var(--ds-avatar-enter)" | "var(--ds-avatar-exit)" | "var(--ds-avatar-hovered)" | "var(--ds-blanket-enter)" | "var(--ds-blanket-exit)" | "var(--ds-button-hovered)" | "var(--ds-button-pressed)" | ... 17 more ... | "var(--ds-spotlight-exit)"',
 				description: 'Motion token for the exiting animation.',
 			},
 			{
@@ -6202,7 +6204,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
 		category: 'images and icons',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { allObjects } from '../examples-utils/all-objects';\nimport type { ObjectSize } from '../src/components/object/types';\nconst containerStyles = css({\n\tmaxWidth: '600px',\n});\nexport default function Objects(): JSX.Element {\n\tconst sizes: ObjectSize[] = ['small', 'medium'];\n\treturn (\n\t\t<div css={containerStyles}>\n\t\t\t<Flex gap=\"space.300\" wrap=\"wrap\">\n\t\t\t\t{allObjects.map((ObjectComponent) => {\n\t\t\t\t\tconst objectName = ObjectComponent.name;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Stack key={objectName} space=\"space.100\">\n\t\t\t\t\t\t\t<Heading size=\"xsmall\">{objectName}</Heading>\n\t\t\t\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t\t\t\t{sizes.map((size) => (\n\t\t\t\t\t\t\t\t\t<ObjectComponent key={`${objectName}-${size}`} size={size} />\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</Flex>\n\t\t</div>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { allObjects } from '../examples-utils/all-objects';\nimport type { ObjectSize } from '../src/components/object/types';\nconst containerStyles = css({\n\tmaxWidth: '600px',\n});\nexport default function Objects(): JSX.Element {\n\tconst sizes: ObjectSize[] = ['small', 'medium'];\n\treturn (\n\t\t<div css={containerStyles}>\n\t\t\t<Flex gap=\"space.300\" wrap=\"wrap\">\n\t\t\t\t{allObjects.map((ObjectComponent) => {\n\t\t\t\t\tconst objectName = ObjectComponent.name;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Stack key={objectName} space=\"space.100\">\n\t\t\t\t\t\t\t<Heading size=\"xsmall\">{objectName}</Heading>\n\t\t\t\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t\t\t\t{sizes.map((size) => (\n\t\t\t\t\t\t\t\t\t<ObjectComponent key={`${objectName}-${size}`} size={size} />\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</Flex>\n\t\t</div>\n\t);\n}",
 		],
 		props: [
 			{
@@ -6227,7 +6229,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
 		category: 'images and icons',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading';\nimport { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { allObjectTiles } from '../examples-utils/all-object-tiles';\nimport type { ObjectTileSize } from '../src/components/object-tile/types';\nconst containerStyles = css({\n\tmaxWidth: '980px',\n});\nexport default function ObjectTiles(): JSX.Element {\n\tconst sizes: ObjectTileSize[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];\n\treturn (\n\t\t<div css={containerStyles}>\n\t\t\t<Flex gap=\"space.400\" wrap=\"wrap\">\n\t\t\t\t{allObjectTiles.map((ObjectTileComponent) => {\n\t\t\t\t\tconst objectName = ObjectTileComponent.name;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Stack key={objectName} space=\"space.100\">\n\t\t\t\t\t\t\t<Heading size=\"medium\">{objectName}</Heading>\n\t\t\t\t\t\t\t<Inline space=\"space.200\" alignBlock=\"center\">\n\t\t\t\t\t\t\t\t{sizes.flatMap((size) => [\n\t\t\t\t\t\t\t\t\t<ObjectTileComponent\n\t\t\t\t\t\t\t\t\t\tkey={`${objectName}-${size}-normal`}\n\t\t\t\t\t\t\t\t\t\tsize={size}\n\t\t\t\t\t\t\t\t\t\tisBold={false}\n\t\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t\t\t<ObjectTileComponent\n\t\t\t\t\t\t\t\t\t\tkey={`${objectName}-${size}-bold`}\n\t\t\t\t\t\t\t\t\t\tsize={size}\n\t\t\t\t\t\t\t\t\t\tisBold={true}\n\t\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t\t])}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</Flex>\n\t\t</div>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { css, jsx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';\nimport { allObjectTiles } from '../examples-utils/all-object-tiles';\nimport type { ObjectTileSize } from '../src/components/object-tile/types';\nconst containerStyles = css({\n\tmaxWidth: '980px',\n});\nexport default function ObjectTiles(): JSX.Element {\n\tconst sizes: ObjectTileSize[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];\n\treturn (\n\t\t<div css={containerStyles}>\n\t\t\t<Flex gap=\"space.400\" wrap=\"wrap\">\n\t\t\t\t{allObjectTiles.map((ObjectTileComponent) => {\n\t\t\t\t\tconst objectName = ObjectTileComponent.name;\n\t\t\t\t\treturn (\n\t\t\t\t\t\t<Stack key={objectName} space=\"space.100\">\n\t\t\t\t\t\t\t<Heading size=\"medium\">{objectName}</Heading>\n\t\t\t\t\t\t\t<Inline space=\"space.200\" alignBlock=\"center\">\n\t\t\t\t\t\t\t\t{sizes.flatMap((size) => [\n\t\t\t\t\t\t\t\t\t<ObjectTileComponent\n\t\t\t\t\t\t\t\t\t\tkey={`${objectName}-${size}-normal`}\n\t\t\t\t\t\t\t\t\t\tsize={size}\n\t\t\t\t\t\t\t\t\t\tisBold={false}\n\t\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t\t\t<ObjectTileComponent\n\t\t\t\t\t\t\t\t\t\tkey={`${objectName}-${size}-bold`}\n\t\t\t\t\t\t\t\t\t\tsize={size}\n\t\t\t\t\t\t\t\t\t\tisBold={true}\n\t\t\t\t\t\t\t\t\t/>,\n\t\t\t\t\t\t\t\t])}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t);\n\t\t\t\t})}\n\t\t\t</Flex>\n\t\t</div>\n\t);\n}",
 		],
 		props: [
 			{
@@ -11963,6 +11965,10 @@ export const components: ComponentMcpPayload[] = [
 			'Indicate required fields clearly',
 			'Use appropriate error states and messaging',
 		],
+		designSource: {
+			figmaUrl:
+				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13076-28181',
+		},
 		keywords: ['textfield', 'input', 'form', 'text', 'field', 'single-line'],
 		category: 'form',
 		examples: [

@@ -16,7 +16,7 @@ export default (): React.JSX.Element => (
 	<Box testId="inline-example" padding="space.100">
 		<Inline space="space.200">
 			{alignBlockItems.map((alignBlock) => (
-				<Stack key={alignBlock} alignInline="center" space="space.025">
+				<Stack key={alignBlock ?? 'default'} alignInline="center" space="space.025">
 					{alignBlock ?? '(default)'}
 					<Box
 						backgroundColor="color.background.neutral"

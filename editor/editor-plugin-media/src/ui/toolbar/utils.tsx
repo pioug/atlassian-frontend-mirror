@@ -29,6 +29,7 @@ import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import { messages } from '@atlaskit/media-ui';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -104,7 +105,17 @@ export const downloadMedia = async (
 			const fileState = await mediaClient.file.getCurrentState(id, {
 				collectionName: collection,
 			});
-			const fileName = fileState.status === 'error' ? undefined : fileState.name;
+			let fileName = fileState.status === 'error' ? undefined : fileState.name;
+			if (
+				!fileName &&
+				expValEquals('platform_editor_media_download_fallback_name', 'isEnabled', true) &&
+				mediaPluginState.mediaOptions?.fallbackMediaNameFetcher
+			) {
+				const fetched = await mediaPluginState.mediaOptions
+					.fallbackMediaNameFetcher(id)
+					.catch(() => undefined);
+				fileName = fetched ?? undefined;
+			}
 			mediaClient.file.downloadBinary(id, fileName, collection);
 		}
 		return true;

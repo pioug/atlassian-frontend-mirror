@@ -1,5 +1,32 @@
 # @atlaskit/editor-statsig-tmp
 
+## 121.1.0
+
+### Minor Changes
+
+- [`bea4da79c297d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bea4da79c297d) -
+  [ux] EDITOR-7679 use fallback media name for filename in download
+
+### Patch Changes
+
+- Updated dependencies
+
+## 121.0.0
+
+### Major Changes
+
+- [`b67c7dccca994`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b67c7dccca994) -
+  Clean up experiment `fix_free_gen_prompt_bar_position`
+
+### Minor Changes
+
+- [`898ff90892bee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/898ff90892bee) -
+  Clean up experiment `platform_editor_ai_loading_responsive_width`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 120.2.0
 
 ### Minor Changes

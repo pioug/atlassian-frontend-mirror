@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/58f893f0-c7be-44f1-aab4-82cfa4d6fb36
 name: '@atlaskit/rovo-agent-analytics'
-ownerId: ari:cloud:identity::team/ad3999f9-904f-4f76-a228-dc255feb581a # Rovo Agents
+ownerId: ari:cloud:identity::team/82cb3286-be3f-46b5-8844-d2ae4eb2eb75 # Agents FE
 labels:
   - platform-code
   - platform-afm

@@ -122,9 +122,7 @@ export const transformNode: (
 				}
 			}
 
-			if (fg('platform_editor_block_menu_jira_patch_3')) {
-				api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
-			}
+			api?.blockControls?.commands.toggleBlockMenu({ closeMenu: true })({ tr });
 
 			stopMeasure(measureId, (duration, startTime) => {
 				api?.analytics?.actions?.attachAnalyticsEvent({

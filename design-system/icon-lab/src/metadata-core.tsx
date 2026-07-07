@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d57e8c1bcc50d513fe7e337d262fa51e>>
+ * @codegen <<SignedSource::6e26cf59349fd809e4c0617937b4ea70>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -4795,7 +4795,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon-lab/core/journeys',
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing Journeys in JSM.',
-		team: 'JSM Grape Soju',
+		team: 'JSM Getting Started',
 		status: 'published',
 	},
 	kanban: {

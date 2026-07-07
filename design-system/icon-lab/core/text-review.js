@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b4ce9c9788c029867762cd394d7428d0>>
+ * @codegen <<SignedSource::932feb0531e25a1286f435f5172e41c6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -22,7 +22,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const TextReviewIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   name: "TextReviewIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" d="m15.002 13.934-1.061 1.06-2.121-2.12 1.06-1.062z"/><path fill="currentcolor" d="M12.25 10a2.25 2.25 0 1 0-4.5 0 2.25 2.25 0 0 0 4.5 0m1.5 0a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0M4.5 7.25v1.5H1v-1.5zm0 5.25V14H1v-1.5zM15 2v1.5H1V2z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M9.5 7.25v1.5H1v-1.5zM6 12.5V14H1v-1.5zM15 2v1.5H1V2zm1 8.24-4.67 5.5a.75.75 0 0 1-1.14 0l-2.33-2.75L9 12.02l1.76 2.08 4.1-4.82z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 TextReviewIcon.displayName = 'TextReviewIcon';

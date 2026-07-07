@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
 import type { LateMutation } from '../common/react-ufo-payload-schema';
@@ -217,11 +215,8 @@ function createPostInteractionLogPayload({
 		return null;
 	}
 
-	if (fg('platform_ufo_disable_ufo_names_config')) {
-		const config = getConfig();
-		if (config?.disabledUfoNames && config?.disabledUfoNames.includes(ufoName)) {
-			return null;
-		}
+	if (config?.disabledUfoNames && config?.disabledUfoNames.includes(ufoName)) {
+		return null;
 	}
 
 	const pageVisibilityState = getPageVisibilityState(

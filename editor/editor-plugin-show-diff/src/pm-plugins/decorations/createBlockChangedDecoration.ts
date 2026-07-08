@@ -1,4 +1,5 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -34,6 +35,7 @@ import {
 	traditionalAddedCellOverlayStyle,
 	deletedTraditionalCellOverlayStyle,
 } from './colorSchemes/traditional';
+import { createBlockIndicatorAnchorWidgets } from './createAnchorDecorationWidgets';
 import { buildDiffDecorationSpec } from './decorationKeys';
 
 const displayNoneStyle = convertToInlineCss({
@@ -231,12 +233,16 @@ export const createBlockChangedDecoration = ({
 	isInserted = true,
 	isActive = false,
 	shouldHideDeleted = false,
+	showIndicators = false,
+	doc,
 }: {
 	change: { from: number; name: string; to: number };
 	colorScheme?: ColorScheme;
+	doc?: PMNode;
 	isActive?: boolean;
 	isInserted?: boolean;
 	shouldHideDeleted?: boolean;
+	showIndicators?: boolean;
 }): Decoration[] => {
 	const decorations: Decoration[] = [];
 	const diffId = crypto.randomUUID();
@@ -304,6 +310,17 @@ export const createBlockChangedDecoration = ({
 					nodeName: change.name,
 				}),
 			),
+		);
+	}
+
+	if (
+		decorations.length > 0 &&
+		showIndicators &&
+		doc &&
+		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+	) {
+		decorations.push(
+			...createBlockIndicatorAnchorWidgets({ doc, from: change.from, to: change.to, diffId }),
 		);
 	}
 

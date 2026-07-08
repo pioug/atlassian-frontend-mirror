@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
+import { token } from '@atlaskit/tokens';
 
 export default function All(): React.JSX.Element {
 	return (
@@ -27,19 +28,24 @@ export default function All(): React.JSX.Element {
 			</Stack>
 			<Stack space="space.050">
 				<Text>Custom borderRadius</Text>
-				<Skeleton width="200px" height="16px" borderRadius={3} testId="skeleton-border" />
+				<Skeleton
+					width="200px"
+					height="16px"
+					borderRadius={token('radius.full')}
+					testId="skeleton-border"
+				/>
 			</Stack>
 			<Stack space="space.050">
 				<Text>Custom dimensions</Text>
 				<Skeleton
 					width="20px"
 					height="20px"
-					borderRadius={10}
+					borderRadius={token('radius.full')}
 					testId="skeleton-dimensions-avatar"
 				/>
 				<Skeleton width="20px" height="20px" borderRadius={0} testId="skeleton-dimensions-icon" />
 				<Skeleton width="130px" height="8px" testId="skeleton-dimensions-text" />
-				<Skeleton width="400px" height="48px" borderRadius={3} testId="skeleton-dimensions-block" />
+				<Skeleton width="400px" height="48px" testId="skeleton-dimensions-block" />
 			</Stack>
 		</Stack>
 	);

@@ -1,5 +1,18 @@
 # @atlaskit/tag
 
+## 15.1.1
+
+### Patch Changes
+
+- [`e724a276d68f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e724a276d68f2) -
+  Fix a crash (`Cannot read properties of undefined (reading 'standard')`) that could occur when
+  rendering `Tag` from the precompiled package. The removable and simple tag internals imported
+  `colorMapping` through the `tag-new` barrel, which is part of a circular dependency, so in the
+  built (dist) output `colorMapping` could be undefined at render time when the
+  `platform-dst-lozenge-tag-badge-visual-uplifts` flag was enabled. They now import `colorMapping`
+  directly from the leaf `tag-new/color-mapping` module, matching how `tag-new` and
+  `tag-dropdown-trigger` already import it.
+
 ## 15.1.0
 
 ### Minor Changes

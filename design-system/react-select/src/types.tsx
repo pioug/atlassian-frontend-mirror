@@ -4,7 +4,7 @@ import type { CSSProperties, XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
 
-import type { SelectProps } from './select';
+import type { default as Select, SelectProps } from './select';
 import type { StylesProps } from './styles';
 
 export interface GroupBase<Option> {
@@ -219,3 +219,9 @@ export interface NoticeProps<
 	 */
 	innerProps: JSX.IntrinsicElements['div'];
 }
+
+export type SelectInstance<
+	Option = unknown,
+	IsMulti extends boolean = false,
+	Group extends GroupBase<Option> = GroupBase<Option>,
+> = Select<Option, IsMulti, Group>;

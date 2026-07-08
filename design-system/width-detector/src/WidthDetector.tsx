@@ -43,12 +43,11 @@ type ResizeObject = HTMLObjectElement & {
 	contentDocument: HTMLDocument;
 };
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Tracked by DSTLDR-042: https://hello.atlassian.net/wiki/spaces/DST/pages/7163622866/DSTLDR-042+-+ADS+lifecycle+catch-up+for+stale+non-final+offerings.
 /**
- * @deprecated use WidthObserver instead
+ * @deprecated Use `WidthObserver` from `@atlaskit/width-detector/width-observer` instead.
  *
- * This component uses iframes for rendering and is currently
- * not performant. It will be DEPRECATED in the future.
- * It is recommended that you instead use WidthObserver from @atlaskit/width-detector
+ * This component uses iframes for rendering and is not performant.
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export default class WidthDetector extends React.Component<WidthDetectorProps, State> {
@@ -62,7 +61,7 @@ export default class WidthDetector extends React.Component<WidthDetectorProps, S
 
 		// eslint-disable-next-line no-console
 		console.warn(
-			'WidthDetector will be deprecated, please use WidthObserver from @atlaskit/width-detector instead.',
+			'WidthDetector is deprecated. Use WidthObserver from @atlaskit/width-detector/width-observer instead.',
 		);
 	}
 

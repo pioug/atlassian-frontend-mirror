@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 15.5.0
+
+### Minor Changes
+
+- [`62b5aa6adc358`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62b5aa6adc358) -
+  Completes deprecation guidance for the legacy WidthDetector default export.
+
+  Use `WidthObserver` from `@atlaskit/width-detector/width-observer` instead.
+
 ## 15.4.0
 
 ### Minor Changes

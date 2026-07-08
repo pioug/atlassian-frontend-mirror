@@ -64,6 +64,34 @@ describe('Error Message', () => {
 				screen.queryByText(i18nMessages.couldnt_generate_preview.defaultMessage as string),
 			).not.toBeInTheDocument();
 		});
+
+		it('shows a dedicated "Unsupported file format" heading for a non-decodable image MIME type', () => {
+			render(
+				<IntlProvider locale="en">
+					<ErrorMessage
+						fileId="some-id"
+						intl={fakeIntl}
+						error={new MediaViewerError('imageviewer-unsupported-mime')}
+					/>
+				</IntlProvider>,
+			);
+
+			// The dedicated heading and explanatory line are shown.
+			expect(
+				screen.getByText(i18nMessages.unsupported_file_format.defaultMessage as string),
+			).toBeInTheDocument();
+			expect(
+				screen.getByText(i18nMessages.archive_format_not_supported.defaultMessage as string),
+			).toBeInTheDocument();
+
+			// The generic failure copy is NOT shown for this case.
+			expect(
+				screen.queryByText(i18nMessages.something_went_wrong.defaultMessage as string),
+			).not.toBeInTheDocument();
+			expect(
+				screen.queryByText(i18nMessages.couldnt_generate_preview.defaultMessage as string),
+			).not.toBeInTheDocument();
+		});
 	});
 
 	it('should render a child component', async () => {
@@ -161,6 +189,16 @@ describe('Error Message', () => {
 
 		it('should give unsupported payload for correct error', () => {
 			ErrorMessage.getEventPayload(new MediaViewerError('unsupported'), 'some-id', fileState);
+			expect(createPreviewUnsupportedEvent).toHaveBeenCalledWith(fileState);
+			expect(createLoadFailedEvent).not.toHaveBeenCalled();
+		});
+
+		it('should give previewUnsupported payload for a non-decodable image MIME type', () => {
+			ErrorMessage.getEventPayload(
+				new MediaViewerError('imageviewer-unsupported-mime'),
+				'some-id',
+				fileState,
+			);
 			expect(createPreviewUnsupportedEvent).toHaveBeenCalledWith(fileState);
 			expect(createLoadFailedEvent).not.toHaveBeenCalled();
 		});

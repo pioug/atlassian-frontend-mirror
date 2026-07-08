@@ -515,6 +515,10 @@ export const DragHandle = ({
 	const [dragHandleDisabled, setDragHandleDisabled] = useState(false);
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [positionStylesOld, setPositionStylesOld] = useState<CSSProperties>({ display: 'none' });
+	// Tracks whether the initial position calculation has been performed at least once.
+	// The reliable-anchor early-return optimisation must not fire before the first calculation,
+	// otherwise positionStylesOld stays as { display: 'none' } and the handle is never shown.
+	const hasCalculatedInitialPosition = useRef(false);
 	const [isFocused, setIsFocused] = useState(Boolean(handleOptions?.isFocused));
 	const { macroInteractionUpdates, selection, isShiftDown, interactionState, currentUserIntent } =
 		useSharedPluginStateWithSelector(
@@ -1105,7 +1109,22 @@ export const DragHandle = ({
 		isLayoutColumn,
 	]);
 
+	const isReliableAnchorEnabled = expValEquals(
+		'platform_editor_controls_reliable_anchor',
+		'isEnabled',
+		true,
+	);
+	const docDepForReliableAnchor = isReliableAnchorEnabled ? view.state.doc : undefined;
+
+	// Effect 1 (reliable-anchor ON): fires when non-doc deps change (e.g. blockCardWidth,
+	// anchorRectCache, macroInteractionUpdates, isTopLevelNodeValue, isLayoutColumn via
+	// calculatePositionOld) — always recalculates without the doc guard, so non-doc position
+	// changes are never incorrectly skipped.
 	useEffect(() => {
+		if (!isReliableAnchorEnabled) {
+			return;
+		}
+
 		let cleanUpTransitionListener: () => void;
 
 		if (nodeType === 'extension' || nodeType === 'embedCard') {
@@ -1124,13 +1143,74 @@ export const DragHandle = ({
 		}
 		const calcPos = requestAnimationFrame(() => {
 			setPositionStylesOld(calculatePositionOld());
+			hasCalculatedInitialPosition.current = true;
 		});
 
 		return () => {
 			cancelAnimationFrame(calcPos);
 			cleanUpTransitionListener?.();
 		};
-	}, [calculatePositionOld, view.dom, anchorName, nodeType]);
+	}, [isReliableAnchorEnabled, calculatePositionOld, view.dom, anchorName, nodeType]);
+
+	// Effect 2 (reliable-anchor ON): fires when the doc changes — carries the DOM-attribute
+	// guard to skip recalc when a drag handle is active (pure keystroke during drag).
+	// Effect (reliable-anchor OFF): single combined effect, original behaviour.
+	useEffect(() => {
+		if (isReliableAnchorEnabled) {
+			// Doc-change only effect: apply the DOM-attribute guard.
+			// React's dep comparison already ensures this only runs when docDepForReliableAnchor
+			// (i.e. view.state.doc) changed, so no manual ref tracking is needed.
+			if (!hasCalculatedInitialPosition.current) {
+				return;
+			}
+
+			const calcPos = requestAnimationFrame(() => {
+				const dom = view.dom.querySelector(`[${getAnchorAttrName()}="${anchorName}"]`);
+				if (dom?.hasAttribute(ACTIVE_DRAG_HANDLE_ATTR)) {
+					return;
+				}
+				setPositionStylesOld(calculatePositionOld());
+			});
+
+			return () => {
+				cancelAnimationFrame(calcPos);
+			};
+		}
+
+		// reliable-anchor OFF: original single-effect behaviour (no guard).
+		let cleanUpTransitionListener: () => void;
+
+		if (nodeType === 'extension' || nodeType === 'embedCard') {
+			const dom: HTMLElement | null = view.dom.querySelector(
+				`[${getAnchorAttrName()}="${anchorName}"]`,
+			);
+			if (!dom) {
+				return;
+			}
+			cleanUpTransitionListener = bind(dom, {
+				type: 'transitionend',
+				listener: () => {
+					setPositionStylesOld(calculatePositionOld());
+				},
+			});
+		}
+		const calcPos = requestAnimationFrame(() => {
+			setPositionStylesOld(calculatePositionOld());
+			hasCalculatedInitialPosition.current = true;
+		});
+
+		return () => {
+			cancelAnimationFrame(calcPos);
+			cleanUpTransitionListener?.();
+		};
+	}, [
+		isReliableAnchorEnabled,
+		calculatePositionOld,
+		view.dom,
+		anchorName,
+		nodeType,
+		docDepForReliableAnchor,
+	]);
 
 	useEffect(() => {
 		if (handleOptions?.isFocused && buttonRef.current) {
@@ -1520,10 +1600,23 @@ export const DragHandleWithVisibility = ({
 	// when hovering anywhere over the column, regardless of which side of the layoutSection the
 	// column is on. (The right-side remix button is a separate node decoration and is unaffected.)
 	const isLayoutColumn = nodeType === 'layoutColumn';
+
+	// Skip the right-side controlSide restriction for non-top-level nodes. The restriction exists
+	// to avoid showing the drag handle and remix button simultaneously — but remix only applies to
+	// top-level nodes, so non-top-level nodes should never be restricted.
+	// Gated behind platform_editor_controls_reliable_anchor.
+	const skipControlSideRestriction =
+		expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+		isTopLevelNode === false;
+
 	return (
 		<VisibilityContainer
 			api={api}
-			controlSide={!isLayoutColumn && rightSideControlsEnabled ? 'left' : undefined}
+			controlSide={
+				!isLayoutColumn && !skipControlSideRestriction && rightSideControlsEnabled
+					? 'left'
+					: undefined
+			}
 			forceVisibleOnMouseOut={
 				expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true) &&
 				!!handleOptions?.isFocused

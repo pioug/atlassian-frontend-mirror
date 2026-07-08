@@ -149,7 +149,7 @@ The top-layer source code was audited for React 19 compatibility. No issues were
 | Pattern                        | Status | Details                                                                     |
 | ------------------------------ | ------ | --------------------------------------------------------------------------- |
 | `useId()` colon handling       | ✅     | Strips colons (R18 format), documented R19 note                             |
-| `useInsertionEffect`           | ✅     | Used correctly in `use-preset-styles.tsx` for CSS injection                 |
+| `useInsertionEffect`           | ✅     | No longer used by top-layer after preset CSS injection was removed          |
 | `useLayoutEffect` for DOM sync | ✅     | `showPopover()`/`hidePopover()`/`showModal()`/`close()` with proper cleanup |
 | Effect cleanup                 | ✅     | Every `useEffect`/`useLayoutEffect` returns cleanup function                |
 | `programmaticCloseRef`         | ✅     | Prevents `onClose` double-fire during effect cleanup                        |

@@ -45,8 +45,16 @@ const titleBlockCss = css({
 	},
 });
 
-const footerBlockCss = css({
+const footerBlockCssOld = css({
 	height: '1.5rem',
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'flex-end',
+	alignSelf: 'stretch',
+});
+
+const footerBlockCss = css({
+	height: '25px',
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'flex-end',
@@ -193,7 +201,7 @@ const ResolvedView = ({
 			) : null}
 			<FooterBlock
 				css={[
-					footerBlockCss,
+					fg('navx-5343-sl-action-block-styling-fixes') ? footerBlockCss : footerBlockCssOld,
 					safari && footerBlockSafariStyles,
 					fg('platform_navx_block_card_footer_spacing') && footerExtraSpacingCss,
 				]}

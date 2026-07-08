@@ -42,11 +42,7 @@
 		"mkdirp": "root:*",
 		"react": "root:*"
 	},
-	"keywords": [
-		"atlaskit",
-		"css",
-		"ui"
-	],
+	"keywords": ["atlaskit", "css", "ui"],
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": "atlassian-conventions"
@@ -54,14 +50,9 @@
 		"@repo/internal": {
 			"design-system": "v1",
 			"ui-components": "lite-mode",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
+			"design-tokens": ["color", "spacing"],
 			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
+			"styling": ["emotion"]
 		}
 	},
 	"exports": {

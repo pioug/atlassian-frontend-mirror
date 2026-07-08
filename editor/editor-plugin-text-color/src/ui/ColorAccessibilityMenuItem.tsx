@@ -62,7 +62,9 @@ const useColorAccessibilityState = (api: ExtractInjectionAPI<TextColorPlugin> | 
 	return useSharedPluginStateWithSelector(api, ['textColor', 'highlight'], (states) => ({
 		defaultColor: states.textColorState?.defaultColor,
 		highlightColor: states.highlightState?.activeColor,
+		highlightColorInNonActiveTheme: states.highlightState?.activeColorInNonActiveTheme,
 		textColor: states.textColorState?.color,
+		textColorInNonActiveTheme: states.textColorState?.colorInNonActiveTheme,
 	}));
 };
 
@@ -142,13 +144,40 @@ export const ColorAccessibilityMenuItem = ({
 }: ColorAccessibilityMenuItemProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
-	const { defaultColor, highlightColor, textColor } = useColorAccessibilityState(api);
+	const {
+		defaultColor,
+		highlightColor,
+		highlightColorInNonActiveTheme,
+		textColor,
+		textColorInNonActiveTheme,
+	} = useColorAccessibilityState(api);
 	const contrastRatio = getContrastRatio(defaultColor, highlightColor, textColor);
-	if (contrastRatio === null) {
-		return <></>;
+	let nonActiveThemeContrastRatio: number | null = null;
+	try {
+		if (
+			textColorInNonActiveTheme &&
+			highlightColorInNonActiveTheme &&
+			fg('platform_editor_lovability_text_bg_color_patch_1')
+		) {
+			nonActiveThemeContrastRatio = calcContrastRatio(
+				textColorInNonActiveTheme,
+				highlightColorInNonActiveTheme,
+			);
+		}
+	} catch {
+		// if we failed to calculate the contrast ratio, leave null
 	}
 
-	const accessibilityStatus = getAccessibilityStatus(contrastRatio);
+	const mostCriticalContrastRatio =
+		contrastRatio !== null &&
+		nonActiveThemeContrastRatio !== null &&
+		fg('platform_editor_lovability_text_bg_color_patch_1')
+			? Math.min(contrastRatio, nonActiveThemeContrastRatio)
+			: contrastRatio;
+	if (mostCriticalContrastRatio === null) {
+		return <></>;
+	}
+	const accessibilityStatus = getAccessibilityStatus(mostCriticalContrastRatio);
 
 	const tooltipContent = (accessibilityStatus: AccessibilityStatusKey) => {
 		if (accessibilityStatus === 'accessible') {

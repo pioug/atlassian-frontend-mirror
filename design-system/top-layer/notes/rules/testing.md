@@ -90,11 +90,11 @@ These catch cases where the DOM unmounts before exit animations complete (a clas
 debugged and resolved during the tooltip migration — see `animations.md` for the underlying
 constraint).
 
-| Test                                                        | What it catches                                    |
-| ----------------------------------------------------------- | -------------------------------------------------- |
-| Entry animation plays: data attribute is present while open | CSS not injected, data attribute missing           |
-| Exit animation completes before element is logically hidden | React unmounting before `transitionend` fires      |
-| `prefers-reduced-motion: reduce` disables animations        | Animation duration not set to 0 for reduced motion |
+| Test                                                        | What it catches                                               |
+| ----------------------------------------------------------- | ------------------------------------------------------------- |
+| Entry animation plays: data attribute is present while open | Compiled animation style not selected, data attribute missing |
+| Exit animation completes before element is logically hidden | React unmounting before `transitionend` fires                 |
+| `prefers-reduced-motion: reduce` disables animations        | Animation duration not set to 0 for reduced motion            |
 
 **How to test exit animations:** Open the popover, close it, and assert that the element is still in
 the DOM during the exit transition (via the data attribute or computed opacity), then verify it's

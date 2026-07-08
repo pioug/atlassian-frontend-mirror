@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.1.20
+
+### Patch Changes
+
+- [`afd15695098bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afd15695098bb) -
+  EDItOR-7711: Show block changed diff indicators.
+- Updated dependencies
+
 ## 10.1.19
 
 ### Patch Changes

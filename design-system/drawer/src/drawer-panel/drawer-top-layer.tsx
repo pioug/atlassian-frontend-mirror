@@ -13,11 +13,13 @@ import {
 	useRef,
 } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { cssMap, cx, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import { type Direction } from '@atlaskit/motion/types';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { type TAnimationPreset } from '@atlaskit/top-layer/animations';
 import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
@@ -26,12 +28,69 @@ import { OnCloseContext } from '../on-close-context';
 import { type DrawerProps, type DrawerWidth } from '../types';
 import useDrawerStack from '../use-drawer-stack';
 
-import { drawerSlideIn } from './drawer-slide-in';
-
 const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
 	'--ds-elevation-surface-current';
 
+// Legacy drawer panel uses `SlideIn duration="small"`, which resolves to
+// 100ms on enter and 50ms on exit.
+const slideEnterDurationMs = 100;
+const slideExitDurationMs = 50;
+
+// Legacy drawer blanket is a separate `FadeIn duration="large"`, which resolves
+// to 700ms on enter and 350ms on exit. These intentionally differ from the panel
+// slide timings to preserve the old visual behavior.
+const fadeEnterDurationMs = 700;
+const fadeExitDurationMs = 350;
+
+function drawerSlideIn({ from = 'left' }: { from?: Direction } = {}): TAnimationPreset {
+	return {
+		name: `drawer-slide-${from}`,
+		enterDurationMs: slideEnterDurationMs,
+		exitDurationMs: slideExitDurationMs,
+	};
+}
+
 const styles = cssMap({
+	root: {
+		transitionProperty: 'transform, overlay, display',
+		transitionDuration: `${slideExitDurationMs}ms`,
+		transitionTimingFunction: 'cubic-bezier(0.2,0,0,1)',
+		transitionBehavior: 'allow-discrete',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+		'&[open]': {
+			transform: 'none',
+			transitionDuration: `${slideEnterDurationMs}ms`,
+		},
+		'&::backdrop': {
+			backgroundColor: 'transparent',
+			transitionProperty: 'background-color, overlay, display',
+			transitionDuration: `${fadeExitDurationMs}ms`,
+			transitionTimingFunction: 'cubic-bezier(0.15,1,0.3,1)',
+			transitionBehavior: 'allow-discrete',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+		'&[open]::backdrop': {
+			backgroundColor: token('color.blanket', '#050C1F75'),
+			transitionDuration: `${fadeEnterDurationMs}ms`,
+			'@starting-style': {
+				backgroundColor: 'transparent',
+			},
+		},
+		'@media (prefers-reduced-motion: reduce)': {
+			transitionDuration: '0s',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+			'&[open]': {
+				transitionDuration: '0s',
+			},
+			'&::backdrop': {
+				transitionDuration: '0s',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+			'&[open]::backdrop': {
+				transitionDuration: '0s',
+			},
+		},
+	},
 	// Visual surface of the panel. The native `<dialog>` (rendered by `Dialog`)
 	// owns positioning, sizing, modality and the `::backdrop`; this child only
 	// provides the drawer's appearance and fills the dialog.
@@ -43,6 +102,45 @@ const styles = cssMap({
 		[LOCAL_CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
 		overflow: 'hidden',
 		fontFamily: token('font.family.body'),
+	},
+});
+
+const drawerAnimationStyles = cssMap({
+	left: {
+		transform: 'translateX(-100%)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- starting-style must target the dialog's own open state for entry animation
+		'&[open]': {
+			'@starting-style': {
+				transform: 'translateX(-100%)',
+			},
+		},
+	},
+	right: {
+		transform: 'translateX(100%)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- starting-style must target the dialog's own open state for entry animation
+		'&[open]': {
+			'@starting-style': {
+				transform: 'translateX(100%)',
+			},
+		},
+	},
+	top: {
+		transform: 'translateY(-100%)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- starting-style must target the dialog's own open state for entry animation
+		'&[open]': {
+			'@starting-style': {
+				transform: 'translateY(-100%)',
+			},
+		},
+	},
+	bottom: {
+		transform: 'translateY(100%)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- starting-style must target the dialog's own open state for entry animation
+		'&[open]': {
+			'@starting-style': {
+				transform: 'translateY(100%)',
+			},
+		},
 	},
 });
 
@@ -229,8 +327,8 @@ export function DrawerTopLayer({
 		width: `min(${WIDTH_MAP[width]}, 100vw)`,
 	};
 
-	// Memoized so the preset object (and its CSS string) is rebuilt only when
-	// `enterFrom` changes, not on every render.
+	// Memoized so the animation preset object is rebuilt only when `enterFrom`
+	// changes, not on every render.
 	const animate = useMemo(() => drawerSlideIn({ from: enterFrom }), [enterFrom]);
 
 	const accessibleName = getAccessibleName({ label, titleId });
@@ -242,6 +340,7 @@ export function DrawerTopLayer({
 			onEnterFinish={handleEnterFinish}
 			onExitFinish={handleExitFinish}
 			animate={animate}
+			xcss={cx(styles.root, drawerAnimationStyles[enterFrom])}
 			shouldHideBackdrop={stackIndex > 0}
 			testId={testId}
 			{...accessibleName}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "35.5.1",
+	"version": "35.6.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -94,6 +94,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./constants": "./src/constants.ts",
 		"./ConnectedReactionPicker": "./src/containers/ConnectedReactionPicker/ConnectedReactionPicker.tsx",
 		"./ConnectedReactionsView": "./src/containers/ConnectedReactionsView/ConnectedReactionsView.tsx",
 		"./i18n/*": {

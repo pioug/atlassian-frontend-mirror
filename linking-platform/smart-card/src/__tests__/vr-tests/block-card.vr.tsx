@@ -97,6 +97,7 @@ snapshot(BlockCardJira, {
 	featureFlags: {
 		'navx-1895-new-logo-design': true,
 		platform_navx_block_card_footer_spacing: [true, false],
+		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
 });
@@ -104,15 +105,20 @@ snapshot(BlockCardConfluence, {
 	featureFlags: {
 		'navx-1895-new-logo-design': true,
 		platform_navx_block_card_footer_spacing: [true, false],
+		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardTrello, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardAtlas, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 
@@ -122,6 +128,7 @@ snapshot(BlockCardResolvedIconVariations, {
 	featureFlags: {
 		platform_sl_3p_preauth_better_hovercard_killswitch: true,
 		platform_sl_3p_preauth_better_hovercard: true,
+		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
 	ignoredErrors: [
@@ -133,7 +140,9 @@ snapshot(BlockCardResolvedIconVariations, {
 	],
 });
 snapshot(BlockCardBitbucket, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForNetworkIdle: true,
 	waitForReactLazy: true,
 });
@@ -145,13 +154,16 @@ snapshot(BlockCardForbiddenViews, {
 });
 snapshot(BlockCardLazyIcon1, {
 	description: `block card with lazy load icons, slice 1`,
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIcon2, {
 	description: `block card with lazy load icons, slice 2`,
 	featureFlags: {
 		'navx-1895-new-logo-design': true,
+		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
 });
@@ -159,6 +171,7 @@ snapshot(BlockCardLazyIcon3, {
 	description: `block card with lazy load icons, slice 3`,
 	featureFlags: {
 		'navx-1895-new-logo-design': true,
+		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
 });
@@ -166,6 +179,7 @@ snapshot(BlockCardLazyIcon4, {
 	description: `block card with lazy load icons, slice 4`,
 	featureFlags: {
 		'navx-1895-new-logo-design': true,
+		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
 });
@@ -173,6 +187,7 @@ snapshot(BlockCardLazyIcon5, {
 	description: `block card with lazy load icons, slice 5`,
 	featureFlags: {
 		'navx-1895-new-logo-design': true,
+		'navx-5343-sl-action-block-styling-fixes': true,
 	},
 	waitForReactLazy: true,
 });
@@ -183,27 +198,37 @@ snapshot(BlockCardLazyIcon6, {
 });
 snapshot(BlockCardLazyIconsFileType1, {
 	description: `block card with lazy load icons per file format, slice 1`,
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType2, {
 	description: `block card with lazy load icons per file format, slice 2`,
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType3, {
 	description: `block card with lazy load icons per file format, slice 3`,
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardLazyIconsFileType4, {
 	description: `block card with lazy load icons per file format, slice 4`,
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 snapshot(BlockCardEntities, {
 	description: `block card with entity support`,
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 
@@ -232,7 +257,9 @@ snapshot(SocialProofBlockCardLoading, {
 });
 
 snapshot(VRBlockProfileCard, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });
 
@@ -241,6 +268,8 @@ snapshot(FlexibleUiErroredTitleBlockCompetitorPrompt, {
 });
 
 snapshot(VRBlockCardResolvedRovoActions, {
-	featureFlags: {},
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
 	waitForReactLazy: true,
 });

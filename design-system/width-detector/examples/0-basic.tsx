@@ -3,11 +3,11 @@
  * @jsx jsx
  * @jsxFrag
  */
-import React from 'react';
+import { useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import WidthDetector from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 const containerMaxWidth = 800;
 
@@ -33,26 +33,20 @@ const styles = cssMap({
 	},
 });
 
-let n = 0;
-
 export default function Example(): JSX.Element {
+	const [width, setWidth] = useState(0);
+	const renderCount = useRef(0);
+	renderCount.current += 1;
+
 	return (
 		<div css={styles.box}>
 			<p css={styles.text}>Inside a parent with set height1</p>
 			<p css={styles.text}>Inside a parent with set height2</p>
 			<div css={styles.container}>
-				<WidthDetector>
-					{(width?: Number) => {
-						n++;
-						return (
-							<>
-								<p>This div has a max width of {containerMaxWidth}</p>
-								<p>{width?.toString()}</p>
-								<p>This component has been rendered {n} times.</p>
-							</>
-						);
-					}}
-				</WidthDetector>
+				<p>This div has a max width of {containerMaxWidth}</p>
+				<p>{width.toString()}</p>
+				<p>This component has been rendered {renderCount.current} times.</p>
+				<WidthObserver setWidth={setWidth} />
 			</div>
 		</div>
 	);

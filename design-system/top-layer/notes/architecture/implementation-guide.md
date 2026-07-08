@@ -119,7 +119,7 @@ Key external dependencies:
 │  │ (cloneElement│  │  ┌─────────────────────────┐  │  │
 │  │  or render   │  │  │ useAnchorPosition       │  │  │
 │  │  prop)       │  │  │ (native focus restore)  │  │  │
-│  └──────────────┘  │  │ usePresetStyles (arrow) │  │  │
+│  └──────────────┘  │  │ useAnchorPosition       │  │  │
 │                    │  └─────────────────────────┘  │  │
 │                    │  ┌─────────────────────────┐  │  │
 │                    │  │ Popover (primitive)      │  │  │
@@ -165,18 +165,15 @@ src/
 ├── internal/
 │   ├── anchor-positioning-fallback.tsx # JS fallback: computeFallbackPosition()
 │   ├── combine.tsx                    # combine() — merge cleanup functions
-│   ├── ensure-preset-styles.tsx       # ensurePresetStyles() — inject CSS into <head>
 │   ├── reduced-motion.tsx             # prefersReducedMotion() — SSR-safe check
 │   ├── resolve-placement.tsx          # TPlacement type, getPlacement()
 │   ├── role-types.tsx                 # ARIA role types with compile-time enforcement
 │   ├── set-style.tsx                  # setStyle() — apply inline styles, return cleanup
 │   ├── use-anchor-position.tsx        # useAnchorPosition() hook
 │   ├── use-animated-visibility.tsx    # useAnimatedVisibility() hook
-│   ├── use-animation-preset.tsx       # useAnimationPreset() hook (unused/legacy)
 │   ├── (deleted: use-focus-restore.tsx — now native browser behavior)
 │   ├── use-focus-wrap.tsx             # useFocusWrap() hook
 │   ├── use-initial-focus.tsx          # useInitialFocus() hook
-│   └── use-preset-styles.tsx          # usePresetStyles() hook
 ├── placement-map/
 │   └── index.tsx                      # fromLegacyPlacement(), placementMapping
 ├── popover/
@@ -272,7 +269,7 @@ background: transparent;
 | Prop           | Type                                                           | Default        | Description                                                                                                                          |
 | -------------- | -------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `isOpen`       | `boolean`                                                      | _required_     | Controls visibility. `true` → `showPopover()`, `false` → `hidePopover()`.                                                            |
-| `children`     | `ReactNode`                                                    | _required_     | Content rendered inside the popover. Only mounted when `showChildren` is true (stays during exit animation).                         |
+| `children`     | `ReactNode`                                                    | _required_     | Content rendered inside the popover while the host is mounted (`phase !== 'closed'`, including exit animation).                      |
 | `mode`         | `'auto' \| 'hint' \| 'manual'`                                 | `'auto'`       | Native popover attribute value. `'hint'` falls back to `'auto'` if browser doesn't support it.                                       |
 | `onClose`      | `(args: { reason: TPopoverCloseReason }) => void`              | `noop`         | Called on browser-initiated dismiss. Not called for programmatic close (consumer already knows). Not available when `mode='manual'`. |
 | `onOpenChange` | `(args: { isOpen: boolean; element: HTMLDivElement }) => void` | —              | Fires on toggle events. Provides a ref to the DOM element.                                                                           |
@@ -297,16 +294,18 @@ type TPopoverCloseReason = 'escape' | 'light-dismiss';
 ### Visibility Lifecycle
 
 ```
-isOpen=true  → showPopover() called in useLayoutEffect
+isOpen=true  → phase='entering'/'open'
+               host and children render
+               showPopover() called in useLayoutEffect
                @starting-style plays entry animation
-               showChildren=true → children rendered
 
-isOpen=false → hidePopover() called in useLayoutEffect
+isOpen=false → phase='exiting'
+               hidePopover() called in useLayoutEffect
                programmaticCloseRef set to prevent redundant onClose
                Exit animation plays via CSS allow-discrete
                transitionend fires (or fallback timeout)
-               showChildren=false → children unmounted
                onExitFinish fires
+               phase='closed' → host and children unmounted
 ```
 
 ### Popover Mode: `'hint'`
@@ -336,11 +335,13 @@ Escape detection uses a capture-phase keydown listener on the popover element. T
 For programmatic close (`isOpen` goes `false`), `programmaticCloseRef` is set to `true` before
 calling `hidePopover()`. The toggle handler checks this ref and skips calling `onClose`.
 
-### Data Attribute for Animation CSS
+### Data Attribute for Animation Hooks
 
 When an animation preset is active, a data attribute is set on the element:
-`data-ds-popover-{preset.name}=""`. This is the CSS selector target for animation rules (e.g.
-`[data-ds-popover-slide-and-fade]`).
+`data-ds-popover-{preset.name}=""`. This remains a stable selector for tests and debugging, but it
+no longer selects injected preset CSS. Popover animation CSS is selected by component-local static
+Compiled conditionals, for example
+`preset?.name === 'slide-and-fade' && popoverAnimationStyles.slideAndFade`.
 
 ---
 
@@ -743,8 +744,8 @@ Animations use pure CSS with no JavaScript animation libraries:
 - **Exit:** `transition-behavior: allow-discrete` on `display` and `overlay` properties allows
   transitions to play _after_ `hidePopover()` / `close()`, even though `display: none` normally
   snaps instantly.
-- **Reduced motion:** All presets include `@media (prefers-reduced-motion: reduce)` blocks that set
-  `transition-duration: 0s`.
+- **Reduced motion:** The component-local animation styles include
+  `@media (prefers-reduced-motion: reduce)` blocks that set `transition-duration: 0s`.
 
 ### Why Animation Cannot Be a Separate Hook
 
@@ -760,16 +761,17 @@ positioning (separate concern).
 
 ```typescript
 type TAnimationPreset = {
-	/** Unique name — used for data-attribute targeting and dedup. */
 	name: string;
-	/** Raw CSS string injected into <head>. */
-	css: string;
-	/** Exit duration in ms — used for transitionend fallback timeout. */
-	exitDurationMs: number;
-	/** Optional: returns CSS custom properties per placement (for directional animations). */
 	getProperties?: (args: { placement: TPlacementOptions }) => Record<string, string>;
+	enterDurationMs: number;
+	exitDurationMs: number;
 };
 ```
+
+Presets are metadata only. They do not carry raw CSS strings or reusable Compiled style objects.
+Both popover and dialog preset factories return this same `TAnimationPreset` shape. The components
+select component-local Compiled styles by checking the preset `name`, and TypeScript does not
+currently fork the animation preset type by surface.
 
 ### Popover Animation Presets
 
@@ -828,10 +830,10 @@ Slide up + opacity for dialogs. Includes `::backdrop` fade animation.
 **CSS custom property:** `--ds-dialog-ty` (defaults to `12px`)
 
 **Timing:** Same easing and durations. Backdrop transitions `background-color` from `transparent` to
-`var(--ds-blanket, #050C1F75)`.
+`token('color.blanket', '#050C1F75')`.
 
-**Custom distance:** When `distance !== 12`, the preset name includes the distance (e.g.
-`dialog-slide-up-and-fade-20`) and the CSS string has `12px` replaced globally.
+**Custom distance:** The preset name stays stable. Custom distance is applied through the
+`--ds-dialog-ty` custom property, so Compiled can keep one static style block for the preset.
 
 #### `dialogFade()`
 
@@ -839,18 +841,19 @@ Simple opacity for dialogs. Includes `::backdrop` fade.
 
 **CSS targeting:** `[data-ds-dialog-fade]`
 
-### CSS Injection Mechanism
+### Static Compiled Styles
 
-`ensurePresetStyles({ preset })`:
+Animation styles live in the host component files:
 
-1. Checks if `preset.name` is in a global `Set<string>`
-2. If not, creates a `<style>` element, sets `textContent` to `preset.css`, appends to
-   `document.head`
-3. Adds `preset.name` to the Set
-4. Styles are **append-only** — never removed (bounded number of presets, removing would break other
-   instances)
+- `Popover` owns the popover animation `compiledCssMap` entries.
+- `Dialog` owns the dialog animation `compiledCssMap` entries.
 
-SSR-safe: returns early if `typeof document === 'undefined'`.
+The component selects these entries with static conditionals such as
+`preset?.name === 'slide-and-fade' && popoverAnimationStyles.slideAndFade`.
+
+This is intentional. Compiled needs every referenced style to be statically extractable at build
+time. Passing style objects through the preset metadata, or exporting a shared style map from the
+preset module, is not supported by the Compiled transform.
 
 ### `useAnimatedVisibility` Hook
 
@@ -868,26 +871,31 @@ transitions.
 
 **Returns:**
 
-| Field          | Type                       | Description                                                      |
-| -------------- | -------------------------- | ---------------------------------------------------------------- |
-| `showChildren` | `boolean`                  | Whether to render children. Stays `true` during exit animations. |
-| `preset`       | `TAnimationPreset \| null` | Resolved preset (with CSS injected), or `null`.                  |
+| Field    | Type                       | Description                                                           |
+| -------- | -------------------------- | --------------------------------------------------------------------- |
+| `phase`  | `TPhase`                   | Current visibility phase: `closed`, `entering`, `open`, or `exiting`. |
+| `preset` | `TAnimationPreset \| null` | Resolved metadata preset, or `null`.                                  |
 
 **Lifecycle:**
 
 ```
 isOpen: true ─────────────────── false
-showChildren: true ─────────────── true ─── (exit animation) ─── false
+phase:  entering/open ─────────── exiting ─── (exit animation or close event) ─── closed
 ```
+
+The host component renders while `phase !== 'closed'`, which keeps the host element mounted during
+exit animations and then unmounts it after the hook settles the phase.
 
 **Two close paths:**
 
-1. **Animated close** (`willAnimate === true`): `isOpen` → `false`, `showChildren` stays `true`, CSS
+1. **Animated close** (`willAnimate === true`): `isOpen` → `false`, `phase` becomes `exiting`, CSS
    exit transition plays, `transitionend` fires (with fallback timeout of `exitDurationMs + 50ms`),
-   `showChildren` → `false`, `onExitFinish` fires.
+   `onExitFinish` fires, then `phase` becomes `closed`.
 
-2. **Non-animated close** (`willAnimate === false`): `isOpen` → `false`, `showChildren` → `false`
-   synchronously (setState during render), `onExitFinish` fires in follow-up effect.
+2. **Non-animated close** (`willAnimate === false`): `isOpen` → `false`, `phase` becomes `exiting`,
+   `onExitFinish` fires in a follow-up effect, and unmount is gated on the browser's `toggle` or
+   `close` event so native close handling and focus restoration can finish against the still-mounted
+   host element.
 
 **Reduced motion:** When `prefersReducedMotion()` returns `true`, `willAnimate` is `false`
 regardless of preset — animations are completely skipped.
@@ -1338,11 +1346,6 @@ const cleanup = setStyle({
 // Later: cleanup() removes both properties
 ```
 
-### `usePresetStyles({ preset })`
-
-Hook that normalizes the `animate` / `arrow` prop and injects the preset's CSS via
-`ensurePresetStyles`. Returns the resolved preset or `null` when the input is falsy.
-
 ### `getPlacement({ placement })`
 
 Resolves partial `TPlacementOptions` to fully-specified `TPlacement`:
@@ -1501,5 +1504,5 @@ If building green-field with no need to support existing `@atlaskit/popup`,
    primitives.
 4. **CSS Anchor Positioning** — The positioning approach is modern and correct.
 5. **Animation presets** — CSS-based animations are the right approach.
-6. **`ensurePresetStyles`** — Global CSS injection for presets is necessary regardless.
+6. **Static Compiled animation styles** — Component-local style maps keep extraction predictable.
 7. **ARIA discriminated unions** — Compile-time accessibility enforcement is valuable for any API.

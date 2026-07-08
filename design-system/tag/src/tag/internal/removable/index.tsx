@@ -14,7 +14,8 @@ import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import TagNew, { colorMapping } from '../../../tag-new';
+import TagNew from '../../../tag-new';
+import { colorMapping } from '../../../tag-new/color-mapping';
 import { getTagText } from '../../../tag-new/get-tag-text';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';

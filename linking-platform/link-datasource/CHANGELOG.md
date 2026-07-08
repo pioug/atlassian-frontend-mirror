@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 6.1.4
+
+### Patch Changes
+
+- [`5a653f46eff1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a653f46eff1d) -
+  Partially Reverting a change made in 368271 PR
+
 ## 6.1.3
 
 ### Patch Changes

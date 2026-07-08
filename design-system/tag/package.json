@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "15.1.0",
+	"version": "15.1.1",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,9 +12,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"**/*.compiled.css"
-	],
+	"sideEffects": ["**/*.compiled.css"],
 	"atlaskit:src": "src/index.tsx",
 	"homepage": "https://atlassian.design/components/tag/",
 	"atlassian": {
@@ -109,15 +107,9 @@
 			"design-system": "v1",
 			"ui-components": "lite-mode",
 			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
+			"design-tokens": ["color", "spacing"],
 			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"static"
-			]
+			"styling": ["emotion", "static"]
 		}
 	},
 	"platform-feature-flags": {

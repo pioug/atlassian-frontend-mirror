@@ -11,6 +11,7 @@ export {
 	getColorsPerRowFromPalette,
 	getSelectedRowAndColumnFromPalette,
 	getTokenCSSVariableValue,
+	getTokenCSSVariableValueForNonActiveTheme,
 } from './ColorPalette/utils';
 export { default as cellBackgroundColorPalette } from './ColorPalette/Palettes/cellBackgroundColorPalette';
 export { default as colorPaletteMessages } from './ColorPalette/Palettes/paletteMessages';

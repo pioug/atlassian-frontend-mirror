@@ -12,9 +12,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"**/*.compiled.css"
-	],
+	"sideEffects": ["**/*.compiled.css"],
 	"scripts": {
 		"generate:examples": "ts-node --project ../../../tsconfig.node.json ./build/build-examples.tsx",
 		"generate:components": "ts-node --project ../../../tsconfig.node.json ./build/build-components.tsx"
@@ -83,17 +81,9 @@
 			"design-system": "v1",
 			"dom-events": "use-bind-event-listener",
 			"analytics": "analytics-next",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"theming": [
-				"react-context"
-			],
-			"styling": [
-				"static",
-				"emotion"
-			],
+			"design-tokens": ["color", "spacing"],
+			"theming": ["react-context"],
+			"styling": ["static", "emotion"],
 			"deprecation": "no-deprecated-imports"
 		}
 	},

@@ -35,6 +35,12 @@ const mainElementStyles = cssMap({
 			position: 'sticky',
 		},
 	},
+	fixedHeight: {
+		// Height is set so it takes up all of the available viewport space minus top bar + banner.
+		// Set for all sizes of viewports to allow for in-app panels.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		height: contentHeightWhenFixed,
+	},
 });
 
 /**
@@ -68,7 +74,10 @@ export function Main({
 				data-layout-slot
 				className={xcss}
 				role="main"
-				css={mainElementStyles.root}
+				css={[
+					mainElementStyles.root,
+					fg('platform-ads-nav-fixed-height') && mainElementStyles.fixedHeight,
+				]}
 				data-testid={testId}
 			>
 				{children}

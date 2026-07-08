@@ -2,10 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useState } from 'react';
 
 import { cssMap, jsx, keyframes } from '@compiled/react';
 
-import WidthDetector from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 const startSize = 100;
 const endSize = startSize * 2;
@@ -48,16 +49,18 @@ const styles = cssMap({
 		display: 'flex',
 		height: '100%',
 		justifyContent: 'center',
+		position: 'relative',
 		whiteSpace: 'nowrap',
+		width: '100%',
 	},
 	container: {
 		display: 'flex',
 	},
 });
 
-const displayResults = (width?: number) => <div css={styles.resultBox}>Width: {width}</div>;
-
 export default function Example(): JSX.Element {
+	const [width, setWidth] = useState(0);
+
 	return (
 		<div>
 			<p>
@@ -66,7 +69,10 @@ export default function Example(): JSX.Element {
 			</p>
 			<div css={styles.container}>
 				<div css={styles.resizingBox}>I am resizing</div>
-				<WidthDetector>{displayResults}</WidthDetector>
+				<div css={styles.resultBox}>
+					Width: {width}
+					<WidthObserver setWidth={setWidth} />
+				</div>
 			</div>
 		</div>
 	);

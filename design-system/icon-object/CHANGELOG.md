@@ -1,5 +1,12 @@
 # @atlaskit/icon-object
 
+## 8.1.1
+
+### Patch Changes
+
+- [`2712bee5409a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2712bee5409a5) -
+  Adding deprecation status to package.json
+
 ## 8.1.0
 
 ### Minor Changes

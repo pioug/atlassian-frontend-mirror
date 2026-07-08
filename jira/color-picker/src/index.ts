@@ -1,8 +1,5 @@
 import ColorPicker from './components/ColorPicker';
-import { Mode } from './types';
-
-const Compact: Mode.Compact = Mode.Compact;
-const Standard: Mode.Standard = Mode.Standard;
+import { Compact, Standard } from './mode';
 
 export { ColorPickerWithoutAnalytics } from './components/ColorPicker';
 export type { Props as ColorPickerProps } from './components/ColorPicker';

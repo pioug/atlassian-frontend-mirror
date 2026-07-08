@@ -2,9 +2,15 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import { textColorPalette, textColorPaletteNew } from '@atlaskit/editor-common/ui-color';
+import {
+	getTokenCSSVariableValueForNonActiveTheme,
+	textColorPalette,
+	textColorPaletteNew,
+} from '@atlaskit/editor-common/ui-color';
+import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette/text';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
@@ -14,6 +20,7 @@ import { getDisabledState } from './utils/disabled';
 
 export type TextColorPluginState = {
 	color: string | null;
+	colorInNonActiveTheme?: string;
 	defaultColor: string;
 	disabled?: boolean;
 	isPaletteOpen?: boolean;
@@ -23,6 +30,16 @@ export type TextColorPluginState = {
 type TextColorDefaultColor = {
 	color: string;
 	label: string;
+};
+
+const getColorInNonActiveTheme = (color: string | null, defaultColor: string): string => {
+	if (!color || color === defaultColor) {
+		return getTokenCSSVariableValueForNonActiveTheme(token('color.text'), defaultColor);
+	}
+
+	const colorValue = hexToEditorTextPaletteColor(color) || color;
+
+	return getTokenCSSVariableValueForNonActiveTheme(colorValue, color);
 };
 
 export interface TextColorPluginConfig {
@@ -63,12 +80,18 @@ function createInitialPluginState(
 		...paletteColors,
 	];
 
+	const color = getActiveColor(editorState);
 	const state = {
-		color: getActiveColor(editorState),
+		color,
 		disabled: getDisabledState(editorState),
 		palette,
 		defaultColor: defaultColor.color,
 		isPaletteOpen: false,
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		...(fg('platform_editor_lovability_text_bg_color_patch_1') &&
+			expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) && {
+				colorInNonActiveTheme: getColorInNonActiveTheme(color, defaultColor.color),
+			}),
 	};
 
 	return state;
@@ -98,7 +121,22 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 				let nextState;
 				switch (meta.action) {
 					case ACTIONS.RESET_COLOR:
-						nextState = { ...pluginState, color: pluginState.defaultColor };
+						nextState = {
+							...pluginState,
+							color: pluginState.defaultColor,
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							...(fg('platform_editor_lovability_text_bg_color_patch_1') &&
+								expValEqualsNoExposure(
+									'platform_editor_lovability_text_bg_color',
+									'isEnabled',
+									true,
+								) && {
+									colorInNonActiveTheme: getColorInNonActiveTheme(
+										pluginState.defaultColor,
+										pluginState.defaultColor,
+									),
+								}),
+						};
 						break;
 
 					case ACTIONS.SET_COLOR:
@@ -107,27 +145,57 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 							color: meta.color,
 							disabled: false,
 							isPaletteOpen: false,
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							...(fg('platform_editor_lovability_text_bg_color_patch_1') &&
+								expValEqualsNoExposure(
+									'platform_editor_lovability_text_bg_color',
+									'isEnabled',
+									true,
+								) && {
+									colorInNonActiveTheme: getColorInNonActiveTheme(
+										meta.color,
+										pluginState.defaultColor,
+									),
+								}),
 						};
 						break;
 
 					case ACTIONS.DISABLE:
-						nextState = { ...pluginState, disabled: true };
+						nextState = {
+							...pluginState,
+							disabled: true,
+						};
 						break;
 
 					case ACTIONS.SET_PALETTE:
-						nextState = { ...pluginState, isPaletteOpen: meta.isPaletteOpen };
+						nextState = {
+							...pluginState,
+							isPaletteOpen: meta.isPaletteOpen,
+						};
 						break;
 
 					default:
+						const color = getActiveColor(newState);
 						nextState = {
 							...pluginState,
-							color: getActiveColor(newState),
+							color,
 							disabled: getDisabledState(newState),
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							...(color !== pluginState.color &&
+								fg('platform_editor_lovability_text_bg_color_patch_1') &&
+								expValEqualsNoExposure(
+									'platform_editor_lovability_text_bg_color',
+									'isEnabled',
+									true,
+								) && {
+									colorInNonActiveTheme: getColorInNonActiveTheme(color, pluginState.defaultColor),
+								}),
 						};
 				}
 
 				if (
 					(pluginState && pluginState.color !== nextState.color) ||
+					(pluginState && pluginState.colorInNonActiveTheme !== nextState.colorInNonActiveTheme) ||
 					(pluginState && pluginState.disabled !== nextState.disabled) ||
 					(pluginState && pluginState.isPaletteOpen !== nextState.isPaletteOpen)
 				) {

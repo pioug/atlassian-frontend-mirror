@@ -12,9 +12,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"**/*.compiled.css"
-	],
+	"sideEffects": ["**/*.compiled.css"],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"react-compiler": {

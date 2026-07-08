@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import { FlagGroup } from '@atlaskit/flag';
-import { ErrorMessage, Field } from '@atlaskit/form';
+import { ErrorMessage, Field, MessageWrapper } from '@atlaskit/form';
 import ThumbsDownIcon from '@atlaskit/icon/core/thumbs-down';
 import ThumbsUpIcon from '@atlaskit/icon/core/thumbs-up';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
@@ -81,7 +81,7 @@ const CustomFeedbackFields = () => {
 								))}
 							</Inline>
 						</Box>
-						{error && <ErrorMessage>{error}</ErrorMessage>}
+						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 					</>
 				)}
 			</Field>
@@ -102,7 +102,7 @@ const CustomFeedbackFields = () => {
 								testId="project-name-input"
 							/>
 						</Box>
-						{error && <ErrorMessage>{error}</ErrorMessage>}
+						<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 					</>
 				)}
 			</Field>

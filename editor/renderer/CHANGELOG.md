@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 133.8.4
+
+### Patch Changes
+
+- [`f6f7aba52cfe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6f7aba52cfe3) -
+  Register `confluence_comment_nudgebar_improvement` experiment and skip selection debounce during
+  nudge button clicks to ensure first-click comment draft creation works correctly.
+- Updated dependencies
+
 ## 133.8.3
 
 ### Patch Changes

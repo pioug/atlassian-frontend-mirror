@@ -81,6 +81,7 @@ const calculateNodesForBlockDecoration = ({
 	isInserted = true,
 	activeIndexPos,
 	shouldHideDeleted = false,
+	showIndicators = false,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	colorScheme?: ColorScheme;
@@ -89,6 +90,7 @@ const calculateNodesForBlockDecoration = ({
 	intl: IntlShape;
 	isInserted?: boolean;
 	shouldHideDeleted?: boolean;
+	showIndicators?: boolean;
 	to: number;
 }): Decoration[] => {
 	const decorations: Decoration[] = [];
@@ -110,6 +112,8 @@ const calculateNodesForBlockDecoration = ({
 					isInserted,
 					isActive,
 					shouldHideDeleted,
+					showIndicators,
+					doc,
 				}),
 			);
 		}
@@ -257,6 +261,7 @@ const calculateDiffDecorationsInner = ({
 					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
 						isInserted,
 						shouldHideDeleted,
+						showIndicators,
 					}),
 					activeIndexPos,
 					intl,
@@ -410,6 +415,7 @@ const calculateDiffDecorationsInner = ({
 					isInserted: true,
 					activeIndexPos,
 					intl,
+					showIndicators,
 				}),
 			);
 		}

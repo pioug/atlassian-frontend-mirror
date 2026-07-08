@@ -1,5 +1,7 @@
 # Migration guide
 
+Use this guide to migrate from deprecated `WidthDetector` to `WidthObserver`.
+
 This component will observe the current width, and it will call the \`setWidth\` callback every time
 this changes.
 

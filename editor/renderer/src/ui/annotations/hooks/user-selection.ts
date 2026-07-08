@@ -6,6 +6,7 @@ import {
 import type { RangeType } from '../contexts/AnnotationRangeContext';
 import { isRangeInsideOfRendererContainer } from './utils';
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type Props = {
 	rendererRef: React.RefObject<HTMLDivElement>;
@@ -30,6 +31,24 @@ export const useUserSelectionRange = (
 				clearTimeout(selectionTimeoutRef.current);
 			}
 
+			/*
+			 * The 100ms debounce batches rapid `selectionchange` events during user drag/extend
+			 * operations into a single React update. When the nudge button triggers a programmatic
+			 * `addRange`, it fires exactly ONE `selectionchange` — no batching needed. Skipping the
+			 * debounce ensures annotation position is computed synchronously so the first click
+			 * applies the yellow highlight immediately. `data-nudge-selection-active` is set
+			 * exclusively by the Confluence comment nudge feature and is double-gated:
+			 * (1) `expValEquals('confluence_comment_nudgebar_improvement', ...)` — explicit experiment
+			 * gate; (2) `data-nudge-selection-active` — ensures 0ms only fires during an actual nudge
+			 * click, not on every selectionchange for experiment-ON users. Zero behavioral change for
+			 * other products or experiment-OFF users.
+			 */
+			const nudgeDelay =
+				typeof document !== 'undefined' &&
+				document.body?.getAttribute('data-nudge-selection-active') === 'true' &&
+				expValEquals('confluence_comment_nudgebar_improvement', 'isEnabled', true)
+					? 0
+					: 100;
 			selectionTimeoutRef.current = setTimeout(() => {
 				const sel = document.getSelection();
 
@@ -76,7 +95,7 @@ export const useUserSelectionRange = (
 					setSelectionRange(_range.cloneRange());
 					lastRangeRef.current = _range;
 				}
-			}, 100);
+			}, nudgeDelay);
 		},
 		[rendererDOM, setSelectionRange, clearSelectionRange, isAnnotationManagerEnabled],
 	);

@@ -1,5 +1,12 @@
 # @atlaskit/top-layer
 
+## 1.4.0
+
+### Minor Changes
+
+- [`608d20a3ca772`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/608d20a3ca772) -
+  Migrate top layer animation presets to Compiled CSS
+
 ## 1.3.0
 
 ### Minor Changes

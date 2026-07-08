@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.1.14
+
+### Patch Changes
+
+- [`79402109ef24e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79402109ef24e) -
+  fix block controls reliable anchor glitch
+- Updated dependencies
+
 ## 13.1.13
 
 ### Patch Changes

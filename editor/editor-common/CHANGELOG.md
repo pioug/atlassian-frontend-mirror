@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 116.23.1
+
+### Patch Changes
+
+- [`74b3e15fed77e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74b3e15fed77e) -
+  Check editor text and highlight color accessibility against both light and dark theme variants.
+- Updated dependencies
+
+## 116.23.0
+
+### Minor Changes
+
+- [`eb60a9c5e949c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb60a9c5e949c) -
+  Fix Confluence live doc table column-sort button being clickable only on its border — header
+  content overlapped the button body. The sort button is now elevated above header content, behind
+  the new `confluence_live_doc_table_sort_bugfix` experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.22.2
 
 ### Patch Changes

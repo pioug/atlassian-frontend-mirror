@@ -197,7 +197,10 @@ describe('no-deprecated-imports', () => {
 			},
 
 			...namedImports.map(({ path, import: { importName } }) => ({
-				code: `import { ${importName} } from '${path}';`,
+				code:
+					importName === 'default'
+						? `import DeprecatedDefaultImport from '${path}';`
+						: `import { ${importName} } from '${path}';`,
 				errors: [
 					{
 						messageId: importNameWithCustomMessageId,

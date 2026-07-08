@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { useAssetsWorkspaceHost } from '@atlassian/assets-workspace-host';
-
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { fetchObjectSchema, fetchObjectSchemas, getWorkspaceId } from '../services/cmdbService';
-import { getMeta } from '../services/getMeta';
 import { type ObjectSchema } from '../types/assets/types';
 import { type AssetsDatasourceParameters } from '../ui/assets-modal/types';
 
@@ -44,44 +40,23 @@ export const useAssetsClient = (
 	const [objectSchemasError, setObjectSchemasError] = useState<Error | undefined>();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
-	// cloudId resolved from <meta name="ajs-cloud-id"> rendered by the host page.
-	const cloudId = getMeta('ajs-cloud-id') ?? '';
-	const isResolverGateOn = fg('astral_units_workspace_host_resolver');
-	const {
-		resolvedWorkspaceId,
-		isPending: isResolverPending,
-		isIdle: isResolverIdle,
-	} = useAssetsWorkspaceHost({
-		cloudId,
-		productContext: 'confluence',
-		skip: !cloudId || !isResolverGateOn,
-	});
-	const isResolverPendingOrIdle = isResolverIdle || isResolverPending;
 	/*
 	 * We wrap this in nested try/catch blocks because we want to handle
 	 * workspaceError/existingObjectSchemaError/objectSchemasError differently
 	 * if we need to implement more initial data fetching/errors we should look at a store
 	 */
 	useEffect(() => {
-		if (isResolverPendingOrIdle && isResolverGateOn) {
-			setLoading(true);
-			return;
-		}
-
 		(async () => {
 			setLoading(true);
 			setWorkspaceError(undefined);
 			try {
-				const effectiveWorkspaceId =
-					resolvedWorkspaceId && isResolverGateOn
-						? resolvedWorkspaceId
-						: await getWorkspaceId(fireEvent);
-				setWorkspaceId(effectiveWorkspaceId);
+				const workspaceId = await getWorkspaceId(fireEvent);
+				setWorkspaceId(workspaceId);
 				// Check schema from initial parameters still exists and fetch name/permissions for schema select
 				if (initialParameters?.schemaId) {
 					try {
 						const fetchedObjectSchema = await fetchObjectSchema(
-							effectiveWorkspaceId,
+							workspaceId,
 							initialParameters?.schemaId,
 							fireEvent,
 						);
@@ -92,7 +67,7 @@ export const useAssetsClient = (
 				}
 				try {
 					const fetchedObjectSchemasResponse = await fetchObjectSchemas(
-						effectiveWorkspaceId,
+						workspaceId,
 						undefined,
 						fireEvent,
 					);
@@ -107,13 +82,7 @@ export const useAssetsClient = (
 				setLoading(false);
 			}
 		})();
-	}, [
-		initialParameters,
-		fireEvent,
-		resolvedWorkspaceId,
-		isResolverPendingOrIdle,
-		isResolverGateOn,
-	]);
+	}, [initialParameters, fireEvent]);
 
 	return {
 		workspaceId,

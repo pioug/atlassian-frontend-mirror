@@ -1,5 +1,22 @@
 # @atlaskit/media-viewer
 
+## 54.4.0
+
+### Minor Changes
+
+- [`ecf905d329e42`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecf905d329e42) -
+  Add diagnostic context to the imageviewer-src-onerror failure (errorDetail now report mimeType,
+  decode dimensions and failed source type instead of unknown)
+- [`a654b7573d0a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a654b7573d0a2) -
+  Route image MIME types that the browser cannot natively decode (e.g. HEIC/HEIF, PSD, TIFF) to the
+  unsupported/download preview view instead of a guaranteed-failing `<img>`. These are reported via
+  the `previewUnsupported` analytics event rather than `loadFailed`. Behind the
+  `platform_media_unsupported_mime_routing` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.3.8
 
 ### Patch Changes

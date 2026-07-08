@@ -657,10 +657,16 @@ export const GlobalStylesWrapper = ({
 				expValEquals('advanced_layouts', 'isEnabled', true)
 					? layoutColumnExtendedHoverZone
 					: layoutColumnWithoutHoverZone,
-				shouldRenderAnchors && (isDragging ? dragAnchorStyles : dragHandlerAnchorStyles),
 				expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)
-					? staticControlsAnchorStyles
-					: undefined,
+					? // dragAnchorStyles sets anchor-name on ALL nodes during drag (needed for drop target positioning).
+						// staticControlsAnchorStyles handles anchor-name via node decorations for non-drag state.
+						// shouldRenderAnchors guards both: only apply anchor styles on browsers that support CSS anchor positioning.
+						shouldRenderAnchors
+						? isDragging
+							? dragAnchorStyles
+							: staticControlsAnchorStyles
+						: false
+					: shouldRenderAnchors && (isDragging ? dragAnchorStyles : dragHandlerAnchorStyles),
 			]}
 		/>
 	);

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "12.1.18",
+	"version": "12.1.19",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -107,6 +107,9 @@
 			"referenceOnly": "true"
 		},
 		"platform_editor_use_preferences_plugin": {
+			"type": "boolean"
+		},
+		"platform_editor_lovability_text_bg_color_patch_1": {
 			"type": "boolean"
 		}
 	},

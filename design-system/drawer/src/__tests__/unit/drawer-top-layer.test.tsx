@@ -303,8 +303,12 @@ describe('Drawer top-layer rendering', () => {
 		// Only the background drawer (stackIndex > 0) renders the ID-scoped
 		// backdrop-hide <style>; the foreground keeps its visible backdrop.
 		// eslint-disable-next-line testing-library/no-node-access -- verifying the injected ID-scoped backdrop-hide <style>
-		const hideStyles = Array.from(document.querySelectorAll('style')).filter((el) =>
-			el.textContent?.includes('::backdrop{background-color:transparent}'),
+		const hideStyles = Array.from(document.querySelectorAll('style')).filter(
+			(el) =>
+				// ignore <style> tags injected by Compiled because this style exists in some of the animation presets
+				// and the test is checking specifically for the style tag rendered directly by us
+				el.getAttribute('data-cmpld') !== 'true' &&
+				el.textContent?.includes('::backdrop{background-color:transparent}'),
 		);
 		expect(hideStyles).toHaveLength(1);
 	});

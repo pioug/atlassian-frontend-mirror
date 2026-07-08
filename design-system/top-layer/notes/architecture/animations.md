@@ -586,9 +586,26 @@ Consumers who don't use animation pay nothing: when `animate` is omitted,
 Browsers without `@starting-style` support show/hide content instantly. The UI is functional, just
 not animated. This is by design — animation is a progressive enhancement.
 
+## Static Compiled styles
+
+Animation presets are metadata only. They expose the stable `name`, entry and exit durations used by
+`useAnimatedVisibility`, and optional custom properties for placement-dependent values. The actual
+CSS lives in component-local `compiledCssMap` entries in `Popover` and `Dialog`, selected through
+static conditionals such as
+`preset?.name === 'slide-and-fade' && popoverAnimationStyles.slideAndFade`. This keeps every style
+statically visible to the Compiled transform and removes the old raw CSS injection path.
+
+The `data-ds-popover-{name}` and `data-ds-dialog-{name}` attributes remain as stable hooks for
+selectors, tests, and debugging. They are not a signal that preset CSS is injected into `<head>`.
+
+Placement or option-dependent values stay imperative custom properties. For example, `slideAndFade`
+sets `--ds-popover-tx` / `--ds-popover-ty`, and `dialogSlideUpAndFade` sets `--ds-dialog-ty`. The
+components clean up these properties when the preset or placement changes so stale values do not
+leak between presets.
+
 ## Reduced motion
 
-All animation presets include a `prefers-reduced-motion` media query that sets
+All component-local animation style entries include a `prefers-reduced-motion` media query that sets
 `transition-duration: 0s`, so animations are disabled for users who prefer reduced motion:
 
 ```css

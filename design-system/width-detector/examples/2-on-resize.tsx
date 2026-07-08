@@ -7,13 +7,14 @@ import React from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
-import WidthDetector from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import { debounce } from './utils/debounce';
 
 const styles = cssMap({
 	container: {
 		height: '100px',
+		position: 'relative',
 	},
 	resultBox: {
 		alignItems: 'center',
@@ -42,8 +43,8 @@ export default class Example extends React.Component {
 		bgColor: '#fff',
 	};
 
-	onResize: () => void = debounce(
-		(width: Number) => {
+	onResize: (width: number) => void = debounce(
+		(width: number) => {
 			console.log('[onResize] width:', width);
 
 			this.setState({
@@ -60,13 +61,10 @@ export default class Example extends React.Component {
 		return (
 			<div>
 				<div css={styles.container}>
-					<WidthDetector onResize={this.onResize}>
-						{() => (
-							<div css={styles.resultBox} style={{ backgroundColor: this.state.bgColor }}>
-								<div css={styles.resultNumber}>{this.state.width}</div>
-							</div>
-						)}
-					</WidthDetector>
+					<div css={styles.resultBox} style={{ backgroundColor: this.state.bgColor }}>
+						<div css={styles.resultNumber}>{this.state.width}</div>
+					</div>
+					<WidthObserver setWidth={this.onResize} />
 					The area above will change color as the width of the container changes.
 				</div>
 			</div>

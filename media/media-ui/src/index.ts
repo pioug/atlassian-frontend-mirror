@@ -1,6 +1,4 @@
-import * as untypedLocales from './i18n/index';
-
-const locales: { [key: string]: any } = untypedLocales;
+export { locales } from './locales';
 
 export {
 	MediaInlineCardErroredView,
@@ -29,7 +27,7 @@ export { Bounds, Camera, Rectangle, Vector2 } from './camera';
 export { messages } from './messages';
 export type { MessageKey } from './messages';
 export { default as languages } from './i18n/languages';
-export { locales };
+
 export {
 	ExifOrientation,
 	getCssFromImageOrientation,

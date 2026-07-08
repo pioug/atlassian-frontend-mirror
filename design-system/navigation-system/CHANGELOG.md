@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 10.4.0
+
+### Minor Changes
+
+- [`5ad834eeed183`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ad834eeed183) -
+  Main component now has a fixed height on smaller viewports behind a feature gate. This is to
+  enable in-app panels with correct scroll and overlay behaviour.
+
 ## 10.3.0
 
 ### Minor Changes

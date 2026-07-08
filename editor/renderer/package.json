@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "133.8.3",
+	"version": "133.8.4",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,9 +12,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"*.compiled.css"
-	],
+	"sideEffects": ["*.compiled.css"],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"react-compiler": {
@@ -133,14 +131,9 @@
 	},
 	"techstack": {
 		"@repo/internal": {
-			"design-tokens": [
-				"color"
-			],
+			"design-tokens": ["color"],
 			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled",
-				"emotion"
-			]
+			"styling": ["compiled", "emotion"]
 		}
 	},
 	"platform-feature-flags": {

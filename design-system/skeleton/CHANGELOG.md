@@ -1,5 +1,13 @@
 # @atlaskit/skeleton
 
+## 4.0.0
+
+### Major Changes
+
+- [`c119ab75e853f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c119ab75e853f) -
+  Narrowed the type of the borderRadius prop to only accept radius tokens or 0. Default is
+  `token('radius.small')` (4px/0.25rem).
+
 ## 3.1.0
 
 ### Minor Changes

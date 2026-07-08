@@ -4,7 +4,7 @@
  */
 import React, { forwardRef, type Ref, useCallback, useId, useLayoutEffect, useRef } from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap as compiledCssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { cssMap } from '@atlaskit/css';
@@ -36,7 +36,108 @@ const supportsPopoverHint = once((): boolean => {
 	return element.popover === 'hint';
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- popover UA reset requires values not in cssMap's type union
+// These animation styles use the non-strict Compiled cssMap because they rely
+// on `@starting-style`, `:popover-open`, `[dir='rtl']`, and `allow-discrete`.
+// Keep them in this component so the Compiled transform can statically extract
+// every referenced style.
+const popoverAnimationStyles = compiledCssMap({
+	popupMotion: {
+		animation: 'var(--ds-popover-motion-exit)',
+		animationFillMode: 'forwards',
+		transitionProperty: 'overlay, display',
+		transitionDuration: '150ms',
+		transitionBehavior: 'allow-discrete',
+		'&:popover-open': {
+			animation: 'var(--ds-popover-motion-enter)',
+			animationFillMode: 'backwards',
+		},
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+			transitionDuration: '0s',
+			'&:popover-open': {
+				animationName: 'none',
+				transitionDuration: '0s',
+			},
+		},
+	},
+	slideAndFade: {
+		opacity: 0,
+		transform: 'translate(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0))',
+		transitionProperty: 'opacity, transform, overlay, display',
+		transitionDuration: '175ms',
+		transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
+		transitionBehavior: 'allow-discrete',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		"[dir='rtl'] &": {
+			transform: 'translate(calc(-1 * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0))',
+		},
+		'&:popover-open': {
+			opacity: 1,
+			transform: 'none',
+			transitionDuration: '350ms',
+			'@starting-style': {
+				opacity: 0,
+				transform: 'translate(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0))',
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		"[dir='rtl'] &:popover-open": {
+			'@starting-style': {
+				transform: 'translate(calc(-1 * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0))',
+			},
+		},
+		'@media (prefers-reduced-motion: reduce)': {
+			transitionDuration: '0s',
+			'&:popover-open': {
+				transitionDuration: '0s',
+			},
+		},
+	},
+	fade: {
+		opacity: 0,
+		transitionProperty: 'opacity, overlay, display',
+		transitionDuration: '175ms',
+		transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
+		transitionBehavior: 'allow-discrete',
+		'&:popover-open': {
+			opacity: 1,
+			transitionDuration: '350ms',
+			'@starting-style': {
+				opacity: 0,
+			},
+		},
+		'@media (prefers-reduced-motion: reduce)': {
+			transitionDuration: '0s',
+			'&:popover-open': {
+				transitionDuration: '0s',
+			},
+		},
+	},
+	scaleAndFade: {
+		opacity: 0,
+		transform: 'scale(0.95)',
+		transitionProperty: 'opacity, transform, overlay, display',
+		transitionDuration: '175ms',
+		transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
+		transitionBehavior: 'allow-discrete',
+		'&:popover-open': {
+			opacity: 1,
+			transform: 'none',
+			transitionDuration: '350ms',
+			'@starting-style': {
+				opacity: 0,
+				transform: 'scale(0.95)',
+			},
+		},
+		'@media (prefers-reduced-motion: reduce)': {
+			transitionDuration: '0s',
+			'&:popover-open': {
+				transitionDuration: '0s',
+			},
+		},
+	},
+});
+
 const styles = cssMap({
 	root: {
 		border: 'none',
@@ -275,7 +376,9 @@ export const Popover: React.ForwardRefExoticComponent<
 	}, [handleToggle, handleBeforeToggle, isVisible]);
 
 	// Placement-dependent animation CSS vars. Kept separate from show/hide
-	// so preset reference changes do not re-trigger visibility.
+	// so preset reference changes do not re-trigger visibility. The cleanup
+	// removes the properties so a preset change does not leave stale custom
+	// properties on the element.
 	useLayoutEffect(() => {
 		const element = ownRef.current;
 		if (!element || !preset?.getProperties || !placement) {
@@ -285,6 +388,11 @@ export const Popover: React.ForwardRefExoticComponent<
 		Object.entries(props).forEach(([key, value]) => {
 			element.style.setProperty(key, String(value));
 		});
+		return () => {
+			Object.keys(props).forEach((key) => {
+				element.style.removeProperty(key);
+			});
+		};
 	}, [preset, placement, isVisible]);
 
 	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
@@ -340,7 +448,13 @@ export const Popover: React.ForwardRefExoticComponent<
 			{...(preset ? { [`data-ds-popover-${preset.name}`]: '' } : undefined)}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- xcss prop passes compiled atomic class names
 			className={xcssFromProps as string | undefined}
-			css={styles.root}
+			css={[
+				styles.root,
+				preset?.name === 'popup-motion' && popoverAnimationStyles.popupMotion,
+				preset?.name === 'slide-and-fade' && popoverAnimationStyles.slideAndFade,
+				preset?.name === 'fade' && popoverAnimationStyles.fade,
+				preset?.name === 'scale-and-fade' && popoverAnimationStyles.scaleAndFade,
+			]}
 		>
 			{children}
 		</div>

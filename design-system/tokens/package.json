@@ -12,9 +12,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"**/*.css"
-	],
+	"sideEffects": ["**/*.css"],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"react-compiler": {
@@ -106,17 +104,11 @@
 			"design-system": "v1",
 			"ui-components": "lite-mode",
 			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"compiled"
-			]
+			"styling": ["compiled"]
 		}
 	},
 	"hypermod": {
-		"dependencies": [
-			"@hypermod/utils",
-			"postcss",
-			"postcss-less"
-		]
+		"dependencies": ["@hypermod/utils", "postcss", "postcss-less"]
 	},
 	"exports": {
 		".": "./src/index.tsx",

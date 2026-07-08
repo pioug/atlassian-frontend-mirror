@@ -84,11 +84,15 @@ export class ErrorMessage extends React.Component<
 			intl: { formatMessage },
 			error,
 		} = this.props;
-		// Non-ZIP archives (e.g. RAR, TAR, 7z) aren't a load failure - the
+		// Non-ZIP archives (e.g. RAR, TAR, 7z) and image MIME types that no browser
+		// can natively decode (e.g. HEIC/HEIF, PSD, TIFF) aren't load failures - the
 		// browser-based viewer simply can't preview them. Show a dedicated
 		// "Unsupported file format" heading instead of the generic
 		// "Something went wrong" copy.
-		if (getPrimaryErrorReason(error) === 'archiveviewer-not-zip') {
+		if (
+			getPrimaryErrorReason(error) === 'archiveviewer-not-zip' ||
+			getPrimaryErrorReason(error) === 'imageviewer-unsupported-mime'
+		) {
 			return {
 				icon: errorLoadingFileImage(formatMessage),
 				messages: [i18nMessages.unsupported_file_format, i18nMessages.archive_format_not_supported],
@@ -132,14 +136,27 @@ export class ErrorMessage extends React.Component<
 		}
 	}
 
+	// Error reasons that represent a format the browser-based viewer simply can't
+	// preview (not a load failure). These are reported as the informational,
+	// non-SLI `previewUnsupported` metric instead of `loadFailed`.
+	private static readonly previewUnsupportedReasons: ReadonlyArray<PrimaryErrorReason> = [
+		'unsupported',
+		'imageviewer-unsupported-mime',
+	];
+
+	static isPreviewUnsupported(error: MediaViewerError): boolean {
+		return ErrorMessage.previewUnsupportedReasons.includes(getPrimaryErrorReason(error));
+	}
+
 	static getEventPayload(
 		error: MediaViewerError,
 		fileId: string,
 		fileState?: FileState,
 		traceContext?: MediaTraceContext,
 	): PreviewUnsupportedEventPayload | LoadFailedEventPayload {
-		if (fileState && getPrimaryErrorReason(error) === 'unsupported') {
-			// this is not an SLI, its just a useful metric for unsupported
+		if (fileState && ErrorMessage.isPreviewUnsupported(error)) {
+			// this is not an SLI (load failure), its just a useful metric for files
+			// whose format the browser-based viewer can't preview.
 			return createPreviewUnsupportedEvent(fileState);
 		} else {
 			return createLoadFailedEvent(fileId, error, fileState, traceContext);

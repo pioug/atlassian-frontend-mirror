@@ -5,8 +5,9 @@
 import { css, jsx, keyframes } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
+import type { BorderRadius } from '@atlaskit/tokens/css-type-schema';
 
-type SkeletonProps = {
+export type SkeletonProps = {
 	/**
 	 * Width of the skeleton.
 	 */
@@ -18,7 +19,7 @@ type SkeletonProps = {
 	/**
 	 * Controls the border radius, or rounding of the skeleton's corners.
 	 */
-	borderRadius?: string | number;
+	borderRadius?: Exclude<BorderRadius, 'inherit'>;
 	/**
 	 * Overrides the default color of skeleton, and overrides the default shimmering start color if ShimmeringEndColor also provided.
 	 */

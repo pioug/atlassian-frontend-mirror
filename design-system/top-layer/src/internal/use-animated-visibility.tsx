@@ -5,7 +5,6 @@ import { bind, bindAll } from 'bind-event-listener';
 import { type TAnimationPreset } from '../animations/types';
 
 import { prefersReducedMotion } from './reduced-motion';
-import { usePresetStyles } from './use-preset-styles';
 
 type TRunOnTransitionEndArgs = {
 	element: HTMLElement;
@@ -89,8 +88,8 @@ type TUseAnimatedVisibilityResult = {
 	 */
 	phase: TPhase;
 	/**
-	 * Resolved animation preset (with CSS injected), or `null` if
-	 * animation is disabled.
+	 * Resolved animation preset (styles applied via the host element's `css`
+	 * prop), or `null` if animation is disabled.
 	 */
 	preset: TAnimationPreset | null;
 };
@@ -164,7 +163,10 @@ export function useAnimatedVisibility({
 	onEnterFinish,
 	onExitFinish,
 }: TUseAnimatedVisibilityArgs): TUseAnimatedVisibilityResult {
-	const preset = usePresetStyles({ preset: animate });
+	// Styles are applied via the `css` prop on the host element (see `Popover`
+	// and `Dialog`), so there is no longer any CSS injection step. Normalize a
+	// falsy `animate` to `null`.
+	const preset = animate || null;
 
 	// False when there is no preset or `prefers-reduced-motion` is set.
 	const willAnimate = Boolean(animate) && !prefersReducedMotion();

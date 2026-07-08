@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "42.1.0",
+	"version": "42.2.0",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -67,6 +67,7 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
+		"./constants": "./src/constants.ts",
 		"./authProvider": "./src/authProvider.ts",
 		"./await-error": "./src/await-error.ts",
 		"./clipboardEventMocks": "./src/clipboardEventMocks.ts",

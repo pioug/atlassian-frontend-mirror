@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.7.1",
+	"version": "45.7.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -349,6 +349,9 @@
 			"type": "boolean"
 		},
 		"navx-4719-a11y-embed-modal-focus-states": {
+			"type": "boolean"
+		},
+		"navx-5343-sl-action-block-styling-fixes": {
 			"type": "boolean"
 		}
 	},

@@ -1,6 +1,25 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { expect, test } from '@af/integration-testing';
 
+function hasRunningCssAnimation({ selector }: { selector: string }): boolean {
+	const element = document.querySelector(selector);
+	if (!element) {
+		return false;
+	}
+
+	return element.getAnimations({ subtree: true }).some((animation) => {
+		const timing = animation.effect?.getComputedTiming();
+		const animationName = 'animationName' in animation ? animation.animationName : '';
+		return (
+			typeof animationName === 'string' &&
+			animationName !== '' &&
+			animationName !== 'none' &&
+			animation.playState === 'running' &&
+			timing?.iterations !== Infinity
+		);
+	});
+}
+
 test.describe('Animation lifecycle - entry animation', () => {
 	// Category 2: Animation Lifecycle
 	// Verifies that the entry animation data attribute is present when the popover opens.
@@ -63,6 +82,125 @@ test.describe('Animation lifecycle - exit animation', () => {
 
 		// Status should reflect closed state
 		await expect(page.getByTestId('status')).toHaveText('closed');
+	});
+});
+
+/**
+ * These tests ensure that a valid CSS animation is actually being applied for the preset animations
+ */
+test.describe('Animation lifecycle - CSS animation presence', () => {
+	test('testing-popover-animation has entry animation', async ({ page, skipAxeCheck }) => {
+		// Can produce false positives because of the artificially long animation duration
+		skipAxeCheck();
+
+		await page.visitExample<typeof import('../../examples/115-testing-popover-animation.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-animation',
+		);
+
+		await page.addStyleTag({
+			content: `
+				[data-ds-popover-popup-motion],
+				[data-ds-popover-popup-motion]:popover-open {
+					animation-duration: 100s !important;
+				}
+			`,
+		});
+
+		await page.getByTestId('popover-trigger').click();
+
+		expect(
+			await page.evaluate(hasRunningCssAnimation, { selector: '[data-ds-popover-popup-motion]' }),
+		).toBe(true);
+	});
+
+	test('basic-dialog has entry animation', async ({ page, skipAxeCheck }) => {
+		// Can produce false positives because of the artificially long animation duration
+		skipAxeCheck();
+
+		await page.visitExample<typeof import('../../examples/04-basic-dialog.tsx')>(
+			'design-system',
+			'top-layer',
+			'basic-dialog',
+		);
+
+		await page.addStyleTag({
+			content: `
+				[data-ds-dialog-motion],
+				[data-ds-dialog-motion][open],
+				[data-ds-dialog-motion]::backdrop,
+				[data-ds-dialog-motion][open]::backdrop {
+					animation-duration: 100s !important;
+				}
+			`,
+		});
+
+		await page.getByRole('button', { name: 'Open dialog' }).click();
+
+		expect(
+			await page.evaluate(hasRunningCssAnimation, { selector: '[data-ds-dialog-motion]' }),
+		).toBe(true);
+	});
+
+	test.describe('exit animation checks', () => {
+		// Firefox does not yet support transitions on the `display` property using the `allow-discrete` keyword
+		// So the popover / dialog immediately disappears on unmount and exit animations do not apply
+		test.fixme(
+			({ browserName }) => browserName === 'firefox',
+			'Firefox does not yet support allow-discrete for display, so exit animations do not run',
+		);
+
+		test('testing-popover-animation has exit animation', async ({ page }) => {
+			await page.visitExample<typeof import('../../examples/115-testing-popover-animation.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-popover-animation',
+			);
+
+			await page.addStyleTag({
+				content: `
+					[data-ds-popover-popup-motion],
+					[data-ds-popover-popup-motion]:popover-open {
+						animation-duration: 100s !important;
+					}
+				`,
+			});
+
+			const trigger = page.getByTestId('popover-trigger');
+			await trigger.click();
+			await trigger.click();
+
+			expect(
+				await page.evaluate(hasRunningCssAnimation, { selector: '[data-ds-popover-popup-motion]' }),
+			).toBe(true);
+		});
+
+		test('basic-dialog has exit animation', async ({ page }) => {
+			await page.visitExample<typeof import('../../examples/04-basic-dialog.tsx')>(
+				'design-system',
+				'top-layer',
+				'basic-dialog',
+			);
+
+			await page.addStyleTag({
+				content: `
+					[data-ds-dialog-motion],
+					[data-ds-dialog-motion][open],
+					[data-ds-dialog-motion]::backdrop,
+					[data-ds-dialog-motion][open]::backdrop {
+						animation-duration: 100s !important;
+					}
+				`,
+			});
+
+			await page.getByRole('button', { name: 'Open dialog' }).click();
+			await page.getByRole('button', { name: 'Close' }).click();
+
+			expect(
+				await page.evaluate(hasRunningCssAnimation, { selector: '[data-ds-dialog-motion]' }),
+			).toBe(true);
+		});
 	});
 });
 

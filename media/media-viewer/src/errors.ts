@@ -1,8 +1,13 @@
+import { type SyntheticEvent } from 'react';
+
 import {
+	type FileState,
 	type MediaClientErrorReason,
 	type RequestErrorMetadata,
 	isCommonMediaClientError,
+	isErrorFileState,
 } from '@atlaskit/media-client';
+import { isImageMimeTypeSupportedByBrowser } from '@atlaskit/media-common/isMimeTypeSupportedByBrowser';
 import { type ZipEntry } from 'unzipit';
 
 export class MediaViewerError extends Error {
@@ -40,6 +45,8 @@ export function isArchiveViewerError(err: Error): err is ArchiveViewerError {
 	return err instanceof ArchiveViewerError;
 }
 
+type srcType = 'blob' | 'remote' | 'data' | 'unknown';
+
 export type MediaViewerErrorReason =
 	| 'collection-fetch-metadata'
 	| 'header-fetch-metadata'
@@ -50,6 +57,7 @@ export type MediaViewerErrorReason =
 	| 'imageviewer-external-onerror'
 	| 'imageviewer-fetch-url'
 	| 'imageviewer-src-onerror'
+	| 'imageviewer-unsupported-mime'
 	| 'audioviewer-fetch-url'
 	| 'audioviewer-missing-artefact'
 	| 'audioviewer-playback'
@@ -125,4 +133,65 @@ export function getRequestMetadata(error?: MediaViewerError): RequestErrorMetada
 	if (isCommonMediaClientError(secondaryError)) {
 		return secondaryError.metadata;
 	}
+}
+
+/**
+ * Classifies the failed `<img>` source into a coarse, non-sensitive enum so we can
+ * tell which kind of source failed without leaking the (potentially signed) url.
+ */
+export function classifyFailedSrc(currentSrc?: string): srcType {
+	if (!currentSrc) {
+		return 'unknown';
+	}
+	if (currentSrc.startsWith('blob:')) {
+		return 'blob';
+	}
+	if (currentSrc.startsWith('data:')) {
+		return 'data';
+	}
+	if (currentSrc.startsWith('http:') || currentSrc.startsWith('https:')) {
+		return 'remote';
+	}
+	return 'unknown';
+}
+
+/**
+ * Builds a descriptive `secondaryError` for an `<img>` onerror so the downstream
+ * `loadFailed` analytics event reports a meaningful `error`/`errorDetail` instead of
+ * the opaque `unknown`/`unknown`. The returned Error's `message` captures decode
+ * diagnostics as a comma-separated `key=value` string (undefined fields are omitted):
+ * - whether the browser decoded any pixels (`naturalWidth`/`naturalHeight === 0`)
+ * - the file MIME type and whether it is natively browser-decodable
+ * - which source failed (preview blob vs. original-binary/HD url)
+ *
+ * @example
+ * // message:
+ * "mimeType=image/png, isBrowserDecodable=true, naturalWidth=0, naturalHeight=0, failedSrcType=blob"
+ */
+export function buildImgErrorDiagnostics(
+	item: FileState | undefined,
+	event?: SyntheticEvent<HTMLImageElement, Event>,
+): Error {
+	const img = event?.currentTarget;
+
+	const mimeType = item && !isErrorFileState(item) ? item.mimeType : undefined;
+	const isBrowserDecodable = !!mimeType && isImageMimeTypeSupportedByBrowser(mimeType);
+	const naturalWidth = img?.naturalWidth;
+	const naturalHeight = img?.naturalHeight;
+	const failedSrcType = classifyFailedSrc(img?.currentSrc);
+
+	const diagnostics: Record<string, string | number | boolean | undefined> = {
+		mimeType,
+		isBrowserDecodable,
+		naturalWidth,
+		naturalHeight,
+		failedSrcType,
+	};
+
+	const detail = Object.entries(diagnostics)
+		.filter(([, value]) => value !== undefined)
+		.map(([key, value]) => `${key}=${value}`)
+		.join(', ');
+
+	return new Error(detail);
 }

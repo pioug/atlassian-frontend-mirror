@@ -1,18 +1,30 @@
 import {
+	animationDurations,
 	dialogFade,
+	dialogMotion,
 	dialogSlideUpAndFade,
 	fade,
+	popupMotion,
 	scaleAndFade,
 	slideAndFade,
 } from '../../src/animations/presets';
-
 describe('animation presets', () => {
+	describe('popupMotion()', () => {
+		it('returns a preset with the correct shape', () => {
+			const preset = popupMotion();
+			expect(preset.name).toBe('popup-motion');
+			expect(preset.enterDurationMs).toBe(animationDurations.popupMotion.enter);
+			expect(preset.exitDurationMs).toBe(animationDurations.popupMotion.exit);
+			expect(typeof preset.getProperties).toBe('function');
+		});
+	});
+
 	describe('slideAndFade()', () => {
 		it('returns a preset with the correct shape', () => {
 			const preset = slideAndFade();
 			expect(preset.name).toBe('slide-and-fade');
-			expect(preset.css).toContain('[data-ds-popover-slide-and-fade]');
-			expect(preset.exitDurationMs).toBe(175);
+			expect(preset.enterDurationMs).toBe(animationDurations.popoverTransition.enter);
+			expect(preset.exitDurationMs).toBe(animationDurations.popoverTransition.exit);
 			expect(typeof preset.getProperties).toBe('function');
 		});
 
@@ -38,9 +50,12 @@ describe('animation presets', () => {
 			});
 		});
 
-		it('includes reduced motion media query', () => {
-			const preset = slideAndFade();
-			expect(preset.css).toContain('prefers-reduced-motion');
+		it('applies a custom slide distance to the custom properties', () => {
+			const preset = slideAndFade({ distance: 8 });
+			expect(preset.getProperties?.({ placement: { axis: 'block', edge: 'end' } })).toEqual({
+				'--ds-popover-tx': '0',
+				'--ds-popover-ty': '-8px',
+			});
 		});
 	});
 
@@ -48,14 +63,9 @@ describe('animation presets', () => {
 		it('returns a preset with the correct shape', () => {
 			const preset = fade();
 			expect(preset.name).toBe('fade');
-			expect(preset.css).toContain('[data-ds-popover-fade]');
-			expect(preset.exitDurationMs).toBe(175);
+			expect(preset.enterDurationMs).toBe(animationDurations.popoverTransition.enter);
+			expect(preset.exitDurationMs).toBe(animationDurations.popoverTransition.exit);
 			expect(preset.getProperties).toBeUndefined();
-		});
-
-		it('includes reduced motion media query', () => {
-			const preset = fade();
-			expect(preset.css).toContain('prefers-reduced-motion');
 		});
 	});
 
@@ -63,60 +73,55 @@ describe('animation presets', () => {
 		it('returns a preset with the correct shape', () => {
 			const preset = scaleAndFade();
 			expect(preset.name).toBe('scale-and-fade');
-			expect(preset.css).toContain('[data-ds-popover-scale-and-fade]');
-			expect(preset.exitDurationMs).toBe(175);
+			expect(preset.enterDurationMs).toBe(animationDurations.popoverTransition.enter);
+			expect(preset.exitDurationMs).toBe(animationDurations.popoverTransition.exit);
 			expect(preset.getProperties).toBeUndefined();
 		});
+	});
 
-		it('includes reduced motion media query', () => {
-			const preset = scaleAndFade();
-			expect(preset.css).toContain('prefers-reduced-motion');
+	describe('dialogMotion()', () => {
+		it('returns a preset with the correct shape', () => {
+			const preset = dialogMotion();
+			expect(preset.name).toBe('motion');
+			expect(preset.enterDurationMs).toBe(animationDurations.dialogMotion.enter);
+			expect(preset.exitDurationMs).toBe(animationDurations.dialogMotion.exit);
+			expect(preset.getProperties).toBeUndefined();
 		});
 	});
 
 	describe('dialogSlideUpAndFade()', () => {
 		it('returns a preset with the correct shape', () => {
 			const preset = dialogSlideUpAndFade();
-			// Bare name; the surface namespace lives on the data attribute.
 			expect(preset.name).toBe('slide-up-and-fade');
-			expect(preset.css).toContain('[data-ds-dialog-slide-up-and-fade]');
-			expect(preset.exitDurationMs).toBe(175);
+			expect(preset.enterDurationMs).toBe(animationDurations.dialogTransition.enter);
+			expect(preset.exitDurationMs).toBe(animationDurations.dialogTransition.exit);
 		});
 
-		it('includes backdrop animation', () => {
+		it('exposes the default slide distance via a custom property', () => {
 			const preset = dialogSlideUpAndFade();
-			expect(preset.css).toContain('::backdrop');
+			expect(preset.getProperties?.({ placement: {} })).toEqual({
+				'--ds-dialog-ty': '12px',
+			});
 		});
 
-		it('uses custom distance when provided', () => {
+		it('exposes a custom slide distance via a custom property', () => {
 			const preset = dialogSlideUpAndFade({ distance: 20 });
-			expect(preset.css).toContain('20px');
-			expect(preset.css).not.toContain('12px');
-		});
-
-		it('includes reduced motion media query', () => {
-			const preset = dialogSlideUpAndFade();
-			expect(preset.css).toContain('prefers-reduced-motion');
+			expect(preset.getProperties?.({ placement: {} })).toEqual({
+				'--ds-dialog-ty': '20px',
+			});
+			// The name stays stable across distances because the distance is
+			// now driven by a custom property rather than baked into the styles.
+			expect(preset.name).toBe('slide-up-and-fade');
 		});
 	});
 
 	describe('dialogFade()', () => {
 		it('returns a preset with the correct shape', () => {
 			const preset = dialogFade();
-			// Bare name; the surface namespace lives on the data attribute.
 			expect(preset.name).toBe('fade');
-			expect(preset.css).toContain('[data-ds-dialog-fade]');
-			expect(preset.exitDurationMs).toBe(175);
-		});
-
-		it('includes backdrop animation', () => {
-			const preset = dialogFade();
-			expect(preset.css).toContain('::backdrop');
-		});
-
-		it('includes reduced motion media query', () => {
-			const preset = dialogFade();
-			expect(preset.css).toContain('prefers-reduced-motion');
+			expect(preset.enterDurationMs).toBe(animationDurations.dialogTransition.enter);
+			expect(preset.exitDurationMs).toBe(animationDurations.dialogTransition.exit);
+			expect(preset.getProperties).toBeUndefined();
 		});
 	});
 });

@@ -1,5 +1,5 @@
 export function debounce(func: Function, wait: number, immediate: boolean) {
-	let timeout: NodeJS.Timeout | undefined;
+	let timeout: ReturnType<typeof setTimeout> | undefined;
 	return function (): void {
 		// @ts-ignore -- This is just a debounce function used in an example.
 		// eslint-disable-next-line @typescript-eslint/no-this-alias

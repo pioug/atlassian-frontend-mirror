@@ -85,7 +85,11 @@ snapshot(EmbedCardNotFoundSiteAccessExists, {
 snapshot(EmbedCardResolvedSmall);
 snapshot(EmbedCardResolvedView);
 snapshot(EmbedCardResolvedViewCompetitorPrompt);
-snapshot(EmbedCardResolvedViewNoPreview);
+snapshot(EmbedCardResolvedViewNoPreview, {
+	featureFlags: {
+		'navx-5343-sl-action-block-styling-fixes': true,
+	},
+});
 snapshot(EmbedCardResolvingView);
 snapshot(EmbedCardSelected);
 snapshot(EmbedCardUnauthorisedView);

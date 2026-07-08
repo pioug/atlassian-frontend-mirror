@@ -100,6 +100,17 @@
 		"@atlaskit/item": {
 			"message": "item is deprecated. Please use '@atlaskit/menu' instead."
 		},
+		"@atlaskit/width-detector": {
+			"importSpecifiers": [
+				{
+					"importName": "default",
+					"message": "WidthDetector is deprecated. Please use WidthObserver from '@atlaskit/width-detector/width-observer' instead."
+				}
+			]
+		},
+		"@atlaskit/width-detector/width-detector": {
+			"message": "WidthDetector is deprecated. Please use WidthObserver from '@atlaskit/width-detector/width-observer' instead."
+		},
 		"@atlaskit/theme/elevation": {
 			"importSpecifiers": [
 				{

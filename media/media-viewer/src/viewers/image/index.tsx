@@ -10,9 +10,10 @@ import {
 } from '@atlaskit/media-client';
 import { isImageMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
 import { getOrientation } from '@atlaskit/media-ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { Outcome } from '../../domain';
-import { MediaViewerError } from '../../errors';
+import { buildImgErrorDiagnostics, MediaViewerError } from '../../errors';
 import { InteractiveImg } from './interactive-img';
 import { BaseViewer } from '../base-viewer';
 import { type MediaTraceContext } from '@atlaskit/media-common';
@@ -113,13 +114,26 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 				!isLocalFileReference && // objectUrl at this point is binary file already
 				!isErrorFileState(fileState) &&
 				fileState.status !== 'uploading' &&
-				fileState.mediaType === 'image' &&
-				isImageMimeTypeSupportedByBrowser(fileState.mimeType)
+				fileState.mediaType === 'image'
 			) {
-				originalBinaryImageUrl = await mediaClient.file.getFileBinaryURL(
-					fileState.id,
-					collectionName,
-				);
+				if (isImageMimeTypeSupportedByBrowser(fileState.mimeType)) {
+					originalBinaryImageUrl = await mediaClient.file.getFileBinaryURL(
+						fileState.id,
+						collectionName,
+					);
+				} else if (fg('platform_media_unsupported_mime_routing')) {
+					// Route unsupported MIME types browser can't natively decode straight to the
+					// unsupported/download view instead of handing a guaranteed-undecodable blob
+					// to <img>, which would only ever fire onerror and
+					// surface as an opaque `imageviewer-src-onerror` failure.
+					this.revokeObjectUrl(objectUrl);
+					const unsupportedError = new MediaViewerError('imageviewer-unsupported-mime');
+					this.setState({
+						content: Outcome.failed(unsupportedError),
+					});
+					this.props.onError(unsupportedError);
+					return;
+				}
 			}
 
 			this.setState({
@@ -192,7 +206,13 @@ export class ImageViewer extends BaseViewer<ImageViewerContent, ImageViewerProps
 		this.onMediaDisplayed();
 	};
 
-	private onImgError = () => {
-		this.props.onError(new MediaViewerError('imageviewer-src-onerror'));
+	private onImgError = (event?: React.SyntheticEvent<HTMLImageElement, Event>) => {
+		let secondaryError: Error | undefined;
+		try {
+			secondaryError = buildImgErrorDiagnostics(this.props.item, event);
+		} catch {
+			secondaryError = undefined;
+		}
+		this.props.onError(new MediaViewerError('imageviewer-src-onerror', secondaryError));
 	};
 }

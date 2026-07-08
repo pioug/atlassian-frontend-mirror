@@ -11,9 +11,11 @@ import { di } from 'react-magnetic-di';
 
 import { type Appearance } from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
+import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -193,6 +195,7 @@ const ActionGroup = ({
 			const spacing = sizeToButtonSpacing[size];
 			const moreIcon = <MoreIcon label="more" color="currentColor" />;
 			const formatMessage = <FormattedMessage {...messages.more_actions} />;
+			const moreIconAppearance = appearance !== 'subtle' ? 'default' : appearance;
 
 			return (
 				<DropdownMenu
@@ -205,20 +208,33 @@ const ActionGroup = ({
 							testId="action-group-more-button-tooltip"
 							tag="span"
 						>
-							<Button
-								{...props}
-								spacing={
-									isRovoActionsEnabled
-										? size === SmartLinkSize.XLarge
-											? 'default'
-											: 'compact'
-										: spacing
-								}
-								testId="action-group-more-button"
-								iconBefore={moreIcon}
-								ref={triggerRef}
-								{...(isRovoActionsEnabled ? { appearance } : {})}
-							/>
+							{fg('navx-5343-sl-action-block-styling-fixes') ? (
+								<IconButton
+									{...props}
+									spacing={size === SmartLinkSize.XLarge ? 'default' : 'compact'}
+									testId="action-group-more-button"
+									icon={MoreIcon}
+									ref={triggerRef}
+									label="more"
+									color="currentColor"
+									{...(isRovoActionsEnabled ? { appearance: moreIconAppearance } : {})}
+								/>
+							) : (
+								<Button
+									{...props}
+									spacing={
+										isRovoActionsEnabled
+											? size === SmartLinkSize.XLarge
+												? 'default'
+												: 'compact'
+											: spacing
+									}
+									testId="action-group-more-button"
+									iconBefore={moreIcon}
+									ref={triggerRef}
+									{...(isRovoActionsEnabled ? { appearance } : {})}
+								/>
+							)}
 						</Tooltip>
 					)}
 					testId="action-group-dropdown"

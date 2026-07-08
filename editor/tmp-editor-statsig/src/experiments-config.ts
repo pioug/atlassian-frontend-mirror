@@ -297,6 +297,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-06
+	confluence_comment_nudgebar_improvement: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-01-15
 	confluence_max_width_breakout_extension_fix: {
 		defaultValue: boolean;
@@ -1708,6 +1715,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-06
+	confluence_live_doc_table_sort_bugfix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	platform_editor_table_close_cell_menu_on_move_exp: {
 		defaultValue: boolean;
 		param: string;
@@ -2105,6 +2119,14 @@ export const editorExperimentsConfig: {
 	confluence_max_width_content_appearance: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_max_width_content_appearance',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-06
+	confluence_comment_nudgebar_improvement: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_comment_nudgebar_improvement',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3944,6 +3966,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_table_menu_updates',
 			jira: 'platform_editor_table_menu_updates',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-06
+	confluence_live_doc_table_sort_bugfix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_live_doc_table_sort_bugfix',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

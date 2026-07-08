@@ -4,34 +4,26 @@ import { getPlacement, type TPlacementOptions } from '../internal/resolve-placem
 
 import { type TAnimationPreset } from './types';
 
-// ══════════════════════════════════════════════════════════════════════════════
-// Popover presets
-// ══════════════════════════════════════════════════════════════════════════════
-
-// ── popupMotion ──
-
-const POPUP_MOTION_CSS = `
-  [data-ds-popover-popup-motion] {
-    animation: var(--ds-popover-motion-exit);
-    animation-fill-mode: forwards;
-    transition:
-      overlay 150ms allow-discrete,
-      display 150ms allow-discrete;
-  }
-
-  [data-ds-popover-popup-motion]:popover-open {
-    animation: var(--ds-popover-motion-enter);
-    animation-fill-mode: backwards;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    [data-ds-popover-popup-motion],
-    [data-ds-popover-popup-motion]:popover-open {
-      animation: none;
-      transition-duration: 0s;
-    }
-  }
-`;
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+export const animationDurations = {
+	popupMotion: {
+		enter: 150,
+		exit: 100,
+	},
+	popoverTransition: {
+		enter: 350,
+		exit: 175,
+	},
+	dialogMotion: {
+		enter: 250,
+		exit: 200,
+	},
+	dialogTransition: {
+		enter: 350,
+		exit: 175,
+	},
+} as const;
+// popupMotion
 
 function getPopupMotionProperties({
 	placement,
@@ -69,14 +61,13 @@ function getPopupMotionProperties({
 export function popupMotion(): TAnimationPreset {
 	return {
 		name: 'popup-motion',
-		css: POPUP_MOTION_CSS,
-		enterDurationMs: 150,
-		exitDurationMs: 100,
+		enterDurationMs: animationDurations.popupMotion.enter,
+		exitDurationMs: animationDurations.popupMotion.exit,
 		getProperties: ({ placement }) => getPopupMotionProperties({ placement }),
 	};
 }
 
-// ── slideAndFade ──
+// slideAndFade
 
 type TSlideAndFadeOptions = {
 	/**
@@ -112,49 +103,6 @@ function getSlideAndFadeProperties({
 	return { '--ds-popover-tx': '0', '--ds-popover-ty': neg };
 }
 
-// ℹ️ Note: The `transform` x value is flipped in right-to-left mode using the `[dir='rtl']` selector.
-const SLIDE_AND_FADE_CSS = `
-[data-ds-popover-slide-and-fade] {
-  opacity: 0;
-  transform: translate(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0));
-  transition:
-    opacity 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    transform 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    overlay 175ms allow-discrete,
-    display 175ms allow-discrete;
-}
-
-[dir='rtl'] [data-ds-popover-slide-and-fade] {
-  transform: translate(calc(-1 * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0));
-}
-
-[data-ds-popover-slide-and-fade]:popover-open {
-  opacity: 1;
-  transform: none;
-  transition-duration: 350ms;
-}
-
-@starting-style {
-  [data-ds-popover-slide-and-fade]:popover-open {
-    opacity: 0;
-    transform: translate(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0));
-  }
-}
-
-@starting-style {
-  [dir='rtl'] [data-ds-popover-slide-and-fade]:popover-open {
-    transform: translate(calc(-1 * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-ds-popover-slide-and-fade],
-  [data-ds-popover-slide-and-fade]:popover-open {
-    transition-duration: 0s;
-  }
-}
-`;
-
 /**
  * Directional slide + opacity animation.
  *
@@ -180,43 +128,14 @@ export function slideAndFade(options?: TSlideAndFadeOptions): TAnimationPreset {
 
 	return {
 		name: 'slide-and-fade',
-		css: SLIDE_AND_FADE_CSS,
 		getProperties: ({ placement }: { placement: TPlacementOptions }) =>
 			getSlideAndFadeProperties({ placement, distance }),
-		enterDurationMs: 350,
-		exitDurationMs: 175,
+		enterDurationMs: animationDurations.popoverTransition.enter,
+		exitDurationMs: animationDurations.popoverTransition.exit,
 	};
 }
 
 // fade
-
-const FADE_CSS = `
-[data-ds-popover-fade] {
-  opacity: 0;
-  transition:
-    opacity 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    overlay 175ms allow-discrete,
-    display 175ms allow-discrete;
-}
-
-[data-ds-popover-fade]:popover-open {
-  opacity: 1;
-  transition-duration: 350ms;
-}
-
-@starting-style {
-  [data-ds-popover-fade]:popover-open {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-ds-popover-fade],
-  [data-ds-popover-fade]:popover-open {
-    transition-duration: 0s;
-  }
-}
-`;
 
 /**
  * Simple opacity transition, no transform.
@@ -234,45 +153,12 @@ const FADE_CSS = `
 export function fade(): TAnimationPreset {
 	return {
 		name: 'fade',
-		css: FADE_CSS,
-		enterDurationMs: 350,
-		exitDurationMs: 175,
+		enterDurationMs: animationDurations.popoverTransition.enter,
+		exitDurationMs: animationDurations.popoverTransition.exit,
 	};
 }
 
 // scaleAndFade
-
-const SCALE_AND_FADE_CSS = `
-[data-ds-popover-scale-and-fade] {
-  opacity: 0;
-  transform: scale(0.95);
-  transition:
-    opacity 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    transform 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    overlay 175ms allow-discrete,
-    display 175ms allow-discrete;
-}
-
-[data-ds-popover-scale-and-fade]:popover-open {
-  opacity: 1;
-  transform: none;
-  transition-duration: 350ms;
-}
-
-@starting-style {
-  [data-ds-popover-scale-and-fade]:popover-open {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-ds-popover-scale-and-fade],
-  [data-ds-popover-scale-and-fade]:popover-open {
-    transition-duration: 0s;
-  }
-}
-`;
 
 /**
  * Scale from 0.95 + opacity transition.
@@ -290,56 +176,12 @@ const SCALE_AND_FADE_CSS = `
 export function scaleAndFade(): TAnimationPreset {
 	return {
 		name: 'scale-and-fade',
-		css: SCALE_AND_FADE_CSS,
-		enterDurationMs: 350,
-		exitDurationMs: 175,
+		enterDurationMs: animationDurations.popoverTransition.enter,
+		exitDurationMs: animationDurations.popoverTransition.exit,
 	};
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// Dialog presets
-// ══════════════════════════════════════════════════════════════════════════════
-
-// ── dialogMotion ──
-
-const DIALOG_MOTION_CSS = `
-  [data-ds-dialog-motion] {
-    animation: ${token('motion.modal.exit')};
-    animation-fill-mode: forwards;
-    transition:
-      overlay 200ms allow-discrete,
-      display 200ms allow-discrete;
-  }
-
-  [data-ds-dialog-motion][open] {
-    animation: ${token('motion.modal.enter')};
-    animation-fill-mode: backwards;
-  }
-
-  [data-ds-dialog-motion]::backdrop {
-    animation: ${token('motion.blanket.exit')};
-    animation-fill-mode: forwards;
-    background-color: var(--ds-blanket, #050C1F75);
-    transition:
-      overlay 200ms allow-discrete,
-      display 200ms allow-discrete;
-  }
-
-  [data-ds-dialog-motion][open]::backdrop {
-    animation: ${token('motion.blanket.enter')};
-    animation-fill-mode: backwards;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    [data-ds-dialog-motion],
-    [data-ds-dialog-motion][open],
-    [data-ds-dialog-motion]::backdrop,
-    [data-ds-dialog-motion][open]::backdrop {
-      animation: none;
-      transition-duration: 0s;
-    }
-  }
-`;
+// dialogMotion
 
 /**
  * Dialog motion animation.
@@ -360,13 +202,12 @@ export function dialogMotion(): TAnimationPreset {
 	// Bare preset name; `Dialog` prefixes it via `data-ds-dialog-{name}`.
 	return {
 		name: 'motion',
-		css: DIALOG_MOTION_CSS,
-		enterDurationMs: 250,
-		exitDurationMs: 200,
+		enterDurationMs: animationDurations.dialogMotion.enter,
+		exitDurationMs: animationDurations.dialogMotion.exit,
 	};
 }
 
-// ── dialogSlideUpAndFade ──
+// dialogSlideUpAndFade
 
 type TDialogSlideUpAndFadeOptions = {
 	/**
@@ -374,59 +215,6 @@ type TDialogSlideUpAndFadeOptions = {
 	 */
 	distance?: number;
 };
-
-const DIALOG_SLIDE_UP_AND_FADE_CSS = `
-[data-ds-dialog-slide-up-and-fade] {
-  opacity: 0;
-  transform: translateY(calc(-1 * var(--ds-dialog-ty, 12px)));
-  transition:
-    opacity 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    transform 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    overlay 175ms allow-discrete,
-    display 175ms allow-discrete;
-}
-
-[data-ds-dialog-slide-up-and-fade][open] {
-  opacity: 1;
-  transform: none;
-  transition-duration: 350ms;
-}
-
-@starting-style {
-  [data-ds-dialog-slide-up-and-fade][open] {
-    opacity: 0;
-    transform: translateY(var(--ds-dialog-ty, 12px));
-  }
-}
-
-[data-ds-dialog-slide-up-and-fade]::backdrop {
-  background-color: transparent;
-  transition:
-    background-color 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    overlay 175ms allow-discrete,
-    display 175ms allow-discrete;
-}
-
-[data-ds-dialog-slide-up-and-fade][open]::backdrop {
-  background-color: var(--ds-blanket, #050C1F75);
-  transition-duration: 350ms;
-}
-
-@starting-style {
-  [data-ds-dialog-slide-up-and-fade][open]::backdrop {
-    background-color: transparent;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-ds-dialog-slide-up-and-fade],
-  [data-ds-dialog-slide-up-and-fade][open],
-  [data-ds-dialog-slide-up-and-fade]::backdrop,
-  [data-ds-dialog-slide-up-and-fade][open]::backdrop {
-    transition-duration: 0s;
-  }
-}
-`;
 
 /**
  * Slide up + opacity animation for dialogs.
@@ -451,67 +239,17 @@ export function dialogSlideUpAndFade(options?: TDialogSlideUpAndFadeOptions): TA
 	const distance = options?.distance ?? 12;
 
 	// Bare preset name; `Dialog` prefixes it via `data-ds-dialog-{name}`.
+	// The distance is applied via the `--ds-dialog-ty` custom property rather
+	// than baked into the styles, so the name stays stable across distances.
 	return {
-		name: distance === 12 ? 'slide-up-and-fade' : `slide-up-and-fade-${distance}`,
-		css:
-			distance === 12
-				? DIALOG_SLIDE_UP_AND_FADE_CSS
-				: DIALOG_SLIDE_UP_AND_FADE_CSS.replace(/12px/g, `${distance}px`),
-		enterDurationMs: 350,
-		exitDurationMs: 175,
+		name: 'slide-up-and-fade',
+		getProperties: () => ({ '--ds-dialog-ty': `${distance}px` }),
+		enterDurationMs: animationDurations.dialogTransition.enter,
+		exitDurationMs: animationDurations.dialogTransition.exit,
 	};
 }
 
 // dialogFade
-
-const DIALOG_FADE_CSS = `
-[data-ds-dialog-fade] {
-  opacity: 0;
-  transition:
-    opacity 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    overlay 175ms allow-discrete,
-    display 175ms allow-discrete;
-}
-
-[data-ds-dialog-fade][open] {
-  opacity: 1;
-  transition-duration: 350ms;
-}
-
-@starting-style {
-  [data-ds-dialog-fade][open] {
-    opacity: 0;
-  }
-}
-
-[data-ds-dialog-fade]::backdrop {
-  background-color: transparent;
-  transition:
-    background-color 175ms cubic-bezier(0.15, 1, 0.3, 1),
-    overlay 175ms allow-discrete,
-    display 175ms allow-discrete;
-}
-
-[data-ds-dialog-fade][open]::backdrop {
-  background-color: var(--ds-blanket, #050C1F75);
-  transition-duration: 350ms;
-}
-
-@starting-style {
-  [data-ds-dialog-fade][open]::backdrop {
-    background-color: transparent;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-ds-dialog-fade],
-  [data-ds-dialog-fade][open],
-  [data-ds-dialog-fade]::backdrop,
-  [data-ds-dialog-fade][open]::backdrop {
-    transition-duration: 0s;
-  }
-}
-`;
 
 /**
  * Simple opacity transition for dialogs, no transform.
@@ -532,8 +270,7 @@ export function dialogFade(): TAnimationPreset {
 	// Bare preset name; `Dialog` prefixes it via `data-ds-dialog-{name}`.
 	return {
 		name: 'fade',
-		css: DIALOG_FADE_CSS,
-		enterDurationMs: 350,
-		exitDurationMs: 175,
+		enterDurationMs: animationDurations.dialogTransition.enter,
+		exitDurationMs: animationDurations.dialogTransition.exit,
 	};
 }

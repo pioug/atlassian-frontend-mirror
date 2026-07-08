@@ -601,24 +601,23 @@ export const apply = (
 		// When removing the handle, also remove the anchor-marker node decorations
 		// (data-active-drag-handle / data-active-quick-insert) so the DOM attributes
 		// don't linger on nodes that are no longer active.
-		if (
-			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
-			activeNode?.pos !== undefined
-		) {
+		// Use full-range search (0..contentSize) rather than a point-range at activeNode.pos/rootPos:
+		// after a doc change (e.g. pressing Enter splits a node), DecorationSet.map() can shift the
+		// decoration to a different position, so a point-range search would miss it and leave a stale
+		// attribute on the wrong DOM node.
+		if (expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)) {
 			const oldActiveNodeDec = findActiveDragHandleNodeDec(
 				decorations,
-				activeNode.pos,
-				activeNode.pos,
+				0,
+				newState.doc.content.size,
 			);
 			decorations = decorations.remove(oldActiveNodeDec);
-			if (activeNode.rootPos !== undefined) {
-				const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
-					decorations,
-					activeNode.rootPos,
-					activeNode.rootPos,
-				);
-				decorations = decorations.remove(oldActiveQuickInsertDec);
-			}
+			const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
+				decorations,
+				0,
+				newState.doc.content.size,
+			);
+			decorations = decorations.remove(oldActiveQuickInsertDec);
 		}
 		// platform_editor_controls note: enables quick insert
 		if (flags.toolbarFlagsEnabled && quickInsertButtonEnabled) {
@@ -671,41 +670,68 @@ export const apply = (
 			});
 
 			decorations = decorations.add(newState.doc, [handleDec]);
+		}
 
-			if (expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)) {
-				// Recreate the drag handle node decoration when the edit-mode node itself changed
-				// or its content was modified. Other triggers (editorSizeChanged, handleNeedsRedraw)
-				// don't move the decoration — DecorationSet.map() already remaps it correctly.
-				const needsNodeDecUpdate = activeNodeChanged || isActiveNodeModified;
-				if (needsNodeDecUpdate) {
-					const nodeSize = newState.doc.nodeAt(latestActiveNode.pos)?.nodeSize;
-					if (nodeSize !== undefined) {
-						const oldActiveNodeDec = findActiveDragHandleNodeDec(
-							decorations,
-							activeNode?.pos,
-							activeNode?.pos,
-						);
+		if (
+			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
+			latestActiveNode
+		) {
+			// Recreate the drag handle node decoration when the active node changed,
+			// its content was modified, or the document changed (e.g. Enter splits a node).
+			// This runs independently of shouldRecreateHandle so that doc changes (like pressing
+			// Enter) correctly refresh the decoration even when the handle widget doesn't move.
+			// DecorationSet.map() can misplace the decoration after node splits/inserts.
+			const needsNodeDecUpdate = activeNodeChanged || isActiveNodeModified || tr.docChanged;
+			if (needsNodeDecUpdate) {
+				const nodeSize = newState.doc.nodeAt(latestActiveNode.pos)?.nodeSize;
+				if (nodeSize !== undefined) {
+					// Search the full doc range: after DecorationSet.map(), the decoration may have
+					// shifted away from activeNode?.pos (e.g. a node split moves it to the new paragraph).
+					const oldActiveNodeDec = findActiveDragHandleNodeDec(
+						decorations,
+						0,
+						newState.doc.content.size,
+					);
+					// Skip remove+add if the decoration is already at the correct position.
+					// On pure text keystrokes, DecorationSet.map() keeps the decoration correctly
+					// placed, so we avoid unnecessary churn on every character typed.
+					const dragHandleDecAlreadyCorrect =
+						oldActiveNodeDec.length === 1 &&
+						oldActiveNodeDec[0].from === latestActiveNode.pos &&
+						oldActiveNodeDec[0].to === latestActiveNode.pos + nodeSize;
+					if (!dragHandleDecAlreadyCorrect) {
 						decorations = decorations.remove(oldActiveNodeDec);
 						decorations = decorations.add(newState.doc, [
 							createActiveDragHandleNodeDecoration(latestActiveNode.pos, nodeSize),
 						]);
 					}
 				}
+			}
 
-				// The quick-insert decoration lives on the root node (rootPos), which can change
-				// independently of the edit-mode node — e.g. when only editorSizeChanged fires but
-				// rootActiveNodeChanged is also true. So we use a separate, broader guard that
-				// includes rootActiveNodeChanged to avoid leaving the attribute on a stale root node.
-				const needsQuickInsertDecUpdate =
-					activeNodeChanged || isActiveNodeModified || rootActiveNodeChanged;
-				if (needsQuickInsertDecUpdate && latestActiveNode.rootPos !== undefined) {
-					const rootNodeSize = newState.doc.nodeAt(latestActiveNode.rootPos)?.nodeSize;
-					if (rootNodeSize !== undefined) {
-						const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
-							decorations,
-							activeNode?.rootPos,
-							activeNode?.rootPos,
-						);
+			// The quick-insert decoration lives on the root node (rootPos), which can change
+			// independently of the edit-mode node — e.g. when only editorSizeChanged fires but
+			// rootActiveNodeChanged is also true. So we use a separate, broader guard that
+			// includes rootActiveNodeChanged to avoid leaving the attribute on a stale root node.
+			// tr.docChanged is included for the same reason as needsNodeDecUpdate: DecorationSet.map()
+			// can misplace the decoration after a node split, so we must refresh it on every doc change.
+			const needsQuickInsertDecUpdate =
+				activeNodeChanged || isActiveNodeModified || rootActiveNodeChanged || tr.docChanged;
+			if (needsQuickInsertDecUpdate && latestActiveNode.rootPos !== undefined) {
+				const rootNodeSize = newState.doc.nodeAt(latestActiveNode.rootPos)?.nodeSize;
+				if (rootNodeSize !== undefined) {
+					const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
+						decorations,
+						0,
+						newState.doc.content.size,
+					);
+					// Skip remove+add if the decoration is already at the correct position.
+					// On pure text keystrokes, DecorationSet.map() keeps the decoration correctly
+					// placed, so we avoid unnecessary churn on every character typed.
+					const quickInsertDecAlreadyCorrect =
+						oldActiveQuickInsertDec.length === 1 &&
+						oldActiveQuickInsertDec[0].from === latestActiveNode.rootPos &&
+						oldActiveQuickInsertDec[0].to === latestActiveNode.rootPos + rootNodeSize;
+					if (!quickInsertDecAlreadyCorrect) {
 						decorations = decorations.remove(oldActiveQuickInsertDec);
 						decorations = decorations.add(newState.doc, [
 							createActiveQuickInsertNodeDecoration(latestActiveNode.rootPos, rootNodeSize),
@@ -747,19 +773,24 @@ export const apply = (
 			// Update quick insert node decoration when the quick insert button is recreated but
 			// the drag handle was NOT recreated (shouldRecreateHandle was false). When
 			// shouldRecreateHandle is true, the block above already handles this.
+			// Also skip when the needsQuickInsertDecUpdate block above already handled the update
+			// (i.e. activeNodeChanged || isActiveNodeModified || rootActiveNodeChanged || tr.docChanged)
+			// — running both would remove and re-add a duplicate decoration.
 			if (
 				expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
 				!shouldRecreateHandle &&
+				!(activeNodeChanged || isActiveNodeModified || rootActiveNodeChanged || tr.docChanged) &&
 				latestActiveNode?.rootPos !== undefined
 			) {
-				if (activeNode?.rootPos !== undefined) {
-					const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
-						decorations,
-						activeNode.rootPos,
-						activeNode.rootPos,
-					);
-					decorations = decorations.remove(oldActiveQuickInsertDec);
-				}
+				// Use full-range search (0..contentSize) rather than a point-range at activeNode.rootPos:
+				// after a doc change, DecorationSet.map() can shift the decoration to a different position,
+				// so a point-range search would miss it and leave a stale attribute on the wrong DOM node.
+				const oldActiveQuickInsertDec = findActiveQuickInsertNodeDec(
+					decorations,
+					0,
+					newState.doc.content.size,
+				);
+				decorations = decorations.remove(oldActiveQuickInsertDec);
 				const rootNodeSize = newState.doc.nodeAt(latestActiveNode.rootPos)?.nodeSize;
 				if (rootNodeSize !== undefined) {
 					decorations = decorations.add(newState.doc, [

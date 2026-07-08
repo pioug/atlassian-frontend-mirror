@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { cssMap, jsx, keyframes } from '@compiled/react';
 
-import { WidthObserver } from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 const startSize = 150;
 const endSize = startSize * 3;

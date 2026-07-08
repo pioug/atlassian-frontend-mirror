@@ -4,7 +4,13 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
-import Form, { ErrorMessage, Field, Fieldset, RequiredAsterisk } from '@atlaskit/form';
+import Form, {
+	ErrorMessage,
+	Field,
+	Fieldset,
+	MessageWrapper,
+	RequiredAsterisk,
+} from '@atlaskit/form';
 import Link from '@atlaskit/link';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -314,7 +320,7 @@ const FeedbackForm = ({
 											inputId={id}
 											isInvalid={!!error}
 										/>
-										{error && <ErrorMessage>{error}</ErrorMessage>}
+										<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 									</>
 								)}
 							</Field>
@@ -345,7 +351,9 @@ const FeedbackForm = ({
 												}}
 												value={description}
 											/>
-											{error && <ErrorMessage>{error}</ErrorMessage>}
+											<MessageWrapper>
+												{error && <ErrorMessage>{error}</ErrorMessage>}
+											</MessageWrapper>
 										</>
 									)}
 								</Field>
@@ -510,7 +518,9 @@ const FeedbackForm = ({
 													inputId={id}
 													isInvalid={!!error}
 												/>
-												{error && <ErrorMessage>{error}</ErrorMessage>}
+												<MessageWrapper>
+													{error && <ErrorMessage>{error}</ErrorMessage>}
+												</MessageWrapper>
 											</>
 										)}
 									</Field>
@@ -542,7 +552,9 @@ const FeedbackForm = ({
 														}}
 														value={description}
 													/>
-													{error && <ErrorMessage>{error}</ErrorMessage>}
+													<MessageWrapper>
+														{error && <ErrorMessage>{error}</ErrorMessage>}
+													</MessageWrapper>
 												</>
 											)}
 										</Field>

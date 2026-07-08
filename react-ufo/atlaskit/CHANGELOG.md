@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.9
+
+### Patch Changes
+
+- [`8b0e89ffa0467`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b0e89ffa0467) -
+  Clean up the platform_ufo_assets_check_for_nan feature gate by making the encoded size null checks
+  permanent.
+
+## 7.3.8
+
+### Patch Changes
+
+- [`acd05455db669`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acd05455db669) -
+  Deprecate the interaction extra metrics payload capability
+
 ## 7.3.7
 
 ### Patch Changes

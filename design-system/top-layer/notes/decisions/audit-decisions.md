@@ -62,11 +62,16 @@ notes/architecture/focus.md). For `returnFocusRef`, the consumer should redirect
 special top-layer API is needed — the consumer owns the focus redirect. **Action:** Wire in
 `@atlaskit/modal-dialog`.
 
-#### 7. `ensurePresetStyles` no cleanup — Accepted
+#### 7. `ensurePresetStyles` no cleanup — Superseded
 
-**Decision:** The append-only `<style>` injection and module-scoped `Set` are accepted as-is. The
-bounded preset count (~5 presets) makes cleanup unnecessary. Future Compiled solution will handle
-style injection natively. **Action:** Decision comment added in code.
+**Original decision:** The append-only `<style>` injection and module-scoped `Set` were accepted
+while animation presets still carried raw CSS strings.
+
+**Superseded by compiled animation styles:** Animation presets no longer inject raw CSS. `Popover`
+and `Dialog` now own component-local `compiledCssMap` entries, and presets carry metadata only
+(name, durations, and optional custom properties). The `ensurePresetStyles`, `usePresetStyles`, and
+`useAnimationPreset` helpers have been deleted, so there is no append-only preset style injection to
+clean up.
 
 #### 8. `prefersReducedMotion` — Cached via `once`
 

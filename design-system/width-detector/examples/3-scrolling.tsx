@@ -6,7 +6,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { WidthObserver } from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 const styles = cssMap({
 	resultBox: {
@@ -19,15 +19,15 @@ const styles = cssMap({
 	},
 	aside: {
 		position: 'fixed',
-		bottom: 0,
-		left: 0,
-		right: 0,
+		insetBlockEnd: 0,
+		insetInlineStart: 0,
+		insetInlineEnd: 0,
 		background: '#000',
 		color: '#fff',
 		display: 'flex',
 	},
 	label: {
-		marginLeft: 'auto',
+		marginInlineStart: 'auto',
 	},
 });
 

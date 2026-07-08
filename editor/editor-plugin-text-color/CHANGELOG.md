@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 12.3.14
+
+### Patch Changes
+
+- [`74b3e15fed77e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74b3e15fed77e) -
+  Check editor text and highlight color accessibility against both light and dark theme variants.
+- Updated dependencies
+
 ## 12.3.13
 
 ### Patch Changes

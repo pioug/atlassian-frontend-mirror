@@ -1,29 +1,25 @@
 import type { TPlacementOptions } from '../internal/resolve-placement';
 
 /**
- * A self-contained animation preset for top-layer elements (popovers and dialogs).
+ * A self-contained animation preset for top-layer elements.
  *
- * Contains the CSS rules (injected once into `<head>`), a data-attribute name
- * for CSS targeting, optional per-placement custom properties, and the exit
- * duration used for a `transitionend` fallback timeout.
+ * Contains a data-attribute name used as a stable test and debugging hook,
+ * optional per-placement custom properties, and the entry and exit durations
+ * used for a `transitionend` fallback timeout.
  *
- * Entry animation uses `@starting-style`.
- * Exit animation uses `allow-discrete` on `display`/`overlay` to keep the
- * element visible in the top layer while CSS transitions play.
+ * The actual Compiled styles are kept static and component-local so the
+ * Compiled transform can extract them at build time.
  */
 export type TAnimationPreset = {
 	/**
-	 * CSS to inject once into `document.head`, scoped via a data attribute
-	 * (e.g. `[data-ds-popover-{name}]` or `[data-ds-dialog-{name}]`).
-	 */
-	css: string;
-	/**
-	 * Data attribute suffix for CSS targeting (e.g. `'slide-and-fade'`).
+	 * Data attribute suffix used as a stable test and debugging hook (e.g.
+	 * `'slide-and-fade'` becomes `data-ds-popover-slide-and-fade`).
 	 */
 	name: string;
 	/**
 	 * Per-placement CSS custom properties (e.g. directional offset for
-	 * `slideAndFade`). Only used by popover presets that vary by placement.
+	 * `slideAndFade`). Only used by presets that vary by placement or by a
+	 * configurable distance.
 	 */
 	getProperties?: (args: { placement: TPlacementOptions }) => Record<string, string>;
 	/**

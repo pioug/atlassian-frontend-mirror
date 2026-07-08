@@ -40,6 +40,25 @@ const renderIndicatorBar = (descriptor: DiffDescriptor) => {
 				/>
 			);
 		}
+		case 'block': {
+			// The block anchor is a single element (keyed by diffId with no
+			// anchorType) sized to the full height of the block node, so top,
+			// bottom and left all resolve against it.
+			const blockAnchor = buildAnchorDecorationKey({
+				diffId: descriptor.id,
+			});
+			return (
+				<IndicatorBar
+					key={descriptor.id}
+					anchorTop={blockAnchor}
+					anchorBottom={blockAnchor}
+					anchorLeft={buildAnchorDecorationKey({
+						diffId: descriptor.id,
+						anchorType: AnchorTypeKey.left,
+					})}
+				/>
+			);
+		}
 		case 'widget': {
 			return (
 				<IndicatorBar
@@ -60,10 +79,6 @@ const renderIndicatorBar = (descriptor: DiffDescriptor) => {
 				/>
 			);
 		}
-		/**
-		 * TODO EDITOR-7711:
-		 * Support IndicatorBar for block-changed type diffs.
-		 */
 		default:
 			return null;
 	}

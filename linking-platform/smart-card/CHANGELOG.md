@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 45.7.2
+
+### Patch Changes
+
+- [`a58a4da63b686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a58a4da63b686) -
+  NAVX-5343 Migrating to ADS icon button for action block to fix focus state styling
+
 ## 45.7.1
 
 ### Patch Changes

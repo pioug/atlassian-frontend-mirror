@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/skeleton",
-	"version": "3.1.0",
+	"version": "4.0.0",
 	"description": "A skeleton acts as a placeholder for content, usually while the content loads.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,9 +12,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"**/*.compiled.css"
-	],
+	"sideEffects": ["**/*.compiled.css"],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"react-compiler": {
@@ -54,41 +52,22 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
-			"code-structure": [
-				"tangerine-next"
-			],
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
+			"code-structure": ["tangerine-next"],
+			"import-structure": ["atlassian-conventions"],
+			"circular-dependencies": ["file-and-folder-level"]
 		},
 		"@repo/internal": {
 			"dom-events": "use-bind-event-listener",
-			"analytics": [
-				"analytics-next"
-			],
-			"theming": [
-				"react-context",
-				"tokens"
-			],
-			"ui-components": [
-				"primitives",
-				"lite-mode"
-			],
+			"analytics": ["analytics-next"],
+			"theming": ["react-context", "tokens"],
+			"ui-components": ["primitives", "lite-mode"],
 			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion",
-				"emotion"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
+			"styling": ["emotion", "emotion"],
+			"imports": ["import-no-extraneous-disable-for-examples-and-docs"]
 		}
 	},
 	"homepage": "https://atlassian.design/components/skeleton",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/ui/index.tsx"
 	}
 }

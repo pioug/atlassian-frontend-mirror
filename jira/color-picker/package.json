@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/color-picker",
-	"version": "7.0.1",
+	"version": "7.1.0",
 	"description": "Jira Color Picker Component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -56,6 +56,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./mode": "./src/mode.ts",
 		"./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
 		"./ColorPicker": "./src/components/ColorPicker.tsx"
 	},

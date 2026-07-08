@@ -1,16 +1,10 @@
 import React, { useMemo } from 'react';
 
 import { type Link } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Card } from '@atlaskit/smart-card';
 import { HoverCard } from '@atlaskit/smart-card/hover-card';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { token } from '@atlaskit/tokens';
-import { useAssetsWorkspaceHost } from '@atlassian/assets-workspace-host';
-
-import { getMeta } from '../../../../services/getMeta';
-
-const ASSETS_URL_PREFIX = '/jira/servicedesk/assets/';
 
 interface LinkProps extends Link {
 	testId?: string;
@@ -37,27 +31,11 @@ const LinkRenderType = ({
 		return (style?.appearance && linkStyles[style.appearance]) || {};
 	}, [style]);
 
-	const cloudId = getMeta('ajs-cloud-id') ?? '';
-	const isResolverGateOn = fg('astral_units_workspace_host_resolver');
-	const isAssetsUrl = typeof url === 'string' && url.startsWith(ASSETS_URL_PREFIX);
-	const skipWorkspaceHostResolver = !cloudId || !isAssetsUrl || !isResolverGateOn;
-	const { data: resolverData } = useAssetsWorkspaceHost({
-		cloudId,
-		productContext: 'confluence',
-		skip: skipWorkspaceHostResolver,
-	});
-	const rewrittenUrl = useMemo(() => {
-		if (!url || !resolverData?.host || skipWorkspaceHostResolver) {
-			return url;
-		}
-		return `${resolverData.host}${url}`;
-	}, [url, skipWorkspaceHostResolver, resolverData?.host]);
-
 	const anchor = useMemo(
 		() => (
-			<HoverCard url={rewrittenUrl}>
+			<HoverCard url={url}>
 				<LinkUrl
-					href={rewrittenUrl}
+					href={url}
 					// NOTE: This will no longer apply styles to `@atlaskit/link`.
 					// Wrap `@atlaskit/link` in a Text component to provide font styles to Link
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -65,24 +43,24 @@ const LinkRenderType = ({
 					data-testid={testId}
 					target="_blank"
 				>
-					{text || rewrittenUrl}
+					{text || url}
 				</LinkUrl>
 			</HoverCard>
 		),
-		[linkStyle, rewrittenUrl, text, testId],
+		[linkStyle, url, text, testId],
 	);
 
 	const SmartCard = () => {
 		const handleClick = (e: React.MouseEvent<HTMLElement>) => {
 			e.preventDefault();
-			window.open(rewrittenUrl, '_blank', 'noopener, noreferrer');
+			window.open(url, '_blank', 'noopener, noreferrer');
 		};
 
 		return (
 			<Card
 				appearance="inline"
 				onClick={handleClick}
-				url={rewrittenUrl}
+				url={url}
 				testId={testId}
 				fallbackComponent={() => anchor}
 			/>

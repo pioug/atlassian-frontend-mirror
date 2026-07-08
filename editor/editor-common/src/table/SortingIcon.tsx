@@ -51,6 +51,12 @@ const buttonStyles = css`
 	}
 `;
 
+// Keep the sort button above header content nodes that the editor's native-anchor DnD
+// styles give a z-index in live docs, which otherwise cover the button's clickable body.
+const sortButtonElevatedStyles = css({
+	zIndex: 1,
+});
+
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const iconWrapperStyles = css`
 	width: 8px;
@@ -197,7 +203,11 @@ const SortingIcon = ({
 	return (
 		<Tooltip delay={0} content={content} position="top">
 			<div
-				css={buttonStyles}
+				css={[
+					buttonStyles,
+					expValEquals('confluence_live_doc_table_sort_bugfix', 'isEnabled', true) &&
+						sortButtonElevatedStyles,
+				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={buttonClassName}
 				role="button"

@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 16.3.0
+
+### Minor Changes
+
+- [`c01a4725bff2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c01a4725bff2a) -
+  Wrap atlaskit form ErrorMessage components with MessageWrapper so validation messages are
+  accessible to assistive technology (ENGHEALTH-58254)
+
 ## 16.2.0
 
 ### Minor Changes

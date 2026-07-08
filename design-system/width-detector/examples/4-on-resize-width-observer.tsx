@@ -9,7 +9,7 @@ import { cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
-import { WidthObserver } from '@atlaskit/width-detector';
+import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import { debounce } from './utils/debounce';
 

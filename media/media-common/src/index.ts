@@ -1,9 +1,6 @@
 export { downloadUrl } from './downloadUrl';
-// Warning! You can't add new media types!
-// See packages/media/media-core/src/__tests__/cache-backward-compatibility.spec.ts
-export type MediaType = 'doc' | 'audio' | 'video' | 'image' | 'archive' | 'unknown';
 
-export type FileStatus = 'uploading' | 'processing' | 'processed' | 'error' | 'failed-processing';
+export type { MediaType, FileStatus, NumericalCardDimensions, SSR } from './main-types';
 
 // Media Feature Flags
 export {
@@ -13,11 +10,6 @@ export {
 	getFeatureFlagKeysAllProducts,
 } from './mediaFeatureFlags';
 export type { MediaFeatureFlags, WithMediaFeatureFlags } from './mediaFeatureFlags';
-// TODO EDM-689 Please, consolidate these two CardDimensions types
-export interface NumericalCardDimensions {
-	width: number;
-	height: number;
-}
 
 // Analytics base types
 export type {
@@ -61,8 +53,6 @@ export {
 	isUnknownMimeTypeSupportedByServer,
 	isMimeTypeSupportedByServer,
 } from './mediaTypeUtils';
-
-export type SSR = 'client' | 'server';
 
 export {
 	isUndefined,

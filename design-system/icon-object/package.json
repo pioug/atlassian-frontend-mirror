@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "8.1.0",
+	"version": "8.1.1",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -14,9 +14,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"**/*.compiled.css"
-	],
+	"sideEffects": ["**/*.compiled.css"],
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,
@@ -29,6 +27,7 @@
 		"website": {
 			"name": "Icon object",
 			"category": "Images and icons",
+			"deprecated": "This package is deprecated. Use [object](https://atlassian.design/components/object/examples) instead.",
 			"status": {
 				"type": "deprecated",
 				"description": "This package is deprecated.\n\nUse [object](https://atlassian.design/components/object/examples) instead."
@@ -63,21 +62,13 @@
 		"react-dom": "root:*",
 		"ts-node": "root:*"
 	},
-	"keywords": [
-		"atlaskit",
-		"ui"
-	],
+	"keywords": ["atlaskit", "ui"],
 	"techstack": {
 		"@repo/internal": {
 			"design-system": "v1",
 			"dom-events": "use-bind-event-listener",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"styling": [
-				"compiled"
-			],
+			"design-tokens": ["color", "spacing"],
+			"styling": ["compiled"],
 			"deprecation": "no-deprecated-imports"
 		}
 	},

@@ -12,7 +12,7 @@ import React, {
 	useRef,
 } from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap as compiledCssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { cssMap } from '@atlaskit/css';
@@ -26,7 +26,147 @@ import { useFocusWrap } from '../internal/use-focus-wrap';
 
 import { type TDialogProps } from './types';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- dialog reset requires values not in cssMap's type union
+// These animation styles use the non-strict Compiled cssMap because they rely
+// on `@starting-style`, `[open]`, and `allow-discrete`. Keep them in this
+// component so the Compiled transform can statically extract every referenced
+// style.
+const dialogAnimationStyles = compiledCssMap({
+	motion: {
+		animation: token('motion.modal.exit'),
+		animationFillMode: 'forwards',
+		transitionProperty: 'overlay, display',
+		transitionDuration: '200ms',
+		transitionBehavior: 'allow-discrete',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+		'&[open]': {
+			animation: token('motion.modal.enter'),
+			animationFillMode: 'backwards',
+		},
+		'&::backdrop': {
+			animation: token('motion.blanket.exit'),
+			animationFillMode: 'forwards',
+			backgroundColor: token('color.blanket', '#050C1F75'),
+			transitionProperty: 'overlay, display',
+			transitionDuration: '200ms',
+			transitionBehavior: 'allow-discrete',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+		'&[open]::backdrop': {
+			animation: token('motion.blanket.enter'),
+			animationFillMode: 'backwards',
+		},
+		'@media (prefers-reduced-motion: reduce)': {
+			animationName: 'none',
+			transitionDuration: '0s',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+			'&[open]': {
+				animationName: 'none',
+				transitionDuration: '0s',
+			},
+			'&::backdrop': {
+				animationName: 'none',
+				transitionDuration: '0s',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+			'&[open]::backdrop': {
+				animationName: 'none',
+				transitionDuration: '0s',
+			},
+		},
+	},
+	slideUpAndFade: {
+		opacity: 0,
+		transform: 'translateY(calc(-1 * var(--ds-dialog-ty, 12px)))',
+		transitionProperty: 'opacity, transform, overlay, display',
+		transitionDuration: '175ms',
+		transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
+		transitionBehavior: 'allow-discrete',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+		'&[open]': {
+			opacity: 1,
+			transform: 'none',
+			transitionDuration: '350ms',
+			'@starting-style': {
+				opacity: 0,
+				transform: 'translateY(var(--ds-dialog-ty, 12px))',
+			},
+		},
+		'&::backdrop': {
+			backgroundColor: 'transparent',
+			transitionProperty: 'background-color, overlay, display',
+			transitionDuration: '175ms',
+			transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
+			transitionBehavior: 'allow-discrete',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+		'&[open]::backdrop': {
+			backgroundColor: token('color.blanket', '#050C1F75'),
+			transitionDuration: '350ms',
+			'@starting-style': {
+				backgroundColor: 'transparent',
+			},
+		},
+		'@media (prefers-reduced-motion: reduce)': {
+			transitionDuration: '0s',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+			'&[open]': {
+				transitionDuration: '0s',
+			},
+			'&::backdrop': {
+				transitionDuration: '0s',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+			'&[open]::backdrop': {
+				transitionDuration: '0s',
+			},
+		},
+	},
+	fade: {
+		opacity: 0,
+		transitionProperty: 'opacity, overlay, display',
+		transitionDuration: '175ms',
+		transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
+		transitionBehavior: 'allow-discrete',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+		'&[open]': {
+			opacity: 1,
+			transitionDuration: '350ms',
+			'@starting-style': {
+				opacity: 0,
+			},
+		},
+		'&::backdrop': {
+			backgroundColor: 'transparent',
+			transitionProperty: 'background-color, overlay, display',
+			transitionDuration: '175ms',
+			transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
+			transitionBehavior: 'allow-discrete',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+		'&[open]::backdrop': {
+			backgroundColor: token('color.blanket', '#050C1F75'),
+			transitionDuration: '350ms',
+			'@starting-style': {
+				backgroundColor: 'transparent',
+			},
+		},
+		'@media (prefers-reduced-motion: reduce)': {
+			transitionDuration: '0s',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+			'&[open]': {
+				transitionDuration: '0s',
+			},
+			'&::backdrop': {
+				transitionDuration: '0s',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
+			'&[open]::backdrop': {
+				transitionDuration: '0s',
+			},
+		},
+	},
+});
+
 const styles = cssMap({
 	dialog: {
 		// Reset browser defaults
@@ -79,6 +219,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 		onEnterFinish,
 		onExitFinish,
 		animate,
+		xcss: xcssFromProps,
 		style,
 		testId,
 		id: providedId,
@@ -142,6 +283,27 @@ export const Dialog: React.ForwardRefExoticComponent<
 			dialog.close();
 		}
 	}, [isOpen]);
+
+	// Apply preset-provided animation custom properties (e.g. the
+	// `--ds-dialog-ty` slide distance for `dialogSlideUpAndFade`). The
+	// cleanup removes them so a preset change does not leave stale
+	// custom properties on the element. Dialog presets do not vary by
+	// placement, so an empty placement is passed.
+	useLayoutEffect(() => {
+		const dialog = ownRef.current;
+		if (!dialog || !preset?.getProperties) {
+			return;
+		}
+		const props = preset.getProperties({ placement: {} });
+		Object.entries(props).forEach(([key, value]) => {
+			dialog.style.setProperty(key, String(value));
+		});
+		return () => {
+			Object.keys(props).forEach((key) => {
+				dialog.style.removeProperty(key);
+			});
+		};
+	}, [preset, isVisible]);
 
 	// Handle native Escape (cancel event)
 	const handleCancel = useCallback(
@@ -207,12 +369,19 @@ export const Dialog: React.ForwardRefExoticComponent<
 			// VoiceOver) infer modality from the platform accessibility API.
 			aria-label={label}
 			aria-labelledby={label ? undefined : labelledBy}
-			css={styles.dialog}
+			css={[
+				styles.dialog,
+				preset?.name === 'motion' && dialogAnimationStyles.motion,
+				preset?.name === 'slide-up-and-fade' && dialogAnimationStyles.slideUpAndFade,
+				preset?.name === 'fade' && dialogAnimationStyles.fade,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style}
 			onCancel={handleCancel}
 			data-testid={testId}
 			{...(preset ? { [`data-ds-dialog-${preset.name}`]: '' } : undefined)}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- xcss prop passes Compiled atomic class names from consumer-owned cssMap entries
+			className={xcssFromProps as string | undefined}
 		>
 			{/* Use an ID-scoped <style> to make the backdrop transparent because
 			atomic CSS (Compiled) deduplicates the ::backdrop rule into a single

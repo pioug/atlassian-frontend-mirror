@@ -1,16 +1,9 @@
-import type Select from './select';
-import type { GroupBase } from './types';
 import useStateManager from './use-state-manager';
 
 export { default } from './state-manager';
 export { mergeStyles } from './styles';
 export { createFilter, type FilterOptionOption } from './filters';
 export { components } from './components';
-export type SelectInstance<
-	Option = unknown,
-	IsMulti extends boolean = false,
-	Group extends GroupBase<Option> = GroupBase<Option>,
-> = Select<Option, IsMulti, Group>;
 export type { StateManagerProps as Props } from './use-state-manager';
 export { useStateManager };
 
@@ -28,7 +21,7 @@ export type { InputProps } from './components/input';
 export type { MenuListProps } from './components/menu-list';
 export type { MenuProps } from './components/menu';
 export type { MenuPortalProps } from './components/menu-portal';
-export type { NoticeProps, MultiValueGenericProps } from './types';
+export type { NoticeProps, MultiValueGenericProps, SelectInstance } from './types';
 export type { MultiValueProps } from './components/multi-value';
 export type { MultiValueRemoveProps } from './components/multi-value-remove';
 export type { OptionProps } from './components/option';

@@ -1,6 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { token } from '@atlaskit/tokens';
 
 import {
 	buildAnchorDecorationKey,
@@ -9,106 +9,81 @@ import {
 	AnchorTypeKey,
 } from './decorationKeys';
 
-const SIDE = 1;
-
-const findPosAfterLastChild = (node: PMNode | null, nodeStart: number): number | undefined => {
+/**
+ * Resolves the doc-level block node (table/expand/layout) for `from`, along with
+ * the position right before it (`beforePos`). Falls back to `$from.nodeAfter`
+ * when there is no depth-1 ancestor (e.g. `from` sits just before the block).
+ */
+const resolveDocLevelNode = (
+	doc: PMNode,
+	from: number,
+): { beforePos: number; node: PMNode; nodeStart: number } | undefined => {
+	const $from = doc.resolve(from);
+	const node = $from.node(1) ?? $from.nodeAfter;
 	if (!node) {
 		return undefined;
 	}
-	const lastChild = node.lastChild;
 
-	if (!lastChild) {
-		return undefined;
-	}
+	// Content start of the block. For the depth-1 case this is `$from.start(1)`;
+	// for the `nodeAfter` fallback, `from` is the position just before the block
+	// node, so its content starts at `from + 1`.
+	const nodeStart = $from.node(1) ? $from.start(1) : from + 1;
 
-	const lastChildStart = nodeStart + node.content.size - lastChild.nodeSize;
-	return lastChildStart + lastChild.nodeSize;
+	return {
+		node,
+		nodeStart,
+		// Position of the block node itself (one before its content start).
+		beforePos: nodeStart - 1,
+	};
 };
 
 /**
  * Handles edge cases for block nodes whose inline content can exceed the doc
- * margin (tables, layouts, expands). Returns an adjusted position to use as
- * the left anchor, or `undefined` when no adjustment is needed.
+ * margin (tables, layouts, expands). Returns the position whose DOM should be
+ * measured to size the left anchor, or `undefined` when the diff is not inside
+ * such a node.
  */
 const edgeCases = (
 	doc: PMNode,
 	from: number,
-):
-	| {
-			leftMargin: CSSStyleDeclaration['left'];
-			pos: number;
-			/**
-			 * We determine the side based on the anchor so that any doc changes like
-			 * resizing won't remove the widgets
-			 */
-			side: number;
-	  }
-	| undefined => {
-	const $from = doc.resolve(from);
-	const docLevelNode = $from.node(1);
-	if (!docLevelNode) {
+): { measurePos?: number; leftOffset?: number } | undefined => {
+	const resolved = resolveDocLevelNode(doc, from);
+	if (!resolved) {
 		return undefined;
 	}
 
-	switch (docLevelNode.type.name) {
+	const { node, nodeStart, beforePos } = resolved;
+
+	/**
+	 * All resizable nodes will need dynamic calculations of the block indicator left anchor
+	 */
+	if (node.marks.some((mark) => mark.type.name === 'breakout')) {
+		/**
+		 * Layouts and Expands have extra padding around the container
+		 */
+		return { measurePos: beforePos };
+	}
+
+	switch (node.type.name) {
 		/**
 		 * For resizable blocks, inline content can exceed the doc margin.
-		 * The widgets need to be placed inside the block as resizing the block will
-		 * exceed the block container :')
+		 * The widget is placed before the block; the anchor is sized against the
+		 * block's DOM so it doesn't get clipped when the block is resized :')
 		 */
 		case 'table': {
-			const lastRow = docLevelNode.lastChild;
-
-			if (!lastRow) {
+			// A table with no rows has nothing to measure.
+			if (!node.firstChild) {
 				return undefined;
 			}
 
-			const lastRowStart = $from.start(1) + docLevelNode.content.size - lastRow.nodeSize;
-			const firstCellOfLastRow = lastRow.firstChild;
-
-			const tableAnchorPos = findPosAfterLastChild(firstCellOfLastRow, lastRowStart + 1);
-
-			if (tableAnchorPos === undefined) {
-				return undefined;
-			}
-
-			return {
-				/**
-				 * We use the last row because the first row could be a sticky header -
-				 * when it becomes sticky the anchor won't be defined since it will be rendered
-				 * outside of the context
-				 */
-				pos: tableAnchorPos,
-				leftMargin: token('space.negative.025'),
-				side: -1,
-			};
+			// Measure the first row (`nodeStart` is just inside the table, i.e. the
+			// position of the first row): its width matches the table's.
+			return { measurePos: nodeStart };
 		}
-		case 'expand': {
-			const expandAnchorPos = findPosAfterLastChild(docLevelNode, $from.start(1));
-
-			if (expandAnchorPos === undefined) {
-				return undefined;
-			}
-
-			return {
-				pos: expandAnchorPos,
-				leftMargin: token('space.0'),
-				side: -1,
-			};
-		}
-		case 'layoutSection': {
-			const firstLayoutColumn = docLevelNode.firstChild;
-			const layoutAnchorPos = findPosAfterLastChild(firstLayoutColumn, $from.start(1) + 1);
-			if (layoutAnchorPos === undefined) {
-				return undefined;
-			}
-
-			return {
-				pos: layoutAnchorPos,
-				leftMargin: token('space.negative.025'),
-				side: 1,
-			};
-		}
+		case 'layoutSection':
+		case 'expand':
+			// Measure the block itself (the widget is rendered outside the block).
+			return { leftOffset: 12 };
 		default:
 			return undefined;
 	}
@@ -127,7 +102,8 @@ export const createDocMarginAnchorWidget = (): Decoration => {
 			span.style.setProperty('anchor-name', `--${AnchorDocMarginKey}`);
 			return span;
 		},
-		buildAnchorDecorationSpec({ anchorType: AnchorTypeKey.docMargin, side: SIDE }),
+		// set the side to -999 so that it is always rendered before any other anchors
+		buildAnchorDecorationSpec({ anchorType: AnchorTypeKey.docMargin, side: -999 }),
 	);
 };
 
@@ -155,23 +131,61 @@ export const createLeftAnchorWidget = ({
 		return undefined;
 	}
 
+	// Render the widget right before the doc-level node so it lives outside the
+	// resizable block container.
+	const resolved = resolveDocLevelNode(doc, from);
+	if (!resolved) {
+		return undefined;
+	}
+	const { beforePos } = resolved;
+
 	const leftAnchorKey = buildAnchorDecorationKey({
 		diffId,
 		anchorType: AnchorTypeKey.left,
 	});
+
 	return Decoration.widget(
-		edgeCase.pos,
-		() => {
-			const span = document.createElement('span');
-			span.style.setProperty('anchor-name', `--${leftAnchorKey}`);
-			span.style.setProperty('position', 'absolute');
-			span.style.setProperty('left', edgeCase.leftMargin);
-			return span;
+		beforePos,
+		(view, getPos) => {
+			// Outer span stays in the flow but takes up no space.
+			const wrapper = document.createElement('div');
+			wrapper.style.setProperty('position', 'relative');
+			wrapper.style.setProperty('width', '100%');
+
+			// Inner span is absolutely positioned in the doc margin; it carries the
+			// `anchor-name` the IndicatorBar aligns its left edge against.
+			const anchor = document.createElement('div');
+			anchor.style.setProperty('anchor-name', `--${leftAnchorKey}`);
+			anchor.style.setProperty('position', 'absolute');
+			anchor.style.setProperty('left', `calc(50% - ${edgeCase?.leftOffset || 0}px)`);
+			anchor.style.setProperty('transform', 'translateX(-50%)');
+
+			wrapper.appendChild(anchor);
+
+			// The block DOM may not be settled synchronously (e.g. after a
+			// transaction), so defer the measurement like the gap cursor does.
+			requestAnimationFrame(() => {
+				// The widget may have been unmounted; bail if its position is gone.
+				// We still measure the stable block node position, not the widget's
+				// own position.
+				if (getPos() === undefined || edgeCase.measurePos === undefined) {
+					return;
+				}
+
+				const dom = view.nodeDOM(edgeCase.measurePos);
+				if (dom instanceof HTMLElement) {
+					// The left anchor only needs the container width so the
+					// IndicatorBar can align against the block's horizontal extent.
+					anchor.style.setProperty('width', `${dom.offsetWidth}px`);
+				}
+			});
+
+			return wrapper;
 		},
 		buildAnchorDecorationSpec({
 			diffId,
 			anchorType: AnchorTypeKey.left,
-			side: edgeCase.side * SIDE,
+			side: -999,
 		}),
 	);
 };
@@ -190,6 +204,124 @@ const isFullNodeRange = (doc: PMNode, from: number, to: number): boolean => {
 
 	return matchesFullNodeRange;
 };
+/**
+ * Creates invisible anchor widgets for a single block-changed diff so that the
+ * `IndicatorBar` can use CSS anchor positioning to align itself with the diff.
+ *
+ * The interface mirrors `createInlineIndicatorAnchorWidgets`:
+ * - A `from` anchor is placed at the start of the node range (top of the bar).
+ * - A `to` anchor is placed at the end of the node range (bottom of the bar).
+ * - An optional `left` anchor is placed inside a resizable container (table,
+ *   layout, expand) so the bar aligns within the container boundary.
+ *
+ * Unlike the inline variant there is no `isFullNodeRange` guard — block diffs
+ * always span exactly one block node so the anchors are always needed.
+ */
+export const createBlockIndicatorAnchorWidgets = ({
+	doc,
+	from,
+	to,
+	diffId,
+}: {
+	diffId: string;
+	doc: PMNode;
+	from: number;
+	to: number;
+}): Decoration[] => {
+	const leftAnchor = createLeftAnchorWidget({ doc, from, diffId });
+	const maybeLeftAnchor = leftAnchor ? [leftAnchor] : [];
+
+	/**
+	 * A single anchor widget spans the full height of the block node, mimicking
+	 * the gap cursor placement logic (see `place-gap-cursor.ts`): an element
+	 * whose height is measured from the block's DOM so its box covers the block.
+	 *
+	 * Because the anchor rect covers the whole block, the `IndicatorBar` can
+	 * resolve `top`, `bottom` and `left` against this one anchor (keyed by
+	 * `diffId` with no `anchorType`) instead of separate `from`/`to` anchors.
+	 */
+	const blockAnchorKey = buildAnchorDecorationKey({ diffId });
+
+	/**
+	 * If `from` lands inside a table cell/header or a table row, the widget must
+	 * still be rendered *outside* the table (widgets placed inside a table are
+	 * clipped/mis-laid-out), but we want the anchor to be sized against the
+	 * actual cell/row DOM. So we split into two positions:
+	 * - `widgetPos`: where the widget DOM is rendered (outside the table).
+	 * - `measurePos`: the closest cell/row whose DOM we measure for the height.
+	 */
+	const $from = doc.resolve(from);
+	const parentTable = findParentNodeClosestToPos(
+		$from,
+		(ancestor) => ancestor.type.name === 'table',
+	);
+	const parentCellOrRow = findParentNodeClosestToPos($from, (ancestor) =>
+		['tableCell', 'tableHeader', 'tableRow'].includes(ancestor.type.name),
+	);
+
+	// Render outside the table when inside one; otherwise keep the original pos.
+	const widgetPos = parentTable ? parentTable.pos : from;
+	// Measure the actual cell/row DOM when inside one; otherwise measure the
+	// widget's own position.
+	const measurePos = parentCellOrRow ? parentCellOrRow.pos : from;
+
+	const blockWidget = Decoration.widget(
+		widgetPos,
+		(view, getPos) => {
+			// Outer span stays in the flow but takes up no space.
+			const wrapper = document.createElement('span');
+			wrapper.style.setProperty('position', 'relative');
+
+			// Inner span is absolutely positioned and sized to the block height;
+			// it carries the `anchor-name` the IndicatorBar aligns against.
+			const anchor = document.createElement('span');
+			anchor.style.setProperty('position', 'absolute');
+			anchor.style.setProperty('anchor-name', `--${blockAnchorKey}`);
+			wrapper.appendChild(anchor);
+
+			// The block DOM may not be settled synchronously (e.g. after a
+			// transaction), so defer the measurement like the gap cursor does.
+			requestAnimationFrame(() => {
+				// The widget may have been unmounted; bail if its position is gone.
+				// We still measure the stable cell/row node position, not the
+				// widget's own position.
+				if (getPos() === undefined) {
+					return;
+				}
+
+				const dom = view.nodeDOM(measurePos);
+				if (dom instanceof HTMLElement) {
+					anchor.style.setProperty('height', `${dom.offsetHeight}px`);
+
+					// The wrapper renders outside the table, so there is a vertical
+					// gap between it and the cell/row we're anchoring to. Measure
+					// that delta and offset the (absolutely positioned) anchor by it
+					// so its box lines up with the cell/row.
+					const wrapperTop = wrapper.getBoundingClientRect().top;
+					const domTop = dom.getBoundingClientRect().top;
+					const verticalOffset = domTop - wrapperTop;
+
+					anchor.style.setProperty('top', `${verticalOffset}px`);
+					// The offset already accounts for the cell/row's position, so the
+					// margin-top must not be double-applied.
+					anchor.style.setProperty('margin-top', '0px');
+				}
+			});
+
+			return wrapper;
+		},
+		buildAnchorDecorationSpec({
+			diffId,
+			// Reuse the `from` anchor type slot; the generated key intentionally
+			// omits the anchor type so the single element backs top/bottom/left.
+			anchorType: AnchorTypeKey.from,
+			side: -1,
+		}),
+	);
+
+	return [blockWidget, ...maybeLeftAnchor];
+};
+
 /**
  * Creates invisible anchor widgets for a single inline diff range so that the
  * `IndicatorBar` can use CSS anchor positioning to align itself with the diff.
@@ -219,13 +351,14 @@ export const createInlineIndicatorAnchorWidgets = ({
 
 	/**
 	 * Two widgets mark the start and end of the inline range so the
-	 * IndicatorBar can determine top/bottom even when the decoration
-	 * spans multiple blocks.
+	 * IndicatorBar can determine top/bottom even if
+	 * the inline decoration is broken up by marks / between blocks.
 	 */
 	const fromAnchorKey = buildAnchorDecorationKey({
 		diffId,
 		anchorType: AnchorTypeKey.from,
 	});
+
 	const fromWidget = Decoration.widget(
 		from,
 		() => {

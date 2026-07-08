@@ -12,9 +12,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"**/*.compiled.css"
-	],
+	"sideEffects": ["**/*.compiled.css"],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team"
@@ -52,10 +50,7 @@
 		"@repo/internal": {
 			"dom-events": "use-bind-event-listener",
 			"design-system": "v1",
-			"styling": [
-				"static",
-				"emotion"
-			],
+			"styling": ["static", "emotion"],
 			"ui-components": "lite-mode",
 			"analytics": "analytics-next",
 			"deprecation": "no-deprecated-imports"

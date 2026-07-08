@@ -9,7 +9,8 @@ import { jsx } from '@compiled/react';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import TagNew, { colorMapping } from '../../../tag-new';
+import TagNew from '../../../tag-new';
+import { colorMapping } from '../../../tag-new/color-mapping';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import { getLozengeAppearance } from '../shared/color-to-lozenge-appearance';

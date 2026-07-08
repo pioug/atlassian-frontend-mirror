@@ -1,6 +1,6 @@
 # Width-detector
 
-This is a utility component that informs the child function of the available width.
+This package provides utilities that inform children or callbacks of the available width.
 
 ## Installation
 
@@ -15,10 +15,9 @@ more about the usage of this component.
 
 ### Notes
 
-The default export WidthDetector will be deprecated in the next major release of width-detector.
-Follow our upgrade guide and
+The default export `WidthDetector` is deprecated. Follow our upgrade guide and
 [examples](https://atlaskit.atlassian.com/examples/design-system/width-detector) to migrate to
-WidthObserver.
+`WidthObserver`.
 
 [Migration guide can be found here](./migration-guide.md).
 

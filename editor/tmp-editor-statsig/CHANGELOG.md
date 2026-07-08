@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 121.3.0
+
+### Minor Changes
+
+- [`f6f7aba52cfe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f6f7aba52cfe3) -
+  Register `confluence_comment_nudgebar_improvement` experiment and skip selection debounce during
+  nudge button clicks to ensure first-click comment draft creation works correctly.
+
+## 121.2.0
+
+### Minor Changes
+
+- [`eb60a9c5e949c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb60a9c5e949c) -
+  Fix Confluence live doc table column-sort button being clickable only on its border — header
+  content overlapped the button body. The sort button is now elevated above header content, behind
+  the new `confluence_live_doc_table_sort_bugfix` experiment.
+
 ## 121.1.0
 
 ### Minor Changes

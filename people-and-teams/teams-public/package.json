@@ -18,9 +18,7 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": [
-		"*.compiled.css"
-	],
+	"sideEffects": ["*.compiled.css"],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
@@ -111,40 +109,21 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
-			"import-structure": [
-				"atlassian-conventions"
-			],
-			"circular-dependencies": [
-				"file-and-folder-level"
-			]
+			"import-structure": ["atlassian-conventions"],
+			"circular-dependencies": ["file-and-folder-level"]
 		},
 		"@repo/internal": {
-			"analytics": [
-				"analytics-next"
-			],
-			"design-tokens": [
-				"color"
-			],
-			"theming": [
-				"react-context"
-			],
-			"ui-components": [
-				"lite-mode"
-			],
-			"deprecation": [
-				"no-deprecated-imports"
-			],
-			"styling": [
-				"static",
-				"compiled"
-			],
-			"imports": [
-				"import-no-extraneous-disable-for-examples-and-docs"
-			]
+			"analytics": ["analytics-next"],
+			"design-tokens": ["color"],
+			"theming": ["react-context"],
+			"ui-components": ["lite-mode"],
+			"deprecation": ["no-deprecated-imports"],
+			"styling": ["static", "compiled"],
+			"imports": ["import-no-extraneous-disable-for-examples-and-docs"]
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

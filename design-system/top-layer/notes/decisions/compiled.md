@@ -6,6 +6,11 @@ The top-layer package has styling that bypasses Compiled in several places. This
 through each gap, shows what the code looks like today, and what it could look like if Compiled
 supported it.
 
+**Current animation state:** animation preset raw CSS string injection has been removed. Presets now
+carry metadata only, while `Popover` and `Dialog` keep their static animation `compiledCssMap`
+entries component-local. This keeps Compiled extraction static and avoids passing style objects
+through preset metadata.
+
 ---
 
 ## Change 1: Add `:popover-open` pseudo-class to Compiled types + ESLint
@@ -529,10 +534,9 @@ const styles = cssMap({
    schema.
 3. **`background: 'inherit'`** (trivial): May need `'inherit'` added to the color value type, though
    `StrictCSSProperties` likely already accepts it as a CSS-wide keyword.
-4. **`@position-try` rules remain raw**: The ~65 lines of `@position-try` rules (12 rules total) are
-   global named at-rules that can't be expressed in `cssMap`. These would still need raw CSS
-   injection via `ensurePresetStyles` unless Change 3's Compiled support lands. This means
-   `ensure-preset-styles.ts` can't be fully deleted even after this change.
+4. **`@position-try` rules remain raw**: The arrow feature has since been removed from this package.
+   If named `@position-try` rules return, they still need a dedicated static styling strategy
+   because global named at-rules cannot be expressed in `cssMap` today.
 
 ---
 
@@ -610,9 +614,9 @@ Dialog presets also zero out backdrop transitions:
 }
 ```
 
-These `@media` blocks are part of the raw CSS strings and would move into `cssMap` alongside the
-animation rules they modify. `@media` is already supported by Compiled, so no additional gap is
-needed — the reduced-motion blocks will migrate automatically when Changes 1, 5, 6, and 7 land.
+These `@media` blocks now live in the component-local animation `compiledCssMap` entries alongside
+the animation rules they modify. `@media` is already supported by Compiled, so no additional gap was
+needed for the reduced-motion blocks.
 
 ---
 
@@ -624,12 +628,12 @@ The `dialogSlideUpAndFade` preset is structurally more complex than `dialogFade`
 - `transform: translateY(var(--ds-dialog-ty, 12px))` in the base and `@starting-style` states
 - `transform: none` in the `[open]` state
 - The same `::backdrop` and `[open]::backdrop` pattern as `dialogFade`
-- A `replaceAll('12px', ...)` mechanism for custom distances
+- Custom distances supplied through preset metadata as `--ds-dialog-ty`
 
-The `--ds-dialog-ty` property is baked into the CSS string (not set via `el.style.setProperty()`),
-so it will move to `cssMap` with the rest of the animation. This differs from the popover
-`slideAndFade` pattern, where `--ds-popover-tx`/`--ds-popover-ty` are set imperatively per-placement
-and stay as inline styles.
+The `--ds-dialog-ty` property is set imperatively from `getProperties`, which keeps the Compiled
+style block static while still allowing custom distances. This now matches the popover
+`slideAndFade` pattern, where `--ds-popover-tx`/`--ds-popover-ty` are also set imperatively
+per-placement.
 
 ---
 
@@ -649,23 +653,22 @@ and stay as inline styles.
 
 ### What each change eliminates
 
-**Changes 1 + 6:** All three popover animation presets (`fade`, `slideAndFade`, `scaleAndFade`) can
-move from raw CSS strings to `cssMap` variants (Change 2 is already done). This eliminates:
+**Changes 1 + 6:** Done for popover animation presets. `fade`, `slideAndFade`, and `scaleAndFade`
+now use component-local `compiledCssMap` entries selected by static conditionals. This eliminated:
 
 - `FADE_CSS`, `SLIDE_AND_FADE_CSS`, `SCALE_AND_FADE_CSS` raw strings
-- `data-ds-popover-{name}` data attributes
-- `ensurePresetStyles()` calls for popover animations
 - The global `<style>` tag injection for these presets
 
-**Changes 1 + 5 + 6 + 7:** Both dialog animation presets (`dialogFade`, `dialogSlideUpAndFade`) can
-also move to `cssMap` (Change 2 is already done). `dialogSlideUpAndFade` is more complex — it
-includes `transform: translateY(var(--ds-dialog-ty, 12px))` and a `replaceAll` mechanism for custom
-distances (see the `dialogSlideUpAndFade` preset details section above). This additionally
-eliminates:
+The `data-ds-popover-{name}` attributes remain as stable hooks for selectors, tests, and debugging.
+
+**Changes 1 + 5 + 6 + 7:** Done for dialog animation presets. `dialogFade` and
+`dialogSlideUpAndFade` now use component-local `compiledCssMap` entries selected by static
+conditionals. This eliminated:
 
 - `DIALOG_FADE_CSS`, `DIALOG_SLIDE_UP_AND_FADE_CSS` raw strings
-- `data-ds-dialog-{name}` data attributes
-- `ensurePresetStyles()` calls for dialog animations
+- The global `<style>` tag injection for these presets
+
+The `data-ds-dialog-{name}` attributes remain as stable hooks for selectors, tests, and debugging.
 
 **Change 4:** Removes all three `@ts-expect-error` comments in `dialog-content.tsx`
 (`maxWidth: 'none'`, `maxHeight: 'none'`, `token('color.blanket')`) and both `@ts-expect-error`
@@ -679,8 +682,9 @@ Change 4.
 **Changes 4 + 9:** Arrow `::before`/`::after` styles can move to `cssMap`. The `@position-try` rules
 (Change 3) may still need raw injection depending on Compiled's ability to emit global at-rules.
 
-**If all changes land:** `ensure-preset-styles.ts` can be deleted entirely. The only remaining
-non-Compiled styling would be the imperative anchor positioning (which is legitimately dynamic).
+Animation raw CSS injection has landed and the style injection helper has been deleted. The
+remaining non-Compiled styling is imperative anchor positioning and other values that are
+legitimately dynamic at runtime.
 
 ---
 

@@ -54,6 +54,7 @@ export interface SlowLaneClientConfig {
 	onUpdate?: (opts: { hasLmLogits: boolean; hasVector: boolean; textLength: number }) => void;
 	productKey?: string;
 	sessionId?: string;
+	surface?: string;
 }
 
 export const createSlowLaneClient = (
@@ -70,6 +71,7 @@ export const createSlowLaneClient = (
 		baseUrl,
 		sessionId: configSessionId,
 		productKey = 'confluence',
+		surface,
 		endpoint = '/gateway/api/v1/autocomplete/typeahead-encodings',
 		debounceMs = DEFAULT_DEBOUNCE_MS,
 		fetchFn = fetch,
@@ -105,6 +107,7 @@ export const createSlowLaneClient = (
 		startExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, {
 			textLength: text.length,
 			isLocalLLM: false,
+			...(surface ? { surface } : {}),
 		});
 
 		if (isAutocompleteDebugEnabled()) {
@@ -136,6 +139,7 @@ export const createSlowLaneClient = (
 					status: res.status,
 					errorType: 'http_error',
 					isLocalLLM: false,
+					...(surface ? { surface } : {}),
 				});
 				if (isAutocompleteDebugEnabled()) {
 					// eslint-disable-next-line no-console
@@ -190,6 +194,7 @@ export const createSlowLaneClient = (
 				hasVector: storedContextVector !== null,
 				hasLmLogits: storedLmLogits !== null,
 				isLocalLLM: false,
+				...(surface ? { surface } : {}),
 			});
 
 			onUpdate?.({
@@ -204,6 +209,7 @@ export const createSlowLaneClient = (
 			failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, requestId, {
 				errorType: 'network',
 				isLocalLLM: false,
+				...(surface ? { surface } : {}),
 			});
 			if (isAutocompleteDebugEnabled()) {
 				// eslint-disable-next-line no-console
@@ -230,6 +236,7 @@ export const createSlowLaneClient = (
 			if (inflightRequestId !== null) {
 				abortExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, inflightRequestId, 'superseded', {
 					isLocalLLM: false,
+					...(surface ? { surface } : {}),
 				});
 			}
 			const requestId = String(++requestSeq);

@@ -3,11 +3,9 @@
  * @jsx jsx
  */
 import { cssMap, jsx } from '@atlaskit/css';
-import { Flex, Text } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import {
-	PopoverContent,
-	PopoverProvider,
-	PopoverTarget,
 	SpotlightActions,
 	SpotlightBody,
 	SpotlightCard,
@@ -19,6 +17,9 @@ import {
 	SpotlightPrimaryAction,
 	SpotlightSecondaryLink,
 } from '@atlaskit/spotlight';
+import { PopoverContent } from '@atlaskit/spotlight/popover-content';
+import { PopoverProvider } from '@atlaskit/spotlight/popover-provider';
+import { PopoverTarget } from '@atlaskit/spotlight/popover-target';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

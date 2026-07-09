@@ -19,7 +19,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": ["*.compiled.css"],
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
@@ -105,23 +107,43 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
-			"import-structure": ["atlassian-conventions"],
-			"circular-dependencies": ["file-and-folder-level"]
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
 		},
 		"@repo/internal": {
 			"design-system": "v1",
 			"dom-events": "use-bind-event-listener",
-			"analytics": ["analytics-next"],
-			"design-tokens": ["color", "spacing"],
-			"theming": ["react-context"],
-			"ui-components": ["lite-mode"],
-			"deprecation": ["no-deprecated-imports"],
-			"styling": ["static", "compiled"],
-			"imports": ["import-no-extraneous-disable-for-examples-and-docs"]
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"compiled"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
 		}
 	},
 	"name": "@atlaskit/object",
-	"version": "2.1.1",
+	"version": "2.2.0",
 	"description": "An object is an icon that represents an Atlassian-specific content type.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

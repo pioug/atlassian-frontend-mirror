@@ -1,6 +1,9 @@
 import fetchMock from 'fetch-mock';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import {
+	clearFeatureGatesOverrides,
+	overrideFeatureGatesExperiment,
+} from '@atlassian/ptc-test-utils/feature-gates-test-helpers';
 
 import { AGGQuery } from '../graphqlUtils';
 import RovoAgentCardClient from '../RovoAgentCardClient';
@@ -220,7 +223,17 @@ describe('RovoAgentCardClient', () => {
 			await client.getProfile(mockIdentityAccountId, mockAnalytics);
 		};
 
-		ffTest.on('platform_editor_agent_profile_card_favourite_sync', 'when the gate is on', () => {
+		describe('when the experiment is enabled', () => {
+			beforeEach(async () => {
+				await overrideFeatureGatesExperiment('platform_editor_agent_profile_card_fav_sync', {
+					isEnabled: true,
+				});
+			});
+
+			afterEach(() => {
+				clearFeatureGatesOverrides();
+			});
+
 			it('updates the cached profile favourite state', async () => {
 				fetchMock.post('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
 
@@ -281,7 +294,11 @@ describe('RovoAgentCardClient', () => {
 			});
 		});
 
-		ffTest.off('platform_editor_agent_profile_card_favourite_sync', 'when the gate is off', () => {
+		describe('when the experiment is disabled', () => {
+			afterEach(() => {
+				clearFeatureGatesOverrides();
+			});
+
 			it('leaves the cached profile untouched', async () => {
 				fetchMock.post('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
 

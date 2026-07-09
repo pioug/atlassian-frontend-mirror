@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'SectionMessage',
 			description: 'A component for section-level messages.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82088-101069',
+			},
 			import: {
 				name: 'SectionMessage',
-				package: '@atlaskit/section-message',
+				package: '@atlaskit/section-message/section-message',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

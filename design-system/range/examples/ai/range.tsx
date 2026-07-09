@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Range from '@atlaskit/range';
+import Range from '@atlaskit/range/range';
 
 const Example = (): React.JSX.Element => (
 	<Range

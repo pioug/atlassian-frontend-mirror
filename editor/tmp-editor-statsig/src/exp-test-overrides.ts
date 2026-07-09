@@ -33,13 +33,13 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	cc_fd_cwr_quick_insert: 'control',
 	platform_editor_paste_actions_menu_v2: 'control',
 	confluence_quick_insert_embeds: 'control',
+	cc_cwr_prompt_strength_indicator: 'control',
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	'cc-maui-ai-edit-loading-experiment': true,
 	social_proof_3p_unauth_block_exp: false,
 	linking_platform_track_non_primary_3p_clicks: false,
-	platform_sl_3p_auth_rovo_action: false,
 	platform_sl_3p_preauth_better_hovercard: true,
 	cwr_blank_object_experiment: false,
 	platform_editor_feedback_mandatory_rating: false,

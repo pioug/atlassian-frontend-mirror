@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Avatar, { AvatarItem } from '@atlaskit/avatar';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarItem from '@atlaskit/avatar/avatar-item';
 
 const Example = (): React.JSX.Element => (
 	<AvatarItem

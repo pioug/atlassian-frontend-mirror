@@ -8,10 +8,14 @@ const documentation: StructuredContentSource = {
 			name: 'DatePicker',
 			description: 'A component for selecting date values with calendar support.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13285-45993',
+			},
 			import: {
 				name: 'DatePicker',
-				package: '@atlaskit/datetime-picker',
-				type: 'named',
+				package: '@atlaskit/datetime-picker/date-picker',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -49,8 +53,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'TimePicker',
-				package: '@atlaskit/datetime-picker',
-				type: 'named',
+				package: '@atlaskit/datetime-picker/time-picker',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -89,8 +93,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DateTimePicker',
-				package: '@atlaskit/datetime-picker',
-				type: 'named',
+				package: '@atlaskit/datetime-picker/date-time-picker',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

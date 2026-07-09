@@ -9,9 +9,13 @@ const documentation: StructuredContentSource = {
 			description:
 				'An inline edit displays a custom input component that switches between reading and editing on the same page.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13197-36936',
+			},
 			import: {
 				name: 'InlineEdit',
-				package: '@atlaskit/inline-edit',
+				package: '@atlaskit/inline-edit/inline-edit',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -50,8 +54,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'InlineEditableTextfield',
-				package: '@atlaskit/inline-edit',
-				type: 'named',
+				package: '@atlaskit/inline-edit/inline-editable-textfield',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

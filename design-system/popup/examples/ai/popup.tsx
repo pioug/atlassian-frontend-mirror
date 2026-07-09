@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Popup from '@atlaskit/popup';
+import { Popup } from '@atlaskit/popup/popup';
 
 export default (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);

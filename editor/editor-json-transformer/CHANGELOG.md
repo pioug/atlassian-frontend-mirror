@@ -1,5 +1,14 @@
 # @atlaskit/editor-json-transformer
 
+## 9.0.2
+
+### Patch Changes
+
+- [`9bf0cd071b1fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9bf0cd071b1fd) -
+  [EDITOR-5943] Legacised old vr test and duplicate test with platform_editor_diff_plugin_extended
+  true. Also extracted JSONtransformer out to its own file to debarrel the file.
+- Updated dependencies
+
 ## 9.0.1
 
 ### Patch Changes

@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Anchor',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/anchor',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -51,7 +51,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Bleed',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/bleed',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -84,7 +84,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Box',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/box',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -116,7 +116,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Flex',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/flex',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -149,7 +149,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Focusable',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/focusable',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -196,7 +196,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Grid',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/grid',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -228,7 +228,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Inline',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/inline',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -260,7 +260,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'MetricText',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/metric-text',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -293,7 +293,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Pressable',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/pressable',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -332,7 +332,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Stack',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/stack',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -364,7 +364,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Text',
-				package: '@atlaskit/primitives/compiled',
+				package: '@atlaskit/primitives/compiled/text',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

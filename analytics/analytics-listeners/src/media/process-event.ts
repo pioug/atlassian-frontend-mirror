@@ -21,6 +21,7 @@ function getMediaContexts(event: UIAnalyticsEvent) {
 
 function getMediaRegion() {
 	try {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		return window && window.sessionStorage && window.sessionStorage.getItem('media-api-region');
 	} catch (e) {
 		return;

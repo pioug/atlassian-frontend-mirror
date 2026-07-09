@@ -179,6 +179,7 @@ export interface Props {
 	onFileChooserClicked?: () => void;
 	onUploadCancelled: () => void;
 	onUploadEmoji: OnUploadEmoji;
+	onUploadPreviewErrorChange?: (hasPreviewError: boolean) => void;
 	/**
 	 * Current Confluence page content id. When provided (and the
 	 * `confluence_ai_generated_emojis` experiment is on), the "Create an emoji
@@ -449,6 +450,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		disableFocusLock = false,
 		contentId,
 		fireAnalytics,
+		onUploadPreviewErrorChange,
 		intl,
 	} = props;
 	const [uploadStatus, setUploadStatus] = useState(
@@ -484,7 +486,8 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		setName(undefined);
 		setPreviewImage(undefined);
 		setUploadStatus(UploadStatus.Waiting);
-	}, []);
+		onUploadPreviewErrorChange?.(false);
+	}, [onUploadPreviewErrorChange]);
 
 	const onNameChange = useCallback(
 		(event: ChangeEvent<any>) => {
@@ -541,21 +544,26 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 
 	// When the Rovo section generates an image, feed it into the existing upload
 	// form (same preview, name field and "Add emoji" button as a manual upload).
-	const onEmojiGenerated = useCallback((dataURL: string, suggestedName: string) => {
-		setFilename('rovo-emoji.png');
-		setPreviewImage(dataURL);
-		setChooseEmojiErrorMessage(undefined);
-		// Only auto-populate the name if the user hasn't already typed one.
-		setName((current) => current || sanitizeName(suggestedName));
-	}, []);
+	const onEmojiGenerated = useCallback(
+		(dataURL: string, suggestedName: string) => {
+			setFilename('rovo-emoji.png');
+			setPreviewImage(dataURL);
+			setChooseEmojiErrorMessage(undefined);
+			onUploadPreviewErrorChange?.(false);
+			// Only auto-populate the name if the user hasn't already typed one.
+			setName((current) => current || sanitizeName(suggestedName));
+		},
+		[onUploadPreviewErrorChange],
+	);
 
 	const errorOnUpload = useCallback(
 		(event: any): void => {
 			debug('File load error: ', event);
 			setChooseEmojiErrorMessage(<FormattedMessage {...messages.emojiUploadFailed} />);
+			onUploadPreviewErrorChange?.(false);
 			cancelChooseFile();
 		},
-		[cancelChooseFile],
+		[cancelChooseFile, onUploadPreviewErrorChange],
 	);
 
 	const onFileLoad = useCallback(
@@ -569,12 +577,14 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 					await ImageUtil.parseImage(f.target.result);
 					setPreviewImage(f.target.result);
 					setChooseEmojiErrorMessage(undefined);
+					onUploadPreviewErrorChange?.(false);
 				} catch {
 					setChooseEmojiErrorMessage(<FormattedMessage {...messages.emojiInvalidImage} />);
+					onUploadPreviewErrorChange?.(false);
 					cancelChooseFile();
 				}
 			},
-		[cancelChooseFile, name],
+		[cancelChooseFile, name, onUploadPreviewErrorChange],
 	);
 
 	const onChooseFile = useCallback(
@@ -586,12 +596,14 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 
 				if (!isSupportedEmojiUploadFileType(file)) {
 					setChooseEmojiErrorMessage(<FormattedMessage {...messages.emojiUnsupportedFileType} />);
+					onUploadPreviewErrorChange?.(true);
 					cancelChooseFile();
 					return;
 				}
 
 				if (ImageUtil.hasFileExceededSize(file)) {
 					setChooseEmojiErrorMessage(<FormattedMessage {...messages.emojiImageTooBig} />);
+					onUploadPreviewErrorChange?.(false);
 					cancelChooseFile();
 					return;
 				}
@@ -601,10 +613,11 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 				reader.addEventListener('error', errorOnUpload);
 				reader.readAsDataURL(file);
 			} else {
+				onUploadPreviewErrorChange?.(false);
 				cancelChooseFile();
 			}
 		},
-		[cancelChooseFile, errorOnUpload, onFileLoad],
+		[cancelChooseFile, errorOnUpload, onFileLoad, onUploadPreviewErrorChange],
 	);
 
 	const cancelUpload = useCallback(
@@ -615,6 +628,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			}
 			clearUploadPicker();
 			onUploadCancelled();
+			onUploadPreviewErrorChange?.(false);
 
 			// using setTimeout here to allow the UI to update before setting focus
 			setTimeout(
@@ -627,7 +641,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 				lastFocusedElementId.current,
 			);
 		},
-		[clearUploadPicker, onUploadCancelled],
+		[clearUploadPicker, onUploadCancelled, onUploadPreviewErrorChange],
 	);
 
 	const onChooseFileClicked = () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import Select from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label';
+import Select from '@atlaskit/select/select';
 
 export default function SelectAppearanceDefault(): React.JSX.Element {
 	return (

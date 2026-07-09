@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 13.0.0
+
+### Major Changes
+
+- [`f62c983c6394a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f62c983c6394a) -
+  Replace platform_editor_typeahead_empty_query_fix with platform_editor_agent_mentions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.13
 
 ### Patch Changes

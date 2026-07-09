@@ -514,6 +514,7 @@ export const PasteActionsMenu = ({
 						onMouseEnter={handleMouseEnter}
 						components={pasteMenuComponents}
 						contentRef={popupContentRef}
+						pastedSlice={lastContentPasted?.pastedSlice}
 					/>
 				</ToolbarDropdownMenuProvider>
 			</EditorToolbarProvider>

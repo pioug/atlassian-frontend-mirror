@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
+import Breadcrumbs from '@atlaskit/breadcrumbs/breadcrumbs';
+import { BreadcrumbsItem } from '@atlaskit/breadcrumbs/breadcrumbs-item';
 import Button from '@atlaskit/button/new';
-import PageHeader from '@atlaskit/page-header';
+import PageHeader from '@atlaskit/page-header/page-header';
 
 const Examples = (): React.JSX.Element => (
 	<>

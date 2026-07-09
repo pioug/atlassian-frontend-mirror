@@ -737,5 +737,13 @@ export const pragmaticResizerStylesPanelAndRule: SerializedStyles = css({
 				height: '40px',
 			},
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"].first-node-in-document)':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+				'> .pm-breakout-resize-handle-container': {
+					transform: 'translateY(-12px)',
+				},
+			},
 	},
 });

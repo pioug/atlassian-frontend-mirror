@@ -10,7 +10,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AtlassianIcon',
-				package: '@atlaskit/logo',
+				package: '@atlaskit/logo/atlassian-icon',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, Flex } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 const _default_1: React.JSX.Element[] = [
 	<Flex gap="space.100" alignItems="center">

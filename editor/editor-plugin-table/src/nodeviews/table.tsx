@@ -1,7 +1,9 @@
 import React from 'react';
 
+import type { IntlShape } from 'react-intl';
+
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { isSSR, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
+import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -37,6 +39,7 @@ import type { PluginInjectionAPI } from '../types';
 
 import { RoundedTableEdges } from './rounded-table-edges';
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
+import { TableSSRReactContextsProvider } from './TableSSRReactContextsProvider';
 import { tableNodeSpecWithFixedToDOM } from './toDOM';
 import type { Props, TableOptions } from './types';
 
@@ -93,6 +96,7 @@ export default class TableView extends ReactNodeView<Props> {
 	private renderedDOM?: HTMLElement;
 	private resizeObserver?: ResizeObserver;
 	private roundedTableEdges: RoundedTableEdges | undefined;
+	private intl?: IntlShape;
 	eventDispatcher?: EventDispatcher;
 	getPos: getPosHandlerNode;
 	options: TableOptions | undefined;
@@ -115,6 +119,7 @@ export default class TableView extends ReactNodeView<Props> {
 		this.eventDispatcher = props.eventDispatcher;
 		this.options = props.options;
 		this.getEditorFeatureFlags = props.getEditorFeatureFlags;
+		this.intl = props.intl;
 
 		if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
 			this.roundedTableEdges = new RoundedTableEdges(() => this.table, props.node);
@@ -226,7 +231,15 @@ export default class TableView extends ReactNodeView<Props> {
 			}
 
 			// Remove the ProseMirror table DOM structure to avoid duplication, as it's replaced with the React table node.
-			if (this.dom && this.renderedDOM) {
+			// In SSR streaming the portal renders via `container.innerHTML = html` (portal/common.tsx), which detaches
+			// `renderedDOM` from `dom` before this runs; require it to still be a child so `removeChild` doesn't throw
+			// `NotFoundError` (which would make EditorSSRRenderer fall back to the position-blind schema toDOM and lose
+			// nested detection). CSR keeps the original condition unchanged.
+			if (
+				this.dom &&
+				this.renderedDOM &&
+				(!isSSRStreaming() || this.renderedDOM.parentNode === this.dom)
+			) {
 				this.dom.removeChild(this.renderedDOM);
 			}
 			// Move the table from the ProseMirror table structure into the React rendered table node.
@@ -359,22 +372,24 @@ export default class TableView extends ReactNodeView<Props> {
 
 	render(props: Props, forwardRef: ForwardRef): React.JSX.Element {
 		return (
-			<TableComponentWithSharedState
-				forwardRef={forwardRef}
-				getNode={this.getNode}
-				view={props.view}
-				options={props.options}
-				eventDispatcher={props.eventDispatcher}
-				api={props.pluginInjectionApi}
-				allowColumnResizing={props.allowColumnResizing}
-				allowTableAlignment={props.allowTableAlignment}
-				allowTableResizing={props.allowTableResizing}
-				allowControls={props.allowControls}
-				getPos={props.getPos}
-				getEditorFeatureFlags={props.getEditorFeatureFlags}
-				dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-				allowFixedColumnWidthOption={props.allowFixedColumnWidthOption}
-			/>
+			<TableSSRReactContextsProvider intl={this.intl}>
+				<TableComponentWithSharedState
+					forwardRef={forwardRef}
+					getNode={this.getNode}
+					view={props.view}
+					options={props.options}
+					eventDispatcher={props.eventDispatcher}
+					api={props.pluginInjectionApi}
+					allowColumnResizing={props.allowColumnResizing}
+					allowTableAlignment={props.allowTableAlignment}
+					allowTableResizing={props.allowTableResizing}
+					allowControls={props.allowControls}
+					getPos={props.getPos}
+					getEditorFeatureFlags={props.getEditorFeatureFlags}
+					dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+					allowFixedColumnWidthOption={props.allowFixedColumnWidthOption}
+				/>
+			</TableSSRReactContextsProvider>
 		);
 	}
 
@@ -472,6 +487,7 @@ export const createTableView = (
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
 	allowFixedColumnWidthOption?: boolean,
+	intl?: IntlShape,
 ): NodeView => {
 	const {
 		pluginConfig,
@@ -491,24 +507,6 @@ export const createTableView = (
 
 	const shouldUseIncreasedScalingPercent =
 		isTableScalingEnabled && (isTableFixedColumnWidthsOptionEnabled || isCommentEditor);
-
-	// In SSR use native ProseMirror spec-based render for table nodes
-	if (isSSR() && isSSRStreaming()) {
-		const isNested = isTableNested(view.state, typeof getPos === 'function' ? getPos() : undefined);
-
-		const tableDOMStructure = tableNodeSpecWithFixedToDOM({
-			allowColumnResizing: allowColumnResizing ?? false,
-			tableResizingEnabled: allowTableResizing ?? false,
-			getEditorContainerWidth,
-			isTableScalingEnabled,
-			shouldUseIncreasedScalingPercent,
-			isCommentEditor,
-			isChromelessEditor,
-			isNested,
-		}).toDOM(node);
-
-		return DOMSerializer.renderSpec(document, tableDOMStructure);
-	}
 
 	return new TableView({
 		node,
@@ -533,5 +531,6 @@ export const createTableView = (
 		dispatchAnalyticsEvent,
 		pluginInjectionApi,
 		allowFixedColumnWidthOption,
+		intl,
 	}).init();
 };

@@ -1,5 +1,42 @@
 # @atlaskit/smart-card
 
+## 45.8.2
+
+### Patch Changes
+
+- [`b8399b376c921`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8399b376c921) -
+  Rebrand Google to Google Drive on ORS /resolve extractor
+- [`365da22196eb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/365da22196eb1) -
+  Cleanup platform_smartlink_xpc_url_wrapping_window_existed
+- Updated dependencies
+
+## 45.8.1
+
+### Patch Changes
+
+- [`3e0cde5dabf41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e0cde5dabf41) -
+  Resolve hover card metadata for unauthorized Smart Links when inline resolve optimization is
+  enabled.
+- Updated dependencies
+
+## 45.8.0
+
+### Minor Changes
+
+- [`2f56c78f969b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f56c78f969b8) -
+  Update i18n NPM package versions for teamwork-graph (Group 16)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.7.3
+
+### Patch Changes
+
+- [`8123ef2a41a8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8123ef2a41a8c) -
+  [ux] Fix spacing around embed card Rovo footer actions.
+
 ## 45.7.2
 
 ### Patch Changes

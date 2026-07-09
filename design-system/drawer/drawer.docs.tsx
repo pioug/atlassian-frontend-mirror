@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'intent-to-deprecate',
 			import: {
 				name: 'Drawer',
-				package: '@atlaskit/drawer',
+				package: '@atlaskit/drawer/drawer',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -52,7 +52,7 @@ const documentation: StructuredContentSource = {
 			status: 'intent-to-deprecate',
 			import: {
 				name: 'DrawerContent',
-				package: '@atlaskit/drawer',
+				package: '@atlaskit/drawer/drawer-content',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -83,7 +83,7 @@ const documentation: StructuredContentSource = {
 			status: 'intent-to-deprecate',
 			import: {
 				name: 'DrawerSidebar',
-				package: '@atlaskit/drawer',
+				package: '@atlaskit/drawer/drawer-sidebar',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -114,7 +114,7 @@ const documentation: StructuredContentSource = {
 			status: 'intent-to-deprecate',
 			import: {
 				name: 'DrawerCloseButton',
-				package: '@atlaskit/drawer',
+				package: '@atlaskit/drawer/drawer-close-button',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

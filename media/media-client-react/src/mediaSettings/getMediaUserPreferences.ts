@@ -57,10 +57,12 @@ export const generateMediaUserPreferences = (
 const defaultUserPreferences: UserPreferences = {
 	set: (key: string, value: string) => {
 		const MEDIA_KEY = 'media';
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		localStorage.setItem(`${MEDIA_KEY}-${key}`, value);
 	},
 	get: (key: string) => {
 		const MEDIA_KEY = 'media';
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		return localStorage.getItem(`${MEDIA_KEY}-${key}`);
 	},
 };

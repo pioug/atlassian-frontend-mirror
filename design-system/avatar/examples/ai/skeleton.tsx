@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Skeleton } from '@atlaskit/avatar';
+import Skeleton from '@atlaskit/avatar/skeleton';
 
 const Examples = (): React.JSX.Element => (
 	<>

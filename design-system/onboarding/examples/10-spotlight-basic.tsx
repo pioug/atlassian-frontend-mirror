@@ -3,12 +3,10 @@ import React, { Component } from 'react';
 import Lorem from 'react-lorem-component';
 
 // eslint-disable-next-line @atlaskit/design-system/use-spotlight-package
-import {
-	Spotlight,
-	SpotlightManager,
-	SpotlightTarget,
-	SpotlightTransition,
-} from '@atlaskit/onboarding';
+import Spotlight from '@atlaskit/onboarding/spotlight';
+import SpotlightManager from '@atlaskit/onboarding/spotlight-manager';
+import SpotlightTarget from '@atlaskit/onboarding/spotlight-target';
+import SpotlightTransition from '@atlaskit/onboarding/spotlight-transition';
 
 import { Highlight, HighlightGroup } from './styled';
 

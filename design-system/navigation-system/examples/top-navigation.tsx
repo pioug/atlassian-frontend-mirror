@@ -8,7 +8,7 @@ import AKBadge from '@atlaskit/badge';
 import { cssMap } from '@atlaskit/css';
 import AtlassianIntelligenceIcon from '@atlaskit/icon/core/atlassian-intelligence';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { ConfluenceIcon } from '@atlaskit/logo';
+import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -29,7 +29,7 @@ import {
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
 import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
 import { WithResponsiveViewport } from './utils/example-utils';

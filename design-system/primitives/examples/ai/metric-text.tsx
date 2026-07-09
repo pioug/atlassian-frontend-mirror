@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MetricText } from '@atlaskit/primitives/compiled';
+import { MetricText } from '@atlaskit/primitives/compiled/metric-text';
 
 const _default_1: React.JSX.Element[] = [
 	<MetricText size="small">42</MetricText>,

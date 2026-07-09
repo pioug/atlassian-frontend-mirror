@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Tag from '@atlaskit/tag';
-import TagGroup from '@atlaskit/tag-group';
+import TagGroup from '@atlaskit/tag-group/tag-group';
 
 const Example = (): React.JSX.Element => (
 	<TagGroup label="Tags for work item">

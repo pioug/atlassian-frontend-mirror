@@ -2,20 +2,16 @@ import React, { Fragment } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import Form, {
-	ErrorMessage,
-	Field,
-	FormFooter,
-	FormHeader,
-	FormSection,
-	HelperMessage,
-	MessageWrapper,
-	RequiredAsterisk,
-	ValidMessage,
-} from '@atlaskit/form';
-import { Flex } from '@atlaskit/primitives/compiled';
-import { RadioGroup } from '@atlaskit/radio';
-import TextField from '@atlaskit/textfield';
+import Field from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { FormSection } from '@atlaskit/form/form-section';
+import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from '@atlaskit/form/messages';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import RadioGroup from '@atlaskit/radio/radio-group';
+import TextField from '@atlaskit/textfield/text-field';
 
 const FormDefaultExample = (): React.JSX.Element => (
 	<Flex direction="column">

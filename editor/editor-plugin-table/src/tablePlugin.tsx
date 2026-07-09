@@ -40,6 +40,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { tableNodeSpecWithFixedToDOM } from './nodeviews/toDOM';
@@ -739,6 +740,18 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							});
 
 							return tr;
+						}
+
+						// Delegate to the markdown plugin to insert a markdown table string at the CM cursor position.
+						const markdownState = api?.markdownMode?.sharedState.currentState();
+						if (
+							markdownState?.isMarkdownMode &&
+							markdownState?.view === 'syntax' &&
+							expValEqualsNoExposure('cc-markdown-mode', 'isEnabled', true) &&
+							fg('platform_editor_markdown_compatible_toolbar')
+						) {
+							api?.markdownMode?.actions.insertSourceTable();
+							return state.tr;
 						}
 
 						// see comment on tablesPlugin.getSharedState on usage

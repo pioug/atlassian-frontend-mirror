@@ -8,6 +8,10 @@ const documentation: StructuredContentSource = {
 			name: 'Modal',
 			description: 'A modal dialog component for important content.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82128-80670',
+			},
 			import: {
 				name: 'Modal',
 				package: '@atlaskit/modal-dialog',
@@ -57,8 +61,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ModalHeader',
-				package: '@atlaskit/modal-dialog',
-				type: 'named',
+				package: '@atlaskit/modal-dialog/modal-header',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -85,8 +89,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ModalTitle',
-				package: '@atlaskit/modal-dialog',
-				type: 'named',
+				package: '@atlaskit/modal-dialog/modal-title',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -112,8 +116,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ModalBody',
-				package: '@atlaskit/modal-dialog',
-				type: 'named',
+				package: '@atlaskit/modal-dialog/modal-body',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -139,8 +143,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ModalFooter',
-				package: '@atlaskit/modal-dialog',
-				type: 'named',
+				package: '@atlaskit/modal-dialog/modal-footer',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -170,8 +174,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ModalTransition',
-				package: '@atlaskit/modal-dialog',
-				type: 'named',
+				package: '@atlaskit/modal-dialog/modal-transition',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -197,7 +201,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CloseButton',
-				package: '@atlaskit/modal-dialog',
+				package: '@atlaskit/modal-dialog/close-button',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

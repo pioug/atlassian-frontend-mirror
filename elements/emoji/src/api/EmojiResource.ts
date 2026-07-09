@@ -423,6 +423,7 @@ export class EmojiResource
 		if (typeof window === 'undefined') {
 			return undefined;
 		}
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		const storedToneString = window.localStorage.getItem(selectedToneStorageKey);
 		if (storedToneString) {
 			const storedTone = parseInt(storedToneString, 10);
@@ -690,6 +691,7 @@ export class EmojiResource
 		}
 		if (storageAvailable('localStorage')) {
 			try {
+				// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 				window.localStorage.setItem(selectedToneStorageKey, tone ? tone.toString() : '');
 			} catch (e) {
 				// eslint-disable-next-line no-console

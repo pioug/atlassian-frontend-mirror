@@ -9,9 +9,13 @@ const documentation: StructuredContentSource = {
 			description:
 				'A badge is a visual indicator for numeric values such as tallies and scores, providing quick visual feedback.',
 			status: 'general-availability', // beta badge is feature-flagged
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=116989-3851',
+			},
 			import: {
 				name: 'Badge',
-				package: '@atlaskit/badge',
+				package: '@atlaskit/badge/badge',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

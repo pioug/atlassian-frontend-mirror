@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Motion, StaggeredEntrance } from '@atlaskit/motion';
+import Motion from '@atlaskit/motion/motion';
+import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

@@ -4,8 +4,8 @@
  */
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { DateLabelDropdownTrigger } from '@atlaskit/date-label';
-import { Text } from '@atlaskit/primitives/compiled';
+import DateLabelDropdownTrigger from '@atlaskit/date-label/date-label-dropdown-trigger';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

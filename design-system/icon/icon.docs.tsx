@@ -11,8 +11,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'IconNew',
-				package: '@atlaskit/icon',
-				type: 'named',
+				package: '@atlaskit/icon/icon-new',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -53,8 +53,8 @@ const documentation: StructuredContentSource = {
 			status: 'release-candidate',
 			import: {
 				name: 'IconTile',
-				package: '@atlaskit/icon',
-				type: 'named',
+				package: '@atlaskit/icon/icon-tile',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
-import { Stack, Text } from '@atlaskit/primitives/compiled';
+import Heading from '@atlaskit/heading/heading';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const _default_1: React.JSX.Element[] = [
 	<Stack space="space.100">

@@ -9,9 +9,13 @@ const documentation: StructuredContentSource = {
 			description:
 				'A progress bar communicates the status of a system process, showing completion percentage or indeterminate progress.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=5701-6335',
+			},
 			import: {
 				name: 'ProgressBar',
-				package: '@atlaskit/progress-bar',
+				package: '@atlaskit/progress-bar/progress-bar',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -51,7 +55,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'SuccessProgressBar',
-				package: '@atlaskit/progress-bar',
+				package: '@atlaskit/progress-bar/success-progress-bar',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -83,7 +87,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'TransparentProgressBar',
-				package: '@atlaskit/progress-bar',
+				package: '@atlaskit/progress-bar/transparent-progress-bar',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

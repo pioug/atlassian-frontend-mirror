@@ -10,7 +10,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'TextField',
-				package: '@atlaskit/textfield',
+				package: '@atlaskit/textfield/text-field',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "7.2.0",
+	"version": "7.3.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,6 +31,7 @@
 		"./slide-in": "./src/entry-points/slide-in.tsx",
 		"./staggered-entrance": "./src/entry-points/staggered-entrance.tsx",
 		"./types": "./src/entry-points/types.tsx",
+		"./use-motion": "./src/entry-points/use-motion.tsx",
 		"./zoom-in": "./src/entry-points/zoom-in.tsx"
 	},
 	"atlaskit:src": "src/index.tsx",
@@ -119,6 +120,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
@@ -158,6 +160,9 @@
 	"homepage": "https://atlassian.design/components/motion/",
 	"platform-feature-flags": {
 		"platform-dst-motion-uplift": {
+			"type": "boolean"
+		},
+		"platform-dst-use-motion": {
 			"type": "boolean"
 		}
 	}

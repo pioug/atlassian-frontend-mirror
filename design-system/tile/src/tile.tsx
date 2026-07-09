@@ -3,11 +3,24 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useEffect, useRef } from 'react';
+
 import { cssMap, jsx } from '@compiled/react';
+import { bind } from 'bind-event-listener';
 
 import { token } from '@atlaskit/tokens';
 
 import { type TileProps } from './types';
+
+// Pixel sizes per tile size, used for retina validation
+const tileSizePx: Record<string, number> = {
+	xxsmall: 16,
+	xsmall: 20,
+	small: 24,
+	medium: 32,
+	large: 40,
+	xlarge: 48,
+};
 
 const styles = cssMap({
 	root: {
@@ -46,6 +59,11 @@ const styles = cssMap({
 		'& span, & div, & svg, & img': {
 			width: '100%',
 			height: '100%',
+		},
+		// Ensure raster images are cropped to a square rather than distorted
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& img': {
+			objectFit: 'cover',
 		},
 	},
 });
@@ -301,8 +319,77 @@ export default function Tile(props: TileProps): JSX.Element {
 		testId,
 	} = props;
 
+	const containerRef = useRef<HTMLSpanElement>(null);
+
+	// Dev-mode only: validate that raster images passed into the tile
+	// are square and retina-compatible (at least 2x the rendered tile size).
+	useEffect(() => {
+		if (process.env.NODE_ENV !== 'development') {
+			return;
+		}
+
+		const container = containerRef.current;
+		if (!container) {
+			return;
+		}
+
+		const images = container.querySelectorAll<HTMLImageElement>('img');
+		const defaultSizePx = tileSizePx['medium'];
+		const tilePx = tileSizePx[size] ?? defaultSizePx;
+
+		const unbinds: Array<() => void> = [];
+
+		images.forEach((img) => {
+			const isRaster = /\.(png|jpe?g|gif|webp|avif)(\?|$)/i.test(img.src);
+			if (!isRaster) {
+				return;
+			}
+
+			const onLoad = () => {
+				const { naturalWidth, naturalHeight } = img;
+
+				// naturalWidth/naturalHeight are 0 when the image fails to load
+				// (e.g. broken src, CORS error). Skip validation in that case to
+				// avoid misleading warnings about a non-existent image.
+				if (naturalWidth === 0 || naturalHeight === 0) {
+					return;
+				}
+
+				// Warn when the image is not square
+				if (naturalWidth !== naturalHeight) {
+					// eslint-disable-next-line no-console
+					console.warn(
+						`[Tile] The image "${img.src}" passed into a Tile is not square (${naturalWidth}x${naturalHeight}px). ` +
+							`Non-square images will be cropped to a square with object-fit: cover. ` +
+							`Use a square image to ensure the correct portion is shown.`,
+					);
+				}
+
+				// Warn when the image is not retina-compatible (natural size < 2x tile size)
+				const requiredPx = tilePx * 2;
+				if (naturalWidth < requiredPx || naturalHeight < requiredPx) {
+					// eslint-disable-next-line no-console
+					console.warn(
+						`[Tile] The image "${img.src}" passed into a Tile may appear blurry on retina displays. ` +
+							`For a "${size}" tile (${tilePx}px), the image should be at least ${requiredPx}x${requiredPx}px. ` +
+							`Provided image is ${naturalWidth}x${naturalHeight}px.`,
+					);
+				}
+			};
+
+			if (img.complete) {
+				onLoad();
+			} else {
+				unbinds.push(bind(img, { type: 'load', listener: onLoad, options: { once: true } }));
+			}
+		});
+
+		return () => unbinds.forEach((fn) => fn());
+	}, [children, size]);
+
 	return (
 		<span
+			ref={containerRef}
 			data-testid={testId}
 			css={[
 				styles.root,

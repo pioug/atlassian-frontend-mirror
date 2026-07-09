@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { ExitingPersistence, Motion } from '@atlaskit/motion';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import Motion from '@atlaskit/motion/motion';
 import { token } from '@atlaskit/tokens';
 
 export default function MotionPrimitiveExample(): JSX.Element {

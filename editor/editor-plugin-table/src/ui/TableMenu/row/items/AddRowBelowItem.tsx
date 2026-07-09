@@ -5,7 +5,6 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addRowAfter, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import {
 	TableRowAddBelowIcon,
 	ToolbarDropdownItem,
@@ -14,6 +13,7 @@ import {
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { insertRowWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
+import { getMenuSelectionRect } from '../../shared/selection';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
@@ -27,7 +27,7 @@ export const AddRowBelowItem = (props: TableMenuComponentsParams): React.JSX.Ele
 			return;
 		}
 
-		const selectionRect = getSelectionRect(editorView.state.selection);
+		const selectionRect = getMenuSelectionRect(editorView.state.selection);
 		const index = selectionRect?.bottom;
 		if (index === undefined) {
 			return;

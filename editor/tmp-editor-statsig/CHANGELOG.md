@@ -1,5 +1,39 @@
 # @atlaskit/editor-statsig-tmp
 
+## 123.0.0
+
+### Major Changes
+
+- [`a3cf50efa20a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3cf50efa20a6) -
+  Added 10% sampling rate to started and rendered events to reduce gasv3 costs
+
+### Minor Changes
+
+- [`f62c983c6394a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f62c983c6394a) -
+  Replace platform_editor_typeahead_empty_query_fix with platform_editor_agent_mentions
+- [`763bf25cf903d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/763bf25cf903d) -
+  Converted platform_editor_reduced_agent_profile_card to be an experiment flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 122.0.0
+
+### Major Changes
+
+- [`3629510367aea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3629510367aea) -
+  Cleanup platform_sl_3p_auth_rovo_action
+
+### Minor Changes
+
+- [`a6c2cf9e157f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6c2cf9e157f4) -
+  [ux] add new optional prompt indicator logic for smart create modal
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 121.3.0
 
 ### Minor Changes

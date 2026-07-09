@@ -3,6 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { IconType, SmartLinkStatus } from '../../../constants';
+import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../extractors/constants';
 import { messages } from '../../../messages';
 import { getContextByStatus, getRetryOptions } from '../utils';
 
@@ -180,6 +181,111 @@ describe('getContextByStatus', () => {
 				url,
 			}),
 		);
+	});
+
+	/**
+	 * The `platform_sl_google_rebrand` gate controls which provider extractor is used
+	 * for non-resolved statuses (Unauthorized, Forbidden, NotFound, Errored, Fallback).
+	 *
+	 * For known providers (Confluence, Jira), both extractors return the same IconType-based
+	 * descriptor — the gate has no visible difference for these.
+	 *
+	 * For third-party providers, the gate matters:
+	 *   - ON:  uses `extractProvider` → returns `{ label, url }` only when providerName is truthy
+	 *   - OFF: uses `extractSmartLinkProviderIcon` → returns `{ label, url }` via extractUrlIcon
+	 */
+	ffTest.both('platform_sl_google_rebrand', 'provider field in error statuses', () => {
+		const makeResponse = (generatorId: string, name: string, iconUrl: string) =>
+			({
+				meta: { access: 'forbidden' as const, visibility: 'restricted' as const },
+				data: {
+					'@context': {
+						'@vocab': 'https://www.w3.org/ns/activitystreams#',
+						atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+						schema: 'http://schema.org/',
+					},
+					'@type': 'Document',
+					url,
+					generator: {
+						'@type': 'Application',
+						'@id': generatorId,
+						name,
+						icon: { '@type': 'Image', url: iconUrl },
+					},
+				},
+			}) as unknown as JsonLd.Response;
+
+		it.each([
+			[SmartLinkStatus.Unauthorized],
+			[SmartLinkStatus.Forbidden],
+			[SmartLinkStatus.NotFound],
+			[SmartLinkStatus.Errored],
+			[SmartLinkStatus.Fallback],
+		])('returns Confluence icon type provider for both gate states — status: %s', (status) => {
+			const response = makeResponse(
+				CONFLUENCE_GENERATOR_ID,
+				'Confluence',
+				'https://confluence-icon.com/icon.png',
+			);
+			const context = getContextByStatus({ url, status, response });
+
+			// Both extractProvider (gate ON) and extractSmartLinkProviderIcon (gate OFF)
+			// return the same IconType-based descriptor for Confluence
+			expect(context?.provider).toEqual({
+				icon: IconType.Confluence,
+				label: 'Confluence',
+			});
+		});
+
+		it.each([
+			[SmartLinkStatus.Unauthorized],
+			[SmartLinkStatus.Forbidden],
+			[SmartLinkStatus.NotFound],
+			[SmartLinkStatus.Errored],
+			[SmartLinkStatus.Fallback],
+		])('returns Jira icon type provider for both gate states — status: %s', (status) => {
+			const response = makeResponse(JIRA_GENERATOR_ID, 'Jira', 'https://jira-icon.com/icon.png');
+			const context = getContextByStatus({ url, status, response });
+
+			// Both extractProvider (gate ON) and extractSmartLinkProviderIcon (gate OFF)
+			// return the same IconType-based descriptor for Jira
+			expect(context?.provider).toEqual({
+				icon: IconType.Jira,
+				label: 'Jira',
+			});
+		});
+
+		it('returns url-based provider for third-party when gate is OFF, label+url when ON', () => {
+			const thirdPartyIconUrl = 'https://figma-icon.com/icon.png';
+			const response = makeResponse('https://figma.com', 'Figma', thirdPartyIconUrl);
+
+			const context = getContextByStatus({
+				url,
+				status: SmartLinkStatus.Unauthorized,
+				response,
+			});
+
+			// Both gate states return { label, url } for third-party providers
+			expect(context?.provider).toEqual({
+				label: 'Figma',
+				url: thirdPartyIconUrl,
+			});
+		});
+
+		it('returns undefined provider when response has no generator', () => {
+			const responseWithNoGenerator = {
+				meta: { access: 'forbidden' as const, visibility: 'restricted' as const },
+				data: { '@type': 'Document', url },
+			} as unknown as JsonLd.Response;
+
+			const context = getContextByStatus({
+				url,
+				status: SmartLinkStatus.Forbidden,
+				response: responseWithNoGenerator,
+			});
+
+			expect(context?.provider).toBeUndefined();
+		});
 	});
 });
 

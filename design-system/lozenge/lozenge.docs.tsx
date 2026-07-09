@@ -9,9 +9,13 @@ const documentation: StructuredContentSource = {
 			description:
 				'A lozenge is a prominent, compact label used to communicate a meaningful attribute that affects how people understand, prioritize or act on an object.',
 			status: 'general-availability', // beta lozenge is feature-flagged
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=116954-2709',
+			},
 			import: {
 				name: 'Lozenge',
-				package: '@atlaskit/lozenge',
+				package: '@atlaskit/lozenge/lozenge',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -54,8 +58,8 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'LozengeDropdownTrigger',
-				package: '@atlaskit/lozenge',
-				type: 'named',
+				package: '@atlaskit/lozenge/lozenge-dropdown-trigger',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

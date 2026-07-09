@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Status } from '@atlaskit/avatar';
+import Status from '@atlaskit/avatar/status';
 
 const Examples = (): React.JSX.Element => (
 	<>

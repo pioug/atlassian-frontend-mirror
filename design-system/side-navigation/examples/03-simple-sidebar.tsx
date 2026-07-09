@@ -6,18 +6,16 @@ import SelectedIcon from '@atlaskit/icon/core/check-mark';
 import ButtonIcon from '@atlaskit/icon/core/checkbox-indeterminate';
 import CustomIcon from '@atlaskit/icon/core/compass';
 import LinkIcon from '@atlaskit/icon/core/link';
-import { Flex } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	ButtonItem,
-	HeadingItem,
-	LinkItem,
-	NavigationContent,
-	NavigationFooter,
-	NavigationHeader,
-	Section,
-	SideNavigation,
-} from '@atlaskit/side-navigation';
+import { ButtonItem } from '@atlaskit/side-navigation/button-item';
+import { HeadingItem } from '@atlaskit/side-navigation/heading-item';
+import { LinkItem } from '@atlaskit/side-navigation/link-item';
+import { NavigationContent } from '@atlaskit/side-navigation/navigation-content';
+import { NavigationFooter } from '@atlaskit/side-navigation/navigation-footer';
+import { NavigationHeader } from '@atlaskit/side-navigation/navigation-header';
+import { Section } from '@atlaskit/side-navigation/section';
+import { SideNavigation } from '@atlaskit/side-navigation/side-navigation';
 import { token } from '@atlaskit/tokens';
 
 import AppFrame from './common/app-frame';

@@ -141,6 +141,10 @@ const documentation: StructuredContentSource = {
 				'Use consistent terminology across related actions',
 			],
 			accessibilityGuidelines: ['Provide descriptive labels for the IconButton trigger'],
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=51849-5001',
+			},
 			examples: [
 				{
 					name: 'Split Button',
@@ -232,7 +236,7 @@ const documentation: StructuredContentSource = {
 			status: 'intent-to-deprecate',
 			import: {
 				name: 'Button',
-				package: '@atlaskit/button',
+				package: '@atlaskit/button/new',
 				type: 'default',
 				packagePath,
 				packageJson,

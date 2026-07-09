@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { ButtonItem, LinkItem, MenuGroup, Section } from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import LinkItem from '@atlaskit/menu/link-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
 
 const Examples = (): React.JSX.Element => (
 	<>

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { DrawerContent } from '@atlaskit/drawer';
-import Heading from '@atlaskit/heading';
-import { Text } from '@atlaskit/primitives/compiled';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import Heading from '@atlaskit/heading/heading';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const Examples = (): React.JSX.Element => (
 	<>

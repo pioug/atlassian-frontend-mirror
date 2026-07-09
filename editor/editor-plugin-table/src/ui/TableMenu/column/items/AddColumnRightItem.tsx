@@ -6,7 +6,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { addColumnAfter, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import {
 	TableColumnAddRightIcon,
 	ToolbarDropdownItem,
@@ -16,6 +15,7 @@ import {
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { insertColumnWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import type { TableSharedStateInternal } from '../../../../types';
+import { getMenuSelectionRect } from '../../shared/selection';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
@@ -37,7 +37,7 @@ export const AddColumnRightItem = ({ api }: TableMenuComponentsParams): React.JS
 			return;
 		}
 
-		const selectionRect = getSelectionRect(editorView.state.selection);
+		const selectionRect = getMenuSelectionRect(editorView.state.selection);
 		const index = selectionRect?.right;
 		if (index === undefined) {
 			return;

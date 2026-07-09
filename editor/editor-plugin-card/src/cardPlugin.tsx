@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { CardProvider, QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
@@ -13,6 +13,7 @@ import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 	CONFLUENCE_SEARCH_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
+import { type CardContext, SmartCardContext } from '@atlaskit/link-provider/context';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
@@ -38,11 +39,24 @@ import LayoutButton from './ui/LayoutButton';
 import { getPasteDisplayAsMenuComponents } from './ui/PasteDisplayAsMenu';
 import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from './ui/toolbar';
 
+type SmartCardClientRef = {
+	current: CardContext['connections']['client'] | undefined;
+};
+
+const PasteMenuSmartCardClientSync = ({ clientRef }: { clientRef: SmartCardClientRef }) => {
+	const smartCardContext = useContext(SmartCardContext);
+	useEffect(() => {
+		clientRef.current = smartCardContext?.connections?.client;
+	}, [clientRef, smartCardContext?.connections?.client]);
+	return null;
+};
+
 export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptions, api }) => {
 	let previousCardProvider: CardProvider | undefined;
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 	let instanceEmbedCardTransformers = options.embedCardTransformers;
 	let editorViewForPasteMenu: EditorView | undefined;
+	const pasteMenuSmartCardClientRef: SmartCardClientRef = { current: undefined };
 
 	const pasteMenuVariant = expValNoExposure(
 		'platform_editor_paste_actions_menu_v2',
@@ -59,6 +73,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 				allowBlockCards: options.onlyInlineCards ? false : (options.allowBlockCards ?? true),
 				allowEmbeds: options.onlyInlineCards ? false : options.allowEmbeds,
 				getEditorView: () => editorViewForPasteMenu,
+				smartCardClientRef: pasteMenuSmartCardClientRef,
 			}),
 		);
 	}
@@ -164,6 +179,9 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 			const breakoutEnabled = options.editorAppearance === 'full-page';
 			return (
 				<>
+					{shouldRegisterPasteDisplayAsMenu && (
+						<PasteMenuSmartCardClientSync clientRef={pasteMenuSmartCardClientRef} />
+					)}
 					<EditorSmartCardEvents editorView={editorView} />
 					<EditorLinkingPlatformAnalytics
 						cardPluginEvents={cardPluginEvents}

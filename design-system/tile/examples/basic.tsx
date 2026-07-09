@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tile from '@atlaskit/tile';
+import Tile from '@atlaskit/tile/tile';
 
 export default function Basic(): React.JSX.Element {
 	const insetCloudSVG = (

@@ -1,5 +1,29 @@
 # @atlaskit/tile
 
+## 2.3.0
+
+### Minor Changes
+
+- [`50738f6a4a2fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/50738f6a4a2fb) -
+  Improved image scaling and validation for assets passed into tiles:
+  - Non-inset tiles now apply `object-fit: cover` to `img` elements, ensuring raster images are
+    cropped to a square rather than distorted when the image is not square.
+  - Added dev-mode console warnings when a raster image (PNG/JPG/GIF/WebP/AVIF) passed into a tile
+    is not square or is not retina-compatible (i.e. the image's natural dimensions are less than 2x
+    the rendered tile size). These warnings only appear in development builds and are silent in
+    production.
+
+## 2.2.0
+
+### Minor Changes
+
+- [`2f56c78f969b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f56c78f969b8) -
+  Update i18n NPM package versions for teamwork-graph (Group 16)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

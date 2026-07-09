@@ -5,6 +5,7 @@ import type {
 	GetEditorFeatureFlags,
 	NextEditorPlugin,
 	OptionalPlugin,
+	_MarkdownModePluginStub,
 } from '@atlaskit/editor-common/types';
 import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -103,6 +104,7 @@ export type TablePluginDependencies = [
 	OptionalPlugin<UserIntentPlugin>,
 	OptionalPlugin<ToolbarPlugin>,
 	OptionalPlugin<UiControlRegistryPlugin>,
+	OptionalPlugin<_MarkdownModePluginStub>,
 ];
 
 export type TablePlugin = NextEditorPlugin<

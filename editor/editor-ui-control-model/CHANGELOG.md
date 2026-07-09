@@ -1,5 +1,15 @@
 # @atlaskit/editor-ui-control-model
 
+## 2.2.0
+
+### Minor Changes
+
+- [`779a0020403de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/779a0020403de) -
+  Add async hidden support to paste menu registered components, including timeout/error handling and
+  single Smart Link URL context from the paste options toolbar. Use Smart Card access checks to hide
+  Smart Link Display as options and AI Add Summary / Ask Rovo paste actions for inaccessible
+  single-link pastes in Confluence.
+
 ## 2.1.0
 
 ### Minor Changes

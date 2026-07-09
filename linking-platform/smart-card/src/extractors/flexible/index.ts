@@ -21,6 +21,7 @@ import { extractPersonsUpdatedBy } from './collaboratorGroup';
 import extractLinkTitle from './extract-link-title';
 import { extractSmartLinkPreviewImage } from './extract-preview';
 import extractPriority from './extract-priority';
+import extractProvider from './extract-provider';
 import extractState from './extract-state';
 import { extractSmartLinkIcon } from './icon';
 import { extractSmartLinkProviderIcon } from './icon/extract-provider-icon';
@@ -79,7 +80,6 @@ const extractFlexibleUiContext = ({
 	}
 	const data = response.data as JsonLd.Data.BaseData;
 	const meta = response.meta as JsonLd.Meta.BaseMeta;
-
 	const url = extractSmartLinkUrl(response);
 
 	return {
@@ -124,7 +124,9 @@ const extractFlexibleUiContext = ({
 		modifiedOn: extractSmartLinkModifiedOn(response),
 		preview: extractSmartLinkPreviewImage(response),
 		priority: extractPriority(data as JsonLd.Data.Task),
-		provider: extractSmartLinkProviderIcon(response),
+		provider: fg('platform_sl_google_rebrand')
+			? extractProvider(response)
+			: extractSmartLinkProviderIcon(response),
 		programmingLanguage: extractProgrammingLanguage(data),
 		readTime: extractReadTime(data),
 		sentOn: extractSmartLinkSentOn(response),

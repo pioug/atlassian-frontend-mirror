@@ -1,5 +1,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 export type {
+	AsyncHiddenContext,
 	ButtonType,
 	CommonComponentProps,
 	ComponentType,

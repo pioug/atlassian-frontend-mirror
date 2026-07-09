@@ -9,6 +9,10 @@ const documentation: StructuredContentSource = {
 			description:
 				'A component for creating overlay backgrounds behind modals and other layered content.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13613-69028',
+			},
 			import: {
 				name: 'Blanket',
 				package: '@atlaskit/blanket',

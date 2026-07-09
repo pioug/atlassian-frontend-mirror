@@ -1,5 +1,29 @@
 # @atlaskit/eslint-plugin-platform
 
+## 3.4.0
+
+### Minor Changes
+
+- [`2f56c78f969b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f56c78f969b8) -
+  Update i18n NPM package versions for teamwork-graph (Group 16)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.0
+
+### Minor Changes
+
+- [`ee831ea250a74`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee831ea250a74) -
+  Adds new `no-direct-web-storage-usage` rule that disallows direct `window.localStorage` /
+  `window.sessionStorage` usage, supporting the CSM EG CM-04 compliance work. The rule fires on
+  every linted source file (test and example files are skipped). It is registered by
+  `@atlaskit/eslint-plugin-platform` but intentionally left out of the shared `recommended` /
+  `recommended/flat` / Jira preset configs, and is enabled at severity `'error'` only for the
+  platform product via `platform/eslint.config.cjs`. Use `AtlBrowserStorageLocal` /
+  `AtlBrowserStorageSession` from `@atlassian/browser-storage-controls` instead.
+
 ## 3.2.0
 
 ### Minor Changes

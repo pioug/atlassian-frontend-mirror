@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 26.8.5
+
+### Patch Changes
+
+- [`763bf25cf903d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/763bf25cf903d) -
+  Converted platform_editor_reduced_agent_profile_card to be an experiment flag
+- Updated dependencies
+
+## 26.8.4
+
+### Patch Changes
+
+- [`5a003a25c1a41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5a003a25c1a41) -
+  Converts the `platform_editor_agent_profile_card_favourite_sync` feature gate to an experiment
+  `platform_editor_agent_profile_card_fav_sync`
+- Updated dependencies
+
 ## 26.8.3
 
 ### Patch Changes

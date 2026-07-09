@@ -100,6 +100,46 @@ describe('useResponse', () => {
 			},
 		);
 
+		ffTest.off(
+			'platform_smartlink_inline_resolve_optimization',
+			'should ignore provided metadata status on link success',
+			() => {
+				it('should ignore provided metadata status on link success', () => {
+					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
+					handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+
+					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+						expect.objectContaining({
+							type: 'metadata',
+							url: 'https://some/url',
+							metadataStatus: 'resolved',
+						}),
+					);
+				});
+			},
+		);
+
+		it('should resolve metadata status for unauthorized link responses', () => {
+			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
+			handleResolvedLinkResponse(url, mocks.unauthorized, false, false, 'pending');
+
+			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+				expect.objectContaining({
+					type: 'metadata',
+					url: 'https://some/url',
+					metadataStatus: 'resolved',
+				}),
+			);
+
+			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+				expect.objectContaining({
+					type: 'resolved',
+					url: 'https://some/url',
+					payload: mocks.unauthorized,
+				}),
+			);
+		});
+
 		it('should dispatch fallback error for forbidden responses when authFlow is disabled', () => {
 			mockContext = {
 				...mockContext,

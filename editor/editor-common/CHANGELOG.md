@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 116.24.2
+
+### Patch Changes
+
+- [`075b6ae004392`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/075b6ae004392) -
+  [ux] fix toolbar table insertion for markdown syntax mode
+- [`398d90367af76`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/398d90367af76) -
+  Remove internal data-ssr-content-dom-ref marker from SSR-streamed editor HTML after content DOM
+  re-attach
+- Updated dependencies
+
+## 116.24.1
+
+### Patch Changes
+
+- [`96ceccb98c3b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96ceccb98c3b9) -
+  Add a `surface` attribute to editor autocomplete analytics and UFO experience metadata, and wire
+  it through the plugin lifecycle.
+
+  Host integrations now pass explicit surface values:
+  - Confluence comments uses `confluence-comments`
+  - Rovo chat uses `rovo-chat`
+
+  This improves cross-surface tracking clarity while keeping surface values consumer-defined.
+
+- Updated dependencies
+
+## 116.24.0
+
+### Minor Changes
+
+- [`2f56c78f969b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f56c78f969b8) -
+  Update i18n NPM package versions for teamwork-graph (Group 16)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.23.2
+
+### Patch Changes
+
+- [`d76b4661858ee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d76b4661858ee) -
+  Fix scrollToPos scrolling to scroll to the correct parent element instead of the editor root
+- Updated dependencies
+
 ## 116.23.1
 
 ### Patch Changes

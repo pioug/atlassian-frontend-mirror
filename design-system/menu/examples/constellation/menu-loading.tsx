@@ -3,17 +3,17 @@ import React, { useEffect, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
-import {
-	ButtonItem,
-	type ButtonItemProps,
-	HeadingItem,
-	MenuGroup,
-	Section,
-	SkeletonHeadingItem,
-	SkeletonItem,
-} from '@atlaskit/menu';
+import ButtonItem from '@atlaskit/menu/button-item';
+import HeadingItem from '@atlaskit/menu/heading-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import SkeletonHeadingItem from '@atlaskit/menu/skeleton-heading-item';
+import SkeletonItem from '@atlaskit/menu/skeleton-item';
+import { type ButtonItemProps } from '@atlaskit/menu/types';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { xcss } from '@atlaskit/primitives/xcss';
 import { token } from '@atlaskit/tokens';
 
 import MenuGroupContainer from '../common/menu-group-container';
@@ -81,7 +81,7 @@ export default (): React.JSX.Element => {
 							isLoading={isLoading}
 							iconBefore={
 								<Box xcss={iconContainerStyles}>
-									<Portfolio color={token('color.icon.brand')} aria-label="" />
+									<Portfolio color={token('color.icon.brand')} />
 								</Box>
 							}
 							iconAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label="" />}
@@ -90,19 +90,19 @@ export default (): React.JSX.Element => {
 						</Item>
 						<Item
 							isLoading={isLoading}
-							iconBefore={<Tempo aria-label="" />}
+							iconBefore={<Tempo />}
 							iconAfter={<StarStarredIcon color={token('color.icon.accent.orange')} label="" />}
 						>
 							Tempo timesheets
 						</Item>
 						<Item
 							isLoading={isLoading}
-							iconBefore={<Invision aria-label="" />}
+							iconBefore={<Invision />}
 							iconAfter={<StarUnstarredIcon label="" />}
 						>
 							Invision
 						</Item>
-						<Item isLoading={isLoading} iconBefore={<Slack aria-label="" />}>
+						<Item isLoading={isLoading} iconBefore={<Slack />}>
 							Slack
 						</Item>
 					</Section>

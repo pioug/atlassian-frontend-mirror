@@ -6,7 +6,9 @@ const isLocalStorageSupported = () => {
 		// use an random key to test
 		// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
 		const testKey = `__test_${Date.now()}__`;
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		localStorage.setItem(testKey, testKey);
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		localStorage.removeItem(testKey);
 
 		return true;
@@ -18,6 +20,7 @@ const isLocalStorageSupported = () => {
 declare var window: { __localStorageFallback: Storage };
 const safeLocalStorage = (): Storage => {
 	if (isLocalStorageSupported()) {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		return localStorage;
 	}
 

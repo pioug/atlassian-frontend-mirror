@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CodeBlock } from '@atlaskit/code';
+import CodeBlock from '@atlaskit/code/code-block';
 
 const exampleCodeBlock = `export default ({ name }: { name: string }) => <div>Hello {name}</div>;`;
 

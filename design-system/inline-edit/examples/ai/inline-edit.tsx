@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InlineEdit from '@atlaskit/inline-edit';
+import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 
 const Example = (): React.JSX.Element => (
 	<InlineEdit

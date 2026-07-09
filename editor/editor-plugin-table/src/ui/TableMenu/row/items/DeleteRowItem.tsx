@@ -6,7 +6,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { deleteRow, tooltip } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import {
 	DeleteIcon,
 	ToolbarDropdownItem,
@@ -21,6 +20,7 @@ import {
 import { deleteRowsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getSelectedRowIndexes } from '../../../../pm-plugins/utils/selection';
 import type { TableSharedStateInternal } from '../../../../types';
+import { getMenuSelectionRect } from '../../shared/selection';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
@@ -44,7 +44,7 @@ export const DeleteRowItem = (props: TableMenuComponentsParams): React.JSX.Eleme
 			return;
 		}
 
-		const selectionRect = getSelectionRect(editorView.state.selection);
+		const selectionRect = getMenuSelectionRect(editorView.state.selection);
 		if (!selectionRect) {
 			return;
 		}
@@ -64,7 +64,7 @@ export const DeleteRowItem = (props: TableMenuComponentsParams): React.JSX.Eleme
 			return;
 		}
 
-		const selectionRect = getSelectionRect(editorView.state.selection);
+		const selectionRect = getMenuSelectionRect(editorView.state.selection);
 		if (!selectionRect) {
 			return;
 		}

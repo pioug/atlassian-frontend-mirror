@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'Breadcrumbs',
 			description: 'A navigation component showing the current page hierarchy.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=144167-2564',
+			},
 			import: {
 				name: 'Breadcrumbs',
-				package: '@atlaskit/breadcrumbs',
+				package: '@atlaskit/breadcrumbs/breadcrumbs',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -52,7 +56,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'BreadcrumbsItem',
-				package: '@atlaskit/breadcrumbs',
+				package: '@atlaskit/breadcrumbs/breadcrumbs-item',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

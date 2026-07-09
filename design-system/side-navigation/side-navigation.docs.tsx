@@ -25,7 +25,7 @@ const documentation: StructuredContentSource = {
 			status: 'deprecated',
 			import: {
 				name: 'SideNavigation',
-				package: '@atlaskit/side-navigation',
+				package: '@atlaskit/side-navigation/side-navigation',
 				type: 'named',
 				packagePath,
 				packageJson,

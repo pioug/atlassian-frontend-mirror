@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
-import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import SectionMessage from '@atlaskit/section-message/section-message';
+import SectionMessageAction from '@atlaskit/section-message/section-message-action';
 
 const _default_1: React.JSX.Element[] = [
 	<SectionMessage appearance="information" title="Information">

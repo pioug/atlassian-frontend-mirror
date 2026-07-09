@@ -1,5 +1,35 @@
 # @atlaskit/renderer
 
+## 133.10.0
+
+### Minor Changes
+
+- [`a3cf50efa20a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3cf50efa20a6) -
+  Added 10% sampling rate to started and rendered events to reduce gasv3 costs
+
+### Patch Changes
+
+- [`70c2fc6f4a1b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70c2fc6f4a1b0) -
+  Fix some complex nested table scenarios
+- Updated dependencies
+
+## 133.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.9.0
+
+### Minor Changes
+
+- [`2f56c78f969b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f56c78f969b8) -
+  Update i18n NPM package versions for teamwork-graph (Group 16)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.8.4
 
 ### Patch Changes

@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'PageHeader',
 			description: 'A component for page headers.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82097-75325',
+			},
 			import: {
 				name: 'PageHeader',
-				package: '@atlaskit/page-header',
+				package: '@atlaskit/page-header/page-header',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

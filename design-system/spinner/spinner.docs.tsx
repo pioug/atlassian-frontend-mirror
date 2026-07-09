@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'Spinner',
 			description: 'A loading spinner component.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=8070-10241',
+			},
 			import: {
 				name: 'Spinner',
-				package: '@atlaskit/spinner',
+				package: '@atlaskit/spinner/spinner',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

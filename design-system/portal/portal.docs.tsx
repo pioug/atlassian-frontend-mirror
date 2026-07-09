@@ -10,7 +10,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Portal',
-				package: '@atlaskit/portal',
+				package: '@atlaskit/portal/portal',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Select',
-				package: '@atlaskit/select',
+				package: '@atlaskit/select/select',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -38,6 +38,10 @@ const documentation: StructuredContentSource = {
 				'Ensure keyboard navigation with arrow keys',
 				'Support screen reader announcements',
 			],
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13212-38027',
+			},
 			examples: [
 				{
 					name: 'Default',
@@ -55,8 +59,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AsyncSelect',
-				package: '@atlaskit/select',
-				type: 'named',
+				package: '@atlaskit/select/async-select',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -82,8 +86,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CreatableSelect',
-				package: '@atlaskit/select',
-				type: 'named',
+				package: '@atlaskit/select/creatable-select',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -108,7 +112,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'PopupSelect',
-				package: '@atlaskit/select',
+				package: '@atlaskit/select/popup-select',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -135,7 +139,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CheckboxSelect',
-				package: '@atlaskit/select',
+				package: '@atlaskit/select/checkbox-select',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -158,7 +162,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'RadioSelect',
-				package: '@atlaskit/select',
+				package: '@atlaskit/select/radio-select',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -180,7 +184,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CountrySelect',
-				package: '@atlaskit/select',
+				package: '@atlaskit/select/country-select',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

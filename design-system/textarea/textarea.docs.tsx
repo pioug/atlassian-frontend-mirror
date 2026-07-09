@@ -8,6 +8,10 @@ const documentation: StructuredContentSource = {
 			name: 'Textarea',
 			description: 'A textarea is a multiline text input control for longer text content.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13116-32075',
+			},
 			import: {
 				name: 'Textarea',
 				package: '@atlaskit/textarea',

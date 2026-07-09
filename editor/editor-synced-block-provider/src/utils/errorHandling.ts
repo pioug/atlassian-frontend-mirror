@@ -22,6 +22,25 @@ export const stringifyError = (error: unknown): string | undefined => {
 };
 
 /**
+ * PII-safe extraction of `message`/`name` from an unknown caught error, used to
+ * de-opaque `errored` failures. Only ever reads `Error.message` / `Error.name` — it
+ * never stringifies arbitrary objects (which could pull in node content / UGC), and
+ * non-`Error` values yield `{}` so no `[object Object]` or serialized payload leaks
+ * into analytics.
+ */
+export const getPiiSafeOriginalError = (
+	error: unknown,
+): { originalMessage?: string; originalName?: string } => {
+	if (error instanceof Error) {
+		return {
+			...(error.message && { originalMessage: error.message }),
+			...(error.name && { originalName: error.name }),
+		};
+	}
+	return {};
+};
+
+/**
  * The set of categorical failure reasons emitted on synced-block operational error
  * events (EDITOR-7796). These let the analytics dashboard break delete/update/create
  * failures down by cause (Block Service / HG / Relay) instead of relying on the
@@ -127,12 +146,15 @@ export const FETCH_BENIGN_REASONS: ReadonlySet<SyncBlockFetchErrorReason> = new 
 	'not_found',
 	'forbidden',
 	'unpublished',
-	// NOTE: `entity_not_found` and `offline` are intentionally NOT benign.
-	// - `entity_not_found` is retried up to ENTITY_NOT_FOUND_MAX_RETRIES (analytics are
-	//   suppressed during retries); by the time the error event fires, retries are
-	//   exhausted and it is a genuine failure.
-	// - `offline` is genuine client connectivity loss, not a working-as-designed outcome.
-	// Both still emit `reason` (so they can be inspected) but are counted as true errors.
+	// `offline` is an expected client connectivity state, not a read-path system failure:
+	// the error component is rendered for the offline experience, so it should not inflate
+	// the true error rate. It still emits `reason` (so its volume can be inspected) but is
+	// excluded from true-error counts.
+	'offline',
+	// NOTE: `entity_not_found` is intentionally NOT benign — it is retried up to
+	// ENTITY_NOT_FOUND_MAX_RETRIES (analytics are suppressed during retries); by the time
+	// the error event fires, retries are exhausted and it is a genuine failure. It still
+	// emits `reason` (so it can be inspected) but is counted as a true error.
 ]);
 
 /**

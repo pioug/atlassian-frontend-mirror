@@ -1,6 +1,6 @@
 import React from 'react';
 
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 export default (): React.JSX.Element => {
 	return (

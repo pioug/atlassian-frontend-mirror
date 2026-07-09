@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'DropdownMenu',
 			description: 'A dropdown menu component for displaying contextual actions and options.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=81040-12691',
+			},
 			import: {
 				name: 'DropdownMenu',
-				package: '@atlaskit/dropdown-menu',
+				package: '@atlaskit/dropdown-menu/dropdown-menu',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -125,8 +129,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DropdownItemCheckbox',
-				package: '@atlaskit/dropdown-menu',
-				type: 'named',
+				package: '@atlaskit/dropdown-menu/dropdown-item-checkbox',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -157,8 +161,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DropdownItemCheckboxGroup',
-				package: '@atlaskit/dropdown-menu',
-				type: 'named',
+				package: '@atlaskit/dropdown-menu/dropdown-item-checkbox-group',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -187,8 +191,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DropdownItemRadio',
-				package: '@atlaskit/dropdown-menu',
-				type: 'named',
+				package: '@atlaskit/dropdown-menu/dropdown-item-radio',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -219,8 +223,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DropdownItemRadioGroup',
-				package: '@atlaskit/dropdown-menu',
-				type: 'named',
+				package: '@atlaskit/dropdown-menu/dropdown-item-radio-group',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

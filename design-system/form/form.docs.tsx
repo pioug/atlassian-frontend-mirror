@@ -10,7 +10,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Form',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/form',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -58,7 +58,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'FormHeader',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/form-header',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -69,6 +69,10 @@ const documentation: StructuredContentSource = {
 				'Use RequiredAsterisk legend for required field indication',
 			],
 			contentGuidelines: ['Use clear, descriptive form titles', 'Keep descriptions concise'],
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=14470-110748',
+			},
 			examples: [
 				{
 					name: 'Form Header',
@@ -85,7 +89,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'FormFooter',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/form-footer',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -99,6 +103,10 @@ const documentation: StructuredContentSource = {
 				'Use action verbs in button labels',
 				'Primary button reflects the form action',
 			],
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13078-30855',
+			},
 			examples: [
 				{
 					name: 'Form Footer',
@@ -115,7 +123,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'FormSection',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/form-section',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -146,8 +154,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Field',
-				package: '@atlaskit/form',
-				type: 'named',
+				package: '@atlaskit/form/field',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -179,7 +187,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Label',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/label',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -232,7 +240,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'HelperMessage',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/messages',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -259,7 +267,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ErrorMessage',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/messages',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -289,7 +297,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ValidMessage',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/messages',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -317,7 +325,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'MessageWrapper',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/messages',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -342,7 +350,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CheckboxField',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/checkbox-field',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -368,7 +376,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'RangeField',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/range-field',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -395,7 +403,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Fieldset',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/fieldset',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -422,7 +430,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'RequiredAsterisk',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/required-asterisk',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -449,7 +457,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CharacterCounterField',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/character-counter-field',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -476,7 +484,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CharacterCounter',
-				package: '@atlaskit/form',
+				package: '@atlaskit/form/character-counter',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

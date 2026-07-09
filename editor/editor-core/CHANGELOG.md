@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 221.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.7.1
+
+### Patch Changes
+
+- [`b8aa5709aa1ed`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8aa5709aa1ed) -
+  [EDITOR-7938] align divider resize handles when the divider is the first node in doc
+- Updated dependencies
+
 ## 221.7.0
 
 ### Minor Changes

@@ -16,6 +16,7 @@ import storageAvailable from '../../util/storage-available';
  */
 export class UsageFrequencyTracker {
 	private static readonly queueOptions = {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		storage: storageAvailable('localStorage') ? window.localStorage : undefined,
 		storagePrefix: localStoragePrefix,
 		maxDuplicates: 25,

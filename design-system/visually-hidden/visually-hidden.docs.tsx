@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'VisuallyHidden',
-				package: '@atlaskit/visually-hidden',
+				package: '@atlaskit/visually-hidden/visually-hidden',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

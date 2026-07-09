@@ -9,6 +9,10 @@ const documentation: StructuredContentSource = {
 			description:
 				"A calendar component for date selection and display. This component is in Beta phase, meaning it's stable at version 1.0+ but may receive improvements based on customer feedback.",
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13289-46824',
+			},
 			import: {
 				name: 'Calendar',
 				package: '@atlaskit/calendar',

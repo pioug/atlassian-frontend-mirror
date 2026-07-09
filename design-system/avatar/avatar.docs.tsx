@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Avatar',
-				package: '@atlaskit/avatar',
+				package: '@atlaskit/avatar/avatar',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -57,8 +57,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AvatarItem',
-				package: '@atlaskit/avatar',
-				type: 'named',
+				package: '@atlaskit/avatar/avatar-item',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -97,8 +97,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Presence',
-				package: '@atlaskit/avatar',
-				type: 'named',
+				package: '@atlaskit/avatar/presence',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -136,8 +136,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Status',
-				package: '@atlaskit/avatar',
-				type: 'named',
+				package: '@atlaskit/avatar/status',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -174,8 +174,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Skeleton',
-				package: '@atlaskit/avatar',
-				type: 'named',
+				package: '@atlaskit/avatar/skeleton',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -211,7 +211,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AvatarContent',
-				package: '@atlaskit/avatar',
+				package: '@atlaskit/avatar/avatar-content',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "10.4.0",
+	"version": "10.5.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -11,7 +11,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": ["*.compiled.css"],
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"exports": {
 		".": "./src/index.tsx",
 		"./fhs-rollout": "./src/entry-points/fhs-rollout.tsx",
@@ -74,7 +76,10 @@
 			]
 		},
 		"integrationTests": {
-			"additionalBrowsers": ["desktop-firefox", "desktop-webkit"]
+			"additionalBrowsers": [
+				"desktop-firefox",
+				"desktop-webkit"
+			]
 		}
 	},
 	"dependencies": {
@@ -152,10 +157,17 @@
 		},
 		"@repo/internal": {
 			"dom-events": "use-bind-event-listener",
-			"design-tokens": ["color", "spacing"],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
 			"deprecation": "no-deprecated-imports",
-			"imports": ["import-no-extraneous-disable-for-examples-and-docs"],
-			"styling": ["emotion"]
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			],
+			"styling": [
+				"emotion"
+			]
 		}
 	},
 	"platform-feature-flags": {

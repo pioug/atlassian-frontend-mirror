@@ -1,5 +1,19 @@
 # @atlaskit/ads-mcp
 
+## 1.5.3
+
+### Patch Changes
+
+- [`763d88f71a256`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/763d88f71a256) -
+  Update ADS MCP component examples to use direct package entrypoints
+
+## 1.5.2
+
+### Patch Changes
+
+- [`419ec38bbeeb5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/419ec38bbeeb5) -
+  Add designSource metadata to all ADS components
+
 ## 1.5.1
 
 ### Patch Changes

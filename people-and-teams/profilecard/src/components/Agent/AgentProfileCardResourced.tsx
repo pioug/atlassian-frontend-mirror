@@ -1,5 +1,6 @@
 import React, { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { getAgentCreator } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
@@ -163,7 +164,10 @@ export const AgentProfileCardResourced = (
 				creatorInfo: agentCreatorInfo,
 			});
 		} catch (err: any) {
-			if (err instanceof AgentForbiddenError && fg('platform_editor_reduced_agent_profile_card')) {
+			if (
+				err instanceof AgentForbiddenError &&
+				FeatureGates.getExperimentValue('platform_editor_reduced_profile_cards', 'isEnabled', false)
+			) {
 				setIsPermitted(false);
 			} else {
 				setError(err);
@@ -202,7 +206,10 @@ export const AgentProfileCardResourced = (
 		fetchData();
 	}, [fetchData]);
 
-	if (!isPermitted && fg('platform_editor_reduced_agent_profile_card')) {
+	if (
+		!isPermitted &&
+		FeatureGates.getExperimentValue('platform_editor_reduced_profile_cards', 'isEnabled', false)
+	) {
 		return (
 			<AgentProfileCardWrapper>
 				<Suspense fallback={null}>

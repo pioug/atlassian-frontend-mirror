@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import { insideTable } from '@atlaskit/editor-common/core-utils';
+import { insideTable, isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { isNestedTablesSupported } from '@atlaskit/editor-common/nesting';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -142,6 +142,8 @@ export const createPlugin = (
 		return editorView.state;
 	};
 
+	const intl = isSSRStreaming() ? getIntl() : undefined;
+
 	const getNodeView = () => {
 		return {
 			table: tableView({
@@ -154,6 +156,7 @@ export const createPlugin = (
 				isCommentEditor,
 				isChromelessEditor,
 				allowFixedColumnWidthOption,
+				intl,
 			}),
 			tableRow: tableRowView({
 				eventDispatcher,

@@ -9,9 +9,13 @@ const documentation: StructuredContentSource = {
 			description:
 				'A tile is a versatile, foundational container with baked-in sizing and radii properties for displaying elements in a tile shape.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=107093-50537',
+			},
 			import: {
 				name: 'Tile',
-				package: '@atlaskit/tile',
+				package: '@atlaskit/tile/tile',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

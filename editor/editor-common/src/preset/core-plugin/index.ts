@@ -1,6 +1,7 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
@@ -106,6 +107,21 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					return false;
 				}
 
+				if (fg('platform_editor_fix_scroll_to_pos')) {
+					// nodeDOM can return a Text node for inline positions
+					const nodeDom = editorView.nodeDOM(pos);
+					const dom =
+						(nodeDom instanceof Element ? nodeDom : null) ?? editorView.domAtPos(pos)?.node;
+
+					if (!(dom instanceof Element)) {
+						return false;
+					}
+
+					dom.scrollIntoView(scrollOptions);
+					return true;
+				}
+
+				// Legacy path — domAtPos interprets block boundaries as the parent container
 				const dom = editorView.domAtPos(pos).node;
 
 				if (!(dom instanceof Element)) {

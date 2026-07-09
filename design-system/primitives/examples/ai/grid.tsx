@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { Box, Grid } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Grid } from '@atlaskit/primitives/compiled/grid';
 
 const styles = cssMap({
 	grid: {

@@ -2278,6 +2278,27 @@ const tableContentModeStyles = css({
 	},
 });
 
+// Gated behind `platform_editor_table_renderer_fix_2`. Scopes `:has()` to the
+// container's OWN table (direct child) so a nested content-mode table (e.g. inside
+// an Excerpt macro) no longer blows out its non-content ancestor container.
+const tableContentModeScopedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(> table[data-initial-width-mode="content"]),
+	.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(> .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table[data-initial-width-mode="content"]),
+	.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}:has(> .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table[data-initial-width-mode="content"])`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			width: 'max-content !important',
+			maxWidth: 'var(--renderer-table-max-width)',
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	[`.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] > colgroup > col`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		width: 'unset !important',
+	},
+});
+
 const tableContentModeNestedTableStyles = css({
 	// Nested tables may sit inside expands, extensions, or other blocks within the parent cell.
 	[`.${RendererCssClassName.DOCUMENT} table[data-initial-width-mode="content"] > tbody > tr > :is(th, td) .${TableSharedCssClassName.TABLE_CONTAINER} > table,
@@ -3380,7 +3401,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					fg('platform_editor_table_q4_patch_1') &&
 					roundedTableRemixBlockHighlightStyles,
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
-					tableContentModeStyles,
+					(fg('platform_editor_table_renderer_fix_2')
+						? tableContentModeScopedStyles
+						: tableContentModeStyles),
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					fg('platform_editor_table_nested_renderer_fix') &&
 					tableContentModeNestedTableStyles,

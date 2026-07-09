@@ -751,6 +751,7 @@ function unwrapJsonModule<T>(mod: unknown, shape: 'object' | 'array'): T | null 
 export const loadVectorsAsync = async (options?: {
 	getBinaryUrl?: () => Promise<string>;
 	isLocalLLM?: boolean;
+	surface?: string;
 }): Promise<void> => {
 	if (vectorStore || vectorsLoadStarted) {
 		return;
@@ -763,15 +764,23 @@ export const loadVectorsAsync = async (options?: {
 		return;
 	}
 	const isLocalLLM = options?.isLocalLLM ?? false;
+	const surface = options?.surface;
 	vectorsLoadStarted = true;
-	startExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { isLocalLLM });
+	startExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', {
+		isLocalLLM,
+		...(surface ? { surface } : {}),
+	});
 
 	let url: string;
 	try {
 		url = await options.getBinaryUrl();
 	} catch (e) {
 		vectorsLoadStarted = false;
-		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { isLocalLLM, errorType: 'resolve_url' });
+		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', {
+			isLocalLLM,
+			errorType: 'resolve_url',
+			...(surface ? { surface } : {}),
+		});
 		// eslint-disable-next-line no-console
 		console.warn('[text-predictor] Failed to resolve vectors URL:', e);
 		return;
@@ -785,6 +794,7 @@ export const loadVectorsAsync = async (options?: {
 				isLocalLLM,
 				status: res.status,
 				errorType: 'http_error',
+				...(surface ? { surface } : {}),
 			});
 			// eslint-disable-next-line no-console
 			console.warn(`[text-predictor] Failed to load vectors: ${res.status}`);
@@ -819,6 +829,7 @@ export const loadVectorsAsync = async (options?: {
 			wordCount: nWords,
 			dim,
 			sizeBytes: float32.byteLength,
+			...(surface ? { surface } : {}),
 		});
 		if (isAutocompleteDebugEnabled()) {
 			// eslint-disable-next-line no-console
@@ -830,7 +841,11 @@ export const loadVectorsAsync = async (options?: {
 		}
 	} catch (e) {
 		vectorsLoadStarted = false;
-		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', { isLocalLLM, errorType: 'network' });
+		failExp(EXPERIENCE_NAME.LOAD_VECTORS, 'singleton', {
+			isLocalLLM,
+			errorType: 'network',
+			...(surface ? { surface } : {}),
+		});
 		// eslint-disable-next-line no-console
 		console.warn('[text-predictor] Failed to load vectors:', e);
 	}
@@ -842,7 +857,10 @@ export const initVectors = (store: VectorStore): void => {
 
 let vocabularyLoadPromise: Promise<void> | undefined;
 
-export const loadDefaultVocabulary = (options?: { isLocalLLM?: boolean }): Promise<void> => {
+export const loadDefaultVocabulary = (options?: {
+	isLocalLLM?: boolean;
+	surface?: string;
+}): Promise<void> => {
 	if (isInitialized) {
 		return Promise.resolve();
 	}
@@ -851,8 +869,12 @@ export const loadDefaultVocabulary = (options?: { isLocalLLM?: boolean }): Promi
 	}
 
 	const isLocalLLM = options?.isLocalLLM ?? false;
+	const surface = options?.surface;
 	vocabularyLoadPromise = (async () => {
-		startExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', { isLocalLLM });
+		startExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', {
+			isLocalLLM,
+			...(surface ? { surface } : {}),
+		});
 
 		try {
 			// The L2 vocabulary and L3 word list are code-split into their own async
@@ -890,11 +912,13 @@ export const loadDefaultVocabulary = (options?: { isLocalLLM?: boolean }): Promi
 				isLocalLLM,
 				l2WordCount: terms.length,
 				l3WordCount: l3VocabularyData.length,
+				...(surface ? { surface } : {}),
 			});
 		} catch (e) {
 			failExp(EXPERIENCE_NAME.LOAD_VOCABULARY, 'singleton', {
 				isLocalLLM,
 				errorType: 'parse_error',
+				...(surface ? { surface } : {}),
 			});
 			// Allow a later call to retry the load rather than caching the failure.
 			vocabularyLoadPromise = undefined;

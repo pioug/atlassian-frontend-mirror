@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "16.3.0",
+	"version": "16.4.0",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -67,15 +67,23 @@
 		"react-dom": "root:*",
 		"react-intl": "root:*"
 	},
-	"keywords": ["atlaskit", "react", "ui"],
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": "atlassian-conventions"
 		},
 		"@repo/internal": {
-			"design-tokens": ["color"],
+			"design-tokens": [
+				"color"
+			],
 			"deprecation": "no-deprecated-imports",
-			"styling": ["emotion"]
+			"styling": [
+				"emotion"
+			]
 		}
 	},
 	"platform-feature-flags": {

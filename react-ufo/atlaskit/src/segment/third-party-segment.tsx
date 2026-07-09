@@ -1,7 +1,5 @@
 import React, { useEffect, useLayoutEffect, useContext, useRef, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { EnhancedUFOInteractionContextType } from '../common';
 import UFOInteractionContext from '../interaction-context';
 import UFOInteractionIDContext from '../interaction-id-context';
@@ -231,12 +229,6 @@ function IframeSegment({
 			// fields are intentionally excluded because they require a vendor
 			// config that is rarely populated in practice (almost always null).
 			if (event.type === 'resized') {
-				// Gated by feature flag. When OFF, host-side `resized` events are
-				// ignored entirely so segment3pData and the abort timer behave as if
-				// this code path did not exist.
-				if (!fg('platform_ufo_3p_segment_resize_event')) {
-					return;
-				}
 				// Guard against malformed payloads (height is required and must be
 				// a non-negative number; useResizeAnalytics emits Math.trunc'd ints).
 				// `IframeSegmentEvent` already declares `[key: string]: unknown`, so

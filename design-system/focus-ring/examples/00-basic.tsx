@@ -9,7 +9,7 @@ import React, { useEffect, useRef } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import FocusRing from '@atlaskit/focus-ring';
+import FocusRing from '@atlaskit/focus-ring/focus-ring';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 

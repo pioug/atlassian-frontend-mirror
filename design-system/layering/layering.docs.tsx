@@ -37,7 +37,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Layering',
-				package: '@atlaskit/layering',
+				package: '@atlaskit/layering/layering',
 				type: 'named',
 				packagePath,
 				packageJson,

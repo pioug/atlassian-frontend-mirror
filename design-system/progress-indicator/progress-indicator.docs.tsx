@@ -8,6 +8,10 @@ const documentation: StructuredContentSource = {
 			name: 'ProgressIndicator',
 			description: 'A component for displaying progress through steps or completion status.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13186-35931',
+			},
 			import: {
 				name: 'ProgressIndicator',
 				package: '@atlaskit/progress-indicator',

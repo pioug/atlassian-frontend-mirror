@@ -5,7 +5,9 @@
 
 import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { Flex, Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Inline } from '@atlaskit/primitives/compiled/inline';
+import { Stack } from '@atlaskit/primitives/compiled/stack';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { allObjectTiles } from '../examples-utils/all-object-tiles';

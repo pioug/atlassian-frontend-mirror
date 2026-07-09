@@ -154,12 +154,15 @@ export class PersonalizationService {
 	}
 
 	private clearStoredProviderPctMaps(): void {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		if (typeof globalThis.localStorage === 'undefined' || globalThis.localStorage === null) {
 			return;
 		}
 
 		const keysToRemove: string[] = [];
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		for (let index = 0; index < globalThis.localStorage.length; index += 1) {
+			// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 			const key = globalThis.localStorage.key(index);
 			if (key !== null && key.startsWith(LOCAL_STORAGE_ROW_KEY_PREFIX)) {
 				keysToRemove.push(key);
@@ -167,6 +170,7 @@ export class PersonalizationService {
 		}
 		for (const key of keysToRemove) {
 			try {
+				// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 				globalThis.localStorage.removeItem(key);
 			} catch {
 				/* ignore */

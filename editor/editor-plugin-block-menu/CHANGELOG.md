@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 11.1.15
+
+### Patch Changes
+
+- [`2f1d378992c1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f1d378992c1d) -
+  Updates uses of expValEqualsNoExposure and expValEquals for resizing of panels and dividers
+  feature.
+- Updated dependencies
+
+## 11.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.13
 
 ### Patch Changes

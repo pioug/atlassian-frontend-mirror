@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Comment from '@atlaskit/comment';
+import Comment from '@atlaskit/comment/comment';
 
 const Example = (): React.JSX.Element => (
 	<Comment

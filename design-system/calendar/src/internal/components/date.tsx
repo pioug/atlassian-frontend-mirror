@@ -101,6 +101,23 @@ const dateCellStylesT26Shape = css({
 	borderRadius: token('radius.medium', '6px'),
 });
 
+// platform-dst-motion-uplift-list-item cleanup: once fully rolled out, fold these
+// transitions into the styles above and drop the gate in the `css` array below.
+const dateCellMotionStyles = css({
+	transition: token('motion.listitem.hovered'),
+	'&:active': {
+		transition: token('motion.listitem.pressed'),
+	},
+	// Focus rings must stay immediate — non-negotiable per the motion decision record.
+	'&:focus-visible': {
+		transition: 'none',
+	},
+});
+
+const dateCellSelectedMotionStyles = css({
+	transition: token('motion.listitem.selected'),
+});
+
 interface DateProps {
 	children: number;
 	isDisabled?: boolean;
@@ -191,6 +208,10 @@ const Date: import('react').MemoExoticComponent<
 						isPreviouslySelected && dateCellPrevSelectedStyle,
 						isSelected && dateCellSelectedStyle,
 						isDisabled && dateCellDisabledStyle,
+						fg('platform-dst-motion-uplift-list-item') && dateCellMotionStyles,
+						(isSelected || isPreviouslySelected) &&
+							fg('platform-dst-motion-uplift-list-item') &&
+							dateCellSelectedMotionStyles,
 					]}
 					aria-current={isToday ? 'date' : undefined}
 					aria-disabled={isDisabled || undefined}

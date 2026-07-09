@@ -25,8 +25,8 @@ const documentation: StructuredContentSource = {
 			status: 'deprecated',
 			import: {
 				name: 'Spotlight',
-				package: '@atlaskit/onboarding',
-				type: 'named',
+				package: '@atlaskit/onboarding/spotlight',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},

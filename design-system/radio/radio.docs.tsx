@@ -9,10 +9,14 @@ const documentation: StructuredContentSource = {
 			description:
 				'A radio button component for single selection from a set of mutually exclusive choices. Use for custom radio button presentations like options in tables or when you need fine control over individual radio buttons.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13200-41362',
+			},
 			import: {
 				name: 'Radio',
-				package: '@atlaskit/radio',
-				type: 'named',
+				package: '@atlaskit/radio/radio',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -53,8 +57,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'RadioGroup',
-				package: '@atlaskit/radio',
-				type: 'named',
+				package: '@atlaskit/radio/radio-group',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

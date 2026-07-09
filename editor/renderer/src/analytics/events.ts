@@ -38,7 +38,7 @@ type RendererStartAEP = AEP<
 	ACTION.STARTED,
 	ACTION_SUBJECT.RENDERER,
 	undefined,
-	{ platform: PLATFORM.WEB },
+	{ platform: PLATFORM.WEB; sampleRate?: number },
 	EVENT_TYPE.UI
 >;
 
@@ -55,6 +55,7 @@ type RendererRenderedAEP = AEP<
 		platform: PLATFORM.WEB;
 		severity?: SEVERITY;
 		ttfb?: number;
+		sampleRate?: number;
 	},
 	EVENT_TYPE.OPERATIONAL
 >;

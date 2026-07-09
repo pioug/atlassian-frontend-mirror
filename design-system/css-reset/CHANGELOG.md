@@ -1,5 +1,16 @@
 # @atlaskit/css-reset
 
+## 8.1.0
+
+### Minor Changes
+
+- [`2f56c78f969b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f56c78f969b8) -
+  Update i18n NPM package versions for teamwork-graph (Group 16)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

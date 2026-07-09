@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pressable } from '@atlaskit/primitives/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 
 const _default_1: React.JSX.Element[] = [
 	<Pressable onClick={() => alert('Pressed!')}>Custom button</Pressable>,

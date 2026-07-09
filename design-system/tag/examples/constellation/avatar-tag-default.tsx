@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Avatar from '@atlaskit/avatar';
-import { AvatarTag } from '@atlaskit/tag';
+import Avatar from '@atlaskit/avatar/avatar';
+import AvatarTag from '@atlaskit/tag/avatar-tag';
 
 const avatarUrl = 'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg';
 

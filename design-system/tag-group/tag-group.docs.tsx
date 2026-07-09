@@ -10,7 +10,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'TagGroup',
-				package: '@atlaskit/tag-group',
+				package: '@atlaskit/tag-group/tag-group',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

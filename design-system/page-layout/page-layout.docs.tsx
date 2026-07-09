@@ -25,7 +25,7 @@ const documentation: StructuredContentSource = {
 			status: 'deprecated',
 			import: {
 				name: 'PageLayout',
-				package: '@atlaskit/page-layout',
+				package: '@atlaskit/page-layout/page-layout',
 				type: 'named',
 				packagePath,
 				packageJson,

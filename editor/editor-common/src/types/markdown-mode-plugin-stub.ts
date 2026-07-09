@@ -54,6 +54,7 @@ export type _MarkdownModePluginStub = NextEditorPlugin<
 	{
 		actions: {
 			dispatchSourceCommand: (cmd: unknown) => boolean;
+			insertSourceTable: (rowsCount?: number, colsCount?: number) => void;
 			registerSourceCommandDispatch: (dispatcher: ((cmd: unknown) => boolean) | null) => void;
 			setShowSourceLineNumbers: (showSourceLineNumbers: boolean) => void;
 			setSourceBlockFormatState: (state: unknown) => void;

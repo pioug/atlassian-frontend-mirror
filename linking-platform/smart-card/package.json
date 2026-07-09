@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.7.2",
+	"version": "45.8.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -274,10 +274,11 @@
 		"platform_smartlink_3pclick_analytics": {
 			"type": "boolean"
 		},
-		"platform_smartlink_xpc_url_wrapping": {
-			"type": "boolean"
+		"platform_sl_google_rebrand": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
-		"platform_smartlink_xpc_url_wrapping_window_existed": {
+		"platform_smartlink_xpc_url_wrapping": {
 			"type": "boolean"
 		},
 		"navx-1895-new-logo-design": {

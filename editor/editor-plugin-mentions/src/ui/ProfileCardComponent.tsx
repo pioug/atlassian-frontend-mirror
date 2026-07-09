@@ -10,7 +10,6 @@ import Loadable from 'react-loadable';
 import type { MentionAttributes } from '@atlaskit/adf-schema';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	ProfileCardClientData,
 	TeamCentralReportingLinesData,
@@ -164,7 +163,9 @@ export function ProfileCardComponent({
 				<AgentProfileCardContent
 					accountId={id}
 					provider={provider}
-					text={fg('platform_editor_reduced_agent_profile_card') ? text : undefined}
+					text={
+						expVal('platform_editor_reduced_profile_cards', 'isEnabled', false) ? text : undefined
+					}
 				/>
 			) : (
 				<UserProfileCardContent accessLevel={accessLevel} id={id} provider={provider} text={text} />
@@ -236,7 +237,7 @@ const AgentProfileCardContent = ({
 	text?: MentionAttributes['text'];
 }): JSX.Element => {
 	const agentName = (text ?? '').replace(LEADING_AT_SIGN_RE, '');
-	return fg('platform_editor_reduced_agent_profile_card') ? (
+	return expVal('platform_editor_reduced_profile_cards', 'isEnabled', false) ? (
 		<AgentProfileCardResourcedLazy
 			accountId={accountId}
 			cloudId={provider.cloudId}

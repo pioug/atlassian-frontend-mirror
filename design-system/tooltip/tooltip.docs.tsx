@@ -9,9 +9,13 @@ const documentation: StructuredContentSource = {
 			description:
 				'A tooltip is a floating, non-actionable label used to explain a user interface element or feature.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=14493-106630',
+			},
 			import: {
 				name: 'Tooltip',
-				package: '@atlaskit/tooltip',
+				package: '@atlaskit/tooltip/Tooltip',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

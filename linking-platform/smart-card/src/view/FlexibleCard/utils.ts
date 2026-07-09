@@ -8,6 +8,7 @@ import { extractRequestAccessContextImproved } from '../../extractors/common/con
 import extractFlexibleUiContext from '../../extractors/flexible';
 import extractLinkTitle from '../../extractors/flexible/extract-link-title';
 import { extractSmartLinkPreviewImage } from '../../extractors/flexible/extract-preview';
+import extractProvider from '../../extractors/flexible/extract-provider';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
 import { extractSmartLinkProviderIcon } from '../../extractors/flexible/icon/extract-provider-icon';
 import { extractHostName } from '../../extractors/flexible/utils';
@@ -39,7 +40,9 @@ export const getContextByStatus = (
 				linkIcon: extractErrorIcon(response, status),
 				linkTitle: extractLinkTitle(status, url, response, onClick),
 				preview: extractSmartLinkPreviewImage(response),
-				provider: extractSmartLinkProviderIcon(response),
+				provider: fg('platform_sl_google_rebrand')
+					? extractProvider(response)
+					: extractSmartLinkProviderIcon(response),
 				actions: {
 					[InternalActionName.UnresolvedAction]: getRetryOptions(
 						url,

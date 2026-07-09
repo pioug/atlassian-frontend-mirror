@@ -209,6 +209,11 @@ export interface AutocompleteContext {
 
 export interface AutocompletePluginOptions {
 	/**
+	 * Product/editor surface where autocomplete runs (e.g. "comment", "chat").
+	 * Added to analytics and UFO metadata for cross-surface reporting.
+	 */
+	surface?: string;
+	/**
 	 * Async function called once on first editor focus to retrieve context for
 	 * word-frequency boosting. Called lazily so the preset can remain synchronous.
 	 */
@@ -328,6 +333,7 @@ export const createAutocompletePlugin = (
 	options?: AutocompletePluginOptions,
 	api?: ExtractInjectionAPI<AutocompletePlugin>,
 ): SafePlugin<AutocompletePluginState> => {
+	const surface = options?.surface ?? 'editor';
 	const locale =
 		options?.locale ?? (typeof navigator !== 'undefined' ? navigator.language : undefined);
 	const isAutocompleteEnabled = isEnglishLocale(locale);
@@ -375,7 +381,7 @@ export const createAutocompletePlugin = (
 			action: ACTION.SUGGESTION_DISMISSED,
 			actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
 			eventType: EVENT_TYPE.TRACK,
-			attributes: { completionSource: getCompletionSource(), reason },
+			attributes: { completionSource: getCompletionSource(), reason, surface },
 		});
 	};
 
@@ -390,6 +396,7 @@ export const createAutocompletePlugin = (
 				loadDurationMs: info.loadDurationMs,
 				gpuVendor: info.capabilities.vendor,
 				gpuArchitecture: info.capabilities.architecture,
+				surface,
 			},
 		});
 	};
@@ -412,6 +419,7 @@ export const createAutocompletePlugin = (
 				maxStorageBufferBindingSizeMB: capabilities.maxStorageBufferBindingSizeMB,
 				gpuVendor: capabilities.vendor,
 				gpuArchitecture: capabilities.architecture,
+				surface,
 			},
 		});
 	};
@@ -430,6 +438,7 @@ export const createAutocompletePlugin = (
 				suggestionLength,
 				typedLength,
 				kssDelta,
+				surface,
 			},
 		});
 	};
@@ -439,10 +448,12 @@ export const createAutocompletePlugin = (
 				debounceMs: LOCAL_SLOW_LANE_DEBOUNCE_MS,
 				onLoadSuccess: fireLocalModelLoadedAnalytics,
 				onLoadError: fireLocalModelLoadFailedAnalytics,
+				surface,
 			})
 		: createSlowLaneClient({
 				baseUrl: '',
 				debounceMs: NETWORK_SLOW_LANE_DEBOUNCE_MS,
+				surface,
 			});
 	setDefaultSlowLaneClient(slowLaneClient);
 
@@ -632,7 +643,7 @@ export const createAutocompletePlugin = (
 							action: ACTION.SUGGESTION_VIEWED,
 							actionSubject: ACTION_SUBJECT.CONTEXTUAL_TYPEAHEAD,
 							eventType: EVENT_TYPE.TRACK,
-							attributes: { completionSource: getCompletionSource() },
+							attributes: { completionSource: getCompletionSource(), surface },
 						});
 					}
 				}
@@ -778,7 +789,10 @@ export const createAutocompletePlugin = (
 						return false;
 					}
 
-					loadDefaultVocabulary({ isLocalLLM: options?.useLocalModel ?? false }).catch((error) => {
+					loadDefaultVocabulary({
+						isLocalLLM: options?.useLocalModel ?? false,
+						surface,
+					}).catch((error) => {
 						logException(error as Error, {
 							location: 'editor-plugin-autocomplete/loadDefaultVocabulary',
 						});
@@ -786,6 +800,7 @@ export const createAutocompletePlugin = (
 					loadVectorsAsync({
 						getBinaryUrl: options?.getVectorsBinaryUrl,
 						isLocalLLM: options?.useLocalModel ?? false,
+						surface,
 					}).catch((error) => {
 						logException(error as Error, {
 							location: 'editor-plugin-autocomplete/loadVectorsAsync',

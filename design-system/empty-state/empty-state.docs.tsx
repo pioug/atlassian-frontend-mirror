@@ -9,9 +9,13 @@ const documentation: StructuredContentSource = {
 			description:
 				'A component for when there is nothing to display (no tasks, cleared inbox, no results).',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=81047-55512',
+			},
 			import: {
 				name: 'EmptyState',
-				package: '@atlaskit/empty-state',
+				package: '@atlaskit/empty-state/empty-state',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

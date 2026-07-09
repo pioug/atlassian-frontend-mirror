@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 71.7.8
+
+### Patch Changes
+
+- [`ca797600724c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca797600724c6) -
+  Increase emoji picker height when dropzone (preview) upload errors are shown
+- Updated dependencies
+
+## 71.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.7.6
 
 ### Patch Changes

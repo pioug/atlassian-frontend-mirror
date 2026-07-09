@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Pagination from '@atlaskit/pagination';
+import Pagination from '@atlaskit/pagination/pagination';
 
 const Examples = (): React.JSX.Element => (
 	<>

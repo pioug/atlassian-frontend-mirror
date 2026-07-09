@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.8.3",
+	"version": "26.8.5",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -211,12 +211,6 @@
 			"type": "boolean"
 		},
 		"fix_aria_attribute_violation_on_agent_card_trigger": {
-			"type": "boolean"
-		},
-		"platform_editor_agent_profile_card_favourite_sync": {
-			"type": "boolean"
-		},
-		"platform_editor_reduced_agent_profile_card": {
 			"type": "boolean"
 		}
 	},

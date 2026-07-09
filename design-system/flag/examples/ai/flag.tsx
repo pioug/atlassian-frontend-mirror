@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Flag, { FlagGroup } from '@atlaskit/flag';
+import Flag from '@atlaskit/flag/flag';
+import FlagGroup from '@atlaskit/flag/flag-group';
 import InfoIcon from '@atlaskit/icon/core/status-information';
 
 const Examples = (): React.JSX.Element => (

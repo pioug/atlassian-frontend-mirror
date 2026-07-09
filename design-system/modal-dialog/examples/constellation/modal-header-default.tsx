@@ -1,14 +1,13 @@
 import React, { Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Modal, {
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	ModalTitle,
-	ModalTransition,
-} from '@atlaskit/modal-dialog';
-import { Text } from '@atlaskit/primitives/compiled';
+import Modal from '@atlaskit/modal-dialog';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 export default function Example(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);

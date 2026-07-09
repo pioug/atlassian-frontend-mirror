@@ -234,6 +234,7 @@ export interface Props {
 	onToneSelectorCancelled?: OnToneSelectorCancelled;
 	onUploadCancelled: () => void;
 	onUploadEmoji: OnUploadEmoji;
+	onUploadPreviewErrorChange?: (hasPreviewError: boolean) => void;
 	productivityColorPreviewEmojis?: Partial<Record<ProductivityColor, EmojiDescription>>;
 	query?: string;
 	resultsCount?: number;
@@ -471,6 +472,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		onCloseDelete,
 		onDeleteEmoji,
 		onUploadEmoji,
+		onUploadPreviewErrorChange,
 		uploadErrorMessage,
 		uploading,
 		onFileChooserClicked,
@@ -543,6 +545,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 					onFileChooserClicked={onFileChooserClicked}
 					errorMessage={uploadErrorMessage}
 					initialUploadName={initialUploadName}
+					onUploadPreviewErrorChange={onUploadPreviewErrorChange}
 					contentId={props.contentId}
 					fireAnalytics={props.fireAnalytics}
 				/>
@@ -555,6 +558,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 					onFileChooserClicked={onFileChooserClicked}
 					errorMessage={uploadErrorMessage}
 					initialUploadName={initialUploadName}
+					onUploadPreviewErrorChange={onUploadPreviewErrorChange}
 					contentId={props.contentId}
 					fireAnalytics={props.fireAnalytics}
 				/>

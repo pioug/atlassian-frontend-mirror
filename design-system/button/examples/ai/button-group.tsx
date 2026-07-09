@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
 const _default_1: React.JSX.Element[] = [

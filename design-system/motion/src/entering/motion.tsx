@@ -14,15 +14,9 @@ import React, {
 
 import type { XCSSProp } from '@compiled/react';
 
-import {
-	cssMap,
-	cx,
-	jsx,
-	type StrictXCSSProp,
-	type XCSSAllProperties,
-	type XCSSAllPseudos,
-} from '@atlaskit/css';
+import { cssMap, cx, jsx, type XCSSAllProperties, type XCSSAllPseudos } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type Motion as MotionToken } from '@atlaskit/tokens/css-type-schema';
 
 import { convertToMs } from '../utils/convert-to-ms';
@@ -34,13 +28,11 @@ import { useExitingPersistence } from './exiting-persistence';
 import { Reanimate } from './reanimate';
 import { useStaggeredEntrance } from './staggered-entrance';
 import { type Transition } from './types';
+import { type CustomMotionXCSS, useMotion } from './use-motion';
 
-export type CustomMotionXCSS = StrictXCSSProp<
-	'animationName' | 'animationDuration' | 'animationTimingFunction' | 'animationDelay',
-	never
->;
+export type { CustomMotionXCSS } from './use-motion';
 
-type MotionState = 'init' | 'entering' | 'exiting' | 'idle' | 'reanimating';
+type MotionState = 'init' | 'entering' | 'exiting' | 'idle';
 
 const styles = cssMap({
 	base: {
@@ -122,11 +114,10 @@ export interface MotionProps {
 }
 
 /**
- * __Motion__
- *
- * A motion primitive that can be used to animate the entry and exit of components.
+ * Legacy implementation of `Motion` that inlines the animation lifecycle.
+ * Used when the `platform-dst-use-motion` feature gate is off.
  */
-const Motion: React.ForwardRefExoticComponent<
+const MotionLegacy: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<MotionProps> & React.RefAttributes<any>
 > = forwardRef(
 	(
@@ -352,6 +343,86 @@ const Motion: React.ForwardRefExoticComponent<
 		);
 	},
 );
+
+/**
+ * Implementation of `Motion` built on top of the `useMotion` hook.
+ * Used when the `platform-dst-use-motion` feature gate is on.
+ */
+const MotionNext: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<MotionProps> & React.RefAttributes<any>
+> = forwardRef(
+	(
+		{
+			children,
+			enteringAnimation,
+			enteringAnimationXcss,
+			exitingAnimation,
+			exitingAnimationXcss,
+			onFinish: onFinishMotion,
+			xcss,
+			style: styleProp,
+			testId,
+		},
+		ref: Ref<any>,
+	): React.JSX.Element => {
+		const {
+			state,
+			ref: motionRef,
+			reanimate,
+		} = useMotion<HTMLDivElement>({
+			onFinish: onFinishMotion,
+		});
+
+		useImperativeHandle(ref, () => ({ reanimate }), [reanimate]);
+
+		// `xcss` and `style` apply to the wrapper `<div>` the `Motion` component renders,
+		// so they are merged here (not in the hook) alongside the hook's animation output.
+		return (
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+				className={cx(
+					xcss,
+					state === 'entering' && enteringAnimationXcss,
+					state === 'exiting' && exitingAnimationXcss,
+				)}
+				css={[
+					state === 'init' && styles.hidden,
+					state === 'entering' && styles.entering,
+					state === 'exiting' && styles.exiting,
+				]}
+				ref={motionRef}
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					...styleProp,
+					animation:
+						state === 'entering'
+							? enteringAnimation
+							: state === 'exiting'
+								? exitingAnimation
+								: undefined,
+				}}
+				data-testid={testId}
+			>
+				{children}
+			</div>
+		);
+	},
+);
+
+/**
+ * __Motion__
+ *
+ * A motion primitive that can be used to animate the entry and exit of components.
+ */
+const Motion: React.ForwardRefExoticComponent<
+	React.PropsWithoutRef<MotionProps> & React.RefAttributes<any>
+> = forwardRef((props, ref: Ref<any>): React.JSX.Element => {
+	if (fg('platform-dst-use-motion')) {
+		return <MotionNext {...props} ref={ref} />;
+	}
+
+	return <MotionLegacy {...props} ref={ref} />;
+});
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default Motion;

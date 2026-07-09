@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EmptyState from '@atlaskit/empty-state';
+import EmptyState from '@atlaskit/empty-state/empty-state';
 
 const Examples = (): React.JSX.Element => (
 	<>

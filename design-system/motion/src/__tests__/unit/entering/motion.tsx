@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { token } from '@atlaskit/tokens';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act, render, screen } from '@atlassian/testing-library';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
@@ -842,5 +843,113 @@ describe('<Motion />', () => {
 		// Should have called onFinish exactly once for the final entering state
 		expect(onFinish).toHaveBeenCalledTimes(1);
 		expect(onFinish).toHaveBeenCalledWith('entering');
+	});
+
+	describe('platform-dst-use-motion feature gate', () => {
+		it('should render a single wrapper div and animate when the gate is on', () => {
+			passGate('platform-dst-use-motion');
+
+			renderWithMotionStyles(
+				<Motion
+					enteringAnimation={ENTERING_ANIMATION}
+					exitingAnimation={EXITING_ANIMATION}
+					testId="target"
+				>
+					<div data-testid="child" />
+				</Motion>,
+			);
+
+			const target = screen.getByTestId('target');
+			expect(target.tagName).toBe('DIV');
+			// Token animations are applied via the inline style.
+			expect(target.style.animation).toContain('var(--ds-test-enter)');
+			// Child is rendered directly inside the single wrapper.
+			expect(target).toContainElement(screen.getByTestId('child'));
+		});
+
+		it('should call onFinish for entering and exiting when the gate is on', () => {
+			passGate('platform-dst-use-motion');
+			const onFinish = jest.fn();
+
+			const { rerender } = renderWithMotionStyles(
+				<ExitingPersistence appear>
+					<Motion
+						enteringAnimation={ENTERING_ANIMATION}
+						exitingAnimation={EXITING_ANIMATION}
+						onFinish={onFinish}
+					>
+						<div />
+					</Motion>
+				</ExitingPersistence>,
+			);
+
+			act(() => {
+				jest.advanceTimersByTime(MOTION_DURATION);
+			});
+
+			expect(onFinish).toHaveBeenCalledTimes(1);
+			expect(onFinish).toHaveBeenCalledWith('entering');
+			onFinish.mockClear();
+
+			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
+
+			act(() => {
+				jest.advanceTimersByTime(MOTION_DURATION);
+			});
+
+			expect(onFinish).toHaveBeenCalledTimes(1);
+			expect(onFinish).toHaveBeenCalledWith('exiting');
+		});
+
+		it('should support reanimate via the imperative ref when the gate is on', () => {
+			passGate('platform-dst-use-motion');
+			const onFinish = jest.fn();
+			const ref = React.createRef<any>();
+
+			renderWithMotionStyles(
+				<ExitingPersistence appear>
+					<Motion
+						ref={ref}
+						enteringAnimation={ENTERING_ANIMATION}
+						exitingAnimation={EXITING_ANIMATION}
+						onFinish={onFinish}
+					>
+						<div />
+					</Motion>
+				</ExitingPersistence>,
+			);
+
+			act(() => {
+				jest.advanceTimersByTime(MOTION_DURATION);
+			});
+			onFinish.mockClear();
+
+			act(() => {
+				ref.current?.reanimate(Reanimate.enter);
+			});
+			act(() => {
+				jest.advanceTimersByTime(MOTION_DURATION);
+			});
+
+			expect(onFinish).toHaveBeenCalledWith('entering');
+		});
+
+		it('should use the legacy implementation when the gate is off', () => {
+			failGate('platform-dst-use-motion');
+
+			renderWithMotionStyles(
+				<Motion
+					enteringAnimation={ENTERING_ANIMATION}
+					exitingAnimation={EXITING_ANIMATION}
+					testId="target"
+				>
+					<div />
+				</Motion>,
+			);
+
+			const target = screen.getByTestId('target');
+			expect(target.tagName).toBe('DIV');
+			expect(target.style.animation).toContain('var(--ds-test-enter)');
+		});
 	});
 });

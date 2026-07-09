@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/top-layer",
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"description": "Low-level layering primitives based on popover and dialog",
 	"homepage": "https://atlassian.design/components/top-layer",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
@@ -10,7 +10,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": ["*.compiled.css"],
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"react-compiler": {
@@ -26,7 +28,9 @@
 			"category": "Libraries"
 		},
 		"integrationTests": {
-			"additionalBrowsers": ["desktop-firefox"]
+			"additionalBrowsers": [
+				"desktop-firefox"
+			]
 		}
 	},
 	"exports": {
@@ -85,15 +89,29 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
-			"import-structure": ["atlassian-conventions"],
-			"circular-dependencies": ["file-and-folder-level"]
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
 		},
 		"@repo/internal": {
 			"dom-events": "use-bind-event-listener",
-			"ui-components": ["lite-mode"],
-			"design-tokens": ["color", "spacing"],
-			"deprecation": ["no-deprecated-imports"],
-			"styling": ["static", "compiled"]
+			"ui-components": [
+				"lite-mode"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"compiled"
+			]
 		}
 	},
 	"publishConfig": {

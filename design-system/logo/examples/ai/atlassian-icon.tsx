@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AtlassianIcon } from '@atlaskit/logo';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
 
 const _default_1: React.JSX.Element[] = [
 	<AtlassianIcon appearance="brand" shouldUseNewLogoDesign />,

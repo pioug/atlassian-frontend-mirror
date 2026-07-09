@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Heading from '@atlaskit/heading';
+import Heading from '@atlaskit/heading/heading';
 
 const _default_1: React.JSX.Element[] = [
 	<Heading size="xxlarge">Page Title</Heading>,

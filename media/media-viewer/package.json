@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-viewer",
-	"version": "54.4.0",
+	"version": "54.5.2",
 	"description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,7 +12,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": ["*.compiled.css"],
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
@@ -155,7 +157,10 @@
 	},
 	"techstack": {
 		"@repo/internal": {
-			"design-tokens": ["color", "spacing"]
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
 		}
 	}
 }

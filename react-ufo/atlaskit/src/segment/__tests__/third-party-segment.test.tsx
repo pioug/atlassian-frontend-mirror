@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { act, render, screen } from '@atlassian/testing-library';
 
 import UFOInteractionContext from '../../interaction-context';
@@ -21,16 +20,9 @@ jest.mock('../segment', () => {
 	};
 });
 
-// Mock feature flags. `platform_ufo_3p_segment_resize_event` defaults to ON
-// so the existing `resized` ingestion tests exercise the happy path. The gate
-// is overridden to OFF in the dedicated gating tests below.
+// Mock feature flags.
 jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn((key: string) => {
-		if (key === 'platform_ufo_3p_segment_resize_event') {
-			return true;
-		}
-		return false;
-	}),
+	fg: jest.fn(() => false),
 }));
 
 // Mock interaction-metrics so we can spy on addIframeSegmentData
@@ -1156,55 +1148,6 @@ describe('UFOThirdPartySegment', () => {
 					expect.anything(),
 					expect.objectContaining({ label: 'resized' }),
 				);
-			});
-
-			it('does not forward resized events when platform_ufo_3p_segment_resize_event is OFF', () => {
-				// Temporarily flip the gate to OFF for this test only. Use a scoped
-				// `mockImplementation` keyed on the specific gate (rather than
-				// `mockImplementationOnce`) so the override is robust against any
-				// other `fg()` calls that might happen during render or effects —
-				// each consults the gate by key, so unrelated keys still return
-				// their default (true).
-				const fgMock = fg as jest.Mock;
-				const originalImpl = fgMock.getMockImplementation();
-				fgMock.mockImplementation((key: string) => {
-					if (key === 'platform_ufo_3p_segment_resize_event') {
-						return false;
-					}
-					return true;
-				});
-
-				try {
-					const { onRegisterIframeEventListener, getListener } = makeRegisterListener();
-
-					renderWithContext(
-						<UFOThirdPartySegment
-							name="test-segment"
-							onRegisterIframeEventListener={onRegisterIframeEventListener}
-							extraData={{ appType: 'CustomUI' }}
-						>
-							<div>Test content</div>
-						</UFOThirdPartySegment>,
-					);
-
-					act(() => {
-						getListener()({ type: 'resized', height: 240, elapsed: 100 });
-					});
-
-					// Gate is OFF, so the event must not be forwarded as a `resized` entry.
-					expect(mockAddIframeSegmentData).not.toHaveBeenCalledWith(
-						expect.anything(),
-						expect.anything(),
-						expect.objectContaining({ label: 'resized' }),
-					);
-				} finally {
-					// Restore the default mock so subsequent tests are unaffected.
-					if (originalImpl) {
-						fgMock.mockImplementation(originalImpl);
-					} else {
-						fgMock.mockReset();
-					}
-				}
 			});
 		});
 	});

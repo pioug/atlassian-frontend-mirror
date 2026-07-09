@@ -676,6 +676,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-09
+	platform_editor_reduced_profile_cards: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-25
 	platform_editor_plus_menu_aria_label: {
 		defaultValue: boolean;
@@ -855,15 +862,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-17 - Experiment to display Rovo Chat actions on Google Smart Link's HoverCard on
-	// Confluence main page renderer. Boolean experiment: use getExperimentValue(..., "isEnabled", false).
-	// https://switcheroo.atlassian.com/ui/gates/c6e2cac7-a7c6-47d4-ac53-ebed74cac406/key/platform_sl_3p_auth_rovo_action
-	platform_sl_3p_auth_rovo_action: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-27 — Pre-auth inline smart link: improved unauthorised hover card (boolean: isEnabled)
 	platform_sl_3p_preauth_better_hovercard: {
 		defaultValue: boolean;
@@ -1001,13 +999,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-13
 	platform_editor_hide_extension_renderer_support: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-12-22
-	platform_editor_sample_renderer_rendered_event: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1298,6 +1289,14 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-08
+	cc_cwr_prompt_strength_indicator: {
+		defaultValue: 'control' | 'variant1' | 'variant2';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'variant1' | 'variant2';
+		values: ('control' | 'variant1' | 'variant2')[];
 	};
 	// Added 2026-02-12
 	platform_editor_a11y_escape_link_dialog: {
@@ -2007,13 +2006,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-25
-	platform_editor_typeahead_empty_query_fix: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-07-02
 	platform_editor_media_download_fallback_name: {
 		defaultValue: boolean;
@@ -2479,6 +2471,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_agent_mentions',
 			jira: 'platform_editor_agent_mentions',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-09
+	platform_editor_reduced_profile_cards: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_reduced_profile_cards',
+			jira: 'platform_editor_reduced_profile_cards',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3019,15 +3020,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-17 - 3P auth Rovo actions on smart link hover card (boolean: isEnabled)
-	platform_sl_3p_auth_rovo_action: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_sl_3p_auth_rovo_action',
-			jira: 'platform_sl_3p_auth_rovo_action',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-27 — Pre-auth unauthorised inline hover card UX
 	platform_sl_3p_preauth_better_hovercard: createBooleanExperiment({
 		productKeys: {
@@ -3123,14 +3115,6 @@ export const editorExperimentsConfig: {
 	platform_editor_hide_extension_renderer_support: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_hide_extension_renderer_support',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-22
-	platform_editor_sample_renderer_rendered_event: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_sample_renderer_rendered_event',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3416,6 +3400,15 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2026-07-08
+	cc_cwr_prompt_strength_indicator: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cc_cwr_prompt_strength_indicator',
+		},
+		param: 'cohort',
+		values: ['control', 'variant1', 'variant2'],
+		defaultValue: 'control',
 	}),
 	// Added 2026-02-12
 	platform_editor_a11y_escape_link_dialog: createBooleanExperiment({
@@ -4336,14 +4329,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'aifc-confluence-editor-csp-fix',
 			jira: 'aifc-confluence-editor-csp-fix',
-		},
-		param: 'value',
-		defaultValue: false,
-	}),
-	// Added 2026-06-25
-	platform_editor_typeahead_empty_query_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_typeahead_empty_query_fix',
 		},
 		param: 'value',
 		defaultValue: false,

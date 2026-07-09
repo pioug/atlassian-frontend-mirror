@@ -2,15 +2,14 @@ import React, { Fragment, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
-import Heading from '@atlaskit/heading';
-import Modal, {
-	CloseButton,
-	ModalBody,
-	ModalFooter,
-	ModalTransition,
-	useModal,
-} from '@atlaskit/modal-dialog';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import Heading from '@atlaskit/heading/heading';
+import Modal, { useModal } from '@atlaskit/modal-dialog';
+import { CloseButton } from '@atlaskit/modal-dialog/close-button';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const styles = cssMap({
 	header: {

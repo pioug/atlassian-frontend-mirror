@@ -1,11 +1,14 @@
 {
 	"name": "@atlaskit/editor-plugin-autocomplete",
-	"version": "4.0.6",
+	"version": "4.1.1",
 	"description": "Client-side text autocomplete plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
+	},
+	"scripts": {
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/pm-plugins/data/*.json"
 	},
 	"atlassian": {
 		"team": "Editor: AI",

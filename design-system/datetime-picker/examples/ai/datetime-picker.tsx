@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DateTimePicker } from '@atlaskit/datetime-picker';
+import DateTimePicker from '@atlaskit/datetime-picker/date-time-picker';
 import __noop from '@atlaskit/ds-lib/noop';
 
 const Example = (): React.JSX.Element => (

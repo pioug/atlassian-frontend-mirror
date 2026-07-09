@@ -8,6 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
+import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 import type { RovoChatActionData } from '../../../../state/flexible-ui-context/types';
@@ -25,7 +26,7 @@ const styles = cssMap({
 	actionGroup: {
 		display: 'flex',
 		flexDirection: 'row',
-		gap: '0',
+		gap: token('space.050'),
 	},
 });
 

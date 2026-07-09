@@ -8,7 +8,6 @@ import { renderHook } from '@atlassian/testing-library';
 import { getIsFirstPartyLink, useSmartLinkCrossProductUrlWrapperGated } from '../index';
 
 const FEATURE_GATE = 'platform_smartlink_xpc_url_wrapping';
-const SSR_WINDOW_GATE = 'platform_smartlink_xpc_url_wrapping_window_existed';
 
 type SmartLinkMetaWithFirstPartySignal = SmartLinkResponse['meta'] & {
 	is1PLink?: boolean;
@@ -163,22 +162,8 @@ describe('useSmartLinkCrossProductUrlWrapperGated', () => {
 			(global as any).window = originalWindow;
 		});
 
-		it('still wraps the URL when the SSR guard gate is off (old behaviour)', () => {
+		it('returns the URL unchanged when the SSR guard gate is on', () => {
 			passGate(FEATURE_GATE);
-			failGate(SSR_WINDOW_GATE);
-
-			// Render while window is still present, then simulate SSR by removing it
-			const urlWrapper = renderUrlWrapper(makeDetails(true));
-			originalWindow = global.window;
-			delete (global as any).window;
-
-			expect(urlWrapper('https://example.com/page')).toBe('https://example.com/page?xpis=wrapped');
-			expect(wrapUrl).toHaveBeenCalledWith('https://example.com/page');
-		});
-
-		it('returns the URL unchanged when the SSR guard gate is on (SSR fix active)', () => {
-			passGate(FEATURE_GATE);
-			passGate(SSR_WINDOW_GATE);
 
 			// Render while window is still present, then simulate SSR by removing it
 			const urlWrapper = renderUrlWrapper(makeDetails(true));

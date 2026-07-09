@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Bleed, Box } from '@atlaskit/primitives/compiled';
+import { Bleed } from '@atlaskit/primitives/compiled/bleed';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 const _default_1: React.JSX.Element[] = [
 	<Box padding="space.200" backgroundColor="color.background.neutral.subtle">

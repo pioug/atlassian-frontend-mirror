@@ -22,6 +22,17 @@ import type {
 } from '../common/types';
 
 type SyncBlockErrorInfo = {
+	/**
+	 * PII-safe `Error.name` from the upstream catch, used to de-opaque `errored`
+	 * failures. Only ever `Error.name` — never node content, titles, or any UGC.
+	 */
+	originalName?: string;
+	/**
+	 * PII-safe `Error.message` from the upstream catch, so the classifier can bucket
+	 * the real cause. Distinct from `reason` (may be synthetic/enum): carries the raw
+	 * framework/HTTP text. Only ever `Error.message` — never node content or UGC.
+	 */
+	originalMessage?: string;
 	reason?: string;
 	sourceAri?: string;
 	/**

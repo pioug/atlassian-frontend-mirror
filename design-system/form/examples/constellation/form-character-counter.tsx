@@ -2,17 +2,17 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import Form, {
-	CharacterCounterField,
-	type FieldProps,
-	FormFooter,
-	FormHeader,
-	FormSection,
-	RequiredAsterisk,
-} from '@atlaskit/form';
-import { Flex } from '@atlaskit/primitives/compiled';
-import TextArea from '@atlaskit/textarea';
-import TextField from '@atlaskit/textfield';
+import { CharacterCounterField } from '@atlaskit/form/character-counter-field';
+import { type FieldProps } from '@atlaskit/form/field';
+import Form from '@atlaskit/form/form';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { FormHeader } from '@atlaskit/form/form-header';
+import { FormSection } from '@atlaskit/form/form-section';
+import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
+import { Flex } from '@atlaskit/primitives/compiled/flex';
+import { Text } from '@atlaskit/primitives/compiled/text';
+import TextArea from '@atlaskit/textarea/text-area';
+import TextField from '@atlaskit/textfield/text-field';
 
 /**
  * Mock i18n setup - in a real app, these would come from your i18n library
@@ -46,9 +46,9 @@ const FormCharacterCounterExample = (): React.JSX.Element => (
 			}}
 		>
 			<FormHeader title="Profile">
-				<p aria-hidden="true">
+				<Text as="p" aria-hidden="true">
 					Required fields are marked with an asterisk <RequiredAsterisk />
-				</p>
+				</Text>
 			</FormHeader>
 			<FormSection>
 				{/* Example 1: Maximum characters only with default messages */}

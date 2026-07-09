@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'Popper',
 			description: 'A component for positioning elements relative to other elements.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82088-103357',
+			},
 			import: {
 				name: 'Popper',
-				package: '@atlaskit/popper',
+				package: '@atlaskit/popper/popper',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

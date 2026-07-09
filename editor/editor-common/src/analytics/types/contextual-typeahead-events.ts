@@ -12,6 +12,7 @@ export type CompletionSource =
 
 type ContextualTypeaheadViewedAttributes = {
 	completionSource: CompletionSource;
+	surface: string;
 };
 
 type ContextualTypeaheadViewedAEP = TrackAEP<
@@ -26,6 +27,7 @@ type ContextualTypeaheadAcceptedAttributes = {
 	completionSource: CompletionSource;
 	kssDelta: number;
 	suggestionLength: number;
+	surface: string;
 	typedLength: number;
 };
 
@@ -40,6 +42,7 @@ type ContextualTypeaheadAcceptedAEP = TrackAEP<
 type ContextualTypeaheadDismissedAttributes = {
 	completionSource: CompletionSource;
 	reason: 'escape' | 'blur';
+	surface: string;
 };
 
 type ContextualTypeaheadDismissedAEP = TrackAEP<
@@ -61,6 +64,8 @@ type ContextualTypeaheadLocalModelLoadedAttributes = {
 	loadDurationMs: number;
 	/** Causal LM identifier that loaded. */
 	modelId: string;
+	/** Product/editor surface where autocomplete is running. */
+	surface: string;
 };
 
 type ContextualTypeaheadLocalModelLoadedAEP = TrackAEP<
@@ -97,6 +102,8 @@ type ContextualTypeaheadLocalModelLoadFailedAttributes = {
 		| 'model_download_failed'
 		| 'module_load_failed'
 		| 'init_failed';
+	/** Product/editor surface where autocomplete is running. */
+	surface: string;
 	/** Whether the GPU supports the shader-f16 feature the model requires. */
 	shaderF16Supported?: boolean;
 	/** Whether navigator.gpu exists at all. */

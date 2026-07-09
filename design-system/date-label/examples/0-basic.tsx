@@ -4,7 +4,7 @@
  */
 
 import { cssMap, jsx } from '@atlaskit/css';
-import DateLabel from '@atlaskit/date-label';
+import DateLabel from '@atlaskit/date-label/date-label';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

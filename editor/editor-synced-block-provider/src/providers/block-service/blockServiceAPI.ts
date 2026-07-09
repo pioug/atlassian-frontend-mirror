@@ -33,7 +33,7 @@ import type {
 	SyncBlockProduct,
 	SyncBlockStatus,
 } from '../../common/types';
-import { stringifyError } from '../../utils/errorHandling';
+import { getPiiSafeOriginalError, stringifyError } from '../../utils/errorHandling';
 import { createResourceIdForReference } from '../../utils/resourceId';
 import { convertContentUpdatedAt } from '../../utils/utils';
 import type {
@@ -372,12 +372,14 @@ export const batchFetchData = async (
 
 		// If batch request fails, return error for all resourceIds. Capture the HTTP
 		// status from `BlockError` so fetch analytics can break failures down by
-		// statusCode (EDITOR-7862); undefined for non-HTTP failures.
+		// statusCode (EDITOR-7862); undefined for non-HTTP failures. Thread the PII-safe
+		// original message/name so the renderer can de-opaque the `errored` bucket.
 		return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
 			error: {
 				type: error instanceof BlockError ? mapBlockError(error) : SyncBlockError.Errored,
 				reason: (error as Error).message,
 				...(error instanceof BlockError && { statusCode: error.status }),
+				...getPiiSafeOriginalError(error),
 			},
 			resourceId: blockNodeIdentifier.resourceId,
 		}));
@@ -541,14 +543,24 @@ class BlockServiceADFFetchProvider implements ADFFetchProvider {
 		} catch (error) {
 			if (error instanceof BlockError) {
 				// Capture the HTTP status so fetch analytics can break failures down by
-				// statusCode (EDITOR-7862).
+				// statusCode (EDITOR-7862). Thread the PII-safe original message/name so
+				// the renderer can de-opaque failures.
 				return {
-					error: { type: mapBlockError(error), reason: error.message, statusCode: error.status },
+					error: {
+						type: mapBlockError(error),
+						reason: error.message,
+						statusCode: error.status,
+						...getPiiSafeOriginalError(error),
+					},
 					resourceId,
 				};
 			}
 			return {
-				error: { type: SyncBlockError.Errored, reason: (error as Error).message },
+				error: {
+					type: SyncBlockError.Errored,
+					reason: (error as Error).message,
+					...getPiiSafeOriginalError(error),
+				},
 				resourceId,
 			};
 		}

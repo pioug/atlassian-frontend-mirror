@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text } from '@atlaskit/primitives/compiled';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const _default_1: React.JSX.Element[] = [
 	<Text>Default text</Text>,

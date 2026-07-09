@@ -1,5 +1,15 @@
 # @atlaskit/motion
 
+## 7.3.0
+
+### Minor Changes
+
+- [`28870bef28294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28870bef28294) -
+  Add `useMotion` hook so motion can be applied to an existing element without an extra wrapper
+  element. The hook is available from the `@atlaskit/motion/use-motion` entry point. `Motion` now
+  consumes this hook behind the `platform-dst-use-motion` feature gate (no behavioural change while
+  the gate is off).
+
 ## 7.2.0
 
 ### Minor Changes

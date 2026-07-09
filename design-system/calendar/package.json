@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/calendar",
-	"version": "18.1.0",
+	"version": "18.2.0",
 	"description": "An interactive calendar for date selection experiences.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -95,6 +95,9 @@
 	},
 	"platform-feature-flags": {
 		"platform-dst-shape-theme-default": {
+			"type": "boolean"
+		},
+		"platform-dst-motion-uplift-list-item": {
 			"type": "boolean"
 		}
 	},

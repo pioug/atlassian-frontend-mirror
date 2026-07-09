@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Tabs',
-				package: '@atlaskit/tabs',
+				package: '@atlaskit/tabs/tabs',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -37,6 +37,10 @@ const documentation: StructuredContentSource = {
 				'Announce tab changes to screen readers',
 				'Ensure tab content is accessible',
 			],
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=5775-8556',
+			},
 			examples: [
 				{
 					name: 'Tabs',

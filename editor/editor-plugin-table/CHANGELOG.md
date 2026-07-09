@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.0
+
+### Minor Changes
+
+- [`af0307ac8c91b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af0307ac8c91b) -
+  Fix nested tables rendering as non-nested during SSR streaming (guarded by isSSRStreaming; no
+  change to CSR)
+
+### Patch Changes
+
+- [`5fa08ff6d295a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5fa08ff6d295a) -
+  Re-add missing cell menu items behind the `platform_editor_table_cell_menu_update`.
+- [`075b6ae004392`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/075b6ae004392) -
+  [ux] fix toolbar table insertion for markdown syntax mode
+- [`e162cd8ab6b15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e162cd8ab6b15) -
+  Fix malformed nested-table column width in SSR output: the min-width branch emitted `width: 48px)`
+  (stray parenthesis) instead of a valid `width: 48px`.
+- Updated dependencies
+
+## 24.3.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 24.3.13
 
 ### Patch Changes

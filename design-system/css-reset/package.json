@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/css-reset",
-	"version": "8.0.1",
+	"version": "8.1.0",
 	"description": "A base stylesheet for the Atlassian Design System.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,7 +42,11 @@
 		"mkdirp": "root:*",
 		"react": "root:*"
 	},
-	"keywords": ["atlaskit", "css", "ui"],
+	"keywords": [
+		"atlaskit",
+		"css",
+		"ui"
+	],
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": "atlassian-conventions"
@@ -50,9 +54,14 @@
 		"@repo/internal": {
 			"design-system": "v1",
 			"ui-components": "lite-mode",
-			"design-tokens": ["color", "spacing"],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
 			"deprecation": "no-deprecated-imports",
-			"styling": ["emotion"]
+			"styling": [
+				"emotion"
+			]
 		}
 	},
 	"exports": {

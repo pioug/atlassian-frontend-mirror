@@ -8,10 +8,14 @@ const documentation: StructuredContentSource = {
 			name: 'Code',
 			description: 'Use for short code snippets inline with body text.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=27203-107369',
+			},
 			import: {
 				name: 'Code',
-				package: '@atlaskit/code',
-				type: 'named',
+				package: '@atlaskit/code/code',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -46,8 +50,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CodeBlock',
-				package: '@atlaskit/code',
-				type: 'named',
+				package: '@atlaskit/code/code-block',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

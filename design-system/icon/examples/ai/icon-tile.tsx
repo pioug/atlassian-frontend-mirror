@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { IconTile } from '@atlaskit/icon';
 import AddIcon from '@atlaskit/icon/core/add';
-import { Box } from '@atlaskit/primitives/compiled';
+import IconTile from '@atlaskit/icon/icon-tile';
+import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

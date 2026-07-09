@@ -65,13 +65,27 @@ export type CommonComponentProps = {
 // --- Registration types ---
 
 /**
- * Toolbar surface root. No parents — this is a top-level surface.
+ * Context passed to `isAsyncHidden` callbacks for async visibility checks.
+ */
+export type AsyncHiddenContext = {
+	/** The URL of a single pasted smart link, if the paste event contained one. */
+	pastedUrl?: string;
+};
+
+/** Toolbar surface root. No parents — this is a top-level surface.
  *
  * toolbar (surface)
  *   └── section → group → button | menu → …
  */
 export type RegisterToolbar = ToolbarType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	/**
+	 * Optional async visibility check. When present, the paste menu will run
+	 * this function in parallel with other async checks and hide this component
+	 * if it resolves to `true`. Wrapped in a 3-second timeout — on timeout or
+	 * error the component is hidden (safe default).
+	 */
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents?: undefined;
 };
@@ -84,6 +98,7 @@ export type RegisterToolbar = ToolbarType & {
  */
 export type RegisterMenuSurface = MenuType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents?: undefined;
 };
@@ -91,6 +106,7 @@ export type RegisterMenuSurface = MenuType & {
 /** Section within a toolbar surface. */
 export type RegisterSection = SectionType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents: Parents<ToolbarType>;
 };
@@ -98,6 +114,7 @@ export type RegisterSection = SectionType & {
 /** Group within a toolbar section. */
 export type RegisterGroup = GroupType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents: Parents<SectionType>;
 };
@@ -105,6 +122,7 @@ export type RegisterGroup = GroupType & {
 /** Button within a toolbar group. Leaf node. */
 export type RegisterButton = ButtonType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents: Parents<GroupType>;
 };
@@ -112,6 +130,7 @@ export type RegisterButton = ButtonType & {
 /** Menu (dropdown) within a toolbar group. */
 export type RegisterMenu = MenuType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents: Parents<GroupType>;
 };
@@ -119,6 +138,7 @@ export type RegisterMenu = MenuType & {
 /** Section within a menu or nested-menu. */
 export type RegisterMenuSection = MenuSectionType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents: Parents<MenuType | NestedMenuType>;
 };
@@ -126,6 +146,7 @@ export type RegisterMenuSection = MenuSectionType & {
 /** Menu item within a menu-section. Leaf node. */
 export type RegisterMenuItem = MenuItemType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents: Parents<MenuSectionType>;
 };
@@ -133,6 +154,7 @@ export type RegisterMenuItem = MenuItemType & {
 /** Nested sub-menu within a menu-section. */
 export type RegisterNestedMenu = NestedMenuType & {
 	component?: (props: Record<string, unknown>) => React.ReactNode;
+	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 	isHidden?: () => boolean;
 	parents: Parents<MenuSectionType>;
 };

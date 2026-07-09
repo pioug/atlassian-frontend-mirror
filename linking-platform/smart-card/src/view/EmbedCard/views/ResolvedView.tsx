@@ -11,7 +11,7 @@ import LinkGlyph from '@atlaskit/icon/core/link';
 import { type JsonLd } from '@atlaskit/json-ld-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { componentWithFG } from '@atlaskit/platform-feature-flags-react';
-import { useThemeObserver } from '@atlaskit/tokens';
+import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { CardDisplay } from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
@@ -50,6 +50,10 @@ const styles = cssMap({
 	footer: {
 		display: 'flex',
 		justifyContent: 'flex-start',
+		paddingBlockEnd: token('space.100'),
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingInlineStart: token('space.100'),
 	},
 });
 

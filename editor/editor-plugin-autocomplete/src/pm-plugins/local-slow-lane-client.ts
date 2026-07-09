@@ -81,6 +81,8 @@ export interface LocalSlowLaneClientConfig {
 	onStatus?: (message: string) => void;
 	/** Callback fired when inference returns new results. */
 	onUpdate?: (opts: { hasLmLogits: boolean; hasVector: boolean; textLength: number }) => void;
+	/** Product/editor surface where autocomplete runs. */
+	surface?: string;
 }
 
 // Same return type as createSlowLaneClient for drop-in compatibility
@@ -664,6 +666,7 @@ export const createLocalSlowLaneClient = (
 		onLoadSuccess,
 		modelId = LOCAL_MLC_CAUSAL_MODEL_ID,
 		customModelConfig,
+		surface,
 	} = config;
 
 	// ── State ──────────────────────────────────────────────────────────────
@@ -1040,6 +1043,7 @@ export const createLocalSlowLaneClient = (
 			startExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, experienceId, {
 				textLength: text.length,
 				isLocalLLM: true,
+				...(surface ? { surface } : {}),
 			});
 
 			const tStart = performance.now();
@@ -1085,7 +1089,7 @@ export const createLocalSlowLaneClient = (
 					EXPERIENCE_NAME.SLOW_LANE_FETCH,
 					experienceId,
 					destroyed ? 'destroyed' : 'superseded',
-					{ isLocalLLM: true },
+					{ isLocalLLM: true, ...(surface ? { surface } : {}) },
 				);
 				return;
 			}
@@ -1154,6 +1158,7 @@ export const createLocalSlowLaneClient = (
 				hasVector: storedContextVector !== null,
 				hasLmLogits: storedLmLogits !== null,
 				isLocalLLM: true,
+				...(surface ? { surface } : {}),
 			});
 
 			onUpdate?.({
@@ -1168,7 +1173,7 @@ export const createLocalSlowLaneClient = (
 					EXPERIENCE_NAME.SLOW_LANE_FETCH,
 					experienceId,
 					destroyed ? 'destroyed' : 'superseded',
-					{ isLocalLLM: true },
+					{ isLocalLLM: true, ...(surface ? { surface } : {}) },
 				);
 				return;
 			}
@@ -1178,6 +1183,7 @@ export const createLocalSlowLaneClient = (
 			failExp(EXPERIENCE_NAME.SLOW_LANE_FETCH, experienceId, {
 				errorType: 'inference',
 				isLocalLLM: true,
+				...(surface ? { surface } : {}),
 			});
 			onUpdate?.({ textLength: text.length, hasVector: false, hasLmLogits: false });
 

@@ -1,3 +1,4 @@
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type FireEventType } from '@atlaskit/teams-app-internal-analytics';
 
@@ -151,7 +152,13 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 	}
 
 	getCachedProfile(idValue: string): RovoAgentCardClientResult | null {
-		if (!fg('platform_editor_agent_profile_card_favourite_sync')) {
+		if (
+			!FeatureGates.getExperimentValue(
+				'platform_editor_agent_profile_card_fav_sync',
+				'isEnabled',
+				false,
+			)
+		) {
 			return super.getCachedProfile(idValue);
 		}
 
@@ -168,7 +175,13 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 	}
 
 	setCachedProfile(idValue: string, profile: RovoAgentCardClientResult): void {
-		if (!fg('platform_editor_agent_profile_card_favourite_sync')) {
+		if (
+			!FeatureGates.getExperimentValue(
+				'platform_editor_agent_profile_card_fav_sync',
+				'isEnabled',
+				false,
+			)
+		) {
 			super.setCachedProfile(idValue, profile);
 			return;
 		}
@@ -247,7 +260,14 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 					headers,
 				}),
 			).then((response) => {
-				if (response.status === 403 && fg('platform_editor_reduced_agent_profile_card')) {
+				if (
+					response.status === 403 &&
+					FeatureGates.getExperimentValue(
+						'platform_editor_reduced_profile_cards',
+						'isEnabled',
+						false,
+					)
+				) {
 					throw new AgentForbiddenError();
 				}
 				return response.json();
@@ -261,7 +281,14 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 					headers,
 				}),
 			).then((response) => {
-				if (response.status === 403 && fg('platform_editor_reduced_agent_profile_card')) {
+				if (
+					response.status === 403 &&
+					FeatureGates.getExperimentValue(
+						'platform_editor_reduced_profile_cards',
+						'isEnabled',
+						false,
+					)
+				) {
 					throw new AgentForbiddenError();
 				}
 				return response.json();
@@ -342,7 +369,14 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 
 			this.makeRequest(id, analytics)
 				.then((data) => {
-					if (this.cache || fg('platform_editor_agent_profile_card_favourite_sync')) {
+					if (
+						this.cache ||
+						FeatureGates.getExperimentValue(
+							'platform_editor_agent_profile_card_fav_sync',
+							'isEnabled',
+							false,
+						)
+					) {
 						this.setCachedProfile(id.value, data);
 					}
 					if (analytics) {
@@ -469,7 +503,13 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 						});
 					}
 
-					if (fg('platform_editor_agent_profile_card_favourite_sync')) {
+					if (
+						FeatureGates.getExperimentValue(
+							'platform_editor_agent_profile_card_fav_sync',
+							'isEnabled',
+							false,
+						)
+					) {
 						this.syncFavouriteToCache(agentId, isFavourite);
 					}
 

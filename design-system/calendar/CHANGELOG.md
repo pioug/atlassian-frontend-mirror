@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 18.2.0
+
+### Minor Changes
+
+- [`00debd55c4e53`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00debd55c4e53) -
+  Add motion to Calendar day cells and month/year navigation arrows behind the
+  platform-dst-motion-uplift-list-item feature flag
+
 ## 18.1.0
 
 ### Minor Changes

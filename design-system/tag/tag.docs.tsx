@@ -8,6 +8,10 @@ const documentation: StructuredContentSource = {
 			name: 'Tag',
 			description: 'A tag is a subtle, compact label used to categorize and organize content.',
 			status: 'general-availability', // beta tag is feature-flagged
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=121350-11129',
+			},
 			import: {
 				name: 'Tag',
 				package: '@atlaskit/tag',
@@ -52,8 +56,8 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'RemovableTag',
-				package: '@atlaskit/tag',
-				type: 'named',
+				package: '@atlaskit/tag/removable-tag',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -86,8 +90,8 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'SimpleTag',
-				package: '@atlaskit/tag',
-				type: 'named',
+				package: '@atlaskit/tag/simple-tag',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -119,8 +123,8 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'AvatarTag',
-				package: '@atlaskit/tag',
-				type: 'named',
+				package: '@atlaskit/tag/avatar-tag',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

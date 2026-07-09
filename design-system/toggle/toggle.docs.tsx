@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'Toggle',
 			description: 'A toggle is used to view or switch between enabled or disabled states.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=7947-9758',
+			},
 			import: {
 				name: 'Toggle',
-				package: '@atlaskit/toggle',
+				package: '@atlaskit/toggle/toggle',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

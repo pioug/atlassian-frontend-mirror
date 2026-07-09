@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'Pagination',
 			description: 'A component for pagination controls.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13916-66923',
+			},
 			import: {
 				name: 'Pagination',
-				package: '@atlaskit/pagination',
+				package: '@atlaskit/pagination/pagination',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

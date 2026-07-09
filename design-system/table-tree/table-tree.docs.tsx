@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'TableTree',
-				package: '@atlaskit/table-tree',
+				package: '@atlaskit/table-tree/table-tree',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -33,7 +33,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Headers',
-				package: '@atlaskit/table-tree',
+				package: '@atlaskit/table-tree/headers',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -53,7 +53,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Header',
-				package: '@atlaskit/table-tree',
+				package: '@atlaskit/table-tree/header',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -69,7 +69,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Rows',
-				package: '@atlaskit/table-tree',
+				package: '@atlaskit/table-tree/rows',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -89,7 +89,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Row',
-				package: '@atlaskit/table-tree',
+				package: '@atlaskit/table-tree/row',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -107,7 +107,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Cell',
-				package: '@atlaskit/table-tree',
+				package: '@atlaskit/table-tree/cell',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

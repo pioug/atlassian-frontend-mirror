@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "8.1.1",
+	"version": "8.2.0",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -14,7 +14,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": ["**/*.compiled.css"],
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,
@@ -62,13 +64,21 @@
 		"react-dom": "root:*",
 		"ts-node": "root:*"
 	},
-	"keywords": ["atlaskit", "ui"],
+	"keywords": [
+		"atlaskit",
+		"ui"
+	],
 	"techstack": {
 		"@repo/internal": {
 			"design-system": "v1",
 			"dom-events": "use-bind-event-listener",
-			"design-tokens": ["color", "spacing"],
-			"styling": ["compiled"],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"styling": [
+				"compiled"
+			],
 			"deprecation": "no-deprecated-imports"
 		}
 	},

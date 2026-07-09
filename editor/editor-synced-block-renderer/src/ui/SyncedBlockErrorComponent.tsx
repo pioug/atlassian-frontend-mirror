@@ -1,11 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
 
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import { SyncBlockSharedCssClassName } from '@atlaskit/editor-common/sync-block';
@@ -15,7 +9,9 @@ import {
 	SyncBlockError,
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider';
+import { buildFetchErrorAttribution } from '@atlaskit/editor-synced-block-provider/errorHandling';
 import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SyncedBlockEntityNotFoundError } from './SyncedBlockEntityNotFoundError';
 import { SyncedBlockGenericError } from './SyncedBlockGenericError';
@@ -70,17 +66,29 @@ export const SyncedBlockErrorComponent = ({
 	sourceURL?: string;
 }): React.JSX.Element => {
 	useEffect(() => {
-		fireAnalyticsEvent?.({
-			action: ACTION.ERROR,
-			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-			actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_FETCH,
-			attributes: {
-				error: `${error?.reason || error?.type}: error component rendered`,
-				resourceId: resourceId,
-			},
-			eventType: EVENT_TYPE.OPERATIONAL,
-		});
-	}, [error?.reason, error?.type, resourceId, fireAnalyticsEvent]);
+		// Emit structured attribution via the shared builder instead of an opaque
+		// `errored`-only blob. Prefer the PII-safe `originalMessage` so the classifier
+		// can bucket the real cause; fall back to `reason` then the bare `type`.
+		// Gate-off is a no-op (builder returns undefined → no new attributes).
+		const gateEnabled = fg('platform_editor_blocks_patch_4');
+		const rawError = error?.originalMessage || error?.reason || error?.type || 'unknown';
+
+		fireAnalyticsEvent?.(
+			fetchErrorPayload(
+				`${rawError}: error component rendered`,
+				resourceId,
+				getSourceProductFromResourceIdSafe(resourceId),
+				buildFetchErrorAttribution(gateEnabled, rawError, error?.statusCode),
+			),
+		);
+	}, [
+		error?.originalMessage,
+		error?.reason,
+		error?.type,
+		error?.statusCode,
+		resourceId,
+		fireAnalyticsEvent,
+	]);
 
 	const getErrorContent = useMemo(() => {
 		switch (error?.type) {

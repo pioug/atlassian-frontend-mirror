@@ -95,6 +95,9 @@
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/json-ld-types/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/link/afm-products/tsconfig.json"
 		},
 		{

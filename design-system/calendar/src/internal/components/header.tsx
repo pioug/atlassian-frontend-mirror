@@ -1,4 +1,10 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { memo, useState } from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import { useId } from '@atlaskit/ds-lib/use-id';
@@ -7,9 +13,27 @@ import ChevronDoubleLeftIcon from '@atlaskit/icon/core/chevron-double-left';
 import ChevronDoubleRightIcon from '@atlaskit/icon/core/chevron-double-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { type TabIndex } from '../../types';
+
+// platform-dst-motion-uplift-list-item cleanup: once fully rolled out, drop the gate
+// in the return below and always apply these transitions.
+const arrowMotionStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+	'& button': {
+		transition: token('motion.listitem.hovered'),
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+		// Focus rings must stay immediate — non-negotiable per the motion decision record.
+		'&:focus-visible': {
+			transition: 'none',
+		},
+	},
+});
 
 interface HeaderProps {
 	monthLongTitle: string;
@@ -89,7 +113,7 @@ const Header: React.NamedExoticComponent<HeaderProps> = memo<HeaderProps>(functi
 		handleClickNextYear(e);
 	};
 
-	return (
+	const header = (
 		<Box paddingInline="space.100">
 			<Inline space="space.0" alignBlock="center" spread="space-between">
 				<Inline space="space.100" alignBlock="start">
@@ -149,6 +173,12 @@ const Header: React.NamedExoticComponent<HeaderProps> = memo<HeaderProps>(functi
 				</Inline>
 			</Inline>
 		</Box>
+	);
+
+	return fg('platform-dst-motion-uplift-list-item') ? (
+		<div css={arrowMotionStyles}>{header}</div>
+	) : (
+		header
 	);
 });
 

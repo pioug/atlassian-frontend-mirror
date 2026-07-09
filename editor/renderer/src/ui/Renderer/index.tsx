@@ -87,7 +87,7 @@ export const DEGRADED_SEVERITY_THRESHOLD = 3000;
 // we want to calculate all the table widths (which causes reflows) after the renderer has finished loading to mitigate performance impact
 const TABLE_INFO_TIMEOUT = 10000;
 
-const RENDER_EVENT_SAMPLE_RATE = 0.2;
+const RENDER_EVENT_SAMPLE_RATE = 0.1;
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -428,12 +428,22 @@ export const RendererFunctionalComponent = (
 		let heightWidthAnalyticsRafID: number;
 
 		const handleAnalytics = () => {
-			fireAnalyticsEvent({
-				action: ACTION.STARTED,
-				actionSubject: ACTION_SUBJECT.RENDERER,
-				attributes: { platform: PLATFORM.WEB },
-				eventType: EVENT_TYPE.UI,
-			});
+			if (
+				!fg('platform_renderer_sample_high_volume_events') ||
+				Math.random() < RENDER_EVENT_SAMPLE_RATE
+			) {
+				fireAnalyticsEvent({
+					action: ACTION.STARTED,
+					actionSubject: ACTION_SUBJECT.RENDERER,
+					attributes: {
+						platform: PLATFORM.WEB,
+						sampleRate: fg('platform_renderer_sample_high_volume_events')
+							? RENDER_EVENT_SAMPLE_RATE
+							: 1,
+					},
+					eventType: EVENT_TYPE.UI,
+				});
+			}
 
 			rafID = requestAnimationFrame(() => {
 				stopMeasure(`Renderer Render Time: ${id}`, (duration) => {
@@ -469,18 +479,18 @@ export const RendererFunctionalComponent = (
 									? nestedRendererType
 									: undefined,
 								severity,
+								sampleRate: fg('platform_renderer_sample_high_volume_events')
+									? RENDER_EVENT_SAMPLE_RATE
+									: 1,
 							},
 							eventType: EVENT_TYPE.OPERATIONAL,
 						} as const;
-						fireAnalyticsEvent(event);
+
 						if (
-							expValEquals('platform_editor_sample_renderer_rendered_event', 'isEnabled', true) &&
+							!fg('platform_renderer_sample_high_volume_events') ||
 							Math.random() < RENDER_EVENT_SAMPLE_RATE
 						) {
-							fireAnalyticsEvent({
-								...event,
-								action: ACTION.RENDERED_SAMPLED,
-							});
+							fireAnalyticsEvent(event);
 						}
 					}
 

@@ -4,8 +4,9 @@
  */
 import { cssMap, jsx } from '@compiled/react';
 
-import { CustomItem, type CustomItemComponentProps } from '@atlaskit/menu';
-import { Box } from '@atlaskit/primitives/compiled';
+import CustomItem from '@atlaskit/menu/custom-item';
+import { type CustomItemComponentProps } from '@atlaskit/menu/types';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import Slack from '../icons/slack';
 
@@ -82,7 +83,7 @@ const _default: () => JSX.Element = () => (
 		<CustomItem
 			href="/navigation-system-3"
 			component={CustomComponent}
-			iconBefore={<Slack aria-label="" />}
+			iconBefore={<Slack />}
 			css={[styles.root, styles.interactive]}
 		>
 			iconBefore CustomItem
@@ -90,7 +91,7 @@ const _default: () => JSX.Element = () => (
 		<CustomItem
 			href="/navigation-system-4"
 			component={CustomComponent}
-			iconBefore={<Slack aria-label="" />}
+			iconBefore={<Slack />}
 			description="Next-gen software project"
 			css={[styles.root, styles.interactive]}
 		>

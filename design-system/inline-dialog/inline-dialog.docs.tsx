@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'intent-to-deprecate',
 			import: {
 				name: 'InlineDialog',
-				package: '@atlaskit/inline-dialog',
+				package: '@atlaskit/inline-dialog/inline-dialog',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

@@ -8,19 +8,21 @@ import React, { Fragment, type KeyboardEvent, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AppHome,
-	AtlassianNavigation,
-	PrimaryButton,
-	PrimaryDropdownButton,
-	Search,
-	Settings,
-	useOverflowStatus,
-} from '@atlaskit/atlassian-navigation';
-import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer';
-import { JiraIcon } from '@atlaskit/logo';
-import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
-import Popup from '@atlaskit/popup';
+import { AppHome, useOverflowStatus } from '@atlaskit/atlassian-navigation';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
+import { Search } from '@atlaskit/atlassian-navigation/search';
+import { Settings } from '@atlaskit/atlassian-navigation/settings';
+import { Drawer } from '@atlaskit/drawer/drawer';
+import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
+import { DrawerContent } from '@atlaskit/drawer/drawer-content';
+import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
+import { JiraIcon } from '@atlaskit/logo/jira/icon';
+import ButtonItem from '@atlaskit/menu/button-item';
+import MenuGroup from '@atlaskit/menu/menu-group';
+import Section from '@atlaskit/menu/section';
+import { Popup } from '@atlaskit/popup/popup';
 import { type PopupProps } from '@atlaskit/popup/types';
 
 import { DefaultCreate } from './shared/create';

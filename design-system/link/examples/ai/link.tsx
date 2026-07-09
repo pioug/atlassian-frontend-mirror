@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Link from '@atlaskit/link';
+import Link from '@atlaskit/link/link';
 
 const _default_1: React.JSX.Element[] = [
 	<Link href="/dashboard">Go to Dashboard</Link>,

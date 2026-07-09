@@ -9,9 +9,13 @@ const documentation: StructuredContentSource = {
 			description:
 				'A banner displays a prominent message at the top of the screen to communicate important information to users.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13174-35360',
+			},
 			import: {
 				name: 'Banner',
-				package: '@atlaskit/banner',
+				package: '@atlaskit/banner/banner',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

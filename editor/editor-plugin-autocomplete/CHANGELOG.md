@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.1.1
+
+### Patch Changes
+
+- [`18ab4e3c6ed23`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18ab4e3c6ed23) -
+  Include asset files in the published package so they render correctly for consumers.
+- [`96ceccb98c3b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96ceccb98c3b9) -
+  Add a `surface` attribute to editor autocomplete analytics and UFO experience metadata, and wire
+  it through the plugin lifecycle.
+
+  Host integrations now pass explicit surface values:
+  - Confluence comments uses `confluence-comments`
+  - Rovo chat uses `rovo-chat`
+
+  This improves cross-surface tracking clarity while keeping surface values consumer-defined.
+
+- Updated dependencies
+
+## 4.1.0
+
+### Minor Changes
+
+- [`2f56c78f969b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f56c78f969b8) -
+  Update i18n NPM package versions for teamwork-graph (Group 16)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.7
+
+### Patch Changes
+
+- [`041d093c4919a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/041d093c4919a) -
+  MDP-15978 fix pm-plugins/data/\* not copied to dist, breaking consumers not on local consumption
+- Updated dependencies
+
 ## 4.0.6
 
 ### Patch Changes

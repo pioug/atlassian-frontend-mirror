@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from '@atlaskit/form';
-import Link from '@atlaskit/link';
-import Lozenge from '@atlaskit/lozenge';
+import { ErrorMessage, HelperMessage, MessageWrapper, ValidMessage } from '@atlaskit/form/messages';
+import Link from '@atlaskit/link/link';
+import Lozenge from '@atlaskit/lozenge/lozenge';
 
 export default function MessagesExample(): React.JSX.Element {
 	return (

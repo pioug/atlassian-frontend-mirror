@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'Flag',
 			description: 'A component for displaying brief messages.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13544-55615',
+			},
 			import: {
 				name: 'Flag',
-				package: '@atlaskit/flag',
+				package: '@atlaskit/flag/flag',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

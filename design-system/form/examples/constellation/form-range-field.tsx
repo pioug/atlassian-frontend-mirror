@@ -1,9 +1,11 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { FormFooter, RangeField } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives/compiled';
-import Range from '@atlaskit/range';
+import Form from '@atlaskit/form/form';
+import { FormFooter } from '@atlaskit/form/form-footer';
+import { RangeField } from '@atlaskit/form/range-field';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import Range from '@atlaskit/range/range';
 
 const FormRangeFieldExample = (): React.JSX.Element => {
 	return (

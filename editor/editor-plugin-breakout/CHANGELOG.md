@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.2.2
+
+### Patch Changes
+
+- [`2f1d378992c1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f1d378992c1d) -
+  Updates uses of expValEqualsNoExposure and expValEquals for resizing of panels and dividers
+  feature.
+- Updated dependencies
+
+## 12.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

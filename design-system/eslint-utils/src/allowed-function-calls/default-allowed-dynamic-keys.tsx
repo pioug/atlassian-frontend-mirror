@@ -9,4 +9,5 @@ export const defaultAllowedDynamicKeys: AllowList = {
 	'@atlaskit/primitives': ['media'],
 	'@atlaskit/primitives/responsive': ['media'],
 	'@atlaskit/tokens': ['CURRENT_SURFACE_CSS_VAR'],
+	'@atlaskit/tokens/constants': ['CURRENT_SURFACE_CSS_VAR'],
 };

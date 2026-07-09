@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl';
+
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -28,6 +30,7 @@ export interface Props {
 	getEditorContainerWidth: GetEditorContainerWidth;
 	getEditorFeatureFlags: GetEditorFeatureFlags;
 	getPos: () => number | undefined;
+	intl?: IntlShape;
 	node: PmNode;
 	options?: TableOptions;
 	pluginInjectionApi?: PluginInjectionAPI;

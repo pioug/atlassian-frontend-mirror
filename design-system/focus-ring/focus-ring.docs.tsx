@@ -25,7 +25,7 @@ const documentation: StructuredContentSource = {
 			status: 'intent-to-deprecate',
 			import: {
 				name: 'FocusRing',
-				package: '@atlaskit/focus-ring',
+				package: '@atlaskit/focus-ring/focus-ring',
 				type: 'default',
 				packagePath,
 				packageJson,

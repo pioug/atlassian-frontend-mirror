@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-design-system",
 	"description": "The essential plugin for use with the Atlassian Design System.",
-	"version": "15.5.0",
+	"version": "15.6.0",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
@@ -13,14 +13,18 @@
 			"name": "ESLint plugin",
 			"category": "Tooling"
 		},
-		"toolingLabels": ["linting"]
+		"toolingLabels": [
+			"linting"
+		]
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": ["**/*.compiled.css"],
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": {
@@ -84,7 +88,10 @@
 			"dom-events": "use-bind-event-listener",
 			"design-system": "v1",
 			"deprecation": "no-deprecated-imports",
-			"styling": ["static", "emotion"]
+			"styling": [
+				"static",
+				"emotion"
+			]
 		}
 	},
 	"homepage": "https://atlassian.design/components/eslint-plugin-design-system"

@@ -5130,6 +5130,12 @@ const editorContentStyles = cssMap({
 					height: '40px',
 				},
 			},
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"].first-node-in-document)':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						transform: 'translateY(-12px)',
+					},
+				},
 		},
 	},
 	pragmaticStylesLayoutFirstNodeResizeHandleFix: {

@@ -138,6 +138,10 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 				const refTarget = this.domRef.querySelector('[data-ssr-content-dom-ref]');
 				if (refTarget) {
 					this.handleRef(refTarget);
+					// The marker is only needed to locate the re-attach target during
+					// this SSR pass. Remove it so it doesn't leak into the streamed
+					// HTML (it has no meaning on the client).
+					refTarget.removeAttribute('data-ssr-content-dom-ref');
 				}
 			}
 		}

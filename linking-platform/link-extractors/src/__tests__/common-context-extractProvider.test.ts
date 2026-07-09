@@ -1,4 +1,5 @@
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
 	TEST_BASE_DATA,
@@ -84,6 +85,62 @@ describe('extractors.context.provider', () => {
 		expect(provider).toBeDefined();
 		const { getByLabelText } = render(provider!.icon);
 		expect(getByLabelText('Jira')).toBeDefined();
+	});
+
+	describe('with platform_sl_google_rebrand gate OFF', () => {
+		beforeEach(() => {
+			failGate('platform_sl_google_rebrand');
+		});
+
+		it('returns text as-is for a Link generator named "Google"', () => {
+			expect(
+				extractProvider({
+					...TEST_BASE_DATA,
+					generator: { '@type': 'Link', href: TEST_URL, name: 'Google' },
+				}),
+			).toEqual({ text: 'Google' });
+		});
+
+		it('returns text as-is for an Object generator named "Google"', () => {
+			expect(
+				extractProvider({
+					...TEST_BASE_DATA,
+					generator: { ...TEST_OBJECT, name: 'Google', icon: undefined },
+				}),
+			).toEqual({ text: 'Google', image: TEST_URL });
+		});
+	});
+
+	describe('with platform_sl_google_rebrand gate ON', () => {
+		beforeEach(() => {
+			passGate('platform_sl_google_rebrand');
+		});
+
+		it('renames "Google" to "Google Drive" for a Link generator', () => {
+			expect(
+				extractProvider({
+					...TEST_BASE_DATA,
+					generator: { '@type': 'Link', href: TEST_URL, name: 'Google' },
+				}),
+			).toEqual({ text: 'Google Drive' });
+		});
+
+		it('renames "Google" to "Google Drive" for an Object generator', () => {
+			const result = extractProvider({
+				...TEST_BASE_DATA,
+				generator: { ...TEST_OBJECT, name: 'Google', icon: undefined },
+			});
+			expect(result?.text).toBe('Google Drive');
+		});
+
+		it('does not rename non-Google providers', () => {
+			expect(
+				extractProvider({
+					...TEST_BASE_DATA,
+					generator: { '@type': 'Link', href: TEST_URL, name: TEST_NAME },
+				}),
+			).toEqual({ text: TEST_NAME });
+		});
 	});
 
 	describe('with image', () => {

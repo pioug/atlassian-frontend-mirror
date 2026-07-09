@@ -195,8 +195,7 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 			const { current: view } = editorViewRef;
 			const pluginState = getPluginState(view.state);
 			const shouldSkipEmptyQuery =
-				!expVal('platform_editor_typeahead_empty_query_fix', 'isEnabled', false) &&
-				query.length === 0;
+				!expVal('platform_editor_agent_mentions', 'isEnabled', false) && query.length === 0;
 
 			if (shouldSkipEmptyQuery || query === pluginState?.query || !pluginState?.triggerHandler) {
 				return;

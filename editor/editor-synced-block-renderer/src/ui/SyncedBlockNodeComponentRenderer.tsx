@@ -99,7 +99,10 @@ export const SyncedBlockNodeComponentRenderer = ({
 			? { type: SyncBlockError.NotFound, reason: syncBlockInstance.data?.deletionReason }
 			: {
 					type: SyncBlockError.Errored,
-					reason: !resourceId ? 'missing resource id' : `missing data for block ${resourceId}`,
+					// Keep `reason` static — the block's `resourceId` is emitted as its own
+					// analytics attribute, so interpolating it here would only leak the
+					// identifier into the `error` string.
+					reason: !resourceId ? 'missing resource id' : 'missing data',
 				});
 	const result = renderSyncedBlockContent({
 		syncBlockInstance: syncBlockInstance ?? undefined,

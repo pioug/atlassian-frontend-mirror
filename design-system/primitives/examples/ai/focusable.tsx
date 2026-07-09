@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Box, Focusable } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { Focusable } from '@atlaskit/primitives/compiled/focusable';
 
 const _default_1: React.JSX.Element[] = [
 	<Focusable>

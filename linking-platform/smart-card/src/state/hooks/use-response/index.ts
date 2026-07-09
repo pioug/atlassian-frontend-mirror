@@ -111,10 +111,11 @@ const useResponse = (): {
 			metadataStatus: MetadataStatus = 'resolved',
 		) => {
 			// Some optimized resolves intentionally leave metadata pending so hover can fetch it.
-			setMetadataStatus(
-				resourceUrl,
-				fg('platform_smartlink_inline_resolve_optimization') ? metadataStatus : 'resolved',
-			);
+			// Check response status before evaluating the feature gate so non-resolved responses
+			// do not fire a gate exposure when the gate result would be ignored.
+			const shouldUseProvidedMetadataStatus =
+				getStatus(response) === 'resolved' && fg('platform_smartlink_inline_resolve_optimization');
+			setMetadataStatus(resourceUrl, shouldUseProvidedMetadataStatus ? metadataStatus : 'resolved');
 			// Dispatch Analytics and resolved card action - including unauthorized states.
 			if (isReloading) {
 				dispatch(cardAction(ACTION_RELOADING, { url: resourceUrl }, response));

@@ -1,5 +1,12 @@
 # @atlaskit/link-extractors
 
+## 3.2.1
+
+### Patch Changes
+
+- [`b8399b376c921`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8399b376c921) -
+  Rebrand Google to Google Drive on ORS /resolve extractor
+
 ## 3.2.0
 
 ### Minor Changes

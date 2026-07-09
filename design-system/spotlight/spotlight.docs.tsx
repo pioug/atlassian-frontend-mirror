@@ -108,7 +108,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'PopoverProvider',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/popover-provider',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -131,7 +131,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'PopoverContent',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/popover-content',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -154,7 +154,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'PopoverTarget',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/popover-target',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

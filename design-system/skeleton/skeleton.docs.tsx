@@ -34,6 +34,10 @@ const documentation: StructuredContentSource = {
 				'Ensure skeleton content is not announced as actual content',
 				'Consider screen reader experience during loading states',
 			],
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=101024-1311',
+			},
 			examples: [
 				{
 					name: 'Skeleton',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "133.8.4",
+	"version": "133.10.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,7 +12,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": ["*.compiled.css"],
+	"sideEffects": [
+		"*.compiled.css"
+	],
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"react-compiler": {
@@ -131,9 +133,14 @@
 	},
 	"techstack": {
 		"@repo/internal": {
-			"design-tokens": ["color"],
+			"design-tokens": [
+				"color"
+			],
 			"deprecation": "no-deprecated-imports",
-			"styling": ["compiled", "emotion"]
+			"styling": [
+				"compiled",
+				"emotion"
+			]
 		}
 	},
 	"platform-feature-flags": {
@@ -170,10 +177,16 @@
 		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
+		"platform_renderer_sample_high_volume_events": {
+			"type": "boolean"
+		},
 		"platform_editor_nested_dnd_styles_changes": {
 			"type": "boolean"
 		},
 		"platform_editor_table_q4_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_table_renderer_fix_2": {
 			"type": "boolean"
 		},
 		"platform_editor_comments_api_manager": {

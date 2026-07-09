@@ -15,6 +15,7 @@ export class TimeSaver {
 	get defaultTime(): number {
 		if (this.config && localStorage) {
 			try {
+				// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 				const fileDefaultTime = localStorage.getItem(
 					getDefaultTimeLocalStorageKey(this.config.contentId),
 				);
@@ -32,6 +33,7 @@ export class TimeSaver {
 	set defaultTime(time: number) {
 		if (this.config && localStorage) {
 			try {
+				// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 				localStorage.setItem(
 					getDefaultTimeLocalStorageKey(this.config.contentId),
 					JSON.stringify(time),

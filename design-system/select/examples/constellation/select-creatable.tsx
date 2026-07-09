@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import { Label } from '@atlaskit/form';
-import { CreatableSelect, type OptionType, type ValueType } from '@atlaskit/select';
+import { Label } from '@atlaskit/form/label';
+import { type OptionType, type ValueType } from '@atlaskit/select';
+import CreatableSelect from '@atlaskit/select/creatable-select';
 
 const defaultOptions = [
 	{ label: 'Adelaide', value: 'adelaide' },

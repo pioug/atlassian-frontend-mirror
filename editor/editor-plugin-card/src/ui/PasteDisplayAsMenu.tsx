@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, type MutableRefObject } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -13,12 +13,16 @@ import { Fragment, type Slice } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ToolbarDropdownItemSection, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
-import type { RegisterComponent } from '@atlaskit/editor-ui-control-model';
+import type {
+	AsyncHiddenContext,
+	RegisterComponent,
+} from '@atlaskit/editor-ui-control-model/types';
 import MinusIcon from '@atlaskit/icon/core/minus';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import SmartLinkEmbedIcon from '@atlaskit/icon/core/smart-link-embed';
 import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
-import { useSmartCardContext } from '@atlaskit/link-provider';
+import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { type CardContext, useSmartCardContext } from '@atlaskit/link-provider/context';
 import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -77,6 +81,7 @@ type PasteOptionsToolbarApi = {
 };
 
 type PasteDisplayAppearance = 'url' | 'inline' | 'block' | 'embed';
+type SmartCardClient = CardContext['connections']['client'];
 
 const styles = cssMap({
 	appearanceBox: {
@@ -604,60 +609,90 @@ export const getPasteDisplayAsMenuComponents = ({
 	allowBlockCards,
 	allowEmbeds,
 	getEditorView,
+	smartCardClientRef,
 }: {
 	allowBlockCards: boolean;
 	allowEmbeds?: boolean;
 	api: ExtractInjectionAPI<CardPlugin> | undefined;
 	getEditorView: () => EditorView | undefined;
-}): RegisterComponent[] => [
-	{
-		type: 'menu-section',
-		key: SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION_KEY,
-		parents: [
-			{
-				type: PASTE_MENU.type,
-				key: PASTE_MENU.key,
-				rank: 60,
+	smartCardClientRef: MutableRefObject<SmartCardClient | undefined>;
+}): RegisterComponent[] => {
+	const smartlinkAsyncHidden = async (context: AsyncHiddenContext) => {
+		const { pastedUrl } = context;
+		if (!pastedUrl) {
+			return false;
+		}
+
+		const isEnabled = expValEquals(
+			'confluence_editor_paste_3p_link_actions_menu',
+			'isEnabled',
+			true,
+		);
+		const smartCardClient = smartCardClientRef?.current;
+		if (!isEnabled || !smartCardClient) {
+			return true;
+		}
+
+		try {
+			const response: JsonLd.Response = await smartCardClient.fetchData(pastedUrl);
+			return response.meta?.access !== 'granted';
+		} catch {
+			// Network / auth errors → hide
+			return true;
+		}
+	};
+
+	return [
+		{
+			type: 'menu-section',
+			key: SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION_KEY,
+			parents: [
+				{
+					type: PASTE_MENU.type,
+					key: PASTE_MENU.key,
+					rank: 60,
+				},
+			],
+			isAsyncHidden: smartlinkAsyncHidden,
+			isHidden: () => {
+				if (!expValEquals('confluence_editor_paste_3p_link_actions_menu', 'isEnabled', true)) {
+					return true;
+				}
+
+				const apiWithPasteOptionsToolbar = api as
+					| (ExtractInjectionAPI<CardPlugin> & PasteOptionsToolbarApi)
+					| undefined;
+				const pasteRange =
+					apiWithPasteOptionsToolbar?.pasteOptionsToolbarPlugin?.sharedState.currentState();
+				const editorView = getEditorView();
+
+				if (!editorView || !pasteRange) {
+					return true;
+				}
+
+				// Slice-shape check — delegated to the toolbar plugin's shared
+				// `notSingleLinkRule` via the structural cast (see note above).
+				const rules =
+					apiWithPasteOptionsToolbar?.pasteOptionsToolbarPlugin?.actions.getPasteMenuRules();
+				if (!rules || rules.notSingleLinkRule()) {
+					return true;
+				}
+
+				// Fallback: plain-text URL paste that the card plugin already resolved into a card node in the doc.
+				const urlFromCard = getCardUrlAtPasteRange({
+					editorView,
+					pasteStartPos: pasteRange.pasteStartPos,
+					pasteEndPos: pasteRange.pasteEndPos,
+				});
+				return !urlFromCard;
 			},
-		],
-		isHidden: () => {
-			if (!expValEquals('confluence_editor_paste_3p_link_actions_menu', 'isEnabled', true)) {
-				return true;
-			}
-
-			const apiWithPasteOptionsToolbar = api as
-				| (ExtractInjectionAPI<CardPlugin> & PasteOptionsToolbarApi)
-				| undefined;
-			const pasteRange =
-				apiWithPasteOptionsToolbar?.pasteOptionsToolbarPlugin?.sharedState.currentState();
-			const editorView = getEditorView();
-
-			if (!editorView || !pasteRange) {
-				return true;
-			}
-
-			// Slice-shape check — delegated to the toolbar plugin's shared
-			// `notSingleLinkRule` via the structural cast (see note above).
-			const rules =
-				apiWithPasteOptionsToolbar?.pasteOptionsToolbarPlugin?.actions.getPasteMenuRules();
-			if (!rules || rules.notSingleLinkRule()) {
-				return true;
-			}
-
-			// Fallback: plain-text URL paste that the card plugin already resolved into a card node in the doc.
-			const urlFromCard = getCardUrlAtPasteRange({
-				editorView,
-				pasteStartPos: pasteRange.pasteStartPos,
-				pasteEndPos: pasteRange.pasteEndPos,
-			});
-			return !urlFromCard;
+			component: () => (
+				<PasteDisplayAsMenuSection
+					api={api}
+					allowBlockCards={allowBlockCards}
+					allowEmbeds={allowEmbeds}
+				/>
+			),
 		},
-		component: () => (
-			<PasteDisplayAsMenuSection
-				api={api}
-				allowBlockCards={allowBlockCards}
-				allowEmbeds={allowEmbeds}
-			/>
-		),
-	},
-];
+	];
+};

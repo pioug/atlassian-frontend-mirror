@@ -1,5 +1,23 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.5.5
+
+### Patch Changes
+
+- [`b1ff8c881a4aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1ff8c881a4aa) -
+  [ux] Synced Blocks: de-opaque the renderer error-boundary fetch analytics event. The event now
+  routes through the shared fetch-error attribution builder (emitting structured
+  `reason`/`benign`/`sourceProduct`/`statusCode`, gated on `platform_editor_blocks_patch_4`) and a
+  PII-safe original error message is threaded from the upstream fetch catch so previously-opaque
+  `errored` failures can be classified and inspected.
+- Updated dependencies
+
 ## 8.5.4
 
 ### Patch Changes

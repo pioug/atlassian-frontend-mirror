@@ -9,6 +9,10 @@ const documentation: StructuredContentSource = {
 			description:
 				'A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=76953-155820',
+			},
 			import: {
 				name: 'DynamicTable',
 				package: '@atlaskit/dynamic-table',

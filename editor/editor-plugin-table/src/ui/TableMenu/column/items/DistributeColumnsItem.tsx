@@ -5,13 +5,13 @@ import { useIntl } from 'react-intl';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { TableColumnsDistributeIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
 
 import { closeActiveTableMenu } from '../../../../pm-plugins/commands';
 import { distributeColumnsWidthsWithAnalytics } from '../../../../pm-plugins/commands/commands-with-analytics';
 import { getNewResizeStateFromSelectedColumns } from '../../../../pm-plugins/table-resizing/utils/resize-state';
 import type { TableSharedStateInternal } from '../../../../types';
+import { getMenuSelectionRect } from '../../shared/selection';
 import { useTableMenuContext } from '../../shared/TableMenuContext';
 import type { TableMenuComponentsParams } from '../../shared/types';
 
@@ -40,7 +40,7 @@ export const DistributeColumnsItem = ({
 			return;
 		}
 
-		const selectionRect = getSelectionRect(editorView.state.selection);
+		const selectionRect = getMenuSelectionRect(editorView.state.selection);
 		const editorContainerWidth = api?.width?.sharedState.currentState();
 		if (!selectionRect || !editorContainerWidth) {
 			return;

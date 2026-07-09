@@ -11,8 +11,8 @@ const documentation: StructuredContentSource = {
 			status: 'early-access',
 			import: {
 				name: 'Motion',
-				package: '@atlaskit/motion',
-				type: 'named',
+				package: '@atlaskit/motion/motion',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -53,14 +53,77 @@ const documentation: StructuredContentSource = {
 			categories: ['animation'],
 		},
 		{
+			name: 'useMotion',
+			description:
+				'A hook form of the Motion primitive that returns an xcss value, style, and ref so you can apply entry and exit animations to an existing element without rendering an extra wrapper element. Use it when a wrapper would break layout, such as a CSS grid slot that must remain a direct child of its grid container. Wrap with ExitingPersistence to enable exit animations.',
+			status: 'early-access',
+			import: {
+				name: 'useMotion',
+				package: '@atlaskit/motion/use-motion',
+				type: 'named',
+				packagePath: path.resolve(__dirname),
+				packageJson: require('./package.json'),
+			},
+			usageGuidelines: [
+				'Use useMotion instead of the Motion component when you must not add an extra wrapper element (for example a CSS grid slot or a semantic element you already render)',
+				'Spread the returned style and ref onto the element you want to animate, and apply the returned xcss value via the element xcss prop',
+				'The returned ref must be attached — it is used to measure the animation duration so the exit animation can complete before the element is removed and before onFinish is called',
+				'Merge the returned xcss and style with any of your own',
+				'Wrap the element in ExitingPersistence and give the conditional child a unique key so its exit animation plays before it is removed from the DOM',
+				'When using enteringAnimationXcss or exitingAnimationXcss, the consuming component must use the Compiled jsx pragma so the returned xcss value resolves correctly',
+			],
+			accessibilityGuidelines: [
+				"Always respect the user's reduced-motion preference — useMotion automatically disables animations when reduced motion is preferred",
+			],
+			examples: [
+				{
+					name: 'useMotion with tokens',
+					description:
+						'The simplest way to use the useMotion hook is with pre-defined motion tokens. Pass a motion token to enteringAnimation and exitingAnimation, then spread the returned style and ref onto your own element and apply the returned xcss via its xcss prop — no extra wrapper element is created.',
+					source: path.resolve(__dirname, './examples/ai/use-motion.tsx'),
+				},
+				{
+					name: 'useMotion with custom animation tokens',
+					description:
+						'For more control, use enteringAnimationXcss and exitingAnimationXcss with cssMap styles that set animationName, animationDuration, and animationTimingFunction using motion tokens.',
+					source: path.resolve(__dirname, './examples/ai/use-motion-custom.tsx'),
+				},
+				{
+					name: 'useMotion with custom CSS keyframes',
+					description:
+						'For animations not covered by the built-in keyframe tokens, define your own CSS keyframes using keyframes() from @compiled/react and reference them in the animationName property of a cssMap style passed to enteringAnimationXcss and exitingAnimationXcss.',
+					source: path.resolve(__dirname, './examples/ai/use-motion-custom-keyframe.tsx'),
+				},
+				{
+					name: 'useMotion with staggered entrance',
+					description:
+						'Render each animated element as its own component so useMotion can read its stagger delay from the surrounding StaggeredEntrance. The hook is spread directly onto each element, so no extra wrapper element is added.',
+					source: path.resolve(__dirname, './examples/ai/use-motion-staggered.tsx'),
+				},
+			],
+			keywords: [
+				'motion',
+				'animation',
+				'hook',
+				'usemotion',
+				'enter',
+				'exit',
+				'transition',
+				'fade',
+				'stagger',
+				'staggered',
+			],
+			categories: ['animation'],
+		},
+		{
 			name: 'ExitingPersistence',
 			description:
 				'Motion helper that keeps elements mounted and plays their exit animation before they are removed from the DOM. Without it, elements are removed immediately and no exit animation plays. Works with both the Motion primitive and legacy entering-motion components.',
 			status: 'general-availability',
 			import: {
 				name: 'ExitingPersistence',
-				package: '@atlaskit/motion',
-				type: 'named',
+				package: '@atlaskit/motion/exiting-persistence',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},
@@ -89,8 +152,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'StaggeredEntrance',
-				package: '@atlaskit/motion',
-				type: 'named',
+				package: '@atlaskit/motion/staggered-entrance',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

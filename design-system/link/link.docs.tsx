@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'Link',
 			description: 'A component for navigation links.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=71522-53725',
+			},
 			import: {
 				name: 'Link',
-				package: '@atlaskit/link',
+				package: '@atlaskit/link/link',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

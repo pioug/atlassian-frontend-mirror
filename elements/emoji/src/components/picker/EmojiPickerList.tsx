@@ -131,6 +131,7 @@ export interface Props {
 	onToneSelectorCancelled?: OnToneSelectorCancelled;
 	onUploadCancelled: () => void;
 	onUploadEmoji: OnUploadEmoji;
+	onUploadPreviewErrorChange?: (hasPreviewError: boolean) => void;
 	query?: string;
 	selectedProductivityColor?: ProductivityColor;
 	selectedTone?: ToneSelection;
@@ -210,6 +211,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		uploadErrorMessage,
 		onUploadCancelled,
 		onUploadEmoji,
+		onUploadPreviewErrorChange,
 		onDeleteEmoji,
 		onCloseDelete,
 		onFileChooserClicked,
@@ -753,6 +755,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				emojiToDelete={emojiToDelete}
 				initialUploadName={initialUploadName}
 				uploadErrorMessage={uploadErrorMessage}
+				onUploadPreviewErrorChange={onUploadPreviewErrorChange}
 				onUploadCancelled={onUploadCancelled}
 				onUploadEmoji={onUploadEmoji}
 				onCloseDelete={handleOnCloseDelete}

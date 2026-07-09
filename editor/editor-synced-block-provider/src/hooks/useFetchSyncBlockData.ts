@@ -9,7 +9,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { isProviderNotReadyError, SyncBlockError } from '../common/types';
 import type { SyncBlockInstance } from '../providers/types';
 import type { SyncBlockStoreManager } from '../store-manager/syncBlockStoreManager';
-import { buildFetchErrorAttribution, fetchErrorPayload } from '../utils/errorHandling';
+import {
+	buildFetchErrorAttribution,
+	fetchErrorPayload,
+	getPiiSafeOriginalError,
+} from '../utils/errorHandling';
 import { createSyncBlockNode, getSourceProductFromResourceIdSafe } from '../utils/utils';
 
 type SSRProviders = { media?: MediaProvider | null };
@@ -99,11 +103,17 @@ export const useFetchSyncBlockData = (
 				),
 			);
 
-			// Set error state if fetching fails
+			// Thread the PII-safe original message/name so the renderer can de-opaque
+			// this otherwise-bare `errored` failure. `originalMessage` carries the
+			// Error.message and is preferred over `reason` by the renderer, so no
+			// separate `reason` is set here.
 			setFetchState({
 				syncBlockInstance: {
 					resourceId: resourceId || '',
-					error: { type: SyncBlockError.Errored },
+					error: {
+						type: SyncBlockError.Errored,
+						...getPiiSafeOriginalError(error),
+					},
 				},
 				isLoading: false,
 			});

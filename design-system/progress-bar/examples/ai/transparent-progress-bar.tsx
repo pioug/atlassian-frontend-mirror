@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TransparentProgressBar } from '@atlaskit/progress-bar';
+import { TransparentProgressBar } from '@atlaskit/progress-bar/transparent-progress-bar';
 
 const Examples = (): React.JSX.Element => (
 	<>

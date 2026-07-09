@@ -8,9 +8,13 @@ const documentation: StructuredContentSource = {
 			name: 'Comment',
 			description: 'A component for displaying comments and discussions.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=17853-91040',
+			},
 			import: {
 				name: 'Comment',
-				package: '@atlaskit/comment',
+				package: '@atlaskit/comment/comment',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

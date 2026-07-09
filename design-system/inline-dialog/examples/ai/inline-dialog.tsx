@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import Heading from '@atlaskit/heading';
-import InlineDialog from '@atlaskit/inline-dialog';
-import { Text } from '@atlaskit/primitives/compiled';
+import Heading from '@atlaskit/heading/heading';
+import InlineDialog from '@atlaskit/inline-dialog/inline-dialog';
+import { Text } from '@atlaskit/primitives/compiled/text';
 
 const Examples = (): React.JSX.Element => (
 	<>

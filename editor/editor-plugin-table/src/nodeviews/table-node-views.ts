@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl';
+
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -21,6 +23,7 @@ type TableViewOptions = {
 	eventDispatcher: EventDispatcher;
 	getEditorContainerWidth: GetEditorContainerWidth;
 	getEditorFeatureFlags: GetEditorFeatureFlags;
+	intl?: IntlShape;
 	isChromelessEditor?: boolean;
 	isCommentEditor?: boolean;
 	pluginInjectionApi?: PluginInjectionAPI;
@@ -42,6 +45,7 @@ export const tableView = (options: TableViewOptions) => {
 			options.isCommentEditor,
 			options.isChromelessEditor,
 			options?.allowFixedColumnWidthOption,
+			options.intl,
 		);
 	};
 };

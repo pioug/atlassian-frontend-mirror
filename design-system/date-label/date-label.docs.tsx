@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'DateLabel',
-				package: '@atlaskit/date-label',
+				package: '@atlaskit/date-label/date-label',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -51,8 +51,8 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'DateLabelDropdownTrigger',
-				package: '@atlaskit/date-label',
-				type: 'named',
+				package: '@atlaskit/date-label/date-label-dropdown-trigger',
+				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

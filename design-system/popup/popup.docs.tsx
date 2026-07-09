@@ -8,10 +8,14 @@ const documentation: StructuredContentSource = {
 			name: 'Popup',
 			description: 'A component for displaying popup content relative to a trigger element.',
 			status: 'general-availability',
+			designSource: {
+				figmaUrl:
+					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82088-103357',
+			},
 			import: {
 				name: 'Popup',
-				package: '@atlaskit/popup',
-				type: 'default',
+				package: '@atlaskit/popup/popup',
+				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
 			},

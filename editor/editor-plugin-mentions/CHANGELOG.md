@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.5.16
+
+### Patch Changes
+
+- [`763bf25cf903d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/763bf25cf903d) -
+  Converted platform_editor_reduced_agent_profile_card to be an experiment flag
+- Updated dependencies
+
+## 14.5.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.5.14
 
 ### Patch Changes

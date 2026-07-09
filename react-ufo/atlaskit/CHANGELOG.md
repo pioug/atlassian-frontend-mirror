@@ -1,5 +1,19 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.11
+
+### Patch Changes
+
+- [`37a5b3e1f36b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37a5b3e1f36b6) -
+  [ux] Segment count threshold is now always applied when aggregating UFO experience data.
+
+## 7.3.10
+
+### Patch Changes
+
+- [`229d44fc4a334`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/229d44fc4a334) -
+  [ux] Host-side resize events for third-party segments are now always ingested.
+
 ## 7.3.9
 
 ### Patch Changes

@@ -68,7 +68,7 @@ export const profileCardRenderer = ({
 			const selection = nextSharedState?.selection;
 			if (
 				selection instanceof NodeSelection
-					? fg('platform_editor_reduced_agent_profile_card')
+					? expVal('platform_editor_reduced_profile_cards', 'isEnabled', false)
 						? selection.node.sameMarkup(currentNode)
 						: selection.node === node
 					: false
@@ -80,7 +80,7 @@ export const profileCardRenderer = ({
 	};
 
 	const renderEditorProfileCard = (): void => {
-		const activeMention = fg('platform_editor_reduced_agent_profile_card')
+		const activeMention = expVal('platform_editor_reduced_profile_cards', 'isEnabled', false)
 			? (() => {
 					// Read the display name from the DOM element at click time — this is
 					// always up-to-date even when node.attrs.text is absent
@@ -156,7 +156,7 @@ export const profileCardRenderer = ({
 		type: 'click',
 		listener: () => {
 			if (fg('people-teams_migrate-user-profile-card')) {
-				const userId = fg('platform_editor_reduced_agent_profile_card')
+				const userId = expVal('platform_editor_reduced_profile_cards', 'isEnabled', false)
 					? currentNode.attrs?.id
 					: node.attrs?.id;
 				if (!userId) {
@@ -172,7 +172,7 @@ export const profileCardRenderer = ({
 
 					if (
 						isAgentMentionType(
-							fg('platform_editor_reduced_agent_profile_card')
+							expVal('platform_editor_reduced_profile_cards', 'isEnabled', false)
 								? currentNode.attrs?.userType
 								: node.attrs?.userType,
 						)

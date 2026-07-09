@@ -26,7 +26,7 @@ const documentation: StructuredContentSource = {
 			status: 'deprecated',
 			import: {
 				name: 'AtlassianNavigation',
-				package: '@atlaskit/atlassian-navigation',
+				package: '@atlaskit/atlassian-navigation/atlassian-navigation',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -65,7 +65,7 @@ const documentation: StructuredContentSource = {
 			status: 'deprecated',
 			import: {
 				name: 'ProductHome',
-				package: '@atlaskit/atlassian-navigation',
+				package: '@atlaskit/atlassian-navigation/product-home',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -90,7 +90,7 @@ const documentation: StructuredContentSource = {
 			status: 'deprecated',
 			import: {
 				name: 'PrimaryButton',
-				package: '@atlaskit/atlassian-navigation',
+				package: '@atlaskit/atlassian-navigation/primary-button',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -114,7 +114,7 @@ const documentation: StructuredContentSource = {
 			status: 'deprecated',
 			import: {
 				name: 'Search',
-				package: '@atlaskit/atlassian-navigation',
+				package: '@atlaskit/atlassian-navigation/search',
 				type: 'named',
 				packagePath,
 				packageJson,

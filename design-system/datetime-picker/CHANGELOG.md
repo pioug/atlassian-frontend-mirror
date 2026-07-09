@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 18.1.2
+
+### Patch Changes
+
+- [`9e0acecb39163`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e0acecb39163) -
+  Cleanup feature gate `platform-dst-single-value-lang-replace`. Locale values in picker selected
+  values now always use hyphenated language tags.
+- Updated dependencies
+
 ## 18.1.1
 
 ### Patch Changes

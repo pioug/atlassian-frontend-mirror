@@ -113,6 +113,7 @@ const emojiPickerBoxShadow = token('elevation.shadow.overlay');
 const emojiPickerHeight = 295;
 const emojiPickerHeightWithPreview = 349; // emojiPickerHeight + emojiPickerPreviewHeight;
 const emojiPickerHeightWithPreviewNew = 310;
+const emojiPickerHeightWithPreviewAndPreviewErrorNew = 335;
 const emojiPickerHeightDeleteRefresh = 339;
 const emojiPickerWidth = 350;
 const emojiPickerMinHeight = 260;
@@ -200,6 +201,21 @@ const withUploadRefreshHeight = cssMap({
 	},
 	large: {
 		height: `${emojiPickerHeightWithPreviewNew + heightOffset * 2}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset * 2}px`,
+	},
+});
+
+const withUploadRefreshAndPreviewErrorHeight = cssMap({
+	small: {
+		height: `${emojiPickerHeightWithPreviewAndPreviewErrorNew}px`,
+		minHeight: `${emojiPickerMinHeight}px`,
+	},
+	medium: {
+		height: `${emojiPickerHeightWithPreviewAndPreviewErrorNew + heightOffset}px`,
+		minHeight: `${emojiPickerMinHeight + heightOffset}px`,
+	},
+	large: {
+		height: `${emojiPickerHeightWithPreviewAndPreviewErrorNew + heightOffset * 2}px`,
 		minHeight: `${emojiPickerMinHeight + heightOffset * 2}px`,
 	},
 });
@@ -307,6 +323,7 @@ const EmojiPickerComponent = ({
 	const [activeCategory, setActiveCategory] = useState<CategoryId | null>(null);
 	const [disableCategories, setDisableCategories] = useState(false);
 	const [uploadErrorMessage, setUploadErrorMessage] = useState<MessageDescriptor | undefined>();
+	const [hasUploadPreviewError, setHasUploadPreviewError] = useState(false);
 	const [emojiToDelete, setEmojiToDelete] = useState<EmojiDescription | undefined>();
 	const [toneEmoji, setToneEmoji] = useState<OptionalEmojiDescriptionWithVariations | undefined>();
 
@@ -739,6 +756,7 @@ const EmojiPickerComponent = ({
 		}
 		batchedUpdates(() => {
 			setUploadErrorMessage(undefined);
+			setHasUploadPreviewError(false);
 			setUploading(true);
 		});
 		fireAnalytics(uploadBeginButton());
@@ -937,7 +955,9 @@ const EmojiPickerComponent = ({
 				!!emojiToDelete && isRefreshEmojiPickerEnabled()
 					? withDeleteRefreshHeight[size]
 					: uploading && isRefreshEmojiPickerEnabled()
-						? withUploadRefreshHeight[size]
+						? hasUploadPreviewError
+							? withUploadRefreshAndPreviewErrorHeight[size]
+							: withUploadRefreshHeight[size]
 						: query && filteredEmojis.length === 0 && isRefreshEmojiPickerEnabled()
 							? withNoResultsRefreshHeight[size]
 							: showPreview
@@ -996,6 +1016,7 @@ const EmojiPickerComponent = ({
 					uploadEnabled={uploadEnabled}
 					onUploadEmoji={onUploadEmoji}
 					onUploadCancelled={onUploadCancelled}
+					onUploadPreviewErrorChange={setHasUploadPreviewError}
 					onDeleteEmoji={onDeleteEmoji}
 					onCloseDelete={onCloseDelete}
 					onFileChooserClicked={onFileChooserClicked}

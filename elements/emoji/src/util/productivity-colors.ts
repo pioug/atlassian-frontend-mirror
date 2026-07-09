@@ -37,6 +37,7 @@ export const getStoredProductivityColor = (): ProductivityColor => {
 	}
 
 	try {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		const storedColor = window.localStorage.getItem(selectedProductivityColorStorageKey);
 		return isProductivityColor(storedColor) ? storedColor : defaultProductivityColor;
 	} catch (error) {
@@ -54,6 +55,7 @@ export const storeProductivityColor = (color: ProductivityColor): void => {
 	}
 
 	try {
+		// eslint-disable-next-line @atlaskit/platform/no-direct-web-storage-usage -- existing usage
 		window.localStorage.setItem(selectedProductivityColorStorageKey, color);
 	} catch (error) {
 		// eslint-disable-next-line no-console

@@ -9,7 +9,7 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
@@ -57,17 +57,9 @@ export const handleKeyDown =
 			const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
 				? getBreakoutResizableNodeTypes(
 						view.state.schema,
-						expValEqualsNoExposure(
-							'platform_editor_lovability_resize_dividers_panels',
-							'isEnabled',
-							true,
-						),
+						expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true),
 					)
-				: expValEqualsNoExposure(
-							'platform_editor_lovability_resize_dividers_panels',
-							'isEnabled',
-							true,
-					  )
+				: expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true)
 					? new Set([expand, codeBlock, layoutSection, rule, panel, panel_c1])
 					: new Set([expand, codeBlock, layoutSection]);
 

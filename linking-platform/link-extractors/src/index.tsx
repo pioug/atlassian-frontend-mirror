@@ -15,6 +15,7 @@ import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { rebrandProvider } from './common/rebrand-provider';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from './constants';
 
 /*
@@ -271,21 +272,33 @@ export const extractProvider = (jsonLd: JsonLd.Data.BaseData): LinkProvider | un
 			throw Error('Link.generator requires a name and icon.');
 		} else if (generator['@type'] === 'Link') {
 			if (generator.name) {
-				return { text: generator.name };
+				return fg('platform_sl_google_rebrand')
+					? rebrandProvider({ text: generator.name })
+					: { text: generator.name };
 			}
 		} else {
 			if (generator.name) {
 				const id = generator['@id'];
 
-				return {
-					text: generator.name,
-					icon: extractProviderIcon(generator.icon, id),
-					...(fg('platform_lp_use_entity_icon_url_for_icon')
-						? { iconLabel: generator.name }
-						: undefined),
-					id,
-					image: extractProviderImage(generator.image),
-				};
+				return fg('platform_sl_google_rebrand')
+					? rebrandProvider({
+							text: generator.name,
+							icon: extractProviderIcon(generator.icon, id),
+							...(fg('platform_lp_use_entity_icon_url_for_icon')
+								? { iconLabel: generator.name }
+								: undefined),
+							id,
+							image: extractProviderImage(generator.image),
+						})
+					: {
+							text: generator.name,
+							icon: extractProviderIcon(generator.icon, id),
+							...(fg('platform_lp_use_entity_icon_url_for_icon')
+								? { iconLabel: generator.name }
+								: undefined),
+							id,
+							image: extractProviderImage(generator.image),
+						};
 			}
 		}
 	}
@@ -628,13 +641,21 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 	if (fg('platform_lp_use_entity_icon_url_for_icon')) {
 		const entityIcon = extractEntityIcon(response);
 		if (entityIcon) {
-			return {
-				text: response.meta.generator.name,
-				icon: entityIcon.url,
-				id: response.meta.generator.id,
-				image: entityIcon.url,
-				iconLabel: entityIcon.label,
-			};
+			return fg('platform_sl_google_rebrand')
+				? rebrandProvider({
+						text: response.meta.generator.name,
+						icon: entityIcon.url,
+						id: response.meta.generator.id,
+						image: entityIcon.url,
+						iconLabel: entityIcon.label,
+					})
+				: {
+						text: response.meta.generator.name,
+						icon: entityIcon.url,
+						id: response.meta.generator.id,
+						image: entityIcon.url,
+						iconLabel: entityIcon.label,
+					};
 		}
 	}
 
@@ -667,13 +688,21 @@ export const extractEntityProvider = (response?: SmartLinkResponse): LinkProvide
 			providerIcon = icon.url;
 	}
 
-	return {
-		text: name,
-		icon: providerIcon,
-		id,
-		image: image ? image : icon.url,
-		...(fg('platform_lp_use_entity_icon_url_for_icon') ? { iconLabel: name } : undefined),
-	};
+	return fg('platform_sl_google_rebrand')
+		? rebrandProvider({
+				text: name,
+				icon: providerIcon,
+				id,
+				image: image ? image : icon.url,
+				...(fg('platform_lp_use_entity_icon_url_for_icon') ? { iconLabel: name } : undefined),
+			})
+		: {
+				text: name,
+				icon: providerIcon,
+				id,
+				image: image ? image : icon.url,
+				...(fg('platform_lp_use_entity_icon_url_for_icon') ? { iconLabel: name } : undefined),
+			};
 };
 
 export const extractEntityIcon = (

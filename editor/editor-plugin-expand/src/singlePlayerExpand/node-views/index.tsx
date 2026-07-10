@@ -5,6 +5,7 @@ import type { IntlShape } from 'react-intl';
 import uuid from 'uuid/v4';
 import { keyName } from 'w3c-keyname';
 
+import { isSSRStreaming } from '@atlaskit/editor-common/core-utils';
 import { expandedState, isExpandCollapsed } from '@atlaskit/editor-common/expand';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
@@ -83,13 +84,15 @@ export class ExpandNodeView implements NodeView {
 			this.isExpanded.localId = node.attrs.localId;
 		}
 
+		const editorDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
 		const { dom, contentDOM } = DOMSerializer.renderSpec(
 			document,
 			toDOM(
 				node,
 				this.__livePage,
 				this.intl,
-				api?.editorDisabled?.sharedState.currentState()?.editorDisabled,
+				editorDisabled,
+				isSSRStreaming() ? !editorDisabled && !isExpandCollapsed(node) : undefined,
 			),
 		);
 		// Ignored via go/ees005

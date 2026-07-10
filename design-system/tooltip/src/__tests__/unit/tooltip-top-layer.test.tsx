@@ -546,24 +546,6 @@ ffTest.on('platform-dst-top-layer', 'Tooltip top-layer rendering', () => {
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('Content with update: function');
 	});
 
-	it('should apply animation data attribute to the popover element', async () => {
-		const user = createUser();
-
-		render(
-			<Tooltip testId="tooltip" content="hello world">
-				<button data-testid="trigger" type="button">
-					focus me
-				</button>
-			</Tooltip>,
-		);
-
-		await user.hover(screen.getByTestId('trigger'));
-		runAllTimers();
-
-		const popover = screen.getByTestId('tooltip--popover');
-		expect(popover).toHaveAttribute('data-ds-popover-slide-and-fade');
-	});
-
 	it('should inherit the default 8px gap from useAnchorPosition', async () => {
 		const user = createUser();
 

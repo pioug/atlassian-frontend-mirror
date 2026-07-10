@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-expand
 
+## 13.1.15
+
+### Patch Changes
+
+- [`4bd3df7dc598e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4bd3df7dc598e) -
+  Set contenteditable on the expand body during SSR streaming so the initial render matches CSR (the
+  imperative update that normally sets it does not run in SSR)
+- Updated dependencies
+
+## 13.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.13
 
 ### Patch Changes

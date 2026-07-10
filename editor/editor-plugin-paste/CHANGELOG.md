@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 13.3.12
+
+### Patch Changes
+
+- [`0e797fd81675f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e797fd81675f) -
+  Cleaning up interactivity monitoring experiment
+- Updated dependencies
+
 ## 13.3.11
 
 ### Patch Changes

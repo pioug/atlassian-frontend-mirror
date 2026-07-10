@@ -37,6 +37,7 @@ interface ExtensionNodeViewOptions {
 
 interface ReactExtensionNodeProps {
 	extensionHandlers: ExtensionHandlers;
+	extensionLoadingHandlers?: ExtensionHandlers;
 	extensionNodeViewOptions?: ExtensionNodeViewOptions;
 	intl?: IntlShape;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
@@ -338,6 +339,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 	render(
 		props: {
 			extensionHandlers: ExtensionHandlers;
+			extensionLoadingHandlers?: ExtensionHandlers;
 			// referentiality plugin won't utilise appearance just yet
 			extensionNodeViewOptions?: ExtensionNodeViewOptions;
 			intl?: IntlShape;
@@ -375,6 +377,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 					providerFactory={props.providerFactory}
 					handleContentDOMRef={forwardRef}
 					extensionHandlers={props.extensionHandlers}
+					extensionLoadingHandlers={props.extensionLoadingHandlers}
 					editorAppearance={props.extensionNodeViewOptions?.appearance}
 					pluginInjectionApi={props.pluginInjectionApi}
 					macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
@@ -393,6 +396,7 @@ export default function ExtensionNodeView(
 	eventDispatcher: EventDispatcher,
 	providerFactory: ProviderFactory,
 	extensionHandlers: ExtensionHandlers,
+	extensionLoadingHandlers: ExtensionHandlers | undefined,
 	extensionNodeViewOptions: ExtensionNodeViewOptions,
 	pluginInjectionApi: ExtensionsPluginInjectionAPI,
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags,
@@ -405,6 +409,7 @@ export default function ExtensionNodeView(
 		return new ExtensionNode(node, view, getPos, portalProviderAPI, eventDispatcher, {
 			providerFactory,
 			extensionHandlers,
+			extensionLoadingHandlers,
 			extensionNodeViewOptions,
 			pluginInjectionApi,
 			macroInteractionDesignFeatureFlags,

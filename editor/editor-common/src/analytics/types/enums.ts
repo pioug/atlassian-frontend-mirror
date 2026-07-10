@@ -596,6 +596,7 @@ export enum ACTION_SUBJECT_ID {
 	SYNCED_BLOCK_UPDATE = 'syncedBlockUpdate',
 	REFERENCE_SYNCED_BLOCK_UPDATE = 'referenceSyncedBlockUpdate',
 	SYNCED_BLOCK_CREATE = 'syncedBlockCreate',
+	SYNCED_BLOCK_ADD_CONTENT = 'syncedBlockAddContent',
 	REFERENCE_SYNCED_BLOCK_CREATE = 'referenceSyncedBlockCreate',
 	SYNCED_BLOCK_DELETE = 'syncedBlockDelete',
 	REFERENCE_SYNCED_BLOCK_DELETE = 'referenceSyncedBlockDelete',

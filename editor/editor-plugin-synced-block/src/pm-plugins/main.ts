@@ -4,6 +4,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
@@ -74,6 +75,20 @@ export const syncedBlockPluginKey: PluginKey = new PluginKey('syncedBlockPlugin'
  */
 export const deleteMechanismMetaKey: PluginKey<DeletionMechanism> =
 	new PluginKey<DeletionMechanism>('syncedBlockDeleteMechanism');
+
+/**
+ * Creation-type signals set by {@link createSyncedBlock} on the creating
+ * transaction. The async creation handler forwards them to the store manager,
+ * which attaches them to the `syncedBlockCreate` event. A dedicated key keeps
+ * this transient signal isolated from plugin state. Consumed behind
+ * `platform_editor_blocks_patch_4`.
+ */
+export type SyncedBlockCreationMeta = {
+	createdEmpty?: boolean;
+	inputMethod?: INPUT_METHOD;
+};
+export const creationMetaKey: PluginKey<SyncedBlockCreationMeta> =
+	new PluginKey<SyncedBlockCreationMeta>('syncedBlockCreationMeta');
 
 type SyncedBlockPluginState = {
 	activeFlag: ActiveFlag;
@@ -258,6 +273,51 @@ type FilterTransactionOnlineParams = {
 	tr: Transaction;
 };
 
+/**
+ * True when a source `bodiedSyncBlock` holds user content — i.e. not just the
+ * single empty paragraph it is created with (used to detect empty→content).
+ */
+const bodiedSyncBlockHasContent = (node: Node): boolean => {
+	if (node.childCount === 0) {
+		return false;
+	}
+	if (node.childCount === 1) {
+		const child = node.firstChild;
+		// A freshly-created block is a single empty paragraph; anything else
+		// (non-empty paragraph, or a different/first block) counts as content.
+		return !(child?.type.name === 'paragraph' && child.content.size === 0);
+	}
+	return true;
+};
+
+/**
+ * Ask the store manager to fire the one-shot first-content-added event for every
+ * populated source block. The manager only emits for blocks it created empty
+ * this session and dedupes per block, so iterating all populated blocks is safe
+ * and self-limiting. Called only when `hasEditInSyncBlock` flagged an in-block
+ * edit, so this walk runs rarely.
+ */
+const emitFirstContentAddedForEditedBlocks = (
+	tr: Transaction,
+	state: EditorState,
+	syncBlockStore: SyncBlockStoreManager,
+): void => {
+	const { bodiedSyncBlock } = state.schema.nodes;
+	tr.doc.descendants((node) => {
+		if (node.type === bodiedSyncBlock) {
+			if (bodiedSyncBlockHasContent(node)) {
+				syncBlockStore.sourceManager.maybeEmitFirstContentAdded(
+					node.attrs.resourceId,
+					node.attrs.localId,
+				);
+			}
+			// bodiedSyncBlocks are top-level and not nested, so no need to descend.
+			return false;
+		}
+		return true;
+	});
+};
+
 const filterTransactionOnline = ({
 	tr,
 	state,
@@ -351,8 +411,18 @@ const filterTransactionOnline = ({
 			return true;
 		}
 
-		handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api);
+		// Forward creation-type signals captured by createSyncedBlock onto the async
+		// `syncedBlockCreate` success event.
+		const creationMeta = tr.getMeta(creationMetaKey) as SyncedBlockCreationMeta | undefined;
+		handleBodiedSyncBlockCreation(bodiedSyncBlockAdded, state, api, creationMeta);
 		return true;
+	}
+
+	// On an in-block edit, let the store manager fire the one-shot first-content
+	// event (dedupe + empty→content scoping live there). After the add/remove
+	// branches so it never runs for the creation transaction itself.
+	if (hasEditInSyncBlock(tr, state)) {
+		emitFirstContentAddedForEditedBlocks(tr, state, syncBlockStore);
 	}
 
 	showExtensionInSyncBlockWarningIfNeeded(tr, state, api, extensionFlagShown);

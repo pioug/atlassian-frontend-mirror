@@ -1,5 +1,20 @@
 # @atlaskit/media-viewer
 
+## 54.5.4
+
+### Patch Changes
+
+- [`dbc145df6b864`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dbc145df6b864) -
+  Clean up feature gate `platform_media_package_react19_lifecycle_fix`. The React 19-safe lifecycle
+  behaviour is now permanent: prop-change reactions run in `componentDidUpdate` and the legacy
+  `UNSAFE_componentWillReceiveProps` paths have been removed.
+
+## 54.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.5.2
 
 ### Patch Changes

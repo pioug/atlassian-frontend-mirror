@@ -32,6 +32,7 @@ import ReleaseNoteIcon from '../src/ui/agent-avatar/generated-avatars/assets/rel
 import ResearchScoutIcon from '../src/ui/agent-avatar/generated-avatars/assets/research-scout';
 import SocialMediaScribeIcon from '../src/ui/agent-avatar/generated-avatars/assets/social-media-scribe';
 import TeamConnectionIcon from '../src/ui/agent-avatar/generated-avatars/assets/team-connection';
+import TrialGuideIcon from '../src/ui/agent-avatar/generated-avatars/assets/trial-guide';
 import WorkFlowBuilderIcon from '../src/ui/agent-avatar/generated-avatars/assets/workflow-builder';
 
 const ComponentNameRenderer = ({ children, name }: { children: ReactNode; name: string }) => {
@@ -214,6 +215,13 @@ export default (): React.JSX.Element => {
 				</ComponentNameRenderer>
 				<ComponentNameRenderer name="TeamConnectionIcon">
 					<TeamConnectionIcon
+						size={size}
+						primaryColor={color.primary}
+						secondaryColor={color.secondary}
+					/>
+				</ComponentNameRenderer>
+				<ComponentNameRenderer name="TrialGuideIcon">
+					<TrialGuideIcon
 						size={size}
 						primaryColor={color.primary}
 						secondaryColor={color.secondary}

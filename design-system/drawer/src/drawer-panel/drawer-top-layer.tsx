@@ -9,7 +9,6 @@ import {
 	type SyntheticEvent,
 	useCallback,
 	useEffect,
-	useMemo,
 	useRef,
 } from 'react';
 
@@ -17,9 +16,8 @@ import { cssMap, cx, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import { type Direction } from '@atlaskit/motion/types';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
-import { type TAnimationPreset } from '@atlaskit/top-layer/animations';
+import { type TDialogAnimationPreset } from '@atlaskit/top-layer/animations';
 import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
@@ -42,13 +40,10 @@ const slideExitDurationMs = 50;
 const fadeEnterDurationMs = 700;
 const fadeExitDurationMs = 350;
 
-function drawerSlideIn({ from = 'left' }: { from?: Direction } = {}): TAnimationPreset {
-	return {
-		name: `drawer-slide-${from}`,
-		enterDurationMs: slideEnterDurationMs,
-		exitDurationMs: slideExitDurationMs,
-	};
-}
+const animate: TDialogAnimationPreset = {
+	kind: 'dialog',
+	name: 'custom',
+};
 
 const styles = cssMap({
 	root: {
@@ -326,10 +321,6 @@ export function DrawerTopLayer({
 		maxHeight: '100dvh',
 		width: `min(${WIDTH_MAP[width]}, 100vw)`,
 	};
-
-	// Memoized so the animation preset object is rebuilt only when `enterFrom`
-	// changes, not on every render.
-	const animate = useMemo(() => drawerSlideIn({ from: enterFrom }), [enterFrom]);
 
 	const accessibleName = getAccessibleName({ label, titleId });
 

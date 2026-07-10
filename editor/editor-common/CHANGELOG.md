@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 116.25.0
+
+### Minor Changes
+
+- [`c0b0b98789f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0b0b98789f7a) -
+  Add analytics for synced block source creation: record the creation input method and whether the
+  block was created empty, and emit a one-off event the first time an empty source block gains
+  content.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.24.5
+
+### Patch Changes
+
+- [`07226ab3fad50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07226ab3fad50) -
+  [ux] Reserve native embed first-paint layout
+
+## 116.24.4
+
+### Patch Changes
+
+- [`f813190f05f57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f813190f05f57) -
+  Update multi bodied extension chrome to match extension presentation.
+- Updated dependencies
+
+## 116.24.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.24.2
 
 ### Patch Changes

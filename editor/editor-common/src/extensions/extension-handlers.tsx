@@ -125,6 +125,7 @@ function isUnknownConfluenceMacroWithBody(
 
 type ExtensionLoadingProps = LoadingComponentProps & {
 	actions?: MultiBodiedExtensionActions;
+	loadingFallback?: React.ReactNode;
 	node: ExtensionParams<Parameters> | null;
 	references?: ReferenceEntity[];
 	showUnknownMacroPlaceholder?: boolean;
@@ -133,6 +134,10 @@ type ExtensionLoadingProps = LoadingComponentProps & {
 function ExtensionLoading(props: ExtensionLoadingProps) {
 	const intl = useIntl();
 	const extensionNode = props.node;
+
+	if (!props.error && !props.timedOut && props.loadingFallback) {
+		return <>{props.loadingFallback}</>;
+	}
 
 	if (props.error || props.timedOut) {
 		// eslint-disable-next-line no-console

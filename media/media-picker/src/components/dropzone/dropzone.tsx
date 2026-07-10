@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
 	ANALYTICS_MEDIA_CHANNEL,
@@ -78,28 +77,7 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 		this.removeContainerListeners(this.getContainer());
 	}
 
-	public UNSAFE_componentWillReceiveProps(nextProps: DropzoneProps): void {
-		if (fg('platform_media_package_react19_lifecycle_fix')) {
-			return;
-		}
-		const {
-			config: { container: newContainer },
-		} = nextProps;
-
-		const {
-			config: { container: oldContainer },
-		} = this.props;
-
-		if (newContainer !== oldContainer) {
-			this.removeContainerListeners(oldContainer);
-			this.addContainerListeners(newContainer);
-		}
-	}
-
 	public componentDidUpdate(prevProps: DropzoneProps): void {
-		if (!fg('platform_media_package_react19_lifecycle_fix')) {
-			return;
-		}
 		const {
 			config: { container: newContainer },
 		} = this.props;

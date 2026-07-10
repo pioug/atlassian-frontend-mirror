@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 133.10.2
+
+### Patch Changes
+
+- [`b77b9337a5323`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b77b9337a5323) -
+  Clean up platform_editor_typography_ugc in renderer and update affected VR baselines.
+- Updated dependencies
+
+## 133.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.10.0
 
 ### Minor Changes

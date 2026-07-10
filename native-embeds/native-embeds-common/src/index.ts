@@ -6,7 +6,6 @@ export {
 	EDITOR_TOOLBAR_HANDLER_KEYS,
 	NATIVE_EMBED_PARAMETER_DEFAULTS,
 } from './utils/constants';
-
 // Re-export types
 export type {
 	AlignmentValue,

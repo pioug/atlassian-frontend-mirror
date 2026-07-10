@@ -19,6 +19,7 @@ export interface Props {
 	editorView: EditorView;
 	eventDispatcher?: EventDispatcher;
 	extensionHandlers: ExtensionHandlers;
+	extensionLoadingHandlers?: ExtensionHandlers;
 	getPos: ProsemirrorGetPosHandler;
 	handleContentDOMRef: (node: HTMLElement | null) => void;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
@@ -58,6 +59,7 @@ export class Extension extends Component<Props, any> {
 			editorView,
 			handleContentDOMRef,
 			extensionHandlers,
+			extensionLoadingHandlers,
 			references,
 			editorAppearance,
 			pluginInjectionApi,
@@ -84,6 +86,7 @@ export class Extension extends Component<Props, any> {
 				extensionProvider={extensionProvider}
 				handleContentDOMRef={handleContentDOMRef}
 				extensionHandlers={extensionHandlers}
+				extensionLoadingHandlers={extensionLoadingHandlers}
 				editorAppearance={editorAppearance}
 				pluginInjectionApi={pluginInjectionApi}
 				eventDispatcher={eventDispatcher}

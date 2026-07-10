@@ -4,6 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type {
 	QuickInsertActionInsert,
@@ -80,6 +81,7 @@ export const getQuickInsertConfig = (
 						syncBlockStore,
 						typeAheadInsert: insert,
 						fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
+						inputMethod: INPUT_METHOD.QUICK_INSERT,
 					});
 				},
 				testId: SYNCED_BLOCK_BUTTON_TEST_ID.quickInsertCreate,

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-extension
 
+## 15.0.24
+
+### Patch Changes
+
+- [`07226ab3fad50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07226ab3fad50) -
+  [ux] Reserve native embed first-paint layout
+- Updated dependencies
+
+## 15.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.22
 
 ### Patch Changes

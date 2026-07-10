@@ -107,7 +107,12 @@ export type SyncedBlockPlugin = NextEditorPlugin<
 		};
 		commands: {
 			copySyncedBlockReferenceToClipboard: (inputMethod: INPUT_METHOD) => EditorCommand;
-			insertSyncedBlock: () => EditorCommand;
+			/**
+			 * Insert a new source synced block. `inputMethod` records the creating
+			 * surface for the `syncedBlockCreate` event; optional so existing callers
+			 * keep working.
+			 */
+			insertSyncedBlock: (inputMethod?: INPUT_METHOD) => EditorCommand;
 		};
 		dependencies: [
 			SelectionPlugin,

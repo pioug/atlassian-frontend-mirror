@@ -33,6 +33,12 @@ type FieldAttributes =
 			toolsFromSkills?: number;
 	  }
 	| {
+			field: 'agenticSkills';
+			operation: 'addMissingTools';
+			skillCount: number;
+			toolsFromSkills: number;
+	  }
+	| {
 			field: 'tools';
 			operation: 'remove' | 'change';
 			toolsCount: number;

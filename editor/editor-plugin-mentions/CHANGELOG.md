@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.5.18
+
+### Patch Changes
+
+- [`2395ac6f0f1e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2395ac6f0f1e1) -
+  Ensures agent profile card remains within viewport
+
+## 14.5.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.5.16
 
 ### Patch Changes

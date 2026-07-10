@@ -10,13 +10,16 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction, EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { type Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type {
 	ColorScheme,
+	DeletedDiffPlacement,
 	DiffDescriptor,
 	DiffType,
 	ShowDiffPlugin,
+	SmartDiffThresholds,
 } from '../../showDiffPluginType';
 import { areDocsEqualByBlockStructureAndText } from '../areDocsEqualByBlockStructureAndText';
 import { createDocMarginAnchorWidget } from '../decorations/createAnchorDecorationWidgets';
@@ -30,6 +33,7 @@ import {
 	stepIsValidAttrChange,
 } from '../decorations/utils/getAttrChangeRanges';
 import { getMarkChangeRanges } from '../decorations/utils/getMarkChangeRanges';
+import { isExtendedEnabled } from '../isExtendedEnabled';
 import type { ShowDiffPluginState } from '../main';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
@@ -37,6 +41,8 @@ import { diffBySteps, getStepChanges } from './diffBySteps';
 import { groupChangesByBlock } from './groupChangesByBlock';
 import { optimizeChanges } from './optimizeChanges';
 import { simplifySteps } from './simplifySteps';
+import { classifySmartChanges } from './smart/classifySmartChanges';
+import { smartChangeLevel } from './smart/helpers';
 
 type CalculatedDiffs = {
 	decorations: DecorationSet;
@@ -50,15 +56,32 @@ const getChanges = ({
 	diffType,
 	tr,
 	steps,
+	intl,
+	smartThresholds,
 }: {
 	changeset: ChangeSet;
 	diffType: DiffType;
+	intl: IntlShape;
 	originalDoc: PMNode;
+	smartThresholds?: Partial<SmartDiffThresholds>;
 	steppedDoc: PMNode;
 	steps: ProseMirrorStep[];
 	tr: Transaction;
 }): Change[] => {
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+	if (isExtendedEnabled(diffType)) {
+		// The `smart` diff type is gated behind `platform_editor_ai_smart_diff`. When the gate is
+		// off, `smart` falls through to the default (`inline`) path below so behaviour degrades
+		// gracefully (see docs/smart-diff-design.md §3).
+		if (diffType === 'smart' && fg('platform_editor_ai_smart_diff')) {
+			const changes = simplifyChanges(changeset.changes, tr.doc);
+			return classifySmartChanges({
+				changes,
+				originalDoc,
+				newDoc: tr.doc,
+				locale: intl.locale,
+				thresholds: smartThresholds,
+			});
+		}
 		if (diffType === 'step') {
 			return diffBySteps(originalDoc, steps);
 		}
@@ -73,6 +96,33 @@ const getChanges = ({
 	return optimizeChanges(changes);
 };
 
+/**
+ * Collect the inline-content ranges of every leaf text-bearing block (paragraph, heading, …)
+ * whose content overlaps `[from, to)`. Used to clip a node-level `smart` insertion highlight to
+ * the actual added text, so the inserted background/underline never spans structural gaps
+ * (list markers, empty item slots, cell/column boundaries) which would render as phantom rows.
+ */
+const leafTextblockRanges = (
+	doc: EditorState['doc'],
+	from: number,
+	to: number,
+): Array<[number, number]> => {
+	const ranges: Array<[number, number]> = [];
+	doc.nodesBetween(from, to, (node, pos) => {
+		if (node.isTextblock && node.content.size > 0) {
+			const contentFrom = Math.max(pos + 1, from);
+			const contentTo = Math.min(pos + 1 + node.content.size, to);
+			if (contentTo > contentFrom) {
+				ranges.push([contentFrom, contentTo]);
+			}
+			// Textblocks have no block children to descend into.
+			return false;
+		}
+		return true;
+	});
+	return ranges;
+};
+
 const calculateNodesForBlockDecoration = ({
 	doc,
 	from,
@@ -82,9 +132,11 @@ const calculateNodesForBlockDecoration = ({
 	activeIndexPos,
 	shouldHideDeleted = false,
 	showIndicators = false,
+	diffType,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	colorScheme?: ColorScheme;
+	diffType?: DiffType;
 	doc: EditorState['doc'];
 	from: number;
 	intl: IntlShape;
@@ -96,11 +148,7 @@ const calculateNodesForBlockDecoration = ({
 	const decorations: Decoration[] = [];
 	// Iterate over the document nodes within the range
 	doc.nodesBetween(from, to, (node, pos) => {
-		if (
-			node.isBlock &&
-			(!expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
-				pos + node.nodeSize <= to)
-		) {
+		if (node.isBlock && (!isExtendedEnabled(diffType) || pos + node.nodeSize <= to)) {
 			const nodeEnd = pos + node.nodeSize;
 			const isActive =
 				activeIndexPos && pos === activeIndexPos.from && nodeEnd === activeIndexPos.to;
@@ -114,6 +162,7 @@ const calculateNodesForBlockDecoration = ({
 					shouldHideDeleted,
 					showIndicators,
 					doc,
+					diffType,
 				}),
 			);
 		}
@@ -145,10 +194,13 @@ const calculateDiffDecorationsInner = ({
 	diffType = 'inline',
 	hideDeletedDiffs = false,
 	showIndicators = false,
+	smartThresholds,
+	deletedDiffPlacement = 'top',
 }: {
 	activeIndexPos?: { from: number; to: number };
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 	colorScheme?: ColorScheme;
+	deletedDiffPlacement?: DeletedDiffPlacement;
 	diffType?: DiffType;
 	hideDeletedDiffs?: boolean;
 	intl: IntlShape;
@@ -156,6 +208,7 @@ const calculateDiffDecorationsInner = ({
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 	showIndicators?: boolean;
+	smartThresholds?: Partial<SmartDiffThresholds>;
 	state: EditorState;
 }): CalculatedDiffs => {
 	const { originalDoc, steps, isDisplayingChanges } = pluginState;
@@ -209,6 +262,8 @@ const calculateDiffDecorationsInner = ({
 		diffType,
 		tr,
 		steps,
+		intl,
+		smartThresholds,
 	});
 
 	const decorations: Decoration[] = [];
@@ -216,7 +271,7 @@ const calculateDiffDecorationsInner = ({
 	/**
 	 * If showIndicators is on, we create an anchor widget here to mark the doc margin.
 	 */
-	if (showIndicators && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+	if (showIndicators && isExtendedEnabled(diffType)) {
 		decorations.push(createDocMarginAnchorWidget());
 	}
 
@@ -231,26 +286,57 @@ const calculateDiffDecorationsInner = ({
 			// shouldHideDeleted for block/node decorations: suppressed when isInverted + hideDeletedDiffs,
 			// or when showGranularWithBlock (block reference widget is shown instead).
 			// isInverted gates both — on an inverted diff the inserted side is visually the deleted side.
-			const shouldHideDeleted = expValEquals(
-				'platform_editor_diff_plugin_extended',
-				'isEnabled',
-				true,
-			)
+			const shouldHideDeleted = isExtendedEnabled(diffType)
 				? isInverted && (hideDeletedDiffs || showGranularWithBlock) && change.deleted.length > 0
 				: false;
-			decorations.push(
-				...createInlineChangedDecoration({
-					change,
-					doc: tr.doc,
-					colorScheme,
-					isActive,
-					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
-						isInserted,
-						shouldHideDeleted,
-						showIndicators,
+
+			// For `smart` NODE-level promotions the change range spans a whole container
+			// (e.g. an entire list/table/layout, using outer node bounds). Applying a SINGLE
+			// inline decoration across that whole range would paint the inserted style across
+			// block boundaries and structural gaps (list markers, empty item slots), producing
+			// phantom "empty" rows above the real content. But skipping the inline highlight
+			// entirely leaves added text-bearing blocks (paragraphs/headings inside the added
+			// container) without the inserted background+underline, because block decorations
+			// return no style for paragraph/heading. So for node-level smart changes we instead
+			// emit ONE inline decoration per leaf text-bearing block within the range — the text
+			// gets highlighted, and structural gaps never do.
+			const isSmartNodeLevel =
+				diffType === 'smart' &&
+				fg('platform_editor_ai_smart_diff') &&
+				smartChangeLevel(change) === 'node';
+			if (isSmartNodeLevel) {
+				for (const [from, to] of leafTextblockRanges(tr.doc, change.fromB, change.toB)) {
+					decorations.push(
+						...createInlineChangedDecoration({
+							change: { fromB: from, toB: to },
+							doc: tr.doc,
+							colorScheme,
+							isActive,
+							diffType,
+							...(isExtendedEnabled(diffType) && {
+								isInserted,
+								shouldHideDeleted,
+								showIndicators,
+							}),
+						}),
+					);
+				}
+			} else {
+				decorations.push(
+					...createInlineChangedDecoration({
+						change,
+						doc: tr.doc,
+						colorScheme,
+						isActive,
+						diffType,
+						...(isExtendedEnabled(diffType) && {
+							isInserted,
+							shouldHideDeleted,
+							showIndicators,
+						}),
 					}),
-				}),
-			);
+				);
+			}
 
 			decorations.push(
 				...calculateNodesForBlockDecoration({
@@ -258,22 +344,19 @@ const calculateDiffDecorationsInner = ({
 					from: change.fromB,
 					to: change.toB,
 					colorScheme,
-					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+					...(isExtendedEnabled(diffType) && {
 						isInserted,
 						shouldHideDeleted,
 						showIndicators,
 					}),
 					activeIndexPos,
 					intl,
+					diffType,
 				}),
 			);
 		}
 		if (change.deleted.length > 0) {
-			const shouldHideDeleted = expValEquals(
-				'platform_editor_diff_plugin_extended',
-				'isEnabled',
-				true,
-			)
+			const shouldHideDeleted = isExtendedEnabled(diffType)
 				? !isInverted && (hideDeletedDiffs || showGranularWithBlock) && change.inserted.length > 0
 				: false;
 			if (!shouldHideDeleted) {
@@ -286,9 +369,17 @@ const calculateDiffDecorationsInner = ({
 						newDoc: tr.doc,
 						intl,
 						activeIndexPos,
-						...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
+						...(isExtendedEnabled(diffType) && {
 							isInserted: !isInserted,
 							diffType,
+							// For `smart` node- and paragraph-level changes, optionally render the
+							// deleted content below the new content (gray + strikethrough) instead
+							// of above it. Controlled by `deletedDiffPlacement` (default `'top'`).
+							placeBelow:
+								deletedDiffPlacement === 'bottom' &&
+								diffType === 'smart' &&
+								fg('platform_editor_ai_smart_diff') &&
+								(smartChangeLevel(change) === 'node' || smartChangeLevel(change) === 'paragraph'),
 						}),
 						showIndicators,
 					}),
@@ -447,11 +538,13 @@ export const calculateDiffDecorations: MemoizedFn<
 		};
 		api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 		colorScheme?: ColorScheme;
+		deletedDiffPlacement?: DeletedDiffPlacement;
 		hideDeletedDiffs?: boolean;
 		intl: IntlShape;
 		nodeViewSerializer: NodeViewSerializer;
 		pluginState: Omit<ShowDiffPluginState, 'decorations'>;
 		showIndicators?: boolean;
+		smartThresholds?: Partial<SmartDiffThresholds>;
 		state: EditorState;
 	}) => CalculatedDiffs
 > = memoizeOne(
@@ -469,6 +562,8 @@ export const calculateDiffDecorations: MemoizedFn<
 				diffType,
 				hideDeletedDiffs,
 				showIndicators,
+				smartThresholds,
+				deletedDiffPlacement,
 			},
 		],
 		[
@@ -482,6 +577,8 @@ export const calculateDiffDecorations: MemoizedFn<
 				diffType: lastDiffType,
 				hideDeletedDiffs: lastHideDeletedDiffs,
 				showIndicators: lastShowIndicators,
+				smartThresholds: lastSmartThresholds,
+				deletedDiffPlacement: lastDeletedDiffPlacement,
 			},
 		],
 	) => {
@@ -490,7 +587,7 @@ export const calculateDiffDecorations: MemoizedFn<
 			pluginState.originalDoc &&
 			pluginState.originalDoc.eq(lastPluginState.originalDoc);
 
-		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isExtendedEnabled(diffType)) {
 			return (
 				(colorScheme === lastColorScheme &&
 					intl.locale === lastIntl.locale &&
@@ -501,7 +598,9 @@ export const calculateDiffDecorations: MemoizedFn<
 					isEqual(pluginState.steps, lastPluginState.steps) &&
 					state.doc.eq(lastState.doc) &&
 					hideDeletedDiffs === lastHideDeletedDiffs &&
-					showIndicators === lastShowIndicators) ??
+					showIndicators === lastShowIndicators &&
+					isEqual(smartThresholds, lastSmartThresholds) &&
+					deletedDiffPlacement === lastDeletedDiffPlacement) ??
 				false
 			);
 		}

@@ -335,13 +335,11 @@ Escape detection uses a capture-phase keydown listener on the popover element. T
 For programmatic close (`isOpen` goes `false`), `programmaticCloseRef` is set to `true` before
 calling `hidePopover()`. The toggle handler checks this ref and skips calling `onClose`.
 
-### Data Attribute for Animation Hooks
+### Animation Style Selection
 
-When an animation preset is active, a data attribute is set on the element:
-`data-ds-popover-{preset.name}=""`. This remains a stable selector for tests and debugging, but it
-no longer selects injected preset CSS. Popover animation CSS is selected by component-local static
-Compiled conditionals, for example
-`preset?.name === 'slide-and-fade' && popoverAnimationStyles.slideAndFade`.
+When an animation preset is active, the preset `name` selects a component-local Compiled style entry
+on the host element. Popover animation CSS is selected through the host component's `css` prop, for
+example `preset && popoverAnimationStyles[preset.name]`.
 
 ---
 
@@ -760,11 +758,12 @@ positioning (separate concern).
 ### `TAnimationPreset` Type
 
 ```typescript
-type TAnimationPreset = {
-	name: string;
-	getProperties?: (args: { placement: TPlacementOptions }) => Record<string, string>;
-	enterDurationMs: number;
-	exitDurationMs: number;
+type TAnimationPreset<Kind, Name = string> = {
+	kind: Kind;
+	name: Name;
+	getStyles?: (args: {
+		placement: TPlacementOptions;
+	}) => Array<{ property: string; value: string }>;
 };
 ```
 
@@ -783,10 +782,10 @@ Directional slide + opacity. The popover slides in from the direction opposite i
 | ---------- | -------- | ------- | ------------------------- |
 | `distance` | `number` | `4`     | Slide distance in pixels. |
 
-**CSS targeting:** `[data-ds-popover-slide-and-fade]`
+**Compiled style key:** `popoverAnimationStyles['slide-and-fade']`
 
 **CSS custom properties:** `--ds-popover-tx` and `--ds-popover-ty` — set per placement by
-`getProperties()`:
+`getStyles()`:
 
 - `block-end` → `tx: 0, ty: -4px` (slides down from above)
 - `block-start` → `tx: 0, ty: 4px` (slides up from below)
@@ -803,7 +802,7 @@ Directional slide + opacity. The popover slides in from the direction opposite i
 
 Simple opacity transition, no transform.
 
-**CSS targeting:** `[data-ds-popover-fade]`
+**Compiled style key:** `popoverAnimationStyles.fade`
 
 **Timing:** Same as `slideAndFade` (350ms entry, 175ms exit).
 
@@ -811,7 +810,7 @@ Simple opacity transition, no transform.
 
 Scale from 0.95 + opacity. Suitable for menus and dropdowns.
 
-**CSS targeting:** `[data-ds-popover-scale-and-fade]`
+**Compiled style key:** `popoverAnimationStyles['scale-and-fade']`
 
 **Timing:** Same as above.
 
@@ -825,7 +824,7 @@ Slide up + opacity for dialogs. Includes `::backdrop` fade animation.
 | ---------- | -------- | ------- | ------------------------- |
 | `distance` | `number` | `12`    | Slide distance in pixels. |
 
-**CSS targeting:** `[data-ds-dialog-slide-up-and-fade]` / `[data-ds-dialog-slide-up-and-fade][open]`
+**Compiled style key:** `dialogAnimationStyles['slide-up-and-fade']`
 
 **CSS custom property:** `--ds-dialog-ty` (defaults to `12px`)
 
@@ -839,7 +838,7 @@ Slide up + opacity for dialogs. Includes `::backdrop` fade animation.
 
 Simple opacity for dialogs. Includes `::backdrop` fade.
 
-**CSS targeting:** `[data-ds-dialog-fade]`
+**Compiled style key:** `dialogAnimationStyles.fade`
 
 ### Static Compiled Styles
 
@@ -889,7 +888,7 @@ exit animations and then unmounts it after the hook settles the phase.
 **Two close paths:**
 
 1. **Animated close** (`willAnimate === true`): `isOpen` → `false`, `phase` becomes `exiting`, CSS
-   exit transition plays, `transitionend` fires (with fallback timeout of `exitDurationMs + 50ms`),
+   exit transition plays, `transitionend` fires (with a shared safety-net timeout fallback),
    `onExitFinish` fires, then `phase` becomes `closed`.
 
 2. **Non-animated close** (`willAnimate === false`): `isOpen` → `false`, `phase` becomes `exiting`,

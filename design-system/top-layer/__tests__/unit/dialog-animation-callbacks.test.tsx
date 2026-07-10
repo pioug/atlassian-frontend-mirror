@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { act, render, screen } from '@atlassian/testing-library';
+import { act } from '@atlassian/testing-library/act';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
 import { dialogMotion } from '../../src/entry-points/animations';
 import { Dialog } from '../../src/entry-points/dialog';

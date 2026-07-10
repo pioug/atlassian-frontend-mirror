@@ -29,6 +29,11 @@ import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card
 import EmbedCardResolvedViewCompetitorPrompt from '../../../examples/vr-embed-card/vr-embed-card-resolved-competitor-prompt';
 import EmbedCardResolvedViewEntities from '../../../examples/vr-embed-card/vr-embed-card-resolved-entities';
 import EmbedCardResolvedViewNoPreview from '../../../examples/vr-embed-card/vr-embed-card-resolved-no-preview';
+import VREmbedCardResolvedRovoActionsFooter, {
+	VREmbedCardResolvedRovoActionsFooterDisabled,
+	VREmbedCardResolvedRovoActionsFooterExperimentOff,
+	VREmbedCardResolvedRovoActionsFooterKillSwitchOff,
+} from '../../../examples/vr-embed-card/vr-embed-card-resolved-rovo-actions-footer';
 import EmbedCardResolvedSmall from '../../../examples/vr-embed-card/vr-embed-card-resolved-small';
 import EmbedCardResolvingView from '../../../examples/vr-embed-card/vr-embed-card-resolving';
 import EmbedCardSelected from '../../../examples/vr-embed-card/vr-embed-card-selected';
@@ -89,6 +94,18 @@ snapshot(EmbedCardResolvedViewNoPreview, {
 	featureFlags: {
 		'navx-5343-sl-action-block-styling-fixes': true,
 	},
+});
+snapshot(VREmbedCardResolvedRovoActionsFooter, {
+	description: 'embed card resolved view with Rovo actions footer FG on EXP on',
+});
+snapshot(VREmbedCardResolvedRovoActionsFooterExperimentOff, {
+	description: 'embed card resolved view with Rovo actions footer FG on EXP off',
+});
+snapshot(VREmbedCardResolvedRovoActionsFooterKillSwitchOff, {
+	description: 'embed card resolved view with Rovo actions footer FG off EXP on',
+});
+snapshot(VREmbedCardResolvedRovoActionsFooterDisabled, {
+	description: 'embed card resolved view with Rovo actions footer FG off EXP off',
 });
 snapshot(EmbedCardResolvingView);
 snapshot(EmbedCardSelected);

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-media
 
+## 14.3.0
+
+### Minor Changes
+
+- [`1bdd62ad6abf9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bdd62ad6abf9) -
+  Fix the AI "Ask Rovo" / "Edit image" loading overlay appearing on every copy of a duplicated
+  image, so only the acted-on image shows the loading state. Behind an experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.2.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.2.17
 
 ### Patch Changes

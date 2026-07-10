@@ -124,14 +124,6 @@ describe('ImageRendererV2', () => {
 			// Hold should now be created
 			expect(mockHold).toHaveBeenCalledWith('img-loading');
 		});
-
-		it('should not create hold when platfrom_close_blindspot_for_img feature flag is disabled', () => {
-			(fg as jest.Mock).mockReturnValue(false);
-
-			render(<ImageRenderer {...defaultProps} cardPreview={cardPreview} />);
-
-			expect(mockHold).not.toHaveBeenCalled();
-		});
 	});
 
 	describe('accessibility', () => {

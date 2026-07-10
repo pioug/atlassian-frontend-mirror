@@ -20,32 +20,6 @@ function hasRunningCssAnimation({ selector }: { selector: string }): boolean {
 	});
 }
 
-test.describe('Animation lifecycle - entry animation', () => {
-	// Category 2: Animation Lifecycle
-	// Verifies that the entry animation data attribute is present when the popover opens.
-	test('entry animation: data attribute is present while open', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/125-testing-animation-exit.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-animation-exit',
-		);
-
-		const trigger = page.getByTestId('popover-trigger');
-		await trigger.click();
-
-		await expect(page.getByTestId('popover-content')).toBeVisible();
-
-		// The popover element should have the slide-and-fade data attribute
-		const hasAttribute = await page.evaluate(() => {
-			const content = document.querySelector('[data-testid="popover-content"]');
-			const popoverEl = content?.closest('[popover]');
-			return popoverEl?.hasAttribute('data-ds-popover-slide-and-fade') ?? false;
-		});
-
-		expect(hasAttribute).toBe(true);
-	});
-});
-
 test.describe('Animation lifecycle - exit animation', () => {
 	// Category 2: Animation Lifecycle
 	// Verifies that the exit animation completes before element is logically hidden.
@@ -101,8 +75,8 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 
 		await page.addStyleTag({
 			content: `
-				[data-ds-popover-popup-motion],
-				[data-ds-popover-popup-motion]:popover-open {
+				[popover],
+				[popover]:popover-open {
 					animation-duration: 100s !important;
 				}
 			`,
@@ -110,9 +84,7 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 
 		await page.getByTestId('popover-trigger').click();
 
-		expect(
-			await page.evaluate(hasRunningCssAnimation, { selector: '[data-ds-popover-popup-motion]' }),
-		).toBe(true);
+		expect(await page.evaluate(hasRunningCssAnimation, { selector: '[popover]' })).toBe(true);
 	});
 
 	test('basic-dialog has entry animation', async ({ page, skipAxeCheck }) => {
@@ -127,10 +99,10 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 
 		await page.addStyleTag({
 			content: `
-				[data-ds-dialog-motion],
-				[data-ds-dialog-motion][open],
-				[data-ds-dialog-motion]::backdrop,
-				[data-ds-dialog-motion][open]::backdrop {
+				dialog,
+				dialog[open],
+				dialog::backdrop,
+				dialog[open]::backdrop {
 					animation-duration: 100s !important;
 				}
 			`,
@@ -138,9 +110,7 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 
 		await page.getByRole('button', { name: 'Open dialog' }).click();
 
-		expect(
-			await page.evaluate(hasRunningCssAnimation, { selector: '[data-ds-dialog-motion]' }),
-		).toBe(true);
+		expect(await page.evaluate(hasRunningCssAnimation, { selector: 'dialog' })).toBe(true);
 	});
 
 	test.describe('exit animation checks', () => {
@@ -160,8 +130,8 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 
 			await page.addStyleTag({
 				content: `
-					[data-ds-popover-popup-motion],
-					[data-ds-popover-popup-motion]:popover-open {
+					[popover],
+					[popover]:popover-open {
 						animation-duration: 100s !important;
 					}
 				`,
@@ -171,9 +141,7 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 			await trigger.click();
 			await trigger.click();
 
-			expect(
-				await page.evaluate(hasRunningCssAnimation, { selector: '[data-ds-popover-popup-motion]' }),
-			).toBe(true);
+			expect(await page.evaluate(hasRunningCssAnimation, { selector: '[popover]' })).toBe(true);
 		});
 
 		test('basic-dialog has exit animation', async ({ page }) => {
@@ -185,10 +153,10 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 
 			await page.addStyleTag({
 				content: `
-					[data-ds-dialog-motion],
-					[data-ds-dialog-motion][open],
-					[data-ds-dialog-motion]::backdrop,
-					[data-ds-dialog-motion][open]::backdrop {
+					dialog,
+					dialog[open],
+					dialog::backdrop,
+					dialog[open]::backdrop {
 						animation-duration: 100s !important;
 					}
 				`,
@@ -197,9 +165,7 @@ test.describe('Animation lifecycle - CSS animation presence', () => {
 			await page.getByRole('button', { name: 'Open dialog' }).click();
 			await page.getByRole('button', { name: 'Close' }).click();
 
-			expect(
-				await page.evaluate(hasRunningCssAnimation, { selector: '[data-ds-dialog-motion]' }),
-			).toBe(true);
+			expect(await page.evaluate(hasRunningCssAnimation, { selector: 'dialog' })).toBe(true);
 		});
 	});
 });

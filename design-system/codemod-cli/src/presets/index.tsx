@@ -18,6 +18,7 @@ import './lozenge-discovery-to-tag-with-fg/lozenge-discovery-to-tag-with-fg';
 import './badge-appearance-semantic-migration/badge-appearance-semantic-migration';
 import './tag-to-newTag-migration/tag-to-newTag-migration';
 import './migrate-deprecated-icon/migrate-deprecated-icon';
+import './fix-import-order/fix-import-order';
 
 const presets: string[] = [
 	'styled-to-emotion',
@@ -34,6 +35,7 @@ const presets: string[] = [
 	'lozenge-discovery-to-tag-with-fg',
 	'badge-appearance-semantic-migration',
 	'tag-to-newTag-migration',
+	'fix-import-order',
 ].map((preset) => path.join(__dirname, preset, `${preset}.@(ts|js|tsx)`));
 
 export default presets;

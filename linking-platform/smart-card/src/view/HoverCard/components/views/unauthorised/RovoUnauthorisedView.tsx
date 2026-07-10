@@ -222,7 +222,7 @@ const RovoUnauthorisedView = ({
 					</Stack>
 
 					<Box xcss={layoutStyles.footer}>
-						<Inline space="space.050">
+						<Inline space="space.050" alignBlock="center">
 							<Button
 								appearance="subtle"
 								spacing="compact"

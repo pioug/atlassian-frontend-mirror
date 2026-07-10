@@ -182,7 +182,7 @@ describe('Raw Data Third Party Behavior', () => {
 			start: 1000,
 			end: 2000,
 			includeCategories: [],
-			excludeCategories: ['third-party'],
+			excludeCategories: ['third-party', 'gen-ai'],
 		});
 		expect(interaction!.metricWindows?.['include-third-party']).toBeUndefined();
 
@@ -201,7 +201,7 @@ describe('Raw Data Third Party Behavior', () => {
 			start: 1000,
 			end: 2000,
 			includeCategories: [],
-			excludeCategories: ['third-party'],
+			excludeCategories: ['third-party', 'gen-ai'],
 		});
 		expect(interaction!.metricWindows?.['include-third-party']).toEqual({
 			start: 1000,
@@ -215,7 +215,6 @@ describe('Raw Data Third Party Behavior', () => {
 
 	describe('GenAI metric variant behavior', () => {
 		it('waits for GenAI holds and emits an include-gen-ai metric window', () => {
-			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_gen_ai_segment');
 			setUFOConfig({
 				enabled: true,
 				product: 'test-product',
@@ -280,7 +279,6 @@ describe('Raw Data Third Party Behavior', () => {
 		});
 
 		it('uses the core end time when GenAI holds finish before core holds', () => {
-			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_gen_ai_segment');
 			setUFOConfig({
 				enabled: true,
 				product: 'test-product',
@@ -337,7 +335,6 @@ describe('Raw Data Third Party Behavior', () => {
 
 	describe('GenAI metric variant abort behavior', () => {
 		it('finishes as successful and emits include-gen-ai when abort is called with only a GenAI hold active', () => {
-			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_gen_ai_segment');
 			setUFOConfig({
 				enabled: true,
 				product: 'test-product',

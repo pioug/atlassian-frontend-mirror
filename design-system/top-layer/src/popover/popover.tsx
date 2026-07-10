@@ -4,19 +4,20 @@
  */
 import React, { forwardRef, type Ref, useCallback, useId, useLayoutEffect, useRef } from 'react';
 
-import { cssMap as compiledCssMap, jsx } from '@compiled/react';
+import { cssMap, jsx, keyframes } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
-import { cssMap } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import once from '@atlaskit/ds-lib/once';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { token } from '@atlaskit/tokens';
 
 import {
 	shouldFocusIntoPopover,
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
 } from '../internal/role-types';
+import { setStyle } from '../internal/set-style';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useInitialFocus } from '../internal/use-initial-focus';
@@ -36,20 +37,35 @@ const supportsPopoverHint = once((): boolean => {
 	return element.popover === 'hint';
 });
 
+const slideInKeyframes = keyframes({
+	from: {
+		transform: 'translate(calc(var(--dir) * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0))',
+	},
+	to: {
+		transform: 'none',
+	},
+});
+
+const slideOutKeyframes = keyframes({
+	from: {
+		transform: 'none',
+	},
+	to: {
+		transform: 'translate(calc(var(--dir) * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0))',
+	},
+});
+
 // These animation styles use the non-strict Compiled cssMap because they rely
 // on `@starting-style`, `:popover-open`, `[dir='rtl']`, and `allow-discrete`.
 // Keep them in this component so the Compiled transform can statically extract
 // every referenced style.
-const popoverAnimationStyles = compiledCssMap({
-	popupMotion: {
-		animation: 'var(--ds-popover-motion-exit)',
-		animationFillMode: 'forwards',
+const popoverAnimationStyles = cssMap({
+	root: {
 		transitionProperty: 'overlay, display',
-		transitionDuration: '150ms',
+		transitionDuration: token('motion.duration.xshort'),
 		transitionBehavior: 'allow-discrete',
 		'&:popover-open': {
-			animation: 'var(--ds-popover-motion-enter)',
-			animationFillMode: 'backwards',
+			transitionDuration: token('motion.duration.short'),
 		},
 		'@media (prefers-reduced-motion: reduce)': {
 			animationName: 'none',
@@ -59,81 +75,48 @@ const popoverAnimationStyles = compiledCssMap({
 				transitionDuration: '0s',
 			},
 		},
+		'--dir': 1,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[dir="rtl"] &': {
+			'--dir': -1,
+		},
 	},
-	slideAndFade: {
-		opacity: 0,
-		transform: 'translate(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0))',
-		transitionProperty: 'opacity, transform, overlay, display',
-		transitionDuration: '175ms',
-		transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
-		transitionBehavior: 'allow-discrete',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		"[dir='rtl'] &": {
-			transform: 'translate(calc(-1 * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0))',
-		},
+	motion: {
+		animation: 'var(--ds-popover-motion-exit)',
+		animationFillMode: 'forwards',
 		'&:popover-open': {
-			opacity: 1,
-			transform: 'none',
-			transitionDuration: '350ms',
-			'@starting-style': {
-				opacity: 0,
-				transform: 'translate(var(--ds-popover-tx, 0), var(--ds-popover-ty, 0))',
-			},
+			animation: 'var(--ds-popover-motion-enter)',
+			animationFillMode: 'backwards',
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		"[dir='rtl'] &:popover-open": {
-			'@starting-style': {
-				transform: 'translate(calc(-1 * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0))',
-			},
-		},
-		'@media (prefers-reduced-motion: reduce)': {
-			transitionDuration: '0s',
-			'&:popover-open': {
-				transitionDuration: '0s',
-			},
+	},
+	'slide-and-fade': {
+		animationName: `${slideOutKeyframes}, ${token('motion.keyframe.fade.out')}`,
+		animationDuration: token('motion.duration.xshort'),
+		animationTimingFunction: token('motion.easing.in.practical'),
+		'&:popover-open': {
+			animationName: `${slideInKeyframes}, ${token('motion.keyframe.fade.in')}`,
+			animationDuration: token('motion.duration.short'),
+			animationTimingFunction: token('motion.easing.out.practical'),
 		},
 	},
 	fade: {
-		opacity: 0,
-		transitionProperty: 'opacity, overlay, display',
-		transitionDuration: '175ms',
-		transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
-		transitionBehavior: 'allow-discrete',
+		animationName: token('motion.keyframe.fade.out'),
+		animationDuration: token('motion.duration.xshort'),
+		animationTimingFunction: token('motion.easing.in.practical'),
 		'&:popover-open': {
-			opacity: 1,
-			transitionDuration: '350ms',
-			'@starting-style': {
-				opacity: 0,
-			},
-		},
-		'@media (prefers-reduced-motion: reduce)': {
-			transitionDuration: '0s',
-			'&:popover-open': {
-				transitionDuration: '0s',
-			},
+			animationName: token('motion.keyframe.fade.in'),
+			animationDuration: token('motion.duration.short'),
+			animationTimingFunction: token('motion.easing.out.practical'),
 		},
 	},
-	scaleAndFade: {
-		opacity: 0,
-		transform: 'scale(0.95)',
-		transitionProperty: 'opacity, transform, overlay, display',
-		transitionDuration: '175ms',
-		transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1)',
-		transitionBehavior: 'allow-discrete',
+	'scale-and-fade': {
+		animationName: `${token('motion.keyframe.fade.out')}, ${token('motion.keyframe.scale.out.small')}`,
+		animationDuration: token('motion.duration.xshort'),
+		animationTimingFunction: token('motion.easing.in.practical'),
 		'&:popover-open': {
-			opacity: 1,
-			transform: 'none',
-			transitionDuration: '350ms',
-			'@starting-style': {
-				opacity: 0,
-				transform: 'scale(0.95)',
-			},
-		},
-		'@media (prefers-reduced-motion: reduce)': {
-			transitionDuration: '0s',
-			'&:popover-open': {
-				transitionDuration: '0s',
-			},
+			animationName: `${token('motion.keyframe.fade.in')}, ${token('motion.keyframe.scale.in.small')}`,
+			animationDuration: token('motion.duration.short'),
+			animationTimingFunction: token('motion.easing.out.practical'),
 		},
 	},
 });
@@ -143,11 +126,9 @@ const styles = cssMap({
 		border: 'none',
 		padding: 0,
 		margin: 0,
-		// @ts-expect-error -- cssMap types do not include 'auto' for inset
 		inset: 'auto',
 		overflow: 'visible',
 		// Unstyled; consumers apply their own surface.
-		// @ts-expect-error -- cssMap types do not include 'transparent' for background
 		background: 'transparent',
 	},
 });
@@ -213,7 +194,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		placement,
 		testId,
 		isOpen,
-		xcss: xcssFromProps,
+		xcss: consumerXcss,
 		// ARIA
 		role,
 		label,
@@ -377,22 +358,14 @@ export const Popover: React.ForwardRefExoticComponent<
 
 	// Placement-dependent animation CSS vars. Kept separate from show/hide
 	// so preset reference changes do not re-trigger visibility. The cleanup
-	// removes the properties so a preset change does not leave stale custom
-	// properties on the element.
+	// restores the previous inline values so a preset change does not leave
+	// stale custom properties on the element.
 	useLayoutEffect(() => {
 		const element = ownRef.current;
-		if (!element || !preset?.getProperties || !placement) {
+		if (!element || !preset?.getStyles || !placement) {
 			return;
 		}
-		const props = preset.getProperties({ placement });
-		Object.entries(props).forEach(([key, value]) => {
-			element.style.setProperty(key, String(value));
-		});
-		return () => {
-			Object.keys(props).forEach((key) => {
-				element.style.removeProperty(key);
-			});
-		};
+		return setStyle({ element, styles: preset.getStyles({ placement }) });
 	}, [preset, placement, isVisible]);
 
 	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
@@ -445,15 +418,11 @@ export const Popover: React.ForwardRefExoticComponent<
 			aria-label={label}
 			aria-labelledby={labelledBy}
 			data-testid={testId}
-			{...(preset ? { [`data-ds-popover-${preset.name}`]: '' } : undefined)}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- xcss prop passes compiled atomic class names
-			className={xcssFromProps as string | undefined}
+			className={consumerXcss}
 			css={[
 				styles.root,
-				preset?.name === 'popup-motion' && popoverAnimationStyles.popupMotion,
-				preset?.name === 'slide-and-fade' && popoverAnimationStyles.slideAndFade,
-				preset?.name === 'fade' && popoverAnimationStyles.fade,
-				preset?.name === 'scale-and-fade' && popoverAnimationStyles.scaleAndFade,
+				preset && popoverAnimationStyles.root,
+				preset && popoverAnimationStyles[preset.name],
 			]}
 		>
 			{children}

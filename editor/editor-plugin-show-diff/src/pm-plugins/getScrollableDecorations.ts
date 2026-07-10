@@ -1,12 +1,14 @@
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+import type { DiffType } from '../showDiffPluginType';
 
 import {
 	DiffDecorationKey,
 	isDiffDecoration,
 	isDiffDecorationSpec,
 } from './decorations/decorationKeys';
+import { isExtendedEnabled } from './isExtendedEnabled';
 
 /**
  * True if `fragment` contains at least one inline node (text, hardBreak, emoji, mention, etc.).
@@ -86,26 +88,27 @@ function specHasDiffKeyPrefix(spec: unknown, keyPrefix: string): spec is { key: 
 export const getScrollableDecorations = (
 	set: DecorationSet | undefined,
 	doc?: PMNode,
+	diffType?: DiffType,
 ): Decoration[] => {
 	if (!set) {
 		return [];
 	}
 
 	const isBlockDecoration = (decoration: Decoration): boolean =>
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+		isExtendedEnabled(diffType)
 			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'block'
 			: (decoration.spec?.key?.startsWith(DiffDecorationKey.block) ?? false);
 	const isInlineDecoration = (decoration: Decoration): boolean =>
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+		isExtendedEnabled(diffType)
 			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'inline'
 			: (decoration.spec?.key?.startsWith(DiffDecorationKey.inline) ?? false);
 	const isWidgetDecoration = (decoration: Decoration): boolean =>
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+		isExtendedEnabled(diffType)
 			? isDiffDecoration(decoration) && decoration.spec.decorationType === 'widget'
 			: (decoration.spec?.key?.startsWith(DiffDecorationKey.widget) ?? false);
 
 	const seenBlockKeys = new Set<string>();
-	const allDecorations = expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+	const allDecorations = isExtendedEnabled(diffType)
 		? set.find(undefined, undefined, isDiffDecorationSpec)
 		: set.find(
 				undefined,

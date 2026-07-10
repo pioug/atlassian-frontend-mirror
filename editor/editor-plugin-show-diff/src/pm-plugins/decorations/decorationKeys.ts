@@ -1,7 +1,7 @@
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { DiffDescriptor } from '../../showDiffPluginType';
+import type { DiffDescriptor, DiffType } from '../../showDiffPluginType';
+import { isExtendedEnabled } from '../isExtendedEnabled';
 
 /**
  * Decoration families produced by the show-diff plugin.
@@ -85,12 +85,14 @@ export const buildDiffDecorationKey = ({
 	decorationKeyPrefix,
 	isActive,
 	diffId,
+	diffType,
 }: {
 	decorationKeyPrefix: (typeof DiffDecorationKey)[DiffDescriptor['type']];
 	diffId?: string;
+	diffType?: DiffType;
 	isActive?: boolean;
 }): string => {
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+	if (isExtendedEnabled(diffType)) {
 		return `${decorationKeyPrefix}-${diffId}-${isActive ? 'active' : 'inactive'}`;
 	}
 	return isActive !== undefined
@@ -104,9 +106,11 @@ export const buildDiffDecorationSpec = ({
 	isActive,
 	nodeName,
 	side,
+	diffType,
 }: {
 	decorationType: DiffDescriptor['type'];
 	diffId: string;
+	diffType?: DiffType;
 	isActive?: boolean;
 	nodeName?: string;
 	side?: number;
@@ -118,6 +122,7 @@ export const buildDiffDecorationSpec = ({
 		decorationKeyPrefix: DiffDecorationKey[decorationType],
 		diffId,
 		isActive,
+		diffType,
 	}),
 	...(nodeName ? { nodeName } : {}),
 	...(side !== undefined ? { side } : {}),

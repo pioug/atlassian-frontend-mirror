@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 14.1.19
+
+### Patch Changes
+
+- [`b76b433b0c9ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b76b433b0c9ec) -
+  Fix code block detect language recent-language handling
+- Updated dependencies
+
+## 14.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.17
 
 ### Patch Changes

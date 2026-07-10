@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 71.8.0
+
+### Minor Changes
+
+- [`4b929c7feb46b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b929c7feb46b) -
+  Add support for ignoring the emoji SSR wrapper when rendering resourced emojis.
+
+## 71.7.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.7.8
 
 ### Patch Changes

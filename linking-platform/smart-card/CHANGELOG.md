@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 45.8.4
+
+### Patch Changes
+
+- [`ec4881d5fcc65`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec4881d5fcc65) -
+  Align the "Not now" and "Connect account" buttons in the Rovo unauthorised hover card footer by
+  adding `alignBlock="center"`, ensuring they render vertically centred.
+- [`f5338ab2e1f3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5338ab2e1f3b) -
+  Add visual regression coverage for embed card Rovo footer variants.
+- Updated dependencies
+
+## 45.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.8.2
 
 ### Patch Changes

@@ -281,25 +281,31 @@ describe('Image Placer', () => {
 		});
 
 		it('should preprocess image when src prop changes', async () => {
-			const onImageActions = jest.fn();
-			const { rerender } = setup({ ...defaultProps, onImageActions });
-			onImageActions.mockClear();
+			// This test asserts on `preprocessFile` rather than `onImageActions`.
+			//
+			// Previously it asserted `onImageActions` was called after a pure `src` change. That only
+			// passed because of a bug in the legacy `UNSAFE_componentWillReceiveProps` path, which used
+			// `const isImageAction = typeof nextOnImageActions !== undefined` — `typeof` always returns
+			// a string, so this was permanently `true` and `provideImageActions()` fired on EVERY prop
+			// change. With the `platform_media_package_react19_lifecycle_fix` gate removed, the shipped
+			// `componentDidUpdate` path correctly calls `provideImageActions()` only when the
+			// `onImageActions` reference actually changes — which it does not here — so the old
+			// assertion no longer holds. We instead verify what this test is actually named for:
+			// changing `src` runs the preprocessing branch of `componentDidUpdate`.
+			const preprocessFileSpy = jest.spyOn(ImagePlacer.prototype, 'preprocessFile');
+			const { rerender } = setup({ ...defaultProps });
+			preprocessFileSpy.mockClear();
 			act(() => {
 				rerender(
 					<IntlProvider locale="en">
-						<ImagePlacer
-							{...defaultComponentProps}
-							{...defaultProps}
-							src="some-new-src"
-							onImageActions={onImageActions}
-						/>
+						<ImagePlacer {...defaultComponentProps} {...defaultProps} src="some-new-src" />
 					</IntlProvider>,
 				);
 			});
-			// onImageActions is called again when src changes (provideImageActions called in componentDidUpdate)
 			await waitFor(() => {
-				expect(onImageActions).toHaveBeenCalled();
+				expect(preprocessFileSpy).toHaveBeenCalled();
 			});
+			preprocessFileSpy.mockRestore();
 		});
 
 		it('should reset zoom and imageBounds when useConstraints prop changes', async () => {

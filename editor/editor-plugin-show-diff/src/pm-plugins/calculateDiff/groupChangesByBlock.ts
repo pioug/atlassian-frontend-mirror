@@ -3,10 +3,15 @@ import type { Change } from 'prosemirror-changeset';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 /**
- * Finds the position range of the top-level block (direct child of doc) that contains `pos`.
- * Returns null if `pos` is at the doc boundary or outside the doc content.
+ * Finds the position range (outer bounds) of the top-level block (direct child of doc) that
+ * contains the range [from, to]. Shared with the `smart` diff type so its block grouping is
+ * identical to the `block` diff type by construction.
  */
-function getTopLevelBlockAt(doc: PMNode, from: number, to: number): { from: number; to: number } {
+export function getTopLevelBlockAt(
+	doc: PMNode,
+	from: number,
+	to: number,
+): { from: number; to: number } {
 	return {
 		from: doc.resolve(from).before(1),
 		to: doc.resolve(to).after(1),

@@ -1,5 +1,25 @@
 # @atlaskit/native-embeds-common
 
+## 2.1.0
+
+### Minor Changes
+
+- [`ae762b2ef8b90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae762b2ef8b90) -
+  Add `getRemixFloatingToolbarButton` action and `BUILTIN_TOOLBAR_KEYS.REMIX` so the regular Remix
+  button can be surfaced in the native-embeds floating toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.6
+
+### Patch Changes
+
+- [`07226ab3fad50`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/07226ab3fad50) -
+  [ux] Reserve native embed first-paint layout
+- Updated dependencies
+
 ## 2.0.5
 
 ### Patch Changes

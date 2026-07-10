@@ -26,11 +26,12 @@ import {
 	updateSuccessPayload,
 	createSuccessPayload,
 	createSuccessOperationalPayload,
+	addContentSuccessPayload,
 	deleteSuccessPayload,
 	fetchReferencesErrorPayload,
 	buildErrorAttribution,
 } from '../utils/errorHandling';
-import type { DeleteSuccessEnrichment } from '../utils/errorHandling';
+import type { CreateSuccessEnrichment, DeleteSuccessEnrichment } from '../utils/errorHandling';
 import {
 	getCreateSourceExperience,
 	getDeleteSourceExperience,
@@ -121,6 +122,21 @@ export class SourceSyncBlockStoreManager {
 	 * multiple blocks are created concurrently. See EDITOR-7112.
 	 */
 	private creationsTimedOutDuringFlush: Set<ResourceId> = new Set();
+
+	/**
+	 * Creation-type signals captured at `createBodiedSyncBlockNode` time and read
+	 * back in `commitPendingCreation` to enrich the `syncedBlockCreate` event.
+	 * Kept out of the flushed cache record so it never leaks into Block Service /
+	 * ADF; removed once consumed.
+	 */
+	private creationEnrichment: Map<ResourceId, CreateSuccessEnrichment> = new Map();
+	/**
+	 * Resource IDs of blocks created empty this session that have not yet fired
+	 * the first-content-added event. Added on empty creation, removed when the
+	 * block first gains content (the event fires once). Blocks created with
+	 * content or not created this session are never tracked.
+	 */
+	private awaitingFirstContent: Set<ResourceId> = new Set();
 
 	private createExperience: Experience | undefined;
 	private saveExperience: Experience | undefined;
@@ -475,19 +491,24 @@ export class SourceSyncBlockStoreManager {
 		if (success) {
 			const sourceProduct = getSourceProductFromResourceIdSafe(resourceId);
 			this.fireAnalyticsEvent?.(createSuccessPayload(resourceId || '', sourceProduct));
-			// Operational create-success event with the join key.
+			// Operational create-success event with the join key + creation-type
+			// signals (inputMethod / createdEmpty) captured at the command layer.
 			if (fg('platform_editor_blocks_patch_4')) {
 				this.fireAnalyticsEvent?.(
 					createSuccessOperationalPayload(
 						resourceId || '',
 						this.syncBlockCache.get(resourceId)?.blockInstanceId,
 						sourceProduct,
+						this.creationEnrichment.get(resourceId),
 					),
 				);
 			}
 		} else {
 			// Delete the node from cache if fail to create so it's not flushed to BE
 			this.syncBlockCache.delete(resourceId || '');
+			// Creation failed, so there is no block to add content to — drop the
+			// first-content tracking entry so a later unrelated edit cannot fire it.
+			this.awaitingFirstContent.delete(resourceId || '');
 			this.fireAnalyticsEvent?.(
 				createErrorPayload(
 					'Fail to create bodied sync block',
@@ -496,6 +517,39 @@ export class SourceSyncBlockStoreManager {
 				),
 			);
 		}
+		// Enrichment is single-use — drop it once the create has resolved either way.
+		this.creationEnrichment.delete(resourceId || '');
+	}
+
+	/**
+	 * Fire the first-content-added event once when a block created empty this
+	 * session first gains content. The caller detects the in-block edit; this owns
+	 * dedupe + emission (fires at most once per block, only for empty→content).
+	 * Gated behind `platform_editor_blocks_patch_4`.
+	 */
+	public maybeEmitFirstContentAdded(
+		resourceId: ResourceId,
+		blockInstanceId?: BlockInstanceId,
+	): void {
+		if (this.viewMode === 'view') {
+			return;
+		}
+		if (!fg('platform_editor_blocks_patch_4')) {
+			return;
+		}
+		// `delete` returns false when the id was not tracked (already emitted, or
+		// the block was not created empty this session), so this both dedupes and
+		// scopes emission to genuine first-content transitions in one check.
+		if (!this.awaitingFirstContent.delete(resourceId)) {
+			return;
+		}
+		this.fireAnalyticsEvent?.(
+			addContentSuccessPayload(
+				resourceId,
+				blockInstanceId,
+				getSourceProductFromResourceIdSafe(resourceId),
+			),
+		);
 	}
 
 	public registerConfirmationCallback(callback: ConfirmationCallback) {
@@ -527,17 +581,30 @@ export class SourceSyncBlockStoreManager {
 	 * @param attrs attributes Ids of the node
 	 * @param node the ProseMirror node to cache
 	 * @param onCompletion callback invoked when creation completes
+	 * @param enrichment optional creation-type signals stashed and attached to the
+	 *   `syncedBlockCreate` event when the async create resolves. When
+	 *   `createdEmpty` is true the block is also registered for the
+	 *   first-content-added event.
 	 */
 	public createBodiedSyncBlockNode(
 		attrs: SyncBlockAttrs,
 		node: PMNode,
 		onCompletion: OnCompletion,
+		enrichment?: CreateSuccessEnrichment,
 	): void {
 		if (this.viewMode === 'view') {
 			return;
 		}
 
 		const { resourceId, localId: blockInstanceId } = attrs;
+		// Stash creation-type signals for commitPendingCreation to read.
+		if (enrichment) {
+			this.creationEnrichment.set(resourceId, enrichment);
+			// Only empty-created blocks can produce an empty→content transition.
+			if (enrichment.createdEmpty) {
+				this.awaitingFirstContent.add(resourceId);
+			}
+		}
 		try {
 			if (!this.dataProvider) {
 				throw new Error('Data provider not set');
@@ -978,6 +1045,8 @@ export class SourceSyncBlockStoreManager {
 		this.postCreationFlushCallback = undefined;
 		this.pendingCreationPromises.clear();
 		this.creationsTimedOutDuringFlush.clear();
+		this.creationEnrichment.clear();
+		this.awaitingFirstContent.clear();
 		this.recentDeleteEmissions.clear();
 		this.dataProvider = undefined;
 		this.saveExperience?.abort({ reason: 'editorDestroyed' });

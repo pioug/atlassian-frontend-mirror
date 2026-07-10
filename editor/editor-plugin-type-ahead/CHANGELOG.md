@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 13.0.1
+
+### Patch Changes
+
+- [`0e797fd81675f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e797fd81675f) -
+  Cleaning up interactivity monitoring experiment
+- Updated dependencies
+
 ## 13.0.0
 
 ### Major Changes

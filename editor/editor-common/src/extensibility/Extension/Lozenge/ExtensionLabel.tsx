@@ -10,6 +10,7 @@ import classnames from 'classnames';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -119,29 +120,14 @@ const i18n = defineMessages({
 	},
 });
 
-export const getShouldShowBodiedMacroLabel = (
-	isBodiedMacro: boolean | undefined,
-	isNodeHovered: boolean | undefined,
-	showLivePagesBodiedMacrosRendererView: boolean | undefined,
-	showBodiedExtensionRendererView: boolean | undefined,
-	showUpdatedLivePages1PBodiedExtensionUI: boolean | undefined,
-): boolean | undefined => {
-	// Bodied macros show the label by default except for the new live pages 1P bodied macro experience where we only show it on hover
-	if (!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) {
-		return isNodeHovered;
-	}
-	if (!showLivePagesBodiedMacrosRendererView) {
-		return true;
-	} // Keep showing labels as usual for default experience for bodied macros
-	return !!(isNodeHovered && !showBodiedExtensionRendererView); // For the new live pages bodied macro experience, we only show the label on hover in the "edit" view
-};
-
 type ExtensionLabelProps = {
 	customContainerStyles?: CSSProperties;
 	extensionName: string;
 	isBodiedMacro?: boolean;
+	isMultiBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
+	isNodeSelected?: boolean;
 	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	showBodiedExtensionRendererView?: boolean;
@@ -156,18 +142,22 @@ export const ExtensionLabel = ({
 	extensionName,
 	customContainerStyles,
 	isNodeNested,
+	isNodeSelected,
 	setIsNodeHovered,
 	isBodiedMacro,
 	showUpdatedLivePages1PBodiedExtensionUI,
 	showLivePagesBodiedMacrosRendererView,
 	showBodiedExtensionRendererView,
 	pluginInjectionApi: _pluginInjectionApi,
+	isMultiBodiedMacro,
 }: ExtensionLabelProps): jsx.JSX.Element => {
 	const isInlineExtension = extensionName === 'inlineExtension';
 	const showDefaultBodiedStyles = isBodiedMacro;
+	const shouldUseMultiBodiedMacroPresentation =
+		isMultiBodiedMacro && fg('confluence_frontend_native_tabs_extension');
 
 	const containerClassNames = classnames({
-		bodied: isBodiedMacro,
+		bodied: isBodiedMacro && !shouldUseMultiBodiedMacroPresentation,
 	});
 
 	const labelClassNames = classnames('extension-label', {
@@ -178,8 +168,14 @@ export const ExtensionLabel = ({
 		'bodied-background': showDefaultBodiedStyles,
 		'with-bodied-macro-live-page-styles': isBodiedMacro && showLivePagesBodiedMacrosRendererView,
 		'always-hide-label': isBodiedMacro && showBodiedExtensionRendererView, // Need this separate class since we don't ever want to show the label during view mode
-		'remove-left-margin': !isBodiedMacro && !isInlineExtension && !isNodeNested,
-		'remove-nested-left-margin': isNodeNested && !isBodiedMacro && !isInlineExtension,
+		'remove-left-margin':
+			(!isBodiedMacro || shouldUseMultiBodiedMacroPresentation) &&
+			!isInlineExtension &&
+			!isNodeNested,
+		'remove-nested-left-margin':
+			isNodeNested &&
+			(!isBodiedMacro || shouldUseMultiBodiedMacroPresentation) &&
+			!isInlineExtension,
 	});
 
 	const iconClassNames = classnames({
@@ -238,14 +234,20 @@ export const ExtensionLabel = ({
 						css={[
 							labelStyles,
 							!showLivePagesBodiedMacrosRendererView && showLabelStyles,
-							(!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) && hideLabelStyles,
+							(!isBodiedMacro ||
+								showUpdatedLivePages1PBodiedExtensionUI ||
+								(shouldUseMultiBodiedMacroPresentation && !isNodeSelected)) &&
+								hideLabelStyles,
 						]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={labelClassNames}
 					>
 						{text}
 						<span
-							css={[iconStyles, isBodiedMacro && bodiedMacroIconStyles]}
+							css={[
+								iconStyles,
+								isBodiedMacro && !shouldUseMultiBodiedMacroPresentation && bodiedMacroIconStyles,
+							]}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={iconClassNames}
 							data-testid="config-icon"

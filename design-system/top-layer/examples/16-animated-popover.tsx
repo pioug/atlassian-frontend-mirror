@@ -55,6 +55,8 @@ export default function AnimatedPopoverExample(): React.ReactNode {
 	);
 }
 
+const placement = { edge: 'end' } as const;
+
 function AnimatedPopoverDemo({
 	label,
 	preset,
@@ -75,7 +77,7 @@ function AnimatedPopoverDemo({
 	useAnchorPosition({
 		anchorRef: triggerRef,
 		popoverRef,
-		placement: { edge: 'end' },
+		placement,
 		forceFallbackPositioning,
 		isOpen,
 	});
@@ -97,6 +99,7 @@ function AnimatedPopoverDemo({
 				isOpen={isOpen}
 				onClose={close}
 				animate={preset}
+				placement={placement}
 			>
 				<PopoverSurface>
 					<Stack space="space.100">

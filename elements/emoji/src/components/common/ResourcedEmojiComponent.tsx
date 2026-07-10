@@ -1,6 +1,12 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ * @jsxFrag React.Fragment
+ */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
+import { css, jsx } from '@compiled/react';
 
 import type { EmojiProvider } from '../../api/EmojiResource';
 import type { EmojiLoadSuccessCallback, EmojiLoadFailCallback } from '../../api/EmojiUtils';
@@ -40,6 +46,11 @@ export interface BaseResourcedEmojiProps {
 	 * Defaults to `undefined`.
 	 */
 	fitToHeight?: number;
+	/**
+	 * Ignores the SSR wrapper when laying out the emoji.
+	 * Defaults to `false`.
+	 */
+	ignoreWrapper?: boolean;
 	/**
 	 * Optimistic will call the fetch interface first and not wait for the entire emoji collection
 	 * to be available before rendering. This is useful for views or pages that show a select set of
@@ -95,6 +106,10 @@ export interface Props extends BaseResourcedEmojiProps {
 	onEmojiLoadSuccess?: EmojiLoadSuccessCallback;
 }
 
+const ignoreWrapperStyles = css({
+	display: 'contents',
+});
+
 enum ResourcedEmojiComponentRenderStatesEnum {
 	INITIAL = 'INITIAL',
 	FALLBACK = 'FALLBACK',
@@ -107,6 +122,7 @@ export const ResourcedEmojiComponent = ({
 	showTooltip = false,
 	customFallback = undefined,
 	fitToHeight = defaultEmojiHeight,
+	ignoreWrapper = false,
 	optimistic = false,
 	optimisticImageURL = undefined,
 	editorEmoji,
@@ -349,6 +365,7 @@ export const ResourcedEmojiComponent = ({
 	return (
 		<EmojiCommonProvider emojiProvider={resolvedEmojiProvider}>
 			<span
+				css={[ignoreWrapper && ignoreWrapperStyles]}
 				data-emoji-id={id}
 				data-emoji-short-name={shortName}
 				data-emoji-text={fallback || shortName}

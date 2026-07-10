@@ -7,6 +7,7 @@ import {
 	inlineExtension,
 	multiBodiedExtension,
 } from '@atlaskit/adf-schema';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -40,6 +41,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 	//Note: This is a hack to get the editor view reference in the plugin. Copied from table plugin.
 	//This is needed to get the current selection in the editor
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
+	const extensionLoadingHandlers: ExtensionHandlers = {};
 
 	const showContextPanel = api?.contextPanel?.actions?.showPanel;
 
@@ -97,6 +99,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 							dispatch,
 							providerFactory,
 							extensionHandlers,
+							extensionLoadingHandlers,
 							portalProviderAPI,
 							eventDispatcher,
 							api,
@@ -154,6 +157,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 					editorAnalyticsAPI: api?.analytics?.actions,
 				});
 			},
+			getExtensionLoadingHandlers: () => extensionLoadingHandlers,
 			insertMacroFromMacroBrowser: insertMacroFromMacroBrowser(api?.analytics?.actions),
 			insertOrReplaceExtension: ({
 				editorView,
@@ -196,6 +200,14 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 				editorAnalyticsAPI: api?.analytics?.actions,
 				applyChangeToContextPanel: api?.contextPanel?.actions.applyChange,
 			}),
+			registerExtensionLoadingHandler: ({ extensionType, handler }) => {
+				extensionLoadingHandlers[extensionType] = handler;
+				return () => {
+					if (extensionLoadingHandlers[extensionType] === handler) {
+						delete extensionLoadingHandlers[extensionType];
+					}
+				};
+			},
 			runMacroAutoConvert,
 			forceAutoSave,
 		},

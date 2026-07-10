@@ -2,14 +2,62 @@ import { type RefObject, useEffect, useLayoutEffect, useRef, useState } from 're
 
 import { bind, bindAll } from 'bind-event-listener';
 
-import { type TAnimationPreset } from '../animations/types';
-
 import { prefersReducedMotion } from './reduced-motion';
+import type { TPlacementOptions } from './resolve-placement';
+
+type TAnimationPresetKind = 'dialog' | 'popover';
+
+/**
+ * A self-contained animation preset for top-layer elements.
+ *
+ * Contains a stable preset name used by the host component to select its
+ * component-local Compiled style entry, plus optional per-placement inline
+ * styles.
+ *
+ * The actual Compiled styles are kept static and component-local so the
+ * Compiled transform can extract them at build time.
+ */
+export type TAnimationPreset<Kind extends TAnimationPresetKind, Name = string> = {
+	kind: Kind;
+	/**
+	 * Stable preset name used to select a component-local Compiled style entry.
+	 */
+	name: Name;
+	/**
+	 * Per-placement inline styles (e.g. directional offset custom properties for
+	 * `slideAndFade`). Only used by presets that vary by placement or by a
+	 * configurable distance.
+	 */
+	getStyles?: (args: {
+		placement: TPlacementOptions;
+	}) => Array<{ property: string; value: string }>;
+};
 
 type TRunOnTransitionEndArgs = {
 	element: HTMLElement;
 	safetyNetMs: number;
 	onSettled: () => void;
+};
+
+/**
+ * Using the recommended motion timings for safety net.
+ *
+ * Not setting these timings on the preset config because they're defined in the CSS,
+ * so configuring it in the preset doesn't achieve anything except introduce a potential
+ * source of drift.
+ *
+ * TODO: figure out a way to not need to redeclare these in the future,
+ * and keep CSS and JS timings in sync always.
+ */
+const safetyNetMsMap: Record<TAnimationPresetKind, { enter: number; exit: number }> = {
+	dialog: {
+		enter: 250, // Corresponds to `motion.duration.long`
+		exit: 200, // Corresponds to `motion.duration.medium`
+	},
+	popover: {
+		enter: 150, // Corresponds to `motion.duration.short`
+		exit: 100, // Corresponds to `motion.duration.xshort`
+	},
 };
 
 /**
@@ -48,7 +96,7 @@ function runOnTransitionEndOrTimeout({
 	return teardown;
 }
 
-type TUseAnimatedVisibilityArgs = {
+type TUseAnimatedVisibilityArgs<Kind extends TAnimationPresetKind, Name> = {
 	/**
 	 * Whether the element is logically open.
 	 */
@@ -57,7 +105,7 @@ type TUseAnimatedVisibilityArgs = {
 	 * Animation preset for entry/exit transitions.
 	 * Pass `false` or `undefined` to disable animation.
 	 */
-	animate: TAnimationPreset | false | undefined;
+	animate: TAnimationPreset<Kind, Name> | false | undefined;
 	/**
 	 * Ref to the DOM element that plays the entry/exit transitions.
 	 * Used to listen for `transitionend`.
@@ -76,7 +124,7 @@ type TUseAnimatedVisibilityArgs = {
 	onExitFinish?: () => void;
 };
 
-type TUseAnimatedVisibilityResult = {
+type TUseAnimatedVisibilityResult<Kind extends TAnimationPresetKind, Name> = {
 	/**
 	 * Current visibility phase. See `TPhase` for the full lifecycle.
 	 *
@@ -91,7 +139,7 @@ type TUseAnimatedVisibilityResult = {
 	 * Resolved animation preset (styles applied via the host element's `css`
 	 * prop), or `null` if animation is disabled.
 	 */
-	preset: TAnimationPreset | null;
+	preset: TAnimationPreset<Kind, Name> | null;
 };
 
 /**
@@ -156,13 +204,13 @@ export type TPhase = 'closed' | 'entering' | 'open' | 'exiting';
  * Every effect dispatches on the single `phase` value instead of a
  * cross-product of booleans.
  */
-export function useAnimatedVisibility({
+export function useAnimatedVisibility<Kind extends TAnimationPresetKind, Name>({
 	isOpen,
 	animate,
 	elementRef,
 	onEnterFinish,
 	onExitFinish,
-}: TUseAnimatedVisibilityArgs): TUseAnimatedVisibilityResult {
+}: TUseAnimatedVisibilityArgs<Kind, Name>): TUseAnimatedVisibilityResult<Kind, Name> {
 	// Styles are applied via the `css` prop on the host element (see `Popover`
 	// and `Dialog`), so there is no longer any CSS injection step. Normalize a
 	// falsy `animate` to `null`.
@@ -211,7 +259,7 @@ export function useAnimatedVisibility({
 	// move to `open`. The fallback guarantees settle on swallowed events
 	// (zero-duration, browser quirk, mid-transition unmount).
 	useEffect(() => {
-		if (phase !== 'entering') {
+		if (phase !== 'entering' || !preset?.kind) {
 			return;
 		}
 
@@ -222,7 +270,7 @@ export function useAnimatedVisibility({
 
 		return runOnTransitionEndOrTimeout({
 			element,
-			safetyNetMs: (preset?.enterDurationMs ?? 0) + 50,
+			safetyNetMs: safetyNetMsMap[preset.kind].enter + 50,
 			onSettled: () => {
 				// Fire the consumer callback before transitioning phase so any
 				// state the consumer reads (refs, DOM nodes) is still attached
@@ -232,7 +280,7 @@ export function useAnimatedVisibility({
 				setPhase((current) => (current === 'entering' ? 'open' : current));
 			},
 		});
-	}, [phase, preset?.enterDurationMs, elementRef]);
+	}, [phase, preset?.kind, elementRef]);
 
 	// Non-animated entry callback. The lifecycle goes `closed → open`
 	// directly with no `entering` phase; fire `onEnterFinish` on that jump.
@@ -252,7 +300,7 @@ export function useAnimatedVisibility({
 	// Animated exit: wait for `transitionend` (or a safety-net timeout),
 	// fire `onExitFinish`, then move to `closed` to unmount the host.
 	useEffect(() => {
-		if (phase !== 'exiting' || !willAnimate) {
+		if (phase !== 'exiting' || !willAnimate || !preset?.kind) {
 			return;
 		}
 
@@ -263,7 +311,7 @@ export function useAnimatedVisibility({
 
 		return runOnTransitionEndOrTimeout({
 			element,
-			safetyNetMs: (preset?.exitDurationMs ?? 0) + 50,
+			safetyNetMs: safetyNetMsMap[preset.kind].exit + 50,
 			onSettled: () => {
 				// Fire the consumer callback before transitioning phase to
 				// `closed`. The phase change drives the host element unmount,
@@ -275,7 +323,7 @@ export function useAnimatedVisibility({
 				setPhase((current) => (current === 'exiting' ? 'closed' : current));
 			},
 		});
-	}, [phase, willAnimate, preset?.exitDurationMs, elementRef]);
+	}, [phase, willAnimate, preset?.kind, elementRef]);
 
 	// Non-animated exit: wait for the browser's `toggle` (closed) or
 	// `close` event before unmounting, so the consumer's listener (close

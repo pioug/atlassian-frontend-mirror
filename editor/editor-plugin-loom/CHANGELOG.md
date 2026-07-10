@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-loom
 
+## 14.0.2
+
+### Patch Changes
+
+- [`1252f81a90302`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1252f81a90302) -
+  bump Loom SDK version to 4.12.4
+
 ## 14.0.1
 
 ### Patch Changes

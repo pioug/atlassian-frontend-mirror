@@ -2,7 +2,7 @@ import type { IntlShape } from 'react-intl';
 
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { PMPluginFactoryParams, EditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPlugin, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { EventDispatcher, createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';

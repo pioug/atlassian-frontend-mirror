@@ -427,9 +427,11 @@ export default class ViewportObserver {
 				'UFOThirdPartySegment',
 				this.mapIs3pResult,
 			);
-			const { isWithin: isWithinGenAISegment } = fg('platform_ufo_gen_ai_segment')
-				? checkWithinComponent(addedNode, 'UFOGenAISegment', this.mapIsGenAIResult)
-				: { isWithin: false };
+			const { isWithin: isWithinGenAISegment } = checkWithinComponent(
+				addedNode,
+				'UFOGenAISegment',
+				this.mapIsGenAIResult,
+			);
 
 			const isWithinSmartAnswersSegment = Boolean(
 				this.shouldCheckSmartAnswersMutations() && isContainedWithinSmartAnswers(addedNode),
@@ -487,9 +489,11 @@ export default class ViewportObserver {
 				'UFOThirdPartySegment',
 				this.mapIs3pResult,
 			);
-			const { isWithin: isWithinGenAISegment } = fg('platform_ufo_gen_ai_segment')
-				? checkWithinComponent(target, 'UFOGenAISegment', this.mapIsGenAIResult)
-				: { isWithin: false };
+			const { isWithin: isWithinGenAISegment } = checkWithinComponent(
+				target,
+				'UFOGenAISegment',
+				this.mapIsGenAIResult,
+			);
 			if (isWithinThirdPartySegment) {
 				return {
 					type: 'mutation:third-party-attribute',

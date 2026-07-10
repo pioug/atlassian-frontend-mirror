@@ -1,9 +1,9 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { ColorScheme } from '../../showDiffPluginType';
+import type { ColorScheme, DiffType } from '../../showDiffPluginType';
+import { isExtendedEnabled } from '../isExtendedEnabled';
 
 import {
 	standardDecorationMarkerVariable,
@@ -56,8 +56,10 @@ const getBlockNodeStyle = ({
 	colorScheme,
 	isInserted = true,
 	isActive = false,
+	diffType,
 }: {
 	colorScheme?: ColorScheme;
+	diffType?: DiffType;
 	isActive?: boolean;
 	isInserted?: boolean;
 	nodeName: string;
@@ -85,7 +87,7 @@ const getBlockNodeStyle = ({
 	// Media nodes inside mediaSingle should not get position:relative
 	// as it shifts the image outside its parent container (e.g. panel)
 	if (nodeName === 'media') {
-		if (!isInserted && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (!isInserted && isExtendedEnabled(diffType)) {
 			return isTraditional
 				? getDeletedTraditionalInlineStyle(false)
 				: deletedDecorationMarkerVariable;
@@ -97,7 +99,7 @@ const getBlockNodeStyle = ({
 			: editingStyleNode;
 	}
 	if (['tableCell', 'tableHeader'].includes(nodeName)) {
-		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isExtendedEnabled(diffType)) {
 			// This is used for positioning the cell overlay widget decorations
 			return convertToInlineCss({
 				position: 'relative',
@@ -107,7 +109,7 @@ const getBlockNodeStyle = ({
 		return undefined;
 	}
 	if (nodeName === 'panel') {
-		if (!isInserted && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (!isInserted && isExtendedEnabled(diffType)) {
 			return isTraditional
 				? getDeletedTraditionalInlineStyle(false)
 				: deletedDecorationMarkerVariable;
@@ -119,7 +121,7 @@ const getBlockNodeStyle = ({
 			: editingStyleNode;
 	}
 	if (['extension', 'embedCard', 'listItem'].includes(nodeName)) {
-		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isExtendedEnabled(diffType)) {
 			if (isInserted) {
 				return isTraditional && isActive
 					? traditionalDecorationMarkerVariableActive
@@ -148,7 +150,7 @@ const getBlockNodeStyle = ({
 				: standardDecorationMarkerVariable;
 	}
 	if (nodeName === 'blockquote') {
-		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isExtendedEnabled(diffType)) {
 			if (isInserted) {
 				return isTraditional
 					? isActive
@@ -166,7 +168,7 @@ const getBlockNodeStyle = ({
 			: editingStyleQuoteNode;
 	}
 	if (nodeName === 'rule') {
-		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isExtendedEnabled(diffType)) {
 			if (isInserted) {
 				return isTraditional
 					? isActive
@@ -184,7 +186,7 @@ const getBlockNodeStyle = ({
 			: editingStyleRuleNode;
 	}
 	if (nodeName === 'blockCard') {
-		if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+		if (isExtendedEnabled(diffType)) {
 			if (isInserted) {
 				return isTraditional
 					? isActive
@@ -201,7 +203,7 @@ const getBlockNodeStyle = ({
 				: traditionalStyleCardBlockNodeNew
 			: editingStyleCardBlockNode;
 	}
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+	if (isExtendedEnabled(diffType)) {
 		if (isInserted) {
 			return isTraditional
 				? isActive
@@ -235,9 +237,11 @@ export const createBlockChangedDecoration = ({
 	shouldHideDeleted = false,
 	showIndicators = false,
 	doc,
+	diffType,
 }: {
 	change: { from: number; name: string; to: number };
 	colorScheme?: ColorScheme;
+	diffType?: DiffType;
 	doc?: PMNode;
 	isActive?: boolean;
 	isInserted?: boolean;
@@ -258,6 +262,7 @@ export const createBlockChangedDecoration = ({
 					diffId,
 					isActive,
 					nodeName: change.name,
+					diffType,
 				}),
 			),
 		];
@@ -265,10 +270,7 @@ export const createBlockChangedDecoration = ({
 
 	let style: string | undefined;
 
-	if (
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) &&
-		['tableCell', 'tableHeader'].includes(change.name)
-	) {
+	if (isExtendedEnabled(diffType) && ['tableCell', 'tableHeader'].includes(change.name)) {
 		const cellOverlay = document.createElement('div');
 		const cellOverlayStyle = isInserted
 			? colorScheme === 'traditional'
@@ -287,10 +289,16 @@ export const createBlockChangedDecoration = ({
 			}),
 		);
 	}
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
-		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isInserted, isActive });
+	if (isExtendedEnabled(diffType)) {
+		style = getBlockNodeStyle({
+			nodeName: change.name,
+			colorScheme,
+			isInserted,
+			isActive,
+			diffType,
+		});
 	} else {
-		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isActive });
+		style = getBlockNodeStyle({ nodeName: change.name, colorScheme, isActive, diffType });
 	}
 	const className = getNodeClass(change.name);
 	if (style || className) {
@@ -308,17 +316,13 @@ export const createBlockChangedDecoration = ({
 					diffId,
 					isActive,
 					nodeName: change.name,
+					diffType,
 				}),
 			),
 		);
 	}
 
-	if (
-		decorations.length > 0 &&
-		showIndicators &&
-		doc &&
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-	) {
+	if (decorations.length > 0 && showIndicators && doc && isExtendedEnabled(diffType)) {
 		decorations.push(
 			...createBlockIndicatorAnchorWidgets({ doc, from: change.from, to: change.to, diffId }),
 		);

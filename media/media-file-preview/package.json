@@ -101,9 +101,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_close_image_blindspot_2": {
-			"type": "boolean"
-		},
 		"media-perf-uplift-mutation-fix": {
 			"type": "boolean"
 		},

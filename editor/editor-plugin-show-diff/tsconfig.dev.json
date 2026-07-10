@@ -57,6 +57,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
@@ -82,6 +85,9 @@
 		},
 		{
 			"path": "../../design-system/textarea/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/textfield/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

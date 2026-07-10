@@ -5,6 +5,7 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import type {
+	INPUT_METHOD,
 	RendererSyncBlockEventPayload,
 	OperationalAEP,
 	SyncBlockEventPayload,
@@ -539,18 +540,54 @@ export const createSuccessPayload = (
 };
 
 /**
- * Operational `syncedBlockCreate` success event (previously only error rows
- * existed, so dashboards had no create denominator). Fired behind
- * `platform_editor_blocks_patch_4` with the `blockInstanceId` join key.
+ * Optional enrichment for the `syncedBlockCreate` success event. All fields
+ * optional so gate-off/legacy payloads are unchanged. `inputMethod`: creating
+ * surface (enum, PII-safe). `createdEmpty`: true from an empty selection, false
+ * when content was converted.
+ */
+export type CreateSuccessEnrichment = {
+	createdEmpty?: boolean;
+	inputMethod?: INPUT_METHOD;
+};
+
+/**
+ * Operational `syncedBlockCreate` success event, behind
+ * `platform_editor_blocks_patch_4`, with the `blockInstanceId` join key and,
+ * when available, the `inputMethod` + `createdEmpty` creation-type signals.
  */
 export const createSuccessOperationalPayload = (
 	resourceId: string,
 	blockInstanceId?: string,
 	sourceProduct?: string,
+	enrichment?: CreateSuccessEnrichment,
 ): SyncBlockEventPayload => ({
 	action: ACTION.INSERTED,
 	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
 	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
+	eventType: EVENT_TYPE.OPERATIONAL,
+	attributes: {
+		resourceId,
+		...(blockInstanceId && { blockInstanceId }),
+		...(sourceProduct && { sourceProduct }),
+		...(enrichment?.inputMethod && { inputMethod: enrichment.inputMethod }),
+		...(enrichment?.createdEmpty !== undefined && { createdEmpty: enrichment.createdEmpty }),
+	},
+});
+
+/**
+ * Operational first-content-added event, behind
+ * `platform_editor_blocks_patch_4`. Fired once when a block created empty first
+ * gains user content. Join keys only (`resourceId` + `blockInstanceId`), no user
+ * content (PII-safe).
+ */
+export const addContentSuccessPayload = (
+	resourceId: string,
+	blockInstanceId?: string,
+	sourceProduct?: string,
+): SyncBlockEventPayload => ({
+	action: ACTION.ADDED,
+	actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+	actionSubjectId: ACTION_SUBJECT_ID.SYNCED_BLOCK_ADD_CONTENT,
 	eventType: EVENT_TYPE.OPERATIONAL,
 	attributes: {
 		resourceId,

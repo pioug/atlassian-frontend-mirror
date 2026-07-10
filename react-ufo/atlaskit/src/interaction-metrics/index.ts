@@ -819,36 +819,20 @@ let handleInteraction = pushToQueue;
 const isKnownMetricVariantCategory = (type: unknown): type is MetricVariantCategory =>
 	type === 'third-party' || type === 'gen-ai';
 
-const isMetricVariantCategoryEnabled = (category: MetricVariantCategory): boolean =>
-	category === 'third-party' || fg('platform_ufo_gen_ai_segment');
-
 const hasMetricVariantCategory = (
 	labelStack: LabelStack | null | undefined,
 	category: MetricVariantCategory,
-): boolean =>
-	labelStack?.some(
-		(label) =>
-			'type' in label && label.type === category && isMetricVariantCategoryEnabled(category),
-	) ?? false;
+): boolean => labelStack?.some((label) => 'type' in label && label.type === category) ?? false;
 
 const hasAnyMetricVariantCategory = (labelStack: LabelStack | null | undefined): boolean =>
-	labelStack?.some(
-		(label) =>
-			'type' in label &&
-			isKnownMetricVariantCategory(label.type) &&
-			isMetricVariantCategoryEnabled(label.type),
-	) ?? false;
+	labelStack?.some((label) => 'type' in label && isKnownMetricVariantCategory(label.type)) ?? false;
 
 const getMetricVariantCategories = (
 	labelStack: LabelStack | null | undefined,
 ): MetricVariantCategory[] => {
 	const categories = new Set<MetricVariantCategory>();
 	labelStack?.forEach((label) => {
-		if (
-			'type' in label &&
-			isKnownMetricVariantCategory(label.type) &&
-			isMetricVariantCategoryEnabled(label.type)
-		) {
+		if ('type' in label && isKnownMetricVariantCategory(label.type)) {
 			categories.add(label.type);
 		}
 	});
@@ -946,8 +930,7 @@ function ensureMetricWindows(interaction: InteractionMetrics): void {
 		return;
 	}
 
-	const shouldExcludeGenAI = fg('platform_ufo_gen_ai_segment');
-	const hasGenAI = shouldExcludeGenAI && hasMetricVariantCategoryInHoldData(interaction, 'gen-ai');
+	const hasGenAI = hasMetricVariantCategoryInHoldData(interaction, 'gen-ai');
 	const hasThirdParty = hasMetricVariantCategoryInHoldData(interaction, 'third-party');
 	const includeThirdPartyEnd =
 		interaction.metricCategoryEnds?.['third-party'] !== undefined
@@ -964,7 +947,7 @@ function ensureMetricWindows(interaction: InteractionMetrics): void {
 			start: interaction.start,
 			end: interaction.end,
 			includeCategories: [],
-			excludeCategories: shouldExcludeGenAI ? ['third-party', 'gen-ai'] : ['third-party'],
+			excludeCategories: ['third-party', 'gen-ai'],
 		},
 	};
 
@@ -1553,7 +1536,7 @@ export function addNewInteraction(
 			? {
 					prior: priorAccessedFg,
 					during: {},
-				}
+			  }
 			: undefined,
 		knownSegments: [],
 		cleanupCallbacks: [],

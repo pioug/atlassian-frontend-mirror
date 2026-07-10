@@ -133,7 +133,7 @@ export const useFilePreview = ({
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	useLayoutEffect(() => {
-		if (isLoading && fg('platform_close_image_blindspot_2')) {
+		if (isLoading) {
 			return ufoContext?.hold('img-loading');
 		}
 	}, [ufoContext, isLoading]);

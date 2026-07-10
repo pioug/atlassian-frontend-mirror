@@ -127,13 +127,20 @@ export type ExtensionPluginDependencies = [
 	OptionalPlugin<CopyButtonPlugin>,
 ];
 
+export type RegisterExtensionLoadingHandler = (options: {
+	extensionType: string;
+	handler: NonNullable<ExtensionHandlers[string]>;
+}) => () => void;
+
 export type ExtensionPluginActions = {
 	api: () => ExtensionAPI;
 	editSelectedExtension: () => boolean;
 	forceAutoSave: typeof forceAutoSave;
+	getExtensionLoadingHandlers: () => ExtensionHandlers;
 	insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
 	insertOrReplaceBodiedExtension: InsertOrReplaceExtensionAction;
 	insertOrReplaceExtension: InsertOrReplaceExtensionAction;
+	registerExtensionLoadingHandler: RegisterExtensionLoadingHandler;
 	runMacroAutoConvert: RunMacroAutoConvert;
 };
 

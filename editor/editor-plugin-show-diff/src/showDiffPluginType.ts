@@ -11,8 +11,22 @@ import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
+import type { SmartDiffThresholds as SmartDiffThresholdsInternal } from './pm-plugins/calculateDiff/smart/thresholds';
+
 export type ColorScheme = 'standard' | 'traditional';
-export type DiffType = 'inline' | 'block' | 'step';
+export type DiffType = 'inline' | 'block' | 'step' | 'smart';
+
+/**
+ * Where node/paragraph-level deleted content is rendered relative to the new (replacement)
+ * content in the `smart` diffType:
+ * - `'top'` (default): the deleted content is anchored above the new content.
+ * - `'bottom'`: the deleted content is anchored below the new content.
+ */
+export type DeletedDiffPlacement = 'top' | 'bottom';
+
+// Re-export the canonical `SmartDiffThresholds` declaration (single source of truth) so the
+// public plugin types stay in sync with the smart-diff implementation.
+export type SmartDiffThresholds = SmartDiffThresholdsInternal;
 
 export type DiffDescriptor = {
 	id: string;
@@ -34,10 +48,20 @@ export type DiffParams = {
 };
 
 export type PMDiffParams = {
+	/**
+	 * For the `smart` diffType, where node/paragraph-level deleted content is rendered relative to
+	 * the new content. Defaults to `'top'`. Ignored for other diff types.
+	 */
+	deletedDiffPlacement?: DeletedDiffPlacement;
 	diffType?: DiffType;
 	hideDeletedDiffs?: boolean;
 	isInverted?: boolean;
 	originalDoc: Node;
+	/**
+	 * Optional overrides for the `smart` diffType density thresholds. Ignored for other
+	 * diff types. Partial — omitted fields fall back to defaults.
+	 */
+	smartThresholds?: Partial<SmartDiffThresholds>;
 	/**
 	 * When true, the editor will scroll to bring the first diff decoration into view
 	 * after the diff is shown.

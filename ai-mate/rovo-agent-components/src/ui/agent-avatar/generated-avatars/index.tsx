@@ -399,6 +399,16 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: greenColor,
 	},
+	planner_agent: {
+		getRender: (size: SizeType) => (
+			<OpsAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={purpleColor.primary}
+				secondaryColor={purpleColor.secondary}
+			/>
+		),
+		color: purpleColor,
+	},
 	user_manual_writer_agent: {
 		getRender: (size: SizeType) => (
 			<MyUserManualAvatar
@@ -439,6 +449,16 @@ const outOfTheBoxAgentAvatar: {
 		),
 		color: yellowColor,
 	},
+	discovery_and_feedback_agent: {
+		getRender: (size: SizeType) => (
+			<CommsCrafterAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={greenColor.primary}
+				secondaryColor={greenColor.secondary}
+			/>
+		),
+		color: greenColor,
+	},
 	jira_workflow_builder_agent: {
 		getRender: (size: SizeType) => (
 			<WorkflowBuilderAvatar
@@ -468,6 +488,16 @@ const outOfTheBoxAgentAvatar: {
 			/>
 		),
 		color: blueColor,
+	},
+	daily_brief_agent: {
+		getRender: (size: SizeType) => (
+			<TrialGuideAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={yellowColor.primary}
+				secondaryColor={yellowColor.secondary}
+			/>
+		),
+		color: yellowColor,
 	},
 	jira_admin_agent: {
 		getRender: (size: SizeType) => (

@@ -49,8 +49,8 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 
 - React Compiler is enabled for this package
 - Peer dependencies: `@atlaskit/media-core`, `react`, `react-dom`, `react-intl`
-- 3 feature flags: `platform_media_package_react19_lifecycle_fix`,
-  `platform_media_picker_upload_batching`, `should-render-to-parent-should-be-true-media-exif`
+- 2 feature flags: `platform_media_picker_upload_batching`,
+  `should-render-to-parent-should-be-true-media-exif`
 - Export subpaths: `.`, `./browser`, `./clipboard`, `./components/types`, `./dropzone`, `./plugin`,
   `./preview`, `./types`
 - All new behaviour changes must be behind a feature gate (`fg()` from

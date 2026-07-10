@@ -21,7 +21,6 @@ installInteractionSessionFake();
  * Toggle in the examples site's feature-flag panel:
  *   platform_smartlink_xpc_url_wrapping
  *   atlaskit-analytics-cross-product
- *   cross_product_wrapper_react_safe
  *
  * Expected on each surface:
  *   - inline:     anchor `href` carries `?xpis=…`

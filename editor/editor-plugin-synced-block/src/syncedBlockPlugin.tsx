@@ -140,7 +140,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 			copySyncedBlockReferenceToClipboard: (inputMethod): EditorCommand =>
 				copySyncedBlockReferenceToClipboardEditorCommand(syncBlockStore, inputMethod, api),
 			insertSyncedBlock:
-				(): EditorCommand =>
+				(inputMethod): EditorCommand =>
 				({ tr }) => {
 					if (!config?.enableSourceCreation) {
 						return null;
@@ -151,6 +151,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 							tr,
 							syncBlockStore,
 							fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
+							inputMethod,
 						}) || null
 					);
 				},

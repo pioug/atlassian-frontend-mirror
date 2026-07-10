@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-components
 
+## 7.4.1
+
+### Patch Changes
+
+- [`6b27fa50e913b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b27fa50e913b) -
+  Add fixed OOTB avatar mappings for Planner, Discovery and Feedback, and Daily Brief agents.
+
 ## 7.4.0
 
 ### Minor Changes

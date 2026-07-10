@@ -38,7 +38,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
+import { creationMetaKey, deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
 import {
 	canBeConvertedToSyncBlock,
 	deferDispatch,
@@ -53,6 +53,11 @@ import { findBodiedSyncBlockByLocalId, pasteSyncBlockHTMLContent } from './utils
 
 type createSyncedBlockProps = {
 	fireAnalyticsEvent?: DispatchAnalyticsEvent;
+	/**
+	 * Creating surface, stashed on the transaction to attach to the async
+	 * `syncedBlockCreate` event. Optional so legacy callers still type-check.
+	 */
+	inputMethod?: INPUT_METHOD;
 	syncBlockStore: SyncBlockStoreManager;
 	tr: Transaction;
 	typeAheadInsert?: TypeAheadInsert;
@@ -121,12 +126,18 @@ export const createSyncedBlock = ({
 	syncBlockStore,
 	typeAheadInsert,
 	fireAnalyticsEvent,
+	inputMethod,
 }: createSyncedBlockProps): false | Transaction => {
 	const {
 		schema: {
 			nodes: { bodiedSyncBlock, paragraph },
 		},
 	} = tr.doc.type;
+
+	// Capture createdEmpty before any insertion mutates the selection. The meta is
+	// set on the final transaction before returning (see below), since the
+	// typeahead path may reassign `tr` and drop meta set here.
+	const createdEmpty = tr.selection.empty;
 
 	// If the selection is empty, we want to insert the sync block on a new line
 	if (tr.selection.empty) {
@@ -206,6 +217,11 @@ export const createSyncedBlock = ({
 			tr.setSelection(TextSelection.create(tr.doc, conversionInfo.from));
 		}
 	}
+
+	// Stash creation-type signals on the final transaction (after any typeahead
+	// reassignment). Set unconditionally — the store manager only reads it behind
+	// the feature gate.
+	tr.setMeta(creationMetaKey, { createdEmpty, inputMethod });
 
 	return tr;
 };

@@ -23,6 +23,12 @@
 	],
 	"references": [
 		{
+			"path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../../react-compiler/react-compiler-gating/afm-cc/tsconfig.json"
 		},
 		{

@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-analytics
 
+## 5.3.0
+
+### Minor Changes
+
+- [`ae847ff5d5fb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae847ff5d5fb2) -
+  Add an `addMissingTools` operation variant to the `agenticSkills` editing analytics event, fired
+  when a user adds a skill's missing tools onto an agent from the per-skill warning popover.
+
 ## 5.2.0
 
 ### Minor Changes

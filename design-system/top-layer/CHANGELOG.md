@@ -1,5 +1,13 @@
 # @atlaskit/top-layer
 
+## 1.6.0
+
+### Minor Changes
+
+- [`530dfb5aee695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/530dfb5aee695) -
+  Improves animation preset typing and makes animations more consistent by aligning timings and
+  introducing tokens.
+
 ## 1.5.0
 
 ### Minor Changes

@@ -63,7 +63,9 @@ const CreateSyncedBlockDropdownItem = ({
 				// stopping selection preservation — otherwise we would dispatch an
 				// effectively-empty transaction and close the menu despite nothing
 				// having been inserted.
-				const result = api?.syncedBlock.commands.insertSyncedBlock()({ tr });
+				const result = api?.syncedBlock.commands.insertSyncedBlock(INPUT_METHOD.BLOCK_MENU)({
+					tr,
+				});
 				if (!result) {
 					return null;
 				}
@@ -79,7 +81,9 @@ const CreateSyncedBlockDropdownItem = ({
 
 		// Legacy behaviour: insert then close the block menu as two separate executes
 		// (batching them caused selection collisions — EDITOR-2751).
-		api?.core?.actions.execute(api?.syncedBlock.commands.insertSyncedBlock());
+		api?.core?.actions.execute(
+			api?.syncedBlock.commands.insertSyncedBlock(INPUT_METHOD.BLOCK_MENU),
+		);
 		api?.core?.actions.execute(api?.blockControls?.commands?.toggleBlockMenu({ closeMenu: true }));
 	};
 

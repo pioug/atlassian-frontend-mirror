@@ -1,9 +1,9 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { ColorScheme } from '../../showDiffPluginType';
+import type { ColorScheme, DiffType } from '../../showDiffPluginType';
+import { isExtendedEnabled } from '../isExtendedEnabled';
 
 import {
 	editingStyle,
@@ -40,9 +40,11 @@ export const createInlineChangedDecoration = ({
 	shouldHideDeleted = false,
 	showIndicators = false,
 	doc,
+	diffType,
 }: {
 	change: { fromB: number; toB: number };
 	colorScheme?: ColorScheme;
+	diffType?: DiffType;
 	doc?: PMNode;
 	isActive?: boolean;
 	isInserted?: boolean;
@@ -64,7 +66,7 @@ export const createInlineChangedDecoration = ({
 
 	let style: string;
 
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+	if (isExtendedEnabled(diffType)) {
 		if (isInserted) {
 			if (colorScheme === 'traditional') {
 				style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
@@ -79,7 +81,7 @@ export const createInlineChangedDecoration = ({
 				/**
 				 * Merge into existing styles when cleaning up
 				 */
-				if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+				if (isExtendedEnabled(diffType)) {
 					style += deletedInlineContentStyleExtended;
 				}
 			}
@@ -104,11 +106,7 @@ export const createInlineChangedDecoration = ({
 		),
 	];
 
-	if (
-		showIndicators &&
-		doc &&
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-	) {
+	if (showIndicators && doc && isExtendedEnabled(diffType)) {
 		decorations.push(
 			...createInlineIndicatorAnchorWidgets({ doc, from: change.fromB, to: change.toB, diffId }),
 		);

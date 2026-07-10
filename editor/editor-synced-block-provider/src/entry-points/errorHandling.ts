@@ -4,3 +4,4 @@ export {
 	fetchErrorPayload,
 	getPiiSafeOriginalError,
 } from '../utils/errorHandling';
+export type { CreateSuccessEnrichment } from '../utils/errorHandling';

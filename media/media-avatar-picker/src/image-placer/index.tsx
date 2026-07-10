@@ -18,7 +18,6 @@ import { ImagePlacerImage } from './image';
 import { Margin } from './margin';
 import { initialiseImagePreview, renderImageAtCurrentView } from './imageProcessor';
 import { zoomToFit, applyConstraints, transformVisibleBoundsToImageCoords } from './constraints';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { ImagePlacerErrorWrapper } from './imagePlacerErrorWrapper';
 import { isSSR } from '../util';
 
@@ -213,85 +212,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 		}
 	}
 
-	/* respond to prop changes */
-	async UNSAFE_componentWillReceiveProps(nextProps: ImagePlacerProps): Promise<void> {
-		if (fg('platform_media_package_react19_lifecycle_fix')) {
-			return;
-		}
-		const { imageSourceRect, state, props } = this;
-		const { zoom } = state;
-		const {
-			useConstraints: currentUseConstraints,
-			containerWidth: currentContainerWidth,
-			containerHeight: currentContainerHeight,
-			margin: currentMargin,
-			src: currentSrc,
-		} = props;
-		const {
-			zoom: nextZoom,
-			useConstraints: nextUseConstraints,
-			containerWidth: nextContainerWidth,
-			containerHeight: nextContainerHeight,
-			margin: nextMargin,
-			src: nextSrc,
-			onImageActions: nextOnImageActions,
-		} = nextProps;
-
-		const isZoomChange = nextZoom !== undefined && nextZoom !== zoom;
-		const isUseConstraintsChange =
-			nextUseConstraints !== undefined && nextUseConstraints !== currentUseConstraints;
-		const isContainerWidthChange =
-			nextContainerWidth !== undefined && nextContainerWidth !== currentContainerWidth;
-		const isContainerHeightChange =
-			nextContainerHeight !== undefined && nextContainerHeight !== currentContainerHeight;
-		const isMarginChange = nextMargin !== undefined && nextMargin !== currentMargin;
-		const isImageAction = typeof nextOnImageActions !== undefined;
-
-		const zoomReset = { zoom: 0 };
-
-		if (isZoomChange) {
-			this.setZoom(nextZoom);
-		}
-
-		if (isUseConstraintsChange) {
-			this.setState(
-				{
-					zoom: 0,
-					imageWidth: imageSourceRect.width,
-					imageHeight: imageSourceRect.height,
-				},
-				this.update,
-			);
-		}
-
-		if (isContainerWidthChange || isContainerHeightChange || isMarginChange) {
-			this.setState(zoomReset, this.update);
-			this.updateZoomProp();
-		}
-
-		let fileInfo;
-
-		if (nextSrc instanceof File && nextSrc !== currentSrc) {
-			fileInfo = await getFileInfo(nextSrc as File);
-		}
-
-		if (typeof nextSrc === 'string' && nextSrc !== currentSrc) {
-			fileInfo = await getFileInfoFromSrc(nextSrc as string);
-		}
-
-		if (fileInfo) {
-			await this.preprocessFile(fileInfo);
-		}
-
-		if (isImageAction) {
-			this.provideImageActions();
-		}
-	}
-
 	async componentDidUpdate(prevProps: ImagePlacerProps): Promise<void> {
-		if (!fg('platform_media_package_react19_lifecycle_fix')) {
-			return;
-		}
 		const { imageSourceRect, props } = this;
 		const {
 			zoom: nextZoom,

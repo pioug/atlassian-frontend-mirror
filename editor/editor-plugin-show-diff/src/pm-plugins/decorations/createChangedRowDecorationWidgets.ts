@@ -5,9 +5,9 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { ColorScheme } from '../../showDiffPluginType';
+import type { ColorScheme, DiffType } from '../../showDiffPluginType';
+import { isExtendedEnabled } from '../isExtendedEnabled';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
 import {
@@ -40,8 +40,10 @@ const extractChangedRows = ({
 	change,
 	originalDoc,
 	newDoc,
+	diffType,
 }: {
 	change: SimpleChange;
+	diffType?: DiffType;
 	newDoc: PMNode;
 	originalDoc: PMNode;
 }): RowInfo[] => {
@@ -95,8 +97,7 @@ const extractChangedRows = ({
 		if (
 			rowOverlapsChange &&
 			rowNode.type.name === 'tableRow' &&
-			(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) ||
-				!isEmptyRow(rowNode))
+			(isExtendedEnabled(diffType) || !isEmptyRow(rowNode))
 		) {
 			const startOfRow = newTableMap.mapByRow
 				.slice()
@@ -166,10 +167,11 @@ const createChangedRowDOM = (
 	nodeViewSerializer: NodeViewSerializer,
 	colorScheme?: ColorScheme,
 	isInserted?: boolean,
+	diffType?: DiffType,
 ): HTMLTableRowElement => {
 	const tr = document.createElement('tr');
 
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+	if (isExtendedEnabled(diffType)) {
 		if (!isInserted) {
 			tr.setAttribute(
 				'style',
@@ -189,10 +191,7 @@ const createChangedRowDOM = (
 		if (cellNode.type.name === 'tableCell' || cellNode.type.name === 'tableHeader') {
 			const nodeView = nodeViewSerializer.tryCreateNodeView(cellNode);
 			if (nodeView) {
-				if (
-					nodeView instanceof HTMLElement &&
-					expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-				) {
+				if (nodeView instanceof HTMLElement && isExtendedEnabled(diffType)) {
 					const overlay = document.createElement('span');
 					const overlayStyle =
 						colorScheme === 'traditional'
@@ -227,15 +226,17 @@ const expandDiffForChangedRows = ({
 	changes,
 	originalDoc,
 	newDoc,
+	diffType,
 }: {
 	changes: SimpleChange[];
+	diffType?: DiffType;
 	newDoc: PMNode;
 	originalDoc: PMNode;
 }): RowInfo[] => {
 	const rowInfo: RowInfo[] = [];
 	for (const change of changes) {
 		// Check if this change affects table content
-		const changedRows = extractChangedRows({ change, originalDoc, newDoc });
+		const changedRows = extractChangedRows({ change, originalDoc, newDoc, diffType });
 
 		if (changedRows.length > 0) {
 			rowInfo.push(...changedRows);
@@ -255,9 +256,11 @@ export const createChangedRowDecorationWidgets = ({
 	nodeViewSerializer,
 	colorScheme,
 	isInserted = false,
+	diffType,
 }: {
 	changes: SimpleChange[];
 	colorScheme?: ColorScheme;
+	diffType?: DiffType;
 	isInserted?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
@@ -268,6 +271,7 @@ export const createChangedRowDecorationWidgets = ({
 		changes: changes.filter((change) => change.deleted.length > 0),
 		originalDoc,
 		newDoc,
+		diffType,
 	});
 
 	return changedRows.map((changedRow) => {
@@ -276,6 +280,7 @@ export const createChangedRowDecorationWidgets = ({
 			nodeViewSerializer,
 			colorScheme,
 			isInserted,
+			diffType,
 		);
 
 		// Find safe insertion position for the deleted row
@@ -287,7 +292,7 @@ export const createChangedRowDecorationWidgets = ({
 
 		const diffId = crypto.randomUUID();
 		return Decoration.widget(safeInsertPos, rowDOM, {
-			...buildDiffDecorationSpec({ decorationType: 'widget', diffId, isActive: false }),
+			...buildDiffDecorationSpec({ decorationType: 'widget', diffId, isActive: false, diffType }),
 		});
 	});
 };

@@ -323,13 +323,6 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 	// ── Animation tests ──
 
-	it('should apply animation data attribute to the dialog element', () => {
-		render(<ControlledModal />);
-
-		const dialog = screen.getByTestId('modal');
-		expect(dialog).toHaveAttribute('data-ds-dialog-motion');
-	});
-
 	it('should close dialog when exiting to trigger CSS exit animation', () => {
 		render(<ControlledModal />);
 

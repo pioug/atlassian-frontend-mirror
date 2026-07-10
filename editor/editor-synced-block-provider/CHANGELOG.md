@@ -1,5 +1,24 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.6.0
+
+### Minor Changes
+
+- [`c0b0b98789f7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0b0b98789f7a) -
+  Add analytics for synced block source creation: record the creation input method and whether the
+  block was created empty, and emit a one-off event the first time an empty source block gains
+  content.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.6
 
 ### Patch Changes

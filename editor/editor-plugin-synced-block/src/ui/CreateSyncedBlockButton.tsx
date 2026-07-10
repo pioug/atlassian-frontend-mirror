@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { syncBlockMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -49,7 +50,9 @@ export const CreateSyncedBlockButton = ({
 			// dispatched — otherwise a failed insertion would still steal DOM focus
 			// into the editor (mirrors CreateSyncedBlockDropdownItem).
 			const dispatched = api?.core?.actions.execute(({ tr }) => {
-				const result = api?.syncedBlock.commands.insertSyncedBlock()({ tr });
+				const result = api?.syncedBlock.commands.insertSyncedBlock(INPUT_METHOD.SYNCED_BLOCK_TB)({
+					tr,
+				});
 				if (!result) {
 					return null;
 				}
@@ -62,7 +65,9 @@ export const CreateSyncedBlockButton = ({
 			return;
 		}
 
-		api?.core?.actions.execute(({ tr }) => api?.syncedBlock.commands.insertSyncedBlock()({ tr }));
+		api?.core?.actions.execute(({ tr }) =>
+			api?.syncedBlock.commands.insertSyncedBlock(INPUT_METHOD.SYNCED_BLOCK_TB)({ tr }),
+		);
 		api?.core?.actions.focus();
 	}, [api]);
 

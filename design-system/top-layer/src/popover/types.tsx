@@ -2,13 +2,14 @@ import { type ReactNode } from 'react';
 
 import { type StrictXCSSProp } from '@atlaskit/css';
 
-import { type TAnimationPreset } from '../animations/types';
 import { type TPlacementOptions } from '../internal/resolve-placement';
 import {
 	type TAriaRoleRequired,
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
 } from '../internal/role-types';
+
+import { type TPopoverAnimationPreset } from './animations';
 
 /**
  * The reason a popover was closed.
@@ -52,7 +53,7 @@ type TPopoverBaseProps = {
 	 * Animations use `@starting-style` and `allow-discrete` for progressive
 	 * enhancement: browsers without support show/hide instantly.
 	 */
-	animate?: false | TAnimationPreset;
+	animate?: false | TPopoverAnimationPreset;
 	/**
 	 * Test ID applied to the popover element.
 	 */
@@ -115,7 +116,7 @@ type TPopoverBaseProps = {
 	/**
 	 * Placement hint for directional animations (e.g. `slideAndFade`).
 	 *
-	 * When `animate` is provided, the preset's `getProperties(placement)` is
+	 * When `animate` is provided, the preset's `getStyles(placement)` is
 	 * called to set CSS custom properties (like `--ds-popover-tx`, `--ds-popover-ty`)
 	 * that control the slide direction. Has no effect without `animate`.
 	 *

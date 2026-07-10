@@ -183,13 +183,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 03-09-2025
-	cc_editor_interactivity_monitoring: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// new format to avoid collisions with other users when updating the file
 	// Editor Platform experiments
 	// lwoollard experiments
@@ -1234,6 +1227,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-07
+	'cc-maui-overlay-by-localid': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-05
 	'cc-mui-slides-experiment': {
 		defaultValue: boolean;
@@ -2071,14 +2071,6 @@ export const editorExperimentsConfig: {
 	'enghealth-53346_fix_redaction_marker_editor': createBooleanExperiment({
 		productKeys: {
 			jira: 'enghealth-53346_fix_redaction_marker_editor',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 03-09-2025
-	cc_editor_interactivity_monitoring: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_editor_interactivity_monitoring',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3333,6 +3325,14 @@ export const editorExperimentsConfig: {
 	'cc-maui-ai-edit-loading-experiment': createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc-maui-ai-edit-loading-experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-07
+	'cc-maui-overlay-by-localid': createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc-maui-overlay-by-localid',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

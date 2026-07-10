@@ -55,7 +55,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { isStickyScrollbarEnabled, isTableResizingEnabled } from '../../react/nodes/table';
 import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import { LightWeightCodeBlockCssClassName } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
-import { editorUGCToken } from '@atlaskit/editor-common/ugc-tokens';
+import { editorUGCTokensRefreshed } from '@atlaskit/editor-common/ugc-tokens';
 import { getBaseFontSize } from './get-base-font-size';
 import {
 	EmojiSharedCssClassName,
@@ -95,7 +95,7 @@ const isBackgroundClipBrowserFixNeeded = () => {
 };
 
 const baseFontStyle = css({
-	font: editorUGCToken('editor.font.body'),
+	font: editorUGCTokensRefreshed['editor.font.body'],
 });
 
 const fontSizeStyles = css({
@@ -645,7 +645,7 @@ const headingsSharedStyles = css({
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginTop: '1.45833em',
 		'& strong': {
-			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			// set all heading bold style to token font.weight.bold, as the refreshed typography tokens use font weight 700
 			fontWeight: token('font.weight.bold'),
 		},
 		'&::before': {},
@@ -657,7 +657,7 @@ const headingsSharedStyles = css({
 		marginTop: '1.4em',
 		marginBottom: 0,
 		'& strong': {
-			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			// set all heading bold style to token font.weight.bold, as the refreshed typography tokens use font weight 700
 			fontWeight: token('font.weight.bold'),
 		},
 	},
@@ -668,7 +668,7 @@ const headingsSharedStyles = css({
 		marginTop: '1.31249em',
 		marginBottom: 0,
 		'& strong': {
-			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			// set all heading bold style to token font.weight.bold, as the refreshed typography tokens use font weight 700
 			fontWeight: token('font.weight.bold'),
 		},
 	},
@@ -677,7 +677,7 @@ const headingsSharedStyles = css({
 		font: `var(--ak-renderer-editor-font-heading-h4)`,
 		marginTop: token('space.250'),
 		'& strong': {
-			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			// set all heading bold style to token font.weight.bold, as the refreshed typography tokens use font weight 700
 			fontWeight: token('font.weight.bold'),
 		},
 	},
@@ -688,7 +688,7 @@ const headingsSharedStyles = css({
 		marginTop: '1.45833em',
 		textTransform: 'none',
 		'& strong': {
-			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			// set all heading bold style to token font.weight.bold, as the refreshed typography tokens use font weight 700
 			fontWeight: token('font.weight.bold'),
 		},
 	},
@@ -699,7 +699,7 @@ const headingsSharedStyles = css({
 		marginTop: '1.59091em',
 		textTransform: 'none',
 		'& strong': {
-			// set all heading bold style to token font.weight.bold, as not matter what typography is used, the editorUGCToken will return the font weight 700
+			// set all heading bold style to token font.weight.bold, as the refreshed typography tokens use font weight 700
 			fontWeight: token('font.weight.bold'),
 		},
 	},
@@ -846,35 +846,6 @@ const paragraphStylesUGCScaledMargin = css({
 		font: `var(--ak-renderer-editor-font-normal-text)`,
 		marginTop: scaledBlockNodesVerticalMargin,
 		marginBottom: 0,
-	},
-});
-
-const paragraphSharedStyles = css({
-	'& p': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: '1em',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: akEditorLineHeight,
-		fontWeight: token('font.weight.regular'),
-		marginTop: blockNodesVerticalMargin,
-		marginBottom: 0,
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		letterSpacing: '-0.005em',
-	},
-});
-
-// When cleaning up `platform_editor_content_mode_button_mvp` simplify the name/ use the other paragraph style name
-const paragraphSharedStyleScaledMargin = css({
-	'& p': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: '1em',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: akEditorLineHeight,
-		fontWeight: token('font.weight.regular'),
-		marginTop: scaledBlockNodesVerticalMargin,
-		marginBottom: 0,
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		letterSpacing: '-0.005em',
 	},
 });
 
@@ -3278,16 +3249,17 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 			style={
 				{
 					'--ak-renderer-base-font-size': `${baseFontSize}px`,
-					'--ak-renderer-editor-font-heading-h1': `${editorUGCToken('editor.font.heading.h1')}`,
-					'--ak-renderer-editor-font-heading-h2': `${editorUGCToken('editor.font.heading.h2')}`,
-					'--ak-renderer-editor-font-heading-h3': `${editorUGCToken('editor.font.heading.h3')}`,
-					'--ak-renderer-editor-font-heading-h4': `${editorUGCToken('editor.font.heading.h4')}`,
-					'--ak-renderer-editor-font-heading-h5': `${editorUGCToken('editor.font.heading.h5')}`,
-					'--ak-renderer-editor-font-heading-h6': `${editorUGCToken('editor.font.heading.h6')}`,
-					'--ak-renderer-editor-font-normal-text': `${editorUGCToken('editor.font.body')}`,
+					'--ak-renderer-editor-font-heading-h1': `${editorUGCTokensRefreshed['editor.font.heading.h1']}`,
+					'--ak-renderer-editor-font-heading-h2': `${editorUGCTokensRefreshed['editor.font.heading.h2']}`,
+					'--ak-renderer-editor-font-heading-h3': `${editorUGCTokensRefreshed['editor.font.heading.h3']}`,
+					'--ak-renderer-editor-font-heading-h4': `${editorUGCTokensRefreshed['editor.font.heading.h4']}`,
+					'--ak-renderer-editor-font-heading-h5': `${editorUGCTokensRefreshed['editor.font.heading.h5']}`,
+					'--ak-renderer-editor-font-heading-h6': `${editorUGCTokensRefreshed['editor.font.heading.h6']}`,
+					'--ak-renderer-editor-font-normal-text': `${editorUGCTokensRefreshed['editor.font.body']}`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- CSS custom properties for UGC font tokens
 					...(expValEquals('platform_editor_small_font_size', 'isEnabled', true) && {
-						'--ak-renderer-editor-font-small-text': editorUGCToken('editor.font.body.small'),
+						'--ak-renderer-editor-font-small-text':
+							editorUGCTokensRefreshed['editor.font.body.small'],
 					}),
 				} as React.CSSProperties
 			}
@@ -3336,13 +3308,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					: headingWithAlignmentStylesDuplicateAnchor,
 				ruleSharedStyles,
 				contentMode === 'compact' && extensionStyle,
-				fg('platform_editor_typography_ugc')
-					? contentMode === 'compact'
-						? paragraphStylesUGCScaledMargin
-						: paragraphSharedStylesWithEditorUGC
-					: contentMode === 'compact'
-						? paragraphSharedStyleScaledMargin
-						: paragraphSharedStyles,
+				contentMode === 'compact'
+					? paragraphStylesUGCScaledMargin
+					: paragraphSharedStylesWithEditorUGC,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				expValEquals('platform_editor_flexible_list_schema', 'isEnabled', true) &&

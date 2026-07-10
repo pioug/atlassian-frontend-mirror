@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "72.1.0",
+	"version": "72.1.1",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -94,9 +94,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_media_package_react19_lifecycle_fix": {
-			"type": "boolean"
-		},
 		"platform_media_picker_upload_batching": {
 			"type": "boolean"
 		},

@@ -4,13 +4,15 @@
  * @jsx jsx
  */
 
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
 import { css, jsx } from '@emotion/react';
+import { bind } from 'bind-event-listener';
 import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorFileIcon from '@atlaskit/icon/core/file';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -115,6 +117,93 @@ const MultiBodiedExtensionFrames = ({
 			ref={articleRef}
 		/>
 	);
+};
+
+const isSelectionInsideNode = (
+	selection: Selection | undefined,
+	node: PmNode,
+	getPos: () => number | undefined,
+) => {
+	const nodeStartPosition = getPos();
+
+	if (typeof nodeStartPosition !== 'number' || !selection) {
+		return false;
+	}
+
+	const nodeEndPosition = nodeStartPosition + node.nodeSize;
+
+	/*
+		selection starts within MBE ||
+		selection ends within MBE ||
+		selection includes MBE
+	*/
+	return (
+		(nodeStartPosition < selection.from && selection.from < nodeEndPosition) ||
+		(nodeStartPosition < selection.to && selection.to < nodeEndPosition) ||
+		(nodeStartPosition >= selection.from && selection.to >= nodeEndPosition)
+	);
+};
+
+const useIsSelectionInsideNode = (
+	editorView: EditorView,
+	node: PmNode,
+	getPos: () => number | undefined,
+	enabled: boolean,
+) => {
+	const nodeRef = useRef(node);
+	const [isSelectionInside, setIsSelectionInside] = useState(
+		() => enabled && isSelectionInsideNode(editorView.state.selection, node, getPos),
+	);
+
+	nodeRef.current = node;
+
+	useEffect(() => {
+		if (!enabled) {
+			return;
+		}
+
+		let animationFrameId: number | undefined;
+
+		const updateSelectionInsideNode = () => {
+			setIsSelectionInside(
+				isSelectionInsideNode(editorView.state.selection, nodeRef.current, getPos),
+			);
+		};
+
+		const scheduleUpdateSelectionInsideNode = () => {
+			if (animationFrameId !== undefined) {
+				cancelAnimationFrame(animationFrameId);
+			}
+
+			animationFrameId = requestAnimationFrame(updateSelectionInsideNode);
+		};
+
+		const ownerDocument = editorView.dom.ownerDocument;
+		const unbindSelectionChange = bind(ownerDocument, {
+			listener: scheduleUpdateSelectionInsideNode,
+			type: 'selectionchange',
+		});
+		const unbindKeyUp = bind(editorView.dom, {
+			listener: scheduleUpdateSelectionInsideNode,
+			type: 'keyup',
+		});
+		const unbindMouseUp = bind(editorView.dom, {
+			listener: scheduleUpdateSelectionInsideNode,
+			type: 'mouseup',
+		});
+
+		return () => {
+			if (animationFrameId !== undefined) {
+				cancelAnimationFrame(animationFrameId);
+			}
+
+			unbindSelectionChange();
+			unbindKeyUp();
+			unbindMouseUp();
+		};
+	}, [editorView, getPos, enabled]);
+
+	return enabled && isSelectionInside;
 };
 
 // Similar to the one in platform/packages/editor/editor-common/src/extensibility/Extension/Lozenge.tsx
@@ -254,12 +343,23 @@ const MultiBodiedExtensionWithWidth = ({
 		mbeWrapperStyles = breakoutStyles;
 	}
 
+	const shouldUseNativeTabsPresentation = fg('confluence_frontend_native_tabs_extension');
+	const isSelectionInsideMultiBodiedExtension = useIsSelectionInsideNode(
+		editorView,
+		node,
+		getPos,
+		shouldUseNativeTabsPresentation,
+	);
+	const isMultiBodiedExtensionActive = isNodeSelected || isSelectionInsideMultiBodiedExtension;
+
 	const wrapperClassNames = classnames(
 		'multiBodiedExtension--wrapper',
 		'extension-container',
 		'block',
 		{
-			'with-border': showMacroInteractionDesignUpdates,
+			'with-border':
+				showMacroInteractionDesignUpdates &&
+				(shouldUseNativeTabsPresentation ? isMultiBodiedExtensionActive : true),
 			'with-danger-overlay': showMacroInteractionDesignUpdates,
 			'with-padding-background-styles': showMacroInteractionDesignUpdates,
 			'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
@@ -291,7 +391,9 @@ const MultiBodiedExtensionWithWidth = ({
 		<Fragment>
 			{showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
-					isNodeSelected={isNodeSelected}
+					isNodeSelected={
+						shouldUseNativeTabsPresentation ? isMultiBodiedExtensionActive : isNodeSelected
+					}
 					node={node}
 					showMacroInteractionDesignUpdates={true}
 					customContainerStyles={mbeWrapperStyles}
@@ -299,6 +401,7 @@ const MultiBodiedExtensionWithWidth = ({
 					isNodeNested={isNodeNested}
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={true}
+					isMultiBodiedMacro={shouldUseNativeTabsPresentation}
 					pluginInjectionApi={pluginInjectionApi}
 				/>
 			)}
@@ -307,7 +410,7 @@ const MultiBodiedExtensionWithWidth = ({
 				className={wrapperClassNames}
 				css={[
 					/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
-					fg('confluence_frontend_native_tabs_extension')
+					shouldUseNativeTabsPresentation
 						? mbeExtensionWrapperCSSStyles
 						: mbeExtensionWrapperCSSStylesOld,
 					/* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage */
@@ -334,7 +437,7 @@ const MultiBodiedExtensionWithWidth = ({
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={fg('confluence_frontend_native_tabs_extension') ? overlayStyles : overlayStylesOld}
+					css={shouldUseNativeTabsPresentation ? overlayStyles : overlayStylesOld}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={overlayClassNames}
 					data-testid="multiBodiedExtension--overlay"

@@ -1,5 +1,17 @@
 # @atlaskit/drawer
 
+## 13.3.0
+
+### Minor Changes
+
+- [`530dfb5aee695`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/530dfb5aee695) -
+  Updates how animations are applied to Drawer when the `platform-dst-top-layer` feature gate is
+  enabled.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.0
 
 ### Minor Changes

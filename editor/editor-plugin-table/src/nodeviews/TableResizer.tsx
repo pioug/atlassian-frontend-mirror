@@ -429,9 +429,7 @@ export const TableResizer = ({
 	}, [editorView, displayGuideline, displayGapCursor]);
 
 	const handleResizeStart = useCallback(() => {
-		if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
-			insm.session?.startFeature('tableResize');
-		}
+		insm.session?.startFeature('tableResize');
 		startMeasure();
 		isResizing.current = true;
 		const {
@@ -722,9 +720,7 @@ export const TableResizer = ({
 				onResizeStop();
 			}
 
-			if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
-				insm.session?.endFeature('tableResize');
-			}
+			insm.session?.endFeature('tableResize');
 
 			return newWidth;
 		},

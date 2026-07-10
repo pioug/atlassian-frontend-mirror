@@ -234,10 +234,7 @@ export function createPlugin(
 				// note
 				paste: (view, event) => {
 					mostRecentPasteEvent = event as ClipboardEvent;
-					if (
-						expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true) &&
-						event.clipboardData
-					) {
+					if (event.clipboardData) {
 						insm.startHeavyTask('paste');
 					}
 					return false;
@@ -285,9 +282,7 @@ export function createPlugin(
 				// Bail if copied content has files
 				if (isPastedFile) {
 					if (!html) {
-						if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
-							insm.endHeavyTask('paste');
-						}
+						insm.endHeavyTask('paste');
 						/**
 						 * Microsoft Office, Number, Pages, etc. adds an image to clipboard
 						 * with other mime-types so we don't let the event reach media.
@@ -306,9 +301,7 @@ export function createPlugin(
 					 * is skipped and handled in handleRichText
 					 */
 					if (htmlContainsSingleFile(html) && !isInsideBlockQuote(view.state)) {
-						if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
-							insm.endHeavyTask('paste');
-						}
+						insm.endHeavyTask('paste');
 						return true;
 					}
 
@@ -336,9 +329,7 @@ export function createPlugin(
 					if (payload) {
 						dispatchAnalyticsEvent(payload);
 					}
-					if (expValEquals('cc_editor_interactivity_monitoring', 'isEnabled', true)) {
-						insm.endHeavyTask('paste');
-					}
+					insm.endHeavyTask('paste');
 				});
 				const getLastReplaceStepSlice = (tr: Transaction) => {
 					let slice;

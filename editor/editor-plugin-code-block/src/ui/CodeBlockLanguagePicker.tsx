@@ -50,9 +50,11 @@ export const CodeBlockLanguagePicker = ({
 			selectionSource: LanguagePickerSelectionSource,
 			interactionMethod?: LanguagePickerInteractionMethod,
 		) => {
+			const isDetectLanguageSelected = option.value === DETECT_LANGUAGE_VALUE;
 			const command: Command =
-				option.value === DETECT_LANGUAGE_VALUE &&
-				fg('platform_editor_code_block_language_detection_flow')
+				isDetectLanguageSelected &&
+				(fg('platform_editor_code_block_ga_patch_1') ||
+					fg('platform_editor_code_block_language_detection_flow'))
 					? detectLanguage()
 					: changeLanguage(api?.analytics?.actions)(option.value, selectionSource);
 			const commandSucceeded = command(editorView.state, editorView.dispatch);
@@ -74,7 +76,10 @@ export const CodeBlockLanguagePicker = ({
 				}
 			}
 
-			if (commandSucceeded && option.value !== DETECT_LANGUAGE_VALUE) {
+			if (
+				commandSucceeded &&
+				(option.value !== DETECT_LANGUAGE_VALUE || fg('platform_editor_code_block_ga_patch_1'))
+			) {
 				saveRecentLanguage(option.value);
 				setRecentLanguageValues(getRecentLanguages());
 			}

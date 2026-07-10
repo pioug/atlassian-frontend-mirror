@@ -34,6 +34,7 @@ export interface Props {
 	editorView: EditorView;
 	eventDispatcher?: EventDispatcher;
 	extensionHandlers: ExtensionHandlers;
+	extensionLoadingHandlers?: ExtensionHandlers;
 	extensionProvider?: Promise<ExtensionProvider>;
 	getPos: ProsemirrorGetPosHandler;
 	handleContentDOMRef: (node: HTMLElement | null) => void;
@@ -49,11 +50,21 @@ export interface Props {
 	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 }
 
+type ProviderNodeRendererProps = {
+	actions?: MultiBodiedExtensionActions;
+	isSelected?: boolean;
+	loadingFallback?: React.ReactNode;
+	node: ExtensionParams<Parameters>;
+	references?: ReferenceEntity[];
+	showUnknownMacroPlaceholder?: boolean;
+};
+
 interface PropsInner {
 	editorAppearance?: EditorAppearance;
 	editorView: EditorView;
 	eventDispatcher?: EventDispatcher;
 	extensionHandlers: ExtensionHandlers;
+	extensionLoadingHandlers?: ExtensionHandlers;
 	extensionProvider?: ExtensionProvider;
 	getPos: ProsemirrorGetPosHandler;
 	handleContentDOMRef: (node: HTMLElement | null) => void;
@@ -311,6 +322,7 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 	private handleExtension = (pmNode: PMNode, actions: MultiBodiedExtensionActions | undefined) => {
 		const {
 			extensionHandlers,
+			extensionLoadingHandlers,
 			editorView,
 			showBodiedExtensionRendererView,
 			rendererExtensionHandlers,
@@ -351,6 +363,14 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 
 		let result;
 
+		const loadingFallback = extensionLoadingHandlers?.[extensionType]
+			? getExtensionRenderer(extensionLoadingHandlers[extensionType])(
+					node,
+					editorView.state.doc,
+					actions,
+				)
+			: undefined;
+
 		if (extensionHandlers && extensionHandlers[extensionType]) {
 			const render = getExtensionRenderer(extensionHandlers[extensionType]);
 			result = render(node, editorView.state.doc, actions);
@@ -362,21 +382,30 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 				this.getNodeRenderer(this.props.extensionProvider, extensionType, extensionKey);
 
 			if (extensionHandlerFromProvider) {
-				const NodeRenderer = extensionHandlerFromProvider;
+				const NodeRenderer =
+					extensionHandlerFromProvider as unknown as React.ComponentType<ProviderNodeRendererProps>;
 				if (node.type === 'multiBodiedExtension') {
-					return <NodeRenderer node={node} references={this.props.references} actions={actions} />;
+					return (
+						<NodeRenderer
+							node={node}
+							references={this.props.references}
+							actions={actions}
+							loadingFallback={loadingFallback}
+						/>
+					);
 				}
 				return (
 					<NodeRenderer
 						node={node}
 						references={this.props.references}
 						isSelected={isSelected}
+						loadingFallback={loadingFallback}
 						showUnknownMacroPlaceholder={fg('tinymce_display_unknown_macro_body_content')}
 					/>
 				);
 			}
 		}
 
-		return result;
+		return result ?? loadingFallback;
 	};
 }

@@ -1,5 +1,20 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.13
+
+### Patch Changes
+
+- [`62c8a4f72157c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62c8a4f72157c) -
+  Cleanup feature gate platform_ufo_gen_ai_segment
+
+## 7.3.12
+
+### Patch Changes
+
+- [`c542c6201f34c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c542c6201f34c) -
+  Cleanup feature gate `platform_ufo_ecosystem_data_in_payload`. Ecosystem data (segment3pData) is
+  now always included in the UFO payload.
+
 ## 7.3.11
 
 ### Patch Changes

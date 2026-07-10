@@ -119,6 +119,20 @@ type SyncedBlockEditSourceAttributes = SyncedBlockSuccessAttributes & {
 	sameDocument?: boolean;
 };
 
+/**
+ * Source `syncedBlockCreate` success attrs. Both optional so gate-off/legacy
+ * payloads are unchanged. `inputMethod`: creating surface (enum, PII-safe).
+ * `createdEmpty`: true when created from an empty selection, false when content
+ * was converted into the block.
+ */
+type SyncedBlockCreateSuccessAttributes = SyncedBlockSuccessAttributes & {
+	createdEmpty?: boolean;
+	inputMethod?: INPUT_METHOD;
+};
+
+/** First-content-added attrs: join keys only (no user content, PII-safe). */
+type SyncedBlockAddContentAttributes = SyncedBlockSuccessAttributes;
+
 export type SyncedBlockSourceURLErrorAEP = OperationalAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.SYNCED_BLOCK,
@@ -193,7 +207,18 @@ export type SyncedBlockCreateSuccessAEP = OperationalAEP<
 	ACTION.INSERTED,
 	ACTION_SUBJECT.SYNCED_BLOCK,
 	ACTION_SUBJECT_ID.SYNCED_BLOCK_CREATE,
-	SyncedBlockSuccessAttributes
+	SyncedBlockCreateSuccessAttributes
+>;
+
+/**
+ * First-content-added event: fired once per source block when it first gains
+ * user content, keyed by `resourceId` + `blockInstanceId` to join the funnel.
+ */
+export type SyncedBlockAddContentAEP = OperationalAEP<
+	ACTION.ADDED,
+	ACTION_SUBJECT.SYNCED_BLOCK,
+	ACTION_SUBJECT_ID.SYNCED_BLOCK_ADD_CONTENT,
+	SyncedBlockAddContentAttributes
 >;
 
 export type SyncedBlockUpdateSuccessAEP = OperationalAEP<
@@ -346,6 +371,7 @@ export type SyncBlockEventPayload =
 	| SyncedBlockUpdateSuccessAEP
 	| SyncedBlockCreateErrorAEP
 	| SyncedBlockCreateSuccessAEP
+	| SyncedBlockAddContentAEP
 	| SyncedBlockDeleteErrorAEP
 	| SyncedBlockDeleteSuccessAEP
 	| SyncedBlockGetSourceInfoErrorAEP

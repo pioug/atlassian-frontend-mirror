@@ -560,10 +560,10 @@ The JS fallback path in `useAnchorPositioning` sets `top`/`left` via `el.style.s
 every scroll/resize event. This is inherently imperative and measurement-dependent — no static
 styling system can express it.
 
-### Animation `getProperties` (per-placement CSS custom properties)
+### Animation `getStyles` (per-placement CSS custom properties)
 
-`slideAndFade` returns a `getProperties` function that computes `--ds-popover-tx`/`--ds-popover-ty`
-based on the current `placement` prop. These are set via `el.style.setProperty()` in `popover.tsx`.
+`slideAndFade` returns a `getStyles` function that computes `--ds-popover-tx`/`--ds-popover-ty`
+based on the current `placement` prop. These are applied through `setStyle()` in `popover.tsx`.
 Since the values depend on a runtime prop, they stay imperative.
 
 ---
@@ -630,10 +630,9 @@ The `dialogSlideUpAndFade` preset is structurally more complex than `dialogFade`
 - The same `::backdrop` and `[open]::backdrop` pattern as `dialogFade`
 - Custom distances supplied through preset metadata as `--ds-dialog-ty`
 
-The `--ds-dialog-ty` property is set imperatively from `getProperties`, which keeps the Compiled
-style block static while still allowing custom distances. This now matches the popover
-`slideAndFade` pattern, where `--ds-popover-tx`/`--ds-popover-ty` are also set imperatively
-per-placement.
+The `--ds-dialog-ty` property is set imperatively from `getStyles`, which keeps the Compiled style
+block static while still allowing custom distances. This now matches the popover `slideAndFade`
+pattern, where `--ds-popover-tx`/`--ds-popover-ty` are also set imperatively per-placement.
 
 ---
 
@@ -659,7 +658,8 @@ now use component-local `compiledCssMap` entries selected by static conditionals
 - `FADE_CSS`, `SLIDE_AND_FADE_CSS`, `SCALE_AND_FADE_CSS` raw strings
 - The global `<style>` tag injection for these presets
 
-The `data-ds-popover-{name}` attributes remain as stable hooks for selectors, tests, and debugging.
+The preset names now select component-local Compiled style entries directly; the host element no
+longer renders `data-ds-popover-{name}` animation attributes.
 
 **Changes 1 + 5 + 6 + 7:** Done for dialog animation presets. `dialogFade` and
 `dialogSlideUpAndFade` now use component-local `compiledCssMap` entries selected by static
@@ -668,7 +668,8 @@ conditionals. This eliminated:
 - `DIALOG_FADE_CSS`, `DIALOG_SLIDE_UP_AND_FADE_CSS` raw strings
 - The global `<style>` tag injection for these presets
 
-The `data-ds-dialog-{name}` attributes remain as stable hooks for selectors, tests, and debugging.
+The preset names now select component-local Compiled style entries directly; the host element no
+longer renders `data-ds-dialog-{name}` animation attributes.
 
 **Change 4:** Removes all three `@ts-expect-error` comments in `dialog-content.tsx`
 (`maxWidth: 'none'`, `maxHeight: 'none'`, `token('color.blanket')`) and both `@ts-expect-error`

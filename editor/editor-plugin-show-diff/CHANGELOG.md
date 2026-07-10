@@ -1,5 +1,74 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.3.0
+
+### Minor Changes
+
+- [`21147179a56ea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21147179a56ea) -
+  [CCI-17809] Overhaul Post Stream Review segmenting.
+
+  `@atlaskit/editor-plugin-show-diff`: add a generic `computeDiffChanges` utility (new
+  `@atlaskit/editor-plugin-show-diff/calculate-diff` entry point) that returns the classified
+  `Change[]` and reconstructed new document for a given `originalDoc` + `steps`, without rendering
+  decorations. It reuses the same classifier the diff overlay renders from (default
+  `diffType: 'smart'`), so consumers can derive their own reviewable segments that line up with what
+  the overlay would draw. Exposes the `ComputeDiffChangesParams` type.
+
+  `@atlassian/editor-plugin-ai`: support two segmenting strategies in the Post Stream Review
+  step-through, selected by the new `platform_editor_ai_diff_based_segmenting` gate. Gate ON =
+  diff-based (`smart`) segmenting (via the show-diff `computeDiffChanges` utility, shaped into
+  reviewable segments in the AI plugin); gate OFF (default) = top-level-node segmenting, which no
+  longer splits a list into individual list items. Fine segments are now stored in plugin state and
+  remapped on every doc change, so per-segment undo/redo and view-changes stay correct after an
+  undo. Aggregate ("all changes") mode is unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.0
+
+### Minor Changes
+
+- [`eb1f11daf16c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb1f11daf16c8) -
+  Add a new `smart` `DiffType` that classifies changes by density at the sentence, paragraph and
+  node level and renders the most readable granularity for each change. Introduces the exported
+  `SmartDiffThresholds` type and a `smartThresholds` option on the `showDiff` params for configuring
+  the sentence/paragraph/node promotion thresholds.
+
+  Also adds a new exported `DeletedDiffPlacement` type (`'top' | 'bottom'`) and a
+  `deletedDiffPlacement` param on `PMDiffParams` that controls whether node/paragraph-level deleted
+  content is rendered above (`'top'`, the default) or below (`'bottom'`) the new content.
+
+  Usage:
+
+  ```ts
+  import type {
+  	DeletedDiffPlacement,
+  	SmartDiffThresholds,
+  } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin-type';
+
+  editorApi.showDiff.commands.showDiff({
+  	originalDoc,
+  	steps,
+  	diffType: 'smart',
+  	// Optional; controls where deleted content is rendered. Defaults to 'top'.
+  	deletedDiffPlacement: 'bottom' satisfies DeletedDiffPlacement,
+  	// All fields optional; defaults applied internally.
+  	smartThresholds: {
+  		sentence: { minChanged: 2, ratio: 0.4 },
+  		paragraph: { minChanged: 2, ratio: 0.4 },
+  		node: { ratio: 0.6, textBearingRatio: 0.6 },
+  	} satisfies SmartDiffThresholds,
+  });
+  ```
+
+## 10.1.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.1.22
 
 ### Patch Changes

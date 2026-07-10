@@ -19,6 +19,7 @@ import { LozengeComponent } from './LozengeComponent';
 export interface Props {
 	customContainerStyles?: CSSProperties;
 	isBodiedMacro?: boolean;
+	isMultiBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
 	isNodeSelected?: boolean;
@@ -74,6 +75,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 			showBodiedExtensionRendererView,
 			setShowBodiedExtensionRendererView,
 			pluginInjectionApi,
+			isMultiBodiedMacro,
 		} = this.props;
 		const { parameters, extensionKey } = this.props.node.attrs;
 		const { name } = this.props.node.type;
@@ -102,6 +104,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 				showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 				setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 				pluginInjectionApi={pluginInjectionApi}
+				isMultiBodiedMacro={isMultiBodiedMacro}
 			/>
 		);
 	};

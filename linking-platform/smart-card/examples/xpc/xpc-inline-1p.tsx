@@ -14,7 +14,7 @@ installInteractionSessionFake();
  * Positive case — first-party inline Smart Link.
  *
  * With `platform_smartlink_xpc_url_wrapping` + `atlaskit-analytics-cross-product`
- * (+ `cross_product_wrapper_react_safe`) gates ON, the inline card's anchor
+ * gates ON, the inline card's anchor
  * `href` should contain `?xpis=…`. Left-, middle-, and Ctrl+click should all
  * navigate to the wrapped URL.
  *

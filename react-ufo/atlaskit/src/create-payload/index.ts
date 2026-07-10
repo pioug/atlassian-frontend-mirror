@@ -44,11 +44,7 @@ import { LabelStackRegistry } from './common/utils/label-stack-registry';
 import { createCriticalMetricsPayloads } from './critical-metrics-payload';
 import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
 import { addPerformanceMeasures } from './utils/add-performance-measures';
-import {
-	applySegment3pDataBudget,
-	buildSegment3pData,
-	getSegment3pDataSizes,
-} from './utils/flatten-segment-3p-timings';
+import { applySegment3pDataBudget, buildSegment3pData } from './utils/flatten-segment-3p-timings';
 import { getBatteryInfoToLegacyFormat } from './utils/get-battery-info';
 import { getBrowserMetadataToLegacyFormat } from './utils/get-browser-metadata';
 import getInteractionStatus from './utils/get-interaction-status';
@@ -462,12 +458,6 @@ function getStylesheetMetrics() {
 	}
 }
 
-/**
- * Extracts `segment-timing-abort` entries from segment3pTimings and returns them as a
- * flat array always included in the payload — independent of `platform_ufo_ecosystem_data_in_payload`.
- * This allows analytics to detect force-aborted iframe holds even when the full
- * segment3pTimings blob is feature-gated off.
- */
 function getReactProfilerTimingsForWindow(
 	reactProfilerTimings: InteractionMetrics['reactProfilerTimings'],
 	window: { start: number; end: number } | undefined,
@@ -697,33 +687,19 @@ async function createInteractionMetricsPayload(
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
 			bundleEvalTimings: objectToArray(getBundleEvalTimings(start)),
 			resourceTimings: getResourceTimingsPayload(resourceTimings),
-			// Feature-gated: when off, record only the serialized size in Kb to measure payload impact before enabling.
 			...(interaction.segment3pTimings && interaction.segmentExtraData
-				? fg('platform_ufo_ecosystem_data_in_payload')
-					? (() => {
-							const grouped = buildSegment3pData(
-								interaction.segment3pTimings,
-								interaction.segmentExtraData,
-							);
-							if (!grouped) {
-								return {};
-							}
-							// B1+B2: apply soft/hard budget cap with suffix-level drop order
-							return { segment3pData: applySegment3pDataBudget(grouped) };
-						})()
-					: (() => {
-							const grouped = buildSegment3pData(
-								interaction.segment3pTimings,
-								interaction.segmentExtraData,
-							);
-							if (!grouped) {
-								return {};
-							}
-							return getSegment3pDataSizes(grouped);
-						})()
+				? (() => {
+						const grouped = buildSegment3pData(
+							interaction.segment3pTimings,
+							interaction.segmentExtraData,
+						);
+						if (!grouped) {
+							return {};
+						}
+						// B1+B2: apply soft/hard budget cap with suffix-level drop order
+						return { segment3pData: applySegment3pDataBudget(grouped) };
+					})()
 				: {}),
-			// Always include abort markers regardless of the ecosystem data flag so they can be
-			// queried in analytics even when the full segment3pData payload is disabled.
 			...getSegment3pTimingAbortMarkers(interaction.segment3pTimings),
 		};
 

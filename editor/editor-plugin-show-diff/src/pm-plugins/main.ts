@@ -12,13 +12,20 @@ import {
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { DiffDescriptor, DiffParams, DiffType, ShowDiffPlugin } from '../showDiffPluginType';
+import type {
+	DeletedDiffPlacement,
+	DiffDescriptor,
+	DiffParams,
+	DiffType,
+	ShowDiffPlugin,
+	SmartDiffThresholds,
+} from '../showDiffPluginType';
 
 import { calculateDiffDecorations } from './calculateDiff/calculateDiffDecorations';
 import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
 import { getScrollableDecorations } from './getScrollableDecorations';
+import { isExtendedEnabled } from './isExtendedEnabled';
 import { NodeViewSerializer } from './NodeViewSerializer';
 import { scrollToActiveDecoration, scrollToFirstDecoration } from './scrollToDiff';
 
@@ -30,6 +37,11 @@ export type ShowDiffPluginState = {
 	activeIndex?: number;
 	activeIndexPos?: { from: number; to: number };
 	decorations: DecorationSet;
+	/**
+	 * For the `smart` diffType, where node/paragraph-level deleted content is rendered relative to
+	 * the new content. Set via SHOW_DIFF meta. Defaults to `'top'`.
+	 */
+	deletedDiffPlacement?: DeletedDiffPlacement;
 	/**
 	 * The diff descriptors of the diff decorations currently being displayed.
 	 * Only set when `platform_editor_diff_plugin_extended` is on.
@@ -46,6 +58,11 @@ export type ShowDiffPluginState = {
 	 */
 	scrollIntoView?: boolean;
 	showIndicators?: boolean;
+	/**
+	 * Optional overrides for the `smart` diffType density thresholds. Set via SHOW_DIFF
+	 * meta. Only relevant when `diffType === 'smart'`.
+	 */
+	smartThresholds?: Partial<SmartDiffThresholds>;
 	steps: ProseMirrorStep[];
 };
 
@@ -73,7 +90,7 @@ export const createPlugin = (
 					originalDoc: undefined,
 					decorations: DecorationSet.empty,
 					isDisplayingChanges: false,
-					...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+					...(isExtendedEnabled()
 						? {
 								isInverted: false,
 								diffType: 'inline',
@@ -111,18 +128,20 @@ export const createPlugin = (
 							intl: getIntl(),
 							activeIndexPos: newPluginState.activeIndexPos,
 							api,
-							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+							...(isExtendedEnabled(newPluginState?.diffType)
 								? {
 										isInverted: newPluginState?.isInverted,
 										diffType: newPluginState?.diffType,
 										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
 										showIndicators: newPluginState?.showIndicators,
+										smartThresholds: newPluginState?.smartThresholds,
+										deletedDiffPlacement: newPluginState?.deletedDiffPlacement,
 									}
 								: {}),
 						});
 						// Update the decorations and their ids
 						newPluginState.decorations = decorations;
-						if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+						if (isExtendedEnabled(newPluginState?.diffType)) {
 							newPluginState.diffDescriptors = diffDescriptors;
 						}
 					} else if (meta?.action === 'HIDE_DIFF') {
@@ -136,7 +155,7 @@ export const createPlugin = (
 							 * Reset isInverted & diffType state when hiding diffs
 							 * Otherwise this should persist for the diff-showing session
 							 */
-							...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+							...(isExtendedEnabled(currentPluginState.diffType)
 								? {
 										isInverted: false,
 										diffType: 'inline',
@@ -150,6 +169,7 @@ export const createPlugin = (
 						const decorations = getScrollableDecorations(
 							currentPluginState.decorations,
 							newState.doc,
+							newPluginState?.diffType,
 						);
 
 						if (decorations.length > 0) {
@@ -185,17 +205,19 @@ export const createPlugin = (
 									intl: getIntl(),
 									activeIndexPos: newPluginState.activeIndexPos,
 									api,
-									...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
+									...(isExtendedEnabled(newPluginState.diffType)
 										? {
 												isInverted: newPluginState.isInverted,
 												diffType: newPluginState.diffType,
 												hideDeletedDiffs: newPluginState.hideDeletedDiffs,
 												showIndicators: newPluginState.showIndicators,
+												smartThresholds: newPluginState.smartThresholds,
+												deletedDiffPlacement: newPluginState.deletedDiffPlacement,
 											}
 										: {}),
 								});
 							newPluginState.decorations = updatedDecorations;
-							if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+							if (isExtendedEnabled(newPluginState.diffType)) {
 								newPluginState.diffDescriptors = updatedDiffDescriptors;
 							}
 						}
@@ -235,10 +257,7 @@ export const createPlugin = (
 					const pluginState = showDiffPluginKey.getState(view.state);
 
 					// Scroll to the first decoration when scrollIntoView was requested
-					if (
-						pluginState?.scrollIntoView &&
-						expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-					) {
+					if (pluginState?.scrollIntoView && isExtendedEnabled(pluginState?.diffType)) {
 						cancelPendingScrollToDecoration?.();
 						cancelPendingScrollToDecoration = scrollToFirstDecoration(
 							view,
@@ -264,6 +283,7 @@ export const createPlugin = (
 						const scrollableDecorations = getScrollableDecorations(
 							pluginState.decorations,
 							view.state.doc,
+							pluginState?.diffType,
 						);
 						const activeDecoration = scrollableDecorations[pluginState.activeIndex];
 						if (activeDecoration && api?.expand?.commands?.toggleExpandRange) {

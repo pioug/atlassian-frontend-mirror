@@ -59,6 +59,7 @@ export const NATIVE_EMBED_PARAMETER_DEFAULTS: NativeEmbedParameterValues = {
  */
 export const BUILTIN_TOOLBAR_KEYS = {
 	ASK_ROVO: 'askRovo',
+	REMIX: 'remix',
 	REMIX_VARIANT: 'remixVariant',
 	SUMMARISE: 'summarise',
 	REFRESH: 'refresh',

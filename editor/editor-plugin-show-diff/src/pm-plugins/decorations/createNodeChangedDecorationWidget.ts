@@ -3,10 +3,10 @@ import type { IntlShape } from 'react-intl';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import type { ColorScheme } from '../../showDiffPluginType';
+import type { ColorScheme, DiffType } from '../../showDiffPluginType';
+import { isExtendedEnabled } from '../isExtendedEnabled';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 
 import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
@@ -34,15 +34,22 @@ export const createNodeChangedDecorationWidget = ({
 	// This is false by default as this is generally used to show deleted content
 	isInserted = false,
 	showIndicators = false,
+	// When true, render the deleted content *after* (below) the new content instead of
+	// before it. Used for `smart` node-level changes so the deleted node appears beneath
+	// its replacement (gray + strikethrough).
+	placeBelow = false,
+	diffType,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted' | 'toB'>;
 	colorScheme?: ColorScheme;
+	diffType?: DiffType;
 	doc: PMNode;
 	intl: IntlShape;
 	isInserted?: boolean;
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
+	placeBelow?: boolean;
 	showIndicators?: boolean;
 }): Decoration[] => {
 	const slice = doc.slice(change.fromA, change.toA);
@@ -53,7 +60,10 @@ export const createNodeChangedDecorationWidget = ({
 		slice?.content?.firstChild?.content.size === 0;
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
-	const safeInsertPos = findSafeInsertPos(newDoc, change.fromB, slice);
+	// For `placeBelow`, anchor at the END of the new content (change.toB) so the deleted
+	// node renders beneath its replacement; otherwise anchor at the start (change.fromB).
+	const anchorPos = placeBelow ? change.toB : change.fromB;
+	const safeInsertPos = findSafeInsertPos(newDoc, anchorPos, slice);
 	const isActive =
 		activeIndexPos && safeInsertPos === activeIndexPos.from && safeInsertPos === activeIndexPos.to;
 
@@ -82,6 +92,7 @@ export const createNodeChangedDecorationWidget = ({
 			nodeViewSerializer,
 			colorScheme,
 			isInserted,
+			diffType,
 		});
 	}
 
@@ -95,7 +106,7 @@ export const createNodeChangedDecorationWidget = ({
 	// Observe DOM mutations and override the transform on .rich-media-item elements
 	// after React mounts to prevent the image from shifting outside its parent container.
 	let constrainMediaObserver: MutationObserver | undefined;
-	if (expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+	if (isExtendedEnabled(diffType)) {
 		constrainMediaObserver = new MutationObserver(() => {
 			const richMediaItems = dom.querySelectorAll('.rich-media-item');
 			richMediaItems.forEach((el) => {
@@ -128,14 +139,14 @@ export const createNodeChangedDecorationWidget = ({
 					if (childNodeView) {
 						const lineBreak = document.createElement('br');
 						dom.append(lineBreak);
-						const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
+						const wrapper = createContentWrapper(colorScheme, isActive, isInserted, diffType);
 						wrapper.append(childNodeView);
 						dom.append(wrapper);
 					} else {
 						// Fallback to serializing the individual child node
 						const serializedChild = serializer.serializeNode(childNode);
 						if (serializedChild) {
-							const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
+							const wrapper = createContentWrapper(colorScheme, isActive, isInserted, diffType);
 							wrapper.append(serializedChild);
 							dom.append(wrapper);
 						}
@@ -181,7 +192,7 @@ export const createNodeChangedDecorationWidget = ({
 		const nodeView = serializer.tryCreateNodeView(node);
 		if (nodeView) {
 			if (node.isInline) {
-				const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
+				const wrapper = createContentWrapper(colorScheme, isActive, isInserted, diffType);
 				wrapper.append(nodeView);
 				dom.append(wrapper);
 			} else {
@@ -194,6 +205,7 @@ export const createNodeChangedDecorationWidget = ({
 					intl,
 					isActive,
 					isInserted,
+					diffType,
 				});
 			}
 		} else if (
@@ -210,10 +222,11 @@ export const createNodeChangedDecorationWidget = ({
 						colorScheme,
 						isActive,
 						isInserted,
+						diffType,
 					});
 					dom.append(injectedNode);
 				} else {
-					const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
+					const wrapper = createContentWrapper(colorScheme, isActive, isInserted, diffType);
 					wrapper.append(fallbackNode);
 					dom.append(wrapper);
 				}
@@ -223,7 +236,7 @@ export const createNodeChangedDecorationWidget = ({
 
 	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
 
-	if (showIndicators && expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)) {
+	if (showIndicators && isExtendedEnabled(diffType)) {
 		const leftAnchor = createLeftAnchorWidget({
 			doc: newDoc,
 			from: safeInsertPos,
@@ -242,8 +255,11 @@ export const createNodeChangedDecorationWidget = ({
 				decorationType: 'widget',
 				diffId,
 				isActive,
-				...(expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true) && {
-					side: -1,
+				diffType,
+				...(isExtendedEnabled(diffType) && {
+					// placeBelow anchors at the end of the new content, so render on the
+					// trailing side (1); otherwise render before the new content (-1).
+					side: placeBelow ? 1 : -1,
 				}),
 			}),
 			destroy: () => constrainMediaObserver?.disconnect(),
@@ -266,12 +282,7 @@ export const createNodeChangedDecorationWidget = ({
 	const resolvedPos = newDoc.resolve(change.fromB);
 	const isFirstDocChild = resolvedPos.depth === 0 && resolvedPos.index(0) === 0;
 
-	if (
-		isFirstDocChild &&
-		isSingleBlock &&
-		isPureDeletion &&
-		expValEquals('platform_editor_diff_plugin_extended', 'isEnabled', true)
-	) {
+	if (isFirstDocChild && isSingleBlock && isPureDeletion && isExtendedEnabled(diffType)) {
 		const emptyWidgetSpan = document.createElement('span');
 		emptyWidgetSpan.style.display = 'block';
 		// Use a design token for the margin to keep spacing consistent with the design system
@@ -280,6 +291,7 @@ export const createNodeChangedDecorationWidget = ({
 			...buildDiffDecorationSpec({
 				decorationType: 'widget',
 				diffId: crypto.randomUUID(),
+				diffType,
 			}),
 		});
 

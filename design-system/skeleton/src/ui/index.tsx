@@ -2,8 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React, { useContext, useEffect, useLayoutEffect as useRealLayoutEffect } from 'react';
+
 import { css, jsx, keyframes } from '@compiled/react';
 
+import InteractionContext from '@atlaskit/interaction-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import type { BorderRadius } from '@atlaskit/tokens/css-type-schema';
 
@@ -40,6 +44,10 @@ export type SkeletonProps = {
 	 */
 	groupName?: string;
 	/**
+	 * An optional `interactionName` used to identify when this component is holding an interaction.
+	 */
+	interactionName?: string;
+	/**
 	 * A test id for automated testing.
 	 */
 	testId?: string;
@@ -67,6 +75,15 @@ const activeShimmerStyles = css({
 });
 
 /**
+ * `useLayoutEffect` is being used in SSR safe form. On the server, this work doesn’t need to run.
+ * `useEffect` is used in-place, because `useEffect` is not run on the server and it matches types
+ * which makes things simpler than doing an `isServer` check or a `null` check.
+ *
+ * @see https://hello.atlassian.net/wiki/spaces/DST/pages/2081696628/DSTDACI-010+-+Interaction+Tracing+hooks+in+DS+components
+ */
+const useLayoutEffect = typeof window === 'undefined' ? useEffect : useRealLayoutEffect;
+
+/**
  * __Skeleton__
  *
  * A skeleton acts as a placeholder for content, usually while the content loads.
@@ -82,9 +99,17 @@ const Skeleton = ({
 	ShimmeringEndColor,
 	isShimmering = false,
 	groupName,
+	interactionName,
 	testId,
 }: SkeletonProps): JSX.Element => {
 	const groupDataAttribute = groupName && `data-${groupName}`;
+
+	const context = useContext(InteractionContext);
+	useLayoutEffect(() => {
+		if (context != null && fg('platform-dst-skeleton-ufo-hold')) {
+			return context.hold(interactionName);
+		}
+	}, [context, interactionName]);
 
 	return (
 		<div

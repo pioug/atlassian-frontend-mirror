@@ -40,20 +40,36 @@ const AI_GENERATING_DECORATION_TYPE = 'ai-generating';
 
 /**
  * Build a DecorationSet containing a Decoration.node for every media node
- * whose `id` is in the given set.
+ * targeted by the given set.
+ *
+ * Targets are matched by `localId` first (the mediaSingle wrapper's or the media
+ * node's own) so that duplicate copies of the same image — which share a media
+ * file `id` — don't all get decorated; only the node the user acted on lights
+ * up. Falls back to the media file `id` for the CWR flow and for any node that
+ * has no localId yet.
  */
 function buildDecorationSet(
 	doc: EditorState['doc'],
-	mediaIds: Map<string, AIGeneratingSource>,
+	targetIds: Map<string, AIGeneratingSource>,
 ): DecorationSet {
-	if (mediaIds.size === 0) {
+	if (targetIds.size === 0) {
 		return DecorationSet.empty;
 	}
 
 	const decorations: Decoration[] = [];
 
-	doc.descendants((node, pos) => {
-		if (node.type.name === 'media' && mediaIds.has(node.attrs.id)) {
+	doc.descendants((node, pos, parent) => {
+		if (node.type.name !== 'media') {
+			return;
+		}
+
+		const wrapperLocalId = parent?.attrs?.localId;
+		const matches =
+			(wrapperLocalId && targetIds.has(wrapperLocalId)) ||
+			(node.attrs.localId && targetIds.has(node.attrs.localId)) ||
+			targetIds.has(node.attrs.id);
+
+		if (matches) {
 			decorations.push(
 				Decoration.node(
 					pos,

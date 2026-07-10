@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 14.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.21
 
 ### Patch Changes

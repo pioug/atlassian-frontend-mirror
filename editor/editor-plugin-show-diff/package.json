@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-show-diff",
-	"version": "10.1.22",
+	"version": "10.3.0",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -22,7 +22,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./show-diff-plugin": "./src/entry-points/show-diff-plugin.tsx",
-		"./show-diff-plugin-type": "./src/entry-points/show-diff-plugin-type.ts"
+		"./show-diff-plugin-type": "./src/entry-points/show-diff-plugin-type.ts",
+		"./calculate-diff": "./src/entry-points/calculate-diff.ts"
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
@@ -45,6 +46,7 @@
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/form": "workspace:^",
@@ -97,5 +99,9 @@
 			]
 		}
 	},
-	"platform-feature-flags": {}
+	"platform-feature-flags": {
+		"platform_editor_ai_smart_diff": {
+			"type": "boolean"
+		}
+	}
 }

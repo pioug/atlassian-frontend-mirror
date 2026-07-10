@@ -35,7 +35,6 @@ const findSegment = (node: SegmentItem, targetName: string): SegmentItem | null 
 test.describe('ReactUFO: GenAI Segment', () => {
 	test.use({
 		examplePage: 'gen-ai-segment',
-		featureFlags: ['platform_ufo_gen_ai_segment'],
 		viewport: { width: 1920, height: 1080 },
 	});
 

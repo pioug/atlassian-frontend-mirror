@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 11.1.17
+
+### Patch Changes
+
+- [`158238b4958f8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/158238b4958f8) -
+  Hide Change format for Native Tabs blocks
+- Updated dependencies
+
+## 11.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.15
 
 ### Patch Changes

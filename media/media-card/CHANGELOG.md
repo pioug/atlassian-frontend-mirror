@@ -1,5 +1,18 @@
 # @atlaskit/media-card
 
+## 81.4.0
+
+### Minor Changes
+
+- [`0b760dd03456e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0b760dd03456e) -
+  clean up media blind spot fg
+
+## 81.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 81.3.3
 
 ### Patch Changes

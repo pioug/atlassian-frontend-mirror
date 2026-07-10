@@ -31,6 +31,8 @@
 		}
 	},
 	"dependencies": {
+		"@atlaskit/interaction-context": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -47,6 +49,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/section-message": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
@@ -90,5 +93,10 @@
 	"homepage": "https://atlassian.design/components/skeleton",
 	"exports": {
 		".": "./src/ui/index.tsx"
+	},
+	"platform-feature-flags": {
+		"platform-dst-skeleton-ufo-hold": {
+			"type": "boolean"
+		}
 	}
 }

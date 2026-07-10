@@ -2,6 +2,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { CreateSuccessEnrichment } from '@atlaskit/editor-synced-block-provider/errorHandling';
 
 import type { SyncedBlockPlugin } from '../../syncedBlockPluginType';
 import { FLAG_ID } from '../../types';
@@ -77,12 +78,16 @@ const buildRevertCreationTr = (tr: Transaction, pos: { from: number; to: number 
 
 /**
  *
- * Save the new bodiedSyncBlock to backend with empty content and handles revert (if failed) and retry flow
+ * Save the new bodiedSyncBlock to backend with empty content and handles revert (if failed) and retry flow.
+ *
+ * @param enrichment optional creation-type signals from `createSyncedBlock`,
+ *   forwarded to the store manager to attach to the `syncedBlockCreate` event.
  */
 export const handleBodiedSyncBlockCreation = (
 	bodiedSyncBlockAdded: SyncBlockInfo[],
 	editorState: EditorState,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
+	enrichment?: CreateSuccessEnrichment,
 ): void => {
 	const syncBlockStore = syncedBlockPluginKey.getState(editorState).syncBlockStore;
 
@@ -135,6 +140,7 @@ export const handleBodiedSyncBlockCreation = (
 					});
 				}
 			},
+			enrichment,
 		);
 	});
 };

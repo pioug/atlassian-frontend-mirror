@@ -52,7 +52,7 @@ export const ImageRenderer = ({
 	);
 
 	useLayoutEffect(() => {
-		if (!didRender && fg('platfrom_close_blindspot_for_img')) {
+		if (!didRender) {
 			if (!cardPreview) {
 				return;
 			}

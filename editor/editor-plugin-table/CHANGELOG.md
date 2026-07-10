@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.4.1
+
+### Patch Changes
+
+- [`0e797fd81675f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e797fd81675f) -
+  Cleaning up interactivity monitoring experiment
+- Updated dependencies
+
 ## 24.4.0
 
 ### Minor Changes

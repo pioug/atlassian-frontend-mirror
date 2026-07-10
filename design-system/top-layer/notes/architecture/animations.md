@@ -122,7 +122,7 @@ The old approach required every consumer to:
 
 1. Keep the component mounted during exit (via intermediate state or ExitingPersistence)
 2. Call `hidePopover()` or `dialog.close()` to start the CSS exit transition
-3. Listen for `transitionend` (with a fallback timeout using `exitDurationMs + 50`)
+3. Listen for `transitionend` (with a fallback timeout based on the shared exit safety-net timing)
 4. When the transition completes, allow the component to unmount
 
 **Tooltip (old):**
@@ -224,7 +224,7 @@ By default, `Popover` and `Dialog` conditionally render their children based on 
 
 - **`isOpen: true`** → children mount, `showPopover()` / `showModal()` called, entry animation plays
 - **`isOpen: false`** with animation → `hidePopover()` / `close()` called, exit animation plays,
-  children unmount after `transitionend` (with a `setTimeout` fallback of `exitDurationMs + 50ms`)
+  children unmount after `transitionend` (with a shared safety-net timeout fallback)
 - **`isOpen: false`** without animation → `hidePopover()` / `close()` called, children unmount
   immediately
 
@@ -266,7 +266,7 @@ context. For standalone usage (e.g. tooltip, spotlight), use `Popover` directly,
 When `isOpen` is provided without an `animate` preset, the show/hide is instant: no `transitionend`
 listeners are bound, no fallback timeouts are scheduled, and no animation data attributes are
 applied. Only consumers who use both `isOpen` and `animate` pay the cost of the animation lifecycle
-(the `transitionend` listener and its fallback timeout of `exitDurationMs + 50ms`).
+(the `transitionend` listener and its shared safety-net timeout fallback).
 
 ### Why `isOpen` is required on `Popover` / `Dialog`
 
@@ -588,15 +588,14 @@ not animated. This is by design — animation is a progressive enhancement.
 
 ## Static Compiled styles
 
-Animation presets are metadata only. They expose the stable `name`, entry and exit durations used by
-`useAnimatedVisibility`, and optional custom properties for placement-dependent values. The actual
-CSS lives in component-local `compiledCssMap` entries in `Popover` and `Dialog`, selected through
-static conditionals such as
-`preset?.name === 'slide-and-fade' && popoverAnimationStyles.slideAndFade`. This keeps every style
-statically visible to the Compiled transform and removes the old raw CSS injection path.
+Animation presets are metadata only. They expose the stable `name` and optional custom properties
+for placement-dependent values. The actual CSS lives in component-local `compiledCssMap` entries in
+`Popover` and `Dialog`, selected through the host component's `css` prop with entries such as
+`popoverAnimationStyles[preset.name]`. This keeps every style statically visible to the Compiled
+transform and removes the old raw CSS injection path.
 
-The `data-ds-popover-{name}` and `data-ds-dialog-{name}` attributes remain as stable hooks for
-selectors, tests, and debugging. They are not a signal that preset CSS is injected into `<head>`.
+The preset name now selects component-local Compiled styles directly. The host elements no longer
+render `data-ds-popover-{name}` or `data-ds-dialog-{name}` attributes for animation presets.
 
 Placement or option-dependent values stay imperative custom properties. For example, `slideAndFade`
 sets `--ds-popover-tx` / `--ds-popover-ty`, and `dialogSlideUpAndFade` sets `--ds-dialog-ty`. The

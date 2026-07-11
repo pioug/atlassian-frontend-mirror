@@ -131,28 +131,35 @@ const withInviteItem =
 		];
 	};
 
-export const mentionToTypeaheadItem = (mention: MentionDescription): TypeAheadItem => {
-	const itemHeight = expVal('platform_editor_agent_mentions', 'isEnabled', false)
-		? MENTION_ITEM_HEIGHT_REFRESHED
-		: MENTION_ITEM_HEIGHT;
-	return {
-		title: mention.id,
-		render: ({ isSelected, onClick, onHover }) => (
-			<MentionItem
-				mention={mention}
-				selected={isSelected}
-				onMouseEnter={onHover}
-				onSelection={onClick}
-				height={itemHeight}
-			/>
-		),
-		getCustomComponentHeight: () => {
-			return itemHeight;
-		},
-		mention,
-	};
-};
+const makeMentionToTypeaheadItem =
+	(useRefreshedItemHeight: boolean) =>
+	(mention: MentionDescription): TypeAheadItem => {
+		const itemHeight = useRefreshedItemHeight ? MENTION_ITEM_HEIGHT_REFRESHED : MENTION_ITEM_HEIGHT;
 
+		return {
+			title: mention.id,
+			render: ({ isSelected, onClick, onHover }) => (
+				<MentionItem
+					mention={mention}
+					selected={isSelected}
+					onMouseEnter={onHover}
+					onSelection={onClick}
+					height={itemHeight}
+				/>
+			),
+			getCustomComponentHeight: () => {
+				return itemHeight;
+			},
+			mention,
+		};
+	};
+
+export const mentionToTypeaheadItem = (mention: MentionDescription): TypeAheadItem =>
+	makeMentionToTypeaheadItem(expVal('platform_editor_agent_mentions', 'isEnabled', false))(mention);
+
+/**
+ * Caches mention typeahead items by mention ID.
+ */
 export function memoize<ResultFn extends (mention: MentionDescription) => TypeAheadItem>(
 	fn: ResultFn,
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
@@ -179,8 +186,6 @@ export function memoize<ResultFn extends (mention: MentionDescription) => TypeAh
 		clear: seen.clear.bind(seen),
 	};
 }
-
-const memoizedToItem = memoize(mentionToTypeaheadItem);
 
 const buildAndSendElementsTypeAheadAnalytics =
 	(fireEvent: FireElementsChannelEvent) =>
@@ -292,6 +297,7 @@ const buildNodesForTeamMention = (
 
 type Props = {
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	enableAgentSectioning?: boolean;
 	fireEvent: FireElementsChannelEvent;
 	handleMentionsChanged?: (mentionChanges: MentionChange[]) => void;
 	HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
@@ -313,10 +319,12 @@ const makeTransformMentionsToTypeAheadItems = ({
 	fireEvent,
 	getFirstQueryWithoutResults,
 	setFirstQueryWithoutResults,
+	toItem,
 }: {
 	fireEvent: FireElementsChannelEvent;
 	getFirstQueryWithoutResults: () => string | null;
 	setFirstQueryWithoutResults: (query: string) => void;
+	toItem: (mention: MentionDescription) => TypeAheadItem;
 }) => {
 	return ({
 		mentions,
@@ -334,7 +342,7 @@ const makeTransformMentionsToTypeAheadItems = ({
 		sessionId: string;
 		stats?: MentionStats;
 	}): Array<TypeAheadItem> => {
-		const mentionItems = mentions.map((mention) => memoizedToItem.call(mention));
+		const mentionItems = mentions.map((mention) => toItem(mention));
 
 		buildAndSendElementsTypeAheadAnalytics(fireEvent)({
 			query,
@@ -381,6 +389,7 @@ export const createTypeAheadConfig = ({
 	HighlightComponent,
 	api,
 	handleMentionsChanged,
+	enableAgentSectioning = false,
 }: Props): TypeAheadHandler => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	let sessionId = uuid();
@@ -393,6 +402,7 @@ export const createTypeAheadConfig = ({
 		setFirstQueryWithoutResults: (query: string) => {
 			firstQueryWithoutResults = query;
 		},
+		toItem: memoize(makeMentionToTypeaheadItem(enableAgentSectioning)).call,
 	});
 
 	const typeAhead: TypeAheadHandler = {
@@ -461,33 +471,29 @@ export const createTypeAheadConfig = ({
 			});
 		},
 		getSections({ intl }) {
+			if (!enableAgentSectioning) {
+				return [];
+			}
+
 			return [
 				{
 					id: 'people',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionPeople),
 					filter: (item) => !isAgentTypeAheadItem(item),
-					limit: expVal('platform_editor_agent_mentions', 'isEnabled', false) ? 5 : 6,
-					...(expVal('platform_editor_agent_mentions', 'isEnabled', false)
-						? { sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true } }
-						: {}),
+					limit: 5,
+					sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true },
 				},
 				{
 					id: 'agents',
 					title: intl.formatMessage(mentionMessages.typeAheadSectionAgents),
 					filter: (item) => isAgentTypeAheadItem(item),
-					limit: expVal('platform_editor_agent_mentions', 'isEnabled', false) ? 5 : undefined,
-					...(expVal('platform_editor_agent_mentions', 'isEnabled', false)
-						? { sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true } }
-						: {}),
-					...(expVal('platform_editor_agent_mentions', 'isEnabled', false)
-						? {
-								lozenge: (
-									<Lozenge appearance="new">
-										{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel)}
-									</Lozenge>
-								),
-							}
-						: {}),
+					limit: 5,
+					sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true },
+					lozenge: (
+						<Lozenge appearance="new">
+							{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel)}
+						</Lozenge>
+					),
 				},
 			];
 		},

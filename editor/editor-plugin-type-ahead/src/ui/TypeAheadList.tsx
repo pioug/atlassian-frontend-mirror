@@ -22,7 +22,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import type { InputMethodType } from '../pm-plugins/analytics';
@@ -82,10 +81,6 @@ const shouldRenderSectionTitle = ({
 	populatedSectionCount: number;
 	section: TypeAheadResolvedSection;
 }): boolean => {
-	if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
-		return populatedSectionCount > 1;
-	}
-
 	if (!isEmptyQuery && section.sectionTitleDisplay?.showWhenQueryPresent === false) {
 		return false;
 	}
@@ -383,9 +378,11 @@ const TypeAheadListComponent = React.memo(
 			});
 		}, [items, sections]);
 
+		const hasSections = sections && sections.length > 0;
+
 		useLayoutEffect(() => {
 			// Exclude view more item from the count
-			const itemsToRender = expVal('platform_editor_agent_mentions', 'isEnabled', false)
+			const itemsToRender = hasSections
 				? listRows
 				: showMoreOptionsButton
 					? items.slice(0, -1)
@@ -398,7 +395,7 @@ const TypeAheadListComponent = React.memo(
 				fitHeight,
 			);
 			setHeight(height);
-		}, [listRows, items, cache, fitHeight, showMoreOptionsButton]);
+		}, [listRows, items, cache, fitHeight, hasSections, showMoreOptionsButton]);
 
 		useLayoutEffect(() => {
 			if (!listContainerRef.current) {
@@ -474,7 +471,6 @@ const TypeAheadListComponent = React.memo(
 		}, [items]);
 
 		const config = triggerHandler?.getMoreOptionsButtonConfig?.(intl);
-		const shouldRenderSectionLozenge = expVal('platform_editor_agent_mentions', 'isEnabled', false);
 		const handleClick = () => {
 			if (onMoreOptionsClicked) {
 				onMoreOptionsClicked();
@@ -495,10 +491,7 @@ const TypeAheadListComponent = React.memo(
 				return null;
 			}
 
-			const sectionLozenge =
-				currentRow.type === 'section' && shouldRenderSectionLozenge
-					? currentRow.section.lozenge
-					: null;
+			const sectionLozenge = currentRow.type === 'section' ? currentRow.section.lozenge : null;
 
 			return (
 				<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>

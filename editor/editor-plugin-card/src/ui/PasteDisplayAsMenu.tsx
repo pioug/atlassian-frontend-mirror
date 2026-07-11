@@ -24,7 +24,7 @@ import SmartLinkInlineIcon from '@atlaskit/icon/core/smart-link-inline';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { type CardContext, useSmartCardContext } from '@atlaskit/link-provider/context';
 import { Box, Flex, Pressable } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 import type { CardPlugin } from '../cardPluginType';
@@ -623,7 +623,7 @@ export const getPasteDisplayAsMenuComponents = ({
 			return false;
 		}
 
-		const isEnabled = expValEquals(
+		const isEnabled = expValEqualsNoExposure(
 			'confluence_editor_paste_3p_link_actions_menu',
 			'isEnabled',
 			true,
@@ -655,7 +655,9 @@ export const getPasteDisplayAsMenuComponents = ({
 			],
 			isAsyncHidden: smartlinkAsyncHidden,
 			isHidden: () => {
-				if (!expValEquals('confluence_editor_paste_3p_link_actions_menu', 'isEnabled', true)) {
+				if (
+					!expValEqualsNoExposure('confluence_editor_paste_3p_link_actions_menu', 'isEnabled', true)
+				) {
 					return true;
 				}
 

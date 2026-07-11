@@ -20,7 +20,6 @@ import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { MentionNameDetails, MentionProvider } from '@atlaskit/mention/resource';
 import { MentionNameStatus, isPromise } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { insertMention } from './editor-commands';
 import type { MentionsPlugin } from './mentionsPluginType';
@@ -115,6 +114,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 		mentionInsertDisplayName: options?.insertDisplayName,
 		HighlightComponent: options?.HighlightComponent,
 		handleMentionsChanged: options?.handleMentionsChanged,
+		enableAgentSectioning: options?.enableAgentSectioning,
 		fireEvent,
 		api,
 	});
@@ -208,7 +208,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 				}
 			},
 			updateSectionTitle: (props) => {
-				if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
+				if (!options?.enableAgentSectioning) {
 					return false;
 				}
 

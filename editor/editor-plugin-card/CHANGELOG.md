@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 18.1.3
+
+### Patch Changes
+
+- [`1e91a4b881a3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e91a4b881a3e) -
+  Fire the `confluence_editor_paste_3p_link_actions_menu` exposure only for single-link pastes
+  instead of during menu setup. Experiment checks now use `expValEqualsNoExposure`, and the exposure
+  is fired separately when a single link is pasted.
+
 ## 18.1.2
 
 ### Patch Changes

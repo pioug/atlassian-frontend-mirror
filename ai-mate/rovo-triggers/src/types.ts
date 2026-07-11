@@ -1,4 +1,4 @@
-import type { DocNode } from '@atlaskit/adf-schema';
+import type { DocNode } from '@atlaskit/adf-schema/doc';
 
 import type { SolutionDraftAgentUpdatePayload } from './common/types/agent';
 import type { JsmJourneyBuilderActionsPayload } from './common/types/jsm-journey-builder';
@@ -858,7 +858,7 @@ export type TaskModifyPlanRequestedPayload = PayloadCore<
 
 export type TaskModifyPlanSubmittedPayload = PayloadCore<
 	'task-modify-plan-submitted',
-	{ conversationId: string; invocationId: string; prompt: string }
+	{ conversationId: string; invocationId: string; prompt: DocNode }
 >;
 
 export const JIRA_INLINE_AGENT_CREATION_AGENT_ASSIGNED_EVENT =

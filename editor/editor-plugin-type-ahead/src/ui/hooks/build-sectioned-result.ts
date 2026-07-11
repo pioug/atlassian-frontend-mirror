@@ -5,7 +5,6 @@ import type {
 	TypeAheadItem,
 	TypeAheadSection,
 } from '@atlaskit/editor-common/types';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { TypeAheadResolvedSection } from '../../types';
 
@@ -18,7 +17,7 @@ export const buildSectionedResult = ({
 	items: Array<TypeAheadItem>;
 	triggerHandler: TypeAheadHandler;
 }): { items: Array<TypeAheadItem>; sections: Array<TypeAheadResolvedSection> } => {
-	if (!expVal('platform_editor_agent_mentions', 'isEnabled', false) || !intl) {
+	if (!intl) {
 		return { items, sections: [] };
 	}
 

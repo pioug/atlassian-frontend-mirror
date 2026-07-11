@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 9.8.0
+
+### Minor Changes
+
+- [`b3f696b268b88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3f696b268b88) -
+  Send ADF modify-plan feedback in confirmed tools
+
 ## 9.7.0
 
 ### Minor Changes

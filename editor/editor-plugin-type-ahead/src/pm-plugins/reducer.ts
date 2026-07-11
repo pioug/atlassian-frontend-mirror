@@ -3,7 +3,6 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { insm } from '@atlaskit/insm';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type {
 	CreateTypeAheadDecorations,
@@ -59,10 +58,6 @@ const applySectionTitleUpdates = ({
 	sections: TypeAheadResolvedSection[];
 	sectionTitleUpdates: TypeAheadPluginState['sectionTitleUpdates'];
 }): TypeAheadResolvedSection[] => {
-	if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
-		return sections;
-	}
-
 	const updatedSections = sections.map((section) => {
 		const update = sectionTitleUpdates[section.id];
 
@@ -236,10 +231,6 @@ export const createReducer = ({
 				),
 			};
 		} else if (shouldUpdateSectionTitleState) {
-			if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
-				return currentPluginState;
-			}
-
 			const { id, update } = params;
 			const sectionTitleUpdates = {
 				...currentPluginState.sectionTitleUpdates,

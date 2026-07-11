@@ -1,5 +1,4 @@
 import type { Command, TypeAheadSectionTitleUpdate } from '@atlaskit/editor-common/types';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { TypeAheadSectionTitleUpdateState } from '../../types';
 import { ACTIONS } from '../actions';
@@ -11,7 +10,7 @@ export const updateSectionTitle = ({
 	sectionTitleDisplay,
 }: TypeAheadSectionTitleUpdate): Command => {
 	return (state, dispatch) => {
-		if (!expVal('platform_editor_agent_mentions', 'isEnabled', false) || !dispatch) {
+		if (!dispatch) {
 			return false;
 		}
 

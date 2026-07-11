@@ -8,6 +8,7 @@ import type { MentionProvider } from '@atlaskit/mention/types';
 interface Props {
 	options: {
 		currentUserId?: string;
+		enableAgentSectioning?: boolean;
 		getIsRovoPanelOpen?: () => boolean;
 		handleMentionsChanged: MentionsChangedHandler;
 	};
@@ -26,6 +27,7 @@ export function mentionsPluginOptions({ options, providers }: Props): MentionsPl
 		handleMentionsChanged: options.handleMentionsChanged,
 		mentionProvider: providers.mentionProvider,
 		currentUserId: options.currentUserId,
+		enableAgentSectioning: options.enableAgentSectioning,
 		getIsRovoPanelOpen: options.getIsRovoPanelOpen,
 	};
 }

@@ -1,5 +1,21 @@
 # @atlaskit/skeleton
 
+## 4.2.0
+
+### Minor Changes
+
+- [`dfc7fd97fe346`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfc7fd97fe346) -
+  Add UFO interaction hold support to Skeleton.
+
+  Use the optional `interactionName` prop when a Skeleton should hold the current UFO interaction
+  while it is rendered:
+
+  ```tsx
+  import Skeleton from '@atlaskit/skeleton';
+
+  <Skeleton width={200} height={8} interactionName="project.page.skeleton" />;
+  ```
+
 ## 4.1.0
 
 ### Minor Changes

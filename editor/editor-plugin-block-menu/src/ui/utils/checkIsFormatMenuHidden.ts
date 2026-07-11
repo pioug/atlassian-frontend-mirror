@@ -8,12 +8,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../../blockMenuPluginType';
 
-const getDisabledNodeTypes = memoizeOne(
-	(nodes: Schema['nodes']): NodeType[] => [
-		nodes.rule,
-		...(fg('confluence_frontend_native_tabs_extension') ? [nodes.multiBodiedExtension] : []),
-	],
-);
+const getDisabledNodeTypes = memoizeOne((nodes: Schema['nodes']): NodeType[] => [
+	nodes.rule,
+	...(fg('confluence_frontend_native_tabs_extension') ? [nodes.multiBodiedExtension] : []),
+]);
 
 const getIsFormatMenuHidden = (selection: Selection, schema: Schema) => {
 	const nodes = schema.nodes;

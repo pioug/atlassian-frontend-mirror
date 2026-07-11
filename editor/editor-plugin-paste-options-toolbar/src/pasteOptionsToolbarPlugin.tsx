@@ -17,6 +17,7 @@ import { createPlugin } from './pm-plugins/main';
 import type { PasteOptionsPluginState } from './types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types/types';
 import { firePasteActionsMenuExperimentExposure } from './ui/on-paste-actions-menu/exposure';
+import { firePaste3pLinkActionsMenuExperimentExposure } from './ui/on-paste-actions-menu/exposure-3p-link';
 import { firePasteActionsMenuV2ExperimentExposure } from './ui/on-paste-actions-menu/exposure-v2';
 import { PasteActionsMenu } from './ui/on-paste-actions-menu/PasteActionsMenu';
 import { getPasteMenuComponents } from './ui/on-paste-actions-menu/PasteMenuComponents';
@@ -212,6 +213,11 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 						lastContentPasted?.text,
 						lastContentPasted?.pastedSlice,
 					);
+				}
+
+				// Fires only for single-link pastes, matching when the 3p link menu shows.
+				if (config?.usePopupBasedPasteActionsMenu) {
+					firePaste3pLinkActionsMenuExperimentExposure(lastContentPasted?.pastedSlice);
 				}
 
 				if (

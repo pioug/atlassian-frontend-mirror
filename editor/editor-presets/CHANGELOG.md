@@ -1,5 +1,16 @@
 # @atlaskit/editor-presets
 
+## 5.1.0
+
+### Minor Changes
+
+- [`f8280f6b24eec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8280f6b24eec) -
+  Allow editor surfaces to control agent mention picker sectioning independently.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.24
 
 ### Patch Changes

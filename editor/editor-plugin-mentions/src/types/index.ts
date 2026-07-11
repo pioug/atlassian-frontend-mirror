@@ -43,6 +43,13 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	 */
 	currentUserId?: string;
 	/**
+	 * Enables People / Agents sectioning in the mentions typeahead.
+	 *
+	 * Consumers own the rollout decision for their editor surface; the shared
+	 * mentions plugin only applies the resulting presentation option.
+	 */
+	enableAgentSectioning?: boolean;
+	/**
 	 * Optional getter injected by Rovo-aware consumers to check whether the Rovo
 	 * panel is currently open. When provided, the mentions plugin uses it to
 	 * suppress the agent-mention nudge when Rovo is already visible.

@@ -1536,7 +1536,7 @@ export function addNewInteraction(
 			? {
 					prior: priorAccessedFg,
 					during: {},
-			  }
+				}
 			: undefined,
 		knownSegments: [],
 		cleanupCallbacks: [],

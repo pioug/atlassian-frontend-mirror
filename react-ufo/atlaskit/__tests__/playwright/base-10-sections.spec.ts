@@ -4,10 +4,7 @@
 import { expect, test, viewports } from './fixtures';
 
 test.describe('TTVC: basic page (10 congruent sections)', () => {
-	const requiredFeatureFlags = [
-		'ufo_payload_use_idle_callback',
-		'platform_ufo_critical_metrics_payload',
-	];
+	const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
 	const featureFlagsCombos = [[...requiredFeatureFlags]];
 	for (const featureFlags of featureFlagsCombos) {
 		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {
@@ -25,7 +22,6 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 					test(`section nine should exist inside the ufo:vc:rev`, async ({
 						page,
 						waitForReactUFOPayload,
-						waitForReactUFOPayloadCriticalMetrics,
 						getSectionDOMAddedAt,
 					}) => {
 						const mainDiv = page.locator('[data-testid="main"]');
@@ -64,16 +60,11 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 							expect(rawHandlerRev!.viewport!.w).toBeGreaterThan(0);
 							expect(rawHandlerRev!.viewport!.h).toBeGreaterThan(0);
 						}
-
-						const criticalMetricsPayloads = await waitForReactUFOPayloadCriticalMetrics();
-						expect(criticalMetricsPayloads).toBeDefined();
-						expect(criticalMetricsPayloads!.length).toBeGreaterThan(0);
 					});
 
 					test(`VC90 should matches when the section nine was visible`, async ({
 						page,
 						waitForReactUFOPayload,
-						waitForReactUFOPayloadCriticalMetrics,
 						getSectionDOMAddedAt,
 					}) => {
 						const mainDiv = page.locator('[data-testid="main"]');
@@ -95,72 +86,6 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 						const vc90Result = ttvcV2Revision!['metric:vc90'];
 						expect(vc90Result).toBeDefined();
 						expect(vc90Result).toMatchTimestamp(sectionNineVisibleAt);
-
-						const fullUFOPayload = reactUFOPayload;
-						const criticalMetricsPayloads = await waitForReactUFOPayloadCriticalMetrics();
-						expect(criticalMetricsPayloads).toBeDefined();
-						expect(criticalMetricsPayloads!.length).toBeGreaterThan(0);
-
-						const rootCriticalMetrics = criticalMetricsPayloads!.find(
-							(c) => c.attributes.properties.type === 'page_load',
-						)!;
-						expect(rootCriticalMetrics).toBeTruthy();
-						expect(rootCriticalMetrics.attributes.properties.interactionId).toEqual(
-							fullUFOPayload!.attributes.properties.interactionMetrics.interactionId,
-						);
-						expect(rootCriticalMetrics.attributes.properties.type).toEqual(
-							fullUFOPayload!.attributes.properties.interactionMetrics.type,
-						);
-						expect(rootCriticalMetrics.attributes.properties.rate).toEqual(
-							fullUFOPayload!.attributes.properties.interactionMetrics.rate,
-						);
-						expect(rootCriticalMetrics.attributes.properties.routeName).toEqual(
-							fullUFOPayload!.attributes.properties.interactionMetrics.routeName,
-						);
-
-						expect(
-							rootCriticalMetrics.attributes.properties.metrics.ttvc?.length,
-						).toBeGreaterThanOrEqual(1);
-						// raw-handler revision is excluded from critical metrics (metric:vc90 is null)
-						// so we compare against non-raw-handler revisions only
-						const nonRawRevisions = fullUFOPayload!.attributes.properties['ufo:vc:rev']?.filter(
-							(rev) => rev.revision !== 'raw-handler',
-						);
-						expect(rootCriticalMetrics.attributes.properties.metrics.ttvc?.length).toEqual(
-							nonRawRevisions?.length,
-						);
-
-						const criticalPayloadVCRevs = rootCriticalMetrics.attributes.properties.metrics.ttvc;
-						for (const cVCRev of criticalPayloadVCRevs!) {
-							const fVCRev = fullUFOPayload!.attributes.properties['ufo:vc:rev']!.find(
-								(rev) => rev.revision === cVCRev.revision,
-							);
-							expect(fVCRev).toBeTruthy();
-							expect(cVCRev.revision).toEqual(fVCRev!.revision);
-							// When raw data is included, vcDetails is deleted but metric:vc90 remains.
-							// Compare against metric:vc90 which is the canonical source.
-							expect(cVCRev.vc90).toEqual(fVCRev!['metric:vc90']);
-						}
-
-						expect(rootCriticalMetrics.attributes.properties.metrics.ttai).toEqual(
-							fullUFOPayload!.attributes.properties.interactionMetrics.end,
-						);
-
-						expect(rootCriticalMetrics.attributes.properties.metrics.fp).toEqual(
-							fullUFOPayload!.attributes.properties['metric:fp'],
-						);
-
-						expect(rootCriticalMetrics.attributes.properties.metrics.fcp).toEqual(
-							fullUFOPayload!.attributes.properties['metric:fcp'],
-						);
-
-						expect(rootCriticalMetrics.attributes.properties.metrics.lcp).toEqual(
-							fullUFOPayload!.attributes.properties['metric:lcp'],
-						);
-
-						expect(rootCriticalMetrics.attributes.properties.metrics.navigation).toEqual(
-							fullUFOPayload!.attributes.properties['metrics:navigation'],
-						);
 					});
 
 					test(`each section should have approximately 10% ratio in ratios field`, async ({

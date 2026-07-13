@@ -1,5 +1,12 @@
 # @atlaskit/outbound-auth-flow-client
 
+## 4.1.0
+
+### Minor Changes
+
+- [`c98e0cf5cc4f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c98e0cf5cc4f6) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 4.0.0
 
 ### Major Changes

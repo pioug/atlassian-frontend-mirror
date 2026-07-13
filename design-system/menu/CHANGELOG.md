@@ -1,5 +1,21 @@
 # @atlaskit/menu
 
+## 9.2.0
+
+### Minor Changes
+
+- [`92dd044d3bd44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92dd044d3bd44) -
+  Add motion to select/dropdown-kind list items (hover, pressed, and selected interaction states)
+  behind the `platform-dst-motion-uplift-list-item` feature gate. This covers the shared menu item
+  primitive (`@atlaskit/menu`, which also drives Dropdown menu and the date/time picker menus) and
+  the `@atlaskit/select` / `@atlaskit/react-select` options (including checkbox and radio options).
+  Rendering is unchanged when the gate is off. Motion honours `prefers-reduced-motion` and focus
+  rings remain immediate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.0
 
 ### Minor Changes

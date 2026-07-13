@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.8.6",
+	"version": "26.9.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,13 +50,16 @@
 		"./profile-card-trigger": "./src/components/User/ProfileCardTrigger.tsx",
 		"./simple-mock-clients": "./src/mocks/simple-mock-clients.ts",
 		"./team": "./src/components/Team/index.ts",
+		"./team-profile-card/main": "./src/components/team-profile-card/main.tsx",
 		"./team-profile-card": "./src/components/Team/TeamProfileCard.tsx",
 		"./team-profile-card-client": "./src/client/TeamProfileCardClient.ts",
 		"./team-profile-card-trigger": "./src/components/Team/TeamProfileCardTrigger.tsx",
 		"./types": "./src/types.ts",
 		"./user": "./src/components/User/index.ts",
 		"./user-profile-card-client": "./src/client/UserProfileCardClient.ts",
-		"./with-outer-listeners": "./src/util/withOuterListeners.tsx"
+		"./with-outer-listeners": "./src/util/withOuterListeners.tsx",
+		"./profile-card-client": "./src/entry-points/ProfileCardClient.ts",
+		"./main": "./src/entry-points/main.tsx"
 	},
 	"scripts": {
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg",

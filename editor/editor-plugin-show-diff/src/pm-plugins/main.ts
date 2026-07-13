@@ -49,6 +49,7 @@ export type ShowDiffPluginState = {
 	diffDescriptors?: DiffDescriptor[];
 	diffType?: DiffType;
 	hideDeletedDiffs?: boolean;
+	hideAddedDiffsUnderline?: boolean;
 	isDisplayingChanges: boolean;
 	isInverted?: boolean;
 	originalDoc: PMNode | undefined;
@@ -95,6 +96,7 @@ export const createPlugin = (
 								isInverted: false,
 								diffType: 'inline',
 								hideDeletedDiffs: false,
+								hideAddedDiffsUnderline: false,
 								showIndicators: false,
 								diffDescriptors: [],
 							}
@@ -133,6 +135,7 @@ export const createPlugin = (
 										isInverted: newPluginState?.isInverted,
 										diffType: newPluginState?.diffType,
 										hideDeletedDiffs: newPluginState?.hideDeletedDiffs,
+										hideAddedDiffsUnderline: newPluginState?.hideAddedDiffsUnderline,
 										showIndicators: newPluginState?.showIndicators,
 										smartThresholds: newPluginState?.smartThresholds,
 										deletedDiffPlacement: newPluginState?.deletedDiffPlacement,
@@ -160,6 +163,7 @@ export const createPlugin = (
 										isInverted: false,
 										diffType: 'inline',
 										hideDeletedDiffs: false,
+										hideAddedDiffsUnderline: false,
 										diffDescriptors: [],
 									}
 								: {}),
@@ -210,6 +214,7 @@ export const createPlugin = (
 												isInverted: newPluginState.isInverted,
 												diffType: newPluginState.diffType,
 												hideDeletedDiffs: newPluginState.hideDeletedDiffs,
+												hideAddedDiffsUnderline: newPluginState.hideAddedDiffsUnderline,
 												showIndicators: newPluginState.showIndicators,
 												smartThresholds: newPluginState.smartThresholds,
 												deletedDiffPlacement: newPluginState.deletedDiffPlacement,

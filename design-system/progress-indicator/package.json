@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-indicator",
-	"version": "13.1.0",
+	"version": "13.2.0",
 	"description": "A progress indicator shows the user where they are along the steps of a journey.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -88,7 +88,8 @@
 	},
 	"exports": {
 		"./types": "./src/types.tsx",
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./progress-dots": "./src/components/progress-dots.tsx"
 	},
 	"homepage": "https://atlassian.design/components/progress-indicator/"
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "8.2.0",
+	"version": "8.3.0",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -83,6 +83,7 @@
 		}
 	},
 	"exports": {
+		"./icon": "./src/entry-points/icon.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./glyph/blog/16": "./src/artifacts/glyph/blog/16.tsx",
 		"./glyph/blog/24": "./src/artifacts/glyph/blog/24.tsx",

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { PerformanceEntryBuffer } from '../utils/buffer';
 
 import type { LayoutShiftPerformanceEntry } from './types';
@@ -22,14 +20,10 @@ export function getCLS(start: number, stop: number, buffer: PerformanceEntryBuff
 		const entry = _entry as LayoutShiftPerformanceEntry;
 		const isWithinObservationWindow = entry.startTime >= start && entry.startTime <= stop;
 
-		if (fg('platform_ufo_filter_cls_logs_same_rects_positions')) {
-			const allSourcesHaveSameRects = entry?.sources?.every(({ previousRect, currentRect }) =>
-				isSameRects(previousRect, currentRect),
-			);
-			return isWithinObservationWindow && !allSourcesHaveSameRects;
-		}
-
-		return isWithinObservationWindow;
+		const allSourcesHaveSameRects = entry?.sources?.every(({ previousRect, currentRect }) =>
+			isSameRects(previousRect, currentRect),
+		);
+		return isWithinObservationWindow && !allSourcesHaveSameRects;
 	});
 
 	const sessionWindows: Array<{ startTime: number; endTime: number; score: number }> = [];

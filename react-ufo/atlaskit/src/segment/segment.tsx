@@ -45,7 +45,6 @@ import {
 	type CustomData,
 	type CustomTiming,
 	getActiveInteraction,
-	markFirstSegmentLoad,
 	removeHoldByID,
 	removeSegment,
 	type RequestInfo,
@@ -67,8 +66,6 @@ export type Props = {
 };
 
 let tryCompleteHandle: number | undefined;
-let hasMarkedFirstSegmentLoad = false;
-
 /** A portion of the page we apply measurement to */
 const UFOSegment: {
 	(props: Props): React.JSX.Element;
@@ -128,11 +125,6 @@ const UFOSegment: {
 	);
 
 	const interactionId = useContext(UFOInteractionIDContext);
-	if (interactionId.current != null && !hasMarkedFirstSegmentLoad) {
-		markFirstSegmentLoad(interactionId.current, labelStack, performance.now());
-		hasMarkedFirstSegmentLoad = true;
-	}
-
 	const interactionContext = useMemo<EnhancedUFOInteractionContextType>(() => {
 		let lastCompleteEndTime = 0;
 		function complete(endTime: number = performance.now()) {

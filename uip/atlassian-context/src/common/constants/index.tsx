@@ -1,25 +1,22 @@
-/* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
+import { type ISOLATED_CLOUD_PERIMETERS } from './isolated-cloud-perimeters';
+import { type NON_ISOLATED_CLOUD_PERIMETERS } from './non-isolated-cloud-perimeters';
+
 export const FEDRAMP_MODERATE = 'fedramp-moderate';
 export const COMMERCIAL = 'commercial';
 export const ISOLATED_CLOUD = 'isolated-cloud';
-
 export const STAGING = 'staging';
 export const PRODUCTION = 'prod';
 export const DEV = 'dev';
-
+export const ATL_CTX_PERIMETER = 'Atl-Ctx-Perimeter';
+export const ATL_CTX_ISOLATION_CONTEXT_DOMAIN = 'Atl-Ctx-Isolation-Context-Domain';
+export const ATL_CTX_ISOLATION_CONTEXT_ID = 'Atl-Ctx-Isolation-Context-Id';
+export const BIFROST_ATL_CTX_CLOUD_SERVICE_PROVIDER = 'Bifrost-Atl-Ctx-Cloud-Service-Provider';
+export const CLOUD_SERVICE_PROVIDER_GCP = 'GCP';
+export const CLOUD_SERVICE_PROVIDER_AWS = 'AWS';
 export type EnvironmentType = typeof STAGING | typeof PRODUCTION | typeof DEV;
-
-export const ISOLATED_CLOUD_PERIMETERS: readonly ['commercial'] = [COMMERCIAL] as const;
 export type IsolatedCloudPerimeterType = (typeof ISOLATED_CLOUD_PERIMETERS)[number];
-
-export const NON_ISOLATED_CLOUD_PERIMETERS: readonly ['commercial', 'fedramp-moderate'] = [
-	COMMERCIAL,
-	FEDRAMP_MODERATE,
-] as const;
 export type NonIsolatedCloudPerimeterType = (typeof NON_ISOLATED_CLOUD_PERIMETERS)[number];
-
 export type GeneralizedPerimeterType = IsolatedCloudPerimeterType | NonIsolatedCloudPerimeterType;
-
 export type CloudEnvironment =
 	| {
 			type: 'isolated-cloud';
@@ -29,19 +26,9 @@ export type CloudEnvironment =
 			type: 'non-isolated-cloud';
 			perimeter: NonIsolatedCloudPerimeterType;
 	  };
-
-export const ATL_CTX_PERIMETER = 'Atl-Ctx-Perimeter';
-export const ATL_CTX_ISOLATION_CONTEXT_DOMAIN = 'Atl-Ctx-Isolation-Context-Domain';
-export const ATL_CTX_ISOLATION_CONTEXT_ID = 'Atl-Ctx-Isolation-Context-Id';
-export const BIFROST_ATL_CTX_CLOUD_SERVICE_PROVIDER = 'Bifrost-Atl-Ctx-Cloud-Service-Provider';
-
-export const CLOUD_SERVICE_PROVIDER_GCP = 'GCP';
-export const CLOUD_SERVICE_PROVIDER_AWS = 'AWS';
-
 export type CloudServiceProvider =
 	| typeof CLOUD_SERVICE_PROVIDER_GCP
 	| typeof CLOUD_SERVICE_PROVIDER_AWS;
-
 export type AtlCtxCookieName =
 	| typeof ATL_CTX_PERIMETER
 	| typeof ATL_CTX_ISOLATION_CONTEXT_DOMAIN

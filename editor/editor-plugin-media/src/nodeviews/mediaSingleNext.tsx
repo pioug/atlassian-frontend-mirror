@@ -40,13 +40,12 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
 import { isMediaBlobUrlFromAttrs } from '../pm-plugins/utils/media-common';
 import type { ForwardRef, MediaOptions } from '../types';
-import { CaptionPlaceholder, CaptionPlaceholderButton } from '../ui/CaptionPlaceholder';
+import { CaptionPlaceholderButton } from '../ui/CaptionPlaceholder';
 import { CommentBadgeWrapper } from '../ui/CommentBadge';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
@@ -562,7 +561,7 @@ export const MediaSingleNodeNext = (
 	);
 
 	const mediaSingleWrapperRef = React.createRef<HTMLDivElement>();
-	const captionPlaceHolderRef = React.createRef<HTMLSpanElement>();
+	const captionPlaceHolderRef = React.createRef<HTMLButtonElement>();
 
 	const browser = getBrowserInfo();
 	const notIos = !browser.ios;
@@ -655,30 +654,17 @@ export const MediaSingleNodeNext = (
 
 			<NodeViewContentHole ref={forwardRef} />
 
-			{shouldShowPlaceholder &&
-				(fg('platform_editor_typography_ugc') ? (
-					<CaptionPlaceholderButton
-						// platform_editor_typography_ugc clean up
-						// remove typecasting
-						ref={captionPlaceHolderRef as React.RefObject<HTMLButtonElement>}
-						onClick={clickPlaceholder}
-						placeholderMessage={
-							mediaOptions.allowImagePreview
-								? captionMessages.placeholderWithDoubleClickPrompt
-								: captionMessages.placeholder
-						}
-					/>
-				) : (
-					<CaptionPlaceholder
-						ref={captionPlaceHolderRef}
-						onClick={clickPlaceholder}
-						placeholderMessage={
-							mediaOptions.allowImagePreview
-								? captionMessages.placeholderWithDoubleClickPrompt
-								: captionMessages.placeholder
-						}
-					/>
-				))}
+			{shouldShowPlaceholder && (
+				<CaptionPlaceholderButton
+					ref={captionPlaceHolderRef}
+					onClick={clickPlaceholder}
+					placeholderMessage={
+						mediaOptions.allowImagePreview
+							? captionMessages.placeholderWithDoubleClickPrompt
+							: captionMessages.placeholder
+					}
+				/>
+			)}
 		</figure>
 	);
 

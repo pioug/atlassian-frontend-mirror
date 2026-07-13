@@ -1,15 +1,13 @@
 ---
 title: Icon tile
-description: An icon with background, shape, color, and size determined by the Tile component.
+description: An icon with background, color and size determined by the Tile component.
 order: 1
 ---
 
-import SectionMessage from '@atlaskit/section-message';
-import IconTileShape from '../../examples/constellation/icon-tile-shape.tsx';
 import IconTileSize from '../../examples/constellation/icon-tile-size.tsx';
 import IconTileAppearance from '../../examples/constellation/icon-tile-appearance.tsx';
 
-Icon tile places an icon on a background of a specified size, shape and color. It allows icons to be
+Icon tile places an icon on a background of a specified size and color. It allows icons to be
 prominently highlighted in a layout, such as next to a heading.
 
 ## Size
@@ -36,23 +34,3 @@ provide more contrast.
 	packageName="@atlaskit/icon"
 	hiddenSections={['iconography']}
 />
-
-## Shape
-
-Icon Tile is available in two shapes: `square` and `circle`.
-
-<SectionMessage title="Deprecated" appearance="warning">
-	<p>
-		The <inlineCode>shape</inlineCode> prop is deprecated and will be removed in a future version,
-		meaning all Icon tiles will only be available in a square shape rather than a circle. Consider
-		migrating to alternatives such as a square tile, an{' '}
-		<a href="/components/button/icon-button/examples">Icon Button</a> for interactive elements, or
-		rebuilding the component custom using ADS primitives.
-	</p>
-	<p>
-		Since the circle shape is deprecated, Icon Tiles with this shape will not be affected by the
-		feature flag that updates tile to the new design language.
-	</p>
-</SectionMessage>
-
-<Example Component={IconTileShape} packageName="@atlaskit/icon" hiddenSections={['iconography']} />

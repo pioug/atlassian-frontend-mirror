@@ -192,28 +192,22 @@ export default function transformer(file: FileInfo, api: API): string {
 		// Update original declaration to only keep root symbols
 		if (keepInRoot.length > 0) {
 			path.node.specifiers = keepInRoot;
-		} else {
-			// Remove the original declaration entirely (all symbols migrated)
-			j(path).remove();
-		}
-
-		// Insert new import declarations after the (now possibly removed) original.
-		// We insert them before the next sibling, or at the end of imports.
-		// Use the path's parent to insert after it.
-		if (keepInRoot.length > 0) {
-			// Insert after the updated root import
+			// Insert new sub-path imports immediately after the (now trimmed) root import
 			j(path).insertAfter(newImports.reverse());
 		} else {
-			// The original was removed; find the last import to insert after it,
-			// or prepend to body if there are no other imports.
-			const allImports = source.find(j.ImportDeclaration);
-			if (allImports.length > 0) {
-				j(allImports.at(allImports.length - 1).get()).insertAfter(newImports.reverse());
-			} else {
-				// No imports left — prepend to body
-				const body = source.find(j.Program).get('body');
-				newImports.reverse().forEach((decl) => body.value.unshift(decl));
+			// All symbols migrated — insert new imports at the original position
+			// by inserting before the original node, then removing it.
+			// Preserve any leading comments (e.g. /* eslint-disable ... */) from
+			// the original node onto the first replacement node so recast doesn't drop them.
+			const leadingComments = (path.node as any).comments?.filter((c: any) => c.leading);
+			if (leadingComments?.length) {
+				const firstNew = newImports[0];
+				(firstNew as any).comments = [...leadingComments, ...((firstNew as any).comments ?? [])];
+				// Clear from original so they aren't printed twice
+				(path.node as any).comments = (path.node as any).comments.filter((c: any) => !c.leading);
 			}
+			j(path).insertBefore(newImports);
+			j(path).remove();
 		}
 	});
 

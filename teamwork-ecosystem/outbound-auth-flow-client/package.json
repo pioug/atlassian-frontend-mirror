@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/outbound-auth-flow-client",
-	"version": "4.0.0",
+	"version": "4.1.0",
 	"description": "Front-end library for starting outbound auth flows",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./auth": "./src/auth.ts",
 		"./error": "./src/error.ts",
 		"./types": "./src/types.ts"
 	}

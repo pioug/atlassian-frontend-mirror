@@ -2,13 +2,11 @@
  * @jest-environment node
  */
 
-import {
-	cloudEnvironment,
-	isFedrampModerate,
-	isIsolatedCloud,
-	isolatedCloudDomain,
-	isolationContextId,
-} from './index';
+import { cloudEnvironment } from './cloudEnvironment';
+import { isFedrampModerate } from './isFedrampModerate';
+import { isIsolatedCloud } from './isIsolatedCloud';
+import { isolatedCloudDomain } from './isolatedCloudDomain';
+import { isolationContextId } from './isolationContextId';
 
 describe('Perimeter Methods for SSR (non-browser)', () => {
 	beforeEach(() => {

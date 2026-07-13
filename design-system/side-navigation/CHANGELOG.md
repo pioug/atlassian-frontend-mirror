@@ -1,5 +1,18 @@
 # @atlaskit/side-navigation
 
+## 12.3.0
+
+### Minor Changes
+
+- [`795b402f39a2d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/795b402f39a2d) -
+  Add motion to side navigation Item interaction states (hover, pressed, and selected
+  background/text colour) behind the platform-dst-motion-uplift-list-item feature flag. Rendering is
+  unchanged when the flag is off.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

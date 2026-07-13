@@ -1,5 +1,25 @@
 # @atlaskit/icon
 
+## 37.0.0
+
+### Major Changes
+
+- [`eb572c1c104f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb572c1c104f1) -
+  Removed the `shape` prop, `UNSAFE_circleReplacementComponent` prop, and `IconTileCircleProps` type
+  from `IconTile`. Circle-shaped icon tiles are no longer supported — `IconTile` now renders a
+  square tile only.
+
+  Feature gates `platform_dst_icon_tile_circle_replacement` and
+  `platform_dst_icon_tile_circle_replacement_stage2` have been cleaned up.
+
+  **Migration:** If you were using
+  `<IconTile shape="circle" UNSAFE_circleReplacementComponent={<MyComponent />} />`, replace the
+  entire `<IconTile>` with `<MyComponent />` directly.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.2.0
 
 ### Minor Changes

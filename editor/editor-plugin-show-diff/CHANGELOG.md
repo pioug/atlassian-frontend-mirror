@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.4.0
+
+### Minor Changes
+
+- [`0f27159a9087b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f27159a9087b) -
+  Add `hideAddedDiffsUnderline` option to the `showDiff` command to disable the dark-purple
+  underline on added/updated diff content while keeping the purple highlight. Only affects the
+  extended/`smart` inserted styles, is gated behind the `platform_editor_ai_smart_diff` feature
+  gate, and defaults to `false`.
+
+  ```ts
+  editorApi.showDiff.commands.showDiff({
+  	steps,
+  	originalDoc,
+  	hideAddedDiffsUnderline: true,
+  });
+  ```
+
 ## 10.3.0
 
 ### Minor Changes

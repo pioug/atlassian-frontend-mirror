@@ -1,10 +1,10 @@
 export { isFedRamp } from './services/host-based-lookup/is-fedramp';
-export { getATLContextUrl, getATLContextDomain } from './services/host-based-lookup/domain-lookup';
+export { getATLContextDomain } from './services/host-based-lookup/domain-lookup/getATLContextDomain';
+export { getATLContextUrl } from './services/host-based-lookup/domain-lookup/getATLContextUrl';
 export type { Perimeter, DomainConfig } from './common/constants/host-based-lookup/types';
-export {
-	isFedrampModerate,
-	isIsolatedCloud,
-	isolatedCloudDomain,
-	isolationContextId,
-} from './services/perimeter';
-export { getDomainInContext, getUrlForDomainInContext } from './services/generalized-domain-lookup';
+export { isFedrampModerate } from './services/perimeter/isFedrampModerate';
+export { isIsolatedCloud } from './services/perimeter/isIsolatedCloud';
+export { isolatedCloudDomain } from './services/perimeter/isolatedCloudDomain';
+export { isolationContextId } from './services/perimeter/isolationContextId';
+export { getDomainInContext } from './services/generalized-domain-lookup/getDomainInContext';
+export { getUrlForDomainInContext } from './services/generalized-domain-lookup/getUrlForDomainInContext';

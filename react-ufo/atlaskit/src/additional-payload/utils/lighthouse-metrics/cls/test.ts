@@ -1,13 +1,62 @@
 import { BufferWithMaxLength } from '../utils/buffer';
 
-import type { LayoutShiftPerformanceEntry } from './types';
+import type { LayoutShiftAttribution, LayoutShiftPerformanceEntry } from './types';
 
 import { getCLS } from './index';
 
-const makeBuffer = (arr: Array<{ startTime: number; duration: number; value: number }>) => {
+type LayoutShiftTestEntry = {
+	startTime: number;
+	duration: number;
+	value: number;
+	sources?: LayoutShiftAttribution[];
+};
+
+const createRect = ({
+	x,
+	y,
+	width,
+	height,
+}: {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+}): DOMRectReadOnly => ({
+	x,
+	y,
+	width,
+	height,
+	top: y,
+	right: x + width,
+	bottom: y + height,
+	left: x,
+	toJSON: () => ({}),
+});
+
+const shiftedSource: LayoutShiftAttribution = {
+	node: document.createElement('div'),
+	previousRect: createRect({ x: 0, y: 0, width: 100, height: 100 }),
+	currentRect: createRect({ x: 0, y: 10, width: 100, height: 100 }),
+	toJSON: () => ({}),
+};
+
+const unchangedSource: LayoutShiftAttribution = {
+	node: document.createElement('div'),
+	previousRect: createRect({ x: 0, y: 0, width: 100, height: 100 }),
+	currentRect: createRect({ x: 0, y: 0, width: 100, height: 100 }),
+	toJSON: () => ({}),
+};
+
+const makeBuffer = (arr: LayoutShiftTestEntry[]) => {
 	const buffer = new BufferWithMaxLength<LayoutShiftPerformanceEntry>();
 	arr.forEach((a) => {
-		buffer.push({ ...a, entryType: 'layout-shift', name: '', toJSON: () => a, sources: [] });
+		buffer.push({
+			...a,
+			entryType: 'layout-shift',
+			name: '',
+			toJSON: () => a,
+			sources: a.sources ?? [shiftedSource],
+		});
 	});
 	return buffer;
 };
@@ -35,6 +84,19 @@ describe('tbt', () => {
 				]),
 			),
 		).toBe(1.4);
+	});
+
+	test('should exclude layout shifts where all sources have unchanged rect positions', () => {
+		expect(
+			getCLS(
+				0,
+				20000,
+				makeBuffer([
+					{ startTime: 1, duration: 0, value: 0.7, sources: [unchangedSource] },
+					{ startTime: 51, duration: 0, value: 0.5 },
+				]),
+			),
+		).toBe(0.5);
 	});
 
 	test('should group layout shifts into two groups and return max when distance is more than 1s', () => {

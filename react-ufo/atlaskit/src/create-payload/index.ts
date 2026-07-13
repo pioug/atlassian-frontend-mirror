@@ -41,8 +41,6 @@ import {
 	stringifyLabelStackFully,
 } from './common/utils';
 import { LabelStackRegistry } from './common/utils/label-stack-registry';
-import { createCriticalMetricsPayloads } from './critical-metrics-payload';
-import type { CriticalMetricsPayload } from './critical-metrics-payload/types';
 import { addPerformanceMeasures } from './utils/add-performance-measures';
 import { applySegment3pDataBudget, buildSegment3pData } from './utils/flatten-segment-3p-timings';
 import { getBatteryInfoToLegacyFormat } from './utils/get-battery-info';
@@ -534,7 +532,6 @@ type PageLoadInitialSSRMetrics = {
 async function createInteractionMetricsPayload(
 	interaction: InteractionMetrics,
 	interactionId: string,
-	criticalPayloadCount?: number,
 	vcMetrics?: Awaited<ReturnType<typeof getVCMetrics>>,
 ): Promise<InteractionMetricsPayloadResult> {
 	const interactionPayloadStart = performance.now();
@@ -790,13 +787,6 @@ async function createInteractionMetricsPayload(
 
 				'event:memory:usage': createMemoryStateReport(interaction.start, interaction.end),
 
-				...(criticalPayloadCount !== undefined
-					? {
-							'ufo:multipayload': true,
-							'ufo:criticalPayloadCount': criticalPayloadCount,
-						}
-					: {}),
-
 				'ufo:pageVisibilityHiddenTimestamp': getEarliestHiddenTiming(
 					interaction.start,
 					interaction.end,
@@ -905,9 +895,12 @@ async function createInteractionMetricsPayload(
 
 	// in order of importance, first one being least important
 	// we can add more fields as necessary
-	const interactionMetricsFieldsToTrim = fg('ufo_remove_featureflags_from_trimmed_fields')
-		? ['requestInfo', 'resourceTimings', 'segment3pData', 'segment3pTimingAborts']
-		: ['requestInfo', 'featureFlags', 'resourceTimings', 'segment3pData', 'segment3pTimingAborts'];
+	const interactionMetricsFieldsToTrim = [
+		'requestInfo',
+		'resourceTimings',
+		'segment3pData',
+		'segment3pTimingAborts',
+	];
 
 	// Top-level properties that can be trimmed if payload exceeds size limit
 	const topLevelFieldsToTrim = ['ufo:pageVisibilityTimeline'];
@@ -1019,7 +1012,7 @@ type InteractionMetricsPayloadResult = {
 export async function createPayloads(
 	interactionId: string,
 	interaction: InteractionMetrics,
-): Promise<(CriticalMetricsPayload | InteractionMetricsPayloadResult)[]> {
+): Promise<InteractionMetricsPayloadResult[]> {
 	const ufoNameOverride = getUfoNameOverride(interaction);
 	const modifiedInteraction = { ...interaction, ufoName: ufoNameOverride };
 
@@ -1028,38 +1021,18 @@ export async function createPayloads(
 		return [];
 	}
 
-	const payloads: (CriticalMetricsPayload | InteractionMetricsPayloadResult)[] = [];
-	const isCriticalMetricsEnabled = fg('platform_ufo_critical_metrics_payload');
-
-	// Calculate VC metrics once to avoid duplicate expensive calculations
-	const vcMetrics = await getVCMetrics(interaction);
-
-	// typeof Promise<CriticalMetricsPayload[]>
-	const criticalMetricsPayloads = isCriticalMetricsEnabled
-		? await createCriticalMetricsPayloads(interactionId, interaction, vcMetrics)
-		: [];
-
-	payloads.push(...criticalMetricsPayloads);
-
-	const criticalPayloadCount = isCriticalMetricsEnabled
-		? criticalMetricsPayloads.length
-		: undefined;
-
 	const interactionMetricsPayload = await createInteractionMetricsPayload(
 		modifiedInteraction,
 		interactionId,
-		criticalPayloadCount,
-		vcMetrics,
 	);
-	payloads.push(interactionMetricsPayload);
 
-	return payloads.filter(Boolean) as (CriticalMetricsPayload | InteractionMetricsPayloadResult)[];
+	return [interactionMetricsPayload];
 }
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export async function createExtraSearchPageInteractionPayload(
 	interactionId: string,
 	interaction: InteractionMetrics,
-): Promise<(CriticalMetricsPayload | InteractionMetricsPayloadResult)[]> {
+): Promise<InteractionMetricsPayloadResult[]> {
 	const SAIN_HOLD_NAMES = [
 		'search-ai-dialog-visible-text-loading',
 		'search-ai-dialog-all-text-loading',
@@ -1114,18 +1087,13 @@ export async function createExtraSearchPageInteractionPayload(
 		ufoName: NAME_OVERRIDE,
 	};
 
-	const payloads: (CriticalMetricsPayload | InteractionMetricsPayloadResult)[] = [];
-
 	const vcMetrics = await getVCMetrics(interaction, false, true);
 
 	const interactionMetricsPayload = await createInteractionMetricsPayload(
 		modifiedInteraction,
 		newInteractionId,
-		undefined,
 		vcMetrics,
 	);
 
-	payloads.push(interactionMetricsPayload);
-
-	return payloads.filter(Boolean);
+	return [interactionMetricsPayload];
 }

@@ -1472,6 +1472,7 @@ function buildSingleScenarioDocsAndSteps(
 function KitchenSinkEditor({
 	colorScheme,
 	hideDeletedDiffs,
+	hideAddedDiffsUnderline,
 	showIndicators,
 	diffType,
 	deletedDiffPlacement,
@@ -1481,6 +1482,8 @@ function KitchenSinkEditor({
 	colorScheme: ColorScheme;
 	deletedDiffPlacement: DeletedDiffPlacement;
 	diffType: DiffType;
+	/** When true, hides the purple underline on added/updated diff content (extended/smart only). */
+	hideAddedDiffsUnderline: boolean;
 	hideDeletedDiffs: boolean;
 	/** 1-based index of this scenario's label in the full visible gallery. */
 	labelIndex: number;
@@ -1562,13 +1565,22 @@ function KitchenSinkEditor({
 				steps,
 				originalDoc,
 				hideDeletedDiffs,
+				hideAddedDiffsUnderline,
 				showIndicators,
 				diffType,
 				smartThresholds,
 				deletedDiffPlacement,
 			}),
 		);
-	}, [editorApi, hideDeletedDiffs, showIndicators, diffType, deletedDiffPlacement, scenario]);
+	}, [
+		editorApi,
+		hideDeletedDiffs,
+		hideAddedDiffsUnderline,
+		showIndicators,
+		diffType,
+		deletedDiffPlacement,
+		scenario,
+	]);
 
 	return (
 		<div css={styles.scenario}>
@@ -1594,6 +1606,7 @@ function DiffPanel({
 }): React.JSX.Element {
 	const [colorScheme, setColorScheme] = useState<ColorScheme>('standard');
 	const [hideDeletedDiffs, setHideDeletedDiffs] = useState(false);
+	const [hideAddedDiffsUnderline, setHideAddedDiffsUnderline] = useState(false);
 	const [showIndicators, setShowIndicators] = useState(false);
 	const [diffType, setDiffType] = useState<DiffType>(initialDiffType);
 	const [deletedDiffPlacement, setDeletedDiffPlacement] = useState<DeletedDiffPlacement>('top');
@@ -1709,6 +1722,7 @@ function DiffPanel({
 				steps,
 				originalDoc,
 				hideDeletedDiffs,
+				hideAddedDiffsUnderline,
 				showIndicators,
 				diffType,
 				smartThresholds,
@@ -1718,6 +1732,7 @@ function DiffPanel({
 	}, [
 		editorApi,
 		hideDeletedDiffs,
+		hideAddedDiffsUnderline,
 		showIndicators,
 		diffType,
 		deletedDiffPlacement,
@@ -1743,6 +1758,9 @@ function DiffPanel({
 				<Button onClick={() => setHideDeletedDiffs((prev) => !prev)}>
 					Deleted: {hideDeletedDiffs ? 'hidden' : 'visible'}
 				</Button>
+				<Button onClick={() => setHideAddedDiffsUnderline((prev) => !prev)}>
+					Added underline: {hideAddedDiffsUnderline ? 'hidden' : 'shown'}
+				</Button>
 				<Button onClick={() => setShowIndicators((prev) => !prev)}>
 					Indicators: {showIndicators ? 'shown' : 'hidden'}
 				</Button>
@@ -1767,6 +1785,7 @@ function DiffPanel({
 				<KitchenSinkEditor
 					colorScheme={colorScheme}
 					hideDeletedDiffs={hideDeletedDiffs}
+					hideAddedDiffsUnderline={hideAddedDiffsUnderline}
 					showIndicators={showIndicators}
 					diffType={diffType}
 					deletedDiffPlacement={deletedDiffPlacement}

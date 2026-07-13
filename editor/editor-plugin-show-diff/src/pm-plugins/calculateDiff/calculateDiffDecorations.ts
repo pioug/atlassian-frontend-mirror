@@ -193,6 +193,7 @@ const calculateDiffDecorationsInner = ({
 	isInverted = false,
 	diffType = 'inline',
 	hideDeletedDiffs = false,
+	hideAddedDiffsUnderline: hideAddedDiffsUnderlineParam = false,
 	showIndicators = false,
 	smartThresholds,
 	deletedDiffPlacement = 'top',
@@ -202,6 +203,7 @@ const calculateDiffDecorationsInner = ({
 	colorScheme?: ColorScheme;
 	deletedDiffPlacement?: DeletedDiffPlacement;
 	diffType?: DiffType;
+	hideAddedDiffsUnderline?: boolean;
 	hideDeletedDiffs?: boolean;
 	intl: IntlShape;
 	isInverted?: boolean;
@@ -215,6 +217,11 @@ const calculateDiffDecorationsInner = ({
 	if (!originalDoc || !isDisplayingChanges) {
 		return { decorations: DecorationSet.empty, diffDescriptors: [] };
 	}
+
+	// Resolve the option against its gate once here, so every downstream inline/block builder
+	// receives the same value. When the gate is off the option is a no-op.
+	const hideAddedDiffsUnderline =
+		hideAddedDiffsUnderlineParam && fg('platform_editor_ai_smart_diff');
 
 	const { tr } = state;
 	let steppedDoc = originalDoc;
@@ -317,6 +324,7 @@ const calculateDiffDecorationsInner = ({
 								isInserted,
 								shouldHideDeleted,
 								showIndicators,
+								hideAddedDiffsUnderline,
 							}),
 						}),
 					);
@@ -333,6 +341,7 @@ const calculateDiffDecorationsInner = ({
 							isInserted,
 							shouldHideDeleted,
 							showIndicators,
+							hideAddedDiffsUnderline,
 						}),
 					}),
 				);
@@ -372,6 +381,7 @@ const calculateDiffDecorationsInner = ({
 						...(isExtendedEnabled(diffType) && {
 							isInserted: !isInserted,
 							diffType,
+							hideAddedDiffsUnderline,
 							// For `smart` node- and paragraph-level changes, optionally render the
 							// deleted content below the new content (gray + strikethrough) instead
 							// of above it. Controlled by `deletedDiffPlacement` (default `'top'`).
@@ -530,6 +540,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		activeIndexPos,
 		api,
 		hideDeletedDiffs,
+		hideAddedDiffsUnderline,
 		showIndicators,
 	}: {
 		activeIndexPos?: {
@@ -539,6 +550,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
 		colorScheme?: ColorScheme;
 		deletedDiffPlacement?: DeletedDiffPlacement;
+		hideAddedDiffsUnderline?: boolean;
 		hideDeletedDiffs?: boolean;
 		intl: IntlShape;
 		nodeViewSerializer: NodeViewSerializer;
@@ -561,6 +573,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				isInverted,
 				diffType,
 				hideDeletedDiffs,
+				hideAddedDiffsUnderline,
 				showIndicators,
 				smartThresholds,
 				deletedDiffPlacement,
@@ -576,6 +589,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				isInverted: lastIsInverted,
 				diffType: lastDiffType,
 				hideDeletedDiffs: lastHideDeletedDiffs,
+				hideAddedDiffsUnderline: lastHideAddedDiffsUnderline,
 				showIndicators: lastShowIndicators,
 				smartThresholds: lastSmartThresholds,
 				deletedDiffPlacement: lastDeletedDiffPlacement,
@@ -598,6 +612,7 @@ export const calculateDiffDecorations: MemoizedFn<
 					isEqual(pluginState.steps, lastPluginState.steps) &&
 					state.doc.eq(lastState.doc) &&
 					hideDeletedDiffs === lastHideDeletedDiffs &&
+					hideAddedDiffsUnderline === lastHideAddedDiffsUnderline &&
 					showIndicators === lastShowIndicators &&
 					isEqual(smartThresholds, lastSmartThresholds) &&
 					deletedDiffPlacement === lastDeletedDiffPlacement) ??

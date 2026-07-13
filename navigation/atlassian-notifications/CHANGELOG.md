@@ -1,5 +1,16 @@
 # @atlaskit/atlassian-notifications
 
+## 2.0.0
+
+### Major Changes
+
+- [`e2e4e963511f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2e4e963511f9) -
+  Migrate notification packages from Emotion/styled-components to Compiled styling. This is a
+  breaking change for consumers because projects that consume these packages now need Compiled
+  support configured in their build pipeline.
+
+  Fix notification keyboard focus order in expanded groups
+
 ## 1.0.0
 
 ### Major Changes

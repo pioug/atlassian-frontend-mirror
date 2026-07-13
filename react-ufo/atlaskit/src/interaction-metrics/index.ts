@@ -101,8 +101,6 @@ const interactionQueue: { id: string; data: InteractionMetrics }[] = [];
 const segmentCache = new Map<string, SegmentInfo>();
 export const segmentUnmountCache: Map<string, number> = new Map<string, number>(); // Temporarily store segment unmount counts
 
-let firstSegmentLoadMarked = false;
-
 interface SegmentObserver {
 	onAdd: (segment: SegmentInfo) => void;
 	onRemove: (segment: SegmentInfo) => void;
@@ -391,24 +389,10 @@ export function addMark(
 }
 
 export function markFirstSegmentLoad(
-	interactionId: string,
-	labelStack: LabelStack | null,
-	time: number = performance.now(),
-): void {
-	if (!fg('platform_mark_ufo_segment_first_load')) {
-		return;
-	}
-	const interaction = interactions.get(interactionId);
-	if (interaction != null && !firstSegmentLoadMarked) {
-		firstSegmentLoadMarked = true;
-		interaction.marks.push({
-			type: 'first_segment_load',
-			name: 'first_segment_load',
-			labelStack,
-			time,
-		});
-	}
-}
+	_interactionId: string,
+	_labelStack: LabelStack | null,
+	_time?: number,
+): void {}
 
 export function addMarkToAll(
 	type: MarkType,

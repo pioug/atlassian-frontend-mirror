@@ -1,5 +1,16 @@
 # @atlaskit/tokens
 
+## 15.6.0
+
+### Minor Changes
+
+- [`b00a6d183e0c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b00a6d183e0c4) -
+  [ux] Add `text-decoration-color` to the `motion.listitem.*` transition tokens (`hovered`,
+  `pressed`, `selected`) so list-item motion can animate underlines, and consume `motion.listitem.*`
+  in Breadcrumbs behind the `platform-dst-motion-uplift-list-item` feature gate: interactive
+  breadcrumb items (steps, ellipsis, and the current-item link) now animate their underline from
+  transparent to coloured on hover/press. Rendering is unchanged when the gate is off.
+
 ## 15.5.0
 
 ### Minor Changes

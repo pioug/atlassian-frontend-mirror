@@ -3,13 +3,30 @@
  * @jsx jsx
  */
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { useEffect, useState, useRef, type SyntheticEvent } from 'react';
 
-import { iframeCSS } from './styles';
+import { css, cssMap, jsx } from '@atlaskit/css';
+
 import { type NotificationsProps } from './types';
 import { getNotificationsSrc } from './utils';
+
+const iframeStyles = css({
+	borderWidth: 0,
+	borderStyle: 'solid',
+	borderColor: 'transparent',
+	flex: '1 0 100%',
+	height: '100%',
+	width: '100%',
+});
+
+const iframeVisibilityStyles = cssMap({
+	loading: {
+		display: 'none',
+	},
+	loaded: {
+		display: 'block',
+	},
+});
 
 export const Notifications = (props: NotificationsProps): React.JSX.Element => {
 	const { _url, locale, product, subproduct, testId, isNewExperience, ...iframeProps } = props;
@@ -48,8 +65,7 @@ export const Notifications = (props: NotificationsProps): React.JSX.Element => {
 		// eslint-disable-next-line @atlassian/a11y/iframe-has-title
 		<iframe
 			{...iframeProps}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={iframeCSS({ loading })}
+			css={[iframeStyles, iframeVisibilityStyles[loading ? 'loading' : 'loaded']]}
 			data-testid={testId}
 			onLoad={onLoad}
 			ref={ref}

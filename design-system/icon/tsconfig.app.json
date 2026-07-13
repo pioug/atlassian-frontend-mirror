@@ -38,9 +38,6 @@
 			"path": "../logo/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../tile/tsconfig.app.json"
 		},
 		{

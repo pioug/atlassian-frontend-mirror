@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 11.1.0
+
+### Minor Changes
+
+- [`6ecdd3d765227`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ecdd3d765227) -
+  CCI-17845 Using smart diffType to visualise changes when View changes button in main toolbar is
+  clicked.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.0.29
 
 ### Patch Changes

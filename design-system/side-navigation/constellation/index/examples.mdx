@@ -19,7 +19,11 @@ import SectionExample from '../../examples/constellation/section';
 This side navigation example shows all of the [components](#side-navigation-components) and
 [items](#side-navigation-items) composed together.
 
-<Example Component={DefaultExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={DefaultExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Side navigation components
 
@@ -30,33 +34,53 @@ values set.
 
 The minimum width of the container is `240px`.
 
-<Example Component={ContainerExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={ContainerExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Header and footer
 
 Use `NavigationHeader` and `NavigationFooter` to customise the header and footer.
 
-<Example Component={HeaderAndFooterExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={HeaderAndFooterExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Content
 
 This is used as the container for [navigation items](#side-navigation-items). For nested views see
 the [nested navigation example](#nested-navigation).
 
-<Example Component={ContentExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={ContentExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Section
 
 This is used to separate items into sections. Using the `title` prop makes a section implicitly
 group the items for assistive technology such as screen readers with no extra work required.
 
-<Example Component={SectionExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={SectionExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Nested navigation
 
 Use `NestableNavigationContent` if you need a container for navigation items with nested views.
 
-<Example Component={NestedExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={NestedExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Side navigation items
 
@@ -68,7 +92,11 @@ You must use the `Section` component to ensure consistent spacing around blocks 
 
 Use the go back item to provide a customized "go back" button in nested navigations.
 
-<Example Component={GoBackExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={GoBackExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Link item
 
@@ -78,7 +106,11 @@ another page using native browser navigation.
 For custom SPA transitions use a custom item with the respective router logic, following the
 [custom item example](#custom-item).
 
-<Example Component={LinkItemExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={LinkItemExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Custom item
 
@@ -88,17 +120,29 @@ The custom component receives all overflow props passed to the custom item compo
 TypeScript this will add the custom component props to the root component props type for type
 safety.
 
-<Example Component={CustomItemExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={CustomItemExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Button item
 
 This renders an item wrapped in a button tag. Use this when an action does something other than
 navigating to another page.
 
-<Example Component={ButtonItemExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={ButtonItemExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Loading
 
 Use loading skeletons to reduce the perceived loading time.
 
-<Example Component={LoadingExample} packageName="@atlaskit/side-navigation" />
+<Example
+	Component={LoadingExample}
+	packageName="@atlaskit/side-navigation"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>

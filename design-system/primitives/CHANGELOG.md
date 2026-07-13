@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 20.6.0
+
+### Minor Changes
+
+- [`c98e0cf5cc4f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c98e0cf5cc4f6) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 20.5.0
 
 ### Minor Changes

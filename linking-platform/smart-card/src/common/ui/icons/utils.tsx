@@ -112,7 +112,7 @@ export const renderIconTile = (
 				</span>
 			);
 		}
-		const { shape: _shape, UNSAFE_circleReplacementComponent: _unsafe, ...tileProps } = props;
+		const { ...tileProps } = props;
 		return (
 			<IconTile
 				appearance={appearance}

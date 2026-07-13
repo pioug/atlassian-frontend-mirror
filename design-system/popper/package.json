@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popper",
-	"version": "8.2.0",
+	"version": "8.3.0",
 	"description": "A wrapper for React Popper for situations which require a bespoke popup where other ADS components are deemed unsuitable",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -96,7 +96,9 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./popper": "./src/entry-points/popper.tsx",
-		"./react-popper": "./src/entry-points/react-popper.tsx"
+		"./react-popper": "./src/entry-points/react-popper.tsx",
+		"./manager": "./src/entry-points/manager.tsx",
+		"./reference": "./src/entry-points/reference.tsx"
 	},
 	"homepage": "https://atlassian.design/components/popper"
 }

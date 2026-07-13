@@ -1,5 +1,15 @@
 # @atlaskit/link-provider
 
+## 5.2.1
+
+### Patch Changes
+
+- [`1ec28c5b52c2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ec28c5b52c2b) -
+  Behind `platform_lp_navx_5358_dont_throw_error`, stop reporting benign "unsupported URL" resolver
+  errors as errored SmartLinks when refreshing unauthorized cards after an external auth event.
+  These expected outcomes were being surfaced to error boundaries (and Sentry); with the gate
+  enabled, the affected card now stays in its previous unauthorized state.
+
 ## 5.2.0
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.15
+
+### Patch Changes
+
+- [`2182ee870768f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2182ee870768f) -
+  Remove disabled critical metrics payload functionality from React UFO.
+- [`0eb3066bf2840`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0eb3066bf2840) -
+  Cleanup feature gate `platform_mark_ufo_segment_first_load`; first segment load marks remain
+  disabled.
+
+## 7.3.14
+
+### Patch Changes
+
+- [`6cd977a7d0e8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6cd977a7d0e8b) -
+  Cleanup feature gate ufo_remove_featureflags_from_trimmed_fields.
+
 ## 7.3.13
 
 ### Patch Changes

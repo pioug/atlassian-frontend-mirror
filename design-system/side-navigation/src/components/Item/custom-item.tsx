@@ -11,6 +11,7 @@ import {
 	type CustomItemProps,
 	type CustomItemComponentProps as MenuCustomItemComponentProps,
 } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -56,6 +57,23 @@ const styles = cssMap({
 			color: token('color.text.selected'),
 		},
 	},
+	rootMotion: {
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
+	selectedMotion: {
+		transition: token('motion.listitem.selected'),
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
 });
 
 // Dirty hack to get generics working with forward ref [1/2]
@@ -84,7 +102,12 @@ const CustomItem: CustomItemPropsHack = forwardRef<HTMLElement, CustomItemProps>
 			<Custom
 				ref={ref}
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-				css={[styles.root, props.isSelected && styles.selectedStyles]}
+				css={[
+					styles.root,
+					fg('platform-dst-motion-uplift-list-item') && styles.rootMotion,
+					props.isSelected && styles.selectedStyles,
+					props.isSelected && fg('platform-dst-motion-uplift-list-item') && styles.selectedMotion,
+				]}
 				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
 				className={className}
 				{...props}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-track-changes",
-	"version": "11.0.29",
+	"version": "11.1.0",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,11 @@
 		"react": "^18.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
-	"platform-feature-flags": {},
+	"platform-feature-flags": {
+		"platform_editor_ai_smart_diff": {
+			"type": "boolean"
+		}
+	},
 	"techstack": {
 		"@atlassian/frontend": {
 			"code-structure": [

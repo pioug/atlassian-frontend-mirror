@@ -60,7 +60,7 @@ const documentation: StructuredContentSource = {
 			},
 			usageGuidelines: [
 				'Use for icon presentation with background styling',
-				'Choose appropriate shapes and appearances',
+				'Choose appropriate size and appearances',
 				'Maintain consistent sizing across tiles',
 				'Use for visual emphasis or categorization',
 			],

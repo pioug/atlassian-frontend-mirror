@@ -8,8 +8,10 @@ import { isExtendedEnabled } from '../isExtendedEnabled';
 import {
 	editingStyle,
 	editingStyleExtended,
+	editingStyleExtendedNoUnderline,
 	editingStyleActive,
 	editingStyleActiveExtended,
+	editingStyleActiveExtendedNoUnderline,
 	deletedContentStyle,
 	deletedContentStyleActive,
 	deletedInlineContentStyleExtended,
@@ -41,11 +43,13 @@ export const createInlineChangedDecoration = ({
 	showIndicators = false,
 	doc,
 	diffType,
+	hideAddedDiffsUnderline = false,
 }: {
 	change: { fromB: number; toB: number };
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
 	doc?: PMNode;
+	hideAddedDiffsUnderline?: boolean;
 	isActive?: boolean;
 	isInserted?: boolean;
 	shouldHideDeleted?: boolean;
@@ -71,7 +75,13 @@ export const createInlineChangedDecoration = ({
 			if (colorScheme === 'traditional') {
 				style = isActive ? traditionalInsertStyleActive : traditionalInsertStyle;
 			} else {
-				style = isActive ? editingStyleActiveExtended : editingStyleExtended;
+				style = isActive
+					? hideAddedDiffsUnderline
+						? editingStyleActiveExtendedNoUnderline
+						: editingStyleActiveExtended
+					: hideAddedDiffsUnderline
+						? editingStyleExtendedNoUnderline
+						: editingStyleExtended;
 			}
 		} else {
 			if (colorScheme === 'traditional') {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "22.4.0",
+	"version": "22.5.0",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -138,6 +138,9 @@
 		"platform_dst_select_disabled_a11y_fix": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform-dst-motion-uplift-list-item": {
+			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/select/"

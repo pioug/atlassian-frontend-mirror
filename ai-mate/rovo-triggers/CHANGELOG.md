@@ -1,5 +1,16 @@
 # @atlaskit/rovo-triggers
 
+## 9.8.1
+
+### Patch Changes
+
+- [`c53637977225d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c53637977225d) -
+  Add Rovo Spaces impact instrumentation (gated behind the existing rovo_chat_spaces_fe flag) via a
+  new useSpacesAnalytics hook: space created (with createdFrom), source added (manual vs
+  recommendation, with recommendationId) / removed, source-recommendations shown, conversation added
+  (+ Rovo AI MAU), space landing viewed (with entryPoint), space search, starter clicked, and space
+  memory created / viewed.
+
 ## 9.8.0
 
 ### Minor Changes

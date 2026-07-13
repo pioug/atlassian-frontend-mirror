@@ -365,6 +365,14 @@ describe('Payload Creation with Third-Party Holds', () => {
 				customTimings: [],
 				spans: [],
 				requestInfo: [],
+				featureFlags: {
+					prior: {
+						preservedFlag: true,
+					},
+					during: {
+						preservedFlag: false,
+					},
+				},
 				reactProfilerTimings: [],
 				holdInfo: [],
 				holdActive: new Map(),
@@ -427,6 +435,15 @@ describe('Payload Creation with Third-Party Holds', () => {
 
 			expect(properties?.['ufo:vc:raw:removed']).toBe(true);
 			expect(properties?.['ufo:vc:raw:preservedOverBudget']).toBeUndefined();
+			expect(properties?.interactionMetrics?.featureFlags).toEqual({
+				prior: {
+					preservedFlag: true,
+				},
+				during: {
+					preservedFlag: false,
+				},
+			});
+			expect(properties?.['event:trimmedFields']).not.toContain('interactionMetrics.featureFlags');
 			expect(
 				properties?.['ufo:vc:rev']?.find((rev: any) => rev.revision === 'raw-handler'),
 			).toBeUndefined();

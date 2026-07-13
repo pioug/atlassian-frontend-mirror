@@ -1,1 +1,1 @@
-export { StandaloneHoverCard as HoverCard } from '../view/HoverCard';
+export { StandaloneHoverCard as HoverCard } from '../view/HoverCard/index';

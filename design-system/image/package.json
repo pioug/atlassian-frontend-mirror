@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/image",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"description": "An image that changes in light or dark themes.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -93,6 +93,7 @@
 	},
 	"homepage": "https://atlassian.design/components/image/",
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./image": "./src/ui/image/index.tsx"
 	}
 }

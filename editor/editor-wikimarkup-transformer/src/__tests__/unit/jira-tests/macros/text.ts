@@ -1,6 +1,6 @@
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { doc, p, textColor } from '@atlaskit/editor-test-helpers/doc-builder';
 import { checkParseEncodeRoundTrips } from '../../_test-helpers';
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 // Nodes
 

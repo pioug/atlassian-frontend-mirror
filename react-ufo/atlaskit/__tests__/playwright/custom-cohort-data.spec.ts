@@ -4,10 +4,7 @@
 import { expect, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: Custom Cohort Data', () => {
-	const requiredFeatureFlags = [
-		'ufo_payload_use_idle_callback',
-		'platform_ufo_critical_metrics_payload',
-	];
+	const requiredFeatureFlags = ['ufo_payload_use_idle_callback'];
 	const featureFlagsCombos = [[...requiredFeatureFlags]];
 	for (const featureFlags of featureFlagsCombos) {
 		test.describe(`with feature flags ${featureFlags.join(', ')}`, () => {
@@ -109,57 +106,6 @@ test.describe('ReactUFO: Custom Cohort Data', () => {
 							session_count: 5,
 							is_first_time: false,
 						});
-					});
-
-					test('cohort data should be present in critical metrics', async ({
-						page,
-						waitForReactUFOPayload,
-						waitForReactUFOPayloadCriticalMetrics,
-						getSectionVisibleAt,
-					}) => {
-						const mainDiv = page.locator('[data-testid="main"]');
-						const sections = page.locator('[data-testid="main"] > div');
-
-						await expect(mainDiv).toBeVisible();
-						await expect(sections.nth(2)).toBeVisible();
-
-						const sectionThreeVisibleAt = await getSectionVisibleAt('sectionThree');
-						expect(sectionThreeVisibleAt).toBeDefined();
-
-						const reactUFOPayload = await waitForReactUFOPayload();
-						expect(reactUFOPayload).toBeDefined();
-
-						expect(typeof reactUFOPayload!.attributes.properties).toBe('object');
-						const ufoProperties = reactUFOPayload!.attributes.properties;
-
-						expect(typeof ufoProperties.interactionMetrics).toBe('object');
-						const { interactionMetrics } = ufoProperties;
-
-						// Check that custom data contains cohort data
-						expect(Array.isArray(interactionMetrics.customData)).toBe(true);
-						expect(interactionMetrics.customData.length).toBeGreaterThanOrEqual(1);
-
-						// Find the custom data entry that contains cohort data
-						const cohortDataEntry = interactionMetrics.customData.find(
-							(entry: any) =>
-								entry.data &&
-								entry.data.user_type === 'premium' &&
-								entry.data.feature_version === 'v2.1',
-						);
-
-						expect(cohortDataEntry).toBeDefined();
-						expect(cohortDataEntry!.data).toEqual({
-							user_type: 'premium',
-							feature_version: 'v2.1',
-							experiment_group: 'control',
-							session_count: 5,
-							is_first_time: false,
-						});
-
-						// Verify critical metrics payloads
-						const criticalMetricsPayloads = await waitForReactUFOPayloadCriticalMetrics();
-						expect(criticalMetricsPayloads).toBeDefined();
-						expect(criticalMetricsPayloads!.length).toBeGreaterThan(0);
 					});
 
 					test('should not interfere with regular UFO functionality', async ({

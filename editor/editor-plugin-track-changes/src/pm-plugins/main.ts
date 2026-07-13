@@ -10,6 +10,7 @@ import {
 	AttrStep,
 	type Step,
 } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TrackChangesPlugin } from '../trackChangesPluginType';
 
@@ -164,6 +165,7 @@ export const createTrackChangesPlugin = (
 								api?.showDiff?.commands?.showDiff({
 									originalDoc,
 									steps: steps.map((s) => s.step),
+									diffType: fg('platform_editor_ai_smart_diff') ? 'smart' : 'inline',
 								}),
 							);
 						}

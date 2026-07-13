@@ -28,31 +28,51 @@ Select now supports to handle loading data from remote sources by default, pleas
 prop that can be given a promise or callback that will eventually resolve to its list of options
 instead of `options`.
 
-<Example Component={SelectAsync} packageName="@atlaskit/select" />
+<Example
+	Component={SelectAsync}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Single select
 
 Allows the user to select a single item from a dropdown list of options.
 
-<Example Component={SelectSingle} packageName="@atlaskit/select" />
+<Example
+	Component={SelectSingle}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Single select clearable
 
 Setting `isClearable` to true lets users clear their selection using the Backspace or Delete key.
 
-<Example Component={SelectSingleClearable} packageName="@atlaskit/select" />
+<Example
+	Component={SelectSingleClearable}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Multi select
 
 Allows the user to select multiple items from a dropdown list of options.
 
-<Example Component={SelectMulti} packageName="@atlaskit/select" />
+<Example
+	Component={SelectMulti}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Grouped options
 
 Related options can be grouped together in both a single and multi select.
 
-<Example Component={SelectGroupedOptions} packageName="@atlaskit/select" />
+<Example
+	Component={SelectGroupedOptions}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Appearance
 
@@ -60,13 +80,21 @@ Related options can be grouped together in both a single and multi select.
 
 The default select appearance.
 
-<Example Component={SelectAppearanceDefault} packageName="@atlaskit/select" />
+<Example
+	Component={SelectAppearanceDefault}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Subtle
 
 A select that's transparent until interaction or error.
 
-<Example Component={SelectAppearanceSubtle} packageName="@atlaskit/select" />
+<Example
+	Component={SelectAppearanceSubtle}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Style customization
 
@@ -79,14 +107,22 @@ With the migration to Compiled CSS, we now offer enhanced styling capabilities t
 The preferred method for customizing Select styles is using the `components` API with the xcss prop.
 This approach provides type-safe, performant styling with Compiled CSS-in-JS.
 
-<Example Component={SelectControlStyleOverride} packageName="@atlaskit/select" />
+<Example
+	Component={SelectControlStyleOverride}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Legacy: Styles Prop (Limited Support)
 
 The `styles` prop is still supported for backward compatibility, but has limitations with certain
 CSS selectors.
 
-<Example Component={SelectControlStyleOverrideLegacy} packageName="@atlaskit/select" />
+<Example
+	Component={SelectControlStyleOverrideLegacy}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ## Component customization
 
@@ -108,7 +144,11 @@ multiple disability cohorts and be cumbersome for sighted people who use keyboar
 Instead, the clear control is optimized for pointer interactions, like mouse click or tap. And
 people using a keyboard will use the `DELETE` key to clear contents and `CTRL+A` to select all.
 
-<Example Component={SelectIndicatorsClear} packageName="@atlaskit/select" />
+<Example
+	Component={SelectIndicatorsClear}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Dropdown indicator
 
@@ -116,10 +156,18 @@ The indicator for opening the `Select` is designed to indicate to users that thi
 component. By default, it is a chevron pointed down, but in this example we have replaced it with an
 emoji.
 
-<Example Component={SelectIndicatorsDropdown} packageName="@atlaskit/select" />
+<Example
+	Component={SelectIndicatorsDropdown}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>
 
 ### Loading indicator
 
 Loading indicator to be displayed in the Indicators Container when isLoading is true.
 
-<Example Component={SelectIndicatorsLoading} packageName="@atlaskit/select" />
+<Example
+	Component={SelectIndicatorsLoading}
+	packageName="@atlaskit/select"
+	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
+/>

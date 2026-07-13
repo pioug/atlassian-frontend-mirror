@@ -6,6 +6,7 @@ import { type CSSProperties, type JSX, type ReactNode, type RefCallback } from '
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -105,6 +106,15 @@ const optionStyles = cssMap({
 	focusedSelected: {
 		backgroundColor: token('color.background.selected.hovered'),
 	},
+	motion: {
+		transition: token('motion.listitem.hovered'),
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
+	motionSelected: {
+		transition: token('motion.listitem.selected'),
+	},
 });
 
 const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -124,9 +134,17 @@ const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 		<div
 			css={[
 				optionStyles.root,
+				!isDisabled &&
+					!isSelected &&
+					fg('platform-dst-motion-uplift-list-item') &&
+					optionStyles.motion,
 				isFocused && optionStyles.focused,
 				isSelected && optionStyles.selected,
 				isFocused && isSelected && optionStyles.focusedSelected,
+				!isDisabled &&
+					isSelected &&
+					fg('platform-dst-motion-uplift-list-item') &&
+					optionStyles.motionSelected,
 				isDisabled && optionStyles.disabled,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

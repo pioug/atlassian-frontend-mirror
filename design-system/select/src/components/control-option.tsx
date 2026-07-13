@@ -6,6 +6,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type OptionProps } from '../types';
@@ -38,6 +39,12 @@ const optionStyles = cssMap({
 	},
 	disabled: {
 		color: token('color.text.disabled'),
+	},
+	motion: {
+		transition: token('motion.listitem.hovered'),
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
 	},
 });
 
@@ -145,6 +152,7 @@ export const ControlOption = <Option, IsMulti extends boolean = false>(
 		<div
 			css={[
 				optionStyles.default,
+				!isDisabled && fg('platform-dst-motion-uplift-list-item') && optionStyles.motion,
 				isFocused && optionStyles.focused,
 				isDisabled && optionStyles.disabled,
 			]}

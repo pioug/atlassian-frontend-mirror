@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.8.4",
+	"version": "45.9.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -247,7 +247,8 @@
 			"publish": null,
 			"default": "./src/i18n/*.ts"
 		},
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./helpers": "./src/entry-points/helpers.ts"
 	},
 	"platform-feature-flags": {
 		"platform_navx_3298_message_wrapper": {

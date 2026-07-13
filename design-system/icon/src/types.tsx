@@ -1,4 +1,4 @@
-import type { ComponentType, ReactElement, ReactNode, SVGProps as ReactSVGProps } from 'react';
+import type { ComponentType, ReactNode, SVGProps as ReactSVGProps } from 'react';
 
 import type {
 	IconColor,
@@ -220,38 +220,7 @@ interface IconTileBaseProps {
 	testId?: string;
 }
 
-interface IconTileSquareProps extends IconTileBaseProps {
-	/**
-	 * Shape of the tile background. Defaults to "square".
-	 */
-	shape?: 'square';
-	/**
-	 * A component to render in place of circle shaped icon tiles, swapped out with a feature flag.
-	 *
-	 * Only applicable when `shape="circle"`.
-	 */
-	UNSAFE_circleReplacementComponent?: never;
-}
-
-interface IconTileCircleProps extends IconTileBaseProps {
-	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
-	/**
-	 * Shape of the tile background.
-	 * @deprecated Circle shape is deprecated and will be removed in a future version. Consider migrating to alternatives such as a square tile, or an `IconButton` for interactive elements.
-	 * If necessary, the only way to retain a circle appearance is to rebuild the component custom using ADS primitives. The prop `UNSAFE_circleReplacementComponent` can be used to
-	 * implement alternatives.
-	 */
-	shape: 'circle';
-	/**
-	 * A component to render in place of circle shaped icon tiles, swapped out with a feature flag.
-	 *
-	 * Required when `shape="circle"`. This prop is temporary, and will be used by ADS to safely
-	 * rollout alternatives as circle shaped icon tiles are deprecated.
-	 */
-	UNSAFE_circleReplacementComponent: ReactElement;
-}
-
-export type IconTileProps = IconTileSquareProps | IconTileCircleProps;
+export interface IconTileProps extends IconTileBaseProps {}
 
 export interface SkeletonProps {
 	/*

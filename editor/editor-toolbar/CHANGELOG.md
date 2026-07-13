@@ -1,5 +1,22 @@
 # @atlaskit/editor-toolbar
 
+## 2.2.0
+
+### Minor Changes
+
+- [`c98e0cf5cc4f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c98e0cf5cc4f6) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.13
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "221.7.3",
+	"version": "221.8.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -342,7 +342,7 @@
 		"./appearance-editor-full-width": "./src/entry-points/appearance-editor-full-width.tsx",
 		"./CollapsedEditor": "./src/entry-points/CollapsedEditor.tsx",
 		"./command": "./src/entry-points/command.ts",
-		"./composable-editor": "./src/composable-editor.ts",
+		"./composable-editor": "./src/entry-points/composable-editor.ts",
 		"./ContextPanel": "./src/entry-points/ContextPanel.tsx",
 		"./create-plugins-list": "./src/entry-points/create-plugins-list.ts",
 		"./editor": "./src/entry-points/editor.tsx",
@@ -365,7 +365,7 @@
 			"publish": null,
 			"default": "./package.json"
 		},
-		"./preset-default": "./src/preset-default.ts",
+		"./preset-default": "./src/entry-points/preset-default.ts",
 		"./preset-universal/universal": "./src/entry-points/preset-universal-universal.ts",
 		"./preset-universal/useUniversalPreset": "./src/entry-points/preset-universal-useUniversalPreset.ts",
 		"./preset-universal": "./src/preset-universal.ts",

@@ -1,5 +1,16 @@
 # @atlaskit/analytics-next
 
+## 12.2.1
+
+### Patch Changes
+
+- [`0ead54dc6b223`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ead54dc6b223) -
+  Remove the `analytics-next-use-legacy-context` feature gate. The Modern/Legacy React Context
+  choice is now driven solely by the `ANALYTICS_NEXT_MODERN_CONTEXT` environment variable (Modern
+  when set, Legacy otherwise), matching the previous behaviour with the gate off. The
+  `analytics-next-lock-context-type` gate is left in place: when on it captures that choice once at
+  mount instead of reading it live per render.
+
 ## 12.2.0
 
 ### Minor Changes

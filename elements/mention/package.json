@@ -146,5 +146,5 @@
 		}
 	},
 	"types": "dist/types/index.d.ts",
-	"version": "27.5.0"
+	"version": "27.5.1"
 }

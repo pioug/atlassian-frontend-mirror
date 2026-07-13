@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		}
 	],

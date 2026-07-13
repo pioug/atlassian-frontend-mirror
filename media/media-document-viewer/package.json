@@ -23,7 +23,9 @@
 	],
 	"atlaskit:src": "src/index.ts",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./document-viewer": "./src/entry-points/documentViewer.tsx",
+		"./get-document-root": "./src/entry-points/getDocumentRoot.ts"
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",
@@ -86,7 +88,7 @@
 		}
 	},
 	"name": "@atlaskit/media-document-viewer",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Modern and fast document viewer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

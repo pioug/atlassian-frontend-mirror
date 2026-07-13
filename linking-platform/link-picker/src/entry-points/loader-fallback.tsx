@@ -1,1 +1,1 @@
-export { LoaderFallback } from '../ui/loader-fallback';
+export { LoaderFallback } from '../ui/loader-fallback/index';

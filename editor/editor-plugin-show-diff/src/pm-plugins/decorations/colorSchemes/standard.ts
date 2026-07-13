@@ -44,6 +44,26 @@ export const editingStyleActiveExtended: string = convertToInlineCss({
 	padding: `1px 0 2px`,
 });
 
+/**
+ * Underline-free variants of the extended inserted-content styles. Used when the `showDiff`
+ * command is called with `hideAddedDiffsUnderline: true` to remove ONLY the dark-purple
+ * `borderBottom` underline from added/updated content while keeping the purple background
+ * highlight and padding. See the `editing*Extended` constants above for the full versions.
+ */
+export const editingStyleExtendedNoUnderline: string = convertToInlineCss({
+	background: token('color.background.accent.purple.subtlest'),
+	padding: `1px 0 2px`,
+});
+
+export const editingStyleActiveExtendedNoUnderline: string = convertToInlineCss({
+	background: token('color.background.accent.purple.subtler.pressed'),
+	padding: `1px 0 2px`,
+});
+
+export const editingContentStyleInBlockExtendedNoUnderline: string = convertToInlineCss({
+	padding: `1px 0 2px`,
+});
+
 export const deletedContentStyle: string = convertToInlineCss({
 	color: token('color.text.accent.gray'),
 	textDecoration: 'line-through',

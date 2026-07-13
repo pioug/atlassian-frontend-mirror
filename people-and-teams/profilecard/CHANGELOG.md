@@ -1,5 +1,22 @@
 # @atlaskit/profilecard
 
+## 26.9.0
+
+### Minor Changes
+
+- [`c98e0cf5cc4f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c98e0cf5cc4f6) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.8.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.8.6
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-message",
-	"version": "16.1.0",
+	"version": "16.2.0",
 	"description": "An inline message lets users know when important information is available or when an action is required.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,7 +19,8 @@
 	"exports": {
 		".": "./src/index.tsx",
 		"./constants": "./src/constants.tsx",
-		"./types": "./src/types.tsx"
+		"./types": "./src/types.tsx",
+		"./inline-message": "./src/components/inline-message/index.tsx"
 	},
 	"atlassian": {
 		"react-compiler": {

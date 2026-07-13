@@ -3,6 +3,7 @@ import { createStore, type Reducer } from 'redux';
 import merge from 'lodash/merge';
 import { type CardStore, getUrl } from '@atlaskit/linking-common';
 import { ACTION_RELOADING, ACTION_ERROR, cardAction } from '@atlaskit/linking-common';
+import { APIError } from '@atlaskit/linking-common';
 import {
 	type LinkPreview,
 	type CardPlatform,
@@ -24,6 +25,15 @@ import CardClient from './client';
  *   }));
  */
 export const SMART_CARD_EXTERNAL_AUTH_EVENT = 'atlaskit-smart-card:external-auth-completed';
+
+/**
+ * Whether the error represents a URL the resolver does not support. This is an expected,
+ * benign outcome (not a real failure) and must not be surfaced as an errored card.
+ */
+const isUnsupportedError = (error: APIError): boolean =>
+	error.type === 'UnsupportedError' ||
+	error.type === 'ResolveUnsupportedError' ||
+	error.type === 'SearchUnsupportedError';
 
 export function SmartCardProvider({
 	storeOptions,
@@ -92,6 +102,18 @@ export function SmartCardProvider({
 						);
 					},
 					(err) => {
+						// "Unsupported URL" is a benign, expected resolver outcome (ORS does not
+						// support this link), surfaced as a fatal APIError. Turning it into an
+						// errored card state causes non-flexible SmartLinks to re-throw it to their
+						// error boundary and report it to Sentry. Leave the card in its prior
+						// unauthorized state instead.
+						if (
+							err instanceof APIError &&
+							isUnsupportedError(err) &&
+							fg('platform_lp_navx_5358_dont_throw_error')
+						) {
+							return;
+						}
 						store.dispatch(cardAction(ACTION_ERROR, { url }, undefined, err, undefined, true));
 					},
 				);

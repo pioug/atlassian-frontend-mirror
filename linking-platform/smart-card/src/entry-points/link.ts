@@ -1,1 +1,1 @@
-export { default as LinkUrl } from '../view/LinkUrl';
+export { default as LinkUrl } from '../view/LinkUrl/index';

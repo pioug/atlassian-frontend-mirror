@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 221.8.0
+
+### Minor Changes
+
+- [`c98e0cf5cc4f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c98e0cf5cc4f6) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.7.3
 
 ### Patch Changes

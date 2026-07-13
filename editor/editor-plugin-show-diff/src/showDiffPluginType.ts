@@ -54,14 +54,16 @@ export type PMDiffParams = {
 	 */
 	deletedDiffPlacement?: DeletedDiffPlacement;
 	diffType?: DiffType;
+	/**
+	 * When true, removes only the dark-purple underline (`border-bottom`) from added/updated
+	 * (inserted) diff content, keeping the purple background highlight and all other styling.
+	 * Only affects the extended (`smart`) styles. Defaults to `false`, and is a no-op unless the
+	 * relevant gate is enabled.
+	 */
+	hideAddedDiffsUnderline?: boolean;
 	hideDeletedDiffs?: boolean;
 	isInverted?: boolean;
 	originalDoc: Node;
-	/**
-	 * Optional overrides for the `smart` diffType density thresholds. Ignored for other
-	 * diff types. Partial — omitted fields fall back to defaults.
-	 */
-	smartThresholds?: Partial<SmartDiffThresholds>;
 	/**
 	 * When true, the editor will scroll to bring the first diff decoration into view
 	 * after the diff is shown.
@@ -71,6 +73,11 @@ export type PMDiffParams = {
 	 * Whether to show indicators at the doc margin for the diffs.
 	 */
 	showIndicators?: boolean;
+	/**
+	 * Optional overrides for the `smart` diffType density thresholds. Ignored for other
+	 * diff types. Partial — omitted fields fall back to defaults.
+	 */
+	smartThresholds?: Partial<SmartDiffThresholds>;
 	/**
 	 * Prosemirror steps. This is used to calculate and show the diff in the editor
 	 */

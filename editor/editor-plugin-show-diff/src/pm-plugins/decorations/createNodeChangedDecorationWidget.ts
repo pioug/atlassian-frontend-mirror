@@ -39,12 +39,14 @@ export const createNodeChangedDecorationWidget = ({
 	// its replacement (gray + strikethrough).
 	placeBelow = false,
 	diffType,
+	hideAddedDiffsUnderline = false,
 }: {
 	activeIndexPos?: { from: number; to: number };
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'deleted' | 'toB'>;
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
 	doc: PMNode;
+	hideAddedDiffsUnderline?: boolean;
 	intl: IntlShape;
 	isInserted?: boolean;
 	newDoc: PMNode;
@@ -206,6 +208,7 @@ export const createNodeChangedDecorationWidget = ({
 					isActive,
 					isInserted,
 					diffType,
+					hideAddedDiffsUnderline,
 				});
 			}
 		} else if (

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 14.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.3.1
+
+### Patch Changes
+
+- [`4fa93c380fa24`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fa93c380fa24) -
+  Clean up platform editor typography UGC feature gate
+
 ## 14.3.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "30.6.0",
+	"version": "30.7.0",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -121,7 +121,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./abuseModal": "./src/abuseModal/index.ts",
+		"./abuseModal": "./src/abuseModal/abuseModal.tsx",
 		"./browser": "./src/browser.tsx",
 		"./camera": "./src/camera.ts",
 		"./classNames": "./src/classNames.ts",

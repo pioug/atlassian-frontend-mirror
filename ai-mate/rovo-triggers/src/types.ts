@@ -198,6 +198,13 @@ export type ChatNewPayload = PayloadCore<
 		PlaceholderParam
 >;
 
+export type RovoSpaceEntryPoint =
+	| 'leftNav'
+	| 'sidebar'
+	| 'zeroQuery'
+	| 'typeahead'
+	| 'inChatRecommendation';
+
 /**
  * Opens the Rovo conversation assistant and seeds a chat from a Rovo Insight,
  * reproducing the same experience as clicking an insight inside the in-panel
@@ -727,6 +734,7 @@ export type SpaceSelectedPayload = PayloadCore<
 		title: string;
 		emoji: string;
 		description?: string;
+		entryPoint?: RovoSpaceEntryPoint;
 	}
 >;
 

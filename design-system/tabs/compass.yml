@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/38184903-3c1d-411c-9466-2d82feeb91f8
 name: '@atlaskit/tabs'
-ownerId: ari:cloud:identity::team/be19136e-6275-419f-be0c-fcee844b8684 # Design System Engineers
+ownerId: ari:cloud:teams::team/814283d6-8695-4329-b2f8-d78b2645722f # Design System Team (ADS)
 labels:
   - platform-code
   - platform-afm
@@ -27,6 +27,9 @@ customFields:
   - name: Technical Owner
     type: user
     value: ari:cloud:identity::user/557058:86a9b692-7997-49cb-9984-080801b1de91 # Jared Crowe
+  - name: Reviewer Team
+    type: text
+    value: ari:cloud:teams::team/be19136e-6275-419f-be0c-fcee844b8684 # Design System Engineers
   - name: Required Reviewers Opt In
     type: boolean
     value: true
@@ -36,3 +39,9 @@ customFields:
   - name: Required Reviewer Approvals
     type: number
     value: 1
+  - name: Trusted Committers
+    type: text
+    value: ari:cloud:teams::team/814283d6-8695-4329-b2f8-d78b2645722f # Design System Team (ADS)
+  - name: Trusted Reviewer Teams
+    type: text
+    value: ari:cloud:teams::team/42f4416b-e028-4daa-b2a5-afe213ac75e1 # Design System Designers

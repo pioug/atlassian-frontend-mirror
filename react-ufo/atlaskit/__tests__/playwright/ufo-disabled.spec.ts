@@ -78,12 +78,6 @@ test.describe('UFO Disabled via config.enabled = false', () => {
 		});
 		baseExpect(postInteractionPayloads).toHaveLength(0);
 
-		// Verify no critical metrics payloads were sent
-		const criticalMetricsPayloads = await page.evaluate(() => {
-			return (window as WindowWithReactUFOTestGlobals).__websiteReactUfoCriticalMetrics || [];
-		});
-		baseExpect(criticalMetricsPayloads).toHaveLength(0);
-
 		// Verify TTVC was never marked as ready (since no UFO events were sent)
 		const ttvcReady = page.locator('[data-is-ttvc-ready="true"]');
 		await baseExpect(ttvcReady).toBeHidden();

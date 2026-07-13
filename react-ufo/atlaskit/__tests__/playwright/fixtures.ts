@@ -30,7 +30,6 @@ import type {
 	PostInteractionLogPayload,
 	ReactUFOPayload,
 } from '../../src/common/react-ufo-payload-schema';
-import { type CriticalMetricsPayload } from '../../src/create-payload/critical-metrics-payload/types';
 import type { TerminalErrorPayload } from '../../src/create-terminal-error-payload';
 
 import type { WindowWithReactUFOTestGlobals } from './window-type';
@@ -90,7 +89,6 @@ export const test: TestType<
 			featureFlags: string[];
 			examplePage: string;
 			waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
-			waitForReactUFOPayloadCriticalMetrics: () => Promise<CriticalMetricsPayload[] | null>;
 			waitForReactUFOInteractionPayload: () => Promise<ReactUFOPayload | null>;
 			waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
 			waitForInteractionExtraMetricsPayload: () => Promise<ReactUFOPayload | null>;
@@ -148,7 +146,6 @@ export const test: TestType<
 	featureFlags: string[];
 	examplePage: string;
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
-	waitForReactUFOPayloadCriticalMetrics: () => Promise<CriticalMetricsPayload[] | null>;
 	waitForReactUFOInteractionPayload: () => Promise<ReactUFOPayload | null>;
 	waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
 	waitForInteractionExtraMetricsPayload: () => Promise<ReactUFOPayload | null>;
@@ -455,44 +452,6 @@ export const test: TestType<
 			return postInteractionLogPayload;
 		};
 
-		await use(reset);
-	},
-	waitForReactUFOPayloadCriticalMetrics: async (
-		{ page }: PageArg,
-		use: FixtureUse<() => Promise<CriticalMetricsPayload[] | null>>,
-	) => {
-		const reset = async () => {
-			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
-			await expect(mainDivAfterTTVCFinished).toBeVisible({ timeout: 20000 });
-
-			let criticalMetricsPayloads: CriticalMetricsPayload[] | null = null;
-			await expect
-				.poll(
-					async () => {
-						const value = await page.evaluate(() => {
-							const payloads =
-								(window as WindowWithReactUFOTestGlobals).__websiteReactUfoCriticalMetrics || [];
-							if (payloads.length < 1) {
-								return Promise.resolve(null);
-							}
-
-							return Promise.resolve(payloads);
-						});
-
-						criticalMetricsPayloads = value;
-
-						return criticalMetricsPayloads;
-					},
-					{
-						message: `React UFO Critical Metric payloads never received.`,
-						intervals: [500],
-						timeout: 10000,
-					},
-				)
-				.not.toBeNull();
-
-			return criticalMetricsPayloads;
-		};
 		await use(reset);
 	},
 	waitForInteractionExtraMetricsPayload: async (

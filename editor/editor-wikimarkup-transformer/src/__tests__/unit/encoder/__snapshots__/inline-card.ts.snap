@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ADF => WikiMarkup - Inline Card should convert inline-card 1`] = `"this is an inline-card [EX-522]"`;
-
-exports[`ADF => WikiMarkup - Inline Card should convert inline-card that is not an issue link 1`] = `"this is an dropbox inline card [https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0|https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0|smart-link]"`;

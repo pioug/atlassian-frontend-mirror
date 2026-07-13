@@ -1,5 +1,5 @@
 import { COMMERCIAL, FEDRAMP_MODERATE, ISOLATED_CLOUD } from '../../common/constants';
-import { cloudEnvironment } from '../perimeter';
+import { cloudEnvironment } from '../perimeter/cloudEnvironment';
 
 export type BoundaryUrlMap = {
 	[ISOLATED_CLOUD]?: URL | null;

@@ -18,7 +18,7 @@
 ```ts
 import { DetailedHTMLProps } from 'react';
 import { IframeHTMLAttributes } from 'react';
-import { jsx } from '@emotion/react';
+import { jsx } from '@atlaskit/css';
 
 // @public (undocumented)
 type IframeProps = DetailedHTMLProps<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;

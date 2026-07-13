@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-nav-items",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"description": "Menu items and elements for the side nav area.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -15,7 +15,7 @@
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
-		"team": "Navigation Experiences - Global Side Nav",
+		"team": "Navigation Experiences",
 		"docsPageStructure": "tabs"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",

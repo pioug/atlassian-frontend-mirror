@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ADF => WikiMarkup - Dates should convert date node with format YYYY-MM-DD 1`] = `"Dec 04 1995 is {{1995-12-04}}"`;

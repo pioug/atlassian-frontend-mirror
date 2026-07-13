@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ADF => WikiMarkup - CodeBlock [CS-293] should not escape formatter charaters in wiki 1`] = `"{noformat}This will not escape [~mention] !file.txt! and {noformat}"`;
-
-exports[`ADF => WikiMarkup - CodeBlock should convert codeBlock node 1`] = `"{code:javascript}const i = 0;{code}"`;
-
-exports[`ADF => WikiMarkup - CodeBlock should convert codeBlock node with no language specified 1`] = `"{noformat}const i = 0;{noformat}"`;
-
-exports[`ADF => WikiMarkup - CodeBlock should convert codeBlock node with unsupported language specified 1`] = `"{noformat}const i = 0;{noformat}"`;

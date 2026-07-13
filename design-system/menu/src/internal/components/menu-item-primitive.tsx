@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { ClassNames, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, type InlineProps } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -167,6 +168,15 @@ const styles = cssMap({
 			color: token('color.text.selected'),
 		},
 	},
+	motionUnselected: {
+		transition: token('motion.listitem.hovered'),
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
+	motionSelected: {
+		transition: token('motion.listitem.selected'),
+	},
 });
 
 const spacingMapStyles = cssMap({
@@ -227,7 +237,15 @@ const MenuItemPrimitive: (props: MenuItemPrimitiveProps) => JSX.Element = ({
 							styles.root,
 							spacingMapStyles[spacing],
 							!isDisabled && !isSelected && styles.unselected,
+							!isDisabled &&
+								!isSelected &&
+								fg('platform-dst-motion-uplift-list-item') &&
+								styles.motionUnselected,
 							!isDisabled && isSelected && styles.selected,
+							!isDisabled &&
+								isSelected &&
+								fg('platform-dst-motion-uplift-list-item') &&
+								styles.motionSelected,
 							!isDisabled && isSelected && styles.selectedOld,
 							!isDisabled && isSelected && selectionStyle === 'border' && styles.selectedBorder,
 							!isDisabled && isSelected && selectionStyle === 'notch' && styles.selectedNotch,

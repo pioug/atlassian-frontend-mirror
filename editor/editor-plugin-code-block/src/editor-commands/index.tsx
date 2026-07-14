@@ -628,10 +628,7 @@ export const toggleWordWrapStateForCodeBlockNode =
 			tr.setNodeMarkup(codeBlock.pos, undefined, {
 				...codeBlockNode.attrs,
 				wrap: updatedToggleState,
-			});
-			if (fg('platform_editor_code_block_dogfooding_patch')) {
-				tr.setMeta('scrollIntoView', false);
-			}
+			}).setMeta('scrollIntoView', false);
 		} else {
 			codeBlockWrappedStates.set(codeBlockNode, updatedToggleState);
 		}

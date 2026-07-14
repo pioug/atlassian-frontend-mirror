@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-context",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Provides perimeter-specific URL resolution and helps identify which environment a product is running in.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -25,13 +25,21 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./cloud-provider": "./src/entry-points/cloud-provider.tsx",
+		"./cloud-provider": "./src/services/cloud-provider/index.tsx",
 		"./domain-lookup": "./src/entry-points/domain-lookup.tsx",
 		"./generalized-domain-lookup": "./src/entry-points/generalized-domain-lookup.tsx",
-		"./is-fedramp": "./src/entry-points/is-fedramp.tsx",
+		"./get-atl-context-domain": "./src/services/host-based-lookup/domain-lookup/getATLContextDomain.tsx",
+		"./get-atl-context-url": "./src/services/host-based-lookup/domain-lookup/getATLContextUrl.tsx",
+		"./get-domain-in-context": "./src/services/generalized-domain-lookup/getDomainInContext.tsx",
+		"./get-url-for-domain-in-context": "./src/services/generalized-domain-lookup/getUrlForDomainInContext.tsx",
+		"./is-fedramp": "./src/services/host-based-lookup/is-fedramp/index.tsx",
+		"./is-fedramp-moderate": "./src/services/perimeter/isFedrampModerate.tsx",
+		"./is-isolated-cloud": "./src/services/perimeter/isIsolatedCloud.tsx",
+		"./isolated-cloud-domain": "./src/services/perimeter/isolatedCloudDomain.tsx",
+		"./isolation-context-id": "./src/services/perimeter/isolationContextId.tsx",
 		"./perimeter": "./src/entry-points/perimeter.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		"./resolve-provided-url-by-boundary": "./src/entry-points/resolve-provided-url-by-boundary.tsx"
+		"./resolve-provided-url-by-boundary": "./src/services/resolve-provided-url-by-boundary/index.tsx",
+		"./types": "./src/common/constants/host-based-lookup/types.tsx"
 	},
 	"dependencies": {
 		"@babel/runtime": "root:*"

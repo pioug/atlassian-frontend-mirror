@@ -26,6 +26,9 @@
 			"path": "../../adf-utils/afm-cc/tsconfig.json"
 		},
 		{
+			"path": "../../../helpers/browser-apis/afm-cc/tsconfig.json"
+		},
+		{
 			"path": "../../editor-json-transformer/afm-cc/tsconfig.json"
 		},
 		{

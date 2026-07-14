@@ -74,10 +74,7 @@ export const ArticlesListItemContainer = ({
 	children,
 }: {
 	children: React.ReactNode;
-}): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
-	<div css={articlesListItemContainerStyles}>{children}</div>
-);
+}): JSX.Element => <div css={articlesListItemContainerStyles}>{children}</div>;
 
 const articlesListItemTitleSectionStyles = css({
 	display: 'flex',

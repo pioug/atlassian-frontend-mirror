@@ -180,7 +180,6 @@ const contentWrapperStyles = css({
 export default (): JSX.Element => (
 	<div css={scrollContainerStyles}>
 		<Test />
-		{/* eslint-disable-next-line @atlaskit/design-system/use-primitives */}
 		<div css={headingWrapperStyles}>
 			<h3>Scroll Container</h3>
 		</div>

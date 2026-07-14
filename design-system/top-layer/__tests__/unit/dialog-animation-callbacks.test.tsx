@@ -4,7 +4,6 @@ import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
-import { dialogMotion } from '../../src/entry-points/animations';
 import { Dialog } from '../../src/entry-points/dialog';
 
 // JSDOM does not implement CSS transitions, so `transitionend` never fires naturally.
@@ -15,8 +14,6 @@ import { Dialog } from '../../src/entry-points/dialog';
 // `Dialog` and `Popover` both delegate their entry/exit lifecycle to the shared
 // `useAnimatedVisibility` hook, so these tests intentionally mirror
 // `popover-animation-callbacks.test.tsx` to assert the two stay in sync.
-
-const animation = dialogMotion();
 
 /**
  * Minimal Dialog wrapper that exercises `onEnterFinish` and `onExitFinish` directly.
@@ -41,7 +38,7 @@ function TestDialog({
 			onExitFinish={onExitFinish}
 			label="test-dialog"
 			testId="test-dialog"
-			animate={animated ? animation : undefined}
+			animate={animated}
 		>
 			<div data-testid="content">content</div>
 		</Dialog>

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 9.0.22
+
+### Patch Changes
+
+- [`3b5a6eca9da9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5a6eca9da9d) -
+  Clean up feature gate `platform_editor_toolbar_aifc_placement_overridden`
+- Updated dependencies
+
 ## 9.0.21
 
 ### Patch Changes

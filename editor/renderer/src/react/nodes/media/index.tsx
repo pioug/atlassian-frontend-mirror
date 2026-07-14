@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 import type { PropsWithChildren, SyntheticEvent } from 'react';
 import React, { PureComponent, Fragment, useEffect, useState, useMemo } from 'react';
@@ -404,7 +403,7 @@ class Media extends PureComponent<MediaProps, object> {
 								useMinimumZIndex
 							>
 								{({ visible }: { visible: boolean }) => (
-									<>
+									<React.Fragment>
 										{visible && (
 											<ExternalImageBadge
 												type={this.props.type}
@@ -418,7 +417,7 @@ class Media extends PureComponent<MediaProps, object> {
 												isDrafting={isDrafting}
 											/>
 										)}
-									</>
+									</React.Fragment>
 								)}
 							</MediaBadges>
 							<MediaCard

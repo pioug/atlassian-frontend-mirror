@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 import React from 'react';
 
@@ -143,7 +142,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 	};
 
 	return (
-		<>
+		<React.Fragment>
 			<HX
 				id={headingIdToUse}
 				data-local-id={localId}
@@ -152,7 +151,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 				onMouseEnter={mouseEnterHandler}
 				tabIndex={-1}
 			>
-				<>
+				<React.Fragment>
 					{showAnchorLink && headingId && isRightAligned && (
 						<WrappedHeadingAnchor
 							level={props.level}
@@ -172,7 +171,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 							hideFromScreenReader
 						/>
 					)}
-				</>
+				</React.Fragment>
 			</HX>
 			<VisuallyHidden testId="visually-hidden-heading-anchor">
 				{showAnchorLink && headingId && (
@@ -184,7 +183,7 @@ function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
 					/>
 				)}
 			</VisuallyHidden>
-		</>
+		</React.Fragment>
 	);
 }
 

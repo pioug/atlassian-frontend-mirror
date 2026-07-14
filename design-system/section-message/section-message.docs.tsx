@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A component for section-level messages.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82088-101069',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-101069',
 			},
 			import: {
 				name: 'SectionMessage',

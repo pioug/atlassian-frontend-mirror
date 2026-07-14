@@ -22,7 +22,7 @@ instead of the legacy **Popper.js + `@atlaskit/layering`** pipeline.
 ### Top-layer entry points used
 
 - `@atlaskit/top-layer/popup` — `Popup`, `Popup.TriggerFunction`, `Popup.Content`
-- `@atlaskit/top-layer/animations` — `slideAndFade()`
+- `Popup.Content animate` — default top-layer popover motion
 - `@atlaskit/top-layer/placement-map` — `fromLegacyPlacement`
 - `@atlaskit/top-layer/popover` — `createPopoverCloseEvent` → legacy `onClose({ isOpen, event })`
 

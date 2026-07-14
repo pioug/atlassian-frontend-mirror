@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::21b886dc5dbda0438a7a2087fa7179f6>>
+ * @codegen <<SignedSource::e5d38b462c13db5a51281ec01f660967>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -35,8 +35,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear user identification',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=11159-22732',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-11159-22732',
 		},
 		keywords: ['avatar', 'group', 'multiple', 'users', 'team', 'overlap'],
 		category: 'data-display',
@@ -177,8 +176,7 @@ export const components: ComponentMcpPayload[] = [
 			'Keep names concise but meaningful',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=11159-23191',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-11159-23191',
 		},
 		keywords: ['avatar', 'user', 'profile', 'image', 'presence', 'status', 'representation'],
 		category: 'images',
@@ -335,8 +333,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider alternative text for non-numeric badges',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=116989-3851',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-116989-3851',
 		},
 		keywords: [
 			'badge',
@@ -404,8 +401,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider keyboard navigation for interactive banners',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13174-35360',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13174-35360',
 		},
 		keywords: ['banner', 'message', 'notification', 'alert', 'prominent', 'top', 'screen'],
 		category: 'messaging',
@@ -455,8 +451,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider screen reader experience with overlays',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13613-69028',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13613-69028',
 		},
 		keywords: ['blanket', 'overlay', 'backdrop', 'modal', 'layer'],
 		category: 'overlay',
@@ -513,8 +508,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear path context',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=144167-2564',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-144167-2564',
 		},
 		keywords: ['breadcrumbs', 'navigation', 'hierarchy', 'path', 'location'],
 		category: 'navigation',
@@ -713,8 +707,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide loading state announcements for async actions',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=81007-1077',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-81007-1077',
 		},
 		keywords: ['button', 'action', 'click', 'submit', 'form', 'interactive', 'cta'],
 		category: 'form',
@@ -921,8 +914,7 @@ export const components: ComponentMcpPayload[] = [
 			'Support screen reader announcements for date changes',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13289-46824',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13289-46824',
 		},
 		keywords: ['calendar', 'date', 'picker', 'selection', 'month', 'year', 'beta'],
 		category: 'form',
@@ -1103,8 +1095,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate error states and messaging',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13135-34359',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13135-34359',
 		},
 		keywords: ['checkbox', 'input', 'form', 'selection', 'choice', 'option', 'multiple'],
 		category: 'forms-and-input',
@@ -1201,8 +1192,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider code context and meaning',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=27203-107369',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-27203-107369',
 		},
 		keywords: ['code', 'snippet', 'inline', 'syntax', 'programming'],
 		category: 'data-display',
@@ -1364,8 +1354,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider screen reader navigation',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=17853-91040',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-17853-91040',
 		},
 		keywords: ['comment', 'discussion', 'thread', 'conversation', 'chat'],
 		category: 'data-display',
@@ -1700,8 +1689,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider screen reader announcements',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13285-45993',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13285-45993',
 		},
 		keywords: ['date', 'picker', 'calendar', 'selection', 'form'],
 		category: 'form',
@@ -2711,8 +2699,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate ARIA attributes',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=81040-12691',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-81040-12691',
 		},
 		keywords: ['dropdown', 'menu', 'actions', 'options', 'popup', 'contextual'],
 		category: 'navigation',
@@ -2818,8 +2805,7 @@ export const components: ComponentMcpPayload[] = [
 			'A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.',
 		status: 'general-availability',
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=76953-155820',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-76953-155820',
 		},
 		keywords: [
 			'table',
@@ -3169,8 +3155,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure actionable content is accessible',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=81047-55512',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-81047-55512',
 		},
 		keywords: ['empty', 'state', 'placeholder', 'no-content', 'void'],
 		category: 'status',
@@ -3310,8 +3295,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider screen reader announcement conflicts',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13544-55615',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13544-55615',
 		},
 		keywords: ['flag', 'message', 'notification', 'alert', 'toast'],
 		category: 'feedback',
@@ -3959,8 +3943,7 @@ export const components: ComponentMcpPayload[] = [
 		],
 		contentGuidelines: ['Use clear, descriptive form titles', 'Keep descriptions concise'],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=14470-110748',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-14470-110748',
 		},
 		keywords: ['form', 'header', 'title', 'description'],
 		category: 'form',
@@ -4514,8 +4497,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider keyboard navigation',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13197-36936',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13197-36936',
 		},
 		keywords: ['inline', 'edit', 'editable', 'text', 'input'],
 		category: 'form',
@@ -4788,8 +4770,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate message types and colors',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13976-99230',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13976-99230',
 		},
 		keywords: ['message', 'inline', 'feedback', 'status', 'alert'],
 		category: 'feedback',
@@ -4898,8 +4879,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear visual indicators for link state',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=71522-53725',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-71522-53725',
 		},
 		keywords: ['link', 'navigation', 'href', 'anchor', 'url'],
 		category: 'navigation',
@@ -5010,8 +4990,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider color-blind users when choosing colors',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=116954-2709',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-116954-2709',
 		},
 		keywords: ['lozenge', 'badge', 'label', 'status', 'indicator', 'pill'],
 		category: 'status-indicators',
@@ -5483,8 +5462,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear section titles',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13200-39907',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13200-39907',
 		},
 		keywords: ['menu', 'group', 'navigation', 'section', 'items'],
 		category: 'navigation',
@@ -5724,8 +5702,7 @@ export const components: ComponentMcpPayload[] = [
 			'Maintain focus within modal when open',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82128-80670',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82128-80670',
 		},
 		keywords: ['modal', 'dialog', 'popup', 'overlay', 'focused', 'interaction', 'layer'],
 		category: 'overlay',
@@ -6167,6 +6144,50 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'useMotion',
+		package: '@atlaskit/motion',
+		description:
+			'A hook form of the Motion primitive that returns an xcss value, style, and ref so you can apply entry and exit animations to an existing element without rendering an extra wrapper element. Use it when a wrapper would break layout, such as a CSS grid slot that must remain a direct child of its grid container. Wrap with ExitingPersistence to enable exit animations.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use useMotion instead of the Motion component when you must not add an extra wrapper element (for example a CSS grid slot or a semantic element you already render)',
+			'Spread the returned style and ref onto the element you want to animate, and apply the returned xcss value via the element xcss prop',
+			'The returned ref must be attached — it is used to measure the animation duration so the exit animation can complete before the element is removed and before onFinish is called',
+			'Merge the returned xcss and style with any of your own',
+			'Wrap the element in ExitingPersistence and give the conditional child a unique key so its exit animation plays before it is removed from the DOM',
+			'When using enteringAnimationXcss or exitingAnimationXcss, the consuming component must use the Compiled jsx pragma so the returned xcss value resolves correctly',
+		],
+		accessibilityGuidelines: [
+			"Always respect the user's reduced-motion preference — useMotion automatically disables animations when reduced motion is preferred",
+		],
+		keywords: [
+			'motion',
+			'animation',
+			'hook',
+			'usemotion',
+			'enter',
+			'exit',
+			'transition',
+			'fade',
+			'stagger',
+			'staggered',
+		],
+		category: 'animation',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useState } from 'react';\nimport { cssMap, cx, jsx } from '@atlaskit/css';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport { useMotion } from '@atlaskit/motion/use-motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimation: token('motion.modal.enter'),\n\t\tanimationFillMode: 'backwards',\n\t},\n\texiting: {\n\t\tanimation: token('motion.modal.exit'),\n\t\tanimationFillMode: 'forwards',\n\t},\n});\n/**\n * `useMotion` exposes the current motion `state`; the consumer maps that state to its\n * own styling and applies it directly to the element it renders — no extra wrapper\n * element is created. The returned `ref` must be attached so the exit animation can\n * complete before `ExitingPersistence` removes the element.\n */\nfunction AnimatedItem(): JSX.Element {\n\tconst { state, ref } = useMotion<HTMLDivElement>();\n\treturn (\n\t\t<div\n\t\t\tref={ref}\n\t\t\tclassName={cx(state === 'entering' && styles.entering, state === 'exiting' && styles.exiting)}\n\t\t>\n\t\t\tContent\n\t\t</div>\n\t);\n}\nexport default function UseMotionExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<React.Fragment>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>{isVisible && <AnimatedItem key=\"item\" />}</ExitingPersistence>\n\t\t</React.Fragment>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useState } from 'react';\nimport { cssMap, cx, jsx } from '@atlaskit/css';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport { useMotion } from '@atlaskit/motion/use-motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t\tanimationFillMode: 'backwards',\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t\tanimationFillMode: 'forwards',\n\t},\n});\n/**\n * `useMotion` exposes the current motion `state`; the consumer owns its custom animation\n * styling and applies it directly to the element it renders based on that state — no extra\n * wrapper element is created.\n */\nfunction AnimatedItem(): JSX.Element {\n\tconst { state, ref } = useMotion<HTMLDivElement>();\n\treturn (\n\t\t<div\n\t\t\tref={ref}\n\t\t\tclassName={cx(state === 'entering' && styles.entering, state === 'exiting' && styles.exiting)}\n\t\t>\n\t\t\tContent\n\t\t</div>\n\t);\n}\nexport default function UseMotionCustomExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<React.Fragment>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>{isVisible && <AnimatedItem key=\"item\" />}</ExitingPersistence>\n\t\t</React.Fragment>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport React, { useState } from 'react';\nimport { keyframes } from '@compiled/react';\nimport { cssMap, cx, jsx } from '@atlaskit/css';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport { useMotion } from '@atlaskit/motion/use-motion';\nimport { token } from '@atlaskit/tokens';\nconst slideIn = keyframes({\n\t'0%': { transform: 'translateX(-24px)' },\n\t'100%': { transform: 'translateX(0)' },\n});\nconst slideOut = keyframes({\n\t'0%': { transform: 'translateX(0)' },\n\t'100%': { transform: 'translateX(-24px)' },\n});\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,\n\t\tanimationFillMode: 'backwards',\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,\n\t\tanimationFillMode: 'forwards',\n\t},\n});\n/**\n * `useMotion` works with custom `@compiled/react` keyframes. The hook exposes the current\n * motion `state`, which the consumer maps to its own keyframe-based styling, applying it\n * directly to the element it renders — no extra wrapper element is created.\n */\nfunction AnimatedItem(): JSX.Element {\n\tconst { state, ref } = useMotion<HTMLDivElement>();\n\treturn (\n\t\t<div\n\t\t\tref={ref}\n\t\t\tclassName={cx(state === 'entering' && styles.entering, state === 'exiting' && styles.exiting)}\n\t\t>\n\t\t\tContent\n\t\t</div>\n\t);\n}\nexport default function UseMotionCustomKeyframeExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<React.Fragment>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>{isVisible && <AnimatedItem key=\"item\" />}</ExitingPersistence>\n\t\t</React.Fragment>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'onFinish',
+				type: '(state: Transition) => void',
+				description:
+					'Will callback when the motion has finished in the particular direction.\nIf it finished entering direction will be `entering`.\nAnd vice versa for `exiting`.',
+			},
+		],
+	},
+	{
 		name: 'TopNav',
 		package: '@atlaskit/navigation-system',
 		description: 'The horizontal top navigation bar component.',
@@ -6223,8 +6244,7 @@ export const components: ComponentMcpPayload[] = [
 		description: 'An object icon component that represents an Atlassian story content type.',
 		status: 'general-availability',
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=107096-47822',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-107096-47822',
 		},
 		keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
 		category: 'images and icons',
@@ -6302,8 +6322,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear action labels',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82097-75325',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82097-75325',
 		},
 		keywords: ['page', 'header', 'title', 'breadcrumbs', 'actions'],
 		category: 'layout',
@@ -6384,8 +6403,7 @@ export const components: ComponentMcpPayload[] = [
 			'Announce page changes to screen readers',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13916-66923',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13916-66923',
 		},
 		keywords: ['pagination', 'pages', 'navigation', 'paging', 'controls'],
 		category: 'navigation',
@@ -6489,8 +6507,7 @@ export const components: ComponentMcpPayload[] = [
 			'Handle focus management',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82088-103357',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-103357',
 		},
 		keywords: ['popper', 'positioning', 'tooltip', 'popup', 'overlay'],
 		category: 'utility',
@@ -6561,8 +6578,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide escape key dismissal',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82088-103357',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-103357',
 		},
 		keywords: ['popup', 'overlay', 'floating', 'content', 'trigger'],
 		category: 'overlay',
@@ -7502,8 +7518,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide alternative text for progress status',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=5701-6335',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-5701-6335',
 		},
 		keywords: ['progress', 'bar', 'loading', 'status', 'completion', 'indeterminate'],
 		category: 'loading',
@@ -7645,8 +7660,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider progress timing and updates',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13186-35931',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13186-35931',
 		},
 		keywords: ['progress', 'indicator', 'steps', 'completion', 'status'],
 		category: 'feedback',
@@ -7733,8 +7747,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider progress timing and updates',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=5704-5050',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-5704-5050',
 		},
 		keywords: ['progress', 'tracker', 'steps', 'completion', 'workflow'],
 		category: 'feedback',
@@ -7797,8 +7810,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use validation instead of disabled state for better accessibility',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13200-41362',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13200-41362',
 		},
 		keywords: ['radio', 'button', 'input', 'form', 'selection', 'choice', 'option'],
 		category: 'form',
@@ -8042,8 +8054,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider keyboard navigation for interactive section messages',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82088-101069',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-101069',
 		},
 		keywords: ['section', 'message', 'alert', 'notification', 'contextual', 'information'],
 		category: 'feedback',
@@ -10283,8 +10294,7 @@ export const components: ComponentMcpPayload[] = [
 			'Support screen reader announcements',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13212-38027',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13212-38027',
 		},
 		keywords: ['select', 'dropdown', 'form', 'input', 'options', 'choice', 'picker'],
 		category: 'form',
@@ -10690,8 +10700,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider screen reader experience during loading states',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=101024-1311',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-101024-1311',
 		},
 		keywords: ['skeleton', 'placeholder', 'loading', 'content', 'shimmer', 'animation'],
 		category: 'loading',
@@ -10765,8 +10774,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider alternative loading indicators',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=8070-10241',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-8070-10241',
 		},
 		keywords: ['spinner', 'loading', 'progress', 'wait', 'activity'],
 		category: 'feedback',
@@ -11410,8 +11418,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure tab content is accessible',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=5775-8556',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-5775-8556',
 		},
 		keywords: ['tabs', 'navigation', 'content', 'organization', 'grouping'],
 		category: 'navigation',
@@ -11486,8 +11493,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide alternative text for tag removal actions',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=121350-11129',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-121350-11129',
 		},
 		keywords: ['tag', 'label', 'category', 'filter', 'chip', 'badge'],
 		category: 'data-display',
@@ -11913,8 +11919,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate error states and messaging',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13116-32075',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13116-32075',
 		},
 		keywords: ['textarea', 'input', 'form', 'text', 'multiline', 'input', 'field'],
 		category: 'forms-and-input',
@@ -12051,8 +12056,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate error states and messaging',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13076-28181',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13076-28181',
 		},
 		keywords: ['textfield', 'input', 'form', 'text', 'field', 'single-line'],
 		category: 'form',
@@ -12142,8 +12146,7 @@ export const components: ComponentMcpPayload[] = [
 			'A tile is a versatile, foundational container with baked-in sizing and radii properties for displaying elements in a tile shape.',
 		status: 'general-availability',
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=107093-50537',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-107093-50537',
 		},
 		keywords: ['tile', 'icon', 'container', 'avatar', 'asset', 'emoji', 'logo', 'shape'],
 		category: 'images and icons',
@@ -12214,8 +12217,7 @@ export const components: ComponentMcpPayload[] = [
 			"Use descriptive labels that explain the toggle's purpose",
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=7947-9758',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-7947-9758',
 		},
 		keywords: ['toggle', 'switch', 'on-off', 'enabled', 'disabled', 'state'],
 		category: 'forms-and-input',
@@ -12327,8 +12329,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide keyboard access (hover + focus trigger)',
 		],
 		designSource: {
-			figmaUrl:
-				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=14493-106630',
+			figmaUrl: 'https://go.atlassian.com/figma-library-ads-14493-106630',
 		},
 		keywords: ['tooltip', 'hint', 'help', 'floating', 'label', 'explanation'],
 		category: 'overlays-and-layering',

@@ -1,5 +1,13 @@
 # @atlaskit/date-label
 
+## 1.0.3
+
+### Patch Changes
+
+- [`1233133cba8f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1233133cba8f7) -
+  Updated the `spacious` neutral-appearance `DateLabel` and `DateLabelDropdownTrigger` colors to
+  match a `subtle` Button: `color.border` border, `color.text.subtle` text, and `currentColor` icon.
+
 ## 1.0.2
 
 ### Patch Changes

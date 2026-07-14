@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -129,7 +128,7 @@ function OurLinkMenuItem({
 		});
 
 	return (
-		<>
+		<React.Fragment>
 			<LinkMenuItem
 				href="#"
 				testId={testId}
@@ -144,7 +143,7 @@ function OurLinkMenuItem({
 				Link menu item
 			</LinkMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -176,7 +175,7 @@ function OurButtonMenuItem({
 		});
 
 	return (
-		<>
+		<React.Fragment>
 			<ButtonMenuItem
 				testId={testId}
 				elemBefore={<BasketballIcon label="" />}
@@ -190,7 +189,7 @@ function OurButtonMenuItem({
 				Button menu item
 			</ButtonMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -222,7 +221,7 @@ function OurFlyoutMenuItem({
 		});
 
 	return (
-		<>
+		<React.Fragment>
 			<FlyoutMenuItem>
 				<FlyoutMenuItemTrigger
 					testId={triggerTestId}
@@ -240,7 +239,7 @@ function OurFlyoutMenuItem({
 				</FlyoutMenuItemContent>
 			</FlyoutMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -344,7 +343,7 @@ function OurExpandableMenuItem({
 	}, [state.type, isExpanded]);
 
 	return (
-		<>
+		<React.Fragment>
 			<ExpandableMenuItem
 				isExpanded={isExpanded}
 				onExpansionToggle={() => setIsExpanded((value) => !value)}
@@ -359,7 +358,7 @@ function OurExpandableMenuItem({
 					hasDragIndicator
 					elemBefore={<FilterIcon label="" />}
 					actionsOnHover={
-						<>
+						<React.Fragment>
 							<IconButton
 								label="Add"
 								icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
@@ -367,7 +366,7 @@ function OurExpandableMenuItem({
 								spacing="compact"
 							/>
 							<FakeMoreMenu />
-						</>
+						</React.Fragment>
 					}
 				>
 					Expandable menu item
@@ -377,7 +376,7 @@ function OurExpandableMenuItem({
 				</ExpandableMenuItemContent>
 			</ExpandableMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }
 

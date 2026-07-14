@@ -4,13 +4,6 @@ import { render, screen } from '@testing-library/react';
 
 import AnalyticsErrorBoundary from '../../AnalyticsErrorBoundary';
 
-// AnalyticsErrorBoundary selects the modern context path via isModernContextEnabledEnv (env-driven
-// and falsy in Jest). Force it truthy so the modern context is exercised without removing the env util.
-jest.mock('../../../utils/isModernContextEnabledEnv', () => ({
-	__esModule: true,
-	default: true,
-}));
-
 jest.mock('../../AnalyticsContext/ModernAnalyticsContext', () => ({
 	__esModule: true,
 	default: () => <div>ModernAnalytics</div>,

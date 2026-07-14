@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { act, render, screen } from '@atlassian/testing-library';
 
-import { slideAndFade } from '../../src/entry-points/animations';
 import { getAriaForTrigger } from '../../src/entry-points/get-aria-for-trigger';
 import { Popover } from '../../src/entry-points/popover';
 import { usePopoverId } from '../../src/entry-points/use-popover-id';
@@ -11,8 +10,6 @@ import { usePopoverId } from '../../src/entry-points/use-popover-id';
 // When `animate` is set, the code falls back to a `setTimeout(fn, durationMs + 50)`.
 // Unit tests use fake timers to drive that fallback. Real `transitionend` behaviour
 // is covered by the Playwright tests in animation-lifecycle.spec.tsx.
-
-const animation = slideAndFade();
 
 /**
  * Minimal Popover wrapper that exercises `onEnterFinish` and `onExitFinish` directly.
@@ -36,7 +33,7 @@ function TestPopover({
 			onExitFinish={onExitFinish}
 			role="dialog"
 			label="test-popover"
-			animate={animated ? animation : undefined}
+			animate={animated}
 		>
 			<div data-testid="content">content</div>
 		</Popover>
@@ -386,7 +383,7 @@ function ControlledPopoverWithAriaExpanded({ animate }: { animate: boolean }) {
 				id={popoverId}
 				isOpen={isOpen}
 				onExitFinish={handleExitFinish}
-				animate={animate ? slideAndFade() : undefined}
+				animate={animate}
 				role="dialog"
 				label="controlled-popover"
 			>

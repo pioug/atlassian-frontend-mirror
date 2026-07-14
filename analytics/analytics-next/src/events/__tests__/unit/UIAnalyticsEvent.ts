@@ -1,3 +1,5 @@
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import {
 	isUIAnalyticsEvent,
 	default as UIAnalyticsEvent,
@@ -61,6 +63,44 @@ it('should deep clone event payloads when cloning', () => {
 	expect(analyticsEvent).not.toBe(clonedEvent);
 	expect(analyticsEvent.payload).not.toBe(clonedEvent!.payload);
 	expect(analyticsEvent.payload.a).not.toBe(clonedEvent!.payload.a);
+});
+
+describe('cloning a payload with a circular reference (HOT-127428)', () => {
+	const buildCircularEvent = () => {
+		const circular: Record<string, any> = { action: 'click' };
+		// Mimics a DOM node carrying a React fiber back-reference, which forms a
+		// cycle that JSON.stringify cannot serialize.
+		circular.self = circular;
+
+		return new UIAnalyticsEvent({
+			context: [],
+			handlers: [],
+			payload: circular,
+		});
+	};
+
+	it('does not throw and falls back to a shallow clone when the gate is on', () => {
+		passGate('platform-analytics-next-safe-clone');
+		const analyticsEvent = buildCircularEvent();
+
+		let clonedEvent: UIAnalyticsEvent | null = null;
+		expect(() => {
+			clonedEvent = analyticsEvent.clone();
+		}).not.toThrow();
+
+		// Shallow clone: a new payload object with the same top-level values.
+		expect(clonedEvent).not.toBeNull();
+		expect(clonedEvent!.payload).not.toBe(analyticsEvent.payload);
+		expect(clonedEvent!.payload.action).toBe('click');
+		expect(clonedEvent!.payload.self).toBe(analyticsEvent.payload.self);
+	});
+
+	it('preserves legacy throwing behaviour when the gate is off', () => {
+		failGate('platform-analytics-next-safe-clone');
+		const analyticsEvent = buildCircularEvent();
+
+		expect(() => analyticsEvent.clone()).toThrow(TypeError);
+	});
 });
 
 it('payload can be updated with an object that is shallow merged', () => {

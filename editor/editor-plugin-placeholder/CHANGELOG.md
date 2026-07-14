@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 12.0.21
+
+### Patch Changes
+
+- [`12355710b809c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12355710b809c) -
+  Add the `platform_editor_sync_block_activation` boolean experiment API to
+  `@atlaskit/tmp-editor-statsig` for Confluence sync block activation checks. Consumers can gate
+  sync block activation behavior with
+  `expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)`, for example to keep
+  source synced block placeholders visible only while the activation experiment is enabled.
+
+  Decoration-based placeholders now remain visible for empty source synced blocks while activation
+  is enabled.
+
+  The bodied synced block source nodeview now keeps its existing SSR streaming label-container fix
+  and only applies the non-SSR separate label container behavior when
+  `platform_synced_block_patch_14` is enabled.
+
+- Updated dependencies
+
 ## 12.0.20
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2e8702ed4d2cd2902fed7fc5a895ea6e>>
+ * @codegen <<SignedSource::3359adbb6734ba5703e094b6a59005c2>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -76,7 +76,6 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/use-modal-dialog-close-button': 'warn',
 		'@atlaskit/design-system/use-onboarding-spotlight-label': 'warn',
 		'@atlaskit/design-system/use-popup-label': 'warn',
-		'@atlaskit/design-system/use-primitives': 'warn',
 		'@atlaskit/design-system/use-primitives-text': 'warn',
 		'@atlaskit/design-system/use-should-render-to-parent': 'warn',
 		'@atlaskit/design-system/use-simple-field': 'warn',

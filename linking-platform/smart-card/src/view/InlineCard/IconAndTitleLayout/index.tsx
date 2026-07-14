@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -283,7 +282,7 @@ export const IconAndTitleLayout = ({
 
 	// maybe consider memoising this after clean up
 	const titlePart = (
-		<>
+		<React.Fragment>
 			<Box
 				as="span"
 				// EDM-12119: This is set here to help with the positioning of the icon to be in the middle of inline display.
@@ -294,22 +293,22 @@ export const IconAndTitleLayout = ({
 				testId="icon-position-wrapper"
 			>
 				{children || (
-					<>
+					<React.Fragment>
 						<Box as="span" xcss={styles.iconEmptyStyle} testId="icon-empty-wrapper" />
 						<span css={[iconWrapperStyle]} data-testid="icon-wrapper">
 							{renderIcon(testId)}
 						</span>
-					</>
+					</React.Fragment>
 				)}
 			</Box>
 			<Box as="span" style={{ color: titleTextColor }}>
 				{title}
 			</Box>
-		</>
+		</React.Fragment>
 	);
 
 	return (
-		<>
+		<React.Fragment>
 			<IconTitleWrapper style={{ color: titleColor }} testId={testId}>
 				{link ? (
 					<LinkAppearance
@@ -329,7 +328,7 @@ export const IconAndTitleLayout = ({
 					</Box>
 				) : null}
 			</IconTitleWrapper>
-		</>
+		</React.Fragment>
 	);
 };
 

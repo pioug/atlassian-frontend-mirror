@@ -25,7 +25,7 @@ the open menu (same division of responsibility as `@atlaskit/dropdown-menu`).
 ### Top-layer entry points used
 
 - `@atlaskit/top-layer/popup` — `Popup`, `Popup.TriggerFunction`, `Popup.Content`, `Popup.Surface`
-- `@atlaskit/top-layer/animations` — `slideAndFade()`
+- `Popup.Content animate` — default top-layer popover motion
 - `@atlaskit/top-layer/placement-map` — `fromLegacyPlacement({ legacy: 'bottom-end' })`
 - `@atlaskit/top-layer/use-arrow-navigation` — menu arrow keys + close
 

@@ -15,7 +15,6 @@ const buttonsWrapperStyles = css({
 });
 
 export const ButtonsWrapper = ({ children }: { children: React.ReactNode }): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={buttonsWrapperStyles}>{children}</div>
 );
 

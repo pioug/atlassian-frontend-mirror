@@ -1,5 +1,60 @@
 # @atlaskit/editor-common
 
+## 116.27.0
+
+### Minor Changes
+
+- [`1f968eb29f086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f968eb29f086) -
+  Add editorDomSize (total editor DOM element count) to proseMirrorRendered, INP and UFO performance
+  events, gated behind the platform_editor_dom_node_count experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.26.3
+
+### Patch Changes
+
+- [`3b5a6eca9da9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5a6eca9da9d) -
+  Clean up feature gate `platform_editor_toolbar_aifc_placement_overridden`
+- Updated dependencies
+
+## 116.26.2
+
+### Patch Changes
+
+- [`4821d5874a821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4821d5874a821) -
+  EDITOR-7869: Show worst accessibility status when selection spans multiple text or highlight
+  colors
+- Updated dependencies
+
+## 116.26.1
+
+### Patch Changes
+
+- [`dad5416e6deb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dad5416e6deb2) -
+  Clean up the fully launched `rovo_chat_enable_skills_ui_m1` and
+  `cc_fd_wb_create_priority_in_slash_menu_enabled` feature gates so extension priority is always
+  available in slash menus.
+
+## 116.26.0
+
+### Minor Changes
+
+- [`c10f8b3827a81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c10f8b3827a81) -
+  Add a `displayAsVisible` attribute to the paste actions menu `opened` analytics event, reporting
+  whether the Smart Link "Display as" section is shown when the menu opens. A shared
+  `SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION` key is exposed from `@atlaskit/editor-common/toolbar`
+  so the section can be identified without depending on the card plugin.
+
+## 116.25.2
+
+### Patch Changes
+
+- [`a421f8d9ac2be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a421f8d9ac2be) -
+  Revert rovo_chat_enable_skills_ui_m1 cleanup in editor packages to fix slash menu priority
+
 ## 116.25.1
 
 ### Patch Changes

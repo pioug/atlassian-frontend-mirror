@@ -56,6 +56,10 @@ const containerStyles = cssMap({
 		borderColor: token('color.border.accent.gray.subtle'),
 		color: token('color.text'),
 	},
+	neutralSpacious: {
+		borderColor: token('color.border'),
+		color: token('color.text.subtle'),
+	},
 	warning: {
 		borderColor: token('color.border.warning.subtle'),
 		color: token('color.text.warning'),
@@ -110,6 +114,9 @@ const iconStyles = cssMapUnbound({
 		'[data-appearance="danger"]:active &, [data-appearance="danger"][data-selected] &': {
 			color: token('color.text.danger'),
 		},
+	},
+	isNeutralSpacious: {
+		'[data-appearance="neutral"] &': { color: token('color.text.subtle') },
 	},
 });
 /* eslint-enable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors */
@@ -191,7 +198,7 @@ export default function DateLabelDropdownTrigger({
 			css={[
 				containerStyles.base,
 				isSpacious && containerStyles.spacious,
-				containerStyles[appearance],
+				containerStyles[isSpacious && appearance === 'neutral' ? 'neutralSpacious' : appearance],
 				isSelected ? containerStyles.selected : containerStyles.hoveredAndPressed,
 				isSelected && appearance === 'warning' && containerStyles.selectedWarning,
 			]}
@@ -216,7 +223,7 @@ export default function DateLabelDropdownTrigger({
 				]}
 			>
 				{hasIconBefore && (
-					<span css={iconStyles.base}>
+					<span css={[iconStyles.base, isSpacious && iconStyles.isNeutralSpacious]}>
 						{appearance === 'neutral' && (
 							<CalendarIcon label={resolvedIconLabel} size={iconSize} color="currentColor" />
 						)}

@@ -10,8 +10,7 @@ const documentation: StructuredContentSource = {
 				'A component for creating overlay backgrounds behind modals and other layered content.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13613-69028',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13613-69028',
 			},
 			import: {
 				name: 'Blanket',

@@ -12,7 +12,6 @@ const tabContainerStyles = css({
 });
 
 export const TabContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={tabContainerStyles}>{children}</div>
 );
 

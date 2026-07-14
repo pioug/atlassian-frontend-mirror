@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 import React, { useCallback, useMemo } from 'react';
 
@@ -284,7 +283,7 @@ export const FullPageToolbarNext = ({
 									{beforeIcon}
 								</div>
 							)}
-							<>
+							<React.Fragment>
 								<FirstChildWrapper>
 									{expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true) ? (
 										// optimistic toolbar — render immediately on both SSR and CSR with items enabled.
@@ -358,7 +357,7 @@ export const FullPageToolbarNext = ({
 									</div>
 								</SecondChildWrapper>
 								<ToolbarPortalMountPoint />
-							</>
+							</React.Fragment>
 						</MainToolbarWrapper>
 					</ToolbarPortal>
 				</ToolbarArrowKeyNavigationProvider>

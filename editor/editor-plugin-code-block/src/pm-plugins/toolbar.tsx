@@ -240,11 +240,7 @@ export const getToolbarConfig = (
 							filterOption={languageListFilter}
 							formatMessage={formatMessage}
 							languagePickerOptions={languagePickerOptions}
-							triggerSpacing={
-								!areAnyNewToolbarFlagsEnabled && fg('platform_editor_code_block_dogfooding_patch')
-									? 'compact'
-									: 'default'
-							}
+							triggerSpacing={!areAnyNewToolbarFlagsEnabled ? 'compact' : 'default'}
 						/>
 					);
 				},

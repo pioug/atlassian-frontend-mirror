@@ -1,5 +1,17 @@
 # @atlaskit/docs
 
+## 12.1.0
+
+### Minor Changes
+
+- [`93f0f8b94a0fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93f0f8b94a0fe) -
+  Export `HeadingWithSectionLink` from `@atlaskit/docs/heading-with-section-link` for headings with
+  copyable section links.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.2
 
 ### Patch Changes

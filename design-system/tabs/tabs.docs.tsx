@@ -38,8 +38,7 @@ const documentation: StructuredContentSource = {
 				'Ensure tab content is accessible',
 			],
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=5775-8556',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-5775-8556',
 			},
 			examples: [
 				{

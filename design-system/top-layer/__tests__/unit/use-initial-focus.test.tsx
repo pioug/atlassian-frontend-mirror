@@ -2,15 +2,12 @@ import React from 'react';
 
 import { render, screen } from '@atlassian/testing-library';
 
-import { slideAndFade } from '../../src/entry-points/animations';
 import { Popover } from '../../src/entry-points/popover';
 
 // JSDOM does not implement CSS transitions, so the animated path's `entering -> open`
 // settle only fires via the safety-net `setTimeout(durationMs + 50)`. By NOT advancing
 // any timers below we keep the popover stuck in `entering` for the duration of the test
 // and prove that initial focus runs without waiting for the settle.
-
-const animation = slideAndFade();
 
 type TTestPopoverProps = {
 	isOpen: boolean;
@@ -19,12 +16,7 @@ type TTestPopoverProps = {
 
 function TestMenuPopover({ isOpen, isAnimated = false }: TTestPopoverProps) {
 	return (
-		<Popover
-			isOpen={isOpen}
-			role="menu"
-			label="test-menu"
-			animate={isAnimated ? animation : undefined}
-		>
+		<Popover isOpen={isOpen} role="menu" label="test-menu" animate={isAnimated}>
 			<button type="button" data-testid="first-item">
 				First
 			</button>

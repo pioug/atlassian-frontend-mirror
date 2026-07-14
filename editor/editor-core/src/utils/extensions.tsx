@@ -22,7 +22,6 @@ import { findInsertLocation } from '@atlaskit/editor-common/utils/analytics';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 
@@ -126,9 +125,7 @@ export async function extensionProviderToQuickInsertProvider(
 						icon: () => <Icon label="" />,
 						keywords: item.keywords,
 						featured: item.featured,
-						...(fg('cc_fd_wb_create_priority_in_slash_menu_enabled') && {
-							priority: item.priority,
-						}),
+						priority: item.priority,
 						categories: item.categories,
 						...(item.lozenge != null && { lozenge: item.lozenge }),
 						isDisabledOffline: true,

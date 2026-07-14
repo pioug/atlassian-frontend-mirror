@@ -95,6 +95,7 @@ type EditorPerfAEP = OperationalAEPWithObjectId<
 	{
 		distortedDuration?: boolean;
 		duration: number;
+		editorDomSize?: number;
 		nodes?: Record<string, number>;
 		nodesInViewport?: Record<string, number>;
 		nodeSize?: number;

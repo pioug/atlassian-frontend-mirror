@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 
 import React, { useState } from 'react';
@@ -30,7 +29,7 @@ export default function DrawerExample(): JSX.Element {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
 	return (
-		<>
+		<React.Fragment>
 			<Drawer isOpen={isDrawerOpen} label="Drawer with xcss" onClose={() => setIsDrawerOpen(false)}>
 				<DrawerSidebar xcss={styles.sidebar}>
 					<DrawerCloseButton />
@@ -42,6 +41,6 @@ export default function DrawerExample(): JSX.Element {
 			<Button appearance="primary" onClick={() => setIsDrawerOpen(true)}>
 				Open drawer
 			</Button>
-		</>
+		</React.Fragment>
 	);
 }

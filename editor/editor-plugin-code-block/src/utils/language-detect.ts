@@ -1,6 +1,4 @@
 /* eslint-disable require-unicode-regexp */
-import { fg } from '@atlaskit/platform-feature-flags';
-
 type LanguageId =
 	| 'css'
 	| 'go'
@@ -116,14 +114,6 @@ const hasPattern = (code: string, pattern: RegExp): boolean => {
 const scorePatterns = (code: string, patterns: Array<[RegExp, number]>): number =>
 	patterns.reduce((score, [pattern, value]) => score + (hasPattern(code, pattern) ? value : 0), 0);
 
-const scoreEnhancedTypeScriptPatterns = (code: string): number =>
-	fg('platform_editor_code_block_dogfooding_patch')
-		? scorePatterns(code, [
-				[TS_ACCESS_MODIFIER_REGEX, 5],
-				[TS_TYPED_ARROW_PARAM_REGEX, 5],
-			])
-		: 0;
-
 const looksLikeHtmlTagPair = (code: string): boolean => {
 	const openTags = new Set<string>();
 	// Ignored via go/ees019
@@ -196,14 +186,15 @@ const getLanguageScores = (code: string): LanguageScore[] => [
 	},
 	{
 		language: 'typescript',
-		score:
-			scorePatterns(code, [
-				[TS_INTERFACE_TYPE_REGEX, 5],
-				[TS_IMPORT_EXPORT_TYPE_REGEX, 4],
-				[TS_TYPED_VAR_REGEX, 4],
-				[TS_RETURN_TYPE_REGEX, 3],
-				[TS_ADVANCED_REGEX, 3],
-			]) + scoreEnhancedTypeScriptPatterns(code),
+		score: scorePatterns(code, [
+			[TS_INTERFACE_TYPE_REGEX, 5],
+			[TS_IMPORT_EXPORT_TYPE_REGEX, 4],
+			[TS_TYPED_VAR_REGEX, 4],
+			[TS_RETURN_TYPE_REGEX, 3],
+			[TS_ADVANCED_REGEX, 3],
+			[TS_ACCESS_MODIFIER_REGEX, 5],
+			[TS_TYPED_ARROW_PARAM_REGEX, 5],
+		]),
 	},
 	{
 		language: 'javascript',

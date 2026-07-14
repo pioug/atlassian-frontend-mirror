@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 124.2.0
+
+### Minor Changes
+
+- [`12355710b809c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12355710b809c) -
+  Add the `platform_editor_sync_block_activation` boolean experiment API to
+  `@atlaskit/tmp-editor-statsig` for Confluence sync block activation checks. Consumers can gate
+  sync block activation behavior with
+  `expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)`, for example to keep
+  source synced block placeholders visible only while the activation experiment is enabled.
+
+  Decoration-based placeholders now remain visible for empty source synced blocks while activation
+  is enabled.
+
+  The bodied synced block source nodeview now keeps its existing SSR streaming label-container fix
+  and only applies the non-SSR separate label container behavior when
+  `platform_synced_block_patch_14` is enabled.
+
+- [`822e39d7ae27a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/822e39d7ae27a) -
+  Remove discard confirmation when stopping AI streaming. When the
+  platform_editor_remove_pause_streaming gate is ON, clicking stop during inline Rovo streaming
+  immediately halts the stream, leaves any partially streamed content in the page, and opens the
+  Post Stream Review toolbar for the user to review changes.
+
 ## 124.1.0
 
 ### Minor Changes

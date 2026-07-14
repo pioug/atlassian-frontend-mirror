@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -707,10 +706,10 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 			>
 				<Tooltip
 					content={() => (
-						<>
+						<React.Fragment>
 							<div>{children}</div>
 							{description ? <div>{description}</div> : null}
-						</>
+						</React.Fragment>
 					)}
 					position="right-start"
 					ignoreTooltipPointerEvents

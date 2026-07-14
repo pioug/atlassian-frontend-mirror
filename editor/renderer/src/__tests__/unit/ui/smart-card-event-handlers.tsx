@@ -40,6 +40,7 @@ const mockIntersectionObserver = () => {
 	class MockIntersectionObserver implements IntersectionObserver {
 		readonly root!: Element | null;
 		readonly rootMargin!: string;
+		readonly scrollMargin!: string;
 		readonly thresholds!: ReadonlyArray<number>;
 
 		constructor(public callback: IntersectionObserverCallback) {}

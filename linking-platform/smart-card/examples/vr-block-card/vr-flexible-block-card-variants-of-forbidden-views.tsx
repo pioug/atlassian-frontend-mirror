@@ -40,7 +40,6 @@ export const BlockCardForbiddenViews = (): JSX.Element => {
 		<VRTestWrapper>
 			<SmartCardProvider>
 				<div css={outerStyles}>
-					{/* eslint-disable-next-line @atlaskit/design-system/use-primitives */}
 					<div css={innerStyles}>
 						<h5>Default Forbidden view </h5>
 						<BlockCard

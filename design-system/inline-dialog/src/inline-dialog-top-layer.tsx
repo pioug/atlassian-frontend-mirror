@@ -18,7 +18,6 @@ import { cssMap, jsx } from '@compiled/react';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import { token } from '@atlaskit/tokens';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import {
@@ -52,8 +51,6 @@ const styles = cssMap({
 		paddingInlineStart: token('space.300', '24px'),
 	},
 });
-
-const animation = slideAndFade();
 
 type TAriaAttributes = {
 	// `aria-controls` is `undefined` while the popover host is unmounted
@@ -198,7 +195,7 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 				label="Inline dialog"
 				isOpen={isOpen}
 				onClose={handleOnClose}
-				animate={animation}
+				animate
 				placement={topLayerPlacement}
 				testId={testId}
 			>

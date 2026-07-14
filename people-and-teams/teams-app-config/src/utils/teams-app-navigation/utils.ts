@@ -6,7 +6,6 @@ import {
 	isFedRamp,
 	isIsolatedCloud,
 } from '@atlaskit/atlassian-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type {
 	NavigationAction,
@@ -42,16 +41,25 @@ export function generateTeamsAppPath(
 	// but for now, we need to generate a different URL for FedRamp.
 	if (isFedRamp()) {
 		// We can't use getATLContextUrl here as the URL doesn't yet exist in commercial. When it does, we should properly define it there.
-		return `https://teams${isFedRampStaging() ? '.stg' : ''}.atlassian-us-gov-mod.com${pathWithoutPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
+		return `https://teams${
+			isFedRampStaging() ? '.stg' : ''
+		}.atlassian-us-gov-mod.com${pathWithoutPeoplePrefix}${
+			anchor ? `#${anchor}` : ''
+		}${queryString}`;
 	}
 
 	const orgIdString = config.orgId ? `/o/${config.orgId}` : '';
 
 	if (isIsolatedCloud()) {
-		return `${getUrlForDomainInContext('home', getEnvironment())}${orgIdString}${pathWithPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
+		return `${getUrlForDomainInContext(
+			'home',
+			getEnvironment(),
+		)}${orgIdString}${pathWithPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
 	}
 
-	return `${getATLContextUrl('home')}${orgIdString}${pathWithPeoplePrefix}${anchor ? `#${anchor}` : ''}${queryString}`;
+	return `${getATLContextUrl('home')}${orgIdString}${pathWithPeoplePrefix}${
+		anchor ? `#${anchor}` : ''
+	}${queryString}`;
 }
 
 export const getEnvironment = (): 'prod' | 'staging' => {
@@ -72,7 +80,9 @@ export function generatePath(
 		return generateTeamsAppPath(path, config, query, anchor);
 	}
 	const queryString = [...new Set(query.keys())].length > 0 ? `?${query.toString()}` : '';
-	return `${origin()}/${config.hostProduct === 'confluence' ? 'wiki' : 'jira'}/people/${path}${queryString}`;
+	return `${origin()}/${
+		config.hostProduct === 'confluence' ? 'wiki' : 'jira'
+	}/people/${path}${queryString}`;
 }
 
 export const onNavigateBase =
@@ -147,10 +157,7 @@ export function getPathAndQuery(action: NavigationAction): PathAndQuery {
 		case 'TEAMS_DIRECTORY':
 			return { path: '', query: new URLSearchParams({ screen: 'SEARCH_TEAMS' }) };
 		case 'PEOPLE_DIRECTORY':
-			if (fg('enable_teams_app_breadcrumb_respect_directories')) {
-				return { path: '', query: new URLSearchParams({ screen: 'SEARCH_PEOPLE' }) };
-			}
-			return { path: `search/people`, query: new URLSearchParams(action.payload.query) };
+			return { path: '', query: new URLSearchParams({ screen: 'SEARCH_PEOPLE' }) };
 		case 'USER_WORK':
 			return { path: `${stripAriFromId(action.payload.userId)}/work` };
 		case 'CURRENT_USER_PROFILE':

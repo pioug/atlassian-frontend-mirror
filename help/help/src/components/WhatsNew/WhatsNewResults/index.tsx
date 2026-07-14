@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/** @jsxFrag */
 
 import React, { useCallback, useState, useRef } from 'react';
 import { Transition } from 'react-transition-group';
@@ -176,7 +175,7 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 							searchWhatsNewArticlesState === REQUEST_STATE.loading) &&
 							searchWhatsNewArticlesResult !== null &&
 							state !== 'exited' && (
-								<>
+								<React.Fragment>
 									<SelectContainer>
 										<Label htmlFor="help_whats_new_filter_select_label">
 											{formatMessage(messages.help_whats_new_filter_select_label)}
@@ -259,7 +258,7 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 											<WhatsNewResultsEmpty onClearFilter={handleOnClearFilter} />
 										)}
 									</WhatsNewResultsListContainer>
-								</>
+								</React.Fragment>
 							)}
 
 						{searchWhatsNewArticlesState === REQUEST_STATE.error && (
@@ -282,7 +281,7 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 							searchWhatsNewArticlesState === REQUEST_STATE.loading) &&
 							searchWhatsNewArticlesResult !== null &&
 							state !== 'exited' && (
-								<>
+								<React.Fragment>
 									<SelectContainer>
 										<Label htmlFor="help_whats_new_filter_select_label">
 											{formatMessage(messages.help_whats_new_filter_select_label)}
@@ -365,7 +364,7 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({ intl: { forma
 											<WhatsNewResultsEmpty onClearFilter={handleOnClearFilter} />
 										)}
 									</WhatsNewResultsListContainer>
-								</>
+								</React.Fragment>
 							)}
 
 						{searchWhatsNewArticlesState === REQUEST_STATE.error && (

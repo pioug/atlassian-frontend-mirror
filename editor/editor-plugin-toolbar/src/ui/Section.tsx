@@ -30,22 +30,12 @@ const shouldShowSection = (
 		return false;
 	}
 
-	if (fg('platform_editor_toolbar_aifc_placement_overridden')) {
-		if (toolbar?.key === TOOLBARS.INLINE_TEXT_TOOLBAR) {
-			return toolbarDocking !== 'top' || contextualFormattingEnabled === 'always-inline';
-		}
+	if (toolbar?.key === TOOLBARS.INLINE_TEXT_TOOLBAR) {
+		return toolbarDocking !== 'top' || contextualFormattingEnabled === 'always-inline';
+	}
 
-		if (toolbar?.key === TOOLBARS.PRIMARY_TOOLBAR) {
-			return toolbarDocking !== 'none' || contextualFormattingEnabled === 'always-pinned';
-		}
-	} else {
-		if (toolbar?.key === TOOLBARS.INLINE_TEXT_TOOLBAR && toolbarDocking !== 'top') {
-			return true;
-		}
-
-		if (toolbar?.key === TOOLBARS.PRIMARY_TOOLBAR && toolbarDocking !== 'none') {
-			return true;
-		}
+	if (toolbar?.key === TOOLBARS.PRIMARY_TOOLBAR) {
+		return toolbarDocking !== 'none' || contextualFormattingEnabled === 'always-pinned';
 	}
 
 	return false;

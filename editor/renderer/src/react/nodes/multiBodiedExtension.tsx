@@ -2,7 +2,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
@@ -238,12 +237,12 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 			return <NodeRenderer node={node} actions={actions} />;
 		} else {
 			return (
-				<>
+				<React.Fragment>
 					<MultiBodiedExtensionNavigation>
 						<NodeRenderer node={node} actions={actions} />
 					</MultiBodiedExtensionNavigation>
 					<MultiBodiedExtensionChildrenContainer>{children}</MultiBodiedExtensionChildrenContainer>
-				</>
+				</React.Fragment>
 			);
 		}
 	}, [

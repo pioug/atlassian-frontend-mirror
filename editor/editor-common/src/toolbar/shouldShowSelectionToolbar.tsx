@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { ContextualFormattingEnabledOptions } from './types';
 
 /**
@@ -14,14 +12,11 @@ export const shouldShowSelectionToolbar = (
 	contextualFormattingEnabled: ContextualFormattingEnabledOptions,
 	toolbarDockingPosition?: 'top' | 'none',
 ): boolean => {
-	if (fg('platform_editor_toolbar_aifc_placement_overridden')) {
-		if (contextualFormattingEnabled === 'controlled') {
-			return toolbarDockingPosition === 'top';
-		}
-		if (contextualFormattingEnabled === 'always-inline') {
-			return true;
-		}
-		return false;
+	if (contextualFormattingEnabled === 'controlled') {
+		return toolbarDockingPosition === 'top';
 	}
-	return toolbarDockingPosition === 'top';
+	if (contextualFormattingEnabled === 'always-inline') {
+		return true;
+	}
+	return false;
 };

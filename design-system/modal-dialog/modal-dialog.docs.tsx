@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A modal dialog component for important content.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82128-80670',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-82128-80670',
 			},
 			import: {
 				name: 'Modal',

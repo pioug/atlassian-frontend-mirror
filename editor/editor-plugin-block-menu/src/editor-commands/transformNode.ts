@@ -17,7 +17,6 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Mapping, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { isNestedNode } from '../ui/utils/isNestedNode';
@@ -132,7 +131,7 @@ export const transformNode: (
 						duration,
 						isEmptyLine,
 						isNested,
-						...(fg('platform_editor_blocks_patch_2') ? { isSuggested } : {}),
+						isSuggested,
 						sourceNodesCount: sourceNodes.length,
 						sourceNodesCountByType: sourceNodeTypes,
 						sourceNodeType: sourceNodes.length === 1 ? sourceNodes[0].type.name : 'multiple',

@@ -1,6 +1,4 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { InteractionType, SegmentInfo } from '../../../common';
 import { getConfig } from '../../../config';
 import type { LabelStack, SegmentLabel } from '../../../interaction-context';
@@ -28,7 +26,7 @@ export function sanitizeLabelStackName(name: string): string {
 		name = name.replace(/^\/+/, '');
 	}
 
-	if (name.endsWith('/') && fg('platform_ufo_trim_labelstack_trailing_slashes')) {
+	if (name.endsWith('/')) {
 		name = name.replace(/\/+$/, '');
 	}
 

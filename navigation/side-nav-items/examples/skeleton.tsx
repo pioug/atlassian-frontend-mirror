@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -108,16 +107,16 @@ function RandomItems({
 }
 
 const SkeletonMenuItems = () => (
-	<>
+	<React.Fragment>
 		<SkeletonMenuItem hasElemBefore />
 		<SkeletonMenuItem hasElemBefore />
 		<SkeletonMenuItem hasElemBefore />
 		<SkeletonMenuItem hasElemBefore />
-	</>
+	</React.Fragment>
 );
 
 const RecentSkeletonFlyoutMenuItems = () => (
-	<>
+	<React.Fragment>
 		<SkeletonMenuSectionHeading />
 		<SkeletonMenuItem hasDescription hasElemBefore />
 		<SkeletonMenuItem hasDescription hasElemBefore />
@@ -127,15 +126,15 @@ const RecentSkeletonFlyoutMenuItems = () => (
 		<SkeletonMenuSectionHeading />
 		<SkeletonMenuItem hasDescription hasElemBefore />
 		<SkeletonMenuItem hasDescription hasElemBefore />
-	</>
+	</React.Fragment>
 );
 
 const StarredSkeletonFlyoutMenuItems = () => (
-	<>
+	<React.Fragment>
 		{Array.from({ length: 12 }, (_, index) => (
 			<SkeletonMenuItem key={index} hasElemBefore />
 		))}
-	</>
+	</React.Fragment>
 );
 
 export const SkeletonExample = ({
@@ -219,7 +218,7 @@ export const SkeletonExample = ({
 				<SideNavBody>
 					<MenuList>
 						{menuItemsVisible ? (
-							<>
+							<React.Fragment>
 								<LinkMenuItem
 									href="#"
 									elemBefore={<PersonAvatarIcon label="" color="currentColor" />}
@@ -238,7 +237,7 @@ export const SkeletonExample = ({
 									<FlyoutMenuItemContent>
 										<FlyoutHeader title="Recent" closeButtonLabel="Close" />
 										{recentFlyoutContentLoaded ? (
-											<>
+											<React.Fragment>
 												<FlyoutBody>
 													<MenuList>
 														<MenuSection isMenuListItem>
@@ -261,15 +260,15 @@ export const SkeletonExample = ({
 														<ButtonMenuItem>View all recent items</ButtonMenuItem>
 													</MenuList>
 												</FlyoutFooter>
-											</>
+											</React.Fragment>
 										) : (
-											<>
+											<React.Fragment>
 												<FlyoutBody>
 													<MenuList>
 														<RecentSkeletonFlyoutMenuItems />
 													</MenuList>
 												</FlyoutBody>
-											</>
+											</React.Fragment>
 										)}
 									</FlyoutMenuItemContent>
 								</FlyoutMenuItem>
@@ -286,7 +285,7 @@ export const SkeletonExample = ({
 									<FlyoutMenuItemContent>
 										<FlyoutHeader title="Starred" closeButtonLabel="Close recent flyout" />
 										{starredFlyoutContentLoaded ? (
-											<>
+											<React.Fragment>
 												<FlyoutBody>
 													<MenuList>
 														<RandomItems count={12} />
@@ -298,15 +297,15 @@ export const SkeletonExample = ({
 														<ButtonMenuItem>View all starred items</ButtonMenuItem>
 													</MenuList>
 												</FlyoutFooter>
-											</>
+											</React.Fragment>
 										) : (
-											<>
+											<React.Fragment>
 												<FlyoutBody>
 													<MenuList>
 														<StarredSkeletonFlyoutMenuItems />
 													</MenuList>
 												</FlyoutBody>
-											</>
+											</React.Fragment>
 										)}
 									</FlyoutMenuItemContent>
 								</FlyoutMenuItem>
@@ -317,7 +316,7 @@ export const SkeletonExample = ({
 								>
 									Other
 								</LinkMenuItem>
-							</>
+							</React.Fragment>
 						) : (
 							<SkeletonMenuItems />
 						)}

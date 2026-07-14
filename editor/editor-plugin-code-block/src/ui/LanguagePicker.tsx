@@ -110,13 +110,6 @@ type PopupSelectTargetProps = Parameters<PopupSelectTarget>[0];
 type PopupSelectPopperProps = NonNullable<PopupSelectProps['popperProps']>;
 type PopupSelectPopperPlacement = PopupSelectPopperProps['placement'];
 
-const menuPopperProps: PopupSelectPopperProps = {
-	modifiers: [
-		{ name: 'offset', options: { offset: [0, 8] } },
-		{ name: 'preventOverflow', enabled: false },
-	],
-};
-
 const focusWithoutScrolling = (element: HTMLElement) => {
 	element.focus({ preventScroll: true });
 };
@@ -217,8 +210,6 @@ export const LanguagePicker = ({
 			const isInputChange = !actionMeta || actionMeta.action === 'input-change';
 			if (isInputChange) {
 				inputValueRef.current = newInputValue;
-			}
-			if (isInputChange || !fg('platform_editor_code_block_dogfooding_patch')) {
 				setHasSearchQuery(newInputValue.trim().length > 0);
 				return newInputValue;
 			}
@@ -227,22 +218,18 @@ export const LanguagePicker = ({
 		[],
 	);
 	const handleMenuOpen = useCallback(() => {
-		if (fg('platform_editor_code_block_dogfooding_patch')) {
-			inputValueRef.current = '';
-			setHasSearchQuery(false);
-			setLockedPopperPlacement(undefined);
-		}
+		inputValueRef.current = '';
+		setHasSearchQuery(false);
+		setLockedPopperPlacement(undefined);
 		onMenuOpen?.();
 	}, [onMenuOpen]);
 	const handleTriggerMouseDown = useCallback((event: React.MouseEvent<HTMLElement>) => {
-		if (fg('platform_editor_code_block_dogfooding_patch')) {
-			// PopupSelect's FocusLock returns focus to the element that was focused before the
-			// picker opened. If that is the editor/code block, closing the picker can scroll the
-			// whole code block into view. Focus the trigger first without scrolling so FocusLock
-			// returns to the trigger; see CodeBlockLanguagePicker's handleSelection for restoring
-			// editor focus.
-			focusWithoutScrolling(event.currentTarget);
-		}
+		// PopupSelect's FocusLock returns focus to the element that was focused before the
+		// picker opened. If that is the editor/code block, closing the picker can scroll the
+		// whole code block into view. Focus the trigger first without scrolling so FocusLock
+		// returns to the trigger; see CodeBlockLanguagePicker's handleSelection for restoring
+		// editor focus.
+		focusWithoutScrolling(event.currentTarget);
 	}, []);
 	const handleTriggerMouseUp = useCallback((event: React.MouseEvent<HTMLElement>) => {
 		if (fg('platform_editor_code_block_ga_patch_1')) {
@@ -316,9 +303,7 @@ export const LanguagePicker = ({
 			onInputChange={handleInputChange}
 			onMenuOpen={handleMenuOpen}
 			options={hasSearchQuery ? searchOptions : options}
-			popperProps={
-				fg('platform_editor_code_block_dogfooding_patch') ? stableMenuPopperProps : menuPopperProps
-			}
+			popperProps={stableMenuPopperProps}
 			searchThreshold={-1}
 			target={renderTarget}
 			testId="code-block-language-picker"

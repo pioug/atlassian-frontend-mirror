@@ -1,3 +1,6 @@
+import { bind, type UnbindFn } from 'bind-event-listener';
+
+import { getDocument } from '@atlaskit/browser-apis';
 import type { RendererSyncBlockEventPayload } from '@atlaskit/editor-common/analytics';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -68,6 +71,25 @@ export class SyncBlockSubscriptionManager {
 	private static readonly MAX_RETRY_DELAY_MS = 30000; // backoff cap (gate ON)
 	private retryAttempts = new Map<ResourceId, number>();
 	private pendingRetries = new Map<ResourceId, ReturnType<typeof setTimeout>>();
+
+	// Resources whose reconnection exhausted while the tab was hidden: parked here and
+	// re-armed on the next online / visibilitychange→visible instead of surfacing a
+	// terminal error. Only a re-armed attempt that also exhausts while visible fails.
+	private deferredExhausted = new Set<ResourceId>();
+	// Coalesce wake-event bursts into one re-arm sweep to avoid a reconnection storm.
+	private static readonly WAKE_DEBOUNCE_MS = 1000;
+	private wakeDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+	// `online` always sweeps (network is back regardless of tab visibility); a
+	// `visibilitychange` only sweeps when the tab became visible.
+	private readonly onOnline = () => this.scheduleWakeSweep();
+	private readonly onVisibilityChange = () => {
+		if (!this.isDocumentHidden()) {
+			this.scheduleWakeSweep();
+		}
+	};
+	// Cleanup fns returned by `bind` for the registered wake listeners; a non-empty
+	// array means listeners are currently registered. Emptied on teardown.
+	private wakeListenerCleanups: UnbindFn[] = [];
 
 	// EDITOR-7861: higher ceiling lets transient WS-gateway drops self-heal
 	// before a terminal failure is surfaced.
@@ -399,6 +421,25 @@ export class SyncBlockSubscriptionManager {
 			// Exhausted all attempts — the only place a WS drop surfaces as a
 			// fetch error under the gate (EDITOR-7861).
 			const errorMessage = `Subscription reconnection failed after ${attempts} attempts`;
+
+			// Tab hidden at exhaustion: don't surface a terminal failure (user isn't
+			// looking, and most exhaustions self-recover once foregrounded). Park + re-arm
+			// on wake, emitting a benign `deferred` signal so suppression stays auditable.
+			const shouldDefer = fg('platform_editor_blocks_patch_3') && this.isDocumentHidden();
+			if (shouldDefer) {
+				this.deferredExhausted.add(resourceId);
+				this.registerWakeListeners();
+				this.deps.getFireAnalyticsEvent()?.(
+					fetchErrorPayload(
+						errorMessage,
+						resourceId,
+						getSourceProductFromResourceIdSafe(resourceId),
+						buildFetchErrorAttribution(true, errorMessage, undefined, /* deferred */ true),
+					),
+				);
+				return;
+			}
+
 			logException(new Error(errorMessage), {
 				location: 'editor-synced-block-provider/syncBlockSubscriptionManager/max-retries-exhausted',
 			});
@@ -444,6 +485,81 @@ export class SyncBlockSubscriptionManager {
 		this.retryAttempts.delete(resourceId);
 	}
 
+	/**
+	 * Whether the tab is currently hidden. SSR/non-browser is treated as "not hidden" so
+	 * we never defer where wake events can't fire (realtime never subscribes there anyway).
+	 */
+	private isDocumentHidden(): boolean {
+		return getDocument()?.hidden === true;
+	}
+
+	/**
+	 * Lazily register shared `online` / `visibilitychange` listeners on first deferral.
+	 * Torn down by `unregisterWakeListeners` (via `handleWake`). No-op in SSR / non-browser.
+	 */
+	private registerWakeListeners(): void {
+		if (this.wakeListenerCleanups.length > 0 || typeof window === 'undefined') {
+			return;
+		}
+		this.wakeListenerCleanups.push(bind(window, { type: 'online', listener: this.onOnline }));
+		const doc = getDocument();
+		if (doc) {
+			this.wakeListenerCleanups.push(
+				bind(doc, { type: 'visibilitychange', listener: this.onVisibilityChange }),
+			);
+		}
+	}
+
+	private unregisterWakeListeners(): void {
+		if (this.wakeDebounceTimer !== null) {
+			clearTimeout(this.wakeDebounceTimer);
+			this.wakeDebounceTimer = null;
+		}
+		for (const cleanup of this.wakeListenerCleanups) {
+			cleanup();
+		}
+		this.wakeListenerCleanups = [];
+	}
+
+	/**
+	 * Coalesce a burst of wake events into one debounced re-arm sweep. Callers decide
+	 * eligibility: `onOnline` always sweeps; `onVisibilityChange` only sweeps when visible.
+	 */
+	private scheduleWakeSweep(): void {
+		if (this.wakeDebounceTimer !== null) {
+			return;
+		}
+		this.wakeDebounceTimer = setTimeout(() => {
+			this.wakeDebounceTimer = null;
+			this.handleWake();
+		}, SyncBlockSubscriptionManager.WAKE_DEBOUNCE_MS);
+	}
+
+	/**
+	 * Re-arm every deferred resource: full reset (attempts→0) + immediate reconnect now
+	 * the tab is visible / online. Healthy subscriptions are untouched. A re-armed cycle
+	 * that later exhausts while visible fires the terminal error normally.
+	 */
+	private handleWake(): void {
+		if (this.deferredExhausted.size === 0) {
+			this.unregisterWakeListeners();
+			return;
+		}
+		const toRearm = Array.from(this.deferredExhausted);
+		this.deferredExhausted.clear();
+		for (const resourceId of toRearm) {
+			// Only re-arm resources that still have active subscribers and realtime on.
+			if (!this.subscriptions.has(resourceId) || !this.shouldUseRealTime()) {
+				continue;
+			}
+			this.resetRetryCount(resourceId);
+			this.cancelPendingRetry(resourceId);
+			this.setupSubscription(resourceId);
+		}
+		// No deferred resources remain until another hidden exhaustion re-adds one.
+		this.unregisterWakeListeners();
+	}
+
 	private cancelPendingRetry(resourceId: ResourceId): void {
 		const timer = this.pendingRetries.get(resourceId);
 		if (timer) {
@@ -458,6 +574,9 @@ export class SyncBlockSubscriptionManager {
 		}
 		this.pendingRetries.clear();
 		this.retryAttempts.clear();
+		// Nothing left to re-arm: drop parked exhaustions and tear down wake listeners.
+		this.deferredExhausted.clear();
+		this.unregisterWakeListeners();
 	}
 
 	public cleanupSubscription(resourceId: ResourceId): void {
@@ -468,6 +587,11 @@ export class SyncBlockSubscriptionManager {
 		}
 		this.cancelPendingRetry(resourceId);
 		this.retryAttempts.delete(resourceId);
+		// No subscribers left, so this resource can't be re-armed.
+		this.deferredExhausted.delete(resourceId);
+		if (this.deferredExhausted.size === 0) {
+			this.unregisterWakeListeners();
+		}
 	}
 
 	public setupSubscriptionsForAllBlocks(): void {
@@ -516,6 +640,13 @@ export class SyncBlockSubscriptionManager {
 
 		if (!syncBlockInstance.error) {
 			this.resetRetryCount(syncBlockInstance.resourceId);
+			// A healthy update means a parked exhaustion recovered on its own before any
+			// wake sweep — drop it and tear down listeners if nothing else is parked.
+			if (this.deferredExhausted.delete(syncBlockInstance.resourceId)) {
+				if (this.deferredExhausted.size === 0) {
+					this.unregisterWakeListeners();
+				}
+			}
 			const callbacks = this.subscriptions.get(syncBlockInstance.resourceId);
 			const localIds = callbacks ? Object.keys(callbacks) : [];
 			localIds.forEach((localId) => {

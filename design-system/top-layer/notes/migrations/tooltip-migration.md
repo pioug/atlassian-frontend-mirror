@@ -30,14 +30,14 @@ Popup.Content (popover="auto", role="tooltip", placement, offset, animate) → T
 
 ### What was replaced
 
-| Legacy mechanism                      | Native replacement                                            |
-| ------------------------------------- | ------------------------------------------------------------- |
-| `@atlaskit/portal` (zIndex=tooltip)   | `popover="auto"` renders in the browser's top layer           |
-| `@atlaskit/popper` (Popper.js)        | CSS Anchor Positioning via `useAnchorPositioning`             |
-| z-index stacking (`layers.tooltip()`) | Top layer insertion order                                     |
-| `useCloseOnEscapePress`               | Native `popover="auto"` light dismiss                         |
-| `ExitingPersistence` + `FadeIn`       | CSS `@starting-style` + `allow-discrete` via `slideAndFade()` |
-| `VirtualElement` (mouse positioning)  | JS `useLayoutEffect` with viewport clamping                   |
+| Legacy mechanism                      | Native replacement                                                            |
+| ------------------------------------- | ----------------------------------------------------------------------------- |
+| `@atlaskit/portal` (zIndex=tooltip)   | `popover="auto"` renders in the browser's top layer                           |
+| `@atlaskit/popper` (Popper.js)        | CSS Anchor Positioning via `useAnchorPositioning`                             |
+| z-index stacking (`layers.tooltip()`) | Top layer insertion order                                                     |
+| `useCloseOnEscapePress`               | Native `popover="auto"` light dismiss                                         |
+| `ExitingPersistence` + `FadeIn`       | CSS `@starting-style` + `allow-discrete` via `Popover animate` default motion |
+| `VirtualElement` (mouse positioning)  | JS `useLayoutEffect` with viewport clamping                                   |
 
 ### Standalone `Popup.Content` approach
 
@@ -122,9 +122,8 @@ which also didn't pass an `offset` and therefore picked up popper's `[0, 8]` def
 
 ### Animation
 
-A module-level `slideAndFade()` preset instance is created once and passed to `Popup.Content`'s
-`animate` prop. This provides CSS-based entry transitions using `@starting-style` and
-`allow-discrete` for progressive enhancement.
+`Popover` receives `animate` for the default top-layer popover motion. This provides CSS-based entry
+and exit transitions using `@starting-style` and `allow-discrete` for progressive enhancement.
 
 ---
 
@@ -152,8 +151,8 @@ only in positioning:
    skip.
 2. A `useLayoutEffect` computes `top`/`left` from stored mouse coordinates with viewport clamping.
    The effect re-runs whenever `mousePos` changes so the tooltip tracks the cursor.
-3. Directional slide animations are disabled (`--ds-popover-tx`/`--ds-popover-ty` set to `0`) since
-   there is no meaningful entrance direction when following a mouse.
+3. Mouse-positioned tooltips override the default directional motion with a fade-only
+   `animationName` because there is no meaningful entrance direction when following a mouse.
 
 CSS Anchor Positioning does not apply here -- a mouse cursor is not a DOM element. JS positioning is
 the only viable approach for this use case.

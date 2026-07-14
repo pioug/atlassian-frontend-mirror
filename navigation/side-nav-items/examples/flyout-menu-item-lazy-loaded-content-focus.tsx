@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -62,7 +61,7 @@ function LazyLoadedContent() {
 	}, []);
 
 	return (
-		<>
+		<React.Fragment>
 			<FlyoutHeader title="Recent" closeButtonLabel="Close menu">
 				<Textfield
 					ref={initialFocusRef}
@@ -116,7 +115,7 @@ function LazyLoadedContent() {
 					</LinkMenuItem>
 				</MenuList>
 			</FlyoutFooter>
-		</>
+		</React.Fragment>
 	);
 }
 

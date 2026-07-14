@@ -4,7 +4,6 @@ import { bind } from 'bind-event-listener';
 
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import { MenuGroup, Section } from '@atlaskit/menu';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
@@ -20,8 +19,6 @@ import {
 	type DeepRequired,
 	type onAvatarClickHandler,
 } from './types';
-
-const animation = slideAndFade();
 
 const topLayerPlacement = fromLegacyPlacement({ legacy: 'bottom-end' });
 
@@ -173,7 +170,7 @@ export function MoreDropdownTopLayer({
 				label="avatar group"
 				isOpen={isOpen}
 				onClose={handleOnClose}
-				animate={animation}
+				animate
 				placement={topLayerPlacement}
 				testId={overflowMenuTestId ? `${overflowMenuTestId}--content` : undefined}
 			>

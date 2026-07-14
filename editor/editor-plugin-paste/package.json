@@ -102,10 +102,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_blocks_patch_2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_legacy_content_macro_insert": {
 			"type": "boolean"
 		},

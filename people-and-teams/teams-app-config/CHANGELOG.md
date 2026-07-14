@@ -1,5 +1,14 @@
 # @atlaskit/teams-app-config
 
+## 2.1.1
+
+### Patch Changes
+
+- [`25211bc72e19a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25211bc72e19a) -
+  Cleanup feature gate `enable_teams_app_breadcrumb_respect_directories`. Profile and team
+  breadcrumbs now always link to the people/teams directory instead of falling back to the context
+  entry point.
+
 ## 2.1.0
 
 ### Minor Changes

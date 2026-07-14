@@ -21,7 +21,6 @@ const articleContentTitleStyles = css({
 });
 
 export const ArticleContentTitle = ({ children }: { children: React.ReactNode }): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={articleContentTitleStyles}>{children}</div>
 );
 

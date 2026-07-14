@@ -13,7 +13,7 @@
 	"types": "dist/types/index.d.ts",
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Work Platform: Incoming Work",
+		"team": "Post Office - Engagement",
 		"website": {
 			"name": "Notification Log Client"
 		}

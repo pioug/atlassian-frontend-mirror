@@ -202,6 +202,22 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		panel: {
+			enter: {
+				value: {
+					duration: 'Duration250',
+					curve: 'EaseBoldOut',
+					keyframes: ['SlideIn100PercentRight'],
+				},
+			},
+			exit: {
+				value: {
+					duration: 'Duration200',
+					curve: 'EasePracticalIn',
+					keyframes: ['SlideOut100PercentRight'],
+				},
+			},
+		},
 	},
 };
 

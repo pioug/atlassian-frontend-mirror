@@ -90,7 +90,7 @@ In the `Popup` compound component, `Popup.Content` is always present in the comp
 		<Button>Open</Button>
 	</Popup.Trigger>
 	{/* Always rendered — browser manages visibility */}
-	<Popup.Content role="dialog" label="Example" animate={slideAndFade()}>
+	<Popup.Content role="dialog" label="Example" animate>
 		<PopupSurface>Content here</PopupSurface>
 	</Popup.Content>
 </Popup>
@@ -164,27 +164,21 @@ visibility declaratively via `isOpen` — no glue code needed.
 Always render the element. Control visibility via `isOpen`:
 
 ```tsx
-import { slideAndFade, fade } from '@atlaskit/top-layer/animations';
-
 // Dialog — controlled by isOpen (host element unmounts after exit animation)
-<Dialog
-  isOpen={isDialogOpen}
-  onClose={handleClose}
-  label="Settings"
-  animate={dialogFade()}
->
-  <h2>Settings</h2>
-  <p>Dialog content...</p>
+<Dialog isOpen={isDialogOpen} onClose={handleClose} label="Settings" animate>
+	<h2>Settings</h2>
+	<p>Dialog content...</p>
 </Dialog>
 
 // Popover — controlled by isOpen (host element unmounts after exit animation)
-<Popover isOpen={isTooltipVisible} animate={slideAndFade()}>
-  <TooltipContainer>...</TooltipContainer>
+<Popover isOpen={isTooltipVisible} animate role="tooltip">
+	<TooltipContainer>...</TooltipContainer>
 </Popover>
 ```
 
-> Animation presets (`slideAndFade()`, `fade()`, etc.) are exported from
-> `@atlaskit/top-layer/animations`. See the preset source for available options.
+> `animate` is intentionally boolean-shaped today: `true` enables the component's default top-layer
+> motion and `false` / omitted disables animation. A config object type exists as an extension
+> point, but no public animation configuration is currently supported.
 
 - `isOpen: true` → calls `showPopover()` / `showModal()`, entry animation plays via
   `@starting-style`
@@ -203,7 +197,7 @@ import { slideAndFade, fade } from '@atlaskit/top-layer/animations';
 // Inside Popup compound — isOpen comes from context, consumer doesn't pass it
 <Popup>
 	<Popup.Trigger>{(props) => <button {...props}>Open</button>}</Popup.Trigger>
-	<Popup.Content animate={slideAndFade()}>
+	<Popup.Content animate>
 		<MenuItems />
 	</Popup.Content>
 </Popup>
@@ -213,7 +207,7 @@ For standalone usage (e.g. tooltip, spotlight), use `Popover` directly instead o
 
 ```tsx
 // Standalone usage — use Popover directly, not Popup.Content
-<Popover role="tooltip" animate={slideAndFade()} isOpen={state !== 'hide'}>
+<Popover role="tooltip" animate isOpen={state !== 'hide'}>
 	<TooltipContainer>...</TooltipContainer>
 </Popover>
 ```
@@ -365,7 +359,7 @@ A wrapping component that intercepts unmounting to delay DOM removal during exit
 
 ```tsx
 // Hypothetical consumer API
-<PopoverAnimation animate={slideAndFade()}>{isOpen && <Popover>Content</Popover>}</PopoverAnimation>
+<PopoverAnimation animate>{isOpen && <Popover>Content</Popover>}</PopoverAnimation>
 ```
 
 The wrapper would detect when its child disappears, keep a clone rendered during the exit animation,
@@ -403,7 +397,7 @@ then remove it after `transitionend`.
 **View Transitions variant:** Could a wrapper use View Transitions internally instead of cloning?
 
 ```tsx
-<AnimatedPopover animate={slideAndFade()}>{isOpen && <Popover>Content</Popover>}</AnimatedPopover>
+<AnimatedPopover animate>{isOpen && <Popover>Content</Popover>}</AnimatedPopover>
 ```
 
 The wrapper would detect children disappearing, temporarily re-render the old children to get them
@@ -539,7 +533,7 @@ cannot be separated without one side reaching into the other's internals.
 ```tsx
 const { ref, isVisible } = usePopoverAnimation({
 	isOpen,
-	animation: slideAndFade(),
+	animate: true,
 });
 
 <Popover ref={ref} isOpen={isVisible}>
@@ -588,19 +582,15 @@ not animated. This is by design — animation is a progressive enhancement.
 
 ## Static Compiled styles
 
-Animation presets are metadata only. They expose the stable `name` and optional custom properties
-for placement-dependent values. The actual CSS lives in component-local `compiledCssMap` entries in
-`Popover` and `Dialog`, selected through the host component's `css` prop with entries such as
-`popoverAnimationStyles[preset.name]`. This keeps every style statically visible to the Compiled
-transform and removes the old raw CSS injection path.
+Animation is now selected by the component-local boolean `animate` prop rather than public preset
+objects. `Popover` and `Dialog` own their default animation CSS in component-local `cssMap` entries,
+selected through the host component's `css` prop when `animate` is truthy. This keeps every style
+statically visible to the Compiled transform and removes the old raw CSS injection path.
 
-The preset name now selects component-local Compiled styles directly. The host elements no longer
-render `data-ds-popover-{name}` or `data-ds-dialog-{name}` attributes for animation presets.
-
-Placement or option-dependent values stay imperative custom properties. For example, `slideAndFade`
-sets `--ds-popover-tx` / `--ds-popover-ty`, and `dialogSlideUpAndFade` sets `--ds-dialog-ty`. The
-components clean up these properties when the preset or placement changes so stale values do not
-leak between presets.
+The host elements no longer render `data-ds-popover-{name}` or `data-ds-dialog-{name}` attributes
+for animation presets. `Popover` still computes placement-dependent motion token custom properties
+(`--ds-popover-motion-enter` / `--ds-popover-motion-exit`) internally so the default motion can
+enter from the resolved placement direction. `Dialog` uses one default dialog motion path.
 
 ## Reduced motion
 

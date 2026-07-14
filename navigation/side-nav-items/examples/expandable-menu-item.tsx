@@ -1,5 +1,4 @@
 /**
- * @jsxfrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -76,10 +75,10 @@ const MoreAction = ({ shouldRenderToParent }: { shouldRenderToParent: boolean })
 );
 
 const MockActions = ({ shouldRenderToParent }: { shouldRenderToParent: boolean }) => (
-	<>
+	<React.Fragment>
 		<AddAction shouldRenderToParent={shouldRenderToParent} />
 		<MoreAction shouldRenderToParent={shouldRenderToParent} />
-	</>
+	</React.Fragment>
 );
 
 export const ExpandableMenuItemUnselectable = (): JSX.Element => (

@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 import React, { Fragment, type KeyboardEvent, type MouseEvent } from 'react';
 
@@ -632,7 +631,7 @@ export const MediaSingleNodeNext = (
 				extendedResizeOffset={mediaOptions.allowPixelResizing && !isInsideTable}
 			>
 				{({ visible }: { visible: boolean }) => (
-					<>
+					<React.Fragment>
 						{visible && (
 							<ExternalImageBadge
 								type={childMediaNodeAttrs.type}
@@ -648,7 +647,7 @@ export const MediaSingleNodeNext = (
 								isDrafting={isCurrentNodeDrafting}
 							/>
 						)}
-					</>
+					</React.Fragment>
 				)}
 			</MediaBadges>
 

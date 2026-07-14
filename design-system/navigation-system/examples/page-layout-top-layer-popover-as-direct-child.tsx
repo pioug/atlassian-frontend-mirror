@@ -14,11 +14,9 @@ const styles = cssMap({
 		paddingBlock: token('space.200'),
 		paddingInline: token('space.200'),
 	},
-	popover: {
-		backgroundColor: token('elevation.surface.overlay'),
-	},
 	popoverContent: {
 		width: '240px',
+		backgroundColor: token('elevation.surface.overlay'),
 		paddingBlock: token('space.200'),
 		paddingInline: token('space.200'),
 		borderRadius: token('radius.large'),
@@ -33,13 +31,7 @@ export default function PageLayoutTopLayerPopoverAsDirectChildExample(): JSX.Ele
 			<Main>
 				<div css={styles.mainContent}>main content</div>
 			</Main>
-			<Popover
-				isOpen
-				role="dialog"
-				label="Top-layer popover as direct child"
-				mode="manual"
-				xcss={styles.popover}
-			>
+			<Popover isOpen role="dialog" label="Top-layer popover as direct child" mode="manual">
 				<div css={styles.popoverContent}>Top-layer popover content</div>
 			</Popover>
 		</Root>

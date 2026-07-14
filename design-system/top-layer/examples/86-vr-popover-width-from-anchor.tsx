@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 import React, { useRef, useState } from 'react';
 
@@ -57,7 +56,7 @@ function PopoverWidthFromAnchor({ mode }: { mode: 'none' | 'match-anchor' | 'min
 
 	// Auto-open on mount so the VR snapshot captures the open state.
 	return (
-		<>
+		<React.Fragment>
 			<div css={styles.buttonWrapper}>
 				<Pressable ref={anchorRef} xcss={styles.anchor} onClick={() => setIsOpen((prev) => !prev)}>
 					{mode} anchor
@@ -77,7 +76,7 @@ function PopoverWidthFromAnchor({ mode }: { mode: 'none' | 'match-anchor' | 'min
 					</div>
 				</PopoverSurface>
 			</Popover>
-		</>
+		</React.Fragment>
 	);
 }
 

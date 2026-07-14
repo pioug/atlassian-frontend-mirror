@@ -23,12 +23,10 @@ export function trimVcDebugData(
 	currentPayloadSizeKb: number,
 	/** Maximum allowed payload size in KB. Trim runs only when currentPayloadSizeKb > maxPayloadSizeKb. */
 	maxPayloadSizeKb: number,
-	/** Whether VC revision trim is enabled (e.g. from feature flag). */
-	isEnabled: boolean,
 ): void {
 	let isTrimmed = false;
 	const isPayloadSizeExceeded = currentPayloadSizeKb > maxPayloadSizeKb;
-	if (!isEnabled || !isPayloadSizeExceeded) {
+	if (!isPayloadSizeExceeded) {
 		return;
 	}
 

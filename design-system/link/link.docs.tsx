@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A component for navigation links.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=71522-53725',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-71522-53725',
 			},
 			import: {
 				name: 'Link',

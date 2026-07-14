@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 12.0.23
+
+### Patch Changes
+
+- [`eea5a45d85ede`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eea5a45d85ede) -
+  Clean up feature gate `platform_editor_code_block_dogfooding_patch`
+- Updated dependencies
+
 ## 12.0.22
 
 ### Patch Changes

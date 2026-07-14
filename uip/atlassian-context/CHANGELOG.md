@@ -1,5 +1,19 @@
 # @atlaskit/atlassian-context
 
+## 1.1.0
+
+### Minor Changes
+
+- [`65323ff2440b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65323ff2440b3) -
+  Flatten single-re-export entry-points and add per-export subpaths for multi-export ones.
+  - Single-re-export entry-points (`cloud-provider`, `is-fedramp`,
+    `resolve-provided-url-by-boundary`, `types`) are removed; their existing subpath exports now
+    point directly at the source module (no consumer changes required).
+  - Multi-export entry-points (`domain-lookup`, `generalized-domain-lookup`, `perimeter`) gain new
+    per-export subpaths (kebab-cased), e.g. `@atlaskit/atlassian-context/is-fedramp-moderate`,
+    `@atlaskit/atlassian-context/get-atl-context-domain`. The original multi-export subpaths remain
+    but their re-exports are now marked `@deprecated`; migrate to the per-export subpaths.
+
 ## 1.0.0
 
 ### Major Changes

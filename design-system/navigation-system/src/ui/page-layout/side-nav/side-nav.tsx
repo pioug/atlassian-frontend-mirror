@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 import React, {
 	type CSSProperties,
@@ -1152,7 +1151,7 @@ function SideNavInternal({
 		!isFirefox;
 
 	return (
-		<>
+		<React.Fragment>
 			<nav
 				id={id}
 				{...devTimeOnlyAttributes}
@@ -1287,7 +1286,7 @@ function SideNavInternal({
 					}
 				/>
 			)}
-		</>
+		</React.Fragment>
 	);
 }
 

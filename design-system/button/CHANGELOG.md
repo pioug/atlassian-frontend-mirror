@@ -1,5 +1,17 @@
 # @atlaskit/button
 
+## 24.3.2
+
+### Patch Changes
+
+- [`a49f283ca98c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a49f283ca98c6) -
+  Opt `IconRenderer` out of React Compiler memoization (`'use no memo'`).
+  `IconRenderer.isIconRenderProp()` misclassifies icon components missing a `displayName` as
+  render-props and invokes them as plain functions instead of JSX; under React Compiler, memoization
+  of this render could skip re-invoking an already-compiled icon component on some renders, dropping
+  a hook call and causing a hook-count mismatch (React error #300).
+- Updated dependencies
+
 ## 24.3.1
 
 ### Patch Changes

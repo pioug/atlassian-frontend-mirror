@@ -4,7 +4,7 @@
  */
 import React, { forwardRef, type Ref, useCallback, useId, useLayoutEffect, useRef } from 'react';
 
-import { cssMap, jsx, keyframes } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -22,6 +22,7 @@ import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useInitialFocus } from '../internal/use-initial-focus';
 
+import { getPopupMotionStyles } from './animations';
 import { type TPopoverCloseReason, type TPopoverForwardedProps } from './types';
 
 /**
@@ -37,24 +38,6 @@ const supportsPopoverHint = once((): boolean => {
 	return element.popover === 'hint';
 });
 
-const slideInKeyframes = keyframes({
-	from: {
-		transform: 'translate(calc(var(--dir) * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0))',
-	},
-	to: {
-		transform: 'none',
-	},
-});
-
-const slideOutKeyframes = keyframes({
-	from: {
-		transform: 'none',
-	},
-	to: {
-		transform: 'translate(calc(var(--dir) * var(--ds-popover-tx, 0)), var(--ds-popover-ty, 0))',
-	},
-});
-
 // These animation styles use the non-strict Compiled cssMap because they rely
 // on `@starting-style`, `:popover-open`, `[dir='rtl']`, and `allow-discrete`.
 // Keep them in this component so the Compiled transform can statically extract
@@ -64,8 +47,16 @@ const popoverAnimationStyles = cssMap({
 		transitionProperty: 'overlay, display',
 		transitionDuration: token('motion.duration.xshort'),
 		transitionBehavior: 'allow-discrete',
+		animation: 'var(--ds-popover-motion-exit)',
+		animationFillMode: 'forwards',
+		animationDuration: token('motion.duration.xshort'),
+		animationTimingFunction: token('motion.easing.in.practical'),
 		'&:popover-open': {
 			transitionDuration: token('motion.duration.short'),
+			animation: 'var(--ds-popover-motion-enter)',
+			animationFillMode: 'backwards',
+			animationDuration: token('motion.duration.short'),
+			animationTimingFunction: token('motion.easing.out.practical'),
 		},
 		'@media (prefers-reduced-motion: reduce)': {
 			animationName: 'none',
@@ -74,49 +65,6 @@ const popoverAnimationStyles = cssMap({
 				animationName: 'none',
 				transitionDuration: '0s',
 			},
-		},
-		'--dir': 1,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'[dir="rtl"] &': {
-			'--dir': -1,
-		},
-	},
-	motion: {
-		animation: 'var(--ds-popover-motion-exit)',
-		animationFillMode: 'forwards',
-		'&:popover-open': {
-			animation: 'var(--ds-popover-motion-enter)',
-			animationFillMode: 'backwards',
-		},
-	},
-	'slide-and-fade': {
-		animationName: `${slideOutKeyframes}, ${token('motion.keyframe.fade.out')}`,
-		animationDuration: token('motion.duration.xshort'),
-		animationTimingFunction: token('motion.easing.in.practical'),
-		'&:popover-open': {
-			animationName: `${slideInKeyframes}, ${token('motion.keyframe.fade.in')}`,
-			animationDuration: token('motion.duration.short'),
-			animationTimingFunction: token('motion.easing.out.practical'),
-		},
-	},
-	fade: {
-		animationName: token('motion.keyframe.fade.out'),
-		animationDuration: token('motion.duration.xshort'),
-		animationTimingFunction: token('motion.easing.in.practical'),
-		'&:popover-open': {
-			animationName: token('motion.keyframe.fade.in'),
-			animationDuration: token('motion.duration.short'),
-			animationTimingFunction: token('motion.easing.out.practical'),
-		},
-	},
-	'scale-and-fade': {
-		animationName: `${token('motion.keyframe.fade.out')}, ${token('motion.keyframe.scale.out.small')}`,
-		animationDuration: token('motion.duration.xshort'),
-		animationTimingFunction: token('motion.easing.in.practical'),
-		'&:popover-open': {
-			animationName: `${token('motion.keyframe.fade.in')}, ${token('motion.keyframe.scale.in.small')}`,
-			animationDuration: token('motion.duration.short'),
-			animationTimingFunction: token('motion.easing.out.practical'),
 		},
 	},
 });
@@ -190,7 +138,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		onOpenChange,
 		onEnterFinish,
 		onExitFinish,
-		animate,
+		animate = false,
 		placement,
 		testId,
 		isOpen,
@@ -213,6 +161,7 @@ export const Popover: React.ForwardRefExoticComponent<
 
 	const { phase, preset } = useAnimatedVisibility({
 		isOpen,
+		animationKind: 'popover',
 		animate,
 		elementRef: ownRef,
 		onEnterFinish,
@@ -362,10 +311,10 @@ export const Popover: React.ForwardRefExoticComponent<
 	// stale custom properties on the element.
 	useLayoutEffect(() => {
 		const element = ownRef.current;
-		if (!element || !preset?.getStyles || !placement) {
+		if (!element || !placement) {
 			return;
 		}
-		return setStyle({ element, styles: preset.getStyles({ placement }) });
+		return setStyle({ element, styles: getPopupMotionStyles({ placement }) });
 	}, [preset, placement, isVisible]);
 
 	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
@@ -419,11 +368,7 @@ export const Popover: React.ForwardRefExoticComponent<
 			aria-labelledby={labelledBy}
 			data-testid={testId}
 			className={consumerXcss}
-			css={[
-				styles.root,
-				preset && popoverAnimationStyles.root,
-				preset && popoverAnimationStyles[preset.name],
-			]}
+			css={[styles.root, preset && popoverAnimationStyles.root]}
 		>
 			{children}
 		</div>

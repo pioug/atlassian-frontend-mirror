@@ -42,7 +42,6 @@ export const configs: {
 			'@atlaskit/design-system/prefer-primitives': string;
 			'@atlaskit/design-system/use-drawer-label': string;
 			'@atlaskit/design-system/use-href-in-link-item': string;
-			'@atlaskit/design-system/use-primitives': string;
 			'@atlaskit/design-system/use-visually-hidden': string;
 		};
 	};
@@ -136,7 +135,6 @@ export const rules: {
 	'prefer-primitives': Rule.RuleModule;
 	'use-drawer-label': Rule.RuleModule;
 	'use-href-in-link-item': Rule.RuleModule;
-	'use-primitives': Rule.RuleModule;
 	'use-visually-hidden': Rule.RuleModule;
 };
 

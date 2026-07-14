@@ -23,10 +23,7 @@ export const WhatsNewResultsListContainer = ({
 	children,
 }: {
 	children: React.ReactNode;
-}): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
-	<div css={whatsNewResultsListContainerStyles}>{children}</div>
-);
+}): JSX.Element => <div css={whatsNewResultsListContainerStyles}>{children}</div>;
 
 const whatsNewResultsListTitleContainerStyles = css({
 	paddingTop: 0,

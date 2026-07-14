@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 221.9.0
+
+### Minor Changes
+
+- [`1f968eb29f086`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f968eb29f086) -
+  Add editorDomSize (total editor DOM element count) to proseMirrorRendered, INP and UFO performance
+  events, gated behind the platform_editor_dom_node_count experiment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.8.3
+
+### Patch Changes
+
+- [`3b5a6eca9da9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5a6eca9da9d) -
+  Clean up feature gate `platform_editor_toolbar_aifc_placement_overridden`
+- Updated dependencies
+
+## 221.8.2
+
+### Patch Changes
+
+- [`dad5416e6deb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dad5416e6deb2) -
+  Clean up the fully launched `rovo_chat_enable_skills_ui_m1` and
+  `cc_fd_wb_create_priority_in_slash_menu_enabled` feature gates so extension priority is always
+  available in slash menus.
+- Updated dependencies
+
+## 221.8.1
+
+### Patch Changes
+
+- [`a421f8d9ac2be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a421f8d9ac2be) -
+  Revert rovo_chat_enable_skills_ui_m1 cleanup in editor packages to fix slash menu priority
+- Updated dependencies
+
 ## 221.8.0
 
 ### Minor Changes

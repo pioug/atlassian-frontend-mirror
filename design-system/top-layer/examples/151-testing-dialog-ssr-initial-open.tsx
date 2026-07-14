@@ -11,7 +11,6 @@ import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { dialogSlideUpAndFade } from '@atlaskit/top-layer/animations';
 import { Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 
 const styles = cssMap({
@@ -56,7 +55,7 @@ export default function DialogSsrInitialOpenExample(): ReactNode {
 					onClose={handleClose}
 					isOpen={isOpen}
 					label="Initially open dialog"
-					animate={dialogSlideUpAndFade()}
+					animate
 					testId="ssr-initial-open-dialog"
 				>
 					<div css={styles.dialogCard}>

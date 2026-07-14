@@ -8,11 +8,17 @@ import { cssMap } from '@atlaskit/css';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { colorAccessibilityMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getTokenCSSVariableValue } from '@atlaskit/editor-common/ui-color';
+import {
+	getHighlightColorInNonActiveTheme,
+	getTextColorInNonActiveTheme,
+	getTokenCSSVariableValue,
+} from '@atlaskit/editor-common/ui-color';
 import {
 	hexToEditorTextBackgroundPaletteColor,
 	hexToEditorTextPaletteColor,
 } from '@atlaskit/editor-palette';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import AccessibilityIcon from '@atlaskit/icon/core/accessibility';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -63,6 +69,8 @@ const useColorAccessibilityState = (api: ExtractInjectionAPI<TextColorPlugin> | 
 		defaultColor: states.textColorState?.defaultColor,
 		highlightColor: states.highlightState?.activeColor,
 		highlightColorInNonActiveTheme: states.highlightState?.activeColorInNonActiveTheme,
+		isMultiHighlightColor: states.highlightState?.isMultiHighlightColor,
+		isMultiTextColor: states.textColorState?.isMultiTextColor,
 		textColor: states.textColorState?.color,
 		textColorInNonActiveTheme: states.textColorState?.colorInNonActiveTheme,
 	}));
@@ -85,6 +93,29 @@ const getContrastRatio = (
 	}
 };
 
+// Computes the contrast ratio for a (textColor, highlightColor) pair as it would
+// appear in the non-active theme, using the shared resolvers so the walker
+// evaluates the same colors the single-pair plugin-state path does. Returns null
+// if it cannot be calculated.
+const getNonActiveThemeContrastRatio = (
+	defaultColor: string | undefined,
+	highlightColor: string | null | undefined,
+	textColor: string | null | undefined,
+): number | null => {
+	try {
+		return calcContrastRatio(
+			getTextColorInNonActiveTheme(textColor ?? null, defaultColor || DEFAULT_COLOR.color),
+			getHighlightColorInNonActiveTheme(highlightColor ?? null, {
+				defaultBackgroundColor: DEFAULT_BACKGROUND_COLOR,
+				transparentColor: TRANSPARENT_HIGHLIGHT_COLOR,
+			}),
+		);
+	} catch {
+		// if we failed to calculate the contrast ratio, return null
+		return null;
+	}
+};
+
 type AccessibilityStatusKey = 'accessible' | 'difficultToRead' | 'inaccessible';
 
 const getAccessibilityStatus = (contrastRatio: number): AccessibilityStatusKey => {
@@ -95,6 +126,98 @@ const getAccessibilityStatus = (contrastRatio: number): AccessibilityStatusKey =
 	} else {
 		return 'inaccessible';
 	}
+};
+
+/**
+ * Collects the worst accessibility status across all unique (textColor, highlightColor)
+ * combinations in the current selection.
+ *
+ * When the selection spans multiple text colors and/or highlight colors,
+ * this walks the document between selection boundaries and checks every
+ * text node's color marks, computing the contrast ratio for each unique pair
+ * (across both the active and non-active theme) and returning the worst
+ * status found.
+ */
+const getWorstAccessibilityStatusFromSelection = (
+	api: ExtractInjectionAPI<TextColorPlugin> | undefined,
+	defaultColor: string | undefined,
+): AccessibilityStatusKey | null => {
+	if (!api?.core) {
+		return null;
+	}
+
+	// Track the lowest (worst) contrast ratio across all pairs; a lower ratio
+	// means a worse accessibility status, so a single numeric comparison is
+	// enough to find the worst pair.
+	let worstContrastRatio: number | null = null;
+
+	api.core.actions.execute(({ tr }) => {
+		// Text/highlight colors only apply to a text range. If the selection is
+		// not a text selection (e.g. a node, cell or all selection) there is no
+		// meaningful range of colored text to evaluate.
+		if (!(tr.selection instanceof TextSelection)) {
+			return null;
+		}
+
+		const { from, to } = tr.selection;
+		const seen = new Set<string>();
+
+		tr.doc.nodesBetween(from, to, (node: Node) => {
+			// Text and highlight color marks only apply to text nodes, so skip
+			// any non-text leaves (e.g. emoji, mentions, inline cards). Continue
+			// descending into container nodes to reach their text children.
+			if (!node.isText) {
+				return !node.isLeaf;
+			}
+
+			// Extract both color marks in a single pass over the node's marks
+			// rather than two `Array.find` scans.
+			let textColor: string | null = null;
+			let highlightColor: string | null = null;
+			for (const mark of node.marks) {
+				if (mark.type.name === 'textColor') {
+					textColor = mark.attrs.color ?? null;
+				} else if (mark.type.name === 'backgroundColor') {
+					highlightColor = mark.attrs.color ?? null;
+				}
+			}
+
+			const pairKey = `${textColor ?? 'default'}|${highlightColor ?? 'default'}`;
+			// Skip pairs we have already evaluated so the expensive contrast
+			// calculations run at most once per unique (text, highlight) pair.
+			if (seen.has(pairKey)) {
+				return;
+			}
+			seen.add(pairKey);
+
+			const contrastRatio = getContrastRatio(defaultColor, highlightColor, textColor);
+			if (contrastRatio === null) {
+				return;
+			}
+
+			// Account for the non-active theme so the worst-case (least
+			// accessible) contrast across both themes is used for each pair,
+			// keeping multi-color selections consistent with the single-pair path.
+			const nonActiveThemeContrastRatio = getNonActiveThemeContrastRatio(
+				defaultColor,
+				highlightColor,
+				textColor,
+			);
+			const mostCriticalContrastRatio =
+				nonActiveThemeContrastRatio !== null
+					? Math.min(contrastRatio, nonActiveThemeContrastRatio)
+					: contrastRatio;
+
+			if (worstContrastRatio === null || mostCriticalContrastRatio < worstContrastRatio) {
+				worstContrastRatio = mostCriticalContrastRatio;
+			}
+		});
+
+		// Read-only operation — do not dispatch
+		return null;
+	});
+
+	return worstContrastRatio === null ? null : getAccessibilityStatus(worstContrastRatio);
 };
 
 const AccessibilityStatus = ({
@@ -148,36 +271,78 @@ export const ColorAccessibilityMenuItem = ({
 		defaultColor,
 		highlightColor,
 		highlightColorInNonActiveTheme,
+		isMultiHighlightColor,
+		isMultiTextColor,
 		textColor,
 		textColorInNonActiveTheme,
 	} = useColorAccessibilityState(api);
-	const contrastRatio = getContrastRatio(defaultColor, highlightColor, textColor);
-	let nonActiveThemeContrastRatio: number | null = null;
-	try {
+	// The multi-color selection handling (walking every unique text/highlight
+	// pair across the active and non-active theme) is only performed when the
+	// patch gate is on. When the gate is off we fall back to the legacy behavior
+	// of only evaluating the single active text/highlight color in the current
+	// active theme
+	const isMultiColorSelection =
+		Boolean(isMultiTextColor || isMultiHighlightColor) &&
+		fg('platform_editor_lovability_text_bg_color_patch_1');
+
+	// The complement of `isMultiColorSelection`: the single active text/highlight
+	// pair is evaluated whenever we are not walking a multi-color selection. This
+	// covers both a genuinely single-color selection (gate on) and every
+	// selection when the gate is off (legacy behavior).
+	const isSingleColorSelection = !isMultiColorSelection;
+
+	// Memoize the selection walk so we don't re-traverse the entire ProseMirror
+	// document on every render. It only needs to recompute when the multi-color
+	// selection state or the inputs to the walk change (the selection flags,
+	// default color, or the plugin api).
+	const multiColorStatus = React.useMemo(
+		() =>
+			isMultiColorSelection ? getWorstAccessibilityStatusFromSelection(api, defaultColor) : null,
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[isMultiColorSelection, isMultiTextColor, isMultiHighlightColor, defaultColor, api],
+	);
+
+	// The single active text/highlight pair path. Everything below only applies
+	// when we are not walking a multi-color selection
+	let singleColorStatus: AccessibilityStatusKey | null = null;
+	if (isSingleColorSelection) {
+		const singleColorContrastRatio = getContrastRatio(defaultColor, highlightColor, textColor);
+
+		// Also account for the non-active theme (gate on only) so the worst-case
+		// (least accessible) status across both themes is shown.
+		let nonActiveThemeSingleColorRatio: number | null = null;
 		if (
 			textColorInNonActiveTheme &&
 			highlightColorInNonActiveTheme &&
 			fg('platform_editor_lovability_text_bg_color_patch_1')
 		) {
-			nonActiveThemeContrastRatio = calcContrastRatio(
-				textColorInNonActiveTheme,
-				highlightColorInNonActiveTheme,
-			);
+			try {
+				nonActiveThemeSingleColorRatio = calcContrastRatio(
+					textColorInNonActiveTheme,
+					highlightColorInNonActiveTheme,
+				);
+			} catch {
+				// if we failed to calculate the contrast ratio, leave as null
+				nonActiveThemeSingleColorRatio = null;
+			}
 		}
-	} catch {
-		// if we failed to calculate the contrast ratio, leave null
+
+		const mostCriticalContrastRatio =
+			singleColorContrastRatio !== null && nonActiveThemeSingleColorRatio !== null
+				? Math.min(singleColorContrastRatio, nonActiveThemeSingleColorRatio)
+				: singleColorContrastRatio;
+
+		singleColorStatus =
+			mostCriticalContrastRatio !== null ? getAccessibilityStatus(mostCriticalContrastRatio) : null;
 	}
 
-	const mostCriticalContrastRatio =
-		contrastRatio !== null &&
-		nonActiveThemeContrastRatio !== null &&
-		fg('platform_editor_lovability_text_bg_color_patch_1')
-			? Math.min(contrastRatio, nonActiveThemeContrastRatio)
-			: contrastRatio;
-	if (mostCriticalContrastRatio === null) {
+	const accessibilityStatus: AccessibilityStatusKey | null = isSingleColorSelection
+		? singleColorStatus
+		: multiColorStatus;
+
+	if (accessibilityStatus === null) {
 		return <></>;
 	}
-	const accessibilityStatus = getAccessibilityStatus(mostCriticalContrastRatio);
 
 	const tooltipContent = (accessibilityStatus: AccessibilityStatusKey) => {
 		if (accessibilityStatus === 'accessible') {

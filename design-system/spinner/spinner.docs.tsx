@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A loading spinner component.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=8070-10241',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-8070-10241',
 			},
 			import: {
 				name: 'Spinner',

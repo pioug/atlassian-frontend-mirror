@@ -12,7 +12,7 @@ import React, {
 	useRef,
 } from 'react';
 
-import { cssMap, jsx, keyframes } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -20,29 +20,10 @@ import noop from '@atlaskit/ds-lib/noop';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
-import { setStyle } from '../internal/set-style';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 
 import { type TDialogProps } from './types';
-
-const slideInKeyframes = keyframes({
-	from: {
-		transform: `translateY(calc(var(--ds-dialog-ty, 12px)))`,
-	},
-	to: {
-		transform: 'none',
-	},
-});
-
-const slideOutKeyframes = keyframes({
-	from: {
-		transform: 'none',
-	},
-	to: {
-		transform: `translateY(calc(-1 * var(--ds-dialog-ty, 12px)))`,
-	},
-});
 
 // These animation styles use the non-strict Compiled cssMap because they rely
 // on `@starting-style`, `[open]`, and `allow-discrete`. Keep them in this
@@ -68,30 +49,6 @@ const dialogAnimationStyles = cssMap({
 			animationFillMode: 'backwards',
 		},
 	},
-	'slide-up-and-fade': {
-		animationName: `${slideOutKeyframes}, ${token('motion.keyframe.fade.out')}`,
-		animationDuration: token('motion.duration.medium'),
-		animationTimingFunction: token('motion.easing.in.practical'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-		'&[open]': {
-			animationName: `${slideInKeyframes}, ${token('motion.keyframe.fade.in')}`,
-			animationDuration: token('motion.duration.long'),
-			animationTimingFunction: token('motion.easing.inout.bold'),
-		},
-	},
-	fade: {
-		animationName: token('motion.keyframe.fade.out'),
-		animationDuration: token('motion.duration.medium'),
-		animationTimingFunction: token('motion.easing.in.practical'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-		'&[open]': {
-			animationName: token('motion.keyframe.fade.in'),
-			animationDuration: token('motion.duration.long'),
-			animationTimingFunction: token('motion.easing.inout.bold'),
-		},
-	},
-	// Currently only exists for type reasons, not indicative of final API
-	custom: {},
 });
 
 const styles = cssMap({
@@ -185,7 +142,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 		onClose,
 		onEnterFinish,
 		onExitFinish,
-		animate,
+		animate = false,
 		xcss: consumerXcss,
 		style,
 		testId,
@@ -203,6 +160,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 
 	const { phase, preset } = useAnimatedVisibility({
 		isOpen,
+		animationKind: 'dialog',
 		animate,
 		elementRef: ownRef,
 		onEnterFinish,
@@ -250,19 +208,6 @@ export const Dialog: React.ForwardRefExoticComponent<
 			dialog.close();
 		}
 	}, [isOpen]);
-
-	// Apply preset-provided animation custom properties (e.g. the
-	// `--ds-dialog-ty` slide distance for `dialogSlideUpAndFade`). The
-	// cleanup restores the previous inline values so a preset change does
-	// not leave stale custom properties on the element. Dialog presets do
-	// not vary by placement, so an empty placement is passed.
-	useLayoutEffect(() => {
-		const dialog = ownRef.current;
-		if (!dialog || !preset?.getStyles) {
-			return;
-		}
-		return setStyle({ element: dialog, styles: preset.getStyles({ placement: {} }) });
-	}, [preset, isVisible]);
 
 	// Handle native Escape (cancel event)
 	const handleCancel = useCallback(
@@ -327,7 +272,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 				shouldHideBackdrop ? backdropStyles.hidden : backdropStyles.root,
 				preset && backdropStyles.motion,
 				preset && dialogAnimationStyles.root,
-				preset && dialogAnimationStyles[preset.name],
+				preset && dialogAnimationStyles.motion,
 			]}
 			style={style}
 			onCancel={handleCancel}

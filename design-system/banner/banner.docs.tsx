@@ -10,8 +10,7 @@ const documentation: StructuredContentSource = {
 				'A banner displays a prominent message at the top of the screen to communicate important information to users.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13174-35360',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13174-35360',
 			},
 			import: {
 				name: 'Banner',

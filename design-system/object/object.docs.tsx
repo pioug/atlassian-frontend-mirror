@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'An object icon component that represents an Atlassian story content type.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=107096-47822',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-107096-47822',
 			},
 			import: {
 				name: 'StoryObject',

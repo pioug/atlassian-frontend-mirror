@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.0.0
+
+### Major Changes
+
+- [`db02bae78813d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db02bae78813d) -
+  Remove the `use-primitives` rule and its Box recommendation.
+
+  This is a breaking change. After upgrading, remove `@atlaskit/design-system/use-primitives` from
+  your ESLint configuration and any ESLint disable comments to avoid "Definition for rule was not
+  found" errors.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.6.1
 
 ### Patch Changes

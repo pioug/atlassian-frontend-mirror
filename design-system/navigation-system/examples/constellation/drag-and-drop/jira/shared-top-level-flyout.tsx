@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -75,7 +74,7 @@ export function SharedTopLevelFlyout({
 	}, [draggableButtonRef, registry, value]);
 
 	return (
-		<>
+		<React.Fragment>
 			<FlyoutMenuItem isOpen={isOpen}>
 				<FlyoutMenuItemTrigger
 					elemBefore={icon}
@@ -141,6 +140,6 @@ export function SharedTopLevelFlyout({
 				</FlyoutMenuItemContent>
 			</FlyoutMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }

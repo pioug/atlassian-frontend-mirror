@@ -1,5 +1,11 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
+import { cssMap, jsx } from '@compiled/react';
 import type { VirtualElement } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
 
@@ -13,7 +19,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
-import { fade, slideAndFade } from '@atlaskit/top-layer/animations';
+import { token } from '@atlaskit/tokens';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
@@ -547,7 +553,7 @@ function Tooltip({
 			// once we deprecate the wrapped approach, we can put the aria
 			// attribute back into the tooltipTriggerProps and make it required
 			// instead of optional in `types`
-			<>
+			<Fragment>
 				{children({
 					...tooltipTriggerProps,
 					// `testId` propagates to the trigger element so `data-testid` lands in the
@@ -559,7 +565,7 @@ function Tooltip({
 					ref: setDirectRef,
 				})}
 				{hiddenContent}
-			</>
+			</Fragment>
 		) : (
 			// @ts-ignore
 			<CastTargetContainer
@@ -581,7 +587,7 @@ function Tooltip({
 
 	if (fg('platform-dst-top-layer')) {
 		return (
-			<>
+			<Fragment>
 				{trigger}
 				{shouldRenderTooltipPopup ? (
 					<TopLayerTooltipPopup
@@ -602,12 +608,12 @@ function Tooltip({
 						isOpen={state !== 'hide' && state !== 'top-layer-exit'}
 					/>
 				) : null}
-			</>
+			</Fragment>
 		);
 	}
 
 	return (
-		<>
+		<Fragment>
 			{trigger}
 			{shouldRenderTooltipPopup ? (
 				<PopperWrapper>
@@ -668,7 +674,7 @@ function Tooltip({
 					</Popper>
 				</PopperWrapper>
 			) : null}
-		</>
+		</Fragment>
 	);
 }
 
@@ -678,11 +684,14 @@ const TooltipPortal = ({ children }: { children: React.ReactNode }) => {
 	return <Portal zIndex={tooltipZIndex}>{children}</Portal>;
 };
 
-// Module-level preset instance, stable reference, no re-allocation per render.
-// Non-mouse tooltips slide in from the direction of the trigger — slide + fade.
-const tooltipAnimation = slideAndFade();
-// Mouse-position tooltips follow the cursor and have no fixed direction — fade only.
-const tooltipMouseAnimation = fade();
+const tooltipMouseAnimationStyles = cssMap({
+	root: {
+		animationName: token('motion.keyframe.fade.out'),
+		'&:popover-open': {
+			animationName: token('motion.keyframe.fade.in'),
+		},
+	},
+});
 
 /**
  * Top-layer tooltip popup component.
@@ -806,8 +815,8 @@ function TopLayerTooltipPopup({
 			onClose={onClose}
 			onExitFinish={onExitFinish}
 			testId={testId ? `${testId}--popover` : undefined}
-			// Override directional slide: mouse positions should fade only
-			animate={isMouseStrategyActive ? tooltipMouseAnimation : tooltipAnimation}
+			animate
+			xcss={isMouseStrategyActive && tooltipMouseAnimationStyles.root}
 			placement={placement}
 		>
 			{/* Popover already has role="tooltip", so the inner container uses "presentation" to avoid duplicate roles */}

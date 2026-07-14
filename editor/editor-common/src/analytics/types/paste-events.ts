@@ -177,7 +177,7 @@ export type PasteActionsMenuOpenedAEP = UIAEP<
 	ACTION.OPENED,
 	ACTION_SUBJECT.PASTE_ACTIONS_MENU,
 	undefined,
-	{ visibleAiActions: string[] },
+	{ displayAsVisible: boolean; visibleAiActions: string[] },
 	undefined
 >;
 

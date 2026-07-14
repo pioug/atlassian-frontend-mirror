@@ -1,5 +1,3 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { LabelStackRegistry, resolveLabelStackFromTrie } from './label-stack-registry';
 
 import {
@@ -151,68 +149,38 @@ describe('optimizeLabelStackWithRegistry', () => {
 		});
 	});
 
-	describe('platform_ufo_trim_labelstack_trailing_slashes', () => {
+	describe('trailing slash trimming', () => {
 		const labelStack = [
 			{ name: 'network/' },
 			{ name: 'rest/api/3/myself/' },
 			{ name: 'gateway/api/jsm/ops/web/<uuid>/v1/alerts///' },
 		];
 
-		ffTest(
-			'platform_ufo_trim_labelstack_trailing_slashes',
-			() => {
-				expect(stringifyLabelStackFully(labelStack)).toBe(
-					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				);
-				expect(stringifyLabelStackWithoutId(labelStack)).toBe(
-					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				);
-				expect(optimizeLabelStack(labelStack, '2.0.0')).toBe(
-					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				);
-				expect(optimizeLabelStack(labelStack, '1.0.1')).toEqual([
-					{ n: 'network' },
-					{ n: 'rest/api/3/myself' },
-					{ n: 'gateway/api/jsm/ops/web/<uuid>/v1/alerts' },
-				]);
-			},
-			() => {
-				expect(stringifyLabelStackFully(labelStack)).toBe(
-					'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts///',
-				);
-				expect(stringifyLabelStackWithoutId(labelStack)).toBe(
-					'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts///',
-				);
-				expect(optimizeLabelStack(labelStack, '2.0.0')).toBe(
-					'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts///',
-				);
-				expect(optimizeLabelStack(labelStack, '1.0.1')).toEqual([
-					{ n: 'network/' },
-					{ n: 'rest/api/3/myself/' },
-					{ n: 'gateway/api/jsm/ops/web/<uuid>/v1/alerts///' },
-				]);
-			},
-		);
+		test('trims trailing slashes across string and array label stack formats', () => {
+			expect(stringifyLabelStackFully(labelStack)).toBe(
+				'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+			);
+			expect(stringifyLabelStackWithoutId(labelStack)).toBe(
+				'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+			);
+			expect(optimizeLabelStack(labelStack, '2.0.0')).toBe(
+				'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+			);
+			expect(optimizeLabelStack(labelStack, '1.0.1')).toEqual([
+				{ n: 'network' },
+				{ n: 'rest/api/3/myself' },
+				{ n: 'gateway/api/jsm/ops/web/<uuid>/v1/alerts' },
+			]);
+		});
 
-		ffTest(
-			'platform_ufo_trim_labelstack_trailing_slashes',
-			() => {
-				const registry = new LabelStackRegistry();
-				const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
+		test('registers label stacks after trimming trailing slashes', () => {
+			const registry = new LabelStackRegistry();
+			const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
 
-				expect(resolveLabelStackFromTrie(registry.getLookupTable(), result as number)).toBe(
-					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				);
-			},
-			() => {
-				const registry = new LabelStackRegistry();
-				const result = optimizeLabelStackWithRegistry(labelStack, '2.0.0', registry);
-
-				expect(resolveLabelStackFromTrie(registry.getLookupTable(), result as number)).toBe(
-					'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts///',
-				);
-			},
-		);
+			expect(resolveLabelStackFromTrie(registry.getLookupTable(), result as number)).toBe(
+				'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+			);
+		});
 	});
 
 	describe('leading and trailing slash trimming together', () => {
@@ -222,40 +190,21 @@ describe('optimizeLabelStackWithRegistry', () => {
 			{ name: '///gateway/api/jsm/ops/web/<uuid>/v1/alerts/' },
 		];
 
-		ffTest(
-			'platform_ufo_trim_labelstack_trailing_slashes',
-			() => {
-				expect(stringifyLabelStackFully(labelStack)).toBe(
-					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				);
-				expect(stringifyLabelStackWithoutId(labelStack)).toBe(
-					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				);
-				expect(optimizeLabelStack(labelStack, '2.0.0')).toBe(
-					'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
-				);
-				expect(optimizeLabelStack(labelStack, '1.0.1')).toEqual([
-					{ n: 'network' },
-					{ n: 'rest/api/3/myself' },
-					{ n: 'gateway/api/jsm/ops/web/<uuid>/v1/alerts' },
-				]);
-			},
-			() => {
-				expect(stringifyLabelStackFully(labelStack)).toBe(
-					'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts/',
-				);
-				expect(stringifyLabelStackWithoutId(labelStack)).toBe(
-					'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts/',
-				);
-				expect(optimizeLabelStack(labelStack, '2.0.0')).toBe(
-					'network//rest/api/3/myself//gateway/api/jsm/ops/web/<uuid>/v1/alerts/',
-				);
-				expect(optimizeLabelStack(labelStack, '1.0.1')).toEqual([
-					{ n: 'network/' },
-					{ n: 'rest/api/3/myself/' },
-					{ n: 'gateway/api/jsm/ops/web/<uuid>/v1/alerts/' },
-				]);
-			},
-		);
+		test('trims both leading and trailing slashes across string and array label stack formats', () => {
+			expect(stringifyLabelStackFully(labelStack)).toBe(
+				'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+			);
+			expect(stringifyLabelStackWithoutId(labelStack)).toBe(
+				'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+			);
+			expect(optimizeLabelStack(labelStack, '2.0.0')).toBe(
+				'network/rest/api/3/myself/gateway/api/jsm/ops/web/<uuid>/v1/alerts',
+			);
+			expect(optimizeLabelStack(labelStack, '1.0.1')).toEqual([
+				{ n: 'network' },
+				{ n: 'rest/api/3/myself' },
+				{ n: 'gateway/api/jsm/ops/web/<uuid>/v1/alerts' },
+			]);
+		});
 	});
 });

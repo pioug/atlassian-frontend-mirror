@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'Use for short code snippets inline with body text.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=27203-107369',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-27203-107369',
 			},
 			import: {
 				name: 'Code',

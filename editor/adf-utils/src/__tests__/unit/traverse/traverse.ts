@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import { traverse } from '../../../traverse/traverse';
 import mentionsDoc from './__fixtures__/mentions.json';
 import emojiDoc from './__fixtures__/emoji.json';
@@ -39,18 +31,30 @@ describe('Traverse', () => {
 			traverse(emojiDoc, {
 				emoji: () => false,
 			}),
-		).toMatchSnapshot();
+		).toEqual({
+			type: 'doc',
+			version: 1,
+			content: [
+				{
+					type: 'paragraph',
+					content: [
+						{ type: 'text', text: 'My favourite emoji is ' },
+						{ type: 'text', text: ' . What is yours?' },
+					],
+				},
+			],
+		});
 	});
 
 	it('should replace a node when visitor returns a new adf node', () => {
-		expect(
-			traverse(mentionsDoc, {
-				mention: (node) => ({
-					...node,
-					attrs: { ...node.attrs, text: `${node.attrs!.text} – updated` },
-				}),
+		const result = traverse(mentionsDoc, {
+			mention: (node) => ({
+				...node,
+				attrs: { ...node.attrs, text: `${node.attrs!.text} – updated` },
 			}),
-		).toMatchSnapshot();
+		});
+		expect(result).not.toEqual(mentionsDoc);
+		expect(JSON.stringify(result)).toContain('updated');
 	});
 
 	it('should not process children nodes if parent node has been removed', () => {

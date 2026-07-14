@@ -98,6 +98,32 @@ describe('barrel-parsing / parseBarrelExports local import re-exports', () => {
 			}),
 		);
 	});
+
+	it('resolves default export assignments that forward imported bindings', () => {
+		const barrelFilePath = '/repo/index.ts';
+		const mock = createMockFs({
+			[barrelFilePath]: [
+				"import FeedbackCollector from './components/FeedbackCollector';",
+				'',
+				'export default FeedbackCollector;',
+			].join('\n'),
+			'/repo/components/FeedbackCollector.tsx': [
+				'const FeedbackCollector = () => null;',
+				'',
+				'export default FeedbackCollector;',
+			].join('\n'),
+		});
+
+		const exports = parseBarrelExports({ barrelFilePath, fs: mock.fs });
+
+		expect(exports.get('default')).toEqual(
+			expect.objectContaining({
+				path: '/repo/components/FeedbackCollector.tsx',
+				isTypeOnly: false,
+				originalName: 'default',
+			}),
+		);
+	});
 });
 
 describe('barrel-parsing / parseBarrelExports caching', () => {

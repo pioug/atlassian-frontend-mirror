@@ -394,12 +394,19 @@ export type OpenBrowseAgentPayload = PayloadCore<'open-browse-agent-modal'>;
 
 export type OpenBrowseAgentSidebarPayload = PayloadCore<'open-browse-agent-sidebar'>;
 
+export type EditorSuggestionRichContent = {
+	type: 'text/adf';
+	version: 1;
+	content: NonNullable<DocNode['content']>;
+};
+
 export type EditorSuggestionPayload = PayloadCore<
 	'editor-suggestion',
 	{
 		mode: 'insert' | 'replace';
 		content: string;
 		agentId?: string;
+		richContent?: EditorSuggestionRichContent;
 	}
 >;
 

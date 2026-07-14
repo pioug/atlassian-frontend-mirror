@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import { validator } from '../../../validator';
 
 describe('validate', () => {
@@ -248,7 +240,7 @@ describe('validate', () => {
 		};
 
 		const run = () => {
-			const result = validate(invalidDoc, (x) => {
+			validate(invalidDoc, (x) => {
 				expect(x).not.toBe(invalidNode);
 				expect(x).toEqual(invalidNode);
 				return {
@@ -258,11 +250,9 @@ describe('validate', () => {
 					},
 				};
 			});
-			expect(result.entity).toMatchSnapshot();
 		};
 
 		expect(run).not.toThrowError();
-		expect(invalidDoc).toMatchSnapshot();
 	});
 
 	it('should not remove valid marks', () => {
@@ -289,11 +279,10 @@ describe('validate', () => {
 
 		const run = () => {
 			const result = validate(doc, (_) => undefined);
-			expect(result.entity).toMatchSnapshot();
+			expect(result.entity).toEqual(doc);
 		};
 
 		expect(run).not.toThrowError();
-		expect(doc).toMatchSnapshot();
 	});
 
 	it('should be able to wrap invalid nodes - 2', () => {
@@ -322,7 +311,7 @@ describe('validate', () => {
 		};
 
 		const run = () => {
-			const result = validate(invalidDoc, (x) => {
+			validate(invalidDoc, (x) => {
 				return {
 					type: 'unknown',
 					attrs: {
@@ -330,11 +319,9 @@ describe('validate', () => {
 					},
 				};
 			});
-			expect(result.entity).toMatchSnapshot();
 		};
 
 		expect(run).not.toThrowError();
-		expect(invalidDoc).toMatchSnapshot();
 	});
 });
 
@@ -353,7 +340,7 @@ describe('validator', () => {
 		};
 
 		const run = () => {
-			const result = validate(invalidDoc, (x) => {
+			validate(invalidDoc, (x) => {
 				expect(x).not.toBe(invalidNode);
 				expect(x).toEqual(invalidNode);
 				return {
@@ -363,7 +350,6 @@ describe('validator', () => {
 					},
 				};
 			});
-			expect(result.entity).toMatchSnapshot();
 		};
 
 		expect(run).not.toThrowError();

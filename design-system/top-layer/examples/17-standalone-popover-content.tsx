@@ -3,15 +3,12 @@ import React, { useCallback, useRef, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getFirstFocusable } from '@atlaskit/top-layer/focus';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
-
-const animation = slideAndFade();
 
 /**
  * Standalone `Popover` + `useAnchorPosition` example.
@@ -78,7 +75,7 @@ function StandalonePopover({ forceFallbackPositioning }: { forceFallbackPosition
 									getFirstFocusable({ container: element })?.focus();
 								}
 							}}
-							animate={animation}
+							animate
 							isOpen={true}
 						>
 							<PopoverSurface>

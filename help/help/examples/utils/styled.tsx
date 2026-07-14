@@ -26,7 +26,6 @@ const exampleDefaultContentStyles = css({
 });
 
 export const ExampleDefaultContent = ({ children }: { children: React.ReactNode }): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={exampleDefaultContentStyles}>{children}</div>
 );
 

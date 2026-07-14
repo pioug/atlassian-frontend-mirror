@@ -134,9 +134,6 @@ export type BlockMenuNestedSectionComponent = (props: {
 }) => React.ReactNode;
 
 export type BlockMenuItemComponentProps = {
-	/**
-	 * TODO: Make this required when cleaning up platform_editor_blocks_patch_2.
-	 */
 	isSuggested?: boolean;
 };
 

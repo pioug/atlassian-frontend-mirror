@@ -1,5 +1,50 @@
 # @atlaskit/rovo-triggers
 
+## 9.9.0
+
+### Minor Changes
+
+- [`995c1ca2d4166`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/995c1ca2d4166) -
+  [ux] Publish Lumina insert/replace responses as structured editor ADF behind
+  `kd_lumina_insert_replace_response_as_adf` so Smart Link lists and profile-card mentions survive
+  insertion.
+
+  Populate bare people mention labels in editor-insert ADF fragments so profile-card mentions render
+  with their visible names.
+
+  `@atlaskit/rovo-triggers` now exposes optional rich ADF content on
+  `EditorSuggestionPayload.data.richContent`. Consumers can prefer the ADF fragment when present and
+  fall back to markdown otherwise:
+
+  ```ts
+  import type { EditorSuggestionPayload } from '@atlaskit/rovo-triggers';
+
+  function handleEditorSuggestion(payload: EditorSuggestionPayload) {
+  	if (payload.data.richContent?.type === 'text/adf') {
+  		return payload.data.richContent.content;
+  	}
+
+  	return payload.data.content;
+  }
+  ```
+
+## 9.8.2
+
+### Patch Changes
+
+- [`3459b8faed8ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3459b8faed8ba) -
+  Clean up the shipped `rovo_chat_3p_app_discovery_m1_experiment` and the shadowed
+  `post-office_rovo-chat_thinking-deeper` menu path. This removes the obsolete ChatModeMenu UI, its
+  popup variants, and its spotlight code.
+
+  Breaking changes:
+  - Remove `changeChatModeMenuAlignmentToBottomStart` from `RovoChatPromptInput`. The `ChatModeMenu`
+    implementation it configured has been removed.
+
+  `showChatModeMenu`, `shouldRenderChatModeMenusInPortal`, `customSlotBeforeChatModeMenu`, and
+  `UIConfig.elements.chatModeMenuButton` remain supported. They now apply to the surviving source
+  and reasoning footer controls.
+
 ## 9.8.1
 
 ### Patch Changes

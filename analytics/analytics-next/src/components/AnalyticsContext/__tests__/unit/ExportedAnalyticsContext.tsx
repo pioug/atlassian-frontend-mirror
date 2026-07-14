@@ -2,14 +2,9 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import AnalyticsContext from '../../index';
+import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
-// The modern context path is selected via isModernContextEnabledEnv (env-driven and falsy in
-// Jest). Force it truthy so the modern context is exercised without removing the env util.
-jest.mock('../../../../utils/isModernContextEnabledEnv', () => ({
-	__esModule: true,
-	default: true,
-}));
+import AnalyticsContext from '../../index';
 
 jest.mock('../../LegacyAnalyticsContext', () => ({
 	__esModule: true,
@@ -21,15 +16,28 @@ jest.mock('../../ModernAnalyticsContext', () => ({
 	default: () => <div>ModernAnalytics</div>,
 }));
 
-describe('ExportedAnalyticsContext', () => {
-	it('uses the modern analytics context', async () => {
-		const { container } = render(
-			<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>
-				<div>SomeComponent</div>
-			</AnalyticsContext>,
-		);
+describe('ExportedAnalyticsListener', () => {
+	ffTest(
+		'analytics-next-use-legacy-context',
+		() => {
+			render(
+				<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>
+					<div>SomeComponent</div>
+				</AnalyticsContext>,
+			);
 
-		expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
-		await expect(container).toBeAccessible();
-	});
+			// when the ff is off - we expect the legacy context to be used
+			expect(screen.getByText('LegacyAnalytics')).toBeInTheDocument();
+		},
+		() => {
+			render(
+				<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>
+					<div>SomeComponent</div>
+				</AnalyticsContext>,
+			);
+
+			// when the ff is on- we expect the modern context to be used
+			expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
+		},
+	);
 });

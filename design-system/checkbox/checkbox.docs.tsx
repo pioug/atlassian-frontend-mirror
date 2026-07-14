@@ -10,8 +10,7 @@ const documentation: StructuredContentSource = {
 				'A checkbox is an input control that allows a user to select one or more options from a number of choices.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13135-34359',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13135-34359',
 			},
 			import: {
 				name: 'Checkbox',

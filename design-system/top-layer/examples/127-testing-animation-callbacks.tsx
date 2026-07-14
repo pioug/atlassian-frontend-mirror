@@ -9,14 +9,11 @@ import { jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
-
-const animation = slideAndFade();
 
 const styles = cssMap({
 	wrapper: {
@@ -92,7 +89,7 @@ export default function TestingAnimationCallbacks(): ReactNode {
 				onClose={close}
 				role="dialog"
 				label="Animation callback test"
-				animate={animation}
+				animate
 				placement={{ edge: 'end' }}
 				onEnterFinish={handleEnterFinish}
 				onExitFinish={handleExitFinish}

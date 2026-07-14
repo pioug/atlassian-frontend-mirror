@@ -10,8 +10,7 @@ const documentation: StructuredContentSource = {
 				'A tooltip is a floating, non-actionable label used to explain a user interface element or feature.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=14493-106630',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-14493-106630',
 			},
 			import: {
 				name: 'Tooltip',

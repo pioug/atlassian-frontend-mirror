@@ -224,6 +224,24 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		panel: {
+			enter: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '15.5.0',
+					description: 'Use for panel enter transitions.',
+				},
+			},
+			exit: {
+				attributes: {
+					group: 'motion',
+					state: 'active',
+					introduced: '15.5.0',
+					description: 'Use for panel exit transitions.',
+				},
+			},
+		},
 	},
 };
 export default motion;

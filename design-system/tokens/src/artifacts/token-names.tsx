@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::47f55d74d3450be6ed4282db7cb4e101>>
+ * @codegen <<SignedSource::9a91303cd006a1a88346f8ec59458171>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -48,6 +48,8 @@ const tokens = {
 	'motion.listitem.selected': '--ds-listitem-selected',
 	'motion.modal.enter': '--ds-modal-enter',
 	'motion.modal.exit': '--ds-modal-exit',
+	'motion.panel.enter': '--ds-panel-enter',
+	'motion.panel.exit': '--ds-panel-exit',
 	'motion.popup.enter.bottom': '--ds-popup-enter-bottom',
 	'motion.popup.enter.left': '--ds-popup-enter-left',
 	'motion.popup.enter.right': '--ds-popup-enter-right',
@@ -619,6 +621,8 @@ export type CSSTokenMap = {
 	'motion.listitem.selected': 'var(--ds-listitem-selected)';
 	'motion.modal.enter': 'var(--ds-modal-enter)';
 	'motion.modal.exit': 'var(--ds-modal-exit)';
+	'motion.panel.enter': 'var(--ds-panel-enter)';
+	'motion.panel.exit': 'var(--ds-panel-exit)';
 	'motion.popup.enter.bottom': 'var(--ds-popup-enter-bottom)';
 	'motion.popup.enter.left': 'var(--ds-popup-enter-left)';
 	'motion.popup.enter.right': 'var(--ds-popup-enter-right)';

@@ -49,6 +49,8 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	const editorActions = editorContext.editorActions || editorActionsPlaceholderInstance;
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
+	const editorViewRef = useRef<EditorView | null>(null);
+
 	const handleAnalyticsEvent: FireAnalyticsCallback = useCallback(
 		(data) => {
 			fireAnalyticsEvent(createAnalyticsEvent)(data);
@@ -74,6 +76,8 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 			view: EditorView;
 		}) => {
 			const { contextIdentifierProvider, onEditorReady, featureFlags } = propsRef.current;
+
+			editorViewRef.current = instance.view;
 
 			editorActions._privateRegisterEditor(
 				instance.view,
@@ -106,6 +110,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 	const onEditorDestroyed = useCallback(
 		(_instance: { transformer?: Transformer<string>; view: EditorView }) => {
 			const { onDestroy } = propsRef.current;
+			editorViewRef.current = null;
 			editorActions._privateUnregisterEditor();
 
 			if (onDestroy) {
@@ -139,7 +144,7 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 
 	return (
 		<Fragment>
-			{isFullPageAppearance ? <EditorINPMetrics /> : null}
+			{isFullPageAppearance ? <EditorINPMetrics editorViewRef={editorViewRef} /> : null}
 			<EditorInternal
 				props={props}
 				handleAnalyticsEvent={handleAnalyticsEvent}

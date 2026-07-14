@@ -72,10 +72,10 @@ Provides the default overlay surface styling:
 
 Exported on the compound as `Popup.Surface` for DS consumers who need it.
 
-#### `slideAndFade()` animation
+#### Default `animate` motion
 
-Entry/exit animation using `@starting-style` + `allow-discrete` transitions. Imported from
-`@atlaskit/top-layer/animations`.
+Entry/exit animation uses the underlying `Popover` default motion via the boolean `animate` prop. It
+is CSS-only and progressively enhanced via `@starting-style` / `allow-discrete`.
 
 #### `fromLegacyPlacement()` utility
 

@@ -814,6 +814,85 @@ describe('no-barrel-entry-imports', () => {
 		});
 	});
 
+	describe('default export assignments forwarded from imports', () => {
+		const fsWithForwardedDefaultExport = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${TEST_PACKAGE_DIR}/package.json`]: JSON.stringify({
+				name: TEST_PACKAGE_NAME,
+				exports: {
+					'.': './src/index.ts',
+					'./components/FeedbackCollector': './src/components/FeedbackCollector.tsx',
+				},
+			}),
+			[`${TEST_PACKAGE_DIR}/src/index.ts`]: outdent`
+				import FeedbackCollector from './components/FeedbackCollector';
+				export default FeedbackCollector;
+			`,
+			[`${TEST_PACKAGE_DIR}/src/components/FeedbackCollector.tsx`]: outdent`
+				const FeedbackCollector = () => null;
+				export default FeedbackCollector;
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - forwarded default export assignment',
+			fsWithForwardedDefaultExport,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import FeedbackCollector from '${TEST_PACKAGE_NAME}';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import FeedbackCollector from '${TEST_PACKAGE_NAME}/components/FeedbackCollector';`,
+					},
+				],
+			},
+		);
+	});
+
+	describe('default export forwarding edge cases', () => {
+		const fsWithAliasedForwardedDefaultExport = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${TEST_PACKAGE_DIR}/package.json`]: JSON.stringify({
+				name: TEST_PACKAGE_NAME,
+				exports: {
+					'.': './src/index.ts',
+					'./components/FeedbackCollector': './src/components/FeedbackCollector.tsx',
+				},
+			}),
+			[`${TEST_PACKAGE_DIR}/src/index.ts`]: outdent`
+				import FeedbackCollector from './components/FeedbackCollector';
+				const AliasedFeedbackCollector = FeedbackCollector;
+				export default AliasedFeedbackCollector;
+			`,
+			[`${TEST_PACKAGE_DIR}/src/components/FeedbackCollector.tsx`]: outdent`
+				const FeedbackCollector = () => null;
+				export default FeedbackCollector;
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - aliased forwarded default export assignment',
+			fsWithAliasedForwardedDefaultExport,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import FeedbackCollector from '${TEST_PACKAGE_NAME}';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import FeedbackCollector from '${TEST_PACKAGE_NAME}/components/FeedbackCollector';`,
+					},
+				],
+			},
+		);
+	});
+
 	describe('different quote styles', () => {
 		const fs = createStandardMockFs();
 

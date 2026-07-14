@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::166d14a2d04c69da890b7d45e130938c>>
+ * @codegen <<SignedSource::aade96272e69bda3f259d0bfb3e4e4de>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -136,6 +136,46 @@ export default `
     transform-origin: left;
   }
 }
+@keyframes SlideOut100PercentLeft {
+  0% {
+    transform: translateX(0px);
+    transform-origin: left;
+  }
+  100% {
+    transform: translateX(-100%);
+    transform-origin: left;
+  }
+}
+@keyframes SlideIn100PercentLeft {
+  0% {
+    transform: translateX(-100%);
+    transform-origin: left;
+  }
+  100% {
+    transform: translateX(0px);
+    transform-origin: left;
+  }
+}
+@keyframes SlideOut100PercentRight {
+  0% {
+    transform: translateX(0px);
+    transform-origin: right;
+  }
+  100% {
+    transform: translateX(100%);
+    transform-origin: right;
+  }
+}
+@keyframes SlideIn100PercentRight {
+  0% {
+    transform: translateX(100%);
+    transform-origin: right;
+  }
+  100% {
+    transform: translateX(0px);
+    transform-origin: right;
+  }
+}
 html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:motion"] {
   --ds-avatar-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleIn80to100, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100;
   --ds-avatar-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to80, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0;
@@ -181,6 +221,8 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-listitem-selected: background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-modal-enter: 250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100;
   --ds-modal-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95;
+  --ds-panel-enter: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight;
+  --ds-panel-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut100PercentRight;
   --ds-popup-enter-bottom: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100;
   --ds-popup-enter-left: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInLeft8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100;
   --ds-popup-enter-right: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInRight8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100;

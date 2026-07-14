@@ -46,7 +46,6 @@ const findComponentsWithSVGs = async (dir) => {
 		`${relPath}/**/*.svg`,
 		'!packages/design-system/icon/**',
 		'!packages/design-system/icon-lab/**',
-		'!packages/design-system/icon-object/**',
 		// 'packages/jql/jql-editor/src/plugins/autocomplete/components/autocomplete-option/glyphs.tsx'
 	]);
 	const components = [];

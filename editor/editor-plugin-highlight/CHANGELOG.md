@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-highlight
 
+## 12.1.24
+
+### Patch Changes
+
+- [`4821d5874a821`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4821d5874a821) -
+  EDITOR-7869: Show worst accessibility status when selection spans multiple text or highlight
+  colors
+- Updated dependencies
+
 ## 12.1.23
 
 ### Patch Changes

@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A component for displaying brief messages.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13544-55615',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13544-55615',
 			},
 			import: {
 				name: 'Flag',

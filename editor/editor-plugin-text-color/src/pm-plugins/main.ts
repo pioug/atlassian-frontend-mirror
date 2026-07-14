@@ -3,18 +3,17 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PluginToolbarComponentConfig } from '@atlaskit/editor-common/toolbar';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import {
-	getTokenCSSVariableValueForNonActiveTheme,
+	getTextColorInNonActiveTheme,
 	textColorPalette,
 	textColorPaletteNew,
 } from '@atlaskit/editor-common/ui-color';
-import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette/text';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
-import { getActiveColor } from './utils/color';
+import { getActiveColor, isMultiTextColorSelection } from './utils/color';
 import { DEFAULT_COLOR } from './utils/constants';
 import { getDisabledState } from './utils/disabled';
 
@@ -23,6 +22,11 @@ export type TextColorPluginState = {
 	colorInNonActiveTheme?: string;
 	defaultColor: string;
 	disabled?: boolean;
+	/**
+	 * True when the current selection spans more than one text color. Only
+	 * populated behind the lovability text/bg color patch gate + experiment.
+	 */
+	isMultiTextColor?: boolean;
 	isPaletteOpen?: boolean;
 	palette: Array<PaletteColor>;
 };
@@ -30,16 +34,6 @@ export type TextColorPluginState = {
 type TextColorDefaultColor = {
 	color: string;
 	label: string;
-};
-
-const getColorInNonActiveTheme = (color: string | null, defaultColor: string): string => {
-	if (!color || color === defaultColor) {
-		return getTokenCSSVariableValueForNonActiveTheme(token('color.text'), defaultColor);
-	}
-
-	const colorValue = hexToEditorTextPaletteColor(color) || color;
-
-	return getTokenCSSVariableValueForNonActiveTheme(colorValue, color);
 };
 
 export interface TextColorPluginConfig {
@@ -90,7 +84,8 @@ function createInitialPluginState(
 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 		...(fg('platform_editor_lovability_text_bg_color_patch_1') &&
 			expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) && {
-				colorInNonActiveTheme: getColorInNonActiveTheme(color, defaultColor.color),
+				colorInNonActiveTheme: getTextColorInNonActiveTheme(color, defaultColor.color),
+				isMultiTextColor: isMultiTextColorSelection(editorState),
 			}),
 	};
 
@@ -131,10 +126,11 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 									'isEnabled',
 									true,
 								) && {
-									colorInNonActiveTheme: getColorInNonActiveTheme(
+									colorInNonActiveTheme: getTextColorInNonActiveTheme(
 										pluginState.defaultColor,
 										pluginState.defaultColor,
 									),
+									isMultiTextColor: false,
 								}),
 						};
 						break;
@@ -152,10 +148,11 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 									'isEnabled',
 									true,
 								) && {
-									colorInNonActiveTheme: getColorInNonActiveTheme(
+									colorInNonActiveTheme: getTextColorInNonActiveTheme(
 										meta.color,
 										pluginState.defaultColor,
 									),
+									isMultiTextColor: false,
 								}),
 						};
 						break;
@@ -188,7 +185,11 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 									'isEnabled',
 									true,
 								) && {
-									colorInNonActiveTheme: getColorInNonActiveTheme(color, pluginState.defaultColor),
+									colorInNonActiveTheme: getTextColorInNonActiveTheme(
+										color,
+										pluginState.defaultColor,
+									),
+									isMultiTextColor: isMultiTextColorSelection(newState),
 								}),
 						};
 				}
@@ -197,6 +198,7 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 					(pluginState && pluginState.color !== nextState.color) ||
 					(pluginState && pluginState.colorInNonActiveTheme !== nextState.colorInNonActiveTheme) ||
 					(pluginState && pluginState.disabled !== nextState.disabled) ||
+					(pluginState && pluginState.isMultiTextColor !== nextState.isMultiTextColor) ||
 					(pluginState && pluginState.isPaletteOpen !== nextState.isPaletteOpen)
 				) {
 					dispatch(pluginKey, nextState);

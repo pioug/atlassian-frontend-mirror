@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 10.5.2
+
+### Patch Changes
+
+- [`c84bd629439e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c84bd629439e0) -
+  Opt `IconRenderer` out of React Compiler memoization (`'use no memo'`). This file is a copy of
+  `@atlaskit/button`'s `IconRenderer`, sharing the same `isIconRenderProp()` heuristic that
+  misclassifies icon components missing a `displayName` as render-props and invokes them as plain
+  functions instead of JSX. Under React Compiler, memoization of this render could skip re-invoking
+  an already-compiled icon component on some renders, dropping a hook call and causing a hook-count
+  mismatch (React error #300).
+- Updated dependencies
+
 ## 10.5.1
 
 ### Patch Changes

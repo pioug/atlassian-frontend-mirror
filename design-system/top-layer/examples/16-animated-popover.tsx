@@ -4,7 +4,6 @@ import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { fade, scaleAndFade, slideAndFade } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
@@ -13,24 +12,6 @@ import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
 
-const presets = [
-	{ label: 'slideAndFade (4px)', preset: slideAndFade() },
-	{ label: 'slideAndFade (8px)', preset: slideAndFade({ distance: 8 }) },
-	{ label: 'fade', preset: fade() },
-	{ label: 'scaleAndFade', preset: scaleAndFade() },
-] as const;
-
-/**
- * Animated popover demonstrating all three animation presets.
- *
- * Each preset uses CSS `@starting-style` + `allow-discrete` for
- * progressive-enhancement entry/exit animations.
- *
- * - **slideAndFade**: Directional slide + opacity. Slide direction adapts
- *   to the popover's placement edge.
- * - **fade**: Simple opacity transition (no transform).
- * - **scaleAndFade**: Scale from 0.95 + opacity.
- */
 export default function AnimatedPopoverExample(): React.ReactNode {
 	return (
 		<ForceFallbackToggle>
@@ -39,14 +20,10 @@ export default function AnimatedPopoverExample(): React.ReactNode {
 					<Stack space="space.300">
 						<Heading size="small">Animation presets</Heading>
 						<Inline space="space.200" alignBlock="center">
-							{presets.map(({ label, preset }) => (
-								<AnimatedPopoverDemo
-									key={label}
-									label={label}
-									preset={preset}
-									forceFallbackPositioning={forceFallbackPositioning}
-								/>
-							))}
+							<AnimatedPopoverDemo
+								label="system popup motion"
+								forceFallbackPositioning={forceFallbackPositioning}
+							/>
 						</Inline>
 					</Stack>
 				</Box>
@@ -59,11 +36,9 @@ const placement = { edge: 'end' } as const;
 
 function AnimatedPopoverDemo({
 	label,
-	preset,
 	forceFallbackPositioning,
 }: {
 	label: string;
-	preset: ReturnType<typeof slideAndFade>;
 	forceFallbackPositioning: boolean;
 }): React.ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
@@ -98,7 +73,7 @@ function AnimatedPopoverDemo({
 				label={`${label} popover`}
 				isOpen={isOpen}
 				onClose={close}
-				animate={preset}
+				animate
 				placement={placement}
 			>
 				<PopoverSurface>

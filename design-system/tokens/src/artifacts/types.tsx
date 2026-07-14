@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::44ef7c508561166852f23259a22fb13f>>
+ * @codegen <<SignedSource::9ab04cc69b856c1b192780387d2a1e04>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -47,6 +47,8 @@ export type ActiveTokens =
 	| 'motion.listitem.selected'
 	| 'motion.modal.enter'
 	| 'motion.modal.exit'
+	| 'motion.panel.enter'
+	| 'motion.panel.exit'
 	| 'motion.popup.enter.bottom'
 	| 'motion.popup.enter.left'
 	| 'motion.popup.enter.right'

@@ -3,13 +3,6 @@ import React, { useRef } from 'react';
 import { doesHydrateWithSsr, doesRenderWithSsr } from '@atlassian/ssr-tests';
 import { render, screen, waitFor } from '@atlassian/testing-library';
 
-import {
-	dialogFade,
-	dialogSlideUpAndFade,
-	fade,
-	scaleAndFade,
-	slideAndFade,
-} from '../../src/entry-points/animations';
 import { createCloseEvent, Dialog } from '../../src/entry-points/dialog';
 import { DialogScrollLock } from '../../src/entry-points/dialog-scroll-lock';
 import {
@@ -33,14 +26,6 @@ function noop() {}
 
 describe('React 19 readiness (top-layer)', () => {
 	describe('entry points', () => {
-		it('exposes animation presets', () => {
-			expect(slideAndFade().name).toBeDefined();
-			expect(fade().name).toBeDefined();
-			expect(scaleAndFade().name).toBeDefined();
-			expect(dialogSlideUpAndFade().name).toBeDefined();
-			expect(dialogFade().name).toBeDefined();
-		});
-
 		it('maps legacy placement strings', () => {
 			expect(fromLegacyPlacement({ legacy: 'bottom-start' })).toEqual({
 				axis: 'block',
@@ -739,7 +724,7 @@ describe('React 19 readiness (top-layer)', () => {
 		it('Popover with animation preset can be rendered on the server', async () => {
 			await expect(
 				doesRenderWithSsr(
-					<Popover isOpen={false} onClose={noop} animate={fade()} role="dialog" label="ssr-anim">
+					<Popover isOpen={false} onClose={noop} animate role="dialog" label="ssr-anim">
 						animated
 					</Popover>,
 				),

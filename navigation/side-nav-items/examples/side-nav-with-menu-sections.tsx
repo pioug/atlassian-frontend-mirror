@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -324,10 +323,10 @@ export default function SideNavWithMenuSections(): JSX.Element {
 							<ExpandableMenuItemTrigger
 								elemBefore={<GlobeIcon label="" color="currentColor" />}
 								actionsOnHover={
-									<>
+									<React.Fragment>
 										<AddAction />
 										<MoreAction />
-									</>
+									</React.Fragment>
 								}
 							>
 								Spaces
@@ -348,10 +347,10 @@ export default function SideNavWithMenuSections(): JSX.Element {
 															</ProjectTile>
 														}
 														actionsOnHover={
-															<>
+															<React.Fragment>
 																<AddAction />
 																<MoreAction />
-															</>
+															</React.Fragment>
 														}
 													>
 														Design System Project
@@ -534,10 +533,10 @@ export default function SideNavWithMenuSections(): JSX.Element {
 							<ExpandableMenuItemTrigger
 								elemBefore={<DashboardIcon label="" color="currentColor" />}
 								actionsOnHover={
-									<>
+									<React.Fragment>
 										<AddAction />
 										<MoreAction />
-									</>
+									</React.Fragment>
 								}
 							>
 								Dashboards

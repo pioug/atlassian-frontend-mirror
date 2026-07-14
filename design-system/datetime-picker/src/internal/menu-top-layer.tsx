@@ -10,13 +10,10 @@ import { isValid, parseISO } from 'date-fns';
 
 import Calendar from '@atlaskit/calendar';
 import { type MenuProps, type OptionType } from '@atlaskit/select';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-
-const animation = slideAndFade();
 
 /**
  * Bottom-start placement: calendar appears below and aligned to the
@@ -102,7 +99,7 @@ export const MenuTopLayer: ({ selectProps, innerProps }: MenuProps<OptionType>) 
 			// immediately closes the popover.
 			mode="manual"
 			placement={popupPlacement}
-			animate={animation}
+			animate
 			testId={selectProps.testId && `${selectProps.testId}--popup`}
 		>
 			<PopoverSurface>

@@ -73,7 +73,7 @@ component's rendering.
   for the trigger
 - Use `fromLegacyPlacement()` from `@atlaskit/top-layer/placement-map` to convert
   `popperProps.placement` (e.g., `'bottom-start'`) to the new placement format
-- Use `slideAndFade()` animation preset
+- Use `Popup.Content animate` for default top-layer popover motion
 - Use `Popup.Surface` for the overlay surface styling (background, shadow, border-radius) —
   replacing `MenuDialog`'s z-index-based styling
 - Preserve all existing behavior: `closeMenuOnSelect`, `shouldCloseMenuOnTab`, `footer`,

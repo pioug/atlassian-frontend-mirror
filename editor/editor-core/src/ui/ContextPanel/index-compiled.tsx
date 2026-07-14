@@ -9,7 +9,8 @@
  *
  * Cleanup: delete this file once the `platform_editor_core_non_ecc_static_css` experiment has shipped.
  */
-import type { HTMLAttributes } from 'react';
+import { useMemo } from 'react';
+import type { CSSProperties, HTMLAttributes } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
@@ -21,6 +22,26 @@ import { token } from '@atlaskit/tokens';
 
 const ANIM_SPEED_MS = 500;
 
+const getContextPanelWidthStyle = ({
+	customWidth,
+	visible,
+}: {
+	customWidth?: number;
+	visible: boolean;
+}): CSSProperties | undefined => {
+	if (!visible) {
+		return {
+			width: 0,
+		};
+	}
+
+	if (customWidth) {
+		return { width: `${customWidth}px` };
+	}
+
+	return undefined;
+};
+
 const panelStyles = cssMap({
 	panel: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -30,9 +51,6 @@ const panelStyles = cssMap({
 		transition: `width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier}`,
 		overflow: 'hidden',
 		boxShadow: `inset 2px 0 0 0 ${token('color.border')}`,
-	},
-	panelHidden: {
-		width: 0,
 	},
 	disablePanelAnimation: {
 		transition: 'none',
@@ -76,22 +94,28 @@ export const ContextPanelWrapperCompiled = ({
 	visible,
 	disableAnimation,
 	...rest
-}: ContextPanelWrapperProps): React.JSX.Element => (
-	<div
-		css={[
-			panelStyles.panel,
-			customWidth ? panelStyles.customWidthOverflow : undefined,
-			!visible && panelStyles.panelHidden,
-			disableAnimation && panelStyles.disablePanelAnimation,
-		]}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic width cannot be expressed as static compiled CSS
-		style={customWidth && visible ? { width: `${customWidth}px` } : undefined}
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		{...rest}
-	>
-		{children}
-	</div>
-);
+}: ContextPanelWrapperProps): React.JSX.Element => {
+	const widthStyle = useMemo(
+		() => getContextPanelWidthStyle({ customWidth, visible }),
+		[customWidth, visible],
+	);
+
+	return (
+		<div
+			css={[
+				panelStyles.panel,
+				customWidth ? panelStyles.customWidthOverflow : undefined,
+				disableAnimation && panelStyles.disablePanelAnimation,
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic width cannot be expressed as static compiled CSS
+			style={widthStyle}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...rest}
+		>
+			{children}
+		</div>
+	);
+};
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const ContextPanelContentCompiled = ({
@@ -101,20 +125,26 @@ export const ContextPanelContentCompiled = ({
 	disableAnimation,
 	hasPadding,
 	...rest
-}: ContextPanelContentProps): React.JSX.Element => (
-	<div
-		css={[
-			panelStyles.content,
-			hasPadding && panelStyles.padding,
-			customWidth ? panelStyles.customWidthOverflow : undefined,
-			!visible && panelStyles.panelHidden,
-			disableAnimation && panelStyles.disablePanelAnimation,
-		]}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic width cannot be expressed as static compiled CSS
-		style={customWidth && visible ? { width: `${customWidth}px` } : undefined}
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		{...rest}
-	>
-		{children}
-	</div>
-);
+}: ContextPanelContentProps): React.JSX.Element => {
+	const widthStyle = useMemo(
+		() => getContextPanelWidthStyle({ customWidth, visible }),
+		[customWidth, visible],
+	);
+
+	return (
+		<div
+			css={[
+				panelStyles.content,
+				hasPadding && panelStyles.padding,
+				customWidth ? panelStyles.customWidthOverflow : undefined,
+				disableAnimation && panelStyles.disablePanelAnimation,
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- dynamic width cannot be expressed as static compiled CSS
+			style={widthStyle}
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...rest}
+		>
+			{children}
+		</div>
+	);
+};

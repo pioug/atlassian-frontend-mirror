@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { buildAction } from './manifest-helpers';
 import type { ExtensionManifest, ExtensionModule } from './types/extension-manifest';
 import type { Parameters } from './types/extension-parameters';
@@ -26,9 +24,7 @@ export function buildMenuItem<T extends Parameters>(
 		description: extensionModule.description || manifest.description,
 		summary: manifest.summary,
 		documentationUrl: manifest.documentationUrl,
-		...(fg('cc_fd_wb_create_priority_in_slash_menu_enabled') && {
-			priority: extensionModule.priority,
-		}),
+		priority: extensionModule.priority,
 		...(extensionModule.lozenge != null && { lozenge: extensionModule.lozenge }),
 		icon: extensionModule.icon || manifest.icons['48'],
 		node,

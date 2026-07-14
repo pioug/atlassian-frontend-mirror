@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 import type { ReactElement } from 'react';
 import React, { Component } from 'react';
@@ -228,10 +227,10 @@ export default class Dropdown extends Component<Props, State> {
 						? this.renderArrayOptions(this.makeArrayOptionsFromCallback(options))
 						: options.render({ hide: this.hide, dispatchCommand })}
 				{footer && (
-					<>
+					<React.Fragment>
 						<Divider />
 						{footer}
-					</>
+					</React.Fragment>
 				)}
 			</UiDropdown>
 		);

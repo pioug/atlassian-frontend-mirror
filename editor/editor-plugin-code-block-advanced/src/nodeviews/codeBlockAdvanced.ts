@@ -82,7 +82,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private selectionAPI: EditorSelectionAPI | undefined;
 	private maybeTryingToReachNodeSelection = false;
 	private mouseDownInBorderArea = false;
-	private mouseDownInsideCodeMirror = false;
 	private cleanupDisabledState: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
 	private pmFacet = Facet.define<DecorationSource>();
@@ -513,12 +512,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private handleBorderAreaMouseDown = (event: MouseEvent) => {
 		const isBorderArea = this.isBorderAreaClick(event);
 
-		if (fg('platform_editor_code_block_dogfooding_patch')) {
-			this.mouseDownInBorderArea = isBorderArea;
-		} else {
-			// Later click can follow a drag; remember where the interaction began.
-			this.mouseDownInsideCodeMirror = !isBorderArea;
-		}
+		this.mouseDownInBorderArea = isBorderArea;
 
 		if (isBorderArea && event.target === this.cm.scrollDOM) {
 			// Stop CodeMirror from restoring stale inner selection before node selection.
@@ -527,20 +521,8 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	};
 
 	private handleBorderAreaClick = (event: MouseEvent) => {
-		if (fg('platform_editor_code_block_dogfooding_patch')) {
-			if (!this.mouseDownInBorderArea) {
-				return;
-			}
-		} else {
-			// Dragging across lines leaves a CodeMirror selection; keep it instead of selecting the node.
-			if (
-				(this.mouseDownInsideCodeMirror && this.hasCodeMirrorTextSelection()) ||
-				!this.isBorderAreaClick(event)
-			) {
-				this.mouseDownInsideCodeMirror = false;
-				return;
-			}
-			this.mouseDownInsideCodeMirror = false;
+		if (!this.mouseDownInBorderArea) {
+			return;
 		}
 
 		// Prevent CodeMirror from restoring its inner selection after we hand focus and selection
@@ -551,10 +533,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.view.focus();
 		this.selectCodeBlockNode(undefined);
 	};
-
-	private hasCodeMirrorTextSelection(): boolean {
-		return this.cm.state.selection.ranges.some((range) => !range.empty);
-	}
 
 	private isBorderAreaClick(event: MouseEvent): boolean {
 		const target = event.target;

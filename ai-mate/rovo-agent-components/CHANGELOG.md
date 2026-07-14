@@ -1,5 +1,33 @@
 # @atlaskit/rovo-agent-components
 
+## 7.4.4
+
+### Patch Changes
+
+- [`9965db56641a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9965db56641a6) -
+  Update the Slack channel link in compass.yml for Agents FE owned packages to point to
+  #rovo-agents-frontend.
+- Updated dependencies
+
+## 7.4.3
+
+### Patch Changes
+
+- [`3459b8faed8ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3459b8faed8ba) -
+  Clean up the shipped `rovo_chat_3p_app_discovery_m1_experiment` and the shadowed
+  `post-office_rovo-chat_thinking-deeper` menu path. This removes the obsolete ChatModeMenu UI, its
+  popup variants, and its spotlight code.
+
+  Breaking changes:
+  - Remove `changeChatModeMenuAlignmentToBottomStart` from `RovoChatPromptInput`. The `ChatModeMenu`
+    implementation it configured has been removed.
+
+  `showChatModeMenu`, `shouldRenderChatModeMenusInPortal`, `customSlotBeforeChatModeMenu`, and
+  `UIConfig.elements.chatModeMenuButton` remain supported. They now apply to the surviving source
+  and reasoning footer controls.
+
+- Updated dependencies
+
 ## 7.4.2
 
 ### Patch Changes

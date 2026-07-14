@@ -1,5 +1,20 @@
 # @atlaskit/tokens
 
+## 15.7.0
+
+### Minor Changes
+
+- [`0a1e6f2be05e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a1e6f2be05e3) -
+  Add motion.panel.enter and motion.panel.exit tokens for panel slide transitions.
+
+## 15.6.1
+
+### Patch Changes
+
+- [`fa40c22b98aee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa40c22b98aee) -
+  Ensure ADS codegen verification covers all generated token consumers without prebuilding the
+  codegen utility.
+
 ## 15.6.0
 
 ### Minor Changes

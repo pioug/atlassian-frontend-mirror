@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/** @jsxFrag */
 
 import React, { useRef, useState } from 'react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
@@ -192,7 +191,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 			!wasHelpfulFormSubmited
 		) {
 			return (
-				<>
+				<React.Fragment>
 					<ArticleFeedbackContainer>
 						<ArticleFeedbackText paddingRight={token('space.100')}>
 							{formatMessage(messages.help_article_rating_title)}
@@ -261,7 +260,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 											)}
 											<Field name="feedbackReasonText" defaultValue="">
 												{({ fieldProps }: { fieldProps: any }) => (
-													<>
+													<React.Fragment>
 														<ArticleFeedbackText
 															id="articleFeedbackText"
 															top={token('space.negative.100')}
@@ -276,7 +275,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 															value={feedbackReasonText}
 															onChange={feedbackReasonTextOnChange}
 														/>
-													</>
+													</React.Fragment>
 												)}
 											</Field>
 
@@ -312,7 +311,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 							</Form>
 						</ArticleFeedbackAnswerWrapper>
 					)}
-				</>
+				</React.Fragment>
 			);
 		} else if (wasHelpfulFormSubmited && wasHelpful === null) {
 			return (
@@ -338,7 +337,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 		}
 	} else if (wasHelpfulFormSubmited && wasHelpfulFormSubmitedFailed) {
 		return (
-			<>
+			<React.Fragment>
 				{wasHelpfulFormSubmited && wasHelpfulFormSubmitedFailed && (
 					<ArticleFeedbackContainer>
 						<SectionMessage appearance="warning">
@@ -356,7 +355,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 						</SectionMessage>
 					</ArticleFeedbackContainer>
 				)}
-			</>
+			</React.Fragment>
 		);
 	}
 

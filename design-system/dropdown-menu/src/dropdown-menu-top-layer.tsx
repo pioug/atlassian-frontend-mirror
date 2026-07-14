@@ -17,7 +17,6 @@ import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
@@ -53,8 +52,6 @@ const styles = cssMap({
 		boxShadow: token('elevation.shadow.overlay'),
 	},
 });
-
-const animation = slideAndFade();
 
 /**
  * Event types produced by trigger interactions.
@@ -352,7 +349,7 @@ function DropdownMenuTopLayer({
 				label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
 				isOpen={isLocalOpen}
 				onClose={handleOnClose}
-				animate={animation}
+				animate
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--content`}
 			>

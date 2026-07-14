@@ -25,7 +25,6 @@ import Portal from '@atlaskit/portal';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { layers } from '@atlaskit/theme/constants';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
-import { dialogMotion } from '@atlaskit/top-layer/animations';
 import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
@@ -41,8 +40,6 @@ import type { InternalModalWrapperProps } from '../types';
 import { dialogHeight } from './dialog-height';
 import { dialogWidth as getDialogWidth } from './dialog-width';
 import ModalDialog from './modal-dialog';
-
-const modalAnimation = dialogMotion();
 
 export type { ModalDialogProps };
 
@@ -405,7 +402,7 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 				id={dialogId}
 				onClose={onDialogClose}
 				onExitFinish={handleDialogExitFinish}
-				animate={isFullScreen ? false : modalAnimation}
+				animate={!isFullScreen}
 				isOpen={!isExiting}
 				shouldHideBackdrop={stackIndex > 0 || Boolean(isBlanketHidden)}
 				// Dialog requires at least one of `label` or `labelledBy` (string, not undefined).

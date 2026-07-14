@@ -107,6 +107,9 @@
 			"path": "../editor-json-transformer/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-performance-metrics/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-alignment/tsconfig.app.json"
 		},
 		{

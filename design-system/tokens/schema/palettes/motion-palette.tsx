@@ -200,6 +200,42 @@ const baseKeyframeTokens = {
 			group: 'motionKeyframe',
 		},
 	},
+	SlideOut100PercentLeft: {
+		value: {
+			'0%': { transform: 'translateX(0px)', 'transform-origin': 'left' },
+			'100%': { transform: 'translateX(-100%)', 'transform-origin': 'left' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideIn100PercentLeft: {
+		value: {
+			'0%': { transform: 'translateX(-100%)', 'transform-origin': 'left' },
+			'100%': { transform: 'translateX(0px)', 'transform-origin': 'left' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideOut100PercentRight: {
+		value: {
+			'0%': { transform: 'translateX(0px)', 'transform-origin': 'right' },
+			'100%': { transform: 'translateX(100%)', 'transform-origin': 'right' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideIn100PercentRight: {
+		value: {
+			'0%': { transform: 'translateX(100%)', 'transform-origin': 'right' },
+			'100%': { transform: 'translateX(0px)', 'transform-origin': 'right' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
 } as const;
 
 const baseDurationTokens = {

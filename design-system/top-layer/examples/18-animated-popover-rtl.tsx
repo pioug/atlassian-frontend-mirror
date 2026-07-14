@@ -13,22 +13,11 @@ import Heading from '@atlaskit/heading';
 import { Stack, Text } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
-import { fade, scaleAndFade, slideAndFade } from '@atlaskit/top-layer/animations';
 import { Popover, type TPlacementOptions } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 
 import { ForceFallbackToggle } from '../examples-utils/force-fallback-toggle';
-
-/**
- * All animation presets to demonstrate.
- */
-const presets = [
-	{ label: 'slideAndFade (4px)', preset: slideAndFade() },
-	{ label: 'slideAndFade (8px)', preset: slideAndFade({ distance: 8 }) },
-	{ label: 'fade', preset: fade() },
-	{ label: 'scaleAndFade', preset: scaleAndFade() },
-] as const;
 
 const styles = cssMap({
 	wrapper: {
@@ -163,15 +152,11 @@ export default function AnimatedPopoverRtlExample(): React.ReactNode {
 					</div>
 
 					<div css={styles.demoArea}>
-						{presets.map(({ label, preset }) => (
-							<AnimatedPopoverDemo
-								key={label}
-								label={label}
-								preset={preset}
-								placement={placement}
-								forceFallbackPositioning={forceFallbackPositioning}
-							/>
-						))}
+						<AnimatedPopoverDemo
+							label="system popup motion"
+							placement={placement}
+							forceFallbackPositioning={forceFallbackPositioning}
+						/>
 					</div>
 				</Stack>
 			)}
@@ -183,12 +168,10 @@ export default function AnimatedPopoverRtlExample(): React.ReactNode {
 
 function AnimatedPopoverDemo({
 	label,
-	preset,
 	placement,
 	forceFallbackPositioning,
 }: {
 	label: string;
-	preset: ReturnType<typeof slideAndFade>;
 	placement: TPlacementOptions;
 	forceFallbackPositioning: boolean;
 }) {
@@ -223,7 +206,7 @@ function AnimatedPopoverDemo({
 				ref={popoverRef}
 				role="dialog"
 				label={`${label} popover`}
-				animate={preset}
+				animate
 				isOpen={isOpen}
 				onClose={handleClose}
 			>

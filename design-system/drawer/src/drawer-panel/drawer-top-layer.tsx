@@ -12,64 +12,45 @@ import {
 	useRef,
 } from 'react';
 
-import { cssMap, cx, jsx } from '@compiled/react';
+import { cssMap, jsx, keyframes } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
-import { type TDialogAnimationPreset } from '@atlaskit/top-layer/animations';
 import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 
 import { EnsureIsInsideDrawerContext } from '../ensure-is-inside-drawer-context';
 import { OnCloseContext } from '../on-close-context';
 import { type DrawerProps, type DrawerWidth } from '../types';
-import useDrawerStack from '../use-drawer-stack';
 
 const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
 	'--ds-elevation-surface-current';
 
-// Legacy drawer panel uses `SlideIn duration="small"`, which resolves to
-// 100ms on enter and 50ms on exit.
-const slideEnterDurationMs = 100;
-const slideExitDurationMs = 50;
+const slideInKeyframes = keyframes({
+	from: {
+		transform: 'translate(var(--x), var(--y))',
+	},
+	to: {
+		transform: 'translateX(0)',
+	},
+});
 
-// Legacy drawer blanket is a separate `FadeIn duration="large"`, which resolves
-// to 700ms on enter and 350ms on exit. These intentionally differ from the panel
-// slide timings to preserve the old visual behavior.
-const fadeEnterDurationMs = 700;
-const fadeExitDurationMs = 350;
-
-const animate: TDialogAnimationPreset = {
-	kind: 'dialog',
-	name: 'custom',
-};
+const slideOutKeyframes = keyframes({
+	from: {
+		transform: 'translateX(0)',
+	},
+	to: {
+		transform: 'translate(var(--x), var(--y))',
+	},
+});
 
 const styles = cssMap({
 	root: {
-		transitionProperty: 'transform, overlay, display',
-		transitionDuration: `${slideExitDurationMs}ms`,
-		transitionTimingFunction: 'cubic-bezier(0.2,0,0,1)',
-		transitionBehavior: 'allow-discrete',
+		animationName: slideOutKeyframes,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
 		'&[open]': {
-			transform: 'none',
-			transitionDuration: `${slideEnterDurationMs}ms`,
-		},
-		'&::backdrop': {
-			backgroundColor: 'transparent',
-			transitionProperty: 'background-color, overlay, display',
-			transitionDuration: `${fadeExitDurationMs}ms`,
-			transitionTimingFunction: 'cubic-bezier(0.15,1,0.3,1)',
-			transitionBehavior: 'allow-discrete',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- the [open] attribute selector targets the dialog's own open state and is required for the open and close animation
-		'&[open]::backdrop': {
-			backgroundColor: token('color.blanket', '#050C1F75'),
-			transitionDuration: `${fadeEnterDurationMs}ms`,
-			'@starting-style': {
-				backgroundColor: 'transparent',
-			},
+			animationName: slideInKeyframes,
 		},
 		'@media (prefers-reduced-motion: reduce)': {
 			transitionDuration: '0s',
@@ -97,45 +78,6 @@ const styles = cssMap({
 		[LOCAL_CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
 		overflow: 'hidden',
 		fontFamily: token('font.family.body'),
-	},
-});
-
-const drawerAnimationStyles = cssMap({
-	left: {
-		transform: 'translateX(-100%)',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- starting-style must target the dialog's own open state for entry animation
-		'&[open]': {
-			'@starting-style': {
-				transform: 'translateX(-100%)',
-			},
-		},
-	},
-	right: {
-		transform: 'translateX(100%)',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- starting-style must target the dialog's own open state for entry animation
-		'&[open]': {
-			'@starting-style': {
-				transform: 'translateX(100%)',
-			},
-		},
-	},
-	top: {
-		transform: 'translateY(-100%)',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- starting-style must target the dialog's own open state for entry animation
-		'&[open]': {
-			'@starting-style': {
-				transform: 'translateY(-100%)',
-			},
-		},
-	},
-	bottom: {
-		transform: 'translateY(100%)',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- starting-style must target the dialog's own open state for entry animation
-		'&[open]': {
-			'@starting-style': {
-				transform: 'translateY(100%)',
-			},
-		},
 	},
 });
 
@@ -203,8 +145,6 @@ export function DrawerTopLayer({
 	titleId,
 	enterFrom = 'left',
 }: DrawerProps): ReactNode {
-	const stackIndex = useDrawerStack({ isOpen });
-
 	/**
 	 * Points to the panel surface. Passed to `onOpenComplete` / `onCloseComplete`.
 	 */
@@ -308,6 +248,13 @@ export function DrawerTopLayer({
 		}
 	}, [onCloseComplete, shouldReturnFocus]);
 
+	const enterFromStyles = {
+		left: { '--x': '-100%', '--y': '0%' },
+		right: { '--x': '100%', '--y': '0%' },
+		top: { '--x': '0%', '--y': '-100%' },
+		bottom: { '--x': '0%', '--y': '100%' },
+	};
+
 	// Pin the `<dialog>` full-height to the inline-start edge (overriding the
 	// primitive's centred `margin: auto`); width from the preset, clamped to the
 	// viewport. `enterFrom` only drives the slide animation, not the pin edge;
@@ -320,6 +267,7 @@ export function DrawerTopLayer({
 		height: '100dvh',
 		maxHeight: '100dvh',
 		width: `min(${WIDTH_MAP[width]}, 100vw)`,
+		...enterFromStyles[enterFrom],
 	};
 
 	const accessibleName = getAccessibleName({ label, titleId });
@@ -330,9 +278,8 @@ export function DrawerTopLayer({
 			onClose={handleDialogClose}
 			onEnterFinish={handleEnterFinish}
 			onExitFinish={handleExitFinish}
-			animate={animate}
-			xcss={cx(styles.root, drawerAnimationStyles[enterFrom])}
-			shouldHideBackdrop={stackIndex > 0}
+			animate
+			xcss={styles.root}
 			testId={testId}
 			{...accessibleName}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

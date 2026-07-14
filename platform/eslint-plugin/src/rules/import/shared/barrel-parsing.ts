@@ -355,6 +355,47 @@ function collectLocalExportedNames(sourceFile: ts.SourceFile): Set<string> {
 	return localExportedNames;
 }
 
+function collectIdentifiersRequiredForDefaultExport(sourceFile: ts.SourceFile): Set<string> {
+	const requiredIdentifiers = new Set<string>();
+	const identifierAliases = new Map<string, string>();
+
+	for (const statement of sourceFile.statements) {
+		if (!ts.isVariableStatement(statement)) {
+			continue;
+		}
+
+		for (const declaration of statement.declarationList.declarations) {
+			if (!ts.isIdentifier(declaration.name) || !declaration.initializer) {
+				continue;
+			}
+			if (!ts.isIdentifier(declaration.initializer)) {
+				continue;
+			}
+
+			identifierAliases.set(declaration.name.text, declaration.initializer.text);
+		}
+	}
+
+	for (const statement of sourceFile.statements) {
+		if (!ts.isExportAssignment(statement) || statement.isExportEquals) {
+			continue;
+		}
+
+		if (ts.isIdentifier(statement.expression)) {
+			let currentIdentifier: string | undefined = statement.expression.text;
+			while (currentIdentifier) {
+				if (requiredIdentifiers.has(currentIdentifier)) {
+					break;
+				}
+				requiredIdentifiers.add(currentIdentifier);
+				currentIdentifier = identifierAliases.get(currentIdentifier);
+			}
+		}
+	}
+
+	return requiredIdentifiers;
+}
+
 function collectLocalImportExports({
 	sourceFile,
 	localExportedNames,
@@ -406,7 +447,7 @@ function collectLocalImportExports({
 			continue;
 		}
 
-		const isImportTypeOnly = importClause.phaseModifier === ts.SyntaxKind.TypeKeyword;
+		const isImportTypeOnly = importClause.isTypeOnly;
 		if (needsDefaultImport && defaultImportName) {
 			localImportExports.set(
 				defaultImportName,
@@ -445,6 +486,56 @@ function collectLocalImportExports({
 	}
 
 	return localImportExports;
+}
+
+function enrichLocalImportExportsWithIdentifierAliases({
+	sourceFile,
+	localImportExports,
+}: {
+	sourceFile: ts.SourceFile;
+	localImportExports: Map<string, ExportInfo>;
+}): void {
+	let hasChanges = true;
+
+	// Resolve chains like:
+	// import Foo from './foo';
+	// const Bar = Foo;
+	// const Baz = Bar;
+	// export default Baz;
+	while (hasChanges) {
+		hasChanges = false;
+
+		for (const statement of sourceFile.statements) {
+			if (!ts.isVariableStatement(statement)) {
+				continue;
+			}
+
+			for (const declaration of statement.declarationList.declarations) {
+				if (!ts.isIdentifier(declaration.name) || !declaration.initializer) {
+					continue;
+				}
+				if (!ts.isIdentifier(declaration.initializer)) {
+					continue;
+				}
+
+				const aliasName = declaration.name.text;
+				const sourceName = declaration.initializer.text;
+				if (localImportExports.has(aliasName)) {
+					continue;
+				}
+
+				const aliasedExport = localImportExports.get(sourceName);
+				if (!aliasedExport) {
+					continue;
+				}
+
+				localImportExports.set(aliasName, {
+					...aliasedExport,
+				});
+				hasChanges = true;
+			}
+		}
+	}
 }
 
 function processLocalExportDeclaration({
@@ -490,12 +581,25 @@ function processExportedDeclaration({
 	statement,
 	barrelFilePath,
 	exports,
+	localImportExports,
 }: {
 	statement: ts.Statement;
 	barrelFilePath: string;
 	exports: Map<string, ExportInfo>;
+	localImportExports: Map<string, ExportInfo>;
 }): void {
 	if (ts.isExportAssignment(statement)) {
+		if (ts.isIdentifier(statement.expression)) {
+			const importedExport = localImportExports.get(statement.expression.text);
+			if (importedExport) {
+				exports.set('default', {
+					...importedExport,
+					isTypeOnly: false,
+				});
+				return;
+			}
+		}
+
 		exports.set('default', { path: barrelFilePath, isTypeOnly: false });
 		return;
 	}
@@ -604,6 +708,11 @@ export function parseBarrelExports({
 				return resolveImportPath({ basedir: barrelDir, importPath: moduleSpecifier, fs });
 			};
 			const localExportedNames = collectLocalExportedNames(sourceFile);
+			const identifiersRequiredForDefaultExport =
+				collectIdentifiersRequiredForDefaultExport(sourceFile);
+			for (const identifier of identifiersRequiredForDefaultExport) {
+				localExportedNames.add(identifier);
+			}
 			const localImportExports = collectLocalImportExports({
 				sourceFile,
 				localExportedNames,
@@ -612,6 +721,10 @@ export function parseBarrelExports({
 				workspaceRoot,
 				depth,
 				visitedPackages,
+			});
+			enrichLocalImportExportsWithIdentifierAliases({
+				sourceFile,
+				localImportExports,
 			});
 
 			for (const statement of sourceFile.statements) {
@@ -635,7 +748,12 @@ export function parseBarrelExports({
 						});
 					}
 				} else {
-					processExportedDeclaration({ statement, barrelFilePath, exports });
+					processExportedDeclaration({
+						statement,
+						barrelFilePath,
+						exports,
+						localImportExports,
+					});
 				}
 			}
 

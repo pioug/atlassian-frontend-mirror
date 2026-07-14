@@ -35,7 +35,8 @@ export default class AnalyticsErrorBoundary extends Component<
 	AnalyticsErrorBoundaryState
 > {
 	// Gated by analytics-next-lock-context-type: keep the value captured at construction so a late gate flip can't swap the context type and remount the subtree.
-	private readonly lockedIsModernContext = isModernContextEnabledEnv;
+	private readonly lockedIsModernContext =
+		isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
 
 	constructor(props: AnalyticsErrorBoundaryProps) {
 		super(props);
@@ -54,7 +55,7 @@ export default class AnalyticsErrorBoundary extends Component<
 		const { hasError } = this.state;
 		const isModernContext = fg('analytics-next-lock-context-type')
 			? this.lockedIsModernContext
-			: isModernContextEnabledEnv;
+			: isModernContextEnabledEnv || fg('analytics-next-use-legacy-context') === false;
 
 		if (hasError) {
 			if (ErrorComponent) {

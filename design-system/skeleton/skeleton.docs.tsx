@@ -35,8 +35,7 @@ const documentation: StructuredContentSource = {
 				'Consider screen reader experience during loading states',
 			],
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=101024-1311',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-101024-1311',
 			},
 			examples: [
 				{

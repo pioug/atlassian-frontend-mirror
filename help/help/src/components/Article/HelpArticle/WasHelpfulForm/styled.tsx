@@ -58,7 +58,4 @@ export const ArticleFeedbackAnswerWrapper = ({
 	children,
 }: {
 	children: React.ReactNode;
-}): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
-	<div css={articleFeedbackAnswerWrapperStyles}>{children}</div>
-);
+}): JSX.Element => <div css={articleFeedbackAnswerWrapperStyles}>{children}</div>;

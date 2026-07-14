@@ -70,8 +70,7 @@ const documentation: StructuredContentSource = {
 			],
 			contentGuidelines: ['Use clear, descriptive form titles', 'Keep descriptions concise'],
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=14470-110748',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-14470-110748',
 			},
 			examples: [
 				{

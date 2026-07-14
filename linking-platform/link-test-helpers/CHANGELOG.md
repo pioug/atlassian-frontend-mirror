@@ -1,5 +1,14 @@
 # @atlaskit/link-test-helpers
 
+## 11.0.1
+
+### Patch Changes
+
+- [`afb39c4b5d049`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afb39c4b5d049) -
+  Add scrollMargin to IntersectionObserver test mocks for TypeScript 7 (tsgo) compatibility. The
+  refreshed lib.dom.d.ts requires a readonly scrollMargin member on IntersectionObserver.
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

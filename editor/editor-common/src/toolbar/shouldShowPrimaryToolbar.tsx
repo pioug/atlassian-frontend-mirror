@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { ContextualFormattingEnabledOptions } from './types';
 
 /**
@@ -14,14 +12,11 @@ export const shouldShowPrimaryToolbar = (
 	contextualFormattingEnabled?: ContextualFormattingEnabledOptions,
 	toolbarDockingPosition?: 'top' | 'none',
 ): boolean => {
-	if (fg('platform_editor_toolbar_aifc_placement_overridden')) {
-		if (contextualFormattingEnabled === 'controlled') {
-			return toolbarDockingPosition !== 'none';
-		}
-		if (contextualFormattingEnabled === 'always-pinned') {
-			return true;
-		}
-		return false;
+	if (contextualFormattingEnabled === 'controlled') {
+		return toolbarDockingPosition !== 'none';
 	}
-	return toolbarDockingPosition !== 'none';
+	if (contextualFormattingEnabled === 'always-pinned') {
+		return true;
+	}
+	return false;
 };

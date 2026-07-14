@@ -19,8 +19,8 @@ When the flag is on, the react-select **`Menu`** component is **`MenuTopLayer`**
 - **`MenuTopLayer`** renders **`Popup.Content`** in **standalone** mode (no `Popup` root in this
   file): `triggerRef` is wired to **`selectProps.calendarContainerRef`** so the calendar anchors to
   the picker's container.
-- **`role="dialog"`**, **`label="calendar"`**, **`slideAndFade()`**, placement **`bottom-start`**
-  via `fromLegacyPlacement`.
+- **`role="dialog"`**, **`label="calendar"`**, **`animate`** enabled for default top-layer popover
+  motion, placement **`bottom-start`** via `fromLegacyPlacement`.
 
 `date-picker.tsx` contains **conditional focus restoration**: when the flag is on, it relies on
 top-layer **`Popup.Content`** behavior for dialog role instead of manually focusing the calendar
@@ -40,7 +40,7 @@ When the flag is on, the menu component is **`FixedLayerMenuTopLayer`**
 ### Top-layer entry points used
 
 - `@atlaskit/top-layer/popup` — `Popup.Content`, `Popup.Surface`
-- `@atlaskit/top-layer/animations` — `slideAndFade()`
+- `Popup.Content animate` — default top-layer popover motion
 - `@atlaskit/top-layer/placement-map` — `fromLegacyPlacement({ legacy: 'bottom-start' })`
 
 ---

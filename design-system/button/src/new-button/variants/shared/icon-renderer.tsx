@@ -25,6 +25,9 @@ function isIconRenderProp(
  *
  */
 const IconRenderer = ({ icon: Icon }: { icon: IconProp }): React.JSX.Element => {
+	// React Compiler opt-out: RC-incompatible (memoization breaks runtime behaviour).
+	'use no memo';
+
 	const isRenderProp = isIconRenderProp(Icon);
 	let iconProps: IconProps | NewIconProps = {
 		label: '',

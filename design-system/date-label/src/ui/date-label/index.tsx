@@ -34,6 +34,10 @@ const containerStyles = cssMap({
 	neutral: {
 		borderColor: token('color.border.accent.gray.subtle'),
 	},
+	neutralSpacious: {
+		borderColor: token('color.border'),
+		color: token('color.text.subtle'),
+	},
 	warning: {
 		borderColor: token('color.border.warning.subtle'),
 	},
@@ -55,6 +59,9 @@ const textStyles = cssMap({
 	},
 	neutral: {
 		color: token('color.text'),
+	},
+	neutralSpacious: {
+		color: token('color.text.subtle'),
 	},
 	warning: {
 		color: token('color.text.warning'),
@@ -107,7 +114,7 @@ export default function DateLabel({
 			css={[
 				containerStyles.base,
 				isSpacious && containerStyles.spacious,
-				containerStyles[appearance],
+				containerStyles[isSpacious && appearance === 'neutral' ? 'neutralSpacious' : appearance],
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={{ maxWidth: maxWidthValue }}
@@ -119,7 +126,7 @@ export default function DateLabel({
 						<CalendarIcon
 							label={resolvedIconLabel}
 							size={iconSize}
-							color={token('color.icon.subtlest')}
+							color={isSpacious ? 'currentColor' : token('color.icon.subtlest')}
 						/>
 					)}
 					{appearance === 'warning' && (
@@ -138,7 +145,13 @@ export default function DateLabel({
 					)}
 				</span>
 			)}
-			<span css={[textStyles.base, isSpacious && textStyles.spacious, textStyles[appearance]]}>
+			<span
+				css={[
+					textStyles.base,
+					isSpacious && textStyles.spacious,
+					textStyles[isSpacious && appearance === 'neutral' ? 'neutralSpacious' : appearance],
+				]}
+			>
 				{label}
 			</span>
 		</span>

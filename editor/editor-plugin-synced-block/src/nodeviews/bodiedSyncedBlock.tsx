@@ -24,6 +24,8 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -253,11 +255,20 @@ export class BodiedSyncBlock implements NodeView {
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.contentDOM = contentDOM as HTMLElement;
 
-		// During SSR, the portal's renderToStaticMarkup + innerHTML clobbers
-		// contentDOM. Render the label into a separate container to prevent this.
-		// On client, render directly into this.dom as before.
 		let labelContainer: HTMLElement;
 		if (isSSR() && isSSRStreaming()) {
+			// During SSR, the portal's renderToStaticMarkup + innerHTML clobbers
+			// contentDOM. Render the label into a separate container to prevent this.
+			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
+			labelContainer = document.createElement('div');
+			this.dom.appendChild(labelContainer);
+		} else if (
+			fg('platform_synced_block_patch_14') ||
+			expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
+		) {
+			// Render the label into a separate container for the activation experience so
+			// portal implementations that write directly into the target do not clobber
+			// the ProseMirror contentDOM.
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
 			labelContainer = document.createElement('div');
 			this.dom.appendChild(labelContainer);

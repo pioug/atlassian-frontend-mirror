@@ -19,6 +19,7 @@ export const MockIntersectionObserverFactory = (
 		isDisconnected: boolean;
 		readonly root: Element | null;
 		readonly rootMargin: string;
+		readonly scrollMargin: string;
 		readonly thresholds: ReadonlyArray<number>;
 		previousMockEntries: MockEntry[];
 		callback: IntersectionObserverCallback;
@@ -34,6 +35,7 @@ export const MockIntersectionObserverFactory = (
 		isDisconnected = false;
 		readonly root!: Element | null;
 		readonly rootMargin!: string;
+		readonly scrollMargin!: string;
 		readonly thresholds!: ReadonlyArray<number>;
 		previousMockEntries: MockEntry[] = [];
 
@@ -75,6 +77,7 @@ export const mockSimpleIntersectionObserver = (): void => {
 	class MockIntersectionObserver implements IntersectionObserver {
 		readonly root!: Element | null;
 		readonly rootMargin!: string;
+		readonly scrollMargin!: string;
 		readonly thresholds!: ReadonlyArray<number>;
 
 		constructor(public callback: IntersectionObserverCallback) {}

@@ -1,5 +1,26 @@
 # @atlaskit/ads-mcp
 
+## 1.6.1
+
+### Patch Changes
+
+- [`304179a976296`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/304179a976296) -
+  Wrap designSource figmaUrl values with go links
+
+## 1.6.0
+
+### Minor Changes
+
+- [`c3a296f2cf7af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3a296f2cf7af) -
+  Wrap designSource figmaUrl values with go links and add the `useMotion` component to the ADS MCP
+  payload. Consumers can use `useMotion` to apply motion state, the returned `ref`, and custom
+  animation styling directly to an existing element, then wrap conditional children in
+  `ExitingPersistence` when exit animations need to complete before removal.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.4
 
 ### Patch Changes

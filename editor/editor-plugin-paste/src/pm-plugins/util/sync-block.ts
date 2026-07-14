@@ -11,7 +11,6 @@ import {
 import type { ExtractInjectionAPI, PasteWarningOptions } from '@atlaskit/editor-common/types';
 import { mapSlice } from '@atlaskit/editor-common/utils';
 import type { Fragment, Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes } from '../../editor-actions/actions';
 import type { PastePlugin, ActiveFlag } from '../../pastePluginType';
@@ -149,18 +148,16 @@ export const handleSyncBlocksPaste = (
 	// Bitbucket). Emit a track event so this can be measured directly instead of relying
 	// on the "copied-but-never-landed" proxy. See EDITOR-7749.
 	if (!hasSyncedBlockInSlice && isSyncedBlockInRawHtml) {
-		if (fg('platform_editor_blocks_patch_2')) {
-			api?.analytics?.actions?.fireAnalyticsEvent({
-				eventType: EVENT_TYPE.TRACK,
-				action: ACTION.INSERT_ATTEMPTED,
-				actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
-				actionSubjectId: ACTION_SUBJECT_ID.UNSUPPORTED_SURFACE,
-				attributes: {
-					sourceProduct: getSourceProductFromRawHtml(rawHtml),
-					pasteSource,
-				},
-			});
-		}
+		api?.analytics?.actions?.fireAnalyticsEvent({
+			eventType: EVENT_TYPE.TRACK,
+			action: ACTION.INSERT_ATTEMPTED,
+			actionSubject: ACTION_SUBJECT.SYNCED_BLOCK,
+			actionSubjectId: ACTION_SUBJECT_ID.UNSUPPORTED_SURFACE,
+			attributes: {
+				sourceProduct: getSourceProductFromRawHtml(rawHtml),
+				pasteSource,
+			},
+		});
 
 		if (pasteWarningOptions?.cannotPasteSyncedBlock) {
 			showWarningFlag({

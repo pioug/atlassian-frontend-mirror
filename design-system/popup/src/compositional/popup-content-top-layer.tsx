@@ -21,7 +21,6 @@ import { css, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { popupMotion } from '@atlaskit/top-layer/animations';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import {
 	createPopoverCloseEvent,
@@ -38,8 +37,6 @@ import { type ContentProps, type PopupComponentProps, type PopupProps } from '..
 import { TriggerRefObjectContext } from './trigger-ref-object-context';
 
 const overflowAutoStyles = css({ overflow: 'auto' });
-
-const animation = popupMotion();
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
 const EMPTY_STYLE: CSSProperties = {};
@@ -237,7 +234,7 @@ export function PopupContentTopLayer({
 			ref={popoverRef}
 			{...roleProps}
 			isOpen={isOpen}
-			animate={animation}
+			animate
 			placement={topLayerPlacement}
 			onClose={handleOnClose}
 			testId={testId && `${testId}--content`}

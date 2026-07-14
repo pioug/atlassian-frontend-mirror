@@ -1,5 +1,4 @@
 /**
- * @jsxfrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -242,10 +241,10 @@ export function ExpandableMenuItemLinkVariantExample(): JSX.Element {
 								href={exampleHref}
 								elemBefore={<HomeIcon label="" spacing="spacious" />}
 								actions={
-									<>
+									<React.Fragment>
 										<AddAction />
 										<MoreAction />
-									</>
+									</React.Fragment>
 								}
 								isSelected={selectedId === 'actions'}
 								onClick={createClickHandler('actions')}
@@ -263,10 +262,10 @@ export function ExpandableMenuItemLinkVariantExample(): JSX.Element {
 								href={exampleHref}
 								elemBefore={<HomeIcon label="" spacing="spacious" />}
 								actionsOnHover={
-									<>
+									<React.Fragment>
 										<AddAction />
 										<MoreAction />
-									</>
+									</React.Fragment>
 								}
 								isSelected={selectedId === 'actions-on-hover'}
 								onClick={createClickHandler('actions-on-hover')}

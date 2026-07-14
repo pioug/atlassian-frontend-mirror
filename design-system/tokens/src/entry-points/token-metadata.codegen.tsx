@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::e6de6baec1b48fe35939eaaf7219f5b0>>
+ * @codegen <<SignedSource::9927dba5aae33bec87b319018d934b1f>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -349,6 +349,20 @@ export const tokens: Token[] = [
 		path: ['motion', 'modal', 'exit'],
 		description: 'Use for modal exit transitions.',
 		exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.panel.enter',
+		path: ['motion', 'panel', 'enter'],
+		description: 'Use for panel enter transitions.',
+		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.panel.exit',
+		path: ['motion', 'panel', 'exit'],
+		description: 'Use for panel exit transitions.',
+		exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut100PercentRight',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{

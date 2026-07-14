@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, type RefObject } from 'react';
 
 import debounce from 'lodash/debounce';
 
@@ -6,9 +6,21 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import type { UseAnalyticsEventsHook } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { setupINPTracking } from '@atlaskit/editor-performance-metrics/inp';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-export const EditorINPMetrics = () => {
+import { getEditorDomSize } from '../utils/getEditorDomSize';
+
+type EditorINPMetricsProps = {
+	// A ref (not the view itself) because INP tracking is set up once on mount and
+	// its callback fires later and repeatedly: reading `editorViewRef.current` at
+	// call time gives the current view/DOM and avoids a stale closure, without
+	// re-subscribing the observer whenever the view changes.
+	editorViewRef: RefObject<EditorView | null>;
+};
+
+export const EditorINPMetrics = ({ editorViewRef }: EditorINPMetricsProps) => {
 	const analyticsEvents = useAnalyticsEvents();
 
 	// onMount lifecycle hook
@@ -18,7 +30,16 @@ export const EditorINPMetrics = () => {
 			cleanupFn = setupINPTracking(({ value }) => {
 				const interaction = getActiveInteraction();
 				const ufoName = interaction?.ufoName;
-				sendAnalytics(analyticsEvents.createAnalyticsEvent, value, ufoName);
+
+				let editorDomSize: number | undefined;
+				if (expValEquals('platform_editor_dom_node_count', 'isEnabled', true)) {
+					const editorView = editorViewRef.current;
+					if (editorView) {
+						editorDomSize = getEditorDomSize(editorView);
+					}
+				}
+
+				sendAnalytics(analyticsEvents.createAnalyticsEvent, value, ufoName, editorDomSize);
 			});
 		});
 
@@ -41,6 +62,7 @@ const sendAnalytics = debounce(
 		createAnalyticsEvent: UseAnalyticsEventsHook['createAnalyticsEvent'],
 		value: number,
 		ufoName?: string,
+		editorDomSize?: number,
 	) => {
 		fireAnalyticsEvent(createAnalyticsEvent)({
 			payload: {
@@ -51,6 +73,7 @@ const sendAnalytics = debounce(
 				attributes: {
 					inp: value,
 					ufoName,
+					editorDomSize,
 				},
 			},
 		});

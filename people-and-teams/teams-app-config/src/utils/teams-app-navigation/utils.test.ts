@@ -501,8 +501,8 @@ describe('teams app navigation utils', () => {
 			};
 			const result = getPathAndQuery(action);
 			expect(result).toEqual({
-				path: 'search/people',
-				query: new URLSearchParams('search term'),
+				path: '',
+				query: new URLSearchParams({ screen: 'SEARCH_PEOPLE' }),
 			});
 		});
 		it('should return the correct path and query for people directory without query', () => {
@@ -513,8 +513,8 @@ describe('teams app navigation utils', () => {
 			};
 			const result = getPathAndQuery(action);
 			expect(result).toEqual({
-				path: 'search/people',
-				query: new URLSearchParams(),
+				path: '',
+				query: new URLSearchParams({ screen: 'SEARCH_PEOPLE' }),
 			});
 		});
 		it('should return the correct path and query for user work', () => {

@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import { transformDedupeMarks } from '../../../transforms/dedupe-marks-transform';
 
 import docWithDuplicateMarksInvalidAdf from './__fixtures__/doc-with-duplicate-marks-invalid-adf.json';
@@ -13,9 +5,7 @@ import docWithNoDuplicateMarksValidAdf from './__fixtures__/doc-with-no-duplicat
 
 describe('transformDedupeMarks', () => {
 	it('should remove duplicate marks', () => {
-		const { isTransformed, transformedAdf, discardedMarks } = transformDedupeMarks(
-			docWithDuplicateMarksInvalidAdf,
-		);
+		const { isTransformed, discardedMarks } = transformDedupeMarks(docWithDuplicateMarksInvalidAdf);
 
 		expect(discardedMarks.length).not.toEqual(0);
 
@@ -36,7 +26,6 @@ describe('transformDedupeMarks', () => {
 		);
 
 		expect(isTransformed).toEqual(true);
-		expect(transformedAdf).toMatchSnapshot();
 	});
 
 	it('should not remove marks in valid complex doc, transformedAdf should remain unchanged', () => {

@@ -1,5 +1,16 @@
 # @atlaskit/editor-synced-block-provider
 
+## 8.6.1
+
+### Patch Changes
+
+- [`f543995529d9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f543995529d9d) -
+  [ux] Synced blocks now recover automatically from realtime connection drops that happen while a
+  tab is hidden or the network is offline. Instead of showing a fetch error when reconnection
+  attempts are exhausted in the background, the block silently re-arms and reconnects when the tab
+  becomes visible again or the network comes back online.
+- Updated dependencies
+
 ## 8.6.0
 
 ### Minor Changes

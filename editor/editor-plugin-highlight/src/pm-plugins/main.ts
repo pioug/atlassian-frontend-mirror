@@ -1,14 +1,12 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getTokenCSSVariableValueForNonActiveTheme } from '@atlaskit/editor-common/ui-color';
-import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/text-background-color';
+import { getHighlightColorInNonActiveTheme } from '@atlaskit/editor-common/ui-color';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { token } from '@atlaskit/tokens';
 
-import { getActiveColor } from '../editor-commands/color';
+import { getActiveColor, MULTIPLE_HIGHLIGHT_COLORS_SELECTED } from '../editor-commands/color';
 import { getDisabledState } from '../editor-commands/disabled';
 import type { HighlightPlugin } from '../highlightPluginType';
 
@@ -19,6 +17,11 @@ export type HighlightPluginState = {
 	activeColor: string | null; // Hex value color, lowercase
 	activeColorInNonActiveTheme?: string;
 	disabled: boolean;
+	/**
+	 * True when the current selection spans more than one highlight color. Only
+	 * populated behind the lovability text/bg color patch gate + experiment.
+	 */
+	isMultiHighlightColor?: boolean;
 	isPaletteOpen: boolean;
 };
 
@@ -29,18 +32,10 @@ export enum HighlightPluginAction {
 
 const DEFAULT_BACKGROUND_COLOR = '#FFFFFF';
 
-const getActiveColorInNonActiveTheme = (color: string | null): string => {
-	if (!color) {
-		return getTokenCSSVariableValueForNonActiveTheme(
-			token('elevation.surface'),
-			DEFAULT_BACKGROUND_COLOR,
-		);
-	}
-
-	const colorValue = hexToEditorTextBackgroundPaletteColor(color) || color;
-
-	return getTokenCSSVariableValueForNonActiveTheme(colorValue, color);
-};
+const getActiveColorInNonActiveTheme = (color: string | null): string =>
+	getHighlightColorInNonActiveTheme(color, {
+		defaultBackgroundColor: DEFAULT_BACKGROUND_COLOR,
+	});
 
 export const createPlugin = ({
 	api,
@@ -58,6 +53,7 @@ export const createPlugin = ({
 				...(fg('platform_editor_lovability_text_bg_color_patch_1') &&
 					expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) && {
 						activeColorInNonActiveTheme: getActiveColorInNonActiveTheme(null),
+						isMultiHighlightColor: false,
 					}),
 			}),
 			apply: (
@@ -83,6 +79,7 @@ export const createPlugin = ({
 									true,
 								) && {
 									activeColorInNonActiveTheme: getActiveColorInNonActiveTheme(color),
+									isMultiHighlightColor: false,
 								}),
 						};
 
@@ -96,6 +93,7 @@ export const createPlugin = ({
 
 					default:
 						const activeColor = getActiveColor(tr);
+						const isMultiHighlightColor = activeColor === MULTIPLE_HIGHLIGHT_COLORS_SELECTED;
 						return {
 							...pluginState,
 							activeColor,
@@ -108,7 +106,14 @@ export const createPlugin = ({
 									'isEnabled',
 									true,
 								) && {
-									activeColorInNonActiveTheme: getActiveColorInNonActiveTheme(activeColor),
+									// When the selection spans multiple highlight colors, `activeColor` is the
+									// `MULTIPLE_HIGHLIGHT_COLORS_SELECTED` sentinel rather than a real hex value.
+									// Passing it through would resolve the literal sentinel as a color, so fall
+									// back to the neutral default instead.
+									activeColorInNonActiveTheme: getActiveColorInNonActiveTheme(
+										isMultiHighlightColor ? null : activeColor,
+									),
+									isMultiHighlightColor,
 								}),
 						};
 				}

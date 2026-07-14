@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -228,7 +227,7 @@ function Project({
 	}, [registry, draggableAnchorRef, project.id]);
 
 	return (
-		<>
+		<React.Fragment>
 			<LinkMenuItem
 				href={project.href}
 				elemBefore={project.icon}
@@ -249,6 +248,6 @@ function Project({
 				{project.name}
 			</LinkMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }

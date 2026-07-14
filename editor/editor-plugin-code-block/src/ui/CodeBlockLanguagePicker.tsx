@@ -59,21 +59,19 @@ export const CodeBlockLanguagePicker = ({
 					: changeLanguage(api?.analytics?.actions)(option.value, selectionSource);
 			const commandSucceeded = command(editorView.state, editorView.dispatch);
 
-			if (fg('platform_editor_code_block_dogfooding_patch')) {
-				if (fg('platform_editor_code_block_ga_patch_1')) {
-					if (interactionMethod === 'mouse') {
-						requestAnimationFrame(() => {
-							// Mouse-opened picker should return editing focus to the code block. Keyboard-opened
-							// picker keeps focus on the trigger to avoid CodeMirror DOM focus without cm.hasFocus.
-							api?.core.actions.focus({ scrollIntoView: false });
-						});
-					}
-				} else {
+			if (fg('platform_editor_code_block_ga_patch_1')) {
+				if (interactionMethod === 'mouse') {
 					requestAnimationFrame(() => {
-						// Let PopupSelect/FocusLock finish returning focus to the trigger, then restore the editor.
+						// Mouse-opened picker should return editing focus to the code block. Keyboard-opened
+						// picker keeps focus on the trigger to avoid CodeMirror DOM focus without cm.hasFocus.
 						api?.core.actions.focus({ scrollIntoView: false });
 					});
 				}
+			} else {
+				requestAnimationFrame(() => {
+					// Let PopupSelect/FocusLock finish returning focus to the trigger, then restore the editor.
+					api?.core.actions.focus({ scrollIntoView: false });
+				});
 			}
 
 			if (

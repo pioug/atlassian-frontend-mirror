@@ -44,8 +44,7 @@ const documentation: StructuredContentSource = {
 				},
 			],
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13076-28181',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13076-28181',
 				figmaNodeId: '13076:28181',
 			},
 			keywords: ['textfield', 'input', 'form', 'text', 'field', 'single-line'],

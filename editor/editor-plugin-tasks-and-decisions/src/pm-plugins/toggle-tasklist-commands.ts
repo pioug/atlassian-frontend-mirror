@@ -20,7 +20,6 @@ import type { TransformContext } from '@atlaskit/editor-common/transforms';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const toggleTaskList =
 	(editorAnalyticsAPI?: EditorAnalyticsAPI) =>
@@ -45,22 +44,20 @@ export const toggleTaskList =
 				// Insert the empty list at the current selection
 				const insertTr = safeInsert(emptyList)(tr);
 				if (insertTr !== tr) {
-					if (fg('platform_editor_toolbar_task_list_analytics')) {
-						// Fire INSERT analytics event when creating a new task list
-						editorAnalyticsAPI?.attachAnalyticsEvent({
-							action: ACTION.INSERTED,
-							actionSubject: ACTION_SUBJECT.DOCUMENT,
-							actionSubjectId: ACTION_SUBJECT_ID.ACTION,
-							eventType: EVENT_TYPE.TRACK,
-							attributes: {
-								inputMethod,
-								listLocalId,
-								listSize: 1,
-								localId: itemLocalId,
-								position: 0,
-							},
-						})(insertTr);
-					}
+					// Fire INSERT analytics event when creating a new task list
+					editorAnalyticsAPI?.attachAnalyticsEvent({
+						action: ACTION.INSERTED,
+						actionSubject: ACTION_SUBJECT.DOCUMENT,
+						actionSubjectId: ACTION_SUBJECT_ID.ACTION,
+						eventType: EVENT_TYPE.TRACK,
+						attributes: {
+							inputMethod,
+							listLocalId,
+							listSize: 1,
+							localId: itemLocalId,
+							position: 0,
+						},
+					})(insertTr);
 
 					// Set cursor inside the new task item
 					const insertPos = insertTr.selection.$from.pos;
@@ -86,21 +83,19 @@ export const toggleTaskList =
 
 					const resultTr = transformBetweenListTypes(context);
 
-					if (fg('platform_editor_toolbar_task_list_analytics')) {
-						// Fire CONVERTED analytics event when transforming a list to task list
-						if (resultTr && resultTr.docChanged) {
-							editorAnalyticsAPI?.attachAnalyticsEvent({
-								action: ACTION.CONVERTED,
-								actionSubject: ACTION_SUBJECT.LIST,
-								actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
-								eventType: EVENT_TYPE.TRACK,
-								attributes: {
-									...getCommonListAnalyticsAttributes(tr),
-									transformedFrom,
-									inputMethod,
-								},
-							})(resultTr);
-						}
+					// Fire CONVERTED analytics event when transforming a list to task list
+					if (resultTr && resultTr.docChanged) {
+						editorAnalyticsAPI?.attachAnalyticsEvent({
+							action: ACTION.CONVERTED,
+							actionSubject: ACTION_SUBJECT.LIST,
+							actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
+							eventType: EVENT_TYPE.TRACK,
+							attributes: {
+								...getCommonListAnalyticsAttributes(tr),
+								transformedFrom,
+								inputMethod,
+							},
+						})(resultTr);
 					}
 
 					return resultTr;
@@ -126,19 +121,17 @@ export const toggleTaskList =
 								? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
 								: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
-						if (fg('platform_editor_toolbar_task_list_analytics')) {
-							editorAnalyticsAPI?.attachAnalyticsEvent({
-								action: ACTION.CONVERTED,
-								actionSubject: ACTION_SUBJECT.LIST,
-								actionSubjectId: targetListType,
-								eventType: EVENT_TYPE.TRACK,
-								attributes: {
-									...getCommonListAnalyticsAttributes(tr),
-									transformedFrom,
-									inputMethod,
-								},
-							})(resultTr);
-						}
+						editorAnalyticsAPI?.attachAnalyticsEvent({
+							action: ACTION.CONVERTED,
+							actionSubject: ACTION_SUBJECT.LIST,
+							actionSubjectId: targetListType,
+							eventType: EVENT_TYPE.TRACK,
+							attributes: {
+								...getCommonListAnalyticsAttributes(tr),
+								transformedFrom,
+								inputMethod,
+							},
+						})(resultTr);
 					}
 
 					return resultTr;
@@ -155,21 +148,19 @@ export const toggleTaskList =
 						const listSizeFromNode = listNode?.childCount ?? 0;
 						const localIdFromNode = listNode?.firstChild?.attrs?.localId ?? uuid.generate();
 
-						if (fg('platform_editor_toolbar_task_list_analytics')) {
-							editorAnalyticsAPI?.attachAnalyticsEvent({
-								action: ACTION.INSERTED,
-								actionSubject: ACTION_SUBJECT.DOCUMENT,
-								actionSubjectId: ACTION_SUBJECT_ID.ACTION,
-								eventType: EVENT_TYPE.TRACK,
-								attributes: {
-									inputMethod,
-									listLocalId: listLocalIdFromNode,
-									listSize: listSizeFromNode,
-									localId: localIdFromNode,
-									position: 0,
-								},
-							})(resultTr);
-						}
+						editorAnalyticsAPI?.attachAnalyticsEvent({
+							action: ACTION.INSERTED,
+							actionSubject: ACTION_SUBJECT.DOCUMENT,
+							actionSubjectId: ACTION_SUBJECT_ID.ACTION,
+							eventType: EVENT_TYPE.TRACK,
+							attributes: {
+								inputMethod,
+								listLocalId: listLocalIdFromNode,
+								listSize: listSizeFromNode,
+								localId: localIdFromNode,
+								position: 0,
+							},
+						})(resultTr);
 					}
 
 					return resultTr;

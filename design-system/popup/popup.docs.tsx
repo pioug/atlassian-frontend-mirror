@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A component for displaying popup content relative to a trigger element.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=82088-103357',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-103357',
 			},
 			import: {
 				name: 'Popup',

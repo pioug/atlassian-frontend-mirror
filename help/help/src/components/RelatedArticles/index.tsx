@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-/** @jsxFrag */
 
 import React, { useState, useEffect, useCallback } from 'react';
 import {
@@ -137,14 +136,14 @@ export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
 		);
 	} else {
 		return (
-			<>
+			<React.Fragment>
 				{style === 'secondary' && relatedArticles.length > 0 && (
-					<>
+					<React.Fragment>
 						<DividerLine />
 						<RelatedArticlesTitle>
 							{formatMessage(messages.help_related_article_title)}
 						</RelatedArticlesTitle>
-					</>
+					</React.Fragment>
 				)}
 				{isLoading ? (
 					<RelatedArticlesLoading />
@@ -157,7 +156,7 @@ export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
 						onToggleArticlesList={handleOnRelatedArticlesShowMoreClick}
 					/>
 				)}
-			</>
+			</React.Fragment>
 		);
 	}
 };

@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A navigation component showing the current page hierarchy.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=144167-2564',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-144167-2564',
 			},
 			import: {
 				name: 'Breadcrumbs',

@@ -6,6 +6,7 @@ import {
 	AI_PASTE_MENU_SECTION,
 	EditorToolbarProvider,
 	PASTE_MENU,
+	SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION,
 } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
@@ -301,12 +302,24 @@ export const PasteActionsMenu = ({
 		lastContentPasted: states.pasteState?.lastContentPasted,
 	}));
 	const sliceForAgentMentionSuppression = lastContentPasted?.sourcePastedSlice;
-	const shouldSuppressPasteActions = useMemo(
-		() =>
-			shouldSuppressPasteActionsForAgentMention(sliceForAgentMentionSuppression) ||
-			shouldSuppressPasteActionsForSingleLink(sliceForAgentMentionSuppression),
-		[sliceForAgentMentionSuppression],
+	const pasteMenuComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
+
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- pasteMenuComponents changes by reference each render; filter is small (< 10 items)
+	const aiMenuItems = pasteMenuComponents.filter(
+		(c) => c.type === 'menu-item' && c.parents?.some((p) => p.key === AI_PASTE_MENU_SECTION.key),
 	);
+	const visibleAiActionKeys = getVisibleKeys(aiMenuItems, ['menu-item']);
+	const hasVisibleAiActions = visibleAiActionKeys.length > 0;
+
+	const shouldSuppressPasteActions = useMemo(() => {
+		const suppressForAgentMention = shouldSuppressPasteActionsForAgentMention(
+			sliceForAgentMentionSuppression,
+		);
+		const suppressForSingleLink =
+			shouldSuppressPasteActionsForSingleLink(sliceForAgentMentionSuppression) &&
+			!hasVisibleAiActions;
+		return suppressForAgentMention || suppressForSingleLink;
+	}, [sliceForAgentMentionSuppression, hasVisibleAiActions]);
 	const prevShowToolbarRef = useRef(false);
 	const popupContentRef = useRef<HTMLDivElement>(null);
 
@@ -412,23 +425,17 @@ export const PasteActionsMenu = ({
 		: false;
 	const effectiveScrollableElement = overflowScrollParent || scrollableElement;
 
-	const pasteMenuComponents = api?.uiControlRegistry?.actions.getComponents(PASTE_MENU.key) ?? [];
-
 	const anyComponentVisible = hasVisibleButton(pasteMenuComponents);
 
-	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- pasteMenuComponents changes by reference each render; filter is small (< 10 items)
-	const aiMenuItems = pasteMenuComponents.filter(
-		(c) => c.type === 'menu-item' && c.parents?.some((p) => p.key === AI_PASTE_MENU_SECTION.key),
+	// Whether the card plugin's "Display as" section is visible when the menu opens.
+	const displayAsVisible = getVisibleKeys(pasteMenuComponents, ['menu-section']).includes(
+		SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION.key,
 	);
-	const visibleAiActionKeys = getVisibleKeys(aiMenuItems, ['menu-item']);
-
 	// Two positioning modes:
 	// 1. Inline: no AI actions visible — menu appears to the right of the cursor,
 	//    vertically centered with the text line.
 	// 2. Block-anchored: AI actions are visible — menu appears at the right edge
 	//    of the content block, aligned with paste start.
-	const hasVisibleAiActions = visibleAiActionKeys.length > 0;
-
 	useEffect(() => {
 		if (!prevShowToolbarRef.current && shouldRenderToolbar) {
 			editorAnalyticsAPI?.fireAnalyticsEvent({
@@ -437,6 +444,7 @@ export const PasteActionsMenu = ({
 				eventType: EVENT_TYPE.UI,
 				attributes: {
 					visibleAiActions: visibleAiActionKeys,
+					displayAsVisible,
 				},
 			});
 		}

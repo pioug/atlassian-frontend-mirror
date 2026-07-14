@@ -2,7 +2,7 @@ import { type CSSProperties, type ReactNode } from 'react';
 
 import { type CompiledStyles } from '@compiled/react';
 
-import type { TDialogAnimationPreset } from './animations';
+import type { TAnimationConfig } from '../internal/use-animated-visibility';
 
 /**
  * Close reasons produced by the Dialog primitive.
@@ -50,12 +50,12 @@ type TDialogBaseProps = {
 	 */
 	onClose: (args: { reason: TDialogCloseReason }) => void;
 	/**
-	 * Animation preset for entry/exit transitions.
+	 * Animation config for entry/exit transitions.
 	 *
-	 * Pass a `TAnimationPreset` (e.g. `dialogSlideUpAndFade()`) to enable
-	 * CSS-based entry and exit animation. Pass `false` (or omit) to disable.
+	 * Pass `true` to use the default dialog animation. Pass a config object to
+	 * customize supported animation settings. Pass `false` or omit to disable.
 	 */
-	animate?: TDialogAnimationPreset | false;
+	animate?: boolean | TAnimationConfig;
 	/**
 	 * Additional Compiled styles applied to the `<dialog>` element.
 	 *

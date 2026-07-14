@@ -10,8 +10,7 @@ const documentation: StructuredContentSource = {
 				'A progress bar communicates the status of a system process, showing completion percentage or indeterminate progress.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=5701-6335',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-5701-6335',
 			},
 			import: {
 				name: 'ProgressBar',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "12.0.2",
+	"version": "12.1.0",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,7 +19,8 @@
 		]
 	},
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./heading-with-section-link": "./src/heading/heading-with-section-link.tsx"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"homepage": "https://atlaskit.atlassian.com/",

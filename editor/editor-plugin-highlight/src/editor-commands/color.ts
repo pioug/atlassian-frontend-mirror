@@ -4,6 +4,13 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
+/**
+ * Value returned by `getActiveColor` when the selection spans more than one
+ * distinct highlight (background) color. Callers can compare against this to
+ * detect a multi-color selection.
+ */
+export const MULTIPLE_HIGHLIGHT_COLORS_SELECTED = 'multiple';
+
 const getAllUniqueBackgroundColorMarksInRange = (
 	from: number,
 	to: number,
@@ -55,7 +62,7 @@ const getColorFromCellSelection = (
 	const marks = getAllUniqueBackgroundColorMarksInCellSelection(selection, tr);
 
 	if (marks.length > 1) {
-		return 'multiple';
+		return MULTIPLE_HIGHLIGHT_COLORS_SELECTED;
 	}
 
 	const firstColorMark = marks.at(0);
@@ -90,7 +97,7 @@ const getColorFromRange = (
 	const marks = getAllUniqueBackgroundColorMarksInRange(from, to, tr);
 
 	if (marks.length > 1) {
-		return 'multiple';
+		return MULTIPLE_HIGHLIGHT_COLORS_SELECTED;
 	}
 
 	const firstColorMark = marks.at(0);

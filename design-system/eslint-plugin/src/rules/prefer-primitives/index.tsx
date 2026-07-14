@@ -8,10 +8,9 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 		type: 'suggestion',
 		hasSuggestions: false,
 		deprecated: true,
-		replacedBy: ['@atlaskit/design-system/use-primitives'],
 		docs: {
 			description:
-				'Increase awareness of primitive components via code hints. Strictly used for education purposes and discoverability. To enforce usage please refer to the `use-primitives` rule.',
+				'Increase awareness of primitive components via code hints. Strictly used for education purposes and discoverability.',
 			recommended: false,
 			severity: 'warn',
 		},

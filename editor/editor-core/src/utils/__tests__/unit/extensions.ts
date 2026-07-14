@@ -12,14 +12,9 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../../../actions';
 import { extensionProviderToQuickInsertProvider } from '../../extensions';
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn(),
-}));
 
 function replaceCustomQuickInsertModules(
 	manifest: ExtensionManifest,
@@ -384,12 +379,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 	});
 
 	describe('priority parsing & passthrough via `getItems()`', () => {
-		it('should include priority property when feature gate is enabled and priority is set', async () => {
-			const mockFg = fg as jest.MockedFunction<typeof fg>;
-			mockFg.mockImplementation((gateName) => {
-				return gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled';
-			});
-
+		it('should include priority property when priority is set', async () => {
 			// Create extensions with priority values
 			const extensionWithPriority1 = replaceCustomQuickInsertModules(
 				createFakeExtensionManifest({
@@ -432,46 +422,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 			expect(items[3]).toHaveProperty('priority', 50);
 		});
 
-		it('should not include priority property when feature gate is disabled', async () => {
-			const mockFg = fg as jest.MockedFunction<typeof fg>;
-			mockFg.mockImplementation(() => {
-				return false;
-			});
-
-			// Create extensions with priority values
-			const extensionWithPriority = replaceCustomQuickInsertModules(
-				createFakeExtensionManifest({
-					title: 'Extension with priority',
-					type: 'com.atlassian.forge',
-					extensionKey: 'priority-test',
-				}),
-				{
-					key: 'default',
-					priority: 100,
-					action: jest.fn(),
-				},
-			);
-
-			const priorityExtensionProvider = setup([extensionWithPriority]);
-
-			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
-				priorityExtensionProvider,
-				{} as EditorActions,
-				{ current: undefined },
-			);
-
-			const items = await quickInsertProvider.getItems();
-
-			// Check that priority is not included when feature flag is disabled
-			expect(items[2]).not.toHaveProperty('priority');
-		});
-
-		it('should not include priority property when feature gate is enabled but priority is not set', async () => {
-			const mockFg = fg as jest.MockedFunction<typeof fg>;
-			mockFg.mockImplementation((gateName) => {
-				return gateName === 'cc_fd_wb_create_priority_in_slash_menu_enabled';
-			});
-
+		it('should set priority to undefined when priority is not set', async () => {
 			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 				dummyExtensionProvider,
 				{} as EditorActions,
@@ -480,7 +431,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 
 			const items = await quickInsertProvider.getItems();
 
-			// Check that priority is not included when not set on extension modules
+			// Check that priority is undefined when not set on extension modules
 			expect(items[0]).toHaveProperty('priority', undefined);
 			expect(items[1]).toHaveProperty('priority', undefined);
 		});

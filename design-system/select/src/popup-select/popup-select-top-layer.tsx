@@ -19,7 +19,6 @@ import { bind } from 'bind-event-listener';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type GroupBase, mergeStyles } from '@atlaskit/react-select';
 import { token } from '@atlaskit/tokens';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { type TLegacyPlacement, fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { Popover, type TPopoverCloseReason } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
@@ -39,8 +38,6 @@ import {
 import { defaultComponents } from './components';
 import { DummyControl } from './dummy-control';
 import type { PopupSelectProps } from './popup-select';
-
-const animation = slideAndFade();
 
 // Styles.
 
@@ -379,7 +376,7 @@ export function PopupSelectTopLayer<
 				label={getLabel() ?? 'Popup select'}
 				isOpen={isOpen}
 				onClose={handleOnClose}
-				animate={animation}
+				animate
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--content`}
 			>

@@ -6,13 +6,6 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 
 import AnalyticsContext from '../../index';
 
-// The modern context path is selected via isModernContextEnabledEnv (env-driven and falsy in
-// Jest). Force it truthy so the modern context is exercised without removing the env util.
-jest.mock('../../../../utils/isModernContextEnabledEnv', () => ({
-	__esModule: true,
-	default: true,
-}));
-
 jest.mock('../../LegacyAnalyticsContext', () => ({
 	__esModule: true,
 	default: () => <div>LegacyAnalytics</div>,
@@ -30,28 +23,43 @@ const renderAnalyticsContext = () =>
 		</AnalyticsContext>,
 	);
 
-// The context is now always modern; the analytics-next-lock-context-type gate only controls
-// whether that value is captured at mount or read live, so both states resolve to modern.
 describe('AnalyticsContext analytics-next-lock-context-type gate', () => {
 	it('has no accessibility violations', async () => {
 		failGate('analytics-next-lock-context-type');
+		failGate('analytics-next-use-legacy-context');
 		const { container } = renderAnalyticsContext();
 		await expect(container).toBeAccessible();
 	});
 
 	describe('gate off (live per-render read)', () => {
-		it('uses the modern context', () => {
+		it('uses modern context when analytics-next-use-legacy-context is off', () => {
 			failGate('analytics-next-lock-context-type');
+			failGate('analytics-next-use-legacy-context');
 			renderAnalyticsContext();
 			expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
+		});
+
+		it('uses legacy context when analytics-next-use-legacy-context is on', () => {
+			failGate('analytics-next-lock-context-type');
+			passGate('analytics-next-use-legacy-context');
+			renderAnalyticsContext();
+			expect(screen.getByText('LegacyAnalytics')).toBeInTheDocument();
 		});
 	});
 
 	describe('gate on (value captured at mount)', () => {
-		it('uses the modern context', () => {
+		it('uses modern context when analytics-next-use-legacy-context is off', () => {
 			passGate('analytics-next-lock-context-type');
+			failGate('analytics-next-use-legacy-context');
 			renderAnalyticsContext();
 			expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
+		});
+
+		it('uses legacy context when analytics-next-use-legacy-context is on', () => {
+			passGate('analytics-next-lock-context-type');
+			passGate('analytics-next-use-legacy-context');
+			renderAnalyticsContext();
+			expect(screen.getByText('LegacyAnalytics')).toBeInTheDocument();
 		});
 	});
 });

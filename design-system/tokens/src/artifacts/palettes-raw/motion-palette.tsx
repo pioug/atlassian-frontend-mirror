@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0518f07e5d5a82a51f5342d8e9a81b61>>
+ * @codegen <<SignedSource::9d549f4c0fb4f037c4c7234b24f34923>>
  * @codegenCommand yarn build tokens
  */
 
@@ -501,6 +501,82 @@ const tokens: Token[] = [
   {
     "value": {
       "0%": {
+        "transform": "translateX(-100%)",
+        "transform-origin": "left"
+      },
+      "100%": {
+        "transform": "translateX(0px)",
+        "transform-origin": "left"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateX(-100%)",
+          "transform-origin": "left"
+        },
+        "100%": {
+          "transform": "translateX(0px)",
+          "transform-origin": "left"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideIn100PercentLeft",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideIn100PercentLeft"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "translateX(100%)",
+        "transform-origin": "right"
+      },
+      "100%": {
+        "transform": "translateX(0px)",
+        "transform-origin": "right"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateX(100%)",
+          "transform-origin": "right"
+        },
+        "100%": {
+          "transform": "translateX(0px)",
+          "transform-origin": "right"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideIn100PercentRight",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideIn100PercentRight"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
         "transform": "translateX(-50%)",
         "transform-origin": "left"
       },
@@ -670,6 +746,82 @@ const tokens: Token[] = [
       "motion",
       "keyframe",
       "SlideInTop8px"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "translateX(0px)",
+        "transform-origin": "left"
+      },
+      "100%": {
+        "transform": "translateX(-100%)",
+        "transform-origin": "left"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateX(0px)",
+          "transform-origin": "left"
+        },
+        "100%": {
+          "transform": "translateX(-100%)",
+          "transform-origin": "left"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideOut100PercentLeft",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideOut100PercentLeft"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "translateX(0px)",
+        "transform-origin": "right"
+      },
+      "100%": {
+        "transform": "translateX(100%)",
+        "transform-origin": "right"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateX(0px)",
+          "transform-origin": "right"
+        },
+        "100%": {
+          "transform": "translateX(100%)",
+          "transform-origin": "right"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideOut100PercentRight",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideOut100PercentRight"
     ]
   },
   {

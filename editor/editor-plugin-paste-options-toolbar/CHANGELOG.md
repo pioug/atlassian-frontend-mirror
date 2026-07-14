@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 13.1.6
+
+### Patch Changes
+
+- [`0f828d3590ec8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f828d3590ec8) -
+  Fix the paste actions menu to remain visible for single Smart Link pastes when an AI action is
+  available.
+
+## 13.1.5
+
+### Patch Changes
+
+- [`c10f8b3827a81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c10f8b3827a81) -
+  Add a `displayAsVisible` attribute to the paste actions menu `opened` analytics event, reporting
+  whether the Smart Link "Display as" section is shown when the menu opens. A shared
+  `SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION` key is exposed from `@atlaskit/editor-common/toolbar`
+  so the section can be identified without depending on the card plugin.
+- Updated dependencies
+
 ## 13.1.4
 
 ### Patch Changes

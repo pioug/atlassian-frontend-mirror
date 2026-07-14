@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -316,7 +315,7 @@ function SmartLinkDraggableInner({
 	// Use span with inline display for inline cards to preserve text flow.
 	if (appearance === SMART_LINK_APPEARANCE.INLINE) {
 		return (
-			<>
+			<React.Fragment>
 				<span
 					ref={ref}
 					css={draggableInlineStyles}
@@ -328,17 +327,17 @@ function SmartLinkDraggableInner({
 					{children}
 				</span>
 				{preview}
-			</>
+			</React.Fragment>
 		);
 	}
 
 	return (
-		<>
+		<React.Fragment>
 			<Box ref={ref} xcss={styles.draggableBlock} testId="smart-link-draggable-block">
 				{children}
 			</Box>
 			{preview}
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -356,7 +355,7 @@ export function SmartLinkDraggable({
 	children,
 }: PropsWithChildren<SmartLinkDraggableProps>): JSX.Element {
 	if (!url || !isSafeUrl(url) || !fg('cc_drag_and_drop_smart_link_from_content_to_tree')) {
-		return <>{children}</>;
+		return <React.Fragment>{children}</React.Fragment>;
 	}
 
 	return (

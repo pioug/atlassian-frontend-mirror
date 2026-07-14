@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A dropdown menu component for displaying contextual actions and options.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=81040-12691',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-81040-12691',
 			},
 			import: {
 				name: 'DropdownMenu',

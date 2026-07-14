@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'In-context notification for more info, warning, error, or confirmation.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13976-99230',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13976-99230',
 			},
 			import: {
 				name: 'InlineMessage',

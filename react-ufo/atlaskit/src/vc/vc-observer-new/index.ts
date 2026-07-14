@@ -54,10 +54,8 @@ const DEFAULT_SELECTOR_CONFIG = {
 	dataVC: true,
 };
 
-let hasAbortingEventDuringSSR = false;
-
 export function getHasAbortingEventDuringSSR(): boolean {
-	return hasAbortingEventDuringSSR;
+	return false;
 }
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
@@ -186,54 +184,28 @@ export default class VCObserverNew {
 
 		this.viewportObserver?.start();
 
-		if (fg('ufo_fix_aborting_interaction_detection_during_ssr')) {
-			this.entriesTimeline.clear();
+		this.entriesTimeline.clear();
 
-			if (window?.__SSR_ABORT_LISTENERS__) {
-				const abortListeners = window.__SSR_ABORT_LISTENERS__;
+		if (window?.__SSR_ABORT_LISTENERS__) {
+			const abortListeners = window.__SSR_ABORT_LISTENERS__;
 
-				const aborts = abortListeners.aborts;
-				if (aborts && typeof aborts === 'object') {
-					Object.entries(aborts).forEach(([key, time]) => {
-						if (typeof time === 'number') {
-							this.entriesTimeline.push({
-								time,
-								data: {
-									type: 'window:event',
-									eventType: key as 'wheel' | 'keydown' | 'resize',
-								},
-							});
-						}
-					});
-				}
+			const aborts = abortListeners.aborts;
+			if (aborts && typeof aborts === 'object') {
+				Object.entries(aborts).forEach(([key, time]) => {
+					if (typeof time === 'number') {
+						this.entriesTimeline.push({
+							time,
+							data: {
+								type: 'window:event',
+								eventType: key as 'wheel' | 'keydown' | 'resize',
+							},
+						});
+					}
+				});
 			}
-
-			this.windowEventObserver?.start();
-		} else {
-			if (window?.__SSR_ABORT_LISTENERS__) {
-				const abortListeners = window.__SSR_ABORT_LISTENERS__;
-
-				const aborts = abortListeners.aborts;
-				if (aborts && typeof aborts === 'object') {
-					Object.entries(aborts).forEach(([key, time]) => {
-						if (typeof time === 'number') {
-							this.entriesTimeline.push({
-								time,
-								data: {
-									type: 'window:event',
-									eventType: key as 'wheel' | 'keydown' | 'resize',
-								},
-							});
-
-							hasAbortingEventDuringSSR = true;
-						}
-					});
-				}
-			}
-
-			this.windowEventObserver?.start();
-			this.entriesTimeline.clear();
 		}
+
+		this.windowEventObserver?.start();
 	}
 
 	stop(): void {

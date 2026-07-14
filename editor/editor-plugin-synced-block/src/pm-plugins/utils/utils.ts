@@ -1,3 +1,6 @@
+import memoizeOne from 'memoize-one';
+import type { MemoizedFn } from 'memoize-one';
+
 import { expandSelectionToBlockRange } from '@atlaskit/editor-common/selection';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -9,6 +12,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Defers a callback to the next microtask (when gated) or next macrotask via setTimeout(0).
@@ -52,13 +56,17 @@ export interface SyncBlockConversionInfo {
 	to: number;
 }
 
-const UNSUPPORTED_NODE_TYPES = new Set([
-	'inlineExtension',
-	'extension',
-	'bodiedExtension',
-	'syncBlock',
-	'bodiedSyncBlock',
-]);
+export const getUnsupportedNodeTypes: MemoizedFn<() => Set<string>> = memoizeOne(
+	(): Set<string> =>
+		new Set([
+			'inlineExtension',
+			'extension',
+			'bodiedExtension',
+			'syncBlock',
+			'bodiedSyncBlock',
+			...(fg('confluence_frontend_native_tabs_extension') ? ['multiBodiedExtension'] : []),
+		]),
+);
 
 /**
  * Checks whether the selection can be converted to sync block
@@ -79,10 +87,11 @@ export const canBeConvertedToSyncBlock = (
 
 	const from = range.start;
 	const to = range.end;
+	const unsupportedNodeTypes = getUnsupportedNodeTypes();
 
 	let canBeConverted = true;
 	$from.doc.nodesBetween(from, to, (node) => {
-		if (UNSUPPORTED_NODE_TYPES.has(node.type.name)) {
+		if (unsupportedNodeTypes.has(node.type.name)) {
 			canBeConverted = false;
 			return false;
 		}

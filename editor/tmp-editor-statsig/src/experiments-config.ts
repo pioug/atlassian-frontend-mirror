@@ -126,6 +126,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-14
+	platform_editor_dom_node_count: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-26
 	cc_editor_fix_insm_inp_buffer: {
 		defaultValue: boolean;
@@ -913,6 +920,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-05
 	platform_synced_block_use_new_source_nodeview: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-09
+	platform_editor_sync_block_activation: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2020,6 +2034,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-01
+	platform_editor_remove_pause_streaming: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 
@@ -2141,6 +2162,14 @@ export const editorExperimentsConfig: {
 	cc_editor_insm_doc_size_stats: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_editor_insm_doc_size_stats',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-14
+	platform_editor_dom_node_count: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_dom_node_count',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4044,6 +4073,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-09
+	platform_editor_sync_block_activation: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_sync_block_activation',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-06-17
 	platform_editor_ai_template_localids: createBooleanExperiment({
 		productKeys: {
@@ -4346,6 +4383,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_lovability_color_schema_change',
 			jira: 'platform_editor_lovability_color_schema_change',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-01
+	platform_editor_remove_pause_streaming: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_remove_pause_streaming',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

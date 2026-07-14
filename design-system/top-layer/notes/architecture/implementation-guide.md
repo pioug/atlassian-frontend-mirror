@@ -274,8 +274,8 @@ background: transparent;
 | `onClose`      | `(args: { reason: TPopoverCloseReason }) => void`              | `noop`         | Called on browser-initiated dismiss. Not called for programmatic close (consumer already knows). Not available when `mode='manual'`. |
 | `onOpenChange` | `(args: { isOpen: boolean; element: HTMLDivElement }) => void` | —              | Fires on toggle events. Provides a ref to the DOM element.                                                                           |
 | `onExitFinish` | `() => void`                                                   | —              | Fires after exit animation completes (or immediately if no animation).                                                               |
-| `animate`      | `TAnimationPreset \| false`                                    | —              | Animation preset. Entry via `@starting-style`, exit via `allow-discrete`.                                                            |
-| `placement`    | `TPlacementOptions`                                            | —              | Hint for directional animations (sets CSS vars like `--ds-popover-tx`). Does NOT control positioning.                                |
+| `animate`      | `boolean \| TAnimationConfig`                                  | —              | Enables the default top-layer animation. Entry via `@starting-style`, exit via `allow-discrete`.                                     |
+| `placement`    | `TPlacementOptions`                                            | —              | Hint for directional popover motion. Does NOT control positioning.                                                                   |
 | `role`         | `TRoleRequiringAccessibleName \| TRoleWithImplicitName`        | —              | ARIA role. Determines focus behavior.                                                                                                |
 | `label`        | `string`                                                       | —              | `aria-label`. Required for roles like `dialog`, `menu` (enforced by types).                                                          |
 | `labelledBy`   | `string`                                                       | —              | `aria-labelledby`. Alternative to `label`.                                                                                           |
@@ -337,9 +337,9 @@ calling `hidePopover()`. The toggle handler checks this ref and skips calling `o
 
 ### Animation Style Selection
 
-When an animation preset is active, the preset `name` selects a component-local Compiled style entry
-on the host element. Popover animation CSS is selected through the host component's `css` prop, for
-example `preset && popoverAnimationStyles[preset.name]`.
+When `animate` is truthy, `Popover` applies its component-local default animation styles through the
+host element's `css` prop. Placement-dependent motion token custom properties are set internally
+from the resolved placement.
 
 ---
 
@@ -755,90 +755,32 @@ be separated without one side reaching into the other's internals.
 The clean split is: `Popover` = top layer + visibility + animation. `useAnchorPosition` =
 positioning (separate concern).
 
-### `TAnimationPreset` Type
+### Animation config
 
-```typescript
-type TAnimationPreset<Kind, Name = string> = {
-	kind: Kind;
-	name: Name;
-	getStyles?: (args: {
-		placement: TPlacementOptions;
-	}) => Array<{ property: string; value: string }>;
-};
-```
+`Popover` and `Dialog` expose `animate?: boolean | TAnimationConfig`. `true` enables the component's
+default top-layer motion, and `false` / omitted disables animation. `TAnimationConfig` is currently
+a placeholder extension point with no supported public fields.
 
-Presets are metadata only. They do not carry raw CSS strings or reusable Compiled style objects.
-Both popover and dialog preset factories return this same `TAnimationPreset` shape. The components
-select component-local Compiled styles by checking the preset `name`, and TypeScript does not
-currently fork the animation preset type by surface.
+### Popover default motion
 
-### Popover Animation Presets
-
-#### `slideAndFade(options?)`
-
-Directional slide + opacity. The popover slides in from the direction opposite its placement edge.
-
-| Option     | Type     | Default | Description               |
-| ---------- | -------- | ------- | ------------------------- |
-| `distance` | `number` | `4`     | Slide distance in pixels. |
-
-**Compiled style key:** `popoverAnimationStyles['slide-and-fade']`
-
-**CSS custom properties:** `--ds-popover-tx` and `--ds-popover-ty` — set per placement by
-`getStyles()`:
-
-- `block-end` → `tx: 0, ty: -4px` (slides down from above)
-- `block-start` → `tx: 0, ty: 4px` (slides up from below)
-- `inline-end` → `tx: -4px, ty: 0` (slides right from left)
-- `inline-start` → `tx: 4px, ty: 0` (slides left from right)
+Popover owns one default motion path. The host applies `popoverAnimationStyles.root` when `animate`
+is truthy. The style uses the placement-dependent motion token custom properties
+`--ds-popover-motion-enter` and `--ds-popover-motion-exit`, which are set internally from the
+resolved placement by `getPopupMotionStyles({ placement })`.
 
 **Timing:**
 
-- Entry: `350ms cubic-bezier(0.15, 1, 0.3, 1)`
-- Exit: `175ms cubic-bezier(0.15, 1, 0.3, 1)`
-- Transitions: `opacity`, `transform`, `overlay` (allow-discrete), `display` (allow-discrete)
+- Entry safety net: `motion.duration.short` + 50ms
+- Exit safety net: `motion.duration.xshort` + 50ms
+- CSS uses `motion.popup.enter.*` / `motion.popup.exit.*` token shorthands plus `overlay` and
+  `display` discrete transitions.
 
-#### `fade()`
+### Dialog default motion
 
-Simple opacity transition, no transform.
-
-**Compiled style key:** `popoverAnimationStyles.fade`
-
-**Timing:** Same as `slideAndFade` (350ms entry, 175ms exit).
-
-#### `scaleAndFade()`
-
-Scale from 0.95 + opacity. Suitable for menus and dropdowns.
-
-**Compiled style key:** `popoverAnimationStyles['scale-and-fade']`
-
-**Timing:** Same as above.
-
-### Dialog Animation Presets
-
-#### `dialogSlideUpAndFade(options?)`
-
-Slide up + opacity for dialogs. Includes `::backdrop` fade animation.
-
-| Option     | Type     | Default | Description               |
-| ---------- | -------- | ------- | ------------------------- |
-| `distance` | `number` | `12`    | Slide distance in pixels. |
-
-**Compiled style key:** `dialogAnimationStyles['slide-up-and-fade']`
-
-**CSS custom property:** `--ds-dialog-ty` (defaults to `12px`)
-
-**Timing:** Same easing and durations. Backdrop transitions `background-color` from `transparent` to
-`token('color.blanket', '#050C1F75')`.
-
-**Custom distance:** The preset name stays stable. Custom distance is applied through the
-`--ds-dialog-ty` custom property, so Compiled can keep one static style block for the preset.
-
-#### `dialogFade()`
-
-Simple opacity for dialogs. Includes `::backdrop` fade.
-
-**Compiled style key:** `dialogAnimationStyles.fade`
+Dialog owns one default motion path. When `animate` is truthy, the host applies
+`dialogAnimationStyles.root`, `dialogAnimationStyles.motion`, and matching backdrop motion styles.
+The CSS uses `motion.modal.enter`, `motion.modal.exit`, `motion.blanket.enter`, and
+`motion.blanket.exit` tokens.
 
 ### Static Compiled Styles
 
@@ -861,19 +803,20 @@ transitions.
 
 **Parameters:**
 
-| Param          | Type                                     | Description                      |
-| -------------- | ---------------------------------------- | -------------------------------- |
-| `isOpen`       | `boolean`                                | Whether logically open.          |
-| `animate`      | `TAnimationPreset \| false \| undefined` | Animation preset.                |
-| `elementRef`   | `RefObject<HTMLElement \| null>`         | Element playing exit transition. |
-| `onExitFinish` | `() => void`                             | Called after exit completes.     |
+| Param           | Type                             | Description                              |
+| --------------- | -------------------------------- | ---------------------------------------- |
+| `isOpen`        | `boolean`                        | Whether logically open.                  |
+| `animationKind` | `'dialog' \| 'popover'`          | Selects default safety-net timings.      |
+| `animate`       | `boolean \| TAnimationConfig`    | Enables the default animation when true. |
+| `elementRef`    | `RefObject<HTMLElement \| null>` | Element playing exit transition.         |
+| `onExitFinish`  | `() => void`                     | Called after exit completes.             |
 
 **Returns:**
 
-| Field    | Type                       | Description                                                           |
-| -------- | -------------------------- | --------------------------------------------------------------------- |
-| `phase`  | `TPhase`                   | Current visibility phase: `closed`, `entering`, `open`, or `exiting`. |
-| `preset` | `TAnimationPreset \| null` | Resolved metadata preset, or `null`.                                  |
+| Field    | Type                                  | Description                                                           |
+| -------- | ------------------------------------- | --------------------------------------------------------------------- |
+| `phase`  | `TPhase`                              | Current visibility phase: `closed`, `entering`, `open`, or `exiting`. |
+| `preset` | `boolean \| TAnimationConfig \| null` | Resolved animation config/truthy flag, or `null`.                     |
 
 **Lifecycle:**
 
@@ -897,7 +840,7 @@ exit animations and then unmounts it after the hook settles the phase.
    host element.
 
 **Reduced motion:** When `prefersReducedMotion()` returns `true`, `willAnimate` is `false`
-regardless of preset — animations are completely skipped.
+regardless of `animate` — animations are completely skipped.
 
 ### `prefersReducedMotion()`
 

@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -131,7 +130,7 @@ const ExpandableMenuItemIcon = ({
 	);
 
 	return (
-		<>
+		<React.Fragment>
 			<div css={iconStyles.chevron}>{chevronElem}</div>
 			{/* If there is no provided elemBefore, not rendering the wrapper either to simplify the DOM */}
 			{providedElemBefore && (
@@ -141,7 +140,7 @@ const ExpandableMenuItemIcon = ({
 					{providedElemBefore}
 				</div>
 			)}
-		</>
+		</React.Fragment>
 	);
 };
 

@@ -253,6 +253,13 @@ export type FetchErrorAttributionAttributes = {
 	 * always sets it, so requiring it costs nothing.
 	 */
 	benign: boolean;
+	/**
+	 * Set when a `websocket_exhausted` outcome was deferred (tab hidden at exhaustion, so
+	 * the subscription re-arms on online/visibilitychange) rather than surfaced as a
+	 * terminal failure. Auditable on the dashboard but counted benign — the user isn't
+	 * experiencing a failure while hidden. Spread only when true, never `undefined`.
+	 */
+	deferred?: boolean;
 };
 
 /**
@@ -269,6 +276,7 @@ export const buildFetchErrorAttribution = (
 	gateEnabled: boolean,
 	error?: string,
 	statusCode?: number,
+	deferred?: boolean,
 ): FetchErrorAttributionAttributes | undefined => {
 	if (!gateEnabled) {
 		return undefined;
@@ -276,8 +284,10 @@ export const buildFetchErrorAttribution = (
 	const reason = classifyFetchErrorReason(error);
 	return {
 		reason,
-		benign: FETCH_BENIGN_REASONS.has(reason),
+		// A deferred (tab-hidden) exhaustion is benign regardless of reason bucket.
+		benign: deferred === true || FETCH_BENIGN_REASONS.has(reason),
 		...(statusCode !== undefined && { statusCode }),
+		...(deferred === true && { deferred: true }),
 	};
 };
 
@@ -315,6 +325,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 		reason?: SyncBlockFetchErrorReason;
 		statusCode?: number;
 		benign?: boolean;
+		deferred?: boolean;
 	}
 >;
 export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
@@ -352,6 +363,7 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 		reason?: SyncBlockFetchErrorReason;
 		statusCode?: number;
 		benign?: boolean;
+		deferred?: boolean;
 	}
 > {
 	return {
@@ -370,6 +382,11 @@ export function getErrorPayload<T extends ACTION_SUBJECT_ID>(
 			// write-path attribution (which has no `benign`) and narrows the union so
 			// `attribution.benign` is accessible.
 			...(attribution && 'benign' in attribution && { benign: attribution.benign }),
+			// `deferred` is only present on fetch/subscribe attribution, and only when a
+			// tab-hidden exhaustion was deferred rather than surfaced. Boolean, never UGC.
+			...(attribution &&
+				'deferred' in attribution &&
+				attribution.deferred === true && { deferred: true }),
 		},
 	};
 }

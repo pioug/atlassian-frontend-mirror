@@ -17,7 +17,6 @@ needed.
 
 ```tsx
 import { useRef, useState } from 'react';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
@@ -51,7 +50,7 @@ function MyDropdown() {
 				role="menu"
 				label="Actions"
 				isOpen={isOpen}
-				animate={slideAndFade()}
+				animate
 				onClose={() => setIsOpen(false)}
 			>
 				<PopoverSurface>
@@ -86,7 +85,6 @@ Modal dialogs. Blocks interaction with the rest of the page. Uses native `<dialo
 
 ```tsx
 import { Dialog } from '@atlaskit/top-layer/dialog';
-import { dialogFade } from '@atlaskit/top-layer/animations';
 
 function MyModal() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -94,12 +92,7 @@ function MyModal() {
 	return (
 		<>
 			<button onClick={() => setIsOpen(true)}>Open dialog</button>
-			<Dialog
-				isOpen={isOpen}
-				onClose={() => setIsOpen(false)}
-				label="Settings"
-				animate={dialogFade()}
-			>
+			<Dialog isOpen={isOpen} onClose={() => setIsOpen(false)} label="Settings" animate>
 				<h2>Settings</h2>
 				<p>Modal content</p>
 			</Dialog>
@@ -133,11 +126,11 @@ Light dismiss handler for manual popovers that need click-outside and Escape key
 
 ## Utilities
 
-### Animation presets
+### Animation
 
-`@atlaskit/top-layer/animations` exports animation presets (`slideAndFade()`, `fade()`,
-`dialogFade()`) that configure CSS entry/exit transitions. See [animations.md](./animations.md) for
-how the animation system works.
+`Popover` and `Dialog` expose an `animate` prop. Pass `true` to enable the component's default CSS
+entry/exit transition, or omit/pass `false` to disable animation. See
+[animations.md](./animations.md) for how the animation system works.
 
 ### Close event helpers
 
@@ -191,7 +184,6 @@ Dialog                = <dialog> element + isOpen + animate + onExitFinish
 | `@atlaskit/top-layer/popover`                  | Top-layer primitive and legacy `onClose` bridge     |
 | `@atlaskit/top-layer/popover-surface`          | Presentational surface (background, radius, shadow) |
 | `@atlaskit/top-layer/dialog`                   | Modal dialog and legacy `onClose` bridge            |
-| `@atlaskit/top-layer/animations`               | Animation presets (`slideAndFade`, `fade`, etc.)    |
 | `@atlaskit/top-layer/use-anchor-position`      | CSS anchor positioning hook                         |
 | `@atlaskit/top-layer/use-width-from-anchor`    | Match popover width to anchor                       |
 | `@atlaskit/top-layer/use-arrow-navigation`     | Arrow key navigation hook for composite widgets     |

@@ -21,7 +21,6 @@ import {
 import { cssMap, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { popupMotion } from '@atlaskit/top-layer/animations';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { fromLegacyPlacement, type TLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import {
@@ -46,8 +45,6 @@ const contentOverflowStyles = cssMap({
 	fitViewport: { overflow: 'auto' },
 	default: {},
 });
-
-const animation = popupMotion();
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
 const EMPTY_STYLE: CSSProperties = {};
@@ -285,7 +282,7 @@ export const PopupTopLayer: FC<PopupProps> = memo(function PopupTopLayer({
 				{...roleProps}
 				isOpen={isOpen}
 				onClose={handleOnClose}
-				animate={animation}
+				animate
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--content`}
 			>

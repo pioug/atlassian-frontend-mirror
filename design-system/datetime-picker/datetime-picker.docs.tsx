@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A component for selecting date values with calendar support.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13285-45993',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13285-45993',
 			},
 			import: {
 				name: 'DatePicker',

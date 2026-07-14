@@ -1396,6 +1396,10 @@ export interface MotionTokenSchema<BaseToken> {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;
 		};
+		panel: {
+			enter: MotionToken<BaseToken>;
+			exit: MotionToken<BaseToken>;
+		};
 	};
 }
 

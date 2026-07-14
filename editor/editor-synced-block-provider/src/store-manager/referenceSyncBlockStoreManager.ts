@@ -1052,7 +1052,7 @@ export class ReferenceSyncBlockStoreManager {
 		if (this.viewMode === 'view') {
 			// Reference flushes are only meaningful while editing. Treat view-mode flush attempts as
 			// gated no-op successes so lifecycle/teardown calls do not report false save failures.
-			return fg('platform_editor_blocks_patch_2');
+			return true;
 		}
 
 		if (!this.isCacheDirty) {

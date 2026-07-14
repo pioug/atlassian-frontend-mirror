@@ -47,6 +47,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/node-data-provider": "workspace:^",
@@ -54,6 +55,7 @@
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
+		"bind-event-listener": "root:*",
 		"graphql-ws": "root:*",
 		"lodash": "root:*",
 		"raf-schd": "root:*",
@@ -104,7 +106,7 @@
 		}
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "8.6.0",
+	"version": "8.6.1",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -112,9 +114,6 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"platform-feature-flags": {
-		"platform_editor_blocks_patch_2": {
-			"type": "boolean"
-		},
 		"platform_editor_blocks_patch_3": {
 			"type": "boolean"
 		},

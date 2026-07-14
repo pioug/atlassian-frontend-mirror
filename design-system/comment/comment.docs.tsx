@@ -9,8 +9,7 @@ const documentation: StructuredContentSource = {
 			description: 'A component for displaying comments and discussions.',
 			status: 'general-availability',
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=17853-91040',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-17853-91040',
 			},
 			import: {
 				name: 'Comment',

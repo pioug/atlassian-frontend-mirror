@@ -1,5 +1,31 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.18
+
+### Patch Changes
+
+- [`e083e53a2faf9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e083e53a2faf9) -
+  Cleanup feature gate `platform_ufo_trim_labelstack_trailing_slashes`. Trailing slashes are now
+  always trimmed from label stack names.
+- [`e51a666165605`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e51a666165605) -
+  Cleanup feature gate `ufo_vc_revision_trim_enabled`. VC debug data trimming for early viewport
+  checkpoints is now always enabled when payload size exceeds the limit.
+
+## 7.3.17
+
+### Patch Changes
+
+- [`06d103f471f2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06d103f471f2a) -
+  Cleanup SSR abort feature gates
+
+## 7.3.16
+
+### Patch Changes
+
+- [`014e88bcc7709`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/014e88bcc7709) -
+  Cleanup feature gate `platform_ufo_filter_cls_logs_same_rects_positions`; CLS logs now always
+  exclude entries whose source rects do not change position.
+
 ## 7.3.15
 
 ### Patch Changes
@@ -76,14 +102,6 @@
 
 - [`988b750a8dc0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/988b750a8dc0d) -
   Cleanup feature gate platform_enable_better_page_visibility
-
-## 7.3.5
-
-### Patch Changes
-
-- [`ec94823f4b129`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec94823f4b129) -
-  Cleanup feature gate `ufo_detect_aborting_interaction_during_ssr`. The SSR abort interaction
-  marker is now always collected and emitted in the interaction metrics payload.
 
 ## 7.3.4
 

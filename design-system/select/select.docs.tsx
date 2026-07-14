@@ -39,8 +39,7 @@ const documentation: StructuredContentSource = {
 				'Support screen reader announcements',
 			],
 			designSource: {
-				figmaUrl:
-					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13212-38027',
+				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13212-38027',
 			},
 			examples: [
 				{

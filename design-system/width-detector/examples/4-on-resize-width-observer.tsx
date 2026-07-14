@@ -1,7 +1,6 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag
  */
 import React, { useState } from 'react';
 
@@ -67,7 +66,7 @@ const OnResizeExample = (): JSX.Element => {
 	);
 
 	return (
-		<>
+		<React.Fragment>
 			<div style={{ width: sizes[sizeIndex] }} css={styles.resultContainer}>
 				<div css={styles.resultBox} style={{ backgroundColor: bgColor }}>
 					<div css={styles.resultNumber}>{containerWidth}</div>
@@ -84,7 +83,7 @@ const OnResizeExample = (): JSX.Element => {
 					Set width to {sizes[(sizeIndex + 1) % sizes.length]}
 				</Button>
 			</div>
-		</>
+		</React.Fragment>
 	);
 };
 

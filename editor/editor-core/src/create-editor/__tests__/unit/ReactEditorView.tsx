@@ -34,6 +34,10 @@ jest.mock('../../../utils/getNodesVisibleInViewport', () => ({
 	getNodesVisibleInViewport: jest.fn(() => ({ testNode: 1 })),
 }));
 
+jest.mock('../../../utils/getEditorDomSize', () => ({
+	getEditorDomSize: jest.fn(() => 42),
+}));
+
 jest.mock('@atlaskit/editor-common/is-performance-api-available', () => ({
 	...jest.requireActual<Object>('@atlaskit/editor-common/is-performance-api-available'),
 	isPerformanceAPIAvailable: jest.fn(() => true),
@@ -71,6 +75,10 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 
 jest.mock('@atlaskit/react-ufo/interaction-id-context', () => ({
 	getInteractionId: jest.fn(() => ({ current: 'test-interaction-id' })),
+}));
+
+jest.mock('@atlaskit/react-ufo/custom-data', () => ({
+	addUFOCustomData: jest.fn(),
 }));
 
 import React from 'react';
@@ -114,6 +122,7 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // eslint-disable-next-line import/no-named-as-default
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/resource';
+import { addUFOCustomData } from '@atlaskit/react-ufo/custom-data';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -121,6 +130,7 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type { EditorConfig } from '../../../types/editor-config';
+import { getEditorDomSize } from '../../../utils/getEditorDomSize';
 import {
 	PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
@@ -790,6 +800,53 @@ describe('@atlaskit/editor-core', () => {
 					}),
 				});
 			});
+		});
+
+		const renderForDomSize = () => {
+			(getActiveInteraction as jest.Mock).mockReturnValueOnce({
+				type: 'page_load',
+				routeName: 'edit-page',
+			});
+			const document = doc(p('hello'))(defaultSchema);
+			const editorProps = { defaultValue: toJSON(document) };
+			renderWithIntl(
+				<ReactEditorView
+					{...requiredProps()}
+					{...analyticsProps()}
+					preset={createUniversalPreset({ props: editorProps })}
+					editorProps={editorProps}
+				/>,
+			);
+		};
+
+		eeTest('platform_editor_dom_node_count', {
+			true: async () => {
+				renderForDomSize();
+
+				await waitFor(() => {
+					expect(mockFire).toHaveBeenCalledWith({
+						payload: expect.objectContaining({
+							attributes: expect.objectContaining({ editorDomSize: 42 }),
+						}),
+					});
+				});
+				expect(getEditorDomSize).toHaveBeenCalled();
+				expect(addUFOCustomData).toHaveBeenCalledWith({ editorDomSize: 42 });
+			},
+			false: async () => {
+				renderForDomSize();
+
+				await waitFor(() => {
+					expect(mockFire).toHaveBeenCalled();
+				});
+				expect(getEditorDomSize).not.toHaveBeenCalled();
+				expect(addUFOCustomData).not.toHaveBeenCalled();
+				expect(mockFire).not.toHaveBeenCalledWith({
+					payload: expect.objectContaining({
+						attributes: expect.objectContaining({ editorDomSize: 42 }),
+					}),
+				});
+			},
 		});
 	});
 

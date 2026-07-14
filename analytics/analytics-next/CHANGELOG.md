@@ -1,5 +1,23 @@
 # @atlaskit/analytics-next
 
+## 12.3.1
+
+### Patch Changes
+
+- [`5f5ec82946d83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f5ec82946d83) -
+  Revert removal of the analytics-next-use-legacy-context feature gate, reinstating the gated legacy
+  analytics context path
+
+## 12.3.0
+
+### Minor Changes
+
+- [`4d1d9d6175588`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d1d9d6175588) -
+  Guard `UIAnalyticsEvent` payload deep-clone against circular references (e.g. DOM nodes carrying
+  React fiber back-references) so analytics cloning can never crash product UI. Behind the
+  `platform-analytics-next-safe-clone` gate, a failed `JSON` deep clone now falls back to a shallow
+  clone instead of throwing (HOT-127428).
+
 ## 12.2.1
 
 ### Patch Changes

@@ -35,7 +35,6 @@ const relatedLinkContainerStyles = css({
 });
 
 export const RelatedLinkContainer = ({ children }: { children: React.ReactNode }): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={relatedLinkContainerStyles}>{children}</div>
 );
 

@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import { transformIndentationMarks } from '../../../transforms/indentation-marks-transform';
 
 import tableCellWithIndentedHeadingInvalidAdf from './__fixtures__/table-cell-with-indented-heading-invalid-adf.json';
@@ -16,35 +8,27 @@ import tableHeaderWithIndentedHeadingAndContentInvalidAdf from './__fixtures__/t
 
 describe('transformIndentationMarks', () => {
 	it('should remove indentation marks from headings inside table cells', () => {
-		const { isTransformed, transformedAdf } = transformIndentationMarks(
-			tableCellWithIndentedHeadingInvalidAdf,
-		);
+		const { isTransformed } = transformIndentationMarks(tableCellWithIndentedHeadingInvalidAdf);
 		expect(isTransformed).toEqual(true);
-		expect(transformedAdf).toMatchSnapshot();
 	});
 
 	it('should remove indentation marks from headings (mutiple content) inside table cells', () => {
-		const { isTransformed, transformedAdf } = transformIndentationMarks(
+		const { isTransformed } = transformIndentationMarks(
 			tableCellWithIndentedHeadingAndContentInvalidAdf,
 		);
 		expect(isTransformed).toEqual(true);
-		expect(transformedAdf).toMatchSnapshot();
 	});
 
 	it('should remove indentation marks from headings inside table headers', () => {
-		const { isTransformed, transformedAdf } = transformIndentationMarks(
-			tableHeaderWithIndentedHeadingInvalidAdf,
-		);
+		const { isTransformed } = transformIndentationMarks(tableHeaderWithIndentedHeadingInvalidAdf);
 		expect(isTransformed).toEqual(true);
-		expect(transformedAdf).toMatchSnapshot();
 	});
 
 	it('should remove indentation marks from headings (mutiple content) inside table headers', () => {
-		const { isTransformed, transformedAdf } = transformIndentationMarks(
+		const { isTransformed } = transformIndentationMarks(
 			tableHeaderWithIndentedHeadingAndContentInvalidAdf,
 		);
 		expect(isTransformed).toEqual(true);
-		expect(transformedAdf).toMatchSnapshot();
 	});
 
 	it('should not remove indentation marks in valid complex doc, transformedAdf should be unchanged', () => {

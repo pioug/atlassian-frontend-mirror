@@ -53,7 +53,6 @@ const avatarWrapperStyles = css({
 });
 
 const AvatarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	<div css={avatarWrapperStyles}>{children}</div>
 );
 

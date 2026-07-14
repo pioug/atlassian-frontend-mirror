@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 15.2.0
+
+### Minor Changes
+
+- [`4b43e68ec0c47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4b43e68ec0c47) -
+  Clean up feature gate platform_editor_toolbar_task_list_analytics. Task list toolbar analytics are
+  now always tracked.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.15
 
 ### Patch Changes

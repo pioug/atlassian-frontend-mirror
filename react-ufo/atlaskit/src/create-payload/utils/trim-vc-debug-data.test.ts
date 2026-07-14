@@ -18,19 +18,6 @@ function makePropertiesWithVcRev(
 }
 
 describe('trimVcDebugData', () => {
-	it('does not mutate when isEnabled is false', () => {
-		const vcDetails = {
-			'25': { t: 1000, e: ['div.foo'] },
-			'90': { t: 2000, e: ['div.bar'] },
-		};
-		const properties = makePropertiesWithVcRev(vcDetails);
-
-		trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB, false);
-		expect((properties['ufo:vc:rev'] as any)[0].vcDetails['25'].e).toEqual(['div.foo']);
-		expect((properties['ufo:vc:rev'] as any)[0].vcDetails['90'].e).toEqual(['div.bar']);
-		expect(properties['event:isTrimmed']).toBeUndefined();
-	});
-
 	it('does not mutate when currentPayloadSizeKb <= maxPayloadSizeKb', () => {
 		const vcDetails = {
 			'25': { t: 1000, e: ['div.foo'] },
@@ -38,24 +25,24 @@ describe('trimVcDebugData', () => {
 		};
 		const properties = makePropertiesWithVcRev(vcDetails);
 
-		trimVcDebugData(properties, 200, MAX_PAYLOAD_SIZE_KB, true);
+		trimVcDebugData(properties, 200, MAX_PAYLOAD_SIZE_KB);
 		expect((properties['ufo:vc:rev'] as any)[0].vcDetails['25'].e).toEqual(['div.foo']);
 		expect(properties['event:isTrimmed']).toBeUndefined();
 	});
 
 	it('does not throw when ufo:vc:rev is undefined', () => {
 		const properties: Record<string, unknown> = {};
-		expect(() => trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB, true)).not.toThrow();
+		expect(() => trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB)).not.toThrow();
 		expect(properties['event:isTrimmed']).toBeUndefined();
 	});
 
 	it('does not throw when ufo:vc:rev is empty array', () => {
 		const properties: Record<string, unknown> = { 'ufo:vc:rev': [] };
-		expect(() => trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB, true)).not.toThrow();
+		expect(() => trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB)).not.toThrow();
 		expect(properties['event:isTrimmed']).toBeUndefined();
 	});
 
-	it('clears e arrays for early checkpoints (25, 50, 75, 80, 85, 98, 99) and keeps 90, 95, 100', () => {
+	it('clears e arrays for early checkpoints (25, 50, 75) and keeps 80, 85, 90, 95, 98, 99, 100', () => {
 		const vcDetails: Record<string, { t: number; e: string[] }> = {
 			'25': { t: 4530, e: ['div.a'] },
 			'50': { t: 4530, e: ['div.b'] },
@@ -70,7 +57,7 @@ describe('trimVcDebugData', () => {
 		};
 		const properties = makePropertiesWithVcRev(vcDetails);
 
-		trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB, true);
+		trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB);
 		const rev = (properties['ufo:vc:rev'] as any)[0];
 		expect(rev.vcDetails['25'].e).toEqual([]);
 		expect(rev.vcDetails['50'].e).toEqual([]);
@@ -97,7 +84,7 @@ describe('trimVcDebugData', () => {
 			'interactionMetrics.requestInfo',
 		];
 
-		trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB, true);
+		trimVcDebugData(properties, 300, MAX_PAYLOAD_SIZE_KB);
 		const trimmedFields = ['interactionMetrics.requestInfo', VC_DEBUG_TRIM_TRIMMED_FIELD_PATH];
 		expect(properties['event:trimmedFields']).toEqual(trimmedFields);
 	});

@@ -1,5 +1,4 @@
 /**
- * @jsxfrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -110,7 +109,7 @@ function MenuItemNarrow() {
 				href="#"
 				elemBefore={<BoardIcon label="" color="currentColor" />}
 				elemAfter={
-					<>
+					<React.Fragment>
 						<IconButton
 							label="More"
 							icon={(iconProps) => <MoreIcon {...iconProps} size="small" />}
@@ -123,10 +122,10 @@ function MenuItemNarrow() {
 							appearance="subtle"
 							spacing="compact"
 						/>
-					</>
+					</React.Fragment>
 				}
 				actions={
-					<>
+					<React.Fragment>
 						<IconButton
 							label="Add"
 							icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
@@ -139,7 +138,7 @@ function MenuItemNarrow() {
 							appearance="subtle"
 							spacing="compact"
 						/>
-					</>
+					</React.Fragment>
 				}
 			>
 				Link menu item
@@ -147,7 +146,7 @@ function MenuItemNarrow() {
 			<ButtonMenuItem
 				elemBefore={<BoardIcon label="" color="currentColor" />}
 				elemAfter={
-					<>
+					<React.Fragment>
 						<IconButton
 							label="More"
 							icon={(iconProps) => <MoreIcon {...iconProps} size="small" />}
@@ -160,10 +159,10 @@ function MenuItemNarrow() {
 							appearance="subtle"
 							spacing="compact"
 						/>
-					</>
+					</React.Fragment>
 				}
 				actions={
-					<>
+					<React.Fragment>
 						<IconButton
 							label="Add"
 							icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
@@ -176,7 +175,7 @@ function MenuItemNarrow() {
 							appearance="subtle"
 							spacing="compact"
 						/>
-					</>
+					</React.Fragment>
 				}
 			>
 				Button menu item
@@ -185,7 +184,7 @@ function MenuItemNarrow() {
 				<ExpandableMenuItemTrigger
 					elemBefore={<BoardIcon label="" color="currentColor" />}
 					elemAfter={
-						<>
+						<React.Fragment>
 							<IconButton
 								label="More"
 								icon={(iconProps) => <MoreIcon {...iconProps} size="small" />}
@@ -198,10 +197,10 @@ function MenuItemNarrow() {
 								appearance="subtle"
 								spacing="compact"
 							/>
-						</>
+						</React.Fragment>
 					}
 					actions={
-						<>
+						<React.Fragment>
 							<IconButton
 								label="Add"
 								icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
@@ -214,7 +213,7 @@ function MenuItemNarrow() {
 								appearance="subtle"
 								spacing="compact"
 							/>
-						</>
+						</React.Fragment>
 					}
 				>
 					Expandable menu item trigger

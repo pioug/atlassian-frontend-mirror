@@ -32,12 +32,10 @@ const formSectionWrapperStyles = css({
 });
 
 const FormSectionWrapper = ({ children }: { children?: ReactNode }) => {
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	return <div css={formSectionWrapperStyles}>{children}</div>;
 };
 
 const FormSectionDescription = ({ children }: { children: ReactNode }) => {
-	// eslint-disable-next-line @atlaskit/design-system/use-primitives
 	return <div css={formSectionDescriptionStyles}>{children}</div>;
 };
 

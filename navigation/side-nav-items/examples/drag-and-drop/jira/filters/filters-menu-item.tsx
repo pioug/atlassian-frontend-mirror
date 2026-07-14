@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -107,7 +106,7 @@ export function FiltersMenuItem({
 	}, [registry, draggableButtonRef]);
 
 	return (
-		<>
+		<React.Fragment>
 			<ExpandableMenuItem
 				isExpanded={isExpanded}
 				onExpansionToggle={() => setIsExpanded((value) => !value)}
@@ -120,7 +119,7 @@ export function FiltersMenuItem({
 					hasDragIndicator
 					elemBefore={<FilterIcon label="" />}
 					actionsOnHover={
-						<>
+						<React.Fragment>
 							<IconButton
 								label="Add"
 								icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
@@ -132,7 +131,7 @@ export function FiltersMenuItem({
 								amountOfMenuItems={amountOfMenuItems}
 								value="filters"
 							/>
-						</>
+						</React.Fragment>
 					}
 				>
 					Filters
@@ -142,7 +141,7 @@ export function FiltersMenuItem({
 				</ExpandableMenuItemContent>
 			</ExpandableMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -178,7 +177,7 @@ function FilterLeaf({ filter }: { filter: TFilter }) {
 	}, [registry, draggableAnchorRef, filter.id]);
 
 	return (
-		<>
+		<React.Fragment>
 			<LinkMenuItem
 				href={filter.href}
 				elemBefore={filter.icon}
@@ -233,7 +232,7 @@ function FilterLeaf({ filter }: { filter: TFilter }) {
 				)}
 			</ModalTransition>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }
 
@@ -364,7 +363,7 @@ function FilterParent({ filter }: { filter: TFilter }) {
 	}, [registry, draggableAnchorRef, filter.id]);
 
 	return (
-		<>
+		<React.Fragment>
 			<ExpandableMenuItem
 				isExpanded={isExpanded}
 				onExpansionToggle={() => setIsExpanded((value) => !value)}
@@ -422,7 +421,7 @@ function FilterParent({ filter }: { filter: TFilter }) {
 				)}
 			</ModalTransition>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }
 

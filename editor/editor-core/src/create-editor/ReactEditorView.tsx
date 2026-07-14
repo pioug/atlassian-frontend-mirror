@@ -65,6 +65,7 @@ import { EditorSSRRenderer } from '@atlaskit/editor-ssr-renderer';
 import { createSSREditorState } from '@atlaskit/editor-ssr-renderer/create-ssr-editor-state';
 import { createSSRPMPlugins } from '@atlaskit/editor-ssr-renderer/create-ssr-pm-plugins';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { addUFOCustomData } from '@atlaskit/react-ufo/custom-data';
 import { getInteractionId } from '@atlaskit/react-ufo/interaction-id-context';
 import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -74,6 +75,7 @@ import { useProviders } from '../composable-editor/hooks/useProviders';
 import type { EditorConfig, EditorViewStateUpdatedCallbackProps } from '../types/editor-config';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import { createFeatureFlagsFromProps } from '../utils/feature-flags-from-props';
+import { getEditorDomSize } from '../utils/getEditorDomSize';
 import { getNodesCountWithExtensionKeys } from '../utils/getNodesCountWithExtensionKeys';
 import { getNodesVisibleInViewport } from '../utils/getNodesVisibleInViewport';
 import { isChromeless } from '../utils/is-chromeless';
@@ -934,6 +936,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 								}
 							: {};
 
+						const editorDomSize = expValEquals('platform_editor_dom_node_count', 'isEnabled', true)
+							? getEditorDomSize(viewRef.current)
+							: undefined;
+
 						const interaction = getActiveInteraction();
 						const pageLoadType = interaction?.type;
 						const pageType = interaction?.routeName;
@@ -966,6 +972,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 							nodeSize,
 							nodeSizeBucket,
 							totalNodes,
+							editorDomSize,
 							ttfb,
 							severity: proseMirrorRenderedSeverity,
 							objectId: contextIdentifier?.objectId,
@@ -976,6 +983,10 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 							extensionKeys,
 							ufoInteractionId: getInteractionId().current,
 						};
+
+						if (editorDomSize !== undefined) {
+							addUFOCustomData({ editorDomSize });
+						}
 
 						dispatchAnalyticsEvent({
 							action: ACTION.PROSEMIRROR_RENDERED,

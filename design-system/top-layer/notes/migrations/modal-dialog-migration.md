@@ -36,7 +36,7 @@ Dialog (<dialog>) → visual styling div → ModalContext.Provider → ScrollCon
 | z-index / `Positioner`         | Top layer is always above everything                                                       |
 | `useCloseOnEscapePress`        | Native `cancel` event on `<dialog>`                                                        |
 | `usePreventProgrammaticScroll` | Native inertness handles this                                                              |
-| `FadeIn` / `@atlaskit/motion`  | CSS `@starting-style` + `allow-discrete` via `dialogSlideUpAndFade()`                      |
+| `FadeIn` / `@atlaskit/motion`  | CSS `@starting-style` + `allow-discrete` via `Dialog animate` default motion               |
 | `react-focus-lock` returnFocus | Native `<dialog>` focus restoration (returns focus to previously-focused element on close) |
 
 ### Deliberate design choice: native focus restoration

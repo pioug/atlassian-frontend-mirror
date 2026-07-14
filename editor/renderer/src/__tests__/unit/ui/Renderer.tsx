@@ -14,11 +14,6 @@ jest.mock('@atlaskit/editor-common/performance/measure-tti', () => ({
 	measureTTI: jest.fn(),
 }));
 
-jest.mock('@atlaskit/analytics-next/src/utils/isModernContextEnabledEnv', () => ({
-	__esModule: true,
-	default: true,
-}));
-
 import { mount, type ReactWrapper } from 'enzyme';
 import React from 'react';
 

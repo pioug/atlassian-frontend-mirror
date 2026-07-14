@@ -156,7 +156,6 @@ const IconAllExample = (): JSX.Element => {
 				))}
 			</div>
 		) : (
-			// eslint-disable-next-line @atlaskit/design-system/use-primitives
 			<div css={noIconsStyles}>{`Sorry, we couldn't find any icons matching "${query}".`}</div>
 		);
 	};

@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -79,7 +78,7 @@ export function ProjectsMenuItem({
 	}, [registry, draggableButtonRef]);
 
 	return (
-		<>
+		<React.Fragment>
 			<ExpandableMenuItem
 				isExpanded={isExpanded}
 				onExpansionToggle={() => setIsExpanded((value) => !value)}
@@ -92,7 +91,7 @@ export function ProjectsMenuItem({
 					hasDragIndicator
 					elemBefore={<ProjectIcon label="" color="currentColor" />}
 					actionsOnHover={
-						<>
+						<React.Fragment>
 							<IconButton
 								label="Add"
 								icon={(iconProps) => <AddIcon {...iconProps} size="small" />}
@@ -104,7 +103,7 @@ export function ProjectsMenuItem({
 								amountOfMenuItems={amountOfMenuItems}
 								value="projects"
 							/>
-						</>
+						</React.Fragment>
 					}
 				>
 					Projects
@@ -115,6 +114,6 @@ export function ProjectsMenuItem({
 				</ExpandableMenuItemContent>
 			</ExpandableMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }

@@ -8,8 +8,7 @@ import {
 	type TRoleRequiringAccessibleName,
 	type TRoleWithImplicitName,
 } from '../internal/role-types';
-
-import { type TPopoverAnimationPreset } from './animations';
+import type { TAnimationConfig } from '../internal/use-animated-visibility';
 
 /**
  * The reason a popover was closed.
@@ -46,14 +45,18 @@ type TPopoverBaseProps = {
 	 * Additional CSS styles applied to the popover root element.
 	 * Use to set `backgroundColor` to match the popup surface colour.
 	 */
-	xcss?: StrictXCSSProp<'backgroundColor', never>;
+	xcss?: StrictXCSSProp<
+		'animationName',
+		'&:popover-open',
+		{ requiredPseudos: '&:popover-open'; requiredProperties: never }
+	>;
 	/**
 	 * Animation preset for entry/exit transitions.
 	 *
 	 * Animations use `@starting-style` and `allow-discrete` for progressive
 	 * enhancement: browsers without support show/hide instantly.
 	 */
-	animate?: false | TPopoverAnimationPreset;
+	animate?: boolean | TAnimationConfig;
 	/**
 	 * Test ID applied to the popover element.
 	 */

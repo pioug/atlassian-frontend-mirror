@@ -128,5 +128,6 @@ export const getTokenCSSVariableValueForNonActiveTheme = (
 
 	return cssVariableParts?.fallback || fallback;
 };
+
 // eslint-disable-next-line @atlaskit/editor/no-re-export
 export { getSelectedRowAndColumn } from './getSelectedRowAndColumn';

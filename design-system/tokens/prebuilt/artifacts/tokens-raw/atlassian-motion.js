@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8853edc4b4dcb8c3da021c68347e80c9>>
+ * @codegen <<SignedSource::d999e6e8adffb8744810aed81e8e5368>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1098,6 +1098,66 @@ var tokens = [{
   "name": "motion.modal.exit",
   "path": ["motion", "modal", "exit"],
   "cleanName": "motion.modal.exit"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "15.5.0",
+    "description": "Use for panel enter transitions."
+  },
+  "value": {
+    "duration": 250,
+    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "keyframes": ["SlideIn100PercentRight"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "15.5.0",
+      "description": "Use for panel enter transitions."
+    },
+    "value": {
+      "duration": "Duration250",
+      "curve": "EaseBoldOut",
+      "keyframes": ["SlideIn100PercentRight"]
+    }
+  },
+  "name": "motion.panel.enter",
+  "path": ["motion", "panel", "enter"],
+  "cleanName": "motion.panel.enter"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "15.5.0",
+    "description": "Use for panel exit transitions."
+  },
+  "value": {
+    "duration": 200,
+    "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+    "keyframes": ["SlideOut100PercentRight"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "15.5.0",
+      "description": "Use for panel exit transitions."
+    },
+    "value": {
+      "duration": "Duration200",
+      "curve": "EasePracticalIn",
+      "keyframes": ["SlideOut100PercentRight"]
+    }
+  },
+  "name": "motion.panel.exit",
+  "path": ["motion", "panel", "exit"],
+  "cleanName": "motion.panel.exit"
 }, {
   "attributes": {
     "group": "motion",

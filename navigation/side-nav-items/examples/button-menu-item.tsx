@@ -1,5 +1,4 @@
 /**
- * @jsxfrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -75,10 +74,10 @@ const MoreAction = ({ shouldRenderToParent }: { shouldRenderToParent?: boolean }
 );
 
 const MockActions = ({ shouldRenderToParent }: { shouldRenderToParent: boolean }) => (
-	<>
+	<React.Fragment>
 		<AddAction shouldRenderToParent={shouldRenderToParent} />
 		<MoreAction shouldRenderToParent={shouldRenderToParent} />
-	</>
+	</React.Fragment>
 );
 
 const homeIcon = <HomeIcon label="" color="currentColor" spacing="spacious" />;

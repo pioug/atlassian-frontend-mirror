@@ -81,8 +81,5 @@ const getSkeletonLines = (lineCount: number) => {
 
 export const Skeleton = (props: SkeletonProps): JSX.Element => {
 	const { lineCount = 5 } = props;
-	return (
-		// eslint-disable-next-line @atlaskit/design-system/use-primitives
-		<div css={AutomationSkeletonContainer}>{getSkeletonLines(lineCount)}</div>
-	);
+	return <div css={AutomationSkeletonContainer}>{getSkeletonLines(lineCount)}</div>;
 };

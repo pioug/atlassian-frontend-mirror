@@ -99,18 +99,37 @@ function getHeadingId(value: React.ReactNode): string | null {
 /**
  * A heading with a button that appears on hover of the heading (or focus of the button),
  * that allows the user to copy a link to the heading.
+ *
+ * @example
+ * ```tsx
+ * import { HeadingWithSectionLink } from '@atlaskit/docs/heading-with-section-link';
+ *
+ * <HeadingWithSectionLink level={2}>Usage</HeadingWithSectionLink>;
+ * ```
  */
 export function HeadingWithSectionLink({
 	level,
 	children,
+	spacing = 'default',
 }: {
 	level: HeadingLevel;
 	children: React.ReactNode;
+	/**
+	 * Controls the heading wrapper's built-in vertical margins. Use `none` when a parent layout
+	 * component already manages the spacing between elements.
+	 */
+	spacing?: 'default' | 'none';
 }): JSX.Element {
 	const headingId = getHeadingId(children);
 
 	return (
-		<div css={[wrapperStyles.root, levelToSpace[level], wrapperStyles.reducedSpacingForFirstChild]}>
+		<div
+			css={[
+				wrapperStyles.root,
+				spacing === 'default' && levelToSpace[level],
+				spacing === 'default' && wrapperStyles.reducedSpacingForFirstChild,
+			]}
+		>
 			{headingId && <CopyLinkToHeadingButton headingId={headingId} />}
 
 			<Heading size={levelToSize[level]} id={headingId ?? undefined}>

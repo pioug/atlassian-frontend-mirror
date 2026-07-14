@@ -7,13 +7,10 @@ import { useRef } from 'react';
 import { jsx } from '@compiled/react';
 
 import { components, type MenuProps, type OptionType } from '@atlaskit/select';
-import { slideAndFade } from '@atlaskit/top-layer/animations';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
-
-const animation = slideAndFade();
 
 /**
  * Bottom-start placement: time options menu appears below and aligned to the
@@ -112,7 +109,7 @@ export const FixedLayerMenuTopLayer: ({
 			// logic remains the single source of truth.
 			mode="manual"
 			placement={popupPlacement}
-			animate={animation}
+			animate
 			// @ts-ignore -- testId is a custom prop passed through selectProps
 			testId={selectProps.testId && `${selectProps.testId}--popup`}
 		>

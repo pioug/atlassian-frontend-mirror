@@ -904,6 +904,11 @@ export const AI_PASTE_MENU_SECTION = {
 	type: 'menu-section',
 } as const;
 
+export const SMART_LINK_DISPLAY_AS_PASTE_MENU_SECTION = {
+	key: 'smart-link-display-as-paste-menu-section',
+	type: 'menu-section',
+} as const;
+
 export const TOOLBAR_BUTTON_TEST_ID = {
 	INSERT: 'editor-toolbar-insert-button',
 	EMOJI: 'editor-toolbar-emoji-button',

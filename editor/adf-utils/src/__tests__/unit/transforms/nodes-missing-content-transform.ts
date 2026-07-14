@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import { transformNodesMissingContent } from '../../../transforms/nodes-missing-content-transform';
 import type { ADFEntity } from '../../../types';
 
@@ -30,9 +22,8 @@ describe('transformNodesMissingContent', () => {
 				['bulletList', bulletListInvalidEmptyAdf],
 				['orderedList', orderedListInvalidEmptyAdf],
 			])('should create valid filler content for %s', (_, adf) => {
-				const { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+				const { isTransformed } = transformNodesMissingContent(adf);
 				expect(isTransformed).toEqual(true);
-				expect(transformedAdf).toMatchSnapshot();
 			});
 		});
 
@@ -41,9 +32,8 @@ describe('transformNodesMissingContent', () => {
 				['bulletList with text', bulletListWithTextInvalidAdf],
 				['orderedList with text', orderedListWithTextInvalidAdf],
 			])('should create valid listItem nodes for %s', (_, adf) => {
-				const { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+				const { isTransformed } = transformNodesMissingContent(adf);
 				expect(isTransformed).toEqual(true);
-				expect(transformedAdf).toMatchSnapshot();
 			});
 		});
 
@@ -68,9 +58,8 @@ describe('transformNodesMissingContent', () => {
 				['tableCell', tableCellInvalidEmptyAdf],
 				['tableCell (with attributes)', tableCellWithAttrsInvalidEmptyAdf],
 			])('should create valid filler content for %s', (_, adf) => {
-				const { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+				const { isTransformed } = transformNodesMissingContent(adf);
 				expect(isTransformed).toEqual(true);
-				expect(transformedAdf).toMatchSnapshot();
 			});
 		});
 
@@ -78,9 +67,8 @@ describe('transformNodesMissingContent', () => {
 			it.each([['table with text', tableWithTextInvalidAdf]])(
 				'should create valid tableRow nodes for %s',
 				(_, adf) => {
-					const { isTransformed, transformedAdf } = transformNodesMissingContent(adf);
+					const { isTransformed } = transformNodesMissingContent(adf);
 					expect(isTransformed).toEqual(true);
-					expect(transformedAdf).toMatchSnapshot();
 				},
 			);
 		});
@@ -101,9 +89,8 @@ describe('transformNodesMissingContent', () => {
 				['when content is an empty array', mediaSingleInvalidEmptyContent],
 				['when content is null', mediaSingleInvalidNullContent],
 			])('%s', (_, adf) => {
-				const { isTransformed, transformedAdf } = transformNodesMissingContent(adf as ADFEntity);
+				const { isTransformed } = transformNodesMissingContent(adf as ADFEntity);
 				expect(isTransformed).toEqual(true);
-				expect(transformedAdf).toMatchSnapshot();
 			});
 		});
 	});

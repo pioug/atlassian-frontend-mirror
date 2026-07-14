@@ -1,5 +1,4 @@
 /**
- * @jsxFrag
  * @jsxRuntime classic
  * @jsx jsx
  */
@@ -50,7 +49,7 @@ export function ForYouMenuItem({
 	}, [draggableButtonRef, registry]);
 
 	return (
-		<>
+		<React.Fragment>
 			<ButtonMenuItem
 				ref={draggableButtonRef}
 				isDragging={state.type === 'dragging'}
@@ -69,6 +68,6 @@ export function ForYouMenuItem({
 				For you
 			</ButtonMenuItem>
 			{dragPreview}
-		</>
+		</React.Fragment>
 	);
 }

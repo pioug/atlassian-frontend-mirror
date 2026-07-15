@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { getActiveTrace } from '../experience-trace-id-context';
 import { type LabelStack, useInteractionContext } from '../interaction-context';
 import { getActiveInteraction, PreviousInteractionLog } from '../interaction-metrics';
@@ -17,12 +15,6 @@ export interface TerminalErrorAdditionalAttributes {
 	errorBoundaryId?: string;
 	errorHash?: string;
 	fallbackType?: 'page' | 'flag' | 'custom';
-	/**
-	 * @private
-	 * @deprecated Will be removed during
-	 * platform_ufo_terminal_errors_track_client_errors FG cleanup.
-	 */
-	isClientNetworkError?: boolean;
 	statusCode?: number;
 }
 
@@ -104,14 +96,6 @@ export function setTerminalError(
 	additionalAttributes?: TerminalErrorAdditionalAttributes,
 	labelStack?: LabelStack,
 ): void {
-	if (
-		additionalAttributes?.isClientNetworkError &&
-		!fg('platform_ufo_terminal_errors_track_client_errors')
-	) {
-		// Exclude client network errors from being reported to UFO
-		return;
-	}
-
 	const activeInteraction = getActiveInteraction();
 	const currentTime = performance.now();
 
@@ -119,9 +103,7 @@ export function setTerminalError(
 		errorType: error.name || 'Error',
 		errorMessage: error.message?.slice(0, 100) || 'Unknown error',
 		timestamp: currentTime,
-		...(fg('platform_ufo_terminal_errors_track_client_errors')
-			? { errorCategory: classifyTerminalError(error) }
-			: {}),
+		errorCategory: classifyTerminalError(error),
 	};
 	const errorData: TerminalErrorData = {
 		...baseErrorData,

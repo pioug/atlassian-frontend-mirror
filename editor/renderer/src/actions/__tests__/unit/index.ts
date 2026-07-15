@@ -27,7 +27,7 @@ import type { AnalyticsEventPayload } from '../../../analytics/events';
 import * as platformFeatureFlags from '@atlaskit/platform-feature-flags';
 import * as steps from '../../../steps';
 import { Node } from '@atlaskit/editor-prosemirror/model';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 const mockArg = {} as any;
 const mockArg2 = {} as any;
@@ -194,21 +194,21 @@ describe('RendererActions', () => {
 				jest.resetAllMocks();
 			});
 			const actions = new RendererActions();
-			ffTest(
-				'editor_inline_comments_on_inline_nodes',
-				() => {
-					const isRendererWithinRangeSpyFn = jest
-						.spyOn(actions, 'isRendererWithinRange')
-						.mockReturnValueOnce(true);
-					expect(actions.isValidAnnotationRange(new Range())).toBe(false);
-					expect(isRendererWithinRangeSpyFn).toBeCalledTimes(1);
-				},
-				() => {
-					const isRendererWithinRangeSpyFn = jest.spyOn(actions, 'isRendererWithinRange');
-					actions.isValidAnnotationRange(new Range());
-					expect(isRendererWithinRangeSpyFn).toBeCalledTimes(0);
-				},
-			);
+			it('when feature gate editor_inline_comments_on_inline_nodes is ON, returns false and calls isRendererWithinRange', () => {
+				passGate('editor_inline_comments_on_inline_nodes');
+				const isRendererWithinRangeSpyFn = jest
+					.spyOn(actions, 'isRendererWithinRange')
+					.mockReturnValueOnce(true);
+				expect(actions.isValidAnnotationRange(new Range())).toBe(false);
+				expect(isRendererWithinRangeSpyFn).toBeCalledTimes(1);
+			});
+
+			it('when feature gate editor_inline_comments_on_inline_nodes is OFF, does not call isRendererWithinRange', () => {
+				failGate('editor_inline_comments_on_inline_nodes');
+				const isRendererWithinRangeSpyFn = jest.spyOn(actions, 'isRendererWithinRange');
+				actions.isValidAnnotationRange(new Range());
+				expect(isRendererWithinRangeSpyFn).toBeCalledTimes(0);
+			});
 		});
 
 		it('should return false if doc is falsy', () => {

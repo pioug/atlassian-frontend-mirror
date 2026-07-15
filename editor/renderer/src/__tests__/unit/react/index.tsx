@@ -2,7 +2,7 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { shallow, type ReactWrapper } from 'enzyme';
 import { ReactSerializer } from '../../../index';
 import { createSchema } from '@atlaskit/adf-schema';
@@ -973,72 +973,72 @@ describe('Renderer - ReactSerializer', () => {
 			],
 		};
 
-		ffTest.on('hot-121622_lazy_load_expand_content', '', () => {
-			it('should set loadBodyContent to true when expand contains inline comment annotation', () => {
-				const serializer = new ReactSerializer({});
-				const docNode = schema.nodeFromJSON(expandWithInlineComment);
-				const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
+		it('when feature gate hot-121622_lazy_load_expand_content is ON, sets loadBodyContent to true when expand contains inline comment annotation', () => {
+			passGate('hot-121622_lazy_load_expand_content');
+			const serializer = new ReactSerializer({});
+			const docNode = schema.nodeFromJSON(expandWithInlineComment);
+			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
 
-				serializer.serializeFragment(docNode.content);
+			serializer.serializeFragment(docNode.content);
 
-				expect(getExpandPropsSpy).toHaveBeenCalled();
+			expect(getExpandPropsSpy).toHaveBeenCalled();
 
-				const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
-				expect(expandCall).toBeDefined();
-				expect(expandCall?.value.loadBodyContent).toBe(true);
+			const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
+			expect(expandCall).toBeDefined();
+			expect(expandCall?.value.loadBodyContent).toBe(true);
 
-				getExpandPropsSpy.mockRestore();
-			});
-
-			it('should set loadBodyContent to false when expand does not contain annotations', () => {
-				const serializer = new ReactSerializer({});
-				const docNode = schema.nodeFromJSON(expandWithoutAnnotation);
-				const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
-
-				serializer.serializeFragment(docNode.content);
-
-				expect(getExpandPropsSpy).toHaveBeenCalled();
-
-				const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
-				expect(expandCall).toBeDefined();
-				expect(expandCall?.value.loadBodyContent).toBe(false);
-
-				getExpandPropsSpy.mockRestore();
-			});
-
-			it('should set loadBodyContent to false when expand contains non-inlineComment annotation type', () => {
-				const serializer = new ReactSerializer({});
-				const docNode = schema.nodeFromJSON(expandWithNonInlineCommentAnnotation);
-				const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
-
-				serializer.serializeFragment(docNode.content);
-
-				expect(getExpandPropsSpy).toHaveBeenCalled();
-
-				const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
-				expect(expandCall).toBeDefined();
-				expect(expandCall?.value.loadBodyContent).toBe(false);
-
-				getExpandPropsSpy.mockRestore();
-			});
+			getExpandPropsSpy.mockRestore();
 		});
 
-		ffTest.off('hot-121622_lazy_load_expand_content', '', () => {
-			it('should set loadBodyContent to false even when expand contains inline comment annotation', () => {
-				const serializer = new ReactSerializer({});
-				const docNode = schema.nodeFromJSON(expandWithInlineComment);
-				const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
+		it('when feature gate hot-121622_lazy_load_expand_content is ON, sets loadBodyContent to false when expand does not contain annotations', () => {
+			passGate('hot-121622_lazy_load_expand_content');
+			const serializer = new ReactSerializer({});
+			const docNode = schema.nodeFromJSON(expandWithoutAnnotation);
+			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
 
-				serializer.serializeFragment(docNode.content);
+			serializer.serializeFragment(docNode.content);
 
-				expect(getExpandPropsSpy).toHaveBeenCalled();
+			expect(getExpandPropsSpy).toHaveBeenCalled();
 
-				const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
-				expect(expandCall).toBeDefined();
-				expect(expandCall?.value.loadBodyContent).toBe(false);
+			const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
+			expect(expandCall).toBeDefined();
+			expect(expandCall?.value.loadBodyContent).toBe(false);
 
-				getExpandPropsSpy.mockRestore();
-			});
+			getExpandPropsSpy.mockRestore();
+		});
+
+		it('when feature gate hot-121622_lazy_load_expand_content is ON, sets loadBodyContent to false when expand contains non-inlineComment annotation type', () => {
+			passGate('hot-121622_lazy_load_expand_content');
+			const serializer = new ReactSerializer({});
+			const docNode = schema.nodeFromJSON(expandWithNonInlineCommentAnnotation);
+			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
+
+			serializer.serializeFragment(docNode.content);
+
+			expect(getExpandPropsSpy).toHaveBeenCalled();
+
+			const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
+			expect(expandCall).toBeDefined();
+			expect(expandCall?.value.loadBodyContent).toBe(false);
+
+			getExpandPropsSpy.mockRestore();
+		});
+
+		it('when feature gate hot-121622_lazy_load_expand_content is OFF, sets loadBodyContent to false even when expand contains inline comment annotation', () => {
+			failGate('hot-121622_lazy_load_expand_content');
+			const serializer = new ReactSerializer({});
+			const docNode = schema.nodeFromJSON(expandWithInlineComment);
+			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
+
+			serializer.serializeFragment(docNode.content);
+
+			expect(getExpandPropsSpy).toHaveBeenCalled();
+
+			const expandCall = getExpandPropsSpy.mock.results.find((result) => result.value);
+			expect(expandCall).toBeDefined();
+			expect(expandCall?.value.loadBodyContent).toBe(false);
+
+			getExpandPropsSpy.mockRestore();
 		});
 	});
 
@@ -1096,47 +1096,45 @@ describe('Renderer - ReactSerializer', () => {
 			],
 		};
 
-		ffTest.on('hot-121622_lazy_load_expand_content', '', () => {
-			it('should call getExpandProps for nestedExpand and set loadBodyContent when FG is enabled', () => {
-				const serializer = new ReactSerializer({});
-				const docNode = schema.nodeFromJSON(tableWithNestedExpandAndInlineComment);
-				const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
+		it('when feature gate hot-121622_lazy_load_expand_content is ON, calls getExpandProps for nestedExpand and sets loadBodyContent', () => {
+			passGate('hot-121622_lazy_load_expand_content');
+			const serializer = new ReactSerializer({});
+			const docNode = schema.nodeFromJSON(tableWithNestedExpandAndInlineComment);
+			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
 
-				serializer.serializeFragment(docNode.content);
+			serializer.serializeFragment(docNode.content);
 
-				// Find the call for nestedExpand (will have loadBodyContent in the result)
-				const nestedExpandCall = getExpandPropsSpy.mock.results.find(
-					(result) => result.value?.loadBodyContent !== undefined,
-				);
-				expect(nestedExpandCall).toBeDefined();
-				expect(nestedExpandCall?.value.loadBodyContent).toBe(true);
+			// Find the call for nestedExpand (will have loadBodyContent in the result)
+			const nestedExpandCall = getExpandPropsSpy.mock.results.find(
+				(result) => result.value?.loadBodyContent !== undefined,
+			);
+			expect(nestedExpandCall).toBeDefined();
+			expect(nestedExpandCall?.value.loadBodyContent).toBe(true);
 
-				getExpandPropsSpy.mockRestore();
-			});
+			getExpandPropsSpy.mockRestore();
 		});
 
-		ffTest.off('hot-121622_lazy_load_expand_content', '', () => {
-			it('should call getProps (not getExpandProps) for nestedExpand when FG is disabled', () => {
-				const serializer = new ReactSerializer({});
-				const docNode = schema.nodeFromJSON(tableWithNestedExpandAndInlineComment);
-				const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
-				const getPropsSpy = jest.spyOn(serializer as any, 'getProps');
+		it('when feature gate hot-121622_lazy_load_expand_content is OFF, calls getProps (not getExpandProps) for nestedExpand', () => {
+			failGate('hot-121622_lazy_load_expand_content');
+			const serializer = new ReactSerializer({});
+			const docNode = schema.nodeFromJSON(tableWithNestedExpandAndInlineComment);
+			const getExpandPropsSpy = jest.spyOn(serializer as any, 'getExpandProps');
+			const getPropsSpy = jest.spyOn(serializer as any, 'getProps');
 
-				serializer.serializeFragment(docNode.content);
+			serializer.serializeFragment(docNode.content);
 
-				// getExpandProps should NOT be called for nestedExpand when FG is off
-				// (it will still be called for regular expand nodes if any)
-				const nestedExpandCall = getExpandPropsSpy.mock.results.find(
-					(result) => result.value?.loadBodyContent !== undefined,
-				);
-				expect(nestedExpandCall).toBeUndefined();
+			// getExpandProps should NOT be called for nestedExpand when FG is off
+			// (it will still be called for regular expand nodes if any)
+			const nestedExpandCall = getExpandPropsSpy.mock.results.find(
+				(result) => result.value?.loadBodyContent !== undefined,
+			);
+			expect(nestedExpandCall).toBeUndefined();
 
-				// getProps should have been called (for nestedExpand and other nodes)
-				expect(getPropsSpy).toHaveBeenCalled();
+			// getProps should have been called (for nestedExpand and other nodes)
+			expect(getPropsSpy).toHaveBeenCalled();
 
-				getExpandPropsSpy.mockRestore();
-				getPropsSpy.mockRestore();
-			});
+			getExpandPropsSpy.mockRestore();
+			getPropsSpy.mockRestore();
 		});
 	});
 });

@@ -99,7 +99,7 @@ import {
 	findReplaceStylesWithCodeblockColorContrastFix,
 	findReplaceStylesWithRefSyncBlock,
 } from './styles/findReplaceStyles';
-import { firstBlockNodeStyles } from './styles/firstBlockNodeStyles';
+import { firstBlockNodeStyles, firstNodeWidgetFixStyles } from './styles/firstBlockNodeStyles';
 import { firstFloatingToolbarButtonStyles } from './styles/floatingToolbarStyles';
 import { fontSizeStyles } from './styles/fontSizeStyles';
 import { fullPageEditorStyles } from './styles/fullPageEditorStyles';
@@ -808,6 +808,9 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 						firstCodeBlockWithNoMarginOld,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				firstBlockNodeStyles,
+				editorExperiment('platform_editor_first_node_fix', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					firstNodeWidgetFixStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				mentionNodeStyles,
 				expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)

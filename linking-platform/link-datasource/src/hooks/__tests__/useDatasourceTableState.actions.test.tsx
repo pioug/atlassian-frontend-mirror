@@ -35,13 +35,10 @@ const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
 	</AnalyticsListener>
 );
 
-jest.mock('@atlaskit/atlassian-context', () => {
-	const originalModule = jest.requireActual('@atlaskit/atlassian-context');
-	return {
-		...originalModule,
-		isFedRamp: () => mockIsFedRamp(),
-	};
-});
+jest.mock('@atlaskit/atlassian-context/is-fedramp', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp'),
+	isFedRamp: () => mockIsFedRamp(),
+}));
 
 jest.mock('@atlaskit/link-client-extension', () => {
 	const originalModule = jest.requireActual('@atlaskit/link-client-extension');

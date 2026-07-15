@@ -46,7 +46,7 @@ const resolveDocLevelNode = (
 const edgeCases = (
 	doc: PMNode,
 	from: number,
-): { measurePos?: number; leftOffset?: number } | undefined => {
+): { leftOffset?: number; measurePos?: number } | undefined => {
 	const resolved = resolveDocLevelNode(doc, from);
 	if (!resolved) {
 		return undefined;
@@ -190,20 +190,6 @@ export const createLeftAnchorWidget = ({
 	);
 };
 
-const isFullNodeRange = (doc: PMNode, from: number, to: number): boolean => {
-	let matchesFullNodeRange = false;
-
-	doc.nodesBetween(from, to, (node, pos) => {
-		if (pos === from && pos + node.nodeSize === to) {
-			matchesFullNodeRange = true;
-			return false;
-		}
-
-		return true;
-	});
-
-	return matchesFullNodeRange;
-};
 /**
  * Creates invisible anchor widgets for a single block-changed diff so that the
  * `IndicatorBar` can use CSS anchor positioning to align itself with the diff.
@@ -214,8 +200,6 @@ const isFullNodeRange = (doc: PMNode, from: number, to: number): boolean => {
  * - An optional `left` anchor is placed inside a resizable container (table,
  *   layout, expand) so the bar aligns within the container boundary.
  *
- * Unlike the inline variant there is no `isFullNodeRange` guard — block diffs
- * always span exactly one block node so the anchors are always needed.
  */
 export const createBlockIndicatorAnchorWidgets = ({
 	doc,
@@ -342,10 +326,6 @@ export const createInlineIndicatorAnchorWidgets = ({
 	from: number;
 	to: number;
 }): Decoration[] => {
-	if (isFullNodeRange(doc, from, to)) {
-		return [];
-	}
-
 	const leftAnchor = createLeftAnchorWidget({ doc, from, diffId });
 	const maybeLeftAnchor = leftAnchor ? [leftAnchor] : [];
 

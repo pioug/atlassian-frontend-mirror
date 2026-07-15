@@ -122,7 +122,10 @@ const styles = cssMap({
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
 		boxSizing: 'border-box',
-		gridArea: 'main / aside / aside / aside',
+		// The mobile `grid-area` is applied separately via `gridAreaStyles` (see below) so it can be
+		// scoped to a media query that does not overlap with the desktop rule further down. See MAGMA-4606.
+		// TODO: When cleaning up `platform_dst_nav4_side_nav_grid_area_fix`, add the
+		// `@media not (min-width: 64rem) { gridArea: 'main / aside / aside / aside' }` rule back in here.
 		// Height is set so it takes up all of the available viewport space minus top bar + banner.
 		// Since the side nav is always rendered ontop of other grid items across all viewports height is
 		// always set.
@@ -344,6 +347,43 @@ const styles = cssMap({
 			gridArea: 'main',
 			transitionTimingFunction: 'cubic-bezier(0, 0.4, 0, 1)',
 			transform: 'translateX(calc(-100% * var(--animation-direction)))',
+		},
+	},
+});
+
+/**
+ * Workaround for non-deterministic Compiled style ordering in local development. See MAGMA-4606.
+ *
+ * The mobile `grid-area` for the side nav, split out from `styles.root` so it can be gated. The
+ * desktop rule (`gridArea: 'side-nav'`) lives in `styles.root` inside `@media (min-width: 64rem)`.
+ *
+ * Why this is needed:
+ * The mobile rule (unscoped) and the desktop rule (`@media (min-width: 64rem)`) compile to two atomic
+ * rules of equal specificity — a `@media` query adds no specificity — so at desktop widths the winner
+ * is decided purely by stylesheet insertion order (last wins). In production this is fine: Compiled's
+ * stylesheet extraction sorts the media queries deterministically. But in local development stylesheet
+ * extraction is disabled (https://github.com/atlassian-labs/compiled/issues/1306), so styles are
+ * injected as inline `<style>` tags in whatever order components happen to render. Under streaming SSR
+ * (Suspense), the desktop rule can be emitted earlier on the page by another component, leaving the
+ * unscoped mobile rule last — so it wins on desktop and the side nav renders in the wrong grid area.
+ *
+ * - `mobileLegacy` (gate OFF): the original unscoped mobile rule, which exhibits the bug above.
+ * - `mobile` (gate ON): the mobile rule scoped to `@media not (min-width: 64rem)`, the exact inverse
+ *   of the desktop `@media (min-width: 64rem)` rule. The two can never both match at a given viewport,
+ *   so insertion order no longer matters and the bug cannot occur.
+ *
+ * Cleaning up `fg('platform_dst_nav4_side_nav_grid_area_fix')` (gate fully rolled out):
+ * 1. Move `gridAreaStyles.mobile`'s `@media not (min-width: 64rem)` grid-area rule back into
+ *    `styles.root`.
+ * 2. Delete this entire block (`gridAreaStyles`) and the `fg(...)` branch in the `css` prop below.
+ */
+const gridAreaStyles = cssMap({
+	mobileLegacy: {
+		gridArea: 'main / aside / aside / aside',
+	},
+	mobile: {
+		'@media not (min-width: 64rem)': {
+			gridArea: 'main / aside / aside / aside',
 		},
 	},
 });
@@ -1166,6 +1206,13 @@ function SideNavInternal({
 				ref={mergedRef}
 				css={[
 					styles.root,
+					// The mobile `grid-area` is applied here so it can be gated. When the gate is on, it is
+					// scoped to below the desktop breakpoint, so it cannot conflict with the desktop rule in
+					// `styles.root` regardless of Compiled's atomic rule ordering. See `gridAreaStyles` above
+					// for the full explanation and gate cleanup steps. See MAGMA-4606.
+					fg('platform_dst_nav4_side_nav_grid_area_fix')
+						? gridAreaStyles.mobile
+						: gridAreaStyles.mobileLegacy,
 					// We are explicitly using the `isExpandedOnDesktop` and `isExpandedOnMobile` values here to ensure we are displaying the
 					// correct state during SSR render, as the context value would not have been set yet. These values are derived from the
 					// component props (defaultCollapsed) if context hasn't been set yet.

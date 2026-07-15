@@ -53,6 +53,12 @@ const baseTransitionPropertyTokens = {
 			group: 'motionProperty',
 		},
 	},
+	TextDecorationColor: {
+		value: 'text-decoration-color',
+		attributes: {
+			group: 'motionProperty',
+		},
+	},
 } as const;
 
 const baseKeyframeTokens = {

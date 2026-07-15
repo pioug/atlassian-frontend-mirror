@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d999e6e8adffb8744810aed81e8e5368>>
+ * @codegen <<SignedSource::bc61ba5536395df900d967f003bb4829>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1290,7 +1290,8 @@ const tokens: Token[] = [
       "properties": [
         "background-color",
         "border-color",
-        "color"
+        "color",
+        "text-decoration-color"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1308,7 +1309,8 @@ const tokens: Token[] = [
         "properties": [
           "BackgroundColor",
           "BorderColor",
-          "Color"
+          "Color",
+          "TextDecorationColor"
         ]
       }
     },
@@ -1333,7 +1335,8 @@ const tokens: Token[] = [
       "properties": [
         "background-color",
         "border-color",
-        "color"
+        "color",
+        "text-decoration-color"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1351,7 +1354,8 @@ const tokens: Token[] = [
         "properties": [
           "BackgroundColor",
           "BorderColor",
-          "Color"
+          "Color",
+          "TextDecorationColor"
         ]
       }
     },
@@ -1376,7 +1380,8 @@ const tokens: Token[] = [
       "properties": [
         "background-color",
         "border-color",
-        "color"
+        "color",
+        "text-decoration-color"
       ]
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
@@ -1394,7 +1399,8 @@ const tokens: Token[] = [
         "properties": [
           "BackgroundColor",
           "BorderColor",
-          "Color"
+          "Color",
+          "TextDecorationColor"
         ]
       }
     },

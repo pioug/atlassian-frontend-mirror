@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Example, md, Props } from '@atlaskit/docs';
+import { Example, md } from '@atlaskit/docs';
 
 const _default_1: any = md`
 
@@ -13,10 +13,8 @@ const _default_1: any = md`
 			packageName="@atlaskit/spotlight"
 			Component={require('../examples/card').default}
 			title="Basic example"
-			source={require('!!raw-loader!../examples/card')}
+			source={require('!!raw-loader!../examples/without-image')}
 		/>
 	)}
-
-  ${(<Props heading="Spotlight Props" props={require('!!extract-react-types-loader!../src')} />)}
 `;
 export default _default_1;

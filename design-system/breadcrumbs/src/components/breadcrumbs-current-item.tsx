@@ -54,6 +54,18 @@ const unboundedStyles = unboundedCssMap({
 			color: token('color.text'),
 		},
 	},
+	interactiveContainerMotion: {
+		textDecorationLine: 'underline',
+		textDecorationColor: 'transparent',
+		transition: token('motion.listitem.selected'),
+		'&:hover': {
+			textDecorationColor: token('color.text'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+			textDecorationColor: token('color.text'),
+		},
+	},
 	interactiveContainerSmall: {
 		font: token('font.body.small'),
 	},
@@ -245,6 +257,8 @@ const BreadcrumbsCurrentItem: import('react').MemoExoticComponent<
 						!fg('platform_dst_breadcrumbs-refresh') && unboundedStyles.interactiveContainerLegacy,
 						isSmall && unboundedStyles.interactiveContainerSmall,
 						truncationWidth && unboundedStyles.interactiveContainerWithTruncation,
+						fg('platform-dst-motion-uplift-list-item') &&
+							unboundedStyles.interactiveContainerMotion,
 					]}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={

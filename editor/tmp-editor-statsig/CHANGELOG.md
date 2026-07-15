@@ -1,5 +1,48 @@
 # @atlaskit/editor-statsig-tmp
 
+## 124.6.0
+
+### Minor Changes
+
+- [`7fd637a1c5c47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fd637a1c5c47) -
+  Add a fix for sort buttons misbehaving when the headings have marks.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.5.0
+
+### Minor Changes
+
+- [`f1237b0893d3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1237b0893d3c) -
+  [ux] Only register ephemeral preview content as a target in staging area when the staging area is
+  open (as opposed to all the time), mirrors non-ephemeral behavior
+
+## 124.4.0
+
+### Minor Changes
+
+- [`ce7966a423f4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce7966a423f4c) -
+  Fix first-node top margin not being reset when a leading ProseMirror widget is present (e.g.
+  non-editable editor), behind the platform_editor_first_node_fix experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 124.3.0
+
+### Minor Changes
+
+- [`aef331cc13b56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aef331cc13b56) -
+  Gate editor image generation style and aspect ratio controls behind the new editor image
+  generation styles and aspect ratios experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 124.2.0
 
 ### Minor Changes

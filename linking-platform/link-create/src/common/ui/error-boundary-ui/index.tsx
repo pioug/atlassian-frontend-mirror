@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { isFedRamp } from '@atlaskit/atlassian-context';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 import EmptyState from '@atlaskit/empty-state';
 import Link from '@atlaskit/link';
 

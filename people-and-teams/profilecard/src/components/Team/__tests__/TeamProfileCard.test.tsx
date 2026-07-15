@@ -46,8 +46,8 @@ jest.mock('@atlaskit/people-teams-ui-public/verified-team-icon', () => ({
 
 jest.mock('@atlaskit/platform-feature-flags');
 
-jest.mock('@atlaskit/atlassian-context', () => ({
-	...jest.requireActual('@atlaskit/atlassian-context'),
+jest.mock('@atlaskit/atlassian-context/is-fedramp', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp'),
 	isFedRamp: jest.fn(() => false),
 }));
 

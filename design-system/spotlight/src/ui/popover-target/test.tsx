@@ -5,7 +5,8 @@ import { render, waitFor } from '@testing-library/react';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { SpotlightContext } from '../../controllers/context';
-import { PopoverProvider, PopoverTarget } from '../../index';
+import { PopoverProvider } from '../../entry-points/popover-provider';
+import { PopoverTarget } from '../../entry-points/popover-target';
 
 const TargetRefProbe = ({ onRef }: { onRef: (element: HTMLElement | null) => void }) => {
 	const { target } = useContext(SpotlightContext);

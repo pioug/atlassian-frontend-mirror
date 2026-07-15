@@ -1,4 +1,4 @@
-import { isFedrampModerate } from '@atlaskit/atlassian-context';
+import { isFedrampModerate } from '@atlaskit/atlassian-context/is-fedramp-moderate';
 
 import {
 	__resetFedrampOverrideCacheForTests,
@@ -7,7 +7,8 @@ import {
 	setUFOConfig,
 } from './index';
 
-jest.mock('@atlaskit/atlassian-context', () => ({
+jest.mock('@atlaskit/atlassian-context/is-fedramp-moderate', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp-moderate'),
 	isFedrampModerate: jest.fn(),
 }));
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "13.4.1",
+	"version": "13.4.2",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -150,6 +150,9 @@
 			"type": "boolean"
 		},
 		"jsm-wfo-assignee-recommendation-on-queues": {
+			"type": "boolean"
+		},
+		"platform_user_picker_fix_redundant_labelledby": {
 			"type": "boolean"
 		}
 	}

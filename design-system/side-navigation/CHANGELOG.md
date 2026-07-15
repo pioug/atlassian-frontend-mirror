@@ -1,5 +1,13 @@
 # @atlaskit/side-navigation
 
+## 12.3.1
+
+### Patch Changes
+
+- [`f2ec2ee8b495e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2ec2ee8b495e) -
+  Update `@atlaskit/spotlight` imports to use de-barrelled entry-points.
+- Updated dependencies
+
 ## 12.3.0
 
 ### Minor Changes

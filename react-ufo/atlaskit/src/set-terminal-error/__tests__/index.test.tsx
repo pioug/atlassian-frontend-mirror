@@ -1,6 +1,5 @@
 import React, { type ReactNode } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { renderHook } from '@atlassian/testing-library';
 
 import { getActiveTrace } from '../../experience-trace-id-context';
@@ -13,9 +12,6 @@ import {
 	type TerminalErrorAdditionalAttributes,
 	useReportTerminalError,
 } from '../index';
-
-jest.mock('@atlaskit/platform-feature-flags');
-const mockFg = fg as jest.Mock;
 
 jest.mock('../../interaction-metrics', () => ({
 	getActiveInteraction: jest.fn(),
@@ -144,30 +140,7 @@ describe('terminal-error', () => {
 			);
 		});
 
-		it('should not call sink handler when isClientNetworkError is true and FG is off', () => {
-			mockFg.mockImplementation(
-				(flag: string) => flag !== 'platform_ufo_terminal_errors_track_client_errors',
-			);
-			setTerminalError(mockError, {
-				isClientNetworkError: true,
-				teamName: 'test-team',
-			});
-
-			expect(mockSink).not.toHaveBeenCalled();
-		});
-
-		it('should call sink handler when isClientNetworkError is true but FG platform_ufo_terminal_errors_track_client_errors is on', () => {
-			mockFg.mockImplementation(() => true);
-			setTerminalError(mockError, {
-				isClientNetworkError: true,
-				teamName: 'test-team',
-			});
-
-			expect(mockSink).toHaveBeenCalled();
-		});
-
-		it('should include errorCategory in errorData when FG is on', () => {
-			mockFg.mockImplementation(() => true);
+		it('should include errorCategory in errorData', () => {
 			const productError = new Error('Cannot read properties of undefined');
 			productError.name = 'TypeError';
 			setTerminalError(productError);
@@ -177,13 +150,6 @@ describe('terminal-error', () => {
 					errorCategory: 'product',
 				}),
 			);
-		});
-
-		it('should not include errorCategory in errorData when FG is off', () => {
-			mockFg.mockImplementation(() => false);
-			setTerminalError(mockError);
-
-			expect(mockSink.mock.calls[0][0]).not.toHaveProperty('errorCategory');
 		});
 
 		it('should include labelStack in context when provided as third argument', () => {
@@ -480,38 +446,6 @@ describe('terminal-error', () => {
 					packageName: additionalAttributes.packageName,
 				}),
 			);
-		});
-
-		it('should not call sink handler when isClientNetworkError is true and FG is off', () => {
-			mockFg.mockImplementation(
-				(flag: string) => flag !== 'platform_ufo_terminal_errors_track_client_errors',
-			);
-			const mockContext = createMockContext();
-			const additionalAttributes: TerminalErrorAdditionalAttributes = {
-				isClientNetworkError: true,
-				teamName: 'test-team',
-			};
-
-			renderHook(() => useReportTerminalError(mockError, additionalAttributes), {
-				wrapper: createWrapper(mockContext),
-			});
-
-			expect(mockSink).not.toHaveBeenCalled();
-		});
-
-		it('should call sink handler when isClientNetworkError is true but FG platform_ufo_terminal_errors_track_client_errors is on', () => {
-			mockFg.mockImplementation(() => true);
-			const mockContext = createMockContext();
-			const additionalAttributes: TerminalErrorAdditionalAttributes = {
-				isClientNetworkError: true,
-				teamName: 'test-team',
-			};
-
-			renderHook(() => useReportTerminalError(mockError, additionalAttributes), {
-				wrapper: createWrapper(mockContext),
-			});
-
-			expect(mockSink).toHaveBeenCalled();
 		});
 	});
 });

@@ -1,5 +1,16 @@
 # @atlaskit/user-picker
 
+## 13.4.2
+
+### Patch Changes
+
+- [`38ef9b4fcf137`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38ef9b4fcf137) -
+  Behind gate `platform_user_picker_fix_redundant_labelledby`, stop promoting `aria-describedby` to
+  `aria-labelledby` on the user-picker input when an `aria-label` is present while still preserving
+  any explicit `aria-labelledby`, so screen readers announce the field's accessible name instead of
+  the description (A11Y-37267).
+- Updated dependencies
+
 ## 13.4.1
 
 ### Patch Changes

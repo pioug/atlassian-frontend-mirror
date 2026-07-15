@@ -5,21 +5,19 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { Text } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import {
-	PopoverContent,
-	PopoverProvider,
-	PopoverTarget,
-	SpotlightActions,
-	SpotlightBody,
-	SpotlightCard,
-	SpotlightControls,
-	SpotlightDismissControl,
-	SpotlightFooter,
-	SpotlightHeader,
-	SpotlightHeadline,
-	SpotlightPrimaryAction,
-	SpotlightSecondaryAction,
-} from '../../index';
+import { SpotlightActions } from '../../entry-points/actions';
+import { SpotlightBody } from '../../entry-points/body';
+import { SpotlightCard } from '../../entry-points/card';
+import { SpotlightControls } from '../../entry-points/controls';
+import { SpotlightDismissControl } from '../../entry-points/dismiss-control';
+import { SpotlightFooter } from '../../entry-points/footer';
+import { SpotlightHeader } from '../../entry-points/header';
+import { SpotlightHeadline } from '../../entry-points/headline';
+import { PopoverContent } from '../../entry-points/popover-content';
+import { PopoverProvider } from '../../entry-points/popover-provider';
+import { PopoverTarget } from '../../entry-points/popover-target';
+import { SpotlightPrimaryAction } from '../../entry-points/primary-action';
+import { SpotlightSecondaryAction } from '../../entry-points/secondary-action';
 
 var mockPopoverProps: jest.Mock;
 

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { renderToString } from 'react-dom/server';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils';
 import { act, render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
@@ -1239,6 +1240,63 @@ describe('Side nav', () => {
 			);
 
 			expect(setSideNavStateMock).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('mobile grid-area (platform_dst_nav4_side_nav_grid_area_fix)', () => {
+		// The declaration Compiled emits for `gridArea: 'main / aside / aside / aside'`.
+		const MOBILE_GRID_AREA = 'grid-area:main/aside/aside/aside';
+		// The media query the fix uses to scope that declaration to below the desktop breakpoint
+		// (the exact inverse of the desktop `@media (min-width: 64rem)` rule).
+		const BELOW_DESKTOP_MEDIA = '@media not (min-width:64rem)';
+
+		/**
+		 * Compiled statically extracts every cssMap rule referenced in the module, so the stylesheet
+		 * always contains both the unscoped and the below-desktop-scoped grid-area rules. What the
+		 * gate actually changes is *which* atomic class is applied to the `<nav>` — the crux of
+		 * MAGMA-4606. So we read the class list off the rendered nav, find the one class that owns the
+		 * mobile grid-area declaration, and check whether that class is scoped below the desktop breakpoint.
+		 */
+		function renderSideNav() {
+			// `renderToString` returns an HTML string, not a Testing Library render result, so the
+			// `view`/`utils` naming convention does not apply here.
+			// eslint-disable-next-line testing-library/render-result-naming-convention
+			const markup = renderToString(
+				<Root>
+					<SideNav testId="side-nav">sidenav</SideNav>
+				</Root>,
+			);
+
+			const navClasses = (
+				markup.match(/data-testid="side-nav"[^>]*class="([^"]*)"/)?.[1] ?? ''
+			).split(' ');
+			// The single class applied to the nav whose atomic rule sets the mobile grid area.
+			const mobileGridAreaClass = navClasses.find((className) =>
+				markup.includes(`.${className}{${MOBILE_GRID_AREA}}`),
+			);
+			const isScopedBelowDesktop = markup.includes(
+				`${BELOW_DESKTOP_MEDIA}{.${mobileGridAreaClass}{${MOBILE_GRID_AREA}}`,
+			);
+
+			return { mobileGridAreaClass, isScopedBelowDesktop };
+		}
+
+		it('should scope the applied mobile grid-area below the desktop breakpoint when the gate is on', () => {
+			passGate('platform_dst_nav4_side_nav_grid_area_fix');
+
+			const { mobileGridAreaClass, isScopedBelowDesktop } = renderSideNav();
+
+			expect(mobileGridAreaClass).toBeDefined();
+			expect(isScopedBelowDesktop).toBe(true);
+		});
+
+		it('should leave the applied mobile grid-area unscoped (legacy) when the gate is off', () => {
+			failGate('platform_dst_nav4_side_nav_grid_area_fix');
+
+			const { mobileGridAreaClass, isScopedBelowDesktop } = renderSideNav();
+
+			expect(mobileGridAreaClass).toBeDefined();
+			expect(isScopedBelowDesktop).toBe(false);
 		});
 	});
 

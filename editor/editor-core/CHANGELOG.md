@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 221.9.2
+
+### Patch Changes
+
+- [`ce7966a423f4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce7966a423f4c) -
+  Fix first-node top margin not being reset when a leading ProseMirror widget is present (e.g.
+  non-editable editor), behind the platform_editor_first_node_fix experiment.
+- Updated dependencies
+
+## 221.9.1
+
+### Patch Changes
+
+- [`c9c84b6b7437c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9c84b6b7437c) -
+  refactor context panel styles
+
 ## 221.9.0
 
 ### Minor Changes

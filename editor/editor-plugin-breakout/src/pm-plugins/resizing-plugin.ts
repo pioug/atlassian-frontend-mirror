@@ -20,6 +20,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -218,7 +219,21 @@ export const createResizingPlugin = (
 
 			const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
 
-			if (isReplaceDocOperation(transactions, oldState)) {
+			let hasTopLevelPanelOrRuleWithoutBreakout = false;
+			// platform_editor_lovability_resize_patch_1 is a kill switch
+			if (isRuleAndPanelResizingEnabled && !fg('platform_editor_lovability_resize_patch_1')) {
+				const { breakout } = newState.schema.marks;
+				newState.doc.forEach((node: Node) => {
+					if (
+						[panel, panel_c1, rule].includes(node.type) &&
+						!node.marks.some((mark) => mark.type === breakout)
+					) {
+						hasTopLevelPanelOrRuleWithoutBreakout = true;
+					}
+				});
+			}
+
+			if (isReplaceDocOperation(transactions, oldState) || hasTopLevelPanelOrRuleWithoutBreakout) {
 				newState.doc.forEach((node: Node, pos: number) => {
 					const { updatedTr, updatedDocChanged } = addBreakoutToResizableNode({
 						node,

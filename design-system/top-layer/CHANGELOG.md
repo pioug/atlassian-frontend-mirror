@@ -1,5 +1,13 @@
 # @atlaskit/top-layer
 
+## 1.6.1
+
+### Patch Changes
+
+- [`650f4c7ce7fb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/650f4c7ce7fb2) -
+  Type-only fixes for TypeScript 7 (tsgo) compatibility with the updated DOM lib. No runtime or
+  public API changes.
+
 ## 1.6.0
 
 ### Minor Changes

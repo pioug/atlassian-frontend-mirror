@@ -17,6 +17,7 @@ import { SortOrder } from '@atlaskit/editor-common/types';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type tablePlugin from '../../tablePlugin';
 import { SortingIconWrapper } from '../../ui/icons/SortingIconWrapper';
@@ -158,6 +159,16 @@ export const createPlugin = (
 										destroy: (node) => {
 											nodeViewPortalProviderAPI.remove(decorationRenderKey);
 										},
+										// side: -1 ensures the widget is placed before any content at the
+										// position, making it the first direct child of the <th> element and ensuring
+										// block marks do not affect CSS styling
+										side: expValEquals(
+											'platform_editor_fix_table_sort_with_mark',
+											'isEnabled',
+											true,
+										)
+											? -1
+											: undefined,
 										type: 'sorting-decoration',
 										tableId,
 									},

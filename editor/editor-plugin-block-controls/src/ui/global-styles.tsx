@@ -384,8 +384,8 @@ const topLevelNodeMarginStyles = css({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 				marginTop: '0 !important',
 			},
-		// When a drop target widget is inserted during drag, the font-size wrapper is no longer
-		// adjacent to the first widget. Reach through the wrapper to zero the inner content margin.
+		// Reach through a font-size wrapper to zero the inner content margin (e.g. during drag when a
+		// drop target widget is inserted before the wrapper).
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'> .ProseMirror-widget:first-child + .ProseMirror-widget + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child, > .ProseMirror-widget:first-child + .ProseMirror-gapcursor + .fabric-editor-font-size > :is(p, h1, h2, h3, h4, h5, h6):first-child':
 			{
@@ -649,7 +649,11 @@ export const GlobalStylesWrapper = ({
 				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					? withRelativePosStyleNext
 					: withRelativePosStyle,
-				topLevelNodeMarginStyles,
+				// When `platform_editor_first_node_fix` is enabled, EditorContentContainer applies the
+				// equivalent rules (`firstNodeWidgetFixStyles`), so skip them here to avoid duplication.
+				expValEquals('platform_editor_first_node_fix', 'isEnabled', true)
+					? undefined
+					: topLevelNodeMarginStyles,
 				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 					? withAnchorNameZindexStyleNext
 					: withAnchorNameZindexStyle,

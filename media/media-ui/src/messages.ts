@@ -49,6 +49,7 @@ export type MessageKey =
 	| 'upload_an_avatar'
 	| 'or_select_default_avatars'
 	| 'select_an_avatar_from_all_defaults'
+	| 'select_an_avatar_option'
 	| 'show_more_avatars_btn_label'
 	| 'loading'
 	| 'loading_file'
@@ -434,6 +435,12 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Select from all default options',
 		description:
 			'Announced when user is required to select an avatar from the complete list of default options',
+	},
+	select_an_avatar_option: {
+		id: 'fabric.media.select_an_avatar_option',
+		defaultMessage: 'Default avatar option {number}',
+		description:
+			'Accessible name announced for an individual default avatar choice that has no name of its own, identified by its position in the list',
 	},
 	show_more_avatars_btn_label: {
 		id: 'fabric.media.show_more_avatars_btn_label',

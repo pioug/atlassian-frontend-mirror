@@ -14,8 +14,7 @@ export const StyledTooltipTag: StyledComponent<
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.div({
-		display: 'flex',
-	});
+> = styled.div({
+	display: 'flex',
+});

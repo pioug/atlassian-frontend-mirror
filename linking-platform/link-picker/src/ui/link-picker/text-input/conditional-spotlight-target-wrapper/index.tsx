@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { PopoverProvider, PopoverTarget } from '@atlaskit/spotlight';
+import { PopoverProvider } from '@atlaskit/spotlight/popover-provider';
+import { PopoverTarget } from '@atlaskit/spotlight/popover-target';
 
 export interface ConditionalSpotlightTargetWrapperProps {
 	spotlightTargetName?: string;

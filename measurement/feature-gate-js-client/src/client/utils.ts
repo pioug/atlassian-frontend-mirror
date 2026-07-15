@@ -5,7 +5,7 @@ import {
 	type StatsigUser,
 } from '@statsig/js-client';
 
-import { isFedRamp } from '@atlaskit/atlassian-context';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 import { type EvaluationDetails, EvaluationReason } from './compat/types';
 import {

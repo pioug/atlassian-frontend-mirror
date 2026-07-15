@@ -1,4 +1,4 @@
-import { isFedrampModerate } from '@atlaskit/atlassian-context';
+import { isFedrampModerate } from '@atlaskit/atlassian-context/is-fedramp-moderate';
 
 import { __resetFedrampOverrideCacheForTests } from '../../../config';
 import getViewportHeight from '../metric-calculator/utils/get-viewport-height';
@@ -10,7 +10,8 @@ import RawDataHandler from './index';
 jest.mock('../metric-calculator/utils/get-viewport-width');
 jest.mock('../metric-calculator/utils/get-viewport-height');
 jest.mock('../../../hidden-timing');
-jest.mock('@atlaskit/atlassian-context', () => ({
+jest.mock('@atlaskit/atlassian-context/is-fedramp-moderate', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp-moderate'),
 	isFedrampModerate: jest.fn(),
 }));
 

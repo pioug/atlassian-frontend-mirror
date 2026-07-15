@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::9927dba5aae33bec87b319018d934b1f>>
+ * @codegen <<SignedSource::bea2749ac570f6dc0869ebaad0748c81>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -318,7 +318,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'listitem', 'hovered'],
 		description: 'Use for list item hover state transitions.',
 		exampleValue:
-			'background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1)',
+			'background-color 50ms cubic-bezier(0.4, 1, 0.6, 1), border-color 50ms cubic-bezier(0.4, 1, 0.6, 1), color 50ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 50ms cubic-bezier(0.4, 1, 0.6, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -326,7 +326,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'listitem', 'pressed'],
 		description: 'Use for list item pressed state transitions.',
 		exampleValue:
-			'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
+			'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -334,7 +334,7 @@ export const tokens: Token[] = [
 		path: ['motion', 'listitem', 'selected'],
 		description: 'Use for list item selected state transitions.',
 		exampleValue:
-			'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
+			'background-color 100ms cubic-bezier(0.4, 1, 0.6, 1), border-color 100ms cubic-bezier(0.4, 1, 0.6, 1), color 100ms cubic-bezier(0.4, 1, 0.6, 1), text-decoration-color 100ms cubic-bezier(0.4, 1, 0.6, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{

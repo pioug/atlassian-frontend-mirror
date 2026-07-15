@@ -24,11 +24,10 @@ export const TooltipContent: StyledComponent<
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.div({
-		fontFamily: token('font.family.body'),
-	});
+> = styled.div({
+	fontFamily: token('font.family.body'),
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OptionListLiItem: StyledComponent<
@@ -41,29 +40,28 @@ export const OptionListLiItem: StyledComponent<
 	},
 	DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.li<{
-		isDeprecated: boolean;
-		isSelected: boolean;
-	}>(
-		{
-			cursor: 'pointer',
-			padding: `${token('space.075')} ${token('space.100')}`,
-			fontFamily: token('font.family.code')
+> = styled.li<{
+	isDeprecated: boolean;
+	isSelected: boolean;
+}>(
+	{
+		cursor: 'pointer',
+		padding: `${token('space.075')} ${token('space.100')}`,
+		fontFamily: token('font.family.code'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+	({ isSelected }) =>
+		isSelected && {
+			background: token('color.background.neutral.subtle.hovered'),
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-		({ isSelected }) =>
-			isSelected && {
-				background: token('color.background.neutral.subtle.hovered'),
-			},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-		({ isDeprecated }) =>
-			isDeprecated && {
-				cursor: 'default',
-				color: token('color.text.disabled'),
-			},
-	);
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+	({ isDeprecated }) =>
+		isDeprecated && {
+			cursor: 'default',
+			color: token('color.text.disabled'),
+		},
+);
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OptionListDivItem: StyledComponent<
@@ -76,33 +74,31 @@ export const OptionListDivItem: StyledComponent<
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.div<{
-		isDeprecated: boolean;
-		isSelected: boolean;
-	}>(
-		{
-			cursor: 'pointer',
-			padding: `${token('space.075')} ${token('space.100')}`,
-			fontFamily: token('font.family.code')
+> = styled.div<{
+	isDeprecated: boolean;
+	isSelected: boolean;
+}>(
+	{
+		cursor: 'pointer',
+		padding: `${token('space.075')} ${token('space.100')}`,
+		fontFamily: token('font.family.code'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+	({ isSelected }) =>
+		isSelected && {
+			background: token('color.background.neutral.subtle.hovered'),
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-		({ isSelected }) =>
-			isSelected && {
-				background: token('color.background.neutral.subtle.hovered'),
-			},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-		({ isDeprecated }) =>
-			isDeprecated && {
-				cursor: 'default',
-				color: token('color.text.disabled'),
-			},
-	);
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
+	({ isDeprecated }) =>
+		isDeprecated && {
+			cursor: 'default',
+			color: token('color.text.disabled'),
+		},
+);
 
 export type OptionListItemComponent = ForwardRefExoticComponent<
-	ComponentPropsWithoutRef<typeof OptionListDivItem> &
-	RefAttributes<HTMLDivElement | HTMLLIElement>
+	ComponentPropsWithoutRef<typeof OptionListDivItem> & RefAttributes<HTMLDivElement | HTMLLIElement>
 >;
 
 export const OptionListItem: OptionListItemComponent = componentWithFG(
@@ -119,16 +115,15 @@ export const OptionName: StyledComponent<
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.div({
-		color: token('color.text'),
-		overflow: 'hidden',
-		whiteSpace: 'nowrap',
-		textOverflow: 'ellipsis',
-		// Added so that overflowed option names do not squish the deprecated info icon
-		flex: 1,
-	});
+> = styled.div({
+	color: token('color.text'),
+	overflow: 'hidden',
+	whiteSpace: 'nowrap',
+	textOverflow: 'ellipsis',
+	// Added so that overflowed option names do not squish the deprecated info icon
+	flex: 1,
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DeprecatedOptionContainer: StyledComponent<
@@ -138,14 +133,13 @@ export const DeprecatedOptionContainer: StyledComponent<
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.div({
-		color: token('color.text.disabled'),
-		display: 'flex',
-		justifyContent: 'space-between',
-		opacity: 0.6,
-	});
+> = styled.div({
+	color: token('color.text.disabled'),
+	display: 'flex',
+	justifyContent: 'space-between',
+	opacity: 0.6,
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OptionHighlight: StyledComponent<
@@ -155,11 +149,10 @@ export const OptionHighlight: StyledComponent<
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.span({
-		fontWeight: token('font.weight.bold'),
-	});
+> = styled.span({
+	fontWeight: token('font.weight.bold'),
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const FieldType: StyledComponent<
@@ -169,14 +162,13 @@ export const FieldType: StyledComponent<
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.div({
-		display: 'flex',
-		alignItems: 'center',
-		marginTop: token('space.negative.025'),
-		color: token('color.text.subtlest'),
-	});
+> = styled.div({
+	display: 'flex',
+	alignItems: 'center',
+	marginTop: token('space.negative.025'),
+	color: token('color.text.subtlest'),
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const FieldTypeIcon: StyledComponent<
@@ -186,9 +178,8 @@ export const FieldTypeIcon: StyledComponent<
 	},
 	DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
 	{}
-> =
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-	styled.span({
-		display: 'flex',
-		marginRight: token('space.050'),
-	});
+> = styled.span({
+	display: 'flex',
+	marginRight: token('space.050'),
+});

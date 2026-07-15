@@ -9,7 +9,9 @@ import Tooltip from '../../tooltip';
 jest.useFakeTimers();
 
 beforeEach(() => {
-	HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);
+	HTMLElement.prototype.matches = jest
+		.fn()
+		.mockReturnValue(true) as unknown as typeof HTMLElement.prototype.matches;
 
 	skipA11yAudit();
 });

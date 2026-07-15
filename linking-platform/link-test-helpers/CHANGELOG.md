@@ -1,5 +1,14 @@
 # @atlaskit/link-test-helpers
 
+## 11.0.2
+
+### Patch Changes
+
+- [`650f4c7ce7fb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/650f4c7ce7fb2) -
+  Type-only fixes for TypeScript 7 (tsgo) compatibility with the updated DOM lib. No runtime or
+  public API changes.
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import { isFedRamp } from '@atlaskit/atlassian-context';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 // https://sentry.io/settings/atlassian-2y/projects/people-and-teams-directory/keys/
 export const SENTRY_PUBLIC_KEY = '1dc056d49dfe4df8961dc1b810e4620d';

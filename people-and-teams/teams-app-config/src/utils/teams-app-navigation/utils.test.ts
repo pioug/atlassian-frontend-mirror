@@ -1,4 +1,4 @@
-import { isFedRamp } from '@atlaskit/atlassian-context';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 import type {
 	NavigationAction,
@@ -16,14 +16,21 @@ import {
 	onNavigateBase,
 } from './utils';
 
-jest.mock('@atlaskit/atlassian-context', () => ({
+jest.mock('@atlaskit/atlassian-context/get-atl-context-url', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/get-atl-context-url'),
 	getATLContextUrl: jest.fn((product: string) => {
 		if (product === 'home') {
 			return 'https://home.atlassian.com';
 		}
 		return `https://${product}.atlassian.net`;
 	}),
+}));
+jest.mock('@atlaskit/atlassian-context/is-fedramp', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp'),
 	isFedRamp: jest.fn(() => false),
+}));
+jest.mock('@atlaskit/atlassian-context/is-isolated-cloud', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-isolated-cloud'),
 	isIsolatedCloud: jest.fn(() => false),
 }));
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.4
+
+### Patch Changes
+
+- [`7fd637a1c5c47`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fd637a1c5c47) -
+  Add a fix for sort buttons misbehaving when the headings have marks.
+- Updated dependencies
+
 ## 24.4.3
 
 ### Patch Changes

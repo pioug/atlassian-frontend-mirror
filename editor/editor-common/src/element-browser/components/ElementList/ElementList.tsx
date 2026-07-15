@@ -16,10 +16,8 @@ import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs
 
 import type { WithAnalyticsEventsProps, WithContextProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, Stack, Text } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -647,64 +645,42 @@ const ElementBefore = memo(({ icon }: Partial<QuickInsertItem>) => (
 
 const ItemContent = memo(
 	({ title, description, keyshortcut, lozenge, isDisabled }: Partial<QuickInsertItem>) => {
-		if (fg('platform_editor_typography_ugc')) {
-			return (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				<div css={itemBody} className="item-body">
-					<div css={itemText}>
-						<Stack space="space.025">
-							<div css={itemTitleWrapper}>
-								{editorExperiment('platform_synced_block', true) || lozenge ? (
-									<Flex alignItems="center" gap="space.050">
-										<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
-											{title}
-										</Text>
-										{lozenge}
-									</Flex>
-								) : (
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			<div css={itemBody} className="item-body">
+				<div css={itemText}>
+					<Stack space="space.025">
+						<div css={itemTitleWrapper}>
+							{editorExperiment('platform_synced_block', true) || lozenge ? (
+								<Flex alignItems="center" gap="space.050">
 									<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
 										{title}
 									</Text>
-								)}
-								<div css={itemAfter}>
-									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-									{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}
-								</div>
-							</div>
-							{description && (
-								<Text
-									color={isDisabled ? 'color.text.disabled' : 'color.text.subtle'}
-									size="small"
-									maxLines={2}
-								>
-									{description}
+									{lozenge}
+								</Flex>
+							) : (
+								<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
+									{title}
 								</Text>
 							)}
-						</Stack>
-					</div>
-				</div>
-			);
-		} else {
-			return (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				<div css={itemBody} className="item-body">
-					<div css={itemText}>
-						<div css={itemTitleWrapper}>
-							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text*/}
-							<p css={isDisabled ? itemTitleDisabled : itemTitle}>{title}</p>
 							<div css={itemAfter}>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}
 							</div>
 						</div>
 						{description && (
-							// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
-							<p css={isDisabled ? itemDescriptionDisabled : itemDescription}>{description}</p>
+							<Text
+								color={isDisabled ? 'color.text.disabled' : 'color.text.subtle'}
+								size="small"
+								maxLines={2}
+							>
+								{description}
+							</Text>
 						)}
-					</div>
+					</Stack>
 				</div>
-			);
-		}
+			</div>
+		);
 	},
 );
 
@@ -769,34 +745,6 @@ const itemBody = css({
 	marginTop: token('space.negative.025'),
 });
 
-/*
- * -webkit-line-clamp is also supported by firefox 🎉
- * https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/68#CSS
- */
-const multilineStyle = css({
-	display: '-webkit-box',
-	WebkitLineClamp: 2,
-	WebkitBoxOrient: 'vertical',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const itemDescription = css(multilineStyle, {
-	overflow: 'hidden',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(11.67),
-	color: token('color.text.subtle'),
-	marginTop: token('space.025'),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const itemDescriptionDisabled = css(multilineStyle, {
-	overflow: 'hidden',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(11.67),
-	color: token('color.text.disabled'),
-	marginTop: token('space.025'),
-});
-
 const itemText = css({
 	width: 'inherit',
 	whiteSpace: 'initial',
@@ -805,20 +753,6 @@ const itemText = css({
 const itemTitleWrapper = css({
 	display: 'flex',
 	justifyContent: 'space-between',
-});
-const itemTitle = css({
-	width: '100%',
-	overflow: 'hidden',
-	whiteSpace: 'nowrap',
-	textOverflow: 'ellipsis',
-});
-
-const itemTitleDisabled = css({
-	width: '100%',
-	overflow: 'hidden',
-	whiteSpace: 'nowrap',
-	textOverflow: 'ellipsis',
-	color: token('color.text.disabled'),
 });
 
 const itemAfter = css({

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@testing-library/react';
 
 import { TableContainer } from '../../nodes/table';
@@ -161,17 +161,17 @@ describe('Table isPresentational prop', () => {
 		</TableContainer>
 	);
 
-	ffTest(
-		'platform_renderer_isPresentational',
-		() => {
-			renderWithIntl(<Component isPresentational />);
-			const table = screen.getByTestId('renderer-table');
-			expect(table).toHaveAttribute('role', 'presentation');
-		},
-		() => {
-			renderWithIntl(<Component />);
-			const table = screen.getByTestId('renderer-table');
-			expect(table).not.toHaveAttribute('role', 'presentation');
-		},
-	);
+	it('when feature gate platform_renderer_isPresentational is ON, table with isPresentational has role presentation', () => {
+		passGate('platform_renderer_isPresentational');
+		renderWithIntl(<Component isPresentational />);
+		const table = screen.getByTestId('renderer-table');
+		expect(table).toHaveAttribute('role', 'presentation');
+	});
+
+	it('when feature gate platform_renderer_isPresentational is OFF, table does not have role presentation', () => {
+		failGate('platform_renderer_isPresentational');
+		renderWithIntl(<Component />);
+		const table = screen.getByTestId('renderer-table');
+		expect(table).not.toHaveAttribute('role', 'presentation');
+	});
 });

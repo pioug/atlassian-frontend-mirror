@@ -48,7 +48,9 @@ const scenarios = [
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('behavior during drags', () => {
 	beforeEach(() => {
-		HTMLElement.prototype.matches = jest.fn().mockReturnValue(true);
+		HTMLElement.prototype.matches = jest
+			.fn()
+			.mockReturnValue(true) as unknown as typeof HTMLElement.prototype.matches;
 
 		jest.useFakeTimers();
 	});

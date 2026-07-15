@@ -50,7 +50,7 @@ import { getMoreAccuratePageVisibilityUpToTTAI } from './utils/get-more-accurate
 import { getNavigationMetricsToLegacyFormat } from './utils/get-navigation-metrics';
 import getPageVisibilityUpToTTAI from './utils/get-page-visibility-up-to-ttai';
 import { getPaintMetricsToLegacyFormat } from './utils/get-paint-metrics';
-import getPayloadSize from './utils/get-payload-size';
+import getPayloadSize, { type PayloadSizeResult } from './utils/get-payload-size';
 import { getReactUFOPayloadVersion } from './utils/get-react-ufo-payload-version';
 import getSSRDoneTimeValue from './utils/get-ssr-done-time-value';
 import getSSRSuccessUtil from './utils/get-ssr-success';
@@ -67,6 +67,30 @@ import { optimizeSpans } from './utils/optimize-spans';
 import { trimVcDebugData } from './utils/trim-vc-debug-data';
 
 const MAX_PAYLOAD_SIZE = 230;
+
+type PayloadSizeMetadataProperties = Record<string, unknown> & {
+	'event:payloadSizeUsedSafeSerializer'?: boolean;
+	'event:payloadSizeSerializationFailed'?: boolean;
+};
+
+function getPayloadSizeAndAnnotate(properties: PayloadSizeMetadataProperties): number {
+	const result = getPayloadSize(properties, { includeMetadata: true });
+	annotatePayloadSizeMetadata(properties, result);
+	return result.sizeInKb;
+}
+
+function annotatePayloadSizeMetadata(
+	properties: PayloadSizeMetadataProperties,
+	result: PayloadSizeResult,
+): void {
+	if (result.usedSafeSerializer) {
+		properties['event:payloadSizeUsedSafeSerializer'] = true;
+	}
+
+	if (result.serializationFailed) {
+		properties['event:payloadSizeSerializationFailed'] = true;
+	}
+}
 
 function getUfoNameOverride(interaction: InteractionMetrics): string {
 	const { ufoName, apdex } = interaction;
@@ -870,7 +894,7 @@ async function createInteractionMetricsPayload(
 		},
 	};
 
-	const size = getPayloadSize(payload.attributes.properties);
+	const size = getPayloadSizeAndAnnotate(payload.attributes.properties);
 	const vcRev = (payload.attributes.properties as Record<string, any>)['ufo:vc:rev'];
 	if (Array.isArray(vcRev)) {
 		const rawData = vcRev.find((item: { revision: string }) => item.revision === 'raw-handler');
@@ -891,7 +915,9 @@ async function createInteractionMetricsPayload(
 			}
 		}
 	}
-	payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
+	payload.attributes.properties['event:sizeInKb'] = getPayloadSizeAndAnnotate(
+		payload.attributes.properties,
+	);
 
 	// in order of importance, first one being least important
 	// we can add more fields as necessary
@@ -917,7 +943,7 @@ async function createInteractionMetricsPayload(
 
 	if (interactionMetrics) {
 		for (const field of interactionMetricsFieldsToTrim) {
-			if (getPayloadSize(properties) <= MAX_PAYLOAD_SIZE) {
+			if (getPayloadSizeAndAnnotate(properties) <= MAX_PAYLOAD_SIZE) {
 				continue;
 			}
 
@@ -934,7 +960,7 @@ async function createInteractionMetricsPayload(
 	}
 	// Trim top-level properties if payload still exceeds the limit
 	for (const field of topLevelFieldsToTrim) {
-		if (getPayloadSize(properties) <= MAX_PAYLOAD_SIZE) {
+		if (getPayloadSizeAndAnnotate(properties) <= MAX_PAYLOAD_SIZE) {
 			continue;
 		}
 
@@ -951,7 +977,7 @@ async function createInteractionMetricsPayload(
 
 	// If the payload size continues to exceed the limit and interactionMetrics is already trimmed,
 	// trim VC debug data (early viewport checkpoints). PIR-30543 - AFO-5033
-	trimVcDebugData(properties, getPayloadSize(properties), MAX_PAYLOAD_SIZE);
+	trimVcDebugData(properties, getPayloadSizeAndAnnotate(properties), MAX_PAYLOAD_SIZE);
 
 	return payload as InteractionMetricsPayloadResult;
 }

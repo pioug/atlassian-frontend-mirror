@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import { processImages, createContentId } from '..';
 import * as icons from '../icons';
 import { base64Prefix, imageOutputType } from '../generator/constants';
@@ -39,14 +31,6 @@ describe('static asset rendering tests', () => {
 
 		// embeddedImages is irrelevant for mock mode
 		expect(output.embeddedImages).toEqual([]);
-	});
-
-	// these tests make sure that the generator does not spew out something unexpected
-	it('generator: icons match snapshots', () => {
-		// eslint-disable-next-line guard-for-in
-		for (const icon in icons.IconName) {
-			expect(icons[icon as icons.IconString]).toMatchSnapshot(icon);
-		}
 	});
 
 	it('createContentId: should create contentIds as expected', () => {

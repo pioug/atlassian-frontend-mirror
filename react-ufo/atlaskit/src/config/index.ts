@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/volt-strict-mode/no-multiple-exports */
-import { isFedrampModerate } from '@atlaskit/atlassian-context';
+import { isFedrampModerate } from '@atlaskit/atlassian-context/is-fedramp-moderate';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AssetsConfig, InteractionMetrics, InteractionType } from '../common';

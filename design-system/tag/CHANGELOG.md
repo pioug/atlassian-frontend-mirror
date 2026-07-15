@@ -1,5 +1,18 @@
 # @atlaskit/tag
 
+## 15.2.2
+
+### Patch Changes
+
+- [`54390f4df63aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54390f4df63aa) - -
+  Deprecated `SimpleTag` and `RemovableTag`. Migrate to the default `Tag` export from
+  `@atlaskit/tag`: use `<Tag isRemovable={false} />` in place of `SimpleTag`, and `<Tag />` in place
+  of `RemovableTag` (removable by default).
+  - Removed `hasMargin` from `SimpleTagProps` as it was never forwarded to the underlying tag and
+    had no effect on `SimpleTag`. The prop remains available on `RemovableTag`, where it is applied
+    correctly.
+- Updated dependencies
+
 ## 15.2.1
 
 ### Patch Changes

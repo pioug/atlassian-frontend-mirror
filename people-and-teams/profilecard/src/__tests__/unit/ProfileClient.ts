@@ -4,7 +4,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 // @ts-ignore
 import * as sinon from 'sinon';
 
-import { isFedRamp } from '@atlaskit/atlassian-context';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 import ProfileClient from '../../client/ProfileCardClient';
 import TeamCentralCardClient from '../../client/TeamCentralCardClient';
@@ -15,8 +15,8 @@ const clientUrl = 'https://foo/';
 const clientCacheSize = 10;
 const clientCacheMaxAge = 500;
 
-jest.mock('@atlaskit/atlassian-context', () => ({
-	...jest.requireActual('@atlaskit/atlassian-context'),
+jest.mock('@atlaskit/atlassian-context/is-fedramp', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp'),
 	isFedRamp: jest.fn(),
 }));
 

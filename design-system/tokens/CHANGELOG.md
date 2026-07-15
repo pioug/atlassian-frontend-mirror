@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 15.8.0
+
+### Minor Changes
+
+- [`b5b9917f875a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5b9917f875a8) -
+  [ux] Add `text-decoration-color` to the `motion.listitem.*` transition tokens and consume them in
+  Breadcrumbs.
+
 ## 15.7.0
 
 ### Minor Changes

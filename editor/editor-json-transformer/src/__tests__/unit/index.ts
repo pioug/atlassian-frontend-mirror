@@ -181,7 +181,40 @@ describe('JSONTransformer:', () => {
 				),
 			);
 			const pmDoc = state.doc;
-			expect(toJSON(pmDoc)).toMatchSnapshot();
+			const result = toJSON(pmDoc);
+			expect(result.content).toHaveLength(16);
+			expect(result.content?.[0]).toMatchObject({
+				type: 'paragraph',
+				content: [
+					{ type: 'text', text: '>' },
+					{ type: 'text', text: ' Atlassian: ' },
+					{ type: 'hardBreak' },
+					{
+						type: 'text',
+						text: 'Atlassian',
+						marks: [{ type: 'link', attrs: { href: 'https://atlassian.com' } }],
+					},
+				],
+			});
+			expect(result.content?.[1]).toMatchObject({
+				type: 'paragraph',
+				content: expect.arrayContaining([
+					expect.objectContaining({ type: 'text', text: 'hello' }),
+					expect.objectContaining({ type: 'text', text: 'world' }),
+					expect.objectContaining({ type: 'text', text: '!' }),
+				]),
+			});
+			expect(result.content).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({ type: 'rule' }),
+					expect.objectContaining({ type: 'rule' }),
+				]),
+			);
+			expect(result.content?.[15]).toMatchObject({
+				type: 'orderedList',
+				attrs: { order: 6 },
+				content: expect.any(Array),
+			});
 		});
 
 		it('should serialize media nodes/marks as ProseMirror does', () => {
@@ -246,7 +279,69 @@ describe('JSONTransformer:', () => {
 				),
 			);
 			const pmDoc = editorView.state.doc;
-			expect(toJSON(pmDoc)).toMatchSnapshot();
+			const result = toJSON(pmDoc);
+			expect(result.content).toHaveLength(4);
+			expect(result.content?.[0]).toMatchObject({
+				type: 'mediaSingle',
+				attrs: { layout: 'center' },
+				content: [
+					{
+						type: 'media',
+						attrs: {
+							id: 'foo media single',
+							type: 'file',
+							collection: '',
+							width: 256,
+							height: 128,
+							alt: 'Good day',
+						},
+						marks: expect.arrayContaining([
+							expect.objectContaining({ type: 'link', attrs: { href: 'https://atlassian.com' } }),
+							expect.objectContaining({ type: 'border', attrs: { color: '#091e4224', size: 2 } }),
+						]),
+					},
+				],
+			});
+			expect(result.content?.[1]).toMatchObject({
+				type: 'mediaSingle',
+				attrs: { layout: 'center', width: 321 },
+			});
+			expect(result.content?.[2]).toMatchObject({
+				type: 'paragraph',
+				content: [
+					{
+						type: 'mediaInline',
+						attrs: {
+							id: 'foo file',
+							type: 'file',
+							collection: '',
+							width: 123,
+							height: 456,
+							alt: 'Good day',
+						},
+					},
+				],
+			});
+			expect(result.content?.[3]).toMatchObject({
+				type: 'paragraph',
+				content: [
+					{
+						type: 'mediaInline',
+						attrs: {
+							id: 'foo image',
+							type: 'image',
+							collection: '',
+							width: 123,
+							height: 456,
+							alt: 'Good day',
+						},
+						marks: expect.arrayContaining([
+							expect.objectContaining({ type: 'link', attrs: { href: 'https://atlassian.com' } }),
+							expect.objectContaining({ type: 'border', attrs: { color: '#091e4224', size: 3 } }),
+						]),
+					},
+				],
+			});
 		});
 
 		it('should strip optional attrs from media node', () => {

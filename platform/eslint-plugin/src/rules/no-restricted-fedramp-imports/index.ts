@@ -5,6 +5,10 @@ const RESTRICTED_IMPORTS: Record<string, string[]> = {
 	'@atlassian/atl-context': ['isFedRamp', 'isIsolatedCloud'],
 	'@atlaskit/atlassian-context': ['isFedRamp', 'isIsolatedCloud', 'isGoogleCloudPlatform'],
 	'@atlaskit/atlassian-context/cloud-provider': ['isGoogleCloudPlatform'],
+	// Per-export subpaths (barrel usage was migrated to these; keep the deprecation
+	// guardrail firing for the restricted functions on their dedicated entry points).
+	'@atlaskit/atlassian-context/is-fedramp': ['isFedRamp'],
+	'@atlaskit/atlassian-context/is-isolated-cloud': ['isIsolatedCloud'],
 };
 
 const rule: Rule.RuleModule = {

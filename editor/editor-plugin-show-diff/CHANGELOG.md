@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.4.2
+
+### Patch Changes
+
+- [`a41c9b243974d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a41c9b243974d) -
+  Fix smart diff fabricating a phantom whole-block deletion when a new block is inserted at a
+  top-level boundary (e.g. a paragraph added immediately before a bulletList). topLevelBlocksInRange
+  now treats a zero-width insertion anchor sitting exactly on a top-level block boundary as touching
+  no block, so a pure insertion is no longer mis-paired with the following block and converted into
+  a whole-block replacement. This also lets pure whole-block deletions surface under smart diff.
+- Updated dependencies
+
+## 10.4.1
+
+### Patch Changes
+
+- [`81ce4d8f5cd8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81ce4d8f5cd8a) -
+  Show blue indicators for new added paragraphs and headings
+- Updated dependencies
+
 ## 10.4.0
 
 ### Minor Changes

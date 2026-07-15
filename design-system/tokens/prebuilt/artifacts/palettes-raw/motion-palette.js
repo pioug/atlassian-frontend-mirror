@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9d549f4c0fb4f037c4c7234b24f34923>>
+ * @codegen <<SignedSource::e660e842412d47f6ce5cefabcc7e0e10>>
  * @codegenCommand yarn build tokens
  */
 
@@ -854,6 +854,21 @@ var tokens = [{
   },
   "name": "motion.properties.Color",
   "path": ["motion", "properties", "Color"]
+}, {
+  "value": "text-decoration-color",
+  "attributes": {
+    "group": "motionProperty"
+  },
+  "filePath": "schema/palettes/motion-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "text-decoration-color",
+    "attributes": {
+      "group": "motionProperty"
+    }
+  },
+  "name": "motion.properties.TextDecorationColor",
+  "path": ["motion", "properties", "TextDecorationColor"]
 }, {
   "value": "transform",
   "attributes": {

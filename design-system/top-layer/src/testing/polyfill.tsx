@@ -485,12 +485,15 @@ if (typeof HTMLElement !== 'undefined') {
 	// delegate every other selector to the original implementation.
 	// Spec: https://html.spec.whatwg.org/multipage/semantics-other.html#selector-popover-open
 	const originalMatches = Element.prototype.matches;
+	// The DOM lib types `Element.prototype.matches` as a set of type-predicate
+	// overloads. This polyfill intentionally replaces it with a plain boolean
+	// implementation, so we cast to the original member type.
 	Element.prototype.matches = function patchedMatches(this: Element, selector: string): boolean {
 		if (selector === ':popover-open') {
 			return this.hasAttribute('data-popover-open');
 		}
 		return originalMatches.call(this, selector);
-	};
+	} as typeof Element.prototype.matches;
 
 	// Spec: https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
 	if (!HTMLElement.prototype.showPopover) {

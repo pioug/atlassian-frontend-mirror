@@ -19,7 +19,10 @@ page.
 <Example
 	Component={BreadcrumbsRefreshDefault}
 	packageName="@atlaskit/breadcrumbs"
-	featureFlagDefaults={{ 'platform_dst_breadcrumbs-refresh': true }}
+	featureFlagDefaults={{
+		'platform_dst_breadcrumbs-refresh': true,
+		'platform-dst-motion-uplift-list-item': true,
+	}}
 />
 
 ## Current item
@@ -31,7 +34,10 @@ copies its `href` to the clipboard, so provide a valid `href` for the current pa
 <Example
 	Component={BreadcrumbsRefreshCurrentItem}
 	packageName="@atlaskit/breadcrumbs"
-	featureFlagDefaults={{ 'platform_dst_breadcrumbs-refresh': true }}
+	featureFlagDefaults={{
+		'platform_dst_breadcrumbs-refresh': true,
+		'platform-dst-motion-uplift-list-item': true,
+	}}
 />
 
 ## Elements before items
@@ -41,7 +47,10 @@ Use `elemBefore` to display an element such as an icon, logo, or tile before a b
 <Example
 	Component={BreadcrumbsRefreshElemBefore}
 	packageName="@atlaskit/breadcrumbs"
-	featureFlagDefaults={{ 'platform_dst_breadcrumbs-refresh': true }}
+	featureFlagDefaults={{
+		'platform_dst_breadcrumbs-refresh': true,
+		'platform-dst-motion-uplift-list-item': true,
+	}}
 />
 
 ## Size
@@ -52,7 +61,10 @@ surrounding content.
 <Example
 	Component={BreadcrumbsRefreshSizeSmall}
 	packageName="@atlaskit/breadcrumbs"
-	featureFlagDefaults={{ 'platform_dst_breadcrumbs-refresh': true }}
+	featureFlagDefaults={{
+		'platform_dst_breadcrumbs-refresh': true,
+		'platform-dst-motion-uplift-list-item': true,
+	}}
 />
 
 ## Overflow
@@ -63,7 +75,10 @@ overflow menu. Select the ellipsis to reveal the collapsed items.
 <Example
 	Component={BreadcrumbsRefreshOverflow}
 	packageName="@atlaskit/breadcrumbs"
-	featureFlagDefaults={{ 'platform_dst_breadcrumbs-refresh': true }}
+	featureFlagDefaults={{
+		'platform_dst_breadcrumbs-refresh': true,
+		'platform-dst-motion-uplift-list-item': true,
+	}}
 />
 
 ## Skeleton
@@ -74,5 +89,8 @@ place of the real breadcrumbs, then swap to `Breadcrumbs` once the data is ready
 <Example
 	Component={BreadcrumbsRefreshSkeleton}
 	packageName="@atlaskit/breadcrumbs"
-	featureFlagDefaults={{ 'platform_dst_breadcrumbs-refresh': true }}
+	featureFlagDefaults={{
+		'platform_dst_breadcrumbs-refresh': true,
+		'platform-dst-motion-uplift-list-item': true,
+	}}
 />

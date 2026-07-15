@@ -1,4 +1,4 @@
-import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type NavigationActionCommon } from '../../types';

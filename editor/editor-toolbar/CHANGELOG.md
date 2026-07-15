@@ -1,5 +1,12 @@
 # @atlaskit/editor-toolbar
 
+## 2.2.1
+
+### Patch Changes
+
+- [`214dc64fb8525`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/214dc64fb8525) -
+  [ux] [EDITOR-8122] revert changes to the col-gap in the color picker
+
 ## 2.2.0
 
 ### Minor Changes

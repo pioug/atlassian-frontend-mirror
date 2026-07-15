@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.2.5
+
+### Patch Changes
+
+- [`02a6a65136967`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02a6a65136967) -
+  [EDITOR-8101] add breakout to existing resizable top-level panels and dividers when doc has not
+  changed
+
 ## 12.2.4
 
 ### Patch Changes

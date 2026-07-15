@@ -51,21 +51,21 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				value: {
 					duration: 'Duration050',
 					curve: 'EasePracticalOut',
-					properties: ['BackgroundColor', 'BorderColor', 'Color'],
+					properties: ['BackgroundColor', 'BorderColor', 'Color', 'TextDecorationColor'],
 				},
 			},
 			pressed: {
 				value: {
 					duration: 'Duration100',
 					curve: 'EasePracticalOut',
-					properties: ['BackgroundColor', 'BorderColor', 'Color'],
+					properties: ['BackgroundColor', 'BorderColor', 'Color', 'TextDecorationColor'],
 				},
 			},
 			selected: {
 				value: {
 					duration: 'Duration100',
 					curve: 'EasePracticalOut',
-					properties: ['BackgroundColor', 'BorderColor', 'Color'],
+					properties: ['BackgroundColor', 'BorderColor', 'Color', 'TextDecorationColor'],
 				},
 			},
 		},

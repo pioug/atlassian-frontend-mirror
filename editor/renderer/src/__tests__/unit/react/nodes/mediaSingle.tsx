@@ -1,7 +1,7 @@
 import React from 'react';
 import { imageFileId } from '@atlaskit/media-test-helpers';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import type { MediaProps } from '../../../../react/nodes/media';
 import Media from '../../../../react/nodes/media';
 import type { Props as MediaSingleProps } from '../../../../react/nodes/mediaSingle';
@@ -232,72 +232,70 @@ describe('MediaSingle', () => {
 		});
 	});
 
-	ffTest.off('platform_editor_media_border_radius_fix', 'with border mark (old behaviour)', () => {
-		it('should use borderWidth as borderRadius', () => {
-			const fireAnalyticsEvent = jest.fn();
-			const mediaOnClick = jest.fn();
+	it('with border mark (old behaviour) - should use borderWidth as borderRadius', () => {
+		failGate('platform_editor_media_border_radius_fix');
+		const fireAnalyticsEvent = jest.fn();
+		const mediaOnClick = jest.fn();
 
-			const mediaSingle = mountMediaSingle(
-				{
-					fireAnalyticsEvent,
-				},
-				{
-					marks: [
-						{
-							type: 'border',
-							attrs: {
-								color: '#091E4224',
-								size: 3,
-							},
+		const mediaSingle = mountMediaSingle(
+			{
+				fireAnalyticsEvent,
+			},
+			{
+				marks: [
+					{
+						type: 'border',
+						attrs: {
+							color: '#091E4224',
+							size: 3,
 						},
-					],
-					isBorderMark: () => true,
-					eventHandlers: { media: { onClick: mediaOnClick } },
-				},
-			);
+					},
+				],
+				isBorderMark: () => true,
+				eventHandlers: { media: { onClick: mediaOnClick } },
+			},
+		);
 
-			const border = mediaSingle.find('div[data-mark-type="border"]');
-			expect(border).toHaveLength(1);
-			expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
-			expect(getComputedStyle(border.getDOMNode())).toHaveProperty('borderRadius', '3px');
+		const border = mediaSingle.find('div[data-mark-type="border"]');
+		expect(border).toHaveLength(1);
+		expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
+		expect(getComputedStyle(border.getDOMNode())).toHaveProperty('borderRadius', '3px');
 
-			mediaSingle.unmount();
-		});
+		mediaSingle.unmount();
 	});
 
-	ffTest.on('platform_editor_media_border_radius_fix', 'with border mark (new behaviour)', () => {
-		it('should use 8px as borderRadius', () => {
-			const fireAnalyticsEvent = jest.fn();
-			const mediaOnClick = jest.fn();
+	it('with border mark (new behaviour) - should use 8px as borderRadius', () => {
+		passGate('platform_editor_media_border_radius_fix');
+		const fireAnalyticsEvent = jest.fn();
+		const mediaOnClick = jest.fn();
 
-			const mediaSingle = mountMediaSingle(
-				{
-					fireAnalyticsEvent,
-				},
-				{
-					marks: [
-						{
-							type: 'border',
-							attrs: {
-								color: '#091E4224',
-								size: 3,
-							},
+		const mediaSingle = mountMediaSingle(
+			{
+				fireAnalyticsEvent,
+			},
+			{
+				marks: [
+					{
+						type: 'border',
+						attrs: {
+							color: '#091E4224',
+							size: 3,
 						},
-					],
-					isBorderMark: () => true,
-					eventHandlers: { media: { onClick: mediaOnClick } },
-				},
-			);
+					},
+				],
+				isBorderMark: () => true,
+				eventHandlers: { media: { onClick: mediaOnClick } },
+			},
+		);
 
-			const border = mediaSingle.find('div[data-mark-type="border"]');
-			expect(border).toHaveLength(1);
-			expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
-			expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
-				'borderRadius',
-				'var(--ds-radius-large, 8px)',
-			);
+		const border = mediaSingle.find('div[data-mark-type="border"]');
+		expect(border).toHaveLength(1);
+		expect(getComputedStyle(border.getDOMNode()).getPropertyValue('box-shadow')).toContain('3px');
+		expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
+			'borderRadius',
+			'var(--ds-radius-large, 8px)',
+		);
 
-			mediaSingle.unmount();
-		});
+		mediaSingle.unmount();
 	});
 });

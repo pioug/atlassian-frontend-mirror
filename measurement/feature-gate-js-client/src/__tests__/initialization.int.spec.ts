@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 
-import { isFedRamp } from '@atlaskit/atlassian-context';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 import type Client from '../client';
 import type FeatureGates from '../client/FeatureGates';
@@ -18,7 +18,8 @@ import {
 } from '../client/fetcher/Fetcher';
 import { type ClientOptions } from '../client/types';
 
-jest.mock('@atlaskit/atlassian-context', () => ({
+jest.mock('@atlaskit/atlassian-context/is-fedramp', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp'),
 	isFedRamp: jest.fn(),
 }));
 

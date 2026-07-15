@@ -1,5 +1,5 @@
 import { renderHook, act } from '@atlassian/testing-library';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import type { DocNode } from '@atlaskit/adf-schema';
 
 import { useScrollToBlock } from '../useScrollToBlock';
@@ -139,7 +139,10 @@ describe('useScrollToBlock', () => {
 	});
 
 	describe('scrolling without expand parents', () => {
-		ffTest.on('platform_editor_block_menu_v2_patch_4', 'gate on', () => {
+		describe('gate on', () => {
+			beforeEach(() => {
+				passGate('platform_editor_block_menu_v2_patch_4');
+			});
 			it('should scroll to element when node has no expand parents', () => {
 				const containerDiv = document.createElement('div');
 				const targetElement = document.createElement('div');
@@ -259,7 +262,10 @@ describe('useScrollToBlock', () => {
 			});
 		});
 
-		ffTest.off('platform_editor_block_menu_v2_patch_4', 'gate off', () => {
+		describe('gate off', () => {
+			beforeEach(() => {
+				failGate('platform_editor_block_menu_v2_patch_4');
+			});
 			it('should scroll to element when node has no expand parents', () => {
 				const containerDiv = document.createElement('div');
 				const targetElement = document.createElement('div');
@@ -373,7 +379,10 @@ describe('useScrollToBlock', () => {
 	});
 
 	describe('scrolling with expand parents', () => {
-		ffTest.off('platform_editor_block_menu_v2_patch_4', 'gate off', () => {
+		describe('gate off', () => {
+			beforeEach(() => {
+				failGate('platform_editor_block_menu_v2_patch_4');
+			});
 			it('should expand collapsed parent expand before scrolling', () => {
 				const containerDiv = document.createElement('div');
 				const expandContainer = document.createElement('div');
@@ -603,7 +612,10 @@ describe('useScrollToBlock', () => {
 				expect(mockExpandAllParentsThenScroll).toHaveBeenCalledWith(targetElement);
 			});
 		});
-		ffTest.on('platform_editor_block_menu_v2_patch_4', 'gate on', () => {
+		describe('gate on', () => {
+			beforeEach(() => {
+				passGate('platform_editor_block_menu_v2_patch_4');
+			});
 			it('should expand collapsed parent expand before scrolling', () => {
 				const containerDiv = document.createElement('div');
 				const expandContainer = document.createElement('div');
@@ -848,7 +860,10 @@ describe('useScrollToBlock', () => {
 	});
 
 	describe('stability waiting integration', () => {
-		ffTest.off('platform_editor_block_menu_v2_patch_4', 'gate off', () => {
+		describe('gate off', () => {
+			beforeEach(() => {
+				failGate('platform_editor_block_menu_v2_patch_4');
+			});
 			it('should wait for stability before scrolling', () => {
 				const containerDiv = document.createElement('div');
 				const targetElement = document.createElement('div');
@@ -900,7 +915,10 @@ describe('useScrollToBlock', () => {
 			});
 		});
 
-		ffTest.on('platform_editor_block_menu_v2_patch_4', 'gate on', () => {
+		describe('gate on', () => {
+			beforeEach(() => {
+				passGate('platform_editor_block_menu_v2_patch_4');
+			});
 			it('should wait for stability before scrolling', () => {
 				const containerDiv = document.createElement('div');
 				const targetElement = document.createElement('div');

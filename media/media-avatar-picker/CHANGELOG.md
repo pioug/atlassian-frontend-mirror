@@ -1,5 +1,15 @@
 # @atlaskit/media-avatar-picker
 
+## 28.1.3
+
+### Patch Changes
+
+- [`8215497858752`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8215497858752) -
+  [ux] A11Y-41990: Predefined avatar radio buttons without their own name now expose a positional
+  accessible name (e.g. "Default avatar option 1") so screen reader users can identify each option.
+  Gated behind `platform_media_a11y_avatar_radio_label`.
+- Updated dependencies
+
 ## 28.1.2
 
 ### Patch Changes

@@ -55,6 +55,13 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * existing experiments.
  */
 export const editorExperimentsConfig: {
+	// Added 2026-06-25
+	platform_editor_first_node_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-09
 	remix_button_right_margin_hover: {
 		defaultValue: boolean;
@@ -1115,6 +1122,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-09
+	cc_fix_ephemeral_preview_staging_area_registration: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-08
 	cc_fd_wb_jira_quick_insert_experiment: {
 		defaultValue: boolean;
@@ -1201,6 +1215,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-13
+	'editor-image-generation-styles-and-aspect-ratios': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1859,6 +1880,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-14
+	platform_editor_fix_table_sort_with_mark: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-01
 	platform_editor_ai_replace_doc: {
 		defaultValue: boolean;
@@ -2043,6 +2071,16 @@ export const editorExperimentsConfig: {
 	};
 } = {
 	// new format to avoid collisions with other users when updating the file
+
+	// Added 2026-06-25
+	platform_editor_first_node_fix: createBooleanExperiment({
+		productKeys: {
+			jira: 'platform_editor_first_node_fix',
+			confluence: 'platform_editor_first_node_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 
 	// Added 2026-06-09
 	remix_button_right_margin_hover: createBooleanExperiment({
@@ -2492,6 +2530,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_agent_mentions',
 			jira: 'platform_editor_agent_mentions',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-14
+	platform_editor_fix_table_sort_with_mark: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_table_sort_with_mark',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3317,6 +3363,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-13
+	'editor-image-generation-styles-and-aspect-ratios': createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor-image-generation-styles-and-aspect-ratios',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-06-23
 	confluence_advanced_header_image_generation_exp: createBooleanExperiment({
 		productKeys: {
@@ -3883,6 +3937,14 @@ export const editorExperimentsConfig: {
 	cc_fix_editor_context_on_cwr_followups: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_fix_editor_context_on_cwr_followups',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-09
+	cc_fix_ephemeral_preview_staging_area_registration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_fix_ephemeral_preview_staging_area_registration',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

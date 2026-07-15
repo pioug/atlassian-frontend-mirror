@@ -1,10 +1,10 @@
 import { mapToMediaCdnUrl, isCDNEnabled } from '../../utils/mediaCdn';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
 import { isGCPtenant } from '@atlaskit/media-common/mediaEnvUtils';
 
-jest.mock('@atlaskit/atlassian-context', () => ({
-	...jest.requireActual('@atlaskit/atlassian-context'),
+jest.mock('@atlaskit/atlassian-context/is-isolated-cloud', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-isolated-cloud'),
 	isIsolatedCloud: jest.fn(),
 }));
 

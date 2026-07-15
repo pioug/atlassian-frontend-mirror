@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 import { isCommercial } from './isCommercial';
-import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
 import { isGCPtenant } from '@atlaskit/media-common/mediaEnvUtils';
 import { isPathBasedEnabled } from './pathBasedUrl';
 

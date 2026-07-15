@@ -2,100 +2,94 @@
 title: Spotlight
 order: 1
 description: A spotlight focuses attention on a specific part of the UI, like a button or an icon.
-props:
-  packageName: '@atlaskit/spotlight'
-  exports:
-    - SpotlightCard
-    - SpotlightActions
-    - SpotlightBody
-    - SpotlightControls
-    - SpotlightDismissControl
-    - SpotlightFooter
-    - SpotlightHeader
-    - SpotlightHeadline
-    - SpotlightMedia
-    - SpotlightPrimaryAction
-    - SpotlightPrimaryLink
-    - SpotlightSecondaryAction
-    - SpotlightSecondaryLink
-    - SpotlightShowMoreControl
-    - SpotlightStepCount
-    - PopoverContent
-    - PopoverProvider
-    - PopoverTarget
 ---
 
 ## PopoverContent props
 
-<TSMorphProps exportName="PopoverContent" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="PopoverContent" packageName="@atlaskit/spotlight/popover-content" />
 
 ## PopoverProvider props
 
-<TSMorphProps exportName="PopoverProvider" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="PopoverProvider" packageName="@atlaskit/spotlight/popover-provider" />
 
 ## PopoverTarget props
 
-<TSMorphProps exportName="PopoverTarget" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="PopoverTarget" packageName="@atlaskit/spotlight/popover-target" />
 
 ## SpotlightCard props
 
-<TSMorphProps exportName="SpotlightCard" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightCard" packageName="@atlaskit/spotlight/card" />
 
 ## SpotlightActions props
 
-<TSMorphProps exportName="SpotlightActions" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightActions" packageName="@atlaskit/spotlight/actions" />
 
 ## SpotlightBody props
 
-<TSMorphProps exportName="SpotlightBody" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightBody" packageName="@atlaskit/spotlight/body" />
 
 ## SpotlightControls props
 
-<TSMorphProps exportName="SpotlightControls" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightControls" packageName="@atlaskit/spotlight/controls" />
 
 ## SpotlightDismissControl props
 
-<TSMorphProps exportName="SpotlightDismissControl" packageName="@atlaskit/spotlight" />
+<TSMorphProps
+	exportName="SpotlightDismissControl"
+	packageName="@atlaskit/spotlight/dismiss-control"
+/>
 
 ## SpotlightFooter props
 
-<TSMorphProps exportName="SpotlightFooter" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightFooter" packageName="@atlaskit/spotlight/footer" />
 
 ## SpotlightHeader props
 
-<TSMorphProps exportName="SpotlightHeader" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightHeader" packageName="@atlaskit/spotlight/header" />
 
 ## SpotlightHeadline props
 
-<TSMorphProps exportName="SpotlightHeadline" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightHeadline" packageName="@atlaskit/spotlight/headline" />
 
 ## SpotlightMedia props
 
-<TSMorphProps exportName="SpotlightMedia" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightMedia" packageName="@atlaskit/spotlight/media" />
 
 ## SpotlightPrimaryAction props
 
-<TSMorphProps exportName="SpotlightPrimaryAction" packageName="@atlaskit/spotlight" />
+<TSMorphProps
+	exportName="SpotlightPrimaryAction"
+	packageName="@atlaskit/spotlight/primary-action"
+/>
 
 ## SpotlightPrimaryLink props
 
-<TSMorphProps exportName="SpotlightPrimaryLink" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightPrimaryLink" packageName="@atlaskit/spotlight/primary-link" />
 
 ## SpotlightSecondaryAction props
 
-<TSMorphProps exportName="SpotlightSecondaryAction" packageName="@atlaskit/spotlight" />
+<TSMorphProps
+	exportName="SpotlightSecondaryAction"
+	packageName="@atlaskit/spotlight/secondary-action"
+/>
 
 ## SpotlightSecondaryLink props
 
-<TSMorphProps exportName="SpotlightSecondaryLink" packageName="@atlaskit/spotlight" />
+<TSMorphProps
+	exportName="SpotlightSecondaryLink"
+	packageName="@atlaskit/spotlight/secondary-link"
+/>
 
 ## SpotlightShowMoreControl props
 
-<TSMorphProps exportName="SpotlightShowMoreControl" packageName="@atlaskit/spotlight" />
+<TSMorphProps
+	exportName="SpotlightShowMoreControl"
+	packageName="@atlaskit/spotlight/show-more-control"
+/>
 
 ## SpotlightStepCount props
 
-<TSMorphProps exportName="SpotlightStepCount" packageName="@atlaskit/spotlight" />
+<TSMorphProps exportName="SpotlightStepCount" packageName="@atlaskit/spotlight/step-count" />
 
 ## usePreloadMedia
 
@@ -119,7 +113,8 @@ This improves perceived performance when showing spotlight cards with media.
 ### Example
 
 ```tsx
-import { SpotlightMedia, usePreloadMedia } from '@atlaskit/spotlight';
+import { SpotlightMedia } from '@atlaskit/spotlight/spotlight-media';
+import { usePreloadMedia } from '@atlaskit/spotlight/use-preload-media';
 import Image from '@atlaskit/image';
 import imageSrc from './assets/image.png'
 

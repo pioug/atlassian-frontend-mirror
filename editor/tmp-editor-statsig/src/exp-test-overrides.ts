@@ -87,6 +87,7 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	// it does not gate this feature.
 	platform_editor_ai_new_aifc_editor_experience: false,
 	cc_page_experiences_editor_image_generation: false,
+	'editor-image-generation-styles-and-aspect-ratios': false,
 	confluence_advanced_header_image_generation_exp: false,
 	platform_use_unicode_emojis: false,
 	confluence_ai_generated_emojis: false,

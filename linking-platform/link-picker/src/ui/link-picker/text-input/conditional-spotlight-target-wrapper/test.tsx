@@ -4,8 +4,11 @@ import { render, screen } from '@testing-library/react';
 
 import { ConditionalSpotlightTargetWrapper } from './index';
 
-jest.mock('@atlaskit/spotlight', () => ({
+jest.mock('@atlaskit/spotlight/popover-provider', () => ({
 	PopoverProvider: ({ children }: { children: React.ReactElement }) => <>{children}</>,
+}));
+
+jest.mock('@atlaskit/spotlight/popover-target', () => ({
 	PopoverTarget: ({ children }: { children: React.ReactElement }) => (
 		<>spotlight wrapped children: {children}</>
 	),

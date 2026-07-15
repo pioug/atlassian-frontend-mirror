@@ -8,11 +8,11 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import ButtonItem from '../../button-item';
 
 const hovered =
-	'var(--ds-listitem-hovered,background-color border-color color 50ms cubic-bezier(.4,1,.6,1))';
+	'var(--ds-listitem-hovered,background-color border-color color text-decoration-color 50ms cubic-bezier(.4,1,.6,1))';
 const pressed =
-	'var(--ds-listitem-pressed,background-color border-color color .1s cubic-bezier(.4,1,.6,1))';
+	'var(--ds-listitem-pressed,background-color border-color color text-decoration-color .1s cubic-bezier(.4,1,.6,1))';
 const selected =
-	'var(--ds-listitem-selected,background-color border-color color .1s cubic-bezier(.4,1,.6,1))';
+	'var(--ds-listitem-selected,background-color border-color color text-decoration-color .1s cubic-bezier(.4,1,.6,1))';
 
 it('should pass an aXe audit', async () => {
 	const { container } = render(<ButtonItem isSelected>Hello</ButtonItem>);

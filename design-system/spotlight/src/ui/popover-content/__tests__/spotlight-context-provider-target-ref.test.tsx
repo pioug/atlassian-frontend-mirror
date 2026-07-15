@@ -4,16 +4,14 @@ import { Text } from '@atlaskit/primitives/compiled';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
+import { SpotlightBody } from '../../../entry-points/body';
+import { SpotlightCard } from '../../../entry-points/card';
+import { SpotlightControls } from '../../../entry-points/controls';
+import { SpotlightDismissControl } from '../../../entry-points/dismiss-control';
+import { SpotlightHeader } from '../../../entry-points/header';
+import { SpotlightHeadline } from '../../../entry-points/headline';
+import { PopoverContent } from '../../../entry-points/popover-content';
 import { SpotlightContextProvider } from '../../../entry-points/spotlight-context-provider';
-import {
-	PopoverContent,
-	SpotlightBody,
-	SpotlightCard,
-	SpotlightControls,
-	SpotlightDismissControl,
-	SpotlightHeader,
-	SpotlightHeadline,
-} from '../../../index';
 
 // `var` (rather than `let`) so the mock factory below — which Jest hoists
 // above this declaration — can still resolve the binding.

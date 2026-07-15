@@ -1,5 +1,18 @@
 # @atlassian/navigation-system
 
+## 10.5.3
+
+### Patch Changes
+
+- [`f2ec2ee8b495e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2ec2ee8b495e) -
+  Update `@atlaskit/spotlight` imports to use de-barrelled entry-points.
+- [`5d91339612c3b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d91339612c3b) -
+  Fix side nav rendering in the wrong grid area under streaming SSR, where Compiled could emit the
+  mobile and desktop `grid-area` atomic rules out of order. The mobile rule is now scoped to
+  `@media not (min-width: 64rem)` so it can never conflict with the desktop rule. Behind the
+  `platform_dst_nav4_side_nav_grid_area_fix` feature gate.
+- Updated dependencies
+
 ## 10.5.2
 
 ### Patch Changes

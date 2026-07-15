@@ -44,7 +44,7 @@ ffTest.on('platform-dst-top-layer', 'Tooltip top-layer rendering', () => {
 				return true;
 			}
 			return originalMatches.call(this, selector);
-		});
+		}) as unknown as typeof HTMLElement.prototype.matches;
 	});
 
 	afterEach(() => {

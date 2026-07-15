@@ -1,5 +1,27 @@
 # @atlaskit/link
 
+## 4.3.0
+
+### Minor Changes
+
+- [`b5b9917f875a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5b9917f875a8) -
+  [ux] Add `text-decoration-color` to the `motion.listitem.*` transition tokens and consume them in
+  Breadcrumbs.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.0
+
+### Minor Changes
+
+- [`717d224e37e6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/717d224e37e6a) -
+  Add motion to Link hover and pressed states behind the platform-dst-motion-uplift-list-item
+  feature gate: the link underline animates from coloured to transparent on hover/press, consuming
+  the motion.listitem.\* tokens (with the text-decoration-color transition driven by the matching
+  motion.duration/motion.easing tokens). Rendering is unchanged when the gate is off.
+
 ## 4.1.0
 
 ### Minor Changes

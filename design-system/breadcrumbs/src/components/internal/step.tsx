@@ -97,6 +97,18 @@ const styles = cssMap({
 	rootT26Shape: {
 		borderRadius: token('radius.xsmall'),
 	},
+	interactiveMotion: {
+		textDecorationLine: 'underline',
+		textDecorationColor: 'transparent',
+		transition: token('motion.listitem.hovered'),
+		'&:hover': {
+			textDecorationColor: token('color.text.subtlest'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+			textDecorationColor: token('color.text'),
+		},
+	},
 	withoutTruncation: {
 		minWidth: '0px',
 		flexShrink: '1',
@@ -267,6 +279,7 @@ const Step: React.ForwardRefExoticComponent<
 									styles.withTruncation,
 								truncationWidth == null && styles.withoutTruncation,
 								fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
+								fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
 							)
 						}
 						style={{
@@ -310,6 +323,7 @@ const Step: React.ForwardRefExoticComponent<
 								styles.withTruncation,
 							truncationWidth == null && styles.withoutTruncation,
 							fg('platform-dst-shape-theme-default') && styles.rootT26Shape,
+							fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
 						)
 					}
 					style={{

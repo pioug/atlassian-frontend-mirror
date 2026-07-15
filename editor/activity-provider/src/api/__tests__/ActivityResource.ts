@@ -3,8 +3,7 @@
   @atlaskit/design-system/no-unsafe-inline-snapshot
   -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
   See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
+  */
 
 import fetchMock from 'fetch-mock/es5/client';
 import { graphql, buildSchema } from 'graphql';
@@ -113,7 +112,20 @@ describe('ActivityResource', () => {
 	it('should resolve recent items', async () => {
 		const provider = new ActivityResource(activityUrl, cloudId);
 		const items = await provider.getRecentItems();
-		expect(items).toMatchSnapshot();
+		expect(items).toHaveLength(2);
+		expect(items[0]).toMatchObject({
+			name: 'recent item 1',
+			container: 'Editor Media',
+			objectId:
+				'ari:cloud:confluence:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:content/1456834291',
+			url: 'https://product-fabric.atlassian.net/browse/EDM-642',
+		});
+		expect(items[1]).toMatchObject({
+			name: 'recent item 2',
+			container: '',
+			objectId: 'ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/159941',
+			url: 'https://product-fabric.atlassian.net/browse/EDM-649',
+		});
 	});
 
 	describe('search recent', () => {
@@ -132,7 +144,8 @@ describe('ActivityResource', () => {
 		it('should perform case-insensitive prefix search on name property', async () => {
 			const provider = new ActivityResource(activityUrl, cloudId);
 			const items = await provider.searchRecent('recent');
-			expect(items).toMatchSnapshot();
+			expect(items).toHaveLength(2);
+			expect(items.map((item) => item.name)).toEqual(['recent item 1', 'recent item 2']);
 		});
 	});
 });

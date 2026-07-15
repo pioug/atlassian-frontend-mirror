@@ -3,9 +3,7 @@ import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import chromatism from 'chromatism';
 import { useIntl } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid, Inline } from '@atlaskit/primitives/compiled';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { Color } from './Color';
@@ -69,12 +67,6 @@ const ColorPalette = ({
 
 	const { colorMode: tokenTheme } = useThemeObserver();
 	const useIconToken = !!hexToPaletteColor;
-
-	const columnSpace =
-		expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-		fg('platform_editor_lovability_text_bg_color_patch_1')
-			? 'space.050'
-			: undefined;
 
 	// Refs for keyboard navigation
 	const paletteRef = useRef<HTMLDivElement>(null);
@@ -235,12 +227,7 @@ const ColorPalette = ({
 	return (
 		<Grid gap="space.050" ref={paletteRef} role="group">
 			{colorsPerRow.map((row, rowIndex) => (
-				<Inline
-					rowSpace="space.050"
-					space={columnSpace}
-					key={`row-first-color-${row[0].value}`}
-					role="radiogroup"
-				>
+				<Inline rowSpace="space.050" key={`row-first-color-${row[0].value}`} role="radiogroup">
 					{row.map(({ value, label, border, message, decorator }, colIndex) => {
 						let tooltipMessage = message;
 

@@ -1,4 +1,5 @@
-import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
+import { getATLContextUrl } from '@atlaskit/atlassian-context/get-atl-context-url';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics';
 
 import {

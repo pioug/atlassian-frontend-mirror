@@ -8,6 +8,7 @@ import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl';
 import { messages } from '@atlaskit/media-ui';
 import { useState } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface Avatar {
 	dataURI: string;
@@ -77,6 +78,10 @@ export const AvatarList = ({
 	const cards = avatars.map((avatar, idx) => {
 		const elementKey = `predefined-avatar-${idx}`;
 
+		const fallbackAvatarLabel = fg('platform_media_a11y_avatar_radio_label')
+			? intl.formatMessage(messages.select_an_avatar_option, { number: idx + 1 })
+			: undefined;
+
 		return (
 			<label key={elementKey} css={labelStyles}>
 				{/* eslint-disable-next-line @atlaskit/design-system/no-html-radio */}
@@ -84,7 +89,7 @@ export const AvatarList = ({
 					type="radio"
 					name="avatar"
 					value={avatar.dataURI}
-					aria-label={avatar.name || undefined}
+					aria-label={avatar.name || fallbackAvatarLabel}
 					checked={avatar === selectedAvatar}
 					onChange={createOnItemClickHandler(avatar)}
 					css={inputStyles}

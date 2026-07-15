@@ -1,11 +1,11 @@
-import { isIsolatedCloud } from '@atlaskit/atlassian-context';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type NavigationActionCommon } from '../../types';
 
 import { isTeamsAppEnabled } from './index';
 
-jest.mock('@atlaskit/atlassian-context');
+jest.mock('@atlaskit/atlassian-context/is-isolated-cloud');
 jest.mock('@atlaskit/platform-feature-flags');
 
 type Config = Pick<NavigationActionCommon, 'userHasNav4Enabled' | 'hostProduct'>;

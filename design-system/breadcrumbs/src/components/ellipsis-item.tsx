@@ -9,6 +9,7 @@ import { css } from '@compiled/react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -73,6 +74,18 @@ const styles = cssMap({
 	rootSmall: {
 		font: token('font.body.small'),
 	},
+	interactiveMotion: {
+		textDecorationLine: 'underline',
+		textDecorationColor: 'transparent',
+		transition: token('motion.listitem.hovered'),
+		'&:hover': {
+			textDecorationColor: token('color.text.subtlest'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+			textDecorationColor: token('color.text'),
+		},
+	},
 });
 
 interface EllipsisItemProps {
@@ -98,7 +111,11 @@ const EllipsisItem: import('react').MemoExoticComponent<
 			<Pressable
 				aria-label={label}
 				onClick={onClick}
-				xcss={cx(styles.root, isSmall && styles.rootSmall)}
+				xcss={cx(
+					styles.root,
+					isSmall && styles.rootSmall,
+					fg('platform-dst-motion-uplift-list-item') && styles.interactiveMotion,
+				)}
 				testId={testId}
 			>
 				&hellip;

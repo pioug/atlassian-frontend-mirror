@@ -5,7 +5,8 @@ import { generatePath, getPathAndQuery } from './utils';
 
 import { navigateToTeamsApp } from './index';
 
-jest.mock('@atlaskit/atlassian-context', () => ({
+jest.mock('@atlaskit/atlassian-context/get-atl-context-url', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/get-atl-context-url'),
 	getATLContextUrl: jest.fn((product: string) => {
 		if (product === 'home') {
 			return 'https://home.atlassian.com';

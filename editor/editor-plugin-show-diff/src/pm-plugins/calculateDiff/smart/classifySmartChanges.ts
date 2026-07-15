@@ -174,10 +174,20 @@ const topLevelBlocksInRange = (doc: PMNode, from: number, to: number): BlockRef[
 		const node = doc.child(i);
 		const blockFrom = offset;
 		const blockTo = offset + node.nodeSize;
-		// Overlap test; include a zero-width touch at the block start (pure insertion point).
-		if (blockFrom < hi && blockTo > lo) {
-			refs.push({ node, from: blockFrom, to: blockTo });
-		} else if (blockFrom === lo && blockFrom === hi) {
+		// Non-empty range: standard half-open overlap test.
+		if (lo < hi) {
+			if (blockFrom < hi && blockTo > lo) {
+				refs.push({ node, from: blockFrom, to: blockTo });
+			}
+		} else if (blockFrom < lo && lo < blockTo) {
+			// Zero-width range (an insertion anchor): only match a block whose INTERIOR strictly
+			// contains the point. A point sitting exactly on a top-level block boundary
+			// (`blockFrom === lo`, i.e. between two sibling blocks) is a pure insertion BETWEEN
+			// blocks — it must resolve to NO block, otherwise `groupByTopLevelBlock` pairs the
+			// insertion with the following block and `classifyBlockGroup` converts the insert into a
+			// whole-block replacement, fabricating a phantom deletion of that untouched block.
+			// Interior points (a nested insertion inside a container being edited) still resolve
+			// their container so the classifier can recurse into it.
 			refs.push({ node, from: blockFrom, to: blockTo });
 		}
 		offset = blockTo;

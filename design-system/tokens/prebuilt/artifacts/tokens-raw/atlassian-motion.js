@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d999e6e8adffb8744810aed81e8e5368>>
+ * @codegen <<SignedSource::bc61ba5536395df900d967f003bb4829>>
  * @codegenCommand yarn build tokens
  */
 
@@ -958,7 +958,7 @@ var tokens = [{
   "value": {
     "duration": 50,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "properties": ["background-color", "border-color", "color"]
+    "properties": ["background-color", "border-color", "color", "text-decoration-color"]
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -972,7 +972,7 @@ var tokens = [{
     "value": {
       "duration": "Duration050",
       "curve": "EasePracticalOut",
-      "properties": ["BackgroundColor", "BorderColor", "Color"]
+      "properties": ["BackgroundColor", "BorderColor", "Color", "TextDecorationColor"]
     }
   },
   "name": "motion.listitem.hovered",
@@ -988,7 +988,7 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "properties": ["background-color", "border-color", "color"]
+    "properties": ["background-color", "border-color", "color", "text-decoration-color"]
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1002,7 +1002,7 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalOut",
-      "properties": ["BackgroundColor", "BorderColor", "Color"]
+      "properties": ["BackgroundColor", "BorderColor", "Color", "TextDecorationColor"]
     }
   },
   "name": "motion.listitem.pressed",
@@ -1018,7 +1018,7 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "properties": ["background-color", "border-color", "color"]
+    "properties": ["background-color", "border-color", "color", "text-decoration-color"]
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1032,7 +1032,7 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalOut",
-      "properties": ["BackgroundColor", "BorderColor", "Color"]
+      "properties": ["BackgroundColor", "BorderColor", "Color", "TextDecorationColor"]
     }
   },
   "name": "motion.listitem.selected",

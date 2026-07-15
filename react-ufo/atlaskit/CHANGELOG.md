@@ -1,5 +1,34 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.21
+
+### Patch Changes
+
+- [`b1cf9e336f0f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1cf9e336f0f0) -
+  Migrate consumers of @atlaskit/atlassian-context from barrel imports to direct subpath imports,
+  and remove the deprecated `./domain-lookup`, `./generalized-domain-lookup`, and `./perimeter`
+  entry-point exports (all symbols remain available via their per-export subpaths).
+
+  Also extends the `no-restricted-fedramp-imports` ESLint rule to cover the new
+  `@atlaskit/atlassian-context/is-fedramp` and `@atlaskit/atlassian-context/is-isolated-cloud`
+  subpaths, so the FedRamp/IsolatedCloud deprecation guardrail keeps firing after the migration.
+
+- Updated dependencies
+
+## 7.3.20
+
+### Patch Changes
+
+- [`cfbfe7106b1bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cfbfe7106b1bf) -
+  Report client network errors as terminal errors and always include terminal error classification.
+
+## 7.3.19
+
+### Patch Changes
+
+- [`28407e5cb4af0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28407e5cb4af0) -
+  Guard UFO payload size calculations against unsafe JSON serialization
+
 ## 7.3.18
 
 ### Patch Changes

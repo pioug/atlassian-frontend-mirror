@@ -23,7 +23,7 @@ import type { Position } from '../../../types';
 import { SelectionInlineCommentMounter } from '../../mounter';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 jest.mock('../../../draft/dom');
 
@@ -321,19 +321,19 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		describe('should provide inlineNodeTypes props to the component', () => {
 			const actionsDoc = PMNode.fromJSON(defaultSchema, doc(p('start', status(), 'end')));
 
-			ffTest(
-				'editor_inline_comments_on_inline_nodes',
-				() => {
-					renderMounter({ actionsDoc });
+			it('when feature gate editor_inline_comments_on_inline_nodes is ON, provides inlineNodeTypes including status and text', () => {
+				passGate('editor_inline_comments_on_inline_nodes');
+				renderMounter({ actionsDoc });
 
-					expect(screen.getByTestId(inlineNodeTypesTestId)).toHaveTextContent('["status","text"]');
-				},
-				() => {
-					renderMounter({ actionsDoc });
+				expect(screen.getByTestId(inlineNodeTypesTestId)).toHaveTextContent('["status","text"]');
+			});
 
-					expect(screen.getByTestId(inlineNodeTypesTestId)).not.toHaveTextContent('text');
-				},
-			);
+			it('when feature gate editor_inline_comments_on_inline_nodes is OFF, does not provide text in inlineNodeTypes', () => {
+				failGate('editor_inline_comments_on_inline_nodes');
+				renderMounter({ actionsDoc });
+
+				expect(screen.getByTestId(inlineNodeTypesTestId)).not.toHaveTextContent('text');
+			});
 		});
 
 		it('should provide empty inlineNodeTypes if the isValidAnnotationRange returns false', () => {

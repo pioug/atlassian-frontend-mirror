@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { getATLContextUrl } from '@atlaskit/atlassian-context';
+import { getATLContextUrl } from '@atlaskit/atlassian-context/get-atl-context-url';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';

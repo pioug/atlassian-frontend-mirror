@@ -66,6 +66,19 @@ const staticItemWithoutTruncationStyles = css({
 	flexShrink: `1 !important`,
 });
 
+const motionItemStyles = css({
+	textDecorationColor: 'transparent',
+	textDecorationLine: 'underline',
+	transition: token('motion.listitem.hovered'),
+	'&:hover': {
+		textDecorationColor: token('color.text.subtlest'),
+	},
+	'&:active': {
+		textDecorationColor: token('color.text'),
+		transition: token('motion.listitem.pressed'),
+	},
+});
+
 type BreadcrumbsItemInternalProps = BreadcrumbsItemProps & {
 	'aria-current'?: 'page' | boolean;
 	_overflowRef?: (el: HTMLLIElement | null) => void;
@@ -214,6 +227,7 @@ const BreadcrumbsItem: import('react').MemoExoticComponent<
 				css={[
 					staticItemStyles,
 					truncationWidth ? staticItemWithTruncationStyles : staticItemWithoutTruncationStyles,
+					fg('platform-dst-motion-uplift-list-item') && motionItemStyles,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={

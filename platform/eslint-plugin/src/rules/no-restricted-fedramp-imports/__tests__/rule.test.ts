@@ -35,6 +35,18 @@ tester.run('no-restricted-fedramp-imports', rule, {
 				import { someOtherFunction } from '@atlaskit/atlassian-context/cloud-provider';
 			`,
 		},
+		{
+			name: 'allows unrelated imports from @atlaskit/atlassian-context/is-fedramp',
+			code: outdent`
+				import { someOtherFunction } from '@atlaskit/atlassian-context/is-fedramp';
+			`,
+		},
+		{
+			name: 'allows unrelated imports from @atlaskit/atlassian-context/is-isolated-cloud',
+			code: outdent`
+				import { someOtherFunction } from '@atlaskit/atlassian-context/is-isolated-cloud';
+			`,
+		},
 	],
 	invalid: [
 		{
@@ -149,6 +161,33 @@ tester.run('no-restricted-fedramp-imports', rule, {
 				{
 					messageId: 'noRestrictedFedrampImports',
 					data: { name: 'isGoogleCloudPlatform', source: '@atlaskit/atlassian-context' },
+				},
+			],
+		},
+		{
+			name: 'disallows isFedRamp from @atlaskit/atlassian-context/is-fedramp',
+			code: outdent`
+				import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
+			`,
+			errors: [
+				{
+					messageId: 'noRestrictedFedrampImports',
+					data: { name: 'isFedRamp', source: '@atlaskit/atlassian-context/is-fedramp' },
+				},
+			],
+		},
+		{
+			name: 'disallows isIsolatedCloud from @atlaskit/atlassian-context/is-isolated-cloud',
+			code: outdent`
+				import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
+			`,
+			errors: [
+				{
+					messageId: 'noRestrictedFedrampImports',
+					data: {
+						name: 'isIsolatedCloud',
+						source: '@atlaskit/atlassian-context/is-isolated-cloud',
+					},
 				},
 			],
 		},

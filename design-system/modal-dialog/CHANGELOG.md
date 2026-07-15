@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 16.1.3
+
+### Patch Changes
+
+- [`f2ec2ee8b495e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2ec2ee8b495e) -
+  Update `@atlaskit/spotlight` imports to use de-barrelled entry-points.
+- Updated dependencies
+
 ## 16.1.2
 
 ### Patch Changes

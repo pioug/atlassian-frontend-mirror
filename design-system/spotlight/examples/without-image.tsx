@@ -5,18 +5,16 @@
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Text } from '@atlaskit/primitives/compiled';
-import {
-	SpotlightActions,
-	SpotlightBody,
-	SpotlightCard,
-	SpotlightControls,
-	SpotlightDismissControl,
-	SpotlightFooter,
-	SpotlightHeader,
-	SpotlightHeadline,
-	SpotlightPrimaryAction,
-	SpotlightSecondaryAction,
-} from '@atlaskit/spotlight';
+import { SpotlightActions } from '@atlaskit/spotlight/actions';
+import { SpotlightBody } from '@atlaskit/spotlight/body';
+import { SpotlightCard } from '@atlaskit/spotlight/card';
+import { SpotlightControls } from '@atlaskit/spotlight/controls';
+import { SpotlightDismissControl } from '@atlaskit/spotlight/dismiss-control';
+import { SpotlightFooter } from '@atlaskit/spotlight/footer';
+import { SpotlightHeader } from '@atlaskit/spotlight/header';
+import { SpotlightHeadline } from '@atlaskit/spotlight/headline';
+import { SpotlightPrimaryAction } from '@atlaskit/spotlight/primary-action';
+import { SpotlightSecondaryAction } from '@atlaskit/spotlight/secondary-action';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({

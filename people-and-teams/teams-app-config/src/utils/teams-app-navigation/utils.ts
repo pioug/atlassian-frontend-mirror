@@ -1,11 +1,9 @@
 import type React from 'react';
 
-import {
-	getATLContextUrl,
-	getUrlForDomainInContext,
-	isFedRamp,
-	isIsolatedCloud,
-} from '@atlaskit/atlassian-context';
+import { getATLContextUrl } from '@atlaskit/atlassian-context/get-atl-context-url';
+import { getUrlForDomainInContext } from '@atlaskit/atlassian-context/get-url-for-domain-in-context';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
+import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
 
 import type {
 	NavigationAction,

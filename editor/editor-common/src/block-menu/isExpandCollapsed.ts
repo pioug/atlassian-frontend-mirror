@@ -20,7 +20,9 @@ export const isExpandCollapsed = (expandContainer: HTMLElement): boolean => {
 	if (contentDiv && contentDiv instanceof HTMLElement) {
 		const computedStyle = window.getComputedStyle(contentDiv);
 		return (
-			computedStyle.display === 'none' || computedStyle.visibility === 'hidden' || contentDiv.hidden
+			computedStyle.display === 'none' ||
+			computedStyle.visibility === 'hidden' ||
+			Boolean(contentDiv.hidden)
 		);
 	}
 

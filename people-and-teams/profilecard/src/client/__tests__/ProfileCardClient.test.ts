@@ -1,16 +1,17 @@
-import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
+import { getATLContextUrl } from '@atlaskit/atlassian-context/get-atl-context-url';
+import { isFedRamp } from '@atlaskit/atlassian-context/is-fedramp';
 
 import ProfileCardClient from '../ProfileCardClient';
 import TeamCentralCardClient from '../TeamCentralCardClient';
 
-jest.mock('@atlaskit/atlassian-context', () => {
-	const original = jest.requireActual('@atlaskit/atlassian-context');
-	return {
-		...original,
-		getATLContextUrl: jest.fn(),
-		isFedRamp: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/atlassian-context/get-atl-context-url', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/get-atl-context-url'),
+	getATLContextUrl: jest.fn(),
+}));
+jest.mock('@atlaskit/atlassian-context/is-fedramp', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/is-fedramp'),
+	isFedRamp: jest.fn(),
+}));
 
 jest.mock('../RovoAgentCardClient', () => jest.fn().mockImplementation(() => {}));
 

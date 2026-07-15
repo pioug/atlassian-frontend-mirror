@@ -1309,16 +1309,15 @@ function setTerminalError(
 
 **`TerminalErrorAdditionalAttributes`:**
 
-| Property               | Type                           | Description                                                      |
-| ---------------------- | ------------------------------ | ---------------------------------------------------------------- |
-| `teamName`             | `string`                       | Team responsible for the component                               |
-| `packageName`          | `string`                       | Package where the error occurred                                 |
-| `errorBoundaryId`      | `string`                       | Identifier of the error boundary                                 |
-| `errorHash`            | `string`                       | Custom error identifier for grouping                             |
-| `traceId`              | `string`                       | Trace ID for distributed tracing                                 |
-| `fallbackType`         | `'page' \| 'flag' \| 'custom'` | Type of fallback rendered                                        |
-| `statusCode`           | `number`                       | HTTP status code if applicable                                   |
-| `isClientNetworkError` | `boolean`                      | Whether this is a client network error (excluded from reporting) |
+| Property          | Type                           | Description                          |
+| ----------------- | ------------------------------ | ------------------------------------ |
+| `teamName`        | `string`                       | Team responsible for the component   |
+| `packageName`     | `string`                       | Package where the error occurred     |
+| `errorBoundaryId` | `string`                       | Identifier of the error boundary     |
+| `errorHash`       | `string`                       | Custom error identifier for grouping |
+| `traceId`         | `string`                       | Trace ID for distributed tracing     |
+| `fallbackType`    | `'page' \| 'flag' \| 'custom'` | Type of fallback rendered            |
+| `statusCode`      | `number`                       | HTTP status code if applicable       |
 
 **Example:**
 

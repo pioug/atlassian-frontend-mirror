@@ -3,7 +3,7 @@ import React from 'react';
 // eslint-disable-next-line @atlassian/testing-library/prefer-atlassian-testing-library -- pre-existing usage
 import { render, screen } from '@testing-library/react';
 import { TableContainer } from '../../nodes/table';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 jest.mock('../../nodes/table', () => ({
 	...jest.requireActual('../../nodes/tableNew'),
@@ -221,45 +221,47 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		</div>
 	);
 
-	ffTest(
-		'platform_nested_table_style_override',
-		() => {
-			// Feature gate enabled: should apply !important inline styles in nested renderer
-			const { unmount } = render(<NestedRendererTable />);
-			const tableContainer = screen.getByTestId('table-container');
-			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
-			expect(tableContainer.style.getPropertyValue('max-width')).toBe('100%');
-			expect(tableContainer.style.getPropertyPriority('max-width')).toBe('important');
-			unmount();
+	it('when feature gate platform_nested_table_style_override is ON, applies !important styles only in nested renderer', () => {
+		passGate('platform_nested_table_style_override');
 
-			// Feature gate enabled: should NOT apply !important in top-level renderer
-			const { unmount: unmountTopLevel } = render(<TopLevelTable />);
-			const topLevelContainer = screen.getByTestId('table-container');
-			expect(topLevelContainer.style.getPropertyPriority('width')).not.toBe('important');
-			expect(topLevelContainer.style.getPropertyPriority('max-width')).not.toBe('important');
-			unmountTopLevel();
+		// Feature gate enabled: should apply !important inline styles in nested renderer
+		const { unmount } = render(<NestedRendererTable />);
+		const tableContainer = screen.getByTestId('table-container');
+		expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
+		expect(tableContainer.style.getPropertyValue('max-width')).toBe('100%');
+		expect(tableContainer.style.getPropertyPriority('max-width')).toBe('important');
+		unmount();
 
-			// Feature gate enabled: should NOT apply !important when nested renderer content is inside a table cell
-			const { unmount: unmountTableCell } = render(<NestedRendererTableInsideTableCell />);
-			const tableCellContainer = screen.getByTestId('table-container');
-			expect(tableCellContainer.style.getPropertyPriority('width')).not.toBe('important');
-			expect(tableCellContainer.style.getPropertyPriority('max-width')).not.toBe('important');
-			unmountTableCell();
+		// Feature gate enabled: should NOT apply !important in top-level renderer
+		const { unmount: unmountTopLevel } = render(<TopLevelTable />);
+		const topLevelContainer = screen.getByTestId('table-container');
+		expect(topLevelContainer.style.getPropertyPriority('width')).not.toBe('important');
+		expect(topLevelContainer.style.getPropertyPriority('max-width')).not.toBe('important');
+		unmountTopLevel();
 
-			// Feature gate enabled: should NOT apply !important to native nested tables
-			render(<NestedRendererNativeNestedTable />);
-			const nestedTableContainer = screen.getByTestId('table-container');
-			expect(nestedTableContainer.style.getPropertyPriority('width')).not.toBe('important');
-			expect(nestedTableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
-		},
-		() => {
-			// Feature gate disabled: should NOT apply !important even in nested renderer
-			render(<NestedRendererTable />);
-			const tableContainer = screen.getByTestId('table-container');
-			expect(tableContainer.style.getPropertyPriority('width')).not.toBe('important');
-			expect(tableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
-		},
-	);
+		// Feature gate enabled: should NOT apply !important when nested renderer content is inside a table cell
+		const { unmount: unmountTableCell } = render(<NestedRendererTableInsideTableCell />);
+		const tableCellContainer = screen.getByTestId('table-container');
+		expect(tableCellContainer.style.getPropertyPriority('width')).not.toBe('important');
+		expect(tableCellContainer.style.getPropertyPriority('max-width')).not.toBe('important');
+		unmountTableCell();
+
+		// Feature gate enabled: should NOT apply !important to native nested tables
+		render(<NestedRendererNativeNestedTable />);
+		const nestedTableContainer = screen.getByTestId('table-container');
+		expect(nestedTableContainer.style.getPropertyPriority('width')).not.toBe('important');
+		expect(nestedTableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
+	});
+
+	it('when feature gate platform_nested_table_style_override is OFF, does not apply !important even in nested renderer', () => {
+		failGate('platform_nested_table_style_override');
+
+		// Feature gate disabled: should NOT apply !important even in nested renderer
+		render(<NestedRendererTable />);
+		const tableContainer = screen.getByTestId('table-container');
+		expect(tableContainer.style.getPropertyPriority('width')).not.toBe('important');
+		expect(tableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
+	});
 });
 
 describe('Table isPresentational prop', () => {
@@ -277,17 +279,17 @@ describe('Table isPresentational prop', () => {
 		</TableContainer>
 	);
 
-	ffTest(
-		'platform_renderer_isPresentational',
-		() => {
-			render(<Component isPresentational />);
-			const table = screen.getByTestId('renderer-table');
-			expect(table).toHaveAttribute('role', 'presentation');
-		},
-		() => {
-			render(<Component />);
-			const table = screen.getByTestId('renderer-table');
-			expect(table).not.toHaveAttribute('role', 'presentation');
-		},
-	);
+	it('when feature gate platform_renderer_isPresentational is ON, table with isPresentational has role presentation', () => {
+		passGate('platform_renderer_isPresentational');
+		render(<Component isPresentational />);
+		const table = screen.getByTestId('renderer-table');
+		expect(table).toHaveAttribute('role', 'presentation');
+	});
+
+	it('when feature gate platform_renderer_isPresentational is OFF, table does not have role presentation', () => {
+		failGate('platform_renderer_isPresentational');
+		render(<Component />);
+		const table = screen.getByTestId('renderer-table');
+		expect(table).not.toHaveAttribute('role', 'presentation');
+	});
 });

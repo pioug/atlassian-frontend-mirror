@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.2.5
+
+### Patch Changes
+
+- [`ce7966a423f4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce7966a423f4c) -
+  Fix first-node top margin not being reset when a leading ProseMirror widget is present (e.g.
+  non-editable editor), behind the platform_editor_first_node_fix experiment.
+- Updated dependencies
+
 ## 13.2.4
 
 ### Patch Changes

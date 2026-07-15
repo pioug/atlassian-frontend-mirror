@@ -247,7 +247,7 @@ export const mocks = {
 		let key = 'google-object-provider';
 		let name = 'Google';
 		let icon = iconGoogleDrive;
-		let image = gdriveUnauthImage;
+		let image: string | undefined = gdriveUnauthImage;
 
 		if (url.includes('figma.com')) {
 			key = 'figma-object-provider';

@@ -1,5 +1,101 @@
 # @atlaskit/spotlight
 
+## 3.0.0
+
+### Major Changes
+
+- [`f2ec2ee8b495e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f2ec2ee8b495e) - ##
+  Breaking change: barrel file (root entry point) removed from `@atlaskit/spotlight`
+
+  The main entry point (`@atlaskit/spotlight`) has been removed. Every named export now lives in its
+  own dedicated sub-path entry-point to reduce bundle size, improve build times, and minimise the
+  package's overall footprint.
+
+  ### Why we're doing this
+
+  Large barrel files (a single `index` that re-exports everything) force bundlers to load the entire
+  package even when only a small subset is used. By splitting exports into individual entry-points,
+  consumers can import only what they need, leading to:
+  - Faster build and typecheck times
+  - Smaller production bundles
+  - Clearer dependency boundaries
+
+  ### What's changed
+
+  Previously you could import anything from the root:
+
+  ```ts
+  import {
+  	SpotlightCard,
+  	SpotlightHeader,
+  	PopoverContent,
+  	usePreloadMedia,
+  	type Placement,
+  } from '@atlaskit/spotlight';
+  ```
+
+  The root entry point no longer exists — every export must now be imported from its own
+  entry-point:
+
+  ```ts
+  import { SpotlightCard } from '@atlaskit/spotlight/card';
+  import { SpotlightHeader } from '@atlaskit/spotlight/header';
+  import { PopoverContent } from '@atlaskit/spotlight/popover-content';
+  import { usePreloadMedia } from '@atlaskit/spotlight/use-preload-media';
+  import type { Placement } from '@atlaskit/spotlight/types';
+  ```
+
+  ### Full entry-point reference
+
+  | Export(s)                                                   | New import path                         |
+  | ----------------------------------------------------------- | --------------------------------------- |
+  | `SpotlightCard`, `SpotlightCardProps`                       | `@atlaskit/spotlight/card`              |
+  | `SpotlightBody`, `SpotlightBodyProps`                       | `@atlaskit/spotlight/body`              |
+  | `SpotlightHeader`, `SpotlightHeaderProps`                   | `@atlaskit/spotlight/header`            |
+  | `SpotlightHeadline`, `SpotlightHeadlineProps`               | `@atlaskit/spotlight/headline`          |
+  | `SpotlightFooter`, `SpotlightFooterProps`                   | `@atlaskit/spotlight/footer`            |
+  | `SpotlightActions`, `SpotlightActionsProps`                 | `@atlaskit/spotlight/actions`           |
+  | `SpotlightStepCount`, `SpotlightStepCountProps`             | `@atlaskit/spotlight/step-count`        |
+  | `SpotlightPrimaryAction`, `SpotlightPrimaryActionProps`     | `@atlaskit/spotlight/primary-action`    |
+  | `SpotlightPrimaryLink`, `SpotlightPrimaryLinkProps`         | `@atlaskit/spotlight/primary-link`      |
+  | `SpotlightSecondaryAction`, `SpotlightSecondaryActionProps` | `@atlaskit/spotlight/secondary-action`  |
+  | `SpotlightSecondaryLink`, `SpotlightSecondaryLinkProps`     | `@atlaskit/spotlight/secondary-link`    |
+  | `SpotlightControls`, `SpotlightControlsProps`               | `@atlaskit/spotlight/controls`          |
+  | `SpotlightDismissControl`, `SpotlightDismissControlProps`   | `@atlaskit/spotlight/dismiss-control`   |
+  | `SpotlightShowMoreControl`, `SpotlightShowMoreControlProps` | `@atlaskit/spotlight/show-more-control` |
+  | `SpotlightMedia`, `SpotlightMediaProps`                     | `@atlaskit/spotlight/media`             |
+  | `PopoverProvider`                                           | `@atlaskit/spotlight/popover-provider`  |
+  | `PopoverContent`, `PopoverContentProps`                     | `@atlaskit/spotlight/popover-content`   |
+  | `PopoverTarget`                                             | `@atlaskit/spotlight/popover-target`    |
+  | `UNSAFE_UpdateOnChange`                                     | `@atlaskit/spotlight/update-on-change`  |
+  | `usePreloadMedia`                                           | `@atlaskit/spotlight/use-preload-media` |
+  | `Placement`, `DismissEvent`                                 | `@atlaskit/spotlight/types`             |
+
+  ### Automated migration with codemod
+
+  A codemod ships with this package to automatically update your imports. Run it with
+  `@atlaskit/codemod-cli`, passing the version you are upgrading _from_:
+
+  ```bash
+  npx @atlaskit/codemod-cli --packages @atlaskit/spotlight@2.1.1 <path-to-your-source>
+  ```
+
+  For example, to migrate all files in your `src/` directory:
+
+  ```bash
+  npx @atlaskit/codemod-cli --packages @atlaskit/spotlight@2.1.1 ./src
+  ```
+
+  The codemod will:
+  - Split every `@atlaskit/spotlight` import out to its appropriate entry-point
+  - Preserve type-only imports (`import type`) and per-specifier type modifiers
+  - Preserve import aliases (e.g. `import { SpotlightCard as Card }`)
+  - Group multiple imports that share the same entry-point into a single declaration
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

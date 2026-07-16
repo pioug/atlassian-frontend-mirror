@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-extension
 
+## 15.0.27
+
+### Patch Changes
+
+- [`72302be55bf7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72302be55bf7a) -
+  Internal changes to how styles are applied
+- Updated dependencies
+
+## 15.0.26
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.0.25
 
 ### Patch Changes

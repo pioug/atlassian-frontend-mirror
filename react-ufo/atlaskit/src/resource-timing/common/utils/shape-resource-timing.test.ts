@@ -1,8 +1,4 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { shapeResourceTimingData } from './shape-resource-timing';
-
-const THIRD_PARTY_SEGMENT_TIMINGS_GATE = 'platform_ufo_3p_segment_timings';
 
 function makeResourceTimingEvent({
 	name = 'https://example.com/static/app.js',
@@ -34,10 +30,6 @@ function makeResourceTimingEvent({
 }
 
 describe('shapeResourceTimingData — `source` field', () => {
-	beforeEach(() => {
-		passGate(THIRD_PARTY_SEGMENT_TIMINGS_GATE);
-	});
-
 	it.each([
 		['forge-framework', 'forge-framework'],
 		['forge-app', 'forge-app'],
@@ -67,33 +59,7 @@ describe('shapeResourceTimingData — `source` field', () => {
 	});
 });
 
-describe('shapeResourceTimingData — legacy resource behavior', () => {
-	it('keeps URL-derived labels and non CSS/JS resources when third-party segment timings are off', () => {
-		failGate(THIRD_PARTY_SEGMENT_TIMINGS_GATE);
-
-		const pdfTiming = shapeResourceTimingData(
-			makeResourceTimingEvent({
-				name: 'https://cdn.example.com/uploads/customer-plan.pdf',
-				initiatorType: 'link',
-			}),
-		);
-		const fetchTiming = shapeResourceTimingData(
-			makeResourceTimingEvent({
-				name: 'https://api.example.com/wiki/private-space/roadmap',
-				initiatorType: 'fetch',
-			}),
-		);
-
-		expect(pdfTiming).toMatchObject({ label: 'customer-plan.pdf', type: 'link' });
-		expect(fetchTiming).toMatchObject({ label: 'roadmap', type: 'fetch' });
-	});
-});
-
 describe('shapeResourceTimingData — resource allowlist', () => {
-	beforeEach(() => {
-		passGate(THIRD_PARTY_SEGMENT_TIMINGS_GATE);
-	});
-
 	it.each([
 		['script', 'https://cdn.example.com/static/app.js', 'app.js'],
 		['script', 'https://cdn.example.com/static/app.mjs?tenant=my-customer', 'app.mjs'],

@@ -41,8 +41,27 @@ type AIQuickPromptApiErrorAEP = OperationalAEP<
 	}
 >;
 
+type AIQuickPromptShadowComparisonDivergedAEP = OperationalAEP<
+	ACTION.DIVERGED,
+	ACTION_SUBJECT.AI_QUICK_PROMPT,
+	undefined,
+	{
+		ccSmartsErrorType?: string;
+		ccSmartsOk: boolean;
+		ccSmartsShouldImprove: boolean;
+		ccSmartsStatus?: number;
+		convoAiErrorType?: string;
+		convoAiOk: boolean;
+		convoAiShouldImprove: boolean;
+		convoAiStatus?: number;
+		experienceName: string;
+		source: 'shouldImproveWritingShadowComparison';
+	}
+>;
+
 export type AIQuickPromptEventPayload =
 	| AIQuickPromptDisplayedAEP
 	| AIQuickPromptDismissedAEP
 	| AIQuickPromptTriggeredAEP
-	| AIQuickPromptApiErrorAEP;
+	| AIQuickPromptApiErrorAEP
+	| AIQuickPromptShadowComparisonDivergedAEP;

@@ -4,9 +4,11 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
 import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { AgentDropdownMenu } from '@atlaskit/rovo-agent-components/ui/AgentDropdownMenu';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { type ProfileClient, type RovoAgentProfileCardInfo } from '../../types';
@@ -41,6 +43,13 @@ const styles = cssMap({
 		whiteSpace: 'pre-wrap',
 	},
 	actionsWrapperStyles: {
+		paddingTop: token('space.200'),
+		paddingRight: token('space.150'),
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.150'),
+		color: token('color.text'),
+	},
+	actionsWrapperStylesLegacy: {
 		paddingTop: token('space.150'),
 		paddingRight: token('space.150'),
 		paddingBottom: token('space.150'),
@@ -89,7 +98,15 @@ export const AgentActions = ({
 
 	return (
 		<>
-			<Inline space="space.100" xcss={styles.actionsWrapperStyles}>
+			<Inline
+				space="space.100"
+				xcss={
+					expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+					fg('platform_editor_agent_mentions_drop_one_fixes')
+						? styles.actionsWrapperStyles
+						: styles.actionsWrapperStylesLegacy
+				}
+			>
 				<Box xcss={styles.chatToAgentButtonContainer}>
 					<Button
 						shouldFitContainer

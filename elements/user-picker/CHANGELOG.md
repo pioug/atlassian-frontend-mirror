@@ -1,5 +1,21 @@
 # @atlaskit/user-picker
 
+## 13.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.3
+
+### Patch Changes
+
+- [`c259ffbd14ffc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c259ffbd14ffc) -
+  Migrate deprecated Lozenge appearance values to the new semantic appearances, and migrate
+  deprecated `SimpleTag`/`RemovableTag` to the default `Tag` export (SimpleTag with
+  `isRemovable={false}`).
+- Updated dependencies
+
 ## 13.4.2
 
 ### Patch Changes

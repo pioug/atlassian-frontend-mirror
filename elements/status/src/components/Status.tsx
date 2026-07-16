@@ -11,7 +11,7 @@ import {
 	type RefAttributes,
 } from 'react';
 import { css, jsx } from '@compiled/react';
-import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
+import Lozenge, { type SemanticColor } from '@atlaskit/lozenge';
 import {
 	type WithAnalyticsEventsProps,
 	type CreateUIAnalyticsEvent,
@@ -24,16 +24,16 @@ import { ANALYTICS_HOVER_DELAY } from './constants';
 export type Color = 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
 export type StatusStyle = 'bold' | 'subtle';
 
-const colorToLozengeAppearanceMap: { [K in Color]: ThemeAppearance } = {
-	neutral: 'default',
-	purple: 'new',
-	blue: 'inprogress',
-	red: 'removed',
-	yellow: 'moved',
+const colorToLozengeAppearanceMap: { [K in Color]: SemanticColor } = {
+	neutral: 'neutral',
+	purple: 'discovery',
+	blue: 'information',
+	red: 'danger',
+	yellow: 'warning',
 	green: 'success',
 };
 
-const DEFAULT_APPEARANCE = 'default';
+const DEFAULT_APPEARANCE = 'neutral';
 const MAX_WIDTH = 200;
 
 /**

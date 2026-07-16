@@ -321,66 +321,27 @@ export const getToolbarCellOptionsConfig = (
 	}
 
 	if (pluginState?.pluginConfig?.allowDistributeColumns) {
-		let wouldChange = true; // Default to enabled - show the button.
-		let newResizeStateWithAnalytics: ReturnType<typeof getNewResizeStateFromSelectedColumns>;
-
-		// Performance optimization: Skip expensive getTableScalingPercent() DOM query when limited mode is enabled.
-		// This avoids layout reflows on every transaction. Instead, button stays enabled and calculates on-demand when clicked.
-		if (
-			!isLimitedModeEnabled &&
-			!expValEquals('platform_editor_table_toolbar_perf_fix', 'isEnabled', true)
-		) {
-			newResizeStateWithAnalytics = editorView
-				? getNewResizeStateFromSelectedColumns(
-						initialSelectionRect,
-						editorState,
-						editorView.domAtPos.bind(editorView),
-						getEditorContainerWidth,
-						isTableScalingEnabled,
-						isTableFixedColumnWidthsOptionEnabled,
-						isCommentEditor,
-					)
-				: undefined;
-			wouldChange = newResizeStateWithAnalytics?.changed ?? false;
-		}
-
 		const distributeColumnWidths: Command = (state, dispatch, view) => {
-			// When optimization is enabled, calculate on-demand when clicked
-			if (
-				isLimitedModeEnabled ||
-				expValEquals('platform_editor_table_toolbar_perf_fix', 'isEnabled', true)
-			) {
-				if (view) {
-					const resizeState = getNewResizeStateFromSelectedColumns(
-						initialSelectionRect,
-						state,
-						view.domAtPos.bind(view),
-						getEditorContainerWidth,
-						isTableScalingEnabled,
-						isTableFixedColumnWidthsOptionEnabled,
-						isCommentEditor,
-					);
+			if (view) {
+				const resizeState = getNewResizeStateFromSelectedColumns(
+					initialSelectionRect,
+					state,
+					view.domAtPos.bind(view),
+					getEditorContainerWidth,
+					isTableScalingEnabled,
+					isTableFixedColumnWidthsOptionEnabled,
+					isCommentEditor,
+				);
 
-					if (resizeState) {
-						distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
-							INPUT_METHOD.FLOATING_TB,
-							resizeState,
-						)(state, dispatch);
-						return true;
-					}
-				}
-				return false;
-			} else {
-				// Original behavior: use pre-calculated state
-				if (newResizeStateWithAnalytics) {
+				if (resizeState) {
 					distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
 						INPUT_METHOD.FLOATING_TB,
-						newResizeStateWithAnalytics,
+						resizeState,
 					)(state, dispatch);
 					return true;
 				}
-				return false;
 			}
+			return false;
 		};
 
 		options.push({
@@ -388,7 +349,7 @@ export const getToolbarCellOptionsConfig = (
 			title: formatMessage(messages.distributeColumns),
 			onClick: distributeColumnWidths,
 			selected: false,
-			disabled: !wouldChange,
+			disabled: false,
 		});
 	}
 
@@ -583,30 +544,11 @@ export const getToolbarConfig =
 			const areTableColumWidthsFixed = tableObject.node.attrs.displayMode === 'fixed';
 			const editorView = getEditorView();
 
-			const getDomRef = expValEquals('platform_editor_table_toolbar_perf_fix', 'isEnabled', true)
-				? (editorView: EditorView) => {
-						const domAtPos = editorView.domAtPos.bind(editorView);
-						const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
-						return getMemoizedTableWrapperFromParent(parent);
-					}
-				: (editorView: EditorView) => {
-						let element: HTMLElement | undefined;
-						const domAtPos = editorView.domAtPos.bind(editorView);
-						const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
-
-						if (parent) {
-							const tableRef =
-								// Ignored via go/ees005
-								// eslint-disable-next-line @atlaskit/editor/no-as-casting
-								(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
-							if (tableRef) {
-								element =
-									closestElement(tableRef, `.${TableCssClassName.TABLE_NODE_WRAPPER}`) || undefined;
-							}
-						}
-
-						return element;
-					};
+			const getDomRef = (editorView: EditorView) => {
+				const domAtPos = editorView.domAtPos.bind(editorView);
+				const parent = findParentDomRefOfType(nodeType, domAtPos)(state.selection);
+				return getMemoizedTableWrapperFromParent(parent);
+			};
 
 			const menu = getToolbarMenuConfig(
 				config,
@@ -910,32 +852,8 @@ const getColumnSettingItems = (
 	const pluginState = getPluginState(editorState);
 	const items: Array<FloatingToolbarItem<Command>> = [];
 
-	let wouldChange = true; // Default to enabled - show the button.
-	let newResizeStateWithAnalytics: ReturnType<typeof getNewResizeStateFromSelectedColumns>;
-
-	if (expValEquals('platform_editor_table_toolbar_perf_fix', 'isEnabled', true)) {
-		if (!editorView) {
-			return [];
-		}
-	} else {
-		const selectionOrTableRect = getClosestSelectionOrTableRect(editorState);
-		if (!selectionOrTableRect || !editorView) {
-			return [];
-		}
-		// Performance optimization: Skip expensive getTableScalingPercent() DOM query when limited mode is enabled.
-		// This avoids layout reflows on every transaction. Instead, button stays enabled and calculates on-demand when clicked.
-		if (!isLimitedModeEnabled) {
-			newResizeStateWithAnalytics = getNewResizeStateFromSelectedColumns(
-				selectionOrTableRect,
-				editorState,
-				editorView.domAtPos.bind(editorView),
-				getEditorContainerWidth,
-				isTableScalingEnabled,
-				isTableFixedColumnWidthsOptionEnabled,
-				isCommentEditor,
-			);
-			wouldChange = newResizeStateWithAnalytics?.changed ?? false;
-		}
+	if (!editorView) {
+		return [];
 	}
 
 	if (pluginState?.pluginConfig?.allowDistributeColumns) {
@@ -953,7 +871,7 @@ const getColumnSettingItems = (
 					isTableFixedColumnWidthsOptionEnabled,
 					isCommentEditor,
 				)(state, dispatch, view),
-			disabled: !wouldChange,
+			disabled: false,
 		});
 	}
 
@@ -1106,25 +1024,13 @@ const getAlignmentOptionsConfig = (
 		const { id, value, icon } = alignmentIcon;
 		const currentLayout = tableObject.node.attrs.layout;
 
-		const shouldDisableLayoutOption = expValEquals(
-			'platform_editor_table_toolbar_perf_fix',
-			'isEnabled',
-			true,
-		)
-			? getMemoizedIsLayoutOptionDisabled(
-					tableObject.node,
-					getEditorContainerWidth,
-					editorView !== null,
-					shouldUseIncreasedScalingPercent,
-					isFullWidthEditor,
-				)
-			: isLayoutOptionDisabled(
-					tableObject.node,
-					getEditorContainerWidth,
-					editorView,
-					shouldUseIncreasedScalingPercent,
-					isFullWidthEditor,
-				);
+		const shouldDisableLayoutOption = getMemoizedIsLayoutOptionDisabled(
+			tableObject.node,
+			getEditorContainerWidth,
+			editorView !== null,
+			shouldUseIncreasedScalingPercent,
+			isFullWidthEditor,
+		);
 
 		return {
 			id: id,
@@ -1221,33 +1127,3 @@ const getMemoizedIsLayoutOptionDisabled = memoizeOne(
 		return nodeEqual && restEqual;
 	},
 );
-
-const isLayoutOptionDisabled = (
-	selectedNode: PMNode,
-	getEditorContainerWidth: GetEditorContainerWidth,
-	editorView: EditorView | null,
-	shouldUseIncreasedScalingPercent: boolean,
-	isFullWidthEditor: boolean | undefined,
-) => {
-	const { lineLength } = getEditorContainerWidth();
-	let tableContainerWidth = getTableContainerWidth(selectedNode);
-
-	// table may be scaled, use the scale percent to calculate the table width
-	if (editorView) {
-		const tableWrapperWidth = tableContainerWidth;
-		const scalePercent = getStaticTableScalingPercent(
-			selectedNode,
-			tableWrapperWidth,
-			shouldUseIncreasedScalingPercent,
-		);
-		tableContainerWidth = tableContainerWidth * scalePercent;
-	}
-
-	// If fixed-width editor, we disable 'left-alignment' when table width is 760px.
-	// tableContainerWidth +1 here because tableContainerWidth is 759 in fixed-width editor
-	if (selectedNode && !isFullWidthEditor && lineLength && tableContainerWidth + 1 >= lineLength) {
-		return true;
-	}
-
-	return false;
-};

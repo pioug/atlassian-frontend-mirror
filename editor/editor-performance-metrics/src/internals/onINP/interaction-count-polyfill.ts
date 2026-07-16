@@ -1,7 +1,7 @@
 // Adapted from https://github.com/GoogleChrome/web-vitals/blob/main/src/lib/polyfills/interactionCountPolyfill.ts
 declare global {
 	interface Performance {
-		interactionCount: number;
+		readonly interactionCount: number;
 	}
 }
 interface PerformanceEventTiming extends PerformanceEntry {

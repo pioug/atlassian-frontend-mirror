@@ -12,7 +12,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
  * Defers a callback to the next microtask (when gated) or next macrotask via setTimeout(0).
@@ -64,7 +64,9 @@ export const getUnsupportedNodeTypes: MemoizedFn<() => Set<string>> = memoizeOne
 			'bodiedExtension',
 			'syncBlock',
 			'bodiedSyncBlock',
-			...(fg('confluence_frontend_native_tabs_extension') ? ['multiBodiedExtension'] : []),
+			...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
+				? ['multiBodiedExtension']
+				: []),
 		]),
 );
 

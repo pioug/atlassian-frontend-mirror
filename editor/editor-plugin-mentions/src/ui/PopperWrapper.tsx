@@ -1,6 +1,7 @@
 import React, { useRef, useLayoutEffect, useEffect, Suspense } from 'react';
 import type { PropsWithChildren } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper as ReactPopper } from '@atlaskit/popper';
 import type { PopperChildrenProps } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
@@ -60,6 +61,14 @@ function useResizeAwarePopper({
 	}, [forceUpdate]);
 
 	useEffect(() => {
+		// No-op when forceUpdate is not provided (e.g. when the gate is off).
+		// This ensures the ResizeObserver is not created unnecessarily.
+		if (
+			typeof forceUpdateRef.current !== 'function' &&
+			fg('platform_editor_agent_mentions_drop_one_fixes')
+		) {
+			return;
+		}
 		if (!popupRef || typeof ResizeObserver === 'undefined') {
 			return;
 		}

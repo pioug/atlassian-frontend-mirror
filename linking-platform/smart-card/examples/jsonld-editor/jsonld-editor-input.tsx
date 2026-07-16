@@ -8,7 +8,7 @@ import 'brace/ext/language_tools';
 import AceEditor from 'react-ace';
 
 import InlineMessage from '@atlaskit/inline-message';
-import { useThemeObserver } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 const JsonldEditorInput = ({
 	error,

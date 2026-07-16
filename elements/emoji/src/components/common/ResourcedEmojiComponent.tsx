@@ -152,12 +152,27 @@ export const ResourcedEmojiComponent = ({
 				});
 			}
 
-			// When id is absent/empty, fetchByEmojiId won't retry if the catalogue isn't loaded yet.
-			// findByEmojiId has retryIfLoading built in — use it for shortName-only lookups.
-			const foundEmoji =
-				!emojiId.id && expValEqualsNoExposure('platform_use_unicode_emojis', 'isEnabled', true)
-					? _emojiProvider.findByEmojiId(emojiId)
-					: _emojiProvider.fetchByEmojiId(emojiId, optimisticFetch);
+			const useUnicodeEmojis = expValEqualsNoExposure(
+				'platform_use_unicode_emojis',
+				'isEnabled',
+				true,
+			);
+			const normalizedEmojiId = useUnicodeEmojis
+				? {
+						...emojiId,
+						id: emojiId.id || undefined,
+					}
+				: emojiId;
+			// A shortName-only optimistic request can resolve without an emoji before the catalogue loads.
+			// Use the non-optimistic path so it waits for the catalogue and tokenizes custom emoji media.
+			const shouldFetchOptimistically = useUnicodeEmojis
+				? optimisticFetch && Boolean(emojiId.id)
+				: optimisticFetch;
+
+			const foundEmoji = _emojiProvider.fetchByEmojiId(
+				normalizedEmojiId,
+				shouldFetchOptimistically,
+			);
 
 			sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_START);
 			if (isPromise<OptionalEmojiDescription>(foundEmoji)) {

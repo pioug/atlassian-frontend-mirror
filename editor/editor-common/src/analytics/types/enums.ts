@@ -46,6 +46,7 @@ export enum ACTION {
 	DISCONNECTED_TARGET = 'disconnectedTarget',
 	DISMISSED = 'dismissed',
 	DISPLAYED = 'displayed',
+	DIVERGED = 'diverged',
 	DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
 	DISPATCHED_VALID_TRANSACTION = 'dispatchedValidTransaction',
 	DOUBLE_CLICKED = 'doubleClicked',

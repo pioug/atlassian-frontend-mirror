@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useColorMode } from '@atlaskit/app-provider';
-import { getTokenValue } from '@atlaskit/tokens';
+import { getTokenValue } from '@atlaskit/tokens/get-token-value';
 
 import { parseHex } from './color-utils/formats/hex';
 import { type CustomTheme } from './get-custom-theme-styles';

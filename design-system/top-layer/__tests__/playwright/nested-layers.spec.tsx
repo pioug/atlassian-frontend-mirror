@@ -3,6 +3,11 @@ import invariant from 'tiny-invariant';
 
 import { expect, test } from '@af/integration-testing';
 
+import {
+	focusInteractionScenarios,
+	MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+} from './focus-interaction-scenarios';
+
 test.describe('Nested layers - nested popovers', () => {
 	test('nested popover renders inside parent popover', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/94-testing-nested-popovers.tsx')>(
@@ -67,28 +72,37 @@ test.describe('Nested layers - nested popovers', () => {
 		await expect(page.getByTestId('second-popover')).toBeHidden();
 	});
 
-	// WCAG 2.4.3 Focus Order - nested focus return at each level
-	test('focus returns to correct trigger at each nesting level', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/94-testing-nested-popovers.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-nested-popovers',
-		);
+	// WCAG 2.4.3 Focus Order - nested focus return at each level. Generated for both
+	// modalities; mouse skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`focus returns to correct trigger at each nesting level (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<typeof import('../../examples/94-testing-nested-popovers.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-nested-popovers',
+			);
 
-		const firstTrigger = page.getByTestId('first-trigger');
-		const secondTrigger = page.getByTestId('second-trigger');
+			const firstTrigger = page.getByTestId('first-trigger');
+			const secondTrigger = page.getByTestId('second-trigger');
 
-		await firstTrigger.click();
-		await expect(page.getByTestId('first-popover')).toBeVisible();
+			await scenario.activate({ page, trigger: firstTrigger });
+			await expect(page.getByTestId('first-popover')).toBeVisible();
 
-		await secondTrigger.click();
-		// second popover uses role="dialog" - content gets auto-focus, use it for trial click
-		await expect(page.getByTestId('second-popover')).toBeVisible();
-		await page.getByTestId('second-popover').click({ trial: true });
-		await page.keyboard.press('Escape');
-		await expect(page.getByTestId('second-popover')).toBeHidden();
-		await expect(secondTrigger).toBeFocused();
-	});
+			await scenario.activate({ page, trigger: secondTrigger });
+			// second popover uses role="dialog" - content gets auto-focus
+			await expect(page.getByTestId('second-popover')).toBeVisible();
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('second-popover')).toBeHidden();
+			await expect(secondTrigger).toBeFocused();
+		});
+	}
 });
 
 test.describe('Nested layers - sibling auto-close', () => {
@@ -158,8 +172,14 @@ test.describe('Nested layers - popover in dialog', () => {
 		expect(popoverText).toContain('Action one');
 	});
 
-	// WCAG 2.4.3 Focus Order - Escape through popover-in-dialog returns focus correctly
-	test('Escape from popover in dialog returns focus to popover trigger', async ({ page }) => {
+	// Escape dismisses only the nested popover; the parent dialog stays open. On
+	// WebKit this previously ALSO closed the dialog (Safari fires the dialog's
+	// `cancel` on the same Escape) — this is the cross-browser regression guard.
+	// See WebKit bug https://bugs.webkit.org/show_bug.cgi?id=319355
+	// and notes/decisions/safari-escape-nested-popover-in-dialog.md
+	test('Escape in a nested popover keeps the dialog open and closes only the popover', async ({
+		page,
+	}) => {
 		await page.visitExample<typeof import('../../examples/97-testing-popover-in-dialog.tsx')>(
 			'design-system',
 			'top-layer',
@@ -169,22 +189,53 @@ test.describe('Nested layers - popover in dialog', () => {
 		await page.getByTestId('dialog-trigger').click();
 		await expect(page.locator('dialog')).toBeVisible();
 
-		const popoverTrigger = page.getByTestId('popover-trigger');
-		await popoverTrigger.click();
-		await expect(page.getByTestId('popover-content')).toBeVisible();
-
-		// Escape closes nested popover - popover-content auto-focused on open (role=dialog),
-		// use it for trial actionability check before Escape
+		await page.getByTestId('popover-trigger').click();
 		const popoverContent = page.getByTestId('popover-content');
 		await expect(popoverContent).toBeVisible();
+
 		await popoverContent.click({ trial: true });
 		await page.keyboard.press('Escape');
-		await expect(popoverContent).toBeHidden();
 
-		// Focus returns to popoverTrigger (inside the still-open dialog)
+		// Only the popover closes; the dialog remains open (Chromium/Firefox/Safari parity).
+		await expect(popoverContent).toBeHidden();
 		await expect(page.locator('dialog')).toBeVisible();
-		await expect(popoverTrigger).toBeFocused();
 	});
+
+	// WCAG 2.4.3 Focus Order - Escape through popover-in-dialog returns focus to the
+	// popover trigger. Generated for both modalities; mouse skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`Escape from popover in dialog returns focus to popover trigger (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+
+			await page.visitExample<typeof import('../../examples/97-testing-popover-in-dialog.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-popover-in-dialog',
+			);
+
+			const dialogTrigger = page.getByTestId('dialog-trigger');
+			await scenario.activate({ page, trigger: dialogTrigger });
+			await expect(page.locator('dialog')).toBeVisible();
+
+			const popoverTrigger = page.getByTestId('popover-trigger');
+			await scenario.activate({ page, trigger: popoverTrigger });
+			const popoverContent = page.getByTestId('popover-content');
+			await expect(popoverContent).toBeVisible();
+
+			await page.keyboard.press('Escape');
+			await expect(popoverContent).toBeHidden();
+			await expect(page.locator('dialog')).toBeVisible();
+
+			// Focus returns to the popover trigger (inside the still-open dialog).
+			await expect(popoverTrigger).toBeFocused();
+		});
+	}
 
 	// Removed: "focus returns correctly through 3 levels of nesting" (dialog → popover → popover,
 	// example `testing-nested-focus-return`). Chromium matched the expected focus chain after each

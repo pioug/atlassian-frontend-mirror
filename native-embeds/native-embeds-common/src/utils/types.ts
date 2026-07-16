@@ -23,6 +23,12 @@ export type NativeEmbedParameterValues = {
 	borderSize?: number;
 	displayText?: string;
 	height: number; // Deprecated: height is only used when aspectRatio is not available, but it remains a required parameter for backwards compatibility. New code should use aspectRatio and optionally width instead of height.
+	/**
+	 * Whether the embed should follow the editor text layout maximum width.
+	 *
+	 * Omitted for existing embeds; parameter resolution treats an omitted value as `false`.
+	 */
+	isMaxWidth?: boolean;
 	url?: string;
 	width?: number;
 };
@@ -40,6 +46,7 @@ export type NativeEmbedParameters = {
 		borderSize?: NativeEmbedParameterValue;
 		displayText?: NativeEmbedParameterValue;
 		height?: NativeEmbedParameterValue; // Deprecated: height is only used when aspectRatio is not available, but it remains a supported parameter for backwards compatibility. New code should use aspectRatio and optionally width instead of height.
+		isMaxWidth?: NativeEmbedParameterValue;
 		url?: NativeEmbedParameterValue;
 		width?: NativeEmbedParameterValue;
 	};

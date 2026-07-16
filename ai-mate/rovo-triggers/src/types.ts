@@ -258,6 +258,7 @@ export type EditorContextPayloadData =
 			selectionLocalIds?: string;
 			contentMauiId?: string;
 			mediaFileId?: string;
+			mediaCollection?: string;
 			dynamicUiSource?: {
 				contentType: string;
 				startLocalId?: string;

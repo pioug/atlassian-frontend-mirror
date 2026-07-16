@@ -8,7 +8,7 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import type { ThemeState } from '@atlaskit/tokens';
+import type { ThemeState } from '@atlaskit/tokens/theme-config';
 
 import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
 

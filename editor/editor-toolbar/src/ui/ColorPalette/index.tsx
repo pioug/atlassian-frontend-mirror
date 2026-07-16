@@ -4,7 +4,8 @@ import chromatism from 'chromatism';
 import { useIntl } from 'react-intl';
 
 import { Grid, Inline } from '@atlaskit/primitives/compiled';
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { Color } from './Color';
 import getColorMessage from './getColorMessage';

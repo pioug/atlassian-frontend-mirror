@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 9.10.0
+
+### Minor Changes
+
+- [`e93be45d5a13b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e93be45d5a13b) -
+  Send the current media's collectionId on Ask Rovo image-edit requests via
+  creationContext.additionalContext.mediaCollection, so the backend can resolve the media collection
+  when editing an existing image (image-create). Gated behind cc-maui-experiment / jira_maui_remix.
+
 ## 9.9.0
 
 ### Minor Changes

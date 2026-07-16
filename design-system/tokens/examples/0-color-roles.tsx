@@ -8,7 +8,8 @@ import { cssMap, type CSSProperties, jsx } from '@compiled/react';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { Flex } from '@atlaskit/primitives/compiled';
-import { setGlobalTheme, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
 

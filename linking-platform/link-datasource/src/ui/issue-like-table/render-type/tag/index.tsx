@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { type TagType } from '@atlaskit/linking-types';
-import { SimpleTag as Tag } from '@atlaskit/tag';
+import Tag from '@atlaskit/tag';
 
 interface TagProps {
 	tag: TagType['value'];
@@ -24,6 +24,7 @@ const TagRenderType = ({ tag, testId = TAG_TYPE_TEST_ID }: TagProps): React.JSX.
 			appearance={'default'}
 			color={tag?.color ?? 'standard'}
 			href={tag?.url}
+			isRemovable={false}
 		/>
 	);
 };

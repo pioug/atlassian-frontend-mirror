@@ -391,7 +391,7 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 				css={virtualList}
 				data-testid={virtualListScrollContainerTestId}
 				aria-labelledby="emoji-picker-table-description"
-				role={fg('platform_a11y_fixes_reaction_emoji') ? 'application' : 'grid'}
+				role={fg('platform_emoji_grid_presentation') ? 'presentation' : 'grid'}
 				tabIndex={fg('platform_a11y_fixes_reaction_emoji') ? -1 : undefined}
 			>
 				<div

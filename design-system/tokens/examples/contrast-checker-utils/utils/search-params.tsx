@@ -1,4 +1,4 @@
-import { type ActiveTokens } from '@atlaskit/tokens';
+import type { ActiveTokens } from '@atlaskit/tokens/artifacts/types';
 import tokenNames from '@atlaskit/tokens/token-names';
 
 import { baseTokenNames } from '../components/base-token-editor';

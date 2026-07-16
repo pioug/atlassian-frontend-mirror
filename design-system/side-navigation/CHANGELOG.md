@@ -1,5 +1,20 @@
 # @atlaskit/side-navigation
 
+## 12.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.2
+
+### Patch Changes
+
+- [`5c904a90dd3cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5c904a90dd3cb) -
+  Remove the not-yet-rolled-out gated list item motion implementation from the legacy
+  side-navigation package and apply the gated motion implementation to the correct side-nav-items
+  package. Enable it in the package documentation examples.
+
 ## 12.3.1
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @atlaskit/flag
 
+## 18.2.0
+
+### Minor Changes
+
+- [`30436e761cb48`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30436e761cb48) -
+  Fixes text truncation in custom elements inside flag body
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.1.2
 
 ### Patch Changes

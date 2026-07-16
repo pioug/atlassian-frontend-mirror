@@ -32,6 +32,8 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
 			migration_fallback,
 			maxWidth,
 			swatchBefore,
+			swatchBeforeLabel,
+			swatchBeforeRole,
 			...rest
 		}: SimpleTagProps,
 		ref: React.Ref<any>,
@@ -61,6 +63,9 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
 					isRemovable={false}
 					maxWidth={maxWidth}
 					swatchBefore={swatchBefore}
+					{...(fg('parent-field-switcher-missing-info-image-text')
+						? { swatchBeforeLabel, swatchBeforeRole }
+						: {})}
 				/>
 			);
 		}
@@ -102,6 +107,9 @@ const SimpleTagComponent: React.ForwardRefExoticComponent<
  * - [Examples](https://atlassian.design/components/tag/examples)
  * - [Code](https://atlassian.design/components/tag/code)
  * - [Usage](https://atlassian.design/components/tag/usage)
+ *
+ * @deprecated `SimpleTag` is deprecated. Use the default `Tag` export from
+ * `@atlaskit/tag` with `isRemovable={false}` instead, e.g. `<Tag text="…" isRemovable={false} />`.
  */
 const SimpleTag: import('react').MemoExoticComponent<
 	import('react').ForwardRefExoticComponent<SimpleTagProps & import('react').RefAttributes<any>>

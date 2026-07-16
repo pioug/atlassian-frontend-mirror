@@ -95,7 +95,7 @@ class Example extends React.Component<object, ExampleState> {
 				<PreviewItem key={`preview-${i}`}>
 					<div>
 						<p>
-							filename: <Lozenge appearance="inprogress">{preview.filename}</Lozenge>
+							filename: <Lozenge appearance="information">{preview.filename}</Lozenge>
 						</p>
 						<p>
 							scaleFactor:{' '}

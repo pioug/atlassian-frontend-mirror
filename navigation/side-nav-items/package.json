@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-nav-items",
-	"version": "2.2.1",
+	"version": "2.2.3",
 	"description": "Menu items and elements for the side nav area.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -128,6 +128,9 @@
 			"type": "boolean"
 		},
 		"navx-5180-flyout-dialog-aria-label": {
+			"type": "boolean"
+		},
+		"platform-dst-motion-uplift-list-item": {
 			"type": "boolean"
 		},
 		"platform-dst-shape-theme-default": {

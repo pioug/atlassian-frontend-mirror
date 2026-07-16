@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useThemeObserver } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { defaultLogoParams } from '../../constants';
 import type { LogoProps, LogoPropsAppearanceRequired } from '../../types';

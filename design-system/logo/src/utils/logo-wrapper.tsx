@@ -6,7 +6,8 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { type LogoSize } from './types';
 

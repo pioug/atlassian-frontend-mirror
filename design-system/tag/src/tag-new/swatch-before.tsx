@@ -2,8 +2,11 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { type AriaRole } from 'react';
+
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type TagSwatchBeforeTokenName } from './types';
@@ -24,6 +27,15 @@ export interface SwatchBeforeProps {
 	 * - string: a design token *path* resolved with `token()` (accent background tokens are typical)
 	 */
 	swatchBefore?: boolean | TagSwatchBeforeTokenName;
+	/**
+	 * Accessible label for the swatch, paired with `role` to describe the visual meaning
+	 * (e.g. the hierarchy level name like "Epic").
+	 */
+	swatchBeforeLabel?: string;
+	/**
+	 * The WAI-ARIA role for the swatch element (e.g. `"img"` for informative color indicators).
+	 */
+	swatchBeforeRole?: AriaRole;
 }
 
 const tagSwatchBeforeColorStyles = cssMapUnbound({
@@ -77,16 +89,32 @@ type TagSwatchBeforeColorKey =
 export default function SwatchBefore({
 	colorKey,
 	swatchBefore,
+	swatchBeforeLabel,
+	swatchBeforeRole,
 }: SwatchBeforeProps): JSX.Element | null {
 	if (swatchBefore === undefined || swatchBefore === false) {
 		return null;
 	}
 	if (swatchBefore === true) {
-		return <span css={[tagSwatchBeforeStyles.swatch, tagSwatchBeforeColorStyles[colorKey]]} />;
+		return (
+			<span
+				css={[tagSwatchBeforeStyles.swatch, tagSwatchBeforeColorStyles[colorKey]]}
+				{...(swatchBeforeLabel &&
+				swatchBeforeRole &&
+				fg('parent-field-switcher-missing-info-image-text')
+					? { 'aria-label': swatchBeforeLabel, role: swatchBeforeRole }
+					: {})}
+			/>
+		);
 	}
 	return (
 		<span
 			css={tagSwatchBeforeStyles.swatch}
+			{...(swatchBeforeLabel &&
+			swatchBeforeRole &&
+			fg('parent-field-switcher-missing-info-image-text')
+				? { 'aria-label': swatchBeforeLabel, role: swatchBeforeRole }
+				: {})}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={{ backgroundColor: swatchBefore }}
 		/>

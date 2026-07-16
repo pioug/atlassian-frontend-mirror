@@ -1,4 +1,4 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { Datasource } from '@atlaskit/linking-common';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
@@ -1389,7 +1389,11 @@ describe('providers > editor', () => {
 	});
 
 	describe('prompt linked issues experiment', () => {
-		ffTest.on('issue-link-suggestions-in-comments', 'fg on', () => {
+		describe('fg on', () => {
+			beforeEach(() => {
+				passGate('issue-link-suggestions-in-comments');
+			});
+
 			it('should call onResolve for issue links', async () => {
 				const baseUrl = 'https://jdog.jira-dev.com';
 				const onResolveMock = jest.fn();
@@ -1468,7 +1472,11 @@ describe('providers > editor', () => {
 			});
 		});
 
-		ffTest.off('issue-link-suggestions-in-comments', 'fg off', () => {
+		describe('fg off', () => {
+			beforeEach(() => {
+				failGate('issue-link-suggestions-in-comments');
+			});
+
 			it('should not call onResolve for an issue link', async () => {
 				const baseUrl = 'https://jdog.jira-dev.com';
 				const onResolveMock = jest.fn();

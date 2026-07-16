@@ -432,24 +432,17 @@ function classifySpecifiers({
 							continue;
 						}
 
-						if (bridge.entryPointExportName !== undefined) {
-							resolvedOriginalName =
-								bridge.entryPointExportName === nameInSource
-									? undefined
-									: bridge.entryPointExportName;
-						} else {
-							// The bridge re-exports `nameInSource` without aliasing
-							// (e.g. `export { panelPlugin } from '@scope/dep'`), so the
-							// public name at the bridge subpath matches `nameInSource`.
-							// The deep `originalName` (e.g. `'default'` coming from a
-							// further-upstream `export { default as panelPlugin }`)
-							// describes the dependency's internal shape, NOT the bridge
-							// subpath's shape. Clear it so the rewrite stays a named
-							// import using the bridge's public name, instead of being
-							// turned into a default import that the bridge does not
-							// actually expose.
-							resolvedOriginalName = undefined;
-						}
+						// For preferImportedPackageSubpath, we are rewriting to the imported
+						// package's bridge subpath (e.g. `@scope/barrel/bridge`), so import
+						// shape must match the bridge subpath's PUBLIC API. Any
+						// `entryPointExportName` points at the dependency's internal name
+						// (e.g. `SPOTLIGHT_NAMES` in `export { SPOTLIGHT_NAMES as Foo } ...`)
+						// and must not leak into consumer imports of the bridge subpath.
+						//
+						// Keep the original consumer-facing symbol (`nameInSource`) by
+						// clearing `originalName` so `transformSpecifierForExport` preserves
+						// the named import form from the bridge.
+						resolvedOriginalName = undefined;
 						if (!specifiersByTarget.has(targetKey)) {
 							specifiersByTarget.set(targetKey, []);
 						}

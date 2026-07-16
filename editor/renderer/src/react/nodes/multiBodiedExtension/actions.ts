@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { MultiBodiedExtensionActions } from '@atlaskit/editor-common/extensions';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { MBEChangeActiveAnalyticsEvent } from '../../../analytics/events';
 
@@ -34,7 +34,7 @@ export const useMultiBodiedExtensionActions = ({
 				}
 
 				updateActiveChild(index);
-				if (fg('confluence_frontend_native_tabs_extension')) {
+				if (expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)) {
 					fireAnalyticsEvent?.({
 						action: ACTION.CHANGE_ACTIVE,
 						actionSubject: ACTION_SUBJECT.MULTI_BODIED_EXTENSION,

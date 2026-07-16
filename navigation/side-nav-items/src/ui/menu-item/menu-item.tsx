@@ -202,6 +202,12 @@ const containerStyles = cssMap({
 			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
 		},
 	},
+	rootMotion: {
+		transition: token('motion.listitem.hovered'),
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
 	// platform-dst-shape-theme-default TODO: Merge into base after rollout
 	rootT26Shape: {
 		borderRadius: token('radius.medium', '6px'),
@@ -227,6 +233,12 @@ const containerStyles = cssMap({
 		'&:hover': {
 			color: token('color.text.selected'),
 			backgroundColor: token('color.background.selected.hovered'),
+		},
+	},
+	selectedMotion: {
+		transition: token('motion.listitem.selected'),
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
 		},
 	},
 	disabled: {
@@ -310,6 +322,12 @@ const buttonOrAnchorStyles = cssMap({
 			backgroundColor: token('elevation.surface.pressed'),
 		},
 	},
+	rootMotion: {
+		transition: token('motion.listitem.hovered'),
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
 	// platform-dst-shape-theme-default TODO: Merge into base after rollout
 	rootT26Shape: {
 		borderRadius: token('radius.medium', '6px'),
@@ -323,6 +341,12 @@ const buttonOrAnchorStyles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'&:active:not(:disabled)': {
 			backgroundColor: token('color.background.selected.pressed'),
+		},
+	},
+	selectedMotion: {
+		transition: token('motion.listitem.selected'),
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
 		},
 	},
 	// Only applying on interactive element as we are not enabling
@@ -681,9 +705,13 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 				ref={visualContentRef}
 				css={[
 					containerStyles.root,
+					fg('platform-dst-motion-uplift-list-item') && containerStyles.rootMotion,
 					nestedOpenPopupStyles.root,
 					fg('platform-dst-shape-theme-default') && containerStyles.rootT26Shape,
 					isSelected && containerStyles.selected,
+					isSelected &&
+						fg('platform-dst-motion-uplift-list-item') &&
+						containerStyles.selectedMotion,
 					isSelected && nestedOpenPopupStyles.selected,
 					isDragging && containerStyles.dragging,
 					description && containerStyles.hasDescription,
@@ -744,9 +772,13 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								onClick={handleClick as MenuItemOnClick<HTMLAnchorElement>}
 								xcss={cx(
 									buttonOrAnchorStyles.root,
+									fg('platform-dst-motion-uplift-list-item') && buttonOrAnchorStyles.rootMotion,
 									fg('platform-dst-shape-theme-default') && buttonOrAnchorStyles.rootT26Shape,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
+									isSelected &&
+										fg('platform-dst-motion-uplift-list-item') &&
+										buttonOrAnchorStyles.selectedMotion,
 									hasDragIndicator && buttonOrAnchorStyles.hasDragIndicator,
 								)}
 								// Needed to override Anchor style due to a compiled/emotion conflict
@@ -791,9 +823,13 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								onClick={handleClick as MenuItemOnClick<HTMLButtonElement>}
 								xcss={cx(
 									buttonOrAnchorStyles.root,
+									fg('platform-dst-motion-uplift-list-item') && buttonOrAnchorStyles.rootMotion,
 									fg('platform-dst-shape-theme-default') && buttonOrAnchorStyles.rootT26Shape,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
+									isSelected &&
+										fg('platform-dst-motion-uplift-list-item') &&
+										buttonOrAnchorStyles.selectedMotion,
 									hasDragIndicator && buttonOrAnchorStyles.hasDragIndicator,
 								)}
 								aria-expanded={ariaExpanded}

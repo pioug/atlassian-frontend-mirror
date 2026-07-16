@@ -335,7 +335,26 @@ describe('AgentProfileCreator', () => {
 		);
 
 		expect(screen.getByText('Rovo Agent by John Doe Forge')).toBeInTheDocument();
+		expect(screen.getByTestId('rovo-icon-wrapper')).toBeInTheDocument();
 		expect(screen.queryByTestId('agent-profile-creator-skeleton')).not.toBeInTheDocument();
+	});
+
+	test('hides the Rovo icon when hideCreatorIcon is set', () => {
+		render(
+			<AgentProfileCreator
+				creator={getAgentCreator({
+					creatorType: 'FORGE',
+					forgeCreator: 'John Doe Forge',
+				})}
+				isLoading={false}
+				onCreatorLinkClick={() => {}}
+				hideCreatorIcon
+			/>,
+			{ wrapper },
+		);
+
+		expect(screen.getByText('Rovo Agent by John Doe Forge')).toBeInTheDocument();
+		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
 	});
 
 	test('render correctly for REMOTE_A2A: "Agent by" copy without the Rovo logo', () => {

@@ -4,13 +4,15 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BlockMenuPlugin } from '../../blockMenuPluginType';
 
 const getDisabledNodeTypes = memoizeOne((nodes: Schema['nodes']): NodeType[] => [
 	nodes.rule,
-	...(fg('confluence_frontend_native_tabs_extension') ? [nodes.multiBodiedExtension] : []),
+	...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
+		? [nodes.multiBodiedExtension]
+		: []),
 ]);
 
 const getIsFormatMenuHidden = (selection: Selection, schema: Schema) => {

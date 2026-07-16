@@ -177,7 +177,7 @@ export class MultiValue extends React.Component<Props> {
 		if (canShowArchivedLozenge) {
 			return (
 				<Box xcss={archivedLozengeWrapper}>
-					<Lozenge appearance="default">
+					<Lozenge appearance="neutral">
 						<FormattedMessage {...messages.archivedLozenge} />
 					</Lozenge>
 				</Box>
@@ -274,7 +274,7 @@ export class MultiValue extends React.Component<Props> {
 							/>
 							{canShowArchivedLozenge ? (
 								<Box xcss={archivedLozengeWrapper}>
-									<Lozenge appearance="default">
+									<Lozenge appearance="neutral">
 										<FormattedMessage {...messages.archivedLozenge} />
 									</Lozenge>
 								</Box>

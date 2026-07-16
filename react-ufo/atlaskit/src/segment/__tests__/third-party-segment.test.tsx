@@ -334,7 +334,10 @@ describe('UFOThirdPartySegment', () => {
 						label: 'resource-timing',
 						data: {
 							// Base fields
-							label: 'index.json',
+							// `fetch`/`xmlhttprequest` are treated as backend-timing resources, so the
+							// sanitized full (queryless) URL is used as the label instead of just the
+							// last path segment.
+							label: 'https://static.gliffy.com/shapes/index.json',
 							startTime: 200,
 							duration: 300,
 							fetchStart: 195,

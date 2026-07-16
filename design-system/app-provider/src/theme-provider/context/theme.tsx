@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { ThemeState } from '@atlaskit/tokens';
+import type { ThemeState } from '@atlaskit/tokens/theme-config';
 
 export type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 

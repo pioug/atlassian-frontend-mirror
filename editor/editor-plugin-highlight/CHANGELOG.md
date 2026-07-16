@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-highlight
 
+## 12.1.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.25
+
+### Patch Changes
+
+- [`1a6b32ef3760e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a6b32ef3760e) -
+  Treat default text and highlight colors as mixed selection colors
+- Updated dependencies
+
 ## 12.1.24
 
 ### Patch Changes

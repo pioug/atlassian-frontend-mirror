@@ -1,5 +1,31 @@
 # @atlaskit/native-embeds-common
 
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.0
+
+### Minor Changes
+
+- [`53006a460ecb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53006a460ecb2) -
+  [ux] Allow opted-in native embed experiences to use the editor text layout width as their maximum
+  width when the `platform_native_embeds_max_width` dynamic configuration is enabled. MAUI opts in
+  to the new `allowMaxWidth` manifest capability. Other experiences can opt in with:
+
+  ```ts
+  const MyExperienceManifest: ExperienceManifest = {
+  	allowMaxWidth: true,
+  	// other manifest fields
+  };
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

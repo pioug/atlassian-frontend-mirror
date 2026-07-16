@@ -1,5 +1,45 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.2.11
+
+### Patch Changes
+
+- [`a3bbfab896310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3bbfab896310) -
+  Replace feature gate `confluence_frontend_native_tabs_extension` with experiment
+  `confluence_native_tabs_experiment` using `expValEquals` from
+  `@atlaskit/tmp-editor-statsig/exp-val-equals`. Usage:
+  `expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)`.
+- Updated dependencies
+
+## 10.2.10
+
+### Patch Changes
+
+- [`abfc496602dcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abfc496602dcb) -
+  [ux] Fix the "when the page is published" link in the unpublished synced block reference error
+  card. Links rendered inside the reference sync block's contentEditable island did not navigate on
+  click (the browser placed the caret instead); anchor navigation is now re-triggered on click, and
+  interactive elements show the pointer cursor rather than the text cursor. Both behaviours are
+  gated behind the `platform_editor_sync_block_activation` experiment.
+- Updated dependencies
+
+## 10.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.8
+
+### Patch Changes
+
+- [`c1e8426f607ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1e8426f607ad) -
+  [EDITOR-8060] Behind the `platform_editor_sync_block_activation` experiment, the synced block
+  floating toolbar copy button is now the primary action: it shows a visible "Copy to sync" label
+  and is moved to the first position, ahead of the informational synced-location dropdown. Existing
+  behaviour is unchanged for users outside the experiment.
+- Updated dependencies
+
 ## 10.2.7
 
 ### Patch Changes

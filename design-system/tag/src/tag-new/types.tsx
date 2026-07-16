@@ -1,4 +1,4 @@
-import React, { type ComponentType, type ReactNode } from 'react';
+import React, { type AriaRole, type ComponentType, type ReactNode } from 'react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type {
@@ -6,6 +6,7 @@ import type {
 	BackgroundColorHovered,
 	BackgroundColorPressed,
 } from '@atlaskit/tokens/css-type-schema';
+
 export type NewTagColor =
 	| 'gray'
 	| 'blue'
@@ -31,51 +32,37 @@ export interface TagNewProps {
 	 */
 	elemBefore?: ReactNode;
 	/**
-	 * Text to be displayed in the tag.
-	 * Accepts a string or an ordered array of string chunks for migration use cases.
+	 * When false, removes the tag's default margin. Use in contexts like Select multi-value
+	 * where the parent controls spacing (e.g. gap between tags). Defaults to `true`.
 	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	text: string | string[];
+	hasMargin?: boolean;
 	/**
 	 * URI or path. If provided, the tag will be a link.
 	 */
 	href?: string;
+	/**
+	 * Flag to indicate if a tag is removable. Defaults to true.
+	 */
+	isRemovable?: boolean;
 	/**
 	 * A link component to be used instead of our standard link. The styling of
 	 * our link item will be applied to the link that is passed in.
 	 */
 	linkComponent?: ComponentType<any>;
 	/**
-	 * A `testId` prop is provided for specified elements.
-	 */
-	testId?: string;
-	/**
-	 * Flag to indicate if a tag is removable. Defaults to true.
-	 */
-	isRemovable?: boolean;
-	/**
-	 * Text rendered as the aria-label for remove button.
-	 */
-	removeButtonLabel?: string;
-	/**
-	 * Handler to be called before the tag is removed. If it does not return a
-	 * truthy value, the tag will not be removed.
-	 */
-	onBeforeRemoveAction?: () => boolean;
-	/**
-	 * Handler to be called after tag is removed.
-	 */
-	onAfterRemoveAction?: (text: string) => void;
-	/**
 	 * Maximum width of the tag. When exceeded, the text will be truncated with ellipsis.
 	 * Accepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').
 	 */
 	maxWidth?: string | number;
 	/**
-	 * When false, removes the tag's default margin. Use in contexts like Select multi-value
-	 * where the parent controls spacing (e.g. gap between tags). Defaults to `true`.
+	 * Handler to be called after tag is removed.
 	 */
-	hasMargin?: boolean;
+	onAfterRemoveAction?: (text: string) => void;
+	/**
+	 * Handler to be called before the tag is removed. If it does not return a
+	 * truthy value, the tag will not be removed.
+	 */
+	onBeforeRemoveAction?: () => boolean;
 	/**
 	 * Handler called when the tag is clicked. Only fires for link tags (when href is provided).
 	 * The second argument provides an Atlaskit UI analytics event.
@@ -84,11 +71,36 @@ export interface TagNewProps {
 		| ((e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => void)
 		| ((e: React.MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void);
 	/**
+	 * Text rendered as the aria-label for remove button.
+	 */
+	removeButtonLabel?: string;
+	/**
 	 * EXPERIMENTAL - Leading color swatch (12×12px), rendered before `elemBefore`.
 	 * - `true`: uses `color.background.accent.<color>.subtle` for swatch color
 	 * - Pass a design token (e.g. `token('color.background.accent.red.subtle')`)
 	 */
 	swatchBefore?: boolean | TagSwatchBeforeTokenName;
+	/**
+	 * Accessible label for the tag's leading color swatch.
+	 * Paired with `role="img"` to convey the visual meaning of the swatch
+	 * (e.g. `swatchBeforeLabel="Epic"` for an epic color swatch).
+	 */
+	swatchBeforeLabel?: string;
+	/**
+	 * The WAI-ARIA role applied to the tag's color swatch element.
+	 * Use when the swatch conveys meaning through color alone (e.g. `role="img"`).
+	 */
+	swatchBeforeRole?: AriaRole;
+	/**
+	 * A `testId` prop is provided for specified elements.
+	 */
+	testId?: string;
+	/**
+	 * Text to be displayed in the tag.
+	 * Accepts a string or an ordered array of string chunks for migration use cases.
+	 */
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	text: string | string[];
 	/**
 	 * Trailing metric rendered after the tag text. Intended for compact numeric or short status-adjacent values.
 	 */

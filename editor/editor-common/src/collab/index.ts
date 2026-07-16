@@ -19,7 +19,8 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { participantColors } from '@atlaskit/editor-shared-styles';
-import { getGlobalTheme, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
 
 import type { Providers } from '../provider-factory';
 import type { GetResolvedEditorStateReason } from '../types';

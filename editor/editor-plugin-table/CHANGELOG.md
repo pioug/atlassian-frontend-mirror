@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.4.6
+
+### Patch Changes
+
+- [`d86bd1324d82b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d86bd1324d82b) -
+  Fix table cell selection when moving a table with the keyboard shortcut behind the
+  `platform_editor_fix_table_move_shortcut` experiment.
+- Updated dependencies
+
+## 24.4.5
+
+### Patch Changes
+
+- [`22f3858872f99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22f3858872f99) -
+  Clean up experiment `platform_editor_table_toolbar_perf_fix`
+- Updated dependencies
+
 ## 24.4.4
 
 ### Patch Changes

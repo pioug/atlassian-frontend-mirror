@@ -7,12 +7,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { bind } from 'bind-event-listener';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import {
-	getThemeHtmlAttrs,
-	setGlobalTheme,
-	SUBTREE_THEME_ATTRIBUTE,
-	type ThemeColorModes,
-} from '@atlaskit/tokens';
+import { SUBTREE_THEME_ATTRIBUTE } from '@atlaskit/tokens/constants';
+import { getThemeHtmlAttrs } from '@atlaskit/tokens/get-theme-html-attrs';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
+import type { ThemeColorModes } from '@atlaskit/tokens/theme-config';
 
 import { useIsAppProviderThemingEnabled } from '../use-is-app-provider-theming-enabled';
 import { useIsInsideAppProvider } from '../use-is-inside-app-provider';

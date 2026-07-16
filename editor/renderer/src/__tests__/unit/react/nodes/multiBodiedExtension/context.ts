@@ -6,7 +6,7 @@ import {
 	getNodeRenderer,
 } from '@atlaskit/editor-common/extensions';
 import { useProvider } from '@atlaskit/editor-common/provider-factory';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import { useMultiBodiedExtensionContext } from '../../../../../react/nodes/multiBodiedExtension/context';
 
@@ -105,7 +105,7 @@ describe('useMultiBodiedExtensionContext', () => {
 	});
 
 	it('should return extension handler renderer before resolving provider renderer when the native tabs gate is on', () => {
-		passGate('confluence_frontend_native_tabs_extension');
+		setupEditorExperiments('test', { confluence_native_tabs_experiment: true });
 		const extensionHandler = jest.fn(() =>
 			React.createElement('div', null, 'Extension handler result'),
 		);
@@ -138,7 +138,7 @@ describe('useMultiBodiedExtensionContext', () => {
 	});
 
 	it('should use provider renderer when extension handler is available but the native tabs gate is off', async () => {
-		failGate('confluence_frontend_native_tabs_extension');
+		setupEditorExperiments('test', { confluence_native_tabs_experiment: false });
 		const mockPrivateProps = { __allowBodiedOverride: false };
 		const mockNodeRenderer = jest.fn();
 		const extensionHandler = jest.fn(() =>

@@ -42,12 +42,6 @@ export class VanillaTooltip {
 		 */
 		className: string,
 		private timeout: number = 300,
-		/**
-		 * Optional inline styles to apply directly to the tooltip element.
-		 * Useful when the tooltip is rendered in the browser's top layer (via Popover API),
-		 * where ancestor CSS selectors cannot reach it.
-		 */
-		styles?: Record<string, string>,
 	) {
 		const tooltip = document.createElement('span');
 		tooltip.role = 'tooltip';
@@ -55,11 +49,6 @@ export class VanillaTooltip {
 		tooltip.className = className;
 		tooltip.id = id;
 		tooltip.textContent = content;
-
-		if (styles) {
-			Object.assign(tooltip.style, styles);
-		}
-
 		this.tooltip = tooltip;
 
 		// Button preparation

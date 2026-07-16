@@ -17,9 +17,15 @@ import type {
 	ReadonlyTransaction,
 	SafeStateField,
 } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { insm } from '@atlaskit/insm';
-import type { MentionProvider } from '@atlaskit/mention/resource';
-import { SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
+import type { MentionProvider, ResolvingMentionProvider } from '@atlaskit/mention/resource';
+import {
+	isResolvingMentionProvider,
+	MentionNameStatus,
+	SLI_EVENT_TYPE,
+	SMART_EVENT_TYPE,
+} from '@atlaskit/mention/resource';
 import { ComponentNames } from '@atlaskit/mention/types';
 import type { Actions as MentionActions, SliNames } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -44,6 +50,18 @@ export const ACTIONS = {
 	DISCARD_PENDING_TYPED_AGENT_MENTION: 'DISCARD_PENDING_TYPED_AGENT_MENTION',
 	SET_PENDING_TYPED_AGENT_MENTION: 'SET_PENDING_TYPED_AGENT_MENTION',
 	SET_PROVIDER: 'SET_PROVIDER',
+	/**
+	 * Dispatched from view().update() when async resolveMentionName() resolves
+	 * for a pasted agent mention.
+	 * Updates lastInsertedAgentMentionName so the nudge shows the correct name.
+	 */
+	RESOLVE_PASTED_AGENT_MENTION_NAME: 'RESOLVE_PASTED_AGENT_MENTION_NAME',
+	/**
+	 * Dispatched from view().update() when async resolveMentionName() resolves
+	 * with a non-OK status for a pasted agent mention.
+	 * Clears pendingPastedAgentMention so no retry loop occurs.
+	 */
+	CLEAR_PENDING_PASTED_AGENT_MENTION: 'CLEAR_PENDING_PASTED_AGENT_MENTION',
 };
 
 // 'AGENT' is not in the ADF schema UserType enum but is used at runtime.
@@ -341,6 +359,8 @@ const commitPendingTypedAgentMention = (
 
 const hasTrackedAgentMentionState = (pluginState: MentionPluginState) =>
 	Boolean(pluginState.pendingTypedAgentMention) ||
+	(Boolean(pluginState.pendingPastedAgentMention) &&
+		fg('platform_editor_agent_mentions_drop_one_fixes')) ||
 	pluginState.lastInsertedAgentMentionId != null ||
 	pluginState.lastInsertedAgentMentionLocalId != null ||
 	pluginState.lastInsertedAgentMentionContext != null ||
@@ -357,6 +377,9 @@ const clearTrackedAgentMentionState = (pluginState: MentionPluginState): Mention
 	return {
 		...pluginState,
 		pendingTypedAgentMention: null,
+		...(fg('platform_editor_agent_mentions_drop_one_fixes')
+			? { pendingPastedAgentMention: null }
+			: {}),
 		lastInsertedAgentMentionId: null,
 		lastInsertedAgentMentionLocalId: null,
 		lastInsertedAgentMentionContext: null,
@@ -364,6 +387,95 @@ const clearTrackedAgentMentionState = (pluginState: MentionPluginState): Mention
 		lastInsertedAgentMentionPrompt: null,
 		lastInsertedAgentMentionParentNodeType: null,
 	};
+};
+
+/**
+ * Attempts to synchronously resolve an agent mention name from the mention
+ * provider's cache. Falls back to undefined if the provider doesn't support
+ * name resolution, the result is a Promise (async/cache miss), or the status
+ * is not OK.
+ */
+const resolveCachedAgentMentionName = (
+	mentionProvider: MentionProvider,
+	params: { name?: string | null } | undefined,
+	id: string,
+): string | undefined => {
+	if (params?.name || !isResolvingMentionProvider(mentionProvider)) {
+		return params?.name ?? undefined;
+	}
+	const result = mentionProvider.resolveMentionName(id);
+	if (!(result instanceof Promise) && result.status === MentionNameStatus.OK) {
+		return result.name || undefined;
+	}
+	return undefined;
+};
+
+/**
+ * Resolves the name of a pasted agent mention via the mention provider and
+ * dispatches the appropriate action to update plugin state.
+ *
+ * Handles both async (Promise) and synchronous cache-hit results:
+ * - On OK resolution  → dispatches RESOLVE_PASTED_AGENT_MENTION_NAME so the nudge
+ *   shows the correct agent name.
+ * - On non-OK result  → dispatches CLEAR_PENDING_PASTED_AGENT_MENTION to prevent
+ *   an infinite retry loop on subsequent update() calls.
+ *
+ * Guards against duplicate in-flight requests via pendingResolveMentionIds.
+ */
+export const resolveAndDispatchPastedAgentMentionName = (
+	agentId: string,
+	mentionProvider: ResolvingMentionProvider,
+	pendingResolveMentionIds: Set<string>,
+	view: EditorView,
+): void => {
+	if (pendingResolveMentionIds.has(agentId)) {
+		return;
+	}
+	pendingResolveMentionIds.add(agentId);
+	const result = mentionProvider.resolveMentionName(agentId);
+
+	if (result instanceof Promise) {
+		result.then((nameDetails) => {
+			pendingResolveMentionIds.delete(agentId);
+			if (nameDetails.status === MentionNameStatus.OK && nameDetails.name) {
+				view.dispatch(
+					view.state.tr.setMeta(mentionPluginKey, {
+						action: ACTIONS.RESOLVE_PASTED_AGENT_MENTION_NAME,
+						params: { id: agentId, name: nameDetails.name },
+					}),
+				);
+			} else {
+				// Non-OK status — clear pendingPastedAgentMention to prevent
+				// an infinite retry loop on subsequent update() calls.
+				view.dispatch(
+					view.state.tr.setMeta(mentionPluginKey, {
+						action: ACTIONS.CLEAR_PENDING_PASTED_AGENT_MENTION,
+						params: { id: agentId },
+					}),
+				);
+			}
+		});
+	} else if (result.status === MentionNameStatus.OK && result.name) {
+		pendingResolveMentionIds.delete(agentId);
+		// Synchronous hit on a second update cycle (e.g. provider warmed up
+		// between the paste transaction and this view update).
+		view.dispatch(
+			view.state.tr.setMeta(mentionPluginKey, {
+				action: ACTIONS.RESOLVE_PASTED_AGENT_MENTION_NAME,
+				params: { id: agentId, name: result.name },
+			}),
+		);
+	} else {
+		pendingResolveMentionIds.delete(agentId);
+		// Non-OK synchronous status — clear pendingPastedAgentMention to prevent
+		// an infinite retry loop on subsequent update() calls.
+		view.dispatch(
+			view.state.tr.setMeta(mentionPluginKey, {
+				action: ACTIONS.CLEAR_PENDING_PASTED_AGENT_MENTION,
+				params: { id: agentId },
+			}),
+		);
+	}
 };
 
 interface CreateMentionPlugin {
@@ -499,6 +611,47 @@ export function createMentionPlugin({
 						};
 						hasPublicPluginStateChanged = true;
 						break;
+					case ACTIONS.RESOLVE_PASTED_AGENT_MENTION_NAME: {
+						// Guard: only apply if there is a matching pending pasted mention (staleness check).
+						if (
+							!isAgentMentionsExperimentEnabled ||
+							!params?.id ||
+							!params?.name ||
+							newPluginState.pendingPastedAgentMention?.id !== params.id ||
+							!fg('platform_editor_agent_mentions_drop_one_fixes')
+						) {
+							break;
+						}
+						newPluginState = {
+							...newPluginState,
+							pendingPastedAgentMention: null,
+							lastInsertedAgentMentionId: newPluginState.pendingPastedAgentMention?.id,
+							lastInsertedAgentMentionLocalId: newPluginState.pendingPastedAgentMention?.localId,
+							lastInsertedAgentMentionContext: newPluginState.pendingPastedAgentMention?.context,
+							lastInsertedAgentMentionName: params.name as string,
+							lastInsertedAgentMentionPrompt: newPluginState.pendingPastedAgentMention?.prompt,
+							lastInsertedAgentMentionParentNodeType:
+								newPluginState.pendingPastedAgentMention?.parentNodeType,
+						};
+						hasPublicPluginStateChanged = true;
+						break;
+					}
+					case ACTIONS.CLEAR_PENDING_PASTED_AGENT_MENTION: {
+						if (
+							!isAgentMentionsExperimentEnabled ||
+							!params?.id ||
+							newPluginState.pendingPastedAgentMention?.id !== params.id ||
+							!fg('platform_editor_agent_mentions_drop_one_fixes')
+						) {
+							break;
+						}
+						// resolveMentionName() returned a non-OK status — clear the pending state.
+						newPluginState = {
+							...newPluginState,
+							pendingPastedAgentMention: null,
+						};
+						break;
+					}
 				}
 
 				// When the agent mentions experiment is off, dispatch immediately (original behaviour).
@@ -663,11 +816,20 @@ export function createMentionPlugin({
 										);
 									}
 									if (agentMentionLocalId === null && node.attrs.localId) {
+										// Try to recover the name synchronously from the mention provider's
+										// name cache (populated by cacheMentionName on typed insert).
+										const cachedName = fg('platform_editor_agent_mentions_drop_one_fixes')
+											? resolveCachedAgentMentionName(
+													mentionProvider,
+													params,
+													node.attrs.id as string,
+												)
+											: params?.name;
 										const agentMentionDetails = getAgentMentionDetailsAtPos(
 											newState,
 											pos,
 											(attrs) => attrs.localId === node.attrs.localId,
-											params?.name,
+											cachedName,
 										);
 										if (agentMentionDetails) {
 											agentMentionId = agentMentionDetails.id;
@@ -813,6 +975,27 @@ export function createMentionPlugin({
 							if (!isTaskItemMentionForPaste && isNewInsertion && getIsRovoPanelOpen?.()) {
 								// Rovo is already open — skip setting lastInsertedAgentMention* so the
 								// downstream nudge listener never fires.
+							} else if (
+								agentMentionName === null &&
+								agentMentionId !== null &&
+								isResolvingMentionProvider(newPluginState.mentionProvider) &&
+								fg('platform_editor_agent_mentions_drop_one_fixes')
+							) {
+								// Store details in pendingPastedAgentMention (private, not broadcast), preventing a double-nudge.
+								newPluginState = {
+									...newPluginState,
+									pendingPastedAgentMention: {
+										id: agentMentionId,
+										localId: agentMentionLocalId as string,
+										context: agentMentionContext as DocNode,
+										prompt: agentMentionPrompt,
+										parentNodeType: agentMentionParentNodeType,
+									},
+									...(newInsertionCount !== undefined
+										? { lastAgentMentionInsertionCount: newInsertionCount }
+										: {}),
+								};
+								// the nudge does not fire until the name is resolved.
 							} else {
 								// Not suppressed — update state so the nudge fires normally.
 								newPluginState = {
@@ -944,6 +1127,9 @@ export function createMentionPlugin({
 			let pendingTypedAgentMentionTimer: ReturnType<typeof setTimeout> | undefined;
 			let pendingTypedAgentMentionTimerKey: string | null = null;
 			let pendingTypedAgentMentionFocusDeferCount = 0;
+			// Tracks agent IDs for which resolveMentionName() is already in-flight,
+			// preventing duplicate concurrent Promises for the same ID across update() cycles.
+			const pendingResolveMentionIds = new Set<string>();
 
 			/**
 			 * Clears the currently scheduled pending typed-agent-mention timer.
@@ -1127,6 +1313,24 @@ export function createMentionPlugin({
 						return;
 					}
 					schedulePendingTypedAgentMentionTimer(mentionPluginState);
+
+					// If a pasted agent mention has no name (cache miss), resolve it async
+					// via the mention provider and dispatch RESOLVE_PASTED_AGENT_MENTION_NAME
+					// so the nudge displays the correct name.
+					if (
+						editorExperiment('platform_editor_agent_mentions', true) &&
+						mentionPluginState?.pendingPastedAgentMention?.id != null &&
+						mentionPluginState?.mentionProvider &&
+						isResolvingMentionProvider(mentionPluginState.mentionProvider) &&
+						fg('platform_editor_agent_mentions_drop_one_fixes')
+					) {
+						resolveAndDispatchPastedAgentMentionName(
+							mentionPluginState.pendingPastedAgentMention.id,
+							mentionPluginState.mentionProvider,
+							pendingResolveMentionIds,
+							view,
+						);
+					}
 				},
 				destroy() {
 					clearPendingTypedAgentMentionTimer();

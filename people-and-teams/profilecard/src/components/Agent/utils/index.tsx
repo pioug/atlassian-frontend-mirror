@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import { getStudioSessionSyncUrl } from '@atlassian/studio-entry-link';
 
 const STUDIO_PROD_URL = 'https://studio.atlassian.com';
@@ -21,7 +20,7 @@ export const getStudioHost = (): string => {
 };
 
 export const getStudioPath = (path: string, email?: string): string => {
-	if (email && fg('asf-944-account-sync')) {
+	if (email) {
 		return getStudioSessionSyncUrl(getStudioEnv(), path, email);
 	}
 	return `${getStudioHost()}${path}`;
@@ -33,7 +32,9 @@ export const getAtlassianStudioAgentEditUrl = (
 	email?: string,
 ): string =>
 	getStudioPath(
-		`/s/${siteId}/agents/enrich/rovo/agents/${agentId}?redirect=${encodeURIComponent('/:agentId/overview')}`,
+		`/s/${siteId}/agents/enrich/rovo/agents/${agentId}?redirect=${encodeURIComponent(
+			'/:agentId/overview',
+		)}`,
 		email,
 	);
 

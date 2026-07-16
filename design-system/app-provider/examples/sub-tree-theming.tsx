@@ -21,7 +21,8 @@ import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import Tile from '@atlaskit/tile';
-import { type ThemeColorModes, type ThemeIds, type ThemeState, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import type { ThemeColorModes, ThemeIds, ThemeState } from '@atlaskit/tokens/theme-config';
 
 const contentStyles = cssMap({
 	body: {

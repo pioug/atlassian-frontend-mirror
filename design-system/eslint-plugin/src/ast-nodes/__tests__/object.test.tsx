@@ -2,7 +2,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, type PrivateIdentifier, type Property } from 'eslint-codemod-utils';
 import j from 'jscodeshift';
 
-import { Object } from '../object';
+import { Object as ObjectNode } from '../object';
 
 describe('Object', () => {
 	describe('hasProperty', () => {
@@ -10,7 +10,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.hasProperty(node, 'padding');
+			const result = ObjectNode.hasProperty(node, 'padding');
 			expect(result).toBe(true);
 		});
 
@@ -18,7 +18,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.hasProperty(node, 'margin');
+			const result = ObjectNode.hasProperty(node, 'margin');
 			expect(result).toBe(false);
 		});
 	});
@@ -30,7 +30,7 @@ describe('Object', () => {
 			);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.isFlat(node);
+			const result = ObjectNode.isFlat(node);
 			expect(result).toBe(true);
 		});
 
@@ -38,7 +38,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ ':after': { content: '""' } })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.isFlat(node);
+			const result = ObjectNode.isFlat(node);
 			expect(result).toBe(false);
 		});
 
@@ -46,7 +46,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({})`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.isFlat(node);
+			const result = ObjectNode.isFlat(node);
 			expect(result).toBe(true);
 		});
 	});
@@ -56,7 +56,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px', ...baseStyles })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.containsSpreadProps(node);
+			const result = ObjectNode.containsSpreadProps(node);
 			expect(result).toBe(true);
 		});
 
@@ -64,7 +64,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.containsSpreadProps(node);
+			const result = ObjectNode.containsSpreadProps(node);
 			expect(result).toBe(false);
 		});
 	});
@@ -74,7 +74,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.getEntryByPropertyName(node, 'padding');
+			const result = ObjectNode.getEntryByPropertyName(node, 'padding');
 
 			expect(result).not.toBeUndefined();
 			// @ts-ignore
@@ -85,7 +85,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.getEntryByPropertyName(node, 'margin');
+			const result = ObjectNode.getEntryByPropertyName(node, 'margin');
 
 			expect(result).toBeUndefined();
 		});
@@ -96,7 +96,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.getProperty(node, 'padding');
+			const result = ObjectNode.getProperty(node, 'padding');
 
 			expect(result).not.toBeUndefined();
 			// @ts-ignore
@@ -107,7 +107,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.getProperty(node, 'margin');
+			const result = ObjectNode.getProperty(node, 'margin');
 
 			expect(result).toBeUndefined();
 		});
@@ -118,7 +118,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px', margin: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.getEntries(node);
+			const result = ObjectNode.getEntries(node);
 
 			expect(result.length).toBe(2);
 			expect(((result[0] as Property).key as PrivateIdentifier).name).toBe('padding');
@@ -129,7 +129,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({})`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.getEntries(node);
+			const result = ObjectNode.getEntries(node);
 
 			expect(result.length).toBe(0);
 		});
@@ -140,7 +140,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.getValueByPropertyName(node, 'padding');
+			const result = ObjectNode.getValueByPropertyName(node, 'padding');
 
 			expect(result).not.toBeUndefined();
 		});
@@ -149,7 +149,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			const result = Object.getProperty(node, 'margin');
+			const result = ObjectNode.getProperty(node, 'margin');
 
 			expect(result).toBeUndefined();
 		});
@@ -164,7 +164,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			Object.updateValue(node, 'padding', 'space.100', fixer);
+			ObjectNode.updateValue(node, 'padding', 'space.100', fixer);
 
 			expect(fixer.replaceText).toHaveBeenCalledTimes(1);
 		});
@@ -179,7 +179,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			Object.appendEntry(node, 'padding', 'space.100', fixer);
+			ObjectNode.appendEntry(node, 'padding', 'space.100', fixer);
 
 			expect(fixer.insertTextAfter).toHaveBeenCalledTimes(1);
 		});
@@ -194,7 +194,7 @@ describe('Object', () => {
 			const root = j(`const styles = css({ padding: '8px' })`);
 			const node = root.find(j.ObjectExpression).get().value;
 
-			Object.deleteEntry(node, 'padding', fixer);
+			ObjectNode.deleteEntry(node, 'padding', fixer);
 
 			expect(fixer.remove).toHaveBeenCalledTimes(1);
 		});

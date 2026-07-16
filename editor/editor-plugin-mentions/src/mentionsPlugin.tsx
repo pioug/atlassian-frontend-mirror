@@ -242,8 +242,13 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 			}
 
 			const mentionPluginState = mentionPluginKey.getState(editorState);
+			// Exclude pendingPastedAgentMention — it is an @internal transient field and
+			// should not be part of the public shared state API. Exposing it would cause
+			// unnecessary re-renders in subscribers and leak implementation details.
+			const { pendingPastedAgentMention: _excluded, ...publicPluginState } =
+				mentionPluginState ?? {};
 			return {
-				...mentionPluginState,
+				...publicPluginState,
 				typeAheadHandler: typeAhead,
 			};
 		},

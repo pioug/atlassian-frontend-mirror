@@ -6,7 +6,11 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
-import { getActiveColor, MULTIPLE_HIGHLIGHT_COLORS_SELECTED } from '../editor-commands/color';
+import {
+	getActiveColor,
+	isMultiHighlightColorSelection,
+	MULTIPLE_HIGHLIGHT_COLORS_SELECTED,
+} from '../editor-commands/color';
 import { getDisabledState } from '../editor-commands/disabled';
 import type { HighlightPlugin } from '../highlightPluginType';
 
@@ -37,6 +41,25 @@ const getActiveColorInNonActiveTheme = (color: string | null): string =>
 		defaultBackgroundColor: DEFAULT_BACKGROUND_COLOR,
 	});
 
+const getColorAccessibilityState = (
+	activeColor: string | null,
+	tr: ReadonlyTransaction,
+): Pick<HighlightPluginState, 'activeColorInNonActiveTheme' | 'isMultiHighlightColor'> => {
+	const isMultiHighlightColor =
+		activeColor === MULTIPLE_HIGHLIGHT_COLORS_SELECTED || isMultiHighlightColorSelection(tr);
+
+	return {
+		// When the selection spans multiple highlight colors, `activeColor` is the
+		// `MULTIPLE_HIGHLIGHT_COLORS_SELECTED` sentinel rather than a real hex value.
+		// Passing it through would resolve the literal sentinel as a color, so fall
+		// back to the neutral default instead.
+		activeColorInNonActiveTheme: getActiveColorInNonActiveTheme(
+			isMultiHighlightColor ? null : activeColor,
+		),
+		isMultiHighlightColor,
+	};
+};
+
 export const createPlugin = ({
 	api,
 }: {
@@ -53,7 +76,7 @@ export const createPlugin = ({
 				...(fg('platform_editor_lovability_text_bg_color_patch_1') &&
 					expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) && {
 						activeColorInNonActiveTheme: getActiveColorInNonActiveTheme(null),
-						isMultiHighlightColor: false,
+						isMultiHighlightColor: isMultiHighlightColorSelection(editorState),
 					}),
 			}),
 			apply: (
@@ -93,28 +116,25 @@ export const createPlugin = ({
 
 					default:
 						const activeColor = getActiveColor(tr);
-						const isMultiHighlightColor = activeColor === MULTIPLE_HIGHLIGHT_COLORS_SELECTED;
+						const colorAccessibilityState =
+							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+							fg('platform_editor_lovability_text_bg_color_patch_1') &&
+							expValEqualsNoExposure(
+								'platform_editor_lovability_text_bg_color',
+								'isEnabled',
+								true,
+							) &&
+							(activeColor !== pluginState.activeColor ||
+								tr.selectionSet ||
+								(!tr.selection.empty && tr.docChanged))
+								? getColorAccessibilityState(activeColor, tr)
+								: {};
+
 						return {
 							...pluginState,
 							activeColor,
 							disabled: getDisabledState(newState),
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							...(activeColor !== pluginState.activeColor &&
-								fg('platform_editor_lovability_text_bg_color_patch_1') &&
-								expValEqualsNoExposure(
-									'platform_editor_lovability_text_bg_color',
-									'isEnabled',
-									true,
-								) && {
-									// When the selection spans multiple highlight colors, `activeColor` is the
-									// `MULTIPLE_HIGHLIGHT_COLORS_SELECTED` sentinel rather than a real hex value.
-									// Passing it through would resolve the literal sentinel as a color, so fall
-									// back to the neutral default instead.
-									activeColorInNonActiveTheme: getActiveColorInNonActiveTheme(
-										isMultiHighlightColor ? null : activeColor,
-									),
-									isMultiHighlightColor,
-								}),
+							...colorAccessibilityState,
 						};
 				}
 			},

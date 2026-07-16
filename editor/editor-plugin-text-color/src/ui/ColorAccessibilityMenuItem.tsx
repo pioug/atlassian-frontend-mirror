@@ -23,7 +23,8 @@ import AccessibilityIcon from '@atlaskit/icon/core/accessibility';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
-import { getTokenValue, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { getTokenValue } from '@atlaskit/tokens/get-token-value';
 
 import { getContrastRatio as calcContrastRatio } from '../pm-plugins/utils/color-contrast';
 import {

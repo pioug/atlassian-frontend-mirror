@@ -254,7 +254,8 @@ export const TypeAheadControl = ({
 		const isExtension =
 			rootNodeType === 'extension' ||
 			rootNodeType === 'bodiedExtension' ||
-			(rootNodeType === 'multiBodiedExtension' && fg('confluence_frontend_native_tabs_extension'));
+			(rootNodeType === 'multiBodiedExtension' &&
+				expValEquals('confluence_native_tabs_experiment', 'isEnabled', true));
 		const isBlockCard = rootNodeType === 'blockCard';
 		const isEmbedCard = rootNodeType === 'embedCard';
 

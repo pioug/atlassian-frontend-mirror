@@ -206,6 +206,27 @@ export const AgentProfileCardResourced = (
 		fetchData();
 	}, [fetchData]);
 
+	const forbiddenAgent = useMemo(
+		() =>
+			fg('platform_editor_agent_mentions_drop_one_fixes')
+				? ({
+						id: '',
+						named_id: '',
+						name: props.agentName ?? '',
+						description: '\u00A0',
+						creator_type: 'CUSTOMER',
+						is_default: false,
+						actor_type: 'AGENT',
+						user_defined_conversation_starters: null,
+						favourite: false,
+						favourite_count: 0,
+						identity_account_id: props.accountId,
+						creatorInfo: undefined,
+					} satisfies RovoAgentProfileCardInfo)
+				: undefined,
+		[props.agentName, props.accountId],
+	);
+
 	if (
 		!isPermitted &&
 		FeatureGates.getExperimentValue('platform_editor_reduced_profile_cards', 'isEnabled', false)
@@ -214,20 +235,24 @@ export const AgentProfileCardResourced = (
 			<AgentProfileCardWrapper>
 				<Suspense fallback={null}>
 					<AgentProfileCardLazy
-						agent={{
-							id: '',
-							named_id: '',
-							name: props.agentName ?? '',
-							description: '\u00A0',
-							creator_type: 'CUSTOMER',
-							is_default: false,
-							actor_type: 'AGENT',
-							user_defined_conversation_starters: null,
-							favourite: false,
-							favourite_count: 0,
-							identity_account_id: props.accountId,
-							creatorInfo: undefined,
-						}}
+						agent={
+							fg('platform_editor_agent_mentions_drop_one_fixes')
+								? forbiddenAgent
+								: {
+										id: '',
+										named_id: '',
+										name: props.agentName ?? '',
+										description: '\u00A0',
+										creator_type: 'CUSTOMER',
+										is_default: false,
+										actor_type: 'AGENT',
+										user_defined_conversation_starters: null,
+										favourite: false,
+										favourite_count: 0,
+										identity_account_id: props.accountId,
+										creatorInfo: undefined,
+									}
+						}
 						isLoading={false}
 						resourceClient={props.resourceClient}
 						cloudId={props.cloudId}

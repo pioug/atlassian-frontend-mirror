@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 21.0.0
+
+### Major Changes
+
+- [`72302be55bf7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72302be55bf7a) -
+  Narrowed xcss font property types to only accept tokens and global values.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.6.0
 
 ### Minor Changes

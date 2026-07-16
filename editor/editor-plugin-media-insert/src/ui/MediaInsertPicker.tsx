@@ -23,6 +23,7 @@ import {
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { Box, Focusable, Text } from '@atlaskit/primitives/compiled';
 import Tabs, { TabList, useTab, useTabPanel } from '@atlaskit/tabs';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { RegisterInsertTab } from '../mediaInsertPluginType';
@@ -346,8 +347,10 @@ export const MediaInsertPicker = ({
 				};
 				dispatchAnalyticsEvent(payload);
 			}
-			closeMediaInsertPicker();
-			focusEditor();
+			closeMediaInsertPicker(); // Focuses editor on unmount
+			if (!expValEquals('platform_editor_fix_focus_MediaInsertPicker', 'isEnabled', true)) {
+				focusEditor();
+			}
 		};
 
 	const fileTabTitle = expValEqualsNoExposure(
@@ -368,6 +371,11 @@ export const MediaInsertPicker = ({
 			fitHeight={390}
 			fitWidth={340}
 			mountTo={mountPoint}
+			onUnmount={
+				expValEquals('platform_editor_fix_focus_MediaInsertPicker', 'isEnabled', true)
+					? focusEditor
+					: undefined
+			}
 			boundariesElement={popupsBoundariesElement}
 			handleClickOutside={handleClose(INPUT_METHOD.MOUSE)}
 			handleEscapeKeydown={handleClose(INPUT_METHOD.KEYBOARD)}
@@ -419,8 +427,16 @@ export const MediaInsertPicker = ({
 									<TabComponent
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										closeMediaInsertPicker={() => {
-											closeMediaInsertPicker();
-											focusEditor();
+											closeMediaInsertPicker(); // Focuses editor on unmount
+											if (
+												!expValEquals(
+													'platform_editor_fix_focus_MediaInsertPicker',
+													'isEnabled',
+													true,
+												)
+											) {
+												focusEditor();
+											}
 										}}
 										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 										insertMediaSingle={insertMediaSingle}
@@ -435,8 +451,16 @@ export const MediaInsertPicker = ({
 										mediaProvider={mediaProvider}
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										closeMediaInsertPicker={() => {
-											closeMediaInsertPicker();
-											focusEditor();
+											closeMediaInsertPicker(); // Focuses editor on unmount
+											if (
+												!expValEquals(
+													'platform_editor_fix_focus_MediaInsertPicker',
+													'isEnabled',
+													true,
+												)
+											) {
+												focusEditor();
+											}
 										}}
 										dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 										insertFile={insertFile}
@@ -449,8 +473,16 @@ export const MediaInsertPicker = ({
 									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 									closeMediaInsertPicker={() => {
-										closeMediaInsertPicker();
-										focusEditor();
+										closeMediaInsertPicker(); // Focuses editor on unmount
+										if (
+											!expValEquals(
+												'platform_editor_fix_focus_MediaInsertPicker',
+												'isEnabled',
+												true,
+											)
+										) {
+											focusEditor();
+										}
 									}}
 									insertMediaSingle={insertMediaSingle}
 									insertExternalMediaSingle={insertExternalMediaSingle}

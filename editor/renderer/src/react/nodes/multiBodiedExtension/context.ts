@@ -14,7 +14,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import { useProvider } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type useMultiBodiedExtensionContextProps = {
 	extensionHandlers?: ExtensionHandlers;
@@ -106,7 +106,10 @@ export const useMultiBodiedExtensionContext = ({
 	}, []);
 
 	return React.useMemo(() => {
-		if (ExtensionHandlerNode && fg('confluence_frontend_native_tabs_extension')) {
+		if (
+			ExtensionHandlerNode &&
+			expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
+		) {
 			return {
 				extensionContext: {
 					NodeRenderer: ExtensionHandlerNode,

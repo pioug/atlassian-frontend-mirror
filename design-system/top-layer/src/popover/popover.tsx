@@ -76,6 +76,10 @@ const styles = cssMap({
 		margin: 0,
 		inset: 'auto',
 		overflow: 'visible',
+		// Override the UA default `height: fit-content` to prevent a WebKit flex
+		// collapse. Width is left as the UA default for anchor-width matching.
+		// See notes/decisions/safari-popover-flex-collapse.md
+		height: 'auto',
 		// Unstyled; consumers apply their own surface.
 		background: 'transparent',
 	},

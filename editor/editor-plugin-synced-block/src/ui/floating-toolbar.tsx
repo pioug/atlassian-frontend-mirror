@@ -24,6 +24,7 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	copySyncedBlockReferenceToClipboard,
@@ -91,6 +92,42 @@ export const getToolbarConfig = (
 
 		items.push(deleteButton);
 	} else {
+		// When the synced block activation experiment is enabled, the copy action is
+		// re-framed as the primary "Copy to sync" action: it shows a visible label and
+		// is moved to the first toolbar position (before the synced-location info). See
+		// EDITOR-8060.
+		const isSyncBlockActivationEnabled = expValEquals(
+			'platform_editor_sync_block_activation',
+			'isEnabled',
+			true,
+		);
+
+		const copyButton: FloatingToolbarItem<Command> = {
+			id: 'editor.syncedBlock.copy',
+			type: 'button',
+			appearance: 'subtle',
+			icon: CopyIcon,
+			title: isSyncBlockActivationEnabled
+				? formatMessage(messages.copyToSyncLabel)
+				: formatMessage(messages.copySyncBlockLabel),
+			showTitle: isSyncBlockActivationEnabled,
+			tooltipContent: isSyncBlockActivationEnabled
+				? undefined
+				: formatMessage(messages.copySyncedBlockTooltip),
+			onClick: copySyncedBlockReferenceToClipboard(
+				syncBlockStore,
+				INPUT_METHOD.SYNCED_BLOCK_TB,
+				api,
+			),
+			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
+		};
+
+		// In the activation experience the primary "Copy to sync" action leads the
+		// toolbar, ahead of the informational synced-location dropdown.
+		if (isSyncBlockActivationEnabled) {
+			items.push(copyButton);
+		}
+
 		if (!isErroredBlock) {
 			const syncedLocation: FloatingToolbarItem<Command> = {
 				type: 'custom',
@@ -139,22 +176,11 @@ export const getToolbarConfig = (
 			items.push(syncedLocation, unsyncButton);
 		}
 
-		const copyButton: FloatingToolbarItem<Command> = {
-			id: 'editor.syncedBlock.copy',
-			type: 'button',
-			appearance: 'subtle',
-			icon: CopyIcon,
-			title: formatMessage(messages.copySyncBlockLabel),
-			showTitle: false,
-			tooltipContent: formatMessage(messages.copySyncedBlockTooltip),
-			onClick: copySyncedBlockReferenceToClipboard(
-				syncBlockStore,
-				INPUT_METHOD.SYNCED_BLOCK_TB,
-				api,
-			),
-			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
-		};
-		items.push(copyButton);
+		// Outside the activation experience the copy button keeps its original
+		// (icon-only, secondary) position after the synced-location info.
+		if (!isSyncBlockActivationEnabled) {
+			items.push(copyButton);
+		}
 
 		const disabled = !syncBlockStore.referenceManager.getSyncBlockURL(
 			syncBlockObject.node.attrs.resourceId,

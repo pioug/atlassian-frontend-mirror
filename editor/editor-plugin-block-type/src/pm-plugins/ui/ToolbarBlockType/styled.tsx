@@ -7,7 +7,8 @@ import { css, type SerializedStyles } from '@emotion/react';
 
 import { headingsSharedStyles, blockquoteSharedStyles } from '@atlaskit/editor-common/styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { token, type ThemeState } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import type { ThemeState } from '@atlaskit/tokens/theme-config';
 
 export const blockTypeMenuItemStyle = (
 	tagName: string,

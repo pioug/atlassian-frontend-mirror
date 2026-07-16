@@ -1,25 +1,52 @@
 /* eslint-disable import/order */
 import React from 'react';
 
-import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
-
 import * as tokens from '@atlaskit/tokens';
+import * as tokensGetGlobalTheme from '@atlaskit/tokens/get-global-theme';
+import * as tokensSetGlobalTheme from '@atlaskit/tokens/set-global-theme';
+import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 // Mock must be imported before ThemeProvider
 import { setMatchMediaPrefersDark } from '../mocks/match-media.mock';
 
 import AppProvider from '../../src/app-provider';
+import ThemeProvider from '../../src/theme-provider';
+import { type Theme } from '../../src/theme-provider/context/theme';
 import { useColorMode } from '../../src/theme-provider/hooks/use-color-mode';
 import { useIsInsideThemeProvider } from '../../src/theme-provider/hooks/use-is-inside-theme-provider';
 import { useSetColorMode } from '../../src/theme-provider/hooks/use-set-color-mode';
 import { useSetTheme } from '../../src/theme-provider/hooks/use-set-theme';
 import { useTheme } from '../../src/theme-provider/hooks/use-theme';
-import ThemeProvider from '../../src/theme-provider';
-import { type Theme } from '../../src/theme-provider/context/theme';
 
 jest.mock('@atlaskit/tokens', () => ({
 	__esModule: true,
 	...jest.requireActual('@atlaskit/tokens'),
+}));
+
+// Mock sub-path entry points used by the source files
+jest.mock('@atlaskit/tokens/set-global-theme', () => ({
+	__esModule: true,
+	...jest.requireActual('@atlaskit/tokens/set-global-theme'),
+}));
+
+jest.mock('@atlaskit/tokens/get-global-theme', () => ({
+	__esModule: true,
+	...jest.requireActual('@atlaskit/tokens/get-global-theme'),
+}));
+
+jest.mock('@atlaskit/tokens/theme-mutation-observer', () => ({
+	__esModule: true,
+	...jest.requireActual('@atlaskit/tokens/theme-mutation-observer'),
+}));
+
+jest.mock('@atlaskit/tokens/constants', () => ({
+	__esModule: true,
+	...jest.requireActual('@atlaskit/tokens/constants'),
+}));
+
+jest.mock('@atlaskit/tokens/get-theme-html-attrs', () => ({
+	__esModule: true,
+	...jest.requireActual('@atlaskit/tokens/get-theme-html-attrs'),
 }));
 
 // Mock loadAndMountThemes
@@ -96,7 +123,7 @@ describe('ThemeProvider', () => {
 		let setGlobalThemeSpy: jest.SpyInstance;
 
 		beforeEach(() => {
-			setGlobalThemeSpy = jest.spyOn(tokens, 'setGlobalTheme');
+			setGlobalThemeSpy = jest.spyOn(tokensSetGlobalTheme, 'setGlobalTheme');
 		});
 
 		afterEach(() => {
@@ -474,10 +501,12 @@ describe('ThemeProvider', () => {
 				};
 
 				// Mock getGlobalTheme to return merged theme
-				const getGlobalThemeSpy = jest.spyOn(tokens, 'getGlobalTheme').mockReturnValue({
-					...initialTheme,
-					...partialTheme,
-				});
+				const getGlobalThemeSpy = jest
+					.spyOn(tokensGetGlobalTheme, 'getGlobalTheme')
+					.mockReturnValue({
+						...initialTheme,
+						...partialTheme,
+					});
 
 				// Trigger a re-render to observe theme changes
 				rerender(
@@ -503,11 +532,13 @@ describe('ThemeProvider', () => {
 					}),
 				);
 
-				const getGlobalThemeSpy = jest.spyOn(tokens, 'getGlobalTheme').mockReturnValue({
-					light: 'light',
-					dark: 'dark',
-					spacing: 'spacing',
-				});
+				const getGlobalThemeSpy = jest
+					.spyOn(tokensGetGlobalTheme, 'getGlobalTheme')
+					.mockReturnValue({
+						light: 'light',
+						dark: 'dark',
+						spacing: 'spacing',
+					});
 
 				render(<ThemeTestComponent />);
 				expect(screen.getByTestId('theme-light')).toHaveTextContent('light');

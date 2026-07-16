@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { render as rtlRender, screen } from '@testing-library/react';
+import { Text } from '@atlaskit/primitives/compiled';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { screen } from '@atlassian/testing-library/screen';
+import { render as rtlRender } from '@atlassian/testing-library/testing-library/react';
+
+import TagNew, { colorMapping } from '../../../tag-new';
+import SimpleTag from '../../../tag/simple-tag';
 
 const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);
 };
-
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
-import TagNew, { colorMapping } from '../../../tag-new';
-import SimpleTag from '../../../tag/simple-tag';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('TagNew component (UI uplift)', () => {
@@ -56,7 +57,7 @@ describe('TagNew component (UI uplift)', () => {
 			render(
 				<TagNew
 					text="Tag with before"
-					elemBefore={<span data-testid="before-element">🚀</span>}
+					elemBefore={<Text testId="before-element">🚀</Text>}
 					testId={testId}
 				/>,
 			);
@@ -145,6 +146,33 @@ describe('TagNew component (UI uplift)', () => {
 			expect(screen.getByTestId(testId)).toBeInTheDocument();
 		});
 	});
+});
+
+describe('swatch a11y attributes', () => {
+	const testId = 'test-tag-swatch';
+
+	ffTest.on(
+		'parent-field-switcher-missing-info-image-text',
+		'applies aria-label and role to swatch when feature gate is on',
+		() => {
+			it('should set aria-label and role on the swatch span', () => {
+				render(
+					<TagNew
+						aria-label="Epic"
+						color="purple"
+						isRemovable={false}
+						swatchBefore
+						swatchBeforeLabel="Epic"
+						swatchBeforeRole="img"
+						testId={testId}
+						text="Epic Tag"
+					/>,
+				);
+				const swatch = screen.getByRole('img', { name: 'Epic' });
+				expect(swatch).toBeInTheDocument();
+			});
+		},
+	);
 });
 
 describe('SimpleTag with feature flag', () => {

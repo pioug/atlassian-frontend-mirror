@@ -1,20 +1,3 @@
-export type AnalyticsEventPayload = Record<string, any>;
-
-type AnalyticsEventCallback = (payload: AnalyticsEventPayload) => AnalyticsEventPayload;
-
-type AnalyticsEventUpdater = AnalyticsEventPayload | AnalyticsEventCallback;
-
-export type AnalyticsEventProps = {
-	payload: AnalyticsEventPayload;
-};
-
-export const isAnalyticsEvent = (obj: any): boolean =>
-	obj instanceof AnalyticsEvent ||
-	!!obj?._isAnalyticsEvent ||
-	// Backwards compatibility with older analytics-next packages
-	obj?.constructor?.name === 'AnalyticsEvent';
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export default class AnalyticsEvent {
 	payload: AnalyticsEventPayload;
 	_isAnalyticsEvent: boolean = true;
@@ -46,3 +29,11 @@ export default class AnalyticsEvent {
 		return this;
 	}
 }
+
+type AnalyticsEventCallback = (payload: AnalyticsEventPayload) => AnalyticsEventPayload;
+type AnalyticsEventUpdater = AnalyticsEventPayload | AnalyticsEventCallback;
+export type AnalyticsEventPayload = Record<string, any>;
+export type AnalyticsEventProps = {
+	payload: AnalyticsEventPayload;
+};
+export { isAnalyticsEvent } from './isAnalyticsEvent';

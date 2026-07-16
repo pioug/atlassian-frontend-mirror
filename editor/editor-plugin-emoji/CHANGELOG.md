@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-emoji
 
+## 13.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.1.0
+
+### Minor Changes
+
+- [`607477c5d6aae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/607477c5d6aae) -
+  EDITOR-7032 Remove the implementation of using VanillaTooltip for emoji tooltips
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.29
 
 ### Patch Changes

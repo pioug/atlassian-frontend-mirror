@@ -1,5 +1,83 @@
 # @atlaskit/editor-common
 
+## 116.30.3
+
+### Patch Changes
+
+- [`a3bbfab896310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3bbfab896310) -
+  Replace feature gate `confluence_frontend_native_tabs_extension` with experiment
+  `confluence_native_tabs_experiment` using `expValEquals` from
+  `@atlaskit/tmp-editor-statsig/exp-val-equals`. Usage:
+  `expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)`.
+- Updated dependencies
+
+## 116.30.2
+
+### Patch Changes
+
+- [`d111e53fecca1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d111e53fecca1) -
+  disallow media badge external for BBC
+- Updated dependencies
+
+## 116.30.1
+
+### Patch Changes
+
+- [`c1e8426f607ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1e8426f607ad) -
+  [EDITOR-8060] Behind the `platform_editor_sync_block_activation` experiment, the synced block
+  floating toolbar copy button is now the primary action: it shows a visible "Copy to sync" label
+  and is moved to the first position, ahead of the informational synced-location dropdown. Existing
+  behaviour is unchanged for users outside the experiment.
+- Updated dependencies
+
+## 116.30.0
+
+### Minor Changes
+
+- [`607477c5d6aae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/607477c5d6aae) -
+  EDITOR-7032 Remove the implementation of using VanillaTooltip for emoji tooltips
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.29.0
+
+### Minor Changes
+
+- [`900a71f62a8fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/900a71f62a8fe) -
+  Add multi-cohort should-improve-writing routing for the cc-smarts migration experiment.
+
+  The `cc_smarts_should_improve_writing_migration` editor experiment is configured through
+  `@atlaskit/tmp-editor-statsig` and can return `control`, `shadow_compare`, or `live_cc_smarts`.
+  Consumers can also emit the new shadow-comparison divergence analytics event when a user-visible
+  convo-ai result differs from the cc-smarts shadow result.
+
+  ```ts
+  fireAiQuickPromptShadowComparisonDivergedEvent({
+  	api,
+  	experienceName: 'should-improve-writing',
+  	convoAiOk: true,
+  	ccSmartsOk: true,
+  	convoAiShouldImprove: true,
+  	ccSmartsShouldImprove: false,
+  	convoAiStatus: 200,
+  	ccSmartsStatus: 200,
+  });
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.28.1
+
+### Patch Changes
+
+- [`6c4fbb3dc1b7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c4fbb3dc1b7f) -
+  [ux] Fix MediaInsertPicker not returning focus to the editor on close.
+- Updated dependencies
+
 ## 116.28.0
 
 ### Minor Changes

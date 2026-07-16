@@ -1,4 +1,5 @@
-import AnalyticsEvent, { isAnalyticsEvent } from '../../AnalyticsEvent';
+import AnalyticsEvent from '../../AnalyticsEvent';
+import { isAnalyticsEvent } from '../../isAnalyticsEvent';
 
 it('should be constructed with both action and payload args', () => {
 	const analyticsEvent = new AnalyticsEvent({

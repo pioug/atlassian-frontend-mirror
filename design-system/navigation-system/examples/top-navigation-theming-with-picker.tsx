@@ -30,7 +30,7 @@ import {
 	Profile,
 	Settings,
 } from '@atlaskit/navigation-system/top-nav-items';
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
 // TODO: consider exposing this type properly, but it isn't needed for normal usage
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

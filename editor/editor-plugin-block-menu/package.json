@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-menu",
-	"version": "11.1.18",
+	"version": "11.1.21",
 	"description": "BlockMenu plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -99,10 +99,10 @@
 		"platform_editor_block_menu_v2_patch_2": {
 			"type": "boolean"
 		},
-		"cc-maui-phase-3": {
+		"platform_editor_block_menu_jira_patch_5": {
 			"type": "boolean"
 		},
-		"confluence_frontend_native_tabs_extension": {
+		"cc-maui-phase-3": {
 			"type": "boolean"
 		}
 	},

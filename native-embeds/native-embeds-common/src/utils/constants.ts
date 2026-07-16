@@ -46,6 +46,7 @@ export const NATIVE_EMBED_PARAMETER_DEFAULTS: NativeEmbedParameterValues = {
 	borderSize: undefined,
 	displayText: undefined,
 	height: 600,
+	isMaxWidth: false,
 	aspectRatio: 1,
 	width: undefined,
 };

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 13.3.14
+
+### Patch Changes
+
+- [`c897922dd06fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c897922dd06fc) -
+  Resolve root gap cursor paste selection as doc-level so repeated resized panel paste keeps
+  breakout width
+- Updated dependencies
+
 ## 13.3.13
 
 ### Patch Changes

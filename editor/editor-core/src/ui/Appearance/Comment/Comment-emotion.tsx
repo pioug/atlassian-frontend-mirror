@@ -89,6 +89,7 @@ const commentEditorStyles = css({
 
 const modernisedEditorStyles = css({
 	borderRadius: token('radius.xlarge', '12px'),
+	borderColor: token('color.border.input'),
 });
 
 const secondaryToolbarStyles = css({

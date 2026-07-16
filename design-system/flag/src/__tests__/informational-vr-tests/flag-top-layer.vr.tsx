@@ -11,7 +11,6 @@ import {
 
 const featureFlagVariants = {
 	'platform-dst-top-layer': [true, false],
-	'jpo-41318-fix-flag-overflow-fg': true,
 } as const;
 
 const defaultLightVariants = [

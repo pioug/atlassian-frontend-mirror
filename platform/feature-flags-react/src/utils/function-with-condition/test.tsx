@@ -1,4 +1,5 @@
-import { functionUnionWithCondition, functionWithCondition } from './index';
+import { functionUnionWithCondition } from './functionUnionWithCondition';
+import { functionWithCondition } from './functionWithCondition';
 
 describe('function with condition', () => {
 	it('functionWithCondition should handle simple function', () => {

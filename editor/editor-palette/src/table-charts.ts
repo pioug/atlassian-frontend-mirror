@@ -1,5 +1,6 @@
 // This import will be stripped on build
-import { getTokenValue, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { getTokenValue } from '@atlaskit/tokens/get-token-value';
 
 /**
  * This takes an adf hex color and returns a matching chart palette

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.1.2
+
+### Patch Changes
+
+- [`88a1176b97a25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a1176b97a25) -
+  Internal TypeScript typecheck fixes for ts7 (tsgo) adoption. No functional or API changes.
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

@@ -19,7 +19,9 @@ import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { Radio } from '@atlaskit/radio';
 import Select from '@atlaskit/select';
-import { setGlobalTheme, type ThemeOptionsSchema, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
+import type { ThemeOptionsSchema } from '@atlaskit/tokens/theme-config';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { generateColors } from '../src/utils/generate-colors';

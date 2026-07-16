@@ -1,5 +1,27 @@
 # @atlaskit/status
 
+## 5.4.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.4.13
+
+### Patch Changes
+
+- [`c259ffbd14ffc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c259ffbd14ffc) -
+  Migrate deprecated Lozenge appearance values to the new semantic appearances, and migrate
+  deprecated `SimpleTag`/`RemovableTag` to the default `Tag` export (SimpleTag with
+  `isRemovable={false}`).
+- Updated dependencies
+
+## 5.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.11
 
 ### Patch Changes

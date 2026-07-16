@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-navigation",
-	"version": "12.3.1",
+	"version": "12.3.3",
 	"description": "A highly composable side navigation component that supports nested views.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -121,9 +121,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-side-navigation-keyboard-focus": {
-			"type": "boolean"
-		},
-		"platform-dst-motion-uplift-list-item": {
 			"type": "boolean"
 		}
 	},

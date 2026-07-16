@@ -16,7 +16,8 @@ import { Motion } from '@atlaskit/motion';
 import FadeIn from '@atlaskit/motion/fade-in';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
-import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 
 import { ModalContext } from '../context';
 import useOnMotionFinish from '../hooks/use-on-motion-finish';

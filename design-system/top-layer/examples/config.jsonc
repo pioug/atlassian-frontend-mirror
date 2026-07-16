@@ -51,6 +51,7 @@
 		"140-testing-arrow-navigation.tsx",
 		"150-testing-native-api-timing.tsx",
 		"152-testing-nested-dialog-escape.tsx",
+		"153-testing-safari-flex-collapse.tsx",
 	],
 	"exampleDependencies": [],
 }

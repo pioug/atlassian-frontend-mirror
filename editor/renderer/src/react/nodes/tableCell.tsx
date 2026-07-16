@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import React from 'react';
 import type { CellAttributes } from '@atlaskit/adf-schema';
 import { tableBackgroundColorPalette, getDarkModeLCHColor } from '@atlaskit/adf-schema';
-import { useThemeObserver } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
 

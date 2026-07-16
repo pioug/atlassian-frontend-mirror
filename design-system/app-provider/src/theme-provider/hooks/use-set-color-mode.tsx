@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import type { ThemeColorModes } from '@atlaskit/tokens';
+import type { ThemeColorModes } from '@atlaskit/tokens/theme-config';
 
 import { SetColorModeContext } from '../context/set-color-mode-context';
 

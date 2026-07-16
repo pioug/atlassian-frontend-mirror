@@ -3,7 +3,8 @@ import React from 'react';
 import Loadable from 'react-loadable';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type ActiveThemeState, themeObjectToString } from '@atlaskit/tokens';
+import type { ActiveThemeState } from '@atlaskit/tokens/theme-config';
+import { themeObjectToString } from '@atlaskit/tokens/theme-state-transformer';
 
 import { IconType, SmartLinkSize } from '../constants';
 import extractFileFormatIcon from '../extractors/flexible/icon/extract-file-formatIcon';

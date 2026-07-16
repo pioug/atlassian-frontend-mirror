@@ -1,5 +1,33 @@
 # @atlaskit/profilecard
 
+## 26.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.9.4
+
+### Patch Changes
+
+- [`fe3de6357310f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe3de6357310f) -
+  Clean up stale feature gate asf-944-account-sync (final value: true)
+- [`471266b5a3fc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/471266b5a3fc5) -
+  Migrate deprecated Lozenge appearance values to the new semantic appearances.
+- [`f3f5ada0cba94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3f5ada0cba94) -
+  Align the agent profile card styling with Figma, gated on
+  `platform_editor_agent_mentions_drop_one_fixes` and the `platform_editor_agent_mentions`
+  experiment
+- Updated dependencies
+
+## 26.9.3
+
+### Patch Changes
+
+- [`c3f50de124fc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3f50de124fc9) -
+  Refactored reduced profile card object
+- Updated dependencies
+
 ## 26.9.2
 
 ### Patch Changes

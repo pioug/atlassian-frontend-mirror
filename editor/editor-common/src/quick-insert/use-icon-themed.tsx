@@ -1,4 +1,4 @@
-import { useThemeObserver } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 /**
  * Warning -- if additional color modes beyond light and dark are added in future -- this will have unexpected behaviour
  */

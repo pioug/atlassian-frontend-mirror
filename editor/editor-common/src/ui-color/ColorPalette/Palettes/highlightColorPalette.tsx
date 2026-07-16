@@ -9,7 +9,8 @@ import type { ComponentProps } from 'react';
 import { jsx } from '@emotion/react';
 
 import { backgroundColorPalette } from '@atlaskit/adf-schema';
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import getColorMessage from './getColorMessage';
 import { mapPaletteColor } from './mapPaletteColor';

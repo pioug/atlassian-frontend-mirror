@@ -38,7 +38,7 @@ const createMockInputEvent = ({
 			name: entryType,
 			entryType,
 			toJSON: () => ({}),
-		},
+		} as unknown as PerformanceEventTiming,
 	},
 });
 

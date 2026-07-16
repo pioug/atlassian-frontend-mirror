@@ -5,8 +5,6 @@
  * on the same interaction. Shared CSS/JS resources dedupe across segments, while backend
  * fetch/XHR resource timings include segment scope so independent iframe requests are retained.
  */
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { setUFOConfig } from '../../config';
 import { DefaultInteractionID } from '../../interaction-id-context';
 import { interactions } from '../common/constants';
@@ -23,13 +21,7 @@ const mockClearTimeout = jest.fn();
 global.setTimeout = mockSetTimeout as any;
 global.clearTimeout = mockClearTimeout as any;
 
-function setupInteraction(interactionId: string, isSegmentTimingsGateEnabled = true) {
-	if (isSegmentTimingsGateEnabled) {
-		passGate('platform_ufo_3p_segment_timings');
-	} else {
-		failGate('platform_ufo_3p_segment_timings');
-	}
-
+function setupInteraction(interactionId: string) {
 	mockSetTimeout.mockImplementation((fn: () => void, delay: number) => ({
 		id: 'timer',
 		fn,
@@ -258,20 +250,6 @@ describe('addIframeSegmentData — B3 cross-segment deduplication', () => {
 		const interaction = interactions.get(id)!;
 		expect(interaction.segment3pTimings?.['seg-a']).toHaveLength(1);
 		expect(interaction.segment3pTimings?.['seg-b']).toHaveLength(1);
-	});
-
-	it('does nothing when feature gate platform_ufo_3p_segment_timings is off', () => {
-		const id = 'b3-test-8';
-		setupInteraction(id, false);
-
-		addIframeSegmentData(id, 'seg-a', {
-			label: 'resource-timing',
-			data: { label: 'forge-ui-kit.js', startTime: 100, duration: 50 },
-		});
-
-		const interaction = interactions.get(id)!;
-		expect(interaction.segment3pTimings).toBeUndefined();
-		expect(interaction.segment3pCrossSegmentSeen).toBeUndefined();
 	});
 
 	it('initialises segment3pCrossSegmentSeen lazily on first entry', () => {

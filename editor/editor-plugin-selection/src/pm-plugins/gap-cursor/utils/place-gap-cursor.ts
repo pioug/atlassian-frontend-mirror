@@ -1,7 +1,7 @@
 import type { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side } from '@atlaskit/editor-common/selection';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getComputedStyleForLayoutMode, getLayoutModeFromTargetNode, isLeftCursor } from '../utils';
 
@@ -22,7 +22,7 @@ const nestedCases: Record<string, string> = {
 const getNestedSelector = (key: string): string => {
 	if (
 		key === 'multiBodiedExtensionView-content-wrap' &&
-		fg('confluence_frontend_native_tabs_extension')
+		expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
 	) {
 		return '.multiBodiedExtension--wrapper';
 	}

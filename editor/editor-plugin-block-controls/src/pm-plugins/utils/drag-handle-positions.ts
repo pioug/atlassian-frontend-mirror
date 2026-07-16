@@ -1,7 +1,7 @@
 import memoizeOne from 'memoize-one';
 
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
@@ -93,7 +93,9 @@ export const getNodeHeight = (
 
 const getStickyNodes = memoizeOne(() => [
 	...STICKY_NODES,
-	...(fg('confluence_frontend_native_tabs_extension') ? ['multiBodiedExtension'] : []),
+	...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
+		? ['multiBodiedExtension']
+		: []),
 ]);
 
 export const shouldBeSticky = (nodeType: string): boolean => {

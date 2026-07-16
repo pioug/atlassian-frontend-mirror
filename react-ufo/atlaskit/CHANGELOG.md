@@ -1,5 +1,17 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.22
+
+### Patch Changes
+
+- [`1b26d668ba1e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1b26d668ba1e7) -
+  Cleanup feature gate `platform_ufo_always_emit_raw_handler`. Raw handler VC data is now always
+  emitted.
+- [`bb42ae3742c33`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bb42ae3742c33) -
+  Clean up a fully rolled out gate that controlled third-party iframe UFO segment timing observers,
+  cross-segment resource-timing deduplication, and sanitized/backend-aware resource timing labels.
+  This behaviour is now always enabled; no functional change is expected.
+
 ## 7.3.21
 
 ### Patch Changes

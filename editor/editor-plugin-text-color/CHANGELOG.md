@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-text-color
 
+## 12.3.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.20
+
+### Patch Changes
+
+- [`1a6b32ef3760e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a6b32ef3760e) -
+  Treat default text and highlight colors as mixed selection colors
+- Updated dependencies
+
 ## 12.3.19
 
 ### Patch Changes

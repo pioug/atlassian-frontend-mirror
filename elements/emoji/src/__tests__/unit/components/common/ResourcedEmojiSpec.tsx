@@ -344,6 +344,65 @@ describe('<ResourcedEmoji />', () => {
 			expect(await screen.findByTestId(`unicode-emoji-${grinEmoji.shortName}`)).toBeInTheDocument();
 			expect(screen.queryByTestId(`image-emoji-${grinEmoji.shortName}`)).not.toBeInTheDocument();
 		});
+
+		it.each([
+			{
+				description: 'wait for the catalogue when the unicode experiment is enabled',
+				experimentEnabled: true,
+				expectedEmojiId: undefined,
+				expectedOptimisticFetch: false,
+			},
+			{
+				description: 'preserve optimistic fetching when the unicode experiment is disabled',
+				experimentEnabled: false,
+				expectedEmojiId: '',
+				expectedOptimisticFetch: true,
+			},
+		])(
+			'should use the tokenized image URL and $description',
+			async ({ experimentEnabled, expectedEmojiId, expectedOptimisticFetch }) => {
+				setupEditorExperiments('test', {
+					platform_use_unicode_emojis: experimentEnabled,
+				});
+				const shortName = ':custom_emoji:';
+				const resolvedImageURL = 'https://example.com/resolved.png';
+				const provider: Partial<EmojiProvider> = {
+					fetchByEmojiId: jest.fn().mockResolvedValue({
+						id: 'resolved-id',
+						name: 'Custom emoji',
+						shortName,
+						fallback: shortName,
+						type: 'SITE',
+						category: 'CUSTOM',
+						searchable: true,
+						representation: {
+							imagePath: resolvedImageURL,
+							width: 32,
+							height: 32,
+						},
+					}),
+				};
+
+				renderWithIntl(
+					<ResourcedEmoji
+						optimistic
+						emojiProvider={Promise.resolve(provider as EmojiProvider)}
+						emojiId={{ id: '', shortName, fallback: shortName }}
+					/>,
+				);
+
+				const image = await screen.findByAltText('Custom emoji');
+				expect(image).toHaveAttribute('src', resolvedImageURL);
+				expect(provider.fetchByEmojiId).toHaveBeenCalledWith(
+					{
+						id: expectedEmojiId,
+						shortName,
+						fallback: shortName,
+					},
+					expectedOptimisticFetch,
+				);
+			},
+		);
 	});
 
 	it('should render a fallback element if emoji cannot be found', async () => {

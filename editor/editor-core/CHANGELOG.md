@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 221.9.6
+
+### Patch Changes
+
+- [`ae6f4ca0c7eea`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae6f4ca0c7eea) -
+  Updating border radius color and box-shadow for editor header for comments and description
+
+## 221.9.5
+
+### Patch Changes
+
+- [`abfc496602dcb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abfc496602dcb) -
+  [ux] Fix the "when the page is published" link in the unpublished synced block reference error
+  card. Links rendered inside the reference sync block's contentEditable island did not navigate on
+  click (the browser placed the caret instead); anchor navigation is now re-triggered on click, and
+  interactive elements show the pointer cursor rather than the text cursor. Both behaviours are
+  gated behind the `platform_editor_sync_block_activation` experiment.
+- Updated dependencies
+
+## 221.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.9.3
+
+### Patch Changes
+
+- [`6c4fbb3dc1b7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c4fbb3dc1b7f) -
+  [ux] Fix MediaInsertPicker not returning focus to the editor on close.
+- Updated dependencies
+
 ## 221.9.2
 
 ### Patch Changes

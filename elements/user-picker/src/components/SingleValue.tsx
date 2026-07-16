@@ -103,7 +103,7 @@ export const SingleValue = (props: Props): JSX.Element | null => {
 									<ElementAfter {...props} />
 									{canShowArchivedLozenge ? (
 										<Box xcss={styles.archivedLozengeWrapper}>
-											<Lozenge appearance="default">
+											<Lozenge appearance="neutral">
 												<FormattedMessage {...messages.archivedLozenge} />
 											</Lozenge>
 										</Box>

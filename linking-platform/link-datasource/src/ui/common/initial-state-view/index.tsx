@@ -66,7 +66,7 @@ export const InitialStateView = ({
 				<div css={[searchTitleStyles]}>
 					{showBeta && (
 						<div css={betaTagStyles}>
-							<Lozenge appearance="new">
+							<Lozenge appearance="discovery">
 								<FormattedMessage {...initialStateViewMessages.beta} />
 							</Lozenge>
 						</div>

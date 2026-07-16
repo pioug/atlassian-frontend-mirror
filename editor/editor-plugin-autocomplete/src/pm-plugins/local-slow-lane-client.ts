@@ -742,7 +742,9 @@ export const createLocalSlowLaneClient = (
 			let vendor: string | undefined;
 			let architecture: string | undefined;
 			try {
-				const info = adapter.info ?? (await adapter.requestAdapterInfo?.());
+				const info =
+					(adapter as MinimalGpuAdapter).info ??
+					(await (adapter as MinimalGpuAdapter).requestAdapterInfo?.());
 				vendor = info?.vendor || undefined;
 				architecture = info?.architecture || undefined;
 			} catch {

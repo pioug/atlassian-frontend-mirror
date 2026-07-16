@@ -32,6 +32,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	cc_fd_db_top_editor_toolbar: 'control',
 	cc_fd_cwr_quick_insert: 'control',
 	platform_editor_paste_actions_menu_v2: 'control',
+	cc_smarts_should_improve_writing_migration: 'control',
 	confluence_quick_insert_embeds: 'control',
 	cc_cwr_prompt_strength_indicator: 'control',
 };

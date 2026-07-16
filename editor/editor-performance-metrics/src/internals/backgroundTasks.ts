@@ -117,8 +117,10 @@ export const backgroundTask = <T>(
 		};
 	}
 
-	if (window.requestIdleCallback) {
-		const idleId = window.requestIdleCallback(executeTask, { timeout: 10000 });
+	const win: Window & typeof globalThis = window;
+
+	if (win.requestIdleCallback) {
+		const idleId = win.requestIdleCallback(executeTask, { timeout: 10000 });
 
 		return {
 			abort: () => {
@@ -129,7 +131,7 @@ export const backgroundTask = <T>(
 		};
 	}
 
-	const rafId = window.requestAnimationFrame(executeTask);
+	const rafId = win.requestAnimationFrame(executeTask);
 
 	return {
 		abort: () => {

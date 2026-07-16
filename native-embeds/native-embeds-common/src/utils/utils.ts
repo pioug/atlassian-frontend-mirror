@@ -44,6 +44,7 @@ const PARAMETER_TYPES: Record<NativeEmbedParameterKey, 'string' | 'number' | 'bo
 	borderSize: 'number',
 	displayText: 'string',
 	height: 'number',
+	isMaxWidth: 'boolean',
 	url: 'string',
 	width: 'number',
 };

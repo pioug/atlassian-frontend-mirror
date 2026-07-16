@@ -134,7 +134,7 @@ class Example extends React.Component<{}, ExampleState> {
 				<PreviewItem key={`preview-${i}`}>
 					<div>
 						<p>
-							filename: <Lozenge appearance="inprogress">{preview.filename}</Lozenge>
+							filename: <Lozenge appearance="information">{preview.filename}</Lozenge>
 						</p>
 						<p>
 							orientation:{' '}
@@ -158,7 +158,7 @@ class Example extends React.Component<{}, ExampleState> {
 						<p>tags: {JSON.stringify(preview.tags)}</p>
 						<p>
 							transform:{' '}
-							<Lozenge appearance="moved">{getCssFromImageOrientation(orientation)}</Lozenge>
+							<Lozenge appearance="warning">{getCssFromImageOrientation(orientation)}</Lozenge>
 						</p>
 						<p>
 							duration: <Lozenge>{preview.duration}ms</Lozenge>

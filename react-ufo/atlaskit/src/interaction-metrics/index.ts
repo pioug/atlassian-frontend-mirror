@@ -283,7 +283,7 @@ export function addIframeSegmentData(
 	entry: Segment3pTimingEntry,
 ): void {
 	const interaction = interactions.get(interactionId);
-	if (interaction != null && fg('platform_ufo_3p_segment_timings')) {
+	if (interaction != null) {
 		// B3: dedup by content — drops identical entries within and across iframes.
 		// Abort markers are excluded so every segment's abort is recorded.
 		if (entry.label !== 'segment-timing-abort') {

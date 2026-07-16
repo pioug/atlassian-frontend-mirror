@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { getGlobalTheme, ThemeMutationObserver } from '@atlaskit/tokens';
+import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
+import { ThemeMutationObserver } from '@atlaskit/tokens/theme-mutation-observer';
 
 import { type Theme, ThemeContext } from '../context/theme';
 

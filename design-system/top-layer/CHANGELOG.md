@@ -1,5 +1,35 @@
 # @atlaskit/top-layer
 
+## 1.8.0
+
+### Minor Changes
+
+- [`7793dc62dd564`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7793dc62dd564) -
+  Changing how animations work. Removing `/animations` entry point
+
+## 1.7.0
+
+### Minor Changes
+
+- [`406346f89178f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/406346f89178f) -
+  Fix a Safari (WebKit) layout bug where `Popover` content could collapse to `0px`. When a
+  `max-height: 100%` flex column with a `flex: 1 1 auto; overflow: auto` child is placed inside a
+  popover, the user-agent `height: fit-content` default (an indefinite block size) makes the column
+  collapse on WebKit. The `Popover` reset now sets `height: auto` to remove the indefinite block
+  size; width is left unchanged so anchor-width matching is unaffected.
+
+  The `Dialog` primitive is intentionally left unchanged for that reset: applying the same reset
+  there would stretch the modal `<dialog>` to fill the viewport and force a layout-centering opinion
+  onto an otherwise unopinionated primitive. See `notes/decisions/safari-popover-flex-collapse.md`.
+
+  Also fix a Safari (WebKit) bug where pressing `Escape` while a `popover="auto"` (for example a
+  menu) is open inside a modal `Dialog` closed the entire dialog instead of only the popover. On
+  WebKit the same Escape also fires the dialog's native `cancel` event. The `Dialog` primitive now
+  snapshots — at Escape keydown, before the browser's close action — whether a light-dismissable
+  (`auto`/`hint`) popover is open inside it, and if so keeps the dialog open so only the popover is
+  dismissed, matching Chromium and Firefox. See
+  `notes/decisions/safari-escape-nested-popover-in-dialog.md`.
+
 ## 1.6.1
 
 ### Patch Changes

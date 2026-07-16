@@ -51,7 +51,8 @@ import {
 import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { MenuListItem } from '@atlaskit/side-nav-items/menu-list-item';
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 const iconSpacingStyles = cssMap({
 	space050: {

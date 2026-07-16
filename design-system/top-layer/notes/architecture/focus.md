@@ -254,6 +254,20 @@ automatically.
 The two primitives use different browser APIs with subtly different behavior on light dismiss, and
 the Popover API has a known nested-popover gap that we backfill ourselves.
 
+### Keyboard versus pointer activation (Safari)
+
+Restoration returns focus to whatever was focused when the overlay opened. On the keyboard path
+(focus the trigger, then Enter) that is the trigger, so close returns focus to the trigger in
+Chrome, Firefox, and Safari alike (verified against WebKit 26 and real Safari 26.5).
+
+Safari does not focus a `<button>` on a pointer click, so a mouse-opened overlay has no trigger
+focus to restore and Safari leaves focus on `<body>` on close. This is native Safari behavior for
+both `<dialog>` and `[popover]`; Chrome and Firefox focus the button on click, so they restore to
+the trigger for pointer activation too. We lean into the platform here rather than normalizing it.
+
+Practical consequence for tests: exercise restoration by opening via the keyboard (focus the
+trigger, then Enter), not `trigger.click()`, which never focuses the trigger on Safari.
+
 ### Dialog (`<dialog>.close()`) — always restores
 
 `<dialog>.close()` **unconditionally** restores focus to the element that was focused before

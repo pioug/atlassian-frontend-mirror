@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 6.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.7
+
+### Patch Changes
+
+- [`332865f80eb91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/332865f80eb91) -
+  Migrate deprecated Lozenge appearance values to the new semantic appearances, and migrate
+  deprecated `SimpleTag`/`RemovableTag` to the default `Tag` export (SimpleTag with
+  `isRemovable={false}`).
+- Updated dependencies
+
 ## 6.1.6
 
 ### Patch Changes

@@ -91,7 +91,7 @@ const editorModernisationToolbarStyle = css({
 	borderRadius: `${token('radius.xlarge', '12px')} ${token('radius.xlarge', '12px')} 0 0`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&.show-keyline': {
-		boxShadow: 'none',
+		boxShadow: token('elevation.shadow.overflow'),
 	},
 });
 

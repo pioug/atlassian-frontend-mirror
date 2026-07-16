@@ -22,6 +22,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
+import { useSafariEscapeFix } from '../internal/use-safari-escape-fix';
 
 import { type TDialogProps } from './types';
 
@@ -61,6 +62,12 @@ const styles = cssMap({
 		border: 'none',
 		maxWidth: 'none',
 		maxHeight: 'none',
+		// Unlike `Popover`, the `Dialog` reset deliberately omits the WebKit
+		// flex-collapse fix (`height: auto`): a modal `<dialog>` has UA `inset: 0`,
+		// so `height: auto` would stretch it to the viewport and break `margin: auto`
+		// centering — a layout opinion this primitive should not impose. The collapse
+		// (a `max-height: 100%` flex column in a bare `<dialog>`) is the consumer's to
+		// handle. See notes/decisions/safari-popover-flex-collapse.md
 		// Positioning
 		margin: 'auto',
 		// Override UA background: canvas. The dialog primitive is unopinionated;
@@ -209,6 +216,13 @@ export const Dialog: React.ForwardRefExoticComponent<
 		}
 	}, [isOpen]);
 
+	// Safari bug: escape closes open dialog and popovers, rather than just innermost popover
+	// See notes/decisions/safari-escape-nested-popover-in-dialog.md
+	const { shouldIgnoreEscape } = useSafariEscapeFix({
+		dialogRef: ownRef,
+		isVisible,
+	});
+
 	// Handle native Escape (cancel event)
 	const handleCancel = useCallback(
 		(event: React.SyntheticEvent<HTMLDialogElement>) => {
@@ -221,9 +235,15 @@ export const Dialog: React.ForwardRefExoticComponent<
 				return;
 			}
 			event.preventDefault();
+			// Spurious Safari `cancel`: the keydown snapshot saw an open child
+			// popover, so this Escape belongs to that popover (light-dismissed
+			// natively). Keep the dialog open instead of forwarding to `onClose`.
+			if (shouldIgnoreEscape()) {
+				return;
+			}
 			onClose({ reason: 'escape' });
 		},
-		[onClose],
+		[onClose, shouldIgnoreEscape],
 	);
 
 	// Handle backdrop click

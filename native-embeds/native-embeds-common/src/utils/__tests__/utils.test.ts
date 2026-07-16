@@ -2,6 +2,17 @@ import { NATIVE_EMBED_PARAMETER_DEFAULTS } from '../constants';
 import { getParameter, getParameters, setParameters } from '../utils';
 
 describe('getParameter', () => {
+	describe('isMaxWidth', () => {
+		it('should return false when it is not stored in macroParams', () => {
+			expect(getParameter(undefined, 'isMaxWidth')).toBe(false);
+		});
+
+		it('should return the stored value when explicitly set', () => {
+			const params = setParameters({}, { isMaxWidth: true });
+			expect(getParameter(params, 'isMaxWidth')).toBe(true);
+		});
+	});
+
 	describe('aspectRatio', () => {
 		it('should return NATIVE_EMBED_PARAMETER_DEFAULTS.aspectRatio when not in macroParams', () => {
 			const params = setParameters({}, { url: 'https://example.com', width: 1200 });

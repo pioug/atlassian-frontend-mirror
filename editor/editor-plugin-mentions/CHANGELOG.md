@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.6.4
+
+### Patch Changes
+
+- [`8634e07b0f9f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8634e07b0f9f5) -
+  Fix agent name not showing in nudge on copy paste
+- Updated dependencies
+
+## 14.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.6.2
+
+### Patch Changes
+
+- [`2c809a4b367c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c809a4b367c3) -
+  Refactored resizeObserver code in popper wrapper file
+- Updated dependencies
+
 ## 14.6.1
 
 ### Patch Changes

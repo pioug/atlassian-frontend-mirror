@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 26.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.0.17
+
+### Patch Changes
+
+- [`6c4fbb3dc1b7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c4fbb3dc1b7f) -
+  [ux] Fix MediaInsertPicker not returning focus to the editor on close.
+- Updated dependencies
+
 ## 26.0.16
 
 ### Patch Changes

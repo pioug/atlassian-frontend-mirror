@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.0.1
+
+### Patch Changes
+
+- [`88a1176b97a25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a1176b97a25) -
+  Internal TypeScript typecheck fixes for ts7 (tsgo) adoption. No functional or API changes.
+
 ## 16.0.0
 
 ### Major Changes

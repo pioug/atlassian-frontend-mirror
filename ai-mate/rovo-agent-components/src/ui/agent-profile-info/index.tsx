@@ -134,6 +134,7 @@ export const AgentProfileCreator = ({
 	creator,
 	onCreatorLinkClick,
 	isLoading,
+	hideCreatorIcon = false,
 }: {
 	/**
 	 * Get this value from `getAgentCreator`
@@ -141,6 +142,10 @@ export const AgentProfileCreator = ({
 	creator?: AgentCreator;
 	isLoading: boolean;
 	onCreatorLinkClick: () => void;
+	/**
+	 * Hides the leading Rovo icon shown next to the creator label
+	 */
+	hideCreatorIcon?: boolean;
 }): JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
@@ -203,7 +208,7 @@ export const AgentProfileCreator = ({
 	const creatorRender = getCreatorRender();
 
 	if (fg('jira_improve_agent_profile_for_a2a')) {
-		const showRovoIcon = creator?.type !== 'REMOTE_A2A';
+		const showRovoIcon = !hideCreatorIcon && creator?.type !== 'REMOTE_A2A';
 
 		return creatorRender ? (
 			<Box xcss={styles.clickableItem}>
@@ -219,9 +224,11 @@ export const AgentProfileCreator = ({
 
 	return creatorRender ? (
 		<Box xcss={styles.clickableItem}>
-			<Box xcss={styles.rovoIconWrapper} testId="rovo-icon-wrapper" aria-hidden="true">
-				<RovoIcon appearance="brand" size="small" />
-			</Box>
+			{!hideCreatorIcon && (
+				<Box xcss={styles.rovoIconWrapper} testId="rovo-icon-wrapper" aria-hidden="true">
+					<RovoIcon appearance="brand" size="small" />
+				</Box>
+			)}
 			{creatorRender}
 		</Box>
 	) : null;

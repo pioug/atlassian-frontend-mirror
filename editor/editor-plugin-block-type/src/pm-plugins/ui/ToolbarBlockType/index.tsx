@@ -21,8 +21,8 @@ import TextIcon from '@atlaskit/icon/core/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { ThemeMutationObserver } from '@atlaskit/tokens';
-import type { ThemeState } from '@atlaskit/tokens';
+import type { ThemeState } from '@atlaskit/tokens/theme-config';
+import { ThemeMutationObserver } from '@atlaskit/tokens/theme-mutation-observer';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';
@@ -223,7 +223,6 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					blockTypeName={currentBlockType?.name}
 					blockTypeIcon={currentIcon || defaultIcon}
 				/>
-
 				{!api?.primaryToolbar && (
 					<span
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

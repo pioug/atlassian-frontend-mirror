@@ -135,7 +135,7 @@ const TeamMembers = ({
 			</MemberCount>
 			{isArchived && (
 				<ArchiveLozengeWrapper>
-					<Lozenge appearance="default" isBold>
+					<Lozenge appearance="neutral" isBold>
 						<FormattedMessage {...messages.archivedLozenge} />
 					</Lozenge>
 				</ArchiveLozengeWrapper>

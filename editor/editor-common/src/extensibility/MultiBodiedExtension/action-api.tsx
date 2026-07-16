@@ -4,7 +4,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTION } from '../../analytics';
 import type { EventDispatcher } from '../../event-dispatcher';
@@ -211,7 +211,7 @@ export const useMultiBodiedExtensionActions = ({
 					...node.attrs,
 					parameters: {
 						...node.attrs.parameters,
-						...(fg('confluence_frontend_native_tabs_extension')
+						...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
 							? { ...parameters }
 							: { macroParams: parameters }),
 					},
@@ -224,7 +224,8 @@ export const useMultiBodiedExtensionActions = ({
 						ACTION.UPDATE_PARAMETERS,
 						node,
 						eventDispatcher,
-						analyticsChangedParam && fg('confluence_frontend_native_tabs_extension')
+						analyticsChangedParam &&
+							expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
 							? { changedParams: analyticsChangedParam }
 							: undefined,
 					);

@@ -248,6 +248,14 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-15
+	cc_smarts_should_improve_writing_migration: {
+		defaultValue: 'control' | 'shadow_compare' | 'live_cc_smarts';
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: (value: unknown) => value is 'control' | 'shadow_compare' | 'live_cc_smarts';
+		values: ('control' | 'shadow_compare' | 'live_cc_smarts')[];
+	};
 	// Addded 2026-02-11
 	ai_speech_to_text_in_editor: {
 		defaultValue: boolean;
@@ -605,6 +613,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-13
+	platform_editor_fix_focus_MediaInsertPicker: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-03-05
 	platform_editor_appearance_shared_state: {
 		defaultValue: boolean;
@@ -835,13 +850,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-12-08
 	platform_editor_add_image_editing: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-08
-	platform_editor_table_toolbar_perf_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1250,6 +1258,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-02-23
 	'cc-maui-experiment': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-13
+	confluence_native_tabs_experiment: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1762,6 +1777,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-16
+	platform_editor_fix_table_move_shortcut: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	cc_dnd_smart_link_changeboard_platform_css: {
 		defaultValue: boolean;
 		param: string;
@@ -1950,8 +1972,22 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-16
+	platform_a11y_fixes_reactions_selector_list: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-25
 	platform_editor_use_html_plus_streaming_parser: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-14
+	platform_editor_ai_minion_skip_orchestrator: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2224,6 +2260,15 @@ export const editorExperimentsConfig: {
 	cwr_blank_object_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cwr_blank_object_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-13
+	platform_editor_fix_focus_MediaInsertPicker: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_focus_MediaInsertPicker',
+			jira: 'platform_editor_fix_focus_MediaInsertPicker',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2962,14 +3007,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-01-08
-	platform_editor_table_toolbar_perf_fix: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_toolbar_perf_fix',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-01
 	cc_editor_ai_content_mode: createMultivariateExperiment({
 		productKeys: {
@@ -2994,6 +3031,15 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
+	}),
+	// Added 2026-07-15
+	cc_smarts_should_improve_writing_migration: createMultivariateExperiment({
+		productKeys: {
+			confluence: 'cc_smarts_should_improve_writing_migration',
+		},
+		param: 'routingMode',
+		values: ['control', 'shadow_compare', 'live_cc_smarts'],
+		defaultValue: 'control',
 	}),
 	// Added 2026-03-05
 	platform_editor_abort_ufo_on_user_interaction: createBooleanExperiment({
@@ -3400,6 +3446,15 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'cc-maui-experiment',
 			jira: 'jira_maui_remix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
+	// Added 2026-07-13
+	confluence_native_tabs_experiment: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_native_tabs_experiment',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4070,6 +4125,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-16
+	platform_editor_fix_table_move_shortcut: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_table_move_shortcut',
+			jira: 'platform_editor_fix_table_move_shortcut',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-16
 	cc_dnd_smart_link_changeboard_platform_css: createBooleanExperiment({
 		productKeys: {
@@ -4302,6 +4366,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-16
+	platform_a11y_fixes_reactions_selector_list: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_a11y_fixes_reactions_selector_list',
+			jira: 'platform_a11y_fixes_reactions_selector_list',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-25
 	// HTML+ v2 incremental tool-call streaming contract — gates the new
 	// PartialStreamParserV2 / ToolCallProcessorV2 / AdfChunkStrategyV2 stack
@@ -4311,6 +4384,14 @@ export const editorExperimentsConfig: {
 	platform_editor_use_html_plus_streaming_parser: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_use_html_plus_streaming_parser',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-14
+	platform_editor_ai_minion_skip_orchestrator: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_ai_minion_skip_orchestrator',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

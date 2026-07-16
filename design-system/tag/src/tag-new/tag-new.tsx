@@ -8,6 +8,7 @@ import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -348,6 +349,8 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 		hasMargin = true,
 		onClick,
 		swatchBefore,
+		swatchBeforeLabel,
+		swatchBeforeRole,
 		trailingMetric,
 		...other
 	},
@@ -422,7 +425,13 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 						| undefined
 				}
 			>
-				<SwatchBefore colorKey={color} swatchBefore={swatchBefore} />
+				<SwatchBefore
+					colorKey={color}
+					swatchBefore={swatchBefore}
+					{...(fg('parent-field-switcher-missing-info-image-text')
+						? { swatchBeforeLabel, swatchBeforeRole }
+						: {})}
+				/>
 				{elemBefore && <span css={styles.beforeStyles}>{elemBefore}</span>}
 				<span css={styles.textStyles} data-tag-text>
 					{normalizedText}
@@ -472,6 +481,8 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 		analyticsContext: _analyticsContext,
 		hasChevron = true,
 		swatchBefore,
+		swatchBeforeLabel,
+		swatchBeforeRole,
 		trailingMetric,
 		...other
 	},
@@ -509,7 +520,13 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 			{...other}
 		>
 			<span css={[dropdownStyles.content, isLoading && dropdownStyles.loadingContent]}>
-				<SwatchBefore colorKey={resolvedColor} swatchBefore={swatchBefore} />
+				<SwatchBefore
+					colorKey={resolvedColor}
+					swatchBefore={swatchBefore}
+					{...(fg('parent-field-switcher-missing-info-image-text')
+						? { swatchBeforeLabel, swatchBeforeRole }
+						: {})}
+				/>
 				{elemBefore && (
 					<span css={[styles.beforeStyles, isSelected && styles.beforeStylesSelected]}>
 						{elemBefore}

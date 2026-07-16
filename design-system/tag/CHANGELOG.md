@@ -1,5 +1,48 @@
 # @atlaskit/tag
 
+## 15.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.0
+
+### Minor Changes
+
+- [`7de10719ffa5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7de10719ffa5c) -
+  Adds optional `swatchBeforeLabel` and `swatchBeforeRole` props to `SimpleTag`, `RemovableTag`, and
+  `TagNew` components. When both props are provided and the
+  `parent-field-switcher-missing-info-image-text` feature gate is enabled, the color swatch renders
+  with `role="img"` and `aria-label` for screen reader accessibility.
+
+  ```jsx
+  <SimpleTag
+  	color="purple"
+  	swatchBefore
+  	swatchBeforeLabel="Epic"
+  	swatchBeforeRole="img"
+  	text="My Epic"
+  />
+  ```
+
+## 15.2.3
+
+### Patch Changes
+
+- [`10862ef4cfde6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10862ef4cfde6) -
+  Re-introduces the `SimpleTag`/`RemovableTag` deprecation and `hasMargin` cleanup.
+
+  These changes were previously released in `@atlaskit/tag@15.2.2`, then reverted in the monorepo,
+  so the published `15.2.2` package on npm no longer matched `master`. This change re-lands the
+  intended behaviour so the source and published package are back in sync.
+  - Deprecated `SimpleTag` and `RemovableTag`. Migrate to the default `Tag` export from
+    `@atlaskit/tag`: use `<Tag isRemovable={false} />` in place of `SimpleTag`, and `<Tag />` in
+    place of `RemovableTag` (removable by default).
+  - Removed `hasMargin` from `SimpleTagProps` as it was never forwarded to the underlying tag and
+    had no effect on `SimpleTag`. The prop remains available on `RemovableTag`, where it is applied
+    correctly.
+
 ## 15.2.2
 
 ### Patch Changes

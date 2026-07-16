@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -59,7 +59,8 @@ export const calculatePosition = ({
 	const isExtension =
 		rootNodeType === 'extension' ||
 		rootNodeType === 'bodiedExtension' ||
-		(rootNodeType === 'multiBodiedExtension' && fg('confluence_frontend_native_tabs_extension'));
+		(rootNodeType === 'multiBodiedExtension' &&
+			expValEquals('confluence_native_tabs_experiment', 'isEnabled', true));
 	const isBlockCard = rootNodeType === 'blockCard';
 	const isEmbedCard = rootNodeType === 'embedCard';
 

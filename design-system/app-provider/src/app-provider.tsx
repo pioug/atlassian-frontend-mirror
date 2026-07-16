@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ThemeColorModes } from '@atlaskit/tokens';
+import type { ThemeColorModes } from '@atlaskit/tokens/theme-config';
 
 import { AppProviderThemingEnabledContext } from './app-provider-theming-enabled-context';
 import { InsideAppProviderContext } from './inside-app-provider-context';

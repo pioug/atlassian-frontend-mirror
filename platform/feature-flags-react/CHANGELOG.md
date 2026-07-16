@@ -1,5 +1,12 @@
 # @atlaskit/platform-feature-flags-react
 
+## 1.1.1
+
+### Patch Changes
+
+- [`fa0809e8c979c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa0809e8c979c) -
+  Apply volt-no-multi-exports: split multi-export files into one-export-per-file
+
 ## 1.1.0
 
 ### Minor Changes

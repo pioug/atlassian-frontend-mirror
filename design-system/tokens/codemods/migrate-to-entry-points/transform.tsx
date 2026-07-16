@@ -79,6 +79,11 @@ const ROOT_SYMBOLS = new Set(['token']);
 const TOKENS_PACKAGE = '@atlaskit/tokens';
 
 export default function transformer(file: FileInfo, api: API): string {
+	// Skip generated/prebuilt/dist files — they should not be modified by this codemod.
+	if (/\/(prebuilt|dist|node_modules)\//.test(file.path)) {
+		return file.source;
+	}
+
 	const j = api.jscodeshift;
 	const source = j(file.source);
 

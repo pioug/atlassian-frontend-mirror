@@ -13,7 +13,7 @@ import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import { isPromise, MentionNameStatus } from '@atlaskit/mention/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { getGlobalTheme } from '@atlaskit/tokens';
+import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
 
 import type { FindReplacePlugin } from '../../findReplacePluginType';
 import type { Match, TextGrouping } from '../../types';

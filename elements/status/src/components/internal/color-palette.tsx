@@ -2,12 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { token, useThemeObserver } from '@atlaskit/tokens';
 import React, { useEffect, useRef, useCallback } from 'react';
-import { css, jsx } from '@compiled/react';
-import { type Color as ColorType } from '../Status';
-import Color from './color';
+
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+import { css, jsx } from '@compiled/react';
+
+import { type Color as ColorType } from '../Status';
+
+import Color from './color';
 
 const paletteLegacy: [
 	colorValue: ColorType,

@@ -13,7 +13,6 @@ import { css, jsx } from '@emotion/react';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -109,7 +108,8 @@ const getWidthOffset = (node: PMNode, width: string, position: 'left' | 'right')
 	if (
 		node.type.name === 'bodiedExtension' ||
 		node.type.name === 'extension' ||
-		(node.type.name === 'multiBodiedExtension' && fg('confluence_frontend_native_tabs_extension'))
+		(node.type.name === 'multiBodiedExtension' &&
+			expValEquals('confluence_native_tabs_experiment', 'isEnabled', true))
 	) {
 		return '-12px';
 	}

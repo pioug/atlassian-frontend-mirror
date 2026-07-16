@@ -41,11 +41,12 @@ test.describe('Popup - rapid initial-focus race', () => {
 		);
 		expect(focusRelatedErrors).toEqual([]);
 
-		// Popover is interactable: clicking the inner button moves focus
-		// to it. If focus state were corrupt (RAF fired against the wrong
-		// instance and got stuck), this would not work.
+		// Popover is interactable and focus is not stuck: the inner button can receive
+		// focus. If focus state were corrupt (RAF fired against the wrong instance and
+		// got stuck), this would not work. We focus rather than click so the check does
+		// not fail on WebKit, where a click does not focus a <button>.
 		const innerButton = page.getByTestId('popover-button');
-		await innerButton.click();
+		await innerButton.focus();
 		await expect(innerButton).toBeFocused();
 	});
 });

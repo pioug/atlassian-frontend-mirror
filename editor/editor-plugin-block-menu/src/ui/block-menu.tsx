@@ -13,7 +13,11 @@ import {
 import { BLOCK_MENU_TEST_ID } from '@atlaskit/editor-common/block-menu';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
-import { DRAG_HANDLE_SELECTOR, DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
+import {
+	DRAG_HANDLE_SELECTOR,
+	NESTED_DROPDOWN_MENU,
+	DRAG_HANDLE_WIDTH,
+} from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import {
@@ -28,6 +32,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { redo, undo } from '@atlaskit/prosemirror-history';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -378,8 +383,12 @@ const BlockMenu = ({
 	};
 
 	const handleClickOutside = (e: MouseEvent) => {
-		// check if the clicked element was another drag handle, if so don't close the menu
-		if (e.target instanceof HTMLElement && e.target.closest(DRAG_HANDLE_SELECTOR)) {
+		// check if the clicked element was another drag handle or nested dropdown menu, if so don't close the menu
+		if (
+			e.target instanceof HTMLElement &&
+			(e.target.closest(DRAG_HANDLE_SELECTOR) ||
+				(e.target.closest(NESTED_DROPDOWN_MENU) && fg('platform_editor_block_menu_jira_patch_5')))
+		) {
 			return;
 		}
 

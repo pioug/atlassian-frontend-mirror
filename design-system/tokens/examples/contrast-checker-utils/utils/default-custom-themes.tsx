@@ -1,4 +1,4 @@
-import { type ActiveTokens } from '@atlaskit/tokens';
+import type { ActiveTokens } from '@atlaskit/tokens/artifacts/types';
 
 export const defaultCustomTheme: { name: ActiveTokens; value: string }[] = [
 	/*** DS token overrides ***/

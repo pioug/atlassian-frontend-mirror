@@ -11,7 +11,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -54,7 +53,9 @@ const UNSUPPORTED_LAYOUT_CONTENT = ['syncBlock', 'bodiedSyncBlock'];
 
 const getContainerNodeTypes = memoizeOne(() => [
 	...PARENT_WITH_END_DROP_TARGET,
-	...(fg('confluence_frontend_native_tabs_extension') ? ['multiBodiedExtension'] : []),
+	...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
+		? ['multiBodiedExtension']
+		: []),
 	...(editorExperiment('platform_synced_block', true) ? ['bodiedSyncBlock'] : []),
 ]);
 

@@ -17,7 +17,8 @@ import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
-import { setGlobalTheme, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import Tooltip from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

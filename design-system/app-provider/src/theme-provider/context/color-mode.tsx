@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { ThemeColorModes } from '@atlaskit/tokens';
+import type { ThemeColorModes } from '@atlaskit/tokens/theme-config';
 
 export type ReconciledColorMode = Exclude<ThemeColorModes, 'auto'>;
 

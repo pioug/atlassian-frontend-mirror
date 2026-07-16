@@ -8,7 +8,6 @@
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -179,7 +178,7 @@ export const sharedMultiBodiedExtensionStyles: {
 	mbeExtensionContainer,
 	mbeNavigation,
 	get extensionFrameContent() {
-		if (!fg('confluence_frontend_native_tabs_extension')) {
+		if (!expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)) {
 			return extensionFrameContentOld;
 		}
 		// Block spacing hook — when the experiment is on, use the variant whose extension content

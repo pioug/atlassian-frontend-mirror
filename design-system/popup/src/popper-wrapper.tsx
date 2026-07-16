@@ -11,7 +11,8 @@ import { useLayering } from '@atlaskit/layering';
 import { Motion, type MotionProps } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
-import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 
 import { RepositionOnUpdate } from './reposition-on-update';
 import { type PopperWrapperProps, type PopupComponentProps } from './types';

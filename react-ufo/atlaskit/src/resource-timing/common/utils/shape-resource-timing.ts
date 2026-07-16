@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { NavigationMetrics } from '../../../create-payload/utils/get-navigation-metrics';
 
 import { BACKEND_RESOURCE_TIMING_INITIATOR_TYPES } from './resource-timing-initiator-types';
@@ -62,10 +60,6 @@ const ATTACHMENT_OR_DOWNLOAD_PATH_PATTERNS = [
 
 function stripQueryAndHash(value: string): string {
 	return value.split(/[?#]/, 1)[0] ?? '';
-}
-
-function getLegacyLastPathSegment(value: string): string {
-	return value.includes('/') ? (value.split('/').filter(Boolean).pop() ?? value) : value;
 }
 
 function getSanitizedLastPathSegment(value: string): string {
@@ -201,20 +195,13 @@ export function shapeResourceTimingData(
 
 	const rawName = typeof payload.name === 'string' ? payload.name : '';
 	const initiatorType = typeof payload.initiatorType === 'string' ? payload.initiatorType : 'other';
-	const isFilteredModeEnabled = fg('platform_ufo_3p_segment_timings');
 	const isBackendTiming = isBackendResourceTiming(initiatorType);
-	if (
-		isFilteredModeEnabled &&
-		!isBackendTiming &&
-		!isScriptOrStylesheetResource(rawName, initiatorType)
-	) {
+	if (!isBackendTiming && !isScriptOrStylesheetResource(rawName, initiatorType)) {
 		return undefined;
 	}
-	const name = isFilteredModeEnabled
-		? isBackendTiming
-			? getSanitizedBackendResourceLabel(rawName)
-			: getSanitizedLastPathSegment(rawName)
-		: getLegacyLastPathSegment(rawName);
+	const name = isBackendTiming
+		? getSanitizedBackendResourceLabel(rawName)
+		: getSanitizedLastPathSegment(rawName);
 	const startTime = num(payload.startTime);
 	const duration = num(payload.duration);
 	const fetchStart = num(timing.fetchStart);

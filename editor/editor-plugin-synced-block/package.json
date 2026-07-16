@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-synced-block",
-	"version": "10.2.7",
+	"version": "10.2.11",
 	"description": "SyncedBlock plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -108,9 +108,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"confluence_frontend_native_tabs_extension": {
-			"type": "boolean"
-		},
 		"confluence_fronend_labels_categorization_migration": {
 			"type": "boolean"
 		},

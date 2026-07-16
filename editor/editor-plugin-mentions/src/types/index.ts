@@ -126,6 +126,19 @@ export type MentionPluginState = {
 	mentionProvider?: MentionProvider;
 	mentions?: Array<MentionDescription>;
 	/**
+	 * @internal Tracks a pasted agent mention pending name resolution (cache miss).
+	 * view().update() calls resolveMentionName() silently until resolved, then
+	 * RESOLVE_PASTED_AGENT_MENTION_NAME promotes it to lastInsertedAgentMention*
+	 * and fires a public dispatch. Consumers should react only to lastInsertedAgentMention*.
+	 */
+	pendingPastedAgentMention?: {
+		context: DocNode;
+		id: string;
+		localId: string;
+		parentNodeType: string | null;
+		prompt: string | null;
+	} | null;
+	/**
 	 * @internal Tracks a typed agent mention while waiting for the platform-side
 	 * ready-to-fire trigger. Consumers should continue to react only to
 	 * lastInsertedAgentMention* fields.
@@ -153,6 +166,6 @@ export type MentionPluginState = {
 
 export type FireElementsChannelEvent = (payload: AnalyticsEventPayload, channel?: string) => void;
 
-export type MentionSharedState = MentionPluginState & {
+export type MentionSharedState = Omit<MentionPluginState, 'pendingPastedAgentMention'> & {
 	typeAheadHandler: TypeAheadHandler;
 };

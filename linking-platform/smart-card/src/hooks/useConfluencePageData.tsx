@@ -1,11 +1,8 @@
 import { useEffect, useMemo } from 'react';
 
-import {
-	setGlobalTheme,
-	type ThemeColorModes,
-	type ThemeState,
-	themeStringToObject,
-} from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
+import type { ThemeColorModes, ThemeState } from '@atlaskit/tokens/theme-config';
+import { themeStringToObject } from '@atlaskit/tokens/theme-state-transformer';
 
 export enum userType {
 	ATLASSIAN_ACCOUNT = 'atlassianAccount',

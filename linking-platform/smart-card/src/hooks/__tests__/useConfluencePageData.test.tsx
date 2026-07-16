@@ -1,10 +1,15 @@
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { renderHook } from '@atlassian/testing-library';
 
 import { CONFLUENCE_EXTENSION_KEYS, useConfluencePageData } from '../useConfluencePageData';
 
 jest.mock('@atlaskit/tokens', () => ({
 	...jest.requireActual('@atlaskit/tokens'),
+	setGlobalTheme: jest.fn(),
+}));
+
+jest.mock('@atlaskit/tokens/set-global-theme', () => ({
+	...jest.requireActual('@atlaskit/tokens/set-global-theme'),
 	setGlobalTheme: jest.fn(),
 }));
 

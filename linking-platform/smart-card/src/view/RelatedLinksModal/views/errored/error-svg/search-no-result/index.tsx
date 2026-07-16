@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import { useThemeObserver } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 const SIZE = 100;
 

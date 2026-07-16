@@ -339,13 +339,23 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					const $from = $expandedAnchor.min($expandedHead);
 					const $to = $expandedAnchor.max($expandedHead);
 					let expandedNormalisedSel;
-					if ($from.nodeAfter === $to.nodeBefore) {
+					if (
+						expValEquals('platform_editor_fix_table_move_shortcut', 'isEnabled', true) &&
+						$from.nodeAfter &&
+						$from.nodeAfter === $to.nodeBefore
+					) {
+						// Single node
+						selectNode(tr, $from.pos, $from.nodeAfter.type.name, api);
+						expandedNormalisedSel = tr.selection;
+					} else if ($from.nodeAfter === $to.nodeBefore) {
+						// Single node
 						selectNode(tr, $from.pos, $expandedAnchor.node().type.name, api);
 						expandedNormalisedSel = tr.selection;
 					} else if (
 						$to.nodeBefore?.type.name === 'mediaSingle' ||
 						$from.nodeAfter?.type.name === 'mediaSingle'
 					) {
+						// Media
 						expandedNormalisedSel = new TextSelection($expandedAnchor, $expandedHead);
 						tr.setSelection(expandedNormalisedSel);
 					} else {

@@ -4,7 +4,8 @@
  */
 import { css, cssMap, jsx } from '@compiled/react';
 
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import AIGlowingBorder from './ai-glowing-border';
 import { AI_BORDER_PALETTE } from './constants';

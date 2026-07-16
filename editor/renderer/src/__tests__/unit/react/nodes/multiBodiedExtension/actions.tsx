@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderHook } from '@testing-library/react';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+
 import { useMultiBodiedExtensionActions } from '../../../../../react/nodes/multiBodiedExtension/actions';
 
 describe('useMultiBodiedExtensionActions', () => {
@@ -32,7 +33,7 @@ describe('useMultiBodiedExtensionActions', () => {
 			});
 
 			it('should fire analytics when active child changes', () => {
-				passGate('confluence_frontend_native_tabs_extension');
+				setupEditorExperiments('test', { confluence_native_tabs_experiment: true });
 				const { result } = renderHook(() =>
 					useMultiBodiedExtensionActions({
 						updateActiveChild,

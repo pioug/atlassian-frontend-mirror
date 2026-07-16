@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { ThemeProvider, useColorMode, useSetColorMode } from '@atlaskit/app-provider';
 import Button from '@atlaskit/button/new';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import type { ThemeColorModes } from '@atlaskit/tokens';
+import type { ThemeColorModes } from '@atlaskit/tokens/theme-config';
 
 const code = `import React, { useEffect } from 'react';
 import AppProvider, { ThemeProvider, useColorMode, useSetColorMode } from '@atlaskit/app-provider';

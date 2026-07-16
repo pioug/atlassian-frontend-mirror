@@ -1,6 +1,12 @@
+/* eslint-disable testing-library/prefer-screen-queries */
 import invariant from 'tiny-invariant';
 
 import { expect, test } from '@af/integration-testing';
+
+import {
+	focusInteractionScenarios,
+	MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+} from './focus-interaction-scenarios';
 
 // Nested-popover focus restoration coverage.
 //
@@ -12,6 +18,9 @@ import { expect, test } from '@af/integration-testing';
 //
 // Passive roles (tooltip) do not move focus on open, so no restoration is
 // required and the snapshot is a no-op.
+//
+// Every focus-return test is generated for both modalities (`focusInteractionScenarios`);
+// the mouse variant is skipped on WebKit. See notes/decisions/safari-escape-nested-popover-in-dialog.md
 //
 // WCAG 2.4.3 Focus Order
 
@@ -31,63 +40,74 @@ const FOCUS_CAPTURING_ROLES = [
 
 test.describe('Nested popover focus restoration - focus-capturing roles', () => {
 	for (const { role, prefix, innerFocusableTestId } of FOCUS_CAPTURING_ROLES) {
-		test(`role="${role}" nested in dialog: Escape restores focus to nested trigger`, async ({
-			page,
-		}) => {
-			await page.visitExample<
-				typeof import('../../examples/140-testing-nested-focus-restoration.tsx')
-			>('design-system', 'top-layer', 'testing-nested-focus-restoration');
+		for (const scenario of focusInteractionScenarios) {
+			test(`role="${role}" nested in dialog: Escape restores focus to nested trigger (${scenario.method})`, async ({
+				page,
+				browserName,
+			}) => {
+				test.fixme(
+					scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+					MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+				);
+				await page.visitExample<
+					typeof import('../../examples/140-testing-nested-focus-restoration.tsx')
+				>('design-system', 'top-layer', 'testing-nested-focus-restoration');
 
-			// Open the outer dialog to establish the nested context.
-			await page.getByTestId('outer-trigger').click();
-			await expect(page.getByTestId('outer-popover')).toBeVisible();
+				// Open the outer dialog to establish the nested context.
+				await scenario.activate({ page, trigger: page.getByTestId('outer-trigger') });
+				await expect(page.getByTestId('outer-popover')).toBeVisible();
 
-			// Open the inner focus-capturing popover.
-			const innerTrigger = page.getByTestId(`${prefix}-trigger`);
-			await innerTrigger.click();
-			const innerPopover = page.getByTestId(`${prefix}-popover`);
-			await expect(innerPopover).toBeVisible();
+				// Open the inner focus-capturing popover.
+				const innerTrigger = page.getByTestId(`${prefix}-trigger`);
+				await scenario.activate({ page, trigger: innerTrigger });
+				const innerPopover = page.getByTestId(`${prefix}-popover`);
+				await expect(innerPopover).toBeVisible();
 
-			// Wait for `useInitialFocus` to move focus into the popover so the
-			// restoration path is the one we are exercising (focus inside the
-			// closing element). Without this wait, the test can race with the
-			// RAF that moves focus and pass for the wrong reason.
-			await expect(page.getByTestId(innerFocusableTestId)).toBeFocused();
+				// Wait for `useInitialFocus` to move focus into the popover so the
+				// restoration path is the one we are exercising (focus inside the
+				// closing element).
+				await expect(page.getByTestId(innerFocusableTestId)).toBeFocused();
 
-			// Dismiss via Escape. The browser does NOT restore focus for nested
-			// popovers, so Popover's internal fallback must move it back to the
-			// trigger.
-			await page.keyboard.press('Escape');
-			await expect(innerPopover).toBeHidden();
-			await expect(innerTrigger).toBeFocused();
+				// Dismiss via Escape. The browser does NOT restore focus for nested
+				// popovers, so Popover's internal fallback must move it back to the
+				// trigger.
+				await page.keyboard.press('Escape');
+				await expect(innerPopover).toBeHidden();
+				await expect(innerTrigger).toBeFocused();
 
-			// The outer dialog stays open so the user keeps their place.
-			await expect(page.getByTestId('outer-popover')).toBeVisible();
-		});
+				// The outer dialog stays open so the user keeps their place.
+				await expect(page.getByTestId('outer-popover')).toBeVisible();
+			});
 
-		test(`role="${role}" nested in dialog: programmatic close restores focus to nested trigger`, async ({
-			page,
-		}) => {
-			await page.visitExample<
-				typeof import('../../examples/140-testing-nested-focus-restoration.tsx')
-			>('design-system', 'top-layer', 'testing-nested-focus-restoration');
+			test(`role="${role}" nested in dialog: programmatic close restores focus to nested trigger (${scenario.method})`, async ({
+				page,
+				browserName,
+			}) => {
+				test.fixme(
+					scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+					MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+				);
+				await page.visitExample<
+					typeof import('../../examples/140-testing-nested-focus-restoration.tsx')
+				>('design-system', 'top-layer', 'testing-nested-focus-restoration');
 
-			await page.getByTestId('outer-trigger').click();
-			await expect(page.getByTestId('outer-popover')).toBeVisible();
+				await scenario.activate({ page, trigger: page.getByTestId('outer-trigger') });
+				await expect(page.getByTestId('outer-popover')).toBeVisible();
 
-			const innerTrigger = page.getByTestId(`${prefix}-trigger`);
-			// First click opens, second click toggles closed (programmatic).
-			await innerTrigger.click();
-			await expect(page.getByTestId(`${prefix}-popover`)).toBeVisible();
+				const innerTrigger = page.getByTestId(`${prefix}-trigger`);
+				// First activation opens, second toggles closed (programmatic).
+				await scenario.activate({ page, trigger: innerTrigger });
+				await expect(page.getByTestId(`${prefix}-popover`)).toBeVisible();
 
-			await innerTrigger.click();
-			await expect(page.getByTestId(`${prefix}-popover`)).toBeHidden();
+				await scenario.activate({ page, trigger: innerTrigger });
+				await expect(page.getByTestId(`${prefix}-popover`)).toBeHidden();
 
-			// Trigger keeps focus after the click toggle (this is the click
-			// target). Important: this verifies the snapshot/restore path does
-			// not stomp the trigger that is already focused.
-			await expect(innerTrigger).toBeFocused();
-		});
+				// Trigger keeps focus after the toggle (it is the activation target).
+				// Verifies the snapshot/restore path does not stomp the already-focused
+				// trigger.
+				await expect(innerTrigger).toBeFocused();
+			});
+		}
 
 		test(`role="${role}" nested in dialog: click-outside closes the popover stack`, async ({
 			page,
@@ -127,61 +147,71 @@ test.describe('Nested popover focus restoration - focus-capturing roles', () => 
 test.describe('Nested popover focus restoration - passive roles', () => {
 	// Tooltip never moves focus on open, so the three-guard check
 	// (`shouldFocusIntoPopover({ role: 'tooltip' })` returns false) short-circuits
-	// before any restoration is attempted. Focus must remain on whatever the
-	// user was interacting with.
-	test('role="tooltip" nested in dialog: tooltip open and close do not steal or move focus', async ({
-		page,
-	}) => {
-		await page.visitExample<
-			typeof import('../../examples/140-testing-nested-focus-restoration.tsx')
-		>('design-system', 'top-layer', 'testing-nested-focus-restoration');
+	// before any restoration is attempted. Focus must remain on the trigger.
+	// Generated for both modalities; mouse open skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`role="tooltip" nested in dialog: tooltip open and close do not steal or move focus (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<
+				typeof import('../../examples/140-testing-nested-focus-restoration.tsx')
+			>('design-system', 'top-layer', 'testing-nested-focus-restoration');
 
-		await page.getByTestId('outer-trigger').click();
-		await expect(page.getByTestId('outer-popover')).toBeVisible();
+			await page.getByTestId('outer-trigger').click();
+			await expect(page.getByTestId('outer-popover')).toBeVisible();
 
-		// Focus the outer dialog's inner-tooltip trigger ourselves so we have a
-		// stable focus baseline.
-		const tooltipTrigger = page.getByTestId('inner-tooltip-trigger');
-		await tooltipTrigger.focus();
-		await expect(tooltipTrigger).toBeFocused();
+			// Show the tooltip via the interaction modality (fixture wires a click/
+			// activate toggle on the trigger).
+			const tooltipTrigger = page.getByTestId('inner-tooltip-trigger');
+			await scenario.activate({ page, trigger: tooltipTrigger });
+			await expect(page.getByTestId('inner-tooltip-popover')).toBeVisible();
 
-		// Show the tooltip via click (test fixture wires click toggle).
-		await tooltipTrigger.click();
-		await expect(page.getByTestId('inner-tooltip-popover')).toBeVisible();
+			// Focus must remain on the trigger - tooltip never moves focus into itself.
+			await expect(tooltipTrigger).toBeFocused();
 
-		// Focus must remain on the trigger - tooltip never moves focus into itself.
-		await expect(tooltipTrigger).toBeFocused();
-
-		// Close via Escape and verify the trigger still has focus.
-		await page.keyboard.press('Escape');
-		await expect(page.getByTestId('inner-tooltip-popover')).toBeHidden();
-		await expect(tooltipTrigger).toBeFocused();
-	});
+			// Close via Escape and verify the trigger still has focus.
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('inner-tooltip-popover')).toBeHidden();
+			await expect(tooltipTrigger).toBeFocused();
+		});
+	}
 });
 
 test.describe('Nested popover focus restoration - outer is always restored by browser', () => {
 	// Sanity check: closing the outer (outermost) dialog via Escape uses the
-	// browser's native restoration path. The internal fallback is a no-op for
-	// outermost popovers because `previouslyFocusedElement.focus()` would race
-	// with the browser, but `element.contains(document.activeElement)` returns
-	// false once the browser has already restored focus to the trigger.
-	test('outer dialog: Escape restores focus to outer trigger natively', async ({ page }) => {
-		await page.visitExample<
-			typeof import('../../examples/140-testing-nested-focus-restoration.tsx')
-		>('design-system', 'top-layer', 'testing-nested-focus-restoration');
+	// browser's native restoration path. Generated for both modalities; mouse open
+	// skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`outer dialog: Escape restores focus to outer trigger natively (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<
+				typeof import('../../examples/140-testing-nested-focus-restoration.tsx')
+			>('design-system', 'top-layer', 'testing-nested-focus-restoration');
 
-		const outerTrigger = page.getByTestId('outer-trigger');
-		await outerTrigger.click();
-		await expect(page.getByTestId('outer-popover')).toBeVisible();
+			const outerTrigger = page.getByTestId('outer-trigger');
+			await scenario.activate({ page, trigger: outerTrigger });
+			await expect(page.getByTestId('outer-popover')).toBeVisible();
 
-		// Move focus inside the outer dialog so we can verify the browser
-		// performs the restoration.
-		const innerButton = page.getByTestId('inner-dialog-trigger');
-		await innerButton.focus();
-		await expect(innerButton).toBeFocused();
+			// Move focus inside the outer dialog so we can verify the browser
+			// performs the restoration.
+			const innerButton = page.getByTestId('inner-dialog-trigger');
+			await innerButton.focus();
+			await expect(innerButton).toBeFocused();
 
-		await page.keyboard.press('Escape');
-		await expect(page.getByTestId('outer-popover')).toBeHidden();
-		await expect(outerTrigger).toBeFocused();
-	});
+			await page.keyboard.press('Escape');
+			await expect(page.getByTestId('outer-popover')).toBeHidden();
+			await expect(outerTrigger).toBeFocused();
+		});
+	}
 });

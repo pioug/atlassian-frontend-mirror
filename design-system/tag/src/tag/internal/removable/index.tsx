@@ -33,6 +33,10 @@ const backgroundActiveCssVar = '--ds-cba';
 
 export interface RemovableTagProps extends SimpleTagProps, WithAnalyticsEventsProps {
 	/**
+	 * When false, removes the tag's default margin. Use when parent controls spacing (e.g. Select). Defaults to `true`.
+	 */
+	hasMargin?: boolean;
+	/**
 	 * Text rendered as the aria-label for remove button.
 	 */
 	removeButtonLabel?: string;
@@ -97,6 +101,8 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 			maxWidth,
 			hasMargin = true,
 			swatchBefore,
+			swatchBeforeLabel,
+			swatchBeforeRole,
 			...rest
 		},
 		ref,
@@ -196,6 +202,9 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 					maxWidth={maxWidth}
 					hasMargin={hasMargin}
 					swatchBefore={swatchBefore}
+					{...(fg('parent-field-switcher-missing-info-image-text')
+						? { swatchBeforeLabel, swatchBeforeRole }
+						: {})}
 				/>
 			);
 		}

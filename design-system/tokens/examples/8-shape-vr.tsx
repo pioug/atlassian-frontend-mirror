@@ -6,7 +6,8 @@ import { cssMap, jsx } from '@compiled/react';
 
 import { cx } from '@atlaskit/css';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import { type CSSToken, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import type { CSSToken } from '@atlaskit/tokens/token-names';
 
 const styles = cssMap({
 	container: {

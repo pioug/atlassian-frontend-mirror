@@ -3,7 +3,8 @@ import React, { type CSSProperties, Fragment, type ReactNode } from 'react';
 import { useEffect } from '@storybook/preview-api';
 import type { Renderer, StoryContext, PartialStoryFn as StoryFunction } from '@storybook/types';
 
-import { setGlobalTheme, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
 import { type Themes } from './types';
 

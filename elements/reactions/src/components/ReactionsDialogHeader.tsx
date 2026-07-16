@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import { jsx, css, cssMap } from '@compiled/react';
 
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 import { CloseButton, type OnCloseHandler } from '@atlaskit/modal-dialog';
 import { Tab, TabList } from '@atlaskit/tabs';
 import { Box, Flex, Inline, Stack } from '@atlaskit/primitives/compiled';

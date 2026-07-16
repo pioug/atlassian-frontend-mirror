@@ -595,6 +595,10 @@ function processExportedDeclaration({
 				exports.set('default', {
 					...importedExport,
 					isTypeOnly: false,
+					// Preserve the source symbol for `export default <identifier>` when the
+					// identifier came from a named import. This lets downstream autofixes
+					// rewrite to named imports when a target subpath does not expose a default.
+					originalName: importedExport.originalName ?? statement.expression.text,
 				});
 				return;
 			}

@@ -1,6 +1,6 @@
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { CSSToken } from '@atlaskit/tokens';
+import type { CSSToken } from '@atlaskit/tokens/token-names';
 
 export type WidthTypes = 'percentage' | 'pixel';
 

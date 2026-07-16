@@ -43,6 +43,15 @@ export function sleep(ms: number): Promise<any> {
 	});
 }
 
+/**
+ * Returns whether an id belongs to an agent — referred to as an "AI provider" in this
+ * package's terminology.
+ *
+ * @remarks Agents are not a distinct type: they are ordinary participants distinguished
+ * only by the `agent:` prefix on their `userId`/`sessionId`. This predicate is the single
+ * source of truth for that convention and gates agent-specific presence handling across the
+ * provider (e.g. immediate `presence` emission and agent-leave cleanup).
+ */
 export const isAIProviderID = (id: string): boolean =>
 	typeof id === 'string' && id.startsWith('agent:');
 

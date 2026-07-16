@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.2.8
+
+### Patch Changes
+
+- [`a3bbfab896310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3bbfab896310) -
+  Replace feature gate `confluence_frontend_native_tabs_extension` with experiment
+  `confluence_native_tabs_experiment` using `expValEquals` from
+  `@atlaskit/tmp-editor-statsig/exp-val-equals`. Usage:
+  `expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)`.
+- Updated dependencies
+
+## 13.2.7
+
+### Patch Changes
+
+- [`d86bd1324d82b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d86bd1324d82b) -
+  Fix table cell selection when moving a table with the keyboard shortcut behind the
+  `platform_editor_fix_table_move_shortcut` experiment.
+- Updated dependencies
+
+## 13.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.5
 
 ### Patch Changes

@@ -1,4 +1,3 @@
-import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 import { type EmojiId, type EmojiProvider, type OnEmojiEvent } from '@atlaskit/emoji';
@@ -12,12 +11,7 @@ import {
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
 import { DefaultReactions, TeamojiDefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
-import { Selector } from './Selector';
-
-// This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
-// be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
-// the next line and associated import. For more information, see go/afm-a11y-tooling:jest
-skipAutoA11yFile();
+import { RENDER_SELECTOR_TESTID, Selector } from './Selector';
 
 const renderSelector = (
 	onSelection: OnEmojiEvent = () => {},
@@ -43,23 +37,68 @@ describe('@atlaskit/reactions/components/selector', () => {
 	useFakeTimers();
 
 	beforeEach(() => {
-		// Default the Teamoji picker refresh experiment to off so the legacy reactions are rendered.
-		setupEditorExperiments('test', { platform_teamoji_26_refresh_emoji_picker: false });
+		// Default the Teamoji picker refresh experiment to off so the legacy reactions are rendered,
+		// and default the Selector list-markup a11y experiment to off.
+		setupEditorExperiments('test', {
+			platform_teamoji_26_refresh_emoji_picker: false,
+			platform_a11y_fixes_reactions_selector_list: false,
+		});
 	});
 
 	afterEach(() => {
-		setupEditorExperiments('test', { platform_teamoji_26_refresh_emoji_picker: false });
+		setupEditorExperiments('test', {
+			platform_teamoji_26_refresh_emoji_picker: false,
+			platform_a11y_fixes_reactions_selector_list: false,
+		});
 	});
 
 	it('should have no accessibility violations', async () => {
-		const { container } = renderWithIntl(renderSelector());
+		setupEditorExperiments('test', {
+			platform_teamoji_26_refresh_emoji_picker: false,
+			platform_a11y_fixes_reactions_selector_list: true,
+		});
+		const { container } = renderWithIntl(renderSelector(() => {}, true));
 		await expect(container).toBeAccessible();
+	});
+
+	describe('experiment: platform_a11y_fixes_reactions_selector_list', () => {
+		it('renders the picker as a labelled group without list markup when the experiment is enabled', async () => {
+			setupEditorExperiments('test', {
+				platform_teamoji_26_refresh_emoji_picker: false,
+				platform_a11y_fixes_reactions_selector_list: true,
+			});
+			const { container } = renderWithIntl(renderSelector(() => {}, true));
+
+			// The container is exposed as a labelled group, not a list.
+			const group = screen.getByRole('group', {
+				name: messages.popperWrapperLabel.defaultMessage,
+			});
+			expect(group).toBeInTheDocument();
+
+			// No <ul>/<li> list markup remains around the emoji buttons or the "More emojis" button.
+			expect(container.querySelector('ul')).not.toBeInTheDocument();
+			expect(container.querySelector('li')).not.toBeInTheDocument();
+		});
+
+		it('renders legacy list markup when the experiment is disabled', async () => {
+			setupEditorExperiments('test', {
+				platform_teamoji_26_refresh_emoji_picker: false,
+				platform_a11y_fixes_reactions_selector_list: false,
+			});
+			const { container } = renderWithIntl(renderSelector(() => {}, true));
+
+			expect(container.querySelector('ul')).toBeInTheDocument();
+			expect(container.querySelectorAll('li').length).toBeGreaterThan(0);
+			expect(
+				screen.queryByRole('group', { name: messages.popperWrapperLabel.defaultMessage }),
+			).not.toBeInTheDocument();
+		});
 	});
 
 	it('should render default reactions', async () => {
 		renderWithIntl(renderSelector());
 
-		const emojiWrappers = screen.getAllByRole('presentation');
+		const emojiWrappers = screen.getAllByTestId(RENDER_SELECTOR_TESTID);
 		expect(emojiWrappers.length).toEqual(DefaultReactions.length);
 
 		DefaultReactions.forEach(({ shortName }) => {
@@ -73,7 +112,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 
 		renderWithIntl(renderSelector());
 
-		const emojiWrappers = screen.getAllByRole('presentation');
+		const emojiWrappers = screen.getAllByTestId(RENDER_SELECTOR_TESTID);
 		expect(emojiWrappers.length).toEqual(TeamojiDefaultReactions.length);
 
 		TeamojiDefaultReactions.forEach(({ shortName }) => {

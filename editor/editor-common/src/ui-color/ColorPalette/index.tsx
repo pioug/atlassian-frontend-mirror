@@ -10,7 +10,8 @@ import chromatism from 'chromatism';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import Color from './Color';
 import getColorMessage from './Palettes/getColorMessage';

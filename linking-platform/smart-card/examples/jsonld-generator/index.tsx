@@ -111,22 +111,22 @@ const JsonLdGenerator = ({
 										},
 										{
 											name: 'statusAppearance',
-											label: <Lozenge appearance="inprogress">In progress</Lozenge>,
+											label: <Lozenge appearance="information">In progress</Lozenge>,
 											value: 'inprogress',
 										},
 										{
 											name: 'statusAppearance',
-											label: <Lozenge appearance="moved">Moved</Lozenge>,
+											label: <Lozenge appearance="warning">Moved</Lozenge>,
 											value: 'moved',
 										},
 										{
 											name: 'statusAppearance',
-											label: <Lozenge appearance="new">New</Lozenge>,
+											label: <Lozenge appearance="discovery">New</Lozenge>,
 											value: 'new',
 										},
 										{
 											name: 'statusAppearance',
-											label: <Lozenge appearance="removed">Removed</Lozenge>,
+											label: <Lozenge appearance="danger">Removed</Lozenge>,
 											value: 'removed',
 										},
 										{

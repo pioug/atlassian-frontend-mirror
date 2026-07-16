@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "16.1.1",
+	"version": "16.1.2",
 	"description": "A form allows people to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

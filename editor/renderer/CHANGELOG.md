@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 133.10.5
+
+### Patch Changes
+
+- [`a3bbfab896310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3bbfab896310) -
+  Replace feature gate `confluence_frontend_native_tabs_extension` with experiment
+  `confluence_native_tabs_experiment` using `expValEquals` from
+  `@atlaskit/tmp-editor-statsig/exp-val-equals`. Usage:
+  `expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)`.
+- Updated dependencies
+
+## 133.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.10.3
 
 ### Patch Changes

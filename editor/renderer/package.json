@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "133.10.3",
+	"version": "133.10.5",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -148,9 +148,6 @@
 			"type": "boolean"
 		},
 		"confluence_frontend_table_scrollbar_ttvc_fix": {
-			"type": "boolean"
-		},
-		"confluence_frontend_native_tabs_extension": {
 			"type": "boolean"
 		},
 		"cc_comments_log_draft_annotation_ancestor_nodes": {

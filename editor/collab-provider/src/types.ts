@@ -196,12 +196,29 @@ export type BroadcastIncomingPayload = {
 	timestamp?: number;
 };
 
+/**
+ * Presence details broadcast for a single participant (human or agent) on a document.
+ *
+ * @remarks Agents are modelled as ordinary participants distinguished only by the
+ * `agent:` prefix on their `userId`/`sessionId` (see `isAIProviderID`); this package
+ * refers to them as "AI providers". Note this base type carries no last-active time —
+ * a participant's `lastActive` is derived from {@link PresencePayload.timestamp} when the
+ * payload is hydrated into a participant.
+ */
 export type PresenceData = {
 	clientId: number | string;
+	/** Permission level the participant holds on the document (view / comment / edit). */
 	permit?: UserPermitType;
+	/** Whether the participant is a `viewer` or an `editor`; drives the presence facepile. */
 	presenceActivity?: PresenceActivity;
+	/**
+	 * Correlates the presence connection with the editor websocket connection so avatar
+	 * colours and telepointers line up across both.
+	 */
 	presenceId?: string;
+	/** Stable identifier for this presence session. For agents, carries the `agent:` prefix. */
 	sessionId: string;
+	/** Participant identity. For agents, carries the `agent:` prefix. */
 	userId: string | undefined;
 };
 
@@ -209,6 +226,13 @@ export type PresencePayload = PresenceData & {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	data?: Record<string, any>;
+	/**
+	 * Epoch milliseconds of when this presence was last observed (added by NCS).
+	 *
+	 * @remarks Hydrated into the participant's `lastActive` (see `createParticipantFromPayload`),
+	 * which drives inactivity filtering and, for agents, is the last-active time surfaced on the
+	 * presence facepile. On the server this same value is the agent session's `updatedAt`.
+	 */
 	timestamp: number;
 };
 

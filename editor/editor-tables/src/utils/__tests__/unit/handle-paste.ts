@@ -7,7 +7,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, table, td, th, tr, strong } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { tableNewColumnMinWidth } from '../../../table-map';
 
@@ -466,138 +466,138 @@ describe('handle paste', () => {
 			</html>
 			`;
 
-		ffTest.on(
-			'platform_editor_paste_full_table_inside_empty_cell',
-			'with paste full table inside empty cell enabled',
-			() => {
-				const localId = TABLE_LOCAL_ID;
+		describe('with paste full table inside empty cell enabled', () => {
+			beforeEach(() => {
+				passGate('platform_editor_paste_full_table_inside_empty_cell');
+			});
 
-				it('pastes as nested table', () => {
-					const { editorView } = editor(
-						doc(
-							table({ localId })(
-								tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
-								tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-								tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
-							),
-						),
-					);
+			const localId = TABLE_LOCAL_ID;
 
-					dispatchPasteEvent(editorView, {
-						html: htmlTable2x2(),
-					});
-
-					const expectedResult = doc(
+			it('pastes as nested table', () => {
+				const { editorView } = editor(
+					doc(
 						table({ localId })(
 							tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
 							tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-							tr(
-								td()(p('7')),
-								td()(
-									p('8'),
-									table({ localId })(
-										tr(th()(p(strong('1'))), th()(p(strong('2')))),
-										tr(td()(p('3')), td()(p('4'))),
-									),
+							tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+						),
+					),
+				);
+
+				dispatchPasteEvent(editorView, {
+					html: htmlTable2x2(),
+				});
+
+				const expectedResult = doc(
+					table({ localId })(
+						tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+						tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+						tr(
+							td()(p('7')),
+							td()(
+								p('8'),
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2')))),
+									tr(td()(p('3')), td()(p('4'))),
 								),
-								td()(p('9')),
 							),
+							td()(p('9')),
 						),
-					);
+					),
+				);
 
-					expect(editorView.state.doc).toEqualDocument(expectedResult);
-				});
+				expect(editorView.state.doc).toEqualDocument(expectedResult);
+			});
 
-				it('pastes as nested table inside a table header', () => {
-					const { editorView } = editor(
-						doc(
-							table({ localId })(
-								tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
-								tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-								tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
-							),
-						),
-					);
-
-					dispatchPasteEvent(editorView, {
-						html: htmlTable2x2(),
-					});
-
-					const expectedResult = doc(
+			it('pastes as nested table inside a table header', () => {
+				const { editorView } = editor(
+					doc(
 						table({ localId })(
 							tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
 							tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-							tr(
-								td()(p('7')),
-								td()(
-									p('8'),
-									table({ localId })(
-										tr(th()(p(strong('1'))), th()(p(strong('2')))),
-										tr(td()(p('3')), td()(p('4'))),
-									),
+							tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
+						),
+					),
+				);
+
+				dispatchPasteEvent(editorView, {
+					html: htmlTable2x2(),
+				});
+
+				const expectedResult = doc(
+					table({ localId })(
+						tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+						tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+						tr(
+							td()(p('7')),
+							td()(
+								p('8'),
+								table({ localId })(
+									tr(th()(p(strong('1'))), th()(p(strong('2')))),
+									tr(td()(p('3')), td()(p('4'))),
 								),
-								td()(p('9')),
 							),
+							td()(p('9')),
 						),
-					);
+					),
+				);
 
-					expect(editorView.state.doc).toEqualDocument(expectedResult);
-				});
+				expect(editorView.state.doc).toEqualDocument(expectedResult);
+			});
 
-				it('merges partial table instead of nesting', () => {
-					const { editorView } = editor(
-						doc(
-							table({ localId })(
-								tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
-								tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-								tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
-							),
-						),
-					);
-
-					dispatchPasteEvent(editorView, {
-						html: htmlTable2x2(true),
-					});
-
-					const expectedResult = doc(
+			it('merges partial table instead of nesting', () => {
+				const { editorView } = editor(
+					doc(
 						table({ localId })(
 							tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
 							tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-							tr(td()(p('7')), td()(p(strong('1'))), td()(p(strong('2')))),
-							tr(td()(p()), td()(p('3')), td()(p('4'))),
+							tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
 						),
-					);
+					),
+				);
 
-					expect(editorView.state.doc).toEqualDocument(expectedResult);
+				dispatchPasteEvent(editorView, {
+					html: htmlTable2x2(true),
 				});
 
-				it('merges table full table copied from excel', () => {
-					const { editorView } = editor(
-						doc(
-							table({ localId })(
-								tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
-								tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-								tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
-							),
-						),
-					);
+				const expectedResult = doc(
+					table({ localId })(
+						tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+						tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+						tr(td()(p('7')), td()(p(strong('1'))), td()(p(strong('2')))),
+						tr(td()(p()), td()(p('3')), td()(p('4'))),
+					),
+				);
 
-					dispatchPasteEvent(editorView, {
-						html: excelTable2x2,
-					});
+				expect(editorView.state.doc).toEqualDocument(expectedResult);
+			});
 
-					const expectedResult = doc(
+			it('merges table full table copied from excel', () => {
+				const { editorView } = editor(
+					doc(
 						table({ localId })(
 							tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
 							tr(td()(p('4')), td()(p('5')), td()(p('6'))),
-							tr(td()(p('7')), td()(p('1')), td()(p('2'))),
-							tr(td()(p()), td()(p('3')), td()(p('4'))),
+							tr(td()(p('7')), td()(p('8{<>}')), td()(p('9'))),
 						),
-					);
+					),
+				);
 
-					expect(editorView.state.doc).toEqualDocument(expectedResult);
+				dispatchPasteEvent(editorView, {
+					html: excelTable2x2,
 				});
-			},
-		);
+
+				const expectedResult = doc(
+					table({ localId })(
+						tr(th()(p(strong('1'))), th()(p(strong('2'))), th()(p(strong('3')))),
+						tr(td()(p('4')), td()(p('5')), td()(p('6'))),
+						tr(td()(p('7')), td()(p('1')), td()(p('2'))),
+						tr(td()(p()), td()(p('3')), td()(p('4'))),
+					),
+				);
+
+				expect(editorView.state.doc).toEqualDocument(expectedResult);
+			});
+		});
 	});
 });

@@ -1,5 +1,25 @@
 # @atlaskit/rovo-agent-components
 
+## 7.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.0
+
+### Minor Changes
+
+- [`aa85779ad72a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa85779ad72a8) -
+  [ux] Update agent profile and make delete option optional
+
+### Patch Changes
+
+- [`f3f5ada0cba94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3f5ada0cba94) -
+  Align the agent profile card styling with Figma, gated on
+  `platform_editor_agent_mentions_drop_one_fixes` and the `platform_editor_agent_mentions`
+  experiment
+
 ## 7.4.4
 
 ### Patch Changes

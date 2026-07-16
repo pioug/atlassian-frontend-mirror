@@ -1,7 +1,7 @@
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles';
 import { breakoutResizableNodes as breakoutResizableNodesNew } from '@atlaskit/editor-common/utils';
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -126,7 +126,7 @@ export const getNestedNodeLeftPaddingMargin = (
 		case 'bodiedExtension':
 			return '28px';
 		case 'multiBodiedExtension':
-			if (fg('confluence_frontend_native_tabs_extension')) {
+			if (expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)) {
 				return '28px';
 			}
 			return `${DRAG_HANDLE_WIDTH + DRAG_HANDLE_NARROW_GAP}px`;

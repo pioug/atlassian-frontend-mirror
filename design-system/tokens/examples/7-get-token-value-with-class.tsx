@@ -7,13 +7,11 @@ import { useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import { CodeBlock } from '@atlaskit/code';
-import {
-	getGlobalTheme,
-	getTokenValue,
-	ThemeMutationObserver,
-	type ThemeState,
-	token,
-} from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { getGlobalTheme } from '@atlaskit/tokens/get-global-theme';
+import { getTokenValue } from '@atlaskit/tokens/get-token-value';
+import type { ThemeState } from '@atlaskit/tokens/theme-config';
+import { ThemeMutationObserver } from '@atlaskit/tokens/theme-mutation-observer';
 
 const ExampleDiv = () => (
 	<p

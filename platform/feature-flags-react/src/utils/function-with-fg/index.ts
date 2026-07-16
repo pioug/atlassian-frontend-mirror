@@ -1,6 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { functionWithCondition } from '../function-with-condition';
+import { functionWithCondition } from '../function-with-condition/functionWithCondition';
 
 export const functionWithFG = <Fn extends (...args: any[]) => any>(
 	featureFlagName: string,

@@ -1,6 +1,11 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import { expect, test } from '@af/integration-testing';
 
+import {
+	focusInteractionScenarios,
+	MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+} from './focus-interaction-scenarios';
+
 test.describe('Popover dialog focus trap - Tab wrapping', () => {
 	// WCAG 2.4.3 Focus Order: Tab should cycle within role="dialog" popovers.
 	test('Tab wraps forward from last to first focusable element', async ({ page }) => {
@@ -122,20 +127,30 @@ test.describe('Popover dialog focus trap - dismiss behavior preserved', () => {
 		expect(dialogVisible).toBe(false);
 	});
 
-	// Focus should return to trigger after dismiss.
-	test('focus returns to trigger after Escape', async ({ page }) => {
-		await page.visitExample<
-			typeof import('../../examples/121-testing-popover-dialog-focus-trap.tsx')
-		>('design-system', 'top-layer', 'testing-popover-dialog-focus-trap');
+	// Focus should return to trigger after dismiss. Generated for both modalities;
+	// mouse open skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`focus returns to trigger after Escape (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<
+				typeof import('../../examples/121-testing-popover-dialog-focus-trap.tsx')
+			>('design-system', 'top-layer', 'testing-popover-dialog-focus-trap');
 
-		const trigger = page.getByTestId('dialog-trigger');
-		await trigger.click();
-		await expect(page.getByTestId('dialog-button-a')).toBeFocused();
+			const trigger = page.getByTestId('dialog-trigger');
+			await scenario.activate({ page, trigger });
+			await expect(page.getByTestId('dialog-button-a')).toBeFocused();
 
-		await page.keyboard.press('Escape');
+			await page.keyboard.press('Escape');
 
-		await expect(trigger).toBeFocused();
-	});
+			await expect(trigger).toBeFocused();
+		});
+	}
 });
 
 test.describe('Popover non-dialog role - no focus trap', () => {

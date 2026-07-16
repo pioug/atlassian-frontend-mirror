@@ -1,4 +1,4 @@
-import { type ActiveTokens } from '@atlaskit/tokens';
+import type { ActiveTokens } from '@atlaskit/tokens/artifacts/types';
 import type { ThemeElementProps } from '@atlassian/viz-platform-charts/primitives';
 
 type MarginValue = Extract<ActiveTokens, `space.${string}`>;

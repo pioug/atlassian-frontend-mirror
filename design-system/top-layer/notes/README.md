@@ -77,6 +77,10 @@ Architectural decisions, design rationale, and decision logs.
   a top-layer code path, partial migrations, test-only coverage, and skipped packages
 - **[accessibility-audit-report.md](./decisions/accessibility-audit-report.md)** — Per-component
   a11y audit of primitives and all adopters (WCAG compliance, findings, justifications)
+- **[safari-escape-nested-popover-in-dialog.md](./decisions/safari-escape-nested-popover-in-dialog.md)**
+  — **RESOLVED:** Safari closed the parent `<dialog>` on Escape from a nested popover; fixed in the
+  Dialog primitive via a keydown-time nested-popover snapshot (verified on real Safari 26.5), with
+  `TScenario` mouse/keyboard hardening of the top-layer focus tests
 
 ### [`rules/`](./rules/)
 

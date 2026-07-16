@@ -1,5 +1,38 @@
 # @atlaskit/emoji
 
+## 71.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.9.2
+
+### Patch Changes
+
+- [`7c2b0276e2e68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c2b0276e2e68) -
+  Render custom emojis with empty IDs using tokenized media URLs
+- Updated dependencies
+
+## 71.9.1
+
+### Patch Changes
+
+- [`e34ab4888aee6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e34ab4888aee6) -
+  Update the emoji picker virtual list scroll container role to presentation.
+- Updated dependencies
+
+## 71.9.0
+
+### Minor Changes
+
+- [`607477c5d6aae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/607477c5d6aae) -
+  EDITOR-7032 Remove the implementation of using VanillaTooltip for emoji tooltips
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.8.1
 
 ### Patch Changes

@@ -10,7 +10,6 @@ import classnames from 'classnames';
 import { FormattedMessage, defineMessages } from 'react-intl';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -154,7 +153,7 @@ export const ExtensionLabel = ({
 	const isInlineExtension = extensionName === 'inlineExtension';
 	const showDefaultBodiedStyles = isBodiedMacro;
 	const shouldUseMultiBodiedMacroPresentation =
-		isMultiBodiedMacro && fg('confluence_frontend_native_tabs_extension');
+		isMultiBodiedMacro && expValEquals('confluence_native_tabs_experiment', 'isEnabled', true);
 
 	const containerClassNames = classnames({
 		bodied: isBodiedMacro && !shouldUseMultiBodiedMacroPresentation,

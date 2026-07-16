@@ -490,7 +490,7 @@ export const createTypeAheadConfig = ({
 					limit: 5,
 					sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true },
 					lozenge: (
-						<Lozenge appearance="new">
+						<Lozenge appearance="discovery">
 							{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel)}
 						</Lozenge>
 					),
@@ -666,6 +666,16 @@ export const createTypeAheadConfig = ({
 					action: ACTIONS.SET_PENDING_TYPED_AGENT_MENTION,
 					params: { localId: mentionLocalId, name },
 				});
+				// Cache the agent name so pasted mentions (where attrs.text is stripped)
+				// can recover it synchronously via resolveMentionName() cache hit.
+				if (
+					name &&
+					mentionProvider &&
+					isResolvingMentionProvider(mentionProvider) &&
+					fg('platform_editor_agent_mentions_drop_one_fixes')
+				) {
+					mentionProvider.cacheMentionName(id, name);
+				}
 			}
 
 			return tr;

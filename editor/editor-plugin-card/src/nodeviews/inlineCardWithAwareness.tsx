@@ -26,7 +26,7 @@ import { AwarenessWrapper } from '../ui/AwarenessWrapper';
 import { PreviewInvoker } from '../ui/preview/PreviewInvoker';
 
 import type { SmartCardProps } from './genericCard';
-import { InlineCard } from './inlineCard';
+import { InlineCard } from './inlineCardBase';
 
 export type InlineCardWithAwarenessProps = {
 	isOverlayEnabled?: boolean;

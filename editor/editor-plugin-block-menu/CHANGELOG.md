@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-menu
 
+## 11.1.21
+
+### Patch Changes
+
+- [`a3bbfab896310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3bbfab896310) -
+  Replace feature gate `confluence_frontend_native_tabs_extension` with experiment
+  `confluence_native_tabs_experiment` using `expValEquals` from
+  `@atlaskit/tmp-editor-statsig/exp-val-equals`. Usage:
+  `expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)`.
+- Updated dependencies
+
+## 11.1.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.1.19
+
+### Patch Changes
+
+- [`f5d036ef75faa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5d036ef75faa) -
+  [EDITOR-8110] Fix block menu closing when opening the "Change format" nested submenu
+- Updated dependencies
+
 ## 11.1.18
 
 ### Patch Changes

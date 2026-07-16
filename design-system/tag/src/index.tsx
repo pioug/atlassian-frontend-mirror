@@ -1,4 +1,4 @@
-export { default, default as RemovableTag, SimpleTag } from './tag';
+export { default, SimpleTag, RemovableTag } from './tag';
 export type { RemovableTagProps, SimpleTagProps } from './tag';
 
 export type { AppearanceType, MigrationFallback, TagColor } from './types';

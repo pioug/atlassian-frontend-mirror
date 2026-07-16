@@ -9,7 +9,8 @@ import Heading, { HeadingContextProvider } from '@atlaskit/heading';
 import { JiraServiceManagementLogo } from '@atlaskit/logo';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import JSMCard from './91-jsm-card';
 import JSMConfigCard from './92-jsm-config-card';

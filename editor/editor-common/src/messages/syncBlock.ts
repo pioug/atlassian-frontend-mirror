@@ -56,6 +56,11 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	copyToSyncLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	createSyncBlockLabel: {
 		defaultMessage: string;
 		description: string;
@@ -481,6 +486,12 @@ export const syncBlockMessages: {
 		id: 'fabric.editor.copySyncedBlockTooltip',
 		defaultMessage: 'Copy synced block',
 		description: 'Tooltip for the button to copy synced block element ',
+	},
+	copyToSyncLabel: {
+		id: 'fabric.editor.copyToSyncLabel',
+		defaultMessage: 'Copy to sync',
+		description:
+			'Button label for the primary action that copies a synced block reference to your clipboard so it can be reused (synced) somewhere else',
 	},
 	editSourceLabel: {
 		id: 'fabric.editor.editSourceLabel',

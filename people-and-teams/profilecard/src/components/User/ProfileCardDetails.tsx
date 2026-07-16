@@ -229,7 +229,7 @@ const DisabledProfileCardDetails = (
 
 			{hasDisabledAccountLozenge && (
 				<LozengeWrapper>
-					<Lozenge appearance="default" isBold>
+					<Lozenge appearance="neutral" isBold>
 						{status === 'inactive' ? (
 							<FormattedMessage {...messages.inactiveAccountMsg} />
 						) : (

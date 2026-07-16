@@ -235,16 +235,30 @@ export const moveNodeViaShortcut = (
 			hoistedPos = state.doc.resolve(from).before(LAYOUT_COL_DEPTH);
 		}
 
-		const currentNodePos =
-			!getFocusedHandle(state) && !selection.empty
-				? (hoistedPos ?? from)
-				: getCurrentNodePos(state);
+		const table =
+			expValEquals('platform_editor_fix_table_move_shortcut', 'isEnabled', true) &&
+			isTableSelected(selection)
+				? findTable(selection)
+				: undefined;
+		let currentNodePos: number;
+		if (table) {
+			currentNodePos = table.pos;
+		} else if (!getFocusedHandle(state) && !selection.empty) {
+			currentNodePos = hoistedPos ?? from;
+		} else {
+			currentNodePos = getCurrentNodePos(state);
+		}
 
 		if (currentNodePos > -1) {
 			const $currentNodePos = state.doc.resolve(currentNodePos);
-			const nodeAfterPos = !getFocusedHandle(state)
-				? Math.max(expandedAnchor, expandedHead)
-				: $currentNodePos.posAtIndex($currentNodePos.index() + 1);
+			let nodeAfterPos: number;
+			if (table) {
+				nodeAfterPos = table.pos + table.node.nodeSize;
+			} else if (!getFocusedHandle(state)) {
+				nodeAfterPos = Math.max(expandedAnchor, expandedHead);
+			} else {
+				nodeAfterPos = $currentNodePos.posAtIndex($currentNodePos.index() + 1);
+			}
 
 			const isTopLevelNode = $currentNodePos.depth === 0;
 

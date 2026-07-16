@@ -16,7 +16,8 @@ import { cssMap, jsx, keyframes } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 

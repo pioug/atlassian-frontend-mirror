@@ -24,7 +24,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { layers } from '@atlaskit/theme/constants';
-import { type CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import { createCloseEvent, Dialog, type TDialogCloseReason } from '@atlaskit/top-layer/dialog';
 import { DialogScrollLock } from '@atlaskit/top-layer/dialog-scroll-lock';
 

@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 10.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.5.4
+
+### Patch Changes
+
+- [`88a1176b97a25`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88a1176b97a25) -
+  Internal TypeScript typecheck fixes for ts7 (tsgo) adoption. No functional or API changes.
+- Updated dependencies
+
 ## 10.5.3
 
 ### Patch Changes

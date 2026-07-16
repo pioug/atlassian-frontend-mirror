@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "15.2.2",
+	"version": "15.3.1",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -123,6 +123,10 @@
 	"platform-feature-flags": {
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
+		},
+		"parent-field-switcher-missing-info-image-text": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	}
 }

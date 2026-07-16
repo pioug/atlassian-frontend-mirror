@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 45.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.9.0
 
 ### Minor Changes

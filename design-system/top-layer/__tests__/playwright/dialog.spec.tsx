@@ -3,6 +3,11 @@ import invariant from 'tiny-invariant';
 
 import { expect, test } from '@af/integration-testing';
 
+import {
+	focusInteractionScenarios,
+	MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+} from './focus-interaction-scenarios';
+
 test.describe('Dialog - open and close', () => {
 	test('opens via trigger click (showModal)', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/91-testing-dialog-basic.tsx')>(
@@ -145,72 +150,100 @@ test.describe('Dialog - focus', () => {
 		expect(isFocusInsideDialog).toBe(true);
 	});
 
-	// WCAG 2.4.3 Focus Order - focus returns to trigger on Escape
-	test('focus returns to trigger on Escape', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-focus-return',
-		);
+	// WCAG 2.4.3 Focus Order - focus returns to trigger on Escape. Generated for both
+	// modalities; mouse skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`focus returns to trigger on Escape (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-focus-return',
+			);
 
-		const trigger = page.getByTestId('dialog-trigger');
-		await trigger.click();
+			const trigger = page.getByTestId('dialog-trigger');
+			await scenario.activate({ page, trigger });
 
-		// Dialog auto-focuses the first focusable element (Close button, not dialog-button)
-		await expect(page.getByTestId('dialog-button')).toBeVisible();
-		const autoFocusedClose = page.locator('dialog button[aria-label="Close"]');
-		await expect(autoFocusedClose).toBeFocused();
-		await autoFocusedClose.click({ trial: true });
-		await page.keyboard.press('Escape');
+			// Dialog auto-focuses the first focusable element (Close button).
+			await expect(page.getByTestId('dialog-button')).toBeVisible();
+			const autoFocusedClose = page.locator('dialog button[aria-label="Close"]');
+			await expect(autoFocusedClose).toBeFocused();
+			await page.keyboard.press('Escape');
 
-		await expect(trigger).toBeFocused();
-	});
+			await expect(trigger).toBeFocused();
+		});
+	}
 
-	// WCAG 2.4.3 Focus Order - focus returns to trigger on backdrop click
-	// dialog.close() always restores focus, unlike Popover light dismiss
-	test('focus returns to trigger on backdrop click', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-focus-return',
-		);
+	// WCAG 2.4.3 Focus Order - focus returns to trigger on backdrop click.
+	// dialog.close() always restores focus, unlike Popover light dismiss. Generated for
+	// both modalities; mouse open skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`focus returns to trigger on backdrop click (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-focus-return',
+			);
 
-		const trigger = page.getByTestId('dialog-trigger');
-		await trigger.click();
+			const trigger = page.getByTestId('dialog-trigger');
+			await scenario.activate({ page, trigger });
 
-		await expect(page.getByTestId('dialog-button')).toBeVisible();
+			await expect(page.getByTestId('dialog-button')).toBeVisible();
 
-		// Click the dialog element itself (the backdrop area outside child content).
-		// The dialog's click handler treats target===currentTarget as a backdrop click.
-		const dialog = page.locator('dialog');
-		const box = await dialog.boundingBox();
-		invariant(box, 'dialog bounding box should exist');
-		await page.mouse.click(box.x + 1, box.y + 1);
+			// Click the dialog element itself (the backdrop area outside child content).
+			const dialog = page.locator('dialog');
+			const box = await dialog.boundingBox();
+			invariant(box, 'dialog bounding box should exist');
+			await page.mouse.click(box.x + 1, box.y + 1);
 
-		await expect(dialog).toBeHidden();
-		await expect(trigger).toBeFocused();
-	});
+			await expect(dialog).toBeHidden();
+			await expect(trigger).toBeFocused();
+		});
+	}
 
-	// WCAG 2.4.3 Focus Order - focus returns to trigger on programmatic close
-	// Verifies dialog.close() restores focus even when closed via an inner button
-	test('focus returns to trigger on programmatic close', async ({ page }) => {
-		await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-focus-return',
-		);
+	// WCAG 2.4.3 Focus Order - focus returns to trigger on programmatic close.
+	// Verifies dialog.close() restores focus even when closed via an inner button.
+	// Generated for both modalities; mouse open is skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`focus returns to trigger on programmatic close (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<typeof import('../../examples/95-testing-focus-return.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-focus-return',
+			);
 
-		const trigger = page.getByTestId('dialog-trigger');
-		await trigger.click();
+			const trigger = page.getByTestId('dialog-trigger');
+			await scenario.activate({ page, trigger });
 
-		await expect(page.getByTestId('dialog-button')).toBeVisible();
+			await expect(page.getByTestId('dialog-button')).toBeVisible();
 
-		// Close via the close button inside the dialog (programmatic close path)
-		await page.locator('dialog button[aria-label="Close"]').click();
+			// Close via the close button inside the dialog (programmatic close path)
+			await page.locator('dialog button[aria-label="Close"]').click();
 
-		await expect(page.locator('dialog')).toBeHidden();
-		await expect(trigger).toBeFocused();
-	});
+			await expect(page.locator('dialog')).toBeHidden();
+			await expect(trigger).toBeFocused();
+		});
+	}
 
 	// WCAG 2.4.3 Focus Order - Tab cycles within modal dialog (focus wrap)
 	test('Tab cycles within modal dialog and wraps directly from last to first', async ({ page }) => {

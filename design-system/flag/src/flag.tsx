@@ -55,6 +55,10 @@ const descriptionStyles = css({
 	overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
 });
 
+const flagWrapperStyles = css({
+	width: '100%',
+});
+
 const iconWrapperStyles = css({
 	display: 'flex',
 	minWidth: '24px',
@@ -65,8 +69,10 @@ const iconWrapperStyles = css({
 	color: `var(${CSS_VAR_ICON_COLOR})`,
 });
 
-const flagWrapperStyles = css({
-	width: '100%',
+const transitionStyles = css({
+	minWidth: 0,
+	flexGrow: 1,
+	transition: `gap 0.3s`,
 });
 
 const analyticsAttributes = {
@@ -74,16 +80,6 @@ const analyticsAttributes = {
 	packageName: process.env._PACKAGE_NAME_ as string,
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
-
-const transitionStyles = css({
-	flexGrow: 1,
-	transition: `gap 0.3s`,
-});
-
-// jpo-41318-fix-flag-overflow-fg TODO: Merge into base after rollout
-const minWidthStyles = css({
-	minWidth: 0,
-});
 
 /**
  * __Flag__
@@ -217,7 +213,7 @@ const Flag: FC<FlagProps> = (props) => {
 					>
 						{icon || iconGlyph}
 					</div>
-					<span css={[transitionStyles, fg('jpo-41318-fix-flag-overflow-fg') && minWidthStyles]}>
+					<span css={transitionStyles}>
 						<Stack
 							space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
 						>

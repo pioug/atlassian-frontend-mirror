@@ -2,6 +2,11 @@ import invariant from 'tiny-invariant';
 
 import { expect, test } from '@af/integration-testing';
 
+import {
+	focusInteractionScenarios,
+	MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+} from './focus-interaction-scenarios';
+
 /**
  * Popup - native popover focus restoration
  *
@@ -16,101 +21,124 @@ import { expect, test } from '@af/integration-testing';
  * WCAG 2.4.3 Focus Order
  */
 test.describe('Popup - native popover focus restoration', () => {
-	// role="dialog" - Escape restores, light-dismiss does not
-	test('role="dialog": Escape restores focus to trigger; light-dismiss does not', async ({
-		page,
-	}) => {
-		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-popup-focus-restore',
-		);
+	// role="dialog" - Escape restores, light-dismiss does not. Generated for both
+	// modalities; mouse open skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`role="dialog": Escape restores focus to trigger; light-dismiss does not (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-popup-focus-restore',
+			);
 
-		const trigger = page.getByTestId('dialog-trigger');
-		const popup = page.getByTestId('dialog-popup');
-		const innerButton = page.getByTestId('dialog-inner-button');
+			const trigger = page.getByTestId('dialog-trigger');
+			const popup = page.getByTestId('dialog-popup');
+			const innerButton = page.getByTestId('dialog-inner-button');
 
-		// Open → move focus inside → Escape → focus returns to trigger
-		await trigger.click();
-		await expect(popup).toBeVisible();
-		await innerButton.focus();
-		await expect(innerButton).toBeFocused();
-		await page.keyboard.press('Escape');
-		await expect(popup).toBeHidden();
-		await expect(trigger).toBeFocused();
+			// Open → move focus inside → Escape → focus returns to trigger
+			await scenario.activate({ page, trigger });
+			await expect(popup).toBeVisible();
+			await innerButton.focus();
+			await expect(innerButton).toBeFocused();
+			await page.keyboard.press('Escape');
+			await expect(popup).toBeHidden();
+			await expect(trigger).toBeFocused();
 
-		// Reopen → move focus inside → click outside → focus does NOT return
-		await trigger.click();
-		await expect(popup).toBeVisible();
-		await innerButton.focus();
-		const viewport = page.viewportSize();
-		invariant(viewport, 'Playwright viewport size should be defined');
-		await page.mouse.click(viewport.width - 1, viewport.height - 1);
-		await expect(popup).toBeHidden();
-		await expect(trigger).not.toBeFocused();
-	});
+			// Reopen → move focus inside → click outside → focus does NOT return
+			await scenario.activate({ page, trigger });
+			await expect(popup).toBeVisible();
+			await innerButton.focus();
+			const viewport = page.viewportSize();
+			invariant(viewport, 'Playwright viewport size should be defined');
+			await page.mouse.click(viewport.width - 1, viewport.height - 1);
+			await expect(popup).toBeHidden();
+			await expect(trigger).not.toBeFocused();
+		});
+	}
 
-	// role="menu" - Escape restores, light-dismiss does not
-	test('role="menu": Escape restores focus to trigger; light-dismiss does not', async ({
-		page,
-	}) => {
-		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-popup-focus-restore',
-		);
+	// role="menu" - Escape restores, light-dismiss does not. Generated for both
+	// modalities; mouse open skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`role="menu": Escape restores focus to trigger; light-dismiss does not (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-popup-focus-restore',
+			);
 
-		const trigger = page.getByTestId('menu-trigger');
-		const popup = page.getByTestId('menu-popup');
-		const menuItem = page.getByTestId('menu-item');
+			const trigger = page.getByTestId('menu-trigger');
+			const popup = page.getByTestId('menu-popup');
+			const menuItem = page.getByTestId('menu-item');
 
-		// Open → move focus inside → Escape → focus returns to trigger
-		await trigger.click();
-		await expect(popup).toBeVisible();
-		await menuItem.focus();
-		await expect(menuItem).toBeFocused();
-		await page.keyboard.press('Escape');
-		await expect(popup).toBeHidden();
-		await expect(trigger).toBeFocused();
+			// Open → move focus inside → Escape → focus returns to trigger
+			await scenario.activate({ page, trigger });
+			await expect(popup).toBeVisible();
+			await menuItem.focus();
+			await expect(menuItem).toBeFocused();
+			await page.keyboard.press('Escape');
+			await expect(popup).toBeHidden();
+			await expect(trigger).toBeFocused();
 
-		// Reopen → light-dismiss → focus does NOT return
-		await trigger.click();
-		await expect(popup).toBeVisible();
-		await page.mouse.click(0, 0);
-		await expect(popup).toBeHidden();
-		await expect(trigger).not.toBeFocused();
-	});
+			// Reopen → light-dismiss → focus does NOT return
+			await scenario.activate({ page, trigger });
+			await expect(popup).toBeVisible();
+			await page.mouse.click(0, 0);
+			await expect(popup).toBeHidden();
+			await expect(trigger).not.toBeFocused();
+		});
+	}
 
-	// role="listbox" - Escape restores, light-dismiss does not
-	test('role="listbox": Escape restores focus to trigger; light-dismiss does not', async ({
-		page,
-	}) => {
-		await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
-			'design-system',
-			'top-layer',
-			'testing-popup-focus-restore',
-		);
+	// role="listbox" - Escape restores, light-dismiss does not. Generated for both
+	// modalities; mouse open skipped on WebKit.
+	for (const scenario of focusInteractionScenarios) {
+		test(`role="listbox": Escape restores focus to trigger; light-dismiss does not (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<typeof import('../../examples/122-testing-popup-focus-restore.tsx')>(
+				'design-system',
+				'top-layer',
+				'testing-popup-focus-restore',
+			);
 
-		const trigger = page.getByTestId('listbox-trigger');
-		const popup = page.getByTestId('listbox-popup');
+			const trigger = page.getByTestId('listbox-trigger');
+			const popup = page.getByTestId('listbox-popup');
 
-		// Open → Escape → focus returns
-		// listbox trigger is auto-focused on open - trial click for actionability
-		await trigger.click();
-		await expect(popup).toBeVisible();
-		await expect(trigger).toBeFocused();
-		await trigger.click({ trial: true });
-		await page.keyboard.press('Escape');
-		await expect(popup).toBeHidden();
-		await expect(trigger).toBeFocused();
+			// Open → Escape → focus returns. The listbox keeps focus on the trigger
+			// (combobox activedescendant pattern).
+			await scenario.activate({ page, trigger });
+			await expect(popup).toBeVisible();
+			await expect(trigger).toBeFocused();
+			await page.keyboard.press('Escape');
+			await expect(popup).toBeHidden();
+			await expect(trigger).toBeFocused();
 
-		// Reopen → light-dismiss → focus does NOT return
-		await trigger.click();
-		await expect(popup).toBeVisible();
-		await page.mouse.click(0, 0);
-		await expect(popup).toBeHidden();
-		await expect(trigger).not.toBeFocused();
-	});
+			// Reopen → light-dismiss → focus does NOT return
+			await scenario.activate({ page, trigger });
+			await expect(popup).toBeVisible();
+			await page.mouse.click(0, 0);
+			await expect(popup).toBeHidden();
+			await expect(trigger).not.toBeFocused();
+		});
+	}
 
 	// role="tooltip" - focus must never move (tooltip is an informational overlay)
 	// WCAG 1.4.13 Content on Hover or Focus - tooltip must not steal focus

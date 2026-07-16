@@ -178,6 +178,19 @@ details.
 | Background inertness (modal dialogs) | ✓            |
 | Close reasons (Dialog)               | ✓            |
 
+## Known limitations
+
+- **Safari `<dialog>` flex-collapse.** On WebKit, a `max-height: 100%` flex column with a
+  `flex: 1 1 auto; overflow: auto` child placed directly inside a `Dialog` collapses to `0px` (the
+  block-axis `fit-content` user-agent default is an indefinite height). `Popover` sets
+  `height: auto` to avoid this; `Dialog` deliberately does not, to keep the primitive free of layout
+  opinions (see
+  [`notes/decisions/safari-popover-flex-collapse.md`](notes/decisions/safari-popover-flex-collapse.md)).
+  A consumer that builds this shape inside a `Dialog` should give the column a definite height or
+  apply its own `height: auto` reset on the surface.
+  - TODO: expand this into full public consumer documentation (the recommended workaround and a
+    worked example) before the top-layer `Dialog` is broadly adopted.
+
 ## Documentation
 
 See [`notes/`](notes/) for project documentation, architecture decisions, migration records, and

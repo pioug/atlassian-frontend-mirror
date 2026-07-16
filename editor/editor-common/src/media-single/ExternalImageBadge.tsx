@@ -52,7 +52,7 @@ export const isUnbadgedUrl = (url: string | undefined): boolean => {
 		return pathname?.startsWith('image/');
 	}
 
-	if (expValEquals('platform_editor_media_external_badge_bbc_fix', 'isEnable', true)) {
+	if (expValEquals('platform_editor_media_external_badge_bbc_fix', 'isEnabled', true)) {
 		return Boolean(
 			hostname &&
 			NO_EXTERNAL_BADGE_HOSTS_NEW.some(

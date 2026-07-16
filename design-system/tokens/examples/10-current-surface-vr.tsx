@@ -5,7 +5,8 @@
 import { type CSSProperties } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
 

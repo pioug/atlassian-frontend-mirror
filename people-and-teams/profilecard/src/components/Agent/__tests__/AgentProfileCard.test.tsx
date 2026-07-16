@@ -3,6 +3,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils';
 import {
@@ -168,6 +169,43 @@ describe('ProfileCardTrigger', () => {
 			renderWithIntl({});
 			// When hideMoreActions is not provided, the dropdown menu should be present
 			expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+		});
+	});
+
+	describe('platform_editor_agent_mentions_drop_one_fixes', () => {
+		const agentWithCreator: RovoAgentProfileCardInfo = {
+			...agent,
+			creatorInfo: {
+				type: 'CUSTOMER',
+				name: 'John Doe',
+				profileLink: 'https://example.com/profile',
+			},
+		};
+
+		eeTest.describe('platform_editor_agent_mentions', 'experiment on').variant(true, () => {
+			ffTest.on('platform_editor_agent_mentions_drop_one_fixes', 'fg on', () => {
+				it('hides the creator Rovo icon', () => {
+					renderWithIntl({ agentOverride: agentWithCreator });
+
+					expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
+				});
+			});
+
+			ffTest.off('platform_editor_agent_mentions_drop_one_fixes', 'fg off', () => {
+				it('shows the creator Rovo icon', () => {
+					renderWithIntl({ agentOverride: agentWithCreator });
+
+					expect(screen.getByTestId('rovo-icon-wrapper')).toBeInTheDocument();
+				});
+			});
+		});
+
+		eeTest.describe('platform_editor_agent_mentions', 'experiment off').variant(false, () => {
+			it('shows the creator Rovo icon', () => {
+				renderWithIntl({ agentOverride: agentWithCreator });
+
+				expect(screen.getByTestId('rovo-icon-wrapper')).toBeInTheDocument();
+			});
 		});
 	});
 

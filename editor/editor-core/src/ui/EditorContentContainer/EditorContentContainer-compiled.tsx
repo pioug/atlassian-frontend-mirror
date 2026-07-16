@@ -50,7 +50,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { useThemeObserver, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
 
@@ -6384,6 +6385,17 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
+	// Interactive elements (e.g. the link in the unpublished error card) should
+	// show the pointer cursor to signal they are clickable, rather than
+	// inheriting the text cursor. Gated behind the sync block activation
+	// experiment.
+	syncBlockInteractiveCursorStyles: {
+		'.ak-editor-sync-block__renderer': {
+			'a[href], button, [role="button"], [role="link"]': {
+				cursor: 'pointer',
+			},
+		},
+	},
 	syncBlockOverflowStyles: {
 		'.ProseMirror': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -7978,6 +7990,14 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';
 
+	// Evaluated unconditionally so the experiment exposure is tracked correctly
+	// (must not be preconditioned by other gates in the style expression below).
+	const isSyncBlockActivationEnabled = expValEquals(
+		'platform_editor_sync_block_activation',
+		'isEnabled',
+		true,
+	);
+
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 	const isDense = !!baseFontSize && baseFontSize !== akEditorFullPageDefaultFontSize;
 
@@ -8188,6 +8208,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorExperiment('platform_synced_block', true) &&
 					fg('platform_synced_block_patch_14') &&
 					editorContentStyles.syncBlockTextSelectionStyles,
+				isSyncBlockActivationEnabled &&
+					editorExperiment('platform_synced_block', true) &&
+					editorContentStyles.syncBlockInteractiveCursorStyles,
 				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutBaseStylesAdvanced,
 				editorExperiment('advanced_layouts', true)
 					? editorContentStyles.layoutSectionStylesAdvanced

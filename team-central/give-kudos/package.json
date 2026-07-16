@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "6.6.0",
+	"version": "6.7.1",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -15,7 +15,7 @@
 				"importSpecifierName": "isReactCompilerActivePlatform"
 			}
 		},
-		"team": "Team Central",
+		"team": "People and Teams Collective",
 		"website": {
 			"name": "Give Kudos"
 		},

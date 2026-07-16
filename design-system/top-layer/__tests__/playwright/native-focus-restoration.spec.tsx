@@ -2,6 +2,11 @@ import invariant from 'tiny-invariant';
 
 import { expect, test } from '@af/integration-testing';
 
+import {
+	focusInteractionScenarios,
+	MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+} from './focus-interaction-scenarios';
+
 /**
  * Native Popover API focus restoration tests.
  *
@@ -18,47 +23,65 @@ test.describe('Native Popover API focus restoration', () => {
 	// The HTML Popover spec's close watcher passes focusPreviousElement=true,
 	// so the browser restores focus to the trigger on Escape.
 
-	test('popover="auto" dialog: Escape restores focus to trigger', async ({ page }) => {
-		await page.visitExample<
-			typeof import('../../examples/132-testing-native-focus-restoration.tsx')
-		>('design-system', 'top-layer', 'testing-native-focus-restoration');
+	for (const scenario of focusInteractionScenarios) {
+		test(`popover="auto" dialog: Escape restores focus to trigger (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<
+				typeof import('../../examples/132-testing-native-focus-restoration.tsx')
+			>('design-system', 'top-layer', 'testing-native-focus-restoration');
 
-		const trigger = page.getByTestId('auto-dialog-trigger');
-		await trigger.click();
-		await expect(page.getByTestId('auto-dialog-popup')).toBeVisible();
+			const trigger = page.getByTestId('auto-dialog-trigger');
+			await scenario.activate({ page, trigger });
+			await expect(page.getByTestId('auto-dialog-popup')).toBeVisible();
 
-		// Move focus into the dialog content
-		const innerButton = page.getByTestId('auto-dialog-inner-button');
-		await innerButton.focus();
-		await expect(innerButton).toBeFocused();
+			// Move focus into the dialog content
+			const innerButton = page.getByTestId('auto-dialog-inner-button');
+			await innerButton.focus();
+			await expect(innerButton).toBeFocused();
 
-		// Dismiss via Escape - browser restores focus
-		await page.keyboard.press('Escape');
+			// Dismiss via Escape - browser restores focus
+			await page.keyboard.press('Escape');
 
-		await expect(page.getByTestId('auto-dialog-popup')).toBeHidden();
-		await expect(trigger).toBeFocused();
-	});
+			await expect(page.getByTestId('auto-dialog-popup')).toBeHidden();
+			await expect(trigger).toBeFocused();
+		});
+	}
 
-	test('popover="auto" menu: Escape restores focus to trigger', async ({ page }) => {
-		await page.visitExample<
-			typeof import('../../examples/132-testing-native-focus-restoration.tsx')
-		>('design-system', 'top-layer', 'testing-native-focus-restoration');
+	for (const scenario of focusInteractionScenarios) {
+		test(`popover="auto" menu: Escape restores focus to trigger (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<
+				typeof import('../../examples/132-testing-native-focus-restoration.tsx')
+			>('design-system', 'top-layer', 'testing-native-focus-restoration');
 
-		const trigger = page.getByTestId('auto-menu-trigger');
-		await trigger.click();
-		await expect(page.getByTestId('auto-menu-popup')).toBeVisible();
+			const trigger = page.getByTestId('auto-menu-trigger');
+			await scenario.activate({ page, trigger });
+			await expect(page.getByTestId('auto-menu-popup')).toBeVisible();
 
-		// Move focus to menu item
-		const menuItem = page.getByTestId('auto-menu-item');
-		await menuItem.focus();
-		await expect(menuItem).toBeFocused();
+			// Move focus to menu item
+			const menuItem = page.getByTestId('auto-menu-item');
+			await menuItem.focus();
+			await expect(menuItem).toBeFocused();
 
-		// Dismiss via Escape - browser restores focus
-		await page.keyboard.press('Escape');
+			// Dismiss via Escape - browser restores focus
+			await page.keyboard.press('Escape');
 
-		await expect(page.getByTestId('auto-menu-popup')).toBeHidden();
-		await expect(trigger).toBeFocused();
-	});
+			await expect(page.getByTestId('auto-menu-popup')).toBeHidden();
+			await expect(trigger).toBeFocused();
+		});
+	}
 
 	// Click-outside: browser does NOT restore focus
 	// The HTML Popover spec's light dismiss algorithm passes
@@ -118,24 +141,33 @@ test.describe('Native Popover API focus restoration', () => {
 	// In practice, consumers use animation presets which delay unmounting
 	// and avoid this timing issue.
 
-	test('hidePopover() restores focus to trigger', async ({ page }) => {
-		await page.visitExample<
-			typeof import('../../examples/132-testing-native-focus-restoration.tsx')
-		>('design-system', 'top-layer', 'testing-native-focus-restoration');
+	for (const scenario of focusInteractionScenarios) {
+		test(`hidePopover() restores focus to trigger (${scenario.method})`, async ({
+			page,
+			browserName,
+		}) => {
+			test.fixme(
+				scenario.skipFocusRestorationOnWebKit && browserName === 'webkit',
+				MOUSE_FOCUS_WEBKIT_FIXME_REASON,
+			);
+			await page.visitExample<
+				typeof import('../../examples/132-testing-native-focus-restoration.tsx')
+			>('design-system', 'top-layer', 'testing-native-focus-restoration');
 
-		const trigger = page.getByTestId('programmatic-trigger');
-		await trigger.click();
-		await expect(page.getByTestId('programmatic-popup')).toBeVisible();
+			const trigger = page.getByTestId('programmatic-trigger');
+			await scenario.activate({ page, trigger });
+			await expect(page.getByTestId('programmatic-popup')).toBeVisible();
 
-		// Move focus to inner button
-		const innerButton = page.getByTestId('programmatic-inner-button');
-		await innerButton.focus();
-		await expect(innerButton).toBeFocused();
+			// Move focus to inner button
+			const innerButton = page.getByTestId('programmatic-inner-button');
+			await innerButton.focus();
+			await expect(innerButton).toBeFocused();
 
-		// Dismiss via Escape - browser calls hidePopover() and restores focus
-		await page.keyboard.press('Escape');
+			// Dismiss via Escape - browser calls hidePopover() and restores focus
+			await page.keyboard.press('Escape');
 
-		await expect(page.getByTestId('programmatic-popup')).toBeHidden();
-		await expect(trigger).toBeFocused();
-	});
+			await expect(page.getByTestId('programmatic-popup')).toBeHidden();
+			await expect(trigger).toBeFocused();
+		});
+	}
 });

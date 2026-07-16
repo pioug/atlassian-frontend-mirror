@@ -112,7 +112,14 @@ type RevealProps = {
 
 const Reveal = ({ children, testId }: RevealProps) => {
 	return (
-		<Box as="li" xcss={styles.emojiContainer}>
+		<Box
+			as={
+				expValEquals('platform_a11y_fixes_reactions_selector_list', 'isEnabled', true)
+					? undefined
+					: 'li'
+			}
+			xcss={styles.emojiContainer}
+		>
 			<div data-testid={testId} css={revealStyle}>
 				{children}
 			</div>
@@ -192,12 +199,30 @@ export const Selector = ({
 		);
 	}
 
+	const isSelectorListMarkupFixEnabled = expValEquals(
+		'platform_a11y_fixes_reactions_selector_list',
+		'isEnabled',
+		true,
+	);
+
 	return (
-		<Inline alignBlock="center" xcss={styles.container} as="ul">
+		<Inline
+			alignBlock="center"
+			xcss={styles.container}
+			as={isSelectorListMarkupFixEnabled ? undefined : 'ul'}
+			role={isSelectorListMarkupFixEnabled ? 'group' : undefined}
+			aria-label={
+				isSelectorListMarkupFixEnabled ? messages.popperWrapperLabel.defaultMessage : undefined
+			}
+		>
 			{quickReactionEmojiIds.map(renderEmoji)}
 			{showMore ? (
 				<Fragment>
-					<Box as="li" xcss={styles.separator} />
+					<Box
+						as={isSelectorListMarkupFixEnabled ? undefined : 'li'}
+						xcss={styles.separator}
+						aria-hidden={isSelectorListMarkupFixEnabled ? true : undefined}
+					/>
 					<Reveal>
 						<ShowMore key="more" onClick={onMoreClick} />
 					</Reveal>

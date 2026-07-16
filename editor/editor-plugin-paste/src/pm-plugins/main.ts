@@ -789,7 +789,13 @@ export function createPlugin(
 					// Check that we are pasting in a location that does not accept
 					// breakout marks, if so we strip the mark and paste. Note that
 					// breakout marks are only valid in the root document.
-					if (selectionParentType !== state.schema.nodes.doc) {
+					if (
+						fg('platform_editor_lovability_resize_patch_2')
+							? selectionParentType !== state.schema.nodes.doc
+							: // When pasting at a root GapCursor, selection depth is 0 and there is no
+								// parent node to resolve. Treat it as doc-level so valid breakout marks stay.
+								selectionParentType !== state.schema.nodes.doc && selectionDepth !== 0
+					) {
 						const sliceCopy = Slice.fromJSON(state.schema, slice.toJSON() || {});
 
 						sliceCopy.content.descendants((node) => {

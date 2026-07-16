@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { useThemeObserver } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { SmartLinkSize } from '../../constants';
 import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';

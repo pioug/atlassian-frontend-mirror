@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 13.3.2
+
+### Patch Changes
+
+- [`7793dc62dd564`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7793dc62dd564) -
+  Internal refactor of upcoming top-layer usage
+- Updated dependencies
+
 ## 13.3.1
 
 ### Patch Changes

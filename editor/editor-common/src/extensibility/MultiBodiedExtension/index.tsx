@@ -15,7 +15,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorFileIcon from '@atlaskit/icon/core/file';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -343,7 +342,11 @@ const MultiBodiedExtensionWithWidth = ({
 		mbeWrapperStyles = breakoutStyles;
 	}
 
-	const shouldUseNativeTabsPresentation = fg('confluence_frontend_native_tabs_extension');
+	const shouldUseNativeTabsPresentation = expValEquals(
+		'confluence_native_tabs_experiment',
+		'isEnabled',
+		true,
+	);
 	const isSelectionInsideMultiBodiedExtension = useIsSelectionInsideNode(
 		editorView,
 		node,

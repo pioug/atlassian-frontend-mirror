@@ -893,6 +893,46 @@ describe('no-barrel-entry-imports', () => {
 		);
 	});
 
+	describe('default export forwarded from named import', () => {
+		const fsWithNamedImportForwardedAsDefault = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${TEST_PACKAGE_DIR}/package.json`]: JSON.stringify({
+				name: TEST_PACKAGE_NAME,
+				exports: {
+					'.': './src/index.ts',
+					'./matchRoute': './src/matchRoute.ts',
+				},
+			}),
+			[`${TEST_PACKAGE_DIR}/src/index.ts`]: outdent`
+				import { matchRoute } from './matchRoute';
+				export default matchRoute;
+			`,
+			[`${TEST_PACKAGE_DIR}/src/matchRoute.ts`]: outdent`
+				export function matchRoute() {
+					return null;
+				}
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - default export forwarded from named import',
+			fsWithNamedImportForwardedAsDefault,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import matchRouteOrderIndependent from '${TEST_PACKAGE_NAME}';`,
+						filename: TEST_FILE,
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { matchRoute as matchRouteOrderIndependent } from '${TEST_PACKAGE_NAME}/matchRoute';`,
+					},
+				],
+			},
+		);
+	});
+
 	describe('different quote styles', () => {
 		const fs = createStandardMockFs();
 
@@ -1686,6 +1726,64 @@ describe('no-barrel-entry-imports', () => {
 						filename: TEST_FILE,
 						errors: [{ messageId: 'barrelEntryImport' }],
 						output: `import { SomeComponent } from '@atlassian/package-b/ui/components';`,
+					},
+				],
+			},
+		);
+
+		// Bridge subpath with aliasing (`export { Original as Aliased }`) should keep
+		// the bridge's public symbol when preferImportedPackageSubpath is enabled.
+		const fsWithAliasedCrossPackageBridgeSubpath = createMockFileSystem({
+			[`${WORKSPACE_ROOT}/package.json`]: '{}',
+			[`${WORKSPACE_ROOT}/yarn.lock`]: '',
+			[`${WORKSPACE_ROOT}/platform/packages/ai-mate`]: '',
+			[`${PACKAGE_A_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-a',
+				exports: {
+					'.': './src/index.ts',
+					'./bridge': './src/bridge.ts',
+				},
+			}),
+			[`${PACKAGE_A_DIR}/src/index.ts`]: outdent`
+				export { AliasedName } from './bridge';
+			`,
+			[`${PACKAGE_A_DIR}/src/bridge.ts`]: outdent`
+				export { OriginalName as AliasedName } from '@atlassian/package-b';
+			`,
+			[`${PACKAGE_B_DIR}/package.json`]: JSON.stringify({
+				name: '@atlassian/package-b',
+				exports: {
+					'.': './src/index.ts',
+					'./helpers': './src/helpers/index.ts',
+				},
+			}),
+			[`${PACKAGE_B_DIR}/src/index.ts`]: outdent`
+				export { OriginalName } from './helpers';
+			`,
+			[`${PACKAGE_B_DIR}/src/helpers/index.ts`]: outdent`
+				export const OriginalName = 'original';
+			`,
+		});
+
+		runWithFs(
+			'no-barrel-entry-imports - preferImportedPackageSubpath keeps bridge alias public name',
+			fsWithAliasedCrossPackageBridgeSubpath,
+			{
+				valid: [],
+				invalid: [
+					{
+						code: `import { AliasedName } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { AliasedName } from '@atlassian/package-a/bridge';`,
+					},
+					{
+						code: `import { AliasedName as LocalAlias } from '@atlassian/package-a';`,
+						filename: TEST_FILE,
+						options: [{ preferImportedPackageSubpath: true }],
+						errors: [{ messageId: 'barrelEntryImport' }],
+						output: `import { AliasedName as LocalAlias } from '@atlassian/package-a/bridge';`,
 					},
 				],
 			},

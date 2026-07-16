@@ -1,9 +1,7 @@
 import { renderHook } from '@testing-library/react';
 
-import {
-	conditionalHooksFactory,
-	DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache,
-} from './index';
+import { conditionalHooksFactory } from './conditionalHooksFactory';
+import { DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache } from './DO_NOT_USE_THIS_IN_PRODUCTION_EVER_resetConditionalHooksFactoryCache';
 
 describe('conditionalHooksFactory', () => {
 	const originalNodeEnv = process.env.NODE_ENV;

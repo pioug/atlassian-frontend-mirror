@@ -20,7 +20,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { useThemeObserver } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
 
@@ -217,6 +217,7 @@ import {
 	statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
 	statusStylesTeam26,
 } from './styles/statusStyles';
+import { syncBlockInteractiveCursorStyles } from './styles/syncBlockInteractiveCursorStyles';
 import {
 	syncBlockStyles,
 	syncBlockStylesBase,
@@ -338,6 +339,14 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 			appearance === 'max');
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';
+
+	// Evaluated unconditionally so the experiment exposure is tracked correctly
+	// (must not be preconditioned by other gates in the style expression below).
+	const isSyncBlockActivationEnabled = expValEquals(
+		'platform_editor_sync_block_activation',
+		'isEnabled',
+		true,
+	);
 
 	const baseFontSize = getBaseFontSize(appearance, contentMode);
 
@@ -651,6 +660,10 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					fg('platform_synced_block_patch_14') &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					syncBlockTextSelectionStyles,
+				isSyncBlockActivationEnabled &&
+					editorExperiment('platform_synced_block', true) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					syncBlockInteractiveCursorStyles,
 				editorExperiment('platform_synced_block', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					syncBlockFirstNodeStyles,

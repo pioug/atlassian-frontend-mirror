@@ -103,6 +103,7 @@ type ViewAgentFullProfileProps =
 	  };
 
 type AgentDropdownMenuProps = {
+	showDeleteOption?: boolean;
 	isAutodevTemplateAgent?: boolean;
 	agentId: string;
 	agentName?: string;
@@ -148,6 +149,7 @@ export const AgentDropdownMenu = ({
 	onViewAgentFullProfileClick,
 	onOpenChange,
 	isForgeAgent,
+	showDeleteOption = true,
 	showViewAgentOption = false,
 	onViewAgentClick,
 	onDropdownTriggerClick,
@@ -207,7 +209,7 @@ export const AgentDropdownMenu = ({
 				{permissions.isEditEnabled && (
 					<DropdownItem onClick={onEditAgent}>{formatMessage(messages.editAgent)}</DropdownItem>
 				)}
-				{permissions.isDeleteEnabled && (
+				{permissions.isDeleteEnabled && showDeleteOption && (
 					<DropdownItem onClick={onDeleteAgent}>{formatMessage(messages.deleteAgent)}</DropdownItem>
 				)}
 			</DropdownItemGroup>

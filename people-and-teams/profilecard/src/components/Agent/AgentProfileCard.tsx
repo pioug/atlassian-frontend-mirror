@@ -18,6 +18,7 @@ import {
 } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics';
 import { TeamsLink } from '@atlaskit/teams-app-internal-navigation/teams-link';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { type AgentProfileCardProps } from '../../types';
@@ -43,6 +44,11 @@ const styles = cssMap({
 	},
 	cardContainerStyles: {
 		borderRadius: token('radius.large'),
+		position: 'relative',
+		overflow: 'hidden',
+	},
+	cardContainerStylesLegacy: {
+		borderRadius: token('radius.large'),
 		boxShadow: token('elevation.shadow.overlay'),
 		position: 'relative',
 		overflow: 'hidden',
@@ -50,10 +56,23 @@ const styles = cssMap({
 	agentProfileInfoWrapper: {
 		paddingInline: token('space.200'),
 	},
+	descriptionWrapper: {
+		paddingInline: token('space.200'),
+	},
+	description: {
+		marginBlock: token('space.0'),
+		overflowWrap: 'anywhere',
+		wordBreak: 'break-word',
+	},
 	conversationStartersWrapper: {
 		paddingInline: token('space.150'),
 	},
 	disclosureWrapper: {
+		paddingInline: token('space.200'),
+		gap: token('space.050'),
+	},
+	// Legacy block padding.
+	disclosureWrapperLegacy: {
 		paddingBlockStart: token('space.150'),
 		paddingBlockEnd: token('space.150'),
 		paddingInline: token('space.200'),
@@ -207,7 +226,14 @@ const AgentProfileCard = ({
 
 	return (
 		<AgentProfileCardWrapper>
-			<Box xcss={styles.cardContainerStyles}>
+			<Box
+				xcss={
+					expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+					fg('platform_editor_agent_mentions_drop_one_fixes')
+						? styles.cardContainerStyles
+						: styles.cardContainerStylesLegacy
+				}
+			>
 				<AgentBanner
 					agentId={agent.id}
 					agentNamedId={agent.external_config_reference ?? agent.named_id}
@@ -232,7 +258,15 @@ const AgentProfileCard = ({
 					/>
 				</Box>
 
-				<Stack space="space.100" xcss={styles.detailWrapper}>
+				<Stack
+					space={
+						expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+						fg('platform_editor_agent_mentions_drop_one_fixes')
+							? 'space.150'
+							: 'space.100'
+					}
+					xcss={styles.detailWrapper}
+				>
 					<Box xcss={styles.agentProfileInfoWrapper}>
 						<AgentProfileInfo
 							agentName={agent.name}
@@ -250,19 +284,42 @@ const AgentProfileCard = ({
 										}}
 										isLoading={false}
 										onCreatorLinkClick={() => {}}
+										hideCreatorIcon={
+											expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+											fg('platform_editor_agent_mentions_drop_one_fixes')
+										}
 									/>
 								)
 							}
 							starCountRender={null}
-							agentDescription={agent.description}
+							agentDescription={
+								expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+								fg('platform_editor_agent_mentions_drop_one_fixes')
+									? undefined
+									: agent.description
+							}
 						/>
 					</Box>
+					{!!agent.description &&
+						expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+						fg('platform_editor_agent_mentions_drop_one_fixes') && (
+							<Box xcss={styles.descriptionWrapper}>
+								<Box xcss={styles.description} as="p">
+									{agent.description}
+								</Box>
+							</Box>
+						)}
 					{!hideAiDisclaimer && fg('rovo_display_ai_disclaimer_on_agent_profile_card') && (
 						<Flex
 							alignItems="start"
 							direction="column"
 							gap="space.050"
-							xcss={styles.disclosureWrapper}
+							xcss={
+								expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+								fg('platform_editor_agent_mentions_drop_one_fixes')
+									? styles.disclosureWrapper
+									: styles.disclosureWrapperLegacy
+							}
 						>
 							<TeamsLink
 								href="https://www.atlassian.com/trust/atlassian-intelligence"

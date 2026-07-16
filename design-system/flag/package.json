@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "18.1.2",
+	"version": "18.2.0",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,9 +124,6 @@
 			"type": "boolean"
 		},
 		"platform_dst_flag_keyboard_dismiss": {
-			"type": "boolean"
-		},
-		"jpo-41318-fix-flag-overflow-fg": {
 			"type": "boolean"
 		},
 		"cc_mohiti_flag_anchoring": {

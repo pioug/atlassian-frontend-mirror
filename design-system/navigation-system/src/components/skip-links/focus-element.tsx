@@ -43,7 +43,7 @@ export function focusElement(element: HTMLElement): void {
 	element.focus({
 		// Forces the focus ring to appear after moving focus to the slot
 		// https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus#focusvisible
-		// @ts-expect-error - new and not in types yet
+		// @ts-ignore - new and not in types yet. Can be removed once we adopt ts7.
 		focusVisible: true,
 	});
 }

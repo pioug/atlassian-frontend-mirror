@@ -1,5 +1,36 @@
 # @atlaskit/reactions
 
+## 35.6.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.6.6
+
+### Patch Changes
+
+- [`c75e9e104057f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c75e9e104057f) -
+  [ux] A11Y-35421: Fix screen readers announcing the reactions picker "More emojis" button as a list
+  item
+
+  The emoji reactions picker (`Selector`) previously wrapped its quick-reaction emoji buttons and
+  the "More emojis" button in `<ul>`/`<li>` list markup, causing screen readers to announce the
+  standalone "More emojis" button as a list item. Behind the
+  `platform_a11y_fixes_reactions_selector_list` experiment, the list markup is replaced with a
+  `<div>` container exposed as a labelled group (`role="group"` with an "Add reactions"
+  `aria-label`), so assistive technology still conveys that the controls belong together without the
+  misleading list-item semantics. The decorative separator is `aria-hidden`. There is no visual
+  change.
+
+- Updated dependencies
+
+## 35.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.6.4
 
 ### Patch Changes

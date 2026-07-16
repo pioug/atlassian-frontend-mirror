@@ -39,6 +39,7 @@ export interface Props {
 	offset?: number[];
 	onPlacementChanged?: (placement: [string, string]) => void;
 	onPositionCalculated?: (position: Position) => Position;
+	// Move focus here if needed to run after focus trap teardown
 	onUnmount?: () => void;
 	preventOverflow?: boolean;
 	rect?: DOMRect;

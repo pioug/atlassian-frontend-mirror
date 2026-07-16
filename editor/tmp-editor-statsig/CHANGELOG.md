@@ -1,5 +1,79 @@
 # @atlaskit/editor-statsig-tmp
 
+## 125.2.0
+
+### Minor Changes
+
+- [`a3bbfab896310`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3bbfab896310) -
+  Replace feature gate `confluence_frontend_native_tabs_extension` with experiment
+  `confluence_native_tabs_experiment` using `expValEquals` from
+  `@atlaskit/tmp-editor-statsig/exp-val-equals`. Usage:
+  `expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 125.1.0
+
+### Minor Changes
+
+- [`d86bd1324d82b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d86bd1324d82b) -
+  Fix table cell selection when moving a table with the keyboard shortcut behind the
+  `platform_editor_fix_table_move_shortcut` experiment.
+
+### Patch Changes
+
+- [`c75e9e104057f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c75e9e104057f) -
+  A11Y-35421: Register the `platform_a11y_fixes_reactions_selector_list` experiment in the editor
+  experiments config so it can be resolved via `expValEquals`.
+
+## 125.0.0
+
+### Major Changes
+
+- [`22f3858872f99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22f3858872f99) -
+  Clean up experiment `platform_editor_table_toolbar_perf_fix`
+
+## 124.9.0
+
+### Minor Changes
+
+- [`5532dbe1eb172`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5532dbe1eb172) -
+  CCI-17857 - add frontend field to allow skip orchestrator when it's inline editing
+
+## 124.8.0
+
+### Minor Changes
+
+- [`900a71f62a8fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/900a71f62a8fe) -
+  Add multi-cohort should-improve-writing routing for the cc-smarts migration experiment.
+
+  The `cc_smarts_should_improve_writing_migration` editor experiment is configured through
+  `@atlaskit/tmp-editor-statsig` and can return `control`, `shadow_compare`, or `live_cc_smarts`.
+  Consumers can also emit the new shadow-comparison divergence analytics event when a user-visible
+  convo-ai result differs from the cc-smarts shadow result.
+
+  ```ts
+  fireAiQuickPromptShadowComparisonDivergedEvent({
+  	api,
+  	experienceName: 'should-improve-writing',
+  	convoAiOk: true,
+  	ccSmartsOk: true,
+  	convoAiShouldImprove: true,
+  	ccSmartsShouldImprove: false,
+  	convoAiStatus: 200,
+  	ccSmartsStatus: 200,
+  });
+  ```
+
+## 124.7.0
+
+### Minor Changes
+
+- [`6c4fbb3dc1b7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c4fbb3dc1b7f) -
+  [ux] Fix MediaInsertPicker not returning focus to the editor on close.
+
 ## 124.6.0
 
 ### Minor Changes

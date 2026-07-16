@@ -7,7 +7,8 @@ import { memo, type ReactNode } from 'react';
 import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
 import { Text } from '@atlaskit/primitives/compiled';
-import { token, useThemeObserver } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { formatValue } from './internal/format-value';
 import type { BadgeNewProps } from './types';

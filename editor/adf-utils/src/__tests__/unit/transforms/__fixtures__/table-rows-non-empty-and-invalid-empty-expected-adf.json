@@ -1,0 +1,66 @@
+{
+  "content": [
+    {
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "123"
+      },
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
+                  "type": "paragraph"
+                }
+              ],
+              "type": "tableCell"
+            },
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
+                  "type": "paragraph"
+                }
+              ],
+              "type": "tableCell"
+            }
+          ],
+          "type": "tableRow"
+        },
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
+                  "type": "paragraph"
+                }
+              ],
+              "type": "tableCell"
+            },
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
+                  "type": "paragraph"
+                }
+              ],
+              "type": "tableCell"
+            }
+          ],
+          "type": "tableRow"
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "type": "doc",
+  "version": 1
+}

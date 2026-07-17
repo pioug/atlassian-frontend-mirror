@@ -4,7 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
-import Tag, { SimpleTag } from '@atlaskit/tag';
+import Tag from '@atlaskit/tag';
 import TagGroup from '@atlaskit/tag-group';
 import { token } from '@atlaskit/tokens';
 
@@ -21,22 +21,22 @@ const layoutStyles = css({
 const _default: () => JSX.Element = () => (
 	<div css={layoutStyles}>
 		<TagGroup label="Simple tags">
-			<SimpleTag text="Tag" />
-			<SimpleTag text="Tag" />
-			<SimpleTag text="Tag" />
-			<SimpleTag text="Tag" />
+			<Tag text="Tag" isRemovable={false} />
+			<Tag text="Tag" isRemovable={false} />
+			<Tag text="Tag" isRemovable={false} />
+			<Tag text="Tag" isRemovable={false} />
 		</TagGroup>
 		<TagGroup label="Link tags">
-			<SimpleTag text="Tag link" href="/components/tag-group" />
-			<SimpleTag text="Tag link" href="/components/tag-group" />
-			<SimpleTag text="Tag link" href="/components/tag-group" />
-			<SimpleTag text="Tag link" href="/components/tag-group" />
+			<Tag text="Tag link" href="/components/tag-group" isRemovable={false} />
+			<Tag text="Tag link" href="/components/tag-group" isRemovable={false} />
+			<Tag text="Tag link" href="/components/tag-group" isRemovable={false} />
+			<Tag text="Tag link" href="/components/tag-group" isRemovable={false} />
 		</TagGroup>
 		<TagGroup label="Rounded tags">
-			<SimpleTag text="Rounded tag" appearance="rounded" />
-			<SimpleTag text="Rounded tag" appearance="rounded" />
-			<SimpleTag text="Rounded tag" appearance="rounded" />
-			<SimpleTag text="Rounded tag" appearance="rounded" />
+			<Tag text="Rounded tag" appearance="rounded" isRemovable={false} />
+			<Tag text="Rounded tag" appearance="rounded" isRemovable={false} />
+			<Tag text="Rounded tag" appearance="rounded" isRemovable={false} />
+			<Tag text="Rounded tag" appearance="rounded" isRemovable={false} />
 		</TagGroup>
 		<TagGroup label="Removable tags">
 			<Tag text="Removable tag" />

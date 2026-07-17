@@ -11,8 +11,10 @@ import ResourcedMentionWithProfilecard from './mention-with-profilecard';
 
 export interface Props {
 	accessLevel?: string;
+	disabledTooltip?: string;
 	eventHandlers?: MentionEventHandlers;
 	id: string;
+	isDisabled?: boolean;
 	localId?: string;
 	mentionProvider?: Promise<MentionProvider>;
 	profilecardProvider?: Promise<ProfilecardProvider>;
@@ -39,8 +41,10 @@ export const MentionWithProviders: React.MemoExoticComponent<
 > = React.memo(
 	({
 		accessLevel,
+		disabledTooltip,
 		eventHandlers,
 		id,
+		isDisabled,
 		mentionProvider,
 		profilecardProvider: profilecardProviderResolver,
 		text,
@@ -83,6 +87,26 @@ export const MentionWithProviders: React.MemoExoticComponent<
 				: ResourcedMention;
 
 		const ssrPlaceholderId = `mention-${id}`;
+
+		// A disabled mention is non-interactive, so it bypasses the profile-card
+		// wrapper and renders the disabled resourced mention directly.
+		if (isDisabled) {
+			return (
+				<ResourcedMention
+					id={id}
+					text={text}
+					accessLevel={accessLevel}
+					localId={localId}
+					mentionProvider={mentionProvider}
+					isDisabled
+					disabledTooltip={disabledTooltip}
+					onClick={eventHandlers?.onClick}
+					onMouseEnter={eventHandlers?.onMouseEnter}
+					onMouseLeave={eventHandlers?.onMouseLeave}
+					ssrPlaceholderId={ssrPlaceholderId}
+				/>
+			);
+		}
 
 		return (
 			<MentionComponent

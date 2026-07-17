@@ -23,7 +23,7 @@ snapshot(TooltipPosition, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -39,7 +39,7 @@ snapshot(TooltipPositionMouseExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -55,7 +55,7 @@ snapshot(TooltipPositionMouseExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -71,7 +71,7 @@ snapshot(TooltipPosition, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -87,7 +87,7 @@ snapshot(TooltipPositionMouseExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -103,7 +103,7 @@ snapshot(TooltipPositionMouseExample, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -116,7 +116,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-right-start' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -124,7 +124,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-right' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -132,7 +132,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-right-end' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -140,7 +140,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-left-start' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -148,7 +148,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-left' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -156,7 +156,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-left-end' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -164,7 +164,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-top-start' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -172,7 +172,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-top' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -180,7 +180,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-top-end' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -188,7 +188,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-bottom-start' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -196,7 +196,7 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-bottom' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });
 
 snapshot(VrPositionMouseAllExample, {
@@ -204,5 +204,5 @@ snapshot(VrPositionMouseAllExample, {
 	states: [{ selector: { byTestId: 'trigger-mouse-bottom-end' }, state: 'hovered' }],
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
-	featureFlags: { 'platform-dst-top-layer': [true, false] },
+	featureFlags: { 'platform-dst-top-layer-tooltip': [true, false] },
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Avatar, { AvatarContent, type AvatarPropTypes } from '@atlaskit/avatar';
+import Avatar, { AvatarContent, type AvatarPropTypes, type SizeType } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -12,9 +12,24 @@ import { TeamAvatarImage } from './teams-avatar-image';
  * Else if teamId is provided, use that to generate the static image URL.
  * Else fallback.
  */
-export type TeamAvatarProps = Omit<AvatarPropTypes, 'appearance'> & {
+/**
+ * The set of avatar sizes supported by `TeamAvatar`.
+ *
+ * `TeamAvatar` intentionally does not support the `UNSAFE_xsmall` (20px) avatar
+ * size: there is no dedicated 20px team-avatar square artwork.
+ *
+ * TODO(HDS-4629): `UNSAFE_xsmall` is a temporary, private avatar size that will
+ * eventually be renamed (`xsmall` -> `xxsmall`, `UNSAFE_xsmall` -> `xsmall`).
+ * When that migration happens, revisit whether `TeamAvatar` should support it.
+ * Cleanup tracked at:
+ * https://hello.atlassian.net/wiki/spaces/DST/pages/7289318824
+ */
+export type TeamAvatarSize = Exclude<SizeType, 'UNSAFE_xsmall'>;
+
+export type TeamAvatarProps = Omit<AvatarPropTypes, 'appearance' | 'size'> & {
 	teamId?: string;
 	compact?: boolean;
+	size?: TeamAvatarSize;
 };
 
 export const ICON_BACKGROUND: 'var(--ds-icon-inverse)' = token('color.icon.inverse');

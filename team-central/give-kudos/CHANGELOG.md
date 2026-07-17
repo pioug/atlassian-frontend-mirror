@@ -1,5 +1,17 @@
 # @atlassian/give-kudos
 
+## 6.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.1
 
 ### Patch Changes

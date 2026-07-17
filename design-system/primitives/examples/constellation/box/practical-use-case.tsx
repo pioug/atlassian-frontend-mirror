@@ -50,7 +50,7 @@ export default function Example(): JSX.Element {
 				Dropdown menu items in Modal are not accessible to keyboard/screen readers in Safari
 			</Text>
 			<Box as="span">
-				<Lozenge appearance="new">Accelerate Cloud Accessibility</Lozenge>
+				<Lozenge appearance="discovery">Accelerate Cloud Accessibility</Lozenge>
 			</Box>
 			<Box xcss={styles.extraInfo}>
 				<Box xcss={styles.inline}>

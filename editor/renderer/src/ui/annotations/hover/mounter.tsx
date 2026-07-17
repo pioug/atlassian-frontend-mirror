@@ -1,4 +1,5 @@
 import React, { useCallback, useContext } from 'react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type {
 	AnnotationByMatches,
@@ -56,7 +57,15 @@ export const Mounter: React.MemoExoticComponent<(props: Props) => React.JSX.Elem
 
 		const onCreateCallback = useCallback(
 			(annotationId: string) => {
-				const positionToAnnotate = hoverDraftDocumentPosition || documentPosition;
+				// Always use documentPosition directly when gate is on — hoverDraftDocumentPosition
+				// in this closure may be stale (captured before state update) (COMMENTS-6594).
+				const positionToAnnotate = expValEquals(
+					'confluence_inline_comments_fix_stale_selection',
+					'isEnabled',
+					true,
+				)
+					? documentPosition
+					: hoverDraftDocumentPosition || documentPosition;
 
 				if (!isAnnotationAllowed || !positionToAnnotate || !applyAnnotation) {
 					return false;
@@ -119,6 +128,12 @@ export const Mounter: React.MemoExoticComponent<(props: Props) => React.JSX.Elem
 					return false;
 				}
 
+				// Clear any stale draft position before promoting the new one.
+				// Without this, if a previous draft was not explicitly closed, hoverDraftDocumentPosition
+				// retains the old position and the comment anchors to the wrong text (COMMENTS-6594).
+				if (expValEquals('confluence_inline_comments_fix_stale_selection', 'isEnabled', true)) {
+					clearHoverDraft();
+				}
 				promoteHoverToDraft(documentPosition);
 
 				if (createAnalyticsEvent) {
@@ -145,7 +160,15 @@ export const Mounter: React.MemoExoticComponent<(props: Props) => React.JSX.Elem
 					}
 				});
 
-				const positionToAnnotate = hoverDraftDocumentPosition || documentPosition;
+				// Always use documentPosition directly when gate is on — hoverDraftDocumentPosition
+				// in this closure may be stale (captured before state update) (COMMENTS-6594).
+				const positionToAnnotate = expValEquals(
+					'confluence_inline_comments_fix_stale_selection',
+					'isEnabled',
+					true,
+				)
+					? documentPosition
+					: hoverDraftDocumentPosition || documentPosition;
 
 				if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
 					if (createAnalyticsEvent) {
@@ -173,13 +196,14 @@ export const Mounter: React.MemoExoticComponent<(props: Props) => React.JSX.Elem
 			},
 			[
 				documentPosition,
+				hoverDraftDocumentPosition,
 				isAnnotationAllowed,
 				createAnalyticsEvent,
 				applyAnnotation,
 				actions,
 				range,
 				promoteHoverToDraft,
-				hoverDraftDocumentPosition,
+				clearHoverDraft,
 			],
 		);
 

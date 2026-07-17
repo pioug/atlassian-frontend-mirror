@@ -24,8 +24,11 @@ import { SelectionInlineCommentMounter } from '../../mounter';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 jest.mock('../../../draft/dom');
+jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
+	editorExperiment: jest.fn(() => false),
+}));
 
 const inlineNodeTypesTestId = 'inline-nodes-type';
 
@@ -196,7 +199,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		});
 
 		describe('and when the document position changes', () => {
-			it('should create the annotation in the previous draft position', () => {
+			it('should create the annotation in the previous draft position (gate off)', () => {
 				const fakeDocumentPosition = { from: 0, to: 10 };
 				const { onCreateCallback, applyDraftModeCallback } = renderMounter({
 					fakeDocumentPosition,
@@ -216,6 +219,43 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 					annotationType: AnnotationTypes.INLINE_COMMENT,
 				};
 				expect(fakeApplyAnnotation).toHaveBeenCalledWith(fakeDocumentPosition, fakeAnnotation);
+			});
+
+			describe('COMMENTS-6594: experiment on — creates annotation at current position', () => {
+				beforeEach(() => {
+					(editorExperiment as jest.Mock).mockImplementation(
+						(key: string, param: string) =>
+							key === 'confluence_inline_comments_fix_stale_selection' && param === 'isEnabled',
+					);
+				});
+
+				afterEach(() => {
+					(editorExperiment as jest.Mock).mockReset();
+				});
+
+				it('should use current position, not stale position from previous selection', () => {
+					// Render with position #1, trigger applyDraftMode
+					const { applyDraftModeCallback } = renderMounter({
+						fakeDocumentPosition: { from: 0, to: 10 },
+					});
+					act(() => {
+						applyDraftModeCallback({ annotationId: 'test-id', keepNativeSelection: false });
+					});
+
+					// Re-render with position #2 — captures fresh onCreateCallback closing over new documentPosition
+					const nextDocumentPosition = { from: 30, to: 45 };
+					const { onCreateCallback } = renderMounter({
+						fakeDocumentPosition: nextDocumentPosition,
+					});
+
+					// onCreate should use position #2 (not stale position #1)
+					onCreateCallback('test-id');
+
+					expect(fakeApplyAnnotation).toHaveBeenLastCalledWith(nextDocumentPosition, {
+						annotationId: 'test-id',
+						annotationType: AnnotationTypes.INLINE_COMMENT,
+					});
+				});
 			});
 		});
 

@@ -3,17 +3,23 @@
  *
  * Generated prop types for Global component - ReorderableMenuItems
  *
- * @codegen <<SignedSource::259d1c7bad2c78d175827ef9f7aa74d4>>
+ * @codegen <<SignedSource::fe9b23ba28a6555fdf3292663a5ab5f7>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
  * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::d821d76600ba855195ee3bae39f60532>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/reorderable-menu-items/types.ts <<SignedSource::2858793078a4cfda4c2bcb9485cc715f>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/reorderable-menu-items/types.ts <<SignedSource::32dcff8c7f4f76e98ba391524aa41276>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
+import type { IconProps } from '../../__generated__/IconProps.codegen';
 
 export interface Item {
 	id: string;
 	label: string;
 	href: string;
+	/**
+	 * The name of the icon to display before the label. If omitted, a default icon is used.
+	 */
+	icon?: IconProps['glyph'];
 }
 
 export type ReorderableMenuItemsProps = {

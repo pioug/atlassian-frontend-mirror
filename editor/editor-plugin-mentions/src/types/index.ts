@@ -58,6 +58,10 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	handleMentionsChanged?: MentionsChangedHandler;
 	mentionProvider?: Providers['mentionProvider'];
 	sanitizePrivateContent?: boolean;
+	/**
+	 * Shows the experimental Labs label beside the agent mentions section when the agent mentions experiment is enabled.
+	 */
+	showAgentMentionsLabsLozenge?: boolean;
 }
 
 /**

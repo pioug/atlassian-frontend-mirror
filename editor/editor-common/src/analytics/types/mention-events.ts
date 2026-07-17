@@ -64,6 +64,7 @@ type MentionTypeaheadInsertedPayload = UIAEP<
 	undefined,
 	{
 		accessLevel: string;
+		agentSectioningEnabled?: boolean;
 		childObjectId?: string;
 		containerId?: string;
 		downKeyCount: number;
@@ -97,6 +98,9 @@ type MentionTypeaheadRenderedPayload = OperationalAEP<
 	ACTION_SUBJECT.MENTION_TYPEAHEAD | ACTION_SUBJECT.TEAM_MENTION_TYPEAHEAD,
 	undefined,
 	{
+		agentCount?: number;
+		agentSectioningEnabled?: boolean;
+		agentsShown?: boolean;
 		componentName: string;
 		duration: number;
 		queryLength?: number;

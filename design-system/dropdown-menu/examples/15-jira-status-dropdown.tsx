@@ -20,7 +20,7 @@ export default (): React.JSX.Element => (
 				elemAfter={
 					<Box xcss={styles.item}>
 						<Arrow label="" size="small" />
-						<Lozenge appearance="inprogress">in progress</Lozenge>
+						<Lozenge appearance="information">in progress</Lozenge>
 					</Box>
 				}
 			>

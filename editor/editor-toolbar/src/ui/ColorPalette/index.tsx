@@ -3,7 +3,9 @@ import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import chromatism from 'chromatism';
 import { useIntl } from 'react-intl';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Grid, Inline } from '@atlaskit/primitives/compiled';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
@@ -58,6 +60,7 @@ function getCheckMarkColor(color: string, useIconToken: boolean): string {
  */
 const ColorPalette = ({
 	cols = DEFAULT_COLOR_PICKER_COLUMNS,
+	gap = 'space.050',
 	onClick,
 	onKeyDown,
 	selectedColor,
@@ -68,6 +71,9 @@ const ColorPalette = ({
 
 	const { colorMode: tokenTheme } = useThemeObserver();
 	const useIconToken = !!hexToPaletteColor;
+	const shouldUseInlineColorGap =
+		expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+		fg('platform_editor_lovability_text_bg_color_patch_1');
 
 	// Refs for keyboard navigation
 	const paletteRef = useRef<HTMLDivElement>(null);
@@ -226,9 +232,14 @@ const ColorPalette = ({
 	);
 
 	return (
-		<Grid gap="space.050" ref={paletteRef} role="group">
+		<Grid gap={gap} ref={paletteRef} role="group">
 			{colorsPerRow.map((row, rowIndex) => (
-				<Inline rowSpace="space.050" key={`row-first-color-${row[0].value}`} role="radiogroup">
+				<Inline
+					space={shouldUseInlineColorGap ? gap : undefined}
+					rowSpace={shouldUseInlineColorGap ? undefined : gap}
+					key={`row-first-color-${row[0].value}`}
+					role="radiogroup"
+				>
 					{row.map(({ value, label, border, message, decorator }, colIndex) => {
 						let tooltipMessage = message;
 

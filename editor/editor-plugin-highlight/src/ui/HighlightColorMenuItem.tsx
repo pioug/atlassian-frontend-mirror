@@ -7,7 +7,7 @@ import { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
 import { getInputMethodFromParentKeys } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -28,7 +28,8 @@ import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';
-import { Stack, Box } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Bleed, Stack, Box } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
@@ -46,6 +47,9 @@ const styles = cssMap({
 	container: {
 		marginTop: token('space.200'),
 		gap: token('space.075'),
+	},
+	containerPatch: {
+		marginTop: token('space.0'),
 	},
 	icon: {
 		display: 'inline-block',
@@ -193,22 +197,43 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 			}));
 	}, [defaultColor, textColor, isNewColorPaletteEnabled, selectedColor]);
 
+	const colorPaletteElement = (
+		<ColorPalette
+			cols={isNewColorPaletteEnabled ? HIGHLIGHT_COLOR_PICKER_COLUMNS : undefined}
+			gap={
+				isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1')
+					? 'space.0'
+					: undefined
+			}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			onClick={(color, _, event) => {
+				handleHighlightColorChange(color, event);
+			}}
+			selectedColor={selectedColor}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			paletteOptions={{
+				palette: colorPalette || [],
+				hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,
+			}}
+		/>
+	);
+
 	return (
-		<Stack xcss={styles.container} testId="highlight-color-menu-item">
+		<Stack
+			xcss={cx(
+				styles.container,
+				isNewColorPaletteEnabled &&
+					fg('platform_editor_lovability_text_bg_color_patch_1') &&
+					styles.containerPatch,
+			)}
+			testId="highlight-color-menu-item"
+		>
 			<Heading size="xxsmall">{formatMessage(messages.highlight)}</Heading>
-			<ColorPalette
-				cols={isNewColorPaletteEnabled ? HIGHLIGHT_COLOR_PICKER_COLUMNS : undefined}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onClick={(color, _, event) => {
-					handleHighlightColorChange(color, event);
-				}}
-				selectedColor={selectedColor}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				paletteOptions={{
-					palette: colorPalette || [],
-					hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,
-				}}
-			/>
+			{isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1') ? (
+				<Bleed inline="space.025">{colorPaletteElement}</Bleed>
+			) : (
+				colorPaletteElement
+			)}
 		</Stack>
 	);
 }

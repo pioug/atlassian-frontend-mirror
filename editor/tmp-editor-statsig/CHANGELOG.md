@@ -1,5 +1,28 @@
 # @atlaskit/editor-statsig-tmp
 
+## 126.2.0
+
+### Minor Changes
+
+- [`f4f1a7be76c2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4f1a7be76c2c) -
+  Add reusable status suggestions to the editor status picker
+
+## 126.1.0
+
+### Minor Changes
+
+- [`d3536d2e15575`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3536d2e15575) -
+  Fix inline comment anchoring to wrong text when a new selection is made while a draft is active.
+  Clears stale hover/selection draft position before promoting new selection, and adds missing deps
+  to useCallback arrays.
+
+## 126.0.0
+
+### Major Changes
+
+- [`3af68dc307c13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3af68dc307c13) -
+  Cleanup confluence_3p_in_cwr_ghost_icons_ui_tweaks and make the ghost-icon UI tweaks permanent
+
 ## 125.2.0
 
 ### Minor Changes
@@ -607,8 +630,8 @@
 ### Minor Changes
 
 - [`85df613a5b213`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85df613a5b213) -
-  Add confluence_3p_in_cwr_ghost_icons_ui_tweaks experiment gating ghost-icon inner opacity (0.5)
-  and an updated connect-apps tooltip in the Rovo chat sources pill
+  Add a ghost-icon UI-tweaks experiment gating ghost-icon inner opacity (0.5) and an updated
+  connect-apps tooltip in the Rovo chat sources pill
 
 ## 108.0.0
 

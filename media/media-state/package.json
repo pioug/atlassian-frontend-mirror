@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-state",
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"description": "Contains the central state of Media frontend",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -15,7 +15,9 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./create-media-store": "./src/create-media-store.ts",
 		"./file-state": "./src/file-state.ts",
+		"./media-store": "./src/media-store.ts",
 		"./store": "./src/store.ts"
 	},
 	"atlassian": {

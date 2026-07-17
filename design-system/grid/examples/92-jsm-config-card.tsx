@@ -2,6 +2,7 @@ import React, { type FC, Fragment, type ReactNode } from 'react';
 
 import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 
 import IconLink from './95-icon-link';

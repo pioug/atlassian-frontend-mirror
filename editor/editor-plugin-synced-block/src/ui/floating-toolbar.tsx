@@ -79,6 +79,11 @@ export const getToolbarConfig = (
 	});
 
 	const items: Array<FloatingToolbarItem<Command>> = [];
+	const isSyncBlockActivationEnabled = expValEquals(
+		'platform_editor_sync_block_activation',
+		'isEnabled',
+		true,
+	);
 
 	if (isUnsyncedBlock) {
 		const deleteButton: FloatingToolbarItem<Command> = {
@@ -96,12 +101,6 @@ export const getToolbarConfig = (
 		// re-framed as the primary "Copy to sync" action: it shows a visible label and
 		// is moved to the first toolbar position (before the synced-location info). See
 		// EDITOR-8060.
-		const isSyncBlockActivationEnabled = expValEquals(
-			'platform_editor_sync_block_activation',
-			'isEnabled',
-			true,
-		);
-
 		const copyButton: FloatingToolbarItem<Command> = {
 			id: 'editor.syncedBlock.copy',
 			type: 'button',
@@ -204,7 +203,7 @@ export const getToolbarConfig = (
 			items.push(editSourceButton);
 		}
 
-		if (fg('platform_synced_block_patch_13')) {
+		if (!isSyncBlockActivationEnabled && fg('platform_synced_block_patch_13')) {
 			const separator: FloatingToolbarItem<Command> = {
 				type: 'separator',
 			};

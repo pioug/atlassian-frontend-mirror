@@ -8,6 +8,7 @@ import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 import Lozenge, { type LozengeProps } from '@atlaskit/lozenge';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Pressable from '@atlaskit/primitives/pressable';
 import Select, {
 	type MenuProps,

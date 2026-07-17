@@ -96,7 +96,9 @@ const AvatarGroupExample: FC = () => {
 
 	const { avatarCount, avatarCountMax, gridWidth, mode, sizeIndex } = state;
 	const sizes = Object.keys(AVATAR_SIZES).filter(
-		(size) => size !== 'xsmall',
+		// AvatarGroup does not support xsmall (16px) or UNSAFE_xsmall (20px):
+		// the more indicator cannot be shown accessibly at those sizes.
+		(size) => size !== 'xsmall' && size !== 'UNSAFE_xsmall',
 	) as AvatarGroupProps['size'][];
 	const avatarSize = sizes[sizeIndex];
 	const stackSourceURLs = [];

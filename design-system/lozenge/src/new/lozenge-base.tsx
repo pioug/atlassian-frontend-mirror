@@ -9,6 +9,7 @@ import { cssMap, cx, jsx } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { useResizing } from '@atlaskit/motion/resizing';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Pressable from '@atlaskit/primitives/pressable';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';

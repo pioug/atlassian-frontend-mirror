@@ -14,7 +14,7 @@ import { expect, test } from '@af/integration-testing';
  * See: `platform/packages/design-system/top-layer/notes/architecture/focus.md`.
  */
 
-const featureFlag = 'platform-dst-top-layer';
+const featureFlag = 'platform-dst-top-layer-tooltip';
 
 test.describe('Tooltip: top-layer focus contract', () => {
 	test('initial focus: opening the tooltip does not move focus', async ({ page }) => {

@@ -1,5 +1,26 @@
 # @atlaskit/tag
 
+## 15.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.3.2
+
+### Patch Changes
+
+- [`79699bc682645`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79699bc682645) -
+  Fix `testId` not being forwarded to the link element on the default `Tag` (and `RemovableTag`)
+  when a `href` is provided. Previously a linked tag rendered its anchor without the
+  `${testId}--link` test id, breaking test/query targeting. This restores parity with `SimpleTag`.
+
 ## 15.3.1
 
 ### Patch Changes

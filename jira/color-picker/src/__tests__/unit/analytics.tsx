@@ -51,9 +51,12 @@ describe('Analytics on Tigger', () => {
 
 	describe('FFs true', () => {
 		beforeEach(() => {
-			// Exclude platform-dst-top-layer: when ON, @atlaskit/popup uses the native Popover API
+			// Exclude the top-layer gates: when ON, @atlaskit/popup and @atlaskit/tooltip use the native Popover API
 			// which JSDOM does not implement — clicks inside the popup and close events become no-ops.
-			mockGetBooleanFG.mockImplementation((flag: string) => flag !== 'platform-dst-top-layer');
+			mockGetBooleanFG.mockImplementation(
+				(flag: string) =>
+					flag !== 'platform-dst-top-layer' && flag !== 'platform-dst-top-layer-tooltip',
+			);
 		});
 
 		it('Analytics event should occur on color change', async () => {

@@ -4,7 +4,7 @@ import type { IntlShape } from 'react-intl';
 import { useIntl } from 'react-intl';
 
 import { IconButton } from '@atlaskit/button/new';
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { colorAccessibilityMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -261,6 +261,15 @@ const styles = cssMap({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
+	// Merge these overrides back into container when cleaning up
+	// platform_editor_lovability_text_bg_color_patch_1.
+	containerPatch: {
+		marginTop: token('space.0'),
+		paddingTop: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		paddingRight: token('space.0'),
+	},
 });
 
 export const ColorAccessibilityMenuItem = ({
@@ -356,7 +365,12 @@ export const ColorAccessibilityMenuItem = ({
 	};
 
 	return (
-		<Box xcss={styles.container}>
+		<Box
+			xcss={cx(
+				styles.container,
+				fg('platform_editor_lovability_text_bg_color_patch_1') && styles.containerPatch,
+			)}
+		>
 			<Inline alignBlock="center" space="space.050">
 				<AccessibilityIcon
 					label=""

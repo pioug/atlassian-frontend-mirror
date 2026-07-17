@@ -3,12 +3,14 @@
  *
  * Generated prop types for Global component - LinkMenuItem
  *
- * @codegen <<SignedSource::ba80a20245324b98e40aa448a1955a8f>>
+ * @codegen <<SignedSource::d9092207b54fa34b82949a98201fd75a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen-global
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::c749a1bc5e1017e1bcbe09febba5a9a3>>
- * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/LinkMenuItem.tsx <<SignedSource::6cd2e6418fd76b15fec48eac7d5f8c00>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/types/global-component-props.ts <<SignedSource::d821d76600ba855195ee3bae39f60532>>
+ * @codegenDependency ../../../../../../../services/forge-common-app-gateway/src/components/global/LinkMenuItem.tsx <<SignedSource::e8537a207dee8f1515757f0e48027ca7>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
+import type { IconProps } from '../../__generated__/IconProps.codegen';
 
 export type LinkMenuItemProps = {
 	/**
@@ -19,6 +21,10 @@ export type LinkMenuItemProps = {
 	 * The URL path to navigate to when clicked.
 	 */
 	href: string;
+	/**
+	 * The name of the icon to display before the label. If omitted, a default icon is used.
+	 */
+	icon?: IconProps['glyph'];
 };
 
 export type TLinkMenuItem<T> = (props: LinkMenuItemProps) => T;

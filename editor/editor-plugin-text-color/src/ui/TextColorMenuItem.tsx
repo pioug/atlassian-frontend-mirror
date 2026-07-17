@@ -12,7 +12,8 @@ import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import { ColorPalette, useToolbarDropdownMenu } from '@atlaskit/editor-toolbar';
 import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model';
 import Heading from '@atlaskit/heading';
-import { Stack } from '@atlaskit/primitives/compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Bleed, Stack } from '@atlaskit/primitives/compiled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -78,23 +79,36 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 		],
 	);
 
+	const colorPalette = (
+		<ColorPalette
+			cols={isNewColorPaletteEnabled ? TEXT_COLOR_PICKER_COLUMNS : undefined}
+			gap={
+				isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1')
+					? 'space.0'
+					: undefined
+			}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			onClick={(color, _, event) => {
+				handleTextColorChange(color, event);
+			}}
+			selectedColor={color || defaultColor}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			paletteOptions={{
+				palette: palette,
+				hexToPaletteColor: hexToEditorTextPaletteColor,
+				paletteColorTooltipMessages: textPaletteTooltipMessages,
+			}}
+		/>
+	);
+
 	return (
 		<Stack xcss={styles.container} testId="text-color-menu-item">
 			<Heading size="xxsmall">{formatMessage(messages.textColorTooltip)}</Heading>
-			<ColorPalette
-				cols={isNewColorPaletteEnabled ? TEXT_COLOR_PICKER_COLUMNS : undefined}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onClick={(color, _, event) => {
-					handleTextColorChange(color, event);
-				}}
-				selectedColor={color || defaultColor}
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				paletteOptions={{
-					palette: palette,
-					hexToPaletteColor: hexToEditorTextPaletteColor,
-					paletteColorTooltipMessages: textPaletteTooltipMessages,
-				}}
-			/>
+			{isNewColorPaletteEnabled && fg('platform_editor_lovability_text_bg_color_patch_1') ? (
+				<Bleed inline="space.025">{colorPalette}</Bleed>
+			) : (
+				colorPalette
+			)}
 		</Stack>
 	);
 }

@@ -10,9 +10,16 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	menu: {
+	menuOld: {
 		paddingBlock: token('space.025'),
 		paddingInline: token('space.100'),
+	},
+	menu: {
+		display: 'flex',
+		flexDirection: 'column',
+		gap: token('space.100'),
+		paddingBlock: token('space.075'),
+		paddingInline: token('space.150'),
 	},
 });
 
@@ -33,7 +40,15 @@ export const TextMenuSection = ({ children, parents }: TextMenuSectionProps): Re
 
 	return (
 		<ToolbarDropdownItemSection hasSeparator={hasSeparator}>
-			<Box xcss={styles.menu} onMouseDown={onMouseDown}>
+			<Box
+				xcss={
+					expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
+					fg('platform_editor_lovability_text_bg_color_patch_1')
+						? styles.menu
+						: styles.menuOld
+				}
+				onMouseDown={onMouseDown}
+			>
 				{children}
 			</Box>
 		</ToolbarDropdownItemSection>

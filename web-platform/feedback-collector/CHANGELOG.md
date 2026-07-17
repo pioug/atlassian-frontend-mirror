@@ -1,5 +1,22 @@
 # @atlaskit/feedback-collector
 
+## 16.5.0
+
+### Minor Changes
+
+- [`b9a7b3350402b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b9a7b3350402b) -
+  Autofix: add explicit package exports (barrel removal)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.4.1
 
 ### Patch Changes

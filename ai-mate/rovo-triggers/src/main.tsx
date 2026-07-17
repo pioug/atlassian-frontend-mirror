@@ -59,7 +59,13 @@ const isIgnoredForTriggerLatest = (type: Payload['type']): boolean => {
 	if (ignoredTriggerLatestEvents.has(type)) {
 		return true;
 	}
-	return type === 'set-message-context' && fg('rovo_chat_fix_cold_start_prompt_insertion');
+	if (type === 'set-message-context') {
+		return fg('rovo_chat_fix_cold_start_prompt_insertion');
+	}
+	if (type === 'jira-create-context-payload') {
+		return fg('rovo_chat_fix_jira_prompt_dropped_on_reopen');
+	}
+	return false;
 };
 
 const createPubSub = () => {

@@ -1,0 +1,23 @@
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
+                "href": "https://www.atlassian.com"
+              },
+              "type": "link"
+            }
+          ],
+          "text": "text with link and code mark",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    }
+  ],
+  "type": "doc",
+  "version": 1
+}

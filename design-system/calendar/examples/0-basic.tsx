@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Calendar from '@atlaskit/calendar';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Box from '@atlaskit/primitives/box';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);

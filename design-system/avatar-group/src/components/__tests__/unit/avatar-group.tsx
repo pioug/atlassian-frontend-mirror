@@ -647,6 +647,36 @@ describe('<AvatarGroup />', () => {
 	});
 });
 
+describe('size prop type constraints', () => {
+	it('should accept a supported size and render the more indicator', () => {
+		render(
+			<AvatarGroup
+				testId="test"
+				size="small"
+				data={generateData({ avatarCount: 4 })}
+				maxCount={3}
+			/>,
+		);
+
+		// The more indicator (+N) renders at supported sizes.
+		expect(screen.getByTestId('test--overflow-menu--trigger')).toBeInTheDocument();
+	});
+
+	it('should reject the avatar-only "xsmall" and "UNSAFE_xsmall" sizes at the type level', () => {
+		// AvatarGroupSize excludes `xsmall` (16px) and `UNSAFE_xsmall` (20px) because the
+		// more indicator cannot be shown accessibly at those sizes. These `@ts-expect-error`s
+		// fail the build if either size is ever (re)allowed on AvatarGroup.
+		render(
+			// @ts-expect-error - "xsmall" is not a valid AvatarGroupSize
+			<AvatarGroup testId="xsmall" size="xsmall" data={generateData({ avatarCount: 2 })} />,
+		);
+		render(
+			// @ts-expect-error - "UNSAFE_xsmall" is not a valid AvatarGroupSize
+			<AvatarGroup testId="unsafe" size="UNSAFE_xsmall" data={generateData({ avatarCount: 2 })} />,
+		);
+	});
+});
+
 describe('Accessibility', () => {
 	// FIXME: Jest 29 upgrade - this test suite is failing when running with flag IS_REACT_18
 	it.skip('Avatar Group items inside more should have role equal to button and get focus', async () => {

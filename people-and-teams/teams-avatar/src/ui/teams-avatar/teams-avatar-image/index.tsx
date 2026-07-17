@@ -16,8 +16,14 @@ import { FallbackAvatar } from './fallback';
 import { TEAM_FALLBACK_AVATAR_DATA_URI } from './fallback/constants';
 import { getTeamAvatarSrc } from './utils';
 
+/**
+ * Team avatars do not support the `UNSAFE_xsmall` (20px) avatar size; the
+ * per-size dimension maps below are exhaustive over the supported sizes only.
+ */
+type TeamAvatarImageSize = Exclude<SizeType, 'UNSAFE_xsmall'>;
+
 type AvatarImageProps = {
-	size: SizeType;
+	size: TeamAvatarImageSize;
 	alt?: string;
 	src?: string;
 	testId?: string;
@@ -123,7 +129,7 @@ const avatarImageStyles = cssMap({
 	},
 });
 
-const SIZES: Record<SizeType, number> = {
+const SIZES: Record<TeamAvatarImageSize, number> = {
 	xsmall: 16,
 	small: 24,
 	medium: 32,

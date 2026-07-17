@@ -132,6 +132,13 @@ export type CreationContextParams = {
 	additionalContext?: Record<string, SerializableCreationContextValue>;
 };
 
+export type ResultAttributionContextPayload = {
+	/**
+	 * Source surface that launched the agent chat, appended to generated result analytics.
+	 */
+	launchSource?: string;
+};
+
 export type ChatNewPayload = PayloadCore<
 	'chat-new',
 	{
@@ -174,6 +181,11 @@ export type ChatNewPayload = PayloadCore<
 		// Each key-value pair is set via setAIFeatureContext. Stale entries for
 		// known keys (e.g. 'projectContext') are cleared before new values are applied.
 		aiFeatureContext?: Record<string, unknown>;
+		/**
+		 * Optional static analytics attribution for result events generated from this
+		 * launched conversation.
+		 */
+		resultAttributionContext?: ResultAttributionContextPayload;
 		// Agent version info for testing a specific version of an agent in the chat.
 		// Used by Studio to pass the currently selected version when clicking Test.
 		agentVersion?: {

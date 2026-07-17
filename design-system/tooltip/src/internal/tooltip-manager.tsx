@@ -127,7 +127,7 @@ export function show(entry: Entry): API {
 		// meaning Escape/scroll won't instantly dismiss a tooltip that's already fading out.
 		// Gated fix: only apply the immediate-hide behavior under the top-layer flag for now.
 		if (phase === 'waiting-to-hide') {
-			if (isImmediate && fg('platform-dst-top-layer')) {
+			if (isImmediate && fg('platform-dst-top-layer-tooltip')) {
 				immediatelyHideAndDone();
 			}
 			return;

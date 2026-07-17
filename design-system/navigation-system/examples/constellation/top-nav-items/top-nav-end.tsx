@@ -13,7 +13,7 @@ export function TopNavEndLayoutExample(): React.JSX.Element {
 			<TopNavEnd>
 				<Notifications
 					label="Notifications"
-					badge={() => <Badge appearance="important">{3}</Badge>}
+					badge={() => <Badge appearance="dangerBold">{3}</Badge>}
 				/>
 				<Help label="Help" />
 				<Settings label="Settings" />

@@ -151,4 +151,49 @@ describe('MentionItem', () => {
 
 		await expect(document.body).toBeAccessible();
 	});
+
+	describe('loading placeholder', () => {
+		const onSelection = jest.fn();
+		const placeholder: MentionDescription = {
+			id: '__rovo-agents-loading__',
+			isPlaceholder: true,
+		};
+
+		afterEach(() => {
+			onSelection.mockClear();
+		});
+
+		it('renders a non-interactive loading row with an accessible label', async () => {
+			setupMentionItem(placeholder, { onSelection } as unknown as Props);
+
+			// The placeholder is lazy-loaded, so wait for the row to resolve.
+			const row = await screen.findByRole('status');
+			expect(row).toHaveAccessibleName('Loading');
+			// No real name/byline content is rendered for the placeholder.
+			expect(screen.queryByText('Raina Halper')).not.toBeInTheDocument();
+
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('does not invoke onSelection when the placeholder row is clicked', async () => {
+			setupMentionItem(placeholder, { onSelection } as unknown as Props);
+
+			const row = await screen.findByRole('status');
+			row.click();
+
+			expect(onSelection).not.toHaveBeenCalled();
+		});
+
+		it('renders multiple placeholders (with distinct ids) as separate loading rows', async () => {
+			render(
+				<IntlProvider locale="en">
+					<MentionItem mention={{ id: '__loading-0__', isPlaceholder: true }} />
+					<MentionItem mention={{ id: '__loading-1__', isPlaceholder: true }} />
+				</IntlProvider>,
+			);
+
+			const rows = await screen.findAllByRole('status');
+			expect(rows).toHaveLength(2);
+		});
+	});
 });

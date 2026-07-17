@@ -1,5 +1,19 @@
 # @atlaskit/skeleton
 
+## 4.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.1
+
+### Patch Changes
+
+- [`39f069bbf00aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39f069bbf00aa) -
+  Added an example demonstrating how `Skeleton` participates in UFO interaction tracing via the
+  `interactionName` prop, showing the hold and release lifecycle through `InteractionContext`.
+
 ## 4.2.0
 
 ### Minor Changes

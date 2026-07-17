@@ -1,5 +1,13 @@
 # @atlaskit/visually-hidden
 
+## 4.2.0
+
+### Minor Changes
+
+- [`d7ba3a2845ba4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7ba3a2845ba4) -
+  Flatten entry points: remove trivial single-re-export entry-point files and remap package.json
+  exports to point directly at source files.
+
 ## 4.1.0
 
 ### Minor Changes

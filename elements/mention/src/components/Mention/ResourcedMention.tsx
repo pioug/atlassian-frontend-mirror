@@ -11,7 +11,9 @@ import debug from '../../util/logger';
 
 export interface Props {
 	accessLevel?: string;
+	disabledTooltip?: string;
 	id: string;
+	isDisabled?: boolean;
 	localId?: string;
 	mentionProvider?: Promise<MentionProvider>;
 	onClick?: MentionEventHandler;
@@ -120,6 +122,8 @@ export default class ResourcedMention extends React.PureComponent<Props, State> 
 				id={props.id}
 				text={props.text || state.resolvedMentionName || ''}
 				isHighlighted={state.isHighlighted}
+				isDisabled={props.isDisabled}
+				disabledTooltip={props.disabledTooltip}
 				accessLevel={props.accessLevel}
 				localId={props.localId}
 				onClick={props.onClick}

@@ -55,6 +55,20 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * existing experiments.
  */
 export const editorExperimentsConfig: {
+	// Added 2026-07-17
+	platform_editor_status_popup_suggestions: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-08
+	confluence_inline_comments_fix_stale_selection: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-25
 	platform_editor_first_node_fix: {
 		defaultValue: boolean;
@@ -2014,13 +2028,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-16
-	confluence_3p_in_cwr_ghost_icons_ui_tweaks: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-06-01
 	platform_editor_lovability_text_bg_color: {
 		defaultValue: boolean;
@@ -2107,6 +2114,15 @@ export const editorExperimentsConfig: {
 	};
 } = {
 	// new format to avoid collisions with other users when updating the file
+
+	// Added 2026-07-17
+	platform_editor_status_popup_suggestions: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_status_popup_suggestions',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 
 	// Added 2026-06-25
 	platform_editor_first_node_fix: createBooleanExperiment({
@@ -2269,6 +2285,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_fix_focus_MediaInsertPicker',
 			jira: 'platform_editor_fix_focus_MediaInsertPicker',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-08
+	confluence_inline_comments_fix_stale_selection: createBooleanExperiment({
+		productKeys: {
+			confluence: 'confluence_inline_comments_fix_stale_selection',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4420,17 +4444,6 @@ export const editorExperimentsConfig: {
 	confluence_3p_in_cwr_ghost_icons: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_3p_in_cwr_ghost_icons',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-16
-	// Gates UI tweaks to the 3p-in-CWR ghost icons (inner icon opacity and the
-	// "connect apps" tooltip copy) in the Rovo chat sources pill. When off the
-	// existing ghost-icon styling and tooltip are used.
-	confluence_3p_in_cwr_ghost_icons_ui_tweaks: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_3p_in_cwr_ghost_icons_ui_tweaks',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

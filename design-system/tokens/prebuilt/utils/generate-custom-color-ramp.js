@@ -4,36 +4,33 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getClosestColorIndex = exports.generateTokenMapWithContrastCheck = exports.generateTokenMap = exports.generateColors = void 0;
+exports.generateTokenMapWithContrastCheck = exports.generateTokenMap = exports.generateColors = void 0;
+Object.defineProperty(exports, "getClosestColorIndex", {
+  enumerable: true,
+  get: function get() {
+    return _getClosestColorIndex.getClosestColorIndex;
+  }
+});
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 var _atlassianDarkTokenValueForContrastCheck = _interopRequireDefault(require("../artifacts/atlassian-dark-token-value-for-contrast-check"));
 var _colorUtils = require("./color-utils");
 var _customThemeTokenContrastCheck = require("./custom-theme-token-contrast-check");
+var _getClosestColorIndex = require("./get-closest-color-index");
 var _hctColorUtils = require("./hct-color-utils");
+var _hslToRgb = require("./hsl-to-rgb");
+var _relativeLuminanceW3C = require("./relative-luminance-w3-c");
+var _rgbToHex = require("./rgb-to-hex");
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0, _defineProperty2.default)(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 var lowLuminanceContrastRatios = [1.12, 1.33, 2.03, 2.73, 3.33, 4.27, 5.2, 6.62, 12.46, 14.25];
 var highLuminanceContrastRatios = [1.08, 1.24, 1.55, 1.99, 2.45, 3.34, 4.64, 6.1, 10.19, 12.6];
-var getClosestColorIndex = exports.getClosestColorIndex = function getClosestColorIndex(themeRamp, brandColor) {
-  // Iterate over themeRamp and find whichever color is closest to brandColor
-  var closestColorIndex = 0;
-  var closestColorDistance = null;
-  themeRamp.forEach(function (value, index) {
-    var distance = (0, _colorUtils.deltaE)((0, _colorUtils.hexToRgb)(value), (0, _colorUtils.hexToRgb)(brandColor));
-    if (closestColorDistance === null || distance < closestColorDistance) {
-      closestColorIndex = index;
-      closestColorDistance = distance;
-    }
-  });
-  return closestColorIndex;
-};
 var generateColors = exports.generateColors = function generateColors(brandColor) {
   // Determine luminance
   var HSLBrandColorHue = (0, _colorUtils.hexToHSL)(brandColor)[0];
-  var baseRgb = (0, _colorUtils.HSLToRGB)(HSLBrandColorHue, 100, 60);
-  var isLowLuminance = (0, _colorUtils.relativeLuminanceW3C)(baseRgb[0], baseRgb[1], baseRgb[2]) < 0.4;
+  var baseRgb = (0, _hslToRgb.HSLToRGB)(HSLBrandColorHue, 100, 60);
+  var isLowLuminance = (0, _relativeLuminanceW3C.relativeLuminanceW3C)(baseRgb[0], baseRgb[1], baseRgb[2]) < 0.4;
   // Choose right palette
   var themeRatios = isLowLuminance ? lowLuminanceContrastRatios : highLuminanceContrastRatios;
   var brandRgba = (0, _colorUtils.hexToRgbA)(brandColor);
@@ -46,9 +43,9 @@ var generateColors = exports.generateColors = function generateColors(brandColor
   var themeRamp = themeRatios.map(function (contrast) {
     var rgbaColor = (0, _hctColorUtils.rgbaFromArgb)(_hctColorUtils.Hct.from(hctColor.hue, hctColor.chroma, _hctColorUtils.Contrast.darker(100, contrast) + 0.25 // Material's utils provide an offset
     ).toInt());
-    return (0, _colorUtils.rgbToHex)(rgbaColor.r, rgbaColor.g, rgbaColor.b);
+    return (0, _rgbToHex.rgbToHex)(rgbaColor.r, rgbaColor.g, rgbaColor.b);
   });
-  var closestColorIndex = getClosestColorIndex(themeRamp, brandColor);
+  var closestColorIndex = (0, _getClosestColorIndex.getClosestColorIndex)(themeRamp, brandColor);
 
   // Replace closet color with brandColor
   var updatedThemeRamp = (0, _toConsumableArray2.default)(themeRamp);
@@ -79,12 +76,14 @@ function getInteractionStates(rampPosition, number, colors) {
   }
   return result;
 }
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var generateTokenMap = exports.generateTokenMap = function generateTokenMap(brandColor, mode, themeRamp) {
   var _generateColors = generateColors(brandColor),
     ramp = _generateColors.ramp,
     replacedColor = _generateColors.replacedColor;
   var colors = themeRamp || ramp;
-  var closestColorIndex = getClosestColorIndex(colors, brandColor);
+  var closestColorIndex = (0, _getClosestColorIndex.getClosestColorIndex)(colors, brandColor);
   var customThemeTokenMapLight = {};
   var customThemeTokenMapDark = {};
   var inputContrast = (0, _colorUtils.getContrastRatio)(brandColor, '#FFFFFF');
@@ -218,6 +217,8 @@ var generateTokenMap = exports.generateTokenMap = function generateTokenMap(bran
     dark: customThemeTokenMapDark
   };
 };
+
+// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 var generateTokenMapWithContrastCheck = exports.generateTokenMapWithContrastCheck = function generateTokenMapWithContrastCheck(brandColor, mode, themeRamp) {
   var colors = themeRamp || generateColors(brandColor).ramp;
   var tokenMaps = generateTokenMap(brandColor, mode, colors);

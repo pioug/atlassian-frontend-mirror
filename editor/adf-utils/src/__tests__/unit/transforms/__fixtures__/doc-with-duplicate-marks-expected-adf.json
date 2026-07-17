@@ -1,0 +1,158 @@
+{
+  "content": [
+    {
+      "content": [
+        {
+          "text": "other ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "attrs": {
+                "type": "sub"
+              },
+              "type": "subsup"
+            }
+          ],
+          "text": "more",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "attrs": {
+                "type": "sup"
+              },
+              "type": "subsup"
+            }
+          ],
+          "text": "things",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "attrs": {
+                "annotationType": "inlineComment",
+                "id": "123"
+              },
+              "type": "annotation"
+            },
+            {
+              "attrs": {
+                "annotationType": "inlineComment",
+                "id": "456"
+              },
+              "type": "annotation"
+            }
+          ],
+          "text": "annotated-text",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "attrs": {
+            "id": "1f642",
+            "shortName": ":slight_smile:",
+            "text": "🙂"
+          },
+          "type": "emoji"
+        },
+        {
+          "marks": [
+            {
+              "attrs": {
+                "annotationType": "inlineComment",
+                "id": "789"
+              },
+              "type": "annotation"
+            }
+          ],
+          "text": "more-annotated-text",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "strong"
+            },
+            {
+              "type": "underline"
+            }
+          ],
+          "text": "between",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "em"
+            },
+            {
+              "type": "underline"
+            }
+          ],
+          "text": "more",
+          "type": "text"
+        },
+        {
+          "text": " ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "em"
+            }
+          ],
+          "text": "some",
+          "type": "text"
+        },
+        {
+          "text": " text ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "em"
+            },
+            {
+              "type": "strike"
+            }
+          ],
+          "text": "other",
+          "type": "text"
+        },
+        {
+          "text": " text ",
+          "type": "text"
+        },
+        {
+          "marks": [
+            {
+              "type": "code"
+            }
+          ],
+          "text": "inline code marks",
+          "type": "text"
+        }
+      ],
+      "type": "paragraph"
+    }
+  ],
+  "type": "doc",
+  "version": 1
+}

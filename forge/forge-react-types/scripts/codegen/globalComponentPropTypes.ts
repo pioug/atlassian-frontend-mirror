@@ -272,37 +272,26 @@ const generateComponentPropTypeCode = (
 	}
 	lines.push(`export type T${componentName}<T> = (props: ${interfaceName}) => T;`);
 
-	// Detect needed imports based on type references in the generated code
 	const generatedCode = lines.slice(2).join('\n'); // skip eslint directive and blank line
-	const importLines: string[] = [];
-
-	if (/\bReact\./.test(generatedCode)) {
-		importLines.push("import type React from 'react';");
-	}
-
-	for (const propsName of allPropsNames) {
-		if (propsName !== interfaceName && new RegExp(`\\b${propsName}\\b`).test(generatedCode)) {
-			importLines.push(`import type { ${propsName} } from './${propsName}.codegen';`);
-		}
-	}
 
 	// Detect references to types exported from the component's own source dependency file
 	// (e.g. a named `Item` interface used in the Props). Because the generated file lives
 	// in a different package from the source, we cannot import across the package boundary.
 	// Instead we emit the referenced type declarations inline in the generated file so it
-	// is fully self-contained.
+	// is fully self-contained. These are resolved first so that import detection below can
+	// also inspect the inlined declarations (e.g. an `Item` interface that references `IconProps`).
 	const sourceDependencyTypeNames = getExportedTypeNames(sourceFilePath, project).filter(
 		(name) => name !== interfaceName && !allPropsNames.includes(name),
 	);
 	const referencedSourceTypes = sourceDependencyTypeNames.filter((name) =>
 		new RegExp(`\\b${name}\\b`).test(generatedCode),
 	);
+	const inlinedTypeLines: string[] = [];
 	if (referencedSourceTypes.length > 0) {
 		let sourceFile = project.getSourceFile(sourceFilePath);
 		if (!sourceFile) {
 			sourceFile = project.addSourceFileAtPath(sourceFilePath);
 		}
-		const inlinedTypeLines: string[] = [];
 		for (const name of referencedSourceTypes) {
 			const iface = sourceFile.getInterface(name);
 			if (iface) {
@@ -314,15 +303,52 @@ const generateComponentPropTypeCode = (
 				inlinedTypeLines.push(alias.getText());
 			}
 		}
-		if (inlinedTypeLines.length > 0) {
-			// Insert the inlined type declarations after the eslint directive + blank line.
-			// We splice them in before the props type so references resolve correctly.
-			lines.splice(2, 0, ...inlinedTypeLines.flatMap((t) => [t, '']));
+	}
+
+	// Detect needed imports based on type references in the generated code AND any inlined
+	// source-dependency type declarations.
+	const scanText = [generatedCode, ...inlinedTypeLines].join('\n');
+	const importLines: string[] = [];
+
+	if (/\bReact\./.test(scanText)) {
+		importLines.push("import type React from 'react';");
+	}
+
+	for (const propsName of allPropsNames) {
+		if (propsName !== interfaceName && new RegExp(`\\b${propsName}\\b`).test(scanText)) {
+			importLines.push(`import type { ${propsName} } from './${propsName}.codegen';`);
 		}
 	}
 
+	// Detect references to component-level generated Props types (e.g. `IconProps`, produced by the
+	// sibling `codegen` command into `components/__generated__`). These live in a different directory
+	// from the Global generated files, so we import them via a relative path. This lets a Global
+	// component prop reuse a UIKit component's generated type, e.g. `icon?: IconProps['glyph']`.
+	const componentGeneratedDir = resolve(GLOBAL_OUTPUT_DIR, '..', '..', '__generated__');
+	if (fs.existsSync(componentGeneratedDir)) {
+		const componentTypeNames = fs
+			.readdirSync(componentGeneratedDir)
+			.filter((file) => file.endsWith('.codegen.tsx'))
+			.map((file) => file.replace('.codegen.tsx', ''));
+		for (const name of componentTypeNames) {
+			if (
+				name !== interfaceName &&
+				!allPropsNames.includes(name) &&
+				new RegExp(`\\b${name}\\b`).test(scanText)
+			) {
+				importLines.push(`import type { ${name} } from '../../__generated__/${name}.codegen';`);
+			}
+		}
+	}
+
+	// Insert the inlined source-dependency type declarations after the eslint directive + blank
+	// line so their references resolve correctly.
+	if (inlinedTypeLines.length > 0) {
+		lines.splice(2, 0, ...inlinedTypeLines.flatMap((t) => [t, '']));
+	}
+
 	if (importLines.length > 0) {
-		// Insert imports after the eslint directive and blank line (index 2)
+		// Insert imports after the eslint directive and blank line (index 2), above the inlined types
 		lines.splice(2, 0, ...importLines, '');
 	}
 

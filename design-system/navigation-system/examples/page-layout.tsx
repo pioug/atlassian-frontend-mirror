@@ -41,6 +41,7 @@ import {
 } from '@atlaskit/navigation-system/legacy/css-variables';
 import { Help } from '@atlaskit/navigation-system/top-nav-items';
 import { Box, Flex, Inline } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { Hide } from '@atlaskit/primitives/responsive';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import {

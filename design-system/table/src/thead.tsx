@@ -1,6 +1,7 @@
 import React, { type FC, type ReactNode } from 'react';
 
 import Checkbox from '@atlaskit/checkbox';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Inline from '@atlaskit/primitives/inline';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';

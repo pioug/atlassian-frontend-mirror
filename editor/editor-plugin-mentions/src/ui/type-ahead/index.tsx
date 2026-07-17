@@ -59,6 +59,14 @@ const isAgentMention = (mention: Pick<MentionDescription, 'appType' | 'userType'
 const isAgentTypeAheadItem = (item: TypeAheadItem): boolean =>
 	item.mention ? isAgentMention(item.mention) : false;
 
+// A non-selectable loading placeholder injected by the provider (e.g.
+// `RovoChatMentionResource`) while the slower agent source resolves. It
+// renders as a skeleton row via `@atlaskit/mention`'s `MentionItem` and
+// must never be inserted or counted in rendered-mention analytics.
+const isLoadingPlaceholder = (
+	mention: Pick<MentionDescription, 'isPlaceholder'> | undefined,
+): boolean => !!mention?.isPlaceholder;
+
 const createInviteItem = ({
 	mentionProvider,
 	onInviteItemMount,
@@ -193,7 +201,12 @@ const buildAndSendElementsTypeAheadAnalytics =
 		query,
 		mentions,
 		stats,
+		agentAnalytics,
 	}: {
+		agentAnalytics?: {
+			agentCount: number;
+			agentSectioningEnabled: boolean;
+		};
 		mentions: MentionDescription[];
 		query: string;
 		stats?: MentionStats;
@@ -235,6 +248,7 @@ const buildAndSendElementsTypeAheadAnalytics =
 			query,
 			teams,
 			xProductMentionsLength,
+			agentAnalytics,
 		);
 		fireEvent(payload, 'fabric-elements');
 	};
@@ -303,6 +317,7 @@ type Props = {
 	HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
 	mentionInsertDisplayName?: boolean;
 	sanitizePrivateContent?: boolean;
+	showAgentMentionsLabsLozenge?: boolean;
 };
 /**
  * Shared mentions → typeahead-items transformer used by both the
@@ -320,7 +335,9 @@ const makeTransformMentionsToTypeAheadItems = ({
 	getFirstQueryWithoutResults,
 	setFirstQueryWithoutResults,
 	toItem,
+	enableAgentSectioning,
 }: {
+	enableAgentSectioning: boolean;
 	fireEvent: FireElementsChannelEvent;
 	getFirstQueryWithoutResults: () => string | null;
 	setFirstQueryWithoutResults: (query: string) => void;
@@ -343,14 +360,32 @@ const makeTransformMentionsToTypeAheadItems = ({
 		stats?: MentionStats;
 	}): Array<TypeAheadItem> => {
 		const mentionItems = mentions.map((mention) => toItem(mention));
+		const agentCount = mentions.filter(isAgentMention).length;
+		const agentAnalytics = {
+			agentCount,
+			agentSectioningEnabled: enableAgentSectioning,
+		};
+
+		// The loading placeholder is a rendered-only row — keep it in
+		// `mentionItems` so the shimmer shows, but exclude it from analytics
+		// and no-results bookkeeping so it isn't counted as a real result.
+		const realMentions = mentions.filter((mention) => !isLoadingPlaceholder(mention));
 
 		buildAndSendElementsTypeAheadAnalytics(fireEvent)({
 			query,
-			mentions,
+			mentions: realMentions,
 			stats,
+			agentAnalytics,
 		});
 
-		if (mentions.length === 0 && getFirstQueryWithoutResults() === null) {
+		// While a loading placeholder is present the result set isn't settled yet
+		// (e.g. agents still resolving) — don't record this query as "no results",
+		// or a later emission that arrives with results would be ignored.
+		if (
+			realMentions.length === 0 &&
+			!mentions.some(isLoadingPlaceholder) &&
+			getFirstQueryWithoutResults() === null
+		) {
 			setFirstQueryWithoutResults(query);
 		}
 
@@ -390,6 +425,7 @@ export const createTypeAheadConfig = ({
 	api,
 	handleMentionsChanged,
 	enableAgentSectioning = false,
+	showAgentMentionsLabsLozenge = false,
 }: Props): TypeAheadHandler => {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	let sessionId = uuid();
@@ -397,6 +433,7 @@ export const createTypeAheadConfig = ({
 	const subscriptionKeys = new Set<string>();
 
 	const transformMentionsToTypeAheadItems = makeTransformMentionsToTypeAheadItems({
+		enableAgentSectioning,
 		fireEvent,
 		getFirstQueryWithoutResults: () => firstQueryWithoutResults,
 		setFirstQueryWithoutResults: (query: string) => {
@@ -489,11 +526,12 @@ export const createTypeAheadConfig = ({
 					filter: (item) => isAgentTypeAheadItem(item),
 					limit: 5,
 					sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true },
-					lozenge: (
-						<Lozenge appearance="discovery">
-							{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel)}
-						</Lozenge>
-					),
+					lozenge:
+						!fg('platform_editor_agent_mentions_drop_one_fixes') || showAgentMentionsLabsLozenge ? (
+							<Lozenge appearance="discovery">
+								{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel)}
+							</Lozenge>
+						) : null,
 				},
 			];
 		},
@@ -502,6 +540,12 @@ export const createTypeAheadConfig = ({
 		},
 		selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
 			const { schema } = state;
+
+			// Placeholder isn't selectable. Return `false` (not a transaction) so
+			// the runtime keeps the dropdown open; a transaction would close it.
+			if (isLoadingPlaceholder(item.mention)) {
+				return false;
+			}
 
 			const pluginState = getMentionPluginState(state);
 			const { mentionProvider } = pluginState;
@@ -513,13 +557,9 @@ export const createTypeAheadConfig = ({
 				...contextIdentifierProvider,
 				sessionId,
 			};
-			const isAgentMentionsExperimentEnabled = expVal(
-				'platform_editor_agent_mentions',
-				'isEnabled',
-				false,
-			);
+			const isAgentMentionSelection = isAgentMention(item.mention);
 			const isAgentMentionInsertion =
-				isAgentMentionsExperimentEnabled && isAgentMention(item.mention);
+				isAgentMentionSelection && expVal('platform_editor_agent_mentions', 'isEnabled', false);
 			// userType can be missing for provider-only agent mentions. Copy/paste cannot
 			// see appType, so persist APP only when there is no explicit userType.
 			const persistedUserType = isAgentMentionInsertion && userType == null ? 'APP' : userType;
@@ -621,7 +661,8 @@ export const createTypeAheadConfig = ({
 					contextIdentifierProvider,
 					taskListId,
 					taskItemId,
-					isAgentMentionInsertion,
+					isAgentMentionSelection,
+					enableAgentSectioning,
 				),
 			);
 

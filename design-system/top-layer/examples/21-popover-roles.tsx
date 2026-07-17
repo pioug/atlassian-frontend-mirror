@@ -138,7 +138,7 @@ function RoleDemo({
 	return (
 		<Stack space="space.100">
 			<Inline space="space.100" alignBlock="center">
-				<Lozenge appearance="new">{role}</Lozenge>
+				<Lozenge appearance="discovery">{role}</Lozenge>
 				<Text size="small">{description}</Text>
 			</Inline>
 			<Box>

@@ -115,6 +115,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 		HighlightComponent: options?.HighlightComponent,
 		handleMentionsChanged: options?.handleMentionsChanged,
 		enableAgentSectioning: options?.enableAgentSectioning,
+		showAgentMentionsLabsLozenge: options?.showAgentMentionsLabsLozenge,
 		fireEvent,
 		api,
 	});

@@ -40,7 +40,9 @@ const isParseableUrl = (text: string): boolean => {
 };
 
 const isSupportedCard = (node: PMNode): boolean =>
-	node.type.name === 'inlineCard' || node.type.name === 'blockCard';
+	node.type.name === 'inlineCard' ||
+	node.type.name === 'blockCard' ||
+	node.type.name === 'embedCard';
 
 const transparentSingleChildContainerNodeTypes = new Set([
 	'paragraph',

@@ -1,5 +1,26 @@
 # @atlaskit/forge-react-types
 
+## 2.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [`1c7f81c96a123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c7f81c96a123) -
+  Add an optional `icon` prop to the global:ui `LinkMenuItem` and reorderable menu items so sidebar
+  menu items can render a chosen glyph icon. Exposes `IconComponent` from the
+  `@atlassian/forge-ui/UIKit` entrypoint and regenerates the global component prop types.
+
 ## 2.2.1
 
 ### Patch Changes

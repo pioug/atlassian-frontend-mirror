@@ -8,6 +8,7 @@ import { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 
 import {

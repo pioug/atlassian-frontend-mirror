@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "16.4.1",
+	"version": "16.5.0",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,6 +23,7 @@
 		"./messages": "./src/messages.ts",
 		"./types": "./src/types.ts",
 		"./FeedbackButton": "./src/entry-points/FeedbackButton.tsx",
+		"./FeedbackCollector": "./src/entry-points/FeedbackCollector.tsx",
 		"./FeedbackFlag": "./src/entry-points/FeedbackFlag.tsx",
 		"./FeedbackForm": "./src/entry-points/FeedbackForm.tsx"
 	},

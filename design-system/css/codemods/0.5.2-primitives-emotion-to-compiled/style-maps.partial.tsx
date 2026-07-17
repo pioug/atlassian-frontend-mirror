@@ -1,7 +1,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type SerializedStyles } from '@emotion/react';
 
-import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import type { CSSTokenMap } from '@atlaskit/tokens/token-names';
 
 /**
@@ -1696,10 +1697,10 @@ export type TokenisedProps = {
 	boxShadow?: Shadow;
 	color?: TextColor;
 	columnGap?: Space;
-	font?: Font | string;
-	fontFamily?: FontFamily | string;
+	font?: Font | GlobalValue;
+	fontFamily?: FontFamily | GlobalValue;
 	fontStyle?: 'normal' | 'italic';
-	fontWeight?: FontWeight | string | number;
+	fontWeight?: FontWeight | GlobalValue;
 	gap?: Space;
 	height?: Dimension | string;
 	inlineSize?: Dimension | string;

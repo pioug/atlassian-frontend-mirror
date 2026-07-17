@@ -1,4 +1,6 @@
 import type { DOMOutputSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { BreakoutMarkDefinition } from '../marks';
+import type { MarksObject } from './types/mark';
 import { rule as ruleFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 
@@ -9,6 +11,11 @@ export interface RuleDefinition {
 	attrs?: { localId?: string };
 	type: 'rule';
 }
+
+/**
+ * @name rule_root_only_node
+ */
+export type RuleRootOnlyDefinition = RuleDefinition & MarksObject<BreakoutMarkDefinition>;
 
 const hrDOM: DOMOutputSpec = ['hr'];
 export const rule: NodeSpec = ruleFactory({

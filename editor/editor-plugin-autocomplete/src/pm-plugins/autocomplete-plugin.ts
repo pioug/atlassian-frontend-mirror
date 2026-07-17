@@ -47,6 +47,7 @@ const MAX_INGESTED_CONTEXT_TEXTS = 50;
 // non-comment editors (where parentCommentContent never arrives) don't refetch
 // on every word boundary for the plugin's lifetime.
 const MAX_CONTEXT_REFRESH_ATTEMPTS = 5;
+const INLINE_LEAF_TEXT = ' ';
 
 // eslint-disable-next-line require-unicode-regexp
 const TRAILING_NON_BOUNDARY_TOKEN_REGEX = /([^\s.,;:!?]*)$/;
@@ -82,7 +83,8 @@ const getTextBeforeCursor = (state: EditorState): string => {
 
 	const blockNode = $from.parent;
 	const offsetInBlock = $from.parentOffset;
-	const blockText = blockNode.textContent.slice(0, offsetInBlock);
+	// PM offsets count inline leaf nodes; textContent indices do not.
+	const blockText = blockNode.textBetween(0, offsetInBlock, undefined, INLINE_LEAF_TEXT);
 
 	if (blockText.length >= maxChars) {
 		return blockText.slice(-maxChars);
@@ -99,7 +101,7 @@ const getTextBeforeCursor = (state: EditorState): string => {
 
 		for (let i = indexInParent - 1; i >= 0 && fullText.length < maxChars; i--) {
 			const sibling = parentNode.child(i);
-			const siblingText = sibling.textContent;
+			const siblingText = sibling.textBetween(0, sibling.content.size, '\n', INLINE_LEAF_TEXT);
 			fullText = siblingText + '\n' + fullText;
 		}
 		depth--;

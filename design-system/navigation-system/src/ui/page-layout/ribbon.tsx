@@ -7,6 +7,7 @@ import { useContext } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { media } from '@atlaskit/primitives/responsive';
 
 import { localSlotLayers, UNSAFE_ribbonVar } from './constants';

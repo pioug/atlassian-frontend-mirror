@@ -50,7 +50,7 @@ const IconSpacingExample = (): JSX.Element => {
 			<Stack space="space.150">
 				<Heading size="small">
 					Medium icon — <Code>spacing</Code> prop{' '}
-					<Lozenge appearance="moved" isBold>
+					<Lozenge appearance="warning" isBold>
 						Deprecated
 					</Lozenge>
 				</Heading>
@@ -83,7 +83,7 @@ const IconSpacingExample = (): JSX.Element => {
 			<Stack space="space.150">
 				<Heading size="small">
 					Small icon — <Code>spacing</Code> prop{' '}
-					<Lozenge appearance="moved" isBold>
+					<Lozenge appearance="warning" isBold>
 						Deprecated
 					</Lozenge>
 				</Heading>

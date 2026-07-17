@@ -14,6 +14,7 @@ import { AtlassianIcon, RovoIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import Skeleton from '@atlaskit/skeleton';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -134,7 +135,6 @@ export const AgentProfileCreator = ({
 	creator,
 	onCreatorLinkClick,
 	isLoading,
-	hideCreatorIcon = false,
 }: {
 	/**
 	 * Get this value from `getAgentCreator`
@@ -142,10 +142,6 @@ export const AgentProfileCreator = ({
 	creator?: AgentCreator;
 	isLoading: boolean;
 	onCreatorLinkClick: () => void;
-	/**
-	 * Hides the leading Rovo icon shown next to the creator label
-	 */
-	hideCreatorIcon?: boolean;
 }): JSX.Element | null => {
 	const { formatMessage } = useIntl();
 
@@ -206,6 +202,10 @@ export const AgentProfileCreator = ({
 	};
 
 	const creatorRender = getCreatorRender();
+
+	const hideCreatorIcon =
+		expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
+		fg('platform_editor_agent_mentions_drop_one_fixes');
 
 	if (fg('jira_improve_agent_profile_for_a2a')) {
 		const showRovoIcon = !hideCreatorIcon && creator?.type !== 'REMOTE_A2A';

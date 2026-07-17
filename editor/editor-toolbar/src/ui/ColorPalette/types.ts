@@ -31,6 +31,8 @@ export type PaletteTooltipMessages = {
 	light: Record<string, MessageDescriptor>;
 };
 
+export type ColorPaletteGap = 'space.0' | 'space.050';
+
 /**
  * Configuration options for the color palette
  */
@@ -57,6 +59,8 @@ export interface ColorPaletteProps {
 	className?: string;
 	/** Number of columns in the palette grid */
 	cols?: number;
+	/** Gap between color tile wrappers */
+	gap?: ColorPaletteGap;
 	/** Callback when a color is clicked */
 	onClick: (value: string, label: string, event: React.MouseEvent | React.KeyboardEvent) => void;
 	/** Optional callback for keyboard navigation */

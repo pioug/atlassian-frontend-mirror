@@ -218,6 +218,7 @@ const RemovableTagComponent: React.ForwardRefExoticComponent<
 				color={color}
 				href={href}
 				linkComponent={linkComponent}
+				testId={testId}
 			/>
 		);
 

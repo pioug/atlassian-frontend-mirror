@@ -1,6 +1,6 @@
-import { type MentionDescription, UserAccessLevel, UserType } from '../../../../types';
+import { type RealMentionDescription, UserAccessLevel, UserType } from '../../../../types';
 
-export const userMention: MentionDescription = {
+export const userMention: RealMentionDescription = {
 	id: '12345',
 	avatarUrl: 'www.example.com/image.png',
 	nickname: 'Test User',
@@ -8,7 +8,7 @@ export const userMention: MentionDescription = {
 	userType: UserType[UserType.APP],
 };
 
-export const teamMention: MentionDescription = {
+export const teamMention: RealMentionDescription = {
 	id: '12345',
 	avatarUrl: 'www.example.com/image.png',
 	name: 'Test team',

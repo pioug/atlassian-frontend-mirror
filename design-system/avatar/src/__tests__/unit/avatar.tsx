@@ -565,6 +565,30 @@ describe('Avatar', () => {
 		});
 	});
 
+	describe('UNSAFE_xsmall size', () => {
+		it('should render the avatar at 20px', () => {
+			const size: SizeType = 'UNSAFE_xsmall';
+			render(<Avatar name="UNSAFE_xsmall" size={size} testId={size} />);
+
+			const inner = screen.getByTestId(`${size}--inner`);
+			expect(inner).toBeInTheDocument();
+			expect(inner).toHaveCompiledCss({ height: '20px' });
+			expect(inner).toHaveCompiledCss({ width: '20px' });
+		});
+
+		it('should show a presence indicator at the UNSAFE_xsmall size', () => {
+			render(<Avatar testId={testId} size="UNSAFE_xsmall" presence="online" />);
+
+			expect(screen.getByTestId(`${testId}--presence`)).toBeInTheDocument();
+		});
+
+		it('should show a status indicator at the UNSAFE_xsmall size', () => {
+			render(<Avatar testId={testId} size="UNSAFE_xsmall" status="approved" />);
+
+			expect(screen.getByTestId(`${testId}--status`)).toBeInTheDocument();
+		});
+	});
+
 	ffTest.on(
 		'avatar-custom-border',
 		'should apply borderColor as background (not backgroundColor) to support gradients',

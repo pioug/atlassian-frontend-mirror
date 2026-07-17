@@ -1,7 +1,11 @@
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { isUIAnalyticsEvent } from '../../isUIAnalyticsEvent';
-import { default as UIAnalyticsEvent, type UIAnalyticsEventHandler, type UIAnalyticsEventProps } from '../../UIAnalyticsEvent';
+import {
+	default as UIAnalyticsEvent,
+	type UIAnalyticsEventHandler,
+	type UIAnalyticsEventProps,
+} from '../../UIAnalyticsEvent';
 
 let consoleHandler: UIAnalyticsEventHandler;
 let standardEventArgs: UIAnalyticsEventProps;

@@ -54,4 +54,10 @@ export interface PopupAvatarGroupProps extends MenuGroupProps {
 	setInitialFocusRef?: ContentProps['setInitialFocusRef'];
 }
 
-export type AvatarGroupSize = Exclude<SizeType, 'xsmall'>;
+/**
+ * The set of avatar sizes supported by `AvatarGroup` and its `MoreIndicator`.
+ *
+ * Excludes `xsmall` (16px) and `UNSAFE_xsmall` (20px): the more indicator and
+ * grouped avatars cannot be displayed in an accessible manner at those sizes.
+ */
+export type AvatarGroupSize = Exclude<SizeType, 'xsmall' | 'UNSAFE_xsmall'>;

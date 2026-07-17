@@ -11,7 +11,7 @@ import { css, jsx } from '@emotion/react';
 import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { AvatarTag, default as Tag } from '@atlaskit/tag';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar, { type TeamAvatarProps } from '@atlaskit/teams-avatar/teams-avatar';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
@@ -269,7 +269,11 @@ export class MultiValue extends React.Component<Props> {
 								isVerified={isTeamOption ? data.verified : undefined}
 								isRemovable={!isDisabled}
 								onAfterRemoveAction={onAfterRemoveAction}
-								avatar={(props: AvatarPropTypes) => <TeamAvatar {...props} {...avatarProps} />}
+								avatar={(props: AvatarPropTypes) => (
+									// AvatarTag always supplies size="xsmall", which is a valid
+									// TeamAvatarSize; TeamAvatar does not support UNSAFE_xsmall.
+									<TeamAvatar {...(props as TeamAvatarProps)} {...avatarProps} />
+								)}
 								hasMargin={false}
 							/>
 							{canShowArchivedLozenge ? (

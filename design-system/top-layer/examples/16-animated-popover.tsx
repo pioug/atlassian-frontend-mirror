@@ -64,7 +64,7 @@ function AnimatedPopoverDemo({
 				onClick={toggle}
 				{...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: popoverId })}
 			>
-				<Lozenge appearance="new">{label}</Lozenge>
+				<Lozenge appearance="discovery">{label}</Lozenge>
 			</Button>
 			<Popover
 				ref={popoverRef}

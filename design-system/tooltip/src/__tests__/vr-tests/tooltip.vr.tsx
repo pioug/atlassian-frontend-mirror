@@ -27,7 +27,7 @@ snapshot(TooltipBasic, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -44,7 +44,7 @@ snapshot(TooltipCustom, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -63,7 +63,7 @@ snapshot(TooltipTruncateExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -84,7 +84,7 @@ snapshot(KeyboardShortcutsExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -105,7 +105,7 @@ snapshot(KeyboardShortcutsExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -126,7 +126,7 @@ snapshot(KeyboardShortcutsExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -147,7 +147,7 @@ snapshot(KeyboardShortcutGlobalStylesExample, {
 	variants: lightModeVariant,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -164,7 +164,7 @@ snapshot(VrPositionAllExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -181,7 +181,7 @@ snapshot(VrPositionAllExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -198,7 +198,7 @@ snapshot(VrPositionAllExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });
 
@@ -215,6 +215,6 @@ snapshot(VrPositionAllExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-top-layer': [true, false],
+		'platform-dst-top-layer-tooltip': [true, false],
 	},
 });

@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-analytics
 
+## 5.3.3
+
+### Patch Changes
+
+- [`7722b9396665c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7722b9396665c) -
+  Add the Servo team as both a Trusted Committer and Trusted Reviewer Team in the `compass.yml` of
+  Agents FE-owned packages. This lets the Servo sister team raise and approve PRs in these packages
+  without waiting for Agents FE owner approval. No functional/runtime change.
+
 ## 5.3.2
 
 ### Patch Changes

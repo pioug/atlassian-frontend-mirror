@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`b5338e4d22f84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5338e4d22f84) -
+  Update @atlaskit/design-system/no-emotion-primitives to handle de-barrelled entrypoints.
+
 ## 16.0.1
 
 ### Patch Changes

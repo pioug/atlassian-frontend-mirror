@@ -1,5 +1,62 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.9.0
+
+### Minor Changes
+
+- [`554b23dd7f5e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/554b23dd7f5e7) -
+  [ux] Make Labs Lozenge Opt-In
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.8.0
+
+### Minor Changes
+
+- [`d6596dc895420`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6596dc895420) -
+  Show a loading shimmer in the mention typeahead Agents section while the (slower) agent source
+  resolves. The Rovo chat mention provider now emits a non-selectable loading placeholder in the
+  agents slot until agents arrive (gated by rovo_chat_agent_selection); @atlaskit/mention renders it
+  as a skeleton row, and the editor mention plugin guards it from selection/analytics.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.7.0
+
+### Minor Changes
+
+- [`f4cf0276c2938`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4cf0276c2938) -
+  Add metric attributes for tracking agent inclusion and selection from the mention picker
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.6.5
+
+### Patch Changes
+
+- [`d9dedaf4289ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9dedaf4289ad) -
+  Migrate deprecated Lozenge appearance values to the new semantic appearances, and migrate
+  deprecated `SimpleTag`/`RemovableTag` to the default `Tag` export (SimpleTag with
+  `isRemovable={false}`).
+
 ## 14.6.4
 
 ### Patch Changes

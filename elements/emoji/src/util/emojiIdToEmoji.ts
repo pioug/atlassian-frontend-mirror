@@ -60,6 +60,9 @@ const shouldAddEmojiPresentationSelector = (codePoint: number, nextCodePoint: nu
 const isRegionalIndicator = (codePoint: number): boolean =>
 	codePoint >= REGIONAL_INDICATOR_START && codePoint <= REGIONAL_INDICATOR_END;
 
+const isStandaloneRegionalIndicator = (codePoints: number[]): boolean =>
+	codePoints.length === 1 && isRegionalIndicator(codePoints[0]);
+
 const parseEmojiIdCodePoints = (id: string): number[] | undefined => {
 	const segments = id.split('-');
 	const codePoints: number[] = [];
@@ -96,7 +99,8 @@ const isFlagEmoji = (codePoints: number[]): boolean => {
  * - Keycap sequences: U+20E3 (COMBINING ENCLOSING KEYCAP) must be preceded by
  *   U+FE0F (VARIATION SELECTOR-16) to form a well-defined keycap emoji.
  * - Emoji variation bases are followed by U+FE0F to force emoji presentation.
- * - Flags return `undefined` so callers use Twemoji instead of native emoji.
+ * - Flags and standalone regional indicators return `undefined` so callers use
+ *   Twemoji instead of native emoji.
  *
  * @returns The Unicode string for the emoji, or `undefined` if the input is
  *   invalid (empty string, non-hex segments, or out-of-range code points).
@@ -115,7 +119,7 @@ export function emojiIdToEmoji(id: string): string | undefined {
 		return undefined;
 	}
 
-	if (isFlagEmoji(codePoints)) {
+	if (isStandaloneRegionalIndicator(codePoints) || isFlagEmoji(codePoints)) {
 		return undefined;
 	}
 

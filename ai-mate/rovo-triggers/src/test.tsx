@@ -128,6 +128,63 @@ describe('PubSub', () => {
 				unmount();
 			});
 
+			it('does not let `jira-create-context-payload` overwrite a queued action event when the gate is on', () => {
+				passGate('rovo_chat_fix_jira_prompt_dropped_on_reopen');
+				const chatNew: Payload = {
+					type: 'chat-new',
+					data: { dialogues: [] },
+					source: 'jira-list-child-create-rovo',
+				};
+				const jiraCreateContext: Payload = {
+					type: 'jira-create-context-payload',
+					data: { draftWorkItems: null },
+					source: 'useJiraContext',
+				};
+
+				const { result } = renderHook(() => usePublish(topic));
+				const callback = jest.fn();
+
+				result.current(chatNew);
+				result.current(jiraCreateContext);
+
+				const { unmount } = renderHook(() =>
+					useSubscribe({ topic, triggerLatest: true }, callback),
+				);
+
+				expect(callback).toHaveBeenCalledTimes(1);
+				expect(callback).toHaveBeenCalledWith(chatNew);
+				unmount();
+			});
+
+			it('lets `jira-create-context-payload` overwrite the replay slot when the gate is off', () => {
+				failGate('rovo_chat_fix_jira_prompt_dropped_on_reopen');
+
+				const chatNew: Payload = {
+					type: 'chat-new',
+					data: { dialogues: [] },
+					source: 'jira-list-child-create-rovo',
+				};
+				const jiraCreateContext: Payload = {
+					type: 'jira-create-context-payload',
+					data: { draftWorkItems: null },
+					source: 'useJiraContext',
+				};
+
+				const { result } = renderHook(() => usePublish(topic));
+				const callback = jest.fn();
+
+				result.current(chatNew);
+				result.current(jiraCreateContext);
+
+				const { unmount } = renderHook(() =>
+					useSubscribe({ topic, triggerLatest: true }, callback),
+				);
+
+				expect(callback).toHaveBeenCalledTimes(1);
+				expect(callback).toHaveBeenCalledWith(jiraCreateContext);
+				unmount();
+			});
+
 			it('does not let `set-message-context` overwrite a queued action event when the gate is on', () => {
 				passGate('rovo_chat_fix_cold_start_prompt_insertion');
 				const insertPrompt: Payload = {

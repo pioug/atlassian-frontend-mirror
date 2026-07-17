@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import { Stack } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { Hide } from '@atlaskit/primitives/responsive';
 
 export default function Example(): React.JSX.Element {

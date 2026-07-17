@@ -148,6 +148,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 		const disabledA11yProps = isDisabledChip
 			? {
 					'aria-disabled': true as const,
+					tabIndex: 0,
 					...(disabledTooltip ? { 'aria-label': `${text || '@...'} — ${disabledTooltip}` } : {}),
 				}
 			: {};

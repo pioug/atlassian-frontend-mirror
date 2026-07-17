@@ -1,65 +1,70 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-	unknownUserError: {
-		id: string;
+	defaultAdvisedAction: {
 		defaultMessage: string;
 		description: string;
-	};
-	noAccessWarning: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	noAccessLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	defaultHeadline: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	defaultAdvisedAction: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	loginAgain: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	differentText: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	loadingPlaceholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	loginAgain: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	memberCountWithoutYou: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	memberCountWithYou: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	noAccessLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	noAccessWarning: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	plus50MembersWithoutYou: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	plus50MembersWithYou: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	unknownUserError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	xProductMentionDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 } = defineMessages({
 	unknownUserError: {
@@ -125,5 +130,11 @@ export const messages: {
 		id: 'fabric.elements.mentions.xproduct.mention.description',
 		defaultMessage: 'Needs access to Confluence',
 		description: 'Description for a x-product mention item in the mention list in Confluence',
+	},
+	loadingPlaceholder: {
+		id: 'fabric.elements.mentions.loading.placeholder',
+		defaultMessage: 'Loading',
+		description:
+			'Accessible label for a loading placeholder row shown in the mention list while a slower mention source (such as agents) is still loading.',
 	},
 });

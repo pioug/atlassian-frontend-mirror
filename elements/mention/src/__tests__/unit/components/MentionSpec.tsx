@@ -6,6 +6,7 @@ import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-
 import FocusRing from '@atlaskit/focus-ring';
 import React from 'react';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
+import { mentionStyle } from '../../../components/Mention/mention-style';
 import ResourcedMention from '../../../components/Mention/ResourcedMention';
 import { ELEMENTS_CHANNEL } from '../../../_constants';
 import { IntlProvider } from 'react-intl';
@@ -183,6 +184,28 @@ describe('<Mention />', () => {
 			await expect(document.body).toBeAccessible();
 		});
 
+		it('should keep a disabled mention keyboard-focusable, readable, and expose the disabled reason', async () => {
+			const tooltip = 'Only one agent can be active at a time';
+			const { container } = await renderWait(
+				<Mention {...mentionData} isDisabled disabledTooltip={tooltip} />,
+			);
+
+			const item = container.querySelector(`[data-mention-type="${MentionType.DISABLED}"]`);
+			expect(item).toBeInTheDocument();
+			expect(item).toHaveAttribute('aria-disabled', 'true');
+			expect(item).toHaveAttribute('aria-label', `${mentionData.text} — ${tooltip}`);
+			expect(item).toHaveAttribute('tabindex', '0');
+			expect(mentionStyle[MentionType.DISABLED]).toEqual(
+				expect.objectContaining({
+					background: expect.stringContaining('--ds-background-disabled'),
+					text: expect.stringContaining('--ds-text-disabled'),
+					hoveredBackground: mentionStyle[MentionType.DISABLED].background,
+					pressedBackground: mentionStyle[MentionType.DISABLED].background,
+				}),
+			);
+
+			await expect(document.body).toBeAccessible();
+		});
 		it('should dispatch onClick-event', async () => {
 			const user = userEvent.setup();
 			const spy = jest.fn();

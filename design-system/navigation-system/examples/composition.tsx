@@ -278,7 +278,7 @@ export default function Composition({
 						<Help label="Help" onClick={() => console.log('help button clicked')} />
 						<Notifications
 							badge={() => (
-								<Badge max={9} appearance="important">
+								<Badge max={9} appearance="dangerBold">
 									{99999}
 								</Badge>
 							)}

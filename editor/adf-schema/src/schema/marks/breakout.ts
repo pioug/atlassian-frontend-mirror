@@ -5,6 +5,7 @@ const allowedTypes = ['wide', 'full-width'];
 
 export type BreakoutMarkAttrs = {
 	mode: 'wide' | 'full-width';
+	width?: number;
 };
 
 /**

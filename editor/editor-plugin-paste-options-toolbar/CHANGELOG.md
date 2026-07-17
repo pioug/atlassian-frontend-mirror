@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 13.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.0
+
+### Minor Changes
+
+- [`06c7a1c8b9f35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/06c7a1c8b9f35) -
+  Fix Ask Rovo context for pasted Smart Links and hide single-link AI actions in comments
+
+## 13.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.8
 
 ### Patch Changes

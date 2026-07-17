@@ -1,12 +1,12 @@
 {
 	"name": "@atlaskit/editor-extension-googledrive",
-	"version": "10.1.0",
+	"version": "10.1.2",
 	"description": "An Atlassian editor extension to add a native Google Drive picker",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
 	"repository": {
-		"url": "https://bitbucket.org/atlassian/atlassian-frontend.git"
+		"url": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo"
 	},
 	"author": "Atlassian",
 	"license": "Apache-2.0",

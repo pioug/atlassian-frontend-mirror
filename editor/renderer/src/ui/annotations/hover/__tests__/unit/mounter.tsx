@@ -1,4 +1,5 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -21,6 +22,9 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 
 jest.mock('../../../draft/dom');
 jest.mock('../../../draft/component');
+jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
+	editorExperiment: jest.fn(() => false),
+}));
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: Mounter', () => {
@@ -184,6 +188,39 @@ describe('Annotations: Mounter', () => {
 					annotationType: AnnotationTypes.INLINE_COMMENT,
 				};
 				expect(fakeApplyAnnotation).toHaveBeenCalledWith(fakeDocumentPosition, fakeAnnotation);
+			});
+		});
+
+		describe('COMMENTS-6594: experiment on — uses current position not stale', () => {
+			beforeEach(() => {
+				(editorExperiment as jest.Mock).mockImplementation(
+					(key: string, param: string) =>
+						key === 'confluence_inline_comments_fix_stale_selection' && param === 'isEnabled',
+				);
+			});
+
+			afterEach(() => {
+				(editorExperiment as jest.Mock).mockReset();
+			});
+
+			it('should use current position, not stale position from previous selection', () => {
+				// Render with position #1, trigger applyDraftMode
+				const { applyDraftModeCallback } = renderMounter({ from: 0, to: 10 });
+				act(() => {
+					applyDraftModeCallback({ keepNativeSelection: true });
+				});
+
+				// Re-render with position #2 — capture fresh onCreateCallback from second render
+				const nextDocumentPosition = { from: 30, to: 45 };
+				const { onCreateCallback } = renderMounter(nextDocumentPosition);
+
+				// onCreate should use position #2 (not stale position #1)
+				onCreateCallback('annotationId');
+
+				expect(fakeApplyAnnotation).toHaveBeenCalledWith(nextDocumentPosition, {
+					annotationId: 'annotationId',
+					annotationType: AnnotationTypes.INLINE_COMMENT,
+				});
 			});
 		});
 

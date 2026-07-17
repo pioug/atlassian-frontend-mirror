@@ -3,7 +3,7 @@ import invariant from 'tiny-invariant';
 
 import { expect, test } from '@af/integration-testing';
 
-const featureFlag = 'platform-dst-top-layer';
+const featureFlag = 'platform-dst-top-layer-tooltip';
 
 /**
  * Chromium supports `focusVisible`; `lib.dom` `FocusOptions` may lag behind.

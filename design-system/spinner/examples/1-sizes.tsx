@@ -32,7 +32,7 @@ export default function Example(): JSX.Element {
 				<div key={size} css={itemStyles}>
 					<Spinner size={size} label="Loading" />
 					{typeof size === 'number' ? (
-						<Lozenge appearance="new">custom</Lozenge>
+						<Lozenge appearance="discovery">custom</Lozenge>
 					) : (
 						<Lozenge appearance="success">{size}</Lozenge>
 					)}

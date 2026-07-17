@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 
 import { styled } from '@compiled/react';
 
-import { RemovableTag as Tag } from '@atlaskit/tag';
+import Tag from '@atlaskit/tag';
 import { token } from '@atlaskit/tokens';
 
 const cupcakeipsum = 'Croissant topping tiramisu gummi bears. Bonbon chocolate bar danish soufflé';

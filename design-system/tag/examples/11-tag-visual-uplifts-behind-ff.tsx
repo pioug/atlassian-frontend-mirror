@@ -8,7 +8,7 @@ import Avatar from '@atlaskit/avatar';
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
-import Tag, { AvatarTag, RemovableTag, SimpleTag } from '@atlaskit/tag';
+import Tag, { AvatarTag } from '@atlaskit/tag';
 import TeamAvatar from '@atlaskit/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
@@ -53,28 +53,30 @@ export default function TagVisualUplifts(): JSX.Element {
 					<Stack space="space.200">
 						<Text weight="bold">Simple Tags (Old API - will map to new colors with FF on)</Text>
 						<Inline space="space.100" alignBlock="center">
-							<SimpleTag text="Standard" color="standard" testId="tag-standard" />
-							<SimpleTag text="Grey" color="grey" testId="tag-grey" />
-							<SimpleTag text="Blue" color="blue" testId="tag-blue" />
-							<SimpleTag text="Red" color="red" testId="tag-red" />
-							<SimpleTag text="Green" color="green" testId="tag-green" />
-							<SimpleTag text="Yellow" color="yellow" testId="tag-yellow" />
-							<SimpleTag text="Purple" color="purple" testId="tag-purple" />
-							<SimpleTag text="Lime" color="lime" testId="tag-lime" />
-							<SimpleTag text="Magenta" color="magenta" testId="tag-magenta" />
-							<SimpleTag text="Orange" color="orange" testId="tag-orange" />
-							<SimpleTag text="Teal" color="teal" testId="tag-teal" />
-							<SimpleTag
+							<Tag text="Standard" color="standard" testId="tag-standard" isRemovable={false} />
+							<Tag text="Grey" color="grey" testId="tag-grey" isRemovable={false} />
+							<Tag text="Blue" color="blue" testId="tag-blue" isRemovable={false} />
+							<Tag text="Red" color="red" testId="tag-red" isRemovable={false} />
+							<Tag text="Green" color="green" testId="tag-green" isRemovable={false} />
+							<Tag text="Yellow" color="yellow" testId="tag-yellow" isRemovable={false} />
+							<Tag text="Purple" color="purple" testId="tag-purple" isRemovable={false} />
+							<Tag text="Lime" color="lime" testId="tag-lime" isRemovable={false} />
+							<Tag text="Magenta" color="magenta" testId="tag-magenta" isRemovable={false} />
+							<Tag text="Orange" color="orange" testId="tag-orange" isRemovable={false} />
+							<Tag text="Teal" color="teal" testId="tag-teal" isRemovable={false} />
+							<Tag
 								text="Blue with swatch before"
 								color="blue"
 								testId="tag-blue-swatch"
 								swatchBefore
+								isRemovable={false}
 							/>
-							<SimpleTag
+							<Tag
 								text="Green with custom swatch"
 								color="green"
 								testId="tag-green-custom-swatch"
 								swatchBefore={token('color.background.accent.orange.subtle')}
+								isRemovable={false}
 							/>
 						</Inline>
 					</Stack>
@@ -85,25 +87,25 @@ export default function TagVisualUplifts(): JSX.Element {
 					<Stack space="space.200">
 						<Text weight="bold">Removable Tags (with remove button)</Text>
 						<Inline space="space.100" alignBlock="center">
-							<RemovableTag
+							<Tag
 								text="Removable Grey"
 								color="grey"
 								removeButtonLabel="Remove"
 								testId="removable-grey"
 							/>
-							<RemovableTag
+							<Tag
 								text="Removable Blue"
 								color="blue"
 								removeButtonLabel="Remove"
 								testId="removable-blue"
 							/>
-							<RemovableTag
+							<Tag
 								text="Removable Red"
 								color="red"
 								removeButtonLabel="Remove"
 								testId="removable-red"
 							/>
-							<RemovableTag
+							<Tag
 								text="Removable Green"
 								color="green"
 								removeButtonLabel="Remove"
@@ -118,13 +120,20 @@ export default function TagVisualUplifts(): JSX.Element {
 					<Stack space="space.200">
 						<Text weight="bold">Link Tags (clickable)</Text>
 						<Inline space="space.100" alignBlock="center">
-							<SimpleTag
+							<Tag
 								text="Link Tag"
 								color="blue"
 								href="https://atlassian.com"
 								testId="link-tag"
+								isRemovable={false}
 							/>
-							<SimpleTag text="Another Link" color="purple" href="#" testId="link-tag-2" />
+							<Tag
+								text="Another Link"
+								color="purple"
+								href="#"
+								testId="link-tag-2"
+								isRemovable={false}
+							/>
 						</Inline>
 					</Stack>
 				</div>

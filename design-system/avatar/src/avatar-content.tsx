@@ -180,6 +180,7 @@ const unboundStyles = unboundCssMap({
 
 const widthHeightMap = cssMap({
 	xsmall: { width: '16px', height: '16px' },
+	UNSAFE_xsmall: { width: '20px', height: '20px' },
 	small: { width: '24px', height: '24px' },
 	medium: { width: '32px', height: '32px' },
 	large: { width: '40px', height: '40px' },

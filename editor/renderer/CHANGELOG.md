@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 133.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.11.1
+
+### Patch Changes
+
+- [`ba8c317b7b604`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba8c317b7b604) -
+  Add breakout mark width and root-only panel/rule typing
+- Updated dependencies
+
+## 133.11.0
+
+### Minor Changes
+
+- [`d3536d2e15575`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3536d2e15575) -
+  Fix inline comment anchoring to wrong text when a new selection is made while a draft is active.
+  Clears stale hover/selection draft position before promoting new selection, and adds missing deps
+  to useCallback arrays.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.10.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.10.5
 
 ### Patch Changes

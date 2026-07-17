@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Box from '@atlaskit/primitives/box';
 
 import type { TabIndex } from '../../types';

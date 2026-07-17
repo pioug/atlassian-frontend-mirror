@@ -31,6 +31,16 @@ import MentionDescriptionByline from '../MentionDescriptionByline';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import { MentionAvatar } from '../MentionAvatar';
 
+// Lazy-loaded so `@atlaskit/skeleton` (only needed for the loading
+// placeholder) doesn't enter the bundle for every `@atlaskit/mention`
+// consumer — only when an `isPlaceholder` mention is actually rendered.
+const MentionItemPlaceholder = React.lazy(
+	() =>
+		import(
+			/* webpackChunkName: "@atlaskit-internal_mention-item-placeholder" */ './MentionItemPlaceholder'
+		),
+);
+
 export { MENTION_ITEM_HEIGHT, MENTION_ITEM_HEIGHT_REFRESHED } from './styles';
 
 const lozengeAppearanceToTagColor: Record<LozengeColor, TagColor> = {
@@ -110,6 +120,18 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 		const { mention, selected, forwardedRef, height } = this.props;
 		const { id, highlight, presence, name, mentionName, lozenge, accessLevel, isXProductUser } =
 			mention;
+
+		if (mention.isPlaceholder) {
+			return (
+				<MessagesIntlProvider>
+					{/* Height-preserving fallback so the row doesn't collapse and jump
+					 * while the lazy placeholder chunk loads. */}
+					<React.Suspense fallback={<MentionItemStyle height={height} aria-hidden />}>
+						<MentionItemPlaceholder height={height} forwardedRef={forwardedRef} id={id} />
+					</React.Suspense>
+				</MessagesIntlProvider>
+			);
+		}
 		const { time } = presence || ({} as Presence);
 		const restricted = isRestricted(accessLevel);
 

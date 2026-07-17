@@ -1,5 +1,55 @@
 # @atlaskit/mention
 
+## 27.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.7.0
+
+### Minor Changes
+
+- [`d6596dc895420`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6596dc895420) -
+  Show a loading shimmer in the mention typeahead Agents section while the (slower) agent source
+  resolves. The Rovo chat mention provider now emits a non-selectable loading placeholder in the
+  agents slot until agents arrive (gated by rovo_chat_agent_selection); @atlaskit/mention renders it
+  as a skeleton row, and the editor mention plugin guards it from selection/analytics.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.6.0
+
+### Minor Changes
+
+- [`2aa9853a2c07d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2aa9853a2c07d) -
+  `ResourcedMention` and the editor-common `Mention` now accept an `isDisabled` (and
+  `disabledTooltip`) prop, forwarding the disabled mention visual state through the layered mention
+  components. A disabled mention bypasses the profile-card wrapper as it is non-interactive, while
+  retaining a readable neutral visual treatment so meaningful mention text remains perceivable.
+
+  Example usage:
+
+  ```tsx
+  <Mention
+  	id="agent-2"
+  	text="@Researcher"
+  	isDisabled
+  	disabledTooltip="Only one agent can be active at a time"
+  />
+  ```
+
+  Used in Rovo chat to grey out inactive (non-responding) agent @mentions in sent user messages: the
+  agent that responded to the turn stays fully styled while other mentioned agents render disabled.
+
 ## 27.5.2
 
 ### Patch Changes

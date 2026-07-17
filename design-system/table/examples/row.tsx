@@ -38,7 +38,7 @@ export default function RowExample(): React.JSX.Element {
 						<AKDate value={Number(new Date(user.dob.date))} />
 					</Cell>
 					<Cell>
-						<Lozenge appearance="moved">Overdue</Lozenge>
+						<Lozenge appearance="warning">Overdue</Lozenge>
 					</Cell>
 					<Cell align="icon">
 						<Flex xcss={iconSpacingStyles.space050}>

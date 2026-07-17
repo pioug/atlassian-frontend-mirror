@@ -11,6 +11,7 @@ interface Props {
 		enableAgentSectioning?: boolean;
 		getIsRovoPanelOpen?: () => boolean;
 		handleMentionsChanged: MentionsChangedHandler;
+		showAgentMentionsLabsLozenge?: boolean;
 	};
 	providers: {
 		mentionProvider: Promise<MentionProvider> | undefined;
@@ -28,6 +29,7 @@ export function mentionsPluginOptions({ options, providers }: Props): MentionsPl
 		mentionProvider: providers.mentionProvider,
 		currentUserId: options.currentUserId,
 		enableAgentSectioning: options.enableAgentSectioning,
+		showAgentMentionsLabsLozenge: options.showAgentMentionsLabsLozenge,
 		getIsRovoPanelOpen: options.getIsRovoPanelOpen,
 	};
 }

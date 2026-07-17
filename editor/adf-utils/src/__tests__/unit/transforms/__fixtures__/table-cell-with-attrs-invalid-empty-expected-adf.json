@@ -1,0 +1,48 @@
+{
+  "content": [
+    {
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "123"
+      },
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
+                "colwidth": [
+                  502
+                ]
+              },
+              "content": [
+                {
+                  "content": [],
+                  "type": "paragraph"
+                }
+              ],
+              "type": "tableCell"
+            },
+            {
+              "attrs": {
+                "colwidth": [
+                  258
+                ]
+              },
+              "content": [
+                {
+                  "content": [],
+                  "type": "paragraph"
+                }
+              ],
+              "type": "tableCell"
+            }
+          ],
+          "type": "tableRow"
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "type": "doc"
+}

@@ -29,6 +29,10 @@ const styles = cssMap({
 		borderColor: token('color.border'),
 		borderRadius: token('radius.small'),
 	},
+	removeColorButtonPatch: {
+		marginTop: token('space.0'),
+		marginInline: token('space.0'),
+	},
 	iconContainer: {
 		display: 'flex',
 		alignItems: 'center',
@@ -82,7 +86,7 @@ export const RemoveColorMenuItem = ({
 	if (expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
 		if (fg('platform_editor_lovability_text_bg_color_patch_1')) {
 			return (
-				<div css={styles.removeColorButton}>
+				<div css={[styles.removeColorButton, styles.removeColorButtonPatch]}>
 					<Button shouldFitContainer appearance="subtle" onClick={onClick}>
 						<span css={styles.iconContainer}>
 							<ColourNoneIcon size="medium" label="" />

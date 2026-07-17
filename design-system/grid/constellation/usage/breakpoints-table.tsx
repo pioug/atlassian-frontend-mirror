@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives/responsive';
 import { Table, TBody, TD, TH, THead, TR } from '@atlaskit/table/primitives';
 

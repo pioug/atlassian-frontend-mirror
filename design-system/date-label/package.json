@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date-label",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Date label is a non-interactive label that displays a date and optionally, visually communicates its status.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

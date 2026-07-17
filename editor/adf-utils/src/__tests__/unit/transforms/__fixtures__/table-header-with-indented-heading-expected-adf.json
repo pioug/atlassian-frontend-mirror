@@ -1,0 +1,40 @@
+{
+  "content": [
+    {
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "123"
+      },
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
+                    "level": 1
+                  },
+                  "content": [
+                    {
+                      "text": "text",
+                      "type": "text"
+                    }
+                  ],
+                  "marks": [],
+                  "type": "heading"
+                }
+              ],
+              "type": "tableHeader"
+            }
+          ],
+          "type": "tableRow"
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "type": "doc",
+  "version": 1
+}

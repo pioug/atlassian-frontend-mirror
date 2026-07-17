@@ -1,5 +1,37 @@
 # @atlaskit/editor-toolbar
 
+## 2.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [`d778b282fb391`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d778b282fb391) -
+  Tighten color picker spacing and footer dimensions.
+
+  The `@atlaskit/editor-toolbar/color-palette` entry point now supports a `gap` prop to customise
+  spacing between color tile wrappers, for example: `<ColorPalette gap="space.0" {...props} />`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.3
 
 ### Patch Changes

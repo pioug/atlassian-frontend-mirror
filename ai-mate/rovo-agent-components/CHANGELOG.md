@@ -1,5 +1,34 @@
 # @atlaskit/rovo-agent-components
 
+## 8.0.0
+
+### Major Changes
+
+- [`53dd004a01fc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53dd004a01fc4) -
+  Removes the Rovo creator icon on the agent profile card and across all other surfaces where this
+  is used. Removes the `hideCreatorIcon` prop from agent profile info - all usages have been cleaned
+  up in this PR
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.2
+
+### Patch Changes
+
+- [`7722b9396665c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7722b9396665c) -
+  Add the Servo team as both a Trusted Committer and Trusted Reviewer Team in the `compass.yml` of
+  Agents FE-owned packages. This lets the Servo sister team raise and approve PRs in these packages
+  without waiting for Agents FE owner approval. No functional/runtime change.
+- Updated dependencies
+
 ## 7.5.1
 
 ### Patch Changes

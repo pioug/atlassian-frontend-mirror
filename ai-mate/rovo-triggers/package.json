@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-triggers",
-	"version": "9.10.0",
+	"version": "9.11.1",
 	"description": "Provides various trigger events to drive Rovo Chat functionality, such as a publish-subscribe and URL parameter hooks",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -99,6 +99,9 @@
 	},
 	"platform-feature-flags": {
 		"rovo_chat_fix_cold_start_prompt_insertion": {
+			"type": "boolean"
+		},
+		"rovo_chat_fix_jira_prompt_dropped_on_reopen": {
 			"type": "boolean"
 		}
 	}

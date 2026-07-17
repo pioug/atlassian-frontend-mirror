@@ -1,5 +1,29 @@
 # @atlaskit/avatar
 
+## 26.2.0
+
+### Minor Changes
+
+- [`0a1dac0483f0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a1dac0483f0a) -
+  Add a new `UNSAFE_xsmall` size variant (20px) to `Avatar`, `AvatarContent`, and `Skeleton`. It
+  sits between the existing `xsmall` (16px) and `small` (24px) sizes and supports presence and
+  status indicators.
+
+  `UNSAFE_xsmall` is an unsafe, transitional size that is intentionally hidden from the documented
+  size scale (`@private`). The size scale will eventually be renamed so the 16px avatar becomes
+  `xxsmall` and `xsmall` represents 20px. Until that migration happens, `UNSAFE_xsmall` provides a
+  20px avatar for consumers that need it.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.1.2
 
 ### Patch Changes

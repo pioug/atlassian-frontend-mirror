@@ -10,11 +10,15 @@ const getUrlFromTextLinkNode = (node: PMNode): string | undefined => {
 	return typeof href === 'string' && node.text === href ? href : undefined;
 };
 
-const getUrlFromInlineCardNode = (node: PMNode): string | undefined => {
-	if (node.type.name !== 'inlineCard') {
+const getUrlFromCardNode = (node: PMNode): string | undefined => {
+	if (
+		node.type.name !== 'inlineCard' &&
+		node.type.name !== 'blockCard' &&
+		node.type.name !== 'embedCard'
+	) {
 		return undefined;
 	}
-	const url = node.attrs?.url;
+	const url = node.attrs?.url ?? node.attrs?.data?.url;
 	return typeof url === 'string' ? url : undefined;
 };
 
@@ -39,7 +43,7 @@ export const getSingleSmartLinkUrlFromSlice = (slice: Slice | undefined): string
 	}
 
 	const topNode = slice.content.child(0);
-	const topNodeUrl = getUrlFromTextLinkNode(topNode) ?? getUrlFromInlineCardNode(topNode);
+	const topNodeUrl = getUrlFromTextLinkNode(topNode) ?? getUrlFromCardNode(topNode);
 	if (topNodeUrl) {
 		return topNodeUrl;
 	}
@@ -53,5 +57,5 @@ export const getSingleSmartLinkUrlFromSlice = (slice: Slice | undefined): string
 		return undefined;
 	}
 
-	return getUrlFromTextLinkNode(children[0]) ?? getUrlFromInlineCardNode(children[0]);
+	return getUrlFromTextLinkNode(children[0]) ?? getUrlFromCardNode(children[0]);
 };

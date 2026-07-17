@@ -72,7 +72,7 @@ export interface AvatarGroupProps {
 	 * Defines the size of the avatar.
 	 * Defaults to "medium".
 	 *
-	 * Note: The "xsmall" size that exists on Avatar is not supported here because elements such as the more indicator cannot be displayed in an accessible manner at that size.
+	 * Note: The "xsmall" (16px) and "UNSAFE_xsmall" (20px) sizes that exist on Avatar are not supported here because elements such as the more indicator cannot be displayed in an accessible manner at those sizes.
 	 */
 	size?: AvatarGroupSize;
 

@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import LogInIcon from '@atlaskit/icon/core/log-in';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import type { AnchorProps } from '@atlaskit/primitives/anchor';
 
 import { ListItem } from '../../components/list-item';

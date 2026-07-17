@@ -2,13 +2,13 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { Box } from '@atlaskit/primitives/compiled';
-import Tag, { AvatarTag, SimpleTag } from '@atlaskit/tag';
+import Tag, { AvatarTag } from '@atlaskit/tag';
 import TeamAvatar from '@atlaskit/teams-avatar';
 
 export default (): React.JSX.Element => (
 	<Box role="group" aria-label="Overview examples">
-		<SimpleTag text="Text only" />
-		<SimpleTag href="https://some.link" text="Linked text" />
+		<Tag text="Text only" isRemovable={false} />
+		<Tag href="https://some.link" text="Linked text" isRemovable={false} />
 		<Tag text="Removable" removeButtonLabel="Remove me" />
 		<Tag href="https://some.link" text="Removable & linked" removeButtonLabel="Remove me" />
 		<Tag text="Overflowing text that will be cut off" />
@@ -39,30 +39,60 @@ export default (): React.JSX.Element => (
 			avatar={(props: any) => <TeamAvatar {...props} name="Engineering Team" />}
 			removeButtonLabel="Remove me"
 		/>
-		<SimpleTag text="standard color" color="standard" />
-		<SimpleTag text="green color" color="green" />
-		<SimpleTag text="teal color" color="teal" />
-		<SimpleTag text="blue color" color="blue" />
-		<SimpleTag text="purple color" color="purple" />
-		<SimpleTag text="red color" color="red" />
-		<SimpleTag text="yellow color" color="yellow" />
-		<SimpleTag text="grey color" color="grey" />
-		<SimpleTag text="greenLight color" color="greenLight" />
-		<SimpleTag text="tealLight color" color="tealLight" />
-		<SimpleTag text="blueLight color" color="blueLight" />
-		<SimpleTag text="purpleLight color" color="purpleLight" />
-		<SimpleTag text="redLight color" color="redLight" />
-		<SimpleTag text="yellowLight color" color="yellowLight" />
-		<SimpleTag text="greyLight color" color="greyLight" />
+		<Tag text="standard color" color="standard" isRemovable={false} />
+		<Tag text="green color" color="green" isRemovable={false} />
+		<Tag text="teal color" color="teal" isRemovable={false} />
+		<Tag text="blue color" color="blue" isRemovable={false} />
+		<Tag text="purple color" color="purple" isRemovable={false} />
+		<Tag text="red color" color="red" isRemovable={false} />
+		<Tag text="yellow color" color="yellow" isRemovable={false} />
+		<Tag text="grey color" color="grey" isRemovable={false} />
+		<Tag text="greenLight color" color="greenLight" isRemovable={false} />
+		<Tag text="tealLight color" color="tealLight" isRemovable={false} />
+		<Tag text="blueLight color" color="blueLight" isRemovable={false} />
+		<Tag text="purpleLight color" color="purpleLight" isRemovable={false} />
+		<Tag text="redLight color" color="redLight" isRemovable={false} />
+		<Tag text="yellowLight color" color="yellowLight" isRemovable={false} />
+		<Tag text="greyLight color" color="greyLight" isRemovable={false} />
 
-		<SimpleTag text="red color" color="red" href="https://atlaskit.atlassian.com/" />
-		<SimpleTag text="yellow color" color="yellow" href="https://atlaskit.atlassian.com/" />
-		<SimpleTag text="grey color" color="grey" href="https://atlaskit.atlassian.com/" />
-		<SimpleTag text="greenLight color" color="greenLight" href="https://atlaskit.atlassian.com/" />
-		<SimpleTag text="tealLight color" color="tealLight" href="https://atlaskit.atlassian.com/" />
-		<SimpleTag text="blueLight color" color="blueLight" href="https://atlaskit.atlassian.com/" />
+		<Tag text="red color" color="red" href="https://atlaskit.atlassian.com/" isRemovable={false} />
+		<Tag
+			text="yellow color"
+			color="yellow"
+			href="https://atlaskit.atlassian.com/"
+			isRemovable={false}
+		/>
+		<Tag
+			text="grey color"
+			color="grey"
+			href="https://atlaskit.atlassian.com/"
+			isRemovable={false}
+		/>
+		<Tag
+			text="greenLight color"
+			color="greenLight"
+			href="https://atlaskit.atlassian.com/"
+			isRemovable={false}
+		/>
+		<Tag
+			text="tealLight color"
+			color="tealLight"
+			href="https://atlaskit.atlassian.com/"
+			isRemovable={false}
+		/>
+		<Tag
+			text="blueLight color"
+			color="blueLight"
+			href="https://atlaskit.atlassian.com/"
+			isRemovable={false}
+		/>
 
 		<Tag isRemovable text="blue color" color="blue" />
-		<SimpleTag text="blue color" color="blue" href="https://atlaskit.atlassian.com/" />
+		<Tag
+			text="blue color"
+			color="blue"
+			href="https://atlaskit.atlassian.com/"
+			isRemovable={false}
+		/>
 	</Box>
 );

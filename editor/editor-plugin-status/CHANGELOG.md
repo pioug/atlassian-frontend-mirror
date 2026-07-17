@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-status
 
+## 13.1.0
+
+### Minor Changes
+
+- [`f4f1a7be76c2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4f1a7be76c2c) -
+  Add reusable status suggestions to the editor status picker
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.23
 
 ### Patch Changes

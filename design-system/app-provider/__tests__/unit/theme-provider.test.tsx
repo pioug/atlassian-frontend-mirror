@@ -1,9 +1,9 @@
 /* eslint-disable import/order */
 import React from 'react';
 
-import * as tokens from '@atlaskit/tokens';
 import * as tokensGetGlobalTheme from '@atlaskit/tokens/get-global-theme';
 import * as tokensSetGlobalTheme from '@atlaskit/tokens/set-global-theme';
+import { themeObjectToString } from '@atlaskit/tokens/theme-state-transformer';
 import { render, screen, userEvent, waitFor } from '@atlassian/testing-library';
 
 // Mock must be imported before ThemeProvider
@@ -17,11 +17,6 @@ import { useIsInsideThemeProvider } from '../../src/theme-provider/hooks/use-is-
 import { useSetColorMode } from '../../src/theme-provider/hooks/use-set-color-mode';
 import { useSetTheme } from '../../src/theme-provider/hooks/use-set-theme';
 import { useTheme } from '../../src/theme-provider/hooks/use-theme';
-
-jest.mock('@atlaskit/tokens', () => ({
-	__esModule: true,
-	...jest.requireActual('@atlaskit/tokens'),
-}));
 
 // Mock sub-path entry points used by the source files
 jest.mock('@atlaskit/tokens/set-global-theme', () => ({
@@ -47,6 +42,11 @@ jest.mock('@atlaskit/tokens/constants', () => ({
 jest.mock('@atlaskit/tokens/get-theme-html-attrs', () => ({
 	__esModule: true,
 	...jest.requireActual('@atlaskit/tokens/get-theme-html-attrs'),
+}));
+
+jest.mock('@atlaskit/tokens/theme-state-transformer', () => ({
+	__esModule: true,
+	...jest.requireActual('@atlaskit/tokens/theme-state-transformer'),
 }));
 
 // Mock loadAndMountThemes
@@ -525,7 +525,7 @@ describe('ThemeProvider', () => {
 			it('should return default theme when no ThemeProvider is present (DOM fallback)', async () => {
 				document.documentElement.setAttribute(
 					'data-theme',
-					tokens.themeObjectToString({
+					themeObjectToString({
 						light: 'light',
 						dark: 'dark',
 						spacing: 'spacing',
@@ -550,7 +550,7 @@ describe('ThemeProvider', () => {
 			it('should return default theme when UNSAFE_isThemingDisabled is true', async () => {
 				document.documentElement.setAttribute(
 					'data-theme',
-					tokens.themeObjectToString({
+					themeObjectToString({
 						light: 'dark',
 						dark: 'dark',
 						spacing: 'spacing',

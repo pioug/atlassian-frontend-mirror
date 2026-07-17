@@ -3,6 +3,7 @@ import React from 'react';
 import Banner from '@atlaskit/banner/banner';
 import { cssMap } from '@atlaskit/css';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Box from '@atlaskit/primitives/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';

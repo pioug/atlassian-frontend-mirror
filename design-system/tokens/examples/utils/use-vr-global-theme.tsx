@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
 export const useVrGlobalTheme = (): void => {
 	useEffect(() => {

@@ -67,7 +67,8 @@ const getWidth = (width: number | null, mode: BreakoutMode) => {
  * @returns The rendered breakout mark as a React element.
  */
 export default function Breakout(props: MarkProps<BreakoutMarkAttrs>): jsx.JSX.Element {
-	const width = getWidth('width' in props ? props.width : null, props.mode);
+	const breakoutWidth = props.width ?? null;
+	const width = getWidth(breakoutWidth, props.mode);
 	const useStickySafeCentering = expValEquals(
 		'platform_editor_flex_based_centering',
 		'isEnabled',
@@ -119,7 +120,7 @@ export default function Breakout(props: MarkProps<BreakoutMarkAttrs>): jsx.JSX.E
 			})}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{
-				width: getWidth('width' in props ? props.width : null, props.mode),
+				width,
 			}}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="fabric-editor-breakout-mark fabric-editor-block-mark"

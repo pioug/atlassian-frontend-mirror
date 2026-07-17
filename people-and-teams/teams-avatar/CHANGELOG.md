@@ -1,5 +1,26 @@
 # @atlaskit/teams-avatar
 
+## 3.2.0
+
+### Minor Changes
+
+- [`0a1dac0483f0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a1dac0483f0a) -
+  `TeamAvatar`'s `size` prop is now typed as the new `TeamAvatarSize` type, which is the avatar
+  `SizeType` excluding `UNSAFE_xsmall` (20px). Team avatars have no dedicated 20px square artwork,
+  so this size is intentionally not supported by `TeamAvatar`.
+
+  `TeamAvatarSize` is exported from the `@atlaskit/teams-avatar/teams-avatar` entry point.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.2
 
 ### Patch Changes

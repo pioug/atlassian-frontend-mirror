@@ -15,6 +15,29 @@ export const getCardAtPasteRange = (
 	const from = Math.min(clampedStart, clampedEnd);
 	const to = Math.max(clampedStart, clampedEnd);
 	try {
+		if (from === to) {
+			for (const pos of [from - 1, from]) {
+				if (pos < 0 || pos >= docContentSize) {
+					continue;
+				}
+				const node = state.doc.nodeAt(pos);
+				if (
+					node?.type.name === 'inlineCard' ||
+					node?.type.name === 'blockCard' ||
+					node?.type.name === 'embedCard'
+				) {
+					return {
+						appearance:
+							node.type.name === 'inlineCard'
+								? 'inline'
+								: node.type.name === 'blockCard'
+									? 'block'
+									: 'embed',
+						pos,
+					};
+				}
+			}
+		}
 		state.doc.nodesBetween(from, to, (node, pos) => {
 			if (
 				node.type.name === 'inlineCard' ||

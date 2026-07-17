@@ -3,9 +3,9 @@
  *
  * Shared tokens file for UI Kit components. Contains design token maps for xcss support. Source: `packages/forge/forge-ui/src/components/UIKit/tokens.partial.tsx`
  *
- * @codegen <<SignedSource::49085469da38c9c4704acba13ae93dbf>>
+ * @codegen <<SignedSource::77da3715bf29013d0f51dec4d27575e7>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::48637863f57b9b72e665d930ae51c1db>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tokens.partial.tsx <<SignedSource::86058f5b7ed8b4712e83f2438690361f>>
  */
 /* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
 /* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */
@@ -20,19 +20,20 @@
  * @see https://developer.atlassian.com/platform/forge/ui-kit/components/xcss/
  */
 
-import { token, CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
+import { token } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/serialize';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::10d52b215acfc66f900649d6556fd7dd>>
+ * @codegen <<SignedSource::15f96f0413ce7f2c7febb6a97e29e973>>
  * @codegenId forge-tokens
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/dimensions.tsx <<SignedSource::cc9b3f12104c6ede803da6a42daac0b0>>
  * @codegenDependency ../../../../../design-system/primitives/scripts/codegen-file-templates/layer.tsx <<SignedSource::92793ca02dbfdad66e53ffbe9f0baa0a>>
- * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d72fd27108df4e10dac48aef4303f36e>>
+ * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::60f96d2ba00523e92861fb8c96c74c88>>
  * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::535518e7add48ef24f526d0904f70060>>
  * @codegenDependency ../../../../../design-system/tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::8817f4073995e5dc9c2bb766316632d6>>
  */
@@ -383,6 +384,7 @@ export const backgroundColorMap: {
 	'color.background.danger.subtler': 'var(--ds-background-danger-subtler)';
 	'color.background.danger.subtler.hovered': 'var(--ds-background-danger-subtler-hovered)';
 	'color.background.danger.subtler.pressed': 'var(--ds-background-danger-subtler-pressed)';
+	'color.background.danger.subtle': 'var(--ds-background-danger-subtle)';
 	'color.background.danger.bold': 'var(--ds-background-danger-bold)';
 	'color.background.danger.bold.hovered': 'var(--ds-background-danger-bold-hovered)';
 	'color.background.danger.bold.pressed': 'var(--ds-background-danger-bold-pressed)';
@@ -392,6 +394,7 @@ export const backgroundColorMap: {
 	'color.background.warning.subtler': 'var(--ds-background-warning-subtler)';
 	'color.background.warning.subtler.hovered': 'var(--ds-background-warning-subtler-hovered)';
 	'color.background.warning.subtler.pressed': 'var(--ds-background-warning-subtler-pressed)';
+	'color.background.warning.subtle': 'var(--ds-background-warning-subtle)';
 	'color.background.warning.bold': 'var(--ds-background-warning-bold)';
 	'color.background.warning.bold.hovered': 'var(--ds-background-warning-bold-hovered)';
 	'color.background.warning.bold.pressed': 'var(--ds-background-warning-bold-pressed)';
@@ -401,6 +404,7 @@ export const backgroundColorMap: {
 	'color.background.success.subtler': 'var(--ds-background-success-subtler)';
 	'color.background.success.subtler.hovered': 'var(--ds-background-success-subtler-hovered)';
 	'color.background.success.subtler.pressed': 'var(--ds-background-success-subtler-pressed)';
+	'color.background.success.subtle': 'var(--ds-background-success-subtle)';
 	'color.background.success.bold': 'var(--ds-background-success-bold)';
 	'color.background.success.bold.hovered': 'var(--ds-background-success-bold-hovered)';
 	'color.background.success.bold.pressed': 'var(--ds-background-success-bold-pressed)';
@@ -410,6 +414,7 @@ export const backgroundColorMap: {
 	'color.background.discovery.subtler': 'var(--ds-background-discovery-subtler)';
 	'color.background.discovery.subtler.hovered': 'var(--ds-background-discovery-subtler-hovered)';
 	'color.background.discovery.subtler.pressed': 'var(--ds-background-discovery-subtler-pressed)';
+	'color.background.discovery.subtle': 'var(--ds-background-discovery-subtle)';
 	'color.background.discovery.bold': 'var(--ds-background-discovery-bold)';
 	'color.background.discovery.bold.hovered': 'var(--ds-background-discovery-bold-hovered)';
 	'color.background.discovery.bold.pressed': 'var(--ds-background-discovery-bold-pressed)';
@@ -419,17 +424,24 @@ export const backgroundColorMap: {
 	'color.background.information.subtler': 'var(--ds-background-information-subtler)';
 	'color.background.information.subtler.hovered': 'var(--ds-background-information-subtler-hovered)';
 	'color.background.information.subtler.pressed': 'var(--ds-background-information-subtler-pressed)';
+	'color.background.information.subtle': 'var(--ds-background-information-subtle)';
 	'color.background.information.bold': 'var(--ds-background-information-bold)';
 	'color.background.information.bold.hovered': 'var(--ds-background-information-bold-hovered)';
 	'color.background.information.bold.pressed': 'var(--ds-background-information-bold-pressed)';
+	'color.skeleton': 'var(--ds-skeleton)';
+	'color.skeleton.subtle': 'var(--ds-skeleton-subtle)';
 	'color.blanket': 'var(--ds-blanket)';
 	'color.blanket.selected': 'var(--ds-blanket-selected)';
 	'color.blanket.danger': 'var(--ds-blanket-danger)';
-	'color.skeleton': 'var(--ds-skeleton)';
-	'color.skeleton.subtle': 'var(--ds-skeleton-subtle)';
+	'color.rovo.background.brand.bold': 'var(--ds-rovo-background-brand-bold)';
+	'color.rovo.background.brand.bold.hovered': 'var(--ds-rovo-background-brand-bold-hovered)';
+	'color.rovo.background.brand.bold.pressed': 'var(--ds-rovo-background-brand-bold-pressed)';
 	'elevation.surface': 'var(--ds-surface)';
 	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
 	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
+	'elevation.surface.container': 'var(--ds-surface-container)';
+	'elevation.surface.container.hovered': 'var(--ds-surface-container-hovered)';
+	'elevation.surface.container.pressed': 'var(--ds-surface-container-pressed)';
 	'elevation.surface.overlay': 'var(--ds-surface-overlay)';
 	'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
 	'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
@@ -944,6 +956,7 @@ export const backgroundColorMap: {
 		'color.background.danger.subtler.pressed',
 		'#FD9891',
 	),
+	'color.background.danger.subtle': token('color.background.danger.subtle', '#FD9891'),
 	'color.background.danger.bold': token('color.background.danger.bold', '#C9372C'),
 	'color.background.danger.bold.hovered': token('color.background.danger.bold.hovered', '#AE2E24'),
 	'color.background.danger.bold.pressed': token('color.background.danger.bold.pressed', '#872821'),
@@ -959,6 +972,7 @@ export const backgroundColorMap: {
 		'color.background.warning.subtler.pressed',
 		'#FBC828',
 	),
+	'color.background.warning.subtle': token('color.background.warning.subtle', '#FBD779'),
 	'color.background.warning.bold': token('color.background.warning.bold', '#FBC828'),
 	'color.background.warning.bold.hovered': token(
 		'color.background.warning.bold.hovered',
@@ -980,6 +994,7 @@ export const backgroundColorMap: {
 		'color.background.success.subtler.pressed',
 		'#B3DF72',
 	),
+	'color.background.success.subtle': token('color.background.success.subtle', '#B3DF72'),
 	'color.background.success.bold': token('color.background.success.bold', '#5B7F24'),
 	'color.background.success.bold.hovered': token(
 		'color.background.success.bold.hovered',
@@ -1001,6 +1016,7 @@ export const backgroundColorMap: {
 		'color.background.discovery.subtler.pressed',
 		'#D8A0F7',
 	),
+	'color.background.discovery.subtle': token('color.background.discovery.subtle', '#D8A0F7'),
 	'color.background.discovery.bold': token('color.background.discovery.bold', '#964AC0'),
 	'color.background.discovery.bold.hovered': token(
 		'color.background.discovery.bold.hovered',
@@ -1022,6 +1038,7 @@ export const backgroundColorMap: {
 		'color.background.information.subtler.pressed',
 		'#8FB8F6',
 	),
+	'color.background.information.subtle': token('color.background.information.subtle', '#8FB8F6'),
 	'color.background.information.bold': token('color.background.information.bold', '#1868DB'),
 	'color.background.information.bold.hovered': token(
 		'color.background.information.bold.hovered',
@@ -1031,14 +1048,26 @@ export const backgroundColorMap: {
 		'color.background.information.bold.pressed',
 		'#144794',
 	),
+	'color.skeleton': token('color.skeleton', '#0515240F'),
+	'color.skeleton.subtle': token('color.skeleton.subtle', '#17171708'),
 	'color.blanket': token('color.blanket', '#050C1F75'),
 	'color.blanket.selected': token('color.blanket.selected', '#388BFF14'),
 	'color.blanket.danger': token('color.blanket.danger', '#EF5C4814'),
-	'color.skeleton': token('color.skeleton', '#0515240F'),
-	'color.skeleton.subtle': token('color.skeleton.subtle', '#17171708'),
+	'color.rovo.background.brand.bold': token('color.rovo.background.brand.bold', '#000000'),
+	'color.rovo.background.brand.bold.hovered': token(
+		'color.rovo.background.brand.bold.hovered',
+		'#1E1F21',
+	),
+	'color.rovo.background.brand.bold.pressed': token(
+		'color.rovo.background.brand.bold.pressed',
+		'#292A2E',
+	),
 	'elevation.surface': token('elevation.surface', '#FFFFFF'),
 	'elevation.surface.hovered': token('elevation.surface.hovered', '#F0F1F2'),
 	'elevation.surface.pressed': token('elevation.surface.pressed', '#DDDEE1'),
+	'elevation.surface.container': token('elevation.surface.container', '#17171708'),
+	'elevation.surface.container.hovered': token('elevation.surface.container.hovered', '#0515240F'),
+	'elevation.surface.container.pressed': token('elevation.surface.container.pressed', '#0B120E24'),
 	'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
 	'elevation.surface.overlay.hovered': token('elevation.surface.overlay.hovered', '#F0F1F2'),
 	'elevation.surface.overlay.pressed': token('elevation.surface.overlay.pressed', '#DDDEE1'),
@@ -1054,15 +1083,25 @@ export type BackgroundColor = keyof typeof backgroundColorMap;
 export const borderColorMap: {
 	'color.border': 'var(--ds-border)';
 	'color.border.accent.lime': 'var(--ds-border-accent-lime)';
+	'color.border.accent.lime.subtle': 'var(--ds-border-accent-lime-subtle)';
 	'color.border.accent.red': 'var(--ds-border-accent-red)';
+	'color.border.accent.red.subtle': 'var(--ds-border-accent-red-subtle)';
 	'color.border.accent.orange': 'var(--ds-border-accent-orange)';
+	'color.border.accent.orange.subtle': 'var(--ds-border-accent-orange-subtle)';
 	'color.border.accent.yellow': 'var(--ds-border-accent-yellow)';
+	'color.border.accent.yellow.subtle': 'var(--ds-border-accent-yellow-subtle)';
 	'color.border.accent.green': 'var(--ds-border-accent-green)';
+	'color.border.accent.green.subtle': 'var(--ds-border-accent-green-subtle)';
 	'color.border.accent.teal': 'var(--ds-border-accent-teal)';
+	'color.border.accent.teal.subtle': 'var(--ds-border-accent-teal-subtle)';
 	'color.border.accent.blue': 'var(--ds-border-accent-blue)';
+	'color.border.accent.blue.subtle': 'var(--ds-border-accent-blue-subtle)';
 	'color.border.accent.purple': 'var(--ds-border-accent-purple)';
+	'color.border.accent.purple.subtle': 'var(--ds-border-accent-purple-subtle)';
 	'color.border.accent.magenta': 'var(--ds-border-accent-magenta)';
+	'color.border.accent.magenta.subtle': 'var(--ds-border-accent-magenta-subtle)';
 	'color.border.accent.gray': 'var(--ds-border-accent-gray)';
+	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
 	'color.border.disabled': 'var(--ds-border-disabled)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
@@ -1070,23 +1109,38 @@ export const borderColorMap: {
 	'color.border.selected': 'var(--ds-border-selected)';
 	'color.border.brand': 'var(--ds-border-brand)';
 	'color.border.danger': 'var(--ds-border-danger)';
+	'color.border.danger.subtle': 'var(--ds-border-danger-subtle)';
 	'color.border.warning': 'var(--ds-border-warning)';
+	'color.border.warning.subtle': 'var(--ds-border-warning-subtle)';
 	'color.border.success': 'var(--ds-border-success)';
+	'color.border.success.subtle': 'var(--ds-border-success-subtle)';
 	'color.border.discovery': 'var(--ds-border-discovery)';
+	'color.border.discovery.subtle': 'var(--ds-border-discovery-subtle)';
 	'color.border.information': 'var(--ds-border-information)';
+	'color.border.information.subtle': 'var(--ds-border-information-subtle)';
 	'color.border.bold': 'var(--ds-border-bold)';
 } = {
 	'color.border': token('color.border', '#0B120E24'),
 	'color.border.accent.lime': token('color.border.accent.lime', '#6A9A23'),
+	'color.border.accent.lime.subtle': token('color.border.accent.lime.subtle', '#B3DF72'),
 	'color.border.accent.red': token('color.border.accent.red', '#E2483D'),
+	'color.border.accent.red.subtle': token('color.border.accent.red.subtle', '#FD9891'),
 	'color.border.accent.orange': token('color.border.accent.orange', '#E06C00'),
+	'color.border.accent.orange.subtle': token('color.border.accent.orange.subtle', '#FBC828'),
 	'color.border.accent.yellow': token('color.border.accent.yellow', '#B38600'),
+	'color.border.accent.yellow.subtle': token('color.border.accent.yellow.subtle', '#EED12B'),
 	'color.border.accent.green': token('color.border.accent.green', '#22A06B'),
+	'color.border.accent.green.subtle': token('color.border.accent.green.subtle', '#7EE2B8'),
 	'color.border.accent.teal': token('color.border.accent.teal', '#2898BD'),
+	'color.border.accent.teal.subtle': token('color.border.accent.teal.subtle', '#9DD9EE'),
 	'color.border.accent.blue': token('color.border.accent.blue', '#357DE8'),
+	'color.border.accent.blue.subtle': token('color.border.accent.blue.subtle', '#8FB8F6'),
 	'color.border.accent.purple': token('color.border.accent.purple', '#AF59E1'),
+	'color.border.accent.purple.subtle': token('color.border.accent.purple.subtle', '#D8A0F7'),
 	'color.border.accent.magenta': token('color.border.accent.magenta', '#CD519D'),
+	'color.border.accent.magenta.subtle': token('color.border.accent.magenta.subtle', '#F797D2'),
 	'color.border.accent.gray': token('color.border.accent.gray', '#7D818A'),
+	'color.border.accent.gray.subtle': token('color.border.accent.gray.subtle', '#B7B9BE'),
 	'color.border.disabled': token('color.border.disabled', '#0515240F'),
 	'color.border.focused': token('color.border.focused', '#4688EC'),
 	'color.border.input': token('color.border.input', '#8C8F97'),
@@ -1094,10 +1148,15 @@ export const borderColorMap: {
 	'color.border.selected': token('color.border.selected', '#1868DB'),
 	'color.border.brand': token('color.border.brand', '#1868DB'),
 	'color.border.danger': token('color.border.danger', '#E2483D'),
+	'color.border.danger.subtle': token('color.border.danger.subtle', '#FD9891'),
 	'color.border.warning': token('color.border.warning', '#E06C00'),
+	'color.border.warning.subtle': token('color.border.warning.subtle', '#FBC828'),
 	'color.border.success': token('color.border.success', '#6A9A23'),
+	'color.border.success.subtle': token('color.border.success.subtle', '#B3DF72'),
 	'color.border.discovery': token('color.border.discovery', '#AF59E1'),
+	'color.border.discovery.subtle': token('color.border.discovery.subtle', '#D8A0F7'),
 	'color.border.information': token('color.border.information', '#357DE8'),
+	'color.border.information.subtle': token('color.border.information.subtle', '#8FB8F6'),
 	'color.border.bold': token('color.border.bold', '#7D818A'),
 } as const;
 
@@ -1132,6 +1191,9 @@ export const inverseColorMap: {
 	'color.background.information.bold': 'color.text.inverse';
 	'color.background.information.bold.hovered': 'color.text.inverse';
 	'color.background.information.bold.pressed': 'color.text.inverse';
+	'color.rovo.background.brand.bold': 'color.text.inverse';
+	'color.rovo.background.brand.bold.hovered': 'color.text.inverse';
+	'color.rovo.background.brand.bold.pressed': 'color.text.inverse';
 } = {
 	'color.background.neutral.bold': 'color.text.inverse',
 	'color.background.neutral.bold.hovered': 'color.text.inverse',
@@ -1160,6 +1222,9 @@ export const inverseColorMap: {
 	'color.background.information.bold': 'color.text.inverse',
 	'color.background.information.bold.hovered': 'color.text.inverse',
 	'color.background.information.bold.pressed': 'color.text.inverse',
+	'color.rovo.background.brand.bold': 'color.text.inverse',
+	'color.rovo.background.brand.bold.hovered': 'color.text.inverse',
+	'color.rovo.background.brand.bold.pressed': 'color.text.inverse',
 } as const;
 
 
@@ -1202,6 +1267,9 @@ export const surfaceColorMap: {
 	'elevation.surface': 'var(--ds-surface)';
 	'elevation.surface.hovered': 'var(--ds-surface-hovered)';
 	'elevation.surface.pressed': 'var(--ds-surface-pressed)';
+	'elevation.surface.container': 'var(--ds-surface-container)';
+	'elevation.surface.container.hovered': 'var(--ds-surface-container-hovered)';
+	'elevation.surface.container.pressed': 'var(--ds-surface-container-pressed)';
 	'elevation.surface.overlay': 'var(--ds-surface-overlay)';
 	'elevation.surface.overlay.hovered': 'var(--ds-surface-overlay-hovered)';
 	'elevation.surface.overlay.pressed': 'var(--ds-surface-overlay-pressed)';
@@ -1213,6 +1281,9 @@ export const surfaceColorMap: {
 	'elevation.surface': token('elevation.surface', '#FFFFFF'),
 	'elevation.surface.hovered': token('elevation.surface.hovered', '#F0F1F2'),
 	'elevation.surface.pressed': token('elevation.surface.pressed', '#DDDEE1'),
+	'elevation.surface.container': token('elevation.surface.container', '#17171708'),
+	'elevation.surface.container.hovered': token('elevation.surface.container.hovered', '#0515240F'),
+	'elevation.surface.container.pressed': token('elevation.surface.container.pressed', '#0B120E24'),
 	'elevation.surface.overlay': token('elevation.surface.overlay', '#FFFFFF'),
 	'elevation.surface.overlay.hovered': token('elevation.surface.overlay.hovered', '#F0F1F2'),
 	'elevation.surface.overlay.pressed': token('elevation.surface.overlay.pressed', '#DDDEE1'),
@@ -1483,7 +1554,7 @@ export const getSerializedStylesMap = <T extends string>(
 };
 
 export const backgroundColorStylesMap: Record<BackgroundColor, SerializedStyles> = getSerializedStylesMap('backgroundColor', backgroundColorMap);
-export const surfaceColorStylesMap: Record<"elevation.surface" | "elevation.surface.hovered" | "elevation.surface.pressed" | "elevation.surface.overlay" | "elevation.surface.overlay.hovered" | "elevation.surface.overlay.pressed" | "elevation.surface.raised" | "elevation.surface.raised.hovered" | "elevation.surface.raised.pressed" | "elevation.surface.sunken", SerializedStyles> = getSerializedStylesMap(CURRENT_SURFACE_CSS_VAR, surfaceColorMap);
+export const surfaceColorStylesMap: Record<SurfaceColor, SerializedStyles> = getSerializedStylesMap(CURRENT_SURFACE_CSS_VAR, surfaceColorMap);
 
 export const paddingStylesMap: { padding: Record<"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000", SerializedStyles>; paddingBlock: Record<"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000", SerializedStyles>; paddingBlockEnd: Record<"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000", SerializedStyles>; paddingBlockStart: Record<"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000", SerializedStyles>; paddingInline: Record<"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000", SerializedStyles>; paddingInlineEnd: Record<"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000", SerializedStyles>; paddingInlineStart: Record<"space.0" | "space.025" | "space.050" | "space.075" | "space.100" | "space.150" | "space.200" | "space.250" | "space.300" | "space.400" | "space.500" | "space.600" | "space.800" | "space.1000", SerializedStyles>; } = {
 	padding: getSerializedStylesMap('padding', positiveSpaceMap),

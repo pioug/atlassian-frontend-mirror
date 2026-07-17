@@ -18,7 +18,7 @@ const clamp = (i: number, min: number, max: number): number =>
 	Math.round(Math.min(Math.max(i, min), max));
 
 const expandShorthandHex = (input: string): string =>
-	input.replace(SHORTHAND_HEX_REGEX, (m, r, g, b) => r + r + g + g + b + b);
+	input.replace(SHORTHAND_HEX_REGEX, (_m, r, g, b) => r + r + g + g + b + b);
 
 const rgbFromHex = (input: string): RGB | null => {
 	const fullHex = expandShorthandHex(input);

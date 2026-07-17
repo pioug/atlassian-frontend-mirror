@@ -1,5 +1,19 @@
 # @atlaskit/editor-extension-googledrive
 
+## 10.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.1.1
+
+### Patch Changes
+
+- [`3170ae750c486`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3170ae750c486) -
+  Updating repository URL to the correct URL
+- Updated dependencies
+
 ## 10.1.0
 
 ### Minor Changes

@@ -5,6 +5,7 @@ import DropdownMenu, {
 	DropdownItemCheckbox,
 	DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Inline from '@atlaskit/primitives/inline';
 
 export default (): React.JSX.Element => (

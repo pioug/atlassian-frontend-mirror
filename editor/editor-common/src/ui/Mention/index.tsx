@@ -17,8 +17,10 @@ const MENTION_PROVIDERS: ProviderName[] = ['mentionProvider', 'profilecardProvid
 
 export interface MentionProps {
 	accessLevel?: string;
+	disabledTooltip?: string;
 	eventHandlers?: MentionEventHandlers;
 	id: string;
+	isDisabled?: boolean;
 	localId?: string;
 	providers?: ProviderFactory;
 	text: string;
@@ -46,7 +48,8 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 	}
 
 	private renderWithProvider = (providers: Providers) => {
-		const { accessLevel, eventHandlers, id, text, localId, userType } = this.props;
+		const { accessLevel, eventHandlers, id, text, localId, userType, isDisabled, disabledTooltip } =
+			this.props;
 		const { mentionProvider, profilecardProvider } = providers;
 
 		return (
@@ -56,6 +59,8 @@ export default class Mention extends PureComponent<MentionProps, Object> {
 				accessLevel={accessLevel}
 				localId={localId}
 				userType={userType}
+				isDisabled={isDisabled}
+				disabledTooltip={disabledTooltip}
 				eventHandlers={eventHandlers}
 				mentionProvider={mentionProvider}
 				profilecardProvider={profilecardProvider}

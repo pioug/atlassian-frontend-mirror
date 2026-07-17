@@ -16,7 +16,7 @@ import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 import type { ProductType } from '@atlaskit/linking-common';
 import { Box } from '@atlaskit/primitives/compiled';
 import { Card, type CardProps } from '@atlaskit/smart-card';
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { render, screen, userEvent, type Matcher } from '@atlassian/testing-library';
 
 import * as analytics from '../../../../utils/analytics/analytics';

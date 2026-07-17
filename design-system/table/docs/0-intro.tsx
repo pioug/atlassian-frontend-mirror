@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, DevPreviewWarning, Example, md } from '@atlaskit/docs';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 
 const _default_1: any = md`

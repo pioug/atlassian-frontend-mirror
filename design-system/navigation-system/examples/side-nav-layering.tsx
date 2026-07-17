@@ -186,7 +186,7 @@ function MockNotifications(): JSX.Element {
 				<Notifications
 					{...triggerProps}
 					badge={() => (
-						<Badge max={9} appearance="important">
+						<Badge max={9} appearance="dangerBold">
 							{99999}
 						</Badge>
 					)}

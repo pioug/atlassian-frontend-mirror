@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { CommentAction, CommentAuthor, CommentEdited, CommentTime } from '@atlaskit/comment';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 
 export default (): React.JSX.Element => (

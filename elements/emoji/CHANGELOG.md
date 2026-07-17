@@ -1,5 +1,30 @@
 # @atlaskit/emoji
 
+## 71.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.9.5
+
+### Patch Changes
+
+- [`0660101e568e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0660101e568e0) -
+  [ux] Use Twemoji for regional indicators.
+
+## 71.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.9.3
 
 ### Patch Changes

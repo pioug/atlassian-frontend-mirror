@@ -6,6 +6,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import RetryIcon from '@atlaskit/icon/core/retry';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { Inline, Stack } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Text from '@atlaskit/primitives/text';
 import Range from '@atlaskit/range';
 import { token } from '@atlaskit/tokens';

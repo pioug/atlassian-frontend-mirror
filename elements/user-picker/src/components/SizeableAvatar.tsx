@@ -15,8 +15,12 @@ export class SizeableAvatar extends React.PureComponent<Props> {
 	render(): React.JSX.Element {
 		const { src, presence, appearance, type = 'person', avatarAppearanceShape } = this.props;
 
-		const props: AvatarPropTypes = {
-			size: getAvatarSize(appearance),
+		// `getAvatarSize` only ever returns 'xsmall' | 'small' | 'medium', none of
+		// which is the team-avatar-unsupported `UNSAFE_xsmall` (20px) size. Keeping
+		// `size` narrowed here lets the object satisfy both Avatar and TeamAvatar.
+		const size = getAvatarSize(appearance);
+		const props: Omit<AvatarPropTypes, 'size'> & { size: typeof size } = {
+			size,
 			src,
 			borderColor: 'transparent',
 			presence,

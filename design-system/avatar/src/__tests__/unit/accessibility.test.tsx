@@ -19,6 +19,7 @@ describe('Avatar accessibility', () => {
 					<Avatar name="large" size="large" presence="offline" />
 					<Avatar name="medium" size="medium" presence="busy" />
 					<Avatar name="small" size="small" presence="focus" />
+					<Avatar name="UNSAFE_xsmall" size="UNSAFE_xsmall" presence="online" />
 					<Avatar name="xsmall" size="xsmall" />
 				</Block>
 				<Block heading="Square">
@@ -27,6 +28,7 @@ describe('Avatar accessibility', () => {
 					<Avatar appearance="square" name="large" size="large" status="declined" />
 					<Avatar appearance="square" name="medium" size="medium" status="locked" />
 					<Avatar appearance="square" name="small" size="small" />
+					<Avatar appearance="square" name="UNSAFE_xsmall" size="UNSAFE_xsmall" status="approved" />
 					<Avatar appearance="square" name="xsmall" size="xsmall" />
 				</Block>
 				<Block heading="Disabled">

@@ -1,5 +1,29 @@
 # @atlaskit/rovo-triggers
 
+## 9.11.1
+
+### Patch Changes
+
+- [`ade4b041f6ad0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ade4b041f6ad0) -
+  Behind the `rovo_chat_fix_jira_prompt_dropped_on_reopen` gate, exclude
+  `jira-create-context-payload` from the `triggerLatest` replay slot (the same way
+  `set-message-context` is handled). This stops the Rovo chat panel, when reopened from a CTA, from
+  replaying the continuously-published context payload instead of the action `chat-new` that opened
+  the chat — which was dropping the prompt. The only consumer of this event
+  (`ChatContextSubscriber`) does not use `triggerLatest`, so live delivery is unaffected. Behaviour
+  is unchanged when the gate is off.
+
+## 9.11.0
+
+### Minor Changes
+
+- [`d663d38af3803`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d663d38af3803) -
+  Add optional launch source attribution for Home Agents for you Rovo Chat analytics.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.10.0
 
 ### Minor Changes

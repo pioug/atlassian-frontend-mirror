@@ -156,17 +156,22 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	syncedBlock: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	syncBlock: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
+	syncedBlock: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	syncedBlockDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedBlockQuickInsertTitle: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -357,6 +362,12 @@ export const messages: {
 		id: 'fabric.editor.syncBlock',
 		defaultMessage: 'Sync block',
 		description: 'Short label for inserting a synced block',
+	},
+	syncedBlockQuickInsertTitle: {
+		id: 'editor-common.messages.block-type.syncedBlockQuickInsertTitle',
+		defaultMessage: 'Synced block',
+		description:
+			'Label for the synced block item in the quick insert menu. This names the object that the item inserts.',
 	},
 	syncedBlockDescription: {
 		id: 'fabric.editor.syncedBlock.description',

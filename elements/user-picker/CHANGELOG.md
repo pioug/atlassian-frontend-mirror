@@ -1,5 +1,21 @@
 # @atlaskit/user-picker
 
+## 13.4.6
+
+### Patch Changes
+
+- [`0a1dac0483f0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a1dac0483f0a) -
+  Internal type fix: constrain the avatar `size` passed to `TeamAvatar` to the supported
+  `TeamAvatarSize` set (excludes the new private `UNSAFE_xsmall` 20px size, which has no team-avatar
+  artwork). No runtime behaviour change.
+- Updated dependencies
+
+## 13.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.4.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "7.5.1",
+	"version": "8.0.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -72,6 +72,7 @@
 		"@atlaskit/rovo-agent-analytics": "workspace:^",
 		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
 		"@babel/runtime": "root:*",
@@ -135,6 +136,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_editor_agent_mentions_drop_one_fixes": {
+			"type": "boolean"
+		},
 		"rovo_chat_bugfix_agent_avatar_squish": {
 			"type": "boolean"
 		},

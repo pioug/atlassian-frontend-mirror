@@ -13,6 +13,8 @@ import type { TaskListDefinition as TaskList } from './task-list';
 import type { RuleDefinition as Rule } from './rule';
 import type { TableDefinition as Table } from './tableNodes';
 import type { NodeSpecOptions } from '../createPMSpecFactory';
+import type { BreakoutMarkDefinition } from '../marks';
+import type { MarksObject } from './types/mark';
 import type { PanelNode, PanelC1Node } from '../../next-schema/generated/nodeTypes';
 import {
 	panel as panelFactory,
@@ -93,6 +95,11 @@ export interface PanelC1Definition {
 	>;
 	type: 'panel';
 }
+
+/**
+ * @name panel_root_only_node
+ */
+export type PanelRootOnlyDefinition = PanelDefinition & MarksObject<BreakoutMarkDefinition>;
 
 export interface DOMAttributes {
 	[propName: string]: string;

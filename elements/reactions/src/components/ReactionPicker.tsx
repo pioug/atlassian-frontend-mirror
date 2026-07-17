@@ -580,6 +580,11 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>): JSX
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const { formatMessage } = useIntl();
 	/**
+	 * Expose the reaction picker panel as a non-modal dialog to assistive technology.
+	 * When disabled, fall back to the previous `role="group"` semantics.
+	 */
+	const isDialogRoleEnabled = fg('platform_ceps-5921-a11y-fix-reactions');
+	/**
 	 * add focus lock to popup
 	 */
 	useFocusTrap({ initialFocusRef: null, targetRef: popupRef });
@@ -604,7 +609,8 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>): JSX
 			{({ ref, style, update }) => {
 				return (
 					<div
-						role="group"
+						role={isDialogRoleEnabled ? 'dialog' : 'group'}
+						aria-modal={isDialogRoleEnabled ? false : undefined}
 						aria-label={formatMessage(messages.popperWrapperLabel)}
 						id={PICKER_CONTROL_ID}
 						data-testid={RENDER_REACTIONPICKERPANEL_TESTID}

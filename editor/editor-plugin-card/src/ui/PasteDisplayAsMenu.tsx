@@ -450,7 +450,19 @@ const PasteDisplayAsMenuHorizontalView = ({
 			}
 
 			const targetPos = cardAtPasteRange?.pos;
-			if (targetPos !== undefined && targetPos < pasteStartPos) {
+			const targetNodeAttrs =
+				targetPos === undefined
+					? undefined
+					: (state.doc.nodeAt(targetPos)?.attrs as
+							| { data?: { url?: unknown }; url?: unknown }
+							| undefined);
+			const targetNodeUrl = targetNodeAttrs?.url ?? targetNodeAttrs?.data?.url;
+			const isRecoveredAdjacentPastedCard =
+				expValEqualsNoExposure('confluence_editor_paste_3p_link_actions_menu', 'isEnabled', true) &&
+				targetPos === pasteStartPos - 1 &&
+				pasteStartPos === pasteEndPos &&
+				targetNodeUrl === pastedLinkUrl;
+			if (targetPos !== undefined && targetPos < pasteStartPos && !isRecoveredAdjacentPastedCard) {
 				isApplyingRef.current = false;
 				return;
 			}
@@ -678,6 +690,11 @@ export const getPasteDisplayAsMenuComponents = ({
 					apiWithPasteOptionsToolbar?.pasteOptionsToolbarPlugin?.actions.getPasteMenuRules();
 				if (!rules || rules.notSingleLinkRule()) {
 					return true;
+				}
+
+				const urlFromSlice = getSingleSmartLinkUrlFromSlice(getCurrentPastedSlice(api));
+				if (urlFromSlice) {
+					return false;
 				}
 
 				// Fallback: plain-text URL paste that the card plugin already resolved into a card node in the doc.

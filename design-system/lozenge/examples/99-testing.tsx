@@ -16,7 +16,7 @@ export default function Example(): React.JSX.Element {
 			<Box>
 				<Text>
 					appearance: new{' '}
-					<Lozenge appearance="new" testId="new-lozenge">
+					<Lozenge appearance="discovery" testId="new-lozenge">
 						New
 					</Lozenge>
 				</Text>

@@ -264,7 +264,7 @@ function Tooltip({
 				hide: ({ isImmediate }) => {
 					if (isImmediate) {
 						setState('hide');
-					} else if (fg('platform-dst-top-layer')) {
+					} else if (fg('platform-dst-top-layer-tooltip')) {
 						// Top-layer path: set state to 'top-layer-exit'. The component
 						// stays mounted and Popover's isOpen prop transitions to
 						// false, triggering the CSS exit animation internally.
@@ -304,7 +304,7 @@ function Tooltip({
 			state === 'hide' ||
 			state === 'fade-out' ||
 			state === 'top-layer-exit' ||
-			fg('platform-dst-top-layer'),
+			fg('platform-dst-top-layer-tooltip'),
 	});
 
 	// ── Top-layer exit animation lifecycle ──
@@ -475,7 +475,7 @@ function Tooltip({
 	// registers with the observer directly, so we skip registration here to
 	// avoid double-counting.
 	// Safe conditional hook: feature flags are resolved once at startup.
-	if (!fg('platform-dst-top-layer')) {
+	if (!fg('platform-dst-top-layer-tooltip')) {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		useNotifyOpenLayerObserver({
 			// Layer is only visually open if both the tooltip popup (container) and children are rendered.
@@ -585,7 +585,7 @@ function Tooltip({
 			</CastTargetContainer>
 		);
 
-	if (fg('platform-dst-top-layer')) {
+	if (fg('platform-dst-top-layer-tooltip')) {
 		return (
 			<Fragment>
 				{trigger}

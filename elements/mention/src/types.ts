@@ -254,7 +254,7 @@ export interface LozengeProps {
 	text: React.ReactNode;
 }
 
-export interface MentionDescription {
+export interface RealMentionDescription {
 	accessLevel?: string;
 	appType?: string | null;
 	avatarUrl?: string;
@@ -263,6 +263,8 @@ export interface MentionDescription {
 	highlight?: Highlight;
 	id: string;
 	inContext?: boolean;
+	/** Discriminant: real mentions are never placeholders. */
+	isPlaceholder?: false;
 	isXProductUser?: boolean;
 	lozenge?: string | LozengeProps;
 	mentionName?: string;
@@ -272,6 +274,39 @@ export interface MentionDescription {
 	source?: string; //e.g. 'smarts'
 	userType?: string;
 }
+
+/**
+ * Real-mention fields forbidden on a placeholder. Declaring them as `never`
+ * (rather than omitting them) keeps `mention.name` etc. readable on the
+ * {@link MentionDescription} union — so the hundreds of consumers that never
+ * encounter a placeholder are unaffected — while still making illegal
+ * combinations like `{ isPlaceholder: true, name: 'Real User' }` a compile
+ * error.
+ */
+type RealMentionFieldsForbidden = {
+	[Field in Exclude<
+		keyof RealMentionDescription,
+		'id' | 'isPlaceholder' | 'userType' | 'appType'
+	>]?: never;
+};
+
+/**
+ * Non-selectable loading placeholder surfaced in the mention list while a
+ * slower mention source (e.g. agents) resolves. Its own member of the
+ * {@link MentionDescription} discriminated union (discriminated on
+ * `isPlaceholder`).
+ *
+ * `id` must be unique per placeholder — the typeahead keys rows by id — so
+ * multiple placeholders can be rendered at once.
+ */
+export type MentionPlaceholder = RealMentionFieldsForbidden & {
+	appType?: 'agent';
+	id: string;
+	isPlaceholder: true;
+	userType?: 'APP';
+};
+
+export type MentionDescription = RealMentionDescription | MentionPlaceholder;
 
 export interface MentionDescContext {
 	includesYou: boolean;

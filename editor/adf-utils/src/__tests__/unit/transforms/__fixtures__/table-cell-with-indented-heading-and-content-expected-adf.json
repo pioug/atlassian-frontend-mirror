@@ -1,0 +1,79 @@
+{
+  "content": [
+    {
+      "attrs": {
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "123"
+      },
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
+                    "level": 1
+                  },
+                  "content": [
+                    {
+                      "text": "heading",
+                      "type": "text"
+                    },
+                    {
+                      "type": "hardBreak"
+                    }
+                  ],
+                  "marks": [],
+                  "type": "heading"
+                },
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "content": [],
+                          "type": "paragraph"
+                        }
+                      ],
+                      "type": "listItem"
+                    }
+                  ],
+                  "type": "bulletList"
+                }
+              ],
+              "type": "tableCell"
+            },
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
+                    "level": 1
+                  },
+                  "content": [
+                    {
+                      "text": "another-heading",
+                      "type": "text"
+                    },
+                    {
+                      "type": "hardBreak"
+                    }
+                  ],
+                  "marks": [],
+                  "type": "heading"
+                }
+              ],
+              "type": "tableCell"
+            }
+          ],
+          "type": "tableRow"
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "type": "doc",
+  "version": 1
+}

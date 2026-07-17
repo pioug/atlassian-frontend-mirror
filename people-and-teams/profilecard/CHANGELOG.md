@@ -1,5 +1,30 @@
 # @atlaskit/profilecard
 
+## 26.10.0
+
+### Minor Changes
+
+- [`53dd004a01fc4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53dd004a01fc4) -
+  Removes the Rovo creator icon on the agent profile card and across all other surfaces where this
+  is used. Removes the `hideCreatorIcon` prop from agent profile info - all usages have been cleaned
+  up in this PR
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.9.5
 
 ### Patch Changes

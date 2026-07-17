@@ -14,7 +14,7 @@ export {
 	GroupType,
 	TeamType,
 	UserType,
-} from '@atlaskit/user-picker';
+} from './userPicker';
 export type {
 	// Types
 	ActionTypes,
@@ -52,4 +52,4 @@ export type {
 	UserHighlight,
 	ExternalUser,
 	UserSource,
-} from '@atlaskit/user-picker';
+} from './userPicker';

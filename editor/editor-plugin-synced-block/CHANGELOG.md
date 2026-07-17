@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.2.13
+
+### Patch Changes
+
+- [`3574c94470487`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3574c94470487) -
+  Add `blockTypeMessages.syncedBlockQuickInsertTitle` for noun-form synced block labels, for example
+  `formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle)`, and use it in quick insert under
+  the activation experiment.
+- [`abf715708f186`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/abf715708f186) -
+  Move synced block Delete into an overflow menu for activation experiment users
+- Updated dependencies
+
+## 10.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.11
 
 ### Patch Changes

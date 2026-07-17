@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SimpleTag as Tag } from '@atlaskit/tag';
+import Tag from '@atlaskit/tag';
 
 export const TokenTagCodeBlock = `
 import { N800, P100, P500, P75 } from '@atlaskit/theme/colors';
@@ -18,8 +18,8 @@ background: token('color.background.accent.purple.subtler', P75),
 export const TokenTag = (): React.JSX.Element => {
 	return (
 		<>
-			<Tag text="purple Tag" color="purple" />
-			<Tag text="purpleLight Tag" color="purpleLight" />
+			<Tag text="purple Tag" color="purple" isRemovable={false} />
+			<Tag text="purpleLight Tag" color="purpleLight" isRemovable={false} />
 		</>
 	);
 };

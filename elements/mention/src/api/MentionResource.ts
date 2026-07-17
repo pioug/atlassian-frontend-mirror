@@ -447,6 +447,11 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 
 	private transformServiceResponse(result: MentionsResult, query: string): MentionsResult {
 		const mentions = result.mentions.map((mention) => {
+			// Loading placeholders carry none of these fields and pass through untouched.
+			if (mention.isPlaceholder) {
+				return mention;
+			}
+
 			let lozenge: string | undefined;
 			if (isAppMention(mention)) {
 				lozenge = mention.userType;

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-date
 
+## 14.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.23
 
 ### Patch Changes

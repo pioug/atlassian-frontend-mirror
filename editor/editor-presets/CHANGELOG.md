@@ -1,5 +1,28 @@
 # @atlaskit/editor-presets
 
+## 5.2.0
+
+### Minor Changes
+
+- [`554b23dd7f5e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/554b23dd7f5e7) -
+  [ux] Make Labs Lozenge Opt-In
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.1.1
 
 ### Patch Changes

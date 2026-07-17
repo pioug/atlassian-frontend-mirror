@@ -10,6 +10,7 @@ import ModalDialog, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { Box } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 
 export default (): React.JSX.Element => {

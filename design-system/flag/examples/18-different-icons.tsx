@@ -4,6 +4,7 @@ import { cssMap } from '@atlaskit/css';
 import Flag from '@atlaskit/flag';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 import { Flex } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 import { token } from '@atlaskit/tokens';
 

@@ -2,6 +2,7 @@ import React from 'react';
 
 import EmptyState from '@atlaskit/empty-state';
 import type { EmptyStateProps } from '@atlaskit/empty-state/types';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Text from '@atlaskit/primitives/text';
 
 import exampleImage from './img/example-image.png';

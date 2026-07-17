@@ -1,0 +1,23 @@
+{
+  "content": [
+    {
+      "attrs": {
+        "layout": "center",
+        "width": 33.33333333333333
+      },
+      "content": [
+        {
+          "attrs": {
+            "collection": "contentId-0000000001",
+            "height": 400,
+            "id": "00000000-0000-0000-0000-0000000001",
+            "occurrenceKey": null
+          },
+          "type": "media"
+        }
+      ],
+      "type": "mediaSingle"
+    }
+  ],
+  "type": "doc"
+}

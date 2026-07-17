@@ -11,7 +11,7 @@ export default function Example(): React.JSX.Element {
 				default: <Lozenge>default</Lozenge>
 			</Text>
 			<Text>
-				appearance: new <Lozenge appearance="new">New</Lozenge>
+				appearance: new <Lozenge appearance="discovery">New</Lozenge>
 			</Text>
 			<Text>
 				style: {`{ backgroundColor: 'green' }`}{' '}

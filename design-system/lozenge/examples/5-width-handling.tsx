@@ -45,22 +45,30 @@ export default (): React.JSX.Element => (
 					<Text weight="medium" as="p">
 						In a 400px wide container
 					</Text>
-					<Lozenge appearance="new" maxWidth={'none'} testId="lozenge-truncated-override-none">
+					<Lozenge
+						appearance="discovery"
+						maxWidth={'none'}
+						testId="lozenge-truncated-override-none"
+					>
 						"none" max-width does not truncate text
 					</Lozenge>
 				</Text>
 				<Text>
-					<Lozenge appearance="new" maxWidth={'100%'} testId="lozenge-truncated-override-100%">
+					<Lozenge
+						appearance="discovery"
+						maxWidth={'100%'}
+						testId="lozenge-truncated-override-100%"
+					>
 						"100%" max-width does not truncate text
 					</Lozenge>
 				</Text>
 				<Text>
-					<Lozenge appearance="new" maxWidth={'90%'} testId="lozenge-truncated-override-90%">
+					<Lozenge appearance="discovery" maxWidth={'90%'} testId="lozenge-truncated-override-90%">
 						"90%" max-width does not truncate text
 					</Lozenge>
 				</Text>
 				<Text>
-					<Lozenge appearance="new" maxWidth={'50%'} testId="lozenge-truncated-override-50%">
+					<Lozenge appearance="discovery" maxWidth={'50%'} testId="lozenge-truncated-override-50%">
 						"50%" max-width does truncate text
 					</Lozenge>
 				</Text>

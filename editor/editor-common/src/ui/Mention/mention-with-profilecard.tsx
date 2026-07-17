@@ -6,6 +6,7 @@ import type { MentionUserType } from '@atlaskit/adf-schema';
 import type { MentionProvider } from '@atlaskit/mention';
 import { ResourcedMention } from '@atlaskit/mention';
 import { fg } from '@atlaskit/platform-feature-flags';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Anchor from '@atlaskit/primitives/anchor';
 import ProfileCardTrigger from '@atlaskit/profilecard/user';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';

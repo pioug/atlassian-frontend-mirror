@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Stack } from '@atlaskit/primitives/compiled';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { Show } from '@atlaskit/primitives/responsive';
 
 export default function Example(): React.JSX.Element {

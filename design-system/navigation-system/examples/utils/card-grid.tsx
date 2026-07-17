@@ -9,7 +9,7 @@ import ReportsIcon from '@atlaskit/icon/core/chart-bar';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import StarIcon from '@atlaskit/icon/core/star-starred';
 import { Inline, Text } from '@atlaskit/primitives/compiled';
-import { SimpleTag as Tag } from '@atlaskit/tag';
+import Tag from '@atlaskit/tag';
 import { token } from '@atlaskit/tokens';
 
 const gridStyles = cssMap({
@@ -80,7 +80,7 @@ export function CardGrid(): JSX.Element {
 							remain smooth even with many cards present.
 						</Text>
 						<Inline alignBlock="center" spread="space-between">
-							<Tag text={cardType.type} />
+							<Tag text={cardType.type} isRemovable={false} />
 							<Text size="small" color="color.text.subtle">
 								Updated {getRandomNumber(i)} days ago
 							</Text>

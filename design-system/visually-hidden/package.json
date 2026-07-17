@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/visually-hidden",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"description": "A utility that hides content from the screen while retaining readability by screen readers for accessibility.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -77,8 +77,8 @@
 	},
 	"exports": {
 		".": "./src/index.tsx",
-		"./types": "./src/entry-points/types.tsx",
-		"./visually-hidden": "./src/entry-points/visually-hidden.tsx"
+		"./types": "./src/types.tsx",
+		"./visually-hidden": "./src/visually-hidden.tsx"
 	},
 	"homepage": "https://atlassian.design/components/visually-hidden/"
 }

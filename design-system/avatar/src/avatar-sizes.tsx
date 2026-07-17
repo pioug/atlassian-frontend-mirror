@@ -2,6 +2,7 @@ import { type AvatarSizeMap } from './types';
 
 export const AVATAR_SIZES: AvatarSizeMap = {
 	xsmall: 16,
+	UNSAFE_xsmall: 20,
 	small: 24,
 	medium: 32,
 	large: 40,

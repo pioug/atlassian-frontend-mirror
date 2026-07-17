@@ -1,6 +1,6 @@
 import { outdent } from 'outdent';
 
-import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 
 import { tester } from '../../__tests__/utils/_tester';
 import type { Tests } from '../../__tests__/utils/_types';

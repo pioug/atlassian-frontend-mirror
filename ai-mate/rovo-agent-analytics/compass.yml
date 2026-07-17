@@ -36,3 +36,9 @@ customFields:
   - name: Required Reviewer Approvals
     type: number
     value: 1
+  - name: Trusted Committers
+    type: text
+    value: ari:cloud:teams::team/85495c60-df35-49e8-88f9-7dec2cfecf4c # Servo
+  - name: Trusted Reviewer Teams
+    type: text
+    value: ari:cloud:teams::team/85495c60-df35-49e8-88f9-7dec2cfecf4c # Servo

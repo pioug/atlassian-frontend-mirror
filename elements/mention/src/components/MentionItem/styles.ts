@@ -59,6 +59,29 @@ export const AvatarStyle: StyledComponent<
 	opacity: props.restricted ? '0.5' : 'inherit',
 }));
 
+/**
+ * Footprint of the loading placeholder avatar. Matches the real
+ * `@atlaskit/avatar` `size="medium"` layout: a 32px circle (the image)
+ * centered inside a 36px wrapper, so the loading row and the resolved row
+ * line up identically and the row doesn't shift on swap.
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const AvatarSkeletonWrapper: StyledComponent<
+	{
+		as?: React.ElementType;
+		theme?: Theme;
+	},
+	DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	{}
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+> = styled.div({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	width: '36px',
+	height: '36px',
+});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const NameSectionStyle: StyledComponent<
 	{

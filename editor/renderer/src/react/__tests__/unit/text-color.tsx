@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import TextColor from '../../marks/textColor';
 
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
 describe('custom text colors inversion in dark mode', () => {
 	it('should capture and report a11y violations', async () => {

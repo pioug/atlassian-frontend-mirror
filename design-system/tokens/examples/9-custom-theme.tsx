@@ -346,7 +346,7 @@ export default (): JSX.Element => {
 					<Stack space="space.100">
 						<Inline space="space.100" alignBlock="center">
 							<Heading size="large">Contrast check results</Heading>
-							<Lozenge appearance="moved">{contrastCheckResults.length}</Lozenge>
+							<Lozenge appearance="warning">{contrastCheckResults.length}</Lozenge>
 						</Inline>
 						<Accordion
 							size={newBreachContrastResults.length}

@@ -15,6 +15,7 @@ export type {
 	MediaUserArtifactCaptionKey,
 } from './file-state';
 
-export { mediaStore, createMediaStore } from './store';
+export { createMediaStore } from './create-media-store';
+export { mediaStore, type MediaStore } from './media-store';
 
-export type { MediaStore, Store } from './store';
+export type { Store } from './store';

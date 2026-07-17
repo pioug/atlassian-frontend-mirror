@@ -26,6 +26,7 @@ import StatusWrapper from './internal/status-wrapper';
 import {
 	type AppearanceType,
 	type AvatarClickEventHandler,
+	type IndicatorSizeType,
 	type Presence,
 	type SizeType,
 	type Status,
@@ -84,6 +85,12 @@ export interface AvatarPropTypes {
 	presence?: Presence | Omit<ReactNode, string> | (string & {}) | null;
 	/**
 	 * Defines the size of the avatar. Default value is `medium`.
+	 *
+	 * Available sizes (in pixels): `xsmall` (16), `small` (24), `medium` (32),
+	 * `large` (40), `xlarge` (96), `xxlarge` (128).
+	 *
+	 * The `UNSAFE_xsmall` (20px) size is an unsafe, transitional value and is
+	 * intentionally not documented for general use — see `SizeType`.
 	 *
 	 * This can also be controlled by the `size` property of the
 	 * `AvatarContext` export from this package. If no prop is given when the
@@ -197,6 +204,20 @@ const Avatar: React.ForwardRefExoticComponent<
 		const customPresenceNode = isValidElement(presence) ? presence : null;
 		const customStatusNode = isValidElement(status) ? status : null;
 		const isValidIconSize = size !== 'xxlarge' && size !== 'xsmall';
+		// Presence/status indicators are only defined for `IndicatorSizeType`
+		// (small, medium, large, xlarge). Compute `indicatorSize` only for sizes
+		// that support an indicator (`isValidIconSize`), so the value is
+		// structurally guaranteed to be a valid `IndicatorSizeType` rather than
+		// relying on the guard at each call site. The `UNSAFE_xsmall` (20px) size
+		// reuses the `small` indicator sizing as its nearest supported neighbor;
+		// unsupported sizes (`xsmall`/`xxlarge`) fall back to `small` and are never
+		// actually rendered because `isPresence`/`isStatus` also guard on
+		// `isValidIconSize`.
+		const indicatorSize: IndicatorSizeType = !isValidIconSize
+			? 'small'
+			: size === 'UNSAFE_xsmall'
+				? 'small'
+				: size;
 		const lastAnalytics = useRef(analyticsContext);
 		const labelId = useId();
 
@@ -306,7 +327,7 @@ const Avatar: React.ForwardRefExoticComponent<
 					{isPresence && (
 						<PresenceWrapper
 							appearance={appearance}
-							size={size}
+							size={indicatorSize}
 							presence={typeof presence === 'string' ? (presence as Presence) : undefined}
 							testId={testId}
 						>
@@ -316,7 +337,7 @@ const Avatar: React.ForwardRefExoticComponent<
 					{isStatus && (
 						<StatusWrapper
 							appearance={appearance}
-							size={size}
+							size={indicatorSize}
 							borderColor={borderColor}
 							status={typeof status === 'string' ? (status as Status) : undefined}
 							testId={testId}

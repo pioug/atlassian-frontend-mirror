@@ -62,6 +62,9 @@
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/skeleton/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/tag/tsconfig.app.json"
 		},
 		{

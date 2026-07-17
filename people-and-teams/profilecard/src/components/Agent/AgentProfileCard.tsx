@@ -284,10 +284,6 @@ const AgentProfileCard = ({
 										}}
 										isLoading={false}
 										onCreatorLinkClick={() => {}}
-										hideCreatorIcon={
-											expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-											fg('platform_editor_agent_mentions_drop_one_fixes')
-										}
 									/>
 								)
 							}

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '@atlaskit/comment';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Stack from '@atlaskit/primitives/stack';
 
 import avatarImg from './images/avatar_400x400.jpg';

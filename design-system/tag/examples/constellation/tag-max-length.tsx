@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { SimpleTag as Tag } from '@atlaskit/tag';
+import Tag from '@atlaskit/tag';
 
 const cupcakeipsum = 'Croissant tiramisu gummi bears.';
 
-export default (): React.JSX.Element => <Tag text={cupcakeipsum} />;
+export default (): React.JSX.Element => <Tag text={cupcakeipsum} isRemovable={false} />;

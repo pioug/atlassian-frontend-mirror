@@ -13,6 +13,7 @@ import { type ButtonItemProps } from '@atlaskit/menu/types';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { xcss } from '@atlaskit/primitives/xcss';
 import { token } from '@atlaskit/tokens';
 

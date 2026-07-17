@@ -1,5 +1,5 @@
 import format from '@af/formatting/sync';
-import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
+import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 import { light as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { capitalize } from './capitalize';

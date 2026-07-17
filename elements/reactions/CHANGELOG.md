@@ -1,5 +1,31 @@
 # @atlaskit/reactions
 
+## 35.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.7.0
+
+### Minor Changes
+
+- [`9b741c5c274ba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b741c5c274ba) -
+  A11Y: Expose the reactions picker panel as a non-modal dialog (role="dialog", aria-modal="false")
+  for screen reader users, behind the `platform_ceps-5921-a11y-fix-reactions` feature gate.
+
+## 35.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.6.7
 
 ### Patch Changes

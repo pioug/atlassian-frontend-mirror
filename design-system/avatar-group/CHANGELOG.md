@@ -1,5 +1,21 @@
 # @atlaskit/avatar-group
 
+## 13.1.3
+
+### Patch Changes
+
+- [`0a1dac0483f0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a1dac0483f0a) -
+  `AvatarGroupSize` now also excludes the new `UNSAFE_xsmall` (20px) avatar size, in addition to the
+  already-excluded `xsmall` (16px). The more indicator and grouped avatars cannot be displayed in an
+  accessible manner at these sizes, so they remain unsupported on `AvatarGroup`.
+- Updated dependencies
+
+## 13.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.1
 
 ### Patch Changes

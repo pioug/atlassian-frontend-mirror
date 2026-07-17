@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-autocomplete
 
+## 4.1.3
+
+### Patch Changes
+
+- [`5cd6c10a9394f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5cd6c10a9394f) -
+  Fix autocomplete context extraction when inline formatting inserts leaf nodes before the cursor,
+  preventing misaligned ghost-text suggestions that can surface as stray spaces.
+
 ## 4.1.2
 
 ### Patch Changes

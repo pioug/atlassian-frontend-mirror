@@ -53,6 +53,9 @@
 			"path": "../../../react-compiler/react-compiler-gating/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/skeleton/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/tag/afm-products/tsconfig.json"
 		},
 		{

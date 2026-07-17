@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-selection
 
+## 12.0.25
+
+### Patch Changes
+
+- [`506c2f6fd3044`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/506c2f6fd3044) -
+  Update getSelectionFragment to correctly pass selection (if any) and set selection in tr for
+  highlight
+- Updated dependencies
+
+## 12.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.0.22
 
 ### Patch Changes

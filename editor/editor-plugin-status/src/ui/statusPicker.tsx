@@ -23,8 +23,11 @@ import { UserIntentPopupWrapper } from '@atlaskit/editor-common/user-intent';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Status } from '@atlaskit/status/element';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -33,6 +36,7 @@ import type { StatusPlugin } from '../statusPluginType';
 import type { ClosingPayload, StatusType } from '../types';
 
 import { analyticsState, createStatusAnalyticsAndFire } from './analytics';
+import type { SuggestedStatus } from './getSuggestedStatuses';
 const PopupWithListeners = withOuterListeners(Popup);
 
 export enum InputMethod {
@@ -61,8 +65,10 @@ export interface Props {
 	mountTo?: HTMLElement;
 	onEnter: (status: StatusType) => void;
 	onSelect: (status: StatusType) => void;
+	onSuggestedStatusClick: (status: StatusType) => void;
 	onTextChanged: (status: StatusType, isNew: boolean) => void;
 	scrollableElement?: HTMLElement;
+	suggestedStatuses?: SuggestedStatus[];
 	target: HTMLElement | null;
 }
 
@@ -100,6 +106,29 @@ const pickerContainerStylesTeam26 = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':focus': {
 		outline: 'none',
+	},
+});
+
+const suggestedStatusesContainerStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	gap: token('space.100', '8px'),
+	margin: 0,
+	padding: `${token('space.100', '8px')} ${token('space.150', '12px')} ${token('space.050', '4px')}`,
+});
+
+const suggestedStatusButtonStyles = css({
+	background: 'transparent',
+	border: 0,
+	borderRadius: token('radius.small', '3px'),
+	cursor: 'pointer',
+	display: 'flex',
+	justifyContent: 'flex-start',
+	padding: 0,
+	width: '100%',
+	'&:focus-visible': {
+		outline: `2px solid ${token('color.border.focused', '#0C66E4')}`,
+		outlineOffset: token('space.025', '2px'),
 	},
 });
 
@@ -208,17 +237,63 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	};
 
 	private handleTabPress = (event: React.KeyboardEvent) => {
-		const colorButtons = event.currentTarget.querySelectorAll('button');
+		if (!expValEqualsNoExposure('platform_editor_status_popup_suggestions', 'isEnabled', true)) {
+			/* original tab-navigation behaviour: cycle between color buttons and the input field */
+			const colorButtons = event.currentTarget.querySelectorAll('button');
+			const inputField = event.currentTarget.querySelector<HTMLInputElement>('input');
+			const activeElement = getDocument()?.activeElement;
+			const isInputFocussed = activeElement === inputField;
+			const isButtonFocussed = Array.from(colorButtons).some((buttonElement) => {
+				return activeElement === buttonElement;
+			});
+			if (event?.shiftKey) {
+				/* shift + tab */
+				if (isInputFocussed) {
+					colorButtons[0].focus();
+					event.preventDefault();
+				}
+				/* After the user presses shift + tab the color-palette component updates tab index for the first color to be 0.
+            To correctly set focus to the input field instead of the first color button we need to set focus manually
+            */
+				if (isButtonFocussed) {
+					inputField?.focus();
+					event.preventDefault();
+				}
+			} else {
+				/* tab */
+				if (isButtonFocussed) {
+					inputField?.focus();
+					event.preventDefault();
+				}
+			}
+			return;
+		}
+
+		const colorButtons = event.currentTarget.querySelectorAll<HTMLButtonElement>(
+			'button:not([data-suggested-status-button])',
+		);
+		const suggestedStatusButtons = event.currentTarget.querySelectorAll<HTMLButtonElement>(
+			'button[data-suggested-status-button]',
+		);
 		const inputField = event.currentTarget.querySelector<HTMLInputElement>('input');
 		const activeElement = getDocument()?.activeElement;
 		const isInputFocussed = activeElement === inputField;
 		const isButtonFocussed = Array.from(colorButtons).some((buttonElement) => {
 			return activeElement === buttonElement;
 		});
+		const isSuggestedStatusButtonFocussed = Array.from(suggestedStatusButtons).some(
+			(buttonElement) => {
+				return activeElement === buttonElement;
+			},
+		);
 		if (event?.shiftKey) {
 			/* shift + tab */
 			if (isInputFocussed) {
-				colorButtons[0].focus();
+				if (suggestedStatusButtons.length > 0) {
+					suggestedStatusButtons[suggestedStatusButtons.length - 1].focus();
+				} else {
+					colorButtons[0]?.focus();
+				}
 				event.preventDefault();
 			}
 			/* After the user presses shift + tab the color-palette component updates tab index for the first color to be 0.
@@ -228,9 +303,21 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 				inputField?.focus();
 				event.preventDefault();
 			}
+			if (isSuggestedStatusButtonFocussed) {
+				colorButtons[colorButtons.length - 1]?.focus();
+				event.preventDefault();
+			}
 		} else {
 			/* tab */
 			if (isButtonFocussed) {
+				if (suggestedStatusButtons.length > 0) {
+					suggestedStatusButtons[0].focus();
+				} else {
+					inputField?.focus();
+				}
+				event.preventDefault();
+			}
+			if (isSuggestedStatusButtonFocussed) {
 				inputField?.focus();
 				event.preventDefault();
 			}
@@ -263,7 +350,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 	private renderWithSetOutsideClickTargetRef(
 		setOutsideClickTargetRef: (el: HTMLElement | null) => void,
 	) {
-		const { isNew, focusStatusInput, api } = this.props;
+		const { isNew, focusStatusInput, api, suggestedStatuses } = this.props;
 		const { color, text } = this.state;
 		return (
 			<UserIntentPopupWrapper api={api} userIntent="statusPickerOpen">
@@ -287,6 +374,25 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 						onTextChanged={this.onTextChanged}
 						onEnter={this.onEnter}
 					/>
+					{suggestedStatuses?.length &&
+					expValEquals('platform_editor_status_popup_suggestions', 'isEnabled', true) ? (
+						<div css={suggestedStatusesContainerStyles} data-suggested-status-list>
+							{suggestedStatuses.map((suggestedStatus, index) => (
+								<div key={`${suggestedStatus.color}:${suggestedStatus.text}`}>
+									<button
+										type="button"
+										css={suggestedStatusButtonStyles}
+										onClick={() => this.onSuggestedStatusClick(suggestedStatus, index + 1)}
+										onKeyDown={this.handleSuggestedStatusKeyDown}
+										aria-label={suggestedStatus.displayText}
+										data-suggested-status-button
+									>
+										<Status color={suggestedStatus.color} text={suggestedStatus.displayText} />
+									</button>
+								</div>
+							))}
+						</div>
+					) : null}
 				</div>
 			</UserIntentPopupWrapper>
 		);
@@ -380,6 +486,55 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		this.inputMethod = InputMethod.enterKey;
 		this.props.onEnter(this.state);
 	};
+
+	private fireSuggestedStatusClickedAnalytics(status: SuggestedStatus, position: number) {
+		this.createStatusAnalyticsAndFireFunc({
+			action: 'clicked',
+			actionSubject: 'statusSuggestion',
+			attributes: {
+				color: status.color,
+				localId: this.state.localId,
+				position,
+				state: analyticsState(this.props.isNew),
+				textLength: status.text ? status.text.length : 0,
+				totalSuggestions: this.props.suggestedStatuses?.length ?? 0,
+			},
+		});
+	}
+
+	private onSuggestedStatusClick = (status: SuggestedStatus, position: number) => {
+		this.fireSuggestedStatusClickedAnalytics(status, position);
+		this.props.onSuggestedStatusClick(status);
+	};
+
+	private handleSuggestedStatusKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+		// Selection (Enter/Space) is handled natively via the button's onClick.
+		// Keydown only drives ArrowUp/ArrowDown navigation between suggestions.
+		if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+			event.preventDefault();
+			event.stopPropagation();
+			this.focusAdjacentSuggestedStatus(event.currentTarget, event.key === 'ArrowDown' ? 1 : -1);
+		}
+	};
+
+	private focusAdjacentSuggestedStatus(currentButton: HTMLButtonElement, direction: 1 | -1) {
+		const suggestedStatusButtons =
+			this.popupBodyWrapper.current?.querySelectorAll<HTMLButtonElement>(
+				'button[data-suggested-status-button]',
+			);
+		if (!suggestedStatusButtons?.length) {
+			return;
+		}
+
+		const currentIndex = Array.from(suggestedStatusButtons).indexOf(currentButton);
+		if (currentIndex < 0) {
+			return;
+		}
+
+		const nextIndex =
+			(currentIndex + direction + suggestedStatusButtons.length) % suggestedStatusButtons.length;
+		suggestedStatusButtons[nextIndex]?.focus();
+	}
 
 	// cancel bubbling to fix clickOutside logic:
 	// popup re-renders its content before the click event bubbles up to the document

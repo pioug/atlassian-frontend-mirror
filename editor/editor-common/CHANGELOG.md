@@ -1,5 +1,67 @@
 # @atlaskit/editor-common
 
+## 116.32.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.32.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.32.0
+
+### Minor Changes
+
+- [`3574c94470487`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3574c94470487) -
+  Add `blockTypeMessages.syncedBlockQuickInsertTitle` for noun-form synced block labels, for example
+  `formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle)`, and use it in quick insert under
+  the activation experiment.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.31.0
+
+### Minor Changes
+
+- [`2aa9853a2c07d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2aa9853a2c07d) -
+  `ResourcedMention` and the editor-common `Mention` now accept an `isDisabled` (and
+  `disabledTooltip`) prop, forwarding the disabled mention visual state through the layered mention
+  components. A disabled mention bypasses the profile-card wrapper as it is non-interactive, while
+  retaining a readable neutral visual treatment so meaningful mention text remains perceivable.
+
+  Example usage:
+
+  ```tsx
+  <Mention
+  	id="agent-2"
+  	text="@Researcher"
+  	isDisabled
+  	disabledTooltip="Only one agent can be active at a time"
+  />
+  ```
+
+  Used in Rovo chat to grey out inactive (non-responding) agent @mentions in sent user messages: the
+  agent that responded to the turn stays fully styled while other mentioned agents render disabled.
+
+- [`f4cf0276c2938`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4cf0276c2938) -
+  Add metric attributes for tracking agent inclusion and selection from the mention picker
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.30.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.30.3
 
 ### Patch Changes

@@ -4,7 +4,9 @@ import type { LayoutSectionDefinition as LayoutSection } from './layout-section'
 import type { ParagraphWithIndentationDefinition } from './paragraph';
 import type { BlockContent } from './types/block-content';
 import type { MultiBodiedExtensionDefinition as MultiBodiedExtension } from './multi-bodied-extension';
+import type { PanelRootOnlyDefinition as PanelRootOnly } from './panel';
 import { doc as docFactory } from '../../next-schema/generated/nodeTypes';
+import type { RuleRootOnlyDefinition as RuleRootOnly } from './rule';
 import type { SyncBlockDefinition as SyncBlock } from './sync-block';
 import type { BodiedSyncBlockDefinition as BodiedSyncBlock } from './bodied-sync-block';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
@@ -22,6 +24,8 @@ export interface DocNode {
 		| LayoutSection
 		| CodeBlockWithMarks
 		| ExpandRootOnly
+		| PanelRootOnly
+		| RuleRootOnly
 		| ParagraphWithIndentationDefinition
 		| MultiBodiedExtension
 		| BodiedSyncBlock

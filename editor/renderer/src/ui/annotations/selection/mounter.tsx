@@ -1,4 +1,6 @@
 import React, { useCallback, useContext, useMemo, useEffect } from 'react';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
@@ -10,7 +12,6 @@ import type {
 	ClearDraftResult,
 	StartDraftResult,
 } from '@atlaskit/editor-common/annotation';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	AnnotationByMatches,
 	InlineCommentSelectionComponentProps,
@@ -86,10 +87,15 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 
 	const onCreateCallback = useCallback(
 		(annotationId: string) => {
-			// We want to support creation on a documentPosition if the user is only using ranges
-			// but we want to prioritize draft positions if they are being used by consumers
-			// !!! at this point, the documentPosition can be the wrong position if the user select something else
-			const positionToAnnotate = selectionDraftDocumentPosition || documentPosition;
+			// Use documentPosition directly when gate is on — selectionDraftDocumentPosition may be stale
+			// (from a previous selection) causing the comment to anchor to the wrong text (COMMENTS-6594).
+			const positionToAnnotate = expValEquals(
+				'confluence_inline_comments_fix_stale_selection',
+				'isEnabled',
+				true,
+			)
+				? documentPosition
+				: selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation) {
 				return false;
@@ -124,10 +130,10 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 		[
 			actions,
 			documentPosition,
+			selectionDraftDocumentPosition,
 			applyAnnotation,
 			createAnalyticsEvent,
 			inlineNodeTypes,
-			selectionDraftDocumentPosition,
 		],
 	);
 
@@ -162,6 +168,10 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 				return false;
 			}
 
+			// Clear any stale draft position before promoting the new one (COMMENTS-6594).
+			if (expValEquals('confluence_inline_comments_fix_stale_selection', 'isEnabled', true)) {
+				clearSelectionDraft();
+			}
 			promoteSelectionToDraft(documentPosition);
 
 			if (createAnalyticsEvent) {
@@ -190,13 +200,15 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 				}
 			});
 
-			// at this point, the documentPosition is the position that the user has selected,
-			// not the selectionDraftDocumentPosition
-			// because the documentPosition is not promoted to selectionDraftDocumentPosition yet
-			// use platform_editor_comments_api_manager here so we can clear the code path when the flag is removed
-			const positionToAnnotate = fg('platform_editor_comments_api_manager')
-				? documentPosition
-				: selectionDraftDocumentPosition || documentPosition;
+			// Use documentPosition directly when either:
+			// - platform_editor_comments_api_manager is on (existing behaviour), OR
+			// - COMMENTS-6594 experiment is on (fix: avoids stale closure value)
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+			const positionToAnnotate =
+				fg('platform_editor_comments_api_manager') ||
+				expValEquals('confluence_inline_comments_fix_stale_selection', 'isEnabled', true)
+					? documentPosition
+					: selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
 				if (createAnalyticsEvent) {
@@ -231,6 +243,7 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 			range,
 			inlineNodeTypes,
 			promoteSelectionToDraft,
+			clearSelectionDraft,
 			selectionDraftDocumentPosition,
 		],
 	);

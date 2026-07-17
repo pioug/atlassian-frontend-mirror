@@ -148,6 +148,7 @@ export const buildTypeAheadInsertedPayload = (
 	taskListId?: string,
 	taskItemId?: string,
 	isAgent?: boolean,
+	agentSectioningEnabled?: boolean,
 ): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	let containerId;
@@ -185,7 +186,7 @@ export const buildTypeAheadInsertedPayload = (
 				isTeamType(mention.userType) && mention.context ? mention.context.memberCount : null,
 			includesYou:
 				isTeamType(mention.userType) && mention.context ? mention.context.includesYou : null,
-			...(isAgent ? { isAgent } : {}),
+			...(isAgent ? { isAgent, agentSectioningEnabled } : {}),
 			taskListId,
 			taskItemId,
 			localId: mentionLocalId,
@@ -202,11 +203,22 @@ export const buildTypeAheadRenderedPayload = (
 	query: string,
 	teams: TeamInfoAttrAnalytics[] | null,
 	xProductMentionsLength: number,
+	agentAnalytics?: {
+		agentCount: number;
+		agentSectioningEnabled: boolean;
+	},
 ): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	const actionSubject = userIds
 		? ACTION_SUBJECT.MENTION_TYPEAHEAD
 		: ACTION_SUBJECT.TEAM_MENTION_TYPEAHEAD;
+	const agentAnalyticsAttributes = agentAnalytics
+		? {
+				agentCount: agentAnalytics.agentCount,
+				agentsShown: agentAnalytics.agentCount > 0,
+				agentSectioningEnabled: agentAnalytics.agentSectioningEnabled,
+			}
+		: {};
 
 	return {
 		action: ACTION.RENDERED,
@@ -220,6 +232,7 @@ export const buildTypeAheadRenderedPayload = (
 			queryLength,
 			spaceInQuery,
 			xProductMentionsLength,
+			...agentAnalyticsAttributes,
 		},
 	};
 };

@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { RendererStyleContainer } from '../../RendererStyleContainer';
 import { BaseTheme } from '@atlaskit/editor-common/ui';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 
 describe('RendererStyleContainer', () => {
 	beforeEach(() => {

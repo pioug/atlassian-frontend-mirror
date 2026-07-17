@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
+import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -339,22 +340,25 @@ describe('AgentProfileCreator', () => {
 		expect(screen.queryByTestId('agent-profile-creator-skeleton')).not.toBeInTheDocument();
 	});
 
-	test('hides the Rovo icon when hideCreatorIcon is set', () => {
-		render(
-			<AgentProfileCreator
-				creator={getAgentCreator({
-					creatorType: 'FORGE',
-					forgeCreator: 'John Doe Forge',
-				})}
-				isLoading={false}
-				onCreatorLinkClick={() => {}}
-				hideCreatorIcon
-			/>,
-			{ wrapper },
-		);
+	eeTest.describe('platform_editor_agent_mentions', 'experiment on').variant(true, () => {
+		ffTest.on('platform_editor_agent_mentions_drop_one_fixes', 'fg on', () => {
+			test('hides the Rovo icon', () => {
+				render(
+					<AgentProfileCreator
+						creator={getAgentCreator({
+							creatorType: 'FORGE',
+							forgeCreator: 'John Doe Forge',
+						})}
+						isLoading={false}
+						onCreatorLinkClick={() => {}}
+					/>,
+					{ wrapper },
+				);
 
-		expect(screen.getByText('Rovo Agent by John Doe Forge')).toBeInTheDocument();
-		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
+				expect(screen.getByText('Rovo Agent by John Doe Forge')).toBeInTheDocument();
+				expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
+			});
+		});
 	});
 
 	test('render correctly for REMOTE_A2A: "Agent by" copy without the Rovo logo', () => {

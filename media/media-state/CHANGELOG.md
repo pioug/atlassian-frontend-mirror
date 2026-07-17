@@ -1,5 +1,14 @@
 # @atlaskit/media-state
 
+## 3.1.0
+
+### Minor Changes
+
+- [`c2bd2cf3b0b62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c2bd2cf3b0b62) -
+  Flatten entry points and add explicit subpath package exports (barrel removal): split multi-export
+  `store.ts` into `media-store.ts` and `create-media-store.ts`, and expose per-symbol subpath
+  exports (`./media-store`, `./create-media-store`).
+
 ## 3.0.0
 
 ### Major Changes

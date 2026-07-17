@@ -7,6 +7,8 @@ import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { Popper } from '@atlaskit/popper';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { DefaultReactions } from '../shared/constants';
 import { RENDER_BUTTON_TESTID } from './EmojiButton';
@@ -23,9 +25,6 @@ jest.mock('../hooks/useDelayedState', () => ({
 	useDelayedState: (defaultState: any) => useState(defaultState),
 }));
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	fg: jest.fn().mockReturnValue(false),
-}));
 jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn().mockReturnValue(false),
 }));
@@ -320,5 +319,25 @@ describe('PopperWrapper', () => {
 			expect.objectContaining({ placement: 'bottom-start' }),
 			expect.anything(),
 		);
+	});
+
+	describe('dialog role (platform_ceps-5921-a11y-fix-reactions gate)', () => {
+		it('should expose the panel as role="group" without aria-modal when feature gate is OFF', async () => {
+			failGate('platform_ceps-5921-a11y-fix-reactions');
+			mockRenderPopperWrapper(popperWrapperProps, true);
+			const panel = await screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+			expect(panel).toHaveAttribute('role', 'group');
+			expect(panel).not.toHaveAttribute('aria-modal');
+			expect(panel).toHaveAttribute('aria-label', 'Add reactions');
+		});
+
+		it('should expose the panel as a non-modal dialog when feature gate is ON', async () => {
+			passGate('platform_ceps-5921-a11y-fix-reactions');
+			mockRenderPopperWrapper(popperWrapperProps, true);
+			const panel = await screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+			expect(panel).toHaveAttribute('role', 'dialog');
+			expect(panel).toHaveAttribute('aria-modal', 'false');
+			expect(panel).toHaveAttribute('aria-label', 'Add reactions');
+		});
 	});
 });

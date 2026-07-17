@@ -9,7 +9,7 @@ import Avatar from '@atlaskit/avatar';
 import { css } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import TagIcon from '@atlaskit/icon/core/tag';
-import { AvatarTag, RemovableTag, SimpleTag as Tag, type TagColor } from '@atlaskit/tag';
+import Tag, { AvatarTag, type TagColor } from '@atlaskit/tag';
 import TagNew, { type NewTagColor } from '@atlaskit/tag/new';
 import TeamAvatar from '@atlaskit/teams-avatar';
 import { token } from '@atlaskit/tokens';
@@ -110,6 +110,7 @@ const _default: () => JSX.Element = () => (
 					text="Tag"
 					color={isLight ? (`${color}Light` as TagColor) : color}
 					testId={color === 'standard' ? 'nonInteractiveStandard' : undefined}
+					isRemovable={false}
 				/>
 			)}
 		/>
@@ -122,6 +123,7 @@ const _default: () => JSX.Element = () => (
 					text="Tag"
 					color={isLight ? (`${color}Light` as TagColor) : color}
 					testId={color === 'standard' ? 'linkStandard' : undefined}
+					isRemovable={false}
 				/>
 			)}
 		/>
@@ -129,7 +131,7 @@ const _default: () => JSX.Element = () => (
 		<TagTable
 			caption="Removable tags"
 			renderTag={(color, isLight) => (
-				<RemovableTag
+				<Tag
 					removeButtonLabel="Remove"
 					text="Tag"
 					color={isLight ? (`${color}Light` as TagColor) : color}
@@ -140,7 +142,7 @@ const _default: () => JSX.Element = () => (
 		<TagTable
 			caption="Removable + link tags"
 			renderTag={(color, isLight) => (
-				<RemovableTag
+				<Tag
 					removeButtonLabel="Remove"
 					href="https://www.atlassian.com/search?query=Carrot%20cake"
 					text="Tag"
@@ -158,6 +160,7 @@ const _default: () => JSX.Element = () => (
 					text="Tag"
 					color={isLight ? (`${color}Light` as TagColor) : color}
 					testId={color === 'standard' ? 'elemBeforeBlue' : undefined}
+					isRemovable={false}
 				/>
 			)}
 		/>
@@ -165,7 +168,7 @@ const _default: () => JSX.Element = () => (
 		<TagTable
 			caption="Removable + Link + Element before tags"
 			renderTag={(color, isLight) => (
-				<RemovableTag
+				<Tag
 					elemBefore={elemBefore}
 					href="https://www.atlassian.com/search?query=Carrot%20cake"
 					text="Tag"

@@ -5,10 +5,10 @@ import Lozenge from '@atlaskit/lozenge';
 export default (): React.JSX.Element => (
 	<>
 		<div>
-			<Lozenge appearance="inprogress">In progress</Lozenge>
+			<Lozenge appearance="information">In progress</Lozenge>
 		</div>
 		<div>
-			<Lozenge appearance="inprogress" isBold>
+			<Lozenge appearance="information" isBold>
 				In progress bold
 			</Lozenge>
 		</div>

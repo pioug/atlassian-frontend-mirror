@@ -55,6 +55,10 @@ describe('emojiIdToEmoji', () => {
 	});
 
 	describe('flag sequences (regional indicators)', () => {
+		it('returns undefined for standalone regional indicators so callers use Twemoji', () => {
+			expect(emojiIdToEmoji('1f1e6')).toBeUndefined();
+		});
+
 		it('returns undefined for country flags so callers use Twemoji', () => {
 			expect(emojiIdToEmoji('1f1e6-1f1fa')).toBeUndefined();
 		});

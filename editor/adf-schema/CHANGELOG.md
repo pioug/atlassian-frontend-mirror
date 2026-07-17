@@ -1,5 +1,18 @@
 # @atlaskit/adf-schema
 
+## 56.1.6
+
+### Patch Changes
+
+- [`ba8c317b7b604`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba8c317b7b604) -
+  Add breakout mark width and root-only panel/rule typing
+
+## 56.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 56.1.4
 
 ### Patch Changes

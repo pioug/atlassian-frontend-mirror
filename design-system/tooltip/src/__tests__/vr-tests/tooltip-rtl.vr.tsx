@@ -26,7 +26,7 @@ snapshot(VrPositionRtlExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-top-layer': true,
+		'platform-dst-top-layer-tooltip': true,
 	},
 });
 
@@ -49,6 +49,6 @@ snapshot(VrPositionRtlExample, {
 	drawsOutsideBounds: true,
 	variants: lightModeVariant,
 	featureFlags: {
-		'platform-dst-top-layer': true,
+		'platform-dst-top-layer-tooltip': true,
 	},
 });

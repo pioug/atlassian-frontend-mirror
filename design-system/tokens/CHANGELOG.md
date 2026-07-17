@@ -1,5 +1,94 @@
 # @atlaskit/tokens
 
+## 16.0.0
+
+### Major Changes
+
+- [`ecc5823dc898c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ecc5823dc898c) - ##
+  Breaking change: barrel file exports removed from `@atlaskit/tokens`
+
+  The main entry point (`@atlaskit/tokens`) now only exports the `token` function. All other named
+  exports have been moved to dedicated sub-path entry-points to reduce bundle size, improve build
+  times, and minimise the package's overall footprint.
+
+  ### Why we're doing this
+
+  Large barrel files (a single `index` that re-exports everything) force bundlers to load the entire
+  package even when only a small subset is used. By splitting exports into individual entry-points,
+  consumers can import only what they need, leading to:
+  - Faster build and typecheck times
+  - Smaller production bundles
+  - Clearer dependency boundaries
+
+  ### What's changed
+
+  Previously you could import anything from the root:
+
+  ```ts
+  import {
+  	token,
+  	getTokenValue,
+  	setGlobalTheme,
+  	useThemeObserver,
+  	ThemeState,
+  	COLOR_MODE_ATTRIBUTE,
+  } from '@atlaskit/tokens';
+  ```
+
+  Now only `token` remains in the root. Everything else must be imported from its own entry-point:
+
+  ```ts
+  import { token } from '@atlaskit/tokens';
+  import { getTokenValue } from '@atlaskit/tokens/get-token-value';
+  import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
+  import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
+  import type { ThemeState } from '@atlaskit/tokens/theme-config';
+  import { COLOR_MODE_ATTRIBUTE } from '@atlaskit/tokens/constants';
+  ```
+
+  ### Full entry-point reference
+
+  | Export(s)                                                                                                                                                               | New import path                               |
+  | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+  | `token`                                                                                                                                                                 | `@atlaskit/tokens` _(unchanged)_              |
+  | `getTokenValue`                                                                                                                                                         | `@atlaskit/tokens/get-token-value`            |
+  | `setGlobalTheme`                                                                                                                                                        | `@atlaskit/tokens/set-global-theme`           |
+  | `enableGlobalTheme`                                                                                                                                                     | `@atlaskit/tokens/enable-global-theme`        |
+  | `getThemeStyles`                                                                                                                                                        | `@atlaskit/tokens/get-theme-styles`           |
+  | `getThemeHtmlAttrs`                                                                                                                                                     | `@atlaskit/tokens/get-theme-html-attrs`       |
+  | `getSSRAutoScript`                                                                                                                                                      | `@atlaskit/tokens/get-ssr-auto-script`        |
+  | `useThemeObserver`                                                                                                                                                      | `@atlaskit/tokens/use-theme-observer`         |
+  | `ThemeMutationObserver`                                                                                                                                                 | `@atlaskit/tokens/theme-mutation-observer`    |
+  | `getGlobalTheme`                                                                                                                                                        | `@atlaskit/tokens/get-global-theme`           |
+  | `themeStringToObject`, `themeObjectToString`                                                                                                                            | `@atlaskit/tokens/theme-state-transformer`    |
+  | `themeConfig`, `ThemeColorModes`, `ThemeContrastModes`, `Themes`, `ThemeFileNames`, `ThemeIds`, `ThemeOptionsSchema`, `ThemeState`, `ActiveThemeState`                  | `@atlaskit/tokens/theme-config`               |
+  | `themeImportMap`                                                                                                                                                        | `@atlaskit/tokens/artifacts/theme-import-map` |
+  | `CSSToken`, `CSSTokenMap`                                                                                                                                               | `@atlaskit/tokens/token-names`                |
+  | `ActiveTokens`                                                                                                                                                          | `@atlaskit/tokens/artifacts/types`            |
+  | `FontFamilyToken`, `FontWeightToken`, `Groups`, `OpacityToken`, `PaintToken`, `RawToken`, `ShadowToken`, `SpacingToken`, `ShapeToken`, `TypographyToken`, `MotionToken` | `@atlaskit/tokens/types`                      |
+  | `COLOR_MODE_ATTRIBUTE`, `CURRENT_SURFACE_CSS_VAR`, `SUBTREE_THEME_ATTRIBUTE`, `THEME_DATA_ATTRIBUTE`                                                                    | `@atlaskit/tokens/constants`                  |
+
+  ### Automated migration with codemod
+
+  A codemod is available to automatically update your imports. Run it with:
+
+  ```bash
+  npx @hypermod/cli --packages @atlaskit/tokens@<version> --preset migrate-to-entry-points <path-to-your-source>
+  ```
+
+  For example, to migrate all files in your `src/` directory:
+
+  ```bash
+  npx @hypermod/cli --packages @atlaskit/tokens@<version> --preset migrate-to-entry-points ./src
+  ```
+
+  The codemod will:
+  - Leave `import { token } from '@atlaskit/tokens'` untouched
+  - Split all other imports out to their appropriate entry-points
+  - Preserve type-only imports (`import type`) and per-specifier type modifiers
+  - Preserve import aliases (e.g. `import { getTokenValue as getValue }`)
+  - Group multiple imports that share the same entry-point into a single declaration
+
 ## 15.8.0
 
 ### Minor Changes

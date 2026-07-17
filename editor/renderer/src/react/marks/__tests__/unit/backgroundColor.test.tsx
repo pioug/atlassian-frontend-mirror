@@ -6,7 +6,7 @@
 import { jsx } from '@emotion/react';
 import { screen, render } from '@testing-library/react';
 
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 
 import BackgroundColor from '../../backgroundColor';

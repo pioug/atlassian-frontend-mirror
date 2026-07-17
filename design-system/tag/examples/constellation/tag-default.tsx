@@ -1,5 +1,5 @@
 import React from 'react';
 
-import { SimpleTag as Tag } from '@atlaskit/tag';
+import Tag from '@atlaskit/tag';
 
-export default (): React.JSX.Element => <Tag text="Tag" />;
+export default (): React.JSX.Element => <Tag text="Tag" isRemovable={false} />;

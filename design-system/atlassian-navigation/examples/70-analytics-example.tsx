@@ -71,7 +71,7 @@ const HelpAnalytics = () => {
 	return <Help onClick={onClick} tooltip="Help" />;
 };
 
-const badge = () => <Badge appearance="important">3</Badge>;
+const badge = () => <Badge appearance="dangerBold">3</Badge>;
 
 const NotificationsAnalytics = () => {
 	const onClick = useNavigationAnalytics('notifications');

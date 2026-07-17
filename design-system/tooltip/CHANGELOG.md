@@ -1,5 +1,18 @@
 # @atlaskit/tooltip
 
+## 23.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.1.2
+
+### Patch Changes
+
+- [`d2f4cf19d246d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f4cf19d246d) -
+  Move Tooltip top-layer rendering behind the platform-dst-top-layer-tooltip feature gate
+
 ## 23.1.1
 
 ### Patch Changes

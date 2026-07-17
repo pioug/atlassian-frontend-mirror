@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 
 import { BaseTheme } from '@atlaskit/editor-common/ui';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles/consts';
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EditorContentContainerEmotion } from '../../../ui/EditorContentContainer/EditorContentContainer-emotion';

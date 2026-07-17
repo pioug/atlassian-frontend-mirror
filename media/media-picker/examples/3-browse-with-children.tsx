@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 
 import Button from '@atlaskit/button/new';
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Box from '@atlaskit/primitives/box';
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import {

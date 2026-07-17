@@ -6,6 +6,7 @@ import { Fragment, type JSX } from 'react';
 
 import { jsx } from '@compiled/react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { Hide, Show } from '@atlaskit/primitives/responsive';
 
 const breakpoints = ['xxs', 'xs', 'sm', 'md', 'lg', 'xl'] as const;

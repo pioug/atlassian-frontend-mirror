@@ -7,7 +7,7 @@ import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles'
 import { fg } from '@atlaskit/platform-feature-flags';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn(),
 }));

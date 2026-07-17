@@ -2,8 +2,7 @@ import fs from 'fs';
 
 import { THEME_INPUT_DIR } from '../../../scripts/style-dictionary/constants';
 import tokens from '../../artifacts/token-names';
-import type { Themes } from '../../index';
-import themeConfig from '../../theme-config';
+import themeConfig, { type Themes } from '../../theme-config';
 
 const tokenPath = `../../../${THEME_INPUT_DIR}`;
 

@@ -307,6 +307,7 @@ export const RendererFunctionalComponent = (
 				providers: providerFactory,
 				eventHandlers: props.eventHandlers,
 				extensionHandlers: props.extensionHandlers,
+				hideExtensionKeysWhilePending: props.hideExtensionKeysWhilePending,
 				portal: props.portal,
 				objectContext: {
 					adDoc: props.shouldRemoveEmptySpaceAroundContent

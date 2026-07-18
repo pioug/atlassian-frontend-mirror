@@ -88,50 +88,6 @@ type ChatModeParam = {
 	appFilters?: unknown[];
 };
 
-type SerializableCreationContextValue =
-	| string
-	| number
-	| boolean
-	| null
-	| undefined
-	| { [key: string | number]: SerializableCreationContextValue }
-	| SerializableCreationContextValue[];
-
-export type CreationContextParams = {
-	templateInput?: {
-		templateId: string;
-		templateType: string;
-	};
-	jiraContext?: unknown;
-	dynamicUiType?: string;
-	dynamicUiSubtype?: string;
-	dynamicUiSource?: unknown;
-	forcedContentType?: string;
-	contentMauiId?: string;
-	mediaFileId?: string;
-	source?: string;
-	shouldUseExistingContent?: boolean;
-	isViewMode?: boolean;
-	experience?:
-		| 'cwr'
-		| 'cwr_type'
-		| 'cwr_edit'
-		| 'cwr_existing'
-		| 'inline_edit'
-		| 'inline_view'
-		| 'remix'
-		| 'remix_edit'
-		| 'remix_object'
-		| 'remix_custom'
-		| 'chat_edit'
-		| 'chat_view'
-		| 'keep_existing_page_structure';
-	contentTypes?: string[];
-	blocks?: string[];
-	spaceKey?: string;
-	additionalContext?: Record<string, SerializableCreationContextValue>;
-};
-
 export type ResultAttributionContextPayload = {
 	/**
 	 * Source surface that launched the agent chat, appended to generated result analytics.
@@ -156,7 +112,6 @@ export type ChatNewPayload = PayloadCore<
 		}>;
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
-		creationContextParams?: CreationContextParams;
 		/**
 		 * Overrides the default auto-send behavior for prompts.
 		 * Set this to true to insert prompts not containing backticks into the chat input for dynamic

@@ -26,9 +26,11 @@ import { token } from '@atlaskit/tokens';
 interface Props {
 	actions?: MultiBodiedExtensionActions;
 	children: ({
+		isExtensionProviderPending,
 		node,
 		result,
 	}: {
+		isExtensionProviderPending: boolean;
 		node: ExtensionParams<Parameters>;
 		result?: JSX.Element | null;
 	}) => JSX.Element;
@@ -101,21 +103,39 @@ export default function ExtensionRenderer(props: Props): jsx.JSX.Element {
 
 	const isMounted = React.useRef(true);
 	const localGetNodeRenderer = React.useMemo(() => memoizeOne(getNodeRenderer), []);
-	const [extensionProvider, setExtensionProvider] = React.useState<ExtensionProvider | null>(null);
+	/**
+	 * null -> provider promise not yet settled (pending)
+	 * undefined -> provider promise rejected (settled, no provider available)
+	 * <provider> -> provider promise resolved
+	 */
+	const [extensionProvider, setExtensionProvider] = React.useState<
+		ExtensionProvider | null | undefined
+	>(null);
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const handleProvider = React.useCallback((_name: keyof State, providerPromise?: Promise<any>) => {
-		providerPromise &&
-			providerPromise.then((provider) => {
-				if (isMounted.current) {
-					setExtensionProvider(provider);
-				}
-			});
-	}, []);
+	const handleProvider = React.useCallback(
+		(_name: keyof State, providerPromise?: Promise<ExtensionProvider>) => {
+			providerPromise?.then(
+				(provider) => {
+					if (isMounted.current) {
+						setExtensionProvider(provider);
+					}
+				},
+				() => {
+					// Consumers can use this to distinguish a rejected provider from a pending one
+					if (isMounted.current) {
+						setExtensionProvider(undefined);
+					}
+				},
+			);
+		},
+		[],
+	);
 
 	const renderExtensionNode = React.useCallback(
-		(extensionProvider?: ExtensionProvider | null) => {
+		(
+			extensionProvider: ExtensionProvider | null | undefined,
+			isExtensionProviderPending: boolean,
+		) => {
 			const fragmentLocalId = marks?.find((m) => m.type.name === 'fragment')?.attrs?.localId;
 
 			const node = {
@@ -157,7 +177,7 @@ export default function ExtensionRenderer(props: Props): jsx.JSX.Element {
 				/** We keep rendering the default content */
 			}
 
-			return children({ node, result });
+			return children({ isExtensionProviderPending, node, result });
 		},
 		[
 			actions,
@@ -178,11 +198,14 @@ export default function ExtensionRenderer(props: Props): jsx.JSX.Element {
 
 	const setupAndRenderExtensionNode = React.useCallback(
 		(providers: { extensionProvider?: Promise<ExtensionProvider> }) => {
-			if (!extensionProvider && providers.extensionProvider) {
+			if (extensionProvider === null && providers.extensionProvider) {
 				handleProvider('extensionProvider', providers.extensionProvider);
 			}
 
-			return renderExtensionNode(extensionProvider);
+			return renderExtensionNode(
+				extensionProvider,
+				Boolean(providers.extensionProvider) && extensionProvider === null,
+			);
 		},
 		[extensionProvider, handleProvider, renderExtensionNode],
 	);

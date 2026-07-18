@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 10.0.0
+
+### Major Changes
+
+- [`bd3fa2ca8168d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd3fa2ca8168d) -
+  Remove the "inline_view" creation context experience and all supporting highlight-actions plumbing
+  (the `creationContextParams` flow through the editor-placeholder store, chat input, pubsub
+  listener, and chat-new payload).
+
 ## 9.11.1
 
 ### Patch Changes

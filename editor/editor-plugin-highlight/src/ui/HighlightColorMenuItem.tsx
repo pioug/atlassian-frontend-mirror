@@ -181,7 +181,12 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 			: highlightColorPalette;
 
 		return highlightPalette
-			.filter((color) => isNewColorPaletteEnabled || color.value !== REMOVE_HIGHLIGHT_COLOR)
+			.filter((color) => {
+				if (!isNewColorPaletteEnabled || fg('platform_editor_lovability_text_bg_color_patch_1')) {
+					return color.value !== REMOVE_HIGHLIGHT_COLOR;
+				}
+				return color.label !== 'Red';
+			})
 			.map((color) => ({
 				...color,
 				decorator:

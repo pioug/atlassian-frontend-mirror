@@ -30,6 +30,11 @@ describe('hexToEditorTextBackgroundPaletteColor', () => {
 		expect(result).toBe('var(--ds-background-accent-yellow-subtler, #F8E6A0)');
 	});
 
+	it('should return red color for #FFD5D2', () => {
+		const result = hexToEditorTextBackgroundPaletteColor('#FFD5D2');
+		expect(result).toBe('var(--ds-background-accent-red-subtler, #FFD5D2)');
+	});
+
 	it('should return undefined for a hex not in the palette', () => {
 		const result = hexToEditorTextBackgroundPaletteColor('#FFFFFFFF');
 		expect(result).toBeUndefined();

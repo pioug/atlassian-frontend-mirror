@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 18.2.3
+
+### Patch Changes
+
+- [`6a036e3f13ffc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a036e3f13ffc) -
+  Fix flag Escape dismissal from focused inputs
+
 ## 18.2.2
 
 ### Patch Changes

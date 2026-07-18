@@ -3,7 +3,7 @@ import type { IntlShape } from 'react-intl';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { EMPTY_PARAGRAPH_TIMEOUT_DELAY, pluginKey } from '../placeholderPlugin';
@@ -11,6 +11,10 @@ import type { PlaceholderPlugin } from '../placeholderPluginType';
 
 import { TYPEWRITER_TYPED_AND_DELETED_DELAY } from './constants';
 import { createPlaceholderDecoration } from './decorations';
+import {
+	createMultiBodiedExtensionPlaceholderDecorations,
+	updateMultiBodiedExtensionPlaceholderDecorations,
+} from './multi-bodied-extension-placeholder-decorations';
 import {
 	createSourceSyncBlockPlaceholderDecorations,
 	updateSourceSyncBlockPlaceholderDecorations,
@@ -74,6 +78,8 @@ export default function createPlugin(
 					state,
 					intl,
 				),
+				multiBodiedExtensionPlaceholderDecorations:
+					createMultiBodiedExtensionPlaceholderDecorations(state, intl),
 			}),
 
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
@@ -136,6 +142,13 @@ export default function createPlugin(
 						oldEditorState: _oldEditorState,
 						tr,
 					}),
+					multiBodiedExtensionPlaceholderDecorations:
+						updateMultiBodiedExtensionPlaceholderDecorations({
+							currentDecorationSet: placeholderState?.multiBodiedExtensionPlaceholderDecorations,
+							intl,
+							newEditorState,
+							tr,
+						}),
 				};
 
 				// Clear timeouts when hasPlaceholder becomes false
@@ -160,6 +173,7 @@ export default function createPlugin(
 					contextPlaceholderADF,
 					showOnEmptyParagraph,
 					sourceSyncBlockPlaceholderDecorations,
+					multiBodiedExtensionPlaceholderDecorations,
 				} = getPlaceholderState(editorState);
 
 				// Decorations is still called after plugin is destroyed
@@ -177,6 +191,12 @@ export default function createPlugin(
 					!compositionPluginState?.isComposing && !isShowingDiff
 						? sourceSyncBlockPlaceholderDecorations
 						: undefined;
+				const multiBodiedExtensionDecorations =
+					!compositionPluginState?.isComposing && !isShowingDiff
+						? multiBodiedExtensionPlaceholderDecorations
+						: undefined;
+				const syncBlockDecorationItems = syncBlockPlaceholderDecorations?.find() ?? [];
+				const multiBodiedExtensionDecorationItems = multiBodiedExtensionDecorations?.find() ?? [];
 
 				if (
 					hasPlaceholder &&
@@ -202,9 +222,32 @@ export default function createPlugin(
 						initialDelayWhenUserTypedAndDeleted,
 						placeholderAdfToUse,
 						showOnEmptyParagraph,
-					).add(editorState.doc, syncBlockPlaceholderDecorations?.find() ?? []);
+					).add(editorState.doc, [
+						...syncBlockDecorationItems,
+						...multiBodiedExtensionDecorationItems,
+					]);
 				}
-				return syncBlockPlaceholderDecorations;
+				// These sets are already mapped in plugin state. Return a single
+				// active set directly, and only rebuild when multiple sets must be merged.
+				if (
+					syncBlockDecorationItems.length > 0 &&
+					multiBodiedExtensionDecorationItems.length === 0
+				) {
+					return syncBlockPlaceholderDecorations;
+				}
+				if (
+					multiBodiedExtensionDecorationItems.length > 0 &&
+					syncBlockDecorationItems.length === 0
+				) {
+					return multiBodiedExtensionDecorations;
+				}
+				const additionalDecorations = [
+					...syncBlockDecorationItems,
+					...multiBodiedExtensionDecorationItems,
+				];
+				return additionalDecorations.length > 0
+					? DecorationSet.create(editorState.doc, additionalDecorations)
+					: undefined;
 			},
 		},
 

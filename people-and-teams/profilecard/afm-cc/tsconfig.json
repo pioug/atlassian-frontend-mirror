@@ -117,9 +117,6 @@
 		},
 		{
 			"path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
-		},
-		{
-			"path": "../../../studio-foundations/studio-entry-link/afm-cc/tsconfig.json"
 		}
 	]
 }

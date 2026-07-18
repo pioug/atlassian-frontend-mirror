@@ -45,6 +45,7 @@ export interface NodeMeta {
 	eventHandlers?: EventHandlers | undefined;
 	extensionHandlers?: ExtensionHandlers | undefined;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	hideExtensionKeysWhilePending?: string[];
 	marks: PMNode['marks'];
 	nodeType: NodeType['name'];
 	portal?: HTMLElement | undefined;

@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 116.32.4
+
+### Patch Changes
+
+- [`245230d12da8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/245230d12da8d) -
+  [ux] [EDITOR-8142] add red highlight color and filter out the transparent/ default highlight color
+  behind platform_editor_lovability_text_bg_color_patch_1
+- Updated dependencies
+
+## 116.32.3
+
+### Patch Changes
+
+- [`6f1a8660863cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f1a8660863cb) -
+  Show placeholder text in empty multi bodied extension frames
+
 ## 116.32.2
 
 ### Patch Changes

@@ -10,3 +10,4 @@ export const TYPEWRITER_TYPED_AND_DELETED_DELAY = 1500; // Delay before starting
 export const nodeTypesWithLongPlaceholderText: string[] = ['expand', 'panel'];
 export const nodeTypesWithShortPlaceholderText: string[] = ['tableCell', 'tableHeader'];
 export const nodeTypesWithSyncBlockPlaceholderText: string[] = ['bodiedSyncBlock'];
+export const nodeTypesWithMultiBodiedExtensionPlaceholderText: string[] = ['extensionFrame'];

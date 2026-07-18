@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 45.10.0
+
+### Minor Changes
+
+- [`a00cf413658cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a00cf413658cc) -
+  Remove the experiment-only `@atlaskit/smart-card/preload-lazy-card-with-url-content` entrypoint.
+
+  Ship the Smart Creation chat intent preload and remove the multi-arm preload experiment branching.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.9.5
 
 ### Patch Changes

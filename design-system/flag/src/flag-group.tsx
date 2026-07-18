@@ -216,7 +216,8 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 			return;
 		}
 
-		return bind(doc, {
+		const timeoutIds = new Set<ReturnType<typeof setTimeout>>();
+		const unbind = bind(doc, {
 			type: 'keydown',
 			listener: (event: KeyboardEvent) => {
 				if (event.key !== 'Escape' || event.defaultPrevented) {
@@ -243,10 +244,25 @@ const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 					attributes: { dismissedVia: 'keyboardShortcut', key: 'Escape' },
 				});
 
-				event.preventDefault();
-				latestRef.current.onDismissed?.(id, analyticsEvent);
+				const timeoutId = setTimeout(() => {
+					timeoutIds.delete(timeoutId);
+					if (event.defaultPrevented) {
+						return;
+					}
+
+					event.preventDefault();
+					latestRef.current.onDismissed?.(id, analyticsEvent);
+				});
+				timeoutIds.add(timeoutId);
 			},
+			options: { capture: true },
 		});
+
+		return () => {
+			unbind();
+			timeoutIds.forEach(clearTimeout);
+			timeoutIds.clear();
+		};
 	}, [hasFlags]);
 
 	const renderChildren = () => {

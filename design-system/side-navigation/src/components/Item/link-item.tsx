@@ -7,6 +7,7 @@ import { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { LinkItem as Link, type LinkItemProps } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -50,6 +51,23 @@ const styles = cssMap({
 			color: token('color.text.selected'),
 		},
 	},
+	rootMotion: {
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
+	selectedMotion: {
+		transition: token('motion.listitem.selected'),
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
 });
 
 /**
@@ -72,6 +90,7 @@ const LinkItem: React.ForwardRefExoticComponent<
 	if (!shouldRender) {
 		return null;
 	}
+	const isMotionEnabled = fg('platform-dst-motion-uplift-list-item');
 
 	// Anchor content will be handled by LinkItem
 	return (
@@ -79,7 +98,12 @@ const LinkItem: React.ForwardRefExoticComponent<
 			ref={ref}
 			href={href}
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-			css={[styles.root, rest.isSelected && styles.selectedStyles]}
+			css={[
+				styles.root,
+				isMotionEnabled && styles.rootMotion,
+				rest.isSelected && styles.selectedStyles,
+				rest.isSelected && isMotionEnabled && styles.selectedMotion,
+			]}
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 			{...rest}

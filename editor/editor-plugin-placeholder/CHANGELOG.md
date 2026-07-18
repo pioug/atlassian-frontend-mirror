@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 12.0.27
+
+### Patch Changes
+
+- [`6f1a8660863cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f1a8660863cb) -
+  Show placeholder text in empty multi bodied extension frames
+- Updated dependencies
+
 ## 12.0.26
 
 ### Patch Changes

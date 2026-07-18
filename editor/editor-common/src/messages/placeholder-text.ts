@@ -1,50 +1,55 @@
 import { defineMessages } from 'react-intl';
 
 export const placeholderTextMessages: {
-	placeholderTextPlaceholder: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	shortEmptyNodePlaceholderText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	shortEmptyNodePlaceholderADFSlashShortcut: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	shortEmptyNodePlaceholderADFSuffix: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	longEmptyNodePlaceholderText: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	longEmptyNodePlaceholderADFPrefix: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	longEmptyNodePlaceholderADFSlashShortcut: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	longEmptyNodePlaceholderADFSuffix: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	longEmptyNodePlaceholderText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	multiBodiedExtensionPlaceholderText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	placeholderTextPlaceholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	shortEmptyNodePlaceholderADFSlashShortcut: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	shortEmptyNodePlaceholderADFSuffix: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	shortEmptyNodePlaceholderText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	sourceSyncBlockPlaceholderText: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 } = defineMessages({
 	placeholderTextPlaceholder: {
@@ -96,5 +101,11 @@ export const placeholderTextMessages: {
 			'Add content you want to reuse. Copy and paste this block to sync in other locations.',
 		description:
 			'Placeholder text shown inside an empty source sync block, prompting users to add reusable content that can be synced across multiple locations.',
+	},
+	multiBodiedExtensionPlaceholderText: {
+		id: 'fabric.editor.multiBodiedExtensionPlaceholderText',
+		defaultMessage: 'Type to add content or press / to insert elements',
+		description:
+			'Placeholder text shown inside an empty multi bodied extension frame, prompting users to type content or use slash insert.',
 	},
 });

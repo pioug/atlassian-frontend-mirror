@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 26.10.2
+
+### Patch Changes
+
+- [`7f01be1f0dece`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f01be1f0dece) -
+  Inline Studio entry link URL construction behind manual-studio-entry-link
+
+## 26.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.10.0
 
 ### Minor Changes

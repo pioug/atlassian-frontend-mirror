@@ -9,6 +9,7 @@ describe('hexToEditorTextBackgroundPaletteColor', () => {
 		['#D3F1A7', 'var(--ds-background-accent-lime-subtler)'],
 		['#F8E6A0', 'var(--ds-background-accent-yellow-subtler)'],
 		['#FEDEC8', 'var(--ds-background-accent-orange-subtler)'],
+		['#FFD5D2', 'var(--ds-background-accent-red-subtler)'],
 		['#FDD0EC', 'var(--ds-background-accent-magenta-subtler)'],
 		['#DFD8FD', 'var(--ds-background-accent-purple-subtler)'],
 	])('hexToEditorTextBackgroundPaletteColor(%s)', (inputHexCode, expectedDesignToken) => {

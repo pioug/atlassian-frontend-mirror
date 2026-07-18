@@ -102,11 +102,6 @@ export interface RendererProps {
 	 * of tables.
 	 */
 	disableTableOverflowShadow?: boolean;
-	/**
-	 * Optional prefix to prepend to all generated heading IDs.
-	 * Used by nested renderers to namespace heading IDs and avoid collisions with the host page.
-	 */
-	headingIdPrefix?: string;
 	document: DocNode;
 	emojiResourceConfig?: EmojiResourceConfig;
 	// Enables inline scripts to add support for breakout nodes,
@@ -146,6 +141,20 @@ export interface RendererProps {
 	 */
 	featureFlags?: { [featureFlag: string]: boolean } | Partial<RawObjectFeatureFlags>;
 	getExtensionHeight?: GetPMNodeHeight;
+	/**
+	 * Optional prefix to prepend to all generated heading IDs.
+	 * Used by nested renderers to namespace heading IDs and avoid collisions with the host page.
+	 */
+	headingIdPrefix?: string;
+	/**
+	 * @default undefined
+	 * @description
+	 * Extension keys whose default placeholder content should be hidden (render
+	 * nothing) while their extension provider promise is still pending. Products
+	 * opt specific extensions in by passing their keys; when omitted, behaviour is
+	 * unchanged.
+	 */
+	hideExtensionKeysWhilePending?: string[];
 	includeNodesCountInStats?: boolean;
 	innerRef?: React.RefObject<HTMLDivElement>;
 	isInsideOfInlineExtension?: boolean;

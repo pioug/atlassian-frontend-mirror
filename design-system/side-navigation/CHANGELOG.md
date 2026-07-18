@@ -1,5 +1,12 @@
 # @atlaskit/side-navigation
 
+## 12.3.6
+
+### Patch Changes
+
+- [`a5cbba73be959`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a5cbba73be959) -
+  Restore gated list-item motion tokens to legacy side-navigation items.
+
 ## 12.3.5
 
 ### Patch Changes

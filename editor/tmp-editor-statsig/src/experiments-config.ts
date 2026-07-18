@@ -1347,6 +1347,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-16
+	platform_editor_fix_lagging_embed_resize_handle: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-15
 	'cwr-staging-area-close-as-minimize-button': {
 		defaultValue: boolean;
@@ -3309,6 +3316,14 @@ export const editorExperimentsConfig: {
 	collab_bypass_out_of_sync_period_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'collab_bypass_out_of_sync_period_experiment',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-16
+	platform_editor_fix_lagging_embed_resize_handle: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_lagging_embed_resize_handle',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

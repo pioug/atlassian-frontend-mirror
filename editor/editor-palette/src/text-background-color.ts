@@ -24,6 +24,10 @@ export const textBackgroundColorPalette = {
 	['#FEDEC8']: token(
 		'color.background.accent.orange.subtler',
 	) as 'var(--ds-background-accent-orange-subtler, #FEDEC8)',
+	/** Red - light */
+	['#FFD5D2']: token(
+		'color.background.accent.red.subtler',
+	) as 'var(--ds-background-accent-red-subtler, #FFD5D2)',
 	/** Magenta - light */
 	['#FDD0EC']: token(
 		'color.background.accent.magenta.subtler',

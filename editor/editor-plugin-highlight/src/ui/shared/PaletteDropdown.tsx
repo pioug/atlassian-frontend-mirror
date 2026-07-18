@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import type { WithOutsideClickProps } from '@atlaskit/editor-common/ui';
 import {
@@ -14,6 +14,7 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PaletteDropdownProps = {
@@ -50,9 +51,20 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 		true,
 	);
 
-	const highlightPalette = isNewColorPaletteEnabled
-		? highlightColorPaletteNew
-		: highlightColorPalette;
+	const isRedHighlightEnabled = fg('platform_editor_lovability_text_bg_color_patch_1');
+
+	const highlightPalette = useMemo(() => {
+		if (isNewColorPaletteEnabled) {
+			return highlightColorPaletteNew.filter((color) => {
+				if (isRedHighlightEnabled) {
+					return color.value !== REMOVE_HIGHLIGHT_COLOR;
+				}
+
+				return color.label !== 'Red';
+			});
+		}
+		return highlightColorPalette;
+	}, [isNewColorPaletteEnabled, isRedHighlightEnabled]);
 
 	const colorPickerColumns = isNewColorPaletteEnabled
 		? HIGHLIGHT_COLOR_PICKER_COLUMNS_NEW

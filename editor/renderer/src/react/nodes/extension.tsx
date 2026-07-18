@@ -39,6 +39,13 @@ interface Props {
 	extensionKey: string;
 	extensionType: string;
 	extensionViewportSizes?: ExtensionViewportSize[];
+	/**
+	 * Extension keys that should render nothing (instead of the default placeholder
+	 * text) while their extension provider promise is still pending. This lets the
+	 * product opt specific extensions out of showing default content before their
+	 * handler has resolved. When omitted, behaviour is unchanged.
+	 */
+	hideExtensionKeysWhilePending?: string[];
 	isInsideOfInlineExtension?: boolean;
 	layout?: ExtensionLayout;
 	localId?: string;
@@ -332,7 +339,7 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 			{...props}
 			type="extension"
 		>
-			{({ result }) => {
+			{({ isExtensionProviderPending, result }) => {
 				try {
 					// Return the result directly if it's a valid JSX.Element
 					if (result && React.isValidElement(result)) {
@@ -361,6 +368,14 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 					/** We don't want this error to block renderer */
 					/** We keep rendering the default content */
 				}
+
+				if (
+					isExtensionProviderPending &&
+					props.hideExtensionKeysWhilePending?.includes(props.extensionKey)
+				) {
+					return <React.Fragment />;
+				}
+
 				// Always return default content if anything goes wrong
 				return renderExtension(
 					text || 'extension',

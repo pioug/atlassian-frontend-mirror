@@ -1,5 +1,13 @@
 # @atlaskit/editor-palette
 
+## 3.1.4
+
+### Patch Changes
+
+- [`245230d12da8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/245230d12da8d) -
+  [ux] [EDITOR-8142] add red highlight color and filter out the transparent/ default highlight color
+  behind platform_editor_lovability_text_bg_color_patch_1
+
 ## 3.1.3
 
 ### Patch Changes

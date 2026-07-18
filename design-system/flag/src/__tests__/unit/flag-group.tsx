@@ -368,6 +368,33 @@ describe('FlagGroup', () => {
 				expect(onDismissed).toHaveBeenCalledWith('a', expect.anything());
 			});
 
+			it('dismisses the first flag when Escape is pressed from an input that stops propagation', () => {
+				const onDismissed = jest.fn();
+				render(
+					<>
+						<input
+							aria-label="Summary"
+							onKeyDown={(event) => {
+								event.stopPropagation();
+							}}
+						/>
+						<FlagGroup onDismissed={onDismissed}>
+							{generateFlag({ id: 'a', testId: 'a' })}
+						</FlagGroup>
+					</>,
+				);
+
+				const input = screen.getByLabelText('Summary');
+				input.focus();
+				fireEvent.keyDown(input, { key: 'Escape' });
+				act(() => {
+					jest.runAllTimers();
+				});
+
+				expect(onDismissed).toHaveBeenCalledTimes(1);
+				expect(onDismissed).toHaveBeenCalledWith('a', expect.anything());
+			});
+
 			it('does not dismiss when there are no flags', () => {
 				const onDismissed = jest.fn();
 				render(<FlagGroup onDismissed={onDismissed}>{null}</FlagGroup>);
@@ -399,6 +426,9 @@ describe('FlagGroup', () => {
 				);
 
 				fireEvent.keyDown(document, { key: 'Escape' });
+				act(() => {
+					jest.runAllTimers();
+				});
 				expect(onDismissed).toHaveBeenLastCalledWith('a', expect.anything());
 
 				// Simulate the consumer removing the first flag in response to onDismissed.
@@ -407,6 +437,9 @@ describe('FlagGroup', () => {
 				);
 
 				fireEvent.keyDown(document, { key: 'Escape' });
+				act(() => {
+					jest.runAllTimers();
+				});
 				expect(onDismissed).toHaveBeenLastCalledWith('b', expect.anything());
 				expect(onDismissed).toHaveBeenCalledTimes(2);
 			});
@@ -431,6 +464,21 @@ describe('FlagGroup', () => {
 				expect(onDismissed).not.toHaveBeenCalled();
 			});
 
+			it('does not dismiss a pending Escape after the flag group unmounts', () => {
+				const onDismissed = jest.fn();
+				const { unmount } = render(
+					<FlagGroup onDismissed={onDismissed}>{generateFlag({ id: 'a', testId: 'a' })}</FlagGroup>,
+				);
+
+				fireEvent.keyDown(document, { key: 'Escape' });
+				unmount();
+				act(() => {
+					jest.runAllTimers();
+				});
+
+				expect(onDismissed).not.toHaveBeenCalled();
+			});
+
 			it('ignores Escape when a capture-phase listener has called preventDefault (e.g. a modal)', () => {
 				const onDismissed = jest.fn();
 				render(
@@ -451,6 +499,9 @@ describe('FlagGroup', () => {
 
 				try {
 					fireEvent.keyDown(document, { key: 'Escape' });
+					act(() => {
+						jest.runAllTimers();
+					});
 				} finally {
 					unbind();
 				}
@@ -485,6 +536,9 @@ describe('FlagGroup', () => {
 
 				try {
 					fireEvent.keyDown(document, { key: 'Escape' });
+					act(() => {
+						jest.runAllTimers();
+					});
 				} finally {
 					unbind();
 				}

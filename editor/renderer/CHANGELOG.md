@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 133.11.3
+
+### Patch Changes
+
+- [`9e5089f1618b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e5089f1618b3) -
+  Add an option for products to hide extension fallback content while a provider is pending
+- Updated dependencies
+
 ## 133.11.2
 
 ### Patch Changes

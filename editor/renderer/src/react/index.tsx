@@ -87,13 +87,14 @@ export interface ReactSerializerInit {
 	disableActions?: boolean;
 	disableHeadingIDs?: boolean;
 	disableTableOverflowShadow?: boolean;
-	headingIdPrefix?: string;
 	emojiResourceConfig?: EmojiResourceConfig;
 	eventHandlers?: EventHandlers;
 	extensionHandlers?: ExtensionHandlers;
 	extensionViewportSizes?: ExtensionViewportSize[];
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 	getExtensionHeight?: GetPMNodeHeight;
+	headingIdPrefix?: string;
+	hideExtensionKeysWhilePending?: string[];
 	isInsideOfInlineExtension?: boolean;
 	isPresentational?: boolean;
 	media?: MediaOptions;
@@ -211,6 +212,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private emojiResourceConfig?: EmojiResourceConfig;
 	private smartLinks?: SmartLinksOptions;
 	private extensionViewportSizes?: ExtensionViewportSize[];
+	private hideExtensionKeysWhilePending?: string[];
 	private getExtensionHeight?: GetPMNodeHeight;
 	private allowAnnotations: boolean = false;
 	private allowSelectAllTrap?: boolean;
@@ -267,6 +269,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.emojiResourceConfig = init.emojiResourceConfig;
 		this.smartLinks = init.smartLinks;
 		this.extensionViewportSizes = init.extensionViewportSizes;
+		this.hideExtensionKeysWhilePending = init.hideExtensionKeysWhilePending;
 		this.getExtensionHeight = init.getExtensionHeight;
 		this.allowSelectAllTrap = init.allowSelectAllTrap;
 		this.nodeComponents = init.nodeComponents;
@@ -699,6 +702,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return {
 			...this.getProps(node, path),
 			extensionViewportSizes: this.extensionViewportSizes,
+			hideExtensionKeysWhilePending: this.hideExtensionKeysWhilePending,
 			nodeHeight: this.getExtensionHeight?.(node),
 			shouldDisplayExtensionAsInline: this.shouldDisplayExtensionAsInline,
 		};

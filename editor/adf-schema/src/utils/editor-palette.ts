@@ -183,6 +183,8 @@ export const textBackgroundColorPalette = {
 	'#F8E6A0': 'var(--ds-background-accent-yellow-subtler, #F8E6A0)',
 	/** Orange - light */
 	'#FEDEC8': 'var(--ds-background-accent-orange-subtler, #FEDEC8)',
+	/** Red - light */
+	'#FFD5D2': 'var(--ds-background-accent-red-subtler, #FFD5D2)',
 	/** Magenta - light */
 	'#FDD0EC': 'var(--ds-background-accent-magenta-subtler, #FDD0EC)',
 	/** Purple - light */

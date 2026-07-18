@@ -4,11 +4,37 @@ import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 
 const schema = getSchemaBasedOnStage('stage0');
 
+type ExtensionPropsReader = {
+	getExtensionProps: (node: ReturnType<typeof schema.nodeFromJSON>) => {
+		hideExtensionKeysWhilePending?: string[];
+	};
+};
+
 describe('ReactSerializer', () => {
 	let serializer: ReactSerializer;
 
 	beforeEach(() => {
 		serializer = new ReactSerializer({});
+	});
+
+	it('passes extension keys to hide while a provider is pending to extension nodes', () => {
+		const hideExtensionKeysWhilePending = ['extension-a'];
+		const serializerWithPendingKeys = new ReactSerializer({ hideExtensionKeysWhilePending });
+		const extensionNode = schema.nodeFromJSON({
+			type: 'extension',
+			attrs: {
+				extensionKey: 'extension-a',
+				extensionType: 'fake.extension',
+			},
+		});
+
+		expect(
+			(serializerWithPendingKeys as unknown as ExtensionPropsReader).getExtensionProps(
+				extensionNode,
+			),
+		).toMatchObject({
+			hideExtensionKeysWhilePending,
+		});
 	});
 
 	describe('Block task items - parentIsIncompleteTask correctly calculated', () => {

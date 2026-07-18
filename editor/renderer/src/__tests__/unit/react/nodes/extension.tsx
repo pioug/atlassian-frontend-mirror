@@ -245,5 +245,109 @@ describe('Renderer - React/Nodes/Extension', () => {
 
 			extension.unmount();
 		});
+
+		const renderExtensionWithProvider = (
+			providers: ProviderFactory,
+			extensionKey: 'extension-a' | 'extension-b' = 'extension-a',
+			hideExtensionKeysWhilePending?: string[],
+		) =>
+			mount(
+				<IntlProvider locale="en">
+					<Extension
+						providers={providers}
+						extensionHandlers={extensionHandlers}
+						rendererContext={rendererContext}
+						extensionType="fake.extension"
+						extensionKey={extensionKey}
+						text="extension"
+						hideExtensionKeysWhilePending={hideExtensionKeysWhilePending}
+						localId="c145e554-f571-4208-a0f1-2170e1987722"
+					/>
+				</IntlProvider>,
+			);
+
+		describe('with hideExtensionKeysWhilePending including the extension key', () => {
+			it('should not render the generic fallback while the provider is pending', () => {
+				const providers = ProviderFactory.create({
+					extensionProvider: new Promise<never>(() => {}),
+				});
+
+				const extension = renderExtensionWithProvider(providers, 'extension-a', ['extension-a']);
+
+				expect(extension.text()).toEqual('');
+				extension.unmount();
+			});
+
+			it('should render the provider content after it resolves', async () => {
+				let resolveProvider: (provider: ReturnType<typeof combineExtensionProviders>) => void;
+				const providers = ProviderFactory.create({
+					extensionProvider: new Promise((resolve) => {
+						resolveProvider = resolve;
+					}),
+				});
+				const extensionProvider = createFakeExtensionProvider(
+					'fake.extension',
+					'extension-a',
+					({ node }: any) => <div>Extension provider</div>,
+				);
+				const extension = renderExtensionWithProvider(providers, 'extension-a', ['extension-a']);
+
+				expect(extension.text()).toEqual('');
+
+				await act(async () => {
+					resolveProvider(combineExtensionProviders([extensionProvider]));
+					await Loadable.preloadAll();
+				});
+
+				extension.update();
+				expect(extension.text()).toEqual('Extension provider');
+				extension.unmount();
+			});
+
+			it('should render the generic fallback after the provider rejects', async () => {
+				let rejectProvider: (reason?: unknown) => void;
+				const providers = ProviderFactory.create({
+					extensionProvider: new Promise<never>((_resolve, reject) => {
+						rejectProvider = reject;
+					}),
+				});
+				const extension = renderExtensionWithProvider(providers, 'extension-a', ['extension-a']);
+
+				expect(extension.text()).toEqual('');
+
+				await act(async () => {
+					rejectProvider(new Error('extension provider failed'));
+					await Promise.resolve();
+				});
+
+				extension.update();
+				expect(extension.text()).toEqual('extension');
+				extension.unmount();
+			});
+
+			it('should render the generic fallback for extension keys not in the list while pending', () => {
+				const providers = ProviderFactory.create({
+					extensionProvider: new Promise<never>(() => {}),
+				});
+
+				const extension = renderExtensionWithProvider(providers, 'extension-b', ['extension-a']);
+
+				expect(extension.text()).toEqual('extension');
+				extension.unmount();
+			});
+		});
+
+		describe('without hideExtensionKeysWhilePending', () => {
+			it('should render the generic fallback while the provider is pending', () => {
+				const providers = ProviderFactory.create({
+					extensionProvider: new Promise<never>(() => {}),
+				});
+
+				const extension = renderExtensionWithProvider(providers);
+
+				expect(extension.text()).toEqual('extension');
+				extension.unmount();
+			});
+		});
 	});
 });

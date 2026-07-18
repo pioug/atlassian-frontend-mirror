@@ -6,6 +6,7 @@
 {
   "testExamples": [
     "99-testing.tsx",
+    "22-flag-keyboard-dismiss-from-input.tsx",
     "10-flag-auto-dismiss.tsx",
     "flag-should-render-to-parent-top-layer.tsx",
     "00-all-flags.tsx",

@@ -12,6 +12,7 @@ import * as namedColors from 'css-color-names';
 export const R50 = '#FFEBE6';
 export const R75 = '#FFBDAD';
 export const R100 = '#FF8F73';
+export const R200 = '#FFD5D2';
 export const R300 = '#FF5630';
 export const R400 = '#DE350B';
 export const R500 = '#BF2600';

@@ -7,6 +7,7 @@ import { forwardRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { ButtonItem as Button, type ButtonItemProps } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/use-should-nested-element-render';
@@ -50,6 +51,23 @@ const styles = cssMap({
 			color: token('color.text.selected'),
 		},
 	},
+	rootMotion: {
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
+	selectedMotion: {
+		transition: token('motion.listitem.selected'),
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
 });
 
 /**
@@ -70,12 +88,18 @@ const ButtonItem: React.ForwardRefExoticComponent<
 	if (!shouldRender) {
 		return null;
 	}
+	const isMotionEnabled = fg('platform-dst-motion-uplift-list-item');
 
 	return (
 		<Button
 			ref={ref}
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-			css={[styles.root, props.isSelected && styles.selectedStyles]}
+			css={[
+				styles.root,
+				isMotionEnabled && styles.rootMotion,
+				props.isSelected && styles.selectedStyles,
+				props.isSelected && isMotionEnabled && styles.selectedMotion,
+			]}
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 			{...props}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.9.5",
+	"version": "45.10.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -242,7 +242,6 @@
 		"./hover-card": "./src/hoverCard.ts",
 		"./link-url": "./src/linkUrl.ts",
 		"./link-provider": "./src/linkProvider.ts",
-		"./preload-lazy-card-with-url-content": "./src/preloadLazyCardWithUrlContent.ts",
 		"./i18n/*": {
 			"publish": null,
 			"default": "./src/i18n/*.ts"

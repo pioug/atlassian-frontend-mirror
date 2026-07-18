@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 126.3.0
+
+### Minor Changes
+
+- [`acacc85e527ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acacc85e527ff) -
+  [ux] Fixed an issue where the left resize handle of an Editor embed would appear to 'lag' when the
+  embed is right-aligned. Gated behind platform_editor_fix_lagging_embed_resize_handle.
+
 ## 126.2.0
 
 ### Minor Changes

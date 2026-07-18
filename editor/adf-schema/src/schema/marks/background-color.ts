@@ -1,4 +1,5 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { backgroundColor as backgroundColorFactory } from '../../next-schema/generated/markTypes';
 
@@ -10,6 +11,7 @@ import {
 	Neutral300,
 	O200,
 	P200,
+	R200,
 	rgbToHex,
 	T200,
 	Yellow200,
@@ -37,6 +39,7 @@ export type BackgroundColorKey =
 	| 'Lime'
 	| 'Yellow'
 	| 'Orange'
+	| 'Red'
 	| 'Magenta'
 	| 'Purple'
 	| 'Blue'
@@ -60,6 +63,7 @@ const colorArrayPaletteNew: Array<[string, BackgroundColorKey]> = [
 	[L200, 'Lime'], // token: color.background.accent.lime.subtler
 	[Yellow200, 'Yellow'], // token: color.background.accent.yellow.subtler
 	[O200, 'Orange'], // token: color.background.accent.orange.subtler
+	[R200, 'Red'], // token: color.background.accent.red.subtler
 	[M200, 'Magenta'], // token: color.background.accent.magenta.subtler
 	[P200, 'Purple'], // token: color.background.accent.purple.subtler
 ];
@@ -91,7 +95,8 @@ const isSupportedBackgroundColor = (hexColor: string): boolean => {
 
 	return (
 		expValEqualsNoExposure('platform_editor_lovability_text_bg_color', 'isEnabled', true) &&
-		backgroundColorPaletteNew.has(hexColor)
+		backgroundColorPaletteNew.has(hexColor) &&
+		(hexColor !== R200.toLowerCase() || fg('platform_editor_lovability_text_bg_color_patch_1'))
 	);
 };
 

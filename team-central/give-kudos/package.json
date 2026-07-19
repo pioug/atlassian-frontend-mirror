@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/give-kudos",
-	"version": "6.7.3",
+	"version": "6.7.4",
 	"description": "Give Kudos experience ",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -48,6 +48,7 @@
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-team-central-give-kudos": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/drawer": "workspace:^",
@@ -112,6 +113,12 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"teams-a11y-35569-35538-35421": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	}
 }

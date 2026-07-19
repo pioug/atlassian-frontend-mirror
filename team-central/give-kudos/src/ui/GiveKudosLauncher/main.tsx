@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { getDocument } from '@atlaskit/browser-apis';
 import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
 import { cssMap, jsx } from '@atlaskit/css';
@@ -23,6 +24,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
@@ -67,9 +69,11 @@ export const isSafeHttpsUrl = (url: string | undefined): url is string =>
 const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const [isCloseConfirmModalOpen, setIsCloseConfirmModalOpen] = useState(false);
 	const [isDirty, setIsDirty] = useState(false);
-	const iframeEl = useRef(null);
+	const iframeEl = useRef<HTMLIFrameElement>(null);
+	const backButtonRef = useRef<HTMLButtonElement>(null);
 	const messageListenerEventHandler = useRef((_e: any) => {});
 	const unloadEventHandler = useRef((_e: any) => {});
+	const focusGuardCleanupRef = useRef<(() => void) | null>(null);
 	const intl = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -117,6 +121,44 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 		setIsCloseConfirmModalOpen(false);
 		onClose();
 	}, [onClose]);
+
+	const focusBackButton = useCallback(() => {
+		backButtonRef.current?.focus();
+	}, []);
+
+	// After the iframe loads, its form autofocuses an input and steals focus from
+	// the back button. Focus the back button and, for a short grace period,
+	// restore it whenever focus moves into the iframe.
+	const handleIframeLoad = useCallback(() => {
+		if (!fg('teams-a11y-35569-35538-35421')) {
+			return;
+		}
+
+		focusGuardCleanupRef.current?.();
+		focusBackButton();
+
+		const handleWindowBlur = () => {
+			window.setTimeout(() => {
+				if (getDocument()?.activeElement === iframeEl.current) {
+					focusBackButton();
+				}
+			}, 0);
+		};
+
+		window.addEventListener('blur', handleWindowBlur);
+
+		const gracePeriodTimer = window.setTimeout(() => {
+			window.removeEventListener('blur', handleWindowBlur);
+			focusGuardCleanupRef.current = null;
+		}, 1000);
+
+		focusGuardCleanupRef.current = () => {
+			window.clearTimeout(gracePeriodTimer);
+			window.removeEventListener('blur', handleWindowBlur);
+		};
+	}, [focusBackButton]);
+
+	useEffect(() => () => focusGuardCleanupRef.current?.(), []);
 
 	const closeWarningModal = () => {
 		setIsCloseConfirmModalOpen(false);
@@ -331,6 +373,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 			<Drawer width="full" isOpen={props.isOpen} zIndex={zIndex} onClose={handleCloseDrawerClicked}>
 				<div css={styles.drawerCloseButtonContainer}>
 					<IconButton
+						ref={backButtonRef}
 						onClick={handleCloseDrawerClicked}
 						icon={ArrowLeft}
 						label={intl.formatMessage(messages.closeDrawerButtonLabel)}
@@ -347,6 +390,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 					allow="camera;microphone"
 					css={styles.iframe}
 					title={intl.formatMessage(messages.giveKudosButton)}
+					onLoad={handleIframeLoad}
 				/>
 			</Drawer>
 		);

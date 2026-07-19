@@ -1,5 +1,14 @@
 # @atlassian/give-kudos
 
+## 6.7.4
+
+### Patch Changes
+
+- [`72ef19f7fc1cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/72ef19f7fc1cd) -
+  [ux] Fix keyboard focus being stolen by the iframe form in the Give Kudos drawer. Focus now stays
+  on (or is restored to) the back button after the drawer loads. Gated behind the
+  `teams-a11y-35569-35538-35421` feature flag.
+
 ## 6.7.3
 
 ### Patch Changes

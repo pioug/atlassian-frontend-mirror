@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 45.10.2
+
+### Patch Changes
+
+- [`8525b555c1e44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8525b555c1e44) -
+  Fix lozenge casing regression: PR status lozenges now display capitalized text (e.g. Merged
+  instead of merged)
+
+## 45.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.10.0
 
 ### Minor Changes

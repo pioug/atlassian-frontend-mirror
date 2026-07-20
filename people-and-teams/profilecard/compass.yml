@@ -3,7 +3,7 @@ id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-35
 description: A React component to display a card with user information.
 configVersion: 1
 typeId: UI_ELEMENT
-ownerId: ari:cloud:identity::team/og-c0632dbd-17ef-49bc-b053-208b9fd565c5 # People and Teams Collective
+ownerId: ari:cloud:identity::team/d8a5c4b6-436c-44ce-a11c-b8817f2b8b81 # Teams App frontend
 fields:
   tier: 2
   lifecycle: Active

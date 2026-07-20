@@ -57,7 +57,7 @@ export function App(): JSX.Element {
 							<Help label="Help" />
 							<Notifications
 								badge={() => (
-									<Badge max={9} appearance="important">
+									<Badge max={9} appearance="dangerBold">
 										{99999}
 									</Badge>
 								)}

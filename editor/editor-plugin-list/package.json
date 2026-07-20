@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-list",
-	"version": "14.1.18",
+	"version": "14.1.19",
 	"description": "List plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -84,6 +84,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_block_menu_v2_patch_3": {
+			"type": "boolean"
+		},
+		"platform_editor_flexible_list_normalization_fix": {
 			"type": "boolean"
 		}
 	},

@@ -18,6 +18,7 @@ import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import ShrinkDiagonalIcon from '@atlaskit/icon/core/shrink-diagonal';
 import { ConfluenceIcon } from '@atlaskit/logo';
+import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Aside } from '@atlaskit/navigation-system/layout/aside';
 import { Banner } from '@atlaskit/navigation-system/layout/banner';
 import { Main } from '@atlaskit/navigation-system/layout/main';
@@ -225,27 +226,29 @@ export default function FullScreenModeExample(): JSX.Element {
 						<PanelSplitter label="Resize aside" />
 					</Aside>
 				)}
-				{isPanelVisible && !isFullscreen && (
-					<Panel defaultWidth={350}>
-						<Stack space="space.200" xcss={panelStyles.content}>
-							<Heading size="small">Panel</Heading>
-							<Stack space="space.050">
-								<Text weight="bold">What is an epic?</Text>
-								<Text>Learn what an epic is and how it's displayed in Jira.</Text>
+				<ExitingPersistence>
+					{isPanelVisible && !isFullscreen && (
+						<Panel defaultWidth={350}>
+							<Stack space="space.200" xcss={panelStyles.content}>
+								<Heading size="small">Panel</Heading>
+								<Stack space="space.050">
+									<Text weight="bold">What is an epic?</Text>
+									<Text>Learn what an epic is and how it's displayed in Jira.</Text>
+								</Stack>
+								<Stack space="space.050">
+									<Text weight="bold">What are sprints?</Text>
+									<Text>
+										Find out what sprints are and why your team might want to use them to predict
+										and execute your project's work.
+									</Text>
+								</Stack>
+								<Text color="color.link">Show 12 more articles</Text>
+								<div css={scrollableContent.root} />
 							</Stack>
-							<Stack space="space.050">
-								<Text weight="bold">What are sprints?</Text>
-								<Text>
-									Find out what sprints are and why your team might want to use them to predict and
-									execute your project's work.
-								</Text>
-							</Stack>
-							<Text color="color.link">Show 12 more articles</Text>
-							<div css={scrollableContent.root} />
-						</Stack>
-						<PanelSplitter label="Resize panel" />
-					</Panel>
-				)}
+							<PanelSplitter label="Resize panel" />
+						</Panel>
+					)}
+				</ExitingPersistence>
 			</Root>
 		</WithResponsiveViewport>
 	);

@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-notifications
 
+## 2.0.1
+
+### Patch Changes
+
+- [`08b5e95800fd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08b5e95800fd0) -
+  Migrate notification packages to Compiled-compatible dependencies.
+
 ## 2.0.0
 
 ### Major Changes
@@ -143,7 +150,8 @@
 
 - [#24710](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24710)
   [`c873be831a5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c873be831a5) - Updates
-  `@emotion/core` to `@emotion/react`; v10 to v11. There is no expected behavior change.
+  the Emotion v10 integration to the dedicated React package in v11. There is no expected behavior
+  change.
 
 ## 0.3.3
 

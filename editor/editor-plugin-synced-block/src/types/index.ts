@@ -92,6 +92,7 @@ export const SYNCED_BLOCK_BUTTON_TEST_ID = {
 	primaryToolbarCreate: 'create-synced-block-toolbar-btn',
 	blockMenuCreate: 'create-synced-block-block-menu-btn',
 	quickInsertCreate: 'create-synced-block-quick-insert-btn',
+	syncedBlockToolbarCopy: 'synced-block-copy-btn',
 	syncedBlockToolbarReferenceDelete: 'reference-synced-block-delete-btn',
 	syncedBlockToolbarSourceDelete: 'source-synced-block-delete-btn',
 	syncedBlockToolbarReferenceUnsync: 'reference-synced-block-unsync-btn',

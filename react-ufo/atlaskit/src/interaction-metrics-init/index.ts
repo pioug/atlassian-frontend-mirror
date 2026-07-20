@@ -4,14 +4,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { startLighthouseObserver } from '../additional-payload';
 import { type PostInteractionLogOutput } from '../common';
-import { type VCResult } from '../common/vc/types';
-import {
-	type Config,
-	getSelectorConfig,
-	isInteractionExtraMetricsEnabled,
-	isUFOEnabled,
-	setUFOConfig,
-} from '../config';
+import { type Config, getSelectorConfig, isUFOEnabled, setUFOConfig } from '../config';
 import { sinkExtraSearchPageInteractionHandler } from '../create-extra-search-page-interaction-payload';
 import {
 	setContextManager,
@@ -19,7 +12,6 @@ import {
 } from '../experience-trace-id-context/context-manager';
 import { setupHiddenTimingCapture, setupThrottleDetection } from '../hidden-timing';
 import {
-	interactionExtraMetrics,
 	type InteractionMetrics,
 	postInteractionLog,
 	sinkInteractionHandler,
@@ -116,37 +108,6 @@ function sinkTerminalErrors(
 	});
 }
 
-function sinkInteractionExtraMetrics(
-	instance: GenericAnalyticWebClientInstance,
-	createInteractionExtraLogPayload: (
-		interactionId: string,
-		interaction: InteractionMetrics,
-		lastInteractionFinish: InteractionMetrics | null,
-		lastInteractionFinishVCResult?: VCResult,
-	) => any,
-) {
-	interactionExtraMetrics.sinkHandler(
-		(
-			interactionId: string,
-			interaction: InteractionMetrics,
-			lastInteractionFinish: InteractionMetrics | null,
-			lastInteractionFinishVCResult?: VCResult,
-		) => {
-			scheduleIdleCallback(async () => {
-				const payload = await createInteractionExtraLogPayload(
-					interactionId,
-					interaction,
-					lastInteractionFinish,
-					lastInteractionFinishVCResult,
-				);
-				if (payload) {
-					instance.sendOperationalEvent(payload);
-				}
-			});
-		},
-	);
-}
-
 function sinkExtraSearchPageInteraction(
 	instance: GenericAnalyticWebClientInstance,
 	payloadPackage: {
@@ -230,9 +191,6 @@ export function init(
 		};
 
 		postInteractionLog.initializeVCObserver(vcOptions);
-		if (isInteractionExtraMetricsEnabled()) {
-			interactionExtraMetrics.initializeVCObserver(vcOptions);
-		}
 	}
 
 	setupHiddenTimingCapture();
@@ -251,19 +209,12 @@ export function init(
 		} as PerformanceObserverInit);
 	}
 
-	const extraInteractionMetricsPayloadPackagePromise = isInteractionExtraMetricsEnabled()
-		? import(
-				/* webpackChunkName: "create-interaction-extra-metrics-payload" */ '../create-interaction-extra-metrics-payload'
-			)
-		: Promise.resolve(undefined);
-
 	Promise.all([
 		analyticsWebClientAsync,
 		import(/* webpackChunkName: "create-payloads" */ '../create-payload'),
 		import(
 			/* webpackChunkName: "create-post-interaction-log-payload" */ '../create-post-interaction-log-payload'
 		),
-		extraInteractionMetricsPayloadPackagePromise,
 		import(
 			/* webpackChunkName: "create-terminal-error-payload@atlaskit-internal_terminal_errors" */ '../create-terminal-error-payload'
 		),
@@ -272,7 +223,6 @@ export function init(
 			awc,
 			payloadPackage,
 			createPostInteractionLogPayloadPackage,
-			createInteractionExtraMetricsPayloadPackage,
 			createTerminalErrorPayloadPackage,
 		]) => {
 			if ((awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise) {
@@ -284,12 +234,6 @@ export function init(
 					}
 					if (config.postInteractionLog?.enabled) {
 						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
-					}
-					if (isInteractionExtraMetricsEnabled() && createInteractionExtraMetricsPayloadPackage) {
-						sinkInteractionExtraMetrics(
-							instance,
-							createInteractionExtraMetricsPayloadPackage.default,
-						);
 					}
 					if (config?.extraSearchPageInteraction?.enabled) {
 						sinkExtraSearchPageInteraction(instance, payloadPackage);
@@ -307,12 +251,6 @@ export function init(
 					sinkPostInteractionLog(
 						awc as GenericAnalyticWebClientInstance,
 						createPostInteractionLogPayloadPackage.default,
-					);
-				}
-				if (isInteractionExtraMetricsEnabled() && createInteractionExtraMetricsPayloadPackage) {
-					sinkInteractionExtraMetrics(
-						awc as GenericAnalyticWebClientInstance,
-						createInteractionExtraMetricsPayloadPackage.default,
 					);
 				}
 				if (config?.extraSearchPageInteraction?.enabled) {

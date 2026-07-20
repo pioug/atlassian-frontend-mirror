@@ -294,7 +294,7 @@ const calculateDiffDecorationsInner = ({
 			// or when showGranularWithBlock (block reference widget is shown instead).
 			// isInverted gates both — on an inverted diff the inserted side is visually the deleted side.
 			const shouldHideDeleted = isExtendedEnabled(diffType)
-				? isInverted && (hideDeletedDiffs || showGranularWithBlock) && change.deleted.length > 0
+				? isInverted && (hideDeletedDiffs || (showGranularWithBlock && change.deleted.length > 0))
 				: false;
 
 			// For `smart` NODE-level promotions the change range spans a whole container
@@ -458,7 +458,7 @@ const calculateDiffDecorationsInner = ({
 			stepChangeList.forEach((change) => {
 				createDecorationsForChange(change, showGranularWithBlock);
 			});
-			if (showGranularWithBlock && stepChangeList.length > 0) {
+			if (showGranularWithBlock && stepChangeList.length > 0 && !hideDeletedDiffs) {
 				const lastChange = stepChangeList[stepChangeList.length - 1];
 				const granularBlockDiffId = crypto.randomUUID();
 				const blockWidgets = createGranularBlockReferenceWidget({

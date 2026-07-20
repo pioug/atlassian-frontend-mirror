@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 116.33.1
+
+### Patch Changes
+
+- [`0635ddbca5ddf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0635ddbca5ddf) -
+  Align multi bodied extension chrome with active interaction states.
+- Updated dependencies
+
+## 116.33.0
+
+### Minor Changes
+
+- [`89de40d80a7ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89de40d80a7ce) -
+  [ux] Add toggle to show/hide deleted diffs on the AI suggestion card. An eye icon button is added
+  inline with the Accept and Discard buttons, allowing users to hide all greyed-out deleted content
+  while keeping purple highlighted additions visible. The toggle resets to the default "show
+  deletions" state when navigating between suggestions.
+
+### Patch Changes
+
+- [`3c4994f354f5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c4994f354f5f) -
+  [ux] Fix content order being corrupted when indenting or outdenting a list item that has content
+  placed between its sub-lists (e.g. `li(p, ul, p, ul)`).
+- Updated dependencies
+
 ## 116.32.4
 
 ### Patch Changes

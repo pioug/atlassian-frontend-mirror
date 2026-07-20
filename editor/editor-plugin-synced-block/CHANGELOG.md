@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.0
+
+### Minor Changes
+
+- [`550cda5b8889d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/550cda5b8889d) -
+  Add a stable selector for the Copy to sync action
+
+  ```ts
+  SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarCopy; // 'synced-block-copy-btn'
+  ```
+
+## 10.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.15
 
 ### Patch Changes

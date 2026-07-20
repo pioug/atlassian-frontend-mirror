@@ -329,6 +329,7 @@ const handleButtonClick = ({
 			break;
 		case SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSourceOverflowTrigger:
 		case SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarReferenceOverflowTrigger:
+		case SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarCopy:
 			break;
 		default: {
 			// Exhaustiveness check: if a new SyncedBlockToolbarButtonId is added

@@ -123,10 +123,8 @@ type ExtensionLabelProps = {
 	customContainerStyles?: CSSProperties;
 	extensionName: string;
 	isBodiedMacro?: boolean;
-	isMultiBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
-	isNodeSelected?: boolean;
 	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	showBodiedExtensionRendererView?: boolean;
@@ -141,22 +139,18 @@ export const ExtensionLabel = ({
 	extensionName,
 	customContainerStyles,
 	isNodeNested,
-	isNodeSelected,
 	setIsNodeHovered,
 	isBodiedMacro,
 	showUpdatedLivePages1PBodiedExtensionUI,
 	showLivePagesBodiedMacrosRendererView,
 	showBodiedExtensionRendererView,
 	pluginInjectionApi: _pluginInjectionApi,
-	isMultiBodiedMacro,
 }: ExtensionLabelProps): jsx.JSX.Element => {
 	const isInlineExtension = extensionName === 'inlineExtension';
 	const showDefaultBodiedStyles = isBodiedMacro;
-	const shouldUseMultiBodiedMacroPresentation =
-		isMultiBodiedMacro && expValEquals('confluence_native_tabs_experiment', 'isEnabled', true);
 
 	const containerClassNames = classnames({
-		bodied: isBodiedMacro && !shouldUseMultiBodiedMacroPresentation,
+		bodied: isBodiedMacro,
 	});
 
 	const labelClassNames = classnames('extension-label', {
@@ -167,14 +161,8 @@ export const ExtensionLabel = ({
 		'bodied-background': showDefaultBodiedStyles,
 		'with-bodied-macro-live-page-styles': isBodiedMacro && showLivePagesBodiedMacrosRendererView,
 		'always-hide-label': isBodiedMacro && showBodiedExtensionRendererView, // Need this separate class since we don't ever want to show the label during view mode
-		'remove-left-margin':
-			(!isBodiedMacro || shouldUseMultiBodiedMacroPresentation) &&
-			!isInlineExtension &&
-			!isNodeNested,
-		'remove-nested-left-margin':
-			isNodeNested &&
-			(!isBodiedMacro || shouldUseMultiBodiedMacroPresentation) &&
-			!isInlineExtension,
+		'remove-left-margin': !isBodiedMacro && !isInlineExtension && !isNodeNested,
+		'remove-nested-left-margin': isNodeNested && !isBodiedMacro && !isInlineExtension,
 	});
 
 	const iconClassNames = classnames({
@@ -233,20 +221,14 @@ export const ExtensionLabel = ({
 						css={[
 							labelStyles,
 							!showLivePagesBodiedMacrosRendererView && showLabelStyles,
-							(!isBodiedMacro ||
-								showUpdatedLivePages1PBodiedExtensionUI ||
-								(shouldUseMultiBodiedMacroPresentation && !isNodeSelected)) &&
-								hideLabelStyles,
+							(!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) && hideLabelStyles,
 						]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={labelClassNames}
 					>
 						{text}
 						<span
-							css={[
-								iconStyles,
-								isBodiedMacro && !shouldUseMultiBodiedMacroPresentation && bodiedMacroIconStyles,
-							]}
+							css={[iconStyles, isBodiedMacro && bodiedMacroIconStyles]}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={iconClassNames}
 							data-testid="config-icon"

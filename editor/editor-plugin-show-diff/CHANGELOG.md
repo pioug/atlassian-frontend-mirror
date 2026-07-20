@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.4.6
+
+### Patch Changes
+
+- [`89de40d80a7ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/89de40d80a7ce) -
+  [ux] Add toggle to show/hide deleted diffs on the AI suggestion card. An eye icon button is added
+  inline with the Accept and Discard buttons, allowing users to hide all greyed-out deleted content
+  while keeping purple highlighted additions visible. The toggle resets to the default "show
+  deletions" state when navigating between suggestions.
+- Updated dependencies
+
 ## 10.4.5
 
 ### Patch Changes

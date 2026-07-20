@@ -32,6 +32,7 @@ import { fireAnalytics } from '../../analytics';
 import {
 	type ArchiveViewerErrorReason,
 	ArchiveViewerError,
+	buildVideoErrorDiagnostics,
 	isMediaViewerError,
 } from '../../errors';
 import { createZipEntryLoadSucceededEvent } from '../../analytics/events/operational/zipEntryLoadSucceeded';
@@ -214,12 +215,23 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 
 	private onViewerError =
 		(primaryErrorReason: ArchiveViewerErrorReason, selectedArchiveEntry: ZipEntry) =>
-		(error?: Error) =>
-			error && isMediaViewerError(error)
-				? this.onError(
-						new ArchiveViewerError(primaryErrorReason, error.secondaryError, selectedArchiveEntry),
-					)
-				: this.onError(new ArchiveViewerError(primaryErrorReason, error, selectedArchiveEntry));
+		(error?: Error | MediaError | null) => {
+			if (error instanceof Error && isMediaViewerError(error)) {
+				return this.onError(
+					new ArchiveViewerError(primaryErrorReason, error.secondaryError, selectedArchiveEntry),
+				);
+			}
+			// The video/audio CustomMediaPlayer surfaces a native `MediaError` (not a
+			// JS `Error`). Convert it into a descriptive diagnostics `Error` so the
+			// downstream analytics report a meaningful cause instead of `unknown`.
+			const secondaryError =
+				error && !(error instanceof Error)
+					? buildVideoErrorDiagnostics(undefined, error)
+					: (error ?? undefined);
+			return this.onError(
+				new ArchiveViewerError(primaryErrorReason, secondaryError, selectedArchiveEntry),
+			);
+		};
 
 	private onSidebarLoaded = () => {
 		this.setState({

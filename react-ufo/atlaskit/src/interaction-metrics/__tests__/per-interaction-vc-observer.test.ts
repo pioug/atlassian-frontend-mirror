@@ -29,8 +29,6 @@ jest.mock('../../config', () => ({
 	// pre-FedRAMP-override behaviour (the legacy hard-coded fallback in
 	// VCObserver applies).
 	getSelectorConfig: jest.fn(() => undefined),
-	getExtraInteractionRate: jest.fn(() => 0),
-	isInteractionExtraMetricsEnabled: jest.fn(() => true),
 	getFinishInteractionOnTransition: jest.fn(() => false),
 	getReactHydrationStats: jest.fn(() => false),
 	shouldUseRawDataThirdPartyBehavior: jest.fn(() => false),

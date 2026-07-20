@@ -1,11 +1,6 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { InteractionMetrics } from '../../common';
 import { setUFOConfig } from '../../config';
 import { createPayloads } from '../index';
-
-jest.mock('@atlaskit/platform-feature-flags');
-const mockFg = fg as jest.Mock;
 
 // Mock window
 Object.defineProperty(global, 'window', {
@@ -81,9 +76,6 @@ describe('Payload Creation with Third-Party Holds', () => {
 				rates: { 'test-ufo-name': 0.5 },
 			},
 		});
-
-		// Mock feature flags
-		mockFg.mockImplementation(() => false);
 	});
 
 	afterEach(() => {
@@ -423,35 +415,7 @@ describe('Payload Creation with Third-Party Holds', () => {
 				},
 			}) as unknown as InteractionMetrics;
 
-		it('should remove raw-handler when payload is over budget and always emit raw-handler gate is off', async () => {
-			const payloads = await createPayloads('test-interaction', createLargeInteraction());
-			const mainPayload = payloads.find(
-				(payload: any) =>
-					payload.actionSubject === 'experience' &&
-					payload.action === 'measured' &&
-					payload.attributes?.properties?.interactionMetrics,
-			);
-			const properties = mainPayload?.attributes?.properties as any;
-
-			expect(properties?.['ufo:vc:raw:removed']).toBe(true);
-			expect(properties?.['ufo:vc:raw:preservedOverBudget']).toBeUndefined();
-			expect(properties?.interactionMetrics?.featureFlags).toEqual({
-				prior: {
-					preservedFlag: true,
-				},
-				during: {
-					preservedFlag: false,
-				},
-			});
-			expect(properties?.['event:trimmedFields']).not.toContain('interactionMetrics.featureFlags');
-			expect(
-				properties?.['ufo:vc:rev']?.find((rev: any) => rev.revision === 'raw-handler'),
-			).toBeUndefined();
-		});
-
-		it('should preserve raw-handler when payload is over budget and always emit raw-handler gate is on', async () => {
-			mockFg.mockImplementation((flag: string) => flag === 'platform_ufo_always_emit_raw_handler');
-
+		it('should preserve raw-handler when payload is over budget', async () => {
 			const payloads = await createPayloads('test-interaction', createLargeInteraction());
 			const mainPayload = payloads.find(
 				(payload: any) =>

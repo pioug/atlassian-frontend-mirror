@@ -211,7 +211,9 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 					editorAppearance={editorAppearance}
 					macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 					isNodeSelected={selectedNode === node}
+					isNodeHovered={this.state.isNodeHovered}
 					isNodeNested={isNodeNested}
+					setIsNodeHovered={this.setIsNodeHovered}
 					isLivePageViewMode={isLivePageViewMode}
 					allowBodiedOverride={allowBodiedOverride}
 				/>

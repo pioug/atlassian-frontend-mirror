@@ -14,7 +14,7 @@ export const ToolbarKeyboardShortcutHint = ({
 }: ToolbarKeyboardShortcutHintProps): React.JSX.Element => {
 	if (isDisabled) {
 		return (
-			<Badge appearance="primaryInverted">
+			<Badge appearance="inverse">
 				<Text color="color.text.disabled">{shortcut}</Text>
 			</Badge>
 		);

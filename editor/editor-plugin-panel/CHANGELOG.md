@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-panel
 
+## 14.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.1.18
 
 ### Patch Changes

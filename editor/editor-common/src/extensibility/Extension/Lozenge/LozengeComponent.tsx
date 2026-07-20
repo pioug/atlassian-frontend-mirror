@@ -27,10 +27,8 @@ type LozengeComponentProps = {
 	customContainerStyles?: CSSProperties;
 	extensionName: string;
 	isBodiedMacro?: boolean;
-	isMultiBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
-	isNodeSelected?: boolean;
 	lozengeData?: LozengeData;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -57,7 +55,6 @@ export const LozengeComponent = ({
 	customContainerStyles,
 	isNodeHovered,
 	isNodeNested,
-	isNodeSelected,
 	setIsNodeHovered,
 	isBodiedMacro,
 	showLivePagesBodiedMacrosRendererView,
@@ -65,7 +62,6 @@ export const LozengeComponent = ({
 	showBodiedExtensionRendererView,
 	setShowBodiedExtensionRendererView,
 	pluginInjectionApi,
-	isMultiBodiedMacro,
 }: LozengeComponentProps): jsx.JSX.Element => {
 	const capitalizedTitle = capitalizeFirstLetter(title);
 
@@ -77,7 +73,6 @@ export const LozengeComponent = ({
 					extensionName={extensionName}
 					isNodeHovered={isNodeHovered}
 					isNodeNested={isNodeNested}
-					isNodeSelected={isNodeSelected}
 					customContainerStyles={customContainerStyles}
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={isBodiedMacro}
@@ -85,7 +80,6 @@ export const LozengeComponent = ({
 					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 					pluginInjectionApi={pluginInjectionApi}
-					isMultiBodiedMacro={isMultiBodiedMacro}
 				/>
 				{showLivePagesBodiedMacrosRendererView && isBodiedMacro && (
 					<EditToggle

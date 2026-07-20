@@ -1,10 +1,7 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
-import coinflip from '../../coinflip';
 import { type InteractionMetrics } from '../../common';
 import type { RevisionPayload, VCResult } from '../../common/vc/types';
-import { getConfig, getMostRecentVCRevision, getVCRawDataInteractionRate } from '../../config';
-import { interactionExtraMetrics, postInteractionLog } from '../../interaction-metrics';
+import { getConfig, getMostRecentVCRevision } from '../../config';
+import { postInteractionLog } from '../../interaction-metrics';
 
 import getInteractionStatus from './get-interaction-status';
 import getPageVisibilityUpToTTAI from './get-page-visibility-up-to-ttai';
@@ -40,9 +37,7 @@ async function getVCMetrics(
 		return {};
 	}
 
-	const includeRawData =
-		coinflip(getVCRawDataInteractionRate(interaction.ufoName, interaction.type)) ||
-		fg('platform_ufo_always_emit_raw_handler');
+	const includeRawData = true;
 
 	const isSSREnabled =
 		interaction.type === 'page_load' &&
@@ -81,7 +76,6 @@ async function getVCMetrics(
 	if (!include3p) {
 		// For Post Interaction, last interaction should be without 3p
 		postInteractionLog.setLastInteractionFinishVCResult(result);
-		interactionExtraMetrics.setLastInteractionFinishVCResult(result);
 	}
 
 	const mostRecentVCRevision = getMostRecentVCRevision(interaction.ufoName);

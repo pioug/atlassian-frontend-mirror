@@ -679,7 +679,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 			if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
 				plugins.push({
 					name: 'tableActiveCellHighlight',
-					plugin: () => createActiveCellHighlightPlugin(),
+					plugin: () => createActiveCellHighlightPlugin(api),
 				});
 			}
 

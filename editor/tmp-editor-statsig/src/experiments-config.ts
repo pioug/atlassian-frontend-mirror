@@ -1082,12 +1082,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	platform_editor_comment_rovoinlinechat_improvement: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_fix_cross_origin_editor_focus: {
 		defaultValue: boolean;
 		param: string;
@@ -1778,6 +1772,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-16
+	platform_editor_table_q4_patch_3: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-11
 	platform_editor_table_menu_updates: {
 		defaultValue: boolean;
@@ -2086,6 +2087,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-19
 	platform_editor_lovability_resize_dividers_panels: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-16
+	platform_editor_add_breakout_marks_on_page_load: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -3360,13 +3368,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	platform_editor_comment_rovoinlinechat_improvement: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_comment_rovoinlinechat_improvement',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	confluence_ttvc_inline_extensions: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_ttvc_inline_extensions',
@@ -4139,6 +4140,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-16
+	platform_editor_table_q4_patch_3: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_table_q4_patch_3',
+			jira: 'platform_editor_table_q4_patch_3',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-11
 	platform_editor_table_menu_updates: createBooleanExperiment({
 		productKeys: {
@@ -4523,11 +4533,18 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-
 	// Added 2026-06-19
 	platform_editor_lovability_resize_dividers_panels: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_lovability_resize_dividers_panels',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-16
+	platform_editor_add_breakout_marks_on_page_load: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_add_breakout_marks_on_page_load',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

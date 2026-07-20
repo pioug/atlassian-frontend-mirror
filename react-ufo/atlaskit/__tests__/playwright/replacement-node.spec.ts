@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
-import { expect, test, viewports } from './fixtures';
+import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: Revisions - replacement node', () => {
 	test.use({
@@ -33,10 +33,8 @@ test.describe('ReactUFO: Revisions - replacement node', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				const applicableRevisions = ufoRevisions?.filter(
-					(rev) => rev['revision'] >= 'fy25.03' && rev['revision'] !== 'raw-handler',
-				);
-				for (const rev of applicableRevisions!) {
+				const applicableRevisions = getClientCalculatedVCRevisions(ufoRevisions);
+				for (const rev of applicableRevisions) {
 					const revisionName = rev['revision'];
 
 					await test.step(`checking revision ${revisionName}`, () => {

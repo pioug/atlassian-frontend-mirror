@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
-import { expect, test, viewports } from './fixtures';
+import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: Full precision - Full Vertical Pixel Page', () => {
 	test.use({
@@ -57,9 +57,9 @@ test.describe('ReactUFO: Full precision - Full Vertical Pixel Page', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				const applicableRevisions = getClientCalculatedVCRevisions(ufoRevisions);
 
-				for (const rev of applicableRevisions!) {
+				for (const rev of applicableRevisions) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();
@@ -142,9 +142,9 @@ test.describe('ReactUFO: Scaled (with margin error)- Full Vertical Pixel Page', 
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				const applicableRevisions = getClientCalculatedVCRevisions(ufoRevisions);
 
-				for (const rev of applicableRevisions!) {
+				for (const rev of applicableRevisions) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();

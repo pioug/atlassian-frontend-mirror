@@ -113,6 +113,9 @@ export const getToolbarConfig = (
 			tooltipContent: isSyncBlockActivationEnabled
 				? undefined
 				: formatMessage(messages.copySyncedBlockTooltip),
+			testId: isSyncBlockActivationEnabled
+				? SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarCopy
+				: undefined,
 			onClick: copySyncedBlockReferenceToClipboard(
 				syncBlockStore,
 				INPUT_METHOD.SYNCED_BLOCK_TB,

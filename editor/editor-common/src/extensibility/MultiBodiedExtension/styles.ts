@@ -38,6 +38,10 @@ export const mbeExtensionWrapperCSSStyles: SerializedStyles = css(wrapperDefault
 		boxShadow: `0 0 0 1px ${token('color.border')}`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-selected-border': {
+		boxShadow: `0 0 0 1px ${token('color.border.focused')}`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-hover-border': {
 		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
 	},

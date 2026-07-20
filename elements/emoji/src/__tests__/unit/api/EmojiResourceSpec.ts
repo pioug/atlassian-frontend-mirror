@@ -8,6 +8,7 @@ import type {
 	ServiceConfig,
 } from '@atlaskit/util-service-support';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type EmojiDescription,
@@ -67,6 +68,8 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 const mockConstants = constants as {
 	SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP: number;
 };
+const mockInitializeCompleted = jest.spyOn(FeatureGates, 'initializeCompleted');
+const mockGetExperimentValue = jest.spyOn(FeatureGates, 'getExperimentValue');
 /**
  * Skipping 3 tests that are failing since the jest 23 upgrade
  * TODO: JEST-23
@@ -225,6 +228,11 @@ describe('EmojiResource', () => {
 		mockConstants.SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP = 1;
 		samplingUfo.clearSampled();
 		jest.clearAllMocks();
+		jest.mocked(fg).mockReturnValue(false);
+		mockInitializeCompleted.mockReturnValue(false);
+		mockGetExperimentValue.mockImplementation(
+			(_experimentName, _parameterName, defaultValue) => defaultValue,
+		);
 	});
 
 	afterEach(() => {
@@ -320,6 +328,58 @@ describe('EmojiResource', () => {
 			);
 			expect(resource.emojiProviderConfig.optimisticImageApi?.getUrl(emojiId)).toEqual(
 				'https://example.com/gateway/api/emoji/image/abc',
+			);
+		});
+
+		it('adds teamoji 26 query parameter to atlassian provider urls when refresh experiment is enabled', () => {
+			mockInitializeCompleted.mockReturnValue(true);
+			mockGetExperimentValue.mockImplementation((experimentName, _parameterName, defaultValue) =>
+				experimentName === 'platform_teamoji_26_refresh_emoji_picker' ? true : defaultValue,
+			);
+			const config: EmojiResourceConfig = {
+				...defaultApiConfig,
+				providers: [
+					{
+						url: 'https://example.com/gateway/api/emoji/standard',
+					},
+					{
+						url: 'https://example.com/gateway/api/emoji/atlassian',
+					},
+					{
+						url: 'https://example.com/gateway/api/emoji/atlassian?foo=bar#section',
+					},
+				],
+			};
+
+			const resource = new EmojiResource(config);
+
+			expect(resource.emojiProviderConfig.providers[0].url).toEqual(
+				'https://example.com/gateway/api/emoji/standard',
+			);
+			expect(resource.emojiProviderConfig.providers[1].url).toEqual(
+				'https://example.com/gateway/api/emoji/atlassian?useTeamoji26=true',
+			);
+			expect(resource.emojiProviderConfig.providers[2].url).toEqual(
+				'https://example.com/gateway/api/emoji/atlassian?foo=bar&useTeamoji26=true#section',
+			);
+		});
+
+		it('does not add teamoji 26 query parameter when refresh experiment is disabled', () => {
+			mockInitializeCompleted.mockReturnValue(true);
+			mockGetExperimentValue.mockReturnValue(false);
+			const config: EmojiResourceConfig = {
+				...defaultApiConfig,
+				providers: [
+					{
+						url: 'https://example.com/gateway/api/emoji/atlassian',
+					},
+				],
+			};
+
+			const resource = new EmojiResource(config);
+
+			expect(resource.emojiProviderConfig.providers[0].url).toEqual(
+				'https://example.com/gateway/api/emoji/atlassian',
 			);
 		});
 	});

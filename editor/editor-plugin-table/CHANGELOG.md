@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.4.11
+
+### Patch Changes
+
+- [`8bdbc5ba79617`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bdbc5ba79617) -
+  [ux] Gate the table active cell decoration behind `platform_editor_table_q4_patch_3` so it is not
+  calculated or rendered until the editor has had its first interaction. Fix row control
+  mis-alignment issues.
+- Updated dependencies
+
 ## 24.4.10
 
 ### Patch Changes

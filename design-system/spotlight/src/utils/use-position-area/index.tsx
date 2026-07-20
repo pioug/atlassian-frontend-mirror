@@ -25,19 +25,18 @@ export const usePositionArea = (
 		}
 
 		const readPositionArea = (): PositionArea | 'none' | undefined => {
-			// Should almost always exist. But breaks some old testing envs.
-			if (typeof el.computedStyleMap === 'function') {
+			try {
 				return el.computedStyleMap().get('position-area')?.toString() as
 					| PositionArea
 					| 'none'
 					| undefined;
+			} catch {
+				// Some old browsers do not support computedStyleMap, so fall back to getPropertyValue
+				return window.getComputedStyle(el).getPropertyValue('position-area').trim() as
+					| PositionArea
+					| 'none'
+					| undefined;
 			}
-
-			// JSDOM does not implement CSS Typed OM APIs yet.
-			return window.getComputedStyle(el).getPropertyValue('position-area').trim() as
-				| PositionArea
-				| 'none'
-				| undefined;
 		};
 
 		const read = () => {

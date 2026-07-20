@@ -96,7 +96,7 @@ const PopupTrigger: React.ForwardRefExoticComponent<
 						</Box>
 						{selectedOptions && selectedOptions.length > 1 && (
 							<Flex xcss={styles.badgeStyles} alignItems="center">
-								<Badge appearance="primary">+{selectedOptions.length - 1}</Badge>
+								<Badge appearance="informationBold">+{selectedOptions.length - 1}</Badge>
 							</Flex>
 						)}
 					</Flex>

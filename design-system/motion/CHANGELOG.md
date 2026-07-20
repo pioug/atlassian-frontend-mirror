@@ -1,5 +1,12 @@
 # @atlaskit/motion
 
+## 7.4.0
+
+### Minor Changes
+
+- [`95ff9f0742fb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95ff9f0742fb9) -
+  Added ability to re-animate the exit animation programmatically via the useMotion hook
+
 ## 7.3.1
 
 ### Patch Changes

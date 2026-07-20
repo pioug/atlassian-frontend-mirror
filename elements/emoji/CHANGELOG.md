@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 71.9.8
+
+### Patch Changes
+
+- [`2ec64503b032d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ec64503b032d) -
+  Add teamoji parameter when fetching Atlassian emoji metadata
+- Updated dependencies
+
 ## 71.9.7
 
 ### Patch Changes

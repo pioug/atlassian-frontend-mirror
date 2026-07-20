@@ -7,7 +7,6 @@ import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 import Button from '@atlaskit/button/new';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { isReducedMotion } from '@atlaskit/motion/accessibility';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { Reanimate } from '@atlaskit/motion/motion';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
@@ -89,7 +88,6 @@ type ReanimatingBoxHandle = {
  */
 const ReanimatingBox = forwardRef<ReanimatingBoxHandle>((_props, forwardedRef) => {
 	const { state, ref, reanimate } = useMotion<HTMLElement>();
-	const reducedMotion = isReducedMotion();
 
 	useImperativeHandle(forwardedRef, () => ({ reanimate }), [reanimate]);
 
@@ -101,8 +99,9 @@ const ReanimatingBox = forwardRef<ReanimatingBoxHandle>((_props, forwardedRef) =
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(
 				styles.block,
-				state === 'init' && !reducedMotion && styles.init,
-				state === 'entering' && !reducedMotion && styles.entering,
+				state === 'init' && styles.init,
+				state === 'entering' && styles.entering,
+				state === 'exiting' && styles.exiting,
 			)}
 		/>
 	);
@@ -147,6 +146,7 @@ export default function UseMotionCustomExample(): React.JSX.Element {
 				<Inline space="space.100">
 					<Stack space="space.100">
 						<Button onClick={() => handleReanimate(Reanimate.enter)}>Enter</Button>
+						<Button onClick={() => handleReanimate(Reanimate.exit)}>Exit</Button>
 						<Button onClick={() => handleReanimate(Reanimate.exit_then_enter)}>
 							Exit and Enter
 						</Button>

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.3.0
+
+### Minor Changes
+
+- [`34d8700aa0e77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34d8700aa0e77) -
+  [ux] [EDITOR-8131] scan the document when entering edit mode to add breakout marks to existing
+  top-level resizable nodes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.2.8
 
 ### Patch Changes

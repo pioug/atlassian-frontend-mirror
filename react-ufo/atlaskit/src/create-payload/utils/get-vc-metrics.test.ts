@@ -1,7 +1,5 @@
 // packages/react-ufo/atlaskit/src/create-payload/utils/get-vc-metrics.test.ts
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import type { InteractionMetrics } from '../../common';
 import { getConfig, getMostRecentVCRevision, isVCRevisionEnabled } from '../../config';
 import type { VCObserverInterface } from '../../vc/types';
@@ -14,7 +12,6 @@ import getVCMetrics from './get-vc-metrics';
 // Mock dependencies
 jest.mock('../../config');
 jest.mock('../../interaction-metrics');
-jest.mock('@atlaskit/platform-feature-flags');
 jest.mock('./get-interaction-status');
 jest.mock('./get-page-visibility-up-to-ttai');
 jest.mock('./get-ssr-done-time-value');
@@ -49,10 +46,6 @@ const createMockVCObserver = (): jest.Mocked<VCObserverInterface> => ({
 describe('getVCMetrics', () => {
 	// Setup common mocks
 	const mockGetConfig = getConfig as jest.MockedFunction<typeof getConfig>;
-	const mockFg = fg as jest.MockedFunction<typeof fg>;
-
-	const enabledFg = new Set<string>();
-
 	beforeEach(() => {
 		jest.clearAllMocks();
 
@@ -69,10 +62,6 @@ describe('getVCMetrics', () => {
 		});
 
 		(getPageVisibilityUpToTTAI as jest.Mock).mockReturnValue('visible');
-
-		mockFg.mockImplementation((flag: string) => enabledFg.has(flag));
-
-		enabledFg.clear();
 	});
 
 	it('should return empty object if VC is not enabled', async () => {
@@ -375,27 +364,7 @@ describe('getVCMetrics', () => {
 		expect(result).toEqual(expectedVCResult);
 	});
 
-	it('should pass includeRawData as false when raw data sampling is disabled and always emit raw-handler gate is off', async () => {
-		const mockVCObserver = createMockVCObserver();
-		const interaction: InteractionMetrics = {
-			type: 'page_load',
-			start: 0,
-			end: 100,
-			ufoName: 'test',
-			vcObserver: mockVCObserver,
-		} as unknown as InteractionMetrics;
-
-		await getVCMetrics(interaction);
-
-		expect(mockVCObserver.getVCResult).toHaveBeenCalledWith(
-			expect.objectContaining({
-				includeRawData: false,
-			}),
-		);
-	});
-
-	it('should force includeRawData when always emit raw-handler gate is enabled', async () => {
-		enabledFg.add('platform_ufo_always_emit_raw_handler');
+	it('should always pass includeRawData to preserve raw-handler data', async () => {
 		const mockVCObserver = createMockVCObserver();
 		const interaction: InteractionMetrics = {
 			type: 'page_load',

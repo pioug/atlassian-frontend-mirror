@@ -71,7 +71,7 @@ export interface CustomMediaPlayerProps extends WithPlaybackProps, WithShowContr
 	readonly isShortcutEnabled?: boolean;
 	readonly lastWatchTimeConfig?: TimeSaverConfig;
 	readonly onCanPlay?: () => void;
-	readonly onError?: () => void;
+	readonly onError?: (mediaError?: MediaError | null) => void;
 	readonly onPlay?: () => void;
 	readonly onPause?: () => void;
 	readonly onTimeChanged?: () => void;
@@ -720,7 +720,7 @@ export class CustomMediaPlayerBase extends Component<
 					onCanPlay={onCanPlay}
 					defaultTime={this.getDefaultTime}
 					onTimeChange={this.onCurrentTimeChange}
-					onError={onError}
+					onError={(event) => onError?.(event?.currentTarget?.error)}
 					poster={poster}
 				>
 					{(video, videoState, actions) => {

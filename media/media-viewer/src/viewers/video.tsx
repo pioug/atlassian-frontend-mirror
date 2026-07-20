@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/media-client';
 import { CustomMediaPlayer, MediaPlayer, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { Outcome } from '../domain';
-import { MediaViewerError } from '../errors';
+import { buildVideoErrorDiagnostics, MediaViewerError } from '../errors';
 import { Video, CustomVideoPlayerWrapper } from '../styleWrappers';
 import { isIE } from '../utils/isIE';
 import { type BaseState, BaseViewer } from './base-viewer';
@@ -66,9 +66,16 @@ export class VideoViewer extends BaseViewer<string, Props, State> {
 		}
 	};
 
-	private onError = () => {
-		const { onError } = this.props;
-		onError && onError(new MediaViewerError('videoviewer-playback'));
+	private onError = (mediaError?: MediaError | null) => {
+		const { onError, item } = this.props;
+		let secondaryError: Error | undefined;
+		try {
+			secondaryError = buildVideoErrorDiagnostics(item, mediaError);
+		} catch {
+			// Diagnostics are best-effort: never let them mask the underlying playback failure.
+			secondaryError = undefined;
+		}
+		onError && onError(new MediaViewerError('videoviewer-playback', secondaryError));
 	};
 
 	protected renderSuccessful(content: string): React.JSX.Element {

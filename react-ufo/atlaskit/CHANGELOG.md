@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.23
+
+### Patch Changes
+
+- [`184b158c412e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/184b158c412e4) -
+  Remove deprecated interaction extra metrics payload
+- [`0a642e4e64d88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a642e4e64d88) -
+  Cleanup feature gate platform_ufo_always_emit_raw_handler
+
 ## 7.3.22
 
 ### Patch Changes

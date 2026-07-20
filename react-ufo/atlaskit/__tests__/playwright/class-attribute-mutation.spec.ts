@@ -3,7 +3,7 @@
 /* eslint-disable compat/compat */
 import type { ComponentsLogEntry } from '../../src/common/vc/types';
 
-import { expect, test, viewports } from './fixtures';
+import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: class attribute mutation', () => {
 	for (const viewport of viewports) {
@@ -97,9 +97,9 @@ test.describe('ReactUFO: class attribute mutation', () => {
 				});
 
 				//check future bigger revisions
-				const applicableRevisions = ufoRevisions?.filter((rev) => rev['revision'] >= 'fy25.03');
+				const applicableRevisions = getClientCalculatedVCRevisions(ufoRevisions);
 
-				for (const rev of applicableRevisions!) {
+				for (const rev of applicableRevisions) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();

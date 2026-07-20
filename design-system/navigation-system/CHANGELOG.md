@@ -1,5 +1,37 @@
 # @atlassian/navigation-system
 
+## 10.6.0
+
+### Minor Changes
+
+- [`95ff9f0742fb9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95ff9f0742fb9) -
+  [ux] Added motion to `Panel` entry and exit behind the `platform-dst-motion-uplift-panel` feature
+  gate.
+
+  When the gate is enabled, `Panel` animates on entry automatically. To get the exit animation,
+  consumers must render the conditionally-mounted `Panel` inside an `ExitingPersistence` boundary so
+  the panel stays mounted until its exit motion finishes:
+
+  ```tsx
+  import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+  import { Panel } from '@atlaskit/navigation-system/layout/panel';
+
+  function Example({ isPanelOpen }: { isPanelOpen: boolean }) {
+  	return (
+  		<ExitingPersistence>
+  			{isPanelOpen && <Panel defaultWidth={320}>{/* panel content */}</Panel>}
+  		</ExitingPersistence>
+  	);
+  }
+  ```
+
+  Without the `ExitingPersistence` wrapper the panel is removed immediately on close and the exit
+  animation is skipped. Entry animation works with or without the wrapper.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.5.7
 
 ### Patch Changes

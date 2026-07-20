@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 2.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.3
+
+### Patch Changes
+
+- [`f02f8c37640f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f02f8c37640f3) -
+  Migrate deprecated Badge appearance values to the new semantic appearances.
+- Updated dependencies
+
 ## 2.3.2
 
 ### Patch Changes

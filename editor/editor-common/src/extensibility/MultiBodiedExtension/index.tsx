@@ -29,6 +29,7 @@ import {
 } from '../../ui/MultiBodiedExtension';
 import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
 import ExtensionLozenge from '../Extension/Lozenge';
+import { ExtensionFloatingLabel } from '../Extension/Lozenge/ExtensionFloatingLabel';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../types';
 import { shouldExtensionBreakout } from '../utils/should-extension-breakout';
 
@@ -64,6 +65,12 @@ const imageStyles = css({
 });
 
 const hoverStyles = css({
+	'&:hover': {
+		boxShadow: `0 0 0 1px ${token('color.border')}`,
+	},
+});
+
+const hoverStylesOld = css({
 	'&:hover': {
 		boxShadow: `0 0 0 1px ${token('color.border.input')}`,
 	},
@@ -342,7 +349,7 @@ const MultiBodiedExtensionWithWidth = ({
 		mbeWrapperStyles = breakoutStyles;
 	}
 
-	const shouldUseNativeTabsPresentation = expValEquals(
+	const shouldUseUpdatedChrome = expValEquals(
 		'confluence_native_tabs_experiment',
 		'isEnabled',
 		true,
@@ -351,18 +358,25 @@ const MultiBodiedExtensionWithWidth = ({
 		editorView,
 		node,
 		getPos,
-		shouldUseNativeTabsPresentation,
+		shouldUseUpdatedChrome && !isLivePageViewMode,
 	);
 	const isMultiBodiedExtensionActive = isNodeSelected || isSelectionInsideMultiBodiedExtension;
+	const shouldShowChromeOnInteraction = isNodeHovered || isMultiBodiedExtensionActive;
+	const shouldShowMultiBodiedExtensionChrome = shouldUseUpdatedChrome
+		? !isLivePageViewMode && shouldShowChromeOnInteraction
+		: true;
 
 	const wrapperClassNames = classnames(
 		'multiBodiedExtension--wrapper',
 		'extension-container',
 		'block',
 		{
-			'with-border':
+			'with-border': showMacroInteractionDesignUpdates && shouldShowMultiBodiedExtensionChrome,
+			'with-selected-border':
 				showMacroInteractionDesignUpdates &&
-				(shouldUseNativeTabsPresentation ? isMultiBodiedExtensionActive : true),
+				shouldUseUpdatedChrome &&
+				!isLivePageViewMode &&
+				isNodeSelected,
 			'with-danger-overlay': showMacroInteractionDesignUpdates,
 			'with-padding-background-styles': showMacroInteractionDesignUpdates,
 			'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
@@ -389,14 +403,18 @@ const MultiBodiedExtensionWithWidth = ({
 			setIsNodeHovered(didHover);
 		}
 	};
+	const shouldRenderExtensionLozenge =
+		showMacroInteractionDesignUpdates && !isLivePageViewMode && !shouldUseUpdatedChrome;
+	const shouldRenderFloatingLabel =
+		showMacroInteractionDesignUpdates &&
+		!isLivePageViewMode &&
+		shouldUseUpdatedChrome &&
+		shouldShowChromeOnInteraction;
 
 	return (
 		<Fragment>
-			{showMacroInteractionDesignUpdates && !isLivePageViewMode && (
+			{shouldRenderExtensionLozenge && (
 				<ExtensionLozenge
-					isNodeSelected={
-						shouldUseNativeTabsPresentation ? isMultiBodiedExtensionActive : isNodeSelected
-					}
 					node={node}
 					showMacroInteractionDesignUpdates={true}
 					customContainerStyles={mbeWrapperStyles}
@@ -404,7 +422,6 @@ const MultiBodiedExtensionWithWidth = ({
 					isNodeNested={isNodeNested}
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={true}
-					isMultiBodiedMacro={shouldUseNativeTabsPresentation}
 					pluginInjectionApi={pluginInjectionApi}
 				/>
 			)}
@@ -413,11 +430,11 @@ const MultiBodiedExtensionWithWidth = ({
 				className={wrapperClassNames}
 				css={[
 					/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */
-					shouldUseNativeTabsPresentation
-						? mbeExtensionWrapperCSSStyles
-						: mbeExtensionWrapperCSSStylesOld,
+					shouldUseUpdatedChrome ? mbeExtensionWrapperCSSStyles : mbeExtensionWrapperCSSStylesOld,
 					/* eslint-enable @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage */
-					showMacroInteractionDesignUpdates && !isLivePageViewMode && hoverStyles,
+					showMacroInteractionDesignUpdates &&
+						!isLivePageViewMode &&
+						(shouldUseUpdatedChrome ? hoverStyles : hoverStylesOld),
 				]}
 				data-testid="multiBodiedExtension--wrapper-editor"
 				data-layout={node.attrs.layout}
@@ -438,9 +455,16 @@ const MultiBodiedExtensionWithWidth = ({
 						: undefined
 				}
 			>
+				{shouldRenderFloatingLabel && (
+					<ExtensionFloatingLabel
+						title={title}
+						isSelected={isNodeSelected}
+						testId="multiBodiedExtension-floating-label"
+					/>
+				)}
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={shouldUseNativeTabsPresentation ? overlayStyles : overlayStylesOld}
+					css={shouldUseUpdatedChrome ? overlayStyles : overlayStylesOld}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={overlayClassNames}
 					data-testid="multiBodiedExtension--overlay"

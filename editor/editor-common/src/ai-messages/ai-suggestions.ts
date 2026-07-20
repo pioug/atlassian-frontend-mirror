@@ -46,6 +46,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardHideDeletedDiffsLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardMoreOptionsButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -72,6 +77,11 @@ export const aiSuggestionsMessages: {
 		id: string;
 	};
 	cardScrollBackToSuggestionLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardShowDeletedDiffsLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -410,6 +420,18 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.card.compareWithOriginalOptionLabel.non-final',
 		defaultMessage: 'Compare with original',
 		description: 'Label for the dropdown action to compare suggestion with original content',
+	},
+	cardHideDeletedDiffsLabel: {
+		id: 'fabric.editor.ai.suggestions.card.hideDeletedDiffsLabel.non-final',
+		defaultMessage: 'Hide comparison',
+		description:
+			'Tooltip label for the eye icon button on the AI suggestions card when deleted diffs are visible',
+	},
+	cardShowDeletedDiffsLabel: {
+		id: 'fabric.editor.ai.suggestions.card.showDeletedDiffsLabel.non-final',
+		defaultMessage: 'Show comparison',
+		description:
+			'Tooltip label for the eye icon button on the AI suggestions card when deleted diffs are hidden',
 	},
 	cardScrollBackToSuggestionLabel: {
 		id: 'fabric.editor.ai.suggestions.card.scrollBackToSuggestionLabel.non-final',

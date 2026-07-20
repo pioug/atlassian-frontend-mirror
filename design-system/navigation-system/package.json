@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "10.5.7",
+	"version": "10.6.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"author": "Atlassian Pty Ltd",
@@ -92,6 +92,7 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/layering": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
+		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
@@ -159,7 +160,8 @@
 			"dom-events": "use-bind-event-listener",
 			"design-tokens": [
 				"color",
-				"spacing"
+				"spacing",
+				"motion"
 			],
 			"deprecation": "no-deprecated-imports",
 			"imports": [
@@ -198,6 +200,10 @@
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-button": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform-dst-motion-uplift-panel": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

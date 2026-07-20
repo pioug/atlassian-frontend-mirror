@@ -104,6 +104,21 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		return didUpdate;
 	}
 
+	ignoreMutation(mutation: MutationRecord | { target: Node; type: 'selection' }): boolean {
+		// `data-reaches-*` are presentation-only attrs written imperatively for the rounded-corner
+		// masks. Ignore them so ProseMirror doesn't rebuild the table (and drop the header row's
+		// sticky class) on every column insert.
+		if (
+			mutation.type === 'attributes' &&
+			mutation.attributeName?.startsWith('data-reaches-') &&
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+			expValEquals('platform_editor_table_q4_patch_3', 'isEnabled', true)
+		) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Detects whether this cell visually reaches the bottom or right edge of the table
 	 * (accounting for rowspan/colspan) and sets data attributes so CSS can apply

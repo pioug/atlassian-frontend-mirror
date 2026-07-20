@@ -28,24 +28,28 @@ test.describe('ReactUFO: transition VC', () => {
 		expect(interactionMetrics.type).toBe('transition');
 
 		const ufoVCRev = ufoProperties['ufo:vc:rev'];
-		const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
+		const rawHandlerRevision = ufoVCRev?.find(({ revision }) => revision === 'raw-handler');
+		expect(rawHandlerRevision).toBeTruthy();
+		expect(rawHandlerRevision!.rawData).toBeDefined();
+		expect(rawHandlerRevision!.rawData!.obs!.length).toBeGreaterThan(0);
+		expect(rawHandlerRevision!.rawData!.eid).toBeDefined();
 
+		const rawElementNames = Object.values(rawHandlerRevision!.rawData!.eid!) as string[];
+		expect(rawElementNames.some((name) => name.includes('main-content-projects'))).toBe(true);
+
+		const ttvcV2Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.02');
 		expect(ttvcV2Revision).toBeTruthy();
-		expect(ttvcV2Revision!.vcDetails?.['90'].e).toContainEqual('div[testid=main-content-projects]');
 
 		const projectsDOMAddedAt =
 			(await getSectionDOMAddedAt('main-content-projects'))! - interactionMetrics.start;
 
-		expect(ttvcV2Revision!.vcDetails?.['90'].t).toMatchTimestamp(projectsDOMAddedAt);
+		expect(ttvcV2Revision!['metric:vc90']).toMatchTimestamp(projectsDOMAddedAt);
 
 		const ttvcV3Revision = ufoVCRev?.find(({ revision }) => revision === 'fy25.03');
 		expect(ttvcV3Revision).toBeTruthy();
-		expect(ttvcV3Revision!.vcDetails?.['90'].e).toContainEqual(
-			'div[data-testid="main-content-projects"]',
-		);
 		const projectsVisibleAt =
 			(await getSectionVisibleAt('main-content-projects'))! - interactionMetrics.start;
-		expect(ttvcV3Revision!.vcDetails?.['90'].t).toMatchTimestamp(projectsVisibleAt);
+		expect(ttvcV3Revision!['metric:vc90']).toMatchTimestamp(projectsVisibleAt);
 	});
 
 	test('should capture and report a11y violations', async ({

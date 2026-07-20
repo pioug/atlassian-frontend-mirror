@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 6.1.11
+
+### Patch Changes
+
+- [`f02f8c37640f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f02f8c37640f3) -
+  Migrate deprecated Badge appearance values to the new semantic appearances.
+
 ## 6.1.10
 
 ### Patch Changes

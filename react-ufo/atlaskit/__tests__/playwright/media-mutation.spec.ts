@@ -3,7 +3,7 @@
 /* eslint-disable compat/compat */
 import { VCObserver } from '../../src/vc/vc-observer';
 
-import { expect, test, viewports } from './fixtures';
+import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 	for (const viewport of viewports) {
@@ -81,11 +81,9 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 				// With platform_ufo_enable_media_for_ttvc_v3 feature flag cleanup,
 				// mutation:media entries are now always included in VC calculations,
 				// so VC90 will match when the last media element becomes visible
-				const applicableRevisions = ufoRevisions?.filter(
-					(rev) => rev['revision'] >= 'fy25.03' && rev['revision'] !== 'raw-handler',
-				);
+				const applicableRevisions = getClientCalculatedVCRevisions(ufoRevisions);
 
-				for (const rev of applicableRevisions!) {
+				for (const rev of applicableRevisions) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();

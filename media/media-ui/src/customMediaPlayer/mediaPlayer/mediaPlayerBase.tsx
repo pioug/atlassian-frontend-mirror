@@ -997,7 +997,7 @@ class _MediaPlayerBase extends Component<MediaPlayerBaseOwnProps, CustomMediaPla
 					onCanPlay={onCanPlay}
 					defaultTime={this.getDefaultTime}
 					onTimeChange={this.onCurrentTimeChange}
-					onError={onError}
+					onError={(event) => onError?.(event?.currentTarget?.error)}
 					poster={poster}
 					textTracks={textTracks}
 					textTracksPosition={areControlsVisible ? -3.7 : undefined}

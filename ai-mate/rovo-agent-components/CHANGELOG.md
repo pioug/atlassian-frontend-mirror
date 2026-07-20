@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 8.0.1
+
+### Patch Changes
+
+- [`d5999d2cd6719`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5999d2cd6719) -
+  Use the ADS icon button for agent favourite actions.
+- Updated dependencies
+
 ## 8.0.0
 
 ### Major Changes

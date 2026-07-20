@@ -108,9 +108,14 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 				// We are done exiting, so we set the state to entering
 				reanimateRef.current = Reanimate.enter;
 				newState = 'entering';
-			} else if (reanimateRef.current) {
+			} else if (reanimateRef.current === Reanimate.enter) {
 				// We are done reanimating, so we clear the reanimate state
 				reanimateRef.current = undefined;
+			} else if (reanimateRef.current === Reanimate.exit) {
+				// We are done exiting, so we set the state to idle
+				reanimateRef.current = undefined;
+				// No need to set the state to idle, as we have exited
+				return;
 			}
 
 			if (!cancelled) {
@@ -229,6 +234,8 @@ export function useMotion<T extends HTMLElement = HTMLElement>({
 			setState('exiting');
 		} else if (value === Reanimate.enter) {
 			setState('entering');
+		} else if (value === Reanimate.exit) {
+			setState('exiting');
 		}
 	}, []);
 

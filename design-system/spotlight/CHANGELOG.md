@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 3.0.4
+
+### Patch Changes
+
+- [`86ab2b717de75`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86ab2b717de75) -
+  Handle browsers that expose `computedStyleMap` but throw when reading `position-area` by falling
+  back to `getComputedStyle`.
+
 ## 3.0.3
 
 ### Patch Changes

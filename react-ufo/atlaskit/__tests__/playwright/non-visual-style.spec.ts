@@ -3,7 +3,7 @@
 /* eslint-disable compat/compat */
 import { VCObserver } from '../../src/vc/vc-observer';
 
-import { expect, test, viewports } from './fixtures';
+import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 	for (const viewport of viewports) {
@@ -61,11 +61,9 @@ test.describe('ReactUFO: fy25.02 - non visual style mutation', () => {
 				expect(vc90Result).toMatchTimestamp(mainDivAddedAt);
 
 				// check future bigger revisions
-				const applicableRevisions = ufoRevisions?.filter(
-					(rev) => rev['revision'] >= 'fy25.03' && rev['revision'] !== 'raw-handler',
-				);
+				const applicableRevisions = getClientCalculatedVCRevisions(ufoRevisions);
 
-				for (const rev of applicableRevisions!) {
+				for (const rev of applicableRevisions) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();

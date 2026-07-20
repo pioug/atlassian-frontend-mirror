@@ -140,6 +140,7 @@ export default function UseMotionExample(): React.JSX.Element {
 				<Inline space="space.100">
 					<Stack space="space.100">
 						<Button onClick={() => handleReanimate(Reanimate.enter)}>Enter</Button>
+						<Button onClick={() => handleReanimate(Reanimate.exit)}>Exit</Button>
 						<Button onClick={() => handleReanimate(Reanimate.exit_then_enter)}>
 							Exit and Enter
 						</Button>

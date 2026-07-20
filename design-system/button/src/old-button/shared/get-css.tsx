@@ -181,6 +181,101 @@ const selectedStyles: CSSObject = {
 		borderColor: token('color.border.selected'),
 	},
 };
+
+/**
+ * Anchor-text-color variants applied when the legacy `Button` is rendered as
+ * an `<a>` (via `href`). Each `<variant>WithAnchorTextColorStyles` is a
+ * self-contained appearance object that adds explicit `color` /
+ * `text-decoration` on the base, `:hover`, and `:active` states, preventing
+ * browser default or ambient anchor styles from overriding the button's
+ * intended text color or adding an unwanted underline.
+ *
+ * Gated by `platform-dst-legacy-button-anchor-text-color` and used *instead*
+ * of the base `<variant>Styles`. When cleaning up the gate: delete the base
+ * `<variant>Styles` and rename the `WithAnchorTextColor` variant to replace
+ * it.
+ *
+ * Link-like variants (`link`, `subtle-link`) keep their intentional underline
+ * on `:hover` / `:active`.
+ */
+const defaultWithAnchorTextColorStyles: CSSObject = {
+	...defaultStyles,
+	textDecoration: 'none',
+	'&:hover': {
+		...(defaultStyles['&:hover'] as CSSObject),
+		color: token('color.text'),
+		textDecoration: 'none',
+	},
+	'&:active': {
+		...(defaultStyles['&:active'] as CSSObject),
+		color: token('color.text'),
+		textDecoration: 'none',
+	},
+};
+const primaryWithAnchorTextColorStyles: CSSObject = {
+	...primaryStyles,
+	textDecoration: 'none',
+	'&:hover': {
+		...(primaryStyles['&:hover'] as CSSObject),
+		color: token('color.text.inverse'),
+		textDecoration: 'none',
+	},
+	'&:active': {
+		...(primaryStyles['&:active'] as CSSObject),
+		color: token('color.text.inverse'),
+		textDecoration: 'none',
+	},
+};
+const linkWithAnchorTextColorStyles: CSSObject = {
+	...linkStyles,
+	textDecoration: 'none',
+};
+const subtleWithAnchorTextColorStyles: CSSObject = {
+	...subtleStyles,
+	textDecoration: 'none',
+	'&:hover': {
+		...(subtleStyles['&:hover'] as CSSObject),
+		color: token('color.text.subtle'),
+		textDecoration: 'none',
+	},
+	'&:active': {
+		...(subtleStyles['&:active'] as CSSObject),
+		color: token('color.text.subtle'),
+		textDecoration: 'none',
+	},
+};
+const subtleLinkWithAnchorTextColorStyles: CSSObject = {
+	...subtleLinkStyles,
+	textDecoration: 'none',
+};
+const warningWithAnchorTextColorStyles: CSSObject = {
+	...warningStyles,
+	textDecoration: 'none',
+	'&:hover': {
+		...(warningStyles['&:hover'] as CSSObject),
+		color: token('color.text.warning.inverse'),
+		textDecoration: 'none',
+	},
+	'&:active': {
+		...(warningStyles['&:active'] as CSSObject),
+		color: token('color.text.warning.inverse'),
+		textDecoration: 'none',
+	},
+};
+const dangerWithAnchorTextColorStyles: CSSObject = {
+	...dangerStyles,
+	textDecoration: 'none',
+	'&:hover': {
+		...(dangerStyles['&:hover'] as CSSObject),
+		color: token('color.text.inverse'),
+		textDecoration: 'none',
+	},
+	'&:active': {
+		...(dangerStyles['&:active'] as CSSObject),
+		color: token('color.text.inverse'),
+		textDecoration: 'none',
+	},
+};
 const hasOverlayStyles: CSSObject = {
 	'&[data-has-overlay="true"]': {
 		cursor: 'default',
@@ -238,13 +333,25 @@ export function getCss({
 		...(isSelected
 			? selectedStyles
 			: {
-					...(appearance === 'default' && defaultStyles),
-					...(appearance === 'primary' && primaryStyles),
-					...(appearance === 'link' && linkStyles),
-					...(appearance === 'subtle' && subtleStyles),
-					...(appearance === 'subtle-link' && subtleLinkStyles),
-					...(appearance === 'warning' && warningStyles),
-					...(appearance === 'danger' && dangerStyles),
+					...(fg('platform-dst-legacy-button-anchor-text-color')
+						? {
+								...(appearance === 'default' && defaultWithAnchorTextColorStyles),
+								...(appearance === 'primary' && primaryWithAnchorTextColorStyles),
+								...(appearance === 'link' && linkWithAnchorTextColorStyles),
+								...(appearance === 'subtle' && subtleWithAnchorTextColorStyles),
+								...(appearance === 'subtle-link' && subtleLinkWithAnchorTextColorStyles),
+								...(appearance === 'warning' && warningWithAnchorTextColorStyles),
+								...(appearance === 'danger' && dangerWithAnchorTextColorStyles),
+							}
+						: {
+								...(appearance === 'default' && defaultStyles),
+								...(appearance === 'primary' && primaryStyles),
+								...(appearance === 'link' && linkStyles),
+								...(appearance === 'subtle' && subtleStyles),
+								...(appearance === 'subtle-link' && subtleLinkStyles),
+								...(appearance === 'warning' && warningStyles),
+								...(appearance === 'danger' && dangerStyles),
+							}),
 
 					'&[disabled]': {
 						color: token('color.text.disabled'),

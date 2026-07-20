@@ -1,5 +1,21 @@
 # @atlaskit/media-viewer
 
+## 54.5.12
+
+### Patch Changes
+
+- [`fc42b7257d341`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fc42b7257d341) -
+  Attach native MediaError diagnostics to videoviewer-playback failures so the existing
+  error/errorDetail analytics fields report a real cause instead of unknown (observability-only, no
+  behaviour change).
+- Updated dependencies
+
+## 54.5.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.5.10
 
 ### Patch Changes

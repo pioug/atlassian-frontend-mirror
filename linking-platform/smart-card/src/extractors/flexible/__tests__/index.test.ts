@@ -62,7 +62,7 @@ describe('extractFlexibleUiContext', () => {
 			modifiedOn: '2022-07-04T12:05:28.601Z',
 			provider: { label: 'Bitbucket', url: 'https://icon-url' },
 			sourceBranch: 'source-branch',
-			state: { text: 'open', appearance: 'inprogress', action: undefined },
+			state: { text: 'Open', appearance: 'inprogress', action: undefined },
 			targetBranch: 'target-branch',
 			linkTitle: expect.objectContaining({
 				text: 'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',

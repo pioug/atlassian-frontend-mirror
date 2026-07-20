@@ -17,7 +17,7 @@ export interface MediaPlayerProps extends WithPlaybackProps, WithShowControlMeth
 	readonly onPlay?: () => void;
 	readonly onPause?: () => void;
 	readonly onTimeChanged?: () => void;
-	readonly onError?: () => void;
+	readonly onError?: (mediaError?: MediaError | null) => void;
 	readonly onDownloadClick?: () => void;
 	readonly onFirstPlay?: () => void;
 	readonly onFullscreenChange?: (fullscreen: boolean) => void;

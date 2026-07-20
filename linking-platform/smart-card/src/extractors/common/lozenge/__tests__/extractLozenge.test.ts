@@ -31,7 +31,7 @@ describe('extractors.lozenge.lozenge', () => {
 				'@type': 'schema:TextDigitalDocument',
 				'atlassian:state': 'archived',
 			} as JsonLd.Data.Document),
-		).toEqual({ text: 'archived', appearance: 'default' });
+		).toEqual({ text: 'Archived', appearance: 'default' });
 	});
 
 	it('returns lozenge if type supported - document (draft)', () => {
@@ -41,7 +41,7 @@ describe('extractors.lozenge.lozenge', () => {
 				'@type': 'schema:TextDigitalDocument',
 				'atlassian:state': 'draft',
 			} as JsonLd.Data.Document),
-		).toEqual({ text: 'draft', appearance: 'inprogress' });
+		).toEqual({ text: 'Draft', appearance: 'inprogress' });
 	});
 
 	it('returns lozenge if type supported - goal', () => {
@@ -59,14 +59,24 @@ describe('extractors.lozenge.lozenge', () => {
 		).toEqual({ text: 'On track', appearance: 'success' });
 	});
 
-	it('returns lozenge if type supported - pull request', () => {
+	it('returns lozenge if type supported - pull request (open)', () => {
 		expect(
 			extractLozenge({
 				...TEST_BASE_DATA,
 				'@type': 'atlassian:SourceCodePullRequest',
 				'atlassian:state': 'OPEN',
 			} as JsonLd.Data.SourceCodePullRequest),
-		).toEqual({ text: 'open', appearance: 'inprogress' });
+		).toEqual({ text: 'Open', appearance: 'inprogress' });
+	});
+
+	it('returns lozenge if type supported - pull request (merged)', () => {
+		expect(
+			extractLozenge({
+				...TEST_BASE_DATA,
+				'@type': 'atlassian:SourceCodePullRequest',
+				'atlassian:state': 'MERGED',
+			} as JsonLd.Data.SourceCodePullRequest),
+		).toEqual({ text: 'Merged', appearance: 'success' });
 	});
 
 	it('returns lozenge if type supported - task with tag', () => {

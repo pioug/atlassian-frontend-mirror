@@ -21,6 +21,7 @@ import {
 	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
@@ -174,6 +175,15 @@ const pluginState = {
 	},
 };
 
+const requestIdleCallbackWithFallback = (callback: () => void) => {
+	if (typeof requestIdleCallback !== 'undefined') {
+		requestIdleCallback(callback);
+	} else {
+		// fallback to requestAnimationFrame for Safari
+		requestAnimationFrame(callback);
+	}
+};
+
 export const createResizingPlugin = (
 	api: ExtractInjectionAPI<BreakoutPlugin> | undefined,
 	getIntl: () => IntlShape,
@@ -198,6 +208,84 @@ export const createResizingPlugin = (
 			},
 			handleKeyDown: handleKeyDown(api),
 		},
+		view: (editorView: EditorView) => {
+			const isPageLoadNormalizationEnabled = expValEquals(
+				'platform_editor_add_breakout_marks_on_page_load',
+				'isEnabled',
+				true,
+			);
+
+			const isPanelAndDividerNormalizationEnabled =
+				isRuleAndPanelResizingEnabled && !fg('platform_editor_lovability_resize_patch_1');
+
+			if (!isPageLoadNormalizationEnabled && !isPanelAndDividerNormalizationEnabled) {
+				return {};
+			}
+
+			/**
+			 * This performs a one-time scan of the document to add breakout marks
+			 * to nodes that don't have them. It's designed to run only once per
+			 * editor instance to avoid performance issues.
+			 */
+			const normalizeBreakoutResizableNodes = () => {
+				if (api?.editorViewMode?.sharedState.currentState()?.mode === 'view') {
+					return;
+				}
+
+				const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
+
+				const { state } = editorView;
+				const { expand, codeBlock, layoutSection, rule, panel, panel_c1 } = state.schema.nodes;
+
+				const breakoutResizableNodes = editorExperiment('platform_synced_block', true)
+					? getBreakoutResizableNodeTypes(state.schema, isRuleAndPanelResizingEnabled)
+					: isRuleAndPanelResizingEnabled
+						? new Set([expand, codeBlock, layoutSection, rule, panel, panel_c1])
+						: new Set([expand, codeBlock, layoutSection]);
+
+				let newTr = state.tr;
+				let hasDocChanged = false;
+
+				// scan the document for top-level resizable nodes
+				state.doc.forEach((node: Node, pos: number) => {
+					if (!breakoutResizableNodes.has(node.type)) {
+						return;
+					}
+
+					const { updatedTr, updatedDocChanged } = addBreakoutToResizableNode({
+						node,
+						pos,
+						newState: state,
+						newTr,
+						breakoutResizableNodes,
+						isFullWidthEnabled,
+					});
+
+					newTr = updatedTr;
+					hasDocChanged = hasDocChanged || updatedDocChanged;
+				});
+
+				if (hasDocChanged) {
+					editorView.dispatch(newTr.setMeta('addToHistory', false));
+				}
+			};
+
+			requestIdleCallbackWithFallback(normalizeBreakoutResizableNodes);
+
+			const unsubscribeFromViewMode = api?.editorViewMode?.sharedState.onChange(
+				({ nextSharedState }) => {
+					if (nextSharedState?.mode === 'edit') {
+						requestIdleCallbackWithFallback(normalizeBreakoutResizableNodes);
+					}
+				},
+			);
+
+			return {
+				destroy: () => {
+					unsubscribeFromViewMode?.();
+				},
+			};
+		},
 		appendTransaction(
 			transactions: readonly Transaction[],
 			oldState: EditorState,
@@ -219,21 +307,20 @@ export const createResizingPlugin = (
 
 			const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
 
-			let hasTopLevelPanelOrRuleWithoutBreakout = false;
-			// platform_editor_lovability_resize_patch_1 is a kill switch
-			if (isRuleAndPanelResizingEnabled && !fg('platform_editor_lovability_resize_patch_1')) {
-				const { breakout } = newState.schema.marks;
-				newState.doc.forEach((node: Node) => {
-					if (
-						[panel, panel_c1, rule].includes(node.type) &&
-						!node.marks.some((mark) => mark.type === breakout)
-					) {
-						hasTopLevelPanelOrRuleWithoutBreakout = true;
-					}
-				});
-			}
+			const isPageLoadNormalizationEnabled = expValEquals(
+				'platform_editor_add_breakout_marks_on_page_load',
+				'isEnabled',
+				true,
+			);
 
-			if (isReplaceDocOperation(transactions, oldState) || hasTopLevelPanelOrRuleWithoutBreakout) {
+			const isPanelAndDividerNormalizationEnabled =
+				isRuleAndPanelResizingEnabled && !fg('platform_editor_lovability_resize_patch_1');
+
+			if (
+				!isPageLoadNormalizationEnabled &&
+				!isPanelAndDividerNormalizationEnabled &&
+				isReplaceDocOperation(transactions, oldState)
+			) {
 				newState.doc.forEach((node: Node, pos: number) => {
 					const { updatedTr, updatedDocChanged } = addBreakoutToResizableNode({
 						node,

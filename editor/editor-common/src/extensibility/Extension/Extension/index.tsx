@@ -83,7 +83,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		hideFrame,
 		editorAppearance,
 		macroInteractionDesignFeatureFlags,
-		isNodeSelected,
 		isNodeHovered,
 		isNodeNested,
 		setIsNodeHovered,
@@ -220,7 +219,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		<Fragment>
 			{!showLegacyContentHeader && showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
-					isNodeSelected={isNodeSelected}
 					isNodeHovered={isNodeHovered}
 					isNodeNested={isNodeNested}
 					node={node}
@@ -285,7 +283,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					>
 						{!removeBorder && (
 							<ExtensionLozenge
-								isNodeSelected={isNodeSelected}
 								node={node}
 								showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 								pluginInjectionApi={pluginInjectionApi}

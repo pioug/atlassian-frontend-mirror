@@ -59,8 +59,8 @@ const MemoizedWidthContextProvider = ({
 	rendererContainerWidth,
 	children,
 }: {
-	rendererContainerWidth: number;
 	children: React.ReactNode;
+	rendererContainerWidth: number;
 }): jsx.JSX.Element => {
 	const widthContextValue = useMemo(
 		() => createWidthContext(rendererContainerWidth),
@@ -74,8 +74,8 @@ const LegacyWidthContextProvider = ({
 	rendererContainerWidth,
 	children,
 }: {
-	rendererContainerWidth: number;
 	children: React.ReactNode;
+	rendererContainerWidth: number;
 }): jsx.JSX.Element => {
 	return (
 		<WidthContext.Provider value={createWidthContext(rendererContainerWidth)}>
@@ -89,7 +89,6 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 		node,
 		pluginInjectionApi,
 		macroInteractionDesignFeatureFlags,
-		isNodeSelected,
 		children,
 		isNodeHovered,
 		setIsNodeHovered,
@@ -140,7 +139,6 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 			{showMacroInteractionDesignUpdates && !isLivePageViewMode && (
 				<ExtensionLozenge
 					node={node}
-					isNodeSelected={isNodeSelected}
 					isNodeHovered={isNodeHovered}
 					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 					setIsNodeHovered={setIsNodeHovered}
@@ -179,7 +177,6 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 				) : (
 					<ExtensionLozenge
 						node={node}
-						isNodeSelected={isNodeSelected}
 						showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 						pluginInjectionApi={pluginInjectionApi}
 					/>

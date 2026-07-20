@@ -19,10 +19,8 @@ import { LozengeComponent } from './LozengeComponent';
 export interface Props {
 	customContainerStyles?: CSSProperties;
 	isBodiedMacro?: boolean;
-	isMultiBodiedMacro?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
-	isNodeSelected?: boolean;
 	node: PmNode;
 	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
 	setIsNodeHovered?: (isHovered: boolean) => void;
@@ -64,7 +62,6 @@ export default class ExtensionLozenge extends Component<Props, any> {
 	private renderFallback = (lozengeData?: LozengeData) => {
 		const {
 			showMacroInteractionDesignUpdates,
-			isNodeSelected,
 			isNodeHovered,
 			isNodeNested,
 			customContainerStyles,
@@ -75,7 +72,6 @@ export default class ExtensionLozenge extends Component<Props, any> {
 			showBodiedExtensionRendererView,
 			setShowBodiedExtensionRendererView,
 			pluginInjectionApi,
-			isMultiBodiedMacro,
 		} = this.props;
 		const { parameters, extensionKey } = this.props.node.attrs;
 		const { name } = this.props.node.type;
@@ -88,7 +84,6 @@ export default class ExtensionLozenge extends Component<Props, any> {
 		return (
 			<LozengeComponent
 				isNodeHovered={isNodeHovered}
-				isNodeSelected={isNodeSelected}
 				isNodeNested={isNodeNested}
 				showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 				extensionName={name}
@@ -104,7 +99,6 @@ export default class ExtensionLozenge extends Component<Props, any> {
 				showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 				setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 				pluginInjectionApi={pluginInjectionApi}
-				isMultiBodiedMacro={isMultiBodiedMacro}
 			/>
 		);
 	};

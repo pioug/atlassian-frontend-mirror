@@ -58,6 +58,8 @@ const lozengeAccentStyles: Record<
 	},
 };
 
+const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
+
 export const extractState = (jsonLd: LinkStateType): LinkLozenge | undefined => {
 	const state = jsonLd['atlassian:state'];
 	if (state) {
@@ -65,7 +67,7 @@ export const extractState = (jsonLd: LinkStateType): LinkLozenge | undefined => 
 			const linkState = state.toLowerCase() as LinkState;
 			if (!OMIT_STATES.includes(linkState)) {
 				return {
-					text: linkState,
+					text: capitalize(linkState),
 					appearance: VALID_STATES[linkState] || 'default',
 				};
 			}

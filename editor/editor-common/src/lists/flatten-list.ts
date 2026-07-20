@@ -13,8 +13,8 @@ export interface FlattenListOptions {
 	doc: PMNode;
 	indentDelta: number;
 	maxDepth?: number;
-	rootListStart: number;
 	rootListEnd: number;
+	rootListStart: number;
 	selectionFrom: number;
 	selectionTo: number;
 }
@@ -23,20 +23,20 @@ export interface FlattenListOptions {
  * Type-specific predicates that vary between regular lists and task lists.
  */
 interface FlattenListPredicates {
-	/** Returns true if `node` is a content-bearing item to include in the flattened output. */
-	isContentNode: (node: PMNode, parent: PMNode | null) => boolean;
-
-	/** Returns the selection bounds for an item, used to check selection intersection. */
-	getSelectionBounds: (node: PMNode, pos: number) => { start: number; end: number };
-
 	/** Computes the nesting depth for a node given its resolved depth and the root's depth. */
 	getDepth: (resolvedDepth: number, rootDepth: number) => number;
+
+	/** Returns the selection bounds for an item, used to check selection intersection. */
+	getSelectionBounds: (node: PMNode, pos: number) => { end: number; start: number };
+
+	/** Returns true if `node` is a content-bearing item to include in the flattened output. */
+	isContentNode: (node: PMNode, parent: PMNode | null) => boolean;
 }
 
 export interface FlattenListResult {
+	endIndex: number;
 	items: FlattenedItem[];
 	startIndex: number;
-	endIndex: number;
 }
 
 /**
@@ -46,6 +46,10 @@ export interface FlattenListResult {
  * Uses `doc.nodesBetween` to walk the tree and delegates type-specific
  * decisions to the provided predicates. The core algorithm — selection
  * intersection, depth adjustment, index tracking — is shared.
+ *
+ * @private
+ * @deprecated Cannot represent content placed between an item's sub-lists
+ * (e.g. `li(p, ul, p, ul)`). Callers provide their own flatten that handles this.
  */
 export function flattenList(
 	options: FlattenListOptions,

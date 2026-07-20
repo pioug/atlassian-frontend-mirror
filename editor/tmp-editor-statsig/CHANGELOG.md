@@ -1,5 +1,32 @@
 # @atlaskit/editor-statsig-tmp
 
+## 127.1.0
+
+### Minor Changes
+
+- [`34d8700aa0e77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34d8700aa0e77) -
+  [EDITOR-8131] register new experiment platform_editor_add_breakout_marks_on_page_load
+
+## 127.0.0
+
+### Major Changes
+
+- [`7b4e494f9adb1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b4e494f9adb1) -
+  Clean up experiment `platform_editor_comment_rovoinlinechat_improvement` (permanently enabled).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 126.4.0
+
+### Minor Changes
+
+- [`8bdbc5ba79617`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bdbc5ba79617) -
+  [ux] Gate the table active cell decoration behind `platform_editor_table_q4_patch_3` so it is not
+  calculated or rendered until the editor has had its first interaction. Fix row control
+  mis-alignment issues.
+
 ## 126.3.0
 
 ### Minor Changes

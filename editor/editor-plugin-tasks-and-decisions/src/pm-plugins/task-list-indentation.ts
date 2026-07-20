@@ -1,19 +1,83 @@
 import { uuid } from '@atlaskit/adf-schema';
-import { flattenList as flattenListBase } from '@atlaskit/editor-common/lists';
 import type {
 	FlattenedItem,
 	FlattenListOptions,
 	FlattenListResult,
 } from '@atlaskit/editor-common/lists';
+import { flattenList as flattenListBase } from '@atlaskit/editor-common/lists';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+/**
+ * Flattens a taskList into one item per task item, recording which items the
+ * selection touches.
+ */
+function flattenTaskListImpl(options: FlattenListOptions): FlattenListResult | null {
+	const { doc, rootListStart, rootListEnd, selectionFrom, selectionTo, indentDelta, maxDepth } =
+		options;
+	const { taskList, taskItem, blockTaskItem } = doc.type.schema.nodes;
+
+	const items: FlattenedItem[] = [];
+	let startIndex = -1;
+	let endIndex = -1;
+	let exceedsMaxDepth = false;
+
+	const rootDepth = doc.resolve(rootListStart).depth;
+	const isPointSelection = selectionFrom === selectionTo;
+
+	doc.nodesBetween(rootListStart, rootListEnd, (node, pos, parent) => {
+		const isTaskItemType =
+			node.type === taskItem || (blockTaskItem != null && node.type === blockTaskItem);
+		if (!isTaskItemType || parent == null || parent.type !== taskList) {
+			return true;
+		}
+
+		const start = pos;
+		const end = pos + node.nodeSize;
+		const isSelected = isPointSelection
+			? selectionFrom >= start && selectionFrom <= end
+			: start < selectionTo && end > selectionFrom;
+
+		const depth = doc.resolve(pos).depth - rootDepth - 1 + (isSelected ? indentDelta : 0);
+
+		items.push({
+			node,
+			pos,
+			depth,
+			isSelected,
+			listType: parent.type.name,
+			parentListAttrs: parent.attrs,
+		});
+
+		if (isSelected) {
+			const index = items.length - 1;
+			if (startIndex === -1) {
+				startIndex = index;
+			}
+			endIndex = index;
+			if (maxDepth != null && depth >= maxDepth) {
+				exceedsMaxDepth = true;
+			}
+		}
+
+		return true;
+	});
+
+	if (items.length === 0 || startIndex === -1 || exceedsMaxDepth) {
+		return null;
+	}
+	return { items, startIndex, endIndex };
+}
 
 /**
  * Flattens a taskList tree into an array of task items with computed depths.
  * Only selected items have their depth adjusted by indentDelta.
- *
- * Delegates to the shared `flattenList` with task-list-specific callbacks.
  */
 export function flattenTaskList(options: FlattenListOptions): FlattenListResult | null {
+	if (fg('platform_editor_flexible_list_normalization_fix')) {
+		return flattenTaskListImpl(options);
+	}
+
 	const { taskList, taskItem, blockTaskItem } = options.doc.type.schema.nodes;
 
 	return flattenListBase(options, {

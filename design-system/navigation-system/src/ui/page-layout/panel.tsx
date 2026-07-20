@@ -2,11 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import {
+	type CSSProperties,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { useMotion, Reanimate } from '@atlaskit/motion/use-motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { media } from '@atlaskit/primitives/responsive';
@@ -118,6 +128,14 @@ const styles = cssMap({
 		 */
 		display: 'none',
 	},
+	entering: {
+		animation: token('motion.panel.enter'),
+		animationFillMode: 'backwards',
+	},
+	exiting: {
+		animation: token('motion.panel.exit'),
+		animationFillMode: 'forwards',
+	},
 });
 
 /**
@@ -172,6 +190,21 @@ export function Panel({
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	const id = useLayoutId({ providedId });
 
+	// useMotion is applied only when the `platform-dst-motion-uplift-panel` gate is enabled.
+	const {
+		state,
+		ref: motionRef,
+		reanimate,
+	} = useMotion<HTMLElement>({
+		onFinish: (state) => {
+			if (state === 'exiting' && defaultWidthRef.current === 0) {
+				// Set width to 0 as animation is complete
+				setWidth(0);
+			}
+		},
+	});
+	const isMotionUpliftEnabled = fg('platform-dst-motion-uplift-panel');
+
 	const defaultWidth = useSafeDefaultWidth({
 		defaultWidthProp,
 		fallbackDefaultWidth,
@@ -195,6 +228,15 @@ export function Panel({
 	// Used to track the previous value of the `defaultWidth` prop, for logging dev warnings when it changes.
 	const defaultWidthRef = useRef(defaultWidth);
 
+	// `mergeRefs` returns a new callback ref on every call, and combined with a new array literal
+	// this would cause React to detach/re-attach the ref on every render. Memoise it so the merged
+	// ref is stable across renders.
+	const mergedRef = useMemo(
+		() => (isMotionUpliftEnabled ? mergeRefs([ref, motionRef]) : ref),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[isMotionUpliftEnabled, motionRef],
+	);
+
 	/**
 	 * TODO: Remove this useEffect once the `width: 0` usage is removed from Jira.
 	 * It updates the width state based on changes to `defaultWidth`, as a temporary stopgap to support Jira's current usage.
@@ -203,6 +245,17 @@ export function Panel({
 	useEffect(() => {
 		if (defaultWidthRef.current === defaultWidth) {
 			return;
+		}
+
+		if (isMotionUpliftEnabled) {
+			if (defaultWidth === 0) {
+				reanimate(Reanimate.exit);
+				defaultWidthRef.current = defaultWidth;
+				// Set width to 0 once the exit animation is complete
+				return;
+			} else if (defaultWidthRef.current === 0) {
+				reanimate(Reanimate.enter);
+			}
 		}
 
 		defaultWidthRef.current = defaultWidth;
@@ -216,7 +269,7 @@ export function Panel({
 				'In the future, changes to the `defaultWidth` prop will not be respected. It is only supported as a stopgap to enable migration from Nav3 to Nav4.\n\n',
 			);
 		}
-	}, [defaultWidth]);
+	}, [defaultWidth, isMotionUpliftEnabled, reanimate]);
 
 	const sideNavRef = useSideNavRef();
 
@@ -264,8 +317,18 @@ export function Panel({
 			id={id}
 			data-layout-slot
 			aria-label={label}
-			className={xcss}
-			css={[styles.root, defaultWidth === 0 && styles.hidden, hasBorder && styles.border]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={
+				isMotionUpliftEnabled
+					? // eslint-disable-next-line @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
+						cx(xcss, state === 'entering' && styles.entering, state === 'exiting' && styles.exiting)
+					: xcss
+			}
+			css={[
+				styles.root,
+				!isMotionUpliftEnabled && defaultWidth === 0 && styles.hidden,
+				hasBorder && styles.border,
+			]}
 			style={
 				{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values
@@ -274,7 +337,7 @@ export function Panel({
 				} as CSSProperties
 			}
 			data-testid={testId}
-			ref={ref}
+			ref={mergedRef}
 		>
 			{dangerouslyHoistSlotSizes && (
 				// ------ START UNSAFE STYLES ------

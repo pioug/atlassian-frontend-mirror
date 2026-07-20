@@ -34,11 +34,9 @@ import {
 	getAwaitBM3TTIList,
 	getCapabilityRate,
 	getConfig,
-	getExtraInteractionRate,
 	getFinishInteractionOnTransition,
 	getInteractionTimeout,
 	getPostInteractionRate,
-	isInteractionExtraMetricsEnabled,
 	getReactHydrationStats,
 	getSelectorConfig,
 	shouldUseRawDataThirdPartyBehavior,
@@ -59,7 +57,6 @@ import { newVCObserver } from '../vc';
 import { type VCObserverInterface } from '../vc/types';
 
 import { interactions } from './common/constants';
-import InteractionExtraMetrics from './interaction-extra-metrics';
 import PostInteractionLog from './post-interaction-log';
 
 export type {
@@ -95,8 +92,6 @@ export const PreviousInteractionLog: PreviousInteractionLogType = {
 };
 
 export const postInteractionLog: PostInteractionLog = new PostInteractionLog();
-export const interactionExtraMetrics: InteractionExtraMetrics = new InteractionExtraMetrics();
-
 const interactionQueue: { id: string; data: InteractionMetrics }[] = [];
 const segmentCache = new Map<string, SegmentInfo>();
 export const segmentUnmountCache: Map<string, number> = new Map<string, number>(); // Temporarily store segment unmount counts
@@ -1011,18 +1006,11 @@ function finishInteraction(
 	}
 
 	// By this time, stop the post interaction log observer if coinflip rate is 0
-	const sanitisedUfoName = sanitizeUfoName(data.ufoName);
-	if (!coinflip(getPostInteractionRate(sanitisedUfoName, data.type))) {
+	if (!coinflip(getPostInteractionRate(sanitizeUfoName(data.ufoName), data.type))) {
 		postInteractionLog.stopVCObserver();
 	}
 
-	if (!isInteractionExtraMetricsEnabled()) {
-		remove(id);
-	} else if (!coinflip(getExtraInteractionRate(sanitisedUfoName, data.type))) {
-		interactionExtraMetrics.stopAll(id);
-	} else if (!data.hold3pActive || data.hold3pActive.size === 0) {
-		remove(id);
-	}
+	remove(id);
 
 	PreviousInteractionLog.id = data.id;
 	PreviousInteractionLog.type = data.type;
@@ -1030,13 +1018,7 @@ function finishInteraction(
 	PreviousInteractionLog.name = data.ufoName || 'unknown';
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {
-		if (
-			!isInteractionExtraMetricsEnabled() ||
-			interactionExtraMetrics.finishedInteraction?.id !== id
-		) {
-			// If this same interaction was not already handled, handle it
-			handleInteraction(id, data);
-		}
+		handleInteraction(id, data);
 	}
 
 	if (isPerformanceTracingEnabled()) {
@@ -1165,9 +1147,6 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 						interaction,
 						interaction.end !== 0 ? interaction.end : endTime,
 					);
-					if (isInteractionExtraMetricsEnabled()) {
-						interactionExtraMetrics.updateFinishedInteraction(interaction);
-					}
 
 					if (
 						getConfig()?.extraSearchPageInteraction?.enabled &&
@@ -1180,33 +1159,11 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				}
 
 				postInteraction();
-			}
-			// Send separated third-party event when extra interaction metrics is enabled
-			if (
-				shouldUseRawDataThirdParty &&
-				isInteractionExtraMetricsEnabled() &&
-				noMoreActiveHolds &&
-				noMoreActiveMetricVariantHolds
-			) {
-				const data = {
-					...interaction,
-					end: endTime || interaction.end,
-				};
-				interactionExtraMetrics.onInteractionComplete(interactionId, data);
 			}
 		} else {
-			// Original behavior when feature flag is not active
-			if (
-				noMoreActiveHolds &&
-				(!isInteractionExtraMetricsEnabled() ||
-					interactionExtraMetrics.finishedInteraction?.id !== interactionId)
-			) {
-				// If it's not waiting for extra metrics to complete, finish the interaction as normal
+			if (noMoreActiveHolds) {
 				if (!activeSubmitted) {
 					finishInteraction(interactionId, interaction, endTime);
-					if (isInteractionExtraMetricsEnabled()) {
-						interactionExtraMetrics.updateFinishedInteraction(interaction);
-					}
 
 					if (
 						getConfig()?.extraSearchPageInteraction?.enabled &&
@@ -1218,17 +1175,6 @@ export function tryComplete(interactionId: string, endTime?: number): void {
 				}
 
 				postInteraction();
-			}
-			if (
-				isInteractionExtraMetricsEnabled() &&
-				noMoreActiveHolds &&
-				noMoreActiveMetricVariantHolds
-			) {
-				const data = {
-					...interaction,
-					end: endTime!,
-				};
-				interactionExtraMetrics.onInteractionComplete(interactionId, data);
 			}
 		}
 	}
@@ -1267,9 +1213,6 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			if (isInteractionExtraMetricsEnabled()) {
-				interactionExtraMetrics.stopAll(interactionId);
-			}
 			return;
 		}
 
@@ -1283,10 +1226,6 @@ export function abort(interactionId: string, abortReason: AbortReasonType): void
 		finishInteraction(interactionId, interaction);
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
-
-		if (isInteractionExtraMetricsEnabled()) {
-			interactionExtraMetrics.stopAll(interactionId);
-		}
 	}
 }
 
@@ -1318,9 +1257,6 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			if (isInteractionExtraMetricsEnabled()) {
-				interactionExtraMetrics.stopAll(interactionId);
-			}
 			return;
 		}
 
@@ -1335,10 +1271,6 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		finishInteraction(interactionId, interaction);
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
-
-		if (isInteractionExtraMetricsEnabled()) {
-			interactionExtraMetrics.stopAll(interactionId);
-		}
 	} else {
 		if (fg('platform_reset_post_interaction_on_new_interaction')) {
 			// post-interaction log is active after interaction is aborted by new one
@@ -1388,9 +1320,6 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 			postInteractionLog.reset();
 			postInteractionLog.stopVCObserver();
 
-			if (isInteractionExtraMetricsEnabled()) {
-				interactionExtraMetrics.stopAll(interactionId);
-			}
 			return;
 		}
 
@@ -1410,10 +1339,6 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		finishInteraction(interactionId, interaction);
 		postInteractionLog.reset();
 		postInteractionLog.stopVCObserver();
-
-		if (isInteractionExtraMetricsEnabled()) {
-			interactionExtraMetrics.stopAll(interactionId);
-		}
 	});
 }
 
@@ -1433,9 +1358,6 @@ export function addNewInteraction(
 	routeName?: string | null,
 	trace: TraceIdContext | null = null,
 ): void {
-	if (isInteractionExtraMetricsEnabled()) {
-		interactionExtraMetrics.reset();
-	}
 	postInteractionLog.reset();
 	let vcObserver: VCObserverInterface | undefined;
 	let previousTime = startTime;
@@ -1572,9 +1494,6 @@ export function addNewInteraction(
 		// in case ufoName is updated at later time
 		if (getConfig()?.postInteractionLog?.enabled) {
 			postInteractionLog.startVCObserver({ startTime });
-		}
-		if (isInteractionExtraMetricsEnabled()) {
-			interactionExtraMetrics.startVCObserver({ startTime }, interactionId);
 		}
 	}
 

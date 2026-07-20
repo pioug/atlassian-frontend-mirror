@@ -279,7 +279,6 @@ export default class VCObserverNew {
 			include3p,
 			includeSSRRatio,
 			excludeSmartAnswersInSearch,
-			includeRawData,
 			rawDataStopTime,
 		} = param;
 		const results: RevisionPayloadEntry[] = [];
@@ -355,35 +354,30 @@ export default class VCObserverNew {
 
 		const feVCCalculationEndTime = performance.now();
 
-		// Always include raw data when fy26.04 is not in the client config so the server
-		// can recalculate fy26.04 metrics (ssrRatio, labelStacks, speedIndex) from raw observations.
-		const shouldIncludeRawData =
-			includeRawData || !isFy2604Enabled || fg('platform_ufo_always_emit_raw_handler');
+		// Always include raw data so the server can recalculate metrics
+		// (ssrRatio, labelStacks, speedIndex) from raw observations.
+		const rawVCCalculationStartTime = performance.now();
+		const rawHandler = new RawDataHandler();
+		// Use rawDataStopTime (end3p) when available to capture observations during 3p holds
+		const rawStopTime = rawDataStopTime ?? stop;
+		const rawOrderedEntries = rawDataStopTime
+			? this.entriesTimeline.getOrderedEntries({ start, stop: rawStopTime })
+			: orderedEntries;
+		const raw = await rawHandler.getRawData({
+			entries: rawOrderedEntries,
+			startTime: start,
+			stopTime: rawStopTime,
+			isPageVisible,
+		});
+		results.forEach((result) => {
+			delete result.vcDetails;
+			delete result.ratios;
+		});
 
-		if (shouldIncludeRawData) {
-			const rawVCCalculationStartTime = performance.now();
-			const rawHandler = new RawDataHandler();
-			// Use rawDataStopTime (end3p) when available to capture observations during 3p holds
-			const rawStopTime = rawDataStopTime ?? stop;
-			const rawOrderedEntries = rawDataStopTime
-				? this.entriesTimeline.getOrderedEntries({ start, stop: rawStopTime })
-				: orderedEntries;
-			const raw = await rawHandler.getRawData({
-				entries: rawOrderedEntries,
-				startTime: start,
-				stopTime: rawStopTime,
-				isPageVisible,
-			});
-			results.forEach((result) => {
-				delete result.vcDetails;
-				delete result.ratios;
-			});
-
-			if (raw) {
-				raw.rawVCTime = Number((performance.now() - rawVCCalculationStartTime).toFixed(2));
-				raw.feVCTime = Number((feVCCalculationEndTime - feVCCalculationStartTime).toFixed(2));
-				results.push(raw);
-			}
+		if (raw) {
+			raw.rawVCTime = Number((performance.now() - rawVCCalculationStartTime).toFixed(2));
+			raw.feVCTime = Number((feVCCalculationEndTime - feVCCalculationStartTime).toFixed(2));
+			results.push(raw);
 		}
 		return results;
 	}

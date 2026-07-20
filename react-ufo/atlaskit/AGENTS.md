@@ -255,9 +255,9 @@ sequenceDiagram
 The package uses platform feature flags for gradual rollouts. Key flags are defined in
 [`package.json`](./package.json):
 
-| Flag                                             | Purpose                                  |
-| ------------------------------------------------ | ---------------------------------------- |
-| `platform_ufo_disable_interaction_extra_metrics` | Disable legacy interaction extra metrics |
+| Flag                                    | Purpose               |
+| --------------------------------------- | --------------------- |
+| `platform_ufo_segment_critical_metrics` | Segment-level metrics |
 
 ## Testing
 

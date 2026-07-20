@@ -1,5 +1,19 @@
 # @atlaskit/button
 
+## 24.3.6
+
+### Patch Changes
+
+- [`12b6bd4a9c6e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12b6bd4a9c6e1) -
+  Fix: Behind the `platform-dst-legacy-button-anchor-text-color` feature gate, the legacy `Button`
+  now applies explicit `color` and `text-decoration` values on the base, `:hover`, and `:active`
+  states across the interactive appearances (`default`, `primary`, `subtle`, `warning`, `danger`,
+  `link`, `subtle-link`). When a `Button` is rendered as an `<a>` via `href`, this prevents browser
+  default or ambient anchor styles from overriding the button's text color or adding an unwanted
+  underline on interactive states. The `link` and `subtle-link` variants keep their intentional
+  underline on `:hover` / `:active`; button-like appearances stay underline-free. The `selected`
+  appearance is unaffected \u2014 it does not declare hover/active blocks today.
+
 ## 24.3.5
 
 ### Patch Changes

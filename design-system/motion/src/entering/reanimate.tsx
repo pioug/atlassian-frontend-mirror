@@ -6,4 +6,5 @@
 export enum Reanimate {
 	enter = 'enter',
 	exit_then_enter = 'exit_then_enter',
+	exit = 'exit',
 }

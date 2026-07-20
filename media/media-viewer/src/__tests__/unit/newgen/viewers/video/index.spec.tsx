@@ -18,6 +18,7 @@ import {
 	asMockFunction,
 } from '@atlaskit/media-test-helpers';
 import { VideoViewer, type Props } from '../../../../../viewers/video';
+import { getErrorDetail, getSecondaryErrorReason, MediaViewerError } from '../../../../../errors';
 
 const token = 'some-token';
 const clientId = 'some-client-id';
@@ -63,12 +64,14 @@ function setup(options: SetupOptions = {}) {
 
 	jest.spyOn(mediaClient.file, 'getArtifactURL').mockReturnValue(getArtifactURLResult);
 
+	const onError = jest.fn();
+
 	const el = render(
 		<IntlProvider locale="en">
 			<VideoViewer
 				identifier={props?.identifier || { id: 'some-id', mediaItemType: 'file' }}
 				onCanPlay={() => {}}
-				onError={() => {}}
+				onError={onError}
 				mediaClient={mediaClient}
 				item={item || videoItem}
 				previewCount={(props && props.previewCount) || 0}
@@ -78,7 +81,7 @@ function setup(options: SetupOptions = {}) {
 		</IntlProvider>,
 	);
 
-	return { mediaClient, el, item: item || videoItem };
+	return { mediaClient, el, item: item || videoItem, onError };
 }
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
@@ -213,5 +216,57 @@ describe('Video viewer', () => {
 		await act(async () => fireEvent.loadedData(videoEl));
 		expect(global.localStorage.getItem).toHaveBeenLastCalledWith('time-saver-default-time-some-id');
 		global.localStorage = originLocalStorage;
+	});
+
+	describe('playback error diagnostics', () => {
+		it('reports the native MediaError in the videoviewer-playback secondaryError', async () => {
+			const { onError } = setup({ item: { ...videoItem, mimeType: 'video/mp4' } });
+
+			let videoEl!: HTMLVideoElement;
+			await waitFor(() => {
+				expect((videoEl = document.querySelector('video')!)).toBeInTheDocument();
+			});
+
+			// Simulate the browser exposing a native decode error on the element.
+			Object.defineProperty(videoEl, 'error', {
+				configurable: true,
+				value: { code: 3, message: 'PIPELINE_ERROR_DECODE' } as MediaError,
+			});
+
+			await act(async () => fireEvent.error(videoEl));
+
+			expect(onError).toHaveBeenCalled();
+			const error = onError.mock.calls[0][0] as MediaViewerError;
+			expect(error).toBeInstanceOf(MediaViewerError);
+			expect(error.primaryReason).toBe('videoviewer-playback');
+			// No longer opaque: secondaryReason + detail carry the native diagnostics.
+			expect(getSecondaryErrorReason(error)).toBe('nativeError');
+			const detail = getErrorDetail(error);
+			expect(detail).not.toBe('unknown');
+			expect(detail).toContain('mediaErrorCode=3');
+			expect(detail).toContain('mediaErrorName=MEDIA_ERR_DECODE');
+			expect(detail).toContain('mediaErrorMessage=PIPELINE_ERROR_DECODE');
+			expect(detail).toContain('mimeType=video/mp4');
+			expect(detail).toContain('isBrowserPlayable=true');
+		});
+
+		it('still emits videoviewer-playback when no native MediaError is available', async () => {
+			const { onError } = setup({ item: { ...videoItem, mimeType: 'video/mp4' } });
+
+			let videoEl!: HTMLVideoElement;
+			await waitFor(() => {
+				expect((videoEl = document.querySelector('video')!)).toBeInTheDocument();
+			});
+
+			await act(async () => fireEvent.error(videoEl));
+
+			expect(onError).toHaveBeenCalled();
+			const error = onError.mock.calls[0][0] as MediaViewerError;
+			expect(error.primaryReason).toBe('videoviewer-playback');
+			// File context is still captured even without a native MediaError.
+			const detail = getErrorDetail(error);
+			expect(detail).toContain('mimeType=video/mp4');
+			expect(detail).not.toContain('mediaErrorCode');
+		});
 	});
 });

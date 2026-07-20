@@ -1,4 +1,5 @@
 import { fg } from '@atlaskit/platform-feature-flags';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import {
 	AbstractResource,
 	type OnProviderChange,
@@ -43,6 +44,35 @@ import type {
 } from './EmojiUtils';
 import { sampledUfoEmojiResourceFetched, ufoExperiences } from '../util/analytics/ufoExperiences';
 import { promiseWithTimeout } from '../util/timed-promise';
+
+const teamoji26RefreshEmojiPickerExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
+const teamoji26QueryParam = 'useTeamoji26=true';
+
+const isTeamoji26RefreshEmojiPickerEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	return FeatureGates.getExperimentValue(
+		teamoji26RefreshEmojiPickerExperimentName,
+		'isEnabled',
+		false,
+	);
+};
+
+const addTeamoji26QueryParam = (url: string): string => {
+	if (!url.includes('/atlassian') || /[?&]useTeamoji26=/.test(url)) {
+		return url;
+	}
+
+	const hashIndex = url.indexOf('#');
+	const urlWithoutHash = hashIndex === -1 ? url : url.slice(0, hashIndex);
+	const hash = hashIndex === -1 ? '' : url.slice(hashIndex);
+	const separator = urlWithoutHash.includes('?') ? '&' : '?';
+
+	return `${urlWithoutHash}${separator}${teamoji26QueryParam}${hash}`;
+};
 
 interface GetEmojiProviderOptions {
 	/**
@@ -170,30 +200,39 @@ export class EmojiResource
 		const rewriteEmojiGatewayPath = (url: string): string =>
 			url.replace('/gateway/api/emoji', '/gateway/api/elements/emoji');
 		const stargateEmojiPathEnabled = fg('use-elements-stargate-emoji-path');
+		const teamoji26RefreshEmojiPickerEnabled = isTeamoji26RefreshEmojiPickerEnabled();
 		const singleEmojiApi = config.singleEmojiApi;
 		const optimisticImageApi = config.optimisticImageApi;
+		const providers = config.providers.map((provider) => {
+			const rewrittenUrl = stargateEmojiPathEnabled
+				? rewriteEmojiGatewayPath(provider.url)
+				: provider.url;
+			return {
+				...provider,
+				url: teamoji26RefreshEmojiPickerEnabled
+					? addTeamoji26QueryParam(rewrittenUrl)
+					: rewrittenUrl,
+			};
+		});
 
-		this.emojiProviderConfig = stargateEmojiPathEnabled
-			? {
-					...config,
-					providers: config.providers.map((provider) => ({
-						...provider,
-						url: rewriteEmojiGatewayPath(provider.url),
-					})),
-					singleEmojiApi: singleEmojiApi
-						? {
-								...singleEmojiApi,
-								getUrl: (emojiId) => rewriteEmojiGatewayPath(singleEmojiApi.getUrl(emojiId)),
-							}
-						: undefined,
-					optimisticImageApi: optimisticImageApi
-						? {
-								...optimisticImageApi,
-								getUrl: (emojiId) => rewriteEmojiGatewayPath(optimisticImageApi.getUrl(emojiId)),
-							}
-						: undefined,
-				}
-			: config;
+		this.emojiProviderConfig = {
+			...config,
+			providers,
+			singleEmojiApi:
+				stargateEmojiPathEnabled && singleEmojiApi
+					? {
+							...singleEmojiApi,
+							getUrl: (emojiId) => rewriteEmojiGatewayPath(singleEmojiApi.getUrl(emojiId)),
+						}
+					: singleEmojiApi,
+			optimisticImageApi:
+				stargateEmojiPathEnabled && optimisticImageApi
+					? {
+							...optimisticImageApi,
+							getUrl: (emojiId) => rewriteEmojiGatewayPath(optimisticImageApi.getUrl(emojiId)),
+						}
+					: optimisticImageApi,
+		};
 		this.recordConfig = config.recordConfig;
 		this.currentUser = config.currentUser;
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable compat/compat */
-import { expect, test, viewports } from './fixtures';
+import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtures';
 
 test.describe('ReactUFO: Revisions - basic', () => {
 	test.use({
@@ -34,10 +34,8 @@ test.describe('ReactUFO: Revisions - basic', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				const applicableRevisions = ufoRevisions?.filter(
-					(rev) => rev['revision'] >= 'fy25.03' && rev['revision'] !== 'raw-handler',
-				);
-				for (const rev of applicableRevisions!) {
+				const applicableRevisions = getClientCalculatedVCRevisions(ufoRevisions);
+				for (const rev of applicableRevisions) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();
@@ -93,10 +91,8 @@ test.describe('ReactUFO: Revisions - nested', () => {
 				const ufoRevisions = reactUFOPayload!.attributes.properties['ufo:vc:rev'];
 				expect(ufoRevisions).toBeDefined();
 
-				const applicableRevisions = ufoRevisions?.filter(
-					(rev) => rev['revision'] >= 'fy25.03' && rev['revision'] !== 'raw-handler',
-				);
-				for (const rev of applicableRevisions!) {
+				const applicableRevisions = getClientCalculatedVCRevisions(ufoRevisions);
+				for (const rev of applicableRevisions) {
 					const vc90Result = rev['metric:vc90'];
 					const revisionName = rev['revision'];
 					expect(vc90Result).toBeDefined();

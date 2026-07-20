@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 14.1.19
+
+### Patch Changes
+
+- [`3c4994f354f5f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c4994f354f5f) -
+  [ux] Fix content order being corrupted when indenting or outdenting a list item that has content
+  placed between its sub-lists (e.g. `li(p, ul, p, ul)`).
+- Updated dependencies
+
 ## 14.1.18
 
 ### Patch Changes

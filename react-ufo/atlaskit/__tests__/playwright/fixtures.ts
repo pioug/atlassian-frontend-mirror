@@ -30,12 +30,21 @@ import type {
 	PostInteractionLogPayload,
 	ReactUFOPayload,
 } from '../../src/common/react-ufo-payload-schema';
+import type { RevisionPayloadEntry } from '../../src/common/vc/types';
 import type { TerminalErrorPayload } from '../../src/create-terminal-error-payload';
 
 import type { WindowWithReactUFOTestGlobals } from './window-type';
 
 type FixtureUse<T> = (value: T) => Promise<void>;
 type PageArg = { page: PlaywrightCorePage };
+
+export const getClientCalculatedVCRevisions = (
+	revisions: RevisionPayloadEntry[] | undefined,
+	minRevision: string = 'fy25.03',
+): RevisionPayloadEntry[] =>
+	revisions?.filter(
+		(revision) => revision.revision !== 'raw-handler' && revision.revision >= minRevision,
+	) ?? [];
 
 const prepareParams = (params?: { [key: string]: string | boolean }) => {
 	if (!params) {
@@ -91,7 +100,6 @@ export const test: TestType<
 			waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
 			waitForReactUFOInteractionPayload: () => Promise<ReactUFOPayload | null>;
 			waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
-			waitForInteractionExtraMetricsPayload: () => Promise<ReactUFOPayload | null>;
 			waitForExtraSearchPageInteractionPayload: () => Promise<ReactUFOPayload | null>;
 			waitForTerminalErrorPayload: () => Promise<TerminalErrorPayload | null>;
 			waitForAllTerminalErrorPayloads: (expectedCount: number) => Promise<TerminalErrorPayload[]>;
@@ -148,7 +156,6 @@ export const test: TestType<
 	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
 	waitForReactUFOInteractionPayload: () => Promise<ReactUFOPayload | null>;
 	waitForPostInteractionLogPayload: () => Promise<PostInteractionLogPayload | null>;
-	waitForInteractionExtraMetricsPayload: () => Promise<ReactUFOPayload | null>;
 	waitForExtraSearchPageInteractionPayload: () => Promise<ReactUFOPayload | null>;
 	waitForTerminalErrorPayload: () => Promise<TerminalErrorPayload | null>;
 	waitForAllTerminalErrorPayloads: (expectedCount: number) => Promise<TerminalErrorPayload[]>;
@@ -450,50 +457,6 @@ export const test: TestType<
 				.not.toBeNull();
 
 			return postInteractionLogPayload;
-		};
-
-		await use(reset);
-	},
-	waitForInteractionExtraMetricsPayload: async (
-		{ page }: PageArg,
-		use: FixtureUse<() => Promise<ReactUFOPayload | null>>,
-	) => {
-		const reset = async () => {
-			// data-is-extra-metrics-ready is set by ANY sendOperationalEvent call (including
-			// custom.interaction-extra-metrics), which is faster than data-is-ttvc-ready which
-			// only fires after the main payload's getVCMetrics completes.
-			// See: website/src/metrics.ts
-			const mainDivAfterAnyPayload = page.locator('[data-is-extra-metrics-ready="true"]');
-
-			await expect(mainDivAfterAnyPayload).toBeVisible({ timeout: 20000 });
-
-			let interactionExtraMetricsPayload: ReactUFOPayload | null = null;
-			await expect
-				.poll(
-					async () => {
-						const value = await page.evaluate(() => {
-							const payloads =
-								(window as WindowWithReactUFOTestGlobals).__websiteReactUfoExtraMetrics || [];
-							if (payloads.length < 1) {
-								return Promise.resolve(null);
-							}
-
-							return Promise.resolve(payloads[0]);
-						});
-
-						interactionExtraMetricsPayload = value;
-
-						return interactionExtraMetricsPayload;
-					},
-					{
-						message: `React UFO interaction extra metrics payload never received.`,
-						intervals: [500],
-						timeout: 10000,
-					},
-				)
-				.not.toBeNull();
-
-			return interactionExtraMetricsPayload;
 		};
 
 		await use(reset);

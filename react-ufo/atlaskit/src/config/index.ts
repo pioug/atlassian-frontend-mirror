@@ -267,12 +267,6 @@ export type Config = {
 	 * @deprecated Accepted for backwards compatibility only. Experimental interaction metrics are disabled.
 	 */
 	readonly experimentalInteractionMetrics?: InteractionMetricsConfig;
-
-	/**
-	 * Whether ttvc with 3p measurement is enabled and sent new event for experiences with sample rates
-	 */
-	readonly extraInteractionMetrics?: InteractionMetricsConfig;
-
 	/**
 	 * Option to enable an additional metric to track search page load times with SAIN ignored
 	 */
@@ -539,7 +533,7 @@ export function getCapabilityRate(capability: Capability): number {
 function getConfigRate(
 	name: string,
 	interactionType: InteractionType,
-	configName: 'postInteractionLog' | 'extraInteractionMetrics' | 'enableVCRawDataRates',
+	configName: 'postInteractionLog' | 'enableVCRawDataRates',
 ): number {
 	try {
 		if (!config) {
@@ -571,22 +565,6 @@ function getConfigRate(
 		return 0;
 	}
 }
-
-export function isInteractionExtraMetricsEnabled(): boolean {
-	return (
-		Boolean(config?.extraInteractionMetrics?.enabled) &&
-		!fg('platform_ufo_disable_interaction_extra_metrics')
-	);
-}
-
-export function getExtraInteractionRate(name: string, interactionType: InteractionType): number {
-	if (!isInteractionExtraMetricsEnabled()) {
-		return 0;
-	}
-
-	return getConfigRate(name, interactionType, 'extraInteractionMetrics');
-}
-
 const validTypingMethods = ['timeout', 'timeoutNoAlloc', 'mutationObserver'] as const;
 type ValidTypingMethod = (typeof validTypingMethods)[number];
 

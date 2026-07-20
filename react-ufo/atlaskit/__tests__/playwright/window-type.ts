@@ -8,7 +8,6 @@ export type WindowWithReactUFOTestGlobals = typeof window & {
 	__websiteReactUfoShadowMode: Array<ReactUFOPayload>;
 	__websiteReactUfoPostInteraction: Array<PostInteractionLogPayload>;
 	__websiteReactUfo: Array<ReactUFOPayload>;
-	__websiteReactUfoExtraMetrics: Array<ReactUFOPayload>;
 	__websiteReactUfoExtraSearchPageInteraction: Array<ReactUFOPayload>;
 	__websiteReactUfoTerminalErrors: Array<TerminalErrorPayload>;
 	// Flag to track whether UFO is disabled via config.enabled = false

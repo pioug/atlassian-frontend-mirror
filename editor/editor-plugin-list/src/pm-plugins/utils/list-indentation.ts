@@ -1,13 +1,14 @@
 import {
-	type BuildResult,
 	buildReplacementFragment as buildReplacementFragmentBase,
-	type FlattenedItem,
+	flattenList as flattenListBase,
+	type BuildResult,
 	type FlattenListOptions,
 	type FlattenListResult,
-	flattenList as flattenListBase,
+	type FlattenedItem,
 } from '@atlaskit/editor-common/lists';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import type { Attrs, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Returns true if a listItem has at least one non-list child (paragraph, etc.).
@@ -27,14 +28,125 @@ function contentSize(listItem: PMNode): number {
 }
 
 /**
- * Flatten a root list into a flat array of content-bearing items
- * and simultaneously determine which elements intersect the user's selection.
- *
- * Delegates to the shared `flattenListLike` with list-specific callbacks.
- * Selection intersection is checked against each item's content-only
- * span (excluding nested lists).
+ * Flattens a list, splitting each list item into one item per run of content.
+ * An item like `li(p, ul, p, ul)` becomes separate sibling items, so content
+ * placed between sub-lists keeps its order. Also records which items the
+ * selection touches.
  */
+function flattenListImpl(options: FlattenListOptions): FlattenListResult | null {
+	const { doc, rootListStart, selectionFrom, selectionTo, indentDelta, maxDepth } = options;
+	const rootList = doc.nodeAt(rootListStart);
+	if (!rootList) {
+		return null;
+	}
+
+	const schema = rootList.type.schema;
+	const items: FlattenedItem[] = [];
+	let startIndex = -1;
+	let endIndex = -1;
+	let exceedsMaxDepth = false;
+
+	const isPointSelection = selectionFrom === selectionTo;
+
+	const pushSegment = (
+		segmentNode: PMNode,
+		contentStart: number,
+		contentEnd: number,
+		depth: number,
+		parentList: PMNode,
+	): void => {
+		const isSelected = isPointSelection
+			? selectionFrom >= contentStart && selectionFrom <= contentEnd
+			: contentStart < selectionTo && contentEnd > selectionFrom;
+		const effectiveDepth = depth + (isSelected ? indentDelta : 0);
+
+		items.push({
+			node: segmentNode,
+			pos: contentStart - 1,
+			depth: effectiveDepth,
+			isSelected,
+			listType: parentList.type.name,
+			parentListAttrs: parentList.attrs,
+		});
+
+		if (isSelected) {
+			const index = items.length - 1;
+			if (startIndex === -1) {
+				startIndex = index;
+			}
+			endIndex = index;
+			if (maxDepth != null && effectiveDepth >= maxDepth) {
+				exceedsMaxDepth = true;
+			}
+		}
+	};
+
+	const walkList = (listNode: PMNode, listPos: number, depth: number): void => {
+		let childPos = listPos + 1;
+		listNode.forEach((listItemNode) => {
+			if (!isListItemNode(listItemNode)) {
+				childPos += listItemNode.nodeSize;
+				return;
+			}
+			const itemStart = childPos;
+			let innerPos = itemStart + 1;
+			// Content collected since the last sub-list. Each run becomes its own item.
+			let segmentContent: PMNode[] = [];
+			let segmentContentStart = innerPos;
+			let segmentContentSize = 0;
+
+			const emitSegment = (parentList: PMNode) => {
+				if (segmentContent.length === 0) {
+					return;
+				}
+				const segmentItem = schema.nodes.listItem.create(listItemNode.attrs, segmentContent);
+				pushSegment(
+					segmentItem,
+					segmentContentStart,
+					segmentContentStart + segmentContentSize,
+					depth,
+					parentList,
+				);
+			};
+
+			listItemNode.forEach((child) => {
+				if (isListNode(child)) {
+					// A sub-list ends the current run: emit it, then walk the sub-list deeper.
+					emitSegment(listNode);
+					segmentContent = [];
+					segmentContentSize = 0;
+					walkList(child, innerPos, depth + 1);
+					innerPos += child.nodeSize;
+					segmentContentStart = innerPos;
+				} else {
+					if (segmentContent.length === 0) {
+						segmentContentStart = innerPos;
+					}
+					segmentContent.push(child);
+					segmentContentSize += child.nodeSize;
+					innerPos += child.nodeSize;
+				}
+			});
+			// Emit any remaining content after the last sub-list.
+			emitSegment(listNode);
+
+			childPos += listItemNode.nodeSize;
+		});
+	};
+
+	walkList(rootList, rootListStart, 0);
+
+	if (items.length === 0 || startIndex === -1 || exceedsMaxDepth) {
+		return null;
+	}
+	return { items, startIndex, endIndex };
+}
+
 export function flattenList(options: FlattenListOptions): FlattenListResult | null {
+	if (fg('platform_editor_flexible_list_normalization_fix')) {
+		return flattenListImpl(options);
+	}
+
 	return flattenListBase(options, {
 		isContentNode: (node, parent) =>
 			isListItemNode(node) && hasContentChildren(node) && isListNode(parent),

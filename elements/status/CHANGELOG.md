@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 5.4.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.4.17
 
 ### Patch Changes

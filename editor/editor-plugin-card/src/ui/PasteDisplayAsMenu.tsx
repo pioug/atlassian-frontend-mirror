@@ -97,7 +97,6 @@ const styles = cssMap({
 		borderRadius: token('radius.medium'),
 	},
 	iconWrapper: {
-		backgroundColor: token('elevation.surface'),
 		display: 'flex',
 		width: '100%',
 		justifyContent: 'space-around',
@@ -376,6 +375,7 @@ const PasteDisplayAsMenuHorizontalView = ({
 	const pasteRange = useSharedPluginStateWithSelector(
 		apiWithPasteOptionsToolbar,
 		['pasteOptionsToolbarPlugin'],
+		// @ts-ignore TS7006 - isolated Fast Typecheck can't infer the selector states generic
 		(states) => {
 			const pluginState = states.pasteOptionsToolbarPluginState as
 				| PasteOptionsToolbarSharedState
@@ -389,6 +389,7 @@ const PasteDisplayAsMenuHorizontalView = ({
 		},
 	);
 	// Subscribe to card state so the menu re-renders when resolved card metadata updates.
+	// @ts-ignore TS7006 - isolated Fast Typecheck can't infer the selector states generic
 	useSharedPluginStateWithSelector(api, ['card'], (states) => {
 		return states.cardState as CardSharedState | undefined;
 	});

@@ -4,7 +4,7 @@ import Checkbox from '@atlaskit/checkbox';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import Inline from '@atlaskit/primitives/inline';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { useSelection } from './hooks/selection-provider';
 import { useTable } from './hooks/use-table';

@@ -11,7 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';

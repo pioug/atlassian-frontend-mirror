@@ -70,6 +70,7 @@ export type MessageKey =
 	| 'compass_applied_components_count'
 	| 'connect_link_account_card'
 	| 'connect_link_account_card_name'
+	| 'connect_link_account_preview'
 	| 'connect_link_account_card_description'
 	| 'connect_link_account_embed_teaser_button_next'
 	| 'connect_link_account_embed_teaser_dot_label'
@@ -414,6 +415,12 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Connect your {context} account',
 		description:
 			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in title.',
+	},
+	connect_link_account_preview: {
+		id: 'fabric.linking.connect_link_account_preview-nonfinal',
+		defaultMessage: 'Preview',
+		description:
+			'Shown on the connect button for unauthorised inline Smart Links when the ROVOGROWTH-635 pre-auth CTA preview experiment is active.',
 	},
 	connect_link_account_card_description: {
 		id: 'fabric.linking.connect_link_account_card_view_description',

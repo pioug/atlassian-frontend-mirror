@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::88213e41e1fc5f91770af55b3b7c3e18>>
+ * @codegen <<SignedSource::38ae22d92d9043415831cd896271ae03>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen teams-app-internal-analytics
  */
 export type PackageMetaDataType = {
@@ -909,6 +909,7 @@ export type ProfilecardClickedActionAttributesType = {
 	hasOnClick: boolean;
 	index: number;
 	actionId: string;
+	isAuxClick?: boolean | null;
 };
 export type ProfilecardClickedReportingLinesAttributesType = {
 	firedAt: number;
@@ -1637,9 +1638,14 @@ export type UserProfilePreviewSucceededRequestAttributesType = undefined;
 export type UserProfilePreviewFailedRequestAttributesType = undefined;
 export type UserProfilePreviewClickedThirdPartyMessageAttributesType = {
 	integration: string;
+	isAuxClick?: boolean | null;
 };
-export type UserProfilePreviewClickedReportingLinesAttributesType = undefined;
-export type UserProfilePreviewClickedViewProfileAttributesType = undefined;
+export type UserProfilePreviewClickedReportingLinesAttributesType = {
+	isAuxClick?: boolean | null;
+};
+export type UserProfilePreviewClickedViewProfileAttributesType = {
+	isAuxClick?: boolean | null;
+};
 export type UserProfilePreviewClickedTabAttributesType = {
 	tab: string;
 };
@@ -1650,12 +1656,15 @@ export type UserInlinePreviewSucceededRequestAttributesType = undefined;
 export type UserInlinePreviewFailedRequestAttributesType = undefined;
 export type UserInlinePreviewClickedThirdPartyMessageAttributesType = {
 	integration: string;
+	isAuxClick?: boolean | null;
 };
 export type UserInlinePreviewClickedReportingLinesAttributesType = {
 	renderContext?: string | null;
+	isAuxClick?: boolean | null;
 };
 export type UserInlinePreviewClickedViewProfileAttributesType = {
 	renderContext?: string | null;
+	isAuxClick?: boolean | null;
 };
 export type UserProfileCardOpenedAttributesType = {
 	triggerMethod: string;

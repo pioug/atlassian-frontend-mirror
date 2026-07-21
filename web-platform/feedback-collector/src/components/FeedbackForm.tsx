@@ -314,6 +314,7 @@ const FeedbackForm = ({
 											}}
 											menuPosition="fixed"
 											options={selectOptions}
+											shouldPreventEscapePropagation={fg('ak_feedback_collector_select_escape')}
 											// @ts-ignore
 											ref={focusRef}
 											placeholder={getDefaultPlaceholder(feedbackGroupLabels)}
@@ -512,6 +513,7 @@ const FeedbackForm = ({
 													}}
 													menuPosition="fixed"
 													options={selectOptions}
+													shouldPreventEscapePropagation={fg('ak_feedback_collector_select_escape')}
 													// @ts-ignore
 													ref={focusRef}
 													placeholder={getDefaultPlaceholder(feedbackGroupLabels)}

@@ -1,6 +1,6 @@
 /* eslint-disable require-unicode-regexp,prefer-regex-literals */
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
-import { extractSmartLinkEmbed } from '@atlaskit/link-extractors';
+import { extractSmartLinkEmbed, extractSmartLinkUrl } from '@atlaskit/link-extractors';
 import type { SmartLinkResponse } from '@atlaskit/linking-types';
 import type { CallbackPayload } from '@atlaskit/node-data-provider';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -86,6 +86,10 @@ const AVP_VISUALIZATION_VIEW_REGEX = /^https:\/\/.*?\/avpviz\/c\/[^\/]+.*/;
 const JIRA_WORK_ITEM_REGEX = /\/browse\/((?:\w+)-(?:\d+))/i;
 const DOES_URL_MATCH_PATH_START_REGEX = /^[a-zA-Z0-9]/;
 const DOES_URL_MATCH_PATH_END_REGEX = /[a-zA-Z0-9]$/;
+const CONFLUENCE_SHORT_LINK_URL_REGEX =
+	/^https:\/\/[^/?#]+\/wiki\/x\/[A-Za-z0-9_-]+\/?(?:[?#].*)?$/;
+
+const isConfluenceShortLinkUrl: UrlChecker = (url) => url.match(CONFLUENCE_SHORT_LINK_URL_REGEX);
 
 const isJiraRoadmapOrTimeline: UrlChecker = (url) => url.match(JIRA_ROADMAP_OR_TIMELINE_REGEX);
 
@@ -530,6 +534,17 @@ export class EditorCardProvider
 		});
 	}
 
+	private async resolvesToHardCodedEmbed(url: string): Promise<boolean> {
+		try {
+			const response = await this.fetchData(url);
+			const resolvedUrl = extractSmartLinkUrl(response as SmartLinkResponse);
+
+			return resolvedUrl !== undefined && this.getHardCodedAppearance(resolvedUrl) === 'embed';
+		} catch {
+			return false;
+		}
+	}
+
 	/**
 	 * Make a /resolve call and find out if result has embed capability
 	 */
@@ -668,6 +683,23 @@ export class EditorCardProvider
 							providerDefaultAppearance ||
 							// If not, we pick what editor (or any other client) requested
 							appearance;
+
+				const isNativeEmbedShortlinkResolutionEnabled = fg(
+					'platform_native_embeds_enable_shortlink_resolution',
+				);
+
+				const shouldResolveShortLinkForEmbed =
+					isNativeEmbedShortlinkResolutionEnabled &&
+					matchedProviderPattern !== undefined &&
+					isConfluenceShortLinkUrl(url) &&
+					userPreference === undefined &&
+					isEmbedFriendlyLocationEvaluated;
+
+				// Confluence shortlinks do not identify their content type. Resolve the URL before
+				// deciding whether it should use one of the existing hardcoded embed appearances.
+				if (shouldResolveShortLinkForEmbed && (await this.resolvesToHardCodedEmbed(url))) {
+					preferredAppearance = 'embed';
+				}
 
 				if (preferredAppearance === userPreference && userPreference === 'embed') {
 					const canItBeEmbed = await this.canBeResolvedAsEmbed(url);

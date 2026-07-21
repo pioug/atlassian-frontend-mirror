@@ -1,5 +1,15 @@
 # @atlaskit/teams-app-internal-analytics
 
+## 2.2.1
+
+### Patch Changes
+
+- [`f53c4ab7271ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f53c4ab7271ec) -
+  Add middle-click (auxiliary click) engagement instrumentation to UserProfilePreview,
+  UserInlinePreview and UserProfileCard. Middle-clicking the View profile, Message and Reporting
+  line actions now fires the same analytics events as a primary click, with a new isAuxClick
+  attribute set to true to distinguish middle-clicks.
+
 ## 2.2.0
 
 ### Minor Changes

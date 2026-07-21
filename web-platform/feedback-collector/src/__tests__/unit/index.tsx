@@ -2,8 +2,8 @@ import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import FeedbackCollector from '../../components/FeedbackCollector';
 import FeedbackFlag from '../../components/FeedbackFlag';
@@ -14,11 +14,6 @@ import { customFieldRecords, emptyOptionData } from './_data';
 
 jest.mock('../../i18n/fr', () => ({
 	'feedback-collector.feedback-title': 'Translated feedback title (FR)',
-}));
-
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	...jest.requireActual<any>('@atlaskit/platform-feature-flags'),
-	fg: jest.fn(),
 }));
 
 jest
@@ -835,7 +830,7 @@ We have some formatting here
 		});
 
 		test('should not render the link inside the label with link passed via prop', () => {
-			(fg as jest.Mock).mockReturnValue(true);
+			passGate('jfp_a11y_team_feedback_collector_nested_elements');
 			const { getByRole, getAllByRole } = render(
 				<FeedbackForm
 					locale={'en'}
@@ -861,7 +856,7 @@ We have some formatting here
 		});
 
 		test('should not render the link inside label with default label & policy link', () => {
-			(fg as jest.Mock).mockReturnValue(true);
+			passGate('jfp_a11y_team_feedback_collector_nested_elements');
 			const { getByRole, getAllByRole } = render(
 				<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />,
 			);
@@ -917,7 +912,7 @@ We have some formatting here
 
 	describe('Feedback Flag', () => {
 		test('FeedbackFlag should have default content', () => {
-			(fg as jest.Mock).mockReturnValue(false);
+			failGate('product-terminology-refresh');
 			const { getByText } = render(<FeedbackFlag />);
 			const title = getByText('Thanks!');
 			const description = getByText(
@@ -986,6 +981,69 @@ We have some formatting here
 			fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
 			const options = screen.getAllByRole('option');
 			expect(options).toHaveLength(customFeedbackOptions.length);
+		});
+
+		it.each([false, true])(
+			'should keep Escape inside an open feedback type select when form conversion is %s',
+			async (isFormConversionEnabled) => {
+				const mockOnEscape = jest.fn();
+				passGate('ak_feedback_collector_select_escape');
+
+				if (isFormConversionEnabled) {
+					passGate('platform-design_system_team-form_conversion');
+				} else {
+					failGate('platform-design_system_team-form_conversion');
+				}
+
+				render(
+					<div
+						onKeyDown={(event) => {
+							if (event.key === 'Escape') {
+								mockOnEscape();
+							}
+						}}
+					>
+						<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />
+					</div>,
+				);
+
+				const combobox = screen.getByRole('combobox', { name: 'Select feedback' });
+				fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
+
+				await waitFor(() => expect(combobox).toHaveAttribute('aria-expanded', 'true'));
+
+				fireEvent.keyDown(combobox, { key: 'Escape', code: 'Escape' });
+
+				await waitFor(() => expect(combobox).toHaveAttribute('aria-expanded', 'false'));
+				expect(mockOnEscape).not.toHaveBeenCalled();
+			},
+		);
+
+		it('should allow feedback type select Escape to propagate when fix is disabled', async () => {
+			const mockOnEscape = jest.fn();
+			failGate('ak_feedback_collector_select_escape');
+			passGate('platform-design_system_team-form_conversion');
+
+			render(
+				<div
+					onKeyDown={(event) => {
+						if (event.key === 'Escape') {
+							mockOnEscape();
+						}
+					}}
+				>
+					<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />
+				</div>,
+			);
+
+			const combobox = screen.getByRole('combobox', { name: 'Select feedback' });
+			fireEvent.keyDown(combobox, { key: 'ArrowDown', code: 40 });
+
+			await waitFor(() => expect(combobox).toHaveAttribute('aria-expanded', 'true'));
+
+			fireEvent.keyDown(combobox, { key: 'Escape', code: 'Escape' });
+
+			await waitFor(() => expect(mockOnEscape).toHaveBeenCalled());
 		});
 	});
 

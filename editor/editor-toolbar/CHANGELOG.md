@@ -1,5 +1,25 @@
 # @atlaskit/editor-toolbar
 
+## 2.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.6
+
+### Patch Changes
+
+- [`862702aa18c98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/862702aa18c98) -
+  Remove redundant primary toolbar aria-label
+- Updated dependencies
+
+## 2.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.4
 
 ### Patch Changes

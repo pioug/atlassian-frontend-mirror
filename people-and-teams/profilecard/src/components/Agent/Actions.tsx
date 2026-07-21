@@ -21,7 +21,7 @@ type AgentActionsProps = {
 	onCopyAgent: () => void;
 	onDuplicateAgent: () => Promise<void>;
 	onDeleteAgent: () => void;
-	onChatClick: (event: React.MouseEvent) => void;
+	onChatClick: (event: React.MouseEvent, agentStudioId?: string) => void;
 	onViewFullProfileClick: () => void;
 	resourceClient: ProfileClient;
 	hideMoreActions?: boolean;

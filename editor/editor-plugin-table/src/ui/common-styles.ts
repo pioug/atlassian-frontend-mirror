@@ -640,21 +640,19 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};
 		}
 
-		${fg('platform_editor_table_sticky_header_patch_1')
-			? `th.${ClassName.TABLE_HEADER_CELL}::after {
-				height: 100%;
-				content: '';
-				border-left: 1px solid ${tableBorderColor};
-				border-bottom: 1px solid ${tableBorderColor};
-				position: absolute;
-				right: 0px;
-				top: 0px;
-				bottom: 0;
-				width: 100%;
-				display: inline-block;
-				pointer-events: none;
-			}`
-			: ``}
+		th.${ClassName.TABLE_HEADER_CELL}::after {
+			height: 100%;
+			content: '';
+			border-left: 1px solid ${tableBorderColor};
+			border-bottom: 1px solid ${tableBorderColor};
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			bottom: 0;
+			width: 100%;
+			display: inline-block;
+			pointer-events: none;
+		}
 	}
 
 	/** Adds mask above sticky header to prevent table content from bleeding through on scroll */
@@ -687,13 +685,18 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		z-index: ${aboveNativeStickyHeaderZIndex};
 	}
 
-	${fg('platform_editor_table_sticky_header_patch_7')
+	${expValEquals('platform_editor_table_sticky_header_patch_12', 'isEnabled', true)
 		? `
-		.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}:has(~ .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}) {
-			margin-top: 0;
-		}
-	`
-		: ``}
+			.${ClassName.TABLE_CONTAINER}:has(> .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
+				> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER} {
+				margin-top: 0;
+			}
+			`
+		: `
+			.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}:has(~ .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}) {
+				margin-top: 0;
+			}
+	`}
 
 	.${ClassName.TABLE_CONTAINER}[data-table-header-is-stuck='true']:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW})
 		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
@@ -703,11 +706,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	}
 
 	/** Corrects position of numbered column when sticky header top mask is present */
-	.${ClassName.TABLE_CONTAINER}:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} ${fg(
-			'platform_editor_table_sticky_header_patch_4',
-		)
-			? `tr.${ClassName.NATIVE_STICKY}`
-			: ''})
+	.${ClassName.TABLE_CONTAINER}:has(.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr.${ClassName.NATIVE_STICKY})
 		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
 		> div
 		> .${ClassName.NUMBERED_COLUMN} {
@@ -1391,43 +1390,24 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		top: ${tableMarginTop}px;
 	}
 
-	${fg('platform_editor_table_sticky_header_patch_1')
-		? `
 	.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 		/* +2px is to overlap the table border on the sides */
 		width: calc(anchor-size(width) + 2px);
 		height: ${tableMarginTop}px;
-		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
+		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+			: token('elevation.surface')};
 		top: unset;
 		position: fixed;
 		position-area: top center;
 		position-visibility: anchors-visible;
 		z-index: ${nativeStickyHeaderZIndex + 1};
-		${
-			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? `
+		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+			? `
 		/* Leave a 1px gap so the sticky header row's top border stays visible. */
 		translate: 0 -1px;`
-				: ``
-		}
-	}`
-		: `.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
-		/* +2px is to overlap the table border on the sides */
-		width: calc(anchor-size(width) + 2px);
-		height: ${tableMarginTop}px;
-		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true) ? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})` : token('elevation.surface')};
-		position: fixed;
-		position-area: top center;
-		position-visibility: anchors-visible;
-		z-index: ${nativeStickyHeaderZIndex + 1};
-		${
-			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? `
-		/* Leave a 1px gap so the sticky header row's top border stays visible. */
-		margin-bottom: 1px;`
-				: ``
-		}
-	}`}
+			: ``}
+	}
 
 	/** Mask for content to the left of the column controls */
 
@@ -1471,51 +1451,31 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		}
 		outline: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? 'none'
-			: expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true)
-				? `0.5px solid ${tableBorderColor}`
-				: `1px solid ${tableBorderColor}`};
+			: `0.5px solid ${tableBorderColor}`};
 		border-left: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? `1px solid ${tableBorderColor}`
-			: expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true)
-				? 'none'
-				: `1px solid ${tableBorderColor}`};
+			: 'none'};
 		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? `border-bottom: 1px solid ${tableBorderColor};`
 			: ``}
 		background: ${token('color.background.accent.gray.subtlest')};
-		${fg('platform_editor_table_sticky_header_patch_1')
-			? `border-top: 1px solid ${tableBorderColor};`
-			: ``}
-
-		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) ||
-		(getBrowserInfo().gecko &&
-			expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true))
-			? `border-top: 1px solid ${tableBorderColor};`
-			: `border-top: none;`}
+		border-top: 1px solid ${tableBorderColor};
 	}
 
-	${fg('platform_editor_table_sticky_header_patch_7')
-		? `.ak-editor-selected-node .${ClassName.TABLE_CONTAINER}[data-number-column="true"]:not(.${ClassName.TABLE_SELECTED}) .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type {
-			/* Recolour the number-column corner mask to match the selected cells. Keep this identical
-			   to the .selectedCell ::before rule below — never set margin-top (the base negative
-			   margin aligns the mask) or radius (rounded generically by data-reaches-* rules). */
-			&::before {
-				outline: none;
-				border-left-color: ${tableBorderSelectedColor};
-				${
-					expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-						? `border-bottom-color: ${tableBorderSelectedColor};`
-						: ''
-				}
-				${
-					fg('platform_editor_table_sticky_header_patch_1')
-						? `border-top-color: ${tableBorderSelectedColor};`
-						: ''
-				}
-				background: ${tableHeaderCellSelectedColor};
-			}
-	}`
-		: ''}
+	.ak-editor-selected-node .${ClassName.TABLE_CONTAINER}[data-number-column="true"]:not(.${ClassName.TABLE_SELECTED}) .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type {
+		/* Recolour the number-column corner mask to match the selected cells. Keep this identical
+		   to the .selectedCell ::before rule below — never set margin-top (the base negative
+		   margin aligns the mask) or radius (rounded generically by data-reaches-* rules). */
+		&::before {
+			outline: none;
+			border-left-color: ${tableBorderSelectedColor};
+			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? `border-bottom-color: ${tableBorderSelectedColor};`
+				: ''}
+			border-top-color: ${tableBorderSelectedColor};
+			background: ${tableHeaderCellSelectedColor};
+		}
+	}
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}):first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER}, .${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;
@@ -1523,45 +1483,33 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? `border-bottom-color: ${tableBorderSelectedColor}`
 			: ''};
-		${fg('platform_editor_table_sticky_header_patch_1')
-			? `border-top-color: ${tableBorderSelectedColor};`
-			: ``}
+		border-top-color: ${tableBorderSelectedColor};
 		background: ${tableHeaderCellSelectedColor};
 	}
 
-	${fg('platform_editor_table_sticky_header_patch_1')
-		? `.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
-			outline: none;
-			${
-				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-				fg('platform_editor_table_q4_patch_2')
-					? // Recolour the corner edges to the delete border and composite the translucent danger
-						// fill over the mask's gray so it matches the adjacent cells instead of reading as transparent.
-						`border-left: 1px solid ${tableBorderDeleteColor};
-							border-top: 1px solid ${tableBorderDeleteColor};
-							border-bottom: 1px solid ${tableBorderDeleteColor};
-							background-color: ${token('color.background.accent.gray.subtlest')};
-							background-image: linear-gradient(${tableCellDeleteColor}, ${tableCellDeleteColor});`
-					: `border-left: unset;
-						border-top: unset;
-						background: ${tableCellDeleteColor};`
-			}
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
+		outline: none;
+		${
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+			fg('platform_editor_table_q4_patch_2')
+				? // Recolour the corner edges to the delete border and composite the translucent danger
+					// fill over the mask's gray so it matches the adjacent cells instead of reading as transparent.
+					`border-left: 1px solid ${tableBorderDeleteColor};
+						border-top: 1px solid ${tableBorderDeleteColor};
+						border-bottom: 1px solid ${tableBorderDeleteColor};
+						background-color: ${token('color.background.accent.gray.subtlest')};
+						background-image: linear-gradient(${tableCellDeleteColor}, ${tableCellDeleteColor});`
+				: `border-left: unset;
+					border-top: unset;
+					background: ${tableCellDeleteColor};`
 		}
-		.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED}.${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
+	}
+	.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.TABLE_SELECTED}.${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th:first-of-type::before, .${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
 		outline: none;
 		border-left-color: ${tableBorderDeleteColor};
 		border-top-color: ${tableBorderDeleteColor};
 		background: ${tableCellDeleteColor};
-		}`
-		: `	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.HOVERED_CELL_IN_DANGER}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
-				outline: none;
-				background: ${tableCellDeleteColor};
-			}
-			.${ClassName.TABLE_CONTAINER}[data-number-column="true"].${ClassName.HOVERED_DELETE_BUTTON} .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} tr:first-of-type th.${ClassName.SELECTED_CELL}:not(.${ClassName.COLUMN_SELECTED}):first-of-type::before {
-				outline: none;
-				border-left-color: ${tableBorderDeleteColor};
-				background: ${tableCellDeleteColor};
-		}`}
+	}
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column="true"] .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} .${ClassName.NATIVE_STICKY_ACTIVE} th:first-of-type::before {
 		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')};
@@ -1579,11 +1527,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
 	}
 
-	${expValEquals(
-		'platform_editor_table_sticky_header_improvements',
-		'cohort',
-		'test_with_overflow',
-	) && fg('platform_editor_table_sticky_header_patch_6')
+	${expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
 		? `.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}:has(tr.sticky) .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
 			box-shadow: 0 -5px 0 1px ${tableBorderColor};
 		}`

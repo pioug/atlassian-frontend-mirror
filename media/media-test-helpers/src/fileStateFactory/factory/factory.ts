@@ -17,7 +17,7 @@ import {
 } from './createFileState';
 import { createFileDetails } from './helpers';
 import { sleep } from '../../nextTick';
-import { mediaStore } from '@atlaskit/media-state';
+import { mediaStore } from '@atlaskit/media-state/media-store';
 
 export type MediaClientMockOptions = {
 	getImageDelay?: number;

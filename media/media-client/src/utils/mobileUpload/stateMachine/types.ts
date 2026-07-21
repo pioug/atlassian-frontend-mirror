@@ -1,13 +1,6 @@
 import { type StateSchema } from 'xstate';
 
-import {
-	type FileState,
-	type UploadingFileState,
-	type ProcessingFileState,
-	type ProcessedFileState,
-	type ErrorFileState,
-	type ProcessingFailedState,
-} from '@atlaskit/media-state';
+import type { FileState, UploadingFileState, ProcessingFileState, ProcessedFileState, ErrorFileState, ProcessingFailedState } from '@atlaskit/media-state/file-state';
 
 export type StateMachineContext = { currentFileState: FileState };
 

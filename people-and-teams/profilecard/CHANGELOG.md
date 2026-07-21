@@ -1,5 +1,33 @@
 # @atlaskit/profilecard
 
+## 26.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.12.0
+
+### Minor Changes
+
+- [`7bbeb928e7b97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bbeb928e7b97) -
+  Passes editor context from agent profile card action to rovo chat
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.11.0
+
+### Minor Changes
+
+- [`2ae2f4d041a3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ae2f4d041a3a) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.10.3
 
 ### Patch Changes

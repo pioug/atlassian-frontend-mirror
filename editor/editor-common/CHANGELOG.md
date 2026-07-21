@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 116.34.0
+
+### Minor Changes
+
+- [`7da4b354a3633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7da4b354a3633) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.33.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 116.33.3
+
+### Patch Changes
+
+- [`1be28a8784c5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1be28a8784c5c) -
+  Clean up experiment `platform_editor_show_diff_fix_missing_attrs`
+- Updated dependencies
+
+## 116.33.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.33.1
 
 ### Patch Changes

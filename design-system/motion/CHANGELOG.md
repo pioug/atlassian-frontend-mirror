@@ -1,5 +1,18 @@
 # @atlaskit/motion
 
+## 7.5.0
+
+### Minor Changes
+
+- [`cad86b0c0e613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cad86b0c0e613) -
+  Remove hardcoded animationFillMode styles from Motion component — fill-mode is now included in the
+  motion design tokens (AnimationFillModeForwards/AnimationFillModeBackwards) and baked directly
+  into the generated CSS animation shorthands.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.0
 
 ### Minor Changes

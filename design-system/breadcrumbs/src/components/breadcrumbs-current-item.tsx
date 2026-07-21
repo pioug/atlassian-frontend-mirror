@@ -60,6 +60,7 @@ const unboundedStyles = unboundedCssMap({
 		transition: token('motion.listitem.selected'),
 		'&:hover': {
 			textDecorationColor: token('color.text'),
+			transition: token('motion.listitem.pressed'),
 		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),

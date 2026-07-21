@@ -6,7 +6,7 @@ import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
 import { getFileStreamsCache, MediaClient, type ResponseFileItem } from '@atlaskit/media-client';
-import { mediaStore } from '@atlaskit/media-state';
+import { mediaStore } from '@atlaskit/media-state/media-store';
 
 import { MediaClientContext, MediaClientProvider, useFileState } from '../../src';
 

@@ -5,7 +5,8 @@ import {
 	MediaClient,
 	type MediaClientConfig,
 } from '@atlaskit/media-client';
-import { createMediaStore, type MediaStore } from '@atlaskit/media-state';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
+import type { MediaStore } from '@atlaskit/media-state/media-store';
 
 import { MediaContext } from '../MediaProvider';
 import { type MediaSettings, useMediaParsedSettings } from '../mediaSettings';

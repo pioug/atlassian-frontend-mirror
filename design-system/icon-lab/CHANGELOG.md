@@ -1,5 +1,29 @@
 # @atlaskit/icon-lab
 
+## 7.4.0
+
+### Minor Changes
+
+- [`1502a8099fc80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1502a8099fc80) -
+  This release adds and updates icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+  - `calendar-unavailable`
+  - `carousel`
+  - `rovo-chat-dashed`
+  - `table-of-content`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+  - `text-review`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.1
 
 ### Patch Changes

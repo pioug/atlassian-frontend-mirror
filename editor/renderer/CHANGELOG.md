@@ -1,5 +1,37 @@
 # @atlaskit/renderer
 
+## 133.12.0
+
+### Minor Changes
+
+- [`7da4b354a3633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7da4b354a3633) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`583ad668c2961`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/583ad668c2961) -
+  Expose the IFrame test utility entry point for renderer tests
+- Updated dependencies
+
+## 133.11.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.11.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.11.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.11.4
 
 ### Patch Changes

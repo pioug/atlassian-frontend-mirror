@@ -5,7 +5,7 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
-import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention';
 import { isResolvingMentionProvider, MentionNameStatus } from '@atlaskit/mention/resource';
 import type { MentionNameDetails } from '@atlaskit/mention/resource';
@@ -113,6 +113,7 @@ const toDOM = (node: PMNode): DOMOutputSpec => {
 
 interface MentionNodeViewProps {
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
+	editorView?: EditorView;
 	options?: MentionPluginOptions;
 	portalProviderAPI: PortalProviderAPI;
 }
@@ -178,7 +179,7 @@ export class MentionNodeView implements NodeView {
 	private subscribedProvider: MentionProvider | undefined;
 
 	constructor(node: PMNode, config: MentionNodeViewProps) {
-		const { options, api, portalProviderAPI } = config;
+		const { options, api, portalProviderAPI, editorView } = config;
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node));
 		this.dom = dom;
 		this.contentDOM = contentDOM;
@@ -204,6 +205,7 @@ export class MentionNodeView implements NodeView {
 			portalProviderAPI,
 			node,
 			api,
+			editorView,
 		});
 		// Accessibility attributes - based on `packages/people-and-teams/profilecard/src/components/User/ProfileCardTrigger.tsx`
 		if (this.domElement && options?.profilecardProvider) {

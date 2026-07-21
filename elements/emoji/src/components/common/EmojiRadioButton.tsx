@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
 import Emoji from './Emoji';
 import { TONESELECTOR_KEYBOARD_KEYS_SUPPORTED } from '../../util/constants';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 const emojiButton = css({

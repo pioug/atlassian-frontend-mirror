@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators/map';
 import { type Interpreter } from 'xstate';
 
 import { mapMediaItemToFileState } from '../../models/file-state';
-import { type FileState } from '@atlaskit/media-state';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { type DataloaderKey, type DataloaderResult } from '../createFileDataLoader';
 import { createMediaSubject } from '../createMediaSubject';
 import { isEmptyFile } from '../detectEmptyFile';

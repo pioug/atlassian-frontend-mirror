@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-highlight
 
+## 12.1.37
+
+### Patch Changes
+
+- [`e74b3e9fc5c95`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e74b3e9fc5c95) -
+  Account for container backgrounds in text color contrast warnings
+- Updated dependencies
+
+## 12.1.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.34
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.1.33
 
 ### Patch Changes

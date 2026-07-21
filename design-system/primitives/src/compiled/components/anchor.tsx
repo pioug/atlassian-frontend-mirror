@@ -20,7 +20,7 @@ import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-prov
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import Focusable from './focusable';
 import type { BasePrimitiveProps, StyleProp } from './types';

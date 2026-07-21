@@ -1,6 +1,5 @@
 import type { Mark, MarkType } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { DEFAULT_COLOR } from './constants';
 
@@ -42,28 +41,6 @@ export const getActiveColor = (state: EditorState): string | null => {
 		return null;
 	}
 	return marksWithColor.length ? marksWithColor[0].attrs.color : DEFAULT_COLOR.color;
-};
-
-/**
- * Returns true when the selection contains two or more distinct text colors,
- * counting unmarked text as the default color.
- */
-export const isMultiTextColorSelection = (state: EditorState): boolean => {
-	const { selection, doc } = state;
-	if (!(selection instanceof TextSelection)) {
-		return false;
-	}
-
-	const { textColor } = doc.type.schema.marks;
-	const colors = new Set<string>();
-	doc.nodesBetween(selection.from, selection.to, (node) => {
-		if (node.isText) {
-			const mark = textColor.isInSet(node.marks);
-			colors.add(mark?.attrs.color ?? DEFAULT_COLOR.color);
-		}
-	});
-
-	return colors.size > 1;
 };
 
 export const getActiveColorNew = (tr: Transaction): string | null => {

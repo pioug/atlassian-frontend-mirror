@@ -1,4 +1,4 @@
-import type { ErrorFileState } from '@atlaskit/media-state';
+import type { ErrorFileState } from '@atlaskit/media-state/file-state';
 import type {
 	MediaClientError,
 	MediaClientErrorAttributes,

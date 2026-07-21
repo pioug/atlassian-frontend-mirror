@@ -2,8 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { bind, type UnbindFn } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { generateUrlWithParams } from './generateUrlWithParams';
 import GlobalInteractionSessionTracking, {
 	type InteractionSessionTracking,
@@ -34,13 +32,12 @@ export type CrossProductUrlOptions = {
  */
 function useCrossProductUrlWrapper(options: CrossProductUrlOptions): (url: string) => string {
 	const { bridge, product, subProduct } = options;
-	const isEnabled = fg('atlaskit-analytics-cross-product');
 
 	// `useRef(initialValue)` evaluates `initialValue` on every render but only uses the result on
 	// the first render. Populate the ref imperatively the first time we need it so we don't call
 	// `getInstance()` on every render (per Billy Chen's review suggestion).
 	const interactionSessionClientRef = useRef<InteractionSessionTracking | undefined>(undefined);
-	if (isEnabled && !interactionSessionClientRef.current) {
+	if (!interactionSessionClientRef.current) {
 		interactionSessionClientRef.current = GlobalInteractionSessionTracking.getInstance();
 	}
 
@@ -49,10 +46,6 @@ function useCrossProductUrlWrapper(options: CrossProductUrlOptions): (url: strin
 	);
 
 	useEffect(() => {
-		if (!isEnabled) {
-			return () => {};
-		}
-
 		// Add event listener that subscribes to any future interaction session ID updates
 		const unbind: UnbindFn = bind(document, {
 			type: INTERACTION_SESSION_ID_UPDATED_EVENT,
@@ -71,16 +64,16 @@ function useCrossProductUrlWrapper(options: CrossProductUrlOptions): (url: strin
 		});
 
 		return unbind;
-	}, [isEnabled]);
+	}, []);
 
 	return useCallback(
 		(url: string) => {
-			if (!isEnabled || !interactionSessionId) {
+			if (!interactionSessionId) {
 				return url;
 			}
 			return generateUrlWithParams(url, bridge, interactionSessionId, product, subProduct);
 		},
-		[isEnabled, bridge, interactionSessionId, product, subProduct],
+		[bridge, interactionSessionId, product, subProduct],
 	);
 }
 

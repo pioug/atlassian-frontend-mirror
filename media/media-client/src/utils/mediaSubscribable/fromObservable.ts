@@ -1,5 +1,5 @@
 import { type ReplaySubject } from 'rxjs/ReplaySubject';
-import { type FileState } from '@atlaskit/media-state';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { createMediaSubject } from '../createMediaSubject';
 import { type MediaSubscribable, type MediaSubscription } from './types';
 

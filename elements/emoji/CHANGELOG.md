@@ -1,5 +1,31 @@
 # @atlaskit/emoji
 
+## 71.10.0
+
+### Minor Changes
+
+- [`7da4b354a3633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7da4b354a3633) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+## 71.9.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.9.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.9.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.9.8
 
 ### Patch Changes

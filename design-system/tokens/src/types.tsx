@@ -18,7 +18,8 @@ export type Groups =
 	| 'motionDuration'
 	| 'motionEasing'
 	| 'motionKeyframe'
-	| 'motionProperty';
+	| 'motionProperty'
+	| 'motionFillMode';
 
 type ActiveTokenState = 'active';
 type DeprecatedTokenState = 'deprecated';
@@ -216,11 +217,13 @@ export interface MotionScaleTokenSchema<
 	BezierCurveScaleValues extends string,
 	KeyframeScaleValues extends string,
 	TransitionPropertyScaleValues extends string,
+	FillModeScaleValues extends string = never,
 > {
 	duration: Record<DurationScaleValues, BaseToken<number, 'motionDuration'>>;
 	curve: Record<BezierCurveScaleValues, BaseToken<string, 'motionEasing'>>;
 	keyframe: Record<KeyframeScaleValues, BaseToken<Record<string, object>, 'motionKeyframe'>>;
 	properties: Record<TransitionPropertyScaleValues, BaseToken<string, 'motionProperty'>>;
+	fillMode?: Record<FillModeScaleValues, BaseToken<string, 'motionFillMode'>>;
 }
 
 export interface FontSizeScaleTokenSchema<ScaleValues extends string> {

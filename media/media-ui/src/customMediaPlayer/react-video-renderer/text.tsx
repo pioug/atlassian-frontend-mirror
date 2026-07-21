@@ -1,4 +1,4 @@
-import { type MediaUserArtifactCaptionKey } from '@atlaskit/media-state';
+import type { MediaUserArtifactCaptionKey } from '@atlaskit/media-state/file-state';
 
 export type VideoTextTracks = {
 	subtitles?: VideoTextTracksProps;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bc61ba5536395df900d967f003bb4829>>
+ * @codegen <<SignedSource::ab74692458380e229a9638836b8fadcc>>
  * @codegenCommand yarn build tokens
  */
 
@@ -65,7 +65,8 @@ const tokens: Token[] = [
       "keyframes": [
         "ScaleIn80to100",
         "FadeIn0to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -82,7 +83,8 @@ const tokens: Token[] = [
         "keyframes": [
           "ScaleIn80to100",
           "FadeIn0to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.avatar.enter",
@@ -106,7 +108,8 @@ const tokens: Token[] = [
       "keyframes": [
         "ScaleOut100to80",
         "FadeOut100to0"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -123,7 +126,8 @@ const tokens: Token[] = [
         "keyframes": [
           "ScaleOut100to80",
           "FadeOut100to0"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.avatar.exit",
@@ -185,7 +189,8 @@ const tokens: Token[] = [
       "curve": "cubic-bezier(0.4, 0, 0, 1)",
       "keyframes": [
         "FadeIn0to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -201,7 +206,8 @@ const tokens: Token[] = [
         "curve": "EaseBoldInOut",
         "keyframes": [
           "FadeIn0to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.blanket.enter",
@@ -224,7 +230,8 @@ const tokens: Token[] = [
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
         "FadeOut100to0"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -240,7 +247,8 @@ const tokens: Token[] = [
         "curve": "EasePracticalIn",
         "keyframes": [
           "FadeOut100to0"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.blanket.exit",
@@ -697,7 +705,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideIn50PercentLeft",
         "FadeIn0to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -714,7 +723,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideIn50PercentLeft",
           "FadeIn0to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.flag.enter",
@@ -738,7 +748,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideOut15PercentLeft",
         "FadeOut100to0"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -755,7 +766,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideOut15PercentLeft",
           "FadeOut100to0"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.flag.exit",
@@ -1424,7 +1436,8 @@ const tokens: Token[] = [
       "curve": "cubic-bezier(0.4, 0, 0, 1)",
       "keyframes": [
         "ScaleIn95to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1440,7 +1453,8 @@ const tokens: Token[] = [
         "curve": "EaseBoldInOut",
         "keyframes": [
           "ScaleIn95to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.modal.enter",
@@ -1463,7 +1477,8 @@ const tokens: Token[] = [
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
         "ScaleOut100to95"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1479,7 +1494,8 @@ const tokens: Token[] = [
         "curve": "EasePracticalIn",
         "keyframes": [
           "ScaleOut100to95"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.modal.exit",
@@ -1502,7 +1518,8 @@ const tokens: Token[] = [
       "curve": "cubic-bezier(0, 0.4, 0, 1)",
       "keyframes": [
         "SlideIn100PercentRight"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1518,7 +1535,8 @@ const tokens: Token[] = [
         "curve": "EaseBoldOut",
         "keyframes": [
           "SlideIn100PercentRight"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.panel.enter",
@@ -1541,7 +1559,8 @@ const tokens: Token[] = [
       "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
       "keyframes": [
         "SlideOut100PercentRight"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1557,7 +1576,8 @@ const tokens: Token[] = [
         "curve": "EasePracticalIn",
         "keyframes": [
           "SlideOut100PercentRight"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.panel.exit",
@@ -1581,7 +1601,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideInBottom8px",
         "FadeIn0to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1598,7 +1619,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideInBottom8px",
           "FadeIn0to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.popup.enter.bottom",
@@ -1623,7 +1645,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideInLeft8px",
         "FadeIn0to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1640,7 +1663,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideInLeft8px",
           "FadeIn0to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.popup.enter.left",
@@ -1665,7 +1689,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideInRight8px",
         "FadeIn0to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1682,7 +1707,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideInRight8px",
           "FadeIn0to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.popup.enter.right",
@@ -1707,7 +1733,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideInTop8px",
         "FadeIn0to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1724,7 +1751,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideInTop8px",
           "FadeIn0to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.popup.enter.top",
@@ -1749,7 +1777,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideOutBottom8px",
         "FadeOut100to0"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1766,7 +1795,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideOutBottom8px",
           "FadeOut100to0"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.popup.exit.bottom",
@@ -1791,7 +1821,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideOutLeft8px",
         "FadeOut100to0"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1808,7 +1839,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideOutLeft8px",
           "FadeOut100to0"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.popup.exit.left",
@@ -1833,7 +1865,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideOutRight8px",
         "FadeOut100to0"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1850,7 +1883,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideOutRight8px",
           "FadeOut100to0"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.popup.exit.right",
@@ -1875,7 +1909,8 @@ const tokens: Token[] = [
       "keyframes": [
         "SlideOutTop8px",
         "FadeOut100to0"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1892,7 +1927,8 @@ const tokens: Token[] = [
         "keyframes": [
           "SlideOutTop8px",
           "FadeOut100to0"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.popup.exit.top",
@@ -1917,7 +1953,8 @@ const tokens: Token[] = [
       "keyframes": [
         "ScaleIn95to100",
         "FadeIn0to100"
-      ]
+      ],
+      "fill": "backwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1934,7 +1971,8 @@ const tokens: Token[] = [
         "keyframes": [
           "ScaleIn95to100",
           "FadeIn0to100"
-        ]
+        ],
+        "fill": "AnimationFillModeBackwards"
       }
     },
     "name": "motion.spotlight.enter",
@@ -1958,7 +1996,8 @@ const tokens: Token[] = [
       "keyframes": [
         "ScaleOut100to95",
         "FadeOut100to0"
-      ]
+      ],
+      "fill": "forwards"
     },
     "filePath": "schema/themes/atlassian-motion/motion.tsx",
     "isSource": true,
@@ -1975,7 +2014,8 @@ const tokens: Token[] = [
         "keyframes": [
           "ScaleOut100to95",
           "FadeOut100to0"
-        ]
+        ],
+        "fill": "AnimationFillModeForwards"
       }
     },
     "name": "motion.spotlight.exit",

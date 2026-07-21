@@ -183,6 +183,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-20
+	'editor_a11y__primary-toolbar-aria-label_fy27': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-19
 	'enghealth-53346_fix_redaction_marker_editor': {
 		defaultValue: boolean;
@@ -419,6 +426,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-11-20
 	platform_editor_annotations_sync_on_docchange: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-20
+	platform_editor_fix_ai_streaming_race: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -799,6 +813,13 @@ export const editorExperimentsConfig: {
 		) => value is 'control' | 'test_with_overflow' | 'test_without_overflow';
 		values: ('control' | 'test_with_overflow' | 'test_without_overflow')[];
 	};
+	// Added 2026-07-20
+	platform_editor_table_sticky_header_patch_12: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2025-04-17
 	platform_editor_tables_drag_and_drop: {
 		defaultValue: boolean;
@@ -905,6 +926,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-05-11 — Pre-auth inline CTA 'Preview' experiment for unauthorised 3P inline smart links (boolean: isEnabled)
+	'rovogrowth-635-pre-auth-cta-preview-exp': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links (boolean: isEnabled)
 	platform_sl_3p_preauth_social_proof_inline_cta: {
 		defaultValue: boolean;
@@ -968,13 +996,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-12-30
-	platform_editor_table_sticky_header_patch_9: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-10-10
 	platform_use_llm_space_recommendations: {
 		defaultValue: boolean;
@@ -985,13 +1006,6 @@ export const editorExperimentsConfig: {
 	// Added 2025-3-15
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_single_column_layout/setup
 	single_column_layouts: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-01-07
-	platform_editor_table_sticky_header_patch_10: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1161,13 +1175,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-01-28
 	platform_editor_smartlink_local_cache: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-24
-	platform_rovo_page_comment_selector_full_width: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1889,13 +1896,7 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-04
-	platform_editor_show_diff_fix_missing_attrs: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
+
 	// Added 2026-05-15
 	platform_editor_fix_sticky_header_malfunction: {
 		defaultValue: boolean;
@@ -1947,13 +1948,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-18
 	platform_editor_nest_table_in_panel: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-01
-	platform_editor_table_in_panel_paste_fallback: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2085,6 +2079,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-20
+	platform_editor_lovability_breakout_resizing_fixes: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-19
 	platform_editor_lovability_resize_dividers_panels: {
 		defaultValue: boolean;
@@ -2122,6 +2123,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-07-01
 	platform_editor_remove_pause_streaming: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-17
+	revert_remix_ephemeral_iframe_sizing_fix: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2189,6 +2197,15 @@ export const editorExperimentsConfig: {
 	'editor_a11y__enghealth-46814_fy26': createBooleanExperiment({
 		productKeys: {
 			confluence: 'editor_a11y__enghealth-46814_fy26',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-20
+	'editor_a11y__primary-toolbar-aria-label_fy27': createBooleanExperiment({
+		productKeys: {
+			confluence: 'editor_a11y__primary-toolbar-aria-label_fy27',
+			jira: 'editor_a11y__primary-toolbar-aria-label_fy27',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -2353,15 +2370,6 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
-
-	// Added 2026-01-7
-	platform_editor_table_sticky_header_patch_10: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_sticky_header_patch_10',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-11-17
 	platform_editor_renderer_extension_width_fix: createBooleanExperiment({
 		productKeys: {
@@ -2472,6 +2480,11 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_renderer_table_sticky_scrollbar',
 		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-20
+	platform_editor_table_sticky_header_patch_12: createBooleanExperiment({
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
@@ -3207,6 +3220,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-05-11 — Pre-auth inline CTA 'Preview' experiment for unauthorised 3P inline smart links
+	'rovogrowth-635-pre-auth-cta-preview-exp': createBooleanExperiment({
+		productKeys: {
+			confluence: 'rovogrowth-635-pre-auth-cta-preview-exp',
+			jira: 'rovogrowth-635-pre-auth-cta-preview-exp',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-04-29 — Social proof inline CTA for unauthorised 3P inline smart links
 	platform_sl_3p_preauth_social_proof_inline_cta: createBooleanExperiment({
 		productKeys: {
@@ -3251,14 +3273,6 @@ export const editorExperimentsConfig: {
 	platform_editor_toolbar_submenu_open_click: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_toolbar_submenu_open_click',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-12-30
-	platform_editor_table_sticky_header_patch_9: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_sticky_header_patch_9',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3417,10 +3431,10 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-04-24
-	platform_rovo_page_comment_selector_full_width: createBooleanExperiment({
+	// Added 2026-07-20
+	platform_editor_fix_ai_streaming_race: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_rovo_page_comment_selector_full_width',
+			confluence: 'platform_editor_fix_ai_streaming_race',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4299,14 +4313,7 @@ export const editorExperimentsConfig: {
 		values: ['control', 'hasSpellingAndGrammar', 'hasAltAiActions'],
 		defaultValue: 'control',
 	}),
-	// Added 2026-05-04
-	platform_editor_show_diff_fix_missing_attrs: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_show_diff_fix_missing_attrs',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
+
 	// Added 2026-05-01 — Social proof experiment for unauthorized 3P block cards
 	social_proof_3p_unauth_block_exp: createBooleanExperiment({
 		productKeys: {
@@ -4337,14 +4344,6 @@ export const editorExperimentsConfig: {
 	platform_editor_nest_table_in_panel: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_nest_table_in_panel',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-01
-	platform_editor_table_in_panel_paste_fallback: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_in_panel_paste_fallback',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4533,6 +4532,16 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+
+	// Added 2026-07-20
+	platform_editor_lovability_breakout_resizing_fixes: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_lovability_breakout_resizing_fixes',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+
 	// Added 2026-06-19
 	platform_editor_lovability_resize_dividers_panels: createBooleanExperiment({
 		productKeys: {
@@ -4581,6 +4590,15 @@ export const editorExperimentsConfig: {
 			confluence: 'platform_editor_remove_pause_streaming',
 		},
 		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-17
+	revert_remix_ephemeral_iframe_sizing_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'revert_remix_ephemeral_iframe_sizing_fix',
+			jira: 'revert_remix_ephemeral_iframe_sizing_fix',
+		},
+		param: 'value',
 		defaultValue: false,
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

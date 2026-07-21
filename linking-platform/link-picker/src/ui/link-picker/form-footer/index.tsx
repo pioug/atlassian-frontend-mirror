@@ -11,7 +11,7 @@ import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/new';
 import EditorAddIcon from '@atlaskit/icon/core/add';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import {
 	type LinkPickerPluginAction,

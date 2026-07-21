@@ -10,6 +10,7 @@ export type MotionPaletteToken =
 			keyframes?: BaseKeyframeToken[];
 			properties?: BaseTransitionPropertyToken[];
 			delay?: BaseDurationToken;
+			fill?: BaseFillModeToken;
 	  }
 	| BaseDurationToken
 	| BaseEasingToken
@@ -18,13 +19,15 @@ export type BaseDurationToken = keyof typeof baseDurationTokens;
 export type BaseEasingToken = keyof typeof baseBezierCurveTokens;
 export type BaseKeyframeToken = keyof typeof baseKeyframeTokens;
 export type BaseTransitionPropertyToken = keyof typeof baseTransitionPropertyTokens;
+export type BaseFillModeToken = keyof typeof baseFillModeTokens;
 
 export type MotionTokenSchema = {
 	motion: MotionScaleTokenSchema<
 		BaseDurationToken,
 		BaseEasingToken,
 		BaseKeyframeToken,
-		BaseTransitionPropertyToken
+		BaseTransitionPropertyToken,
+		BaseFillModeToken
 	>;
 };
 
@@ -329,12 +332,28 @@ const baseBezierCurveTokens = {
 	},
 } as const;
 
+const baseFillModeTokens = {
+	AnimationFillModeForwards: {
+		value: 'forwards',
+		attributes: {
+			group: 'motionFillMode' as const,
+		},
+	},
+	AnimationFillModeBackwards: {
+		value: 'backwards',
+		attributes: {
+			group: 'motionFillMode' as const,
+		},
+	},
+} as const;
+
 const motionPalette: MotionTokenSchema = {
 	motion: {
 		duration: baseDurationTokens,
 		curve: baseBezierCurveTokens,
 		keyframe: baseKeyframeTokens,
 		properties: baseTransitionPropertyTokens,
+		fillMode: baseFillModeTokens,
 	},
 };
 

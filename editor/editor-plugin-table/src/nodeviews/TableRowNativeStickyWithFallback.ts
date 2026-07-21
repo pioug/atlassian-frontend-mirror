@@ -144,11 +144,7 @@ export default class TableRowNativeStickyWithFallback
 			});
 		}
 
-		if (
-			this.isHeaderRow &&
-			this.isStickyHeaderEnabled &&
-			fg('platform_editor_table_sticky_header_patch_4')
-		) {
+		if (this.isHeaderRow && this.isStickyHeaderEnabled) {
 			this.onEditorContentAreaHeightChange = api?.table?.sharedState.onChange(
 				({ nextSharedState }) => {
 					if (
@@ -351,53 +347,45 @@ export default class TableRowNativeStickyWithFallback
 			this.initObservers();
 			this.topPosEditorElement = getTop(this.editorScrollableElement);
 
-			if (fg('platform_editor_table_sticky_header_patch_5')) {
-				this.scrollListener = () => {
-					if (this.hasScrolledSinceLoad) {
-						return;
-					}
-					this.hasScrolledSinceLoad = true;
+			this.scrollListener = () => {
+				if (this.hasScrolledSinceLoad) {
+					return;
+				}
+				this.hasScrolledSinceLoad = true;
 
-					if (!this.overflowObserver) {
-						return;
-					}
+				if (!this.overflowObserver) {
+					return;
+				}
 
-					// Re-check intersection state now that scrolling has occurred
-					const entries = this.overflowObserverEntries ?? this.overflowObserver.takeRecords();
-					this.overflowObserverEntries = undefined;
+				// Re-check intersection state now that scrolling has occurred
+				const entries = this.overflowObserverEntries ?? this.overflowObserver.takeRecords();
+				this.overflowObserverEntries = undefined;
 
-					/** NOTE: This logic is duplicated in the overflowObserver callback
-					 *  to avoid conflicting with a follow up refactor where this will
-					 *  be cleaned up.
-					 */
-					entries.forEach((entry) => {
-						const tableWrapper = this.dom.closest(`.${ClassName.TABLE_NODE_WRAPPER}`);
-						if (
-							tableWrapper &&
-							tableWrapper instanceof HTMLElement &&
-							((!areAllRectsZero(entry) &&
-								expValEquals('platform_editor_table_sticky_header_patch_10', 'isEnabled', true)) ||
-								!expValEquals('platform_editor_table_sticky_header_patch_10', 'isEnabled', true))
-						) {
-							if (entry.isIntersecting) {
-								tableWrapper.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
-								this.dom.classList.add(ClassName.NATIVE_STICKY);
-								this.isNativeSticky = true;
-							} else {
-								tableWrapper.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
-								this.dom.classList.remove(ClassName.NATIVE_STICKY);
-								this.isNativeSticky = false;
-							}
-							this.refreshLegacyStickyState();
+				/** NOTE: This logic is duplicated in the overflowObserver callback
+				 *  to avoid conflicting with a follow up refactor where this will
+				 *  be cleaned up.
+				 */
+				entries.forEach((entry) => {
+					const tableWrapper = this.dom.closest(`.${ClassName.TABLE_NODE_WRAPPER}`);
+					if (tableWrapper && tableWrapper instanceof HTMLElement && !areAllRectsZero(entry)) {
+						if (entry.isIntersecting) {
+							tableWrapper.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+							this.dom.classList.add(ClassName.NATIVE_STICKY);
+							this.isNativeSticky = true;
+						} else {
+							tableWrapper.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+							this.dom.classList.remove(ClassName.NATIVE_STICKY);
+							this.isNativeSticky = false;
 						}
-					});
-				};
-				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-				this.editorScrollableElement.addEventListener('scroll', this.scrollListener, {
-					passive: true,
-					once: true,
+						this.refreshLegacyStickyState();
+					}
 				});
-			}
+			};
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+			this.editorScrollableElement.addEventListener('scroll', this.scrollListener, {
+				passive: true,
+				once: true,
+			});
 		}
 
 		this.eventDispatcher.on('widthPlugin', this.updateStickyHeaderWidth.bind(this));
@@ -475,45 +463,33 @@ export default class TableRowNativeStickyWithFallback
 					return;
 				}
 				// Only apply classes if page has scrolled since load
-				if (!this.hasScrolledSinceLoad && fg('platform_editor_table_sticky_header_patch_5')) {
+				if (!this.hasScrolledSinceLoad) {
 					this.overflowObserverEntries = entries;
 					return;
 				}
 
 				if (entry.isIntersecting) {
-					if (fg('platform_editor_table_sticky_header_patch_4')) {
-						observer.root.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
-						if (!this.disableNativeSticky) {
-							this.dom.classList.add(ClassName.NATIVE_STICKY);
-						}
-					} else {
-						observer.root.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+					observer.root.classList.add(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+					if (!this.disableNativeSticky) {
 						this.dom.classList.add(ClassName.NATIVE_STICKY);
 					}
 					this.isNativeSticky = true;
 				} else {
-					if (fg('platform_editor_table_sticky_header_patch_4')) {
-						observer.root.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
-						this.dom.classList.remove(ClassName.NATIVE_STICKY);
-					} else {
-						observer.root.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
-						this.dom.classList.remove(ClassName.NATIVE_STICKY);
-					}
+					observer.root.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+					this.dom.classList.remove(ClassName.NATIVE_STICKY);
 					this.isNativeSticky = false;
 				}
 
 				this.refreshLegacyStickyState();
-				if (expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true)) {
-					this.api?.analytics?.actions?.fireAnalyticsEvent({
-						action: TABLE_ACTION.STICKY_HEADER_METHOD_TOGGLED,
-						actionSubject: ACTION_SUBJECT.TABLE,
-						actionSubjectId: ACTION_SUBJECT_ID.TABLE_STICKY_HEADER,
-						eventType: EVENT_TYPE.UI,
-						attributes: {
-							nativeStickyHeaderEnabled: entry.isIntersecting,
-						},
-					});
-				}
+				this.api?.analytics?.actions?.fireAnalyticsEvent({
+					action: TABLE_ACTION.STICKY_HEADER_METHOD_TOGGLED,
+					actionSubject: ACTION_SUBJECT.TABLE,
+					actionSubjectId: ACTION_SUBJECT_ID.TABLE_STICKY_HEADER,
+					eventType: EVENT_TYPE.UI,
+					attributes: {
+						nativeStickyHeaderEnabled: entry.isIntersecting,
+					},
+				});
 			});
 		}, options);
 	}
@@ -537,10 +513,7 @@ export default class TableRowNativeStickyWithFallback
 		this.stickyStateObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				const tableContainer = this.dom.closest(`.${ClassName.TABLE_CONTAINER}`);
-				if (
-					entry.intersectionRect.top === entry.rootBounds?.top &&
-					(!this.disableNativeSticky || !fg('platform_editor_table_sticky_header_patch_4'))
-				) {
+				if (entry.intersectionRect.top === entry.rootBounds?.top && !this.disableNativeSticky) {
 					this.dom.classList.add(ClassName.NATIVE_STICKY_ACTIVE);
 					if (tableContainer && tableContainer instanceof HTMLElement) {
 						tableContainer.dataset.tableHeaderIsStuck = 'true';
@@ -548,11 +521,7 @@ export default class TableRowNativeStickyWithFallback
 				} else {
 					this.dom.classList.remove(ClassName.NATIVE_STICKY_ACTIVE);
 					if (tableContainer && tableContainer instanceof HTMLElement) {
-						if (fg('platform_editor_table_sticky_header_patch_3')) {
-							delete tableContainer.dataset.tableHeaderIsStuck;
-						} else {
-							tableContainer.dataset.tableHeaderIsStuck = 'false';
-						}
+						delete tableContainer.dataset.tableHeaderIsStuck;
 					}
 				}
 			});
@@ -577,15 +546,11 @@ export default class TableRowNativeStickyWithFallback
 				this.dom.style.setProperty('anchor-name', this.dom.getAttribute('data-node-anchor') ?? '');
 			}
 			this.initOverflowObserver();
-			if (fg('platform_editor_table_sticky_header_patch_4')) {
-				this.initNodeVisibilityObserver();
-			}
+			this.initNodeVisibilityObserver();
 			const closestTable = this.dom.closest('table');
 			if (closestTable) {
 				this.overflowObserver?.observe(closestTable);
-				if (fg('platform_editor_table_sticky_header_patch_4')) {
-					this.nodeVisibilityObserver?.observe(closestTable);
-				}
+				this.nodeVisibilityObserver?.observe(closestTable);
 			}
 			this.initStickyStateObserver();
 			this.stickyStateObserver?.observe(this.dom);
@@ -742,10 +707,8 @@ export default class TableRowNativeStickyWithFallback
 						updateTableMargin(table);
 					}
 
-					if (fg('platform_editor_table_sticky_header_patch_4')) {
-						const viewportHeight = this.editorContentAreaHeight ?? INITIAL_STATIC_VIEWPORT_HEIGHT;
-						this.toggleDisableNativeSticky(newHeight, viewportHeight);
-					}
+					const viewportHeight = this.editorContentAreaHeight ?? INITIAL_STATIC_VIEWPORT_HEIGHT;
+					this.toggleDisableNativeSticky(newHeight, viewportHeight);
 				}
 			});
 		});

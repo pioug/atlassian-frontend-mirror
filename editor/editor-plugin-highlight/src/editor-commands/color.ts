@@ -1,11 +1,7 @@
 import { entireSelectionContainsMark } from '@atlaskit/editor-common/mark';
 import type { Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type {
-	EditorState,
-	ReadonlyTransaction,
-	Transaction,
-} from '@atlaskit/editor-prosemirror/state';
+import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 /**
@@ -143,28 +139,4 @@ export const getActiveColor = (tr: Transaction | ReadonlyTransaction): string | 
 	}
 
 	return color;
-};
-
-/**
- * Returns true when the selection contains two or more distinct highlight colors,
- * counting unmarked text as the default transparent highlight.
- */
-export const isMultiHighlightColorSelection = ({
-	selection,
-	doc,
-}: EditorState | Transaction | ReadonlyTransaction): boolean => {
-	if (!(selection instanceof TextSelection)) {
-		return false;
-	}
-
-	const { backgroundColor } = doc.type.schema.marks;
-	const colors = new Set<string>();
-	doc.nodesBetween(selection.from, selection.to, (node: Node) => {
-		if (node.isText) {
-			const mark = backgroundColor.isInSet(node.marks);
-			colors.add(mark?.attrs.color ?? 'default');
-		}
-	});
-
-	return colors.size > 1;
 };

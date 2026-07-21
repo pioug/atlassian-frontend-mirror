@@ -15,7 +15,20 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { setBreakoutWidth } from '../editor-commands/set-breakout-width';
 
+import { clampWidthToResizeBounds, getResizeContainerWidth } from './resize-width';
+
 const KEYBOARD_RESIZE_STEP = 10;
+
+const getKeyboardResizeWidth = (
+	currentWidth: number,
+	step: number,
+	api: ExtractInjectionAPI<BreakoutPlugin> | undefined,
+): number => {
+	const containerWidth = getResizeContainerWidth(api);
+
+	const resizeStartWidth = Math.min(currentWidth, containerWidth);
+	return clampWidthToResizeBounds(resizeStartWidth + step, containerWidth);
+};
 
 const getAncestorResizableNode = (
 	view: EditorView,
@@ -71,17 +84,36 @@ export const handleKeyDown =
 				if (breakoutMark) {
 					const step = event.code === 'BracketRight' ? KEYBOARD_RESIZE_STEP : -KEYBOARD_RESIZE_STEP;
 
-					const newWidth = breakoutMark.attrs.width + step;
-					if (newWidth < akEditorFullWidthLayoutWidth && newWidth > akEditorDefaultLayoutWidth) {
-						const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
+					if (
+						expValEquals('platform_editor_lovability_breakout_resizing_fixes', 'isEnabled', true)
+					) {
+						const newWidth = getKeyboardResizeWidth(breakoutMark.attrs.width, step, api);
 
-						setBreakoutWidth(
-							breakoutMark.attrs.width + step,
-							breakoutMark.attrs.mode,
-							pos,
-							isEditMode,
-						)(view.state, view.dispatch);
-						view.focus();
+						if (newWidth !== breakoutMark.attrs.width) {
+							const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
+
+							setBreakoutWidth(
+								newWidth,
+								breakoutMark.attrs.mode,
+								pos,
+								isEditMode,
+							)(view.state, view.dispatch);
+							view.focus();
+						}
+					} else {
+						const newWidth = breakoutMark.attrs.width + step;
+
+						if (newWidth < akEditorFullWidthLayoutWidth && newWidth > akEditorDefaultLayoutWidth) {
+							const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
+
+							setBreakoutWidth(
+								breakoutMark.attrs.width + step,
+								breakoutMark.attrs.mode,
+								pos,
+								isEditMode,
+							)(view.state, view.dispatch);
+							view.focus();
+						}
 					}
 
 					return true;

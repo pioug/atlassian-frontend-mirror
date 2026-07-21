@@ -15,7 +15,7 @@ const expectedIconResults: [string[], string[]][] = [
 	[['star'], ['StarStarredIcon', 'StarUnstarredIcon']],
 	[['folder'], ['FolderSharedIcon', 'FolderClosedIcon']],
 	[['user'], ['PersonIcon', 'MentionIcon']],
-	[['calendar'], ['CalendarPlusIcon', 'CalendarIcon']],
+	[['calendar'], ['CalendarPlusIcon', 'CalendarUnavailableIcon']],
 	[['settings'], ['SettingsIcon', 'CustomizeIcon']],
 	[['delete'], ['DeleteIcon', 'TableRowDeleteIcon']],
 	[['copy'], ['CopyIcon', 'TelescopeIcon']],

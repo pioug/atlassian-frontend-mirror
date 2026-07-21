@@ -9,7 +9,7 @@ import {
 	sanitiseAnalyticsPayload,
 } from '@atlaskit/media-common/analytics';
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type ProcessingFailReason } from '@atlaskit/media-state';
+import type { ProcessingFailReason } from '@atlaskit/media-state/file-state';
 import { type PrimaryErrorReason } from '../errors';
 
 import { type MediaViewerEventPayload } from './events';

@@ -6,7 +6,7 @@ import {
 	isFileIdentifier,
 	type ErrorFileState,
 } from '@atlaskit/media-client';
-import { type ProcessingFailedState } from '@atlaskit/media-state';
+import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
 
 const getProcessingStatusFromFileState = (status: FileState['status']) => {
 	switch (status) {

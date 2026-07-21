@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::6e26cf59349fd809e4c0617937b4ea70>>
+ * @codegen <<SignedSource::9b1c6bc8ada2a48be056e663628d9c8e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -981,6 +981,26 @@ const metadata: Record<string, metadata> = {
 		team: 'Databases',
 		status: 'published',
 	},
+	'calendar-unavailable': {
+		keywords: [
+			'calendar-unavailable',
+			'calendarunavailable',
+			'icon',
+			'icon-lab',
+			'leave',
+			'holiday',
+			'ooo',
+			'time off',
+			'out of office',
+			'calendar',
+		],
+		componentName: 'CalendarUnavailableIcon',
+		package: '@atlaskit/icon-lab/core/calendar-unavailable',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Any kind of time off, such as personal leave or public holidays in JSM',
+		team: 'IT Operations, Jira Service Management',
+		status: 'published',
+	},
 	capability: {
 		keywords: ['capability', 'icon', 'icon-lab', 'capability', 'capabilities', 'instance'],
 		componentName: 'CapabilityIcon',
@@ -989,6 +1009,16 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for representing capabilities.',
 		team: 'Compass',
 		status: 'published',
+	},
+	carousel: {
+		keywords: ['carousel', 'icon', 'icon-lab', 'Carousel', 'Images', 'Slider'],
+		componentName: 'CarouselIcon',
+		package: '@atlaskit/icon-lab/core/carousel',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing carousel macro in editor.',
+		team: 'Editor',
+		status: 'published',
+		slackChannel: '@editor-design',
 	},
 	cart: {
 		keywords: ['cart', 'icon', 'icon-lab', 'shopping cart', 'shopping trolley', 'checkout'],
@@ -5631,6 +5661,24 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 		status: 'published',
 	},
+	'rovo-chat-dashed': {
+		keywords: [
+			'rovo-chat-dashed',
+			'rovochatdashed',
+			'icon',
+			'icon-lab',
+			'AI',
+			'temporary',
+			'temp chat',
+			'chat',
+		],
+		componentName: 'RovoChatDashedIcon',
+		package: '@atlaskit/icon-lab/core/rovo-chat-dashed',
+		categorization: 'single-purpose',
+		usage: 'Reserved for temporary chats in Rovo',
+		team: 'Rovo chat',
+		status: 'published',
+	},
 	'rss-feed': {
 		keywords: [
 			'rss-feed',
@@ -6566,6 +6614,25 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 		slackChannel: '#icon-contributions',
 	},
+	'table-of-content': {
+		keywords: [
+			'table-of-content',
+			'tableofcontent',
+			'icon',
+			'icon-lab',
+			'TOC',
+			'Table of contents',
+			'index',
+			'contents',
+		],
+		componentName: 'TableOfContentIcon',
+		package: '@atlaskit/icon-lab/core/table-of-content',
+		categorization: 'single-purpose',
+		usage: 'Reserved for representing table of contents.',
+		team: 'Editor',
+		status: 'published',
+		slackChannel: '#editor-design',
+	},
 	'table-row-limit': {
 		keywords: [
 			'table-row-limit',
@@ -7176,11 +7243,21 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	'text-review': {
-		keywords: ['text-review', 'textreview', 'icon', 'icon-lab', 'examine', 'text', 'review'],
+		keywords: [
+			'text-review',
+			'textreview',
+			'icon',
+			'icon-lab',
+			'examine',
+			'text',
+			'review',
+			'AI',
+			'generative',
+		],
 		componentName: 'TextReviewIcon',
 		package: '@atlaskit/icon-lab/core/text-review',
 		categorization: 'single-purpose',
-		usage: 'Editor action for reviewing text',
+		usage: 'Confluence Editor AI action for reviewing text',
 		team: 'Editor',
 		status: 'published',
 	},

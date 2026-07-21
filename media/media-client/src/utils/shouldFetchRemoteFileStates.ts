@@ -1,4 +1,4 @@
-import { type FilePreview } from '@atlaskit/media-state';
+import type { FilePreview } from '@atlaskit/media-state/file-state';
 import { type MediaType } from '../models/media';
 import {
 	isMimeTypeSupportedByBrowser,

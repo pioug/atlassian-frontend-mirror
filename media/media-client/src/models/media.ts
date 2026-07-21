@@ -1,5 +1,5 @@
 import { type MediaTraceContext, type MediaType } from '@atlaskit/media-common';
-import { type MediaFileArtifacts, type ProcessingFailReason } from '@atlaskit/media-state';
+import type { MediaFileArtifacts, ProcessingFailReason } from '@atlaskit/media-state/file-state';
 
 // Warning! You can't add new media file processing status!
 // See packages/media/media-core/src/__tests__/cache-backward-compatibility.spec.ts

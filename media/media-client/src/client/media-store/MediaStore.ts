@@ -6,7 +6,7 @@ import {
 	isClientBasedAuth,
 } from '@atlaskit/media-core';
 import { type MediaTraceContext } from '@atlaskit/media-common';
-import { type MediaFileArtifacts } from '@atlaskit/media-state';
+import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 import type {
 	ItemsPayload,
 	ImageMetadata,

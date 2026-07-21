@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { type SelectedType } from '@atlaskit/tabs/types';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { Panel } from './shared';
 

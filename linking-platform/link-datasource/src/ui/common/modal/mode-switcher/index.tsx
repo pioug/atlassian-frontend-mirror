@@ -9,7 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { DatasourceAction } from '../../../../analytics/types';
 import type { DisplayViewModes } from '../../../../common/types';

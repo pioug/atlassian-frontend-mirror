@@ -5,7 +5,7 @@
 import { Fragment, useCallback } from 'react';
 
 /* eslint-disable @typescript-eslint/consistent-type-imports, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic */
-import { jsx, css } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -15,7 +15,6 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
@@ -52,13 +51,6 @@ interface TableFloatingControlsProps {
 	tableRef?: HTMLTableElement;
 	tableWrapperWidth?: number;
 }
-
-const styles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&:has(~ .pm-table-wrapper-no-overflow)': {
-		marginTop: 0,
-	},
-});
 
 // Row controls
 export const TableFloatingControls = ({
@@ -156,15 +148,6 @@ export const TableFloatingControls = ({
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={wrapperClassName}
-			css={[
-				expValEquals(
-					'platform_editor_table_sticky_header_improvements',
-					'cohort',
-					'test_with_overflow',
-				) &&
-					!fg('platform_editor_table_sticky_header_patch_7') &&
-					styles,
-			]}
 		>
 			<div role="none" onMouseDown={(e) => !isDragAndDropEnabled && e.preventDefault()}>
 				{isNumberColumnEnabled ? (

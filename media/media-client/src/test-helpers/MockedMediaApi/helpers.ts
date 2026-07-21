@@ -1,9 +1,4 @@
-import {
-	type UploadingFileState,
-	type ErrorFileState,
-	type FileState,
-	type MediaFileArtifact,
-} from '@atlaskit/media-state';
+import type { UploadingFileState, ErrorFileState, FileState, MediaFileArtifact } from '@atlaskit/media-state/file-state';
 
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';

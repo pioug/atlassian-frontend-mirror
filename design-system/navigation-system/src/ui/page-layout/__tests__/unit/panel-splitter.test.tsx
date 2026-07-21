@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import createStub from 'raf-stub';
@@ -989,9 +981,10 @@ describe('PanelSplitter', () => {
 
 				const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
 				// The integer transformX and transformY values are preserved in the modified transform
-				expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
-					`"translate3d(308px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123px), 0)"`,
-				);
+				expect(tooltipContainer).toHaveStyle({
+					transform:
+						'translate3d(308px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123px), 0)',
+				});
 			});
 
 			it('should preserve non-integer transformX and transformY values in the modified transform', async () => {
@@ -1008,9 +1001,10 @@ describe('PanelSplitter', () => {
 
 				const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
 				// The non-integer transformX and transformY values are preserved in the modified transform
-				expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
-					`"translate3d(308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123.7px), 0)"`,
-				);
+				expect(tooltipContainer).toHaveStyle({
+					transform:
+						'translate3d(308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), 123.7px), 0)',
+				});
 			});
 
 			it('should preserve negative transformX and transformY values in the modified transform', async () => {
@@ -1027,9 +1021,10 @@ describe('PanelSplitter', () => {
 
 				const tooltipContainer = screen.getByTestId('panel-splitter-tooltip--wrapper');
 				// The negative transformX and transformY values are preserved in the modified transform
-				expect((tooltipContainer as HTMLElement).style.transform).toMatchInlineSnapshot(
-					`"translate3d(-308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), -123.7px), 0)"`,
-				);
+				expect(tooltipContainer).toHaveStyle({
+					transform:
+						'translate3d(-308.5px, max(calc(calc(var(--n_bnrM, 0px) + var(--n_tNvM, 0px)) + var(--ds-space-100, 8px)), -123.7px), 0)',
+				});
 			});
 		});
 	});

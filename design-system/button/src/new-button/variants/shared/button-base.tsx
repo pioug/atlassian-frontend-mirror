@@ -12,7 +12,7 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { SplitButtonContext } from '../../containers/split-button/split-button-context';
 import { useSplitButtonContext } from '../../containers/split-button/use-split-button-context';

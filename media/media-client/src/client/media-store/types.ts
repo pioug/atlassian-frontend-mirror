@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/media-core';
 import { type SSR, type MediaTraceContext } from '@atlaskit/media-common';
 
-import { type MediaFileArtifacts } from '@atlaskit/media-state';
+import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 
 import { type MediaItemDetails, type MediaFile, type MediaUpload } from '../../models/media';
 

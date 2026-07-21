@@ -2,7 +2,7 @@ import React, { type ReactElement } from 'react';
 
 import { cssMap } from '@atlaskit/css';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 const styles = cssMap({
 	container: {

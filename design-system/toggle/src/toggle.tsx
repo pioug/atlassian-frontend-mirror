@@ -13,7 +13,7 @@ import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import CloseIcon from '@atlaskit/icon/core/cross';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import IconContainer from './icon-container';
 import { type Size, type ToggleProps } from './types';

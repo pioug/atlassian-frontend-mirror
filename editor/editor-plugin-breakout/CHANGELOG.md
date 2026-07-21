@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.3.4
+
+### Patch Changes
+
+- [`c5b1fc41ef2a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5b1fc41ef2a8) -
+  Fix keyboard resizing for full-width breakout nodes
+- Updated dependencies
+
+## 12.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.0
 
 ### Minor Changes

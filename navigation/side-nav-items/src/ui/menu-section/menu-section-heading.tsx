@@ -26,19 +26,26 @@ const styles = cssMap({
  */
 export const MenuSectionHeading = ({
 	children,
+	headingLevel,
 }: {
 	/**
 	 * The text of the heading.
 	 */
 	children: ReactNode;
+	/**
+	 * Renders the label as a semantic heading (`<h1>`–`<h6>`) at the given level.
+	 * When omitted, the label renders as a non-heading paragraph (default).
+	 */
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 }): JSX.Element => {
 	const id = useMenuSectionContext();
+	const HeadingTag = headingLevel ? (`h${headingLevel}` as const) : 'p';
 
 	return (
 		// Not using Text primitive so we can add padding styles without adding an extra wrapper element.
 		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
-		<p css={styles.root} id={`${id}-heading`}>
+		<HeadingTag css={styles.root} id={`${id}-heading`}>
 			{children}
-		</p>
+		</HeadingTag>
 	);
 };

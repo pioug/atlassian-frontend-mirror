@@ -1,5 +1,25 @@
 # @atlaskit/editor-presets
 
+## 5.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.2.3
+
+### Patch Changes
+
+- [`7bbeb928e7b97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bbeb928e7b97) -
+  Passes editor context from agent profile card action to rovo chat
+- Updated dependencies
+
+## 5.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.1
 
 ### Patch Changes

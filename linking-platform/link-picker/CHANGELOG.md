@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 6.2.7
+
+### Patch Changes
+
+- [`9e5ea24ca5c66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e5ea24ca5c66) -
+  Fix no-results and error state text overflow when LinkPicker is inside a Popup with
+  shouldRenderToParent, caused by inherited white-space: nowrap from ancestor container
+- Updated dependencies
+
 ## 6.2.6
 
 ### Patch Changes

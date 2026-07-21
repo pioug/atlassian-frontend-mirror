@@ -1,5 +1,23 @@
 # @atlaskit/adf-utils
 
+## 20.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.3.6
 
 ### Patch Changes

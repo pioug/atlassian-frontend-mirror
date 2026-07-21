@@ -1,4 +1,4 @@
-import { type FileState } from '@atlaskit/media-state';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { type AuthContext } from '@atlaskit/media-core';
 
 export type EventPayloadMap<P> = {

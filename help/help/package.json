@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help",
-	"version": "11.0.7",
+	"version": "11.0.8",
 	"description": "A cross-product help component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,10 @@
 		"./WhatsNew": "./src/entry-points/WhatsNew.ts"
 	},
 	"atlassian": {
-		"team": "Self-Help Experiences",
+		"team": "PACE PS2",
+		"slack": {
+			"channel": "#pace-ps2"
+		},
 		"website": {
 			"name": "Help"
 		}

@@ -356,7 +356,12 @@ const AgentProfileCard = ({
 						onDeleteAgent={handleOnDelete}
 						onChatClick={
 							onChatClick
-								? (event: React.MouseEvent) => onChatClick(event)
+								? (event: React.MouseEvent) => {
+										onChatClick(
+											event,
+											fg('platform_editor_agent_mentions_drop_one_fixes') ? agent.id : undefined,
+										);
+									}
 								: () => onOpenChatFullScreen(agent.id, agent.name)
 						}
 						resourceClient={resourceClient}

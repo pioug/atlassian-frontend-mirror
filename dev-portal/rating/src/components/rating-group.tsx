@@ -8,7 +8,7 @@ import { Children, cloneElement, Fragment, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { cssMap, jsx } from '@compiled/react';
 
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 const styles = cssMap({
 	container: {

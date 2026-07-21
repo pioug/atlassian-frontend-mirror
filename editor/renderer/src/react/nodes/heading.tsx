@@ -12,7 +12,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import AnalyticsContext from '../../analytics/analyticsContext';

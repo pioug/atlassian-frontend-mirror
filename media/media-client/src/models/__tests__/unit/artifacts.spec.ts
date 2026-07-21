@@ -1,6 +1,6 @@
 import { getArtifactUrl } from '../../artifacts';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
-import { type MediaFileArtifacts } from '@atlaskit/media-state';
+import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 
 jsdom.reconfigure({
 	url: 'about:blank',

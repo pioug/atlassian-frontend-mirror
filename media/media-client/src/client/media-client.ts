@@ -11,7 +11,7 @@ import { type UploadEventPayloadMap, type EventPayloadListener } from './events'
 import { StargateClient } from './stargate-client';
 import { type MobileUpload } from '../models/mobile-upload';
 
-import { mediaStore, type MediaStore } from '@atlaskit/media-state';
+import { mediaStore, type MediaStore } from '@atlaskit/media-state/media-store';
 
 export class MediaClient {
 	public readonly mediaStore: MediaApi;

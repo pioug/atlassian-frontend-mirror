@@ -6,7 +6,7 @@ import { forwardRef, type ReactNode } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 const styles = cssMap({
 	root: {

@@ -4,7 +4,8 @@ import {
 	type FileIdentifier,
 	getFileStreamsCache,
 } from '@atlaskit/media-client';
-import { type MediaStore, createMediaStore } from '@atlaskit/media-state';
+import type { MediaStore } from '@atlaskit/media-state/media-store';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import { type MediaSettings } from '@atlaskit/media-client-react';
 // TODO: these types should be exported from here (the public package), and imported in test-data
 import {

@@ -11,7 +11,7 @@ import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import Buttons from './internal/buttons';
 import getTextFromReactNode from './internal/get-text-from-react-node';

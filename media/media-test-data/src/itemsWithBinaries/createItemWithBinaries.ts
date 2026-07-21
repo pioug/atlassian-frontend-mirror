@@ -1,9 +1,5 @@
 import { type ResponseFileItem } from '@atlaskit/media-client';
-import type {
-	MediaFileArtifact,
-	MediaFileArtifacts,
-	MediaUserArtifact,
-} from '@atlaskit/media-state';
+import type { MediaFileArtifact, MediaFileArtifacts, MediaUserArtifact } from '@atlaskit/media-state/file-state';
 
 import { defaultArtifactsUris } from './artifactSets';
 import type { ArtifactsSet, ItemWithBinaries } from './types';

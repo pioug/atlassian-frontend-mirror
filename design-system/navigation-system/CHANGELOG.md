@@ -1,5 +1,36 @@
 # @atlassian/navigation-system
 
+## 10.7.0
+
+### Minor Changes
+
+- [`90aa712679ee0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90aa712679ee0) -
+  `AppSwitcher` now accepts a custom `icon` component via the `icon` prop, allowing image-backed
+  visuals (such as a product logo) to be rendered in place of the default Atlassian app switcher
+  icon. The `icon` prop is optional and defaults to the standard app switcher icon, so existing
+  usage is unaffected.
+
+  ```tsx
+  import { AppSwitcher } from '@atlaskit/navigation-system/top-nav-items';
+  import { UnitTile } from '@atlassian/unit-tile';
+
+  const CustomAppSwitcherIcon = () => (
+  	<UnitTile unitName="Confluence" size="small" iconUrl={dstLogo} />
+  );
+
+  <AppSwitcher
+  	icon={CustomAppSwitcherIcon}
+  	label="App switcher"
+  	onClick={() => {
+  		/* open app switcher */
+  	}}
+  />;
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.6.0
 
 ### Minor Changes

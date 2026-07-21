@@ -30,7 +30,7 @@ import {
 import { type MediaCardError, type MediaCardErrorPrimaryReason } from '../../errors';
 import { type CardPreviewSource, type CardDimensions, type CardStatus } from '../../types';
 import { type SSR } from '@atlaskit/media-common';
-import { type ProcessingFailReason } from '@atlaskit/media-state';
+import type { ProcessingFailReason } from '@atlaskit/media-state/file-state';
 
 export type CardPreviewAttributes = {
 	fileId: string;

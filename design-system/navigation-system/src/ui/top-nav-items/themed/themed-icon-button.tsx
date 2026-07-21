@@ -9,7 +9,7 @@ import { jsx } from '@compiled/react';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import type { PressableProps } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import IconRenderer from '../icon-renderer';
 

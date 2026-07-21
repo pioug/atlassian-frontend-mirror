@@ -9,7 +9,7 @@ import {
 import { messages } from '@atlaskit/media-ui';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable } from '@atlaskit/primitives/compiled';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 type OpenMediaViewerButtonProps = {
 	fileName: string;

@@ -113,4 +113,24 @@ describe('MenuSectionHeading', () => {
 
 		expect(screen.getByText('Test title')).toBeVisible();
 	});
+
+	it('should not render a heading by default', () => {
+		render(
+			<MenuSection>
+				<MenuSectionHeading>Test title</MenuSectionHeading>
+			</MenuSection>,
+		);
+
+		expect(screen.queryByRole('heading')).not.toBeInTheDocument();
+	});
+
+	it('should render a semantic heading at the given level when headingLevel is provided', () => {
+		render(
+			<MenuSection>
+				<MenuSectionHeading headingLevel={3}>Test title</MenuSectionHeading>
+			</MenuSection>,
+		);
+
+		expect(screen.getByRole('heading', { level: 3, name: 'Test title' })).toBeVisible();
+	});
 });

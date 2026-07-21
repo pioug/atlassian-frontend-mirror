@@ -7,7 +7,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import type {
 	AccessibilityUtilsPlugin,

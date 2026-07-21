@@ -150,6 +150,7 @@ const transform = (palette: Record<string, any>): Transform => {
 						(property: string) => palette.motion.properties?.[property]?.value,
 					),
 					delay: palette.motion.duration?.[value.delay]?.value,
+					fill: palette.motion.fillMode?.[value.fill]?.value,
 				};
 			}
 

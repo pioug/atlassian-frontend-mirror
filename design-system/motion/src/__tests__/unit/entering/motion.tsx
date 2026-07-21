@@ -47,10 +47,10 @@ const TEST_MOTION_CSS = `
   100% { opacity: 0; }
 }
 :root {
-  --ds-test-enter: 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn;
-  --ds-test-exit: 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut;
-  --ds-test-enter-delay: 350ms cubic-bezier(0.66, 0, 0.34, 1) 120ms FadeIn;
-  --ds-test-exit-delay: 200ms cubic-bezier(0.66, 0, 0.34, 1) 80ms FadeOut;
+  --ds-test-enter: 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeIn backwards;
+  --ds-test-exit: 350ms cubic-bezier(0.66, 0, 0.34, 1) FadeOut forwards;
+  --ds-test-enter-delay: 350ms cubic-bezier(0.66, 0, 0.34, 1) 120ms FadeIn backwards;
+  --ds-test-exit-delay: 200ms cubic-bezier(0.66, 0, 0.34, 1) 80ms FadeOut forwards;
 }
 `;
 
@@ -114,21 +114,6 @@ describe('<Motion />', () => {
 
 	describe('entering', () => {
 		describe('token motion', () => {
-			it('should fill the animation backwards to prevent a frame of the element already being entered', () => {
-				renderWithMotionStyles(
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						testId="target"
-					>
-						<div />
-					</Motion>,
-				);
-
-				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
-			});
-
 			it('should animate in', () => {
 				renderWithMotionStyles(
 					<Motion
@@ -425,24 +410,6 @@ describe('<Motion />', () => {
 			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
 		});
 
-		it('should fill the animation forwards to prevent a frame of the element already being exited', () => {
-			const { rerender } = renderWithMotionStyles(
-				<ExitingPersistence>
-					<Motion
-						enteringAnimation={ENTERING_ANIMATION}
-						exitingAnimation={EXITING_ANIMATION}
-						testId="target"
-					>
-						<div />
-					</Motion>
-				</ExitingPersistence>,
-			);
-
-			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
-
-			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'forwards');
-		});
-
 		describe('token motion', () => {
 			it('should call callback on finish', () => {
 				const callback = jest.fn();
@@ -631,7 +598,6 @@ describe('<Motion />', () => {
 				});
 
 				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
 			});
 
 			it('should animate in when appear is true', async () => {
@@ -665,7 +631,7 @@ describe('<Motion />', () => {
 					ref.current?.reanimate(Reanimate.enter);
 				});
 
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
 			});
 		});
 		describe('Reanimate.exit_then_enter', () => {
@@ -695,14 +661,13 @@ describe('<Motion />', () => {
 				});
 				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
 
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'forwards');
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-exit)');
 
 				act(() => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
 				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
 			});
 			it('should animate out then in when appear is true', async () => {
 				const ref = React.createRef<any>();
@@ -736,7 +701,6 @@ describe('<Motion />', () => {
 				});
 
 				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'forwards');
 				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-exit)');
 
 				act(() => {
@@ -744,7 +708,6 @@ describe('<Motion />', () => {
 				});
 
 				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-fill-mode', 'backwards');
 			});
 		});
 	});

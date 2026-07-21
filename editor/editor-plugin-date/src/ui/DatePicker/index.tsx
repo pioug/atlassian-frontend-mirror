@@ -22,7 +22,7 @@ import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-commo
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import type { DateType } from '../../types';
 

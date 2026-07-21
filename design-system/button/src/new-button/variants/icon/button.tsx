@@ -2,7 +2,7 @@ import React from 'react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import Tooltip from '@atlaskit/tooltip';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import ButtonBase from '../shared/button-base';
 import Content from '../shared/content';

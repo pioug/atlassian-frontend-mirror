@@ -318,4 +318,101 @@ describe('Unauthorised View', () => {
 			expect(container).not.toHaveTextContent('52%');
 		});
 	});
+
+	ffTest.on('rovogrowth-635-pre-auth-cta-preview-fg', 'preview CTA FG on', () => {
+		const previewExp = eeTest.describe(
+			'rovogrowth-635-pre-auth-cta-preview-exp',
+			'preview CTA experiment',
+		);
+
+		previewExp.variant(true, () => {
+			it('shows "Preview" button label in treatment', () => {
+				const testUrl = 'http://unauthorised-test/';
+				const { getByTestId } = renderWithIntl(
+					<InlineCardUnauthorizedView
+						context="Google"
+						url={testUrl}
+						onAuthorise={jest.fn()}
+						testId="inline-card-unauthorized-view"
+					/>,
+				);
+
+				expect(getByTestId('button-connect-account')).toHaveTextContent('Preview');
+				expect(getByTestId('button-connect-account')).not.toHaveTextContent(
+					'Connect your Google account',
+				);
+			});
+
+			ffTest.on(
+				'platform_sl_3p_preauth_soc_proof_inline_killswitch',
+				'social proof killswitch on',
+				() => {
+					eeTest
+						.describe(
+							'platform_sl_3p_preauth_social_proof_inline_cta',
+							'social proof CTA experiment on',
+						)
+						.variant(true, () => {
+							it('shows "Preview" button label when social proof is shown', () => {
+								const testUrl = 'http://unauthorised-test/';
+								const { getByTestId } = renderWithSocialProofDi(
+									<InlineCardUnauthorizedView
+										context="Figma"
+										extensionKey="figma-object-provider"
+										url={testUrl}
+										onAuthorise={jest.fn()}
+										testId="inline-card-unauthorized-view"
+									/>,
+									mockGetProviderPctMapSyncLoaded,
+								);
+
+								expect(getByTestId('button-connect-account')).toHaveTextContent('Preview');
+								expect(getByTestId('button-connect-account')).not.toHaveTextContent('Connect');
+								expect(
+									getByTestId('inline-card-unauthorized-view-social-proof-tag'),
+								).toBeInTheDocument();
+							});
+						});
+				},
+			);
+		});
+
+		previewExp.variant(false, () => {
+			it('shows "Connect your Google account" in control', () => {
+				const testUrl = 'http://unauthorised-test/';
+				const { getByTestId } = renderWithIntl(
+					<InlineCardUnauthorizedView
+						context="Google"
+						url={testUrl}
+						onAuthorise={jest.fn()}
+						testId="inline-card-unauthorized-view"
+					/>,
+				);
+
+				expect(getByTestId('button-connect-account')).toHaveTextContent(
+					'Connect your Google account',
+				);
+				expect(getByTestId('button-connect-account')).not.toHaveTextContent('Preview');
+			});
+		});
+	});
+
+	ffTest.off('rovogrowth-635-pre-auth-cta-preview-fg', 'preview CTA FG off', () => {
+		it('shows "Connect your Google account" when FG is off', () => {
+			const testUrl = 'http://unauthorised-test/';
+			const { getByTestId } = renderWithIntl(
+				<InlineCardUnauthorizedView
+					context="Google"
+					url={testUrl}
+					onAuthorise={jest.fn()}
+					testId="inline-card-unauthorized-view"
+				/>,
+			);
+
+			expect(getByTestId('button-connect-account')).toHaveTextContent(
+				'Connect your Google account',
+			);
+			expect(getByTestId('button-connect-account')).not.toHaveTextContent('Preview');
+		});
+	});
 });

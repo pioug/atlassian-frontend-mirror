@@ -29,7 +29,7 @@ import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unha
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 import TooltipContainer, { type TooltipContainerProps } from '@atlaskit/tooltip/TooltipContainer';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { contentInsetBlockStart } from '../constants';

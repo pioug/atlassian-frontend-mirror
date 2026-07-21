@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 13.0.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.0.23
 
 ### Patch Changes

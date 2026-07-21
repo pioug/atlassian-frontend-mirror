@@ -7,7 +7,7 @@ import { Fragment, type ReactNode } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 const decoration = cssMap({
 	root: {

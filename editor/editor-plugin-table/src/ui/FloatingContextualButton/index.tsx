@@ -23,7 +23,6 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { toggleActiveTableMenu, toggleContextualMenu } from '../../pm-plugins/commands';
@@ -184,9 +183,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 
 	const parentStickyNative =
 		targetCellRef.parentElement &&
-		(fg('platform_editor_table_sticky_header_patch_4')
-			? tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW)
-			: targetCellRef.parentElement.classList.contains(ClassName.NATIVE_STICKY));
+		tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 
 	if (
 		parentStickyNative &&
@@ -206,26 +203,6 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		}
 		if (colAnchorName === '') {
 			colAnchorName = targetCellRef?.dataset.nodeAnchor;
-		}
-
-		if (!expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true)) {
-			return (
-				<div
-					css={anchorStyles}
-					style={
-						{
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-							top: `calc(${BUTTON_OFFSET}px + anchor(${rowAnchorName} top))`,
-							right: `calc(${BUTTON_OFFSET}px + anchor(${colAnchorName} right))`,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-							positionAnchor: colAnchorName,
-						} as CSSProperties
-					} // need to do this because CSSProperties doesn't have positionAnchor property even though it's a valid CSS property
-					data-testid="table-cell-options-anchor-wrapper"
-				>
-					{button}
-				</div>
-			);
 		}
 
 		if (rowAnchorName && colAnchorName) {

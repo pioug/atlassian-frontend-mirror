@@ -1,5 +1,5 @@
 import { type FileState } from '@atlaskit/media-client';
-import { type ProcessingFailedState } from '@atlaskit/media-state';
+import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
 import { type MediaFileEventPayload } from './_mediaFile';
 import { getFileAttributes, type MediaViewerFailureAttributes } from '../..';
 import {

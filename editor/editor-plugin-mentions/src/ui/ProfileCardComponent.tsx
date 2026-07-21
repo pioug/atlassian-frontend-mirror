@@ -7,9 +7,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { bind } from 'bind-event-listener';
 import Loadable from 'react-loadable';
 
-import type { MentionAttributes } from '@atlaskit/adf-schema';
+import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
+import type { DocNode } from '@atlaskit/adf-schema/schema';
 import { cssMap, jsx } from '@atlaskit/css';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	ProfileCardClientData,
 	TeamCentralReportingLinesData,
@@ -121,10 +123,12 @@ export function ProfileCardComponent({
 	activeMention,
 	dom,
 	closeComponent,
+	onAgentMentionChatClick,
 }: {
 	activeMention: { attrs: MentionAttributes };
 	closeComponent: () => void;
 	dom: HTMLElement;
+	onAgentMentionChatClick?: (agentId: string, agentMentionContext?: DocNode) => void;
 	profilecardProvider?: Promise<ProfilecardProvider> | undefined;
 }): JSX.Element {
 	const [provider, setProvider] = useState<ProfilecardProvider | undefined>(undefined);
@@ -165,6 +169,14 @@ export function ProfileCardComponent({
 					provider={provider}
 					text={
 						expVal('platform_editor_reduced_profile_cards', 'isEnabled', false) ? text : undefined
+					}
+					onChatClick={
+						onAgentMentionChatClick && fg('platform_editor_agent_mentions_drop_one_fixes')
+							? (event: React.MouseEvent, agentStudioId?: string) =>
+									// agentMentionContext is already captured in the onAgentMentionChatClick
+									// closure built by profileCardRenderer at chip-click time via doc.descendants()
+									onAgentMentionChatClick(agentStudioId ?? id)
+							: undefined
 					}
 				/>
 			) : (
@@ -231,8 +243,10 @@ const AgentProfileCardContent = ({
 	accountId,
 	provider,
 	text,
+	onChatClick,
 }: {
 	accountId: MentionAttributes['id'];
+	onChatClick?: (event: React.MouseEvent, agentStudioId?: string) => void;
 	provider: ProfilecardProvider;
 	text?: MentionAttributes['text'];
 }): JSX.Element => {
@@ -243,12 +257,14 @@ const AgentProfileCardContent = ({
 			cloudId={provider.cloudId}
 			resourceClient={provider.resourceClient}
 			agentName={agentName}
+			onChatClick={onChatClick}
 		/>
 	) : (
 		<AgentProfileCardResourcedLazy
 			accountId={accountId}
 			cloudId={provider.cloudId}
 			resourceClient={provider.resourceClient}
+			onChatClick={onChatClick}
 		/>
 	);
 };

@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { messages } from '../i18n';
 import { ToolTipContentWithKeymap } from './ToolTipContentWithKeymap';
 import { backspace } from '../../util/keymaps';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import type { EmojiDescription } from '../../types';
 
 export const DeletableEmojiTooltipContent = (): React.JSX.Element => {

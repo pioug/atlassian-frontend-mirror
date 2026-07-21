@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-paste
 
+## 13.3.20
+
+### Patch Changes
+
+- [`d72a5eb291763`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d72a5eb291763) -
+  Clean up experiment `platform_editor_table_in_panel_paste_fallback`
+- Updated dependencies
+
+## 13.3.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.3.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.17
 
 ### Patch Changes

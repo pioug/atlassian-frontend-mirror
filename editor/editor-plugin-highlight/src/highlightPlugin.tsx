@@ -87,10 +87,7 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 			const plugins = [
 				{
 					name: 'highlight',
-					plugin: () =>
-						createPlugin({
-							api,
-						}),
+					plugin: () => createPlugin(),
 				},
 				{
 					name: 'highlightKeymap',

@@ -4,7 +4,7 @@
  */
 import SearchIcon from '@atlaskit/icon/core/search';
 import TextField from '@atlaskit/textfield';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import React, { useLayoutEffect, useRef, useState } from 'react';

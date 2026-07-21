@@ -73,7 +73,7 @@
 		}
 	},
 	"name": "@atlaskit/analytics-cross-product",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Utilities to enable cross-product interaction session tracking",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

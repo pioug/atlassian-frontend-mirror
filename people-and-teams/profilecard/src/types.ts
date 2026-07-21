@@ -318,7 +318,13 @@ export interface TeamProfilecardCoreProps {
 }
 
 export interface AgentActionsType {
-	onChatClick?: (event: React.MouseEvent) => void;
+	/**
+	 * Called when the "Chat with Agent" button is clicked. Receives the mouse event
+	 * and the Agent Studio UUID.
+	 * So callers can open Rovo chat with the correct agent without needing
+	 * their own AAID→UUID resolution.
+	 */
+	onChatClick?: (event: React.MouseEvent, agentStudioId?: string) => void;
 	onConversationStartersClick?: (starter: ConversationStarter) => void;
 }
 export interface AgentProfileCardTriggerProps extends AgentActionsType {

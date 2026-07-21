@@ -45,12 +45,6 @@ const styles = cssMap({
 	hidden: {
 		visibility: 'hidden',
 	},
-	entering: {
-		animationFillMode: 'backwards',
-	},
-	exiting: {
-		animationFillMode: 'forwards',
-	},
 });
 
 export interface MotionRef {
@@ -309,13 +303,13 @@ const MotionLegacy: React.ForwardRefExoticComponent<
 		let customAnimation: CustomMotionXCSS | undefined;
 		if (state === 'entering') {
 			if (enteringAnimation) {
-				style.animation = `${enteringAnimation} backwards`;
+				style.animation = enteringAnimation;
 			} else if (enteringAnimationXcss) {
 				customAnimation = enteringAnimationXcss;
 			}
 		} else if (state === 'exiting') {
 			if (exitingAnimation) {
-				style.animation = `${exitingAnimation} forwards`;
+				style.animation = exitingAnimation;
 			} else if (exitingAnimationXcss) {
 				customAnimation = exitingAnimationXcss;
 			}
@@ -328,12 +322,7 @@ const MotionLegacy: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 				className={cx(xcss, customAnimation)}
 				ref={mergeRefs([staggered.ref, elementRef])}
-				css={[
-					hasAnimationStyles && styles.base,
-					state === 'init' && styles.hidden,
-					state === 'entering' && styles.entering,
-					state === 'exiting' && styles.exiting,
-				]}
+				css={[hasAnimationStyles && styles.base, state === 'init' && styles.hidden]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={styleProp || hasAnimationStyles ? { ...styleProp, ...style } : undefined}
 				data-testid={testId}
@@ -385,11 +374,7 @@ const MotionNext: React.ForwardRefExoticComponent<
 					state === 'entering' && enteringAnimationXcss,
 					state === 'exiting' && exitingAnimationXcss,
 				)}
-				css={[
-					state === 'init' && styles.hidden,
-					state === 'entering' && styles.entering,
-					state === 'exiting' && styles.exiting,
-				]}
+				css={[state === 'init' && styles.hidden]}
 				ref={motionRef}
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

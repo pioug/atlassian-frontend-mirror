@@ -17,7 +17,8 @@ import {
 	type SetItems,
 	createMockedMediaApi,
 } from '@atlaskit/media-client/test-helpers';
-import { type MediaStore, createMediaStore } from '@atlaskit/media-state';
+import type { MediaStore } from '@atlaskit/media-state/media-store';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 
 import { MockedMediaProvider } from '@atlaskit/media-client-react/test-helpers';
 import { type MediaSettings } from '@atlaskit/media-client-react';

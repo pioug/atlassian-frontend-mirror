@@ -6,7 +6,7 @@ import {
 	type MediaItemDetails,
 	type MediaType,
 } from '@atlaskit/media-client';
-import type { ProcessingFailReason } from '@atlaskit/media-state';
+import type { ProcessingFailReason } from '@atlaskit/media-state/file-state';
 
 import type { mediaCardFragment_mediaItem$data } from '../__generated__/mediaCardFragment_mediaItem.graphql';
 

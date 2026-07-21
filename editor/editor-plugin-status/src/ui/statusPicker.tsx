@@ -29,7 +29,7 @@ import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { DEFAULT_STATUS } from '../pm-plugins/actions';
 import type { StatusPlugin } from '../statusPluginType';

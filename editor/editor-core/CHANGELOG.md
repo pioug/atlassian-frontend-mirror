@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 221.10.0
+
+### Minor Changes
+
+- [`7da4b354a3633`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7da4b354a3633) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.9.12
+
+### Patch Changes
+
+- [`0a6b16efd7f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a6b16efd7f45) -
+  Clean up sticky header patch feature gates and experiments.
+- Updated dependencies
+
+## 221.9.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.9.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.9.9
 
 ### Patch Changes

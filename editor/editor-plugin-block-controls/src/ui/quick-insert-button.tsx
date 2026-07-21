@@ -22,7 +22,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { relativeSizeToBaseFontSize } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/core/add';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -469,14 +468,14 @@ export const TypeAheadControl = ({
 						'platform_editor_table_sticky_header_improvements',
 						'cohort',
 						'test_with_overflow',
-					) && fg('platform_editor_table_sticky_header_patch_6')
+					)
 						? tooltipContainerImprovedStylesStickyHeader
 						: tooltipContainerStylesStickyHeader,
 					expValEquals(
 						'platform_editor_table_sticky_header_improvements',
 						'cohort',
 						'test_with_overflow',
-					) && fg('platform_editor_table_sticky_header_patch_6')
+					)
 						? tooltipContainerStylesImprovedStickyHeaderWithMarksFix
 						: tooltipContainerStylesStickyHeaderWithMarksFix,
 				]}

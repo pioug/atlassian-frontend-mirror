@@ -1,5 +1,28 @@
 # @atlaskit/rovo-agent-analytics
 
+## 5.4.0
+
+### Minor Changes
+
+- [`a45c42dd2acfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a45c42dd2acfa) -
+  Add optional `crossSiteKnowledgeSourcesCount` attribute to the `field: 'knowledgeSources'` variant
+  of the `rovoAgent` `updated` editing event, so consumers can report how many saved knowledge
+  sources are scoped to a site other than the current one (unit-scoped agents) without emitting raw
+  cloudIds.
+
+  ```ts
+  trackAgentEvent({
+  	action: 'updated',
+  	actionSubject: 'rovoAgent',
+  	attributes: {
+  		field: 'knowledgeSources',
+  		knowledgeSourcesCount: sources.length,
+  		crossSiteKnowledgeSourcesCount: sources.filter((s) => isOtherSite(s)).length,
+  		subagentId: null,
+  	},
+  });
+  ```
+
 ## 5.3.3
 
 ### Patch Changes

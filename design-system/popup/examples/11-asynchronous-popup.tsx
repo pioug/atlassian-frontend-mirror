@@ -10,7 +10,7 @@ import Button from '@atlaskit/button/new';
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
 import { Box, Text } from '@atlaskit/primitives/compiled';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 type PopupProps = {
 	isLoading: boolean;

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::ebc7f5e5819157d3ea77054ccab7b7d0>>
+ * @codegen <<SignedSource::25cc621b4e9a36985626c59a231dcc5a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
@@ -74,7 +74,9 @@ import BookOpenIcon from '../../../../core/book-open';
 import BooleanIcon from '../../../../core/boolean';
 import BrowserExtensionIcon from '../../../../core/browser-extension';
 import CalculateIcon from '../../../../core/calculate';
+import CalendarUnavailableIcon from '../../../../core/calendar-unavailable';
 import CapabilityIcon from '../../../../core/capability';
+import CarouselIcon from '../../../../core/carousel';
 import CartIcon from '../../../../core/cart';
 import ChartAreaIcon from '../../../../core/chart-area';
 import ChartBarLineIcon from '../../../../core/chart-bar-line';
@@ -363,6 +365,7 @@ import RiskIcon from '../../../../core/risk';
 import RoadmapsPlanIcon from '../../../../core/roadmaps-plan';
 import RoadmapsServiceIcon from '../../../../core/roadmaps-service';
 import RovoIcon from '../../../../core/rovo';
+import RovoChatDashedIcon from '../../../../core/rovo-chat-dashed';
 import RssFeedIcon from '../../../../core/rss-feed';
 import SaveIcon from '../../../../core/save';
 import ScreenRecordIcon from '../../../../core/screen-record';
@@ -420,6 +423,7 @@ import SwapIcon from '../../../../core/swap';
 import SwitchCaseIcon from '../../../../core/switch-case';
 import SyncIcon from '../../../../core/sync';
 import TabIcon from '../../../../core/tab';
+import TableOfContentIcon from '../../../../core/table-of-content';
 import TableRowLimitIcon from '../../../../core/table-row-limit';
 import TabsIcon from '../../../../core/tabs';
 import TakeoutContainerIcon from '../../../../core/takeout-container';
@@ -999,6 +1003,10 @@ const Icons = [
 	CloudFortifiedIcon,
 	LoomIcon,
 	TextReviewIcon,
+	CalendarUnavailableIcon,
+	CarouselIcon,
+	RovoChatDashedIcon,
+	TableOfContentIcon,
 ];
 
 const groupSize = 50;

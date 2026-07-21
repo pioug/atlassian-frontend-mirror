@@ -19,7 +19,9 @@ import {
 	createUploadingFileState,
 	type SetItems,
 } from '@atlaskit/media-client/test-helpers';
-import { createMediaStore, type MediaStore, type Store } from '@atlaskit/media-state';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
+import type { MediaStore } from '@atlaskit/media-state/media-store';
+import type { Store } from '@atlaskit/media-state/store';
 
 import { dataURItoBlob } from './_helpers';
 

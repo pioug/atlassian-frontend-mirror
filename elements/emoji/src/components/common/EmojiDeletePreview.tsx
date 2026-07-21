@@ -21,7 +21,7 @@ import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage, { emojiErrorScreenreaderTestId } from './EmojiErrorMessage';
 import RetryableButton from './RetryableButton';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 const isRefreshEmojiPickerEnabled = (): boolean => {
 	if (!FeatureGates.initializeCompleted()) {

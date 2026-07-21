@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import transform from '../index';
 
 const apply = require('jscodeshift/dist/testUtils').applyTransform;
@@ -28,24 +20,22 @@ zIndex: "layer",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			  root: {
-			  color: token("color.text"),
-			  zIndex: 400,
-			  }
-			});
+const styles = cssMap({
+  root: {
+  color: token("color.text"),
+  zIndex: 400,
+  }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} />`);
 		});
 
 		it('should not add tokens import unless necessary', async () => {
@@ -59,23 +49,21 @@ appearance: "none",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
 
-			const styles = cssMap({
-			  root: {
-			  borderWidth: 0,
-			  appearance: "none",
-			  }
-			});
+const styles = cssMap({
+  root: {
+  borderWidth: 0,
+  appearance: "none",
+  }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} />`);
 		});
 
 		it('should not add a duplicate jsx pragma', async () => {
@@ -93,24 +81,22 @@ zIndex: "layer",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			 root: {
-			 color: token("color.text"),
-			 zIndex: 400,
-			 }
-			});
+const styles = cssMap({
+ root: {
+ color: token("color.text"),
+ zIndex: 400,
+ }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} />`);
 		});
 
 		it('should replace xcss Box with simple cssMap containing every style', async () => {
@@ -135,35 +121,33 @@ boxShadow: "elevation.shadow.overflow",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			  root: {
-			  color: token("color.text"),
-			  zIndex: 400,
-			  width: "1rem",
-			  borderRadius: token("radius.xsmall"),
-			  borderColor: token("color.border.accent.orange"),
-			  borderWidth: token("border.width.selected"),
-			  fill: token("color.icon.accent.orange"),
-			  fontFamily: token("font.family.body"),
-			  font: token("font.body.small"),
-			  fontWeight: token("font.weight.bold"),
-			  padding: token("space.050"),
-			  marginBlock: token("space.negative.200"),
-			  boxShadow: token("elevation.shadow.overflow"),
-			  }
-			});
+const styles = cssMap({
+  root: {
+  color: token("color.text"),
+  zIndex: 400,
+  width: "1rem",
+  borderRadius: token("radius.xsmall"),
+  borderColor: token("color.border.accent.orange"),
+  borderWidth: token("border.width.selected"),
+  fill: token("color.icon.accent.orange"),
+  fontFamily: token("font.family.body"),
+  font: token("font.body.small"),
+  fontWeight: token("font.weight.bold"),
+  padding: token("space.050"),
+  marginBlock: token("space.negative.200"),
+  boxShadow: token("elevation.shadow.overflow"),
+  }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} />`);
 		});
 	});
 
@@ -180,24 +164,22 @@ zIndex: "layer",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			  root: {
-			  color: token("color.text"),
-			  zIndex: 400,
-			  }
-			});
+const styles = cssMap({
+  root: {
+  color: token("color.text"),
+  zIndex: 400,
+  }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} />`);
 		});
 
 		it('should replace every primitive with its compiled variant', async () => {
@@ -212,24 +194,22 @@ zIndex: "layer",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Anchor, Bleed, Box, Flex, Grid, Inline, Pressable, Stack } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Anchor, Bleed, Box, Flex, Grid, Inline, Pressable, Stack } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			  root: {
-			  color: token("color.text"),
-			  zIndex: 400,
-			  }
-			});
+const styles = cssMap({
+  root: {
+  color: token("color.text"),
+  zIndex: 400,
+  }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} />`);
 		});
 	});
 
@@ -245,24 +225,22 @@ display: "flex",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
 
-			const styles = cssMap({
-			  root: {
-			    display: "flex"
-			  }
-			});
+const styles = cssMap({
+  root: {
+    display: "flex"
+  }
+});
 
-			const MyComponent = () => <Box
-			  xcss={styles.root}
-			  backgroundColor="color.background.accent.lime.subtlest" />"
-		`);
+const MyComponent = () => <Box
+  xcss={styles.root}
+  backgroundColor="color.background.accent.lime.subtlest" />`);
 		});
 
 		it('should replace two xcss objects with one cssMap', async () => {
@@ -280,29 +258,27 @@ cursor: "not-allowed",
 export default ({ disabled }) => <Box xcss={[styles, disabled && disabledStyles]} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			  root: {
-			  borderRadius: token("radius.xsmall"),
-			  color: "red",
-			  },
+const styles = cssMap({
+  root: {
+  borderRadius: token("radius.xsmall"),
+  color: "red",
+  },
 
-			  disabled: {
-			  color: token("color.text.disabled"),
-			  cursor: "not-allowed",
-			  }
-			});
+  disabled: {
+  color: token("color.text.disabled"),
+  cursor: "not-allowed",
+  }
+});
 
-			export default ({ disabled }) => <Box xcss={[styles.root, disabled && styles.disabled]} />"
-		`);
+export default ({ disabled }) => <Box xcss={[styles.root, disabled && styles.disabled]} />`);
 		});
 
 		it('should replace xcss with cssMap with multiple components', async () => {
@@ -321,29 +297,27 @@ display: "flex",
 const MyComponent = () => <Stack xcss={containerStyles}><Inline xcss={innerStyles} /></Stack>`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Inline, Stack } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Inline, Stack } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			  inner: {
-			  font: token("font.body.small"),
-			  marginBlock: token("space.200"),
-			  },
+const styles = cssMap({
+  inner: {
+  font: token("font.body.small"),
+  marginBlock: token("space.200"),
+  },
 
-			  container: {
-			  padding: token("space.050"),
-			  display: "flex",
-			  }
-			});
+  container: {
+  padding: token("space.050"),
+  display: "flex",
+  }
+});
 
-			const MyComponent = () => <Stack xcss={styles.container}><Inline xcss={styles.inner} /></Stack>"
-		`);
+const MyComponent = () => <Stack xcss={styles.container}><Inline xcss={styles.inner} /></Stack>`);
 		});
 
 		it('should replace xcss containing nested selector with a cssMap', async () => {
@@ -360,27 +334,25 @@ zIndex: "layer",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    root: {
-			    color: token("color.text"),
-			    zIndex: 400,
-			    "&:hover": {
-			        transform: 'scale(1)',
-			        },
-			    }
-			});
+const styles = cssMap({
+    root: {
+    color: token("color.text"),
+    zIndex: 400,
+    "&:hover": {
+        transform: 'scale(1)',
+        },
+    }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} />`);
 		});
 
 		it('should replace xcss containing media query with a cssMap', async () => {
@@ -400,30 +372,28 @@ zIndex: "layer",
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    root: {
-			    color: token("color.text"),
-			    zIndex: 400,
-			    "&:hover": {
-			        transform: 'scale(1)',
-			        },
-			    '@media (min-width: 64rem)': {
-			        backgroundColor: token("color.background.accent.blue.subtlest.hovered"),
-			        },
-			    }
-			});
+const styles = cssMap({
+    root: {
+    color: token("color.text"),
+    zIndex: 400,
+    "&:hover": {
+        transform: 'scale(1)',
+        },
+    '@media (min-width: 64rem)': {
+        backgroundColor: token("color.background.accent.blue.subtlest.hovered"),
+        },
+    }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} />`);
 		});
 
 		it('should move cssMap declarations up after variable declarations to ensure they are declared before use', async () => {
@@ -442,30 +412,28 @@ const styles = xcss({
 export default MyComponent;`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const opacityVar = "0.5";
+const opacityVar = "0.5";
 
-			const styles = cssMap({
-			    root: {
-			        color: token("color.text"),
-			        opacity: \`\${opacityVar}\`
-			    }
-			});
+const styles = cssMap({
+    root: {
+        color: token("color.text"),
+        opacity: \`\${opacityVar}\`
+    }
+});
 
-			const MyComponent = () => <Box
-			    xcss={styles.root}
-			    backgroundColor="color.background.accent.lime.subtlest" />;
+const MyComponent = () => <Box
+    xcss={styles.root}
+    backgroundColor="color.background.accent.lime.subtlest" />;
 
-			export default MyComponent;"
-		`);
+export default MyComponent;`);
 		});
 
 		it('should place cssMap before component declarations that use the styles', async () => {
@@ -481,27 +449,25 @@ const BackToTop = () => <Box xcss={styles} />;
 export default BackToTop;`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    root: {
-			        color: token("color.text")
-			    }
-			});
+const styles = cssMap({
+    root: {
+        color: token("color.text")
+    }
+});
 
-			const BackToTop = () => <Box
-			    xcss={styles.root}
-			    backgroundColor="color.background.accent.lime.subtlest" />;
+const BackToTop = () => <Box
+    xcss={styles.root}
+    backgroundColor="color.background.accent.lime.subtlest" />;
 
-			export default BackToTop;"
-		`);
+export default BackToTop;`);
 		});
 
 		it('should move backgroundColor from cssMap to Box props when used on Box component', async () => {
@@ -516,24 +482,22 @@ const styles = xcss({
 const MyComponent = () => <Box xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    root: {
-			        color: token("color.text"),
-			        padding: token("space.200")
-			    }
-			});
+const styles = cssMap({
+    root: {
+        color: token("color.text"),
+        padding: token("space.200")
+    }
+});
 
-			const MyComponent = () => <Box xcss={styles.root} backgroundColor="color.background.discovery" />"
-		`);
+const MyComponent = () => <Box xcss={styles.root} backgroundColor="color.background.discovery" />`);
 		});
 
 		it('should not move backgroundColor from cssMap when used on non-Box components', async () => {
@@ -548,25 +512,23 @@ const styles = xcss({
 const MyComponent = () => <Stack xcss={styles} />`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Stack } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Stack } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    root: {
-			        color: token("color.text"),
-			        backgroundColor: token("color.background.discovery"),
-			        padding: token("space.200"),
-			    }
-			});
+const styles = cssMap({
+    root: {
+        color: token("color.text"),
+        backgroundColor: token("color.background.discovery"),
+        padding: token("space.200"),
+    }
+});
 
-			const MyComponent = () => <Stack xcss={styles.root} />"
-		`);
+const MyComponent = () => <Stack xcss={styles.root} />`);
 		});
 
 		it('should handle multiple Box components with different backgroundColors', async () => {
@@ -592,34 +554,32 @@ const MyComponent = () => (
 );`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    root: {
-			        color: token("color.text"),
-			        padding: token("space.200")
-			    },
+const styles = cssMap({
+    root: {
+        color: token("color.text"),
+        padding: token("space.200")
+    },
 
-			    other: {
-			        color: token("color.text"),
-			        padding: token("space.200")
-			    }
-			});
+    other: {
+        color: token("color.text"),
+        padding: token("space.200")
+    }
+});
 
-			const MyComponent = () => (
-				<>
-					<Box xcss={styles.root} backgroundColor="color.background.discovery" />
-					<Box xcss={styles.other} backgroundColor="color.background.success" />
-				</>
-			);"
-		`);
+const MyComponent = () => (
+	<>
+		<Box xcss={styles.root} backgroundColor="color.background.discovery" />
+		<Box xcss={styles.other} backgroundColor="color.background.success" />
+	</>
+);`);
 		});
 	});
 
@@ -680,69 +640,67 @@ const CardLink = ({ to, children, variant = 'normal' }: CardLinkProps) => {
 export default CardLink;`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { type ReactNode } from 'react';
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
 
-			import { Anchor } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+import { Anchor } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    card: {
-			        display: 'block',
-			        textDecoration: 'none',
-			        height: "100%",
-			        borderRadius: token("radius.small"),
-			        transition: 'box-shadow 200ms',
-			        color: token("color.text.subtlest"),
+const styles = cssMap({
+    card: {
+        display: 'block',
+        textDecoration: 'none',
+        height: "100%",
+        borderRadius: token("radius.small"),
+        transition: 'box-shadow 200ms',
+        color: token("color.text.subtlest"),
 
-			        "&:hover": {
-			            color: token("color.text.subtlest"),
-			            textDecoration: 'none',
-			        },
-			    },
+        "&:hover": {
+            color: token("color.text.subtlest"),
+            textDecoration: 'none',
+        },
+    },
 
-			    normalCard: {
-			        backgroundColor: token("elevation.surface.raised"),
-			        boxShadow: token("elevation.shadow.raised"),
+    normalCard: {
+        backgroundColor: token("elevation.surface.raised"),
+        boxShadow: token("elevation.shadow.raised"),
 
-			        "&:hover": {
-			            boxShadow: token("elevation.shadow.overlay"),
-			        },
-			    },
+        "&:hover": {
+            boxShadow: token("elevation.shadow.overlay"),
+        },
+    },
 
-			    invertedCard: {
-			        backgroundColor: token("elevation.surface.sunken"),
-			    }
-			});
+    invertedCard: {
+        backgroundColor: token("elevation.surface.sunken"),
+    }
+});
 
-			interface CardLinkProps {
-			to: string;
-			children: ReactNode;
-			variant?: 'normal' | 'inverted';
-			}
+interface CardLinkProps {
+to: string;
+children: ReactNode;
+variant?: 'normal' | 'inverted';
+}
 
-			const CardLink = ({ to, children, variant = 'normal' }: CardLinkProps) => {
-				return (
-			        <Anchor
-						xcss={[
-							styles.card,
-							variant === 'normal' && styles.normalCard,
-							variant === 'inverted' && styles.invertedCard,
-						]}
-						href={to}
-					>
-			            {children}
-			        </Anchor>
-			    );
-			};
+const CardLink = ({ to, children, variant = 'normal' }: CardLinkProps) => {
+	return (
+        <Anchor
+			xcss={[
+				styles.card,
+				variant === 'normal' && styles.normalCard,
+				variant === 'inverted' && styles.invertedCard,
+			]}
+			href={to}
+		>
+            {children}
+        </Anchor>
+    );
+};
 
-			export default CardLink;"
-		`);
+export default CardLink;`);
 		});
 
 		it('should transform whole file without throwing errors', async () => {
@@ -848,112 +806,110 @@ alt=""
 export default AssetCard;`;
 
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import DownloadIcon from '@atlaskit/icon/core/download';
-			import VisuallyHidden from '@atlaskit/visually-hidden';
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import DownloadIcon from '@atlaskit/icon/core/download';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
-			import ThemedImg from '../themed-img';
+import ThemedImg from '../themed-img';
 
-			import { Anchor, Box, Text, media } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+import { Anchor, Box, Text, media } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    card: {
-			        gridColumn: 'span 12',
-			        [media.above.xs]: {
-			            gridColumn: 'span 6',
-			        },
-			        textDecoration: 'none',
-			        display: 'block',
-			        backgroundColor: token("color.background.neutral"),
+const styles = cssMap({
+    card: {
+        gridColumn: 'span 12',
+        [media.above.xs]: {
+            gridColumn: 'span 6',
+        },
+        textDecoration: 'none',
+        display: 'block',
+        backgroundColor: token("color.background.neutral"),
 
-			        "&:hover": {
-			            backgroundColor: token("color.background.neutral.hovered"),
-			            textDecoration: 'none',
-			        },
-			        "&:active": {
-			            backgroundColor: token("color.background.neutral.pressed"),
-			        },
-			    },
+        "&:hover": {
+            backgroundColor: token("color.background.neutral.hovered"),
+            textDecoration: 'none',
+        },
+        "&:active": {
+            backgroundColor: token("color.background.neutral.pressed"),
+        },
+    },
 
-			    header: {
-			        paddingBlock: token("space.250"),
-			        paddingInline: token("space.200"),
-			        overflow: 'hidden',
-			        color: token("color.text"),
-			        display: 'flex',
-			        alignItems: 'center',
-			        justifyContent: 'space-between',
-			        lineHeight: '20px',
-			        borderStartStartRadius: token("radius.small"),
-			        borderStartEndRadius: token("radius.small")
-			    },
+    header: {
+        paddingBlock: token("space.250"),
+        paddingInline: token("space.200"),
+        overflow: 'hidden',
+        color: token("color.text"),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        lineHeight: '20px',
+        borderStartStartRadius: token("radius.small"),
+        borderStartEndRadius: token("radius.small")
+    },
 
-			    content: {
-			        padding: token("space.200"),
-			        display: 'flex',
-			        justifyContent: 'center',
-			        alignItems: 'center',
-			        transition: 'background-color 0.2s ease-in',
-			        borderEndStartRadius: token("radius.small"),
-			        borderEndEndRadius: token("radius.small"),
-			        // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			        img: {
-			            maxHeight: '70px',
-			            maxWidth: '75%',
-			        },
+    content: {
+        padding: token("space.200"),
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        transition: 'background-color 0.2s ease-in',
+        borderEndStartRadius: token("radius.small"),
+        borderEndEndRadius: token("radius.small"),
+        // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+        img: {
+            maxHeight: '70px',
+            maxWidth: '75%',
+        },
 
-			        [media.above.xs]: {
-			            height: '11rem',
+        [media.above.xs]: {
+            height: '11rem',
 
-			            // @ts-expect-error
-			            // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			            img: {
-			                maxHeight: "100%",
-			                maxWidth: "100%",
-			            },
-			        },
-			    }
-			});
+            // @ts-expect-error
+            // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+            img: {
+                maxHeight: "100%",
+                maxWidth: "100%",
+            },
+        },
+    }
+});
 
-			interface AssetCardProps {
-			title: string;
-			link: string;
-			fileSize: number;
-			thumbnail: { light: string; dark: string };
-			}
+interface AssetCardProps {
+title: string;
+link: string;
+fileSize: number;
+thumbnail: { light: string; dark: string };
+}
 
-			const AssetCard = ({ title, link, fileSize, thumbnail }: AssetCardProps) => {
-			const KB = fileSize / 1024;
-			const titleWithFileSize = \`\${title} (\${(KB > 1000 ? KB / 1024 : KB).toFixed(2)}KB)\`;
+const AssetCard = ({ title, link, fileSize, thumbnail }: AssetCardProps) => {
+const KB = fileSize / 1024;
+const titleWithFileSize = \`\${title} (\${(KB > 1000 ? KB / 1024 : KB).toFixed(2)}KB)\`;
 
-			return (
-			    <Anchor xcss={styles.card} href={link}>
-			        <VisuallyHidden>Download \${titleWithFileSize}</VisuallyHidden>
-			        <Box xcss={styles.header} backgroundColor="color.background.neutral">
-			        <Text maxLines={1}>\${titleWithFileSize}</Text>
-			        <DownloadIcon label="" size="medium" />
-			        </Box>
-			        <Box xcss={styles.content}>
-			        <ThemedImg
-			        src={{
-			        light: thumbnail.light,
-			        dark: thumbnail.dark,
-			        }}
-			        alt=""
-			        />
-			        </Box>
-			    </Anchor>
-			);
-			};
+return (
+    <Anchor xcss={styles.card} href={link}>
+        <VisuallyHidden>Download \${titleWithFileSize}</VisuallyHidden>
+        <Box xcss={styles.header} backgroundColor="color.background.neutral">
+        <Text maxLines={1}>\${titleWithFileSize}</Text>
+        <DownloadIcon label="" size="medium" />
+        </Box>
+        <Box xcss={styles.content}>
+        <ThemedImg
+        src={{
+        light: thumbnail.light,
+        dark: thumbnail.dark,
+        }}
+        alt=""
+        />
+        </Box>
+    </Anchor>
+);
+};
 
-			export default AssetCard;"
-		`);
+export default AssetCard;`);
 		});
 	});
 
@@ -967,23 +923,21 @@ export default AssetCard;`;
 		    })} />
 			`;
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Stack } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Stack } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const stackStyles = cssMap({
-			    root: {
-			        borderColor: token("color.border"),
-			    }
-			});
+const stackStyles = cssMap({
+    root: {
+        borderColor: token("color.border"),
+    }
+});
 
-			const MyComponent = () => <Stack xcss={stackStyles.root} />"
-		`);
+const MyComponent = () => <Stack xcss={stackStyles.root} />`);
 		});
 
 		it('should transform multiple primitives with inline xcss', async () => {
@@ -1001,33 +955,31 @@ export default AssetCard;`;
 			</div>
 			`;
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box, Stack } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box, Stack } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const stackStyles = cssMap({
-			    root: {
-			        borderColor: token("color.border.input"),
-			    }
-			});
+const stackStyles = cssMap({
+    root: {
+        borderColor: token("color.border.input"),
+    }
+});
 
-			const boxStyles = cssMap({
-			    root: {
-			        borderColor: token("color.border"),
-			    }
-			});
+const boxStyles = cssMap({
+    root: {
+        borderColor: token("color.border"),
+    }
+});
 
-			const MyComponent = () =>
-			<div>
-			    <Stack xcss={stackStyles.root} />
-			    <Box xcss={boxStyles.root} />
-			</div>"
-		`);
+const MyComponent = () =>
+<div>
+    <Stack xcss={stackStyles.root} />
+    <Box xcss={boxStyles.root} />
+</div>`);
 		});
 
 		it('should transform multiple primitives with inline xcss and primitive with variable', async () => {
@@ -1050,40 +1002,38 @@ export default AssetCard;`;
 			</div>
 			`;
 			const result = await applyTransform(transform, input);
-			expect(result).toMatchInlineSnapshot(`
-			"/**
-			 * @jsxRuntime classic
-			 * @jsx jsx
-			 */
-			import { Box, Inline, Stack } from "@atlaskit/primitives/compiled";
-			import { cssMap, jsx } from "@atlaskit/css";
-			import { token } from "@atlaskit/tokens";
+			expect(result).toEqual(`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Box, Inline, Stack } from "@atlaskit/primitives/compiled";
+import { cssMap, jsx } from "@atlaskit/css";
+import { token } from "@atlaskit/tokens";
 
-			const styles = cssMap({
-			    inline: {
-			        color: token("color.text"),
-			    }
-			});
+const styles = cssMap({
+    inline: {
+        color: token("color.text"),
+    }
+});
 
-			const stackStyles = cssMap({
-			    root: {
-			        borderColor: token("color.border.input"),
-			    }
-			});
+const stackStyles = cssMap({
+    root: {
+        borderColor: token("color.border.input"),
+    }
+});
 
-			const boxStyles = cssMap({
-			    root: {
-			        borderColor: token("color.border"),
-			    }
-			});
+const boxStyles = cssMap({
+    root: {
+        borderColor: token("color.border"),
+    }
+});
 
-			const MyComponent = () =>
-			<div>
-			    <Stack xcss={stackStyles.root} />
-			    <Box xcss={boxStyles.root} />
-			    <Inline xcss={styles.inline} />
-			</div>"
-		`);
+const MyComponent = () =>
+<div>
+    <Stack xcss={stackStyles.root} />
+    <Box xcss={boxStyles.root} />
+    <Inline xcss={styles.inline} />
+</div>`);
 		});
 	});
 });

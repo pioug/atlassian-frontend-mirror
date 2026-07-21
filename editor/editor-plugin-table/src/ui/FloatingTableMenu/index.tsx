@@ -13,7 +13,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { ToolbarKeyboardNavigationProvider } from '@atlaskit/editor-toolbar/toolbar-keyboard-navigation-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { closeActiveTableMenu } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
@@ -191,8 +190,7 @@ const FloatingTableMenu: FloatingTableMenuFunction = ({
 
 	const inStickyMode =
 		stickyHeaders?.sticky ||
-		(tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW) &&
-			fg('platform_editor_table_sticky_header_patch_7'));
+		tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 
 	const targetHandleRef =
 		dragMenuDirection === 'row'

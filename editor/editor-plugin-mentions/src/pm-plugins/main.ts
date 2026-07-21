@@ -1113,10 +1113,11 @@ export function createMentionPlugin({
 		} as SafeStateField<MentionPluginState>,
 		props: {
 			nodeViews: {
-				mention: (node) => {
+				mention: (node, view) => {
 					return new MentionNodeView(node, {
 						options,
 						api,
+						editorView: view,
 						portalProviderAPI: pmPluginFactoryParams.portalProviderAPI,
 					});
 				},

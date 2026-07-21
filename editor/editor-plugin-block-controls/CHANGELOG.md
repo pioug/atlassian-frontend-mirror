@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.2.15
+
+### Patch Changes
+
+- [`0a6b16efd7f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a6b16efd7f45) -
+  Clean up sticky header patch feature gates and experiments.
+- Updated dependencies
+
+## 13.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.12
 
 ### Patch Changes

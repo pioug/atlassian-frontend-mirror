@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::bea2749ac570f6dc0869ebaad0748c81>>
+ * @codegen <<SignedSource::a6b07ac4ed3460c4df60a0deaceaf89a>>
  * @codegenCommand yarn build tokens
  */
 
@@ -17,7 +17,7 @@ var tokens = exports.tokens = [{
   name: 'motion.avatar.enter',
   path: ['motion', 'avatar', 'enter'],
   description: 'Use for avatar group enter transitions.',
-  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleIn80to100, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) ScaleIn80to100 backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -26,7 +26,7 @@ var tokens = exports.tokens = [{
   name: 'motion.avatar.exit',
   path: ['motion', 'avatar', 'exit'],
   description: 'Use for avatar group exit transitions.',
-  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to80, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to80 forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -44,7 +44,7 @@ var tokens = exports.tokens = [{
   name: 'motion.blanket.enter',
   path: ['motion', 'blanket', 'enter'],
   description: 'Use for blanket enter transitions.',
-  exampleValue: '250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100',
+  exampleValue: '250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -53,7 +53,7 @@ var tokens = exports.tokens = [{
   name: 'motion.blanket.exit',
   path: ['motion', 'blanket', 'exit'],
   description: 'Use for blanket exit transitions.',
-  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -188,7 +188,7 @@ var tokens = exports.tokens = [{
   name: 'motion.flag.enter',
   path: ['motion', 'flag', 'enter'],
   description: 'Use for flag enter transitions.',
-  exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn50PercentLeft, 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100',
+  exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn50PercentLeft backwards, 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -197,7 +197,7 @@ var tokens = exports.tokens = [{
   name: 'motion.flag.exit',
   path: ['motion', 'flag', 'exit'],
   description: 'Use for flag exit transitions.',
-  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -386,7 +386,7 @@ var tokens = exports.tokens = [{
   name: 'motion.modal.enter',
   path: ['motion', 'modal', 'enter'],
   description: 'Use for modal enter transitions.',
-  exampleValue: '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100',
+  exampleValue: '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -395,7 +395,7 @@ var tokens = exports.tokens = [{
   name: 'motion.modal.exit',
   path: ['motion', 'modal', 'exit'],
   description: 'Use for modal exit transitions.',
-  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95',
+  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -404,7 +404,7 @@ var tokens = exports.tokens = [{
   name: 'motion.panel.enter',
   path: ['motion', 'panel', 'enter'],
   description: 'Use for panel enter transitions.',
-  exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight',
+  exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -413,7 +413,7 @@ var tokens = exports.tokens = [{
   name: 'motion.panel.exit',
   path: ['motion', 'panel', 'exit'],
   description: 'Use for panel exit transitions.',
-  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut100PercentRight',
+  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut100PercentRight forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -422,7 +422,7 @@ var tokens = exports.tokens = [{
   name: 'motion.popup.enter.bottom',
   path: ['motion', 'popup', 'enter', 'bottom'],
   description: 'Use for popup enter from the bottom.',
-  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -431,7 +431,7 @@ var tokens = exports.tokens = [{
   name: 'motion.popup.enter.left',
   path: ['motion', 'popup', 'enter', 'left'],
   description: 'Use for popup enter from the left.',
-  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInLeft8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInLeft8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -440,7 +440,7 @@ var tokens = exports.tokens = [{
   name: 'motion.popup.enter.right',
   path: ['motion', 'popup', 'enter', 'right'],
   description: 'Use for popup enter from the right.',
-  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInRight8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInRight8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -449,7 +449,7 @@ var tokens = exports.tokens = [{
   name: 'motion.popup.enter.top',
   path: ['motion', 'popup', 'enter', 'top'],
   description: 'Use for popup enter from the top: popup, tooltip, dropdown, inline message, inline dialog.',
-  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInTop8px, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100',
+  exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInTop8px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -458,7 +458,7 @@ var tokens = exports.tokens = [{
   name: 'motion.popup.exit.bottom',
   path: ['motion', 'popup', 'exit', 'bottom'],
   description: 'Use for popup exit toward the bottom.',
-  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom8px, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -467,7 +467,7 @@ var tokens = exports.tokens = [{
   name: 'motion.popup.exit.left',
   path: ['motion', 'popup', 'exit', 'left'],
   description: 'Use for popup exit toward the left.',
-  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutLeft8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -476,7 +476,7 @@ var tokens = exports.tokens = [{
   name: 'motion.popup.exit.right',
   path: ['motion', 'popup', 'exit', 'right'],
   description: 'Use for popup exit toward the right.',
-  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutRight8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -485,7 +485,7 @@ var tokens = exports.tokens = [{
   name: 'motion.popup.exit.top',
   path: ['motion', 'popup', 'exit', 'top'],
   description: 'Use for popup exit toward the top.',
-  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop8px, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+  exampleValue: '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutTop8px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -494,7 +494,7 @@ var tokens = exports.tokens = [{
   name: 'motion.spotlight.enter',
   path: ['motion', 'spotlight', 'enter'],
   description: 'Use for spotlight enter transitions.',
-  exampleValue: '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100, 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100',
+  exampleValue: '250ms cubic-bezier(0.4, 0, 0, 1) ScaleIn95to100 backwards, 250ms cubic-bezier(0.4, 0, 0, 1) FadeIn0to100 backwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []
@@ -503,7 +503,7 @@ var tokens = exports.tokens = [{
   name: 'motion.spotlight.exit',
   path: ['motion', 'spotlight', 'exit'],
   description: 'Use for spotlight exit transitions.',
-  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0',
+  exampleValue: '200ms cubic-bezier(0.6, 0, 0.8, 0.6) ScaleOut100to95 forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   usageGuidelines: {
     usage: '',
     cssProperties: []

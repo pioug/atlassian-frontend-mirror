@@ -1,4 +1,4 @@
-import { type FilePreview } from '@atlaskit/media-state';
+import type { FilePreview } from '@atlaskit/media-state/file-state';
 
 export type MobileUploadStartEvent = {
 	fileId: string;

@@ -13,6 +13,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration150',
 					curve: 'EasePracticalOut',
 					keyframes: ['ScaleIn80to100', 'FadeIn0to100'],
+					fill: 'AnimationFillModeBackwards',
 				},
 			},
 			exit: {
@@ -20,6 +21,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration100',
 					curve: 'EasePracticalIn',
 					keyframes: ['ScaleOut100to80', 'FadeOut100to0'],
+					fill: 'AnimationFillModeForwards',
 				},
 			},
 			hovered: {
@@ -75,6 +77,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration250',
 					curve: 'EaseBoldOut',
 					keyframes: ['SlideIn50PercentLeft', 'FadeIn0to100'],
+					fill: 'AnimationFillModeBackwards',
 				},
 			},
 			exit: {
@@ -82,6 +85,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration200',
 					curve: 'EasePracticalIn',
 					keyframes: ['SlideOut15PercentLeft', 'FadeOut100to0'],
+					fill: 'AnimationFillModeForwards',
 				},
 			},
 			reposition: {
@@ -98,6 +102,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration250',
 					curve: 'EaseBoldInOut',
 					keyframes: ['ScaleIn95to100'],
+					fill: 'AnimationFillModeBackwards',
 				},
 			},
 			exit: {
@@ -105,6 +110,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration200',
 					curve: 'EasePracticalIn',
 					keyframes: ['ScaleOut100to95'],
+					fill: 'AnimationFillModeForwards',
 				},
 			},
 		},
@@ -114,6 +120,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration250',
 					curve: 'EaseBoldInOut',
 					keyframes: ['FadeIn0to100'],
+					fill: 'AnimationFillModeBackwards',
 				},
 			},
 			exit: {
@@ -121,6 +128,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration200',
 					curve: 'EasePracticalIn',
 					keyframes: ['FadeOut100to0'],
+					fill: 'AnimationFillModeForwards',
 				},
 			},
 		},
@@ -131,6 +139,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
 						keyframes: ['SlideInTop8px', 'FadeIn0to100'],
+						fill: 'AnimationFillModeBackwards',
 					},
 				},
 				bottom: {
@@ -138,6 +147,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
 						keyframes: ['SlideInBottom8px', 'FadeIn0to100'],
+						fill: 'AnimationFillModeBackwards',
 					},
 				},
 				left: {
@@ -145,6 +155,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
 						keyframes: ['SlideInLeft8px', 'FadeIn0to100'],
+						fill: 'AnimationFillModeBackwards',
 					},
 				},
 				right: {
@@ -152,6 +163,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration150',
 						curve: 'EasePracticalOut',
 						keyframes: ['SlideInRight8px', 'FadeIn0to100'],
+						fill: 'AnimationFillModeBackwards',
 					},
 				},
 			},
@@ -161,6 +173,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
 						keyframes: ['SlideOutTop8px', 'FadeOut100to0'],
+						fill: 'AnimationFillModeForwards',
 					},
 				},
 				bottom: {
@@ -168,6 +181,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
 						keyframes: ['SlideOutBottom8px', 'FadeOut100to0'],
+						fill: 'AnimationFillModeForwards',
 					},
 				},
 				left: {
@@ -175,6 +189,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
 						keyframes: ['SlideOutLeft8px', 'FadeOut100to0'],
+						fill: 'AnimationFillModeForwards',
 					},
 				},
 				right: {
@@ -182,6 +197,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						duration: 'Duration100',
 						curve: 'EasePracticalIn',
 						keyframes: ['SlideOutRight8px', 'FadeOut100to0'],
+						fill: 'AnimationFillModeForwards',
 					},
 				},
 			},
@@ -192,6 +208,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration250',
 					curve: 'EaseBoldInOut',
 					keyframes: ['ScaleIn95to100', 'FadeIn0to100'],
+					fill: 'AnimationFillModeBackwards',
 				},
 			},
 			exit: {
@@ -199,6 +216,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration200',
 					curve: 'EasePracticalIn',
 					keyframes: ['ScaleOut100to95', 'FadeOut100to0'],
+					fill: 'AnimationFillModeForwards',
 				},
 			},
 		},
@@ -208,6 +226,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration250',
 					curve: 'EaseBoldOut',
 					keyframes: ['SlideIn100PercentRight'],
+					fill: 'AnimationFillModeBackwards',
 				},
 			},
 			exit: {
@@ -215,6 +234,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 					duration: 'Duration200',
 					curve: 'EasePracticalIn',
 					keyframes: ['SlideOut100PercentRight'],
+					fill: 'AnimationFillModeForwards',
 				},
 			},
 		},

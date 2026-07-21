@@ -57,6 +57,15 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	getIsRovoPanelOpen?: () => boolean;
 	handleMentionsChanged?: MentionsChangedHandler;
 	mentionProvider?: Providers['mentionProvider'];
+	/**
+	 * Optional callback injected by Rovo-aware consumers (e.g. Confluence) to
+	 * handle the "Chat with Agent" action on the agent profile card. When provided,
+	 * clicking "Chat" on the card calls this function instead of the card's default
+	 * handler, so the caller can pass editor context to Rovo chat. The `agentId` argument is the UUID.
+	 *
+	 * Gated behind `platform_editor_agent_mentions`.
+	 */
+	onAgentMentionChatClick?: (agentId: string, agentMentionContext?: DocNode) => void;
 	sanitizePrivateContent?: boolean;
 	/**
 	 * Shows the experimental Labs label beside the agent mentions section when the agent mentions experiment is enabled.

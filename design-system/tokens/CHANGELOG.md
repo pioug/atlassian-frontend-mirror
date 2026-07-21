@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 16.1.0
+
+### Minor Changes
+
+- [`cad86b0c0e613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cad86b0c0e613) -
+  Add optional fill property to motion tokens supporting 'forwards' and 'backwards' animation fill
+  modes. Adds AnimationFillModeForwards and AnimationFillModeBackwards base palette tokens, extends
+  MotionPaletteToken and MotionScaleTokenSchema, and updates the animation builder to include
+  fill-mode in generated CSS animation shorthands.
+
 ## 16.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.10.2",
+	"version": "45.11.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -237,6 +237,7 @@
 		"./link": "./src/entry-points/link.ts",
 		"./link/types": "./src/entry-points/link-types.ts",
 		"./ssr": "./src/entry-points/ssr.ts",
+		"./test-utils/iframe": "./src/entry-points/test-utils-iframe.ts",
 		"./types": "./src/types.ts",
 		"./hooks": "./src/hooks.ts",
 		"./hover-card": "./src/hoverCard.ts",
@@ -280,6 +281,13 @@
 		},
 		"platform_smartlink_xpc_url_wrapping": {
 			"type": "boolean"
+		},
+		"rovogrowth-635-pre-auth-cta-preview-fg": {
+			"type": "boolean"
+		},
+		"rovogrowth-635-pre-auth-cta-preview-exp": {
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"navx-1895-new-logo-design": {
 			"type": "boolean"

@@ -1,7 +1,7 @@
 import { LRUMap } from 'lru_map';
 import { StreamsCache } from '../../file-streams-cache';
 import { type ReplaySubject } from 'rxjs/ReplaySubject';
-import { type FileState } from '@atlaskit/media-state';
+import type { FileState } from '@atlaskit/media-state/file-state';
 import { createMediaSubject } from '../../utils/createMediaSubject';
 
 describe('StreamsCache', () => {

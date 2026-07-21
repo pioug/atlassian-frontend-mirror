@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bc61ba5536395df900d967f003bb4829>>
+ * @codegen <<SignedSource::ab74692458380e229a9638836b8fadcc>>
  * @codegenCommand yarn build tokens
  */
 
@@ -20,7 +20,8 @@ var tokens = [{
   "value": {
     "duration": 150,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "keyframes": ["ScaleIn80to100", "FadeIn0to100"]
+    "keyframes": ["ScaleIn80to100", "FadeIn0to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -34,7 +35,8 @@ var tokens = [{
     "value": {
       "duration": "Duration150",
       "curve": "EasePracticalOut",
-      "keyframes": ["ScaleIn80to100", "FadeIn0to100"]
+      "keyframes": ["ScaleIn80to100", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.avatar.enter",
@@ -50,7 +52,8 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["ScaleOut100to80", "FadeOut100to0"]
+    "keyframes": ["ScaleOut100to80", "FadeOut100to0"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -64,7 +67,8 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["ScaleOut100to80", "FadeOut100to0"]
+      "keyframes": ["ScaleOut100to80", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.avatar.exit",
@@ -110,7 +114,8 @@ var tokens = [{
   "value": {
     "duration": 250,
     "curve": "cubic-bezier(0.4, 0, 0, 1)",
-    "keyframes": ["FadeIn0to100"]
+    "keyframes": ["FadeIn0to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -124,7 +129,8 @@ var tokens = [{
     "value": {
       "duration": "Duration250",
       "curve": "EaseBoldInOut",
-      "keyframes": ["FadeIn0to100"]
+      "keyframes": ["FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.blanket.enter",
@@ -140,7 +146,8 @@ var tokens = [{
   "value": {
     "duration": 200,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["FadeOut100to0"]
+    "keyframes": ["FadeOut100to0"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -154,7 +161,8 @@ var tokens = [{
     "value": {
       "duration": "Duration200",
       "curve": "EasePracticalIn",
-      "keyframes": ["FadeOut100to0"]
+      "keyframes": ["FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.blanket.exit",
@@ -516,7 +524,8 @@ var tokens = [{
   "value": {
     "duration": 250,
     "curve": "cubic-bezier(0, 0.4, 0, 1)",
-    "keyframes": ["SlideIn50PercentLeft", "FadeIn0to100"]
+    "keyframes": ["SlideIn50PercentLeft", "FadeIn0to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -530,7 +539,8 @@ var tokens = [{
     "value": {
       "duration": "Duration250",
       "curve": "EaseBoldOut",
-      "keyframes": ["SlideIn50PercentLeft", "FadeIn0to100"]
+      "keyframes": ["SlideIn50PercentLeft", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.flag.enter",
@@ -546,7 +556,8 @@ var tokens = [{
   "value": {
     "duration": 200,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOut15PercentLeft", "FadeOut100to0"]
+    "keyframes": ["SlideOut15PercentLeft", "FadeOut100to0"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -560,7 +571,8 @@ var tokens = [{
     "value": {
       "duration": "Duration200",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOut15PercentLeft", "FadeOut100to0"]
+      "keyframes": ["SlideOut15PercentLeft", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.flag.exit",
@@ -1048,7 +1060,8 @@ var tokens = [{
   "value": {
     "duration": 250,
     "curve": "cubic-bezier(0.4, 0, 0, 1)",
-    "keyframes": ["ScaleIn95to100"]
+    "keyframes": ["ScaleIn95to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1062,7 +1075,8 @@ var tokens = [{
     "value": {
       "duration": "Duration250",
       "curve": "EaseBoldInOut",
-      "keyframes": ["ScaleIn95to100"]
+      "keyframes": ["ScaleIn95to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.modal.enter",
@@ -1078,7 +1092,8 @@ var tokens = [{
   "value": {
     "duration": 200,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["ScaleOut100to95"]
+    "keyframes": ["ScaleOut100to95"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1092,7 +1107,8 @@ var tokens = [{
     "value": {
       "duration": "Duration200",
       "curve": "EasePracticalIn",
-      "keyframes": ["ScaleOut100to95"]
+      "keyframes": ["ScaleOut100to95"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.modal.exit",
@@ -1108,7 +1124,8 @@ var tokens = [{
   "value": {
     "duration": 250,
     "curve": "cubic-bezier(0, 0.4, 0, 1)",
-    "keyframes": ["SlideIn100PercentRight"]
+    "keyframes": ["SlideIn100PercentRight"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1122,7 +1139,8 @@ var tokens = [{
     "value": {
       "duration": "Duration250",
       "curve": "EaseBoldOut",
-      "keyframes": ["SlideIn100PercentRight"]
+      "keyframes": ["SlideIn100PercentRight"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.panel.enter",
@@ -1138,7 +1156,8 @@ var tokens = [{
   "value": {
     "duration": 200,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOut100PercentRight"]
+    "keyframes": ["SlideOut100PercentRight"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1152,7 +1171,8 @@ var tokens = [{
     "value": {
       "duration": "Duration200",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOut100PercentRight"]
+      "keyframes": ["SlideOut100PercentRight"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.panel.exit",
@@ -1168,7 +1188,8 @@ var tokens = [{
   "value": {
     "duration": 150,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "keyframes": ["SlideInBottom8px", "FadeIn0to100"]
+    "keyframes": ["SlideInBottom8px", "FadeIn0to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1182,7 +1203,8 @@ var tokens = [{
     "value": {
       "duration": "Duration150",
       "curve": "EasePracticalOut",
-      "keyframes": ["SlideInBottom8px", "FadeIn0to100"]
+      "keyframes": ["SlideInBottom8px", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.popup.enter.bottom",
@@ -1198,7 +1220,8 @@ var tokens = [{
   "value": {
     "duration": 150,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "keyframes": ["SlideInLeft8px", "FadeIn0to100"]
+    "keyframes": ["SlideInLeft8px", "FadeIn0to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1212,7 +1235,8 @@ var tokens = [{
     "value": {
       "duration": "Duration150",
       "curve": "EasePracticalOut",
-      "keyframes": ["SlideInLeft8px", "FadeIn0to100"]
+      "keyframes": ["SlideInLeft8px", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.popup.enter.left",
@@ -1228,7 +1252,8 @@ var tokens = [{
   "value": {
     "duration": 150,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "keyframes": ["SlideInRight8px", "FadeIn0to100"]
+    "keyframes": ["SlideInRight8px", "FadeIn0to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1242,7 +1267,8 @@ var tokens = [{
     "value": {
       "duration": "Duration150",
       "curve": "EasePracticalOut",
-      "keyframes": ["SlideInRight8px", "FadeIn0to100"]
+      "keyframes": ["SlideInRight8px", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.popup.enter.right",
@@ -1258,7 +1284,8 @@ var tokens = [{
   "value": {
     "duration": 150,
     "curve": "cubic-bezier(0.4, 1, 0.6, 1)",
-    "keyframes": ["SlideInTop8px", "FadeIn0to100"]
+    "keyframes": ["SlideInTop8px", "FadeIn0to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1272,7 +1299,8 @@ var tokens = [{
     "value": {
       "duration": "Duration150",
       "curve": "EasePracticalOut",
-      "keyframes": ["SlideInTop8px", "FadeIn0to100"]
+      "keyframes": ["SlideInTop8px", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.popup.enter.top",
@@ -1288,7 +1316,8 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOutBottom8px", "FadeOut100to0"]
+    "keyframes": ["SlideOutBottom8px", "FadeOut100to0"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1302,7 +1331,8 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOutBottom8px", "FadeOut100to0"]
+      "keyframes": ["SlideOutBottom8px", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.popup.exit.bottom",
@@ -1318,7 +1348,8 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOutLeft8px", "FadeOut100to0"]
+    "keyframes": ["SlideOutLeft8px", "FadeOut100to0"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1332,7 +1363,8 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOutLeft8px", "FadeOut100to0"]
+      "keyframes": ["SlideOutLeft8px", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.popup.exit.left",
@@ -1348,7 +1380,8 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOutRight8px", "FadeOut100to0"]
+    "keyframes": ["SlideOutRight8px", "FadeOut100to0"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1362,7 +1395,8 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOutRight8px", "FadeOut100to0"]
+      "keyframes": ["SlideOutRight8px", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.popup.exit.right",
@@ -1378,7 +1412,8 @@ var tokens = [{
   "value": {
     "duration": 100,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["SlideOutTop8px", "FadeOut100to0"]
+    "keyframes": ["SlideOutTop8px", "FadeOut100to0"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1392,7 +1427,8 @@ var tokens = [{
     "value": {
       "duration": "Duration100",
       "curve": "EasePracticalIn",
-      "keyframes": ["SlideOutTop8px", "FadeOut100to0"]
+      "keyframes": ["SlideOutTop8px", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.popup.exit.top",
@@ -1408,7 +1444,8 @@ var tokens = [{
   "value": {
     "duration": 250,
     "curve": "cubic-bezier(0.4, 0, 0, 1)",
-    "keyframes": ["ScaleIn95to100", "FadeIn0to100"]
+    "keyframes": ["ScaleIn95to100", "FadeIn0to100"],
+    "fill": "backwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1422,7 +1459,8 @@ var tokens = [{
     "value": {
       "duration": "Duration250",
       "curve": "EaseBoldInOut",
-      "keyframes": ["ScaleIn95to100", "FadeIn0to100"]
+      "keyframes": ["ScaleIn95to100", "FadeIn0to100"],
+      "fill": "AnimationFillModeBackwards"
     }
   },
   "name": "motion.spotlight.enter",
@@ -1438,7 +1476,8 @@ var tokens = [{
   "value": {
     "duration": 200,
     "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
-    "keyframes": ["ScaleOut100to95", "FadeOut100to0"]
+    "keyframes": ["ScaleOut100to95", "FadeOut100to0"],
+    "fill": "forwards"
   },
   "filePath": "schema/themes/atlassian-motion/motion.tsx",
   "isSource": true,
@@ -1452,7 +1491,8 @@ var tokens = [{
     "value": {
       "duration": "Duration200",
       "curve": "EasePracticalIn",
-      "keyframes": ["ScaleOut100to95", "FadeOut100to0"]
+      "keyframes": ["ScaleOut100to95", "FadeOut100to0"],
+      "fill": "AnimationFillModeForwards"
     }
   },
   "name": "motion.spotlight.exit",

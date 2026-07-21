@@ -1,5 +1,12 @@
 # @atlaskit/analytics-cross-product
 
+## 2.1.1
+
+### Patch Changes
+
+- [`efd4ea182e3f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efd4ea182e3f3) -
+  Remove atlaskit-analytics-cross-product feature gate
+
 ## 2.1.0
 
 ### Minor Changes

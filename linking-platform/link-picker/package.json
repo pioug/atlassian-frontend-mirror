@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "6.2.6",
+	"version": "6.2.7",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -50,6 +50,9 @@
 			"type": "boolean"
 		},
 		"add-disable-manual-url-capability-technical": {
+			"type": "boolean"
+		},
+		"platform_link_picker_fix_error_state_text_overflow": {
 			"type": "boolean"
 		}
 	},
@@ -101,6 +104,7 @@
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/link-test-helpers": "workspace:^",
+		"@atlaskit/popup": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",

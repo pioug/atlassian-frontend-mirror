@@ -1,6 +1,6 @@
 import { isValidElement, type ReactNode } from 'react';
 
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 export const getIfVisuallyHiddenChildren: (
 	children: ReactNode,

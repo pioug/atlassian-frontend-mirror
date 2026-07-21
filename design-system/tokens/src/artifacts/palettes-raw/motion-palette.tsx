@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e660e842412d47f6ce5cefabcc7e0e10>>
+ * @codegen <<SignedSource::d3b681d043f2f2d3ce11a00745e52151>>
  * @codegenCommand yarn build tokens
  */
 
@@ -292,6 +292,46 @@ const tokens: Token[] = [
       "motion",
       "duration",
       "Duration600"
+    ]
+  },
+  {
+    "value": "backwards",
+    "attributes": {
+      "group": "motionFillMode"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "backwards",
+      "attributes": {
+        "group": "motionFillMode"
+      }
+    },
+    "name": "motion.fillMode.AnimationFillModeBackwards",
+    "path": [
+      "motion",
+      "fillMode",
+      "AnimationFillModeBackwards"
+    ]
+  },
+  {
+    "value": "forwards",
+    "attributes": {
+      "group": "motionFillMode"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "forwards",
+      "attributes": {
+        "group": "motionFillMode"
+      }
+    },
+    "name": "motion.fillMode.AnimationFillModeForwards",
+    "path": [
+      "motion",
+      "fillMode",
+      "AnimationFillModeForwards"
     ]
   },
   {

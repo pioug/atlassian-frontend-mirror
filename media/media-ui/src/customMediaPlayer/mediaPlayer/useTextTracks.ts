@@ -1,8 +1,4 @@
-import {
-	type FileState,
-	type MediaUserArtifact,
-	type MediaUserArtifactCaptionKey,
-} from '@atlaskit/media-state';
+import type { FileState, MediaUserArtifact, MediaUserArtifactCaptionKey } from '@atlaskit/media-state/file-state';
 import { hasArtifacts } from '@atlaskit/media-client';
 import {
 	useState,

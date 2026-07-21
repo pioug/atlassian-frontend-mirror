@@ -11,7 +11,7 @@ import Button from '@atlaskit/button/new';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 type Phase = 'stopped' | 'loading' | 'ready';
 

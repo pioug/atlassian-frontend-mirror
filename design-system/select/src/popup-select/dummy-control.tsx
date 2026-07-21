@@ -1,7 +1,7 @@
 import React, { type JSX } from 'react';
 
 import { components } from '@atlaskit/react-select';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { type ControlProps, type OptionType } from '../types';
 /**

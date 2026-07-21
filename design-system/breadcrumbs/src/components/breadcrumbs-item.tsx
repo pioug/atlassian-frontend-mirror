@@ -72,6 +72,7 @@ const motionItemStyles = css({
 	transition: token('motion.listitem.hovered'),
 	'&:hover': {
 		textDecorationColor: token('color.text.subtlest'),
+		transition: token('motion.listitem.pressed'),
 	},
 	'&:active': {
 		textDecorationColor: token('color.text'),

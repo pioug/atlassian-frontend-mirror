@@ -1,5 +1,31 @@
 # @atlaskit/editor-card-provider
 
+## 7.0.28
+
+### Patch Changes
+
+- [`63e41faf180af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63e41faf180af) -
+  [ux] Resolve Confluence shortlinks to native embeds when their canonical URL matches an existing
+  native embed experience
+
+## 7.0.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.26
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.0.24
 
 ### Patch Changes

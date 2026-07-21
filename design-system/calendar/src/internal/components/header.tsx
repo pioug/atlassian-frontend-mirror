@@ -25,6 +25,9 @@ const arrowMotionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'& button': {
 		transition: token('motion.listitem.hovered'),
+		'&:hover': {
+			transition: token('motion.listitem.pressed'),
+		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),
 		},

@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators/map';
 import { createMachine, interpret, type Interpreter, type StateMachine } from 'xstate';
 
 import { isProcessingFileState } from '../../../models/file-state';
-import { type UploadingFileState } from '@atlaskit/media-state';
+import type { UploadingFileState } from '@atlaskit/media-state/file-state';
 import { type DataloaderKey, type DataloaderResult } from '../../createFileDataLoader';
 import { shouldFetchRemoteFileStates } from '../../shouldFetchRemoteFileStates';
 import { createMobileDownloadFileStream } from '../helpers';

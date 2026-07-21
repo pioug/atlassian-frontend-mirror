@@ -2124,6 +2124,12 @@ events:
         actionId:
           type: string
           description: the action id
+        isAuxClick:
+          type: boolean
+          required: false
+          description: >
+            whether the action was triggered by a middle-click (auxiliary click) rather than a
+            primary click. Omitted or false for primary clicks.
   - profilecard clicked (reportingLines):
       type: ui
       description: fired when the profilecard is clicked
@@ -3777,14 +3783,34 @@ events:
           description:
             the integration id of the third-party messaging integration that was clicked (e.g.
             slack, microsoft)
+        isAuxClick:
+          type: boolean
+          required: false
+          description: >
+            whether the button was triggered by a middle-click (auxiliary click) rather than a
+            primary click. Omitted or false for primary clicks.
   - userProfilePreview clicked (reportingLines):
       type: ui
       description:
         fired when the org chart (reporting lines) button is clicked on the compact user profile
         preview
+      attributes:
+        isAuxClick:
+          type: boolean
+          required: false
+          description: >
+            whether the button was triggered by a middle-click (auxiliary click) rather than a
+            primary click. Omitted or false for primary clicks.
   - userProfilePreview clicked (viewProfile):
       type: ui
       description: fired when the View Profile button is clicked on the user profile preview
+      attributes:
+        isAuxClick:
+          type: boolean
+          required: false
+          description: >
+            whether the button was triggered by a middle-click (auxiliary click) rather than a
+            primary click. Omitted or false for primary clicks.
   - userProfilePreview clicked (tab):
       type: ui
       description: fired when a tab is clicked on the full user profile preview
@@ -3822,6 +3848,12 @@ events:
           description:
             the integration id of the third-party messaging integration that was clicked (e.g.
             slack, microsoft)
+        isAuxClick:
+          type: boolean
+          required: false
+          description: >
+            whether the button was triggered by a middle-click (auxiliary click) rather than a
+            primary click. Omitted or false for primary clicks.
   - userInlinePreview clicked (reportingLines):
       type: ui
       description:
@@ -3834,6 +3866,12 @@ events:
           description: >
             optional context describing where the UserInlinePreview is rendered. Set to
             'collaborator' when rendered inside UserProfilePreview's collaborators list.
+        isAuxClick:
+          type: boolean
+          required: false
+          description: >
+            whether the button was triggered by a middle-click (auxiliary click) rather than a
+            primary click. Omitted or false for primary clicks.
   - userInlinePreview clicked (viewProfile):
       type: ui
       description: fired when the View Profile button is clicked on the user inline preview
@@ -3845,6 +3883,12 @@ events:
           description: >
             optional context describing where the UserInlinePreview is rendered. Set to
             'collaborator' when rendered inside UserProfilePreview's collaborators list.
+        isAuxClick:
+          type: boolean
+          required: false
+          description: >
+            whether the button was triggered by a middle-click (auxiliary click) rather than a
+            primary click. Omitted or false for primary clicks.
 
   - userProfileCard opened:
       type: ui

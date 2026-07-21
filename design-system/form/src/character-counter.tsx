@@ -9,7 +9,7 @@ import { css, cssMap, jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { FieldId } from './field-id-context';
 

@@ -124,9 +124,11 @@ const UnauthorisedConnectWithSocialProof = ({
 	extensionKey,
 	testId,
 	onConnectClick,
+	isPreviewCTATreatment,
 }: {
 	context?: string;
 	extensionKey?: string;
+	isPreviewCTATreatment: boolean;
 	onConnectClick: React.MouseEventHandler<HTMLElement>;
 	testId: string;
 }): JSX.Element => {
@@ -209,7 +211,9 @@ const UnauthorisedConnectWithSocialProof = ({
 				testId="button-connect-account"
 				isSlimDesign={showSocialProofPill}
 			>
-				{showSocialProofPill ? (
+				{isPreviewCTATreatment ? (
+					<FormattedMessage {...messages.connect_link_account_preview} />
+				) : showSocialProofPill ? (
 					<FormattedMessage {...messages.connect_inline_social_proof} />
 				) : (
 					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
@@ -270,13 +274,21 @@ export const InlineCardUnauthorizedView = ({
 	);
 
 	const renderActionButton = React.useCallback(() => {
+		const isPreviewCTATreatment =
+			fg('rovogrowth-635-pre-auth-cta-preview-fg') &&
+			expValEquals('rovogrowth-635-pre-auth-cta-preview-exp', 'isEnabled', true);
+
 		return (
 			<ActionButton
 				onClick={handleConnectAccount}
 				viewType={'unauthorised'}
 				testId="button-connect-account"
 			>
-				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
+				{isPreviewCTATreatment ? (
+					<FormattedMessage {...messages.connect_link_account_preview} />
+				) : (
+					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
+				)}
 			</ActionButton>
 		);
 	}, [handleConnectAccount, context]);
@@ -303,6 +315,10 @@ export const InlineCardUnauthorizedView = ({
 						extensionKey={extensionKey}
 						testId={testId}
 						onConnectClick={handleConnectAccount}
+						isPreviewCTATreatment={
+							fg('rovogrowth-635-pre-auth-cta-preview-fg') &&
+							expValEquals('rovogrowth-635-pre-auth-cta-preview-exp', 'isEnabled', true)
+						}
 					/>
 				) : (
 					renderActionButton()

@@ -1,11 +1,3 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import { parseHex } from '../../formats/hex';
 
 describe('parseHex()', () => {
@@ -28,11 +20,7 @@ describe('parseHex()', () => {
 			parseHex('a#123');
 
 			expect(consoleError).toHaveBeenCalledTimes(1);
-			expect(consoleError.mock.lastCall).toMatchInlineSnapshot(`
-			[
-			  "parseHex failed to parse input: 'a#123'",
-			]
-		`);
+			expect(consoleError.mock.lastCall).toEqual(["parseHex failed to parse input: 'a#123'"]);
 
 			process.env.NODE_ENV = NODE_ENV;
 		});

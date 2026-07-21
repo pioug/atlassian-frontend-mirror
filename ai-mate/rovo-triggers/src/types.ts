@@ -29,6 +29,7 @@ export type PayloadCore<TKey extends string, TData = void> = {
 	source: string;
 	openChat?: boolean;
 	openChatMode?: RovoChatOpenMode;
+	autoFocusInput?: boolean;
 	product?: string;
 	interactionSource?: string;
 	/**

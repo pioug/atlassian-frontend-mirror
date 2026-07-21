@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 10.1.0
+
+### Minor Changes
+
+- [`32ad5a92f3ded`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32ad5a92f3ded) -
+  Add an optional chat-open autofocus flag and preserve editor focus when auto-opening Rovo chat for
+  task-item agent mentions.
+
 ## 10.0.0
 
 ### Major Changes

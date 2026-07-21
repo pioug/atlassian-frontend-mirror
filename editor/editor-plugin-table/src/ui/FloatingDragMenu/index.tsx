@@ -11,7 +11,6 @@ import {
 	akEditorFloatingOverlapPanelZIndex,
 } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
@@ -77,8 +76,7 @@ const FloatingDragMenu: FloatingDragMenuFunction = ({
 	}
 	const inStickyMode =
 		stickyHeaders?.sticky ||
-		(tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW) &&
-			fg('platform_editor_table_sticky_header_patch_7'));
+		tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 
 	const targetHandleRef =
 		direction === 'row'

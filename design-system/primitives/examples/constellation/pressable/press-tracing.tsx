@@ -15,7 +15,7 @@ import { ZoomIn } from '@atlaskit/motion';
 import { Box, Flex, Inline, Pressable, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 const iconSpacingStyles = cssMap({
 	space050: {

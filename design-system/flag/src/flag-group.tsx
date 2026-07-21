@@ -19,7 +19,7 @@ import { Box } from '@atlaskit/primitives/compiled';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { defaultFlagGroupContext } from './internal/default-flag-group-context';
 import { FlagGroupContext, type FlagGroupAPI } from './internal/flag-group-context';

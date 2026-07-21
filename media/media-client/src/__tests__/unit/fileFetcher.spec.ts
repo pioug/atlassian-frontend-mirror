@@ -34,7 +34,8 @@ import { fakeMediaClient } from '../../test-helpers';
 import { fromObservable, toPromise } from '../../utils/mediaSubscribable';
 import { isMimeTypeSupportedByServer } from '@atlaskit/media-common/mediaTypeUtils';
 import type * as MediaStoreModule from '../../client/media-store';
-import { createMediaStore, mediaStore as fileStateStore } from '@atlaskit/media-state';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
+import { mediaStore as fileStateStore } from '@atlaskit/media-state/media-store';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing';
 
 jest.mock('../../utils/getDimensionsFromBlob', () => {

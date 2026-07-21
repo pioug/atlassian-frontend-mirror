@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import ToggleVisuallyHidden from './constellation/utils/toggle-visually-hidden';
 

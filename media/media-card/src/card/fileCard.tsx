@@ -26,7 +26,7 @@ import {
 	isVideoMimeTypeSupportedByBrowser,
 	getRandomTelemetryId,
 } from '@atlaskit/media-common';
-import { type ProcessingFailedState } from '@atlaskit/media-state';
+import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
 import {
 	MediaViewer,
 	type ViewerOptionsProps,

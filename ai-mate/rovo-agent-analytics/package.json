@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "5.3.3",
+	"version": "5.4.0",
 	"description": "Rovo Agents analytics",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {

@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 11.0.8
+
+### Patch Changes
+
+- [`2f9a2f62da5e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f9a2f62da5e3) -
+  Update package ownership to PACE PS2 team and #pace-ps2 Slack channel
+- Updated dependencies
+
 ## 11.0.7
 
 ### Patch Changes

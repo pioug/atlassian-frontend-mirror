@@ -1,4 +1,4 @@
-import { type MediaFileArtifacts } from '@atlaskit/media-state';
+import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 import { isCDNEnabled } from '../utils/mediaCdn';
 
 export const getArtifactUrl = (

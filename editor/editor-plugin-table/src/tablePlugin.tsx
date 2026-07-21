@@ -207,14 +207,13 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				isDragMenuOpen: dragAndDropState?.isDragMenuOpen,
 				isSizeSelectorOpen: sizeSelectorPluginState?.isSelectorOpen,
 				sizeSelectorTargetRef: sizeSelectorPluginState?.targetRef,
-				editorContentAreaHeight:
-					expValEquals(
-						'platform_editor_table_sticky_header_improvements',
-						'cohort',
-						'test_with_overflow',
-					) && fg('platform_editor_table_sticky_header_patch_4')
-						? editorContentAreaHeightPluginState?.height
-						: undefined,
+				editorContentAreaHeight: expValEquals(
+					'platform_editor_table_sticky_header_improvements',
+					'cohort',
+					'test_with_overflow',
+				)
+					? editorContentAreaHeightPluginState?.height
+					: undefined,
 			};
 
 			return sharedStateInternal;
@@ -656,7 +655,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 							'platform_editor_table_sticky_header_improvements',
 							'cohort',
 							'test_with_overflow',
-						) && fg('platform_editor_table_sticky_header_patch_1')
+						)
 							? createContentAreaHeightPlugin()
 							: undefined,
 				},

@@ -1,7 +1,7 @@
 import { type MediaStoreResponse } from '../../../client/media-store';
 import { type MediaFile, type MediaItemDetails } from '../../media';
 import { mapMediaFileToFileState, mapMediaItemToFileState } from '../../file-state';
-import { type ProcessingFailedState } from '@atlaskit/media-state';
+import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
 
 describe('mapMediaFileToFileState', () => {
 	const baseMediaFile: MediaFile = {

@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 16.6.1
+
+### Patch Changes
+
+- [`a3bf20a2ec9f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3bf20a2ec9f1) -
+  Stop Escape from closing the feedback dialog when dismissing the feedback type dropdown.
+
 ## 16.6.0
 
 ### Minor Changes

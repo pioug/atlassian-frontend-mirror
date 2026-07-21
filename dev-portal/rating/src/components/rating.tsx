@@ -16,7 +16,7 @@ import { jsx } from '@compiled/react';
 
 import { durations, easeInOut } from '@atlaskit/motion';
 import Tooltip from '@atlaskit/tooltip';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 export type RatingRender = (props: { isChecked: boolean }) => React.ReactNode;
 

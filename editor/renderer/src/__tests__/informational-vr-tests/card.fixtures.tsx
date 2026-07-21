@@ -3,6 +3,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import type { CardClient } from '@atlaskit/link-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { IFrame } from '@atlaskit/smart-card/test-utils/iframe';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -27,8 +28,6 @@ import {
 } from './card.customClient';
 
 import { DiProvider, injectable } from 'react-magnetic-di';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { IFrame } from '../../../../../linking-platform/smart-card/src/view/EmbedCard/components/IFrame';
 
 mockDatasourceFetchRequests({
 	initialVisibleColumnKeys: ['key', 'assignee', 'summary', 'description'],

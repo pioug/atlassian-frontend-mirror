@@ -7,7 +7,7 @@ import ThumbsDownIcon from '@atlaskit/icon/core/thumbs-down';
 import ThumbsUpIcon from '@atlaskit/icon/core/thumbs-up';
 import { Box, Inline } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';
 

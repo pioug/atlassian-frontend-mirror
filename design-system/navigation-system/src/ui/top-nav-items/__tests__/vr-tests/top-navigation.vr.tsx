@@ -10,6 +10,7 @@ import {
 	TopNavigationExample,
 } from '../../../../../examples/top-navigation';
 import { TopNavigationAppLogoOversizeExample } from '../../../../../examples/top-navigation-app-logos';
+import TopNavigationCustomAppSwitcherExample from '../../../../../examples/top-navigation-custom-app-switcher';
 import {
 	TopNavigationCustomLogoExample,
 	TopNavigationCustomLogoImage200x200Example,
@@ -128,6 +129,21 @@ snapshot(TopNavigationCustomLogoImage20x200Example, defaultOptions);
 snapshot(TopNavigationCustomLogoImage20x20Example, defaultOptions);
 
 snapshot(TopNavigationAppLogoOversizeExample, defaultOptions);
+
+snapshot(TopNavigationCustomAppSwitcherExample, {
+	description: 'custom app switcher hover state when improvements gate is off',
+	variants: [variants.desktop],
+	states: [{ selector: { byRole: 'button', options: { name: 'App switcher' } }, state: 'hovered' }],
+});
+
+snapshot(TopNavigationCustomAppSwitcherExample, {
+	description: 'custom app switcher hover state when improvements gate is on',
+	variants: [variants.desktop],
+	featureFlags: {
+		platform_dst_ads_appswitcher_improvements: true,
+	},
+	states: [{ selector: { byRole: 'button', options: { name: 'App switcher' } }, state: 'hovered' }],
+});
 
 snapshot(TopNavigationThemingLoggedOutExample, {
 	description: 'log in button',

@@ -12,7 +12,7 @@ import Table, {
 	TBody,
 	THead,
 } from '@atlaskit/table';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 export default function Expandable(): React.JSX.Element {
 	return (

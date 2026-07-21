@@ -8,7 +8,7 @@ import { type AuthProvider, authToOwner } from '@atlaskit/media-core';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import { isValidUuid } from '@atlaskit/media-common/isValidUuid';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
-import { type MediaFileArtifacts } from '@atlaskit/media-state';
+import type { MediaFileArtifacts } from '@atlaskit/media-state/file-state';
 
 import {
 	MediaStore as MediaApi,
@@ -51,15 +51,8 @@ import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils'
 import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
-import {
-	type ErrorFileState,
-	type UploadingFileState,
-	type FilePreview,
-	type FileState,
-	type ProcessingFileState,
-	type MediaStore,
-	mediaStore,
-} from '@atlaskit/media-state';
+import type { ErrorFileState, UploadingFileState, FilePreview, FileState, ProcessingFileState } from '@atlaskit/media-state/file-state';
+import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
 import {
 	type CopyIntentKey,
 	createCopyIntentRegisterationBatcher,

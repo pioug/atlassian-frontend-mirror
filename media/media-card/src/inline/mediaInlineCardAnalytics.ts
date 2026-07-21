@@ -7,7 +7,7 @@ import {
 } from '../utils/analytics';
 import { MediaCardError } from '../errors';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type ProcessingFailedState, type ProcessingFailReason } from '@atlaskit/media-state';
+import type { ProcessingFailedState, ProcessingFailReason } from '@atlaskit/media-state/file-state';
 
 export const getSucceededStatusPayload = (
 	fileState?: FileState,

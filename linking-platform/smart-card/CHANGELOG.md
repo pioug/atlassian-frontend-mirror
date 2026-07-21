@@ -1,5 +1,55 @@
 # @atlaskit/smart-card
 
+## 45.11.0
+
+### Minor Changes
+
+- [`583ad668c2961`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/583ad668c2961) -
+  Expose the IFrame test utility entry point for renderer tests
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.10.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.10.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.10.3
+
+### Patch Changes
+
+- [`feba1b79f0baf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feba1b79f0baf) -
+  Add pre-auth inline Smart Link CTA 'Preview' experiment (ROVOGROWTH-635).
+
+  When the `rovogrowth-635-pre-auth-cta-preview-fg` feature gate is enabled and the user is in the
+  experiment treatment, the connect button on unauthorised inline Smart Links shows 'Preview'
+  instead of the provider-specific 'Connect your {provider} account' label.
+
+  Feature gate is off by default — safe to merge dark.
+
+  Consumers can check the new experiment config entry with `editorExperiments`:
+
+  ```ts
+  editorExperiments('rovogrowth-635-pre-auth-cta-preview-exp', 'isEnabled');
+  ```
+
+- Updated dependencies
+
 ## 45.10.2
 
 ### Patch Changes

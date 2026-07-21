@@ -12,6 +12,7 @@ interface Props {
 		getIsRovoPanelOpen?: () => boolean;
 		handleMentionsChanged: MentionsChangedHandler;
 		showAgentMentionsLabsLozenge?: boolean;
+		onAgentMentionChatClick?: MentionsPluginOptions['onAgentMentionChatClick'];
 	};
 	providers: {
 		mentionProvider: Promise<MentionProvider> | undefined;
@@ -31,5 +32,6 @@ export function mentionsPluginOptions({ options, providers }: Props): MentionsPl
 		enableAgentSectioning: options.enableAgentSectioning,
 		showAgentMentionsLabsLozenge: options.showAgentMentionsLabsLozenge,
 		getIsRovoPanelOpen: options.getIsRovoPanelOpen,
+		onAgentMentionChatClick: options.onAgentMentionChatClick,
 	};
 }

@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-card
 
+## 18.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.2.4
+
+### Patch Changes
+
+- [`faab2cfa1c720`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/faab2cfa1c720) -
+  Fix white corners on the paste "Display as" menu buttons. The button wrapper no longer paints an
+  opaque surface background behind the rounded button, so each button's corners now match the sunken
+  tray background instead of showing white.
+- Updated dependencies
+
 ## 18.2.3
 
 ### Patch Changes

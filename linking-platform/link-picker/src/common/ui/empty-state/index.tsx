@@ -2,8 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Flex, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -14,6 +15,13 @@ const styles = cssMap({
 		paddingLeft: token('space.600'),
 		paddingBottom: token('space.500'),
 		textAlign: 'center',
+	},
+	// Explicitly reset `white-space` to `normal` so that an ancestor's `white-space: nowrap`
+	// (e.g. from the Jira backlog inline-card-create placeholder container) cannot be inherited
+	// into this component when the Popup uses `shouldRenderToParent`. Without this reset, the
+	// heading and description text cannot wrap, causing them to overflow the Popup boundary.
+	whiteSpaceNormal: {
+		whiteSpace: 'normal',
 	},
 });
 
@@ -35,7 +43,10 @@ export const EmptyState = ({
 }: EmptyStateProps): JSX.Element => {
 	return (
 		<Flex
-			xcss={styles.containerV2}
+			xcss={cx(
+				styles.containerV2,
+				fg('platform_link_picker_fix_error_state_text_overflow') && styles.whiteSpaceNormal,
+			)}
 			testId={testId}
 			direction="column"
 			alignItems="center"

@@ -143,7 +143,11 @@ export const Toolbar = ({
 	return <ResponsiveWrapper>{wrappedToolbar}</ResponsiveWrapper>;
 };
 
-type PrimaryToolbarProps = ToolbarProps & ResponsiveContainerProps;
+// remove { label?: string } when cleaning up editor_a11y__primary-toolbar-aria-label_fy27
+type PrimaryToolbarProps = Omit<ToolbarProps, 'label'> &
+	ResponsiveContainerProps & {
+		label?: string;
+	};
 
 /**
  *  A simple component representing a toolbar without box shadows - used to represent a primary toolbar
@@ -152,6 +156,7 @@ export const PrimaryToolbar = ({
 	children,
 	label,
 	breakpointPreset,
+	testId,
 }: PrimaryToolbarProps): React.JSX.Element => {
 	return (
 		<ResponsiveContainer breakpointPreset={breakpointPreset}>
@@ -159,6 +164,7 @@ export const PrimaryToolbar = ({
 				xcss={cx(styles.toolbarBase, styles.primaryToolbar, styles.hiddenSelectors)}
 				aria-label={label}
 				data-toolbar-type="primary"
+				testId={testId}
 			>
 				{children}
 			</Box>

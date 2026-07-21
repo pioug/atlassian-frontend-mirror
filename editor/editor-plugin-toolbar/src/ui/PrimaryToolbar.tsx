@@ -4,6 +4,7 @@ import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { PrimaryToolbar as PrimaryToolbarBase } from '@atlaskit/editor-toolbar';
 import type { BreakpointPreset } from '@atlaskit/editor-toolbar';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PrimaryToolbarProps = {
 	breakpointPreset?: BreakpointPreset;
@@ -32,7 +33,16 @@ export const PrimaryToolbar = ({
 
 	return (
 		<PrimaryToolbarBase
-			label="Primary Toolbar"
+			testId={
+				expValEquals('editor_a11y__primary-toolbar-aria-label_fy27', 'isEnabled', true)
+					? 'editor-primary-toolbar'
+					: undefined
+			}
+			label={
+				expValEquals('editor_a11y__primary-toolbar-aria-label_fy27', 'isEnabled', true)
+					? undefined
+					: 'Primary Toolbar'
+			}
 			breakpointPreset={getBreakpointPreset(breakpointPreset, editorAppearance)}
 		>
 			{children}

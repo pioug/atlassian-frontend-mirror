@@ -1482,7 +1482,7 @@ export const DragHandle = ({
 							'platform_editor_table_sticky_header_improvements',
 							'cohort',
 							'test_with_overflow',
-						) && fg('platform_editor_table_sticky_header_patch_6')
+						)
 							? tooltipContainerStylesImprovedStickyHeaderWithMask
 							: tooltipContainerStylesStickyHeaderWithMask),
 					!shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&

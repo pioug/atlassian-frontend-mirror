@@ -1,5 +1,97 @@
 # @atlaskit/editor-statsig-tmp
 
+## 130.2.0
+
+### Minor Changes
+
+- [`c5b1fc41ef2a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5b1fc41ef2a8) -
+  Fix keyboard resizing for full-width breakout nodes
+
+## 130.1.0
+
+### Minor Changes
+
+- [`c3b8441edbd29`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3b8441edbd29) -
+  Allow Remix previews to request local iframe heights through the shared content bridge, scrolling
+  within a viewport-capped host wrapper only when the requested content exceeds the available space.
+
+  Register a resize handler with the shared command:
+
+  ```ts
+  import { NativeEmbedRequestResizeCommand } from '@atlassian/rovo-content-bridge-api-commands/commands/native-embed-request-resize-command';
+
+  bridge.on(parentClientId, NativeEmbedRequestResizeCommand, ({ height }) => {
+  	setPreviewHeight(height);
+  });
+  ```
+
+  Enable request resizing for a Smart Creation preview:
+
+  ```tsx
+  <PreviewIframe {...props} enableRequestResize />
+  ```
+
+## 130.0.0
+
+### Major Changes
+
+- [`d72a5eb291763`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d72a5eb291763) -
+  Clean up experiment `platform_editor_table_in_panel_paste_fallback`
+- [`0a6b16efd7f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a6b16efd7f45) -
+  Clean up sticky header patch feature gates and experiments.
+
+### Minor Changes
+
+- [`9626a6330a844`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9626a6330a844) -
+  Add the `platform_editor_fix_ai_streaming_race` experiment to wait for terminal AI streaming
+  events before completing queued actions.
+- [`df742d76d83c0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df742d76d83c0) -
+  Rely on the backend isSafetyViolation flag to publish aiMateRemixRegenerate operational metrics as
+  a success rather than a taskFail when infographic/image generation is blocked by safety/AUP
+  guidelines, reducing metric noise. Guarded by the `platform_editor_ai_remix_safety_violation`
+  Statsig dynamic config, which acts as a killswitch (read via the new `dynamicConfigBooleanValue`
+  helper in `@atlaskit/tmp-editor-statsig`) so the new path can be enabled/disabled at runtime
+  without a code change or experiment rollout.
+
+## 129.0.0
+
+### Major Changes
+
+- [`1be28a8784c5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1be28a8784c5c) -
+  Clean up experiment `platform_editor_show_diff_fix_missing_attrs`
+
+### Minor Changes
+
+- [`862702aa18c98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/862702aa18c98) -
+  Remove redundant primary toolbar aria-label
+
+## 128.0.0
+
+### Major Changes
+
+- [`e6ee0b8d49a31`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6ee0b8d49a31) -
+  [ux] Remove the platform_rovo_page_comment_selector_full_width experiment and make the Confluence
+  page comment selector full width by default.
+
+## 127.2.0
+
+### Minor Changes
+
+- [`feba1b79f0baf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/feba1b79f0baf) -
+  Add pre-auth inline Smart Link CTA 'Preview' experiment (ROVOGROWTH-635).
+
+  When the `rovogrowth-635-pre-auth-cta-preview-fg` feature gate is enabled and the user is in the
+  experiment treatment, the connect button on unauthorised inline Smart Links shows 'Preview'
+  instead of the provider-specific 'Connect your {provider} account' label.
+
+  Feature gate is off by default — safe to merge dark.
+
+  Consumers can check the new experiment config entry with `editorExperiments`:
+
+  ```ts
+  editorExperiments('rovogrowth-635-pre-auth-cta-preview-exp', 'isEnabled');
+  ```
+
 ## 127.1.0
 
 ### Minor Changes

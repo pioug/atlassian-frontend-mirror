@@ -4,7 +4,7 @@ import {
 	type FileState,
 	type ErrorFileState,
 } from '@atlaskit/media-client';
-import { type ProcessingFailedState } from '@atlaskit/media-state';
+import type { ProcessingFailedState } from '@atlaskit/media-state/file-state';
 import { getFileDetails } from '../../metadata';
 
 const fileIdentifier: FileIdentifier = {

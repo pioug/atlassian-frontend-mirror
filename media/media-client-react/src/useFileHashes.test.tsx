@@ -4,7 +4,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 
 import { mapMediaItemToFileState } from '@atlaskit/media-client';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
-import { createMediaStore } from '@atlaskit/media-state';
+import { createMediaStore } from '@atlaskit/media-state/create-media-store';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
 import { MockedMediaClientProvider } from './test-helpers/MockedMediaClientProvider';

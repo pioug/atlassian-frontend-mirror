@@ -53,6 +53,7 @@ type FieldAttributes =
 	| {
 			field: 'knowledgeSources';
 			knowledgeSourcesCount: number;
+			crossSiteKnowledgeSourcesCount: number | null;
 	  }
 	| {
 			field: 'knowledgeScope';

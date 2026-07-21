@@ -14,7 +14,7 @@ import Heading from '@atlaskit/heading';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import Actions from './flag-actions';

@@ -4,17 +4,21 @@ import { bind } from 'bind-event-listener';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import uuid from 'uuid/v4';
 
-import type { MentionAttributes } from '@atlaskit/adf-schema';
+import type { MentionAttributes } from '@atlaskit/adf-schema/mention';
+import type { DocNode } from '@atlaskit/adf-schema/schema';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { findChildrenByAttr } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/navigation';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
+import { getAgentMentionParentContext } from '../pm-plugins/agent-mention-context';
 import type { MentionPluginOptions } from '../types';
 import { isAgentMentionType, ProfileCardComponent } from '../ui/ProfileCardComponent';
 
@@ -24,9 +28,11 @@ export const profileCardRenderer = ({
 	portalProviderAPI,
 	node,
 	api,
+	editorView,
 }: {
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 	dom: Node;
+	editorView?: EditorView;
 	node: PMNode;
 	options?: MentionPluginOptions;
 	portalProviderAPI: PortalProviderAPI;
@@ -80,7 +86,14 @@ export const profileCardRenderer = ({
 	};
 
 	const renderEditorProfileCard = (): void => {
-		const activeMention = expVal('platform_editor_reduced_profile_cards', 'isEnabled', false)
+		const isReducedProfileCards = expVal(
+			'platform_editor_reduced_profile_cards',
+			'isEnabled',
+			false,
+		);
+		const clickedNode = isReducedProfileCards ? currentNode : node;
+
+		const activeMention = isReducedProfileCards
 			? (() => {
 					// Read the display name from the DOM element at click time — this is
 					// always up-to-date even when node.attrs.text is absent
@@ -96,10 +109,37 @@ export const profileCardRenderer = ({
 					};
 				})()
 			: { attrs: node.attrs as MentionAttributes };
+
+		// Build agent mention context at click time by finding the parent block of this mention
+		// in the live document.
+		let agentMentionContext: DocNode | undefined;
+		if (
+			options?.onAgentMentionChatClick &&
+			editorView &&
+			fg('platform_editor_agent_mentions_drop_one_fixes')
+		) {
+			const localId = clickedNode.attrs?.localId as string | undefined;
+			if (localId) {
+				const found = findChildrenByAttr(
+					editorView.state.doc,
+					(attrs) => attrs?.localId === localId,
+				)[0];
+				if (found) {
+					const parentBlock = editorView.state.doc.resolve(found.pos).parent;
+					agentMentionContext = getAgentMentionParentContext(parentBlock, localId);
+				}
+			}
+		}
+
 		renderProfileCardPopup((referenceElement) => (
 			<ProfileCardComponent
 				activeMention={activeMention}
 				profilecardProvider={options?.profilecardProvider}
+				onAgentMentionChatClick={
+					options?.onAgentMentionChatClick && fg('platform_editor_agent_mentions_drop_one_fixes')
+						? (agentId: string) => options.onAgentMentionChatClick?.(agentId, agentMentionContext)
+						: undefined
+				}
 				dom={referenceElement}
 				closeComponent={removeProfileCard}
 			/>

@@ -19,7 +19,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 import { Box } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../../common/types';
 import { MinHeightContainer } from '../../../../common/ui/min-height-container';

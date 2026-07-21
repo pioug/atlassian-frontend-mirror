@@ -953,10 +953,7 @@ export function createPlugin(
 				// When platform_editor_nest_table_in_panel is OFF,
 				// move tables out of panel divs in the HTML before ProseMirror
 				// parses it — otherwise the panel schema drops the table content.
-				if (
-					expValEquals('platform_editor_table_in_panel_paste_fallback', 'isEnabled', true) &&
-					!expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-				) {
+				if (!expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
 					html = splitTablesOutOfPanelHtml(html);
 				}
 

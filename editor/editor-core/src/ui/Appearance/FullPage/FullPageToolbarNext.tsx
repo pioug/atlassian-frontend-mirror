@@ -127,9 +127,7 @@ const MainToolbarWrapper = ({
 					'platform_editor_table_sticky_header_improvements',
 					'cohort',
 					'test_with_overflow',
-				) &&
-					expValEquals('platform_editor_table_sticky_header_patch_9', 'isEnabled', true) &&
-					styles.backgroundColor,
+				) && styles.backgroundColor,
 			]}
 			data-testid={testId}
 		>

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import type { FileState } from '@atlaskit/media-state';
+import type { FileState } from '@atlaskit/media-state/file-state';
 
 import { useMediaClient } from './useMediaClient';
 import { useMediaStore } from './useMediaStore';

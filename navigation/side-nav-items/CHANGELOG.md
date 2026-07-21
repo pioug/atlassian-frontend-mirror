@@ -1,5 +1,37 @@
 # @atlaskit/side-nav-items
 
+## 2.3.1
+
+### Patch Changes
+
+- [`6490d22c0d837`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6490d22c0d837) -
+  Fix list item pressed motion so the hover to pressed transition uses `motion.listitem.pressed`
+  (100ms) instead of the hover timing (50ms). The pressed timing is now declared on the `:hover`
+  state so the transition into the pressed state animates correctly. Behaviour remains behind the
+  `platform-dst-motion-uplift-list-item` feature gate.
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [`cf3f6291eb0cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf3f6291eb0cd) -
+  Add optional `headingLevel` prop to `MenuSectionHeading` to render the section label as a semantic
+  heading (`<h1>`–`<h6>`). When omitted, the label continues to render as a non-heading paragraph,
+  so existing usages are unchanged.
+
+  ```tsx
+  <MenuSection>
+  	<MenuSectionHeading headingLevel={3}>Section</MenuSectionHeading>
+  	<MenuList>
+  		<MenuItem>Item 1</MenuItem>
+  	</MenuList>
+  </MenuSection>
+  ```
+
+  `object-list-flyout` section headings (`ResultsPanel`) now render as `<h3>` via this prop, giving
+  the side-navigation spaces/object flyout proper heading semantics.
+
 ## 2.2.5
 
 ### Patch Changes

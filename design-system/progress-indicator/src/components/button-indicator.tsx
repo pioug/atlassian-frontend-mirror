@@ -7,7 +7,7 @@ import { cssMap, cx, jsx } from '@compiled/react';
 
 import { Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
+import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import type { DotsAppearance } from './types';
 

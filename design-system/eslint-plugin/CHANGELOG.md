@@ -1,5 +1,19 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.2.1
+
+### Patch Changes
+
+- [`00f3166426df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00f3166426df4) -
+  add eslint rule for cssMapScope and ratcheting rule
+
+## 16.2.0
+
+### Minor Changes
+
+- [`9f115ecc01686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f115ecc01686) -
+  Create a new rule to block usage of `label` in modal dialog.
+
 ## 16.1.1
 
 ### Patch Changes

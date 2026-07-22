@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import { Checkbox } from '@atlaskit/checkbox';
+import { Checkbox } from '@atlaskit/checkbox/checkbox';
 import { CheckboxField } from '@atlaskit/form/checkbox-field';
 import Field from '@atlaskit/form/field';
 import Form from '@atlaskit/form/form';

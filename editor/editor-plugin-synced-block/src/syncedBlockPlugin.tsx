@@ -138,7 +138,12 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 
 		commands: {
 			copySyncedBlockReferenceToClipboard: (inputMethod): EditorCommand =>
-				copySyncedBlockReferenceToClipboardEditorCommand(syncBlockStore, inputMethod, api),
+				copySyncedBlockReferenceToClipboardEditorCommand(
+					syncBlockStore,
+					inputMethod,
+					api,
+					config?.__livePage,
+				),
 			insertSyncedBlock:
 				(inputMethod): EditorCommand =>
 				({ tr }) => {
@@ -181,7 +186,7 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				if (!syncedBlockPluginKey.getState(state)?.hasSyncedBlocks && isPerfExperimentOn) {
 					return undefined;
 				}
-				return getToolbarConfig(state, intl, api, syncBlockStore);
+				return getToolbarConfig(state, intl, api, syncBlockStore, config?.__livePage);
 			},
 		},
 

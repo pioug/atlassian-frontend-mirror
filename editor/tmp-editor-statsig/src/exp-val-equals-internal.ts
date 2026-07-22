@@ -8,7 +8,11 @@ import { _overrides, _product } from './setup';
 // This internal representation doesn't currently support productKeys
 // the way expVal(...) does, this adds temporary support for some keys while
 // we determine our preferred approach forward
-const allowsProductKeys = ['cc-maui-experiment', 'platform_use_unicode_emojis'];
+const allowsProductKeys = [
+	'cc-maui-experiment',
+	'cc_maui_create_keyword',
+	'platform_use_unicode_emojis',
+];
 
 /**
  * Check the value if an editor experiment.

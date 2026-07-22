@@ -36,9 +36,6 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-performance-metrics/dev",
-		"paths": {
-			"@atlaskit/editor-performance-metrics/src/*": ["./src/*"]
-		},
 		"isolatedDeclarations": true
 	},
 	"references": [

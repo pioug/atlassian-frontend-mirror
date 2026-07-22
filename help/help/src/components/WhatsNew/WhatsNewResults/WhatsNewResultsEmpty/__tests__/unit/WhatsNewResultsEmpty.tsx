@@ -1,18 +1,9 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  and raise concerns in https://atlassian.enterprise.slack.com/archives/C0BD4K40BLH
-*/
-
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { render, fireEvent } from '@testing-library/react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { createIntl, createIntlCache } from 'react-intl';
+import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
-import { messages } from '../../../../../../messages';
 import { WhatsNewResultsEmpty } from '../..';
 
 const cache = createIntlCache();
@@ -23,9 +14,8 @@ const intl = createIntl(
 	},
 	cache,
 );
-const messageClearFilterLink = intl.formatMessage(
-	messages.help_whats_new_no_results_clear_filter_button_label,
-);
+// The merged string uses rich-text formatting; match only the button text chunk
+const messageClearFilterLink = 'Clear the filter';
 
 const mockOnClearFilter = jest.fn();
 const analyticsSpy = jest.fn();
@@ -33,25 +23,21 @@ const analyticsSpy = jest.fn();
 describe('WhatsNewResultsEmpty', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(
-			<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />,
+			<IntlProvider locale="en">
+				<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />
+			</IntlProvider>,
 		);
 
 		await expect(container).toBeAccessible();
 	});
 
-	it('Should match snapshot', () => {
-		const { asFragment } = render(
-			<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />,
-		);
-
-		expect(asFragment()).toMatchSnapshot();
-	});
-
 	it('Execute the function prop "onClearFilter" when the user clicks the link to open clear the filter', () => {
 		const { queryByText } = render(
-			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
-				<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />
-			</AnalyticsListener>,
+			<IntlProvider locale="en">
+				<AnalyticsListener channel="help" onEvent={analyticsSpy}>
+					<WhatsNewResultsEmpty intl={intl} onClearFilter={mockOnClearFilter} />
+				</AnalyticsListener>
+			</IntlProvider>,
 		);
 
 		const button = queryByText(messageClearFilterLink);

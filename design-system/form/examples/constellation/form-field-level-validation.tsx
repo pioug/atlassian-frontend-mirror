@@ -9,8 +9,9 @@ import { ErrorMessage, MessageWrapper } from '@atlaskit/form/messages';
 import { RequiredAsterisk } from '@atlaskit/form/required-asterisk';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Text } from '@atlaskit/primitives/compiled/text';
-import Select, { type ValueType } from '@atlaskit/select';
-import TextField from '@atlaskit/textfield';
+import Select from '@atlaskit/select/select';
+import { type ValueType } from '@atlaskit/select/types';
+import TextField from '@atlaskit/textfield/text-field';
 
 interface Option {
 	label: string;

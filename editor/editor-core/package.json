@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "221.10.0",
+	"version": "221.12.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -200,6 +200,9 @@
 		"platform_editor_markdown_mode_hide_source_toolbar": {
 			"type": "boolean"
 		},
+		"platform_editor_markdown_patch_m3": {
+			"type": "boolean"
+		},
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
 		},
@@ -315,6 +318,10 @@
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		},
+		"platform-dst-top-layer-tooltip": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_synced_block_patch_14": {
 			"type": "boolean"
 		},
@@ -343,6 +350,7 @@
 		"./editor-context": "./src/editor-context.ts",
 		"./editor-instance": "./src/entry-points/editor-instance.ts",
 		"./editor-props": "./src/entry-points/editor-props.ts",
+		"./EditorContentContainer": "./src/entry-points/EditorContentContainer.tsx",
 		"./EditorContext": "./src/entry-points/EditorContext.tsx",
 		"./exclude-from-hydration": "./src/entry-points/exclude-from-hydration.tsx",
 		"./feature-flags-from-props": "./src/entry-points/feature-flags-from-props.ts",

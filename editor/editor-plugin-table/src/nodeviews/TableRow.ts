@@ -672,7 +672,6 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		const tableContentWrapper = tableContainer?.parentElement;
 
 		const parentContainer = tableContentWrapper && tableContentWrapper.parentElement;
-
 		const isTableInsideLayout =
 			parentContainer && parentContainer.getAttribute('data-layout-content');
 
@@ -680,15 +679,29 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			if (isCurrentTableSelected) {
 				this.colControlsOffset = tableControlsSpacing;
 
-				// move table a little out of the way
-				// to provide spacing for table controls
-				if (isTableInsideLayout) {
-					tableContentWrapper.style.paddingLeft = '11px';
+				/**
+				 * Adding padding left causes flicker when table is inside layout column
+				 * 	and selection moves in/out of table.
+				 */
+				if (!fg('platform_editor_table_flicker_issue')) {
+					// move table a little out of the way
+					// to provide spacing for table controls
+					if (isTableInsideLayout) {
+						tableContentWrapper.style.paddingLeft = '11px';
+						tableContentWrapper.style.marginLeft = '-11px';
+					}
 				}
 			} else {
 				this.colControlsOffset = 0;
-				if (isTableInsideLayout) {
-					tableContentWrapper.style.removeProperty('padding-left');
+				/**
+				 * Adding padding left causes flicker when table is inside layout column
+				 * 	and selection moves in/out of table.
+				 */
+				if (!fg('platform_editor_table_flicker_issue')) {
+					if (isTableInsideLayout) {
+						tableContentWrapper.style.removeProperty('padding-left');
+						tableContentWrapper.style.removeProperty('margin-left');
+					}
 				}
 			}
 		}

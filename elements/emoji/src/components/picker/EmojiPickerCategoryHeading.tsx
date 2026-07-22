@@ -5,6 +5,7 @@
 import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import Heading from '@atlaskit/heading';
 import { FormattedMessage } from 'react-intl';
 import { isMessagesKey } from '../../util/type-helpers';
@@ -47,7 +48,15 @@ const EmojiPickerCategoryHeading = ({ id, title, className }: Props): JSX.Elemen
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className={className}
 		data-testid={RENDER_EMOJI_PICKER_CATEGORY_HEADING_TESTID}
-		role={fg('platform_a11y_fixes_reaction_emoji') ? 'presentation' : 'rowheader'}
+		// A11Y-31084: With the list-markup experiment (or the existing reaction-emoji
+		// flag) the picker no longer uses grid semantics, so the category heading
+		// must not be a "rowheader" (which requires a row parent).
+		role={
+			fg('platform_a11y_fixes_reaction_emoji') ||
+			expValEqualsNoExposure('platform_a11y_fixes_emoji_picker_list', 'isEnabled', true)
+				? 'presentation'
+				: 'rowheader'
+		}
 	>
 		{fg('platform_emoji_a11y_category_heading') ? (
 			<div css={emojiCategoryTitle}>

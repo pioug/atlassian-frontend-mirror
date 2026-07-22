@@ -149,10 +149,14 @@ it('should display an emoji and count for each tab in the reaction list', async 
 	const elements = queryAllByRole('tab');
 
 	// check two elements
-	expect(within(elements[0]).getByLabelText(':shower:')).toBeDefined();
+	expect(
+		within(elements[0]).getByRole('img', { name: 'Change emoji, currently shower' }),
+	).toBeDefined();
 	expect(within(elements[0]).getByText('10')).toBeDefined();
 
-	expect(within(elements[1]).getByLabelText(':bathtub:')).toBeDefined();
+	expect(
+		within(elements[1]).getByRole('img', { name: 'Change emoji, currently bathtub' }),
+	).toBeDefined();
 	expect(within(elements[1]).getByText('10')).toBeDefined();
 });
 

@@ -20,7 +20,7 @@ import invariant from 'tiny-invariant';
 
 import { useId } from '@atlaskit/ds-lib/use-id';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
-import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { blockDraggingToIFrames } from '@atlaskit/pragmatic-drag-and-drop/element/block-dragging-to-iframes';

@@ -5,6 +5,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme, DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
@@ -12,6 +13,7 @@ import type { NodeViewSerializer } from '../NodeViewSerializer';
 
 import {
 	addedCellOverlayStyle,
+	addedCellOverlayRoundedStyle,
 	deletedRowStyle,
 	deletedCellOverlayStyle,
 } from './colorSchemes/standard';
@@ -19,11 +21,73 @@ import {
 	deletedTraditionalRowStyle,
 	deletedTraditionalCellOverlayStyle,
 	traditionalAddedCellOverlayStyle,
+	traditionalAddedCellOverlayRoundedStyle,
 } from './colorSchemes/traditional';
 import { buildDiffDecorationSpec } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
 
+type CellEdgeAttrs = {
+	reachesBottom: boolean;
+	reachesLeft: boolean;
+	reachesRight: boolean;
+	reachesTop: boolean;
+};
+
+/**
+ * Inserted table rows are rendered as decoration widgets, so their cells do not get the
+ * `data-reaches-*` attrs normally applied by the table cell node view. Mirror that boundary
+ * metadata here so the existing rounded-table CSS can round widget cells like real table cells.
+ */
+const getChangedRowCellEdgeAttrs = ({
+	rowNode,
+	rowStart,
+	tableMap,
+}: {
+	rowNode: PMNode;
+	rowStart: number;
+	tableMap: TableMap;
+}): CellEdgeAttrs[] => {
+	const cellEdgeAttrs: CellEdgeAttrs[] = [];
+
+	rowNode.content.forEach((cellNode, cellOffset) => {
+		if (cellNode.type.name !== 'tableCell' && cellNode.type.name !== 'tableHeader') {
+			return;
+		}
+
+		const cellRect = tableMap.findCell(rowStart + 1 + cellOffset);
+
+		cellEdgeAttrs.push({
+			reachesBottom: cellRect.bottom >= tableMap.height,
+			reachesLeft: cellRect.left === 0,
+			reachesRight: cellRect.right >= tableMap.width,
+			reachesTop: cellRect.top === 0,
+		});
+	});
+
+	return cellEdgeAttrs;
+};
+
+const applyCellEdgeAttrs = (cell: HTMLElement, edgeAttrs?: CellEdgeAttrs): void => {
+	if (!edgeAttrs) {
+		return;
+	}
+
+	if (edgeAttrs.reachesTop) {
+		cell.setAttribute('data-reaches-top', 'true');
+	}
+	if (edgeAttrs.reachesBottom) {
+		cell.setAttribute('data-reaches-bottom', 'true');
+	}
+	if (edgeAttrs.reachesLeft) {
+		cell.setAttribute('data-reaches-left', 'true');
+	}
+	if (edgeAttrs.reachesRight) {
+		cell.setAttribute('data-reaches-right', 'true');
+	}
+};
+
 interface RowInfo {
+	cellEdgeAttrs?: CellEdgeAttrs[];
 	fromA: number;
 	fromB: number;
 	rowIndex: number;
@@ -99,6 +163,12 @@ const extractChangedRows = ({
 			rowNode.type.name === 'tableRow' &&
 			(isExtendedEnabled(diffType) || !isEmptyRow(rowNode))
 		) {
+			const cellEdgeAttrs =
+				isExtendedEnabled(diffType) &&
+				expValEquals('platform_editor_table_diff_rounded_corners', 'isEnabled', true)
+					? getChangedRowCellEdgeAttrs({ rowNode, rowStart, tableMap: oldTableMap })
+					: undefined;
+
 			const startOfRow = newTableMap.mapByRow
 				.slice()
 				.reverse()
@@ -110,6 +180,7 @@ const extractChangedRows = ({
 			changedRows.push({
 				rowIndex,
 				rowNode,
+				cellEdgeAttrs,
 				fromA: tableOld.pos + 1 + rowStart,
 				toA: tableOld.pos + 1 + rowEnd,
 				fromB: startOfRow ? startOfRow[0] + tableNew.start : change.fromB,
@@ -164,6 +235,7 @@ const isEmptyRow = (rowNode: PMNode): boolean => {
  */
 const createChangedRowDOM = (
 	rowNode: PMNode,
+	cellEdgeAttrs: CellEdgeAttrs[] | undefined,
 	nodeViewSerializer: NodeViewSerializer,
 	colorScheme?: ColorScheme,
 	isInserted?: boolean,
@@ -187,23 +259,39 @@ const createChangedRowDOM = (
 	tr.setAttribute('data-testid', 'show-diff-deleted-row');
 
 	// Serialize each cell in the row
+	let cellIndex = 0;
 	rowNode.content.forEach((cellNode) => {
 		if (cellNode.type.name === 'tableCell' || cellNode.type.name === 'tableHeader') {
 			const nodeView = nodeViewSerializer.tryCreateNodeView(cellNode);
 			if (nodeView) {
-				if (nodeView instanceof HTMLElement && isExtendedEnabled(diffType)) {
-					const overlay = document.createElement('span');
-					const overlayStyle =
-						colorScheme === 'traditional'
-							? isInserted
-								? traditionalAddedCellOverlayStyle
-								: deletedTraditionalCellOverlayStyle
-							: isInserted
-								? addedCellOverlayStyle
-								: deletedCellOverlayStyle;
+				if (nodeView instanceof HTMLElement) {
+					applyCellEdgeAttrs(nodeView, cellEdgeAttrs?.[cellIndex]);
 
-					overlay.setAttribute('style', overlayStyle);
-					nodeView.appendChild(overlay);
+					if (isExtendedEnabled(diffType)) {
+						const overlay = document.createElement('span');
+						const isRoundedTable = expValEquals(
+							'platform_editor_table_diff_rounded_corners',
+							'isEnabled',
+							true,
+						);
+						const isTraditional = colorScheme === 'traditional';
+						const deletedCellStyle = isTraditional
+							? deletedTraditionalCellOverlayStyle
+							: deletedCellOverlayStyle;
+
+						const addedCellStyle = isTraditional
+							? isRoundedTable
+								? traditionalAddedCellOverlayRoundedStyle
+								: traditionalAddedCellOverlayStyle
+							: isRoundedTable
+								? addedCellOverlayRoundedStyle
+								: addedCellOverlayStyle;
+
+						const overlayStyle = isInserted ? addedCellStyle : deletedCellStyle;
+
+						overlay.setAttribute('style', overlayStyle);
+						nodeView.appendChild(overlay);
+					}
 				}
 				tr.appendChild(nodeView);
 			} else {
@@ -213,6 +301,7 @@ const createChangedRowDOM = (
 					tr.appendChild(serializedContent);
 				}
 			}
+			cellIndex++;
 		}
 	});
 
@@ -236,7 +325,12 @@ const expandDiffForChangedRows = ({
 	const rowInfo: RowInfo[] = [];
 	for (const change of changes) {
 		// Check if this change affects table content
-		const changedRows = extractChangedRows({ change, originalDoc, newDoc, diffType });
+		const changedRows = extractChangedRows({
+			change,
+			originalDoc,
+			newDoc,
+			diffType,
+		});
 
 		if (changedRows.length > 0) {
 			rowInfo.push(...changedRows);
@@ -277,6 +371,7 @@ export const createChangedRowDecorationWidgets = ({
 	return changedRows.map((changedRow) => {
 		const rowDOM = createChangedRowDOM(
 			changedRow.rowNode,
+			changedRow.cellEdgeAttrs,
 			nodeViewSerializer,
 			colorScheme,
 			isInserted,

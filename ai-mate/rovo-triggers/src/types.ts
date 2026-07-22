@@ -289,6 +289,9 @@ export type BrowserContextPayloadData = {
 				browserUrl: string;
 				htmlBody?: string;
 				canvasText?: string;
+				selection?: {
+					content: string;
+				};
 		  }
 		| undefined;
 };

@@ -1,5 +1,25 @@
 # @atlaskit/editor-tables
 
+## 3.0.30
+
+### Patch Changes
+
+- [`2e35052e8fe41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2e35052e8fe41) -
+  Remove the temporary experiment mock after the drag-and-drop multiselect cleanup.
+- Updated dependencies
+
+## 3.0.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.0.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.27
 
 ### Patch Changes

@@ -8,8 +8,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { Banner } from '@atlaskit/page-layout';
+import { Banner } from '@atlaskit/page-layout/banner-slot';
 import { Content } from '@atlaskit/page-layout/content';
 import { LeftSidebarWithoutResize } from '@atlaskit/page-layout/left-sidebar-without-resize';
 import { Main } from '@atlaskit/page-layout/main';

@@ -129,13 +129,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		'isEnabled',
 		true,
 	);
-	const breakoutExtensionFixEnabled = expValEquals(
-		'confluence_max_width_breakout_extension_fix',
-		'isEnabled',
-		true,
-	);
-	const shouldUseBreakoutFix = tinymceFullWidthModeEnabled && breakoutExtensionFixEnabled;
-	const shouldBreakout = shouldUseBreakoutFix
+	const shouldBreakout = tinymceFullWidthModeEnabled
 		? shouldExtensionBreakout({
 				layout,
 				isTopLevelNode,

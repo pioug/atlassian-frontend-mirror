@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'SpotlightCard',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/card',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -42,7 +42,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'SpotlightHeader',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/header',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -64,7 +64,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'SpotlightBody',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/body',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -85,7 +85,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'SpotlightFooter',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/footer',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -177,7 +177,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'SpotlightDismissControl',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/dismiss-control',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -202,7 +202,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'SpotlightHeadline',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/headline',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),
@@ -224,7 +224,7 @@ const documentation: StructuredContentSource = {
 			status: 'open-beta',
 			import: {
 				name: 'SpotlightActions',
-				package: '@atlaskit/spotlight',
+				package: '@atlaskit/spotlight/actions',
 				type: 'named',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

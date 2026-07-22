@@ -15,6 +15,7 @@ import type {
 	DeletionReason,
 	DeletionMechanism,
 	ReferenceSyncBlockData,
+	SyncBlockStatus,
 } from '../common/types';
 import type { SyncBlockDataProviderInterface, SyncBlockSourceInfo } from '../providers/types';
 import {
@@ -449,6 +450,11 @@ export class SourceSyncBlockStoreManager {
 	 */
 	public hasPendingCreations(): boolean {
 		return this.creationCompletionCallbacks.size > 0;
+	}
+
+	/** Returns the source block's last known backend publication status. */
+	public getStatus(resourceId: ResourceId): SyncBlockStatus | undefined {
+		return this.syncBlockCache.get(resourceId)?.status;
 	}
 
 	/**

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-paste
 
+## 13.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.4.0
+
+### Minor Changes
+
+- [`6e4030f86d5b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e4030f86d5b6) -
+  Fix copy/paste of partial text selected from inside a table nested in a panel (panel_c1)
+  re-wrapping the pasted text in a panel and table. The paste plugin now treats panel_c1 as a panel
+  variant everywhere it special-cases panels, so the existing panel paste handling strips the open
+  panel/table boundary. Gated behind platform_editor_nest_table_in_panel.
+
+### Patch Changes
+
+- [`7d2c4ad5f91a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d2c4ad5f91a2) -
+  Clean up experiment `improve_3p_smart_link_resolve_rate`
+- Updated dependencies
+
 ## 13.3.20
 
 ### Patch Changes

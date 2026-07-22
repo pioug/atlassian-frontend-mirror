@@ -13,7 +13,7 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::01c96bcab4d612370f1b9ad56dff0f01>>
+ * @codegen <<SignedSource::2f7212f6810bd6d549b469d630bdf5ae>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {
@@ -193,6 +193,13 @@ var defaultTokenValues = {
   'color.background.accent.gray.bolder': '#6B6E76',
   'color.background.accent.gray.bolder.hovered': '#505258',
   'color.background.accent.gray.bolder.pressed': '#3B3D42',
+  'color.background.code.added.highlight': '#DCFFF1',
+  'color.background.code.added.line': '#BAF3DB',
+  'color.background.code.default': '#FFFFFF',
+  'color.background.code.gutter': '#F0F1F2',
+  'color.background.code.highlight': '#F0F1F2',
+  'color.background.code.removed.highlight': '#FFECEB',
+  'color.background.code.removed.line': '#FFD5D2',
   'color.background.disabled': '#0515240F',
   'color.background.input': '#FFFFFF',
   'color.background.input.hovered': '#F8F8F8',
@@ -295,6 +302,7 @@ var defaultTokenValues = {
   'color.border.accent.magenta.subtle': '#F797D2',
   'color.border.accent.gray': '#7D818A',
   'color.border.accent.gray.subtle': '#B7B9BE',
+  'color.border.code': '#0B120E24',
   'color.border.disabled': '#0515240F',
   'color.border.focused': '#4688EC',
   'color.border.input': '#8C8F97',
@@ -333,6 +341,17 @@ var defaultTokenValues = {
   'color.text.accent.magenta.bolder': '#50253F',
   'color.text.accent.gray': '#505258',
   'color.text.accent.gray.bolder': '#1E1F21',
+  'color.text.code.accent.1': '#943D73',
+  'color.text.code.accent.2': '#1558BC',
+  'color.text.code.comments': '#505258',
+  'color.text.code.default': '#505258',
+  'color.text.code.functions': '#216E4E',
+  'color.text.code.gutter': '#6B6E76',
+  'color.text.code.keywords': '#AE2E24',
+  'color.text.code.numbers': '#7F5F01',
+  'color.text.code.operators': '#292A2E',
+  'color.text.code.strings': '#4C6B1F',
+  'color.text.code.tags': '#9E4C00',
   'color.text.disabled': '#080F214A',
   'color.text.inverse': '#FFFFFF',
   'color.text.selected': '#1868DB',

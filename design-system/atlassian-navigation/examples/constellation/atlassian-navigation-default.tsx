@@ -1,13 +1,11 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import {
-	AtlassianNavigation,
-	PrimaryButton,
-	PrimaryDropdownButton,
-	ProductHome,
-} from '@atlaskit/atlassian-navigation';
-import { AtlassianIcon, AtlassianLogo } from '@atlaskit/logo';
+import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
+import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
+import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { AtlassianLogo } from '@atlaskit/logo/atlassian/logo';
 
 const AtlassianProductHome = () => <ProductHome icon={AtlassianIcon} logo={AtlassianLogo} />;
 

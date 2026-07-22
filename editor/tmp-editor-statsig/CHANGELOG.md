@@ -1,5 +1,61 @@
 # @atlaskit/editor-statsig-tmp
 
+## 132.1.0
+
+### Minor Changes
+
+- [`08b7535d56701`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08b7535d56701) -
+  Disable sticky headers for single-row tables and delay sticky corner masks until the native header
+  is active behind the table Q4 patch 4 experiment
+
+### Patch Changes
+
+- [`00f3166426df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00f3166426df4) -
+  adopt cssMapScoped for editor core compiled css migration
+
+## 132.0.0
+
+### Major Changes
+
+- [`d73da6cdded98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d73da6cdded98) -
+  Clean up experiment `confluence_max_width_breakout_extension_fix` (now permanently enabled)
+
+## 131.0.0
+
+### Major Changes
+
+- [`f99c886e52489`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f99c886e52489) -
+  Clean up experiment `platform_editor_ai_screen_layout_refactor`
+- [`ea47d8afdb33d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea47d8afdb33d) -
+  Clean up experiment `platform_editor_ignore_metadata_connection_errors`
+- [`6afed619aa443`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6afed619aa443) -
+  Clean up experiment `platform_editor_table_close_cell_menu_on_move_exp`
+- [`f94fb2358b562`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f94fb2358b562) -
+  Clean up experiment `platform_editor_misaligned_ai_screens_firefox_fix`
+- [`7d2c4ad5f91a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d2c4ad5f91a2) -
+  Clean up experiment `improve_3p_smart_link_resolve_rate`
+
+### Minor Changes
+
+- [`ded72f3ee293f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ded72f3ee293f) -
+  Fix table diff cell overlays to use rounded corners for delete row diffs when
+  platform_editor_table_diff_rounded_corners is enabled
+- [`c5e72a8f173eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5e72a8f173eb) -
+  text change only with experiment gate
+- [`63f37967452f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63f37967452f1) -
+  A11Y-42687 remove redundant aria-described-by attributes from toolbar
+
+### Patch Changes
+
+- [`79c6e92d799d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79c6e92d799d3) -
+  [ux] A11Y-31084: Expose the emoji picker grid as an accessible list
+
+  Behind the `platform_a11y_fixes_emoji_picker_list` experiment, the emoji picker's scrollable grid
+  is exposed to assistive technology as a single list: the scroll container becomes `role="list"`
+  and each emoji is a `role="listitem"` (`<li>`), so screen readers announce the list and its items
+  instead of a grid. The virtualizer is left intact. Also registers the experiment in the editor
+  experiments config so it can be resolved via `expValEqualsNoExposure`.
+
 ## 130.2.0
 
 ### Minor Changes

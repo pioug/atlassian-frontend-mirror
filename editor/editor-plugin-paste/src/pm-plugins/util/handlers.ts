@@ -36,6 +36,7 @@ import {
 	linkifyContent,
 	mapSlice,
 } from '@atlaskit/editor-common/utils';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { RunMacroAutoConvert } from '@atlaskit/editor-plugin-extension';
 import type { FindRootParentListNode } from '@atlaskit/editor-plugin-list';
 import type { InsertMediaAsMediaSingle } from '@atlaskit/editor-plugin-media/types';
@@ -163,6 +164,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 				taskItem,
 				text,
 				panel,
+				panel_c1,
 				bulletList,
 				orderedList,
 				taskList,
@@ -178,15 +180,32 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 			['decisionList', 'decisionItem', 'taskList', 'taskItem'].includes(
 				state.selection.node.type.name,
 			);
-		const selectionHasValidParentNode = hasParentNodeOfType([decisionItem, taskItem, panel])(
-			state.selection,
-		);
+		// panel_c1 is a schema variant of panel (used when a table is nested inside a panel). When the
+		// experiment is on we must handle it anywhere we special-case a panel, otherwise partial
+		// selections copied from inside a table-in-panel are treated as a foreign container and
+		// re-wrapped on paste.
+		const selectionHasValidParentNode = expValEquals(
+			'platform_editor_nest_table_in_panel',
+			'isEnabled',
+			true,
+		)
+			? hasParentNodeOfType([decisionItem, taskItem, panel, panel_c1].filter(Boolean))(
+					state.selection,
+				)
+			: hasParentNodeOfType([decisionItem, taskItem, panel])(state.selection);
 		const selectionIsCodeBlock = hasParentNodeOfType([codeBlock])(state.selection);
 		const selectionIsListItem = hasParentNodeOfType([listItem])(state.selection);
 		const panelNode = isSelectionInsidePanel(selection);
 		const selectionIsPanel = Boolean(panelNode);
+		const sliceFirstChildIsPanel = expValEquals(
+			'platform_editor_nest_table_in_panel',
+			'isEnabled',
+			true,
+		)
+			? !!slice.content.firstChild && getBaseNodeTypeName(slice.content.firstChild.type) === 'panel'
+			: slice.content.firstChild?.type === panel;
 		const isSliceWholePanel =
-			slice.content.firstChild?.type === panel && slice.openStart === 0 && slice.openEnd === 0;
+			sliceFirstChildIsPanel && slice.openStart === 0 && slice.openEnd === 0;
 
 		// we avoid handling codeBlock-in-panel use case in this function
 		// returning false will allow code to flow into `handleCodeBlock` function
@@ -261,24 +280,41 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 		if (
 			panelNode &&
 			sliceHasTask &&
-			slice.content.firstChild?.type === panel &&
+			sliceFirstChildIsPanel &&
 			isEmptyNode(panelNode) &&
 			selection.$from.node() === selection.$to.node()
 		) {
 			return Boolean(insertSliceInsideOfPanelNodeSelected(panelNode)({ tr, slice }));
 		}
-		const transformedSliceIsValidNode =
-			(transformedSlice.content.firstChild.type.inlineContent ||
-				['decisionList', 'decisionItem', 'taskItem', 'taskList', 'panel'].includes(
-					transformedSlice.content.firstChild.type.name,
-				)) &&
-			(!isInListItem(state) || (isInListItem(state) && isFirstChildTaskNode));
+		const transformedSliceIsValidNode = expValEquals(
+			'platform_editor_nest_table_in_panel',
+			'isEnabled',
+			true,
+		)
+			? (transformedSlice.content.firstChild.type.inlineContent ||
+					['decisionList', 'decisionItem', 'taskItem', 'taskList', 'panel'].includes(
+						getBaseNodeTypeName(transformedSlice.content.firstChild.type),
+					)) &&
+				(!isInListItem(state) || (isInListItem(state) && isFirstChildTaskNode))
+			: (transformedSlice.content.firstChild.type.inlineContent ||
+					['decisionList', 'decisionItem', 'taskItem', 'taskList', 'panel'].includes(
+						transformedSlice.content.firstChild.type.name,
+					)) &&
+				(!isInListItem(state) || (isInListItem(state) && isFirstChildTaskNode));
 		// If the slice or the selection are valid nodes to handle,
 		// and the slice is not a whole node (i.e. openStart is 1 and openEnd is 0)
 		// or the slice's first node is a paragraph,
 		// then we can replace the selection with our slice.
-		const pastingIntoExtendedPanel =
-			selectionIsPanel && panel.validContent(transformedSlice.content);
+		// When the experiment is on, validate against the actual destination panel variant (panel or
+		// panel_c1) since their content expressions differ (panel_c1 additionally allows a nested
+		// table).
+		const pastingIntoExtendedPanel = expValEquals(
+			'platform_editor_nest_table_in_panel',
+			'isEnabled',
+			true,
+		)
+			? selectionIsPanel && (panelNode?.type ?? panel).validContent(transformedSlice.content)
+			: selectionIsPanel && panel.validContent(transformedSlice.content);
 
 		// A task slice carrying its own open taskList wrapper would, on a plain replaceSelection,
 		// nest that wrapper inside the current item and add an extra taskList level. Unwrapping one
@@ -333,7 +369,9 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 				['mediaSingle'].includes(transformedSlice.content.firstChild.type.name) &&
 				selectionIsPanel
 			) {
-				const parentNode = findParentNodeOfType(panel)(selection);
+				const parentNode = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+					? findParentNodeOfType([panel, panel_c1].filter(Boolean))(selection)
+					: findParentNodeOfType(panel)(selection);
 				if (selectionIsPanel && parentNode && isNodeEmpty(parentNode.node)) {
 					tr.insert(selection.$from.pos, transformedSlice.content).scrollIntoView();
 					// Place the cursor at the the end of the insersertion
@@ -565,11 +603,20 @@ export function handlePastePanelOrDecisionContentIntoList(
 			isSliceWholeNode &&
 			!doesSelectionWhichStartsOrEndsInListContainEntireList(selection, findRootParentListNode);
 
+		// When the experiment is on, treat panel_c1 (table-in-panel variant) like a panel.
+		const blockNodeIsPanelOrDecision = expValEquals(
+			'platform_editor_nest_table_in_panel',
+			'isEnabled',
+			true,
+		)
+			? ['panel', 'decisionList'].includes(blockNode ? getBaseNodeTypeName(blockNode.type) : '')
+			: ['panel', 'decisionList'].includes(blockNode?.type.name ?? '');
+
 		if (
 			!selectionParentListItemNode ||
 			selectionParentListItemNode?.type !== schema.nodes.listItem ||
 			!blockNode ||
-			!['panel', 'decisionList'].includes(blockNode?.type.name) ||
+			!blockNodeIsPanelOrDecision ||
 			slice.content.childCount > 1 ||
 			blockNode?.content.firstChild === undefined ||
 			sliceIsWholeNodeButShouldNotReplaceSelection
@@ -1509,7 +1556,8 @@ export function handleRichText(
 	queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
 ): Command {
 	return (state, dispatch) => {
-		const { codeBlock, heading, paragraph, panel, bulletList, orderedList } = state.schema.nodes;
+		const { codeBlock, heading, paragraph, panel, panel_c1, bulletList, orderedList } =
+			state.schema.nodes;
 		const { fontSize } = state.schema.marks;
 		const { selection, schema } = state;
 		const firstChildOfSlice = slice.content?.firstChild;
@@ -1579,7 +1627,14 @@ export function handleRichText(
 			selection.$to.node().type.validContent(slice.content) ||
 			(textNodes.includes(selection.$to.node().type) &&
 				selectionParent.type.validContent(slice.content));
-		const panelParentOverCurrentSelection = findParentNodeOfType(panel)(tr.selection);
+		// panel_c1 is a schema variant of panel; when the experiment is on, treat both together.
+		const panelParentOverCurrentSelection = expValEquals(
+			'platform_editor_nest_table_in_panel',
+			'isEnabled',
+			true,
+		)
+			? findParentNodeOfType([panel, panel_c1].filter(Boolean))(tr.selection)
+			: findParentNodeOfType(panel)(tr.selection);
 		const isTargetPanelEmpty =
 			panelParentOverCurrentSelection && panelParentOverCurrentSelection.node?.content.size === 2;
 
@@ -1606,12 +1661,17 @@ export function handleRichText(
 				// when cursor is inside a table cell, and slice.content.lastChild is a panel, expand, or decisionList
 				// need to make sure the cursor position is is right after the panel, expand, or decisionList
 				// still in the same table cell, see issue: https://product-fabric.atlassian.net/browse/ED-17862
-				const shouldUpdateCursorPosAfterPaste = [
-					'panel',
-					'nestedExpand',
-					'decisionList',
-					'codeBlock',
-				].includes(slice.content.lastChild?.type?.name || '');
+				const shouldUpdateCursorPosAfterPaste = expValEquals(
+					'platform_editor_nest_table_in_panel',
+					'isEnabled',
+					true,
+				)
+					? ['panel', 'nestedExpand', 'decisionList', 'codeBlock'].includes(
+							slice.content.lastChild ? getBaseNodeTypeName(slice.content.lastChild.type) : '',
+						)
+					: ['panel', 'nestedExpand', 'decisionList', 'codeBlock'].includes(
+							slice.content.lastChild?.type?.name || '',
+						);
 				const lastChild = slice.content.lastChild;
 				const $nextPos = tr.doc.resolve(tr.mapping.map(selection.from));
 				const nextSelection = lastChild?.type.isTextblock

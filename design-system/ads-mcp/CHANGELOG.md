@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.7.0
+
+### Minor Changes
+
+- [`9f115ecc01686`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f115ecc01686) -
+  Create a new rule to block usage of `label` in modal dialog.
+
 ## 1.6.2
 
 ### Patch Changes

@@ -2,11 +2,13 @@ import React from 'react';
 
 import { useIntl } from 'react-intl';
 
+import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/hooks';
 import { selectionToolbarMessages } from '@atlaskit/editor-common/messages';
 import { useEditorToolbar } from '@atlaskit/editor-common/toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode';
 import { PinIcon, PinnedIcon, ToolbarDropdownItem } from '@atlaskit/editor-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionToolbarPlugin } from '../selectionToolbarPluginType';
 
@@ -34,6 +36,11 @@ const usePluginState = (_api?: ExtractInjectionAPI<SelectionToolbarPlugin> | und
  */
 export const PinMenuItem = ({ api, disablePin }: PinMenuItemProps): React.JSX.Element | null => {
 	const intl = useIntl();
+	const runtimeOverride = useSharedPluginStateWithSelector(
+		api,
+		['toolbar'],
+		(states) => states.toolbarState?.contextualFormattingModeOverride,
+	);
 	const {
 		editorViewMode,
 		editorToolbarDockingPreference,
@@ -41,7 +48,11 @@ export const PinMenuItem = ({ api, disablePin }: PinMenuItemProps): React.JSX.El
 	} = usePluginState(api);
 	const isToolbarDocked = editorToolbarDockingPreference === 'top';
 
-	if (disablePin || !shouldShowPinMenuItem(editorViewMode)) {
+	if (
+		disablePin ||
+		!shouldShowPinMenuItem(editorViewMode) ||
+		(runtimeOverride === 'always-pinned' && fg('platform_editor_markdown_patch_m3'))
+	) {
 		return null;
 	}
 

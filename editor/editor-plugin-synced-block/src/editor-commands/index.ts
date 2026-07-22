@@ -36,6 +36,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import { getSourceProductFromResourceIdSafe } from '@atlaskit/editor-synced-block-provider/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { creationMetaKey, deleteMechanismMetaKey, syncedBlockPluginKey } from '../pm-plugins/main';
@@ -230,11 +231,13 @@ export const copySyncedBlockReferenceToClipboardEditorCommand: (
 	syncBlockStore: SyncBlockStoreManager,
 	inputMethod: INPUT_METHOD,
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
+	isLivePage?: boolean,
 ) => EditorCommand =
 	(
 		syncBlockStore: SyncBlockStoreManager,
 		inputMethod: INPUT_METHOD,
 		api?: ExtractInjectionAPI<SyncedBlockPlugin>,
+		isLivePage?: boolean,
 	) =>
 	({ tr }) => {
 		if (
@@ -244,6 +247,7 @@ export const copySyncedBlockReferenceToClipboardEditorCommand: (
 				syncBlockStore,
 				inputMethod,
 				api,
+				isLivePage,
 			)
 		) {
 			return tr;
@@ -256,11 +260,13 @@ export const copySyncedBlockReferenceToClipboard: (
 	syncBlockStore: SyncBlockStoreManager,
 	inputMethod: INPUT_METHOD,
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
+	isLivePage?: boolean,
 ) => Command =
 	(
 		syncBlockStore: SyncBlockStoreManager,
 		inputMethod: INPUT_METHOD,
 		api?: ExtractInjectionAPI<SyncedBlockPlugin>,
+		isLivePage?: boolean,
 	) =>
 	(state: EditorState, _dispatch?: CommandDispatch, _view?: EditorView) =>
 		copySyncedBlockReferenceToClipboardInternal(
@@ -269,6 +275,7 @@ export const copySyncedBlockReferenceToClipboard: (
 			syncBlockStore,
 			inputMethod,
 			api,
+			isLivePage,
 		);
 
 const copySyncedBlockReferenceToClipboardInternal = (
@@ -277,6 +284,7 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	syncBlockStore: SyncBlockStoreManager,
 	inputMethod: INPUT_METHOD,
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>,
+	isLivePage?: boolean,
 ): boolean => {
 	const syncBlockFindResult = findSyncBlockOrBodiedSyncBlock(schema, selection);
 	if (!syncBlockFindResult) {
@@ -348,6 +356,11 @@ const copySyncedBlockReferenceToClipboardInternal = (
 	// Bare-uuid join key shared with the create/delete events: for a source
 	// bodiedSyncBlock its `localId` is the source uuid (copy was page-form only).
 	const sourceJoinKey = isBodiedSyncBlock ? syncBlockFindResult.node.attrs.localId : undefined;
+	const isSourceContentUnpublished = isBodiedSyncBlock
+		? syncBlockStore.sourceManager.getStatus(syncBlockFindResult.node.attrs.resourceId) !== 'active'
+		: syncBlockStore.referenceManager.getFromCache(referenceSyncBlockNode.attrs.resourceId)?.data
+				?.status === 'unpublished';
+	const sourceProduct = getSourceProductFromResourceIdSafe(referenceSyncBlockNode.attrs.resourceId);
 
 	deferDispatch(() => {
 		api?.core.actions.execute(({ tr }) => {
@@ -365,7 +378,12 @@ const copySyncedBlockReferenceToClipboardInternal = (
 			});
 
 			return tr.setMeta(syncedBlockPluginKey, {
-				activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
+				activeFlag: {
+					id: FLAG_ID.SYNC_BLOCK_COPIED,
+					isLivePage,
+					isSourceContentUnpublished,
+					sourceProduct,
+				},
 			});
 		});
 	});

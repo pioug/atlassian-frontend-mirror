@@ -392,6 +392,29 @@ const colorPairs = [
 	},
 ];
 
+const codeSyntaxPairs = [
+	{
+		background: token('color.background.code.default'),
+		text: token('color.text.code.default'),
+		label: 'default code',
+	},
+	{
+		background: token('color.background.code.highlight'),
+		text: token('color.text.code.keywords'),
+		label: 'highlighted keyword',
+	},
+	{
+		background: token('color.background.code.added.line'),
+		text: token('color.text.code.functions'),
+		label: 'added line',
+	},
+	{
+		background: token('color.background.code.removed.line'),
+		text: token('color.text.code.strings'),
+		label: 'removed line',
+	},
+];
+
 const styles = cssMap({
 	container: {
 		margin: '2em',
@@ -413,6 +436,17 @@ const styles = cssMap({
 		fontSize: 'inherit',
 		textAlign: 'left',
 	},
+	codeSample: {
+		boxSizing: 'border-box',
+		margin: '0.5em',
+		padding: '1em',
+		border: `1px solid ${token('color.border.code')}`,
+		borderRadius: token('radius.small'),
+		fontFamily: 'monospace',
+		fontSize: 'inherit',
+		lineHeight: '1.5',
+		whiteSpace: 'pre-wrap',
+	},
 });
 
 const varToToken = (tokenString: string) =>
@@ -430,6 +464,26 @@ const Box = ({ background, text }: { background: string; text: string }) => (
 	</div>
 );
 
+const CodeSample = ({
+	background,
+	text,
+	label,
+}: {
+	background: string;
+	text: string;
+	label: string;
+}) => (
+	<pre
+		css={styles.codeSample}
+		style={{
+			backgroundColor: background,
+			color: text,
+		}}
+	>
+		{`// ${label}\nconst keyword = token('color.text.code.keywords');`}
+	</pre>
+);
+
 export default (): JSX.Element => {
 	useVrGlobalTheme();
 
@@ -439,6 +493,12 @@ export default (): JSX.Element => {
 			<div css={styles.row}>
 				{colorPairs.map(({ background, text }, key) => (
 					<Box key={key} background={background} text={text} />
+				))}
+			</div>
+			<h2>Code syntax pairs</h2>
+			<div css={styles.row}>
+				{codeSyntaxPairs.map(({ background, text, label }) => (
+					<CodeSample key={label} background={background} text={text} label={label} />
 				))}
 			</div>
 		</div>

@@ -144,6 +144,8 @@ export const createLeftAnchorWidget = ({
 		anchorType: AnchorTypeKey.left,
 	});
 
+	let leftResizeObserver: ResizeObserver | undefined;
+
 	return Decoration.widget(
 		beforePos,
 		(view, getPos) => {
@@ -162,12 +164,7 @@ export const createLeftAnchorWidget = ({
 
 			wrapper.appendChild(anchor);
 
-			// The block DOM may not be settled synchronously (e.g. after a
-			// transaction), so defer the measurement like the gap cursor does.
-			requestAnimationFrame(() => {
-				// The widget may have been unmounted; bail if its position is gone.
-				// We still measure the stable block node position, not the widget's
-				// own position.
+			const measureWidth = () => {
 				if (getPos() === undefined || edgeCase.measurePos === undefined) {
 					return;
 				}
@@ -177,16 +174,34 @@ export const createLeftAnchorWidget = ({
 					// The left anchor only needs the container width so the
 					// IndicatorBar can align against the block's horizontal extent.
 					anchor.style.setProperty('width', `${dom.offsetWidth}px`);
+
+					// Observe the measured element for size changes (e.g. page
+					// resize) so the indicator stays aligned. CCI-17981
+					if (!leftResizeObserver) {
+						leftResizeObserver = new ResizeObserver(() => {
+							if (getPos() !== undefined) {
+								anchor.style.setProperty('width', `${dom.offsetWidth}px`);
+							}
+						});
+						leftResizeObserver.observe(dom);
+					}
 				}
-			});
+			};
+
+			// The block DOM may not be settled synchronously (e.g. after a
+			// transaction), so defer the measurement like the gap cursor does.
+			requestAnimationFrame(measureWidth);
 
 			return wrapper;
 		},
-		buildAnchorDecorationSpec({
-			diffId,
-			anchorType: AnchorTypeKey.left,
-			side: -999,
-		}),
+		{
+			...buildAnchorDecorationSpec({
+				diffId,
+				anchorType: AnchorTypeKey.left,
+				side: -999,
+			}),
+			destroy: () => leftResizeObserver?.disconnect(),
+		},
 	);
 };
 
@@ -249,6 +264,8 @@ export const createBlockIndicatorAnchorWidgets = ({
 	// widget's own position.
 	const measurePos = parentCellOrRow ? parentCellOrRow.pos : from;
 
+	let blockResizeObserver: ResizeObserver | undefined;
+
 	const blockWidget = Decoration.widget(
 		widgetPos,
 		(view, getPos) => {
@@ -263,12 +280,7 @@ export const createBlockIndicatorAnchorWidgets = ({
 			anchor.style.setProperty('anchor-name', `--${blockAnchorKey}`);
 			wrapper.appendChild(anchor);
 
-			// The block DOM may not be settled synchronously (e.g. after a
-			// transaction), so defer the measurement like the gap cursor does.
-			requestAnimationFrame(() => {
-				// The widget may have been unmounted; bail if its position is gone.
-				// We still measure the stable cell/row node position, not the
-				// widget's own position.
+			const measureBlock = () => {
 				if (getPos() === undefined) {
 					return;
 				}
@@ -289,18 +301,36 @@ export const createBlockIndicatorAnchorWidgets = ({
 					// The offset already accounts for the cell/row's position, so the
 					// margin-top must not be double-applied.
 					anchor.style.setProperty('margin-top', '0px');
+
+					// Observe the measured element for size changes (e.g. page
+					// resize) so the indicator stays aligned. CCI-17981
+					if (!blockResizeObserver) {
+						blockResizeObserver = new ResizeObserver(() => {
+							if (getPos() !== undefined) {
+								measureBlock();
+							}
+						});
+						blockResizeObserver.observe(dom);
+					}
 				}
-			});
+			};
+
+			// The block DOM may not be settled synchronously (e.g. after a
+			// transaction), so defer the measurement like the gap cursor does.
+			requestAnimationFrame(measureBlock);
 
 			return wrapper;
 		},
-		buildAnchorDecorationSpec({
-			diffId,
-			// Reuse the `from` anchor type slot; the generated key intentionally
-			// omits the anchor type so the single element backs top/bottom/left.
-			anchorType: AnchorTypeKey.from,
-			side: -1,
-		}),
+		{
+			...buildAnchorDecorationSpec({
+				diffId,
+				// Reuse the `from` anchor type slot; the generated key intentionally
+				// omits the anchor type so the single element backs top/bottom/left.
+				anchorType: AnchorTypeKey.from,
+				side: -1,
+			}),
+			destroy: () => blockResizeObserver?.disconnect(),
+		},
 	);
 
 	return [blockWidget, ...maybeLeftAnchor];

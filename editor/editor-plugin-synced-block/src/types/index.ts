@@ -20,14 +20,17 @@ export enum FLAG_ID {
 
 type FlagConfig = {
 	id: FLAG_ID;
+	/** Whether the copied synced block confirmation originated from a live page. */
+	isLivePage?: boolean;
+	/** Whether the copied synced block's source content must be published before it can be reused. */
+	isSourceContentUnpublished?: boolean;
 	// Called when the flag is closed
 	onDismissed?: (tr: Transaction) => Transaction | void;
 	// Called when retry button in flag is clicked
 	onRetry?: () => void;
 	/**
-	 * Optional source product for the synced block triggering this flag. Currently used
-	 * by the UNPUBLISHED_SYNC_BLOCK_PASTED flag so the displayed copy can be tailored
-	 * for Jira work items vs Confluence pages.
+	 * Optional source product for the synced block triggering this flag. Used to tailor
+	 * unpublished paste copy and to limit educational copy confirmation to Confluence.
 	 */
 	sourceProduct?: SyncBlockProduct;
 };

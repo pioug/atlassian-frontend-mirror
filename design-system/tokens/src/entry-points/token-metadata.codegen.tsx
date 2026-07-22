@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::a6b07ac4ed3460c4df60a0deaceaf89a>>
+ * @codegen <<SignedSource::d2f73c7ccdd4dfd2d7013fb9d84f04f4>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -1807,6 +1807,83 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.background.code.added.highlight',
+		path: ['color', 'background', 'code', 'added', 'highlight'],
+		description: 'Use for highlighted added code lines.',
+		exampleValue: '#DCFFF1',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.code.added.line',
+		path: ['color', 'background', 'code', 'added', 'line'],
+		description: 'Use for added code lines.',
+		exampleValue: '#BAF3DB',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.code.default',
+		path: ['color', 'background', 'code', 'default'],
+		description: 'Use for the default background of code blocks and code diffs.',
+		exampleValue: '#FFFFFF',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.code.gutter',
+		path: ['color', 'background', 'code', 'gutter'],
+		description: 'Use for the background of code gutters.',
+		exampleValue: '#F0F1F2',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.code.highlight',
+		path: ['color', 'background', 'code', 'highlight'],
+		description: 'Use for highlighted unchanged code lines.',
+		exampleValue: '#F0F1F2',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.code.removed.highlight',
+		path: ['color', 'background', 'code', 'removed', 'highlight'],
+		description: 'Use for highlighted removed code lines.',
+		exampleValue: '#FFECEB',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.code.removed.line',
+		path: ['color', 'background', 'code', 'removed', 'line'],
+		description: 'Use for removed code lines.',
+		exampleValue: '#FFD5D2',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
 		name: 'color.background.disabled',
 		path: ['color', 'background', 'disabled'],
 		description: 'Use for backgrounds of elements in a disabled state.',
@@ -2977,6 +3054,17 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.border.code',
+		path: ['color', 'border', 'code'],
+		description: 'Use for code block and code diff borders.',
+		exampleValue: '#0B120E24',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
 		name: 'color.border.disabled',
 		path: ['color', 'border', 'disabled'],
 		description: 'Use for borders of elements in a disabled state.',
@@ -3417,6 +3505,127 @@ export const tokens: Token[] = [
 		path: ['color', 'text', 'accent', 'gray', 'bolder'],
 		description: 'Use for text and icons on gray subtle accent backgrounds.',
 		exampleValue: '#1E1F21',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.accent.1',
+		path: ['color', 'text', 'code', 'accent', '1'],
+		description: 'Use for an additional syntax-highlighting text color.',
+		exampleValue: '#943D73',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.accent.2',
+		path: ['color', 'text', 'code', 'accent', '2'],
+		description: 'Use for an additional syntax-highlighting text color.',
+		exampleValue: '#1558BC',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.comments',
+		path: ['color', 'text', 'code', 'comments'],
+		description: 'Use for comments in syntax-highlighted code.',
+		exampleValue: '#505258',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.default',
+		path: ['color', 'text', 'code', 'default'],
+		description: 'Use for default text in code blocks and code diffs.',
+		exampleValue: '#505258',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.functions',
+		path: ['color', 'text', 'code', 'functions'],
+		description: 'Use for functions in syntax-highlighted code.',
+		exampleValue: '#216E4E',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.gutter',
+		path: ['color', 'text', 'code', 'gutter'],
+		description: 'Use for line numbers and other code gutter text.',
+		exampleValue: '#6B6E76',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.keywords',
+		path: ['color', 'text', 'code', 'keywords'],
+		description: 'Use for language keywords in syntax-highlighted code.',
+		exampleValue: '#AE2E24',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.numbers',
+		path: ['color', 'text', 'code', 'numbers'],
+		description: 'Use for numeric values in syntax-highlighted code.',
+		exampleValue: '#7F5F01',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.operators',
+		path: ['color', 'text', 'code', 'operators'],
+		description: 'Use for operators and punctuation in syntax-highlighted code.',
+		exampleValue: '#292A2E',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.strings',
+		path: ['color', 'text', 'code', 'strings'],
+		description: 'Use for string values in syntax-highlighted code.',
+		exampleValue: '#4C6B1F',
+		usageGuidelines: {
+			usage:
+				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',
+			cssProperties: ['color'],
+		},
+	},
+	{
+		name: 'color.text.code.tags',
+		path: ['color', 'text', 'code', 'tags'],
+		description: 'Use for tags in syntax-highlighted code.',
+		exampleValue: '#9E4C00',
 		usageGuidelines: {
 			usage:
 				'The color for standard text. Use for primary, readable text in most user interface situations (e.g. color.text, color.text.subtle)',

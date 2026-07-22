@@ -116,4 +116,3 @@ export type UIAnalyticsEventProps = AnalyticsEventProps & {
 	context?: Context;
 	handlers?: UIAnalyticsEventHandler[];
 };
-export { isUIAnalyticsEvent } from './isUIAnalyticsEvent';

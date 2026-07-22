@@ -6,7 +6,7 @@ import { type ReactNode, useCallback, useContext, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { Popover } from '@atlaskit/top-layer/popover';
 import { useAnchorPosition } from '@atlaskit/top-layer/use-anchor-position';
 import { useWidthFromAnchor } from '@atlaskit/top-layer/use-width-from-anchor';

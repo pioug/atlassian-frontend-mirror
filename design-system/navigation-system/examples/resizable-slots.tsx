@@ -18,7 +18,7 @@ import ClockIcon from '@atlaskit/icon/core/clock';
 import InboxIcon from '@atlaskit/icon/core/inbox';
 import ProjectIcon from '@atlaskit/icon/core/project';
 import SettingsIcon from '@atlaskit/icon/core/settings';
-import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import Link from '@atlaskit/link';
 import { ConfluenceIcon } from '@atlaskit/logo';
 import Modal, {

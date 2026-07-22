@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { bind } from 'bind-event-listener';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
-import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 

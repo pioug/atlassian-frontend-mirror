@@ -10,7 +10,7 @@ import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
 import { css, cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { useCloseOnEscapePress } from '@atlaskit/layering';
+import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';

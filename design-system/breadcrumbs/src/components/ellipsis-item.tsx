@@ -80,7 +80,7 @@ const styles = cssMap({
 		transition: token('motion.listitem.hovered'),
 		'&:hover': {
 			textDecorationColor: token('color.text.subtlest'),
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),

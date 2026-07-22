@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.5
+
+### Patch Changes
+
+- [`ead18351c8a3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ead18351c8a3c) -
+  Add educational guidance to synced block copy confirmation flags in the activation experiment.
+- Updated dependencies
+
 ## 10.3.4
 
 ### Patch Changes

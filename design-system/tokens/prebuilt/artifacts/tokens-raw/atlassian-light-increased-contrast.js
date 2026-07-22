@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9e92076a7400beb8047b89a1c20f1e3b>>
+ * @codegen <<SignedSource::a478fbff356db43bc18135c66e7151d2>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2651,6 +2651,160 @@ var tokens = [{
   "path": ["color", "background", "accent", "gray", "bolder", "pressed"],
   "cleanName": "color.background.accent.gray.bolder.pressed"
 }, {
+  "value": "#DCFFF1",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for highlighted added code lines."
+  },
+  "original": {
+    "value": "Green100",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for highlighted added code lines."
+    }
+  },
+  "name": "color.background.code.added.highlight",
+  "path": ["color", "background", "code", "added", "highlight"],
+  "cleanName": "color.background.code.added.highlight"
+}, {
+  "value": "#BAF3DB",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for added code lines."
+  },
+  "original": {
+    "value": "Green200",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for added code lines."
+    }
+  },
+  "name": "color.background.code.added.line",
+  "path": ["color", "background", "code", "added", "line"],
+  "cleanName": "color.background.code.added.line"
+}, {
+  "value": "#FFFFFF",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for the default background of code blocks and code diffs."
+  },
+  "original": {
+    "value": "Neutral0",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for the default background of code blocks and code diffs."
+    }
+  },
+  "name": "color.background.code.default",
+  "path": ["color", "background", "code", "default"],
+  "cleanName": "color.background.code.default"
+}, {
+  "value": "#F0F1F2",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for the background of code gutters."
+  },
+  "original": {
+    "value": "Neutral200",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for the background of code gutters."
+    }
+  },
+  "name": "color.background.code.gutter",
+  "path": ["color", "background", "code", "gutter"],
+  "cleanName": "color.background.code.gutter"
+}, {
+  "value": "#F0F1F2",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for highlighted unchanged code lines."
+  },
+  "original": {
+    "value": "Neutral200",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for highlighted unchanged code lines."
+    }
+  },
+  "name": "color.background.code.highlight",
+  "path": ["color", "background", "code", "highlight"],
+  "cleanName": "color.background.code.highlight"
+}, {
+  "value": "#FFECEB",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for highlighted removed code lines."
+  },
+  "original": {
+    "value": "Red100",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for highlighted removed code lines."
+    }
+  },
+  "name": "color.background.code.removed.highlight",
+  "path": ["color", "background", "code", "removed", "highlight"],
+  "cleanName": "color.background.code.removed.highlight"
+}, {
+  "value": "#FFD5D2",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for removed code lines."
+  },
+  "original": {
+    "value": "Red200",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for removed code lines."
+    }
+  },
+  "name": "color.background.code.removed.line",
+  "path": ["color", "background", "code", "removed", "line"],
+  "cleanName": "color.background.code.removed.line"
+}, {
   "value": "#0515240F",
   "filePath": "schema/themes/atlassian-light/color/background.tsx",
   "isSource": false,
@@ -4896,6 +5050,28 @@ var tokens = [{
   "cleanName": "color.border.accent.gray.subtle"
 }, {
   "value": "#0B120E24",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for code block and code diff borders."
+  },
+  "original": {
+    "value": "Neutral300A",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for code block and code diff borders."
+    }
+  },
+  "name": "color.border.code",
+  "path": ["color", "border", "code"],
+  "cleanName": "color.border.code"
+}, {
+  "value": "#0B120E24",
   "filePath": "schema/themes/atlassian-light-increased-contrast/color/border.tsx",
   "isSource": true,
   "attributes": {
@@ -5730,6 +5906,248 @@ var tokens = [{
   "name": "color.text.accent.gray.bolder",
   "path": ["color", "text", "accent", "gray", "bolder"],
   "cleanName": "color.text.accent.gray.bolder"
+}, {
+  "value": "#943D73",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for an additional syntax-highlighting text color."
+  },
+  "original": {
+    "value": "Magenta800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for an additional syntax-highlighting text color."
+    }
+  },
+  "name": "color.text.code.accent.1",
+  "path": ["color", "text", "code", "accent", "1"],
+  "cleanName": "color.text.code.accent.1"
+}, {
+  "value": "#1558BC",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for an additional syntax-highlighting text color."
+  },
+  "original": {
+    "value": "Blue800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for an additional syntax-highlighting text color."
+    }
+  },
+  "name": "color.text.code.accent.2",
+  "path": ["color", "text", "code", "accent", "2"],
+  "cleanName": "color.text.code.accent.2"
+}, {
+  "value": "#505258",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for comments in syntax-highlighted code."
+  },
+  "original": {
+    "value": "Neutral800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for comments in syntax-highlighted code."
+    }
+  },
+  "name": "color.text.code.comments",
+  "path": ["color", "text", "code", "comments"],
+  "cleanName": "color.text.code.comments"
+}, {
+  "value": "#505258",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for default text in code blocks and code diffs."
+  },
+  "original": {
+    "value": "Neutral800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for default text in code blocks and code diffs."
+    }
+  },
+  "name": "color.text.code.default",
+  "path": ["color", "text", "code", "default"],
+  "cleanName": "color.text.code.default"
+}, {
+  "value": "#216E4E",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for functions in syntax-highlighted code."
+  },
+  "original": {
+    "value": "Green800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for functions in syntax-highlighted code."
+    }
+  },
+  "name": "color.text.code.functions",
+  "path": ["color", "text", "code", "functions"],
+  "cleanName": "color.text.code.functions"
+}, {
+  "value": "#6B6E76",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for line numbers and other code gutter text."
+  },
+  "original": {
+    "value": "Neutral700",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for line numbers and other code gutter text."
+    }
+  },
+  "name": "color.text.code.gutter",
+  "path": ["color", "text", "code", "gutter"],
+  "cleanName": "color.text.code.gutter"
+}, {
+  "value": "#AE2E24",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for language keywords in syntax-highlighted code."
+  },
+  "original": {
+    "value": "Red800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for language keywords in syntax-highlighted code."
+    }
+  },
+  "name": "color.text.code.keywords",
+  "path": ["color", "text", "code", "keywords"],
+  "cleanName": "color.text.code.keywords"
+}, {
+  "value": "#7F5F01",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for numeric values in syntax-highlighted code."
+  },
+  "original": {
+    "value": "Yellow800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for numeric values in syntax-highlighted code."
+    }
+  },
+  "name": "color.text.code.numbers",
+  "path": ["color", "text", "code", "numbers"],
+  "cleanName": "color.text.code.numbers"
+}, {
+  "value": "#292A2E",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for operators and punctuation in syntax-highlighted code."
+  },
+  "original": {
+    "value": "Neutral1000",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for operators and punctuation in syntax-highlighted code."
+    }
+  },
+  "name": "color.text.code.operators",
+  "path": ["color", "text", "code", "operators"],
+  "cleanName": "color.text.code.operators"
+}, {
+  "value": "#4C6B1F",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for string values in syntax-highlighted code."
+  },
+  "original": {
+    "value": "Lime800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for string values in syntax-highlighted code."
+    }
+  },
+  "name": "color.text.code.strings",
+  "path": ["color", "text", "code", "strings"],
+  "cleanName": "color.text.code.strings"
+}, {
+  "value": "#9E4C00",
+  "filePath": "schema/themes/atlassian-light/color/code.tsx",
+  "isSource": false,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "16.0.0",
+    "description": "Use for tags in syntax-highlighted code."
+  },
+  "original": {
+    "value": "Orange800",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "16.0.0",
+      "description": "Use for tags in syntax-highlighted code."
+    }
+  },
+  "name": "color.text.code.tags",
+  "path": ["color", "text", "code", "tags"],
+  "cleanName": "color.text.code.tags"
 }, {
   "value": "#080F214A",
   "filePath": "schema/themes/atlassian-light/color/text.tsx",

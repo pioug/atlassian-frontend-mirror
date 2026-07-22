@@ -665,4 +665,38 @@ describe('TeamLinks', () => {
 		expect(screen.getByText(WebLinks.name)).toBeInTheDocument();
 		expect(screen.getByText(messages.linkContainerDescription.defaultMessage)).toBeInTheDocument();
 	});
+
+	it('should render list semantics when teams-a11y-34974-34752-34709 gate is enabled', () => {
+		mockFg.mockImplementation((gateName: string) => {
+			return gateName === 'teams-a11y-34974-34752-34709';
+		});
+
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace],
+		});
+
+		const { container } = renderTeamContainers(teamId);
+		const gridContainer = container.querySelector('[role="list"]');
+		expect(gridContainer).toBeInTheDocument();
+
+		const listItems = container.querySelectorAll('[role="listitem"]');
+		expect(listItems.length).toBeGreaterThan(0);
+	});
+
+	it('should not render list semantics when teams-a11y-34974-34752-34709 gate is disabled', () => {
+		mockFg.mockImplementation(() => {
+			return false;
+		});
+
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace],
+		});
+
+		const { container } = renderTeamContainers(teamId);
+		const gridContainer = container.querySelector('[role="list"]');
+		expect(gridContainer).not.toBeInTheDocument();
+
+		const listItems = container.querySelectorAll('[role="listitem"]');
+		expect(listItems.length).toBe(0);
+	});
 });

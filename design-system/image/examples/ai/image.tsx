@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Image from '@atlaskit/image';
+import Image from '@atlaskit/image/image';
 
 const Examples = (): React.JSX.Element => (
 	<>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Calendar from '@atlaskit/calendar';
+import Calendar from '@atlaskit/calendar/calendar';
 
 const Examples = (): React.JSX.Element => (
 	<>

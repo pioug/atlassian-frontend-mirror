@@ -1,5 +1,15 @@
 # @atlaskit/browser-apis
 
+## 1.2.0
+
+### Minor Changes
+
+- [`70f1b1fd5db8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70f1b1fd5db8d) -
+  Add missing subpath exports (`./fg`, `./getBooleanFF`, `./setBooleanFeatureFlagResolver`) to
+  package.json exports field. These were added to source in
+  https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffb4d7d5b4d7c but not included
+  in the published version.
+
 ## 1.1.0
 
 ### Minor Changes

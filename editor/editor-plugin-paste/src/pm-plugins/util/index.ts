@@ -8,6 +8,7 @@ import {
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { sortByOrderWithTypeName } from '@atlaskit/editor-common/legacy-rank-plugins';
 import { isSupportedInParent, mapChildren } from '@atlaskit/editor-common/utils';
+import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Mark, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -16,6 +17,7 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getSelectedTableInfo, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
@@ -267,6 +269,11 @@ export function isCursorSelectionAtTextStartOrEnd(selection: Selection): boolean
 }
 
 export function isPanelNode(node: PMNode | null | undefined): boolean {
+	// panel_c1 is a schema variant of panel (used when a table is nested inside a panel). When the
+	// experiment is on, treat it as a panel too.
+	if (expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)) {
+		return Boolean(node && getBaseNodeTypeName(node.type) === 'panel');
+	}
 	return Boolean(node && node.type.name === 'panel');
 }
 
@@ -278,13 +285,16 @@ export function isSelectionInsidePanel(selection: Selection): PMNode | null {
 		doc: {
 			type: {
 				schema: {
-					nodes: { panel },
+					nodes: { panel, panel_c1 },
 				},
 			},
 		},
 	} = selection.$from;
 
-	const panelPosition = findParentNodeOfType(panel)(selection);
+	// When the experiment is on, also match panel_c1 (table-in-panel variant).
+	const panelPosition = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+		? findParentNodeOfType([panel, panel_c1].filter(Boolean))(selection)
+		: findParentNodeOfType(panel)(selection);
 
 	if (panelPosition) {
 		return panelPosition.node;

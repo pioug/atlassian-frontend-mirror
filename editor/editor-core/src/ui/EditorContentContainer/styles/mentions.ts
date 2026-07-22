@@ -70,6 +70,21 @@ export const mentionsStyles: SerializedStyles = css({
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const mentionNodeStyles: SerializedStyles = css({
+	// Show diff: mention attr change highlight. Keep this with mention node styles so the
+	// highlight targets the mention primitive's rounded shape.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.show-diff-atomic-inline-changed-mention': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.show-diff-atomic-inline-changed-mention.show-diff-atomic-inline-changed-traditional': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.show-diff-atomic-inline-changed-mention .editor-mention-primitive': {
+		boxShadow: '0 0 0 2px var(--show-diff-atomic-inline-changed-border-color)',
+	},
+
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.editor-mention-primitive': {
 		display: 'inline',

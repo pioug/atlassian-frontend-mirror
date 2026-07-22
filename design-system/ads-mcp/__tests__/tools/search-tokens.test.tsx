@@ -46,8 +46,8 @@ const expectedTokenResults: [string[], string[]][] = [
 		[
 			'color.chart.neutral',
 			'color.text.accent.gray',
-			'color.text.information',
-			'color.text.information.bolder',
+			'color.text.code.accent.1',
+			'color.text.code.accent.2',
 		],
 	],
 

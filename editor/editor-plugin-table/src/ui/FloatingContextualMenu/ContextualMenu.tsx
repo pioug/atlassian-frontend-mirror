@@ -769,24 +769,13 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 
 	private toggleOpen = () => {
 		const {
-			isOpen,
 			editorView: { state, dispatch },
 		} = this.props;
 
-		if (expValEquals('platform_editor_table_close_cell_menu_on_move_exp', 'isEnabled', true)) {
-			if (getPluginState(state).isContextualMenuOpen) {
-				toggleContextualMenu()(state, dispatch);
-			}
-			this.closeSubmenu();
-			return;
+		if (getPluginState(state).isContextualMenuOpen) {
+			toggleContextualMenu()(state, dispatch);
 		}
-
-		toggleContextualMenu()(state, dispatch);
-		if (!isOpen) {
-			this.setState({
-				isSubmenuOpen: false,
-			});
-		}
+		this.closeSubmenu();
 	};
 
 	private handleOpenChange = (payload?: {
@@ -890,19 +879,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		setColorWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, color)(state, dispatch);
 		if (!expValEquals('platform_editor_toolbar_submenu_open_click', 'isEnabled', true)) {
 			this.toggleOpen();
-		} else if (
-			expValEquals('platform_editor_table_close_cell_menu_on_move_exp', 'isEnabled', true)
-		) {
+		} else {
 			this.toggleOpen();
 			if (isCellMenuOpenByKeyboard) {
 				setFocusToCellMenu(false)(editorView.state, dispatch);
-				dom.focus();
-			}
-		} else {
-			toggleContextualMenu()(state, dispatch);
-			this.setState({ isSubmenuOpen: false });
-			if (isCellMenuOpenByKeyboard) {
-				setFocusToCellMenu(false)(state, dispatch);
 				dom.focus();
 			}
 		}

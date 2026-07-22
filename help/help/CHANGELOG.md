@@ -1,5 +1,74 @@
 # @atlaskit/help
 
+## 12.0.0
+
+### Major Changes
+
+- [`a1b7400147034`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a1b7400147034) -
+  Fix translation pipeline for in-product help panel strings and improve i18n correctness.
+
+  **Translation fix (Help.tsx):** The `LocaleIntlProvider` inside `@atlaskit/help` was creating
+  empty `IntlProvider` instances with no `messages`, shadowing the parent app's loaded locale
+  bundles. It now reads `locale` and `messages` from the parent `IntlProvider` via `useIntl()` and
+  forwards them, so consumer-provided translations (e.g. Confluence's locale chunks) resolve
+  correctly inside the help panel.
+
+  **i18n concatenation fixes:** Several strings were split across multiple keys, forcing English
+  sentence structure on translators. The following have been merged into single strings using
+  react-intl rich-text formatting:
+  - `help.search_results.no_results_line_two` — now includes the external site link text inline via
+    an `<a>` tag value
+  - `help.search_results.search_external_site` — now includes the external site link text inline via
+    an `<a>` tag value (the separate `help.search_results.external_site_link` key has been removed)
+  - `help.whats.new_no_results_clear_filter_button_label` — now includes the trailing "to try again"
+    text inline via a `<button>` tag value (the separate
+    `help.whats.new_no_results_clear_filter_info` key has been removed)
+
+  **ICU plural fix:** `help.show_more_button.label_more` used a `{itemsType}` interpolation which
+  forces English word order and doesn't support languages with multiple plural forms. It has been
+  replaced with two per-type strings using ICU plural format:
+  - `help.show_more_button.label_more_articles`
+  - `help.show_more_button.label_more_changes`
+
+  The `ShowMoreButton` component's `itemsType` prop is now typed as `'articles' | 'changes'` instead
+  of `string`.
+
+  ## Breaking changes & migration
+
+  ### Removed message keys from `@atlaskit/help/messages`
+
+  **`help_search_results_external_site_link`** — removed. The link text is now embedded in
+  `help_search_results_no_results_line_two` and `help_search_results_search_external_site` via an
+  `<a>` rich-text value. If you were using this key directly, remove the reference; the full
+  sentence including link text is now in the parent message.
+
+  **`help_whats_new_no_results_clear_filter_info`** — removed. The trailing "to try again." text is
+  now embedded in `help_whats_new_no_results_clear_filter_button_label` via a `<button>` rich-text
+  value. Remove any direct usage of this key.
+
+  **`help_show_more_button_label_more`** — removed. Replace with:
+  - `help_show_more_button_label_more_articles` for article lists
+  - `help_show_more_button_label_more_changes` for what's new change lists
+
+  Both use ICU plural format with a single `{numberOfItemsLeft}` variable (the `{itemsType}`
+  variable has been removed).
+
+  ```ts
+  // Before
+  formatMessage(messages.help_show_more_button_label_more, {
+  	numberOfItemsLeft: 3,
+  	itemsType: 'articles',
+  });
+
+  // After
+  formatMessage(messages.help_show_more_button_label_more_articles, { numberOfItemsLeft: 3 });
+  ```
+
+  ### `ShowMoreButton` prop type narrowed
+
+  The `itemsType` prop on `ShowMoreButton` has changed from `string` to `'articles' | 'changes'`.
+  Update any callsite passing a custom string value to use one of the two supported values.
+
 ## 11.0.8
 
 ### Patch Changes

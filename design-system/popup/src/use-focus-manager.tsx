@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import createFocusTrap, { type FocusTrap } from 'focus-trap';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering/use-layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FocusManagerHook } from './types';

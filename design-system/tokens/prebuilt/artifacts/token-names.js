@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9a91303cd006a1a88346f8ec59458171>>
+ * @codegen <<SignedSource::18bbd4dc7d8b1f4333c1c99573687157>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -186,6 +186,13 @@ var tokens = {
   'color.background.accent.gray.bolder': '--ds-background-accent-gray-bolder',
   'color.background.accent.gray.bolder.hovered': '--ds-background-accent-gray-bolder-hovered',
   'color.background.accent.gray.bolder.pressed': '--ds-background-accent-gray-bolder-pressed',
+  'color.background.code.added.highlight': '--ds-background-code-added-highlight',
+  'color.background.code.added.line': '--ds-background-code-added-line',
+  'color.background.code.default': '--ds-background-code-default',
+  'color.background.code.gutter': '--ds-background-code-gutter',
+  'color.background.code.highlight': '--ds-background-code-highlight',
+  'color.background.code.removed.highlight': '--ds-background-code-removed-highlight',
+  'color.background.code.removed.line': '--ds-background-code-removed-line',
   'color.background.disabled': '--ds-background-disabled',
   'color.background.input': '--ds-background-input',
   'color.background.input.hovered': '--ds-background-input-hovered',
@@ -288,6 +295,7 @@ var tokens = {
   'color.border.accent.magenta.subtle': '--ds-border-accent-magenta-subtle',
   'color.border.accent.gray': '--ds-border-accent-gray',
   'color.border.accent.gray.subtle': '--ds-border-accent-gray-subtle',
+  'color.border.code': '--ds-border-code',
   'color.border.disabled': '--ds-border-disabled',
   'color.border.focused': '--ds-border-focused',
   'color.border.input': '--ds-border-input',
@@ -326,6 +334,17 @@ var tokens = {
   'color.text.accent.magenta.bolder': '--ds-text-accent-magenta-bolder',
   'color.text.accent.gray': '--ds-text-accent-gray',
   'color.text.accent.gray.bolder': '--ds-text-accent-gray-bolder',
+  'color.text.code.accent.1': '--ds-text-code-accent-1',
+  'color.text.code.accent.2': '--ds-text-code-accent-2',
+  'color.text.code.comments': '--ds-text-code-comments',
+  'color.text.code.default': '--ds-text-code-default',
+  'color.text.code.functions': '--ds-text-code-functions',
+  'color.text.code.gutter': '--ds-text-code-gutter',
+  'color.text.code.keywords': '--ds-text-code-keywords',
+  'color.text.code.numbers': '--ds-text-code-numbers',
+  'color.text.code.operators': '--ds-text-code-operators',
+  'color.text.code.strings': '--ds-text-code-strings',
+  'color.text.code.tags': '--ds-text-code-tags',
   'color.text.disabled': '--ds-text-disabled',
   'color.text.inverse': '--ds-text-inverse',
   'color.text.selected': '--ds-text-selected',

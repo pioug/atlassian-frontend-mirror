@@ -2,7 +2,7 @@ import React, { type ReactNode, useContext, useEffect, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import {

@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'Textarea',
-				package: '@atlaskit/textarea',
+				package: '@atlaskit/textarea/text-area',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

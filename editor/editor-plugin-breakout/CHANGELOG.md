@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-breakout
 
+## 12.3.7
+
+### Patch Changes
+
+- [`a33857a7c0fac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a33857a7c0fac) -
+  [ux] [EDITOR-8082] Fix width for breakout resizable nodes in max-width mode
+
+## 12.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.3.4
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { skipA11yAudit } from '@af/accessibility-testing';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { Popup } from '@atlaskit/popup';
 import {
 	FlyoutMenuItem,

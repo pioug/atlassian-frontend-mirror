@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import FocusRing from '@atlaskit/focus-ring/focus-ring';
-import Textfield from '@atlaskit/textfield';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 const baseStyles = css({

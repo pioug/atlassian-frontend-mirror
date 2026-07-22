@@ -10,7 +10,7 @@ import { isValid, parseISO } from 'date-fns';
 
 import Calendar from '@atlaskit/calendar';
 import { css, jsx } from '@atlaskit/css';
-import { Layering } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering/layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type MenuProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';

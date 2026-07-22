@@ -110,33 +110,22 @@ const updateTargetCellPosition: BuilderTablePluginState =
 		const cell = findParentNodeOfType([tableCell, tableHeader])(tr.selection);
 		const targetCellPosition = cell ? cell.pos : undefined;
 
-		if (expValEquals('platform_editor_table_close_cell_menu_on_move_exp', 'isEnabled', true)) {
-			const targetCellPositionChanged = pluginState.targetCellPosition !== targetCellPosition;
-			const closeContextualMenu = shouldCloseLegacyContextualMenu({
-				pluginState,
-				targetCellPositionChanged,
-				tr,
-			});
+		const targetCellPositionChanged = pluginState.targetCellPosition !== targetCellPosition;
+		const closeContextualMenu = shouldCloseLegacyContextualMenu({
+			pluginState,
+			targetCellPositionChanged,
+			tr,
+		});
 
-			if (!targetCellPositionChanged && !closeContextualMenu) {
-				return pluginState;
-			}
-
-			// Close the legacy contextual menu when moving cells because the cell background
-			// color submenu can otherwise remain open against the previous cell selection.
-			return {
-				...pluginState,
-				...(closeContextualMenu ? { isContextualMenuOpen: false } : {}),
-				targetCellPosition,
-			};
-		}
-
-		if (pluginState.targetCellPosition === targetCellPosition) {
+		if (!targetCellPositionChanged && !closeContextualMenu) {
 			return pluginState;
 		}
 
+		// Close the legacy contextual menu when moving cells because the cell background
+		// color submenu can otherwise remain open against the previous cell selection.
 		return {
 			...pluginState,
+			...(closeContextualMenu ? { isContextualMenuOpen: false } : {}),
 			targetCellPosition,
 		};
 	};

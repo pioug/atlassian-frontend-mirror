@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-presets",
-	"version": "5.2.4",
+	"version": "6.0.2",
 	"license": "Apache-2.0",
 	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
 	"publishConfig": {
@@ -166,9 +166,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_object_sidebar_injection": {
-			"type": "boolean"
-		},
-		"confluence_frontend_content_wrapper": {
 			"type": "boolean"
 		},
 		"platform_editor_content_mode_button_mvp": {

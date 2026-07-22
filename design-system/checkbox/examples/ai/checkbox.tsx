@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Checkbox from '@atlaskit/checkbox';
+import Checkbox from '@atlaskit/checkbox/checkbox';
 
 const Examples = (): React.JSX.Element => (
 	<>

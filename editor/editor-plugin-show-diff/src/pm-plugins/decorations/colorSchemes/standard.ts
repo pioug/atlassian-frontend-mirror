@@ -196,6 +196,19 @@ export const addedCellOverlayStyle: string = convertToInlineCss({
 	pointerEvents: 'none',
 });
 
+export const addedCellOverlayRoundedStyle: string = convertToInlineCss({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: '100%',
+	backgroundColor: `rgba(from ${token('color.background.accent.purple.subtlest')} r g b / 0.5)`,
+	zIndex: 2,
+	outline: `1px solid ${token('color.border.accent.purple')}`,
+	pointerEvents: 'none',
+	borderRadius: 'inherit',
+});
+
 export const deletedCellOverlayStyle: string = convertToInlineCss({
 	position: 'absolute',
 	top: 0,
@@ -206,4 +219,18 @@ export const deletedCellOverlayStyle: string = convertToInlineCss({
 	zIndex: 1,
 	outline: `1px solid ${token('color.border.accent.gray')}`,
 	pointerEvents: 'none',
+});
+
+export const deletedCellOverlayRoundedStyle: string = convertToInlineCss({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: '100%',
+	backgroundColor: `rgba(from ${token('color.background.accent.gray.subtlest')} r g b / 0.5)`,
+	zIndex: 2,
+	outline: `1px solid ${token('color.border.accent.gray')}`,
+	pointerEvents: 'none',
+	border: 'inherit',
+	borderRadius: 'inherit',
 });

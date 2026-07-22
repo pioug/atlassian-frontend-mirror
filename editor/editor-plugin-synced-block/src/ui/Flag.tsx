@@ -11,11 +11,12 @@ import { isOfflineMode } from '@atlaskit/editor-plugin-connectivity';
 import AkFlag, { AutoDismissFlag, FlagGroup } from '@atlaskit/flag';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { syncedBlockPluginKey } from '../pm-plugins/main';
 import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
-import { FLAG_ID } from '../types';
+import { type ActiveFlag, FLAG_ID } from '../types';
 type Props = {
 	api?: ExtractInjectionAPI<SyncedBlockPlugin>;
 };
@@ -81,6 +82,24 @@ const flagMap: Record<FLAG_ID, FlagConfig> = {
 	},
 };
 
+export const getSyncBlockCopiedDescription = (
+	activeFlag: ActiveFlag,
+	isSyncBlockActivationEnabled: boolean,
+): MessageDescriptor | undefined => {
+	if (
+		!activeFlag ||
+		activeFlag.id !== FLAG_ID.SYNC_BLOCK_COPIED ||
+		activeFlag.sourceProduct !== 'confluence-page' ||
+		!isSyncBlockActivationEnabled
+	) {
+		return undefined;
+	}
+
+	return activeFlag.isLivePage || !activeFlag.isSourceContentUnpublished
+		? messages.syncBlockCopiedLivePageDescription
+		: messages.syncBlockCopiedUnpublishedDescription;
+};
+
 export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 	const { activeFlag, mode } = useSharedPluginStateWithSelector(
 		api,
@@ -111,12 +130,19 @@ export const Flag = ({ api }: Props): React.JSX.Element | undefined => {
 	const isJiraUnpublishedPaste =
 		activeFlag.id === FLAG_ID.UNPUBLISHED_SYNC_BLOCK_PASTED &&
 		activeFlag.sourceProduct === 'jira-work-item';
+	const copiedDescription = getSyncBlockCopiedDescription(
+		activeFlag,
+		activeFlag.id === FLAG_ID.SYNC_BLOCK_COPIED &&
+			expValEquals('platform_editor_sync_block_activation', 'isEnabled', true),
+	);
 	const title = isJiraUnpublishedPaste
 		? messages.unpublishedSyncBlockPastedTitleJiraWorkItem
 		: defaultTitle;
-	const description = isJiraUnpublishedPaste
-		? messages.unpublishedSyncBlockPastedDescriptionJiraWorkItem
-		: defaultDescription;
+	const description =
+		copiedDescription ??
+		(isJiraUnpublishedPaste
+			? messages.unpublishedSyncBlockPastedDescriptionJiraWorkItem
+			: defaultDescription);
 
 	// Retry button often involves network request, hence we dismiss the flag in offline mode to avoid retry
 	if (isOfflineMode(mode) && !!onRetry) {

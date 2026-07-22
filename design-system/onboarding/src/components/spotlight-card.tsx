@@ -7,7 +7,7 @@ import { forwardRef, type ReactNode } from 'react';
 import Button, { Theme as ButtonTheme } from '@atlaskit/button/custom-theme-button';
 import { css, cssMap, cx, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering/use-layering';
 import { Box, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 

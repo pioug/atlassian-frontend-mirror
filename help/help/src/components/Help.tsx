@@ -5,7 +5,7 @@ import {
 	withAnalyticsContext,
 	type WithContextProps,
 } from '@atlaskit/analytics-next';
-import { IntlProvider as ReactIntlProvider } from 'react-intl';
+import { IntlProvider as ReactIntlProvider, useIntl } from 'react-intl';
 import { IntlProvider as ReactIntlNextProvider } from 'react-intl';
 import { defaultAnalyticsAttributes } from '../analytics';
 import { type Help as HelpInterface } from '../model/Help';
@@ -23,19 +23,21 @@ import HelpContent from './HelpContent';
 
 export type Props = HelpInterface & WithAnalyticsEventsProps;
 
-const LocaleIntlProvider = ({
-	locale = 'en',
-	children,
-}: {
-	children: React.ReactNode;
-	locale?: string;
-}) => (
-	<ReactIntlProvider key={`v6-${locale}`} locale={locale}>
-		<ReactIntlNextProvider key={`v5-${locale}`} locale={locale}>
-			{children}
-		</ReactIntlNextProvider>
-	</ReactIntlProvider>
-);
+/**
+ * Forwards the parent IntlProvider's locale and messages into nested providers
+ * used by @atlaskit/help internals, so that consumer-provided translations
+ * (e.g. Confluence's loaded locale bundles) are available inside this component.
+ */
+const LocaleIntlProvider = ({ children }: { children: React.ReactNode }) => {
+	const { locale, messages } = useIntl();
+	return (
+		<ReactIntlProvider key={`v6-${locale}`} locale={locale} messages={messages}>
+			<ReactIntlNextProvider key={`v5-${locale}`} locale={locale} messages={messages}>
+				{children}
+			</ReactIntlNextProvider>
+		</ReactIntlProvider>
+	);
+};
 
 export class Help extends React.PureComponent<Props> {
 	render(): React.JSX.Element {

@@ -9,6 +9,7 @@ export type MarkdownModePlugin = NextEditorPlugin<
 			setView: (view: MarkdownModeView) => void;
 		};
 		sharedState: {
+			isLivePage?: boolean;
 			isMarkdownMode: boolean;
 			view: MarkdownModeView;
 		};

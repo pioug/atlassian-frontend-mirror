@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9a91303cd006a1a88346f8ec59458171>>
+ * @codegen <<SignedSource::18bbd4dc7d8b1f4333c1c99573687157>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -190,6 +190,13 @@ const tokens = {
 	'color.background.accent.gray.bolder': '--ds-background-accent-gray-bolder',
 	'color.background.accent.gray.bolder.hovered': '--ds-background-accent-gray-bolder-hovered',
 	'color.background.accent.gray.bolder.pressed': '--ds-background-accent-gray-bolder-pressed',
+	'color.background.code.added.highlight': '--ds-background-code-added-highlight',
+	'color.background.code.added.line': '--ds-background-code-added-line',
+	'color.background.code.default': '--ds-background-code-default',
+	'color.background.code.gutter': '--ds-background-code-gutter',
+	'color.background.code.highlight': '--ds-background-code-highlight',
+	'color.background.code.removed.highlight': '--ds-background-code-removed-highlight',
+	'color.background.code.removed.line': '--ds-background-code-removed-line',
 	'color.background.disabled': '--ds-background-disabled',
 	'color.background.input': '--ds-background-input',
 	'color.background.input.hovered': '--ds-background-input-hovered',
@@ -292,6 +299,7 @@ const tokens = {
 	'color.border.accent.magenta.subtle': '--ds-border-accent-magenta-subtle',
 	'color.border.accent.gray': '--ds-border-accent-gray',
 	'color.border.accent.gray.subtle': '--ds-border-accent-gray-subtle',
+	'color.border.code': '--ds-border-code',
 	'color.border.disabled': '--ds-border-disabled',
 	'color.border.focused': '--ds-border-focused',
 	'color.border.input': '--ds-border-input',
@@ -330,6 +338,17 @@ const tokens = {
 	'color.text.accent.magenta.bolder': '--ds-text-accent-magenta-bolder',
 	'color.text.accent.gray': '--ds-text-accent-gray',
 	'color.text.accent.gray.bolder': '--ds-text-accent-gray-bolder',
+	'color.text.code.accent.1': '--ds-text-code-accent-1',
+	'color.text.code.accent.2': '--ds-text-code-accent-2',
+	'color.text.code.comments': '--ds-text-code-comments',
+	'color.text.code.default': '--ds-text-code-default',
+	'color.text.code.functions': '--ds-text-code-functions',
+	'color.text.code.gutter': '--ds-text-code-gutter',
+	'color.text.code.keywords': '--ds-text-code-keywords',
+	'color.text.code.numbers': '--ds-text-code-numbers',
+	'color.text.code.operators': '--ds-text-code-operators',
+	'color.text.code.strings': '--ds-text-code-strings',
+	'color.text.code.tags': '--ds-text-code-tags',
 	'color.text.disabled': '--ds-text-disabled',
 	'color.text.inverse': '--ds-text-inverse',
 	'color.text.selected': '--ds-text-selected',
@@ -753,6 +772,13 @@ export type CSSTokenMap = {
 	'color.background.accent.gray.bolder': 'var(--ds-background-accent-gray-bolder)';
 	'color.background.accent.gray.bolder.hovered': 'var(--ds-background-accent-gray-bolder-hovered)';
 	'color.background.accent.gray.bolder.pressed': 'var(--ds-background-accent-gray-bolder-pressed)';
+	'color.background.code.added.highlight': 'var(--ds-background-code-added-highlight)';
+	'color.background.code.added.line': 'var(--ds-background-code-added-line)';
+	'color.background.code.default': 'var(--ds-background-code-default)';
+	'color.background.code.gutter': 'var(--ds-background-code-gutter)';
+	'color.background.code.highlight': 'var(--ds-background-code-highlight)';
+	'color.background.code.removed.highlight': 'var(--ds-background-code-removed-highlight)';
+	'color.background.code.removed.line': 'var(--ds-background-code-removed-line)';
 	'color.background.disabled': 'var(--ds-background-disabled)';
 	'color.background.input': 'var(--ds-background-input)';
 	'color.background.input.hovered': 'var(--ds-background-input-hovered)';
@@ -855,6 +881,7 @@ export type CSSTokenMap = {
 	'color.border.accent.magenta.subtle': 'var(--ds-border-accent-magenta-subtle)';
 	'color.border.accent.gray': 'var(--ds-border-accent-gray)';
 	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
+	'color.border.code': 'var(--ds-border-code)';
 	'color.border.disabled': 'var(--ds-border-disabled)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
@@ -893,6 +920,17 @@ export type CSSTokenMap = {
 	'color.text.accent.magenta.bolder': 'var(--ds-text-accent-magenta-bolder)';
 	'color.text.accent.gray': 'var(--ds-text-accent-gray)';
 	'color.text.accent.gray.bolder': 'var(--ds-text-accent-gray-bolder)';
+	'color.text.code.accent.1': 'var(--ds-text-code-accent-1)';
+	'color.text.code.accent.2': 'var(--ds-text-code-accent-2)';
+	'color.text.code.comments': 'var(--ds-text-code-comments)';
+	'color.text.code.default': 'var(--ds-text-code-default)';
+	'color.text.code.functions': 'var(--ds-text-code-functions)';
+	'color.text.code.gutter': 'var(--ds-text-code-gutter)';
+	'color.text.code.keywords': 'var(--ds-text-code-keywords)';
+	'color.text.code.numbers': 'var(--ds-text-code-numbers)';
+	'color.text.code.operators': 'var(--ds-text-code-operators)';
+	'color.text.code.strings': 'var(--ds-text-code-strings)';
+	'color.text.code.tags': 'var(--ds-text-code-tags)';
 	'color.text.disabled': 'var(--ds-text-disabled)';
 	'color.text.inverse': 'var(--ds-text-inverse)';
 	'color.text.selected': 'var(--ds-text-selected)';

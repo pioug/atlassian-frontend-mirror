@@ -126,10 +126,10 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f8877ef22cd3a2544170515fac0c9c2>>
+ * @codegen <<SignedSource::29f37b8b7b02021b4d74ed753f31bc68>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::60f96d2ba00523e92861fb8c96c74c88>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::039dd27ad333f204e9bdcdbf98d721e5>>
  */
 export const inverseColorMap: {
 	'color.background.neutral.bold': 'color.text.inverse';
@@ -201,11 +201,11 @@ export const inverseColorMap: {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::09dc322e2aa1bfd37c9ac3fc10154af5>>
+ * @codegen <<SignedSource::1ea94c9a28ee5261d871c9650059230a>>
  * @codegenId elevation
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::60f96d2ba00523e92861fb8c96c74c88>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::039dd27ad333f204e9bdcdbf98d721e5>>
  */
 export const opacityMap: {
 	'opacity.disabled': 'var(--ds-opacity-disabled)';
@@ -280,11 +280,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::eb19c0150b7afa9e3dfeaedd0e176bfd>>
+ * @codegen <<SignedSource::4244fb900baa02fcc94e03a59eee384c>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::60f96d2ba00523e92861fb8c96c74c88>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::039dd27ad333f204e9bdcdbf98d721e5>>
  */
 export const borderColorMap: {
 	'color.border': 'var(--ds-border)';
@@ -308,6 +308,7 @@ export const borderColorMap: {
 	'color.border.accent.magenta.subtle': 'var(--ds-border-accent-magenta-subtle)';
 	'color.border.accent.gray': 'var(--ds-border-accent-gray)';
 	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
+	'color.border.code': 'var(--ds-border-code)';
 	'color.border.disabled': 'var(--ds-border-disabled)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
@@ -347,6 +348,7 @@ export const borderColorMap: {
 	'color.border.accent.magenta.subtle': token('color.border.accent.magenta.subtle', '#F797D2'),
 	'color.border.accent.gray': token('color.border.accent.gray', '#7D818A'),
 	'color.border.accent.gray.subtle': token('color.border.accent.gray.subtle', '#B7B9BE'),
+	'color.border.code': token('color.border.code', '#0B120E24'),
 	'color.border.disabled': token('color.border.disabled', '#0515240F'),
 	'color.border.focused': token('color.border.focused', '#4688EC'),
 	'color.border.input': token('color.border.input', '#8C8F97'),
@@ -489,6 +491,13 @@ export const backgroundColorMap: {
 	'color.background.accent.gray.bolder': 'var(--ds-background-accent-gray-bolder)';
 	'color.background.accent.gray.bolder.hovered': 'var(--ds-background-accent-gray-bolder-hovered)';
 	'color.background.accent.gray.bolder.pressed': 'var(--ds-background-accent-gray-bolder-pressed)';
+	'color.background.code.added.highlight': 'var(--ds-background-code-added-highlight)';
+	'color.background.code.added.line': 'var(--ds-background-code-added-line)';
+	'color.background.code.default': 'var(--ds-background-code-default)';
+	'color.background.code.gutter': 'var(--ds-background-code-gutter)';
+	'color.background.code.highlight': 'var(--ds-background-code-highlight)';
+	'color.background.code.removed.highlight': 'var(--ds-background-code-removed-highlight)';
+	'color.background.code.removed.line': 'var(--ds-background-code-removed-line)';
 	'color.background.disabled': 'var(--ds-background-disabled)';
 	'color.background.input': 'var(--ds-background-input)';
 	'color.background.input.hovered': 'var(--ds-background-input-hovered)';
@@ -1019,6 +1028,19 @@ export const backgroundColorMap: {
 		'color.background.accent.gray.bolder.pressed',
 		'#3B3D42',
 	),
+	'color.background.code.added.highlight': token(
+		'color.background.code.added.highlight',
+		'#DCFFF1',
+	),
+	'color.background.code.added.line': token('color.background.code.added.line', '#BAF3DB'),
+	'color.background.code.default': token('color.background.code.default', '#FFFFFF'),
+	'color.background.code.gutter': token('color.background.code.gutter', '#F0F1F2'),
+	'color.background.code.highlight': token('color.background.code.highlight', '#F0F1F2'),
+	'color.background.code.removed.highlight': token(
+		'color.background.code.removed.highlight',
+		'#FFECEB',
+	),
+	'color.background.code.removed.line': token('color.background.code.removed.line', '#FFD5D2'),
 	'color.background.disabled': token('color.background.disabled', '#0515240F'),
 	'color.background.input': token('color.background.input', '#FFFFFF'),
 	'color.background.input.hovered': token('color.background.input.hovered', '#F8F8F8'),
@@ -1244,6 +1266,17 @@ export const textColorMap: {
 	'color.text.accent.magenta.bolder': 'var(--ds-text-accent-magenta-bolder)';
 	'color.text.accent.gray': 'var(--ds-text-accent-gray)';
 	'color.text.accent.gray.bolder': 'var(--ds-text-accent-gray-bolder)';
+	'color.text.code.accent.1': 'var(--ds-text-code-accent-1)';
+	'color.text.code.accent.2': 'var(--ds-text-code-accent-2)';
+	'color.text.code.comments': 'var(--ds-text-code-comments)';
+	'color.text.code.default': 'var(--ds-text-code-default)';
+	'color.text.code.functions': 'var(--ds-text-code-functions)';
+	'color.text.code.gutter': 'var(--ds-text-code-gutter)';
+	'color.text.code.keywords': 'var(--ds-text-code-keywords)';
+	'color.text.code.numbers': 'var(--ds-text-code-numbers)';
+	'color.text.code.operators': 'var(--ds-text-code-operators)';
+	'color.text.code.strings': 'var(--ds-text-code-strings)';
+	'color.text.code.tags': 'var(--ds-text-code-tags)';
 	'color.text.disabled': 'var(--ds-text-disabled)';
 	'color.text.inverse': 'var(--ds-text-inverse)';
 	'color.text.selected': 'var(--ds-text-selected)';
@@ -1287,6 +1320,17 @@ export const textColorMap: {
 	'color.text.accent.magenta.bolder': token('color.text.accent.magenta.bolder', '#50253F'),
 	'color.text.accent.gray': token('color.text.accent.gray', '#505258'),
 	'color.text.accent.gray.bolder': token('color.text.accent.gray.bolder', '#1E1F21'),
+	'color.text.code.accent.1': token('color.text.code.accent.1', '#943D73'),
+	'color.text.code.accent.2': token('color.text.code.accent.2', '#1558BC'),
+	'color.text.code.comments': token('color.text.code.comments', '#505258'),
+	'color.text.code.default': token('color.text.code.default', '#505258'),
+	'color.text.code.functions': token('color.text.code.functions', '#216E4E'),
+	'color.text.code.gutter': token('color.text.code.gutter', '#6B6E76'),
+	'color.text.code.keywords': token('color.text.code.keywords', '#AE2E24'),
+	'color.text.code.numbers': token('color.text.code.numbers', '#7F5F01'),
+	'color.text.code.operators': token('color.text.code.operators', '#292A2E'),
+	'color.text.code.strings': token('color.text.code.strings', '#4C6B1F'),
+	'color.text.code.tags': token('color.text.code.tags', '#9E4C00'),
 	'color.text.disabled': token('color.text.disabled', '#080F214A'),
 	'color.text.inverse': token('color.text.inverse', '#FFFFFF'),
 	'color.text.selected': token('color.text.selected', '#1868DB'),

@@ -3,7 +3,6 @@
  * image (base64) from a text description.
  */
 
-import { wrapEmojiPrompt } from '../../util/ai-emoji';
 import debug from '../../util/logger';
 
 const HEADER_IMAGE_GENERATION_ENDPOINT =
@@ -40,8 +39,8 @@ export interface GenerateEmojiImageOptions {
 	 */
 	contentId: string;
 	/**
-	 * The raw text description typed by the user (e.g. "a cat wearing a hard hat").
-	 * It is wrapped with the emoji-style prefix before being sent to the backend.
+	 * The raw text description typed by the user. It is trimmed and sent as-is
+	 * with the `emoji` theme to the backend.
 	 */
 	prompt: string;
 }
@@ -56,7 +55,7 @@ export const generateEmojiImage = async ({
 	contentId,
 	prompt,
 }: GenerateEmojiImageOptions): Promise<GenerateEmojiImageResult> => {
-	const wrappedPrompt = wrapEmojiPrompt(prompt);
+	const trimmedPrompt = prompt.trim();
 
 	const response = await fetch(HEADER_IMAGE_GENERATION_ENDPOINT, {
 		method: 'POST',
@@ -67,9 +66,10 @@ export const generateEmojiImage = async ({
 		},
 		body: JSON.stringify({
 			ai_feature_input: {
-				adfContent: wrappedPrompt,
+				adfContent: trimmedPrompt,
 				contentId,
-				useRawPrompt: true,
+				useRawPrompt: false,
+				theme: 'emoji',
 				// Emojis are square — request a 1:1 image from the BE.
 				aspectRatio: EMOJI_ASPECT_RATIO,
 			},

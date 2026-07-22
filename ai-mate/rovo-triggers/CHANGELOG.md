@@ -1,5 +1,12 @@
 # @atlaskit/rovo-triggers
 
+## 10.2.0
+
+### Minor Changes
+
+- [`e8b955947dd44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e8b955947dd44) -
+  Add browser selection context support for Rovo Chat
+
 ## 10.1.0
 
 ### Minor Changes

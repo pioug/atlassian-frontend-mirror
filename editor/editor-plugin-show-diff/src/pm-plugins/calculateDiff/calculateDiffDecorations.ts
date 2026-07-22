@@ -493,19 +493,56 @@ const calculateDiffDecorationsInner = ({
 			}),
 		);
 	});
-	getAttrChangeRanges(tr.doc, attrSteps).forEach((change) => {
+	getAttrChangeRanges(tr.doc, attrSteps, originalDoc).forEach((change) => {
 		if (change.isInline) {
-			// Inline nodes (e.g. date) need an inline decoration rather than a block decoration
+			// Inline nodes (e.g. date, emoji, mention, status) need an inline decoration rather than a block decoration
 			const isActive =
 				activeIndexPos && change.fromB === activeIndexPos.from && change.toB === activeIndexPos.to;
+			const isAtomicInlineNodeFlag = expValEquals(
+				'platform_editor_improve_inline_diffs',
+				'isEnabled',
+				true,
+			);
 			decorations.push(
 				...createInlineChangedDecoration({
 					change,
 					colorScheme,
 					isActive,
 					isInserted: true,
+					isAtomicInlineNode: isAtomicInlineNodeFlag,
+					inlineNodeName: change.inlineNodeName,
+					// Suppress the border-bottom underline for atomic inline nodeviews —
+					// it doesn't render on custom nodeview DOM elements and is unnecessary noise.
+					hideAddedDiffsUnderline: isAtomicInlineNodeFlag,
+					diffType,
 				}),
 			);
+			// If we have the original node position, also render the old node as a "deleted" widget
+			// so the user can see what it looked like before the change.
+			if (
+				change.fromA !== undefined &&
+				change.toA !== undefined &&
+				expValEquals('platform_editor_improve_inline_diffs', 'isEnabled', true)
+			) {
+				decorations.push(
+					...createNodeChangedDecorationWidget({
+						change: {
+							fromA: change.fromA,
+							toA: change.toA,
+							fromB: change.fromB,
+							toB: change.toB,
+							deleted: [],
+						},
+						doc: originalDoc,
+						nodeViewSerializer,
+						colorScheme,
+						newDoc: tr.doc,
+						intl,
+						activeIndexPos,
+						isInserted: false,
+					}),
+				);
+			}
 		} else {
 			decorations.push(
 				...calculateNodesForBlockDecoration({

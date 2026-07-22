@@ -1,5 +1,72 @@
 # @atlaskit/editor-presets
 
+## 6.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.0.0
+
+### Major Changes
+
+- [`2cfc0f295c39a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2cfc0f295c39a) -
+  [ux] FG cleanup - Removes `confluence_frontend_content_wrapper` from platform (treated as
+  permanently launched / implicitly true).
+
+  ## Breaking change
+
+  The `confluence_frontend_content_wrapper` gate previously guarded a scroll-gutter tweak in
+  `basePluginOptions` that only read the `base` builder's `__livePage` field. With the gate
+  launched, that field is no longer read, so the now-dead `base` option was removed rather than left
+  as vestigial API.
+
+  For `@atlaskit/editor-presets` (published):
+  - The `base` option was removed from the public preset plugin options type
+    (`AllPublicPluginOptions.base` is now `never`).
+  - `basePluginOptions()` no longer takes an argument (was `basePluginOptions({ options })`).
+
+  This is a **type-level** breaking change only. At runtime it is a no-op: the `base` option (and
+  the `__livePage` value passed through it) was already unused once the gate was on, so removing it
+  does not change editor behaviour. It is scored `major` for `@atlaskit/editor-presets` because that
+  package is published and the type contract change will break the builds of external TypeScript
+  consumers that still pass `base`. `@atlassian/confluence-presets` is `private` (not published) and
+  receives the same code change, so it is scored `minor`.
+
+  ## Migration
+
+  Stop passing the `base` option to the preset, and call `basePluginOptions()` with no arguments:
+
+  ```diff
+   fullPagePreset({
+     intl,
+     pluginOptions: {
+  -    base: { __livePage },
+       // ...other plugin options unchanged
+     },
+   });
+  ```
+
+  ```diff
+  - basePluginOptions({ options: { __livePage } });
+  + basePluginOptions();
+  ```
+
+  Note: `__livePage` itself is not removed — it remains a valid, live field on the other plugin
+  option builders (e.g. `selection`, `selectionMarker`, `collabEdit`, `card`). Only the unused
+  `base.__livePage` passthrough is gone. All in-repo consumers have been migrated as part of this
+  PR.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.2.4
 
 ### Patch Changes

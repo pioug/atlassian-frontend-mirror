@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
-import { Layering } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering/layering';
 import { type Icon } from '@atlaskit/linking-types';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';

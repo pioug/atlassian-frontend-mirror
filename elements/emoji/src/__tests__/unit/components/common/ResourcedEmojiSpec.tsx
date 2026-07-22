@@ -304,6 +304,21 @@ describe('<ResourcedEmoji />', () => {
 			expect(emoji).toBeInTheDocument();
 		});
 
+		it('should not add an aria-label to an editor emoji without a role', async () => {
+			const resolvedEmojiProvider = await getEmojiResourcePromise();
+			renderWithIntl(
+				<ResourcedEmoji
+					editorEmoji
+					emojiProvider={resolvedEmojiProvider}
+					emojiId={{ ...grinEmoji }}
+				/>,
+			);
+
+			const emoji = await screen.findByTestId(`sprite-emoji-${grinEmoji.shortName}`);
+			expect(emoji).not.toHaveAttribute('role');
+			expect(emoji).not.toHaveAttribute('aria-label');
+		});
+
 		it('should not render unicode emoji as an image by default when the unicode image gate is disabled', async () => {
 			const resolvedEmojiProvider = await getEmojiResourcePromise();
 

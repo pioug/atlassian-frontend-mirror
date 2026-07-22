@@ -152,16 +152,6 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 	}
 
 	getCachedProfile(idValue: string): RovoAgentCardClientResult | null {
-		if (
-			!FeatureGates.getExperimentValue(
-				'platform_editor_agent_profile_card_fav_sync',
-				'isEnabled',
-				false,
-			)
-		) {
-			return super.getCachedProfile(idValue);
-		}
-
 		const key = this.sharedCacheKey(idValue);
 		const cached = sharedAgentProfileCache.get(key);
 		if (!cached) {
@@ -175,17 +165,6 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 	}
 
 	setCachedProfile(idValue: string, profile: RovoAgentCardClientResult): void {
-		if (
-			!FeatureGates.getExperimentValue(
-				'platform_editor_agent_profile_card_fav_sync',
-				'isEnabled',
-				false,
-			)
-		) {
-			super.setCachedProfile(idValue, profile);
-			return;
-		}
-
 		sharedAgentProfileCache.set(this.sharedCacheKey(idValue), {
 			expire: Date.now() + (this.config.cacheMaxAge || SHARED_CACHE_MAX_AGE),
 			profile,
@@ -369,16 +348,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 
 			this.makeRequest(id, analytics)
 				.then((data) => {
-					if (
-						this.cache ||
-						FeatureGates.getExperimentValue(
-							'platform_editor_agent_profile_card_fav_sync',
-							'isEnabled',
-							false,
-						)
-					) {
-						this.setCachedProfile(id.value, data);
-					}
+					this.setCachedProfile(id.value, data);
 					if (analytics) {
 						analytics('operational.rovoAgentProfilecard.succeeded.request', {
 							duration: getPageTime() - startTime,
@@ -503,15 +473,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 						});
 					}
 
-					if (
-						FeatureGates.getExperimentValue(
-							'platform_editor_agent_profile_card_fav_sync',
-							'isEnabled',
-							false,
-						)
-					) {
-						this.syncFavouriteToCache(agentId, isFavourite);
-					}
+					this.syncFavouriteToCache(agentId, isFavourite);
 
 					resolve();
 				})

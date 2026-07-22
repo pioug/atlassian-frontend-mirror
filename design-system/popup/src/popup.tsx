@@ -9,8 +9,8 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { Layering } from '@atlaskit/layering';
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { Layering } from '@atlaskit/layering/layering';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';

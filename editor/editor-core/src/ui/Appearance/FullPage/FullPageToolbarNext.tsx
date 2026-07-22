@@ -165,11 +165,17 @@ const shouldShowToolbarContainer = (
 const getToolbarComponentsForMarkdownView = (
 	components: RegisterComponent[],
 	markdownModeView?: MarkdownModeView,
+	isConvertedMarkdownPreview?: boolean,
 ) => {
 	if (
 		(markdownModeView === 'syntax' || markdownModeView === 'preview') &&
 		fg('platform_editor_markdown_mode_hide_source_toolbar')
 	) {
+		// Converted markdown live pages in preview should show full toolbar content
+		// so preference-based docking can work consistently.
+		if (isConvertedMarkdownPreview) {
+			return components;
+		}
 		return components.filter(
 			(component) =>
 				component.key === TOOLBARS.PRIMARY_TOOLBAR ||
@@ -203,20 +209,38 @@ export const FullPageToolbarNext = ({
 			: undefined;
 	const contextualFormattingEnabled =
 		effectiveRuntimeOverride ?? editorAPI?.toolbar?.actions.contextualFormattingMode();
-	const markdownModeView = useSharedPluginStateWithSelector(
+	const markdownModeState = useSharedPluginStateWithSelector(
 		editorAPI,
 		['markdownMode'],
-		(states) => states.markdownModeState?.view,
+		(states) => states.markdownModeState,
 	);
+	const isLivePage = markdownModeState?.isLivePage;
+	const isMarkdownMode = markdownModeState?.isMarkdownMode;
+	const markdownModeView = markdownModeState?.view;
+	const isConvertedMarkdownPreview =
+		isMarkdownMode === true &&
+		isLivePage === true &&
+		markdownModeView === 'preview' &&
+		fg('platform_editor_markdown_patch_m3');
 	const intl = useIntl();
 	const toolbar = components?.find((component) => component.key === TOOLBARS.PRIMARY_TOOLBAR);
 	const visibleToolbarComponents = useMemo(
 		() =>
-			components ? getToolbarComponentsForMarkdownView(components, markdownModeView) : undefined,
-		[components, markdownModeView],
+			components
+				? getToolbarComponentsForMarkdownView(
+						components,
+						markdownModeView,
+						isConvertedMarkdownPreview,
+					)
+				: undefined,
+		[components, markdownModeView, isConvertedMarkdownPreview],
 	);
+	const effectiveContextualFormattingEnabled =
+		isConvertedMarkdownPreview && contextualFormattingEnabled === 'always-pinned'
+			? 'controlled'
+			: contextualFormattingEnabled;
 	const primaryToolbarDockingConfigEnabled = shouldShowPrimaryToolbar(
-		contextualFormattingEnabled,
+		effectiveContextualFormattingEnabled,
 		toolbarDockingPosition,
 	);
 
@@ -257,6 +281,13 @@ export const FullPageToolbarNext = ({
 	if (
 		!isAwaitingToolbarComponents &&
 		!shouldShowToolbarContainer(toolbar, customPrimaryToolbarComponents)
+	) {
+		return <ToolbarPortal>{null}</ToolbarPortal>;
+	}
+	if (
+		isConvertedMarkdownPreview &&
+		!primaryToolbarDockingConfigEnabled &&
+		!customPrimaryToolbarComponents
 	) {
 		return <ToolbarPortal>{null}</ToolbarPortal>;
 	}

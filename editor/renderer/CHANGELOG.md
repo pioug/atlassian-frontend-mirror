@@ -1,5 +1,49 @@
 # @atlaskit/renderer
 
+## 133.14.2
+
+### Patch Changes
+
+- [`22bc749d89dc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22bc749d89dc9) -
+  Clean up platform_change_emoji_button_label FG and avoid unsupported ARIA attributes on editor
+  emoji nodes Stabilize renderer integration tests for smart cards, heading anchors, and table
+  triple-click selection
+- Updated dependencies
+
+## 133.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.14.0
+
+### Minor Changes
+
+- [`4537addf8cc7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4537addf8cc7a) -
+  Add an `onRendered` callback to the Renderer that fires on every render pass (after paint),
+  exposing render info (duration, distortedDuration, node counts, ttfb). Unlike the
+  `renderer rendered` analytics event — which may be sampled via the
+  `platform_renderer_sample_high_volume_events` feature gate and therefore only fires for a fraction
+  of renders — this callback always fires, so it can be used as a reliable render-complete signal
+  (for example, releasing a UFO load hold).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 133.13.0
+
+### Minor Changes
+
+- [`30f196e640e18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30f196e640e18) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.12.0
 
 ### Minor Changes

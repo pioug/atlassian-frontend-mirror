@@ -12,6 +12,22 @@ import { token } from '@atlaskit/tokens';
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
 export const statusStyles: SerializedStyles = css({
+	// Show diff: status attr change highlight. Keep this with status node styles so the highlight
+	// targets the lozenge shape rather than the decoration wrapper.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-status': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-status.show-diff-atomic-inline-changed-traditional': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-status .status-lozenge-span > span, .show-diff-atomic-inline-changed-status .lozenge-wrapper':
+		{
+			boxShadow: '0 0 0 2px var(--show-diff-atomic-inline-changed-border-color)',
+		},
+
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.pm-table-cell-content-wrap, .pm-table-header-content-wrap, [data-layout-section]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors

@@ -24,9 +24,8 @@ const intl = createIntl(
 	},
 	cache,
 );
-const buttonLabelShowMore = intl.formatMessage(messages.help_show_more_button_label_more, {
+const buttonLabelShowMore = intl.formatMessage(messages.help_show_more_button_label_more_articles, {
 	numberOfItemsLeft: 9,
-	itemsType: 'articles',
 });
 const buttonLabelShowLess = intl.formatMessage(messages.help_show_more_button_label_less);
 
@@ -111,10 +110,12 @@ describe('ShowMoreButton', () => {
 	it(`The number of articles to display should be equal to maxItemsToDisplay - minItemsToDisplay`, async () => {
 		const minItemsToDisplay = 9;
 		const maxItemsToDisplay = 18;
-		let buttonLabelShowMore = intl.formatMessage(messages.help_show_more_button_label_more, {
-			numberOfItemsLeft: maxItemsToDisplay - minItemsToDisplay,
-			itemsType: 'articles',
-		});
+		let buttonLabelShowMore = intl.formatMessage(
+			messages.help_show_more_button_label_more_articles,
+			{
+				numberOfItemsLeft: maxItemsToDisplay - minItemsToDisplay,
+			},
+		);
 		const component = (
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<ShowMoreButton
@@ -132,9 +133,8 @@ describe('ShowMoreButton', () => {
 		let showMoreButtonElm = queryByText(`${buttonLabelShowMore}`);
 		expect(showMoreButtonElm).not.toBeNull();
 
-		buttonLabelShowMore = intl.formatMessage(messages.help_show_more_button_label_more, {
+		buttonLabelShowMore = intl.formatMessage(messages.help_show_more_button_label_more_articles, {
 			numberOfItemsLeft: 9999,
-			itemsType: 'articles',
 		});
 
 		showMoreButtonElm = queryByText(`${buttonLabelShowMore}`);
@@ -144,10 +144,12 @@ describe('ShowMoreButton', () => {
 	it(`The number of articles to display should be 0 if minItemsToDisplay > maxItemsToDisplay`, async () => {
 		const minItemsToDisplay = 18;
 		const maxItemsToDisplay = 9;
-		let buttonLabelShowMore = intl.formatMessage(messages.help_show_more_button_label_more, {
-			numberOfItemsLeft: 0,
-			itemsType: 'articles',
-		});
+		let buttonLabelShowMore = intl.formatMessage(
+			messages.help_show_more_button_label_more_articles,
+			{
+				numberOfItemsLeft: 0,
+			},
+		);
 		const component = (
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<ShowMoreButton
@@ -169,10 +171,12 @@ describe('ShowMoreButton', () => {
 	it(`Should call handleOnClick when the user click the button`, async () => {
 		const minItemsToDisplay = 18;
 		const maxItemsToDisplay = 9;
-		let buttonLabelShowMore = intl.formatMessage(messages.help_show_more_button_label_more, {
-			numberOfItemsLeft: 0,
-			itemsType: 'articles',
-		});
+		let buttonLabelShowMore = intl.formatMessage(
+			messages.help_show_more_button_label_more_articles,
+			{
+				numberOfItemsLeft: 0,
+			},
+		);
 		const component = (
 			<AnalyticsListener channel="help" onEvent={analyticsSpy}>
 				<ShowMoreButton

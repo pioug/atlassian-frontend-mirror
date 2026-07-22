@@ -1081,6 +1081,69 @@
       },
       "value": "#BFC1C4"
     },
+    "Dark/color.background.code.added.highlight": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for highlighted added code lines."
+      },
+      "value": "#1C3329"
+    },
+    "Dark/color.background.code.added.line": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for added code lines."
+      },
+      "value": "#164B35"
+    },
+    "Dark/color.background.code.default": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for the default background of code blocks and code diffs."
+      },
+      "value": "#1F1F21"
+    },
+    "Dark/color.background.code.gutter": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for the background of code gutters."
+      },
+      "value": "#242528"
+    },
+    "Dark/color.background.code.highlight": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for highlighted unchanged code lines."
+      },
+      "value": "#242528"
+    },
+    "Dark/color.background.code.removed.highlight": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for highlighted removed code lines."
+      },
+      "value": "#42221F"
+    },
+    "Dark/color.background.code.removed.line": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for removed code lines."
+      },
+      "value": "#5D1F1A"
+    },
     "Dark/color.background.disabled": {
       "attributes": {
         "group": "paint",
@@ -1999,6 +2062,15 @@
       },
       "value": "#4B4D51"
     },
+    "Dark/color.border.code": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for code block and code diff borders."
+      },
+      "value": "#E3E4F21F"
+    },
     "Dark/color.border.disabled": {
       "attributes": {
         "group": "paint",
@@ -2340,6 +2412,105 @@
         "description": "Use for text and icons on gray subtle accent backgrounds."
       },
       "value": "#E2E3E4"
+    },
+    "Dark/color.text.code.accent.1": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for an additional syntax-highlighting text color."
+      },
+      "value": "#F797D2"
+    },
+    "Dark/color.text.code.accent.2": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for an additional syntax-highlighting text color."
+      },
+      "value": "#8FB8F6"
+    },
+    "Dark/color.text.code.comments": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for comments in syntax-highlighted code."
+      },
+      "value": "#A9ABAF"
+    },
+    "Dark/color.text.code.default": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for default text in code blocks and code diffs."
+      },
+      "value": "#A9ABAF"
+    },
+    "Dark/color.text.code.functions": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for functions in syntax-highlighted code."
+      },
+      "value": "#7EE2B8"
+    },
+    "Dark/color.text.code.gutter": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for line numbers and other code gutter text."
+      },
+      "value": "#96999E"
+    },
+    "Dark/color.text.code.keywords": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for language keywords in syntax-highlighted code."
+      },
+      "value": "#FD9891"
+    },
+    "Dark/color.text.code.numbers": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for numeric values in syntax-highlighted code."
+      },
+      "value": "#EED12B"
+    },
+    "Dark/color.text.code.operators": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for operators and punctuation in syntax-highlighted code."
+      },
+      "value": "#CECFD2"
+    },
+    "Dark/color.text.code.strings": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for string values in syntax-highlighted code."
+      },
+      "value": "#B3DF72"
+    },
+    "Dark/color.text.code.tags": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for tags in syntax-highlighted code."
+      },
+      "value": "#FCA700"
     },
     "Dark/color.text.disabled": {
       "attributes": {

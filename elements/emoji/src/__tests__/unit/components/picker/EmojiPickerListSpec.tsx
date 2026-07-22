@@ -95,6 +95,12 @@ describe('<EmojiPickerList />', () => {
 			experimentName === teamojiRefreshExperimentName ? isEnabled : defaultValue,
 		);
 	};
+	const emojiPickerListExperimentName = 'platform_a11y_fixes_emoji_picker_list';
+	const setEmojiPickerListExperimentEnabled = (isEnabled: boolean) => {
+		getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
+			experimentName === emojiPickerListExperimentName ? isEnabled : defaultValue,
+		);
+	};
 	const createTestEmoji = (
 		id: string,
 		category: EmojiDescription['category'],
@@ -169,6 +175,27 @@ describe('<EmojiPickerList />', () => {
 				});
 			},
 		);
+
+		describe('A11Y-31084: experiment platform_a11y_fixes_emoji_picker_list', () => {
+			it('renders emoji rows as lists with listitem emojis when enabled', async () => {
+				setEmojiPickerListExperimentEnabled(true);
+				renderEmojiPickerList({ emojis: allEmojis });
+
+				const container = await screen.findByTestId('virtual-list-scroll-container');
+				await waitFor(() =>
+					expect(within(container).getAllByRole('list').length).toBeGreaterThan(0),
+				);
+				expect(within(container).getAllByRole('listitem').length).toBeGreaterThan(0);
+			});
+
+			it('does not render list markup when disabled', async () => {
+				setEmojiPickerListExperimentEnabled(false);
+				renderEmojiPickerList({ emojis: allEmojis });
+
+				const container = await screen.findByTestId('virtual-list-scroll-container');
+				await waitFor(() => expect(within(container).queryAllByRole('listitem')).toHaveLength(0));
+			});
+		});
 
 		it('should show frequently used category first if present', async () => {
 			const frequentEmoji: EmojiDescription = {

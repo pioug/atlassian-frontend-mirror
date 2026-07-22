@@ -1,5 +1,13 @@
 # @atlaskit/teams-public
 
+## 2.5.1
+
+### Patch Changes
+
+- [`92b3f332e1a93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92b3f332e1a93) -
+  A11Y-34709: Add unordered list semantics to Team link add-container cards section (gated
+  teams-a11y-34974-34752-34709)
+
 ## 2.5.0
 
 ### Minor Changes

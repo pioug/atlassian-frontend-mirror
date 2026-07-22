@@ -1,5 +1,27 @@
 # @atlaskit/top-layer
 
+## 1.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.10.0
+
+### Minor Changes
+
+- [`c5a6b4e6c8a7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5a6b4e6c8a7c) -
+  `PopoverSurface` now sets a default text color so content no longer inherits ambient text color.
+  This restores parity with the legacy popup surface and fixes the top-layer paths of Popup, Select,
+  DateTimePicker, and AvatarGroup, which relied on the surface for their text color.
+
+## 1.9.0
+
+### Minor Changes
+
+- [`690a0ff95cbac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/690a0ff95cbac) -
+  Reset inherited text-layout styles (e.g. `white-space`) on the `Popover` and `Dialog` surfaces.
+
 ## 1.8.1
 
 ### Patch Changes

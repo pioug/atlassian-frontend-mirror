@@ -29,7 +29,8 @@ const iframeVisibilityStyles = cssMap({
 });
 
 export const Notifications = (props: NotificationsProps): React.JSX.Element => {
-	const { _url, locale, product, subproduct, testId, isNewExperience, ...iframeProps } = props;
+	const { _url, locale, product, subproduct, testId, isNewExperience, title, ...iframeProps } =
+		props;
 	const ref = useRef<HTMLIFrameElement>(null);
 	const [loading, setLoading] = useState(true);
 
@@ -62,7 +63,6 @@ export const Notifications = (props: NotificationsProps): React.JSX.Element => {
 	};
 
 	return (
-		// eslint-disable-next-line @atlassian/a11y/iframe-has-title
 		<iframe
 			{...iframeProps}
 			css={[iframeStyles, iframeVisibilityStyles[loading ? 'loading' : 'loaded']]}
@@ -76,6 +76,7 @@ export const Notifications = (props: NotificationsProps): React.JSX.Element => {
 				subproduct,
 				isNewExperience,
 			})}
+			title={title ?? 'Notifications'}
 		/>
 	);
 };

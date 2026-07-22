@@ -15,7 +15,7 @@ import type {
 	Segment3pDataPayload,
 	SegmentInfo,
 } from './common/types';
-import type { RevisionPayload } from './vc/types';
+import type { RevisionPayload, RevisionPayloadEntry } from './vc/types';
 
 type ExtractPromise<T> = T extends Promise<infer U> ? U : never;
 
@@ -302,6 +302,10 @@ export type PostInteractionLogPayload = {
 			'event:region': string;
 			'experience:key': 'custom.post-interaction-logs';
 			postInteractionLog: {
+				rawVCRevisions?: {
+					lastInteractionFinish?: RevisionPayloadEntry;
+					postInteractionFinish?: RevisionPayloadEntry;
+				};
 				lastInteractionFinish: {
 					ufoName: string;
 					start: number;
@@ -311,12 +315,12 @@ export type PostInteractionLogPayload = {
 					type: InteractionType;
 					errors: InteractionError[];
 					ttai: number;
-					vc90: number;
+					vc90: number | null;
 					vcClean: boolean;
 				};
 				revisedEndTime: number;
 				revisedTtai: number;
-				revisedVC90: number;
+				revisedVC90: number | null;
 				vcClean: boolean;
 				lateMutations: LateMutation[];
 				reactProfilerTimings: ReactProfilerTiming[];

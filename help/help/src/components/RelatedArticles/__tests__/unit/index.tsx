@@ -43,9 +43,8 @@ const messageEndpointErrorButtonLabel = intl.formatMessage(
 	messages.help_related_article_endpoint_error_button_label,
 );
 const messageTitle = intl.formatMessage(messages.help_related_article_title);
-const messageShowMore = intl.formatMessage(messages.help_show_more_button_label_more, {
+const messageShowMore = intl.formatMessage(messages.help_show_more_button_label_more_articles, {
 	numberOfItemsLeft: '2',
-	itemsType: 'articles',
 });
 const messageLoading = intl.formatMessage(messages.help_loading);
 

@@ -95,57 +95,52 @@ const FlyoutMenuItemSlots = ({
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<ExampleWrapper>
-			<FlyoutMenuItem
-				onOpenChange={(open) => {
-					if (!open) {
-						setIsOpen(false);
-					}
-				}}
-				isDefaultOpen={isDefaultOpen}
-			>
-				<FlyoutMenuItemTrigger onClick={() => setIsOpen(!isOpen)}>
-					Flyout Menu Item Slots
-				</FlyoutMenuItemTrigger>
-				<FlyoutMenuItemContent
-					onClose={() => setIsOpen(false)}
-					data-testid="flyout-menu-item-slots"
-				>
-					<FlyoutHeader title="Recent" closeButtonLabel="Close menu">
-						<Box>
-							<Inline space="space.100">
-								<Textfield
-									isCompact
-									elemBeforeInput={
-										<Box xcss={textfieldStyles.root}>
-											<SearchIcon label="" spacing="spacious" />
-										</Box>
-									}
-									placeholder="Search recent items"
-								/>
-								<IconButton icon={FilterIcon} label="" />
-							</Inline>
-						</Box>
-					</FlyoutHeader>
+		<FlyoutMenuItem
+			onOpenChange={(open) => {
+				if (!open) {
+					setIsOpen(false);
+				}
+			}}
+			isDefaultOpen={isDefaultOpen}
+		>
+			<FlyoutMenuItemTrigger onClick={() => setIsOpen(!isOpen)}>
+				Flyout Menu Item Slots
+			</FlyoutMenuItemTrigger>
+			<FlyoutMenuItemContent onClose={() => setIsOpen(false)} data-testid="flyout-menu-item-slots">
+				<FlyoutHeader title="Recent" closeButtonLabel="Close menu">
+					<Box>
+						<Inline space="space.100">
+							<Textfield
+								isCompact
+								elemBeforeInput={
+									<Box xcss={textfieldStyles.root}>
+										<SearchIcon label="" spacing="spacious" />
+									</Box>
+								}
+								placeholder="Search recent items"
+							/>
+							<IconButton icon={FilterIcon} label="" />
+						</Inline>
+					</Box>
+				</FlyoutHeader>
 
-					<FlyoutBody>
-						<MenuList>
-							{Array.from({ length: numItems }, (_, i) => (
-								<ButtonMenuItem key={i}>Menu Button {i + 1}</ButtonMenuItem>
-							))}
-						</MenuList>
-					</FlyoutBody>
+				<FlyoutBody>
+					<MenuList>
+						{Array.from({ length: numItems }, (_, i) => (
+							<ButtonMenuItem key={i}>Menu Button {i + 1}</ButtonMenuItem>
+						))}
+					</MenuList>
+				</FlyoutBody>
 
-					<FlyoutFooter>
-						<MenuList>
-							<ButtonMenuItem elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}>
-								View all recent items
-							</ButtonMenuItem>
-						</MenuList>
-					</FlyoutFooter>
-				</FlyoutMenuItemContent>
-			</FlyoutMenuItem>
-		</ExampleWrapper>
+				<FlyoutFooter>
+					<MenuList>
+						<ButtonMenuItem elemBefore={<AlignTextLeftIcon label="" color="currentColor" />}>
+							View all recent items
+						</ButtonMenuItem>
+					</MenuList>
+				</FlyoutFooter>
+			</FlyoutMenuItemContent>
+		</FlyoutMenuItem>
 	);
 };
 
@@ -405,7 +400,9 @@ const Example = (): JSX.Element => (
 
 		<div>
 			With slots
-			<FlyoutMenuItemSlots />
+			<ExampleWrapper>
+				<FlyoutMenuItemSlots />
+			</ExampleWrapper>
 		</div>
 
 		<div>

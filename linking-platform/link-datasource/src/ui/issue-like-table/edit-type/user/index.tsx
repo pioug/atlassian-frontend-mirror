@@ -5,7 +5,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
 import { type FieldProps } from '@atlaskit/form';
-import { Layering } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering/layering';
 import { type User } from '@atlaskit/linking-types';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';

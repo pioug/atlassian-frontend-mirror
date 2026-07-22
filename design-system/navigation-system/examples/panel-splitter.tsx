@@ -6,7 +6,7 @@ import { type CSSProperties, useCallback, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
 import {
 	PanelSplitter,
 	PanelSplitterProvider,

@@ -7,11 +7,11 @@ import React, { Fragment, type KeyboardEvent, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { AppHome, useOverflowStatus } from '@atlaskit/atlassian-navigation';
 import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
+import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
 import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
 import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
+import { AppHome } from '@atlaskit/atlassian-navigation/product-home';
 import { Search } from '@atlaskit/atlassian-navigation/search';
 import { Settings } from '@atlaskit/atlassian-navigation/settings';
 import { Drawer } from '@atlaskit/drawer/drawer';

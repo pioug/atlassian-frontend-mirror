@@ -1,2 +1,2 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
-export type { RendererProps } from '../ui/renderer-props';
+export type { RendererProps, RendererRenderedInfo } from '../ui/renderer-props';

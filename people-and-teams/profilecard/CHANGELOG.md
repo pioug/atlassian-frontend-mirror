@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 26.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.12.3
+
+### Patch Changes
+
+- [`ea3170072c098`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea3170072c098) -
+  Cleans up experiment platform_editor_agent_profile_card_fav_sync
+- Updated dependencies
+
+## 26.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.12.1
 
 ### Patch Changes

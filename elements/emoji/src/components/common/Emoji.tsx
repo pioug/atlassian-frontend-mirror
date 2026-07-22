@@ -66,7 +66,6 @@ import {
 } from './DeletableEmojiTooltipContent';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { getDocument } from '@atlaskit/browser-apis';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { messages } from '../i18n';
 import { isSSR } from '../../util/is-ssr';
 import { renderUnicodeEmojiToImagePath } from '../../util/renderUnicodeEmojiToImagePath';
@@ -735,14 +734,13 @@ export const EmojiNodeWrapper: React.ForwardRefExoticComponent<
 
 	const intl = useContext(IntlContext);
 
-	const ariaLabel =
-		intl && fg('platform_change_emoji_button_label')
+	const ariaLabel = editorEmoji
+		? undefined
+		: intl
 			? intl.formatMessage(messages.changeEmojiShortnameButtonLabel, {
 					shortName: emoji.name ?? emoji.shortName,
 				})
-			: editorEmoji
-				? undefined
-				: emoji.shortName;
+			: emoji.shortName;
 
 	return (
 		<span

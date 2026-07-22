@@ -42,7 +42,7 @@ export async function setupPicker(
 		: renderWithIntl(<EmojiPicker {...pickerProps} />);
 
 	// Wait until loaded
-	await screen.findByLabelText('Emoji picker');
+	await screen.findByRole('dialog', { name: 'Emoji picker' });
 
 	return renderResult;
 }
@@ -53,9 +53,11 @@ export const leftClick = {
 
 export const allEmojis: any = newEmojiRepository().all().emojis;
 
+const emojiButtonName = /^Change emoji, currently /;
+
 export const findEmoji = (list: HTMLElement): HTMLElement[] =>
 	within(list).getAllByRole('button', {
-		name: /:.*:/, // eg. :grinning:
+		name: emojiButtonName,
 	});
 
 /**
@@ -63,7 +65,7 @@ export const findEmoji = (list: HTMLElement): HTMLElement[] =>
  */
 export const emojisVisible = async (list: HTMLElement): Promise<HTMLElement[]> =>
 	await within(list).findAllByRole('button', {
-		name: /:.*:/, // eg. :grinning:
+		name: emojiButtonName,
 	});
 
 const findCategoryHeading = (category: CategoryGroupKey) =>
@@ -91,7 +93,7 @@ export const findEmojiInCategory = (
 
 export const findHandEmoji = (emojis: HTMLElement[]): number =>
 	emojis.findIndex((emoji) => {
-		const shortName = emoji.getAttribute('aria-label');
+		const shortName = emoji.getAttribute('data-testid');
 		// indexOf to cater for different skin tones eg. :raised_hand::skin-tone-2:
 		return !!shortName && shortName.indexOf(':raised_hand:') > -1;
 	});

@@ -27,7 +27,7 @@ import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StarIcon from '@atlaskit/icon/core/star-starred';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 import InlineDialog from '@atlaskit/inline-dialog';
-import { useOpenLayerObserver } from '@atlaskit/layering/experimental/use-open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { ConfluenceIcon } from '@atlaskit/logo';
 import Modal, {
 	ModalBody,

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
-import { Layering } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering/layering';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 

@@ -18,6 +18,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorMaxWidthLayoutWidth,
 	akEditorCalculatedWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -38,6 +39,7 @@ import { updateExpandedStateNew } from './utils/single-player-expand';
 type AddBreakoutToResizableNodeProps = {
 	breakoutResizableNodes: Set<NodeType>;
 	isFullWidthEnabled: boolean;
+	isMaxWidthEnabled: boolean;
 	newState: EditorState;
 	newTr: Transaction;
 	node: Node;
@@ -51,6 +53,7 @@ const addBreakoutToResizableNode = ({
 	newTr,
 	breakoutResizableNodes,
 	isFullWidthEnabled,
+	isMaxWidthEnabled,
 }: AddBreakoutToResizableNodeProps) => {
 	let updatedDocChanged = false;
 	let updatedTr = newTr;
@@ -65,7 +68,11 @@ const addBreakoutToResizableNode = ({
 		const isExpand = node.type === expand;
 
 		if (!breakoutMark) {
-			const width = isFullWidthEnabled ? akEditorFullWidthLayoutWidth : akEditorDefaultLayoutWidth;
+			const width = isMaxWidthEnabled
+				? akEditorMaxWidthLayoutWidth
+				: isFullWidthEnabled
+					? akEditorFullWidthLayoutWidth
+					: akEditorDefaultLayoutWidth;
 
 			updatedTr = newTr.setNodeMarkup(pos, node.type, node.attrs, [
 				breakout.create({ width: width }),
@@ -80,8 +87,9 @@ const addBreakoutToResizableNode = ({
 			const mode = breakoutMark.attrs.mode;
 
 			// if breakout is present on node, but page appearance is 'full width' force width to full width to maintain backwards compatibility
-			const newWidth =
-				isFullWidthEnabled || mode === 'full-width'
+			const newWidth = isMaxWidthEnabled
+				? akEditorMaxWidthLayoutWidth
+				: isFullWidthEnabled || mode === 'full-width'
 					? akEditorFullWidthLayoutWidth
 					: akEditorCalculatedWideLayoutWidth;
 
@@ -233,6 +241,10 @@ export const createResizingPlugin = (
 				}
 
 				const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
+				const isMaxWidthEnabled =
+					options?.appearance === 'max' &&
+					expValEquals('confluence_max_width_content_appearance', 'isEnabled', true) &&
+					expValEquals('platform_editor_lovability_breakout_resizing_fixes', 'isEnabled', true);
 
 				const { state } = editorView;
 				const { expand, codeBlock, layoutSection, rule, panel, panel_c1 } = state.schema.nodes;
@@ -259,6 +271,7 @@ export const createResizingPlugin = (
 						newTr,
 						breakoutResizableNodes,
 						isFullWidthEnabled,
+						isMaxWidthEnabled,
 					});
 
 					newTr = updatedTr;
@@ -306,6 +319,10 @@ export const createResizingPlugin = (
 					: new Set([expand, codeBlock, layoutSection]);
 
 			const isFullWidthEnabled = !(options?.allowBreakoutButton === true);
+			const isMaxWidthEnabled =
+				options?.appearance === 'max' &&
+				expValEquals('confluence_max_width_content_appearance', 'isEnabled', true) &&
+				expValEquals('platform_editor_lovability_breakout_resizing_fixes', 'isEnabled', true);
 
 			const isPageLoadNormalizationEnabled = expValEquals(
 				'platform_editor_add_breakout_marks_on_page_load',
@@ -329,6 +346,7 @@ export const createResizingPlugin = (
 						newTr,
 						breakoutResizableNodes,
 						isFullWidthEnabled,
+						isMaxWidthEnabled,
 					});
 
 					newTr = updatedTr;
@@ -350,6 +368,7 @@ export const createResizingPlugin = (
 								newTr,
 								breakoutResizableNodes,
 								isFullWidthEnabled,
+								isMaxWidthEnabled,
 							});
 
 							newTr = updatedTr;

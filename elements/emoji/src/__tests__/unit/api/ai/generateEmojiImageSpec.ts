@@ -18,7 +18,7 @@ describe('generateEmojiImage', () => {
 		fetchSpy.mockRestore();
 	});
 
-	it('posts a wrapped (single-line) prompt and returns imageData + mediaFileId', async () => {
+	it('posts the trimmed prompt with the emoji theme and returns imageData + mediaFileId', async () => {
 		fetchSpy.mockResolvedValue(
 			okResponse({
 				ai_feature_output: { mediaFileId: 'file-123', imageData: 'BASE64DATA' },
@@ -27,7 +27,7 @@ describe('generateEmojiImage', () => {
 
 		const result = await generateEmojiImage({
 			contentId: 'content-1',
-			prompt: 'a cat wearing a hard hat',
+			prompt: '  a cat wearing a hard hat  ',
 		});
 
 		expect(result).toEqual({ imageData: 'BASE64DATA', mediaFileId: 'file-123' });
@@ -43,13 +43,10 @@ describe('generateEmojiImage', () => {
 
 		const body = JSON.parse(init.body as string);
 		expect(body.ai_feature_input.contentId).toBe('content-1');
-		expect(body.ai_feature_input.useRawPrompt).toBe(true);
+		expect(body.ai_feature_input.useRawPrompt).toBe(false);
+		expect(body.ai_feature_input.theme).toBe('emoji');
 		expect(body.ai_feature_input.aspectRatio).toBe('1:1');
-		// prompt should be wrapped with the prefix, contain the subject, and have no newlines
-		expect(body.ai_feature_input.adfContent).toBe(
-			'Generate a clean, simple, emoji-style icon of a cat wearing a hard hat',
-		);
-		expect(body.ai_feature_input.adfContent).not.toContain('\n');
+		expect(body.ai_feature_input.adfContent).toBe('a cat wearing a hard hat');
 	});
 
 	it('throws when the response is not ok', async () => {

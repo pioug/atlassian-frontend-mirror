@@ -1081,6 +1081,69 @@
         "description": "Pressed state of color.background.accent.gray.subtlest."
       }
     },
+    "Dark increased-contrast/color.background.code.added.highlight": {
+      "value": "#1C3329",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for highlighted added code lines."
+      }
+    },
+    "Dark increased-contrast/color.background.code.added.line": {
+      "value": "#164B35",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for added code lines."
+      }
+    },
+    "Dark increased-contrast/color.background.code.default": {
+      "value": "#1F1F21",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for the default background of code blocks and code diffs."
+      }
+    },
+    "Dark increased-contrast/color.background.code.gutter": {
+      "value": "#242528",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for the background of code gutters."
+      }
+    },
+    "Dark increased-contrast/color.background.code.highlight": {
+      "value": "#242528",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for highlighted unchanged code lines."
+      }
+    },
+    "Dark increased-contrast/color.background.code.removed.highlight": {
+      "value": "#42221F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for highlighted removed code lines."
+      }
+    },
+    "Dark increased-contrast/color.background.code.removed.line": {
+      "value": "#5D1F1A",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for removed code lines."
+      }
+    },
     "Dark increased-contrast/color.background.disabled": {
       "value": "#E3E4F21F",
       "attributes": {
@@ -1999,6 +2062,15 @@
         "description": "Use for decorative gray borders that do not need to meet 3:1 contrast requirements."
       }
     },
+    "Dark increased-contrast/color.border.code": {
+      "value": "#E3E4F21F",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for code block and code diff borders."
+      }
+    },
     "Dark increased-contrast/color.border.disabled": {
       "value": "#E3E4F21F",
       "attributes": {
@@ -2339,6 +2411,105 @@
         "state": "active",
         "introduced": "0.10.5",
         "description": "Use for text and icons on gray subtle accent backgrounds."
+      }
+    },
+    "Dark increased-contrast/color.text.code.accent.1": {
+      "value": "#F797D2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for an additional syntax-highlighting text color."
+      }
+    },
+    "Dark increased-contrast/color.text.code.accent.2": {
+      "value": "#8FB8F6",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for an additional syntax-highlighting text color."
+      }
+    },
+    "Dark increased-contrast/color.text.code.comments": {
+      "value": "#A9ABAF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for comments in syntax-highlighted code."
+      }
+    },
+    "Dark increased-contrast/color.text.code.default": {
+      "value": "#A9ABAF",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for default text in code blocks and code diffs."
+      }
+    },
+    "Dark increased-contrast/color.text.code.functions": {
+      "value": "#7EE2B8",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for functions in syntax-highlighted code."
+      }
+    },
+    "Dark increased-contrast/color.text.code.gutter": {
+      "value": "#96999E",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for line numbers and other code gutter text."
+      }
+    },
+    "Dark increased-contrast/color.text.code.keywords": {
+      "value": "#FD9891",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for language keywords in syntax-highlighted code."
+      }
+    },
+    "Dark increased-contrast/color.text.code.numbers": {
+      "value": "#EED12B",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for numeric values in syntax-highlighted code."
+      }
+    },
+    "Dark increased-contrast/color.text.code.operators": {
+      "value": "#CECFD2",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for operators and punctuation in syntax-highlighted code."
+      }
+    },
+    "Dark increased-contrast/color.text.code.strings": {
+      "value": "#B3DF72",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for string values in syntax-highlighted code."
+      }
+    },
+    "Dark increased-contrast/color.text.code.tags": {
+      "value": "#FCA700",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "16.0.0",
+        "description": "Use for tags in syntax-highlighted code."
       }
     },
     "Dark increased-contrast/color.text.disabled": {

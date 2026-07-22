@@ -12,7 +12,7 @@ import { type IconButtonProps } from '@atlaskit/button/new';
 import { type NewCoreIconProps } from '@atlaskit/icon';
 import SidebarCollapseIcon from '@atlaskit/icon/core/sidebar-collapse';
 import SidebarExpandIcon from '@atlaskit/icon/core/sidebar-expand';
-import { useOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 
 import { useIsFhsEnabled } from '../../fhs-rollout/use-is-fhs-enabled';
 import { IconButton } from '../../top-nav-items/themed/icon-button';

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.2.17
+
+### Patch Changes
+
+- [`161922d5b8cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/161922d5b8cee) -
+  Fix editor tooltips affected by inline top-layer rendering. Table cell menu tooltips are no longer
+  constrained by the button background selector, and layout column drag handles now own their
+  wrapper layout without flattening the tooltip's visual surface.
+- Updated dependencies
+
+## 13.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.15
 
 ### Patch Changes

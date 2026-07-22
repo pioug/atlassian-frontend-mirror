@@ -2,7 +2,7 @@ import { fireEvent, screen, within } from '@testing-library/react';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import userEvent from '@testing-library/user-event';
-import { emojiActionsTestId, uploadEmojiTestId } from '../../../../components/common/EmojiActions';
+import { emojiActionsTestId } from '../../../../components/common/EmojiActions';
 import {
 	emojiErrorIconTestId,
 	emojiErrorMessageTestId,
@@ -34,11 +34,11 @@ export function queryEmojiActonsSection(): HTMLElement | null {
 }
 
 export async function getAddCustomEmojiButton(): Promise<HTMLElement> {
-	return await screen.findByRole('button', { name: 'Add your own emoji' });
+	return await screen.findByRole('button', { name: /Add (your own|custom) emoji/ });
 }
 
 export function queryAddCustomEmojiButton(): HTMLElement | null {
-	return screen.queryByTestId(uploadEmojiTestId);
+	return screen.queryByRole('button', { name: /Add (your own|custom) emoji/ });
 }
 
 export function getUploadEmojiNameInput(): HTMLElement {

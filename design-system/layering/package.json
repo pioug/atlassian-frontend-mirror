@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/layering",
-	"version": "4.1.0",
+	"version": "5.0.0",
 	"description": "Layering provides consistent and accessible layered experience",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,14 +29,21 @@
 	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
-		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer-old.tsx",
-		"./layering": "./src/entry-points/layering.tsx",
-		"./hooks": "./src/entry-points/hooks.tsx",
 		"./experimental/open-layer-observer/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx",
+		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer-old.tsx",
+		"./experimental/open-layer-observer-namespace-provider": "./src/entry-points/experimental/open-layer-observer-namespace-provider.tsx",
+		"./experimental/types": "./src/entry-points/experimental/types.tsx",
 		"./experimental/use-notify-open-layer-observer": "./src/entry-points/experimental/use-notify-open-layer-observer.tsx",
 		"./experimental/use-open-layer-observer": "./src/entry-points/experimental/use-open-layer-observer.tsx",
-		"./experimental/open-layer-observer-namespace-provider": "./src/entry-points/experimental/open-layer-observer-namespace-provider.tsx",
-		"./experimental/types": "./src/entry-points/experimental/types.tsx"
+		"./hooks": "./src/entry-points/hooks.tsx",
+		"./layering": "./src/components/layering.tsx",
+		"./open-layer-observer": "./src/components/open-layer-observer/open-layer-observer.tsx",
+		"./open-layer-observer-namespace-provider": "./src/components/open-layer-observer/open-layer-observer-namespace-provider.tsx",
+		"./types": "./src/components/open-layer-observer/types.tsx",
+		"./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
+		"./use-layering": "./src/hooks/use-layering.tsx",
+		"./use-notify-open-layer-observer": "./src/components/open-layer-observer/use-notify-open-layer-observer.tsx",
+		"./use-open-layer-observer": "./src/components/open-layer-observer/use-open-layer-observer.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/react-compiler-gating": "workspace:^",

@@ -24,7 +24,10 @@ import {
 	convertPMNodesToSyncBlockNodes,
 	rebaseTransaction,
 } from '@atlaskit/editor-synced-block-provider';
-import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
+import type {
+	SyncBlockProduct,
+	SyncBlockStoreManager,
+} from '@atlaskit/editor-synced-block-provider';
 import type {
 	DeletionReason,
 	DeletionMechanism,
@@ -166,11 +169,21 @@ const mapRetryCreationPosMap = (
 	return newMap;
 };
 
-const showCopiedFlag = (api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined) => {
+const showCopiedFlag = (
+	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
+	isLivePage: boolean | undefined,
+	isSourceContentUnpublished: boolean,
+	sourceProduct: SyncBlockProduct | undefined,
+) => {
 	deferDispatch(() => {
 		api?.core.actions.execute(({ tr }) =>
 			tr.setMeta(syncedBlockPluginKey, {
-				activeFlag: { id: FLAG_ID.SYNC_BLOCK_COPIED },
+				activeFlag: {
+					id: FLAG_ID.SYNC_BLOCK_COPIED,
+					isLivePage,
+					isSourceContentUnpublished,
+					sourceProduct,
+				},
 			}),
 		);
 	});
@@ -1100,8 +1113,13 @@ export const createPlugin = (
 						if (isCut) {
 							return node;
 						}
-
-						showCopiedFlag(api);
+						showCopiedFlag(
+							api,
+							options?.__livePage,
+							syncBlockStore.referenceManager.getFromCache(node.attrs.resourceId)?.data?.status ===
+								'unpublished',
+							getSourceProductFromResourceIdSafe(node.attrs.resourceId),
+						);
 
 						return node;
 					}
@@ -1116,10 +1134,14 @@ export const createPlugin = (
 							return node;
 						}
 
-						showCopiedFlag(api);
-
 						const newResourceId = syncBlockStore.referenceManager.generateResourceIdForReference(
 							node.attrs.resourceId,
+						);
+						showCopiedFlag(
+							api,
+							options?.__livePage,
+							syncBlockStore.sourceManager.getStatus(node.attrs.resourceId) !== 'active',
+							getSourceProductFromResourceIdSafe(newResourceId),
 						);
 						// Convert bodiedSyncBlock to syncBlock
 						// The paste transformation will regenrate the localId

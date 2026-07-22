@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Textarea from '@atlaskit/textarea';
+import Textarea from '@atlaskit/textarea/text-area';
 
 const Examples = (): React.JSX.Element => (
 	<>

@@ -20,6 +20,15 @@ describe('NotificationDrawerContents', () => {
 		await testIframeUrl('/home/notificationsDrawer/iframe.html');
 	});
 
+	it('should give the iframe a default title', async () => {
+		render(<Notifications testId="navigation-notifications" />);
+
+		expect(await screen.findByTestId('navigation-notifications')).toHaveAttribute(
+			'title',
+			'Notifications',
+		);
+	});
+
 	it('should add the correct url to the iframe when a locale is provided', async () => {
 		render(<Notifications locale="en" testId="navigation-notifications" />);
 		await testIframeUrl('/home/notificationsDrawer/iframe.html?locale=en');

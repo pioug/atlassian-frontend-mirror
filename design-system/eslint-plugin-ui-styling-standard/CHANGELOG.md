@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.1.2
+
+### Patch Changes
+
+- [`00f3166426df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00f3166426df4) -
+  add eslint rule for cssMapScope and ratcheting rule
+- Updated dependencies
+
 ## 2.1.1
 
 ### Patch Changes

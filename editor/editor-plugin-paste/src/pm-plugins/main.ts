@@ -123,18 +123,17 @@ export const isInsideBlockQuote = (state: EditorState): boolean => {
 
 const enableNewDomainCheckToImproveSmartLinkResolveRate = (hostname: string): boolean => {
 	return (
-		expValEquals('improve_3p_smart_link_resolve_rate', 'isEnabled', true) &&
 		// OneDrive Shortlinks
-		(hostname.endsWith('1drv.ms') ||
-			// MS Teams links
-			hostname.endsWith('teams.live.com') ||
-			hostname.endsWith('teams.cloud.microsoft') ||
-			hostname.endsWith('teams.microsoft.com') ||
-			// MS Power BI
-			hostname.endsWith('powerbi.com') ||
-			// MS Azure devops
-			hostname.endsWith('dev.azure.com') ||
-			hostname.endsWith('visualstudio.com'))
+		hostname.endsWith('1drv.ms') ||
+		// MS Teams links
+		hostname.endsWith('teams.live.com') ||
+		hostname.endsWith('teams.cloud.microsoft') ||
+		hostname.endsWith('teams.microsoft.com') ||
+		// MS Power BI
+		hostname.endsWith('powerbi.com') ||
+		// MS Azure devops
+		hostname.endsWith('dev.azure.com') ||
+		hostname.endsWith('visualstudio.com')
 	);
 };
 
@@ -570,11 +569,20 @@ export function createPlugin(
 				const selectionDepth = state.selection.$head.depth;
 				const selectionParentNode = state.selection.$head.node(selectionDepth - 1);
 				const selectionParentType = selectionParentNode?.type;
-				const edgeCaseNodeTypes = [
-					schema.nodes?.panel,
-					schema.nodes?.taskList,
-					schema.nodes?.decisionList,
-				];
+				// panel_c1 is a schema variant of panel (table-in-panel); when the experiment is on,
+				// handle it the same way as a panel.
+				const edgeCaseNodeTypes = expValEquals(
+					'platform_editor_nest_table_in_panel',
+					'isEnabled',
+					true,
+				)
+					? [
+							schema.nodes?.panel,
+							schema.nodes?.panel_c1,
+							schema.nodes?.taskList,
+							schema.nodes?.decisionList,
+						]
+					: [schema.nodes?.panel, schema.nodes?.taskList, schema.nodes?.decisionList];
 
 				if (
 					slice.openStart === 0 &&

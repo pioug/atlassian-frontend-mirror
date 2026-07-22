@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 
-import { Layering } from '@atlaskit/layering';
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { Layering } from '@atlaskit/layering/layering';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 

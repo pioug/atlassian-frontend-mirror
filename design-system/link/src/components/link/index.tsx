@@ -60,7 +60,7 @@ const styles = cssMap({
 		'&:hover': {
 			color: token('color.link'),
 			textDecoration: 'underline transparent',
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			color: token('color.link.pressed'),
@@ -101,7 +101,7 @@ const styles = cssMap({
 		'&:hover': {
 			color: token('color.text.subtle'),
 			textDecoration: 'underline currentColor',
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -156,7 +156,7 @@ const styles = cssMap({
 		'&:hover': {
 			color: token('color.text.inverse'),
 			textDecoration: 'underline transparent',
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values

@@ -48,23 +48,3 @@ export const slugifyPrompt = (prompt: string): string => {
 
 	return slug.slice(0, MAX_SHORTNAME_LENGTH);
 };
-
-/**
- * Prefix prepended to the user's description so the header-image backend
- * produces clean, emoji-style output instead of a scene/photo.
- *
- * Kept as a single line (no newlines) — newlines in the prompt can degrade the
- * model's output. Learnings from ShipIt 56 ("Emoji Pop") showed that a simple
- * prompt prefix significantly improved emoji quality.
- */
-export const EMOJI_PROMPT_PREFIX = 'Generate a clean, simple, emoji-style icon of ';
-
-/**
- * Wrap the raw user prompt with the emoji-style prefix.
- *
- * @example
- * wrapEmojiPrompt('a cat wearing a hard hat')
- * // => 'Generate a clean, simple, emoji-style icon of a cat wearing a hard hat'
- */
-export const wrapEmojiPrompt = (userPrompt: string): string =>
-	`${EMOJI_PROMPT_PREFIX}${userPrompt.trim()}`;

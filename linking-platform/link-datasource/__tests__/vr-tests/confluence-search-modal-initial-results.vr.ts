@@ -6,6 +6,6 @@ snapshot(ConfluenceSearchConfigModalInitialResults, {
 	description: 'Confluence search config modal initial results view',
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });

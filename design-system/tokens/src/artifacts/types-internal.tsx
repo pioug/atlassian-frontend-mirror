@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fd72c9b823a98da594996b8da2a99449>>
+ * @codegen <<SignedSource::f1bc511c48c2b4152cedcc6564d3fb5c>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -179,6 +179,13 @@ export type InternalTokenIds =
 	| 'color.background.accent.gray.bolder.[default]'
 	| 'color.background.accent.gray.bolder.hovered'
 	| 'color.background.accent.gray.bolder.pressed'
+	| 'color.background.code.added.highlight'
+	| 'color.background.code.added.line'
+	| 'color.background.code.default'
+	| 'color.background.code.gutter'
+	| 'color.background.code.highlight'
+	| 'color.background.code.removed.highlight'
+	| 'color.background.code.removed.line'
 	| 'color.background.disabled'
 	| 'color.background.input.[default]'
 	| 'color.background.input.hovered'
@@ -281,6 +288,7 @@ export type InternalTokenIds =
 	| 'color.border.accent.magenta.subtle'
 	| 'color.border.accent.gray.[default]'
 	| 'color.border.accent.gray.subtle'
+	| 'color.border.code'
 	| 'color.border.disabled'
 	| 'color.border.focused'
 	| 'color.border.input'
@@ -319,6 +327,17 @@ export type InternalTokenIds =
 	| 'color.text.accent.magenta.bolder'
 	| 'color.text.accent.gray.[default]'
 	| 'color.text.accent.gray.bolder'
+	| 'color.text.code.accent.1'
+	| 'color.text.code.accent.2'
+	| 'color.text.code.comments'
+	| 'color.text.code.default'
+	| 'color.text.code.functions'
+	| 'color.text.code.gutter'
+	| 'color.text.code.keywords'
+	| 'color.text.code.numbers'
+	| 'color.text.code.operators'
+	| 'color.text.code.strings'
+	| 'color.text.code.tags'
 	| 'color.text.disabled'
 	| 'color.text.inverse'
 	| 'color.text.selected'

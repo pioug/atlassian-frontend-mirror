@@ -1,5 +1,55 @@
 # @atlaskit/emoji
 
+## 71.12.0
+
+### Minor Changes
+
+- [`d68d46361e5c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d68d46361e5c5) -
+  Send the new `emoji` image generation theme to the Confluence header image backend for Create
+  emoji with Rovo instead of prepending emoji-style instructions to the prompt.
+
+## 71.11.3
+
+### Patch Changes
+
+- [`22bc749d89dc9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22bc749d89dc9) -
+  Clean up platform_change_emoji_button_label FG and avoid unsupported ARIA attributes on editor
+  emoji nodes Stabilize renderer integration tests for smart cards, heading anchors, and table
+  triple-click selection
+
+## 71.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 71.11.1
+
+### Patch Changes
+
+- [`79c6e92d799d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79c6e92d799d3) -
+  [ux] A11Y-31084: Expose the emoji picker grid as an accessible list
+
+  Behind the `platform_a11y_fixes_emoji_picker_list` experiment, the emoji picker's scrollable grid
+  is exposed to assistive technology as a single list: the scroll container becomes `role="list"`
+  and each emoji is a `role="listitem"` (`<li>`), so screen readers announce the list and its items
+  instead of a grid. The virtualizer is left intact. Also registers the experiment in the editor
+  experiments config so it can be resolved via `expValEqualsNoExposure`.
+
+- Updated dependencies
+
+## 71.11.0
+
+### Minor Changes
+
+- [`30f196e640e18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30f196e640e18) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 71.10.0
 
 ### Minor Changes

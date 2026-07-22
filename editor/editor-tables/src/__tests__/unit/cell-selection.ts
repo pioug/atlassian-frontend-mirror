@@ -23,11 +23,6 @@ import {
 } from '../__helpers/doc-builder';
 import { selectionFor } from '../__helpers/selection-for';
 
-// TODO: EDITOR-6274 - this can be cleaned up once `platform_editor_element_drag_and_drop_multiselect` is cleaned up
-jest.mock('@atlaskit/tmp-editor-statsig/experiments', () => ({
-	editorExperiment: jest.fn((_name: string, defaultValue: unknown) => defaultValue),
-}));
-
 describe('CellSelection', () => {
 	const tbl = createTableWithDoc(
 		tr(/* 2*/ cEmpty, /* 6*/ cEmpty, /*10*/ cEmpty),

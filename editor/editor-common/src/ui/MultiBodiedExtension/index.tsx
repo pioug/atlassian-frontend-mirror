@@ -12,7 +12,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 // Wraps the navigation bar and extensionFrames
-const mbeExtensionContainer = css({
+const mbeExtensionContainerOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	background: 'transparent !important',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -43,6 +43,45 @@ const mbeExtensionContainer = css({
 	'.multiBodiedExtension-content-dom-wrapper, .multiBodiedExtension--frames': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		"[data-extension-frame='true'] > :not(style):first-child, [data-extension-frame='true'] > style:first-child + *":
+			{
+				marginTop: 0,
+			},
+	},
+});
+
+// Wraps the navigation bar and extensionFrames when Native Tabs can insert block-control
+// widget decorations before frame content.
+const mbeExtensionContainerNew = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+	background: 'transparent !important',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'padding:': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		left: `${token('space.100')} !important`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		right: `${token('space.100')} !important`,
+	},
+	paddingBottom: token('space.100'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.remove-padding': {
+		paddingBottom: 0,
+	},
+	position: 'relative',
+	verticalAlign: 'middle',
+	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.multiBodiedExtension-handler-result': {
+		marginLeft: token('space.100'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	".multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true'], .multiBodiedExtension--frames > [data-extension-frame='true']":
+		{
+			display: 'none',
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.multiBodiedExtension-content-dom-wrapper, .multiBodiedExtension--frames': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		"[data-extension-frame='true'] > :not(.ProseMirror-widget):first-of-type, [data-extension-frame='true'] > .ProseMirror-widget + :not(.ProseMirror-widget):first-of-type":
 			{
 				marginTop: 0,
 			},
@@ -175,8 +214,12 @@ export const sharedMultiBodiedExtensionStyles: {
 	mbeExtensionContainer: SerializedStyles;
 	mbeNavigation: SerializedStyles;
 } = {
-	mbeExtensionContainer,
 	mbeNavigation,
+	get mbeExtensionContainer() {
+		return expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
+			? mbeExtensionContainerNew
+			: mbeExtensionContainerOld;
+	},
 	get extensionFrameContent() {
 		if (!expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)) {
 			return extensionFrameContentOld;

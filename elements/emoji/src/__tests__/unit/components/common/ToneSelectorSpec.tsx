@@ -30,6 +30,7 @@ const handEmoji: EmojiDescriptionWithVariations = {
 		generateSkinVariation(baseHandEmoji, 5),
 	],
 };
+const mediumDarkHandEmojiLabel = `Change emoji, currently ${handEmoji.skinVariations![3].name}`;
 
 describe('<ToneSelector />', () => {
 	let user: ReturnType<typeof userEvent.setup>;
@@ -49,7 +50,7 @@ describe('<ToneSelector />', () => {
 			<ToneSelector emoji={handEmoji} onToneSelected={handleToneSelectedMock} isVisible />,
 		);
 
-		const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
+		const toneButton = await screen.findByLabelText(mediumDarkHandEmojiLabel);
 		await user.click(toneButton);
 
 		expect(handleToneSelectedMock).toHaveBeenCalledTimes(1);
@@ -66,7 +67,7 @@ describe('<ToneSelector />', () => {
 		// Space triggers onClick on the input (browser fires click on Space for radio).
 		// Clicking the emoji img span (found via aria-label) forwards through the label to
 		// the input's onClick handler — same code path as a Space key press.
-		const emojiToneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
+		const emojiToneButton = await screen.findByLabelText(mediumDarkHandEmojiLabel);
 		await user.click(emojiToneButton);
 
 		expect(handleToneSelectedMock).toHaveBeenCalledTimes(1);
@@ -105,7 +106,7 @@ describe('<ToneSelector />', () => {
 			'fabric-elements',
 		);
 
-		const toneButton = await screen.findByLabelText(':raised_back_of_hand-4:');
+		const toneButton = await screen.findByLabelText(mediumDarkHandEmojiLabel);
 		await user.click(toneButton);
 
 		expect(handleOnEventMock).toHaveBeenCalledWith(

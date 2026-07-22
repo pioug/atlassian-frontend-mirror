@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 13.0.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.0.29
+
+### Patch Changes
+
+- [`ed6e0c3974d3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed6e0c3974d3c) -
+  EDITOR-7466 scope markdown preview toolbar preference to converted live pages
+- Updated dependencies
+
 ## 13.0.28
 
 ### Patch Changes

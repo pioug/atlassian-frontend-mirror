@@ -9,7 +9,7 @@ import { cx, jsx } from '@compiled/react';
 import { cssMap } from '@atlaskit/css';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
+import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
 import Popup from '@atlaskit/popup';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

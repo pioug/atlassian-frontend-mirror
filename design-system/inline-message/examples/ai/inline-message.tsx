@@ -1,6 +1,6 @@
 import React from 'react';
 
-import InlineMessage from '@atlaskit/inline-message';
+import InlineMessage from '@atlaskit/inline-message/inline-message';
 
 const Examples = (): React.JSX.Element => (
 	<>

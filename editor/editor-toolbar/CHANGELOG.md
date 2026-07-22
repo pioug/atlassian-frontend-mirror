@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 2.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.8
+
+### Patch Changes
+
+- [`63f37967452f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63f37967452f1) -
+  A11Y-42687 remove redundant aria-described-by attributes from toolbar
+- Updated dependencies
+
 ## 2.3.7
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3359adbb6734ba5703e094b6a59005c2>>
+ * @codegen <<SignedSource::b9d9e8f36f67b117d8775e37a7e668ed>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -19,6 +19,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/icon-label': 'warn',
 		'@atlaskit/design-system/lozenge-badge-tag-labelling-system-migration': 'warn',
 		'@atlaskit/design-system/no-banned-imports': 'error',
+		'@atlaskit/design-system/no-css-map-scoped': 'error',
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-dark-theme-vr-tests': 'error',
 		'@atlaskit/design-system/no-deprecated-apis': 'error',
@@ -46,6 +47,7 @@ const rules: ESLint.ConfigData = {
 		],
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-margin': 'warn',
+		'@atlaskit/design-system/no-modal-label': 'warn',
 		'@atlaskit/design-system/no-nested-styles': 'error',
 		'@atlaskit/design-system/no-physical-properties': 'error',
 		'@atlaskit/design-system/no-placeholder': 'warn',

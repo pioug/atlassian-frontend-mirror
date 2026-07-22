@@ -43,6 +43,7 @@ export const getToolbarConfig = (
 	intl: IntlShape,
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	syncBlockStore: SyncBlockStoreManager,
+	isLivePage?: boolean,
 ): FloatingToolbarConfig | undefined => {
 	const syncBlockObject = findSyncBlockOrBodiedSyncBlock(state.schema, state.selection);
 	if (!syncBlockObject) {
@@ -120,6 +121,7 @@ export const getToolbarConfig = (
 				syncBlockStore,
 				INPUT_METHOD.SYNCED_BLOCK_TB,
 				api,
+				isLivePage,
 			),
 			...hoverDecorationProps(nodeType, akEditorSelectedNodeClassName),
 		};

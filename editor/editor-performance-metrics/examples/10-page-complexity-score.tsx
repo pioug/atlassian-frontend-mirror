@@ -9,12 +9,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { Checkbox } from '@atlaskit/checkbox';
-import { calculateADFComplexity } from '@atlaskit/editor-performance-metrics/page-complexity-score';
 import type {
-	DebugNodePath,
-	ComplexityResult,
 	AdfNode,
-} from '@atlaskit/editor-performance-metrics/src/page-complexity-score/types';
+	ComplexityResult,
+	DebugNodePath,
+} from '@atlaskit/editor-performance-metrics/page-complexity-score';
+import { calculateADFComplexity } from '@atlaskit/editor-performance-metrics/page-complexity-score';
 import TextArea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
 

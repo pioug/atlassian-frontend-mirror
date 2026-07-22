@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 5.0.0
+
+### Major Changes
+
+- [`6988f5fcfbabe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6988f5fcfbabe) -
+  Breaking: migrate to subpath-only exports (barrel removal). All imports must use explicit subpath
+  exports.
+
 ## 4.1.0
 
 ### Minor Changes

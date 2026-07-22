@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer/open-layer-observer';
-import { useOpenLayerObserver } from '@atlaskit/layering/experimental/use-open-layer-observer';
+import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { render, screen, userEvent } from '@atlassian/testing-library';
 
 import { Popover } from '../../src/entry-points/popover';

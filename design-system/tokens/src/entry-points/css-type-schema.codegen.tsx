@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::f12e14885ffd650596be173c513fbd83>>
+ * @codegen <<SignedSource::a02b25be55c0f5e13c05e0e16ef8caa7>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -195,6 +195,13 @@ export type BackgroundColor =
 	| 'var(--ds-background-accent-gray-subtler)'
 	| 'var(--ds-background-accent-gray-subtle)'
 	| 'var(--ds-background-accent-gray-bolder)'
+	| 'var(--ds-background-code-added-highlight)'
+	| 'var(--ds-background-code-added-line)'
+	| 'var(--ds-background-code-default)'
+	| 'var(--ds-background-code-gutter)'
+	| 'var(--ds-background-code-highlight)'
+	| 'var(--ds-background-code-removed-highlight)'
+	| 'var(--ds-background-code-removed-line)'
 	| 'var(--ds-background-disabled)'
 	| 'var(--ds-background-input)'
 	| 'var(--ds-background-inverse-subtle)'
@@ -306,6 +313,7 @@ export type BorderColor =
 	| 'var(--ds-border-accent-magenta-subtle)'
 	| 'var(--ds-border-accent-gray)'
 	| 'var(--ds-border-accent-gray-subtle)'
+	| 'var(--ds-border-code)'
 	| 'var(--ds-border-disabled)'
 	| 'var(--ds-border-focused)'
 	| 'var(--ds-border-input)'
@@ -417,6 +425,17 @@ export type TextColor =
 	| 'var(--ds-text-accent-magenta-bolder)'
 	| 'var(--ds-text-accent-gray)'
 	| 'var(--ds-text-accent-gray-bolder)'
+	| 'var(--ds-text-code-accent-1)'
+	| 'var(--ds-text-code-accent-2)'
+	| 'var(--ds-text-code-comments)'
+	| 'var(--ds-text-code-default)'
+	| 'var(--ds-text-code-functions)'
+	| 'var(--ds-text-code-gutter)'
+	| 'var(--ds-text-code-keywords)'
+	| 'var(--ds-text-code-numbers)'
+	| 'var(--ds-text-code-operators)'
+	| 'var(--ds-text-code-strings)'
+	| 'var(--ds-text-code-tags)'
 	| 'var(--ds-text-disabled)'
 	| 'var(--ds-text-inverse)'
 	| 'var(--ds-text-selected)'

@@ -21,10 +21,8 @@ import { flushSync } from 'react-dom';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
-import {
-	OpenLayerObserverNamespaceProvider,
-	useOpenLayerObserver,
-} from '@atlaskit/layering/experimental/open-layer-observer';
+import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
+import { useOpenLayerObserver } from '@atlaskit/layering/use-open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled

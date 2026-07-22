@@ -1,5 +1,65 @@
 # @atlaskit/tokens
 
+## 16.2.0
+
+### Minor Changes
+
+- [`b1453699ad8be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1453699ad8be) -
+  Add semantic code syntax tokens:
+  - `color.background.code.default`
+  - `color.background.code.gutter`
+  - `color.background.code.highlight`
+  - `color.background.code.added.line`
+  - `color.background.code.added.highlight`
+  - `color.background.code.removed.line`
+  - `color.background.code.removed.highlight`
+  - `color.border.code`
+  - `color.text.code.default`
+  - `color.text.code.comments`
+  - `color.text.code.operators`
+  - `color.text.code.keywords`
+  - `color.text.code.strings`
+  - `color.text.code.numbers`
+  - `color.text.code.functions`
+  - `color.text.code.tags`
+  - `color.text.code.accent.1`
+  - `color.text.code.accent.2`
+  - `color.text.code.gutter`
+
+  ```tsx
+  import { token } from '@atlaskit/tokens';
+
+  const keywordColor = token('color.text.code.keywords', '#AE2E24');
+  // Or via CSS variable: var(--ds-text-code-keywords)
+  ```
+
+  Update `BackgroundColorToken` to support the new code background tokens.
+
+## Unreleased
+
+### Minor Changes
+
+- Add semantic code syntax tokens:
+  - `color.background.code.default`
+  - `color.background.code.gutter`
+  - `color.background.code.highlight`
+  - `color.background.code.added.line`
+  - `color.background.code.added.highlight`
+  - `color.background.code.removed.line`
+  - `color.background.code.removed.highlight`
+  - `color.border.code`
+  - `color.text.code.default`
+  - `color.text.code.comments`
+  - `color.text.code.operators`
+  - `color.text.code.keywords`
+  - `color.text.code.strings`
+  - `color.text.code.numbers`
+  - `color.text.code.functions`
+  - `color.text.code.tags`
+  - `color.text.code.accent.1`
+  - `color.text.code.accent.2`
+  - `color.text.code.gutter`
+
 ## 16.1.0
 
 ### Minor Changes

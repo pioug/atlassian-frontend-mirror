@@ -73,7 +73,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_editor_table_fit_to_content_auto_convert: false,
 	platform_editor_table_q4_loveability: false,
 	platform_editor_table_menu_updates: false,
-	platform_editor_core_static_css: false,
 	'cwr-modal-ui-refresh': false,
 	'cc-disambiguation-in-cwr': false,
 	'cwr-reduce-prompt-suggestion-max-chars': false,

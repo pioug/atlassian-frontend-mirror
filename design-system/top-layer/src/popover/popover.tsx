@@ -9,7 +9,7 @@ import { bind } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import once from '@atlaskit/ds-lib/once';
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -66,6 +66,28 @@ const popoverAnimationStyles = cssMap({
 				transitionDuration: '0s',
 			},
 		},
+	},
+});
+
+// Surface reset — neutralises inherited text-layout properties (e.g.
+// `white-space: nowrap` from an `@atlaskit/select` option) that leak into a
+// top-layer element because, for CSS inheritance, it is still a DOM child of its
+// trigger (top-layer promotion is paint/stacking only; the legacy portal path
+// avoided this by rendering at `<body>`). Excludes `color`/`font` (theming) and
+// `direction`/`unicode-bidi` (RTL must inherit).
+//
+// KEEP IN SYNC with the identical `surfaceResetStyles` in `dialog/dialog-content.tsx`.
+// ADS forbids sharing styles across files (`no-exported-styles` /
+// `no-imported-style-values` — Compiled styles are null at runtime), so the reset is
+// co-located and duplicated deliberately.
+const surfaceResetStyles = cssMap({
+	root: {
+		whiteSpace: 'normal',
+		wordBreak: 'normal',
+		overflowWrap: 'normal',
+		textAlign: 'start',
+		textIndent: '0',
+		textTransform: 'none',
 	},
 });
 
@@ -372,7 +394,7 @@ export const Popover: React.ForwardRefExoticComponent<
 			aria-labelledby={labelledBy}
 			data-testid={testId}
 			className={consumerXcss}
-			css={[styles.root, preset && popoverAnimationStyles.root]}
+			css={[styles.root, surfaceResetStyles.root, preset && popoverAnimationStyles.root]}
 		>
 			{children}
 		</div>

@@ -1,0 +1,38 @@
+{
+	"name": "@atlaskit/ads-cli",
+	"version": "0.1.0",
+	"description": "An npx-runnable command-line tool to query Atlassian Design System (ADS) structured content — components, tokens, icons, and guidelines — from the terminal.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"homepage": "https://atlaskit.atlassian.com/packages/design-system/ads-cli",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Design System Team"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "index.js",
+	"types": "dist/types/cli.d.ts",
+	"atlaskit:src": "src/cli.tsx",
+	"bin": "./bin/ads-cli.js",
+	"scripts": {
+		"start": "./bin/ads-cli.js"
+	},
+	"exports": {
+		".": {
+			"types": "./src/cli.tsx",
+			"publish": "./src/cli.tsx",
+			"default": "./index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"dependencies": {
+		"@atlaskit/ads-mcp": "workspace:^",
+		"@babel/runtime": "root:*",
+		"chalk": "root:*"
+	},
+	"devDependencies": {
+		"@atlassian/ts-loader": "workspace:^"
+	}
+}

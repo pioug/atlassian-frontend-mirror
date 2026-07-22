@@ -1,10 +1,5 @@
 import fetchMock from 'fetch-mock';
 
-import {
-	clearFeatureGatesOverrides,
-	overrideFeatureGatesExperiment,
-} from '@atlassian/ptc-test-utils/feature-gates-test-helpers';
-
 import { AGGQuery } from '../graphqlUtils';
 import RovoAgentCardClient from '../RovoAgentCardClient';
 import { sharedAgentProfileCache } from '../sharedAgentProfileCache';
@@ -223,96 +218,63 @@ describe('RovoAgentCardClient', () => {
 			await client.getProfile(mockIdentityAccountId, mockAnalytics);
 		};
 
-		describe('when the experiment is enabled', () => {
-			beforeEach(async () => {
-				await overrideFeatureGatesExperiment('platform_editor_agent_profile_card_fav_sync', {
-					isEnabled: true,
-				});
-			});
+		it('updates the cached profile favourite state', async () => {
+			fetchMock.post('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
 
-			afterEach(() => {
-				clearFeatureGatesOverrides();
-			});
+			const client = new RovoAgentCardClient(cachedOptions);
+			await primeCache(client);
 
-			it('updates the cached profile favourite state', async () => {
-				fetchMock.post('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
+			await client.setFavouriteAgent('agent-id-123', true, mockAnalytics);
 
-				const client = new RovoAgentCardClient(cachedOptions);
-				await primeCache(client);
+			// Second read is served from cache (no further REST/AGG mocks set up) and
+			// must reflect the new favourite state.
+			const result = await client.getProfile(mockIdentityAccountId, mockAnalytics);
 
-				await client.setFavouriteAgent('agent-id-123', true, mockAnalytics);
-
-				// Second read is served from cache (no further REST/AGG mocks set up) and
-				// must reflect the new favourite state.
-				const result = await client.getProfile(mockIdentityAccountId, mockAnalytics);
-
-				expect(result.restData).toEqual(
-					expect.objectContaining({ favourite: true, favourite_count: 3 }),
-				);
-			});
-
-			it('shares favourite state across separate client instances (cross-surface)', async () => {
-				fetchMock.post('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
-
-				// Instance A (e.g. the editor mention card) primes the shared cache and
-				// toggles favourite.
-				const clientA = new RovoAgentCardClient(cachedOptions);
-				await primeCache(clientA);
-				await clientA.setFavouriteAgent('agent-id-123', true, mockAnalytics);
-
-				// Instance B (e.g. the side-nav card) is a *separate* client. With no REST
-				// or AGG mocks set up for it, it must read the shared cache rather than
-				// hitting the network — and see the favourite toggled by instance A.
-				const clientB = new RovoAgentCardClient(cachedOptions);
-				const result = await clientB.getProfile(mockIdentityAccountId, mockAnalytics);
-
-				expect(result.restData).toEqual(
-					expect.objectContaining({ favourite: true, favourite_count: 3 }),
-				);
-			});
-
-			it('decrements the cached favourite_count when unfavouriting', async () => {
-				fetchMock.delete('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
-
-				const client = new RovoAgentCardClient(cachedOptions);
-				fetchMock.getOnce('/gateway/api/assist/rovo/v1/agents/accountid/identity-account-id-123', {
-					body: { id: 'agent-id-123', name: 'Rovo Agent', favourite: true, favourite_count: 5 },
-				});
-				mockAGGQuery.mockResolvedValueOnce(mockActivationIdResponse);
-				mockAGGQuery.mockResolvedValueOnce({
-					agentStudio_agentByIdentityAccountId: mockAggAgentResponseSuccess,
-				});
-				await client.getProfile(mockIdentityAccountId, mockAnalytics);
-
-				await client.setFavouriteAgent('agent-id-123', false, mockAnalytics);
-
-				const result = await client.getProfile(mockIdentityAccountId, mockAnalytics);
-
-				expect(result.restData).toEqual(
-					expect.objectContaining({ favourite: false, favourite_count: 4 }),
-				);
-			});
+			expect(result.restData).toEqual(
+				expect.objectContaining({ favourite: true, favourite_count: 3 }),
+			);
 		});
 
-		describe('when the experiment is disabled', () => {
-			afterEach(() => {
-				clearFeatureGatesOverrides();
+		it('shares favourite state across separate client instances (cross-surface)', async () => {
+			fetchMock.post('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
+
+			// Instance A (e.g. the editor mention card) primes the shared cache and
+			// toggles favourite.
+			const clientA = new RovoAgentCardClient(cachedOptions);
+			await primeCache(clientA);
+			await clientA.setFavouriteAgent('agent-id-123', true, mockAnalytics);
+
+			// Instance B (e.g. the side-nav card) is a *separate* client. With no REST
+			// or AGG mocks set up for it, it must read the shared cache rather than
+			// hitting the network — and see the favourite toggled by instance A.
+			const clientB = new RovoAgentCardClient(cachedOptions);
+			const result = await clientB.getProfile(mockIdentityAccountId, mockAnalytics);
+
+			expect(result.restData).toEqual(
+				expect.objectContaining({ favourite: true, favourite_count: 3 }),
+			);
+		});
+
+		it('decrements the cached favourite_count when unfavouriting', async () => {
+			fetchMock.delete('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
+
+			const client = new RovoAgentCardClient(cachedOptions);
+			fetchMock.getOnce('/gateway/api/assist/rovo/v1/agents/accountid/identity-account-id-123', {
+				body: { id: 'agent-id-123', name: 'Rovo Agent', favourite: true, favourite_count: 5 },
 			});
-
-			it('leaves the cached profile untouched', async () => {
-				fetchMock.post('/gateway/api/assist/rovo/v1/agents/agent-id-123/favourite', 200);
-
-				const client = new RovoAgentCardClient(cachedOptions);
-				await primeCache(client);
-
-				await client.setFavouriteAgent('agent-id-123', true, mockAnalytics);
-
-				const result = await client.getProfile(mockIdentityAccountId, mockAnalytics);
-
-				expect(result.restData).toEqual(
-					expect.objectContaining({ favourite: false, favourite_count: 2 }),
-				);
+			mockAGGQuery.mockResolvedValueOnce(mockActivationIdResponse);
+			mockAGGQuery.mockResolvedValueOnce({
+				agentStudio_agentByIdentityAccountId: mockAggAgentResponseSuccess,
 			});
+			await client.getProfile(mockIdentityAccountId, mockAnalytics);
+
+			await client.setFavouriteAgent('agent-id-123', false, mockAnalytics);
+
+			const result = await client.getProfile(mockIdentityAccountId, mockAnalytics);
+
+			expect(result.restData).toEqual(
+				expect.objectContaining({ favourite: false, favourite_count: 4 }),
+			);
 		});
 	});
 });

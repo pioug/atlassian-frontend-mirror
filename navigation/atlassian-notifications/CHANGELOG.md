@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-notifications
 
+## 2.0.2
+
+### Patch Changes
+
+- [`8d795674cc4bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d795674cc4bc) -
+  Fix accessibility lint violations in notifications components
+
 ## 2.0.1
 
 ### Patch Changes

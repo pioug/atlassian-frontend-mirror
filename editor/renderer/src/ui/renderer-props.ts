@@ -31,6 +31,20 @@ interface RawObjectFeatureFlags {
 	['renderer-render-tracking']: string;
 }
 
+/**
+ * Information about a completed renderer render pass, provided to the `onRendered` callback.
+ */
+export type RendererRenderedInfo = {
+	/** Whether the render duration measurement may be distorted (e.g. tab not visible). */
+	distortedDuration: boolean;
+	/** Time taken for the render pass, in milliseconds (as measured by the renderer). */
+	duration: number;
+	/** Count of rendered nodes, keyed by node type. */
+	nodes: Record<string, number>;
+	/** Time to first byte for the document response, when available. */
+	ttfb?: number;
+};
+
 export interface RendererProps {
 	/**
 	 * When enabled a trailing telepointer will be added to the rendered document
@@ -164,10 +178,33 @@ export interface RendererProps {
 	nodeComponents?: NodeComponentsProps;
 	// Enables inline scripts from above on client for first render for hydration to prevent mismatch.
 	noOpSSRInlineScript?: boolean;
+	/**
+	 * Called synchronously during the render phase (before paint) each time the document is
+	 * successfully rendered, with statistics about the rendered output. Not called when the
+	 * render throws (see `onError`).
+	 *
+	 * Because it fires during render rather than after paint, prefer `onRendered` for
+	 * post-paint lifecycle signals (e.g. releasing a UFO load hold).
+	 *
+	 * @param stat - Statistics about the rendered output (e.g. node counts).
+	 */
 	onComplete?: (stat: RenderOutputStat) => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onError?: (error: any) => void;
+	/**
+	 * Called when the renderer completes a render pass — on the animation frame following
+	 * mount (i.e. after paint), exposing basic information about the render.
+	 *
+	 * Unlike the `renderer` `rendered` analytics event, which may be sampled (see the
+	 * `platform_renderer_sample_high_volume_events` feature gate) and therefore only fires
+	 * for a fraction of renders, this callback ALWAYS fires on every render pass regardless
+	 * of analytics sampling. Use it for reliable lifecycle signals — for example releasing a
+	 * UFO load hold — rather than depending on the sampled analytics event.
+	 *
+	 * @param info - Basic information about the completed render.
+	 */
+	onRendered?: (info: RendererRenderedInfo) => void;
 	/**
 	 * Optional callback to programatically determine the link target for rendered links. Controls whether a link should render as external or not.
 	 * Return _blank if the url should render as an external link.

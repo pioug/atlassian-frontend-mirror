@@ -1,5 +1,31 @@
 # @atlaskit/tag
 
+## 15.4.0
+
+### Minor Changes
+
+- [`772c0f5a9cdbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/772c0f5a9cdbd) -
+  Add a new `@atlaskit/tag/tag` entry point that exports the default `Tag` component (removable by
+  default) without going through the package barrel.
+
+  This gives consumers a non-barrel path to the recommended default `Tag` when migrating off the
+  deprecated `SimpleTag` (`@atlaskit/tag/simple-tag`) and `RemovableTag`
+  (`@atlaskit/tag/removable-tag`) entry points:
+
+  ```diff
+  - import SimpleTag from '@atlaskit/tag/simple-tag';
+  + import Tag from '@atlaskit/tag/tag';
+    // <Tag ... isRemovable={false} />
+
+  - import RemovableTag from '@atlaskit/tag/removable-tag';
+  + import Tag from '@atlaskit/tag/tag';
+    // <Tag ... />
+  ```
+
+  Importing from `@atlaskit/tag/tag` (instead of the `@atlaskit/tag` barrel) keeps consumers off the
+  prohibited barrel entry point, improving IDE type highlighting, dev-server startup, and
+  tree-shaking.
+
 ## 15.3.4
 
 ### Patch Changes

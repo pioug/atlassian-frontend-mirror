@@ -96,7 +96,7 @@ export const deletedTraditionalBlockOutlineRoundedActive: string = convertToInli
 	borderRadius: `calc(${token('radius.xsmall')} + 1px)`,
 });
 
-/** Scroll-navigation “new” emphasis: 4px ring (see {@link traditionalStyleNodeNew}). */
+/** Scroll-navigation “new” emphasis: 4px ring. */
 export const deletedTraditionalBlockOutlineNew: string = convertToInlineCss({
 	boxShadow: `0 0 0 4px ${token('color.background.accent.red.subtlest')}`,
 	borderRadius: token('radius.small'),
@@ -219,6 +219,19 @@ export const traditionalAddedCellOverlayStyle: string = convertToInlineCss({
 	outline: `1px solid ${token('color.border.accent.green')}`,
 	pointerEvents: 'none',
 });
+export const traditionalAddedCellOverlayRoundedStyle: string = convertToInlineCss({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: '100%',
+	backgroundColor: `rgba(from ${token('color.background.accent.green.subtlest')} r g b / 0.5)`,
+	zIndex: 2,
+	outline: `1px solid ${token('color.border.accent.green')}`,
+	pointerEvents: 'none',
+	border: 'inherit',
+	borderRadius: 'inherit',
+});
 
 export const traditionalAddedCellOverlayStyleNew: string = convertToInlineCss({
 	position: 'absolute',
@@ -242,4 +255,18 @@ export const deletedTraditionalCellOverlayStyle: string = convertToInlineCss({
 	zIndex: 1,
 	outline: `1px solid ${token('color.border.disabled')}`,
 	pointerEvents: 'none',
+});
+
+export const deletedTraditionalCellOverlayRoundedStyle: string = convertToInlineCss({
+	position: 'absolute',
+	top: 0,
+	left: 0,
+	width: '100%',
+	height: '100%',
+	backgroundColor: `rgba(from ${token('color.background.accent.gray.subtlest')} r g b / 0.5)`,
+	zIndex: 2,
+	outline: `1px solid ${token('color.border.disabled')}`,
+	pointerEvents: 'none',
+	border: 'inherit',
+	borderRadius: 'inherit',
 });

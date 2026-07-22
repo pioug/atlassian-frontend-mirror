@@ -1,6 +1,7 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ColorScheme, DiffType } from '../../showDiffPluginType';
 import { isExtendedEnabled } from '../isExtendedEnabled';
@@ -16,6 +17,7 @@ import {
 	deletedStyleQuoteNode,
 	addedCellOverlayStyle,
 	deletedCellOverlayStyle,
+	deletedCellOverlayRoundedStyle,
 } from './colorSchemes/standard';
 import {
 	traditionalDecorationMarkerVariableActive,
@@ -34,6 +36,7 @@ import {
 	deletedTraditionalStyleQuoteNode,
 	traditionalAddedCellOverlayStyle,
 	deletedTraditionalCellOverlayStyle,
+	deletedTraditionalCellOverlayRoundedStyle,
 } from './colorSchemes/traditional';
 import { createBlockIndicatorAnchorWidgets } from './createAnchorDecorationWidgets';
 import { buildDiffDecorationSpec } from './decorationKeys';
@@ -272,13 +275,24 @@ export const createBlockChangedDecoration = ({
 
 	if (isExtendedEnabled(diffType) && ['tableCell', 'tableHeader'].includes(change.name)) {
 		const cellOverlay = document.createElement('div');
-		const cellOverlayStyle = isInserted
-			? colorScheme === 'traditional'
-				? traditionalAddedCellOverlayStyle
-				: addedCellOverlayStyle
-			: colorScheme === 'traditional'
-				? deletedTraditionalCellOverlayStyle
+		const isTraditional = colorScheme === 'traditional';
+		const isRoundedTable = expValEquals(
+			'platform_editor_table_diff_rounded_corners',
+			'isEnabled',
+			true,
+		);
+
+		const addedCellStyle = isTraditional ? traditionalAddedCellOverlayStyle : addedCellOverlayStyle;
+
+		const deletedCellStyle = isTraditional
+			? isRoundedTable
+				? deletedTraditionalCellOverlayRoundedStyle
+				: deletedTraditionalCellOverlayStyle
+			: isRoundedTable
+				? deletedCellOverlayRoundedStyle
 				: deletedCellOverlayStyle;
+
+		const cellOverlayStyle = isInserted ? addedCellStyle : deletedCellStyle;
 		cellOverlay.setAttribute('style', cellOverlayStyle);
 		decorations.push(
 			// change.to - 1 to position the overlay inside the end of the cell

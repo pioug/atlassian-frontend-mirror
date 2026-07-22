@@ -256,6 +256,16 @@ export const layoutColumnResponsiveStyles: SerializedStyles = css({
 /**
  * Layout section styles when advanced layouts experiment is on
  */
+export const layoutDragHandleWrapperStylesLegacy: SerializedStyles = css({
+	// Legacy tooltips are portalled, so flattening every div does not affect their surface.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror .layout-section-container [data-layout-section] > .ProseMirror-widget[data-blocks-drag-handle-container] div':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			display: 'contents !important',
+		},
+});
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
@@ -271,12 +281,6 @@ export const layoutSectionStylesAdvanced: SerializedStyles = css({
 			flex: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			display: 'contents !important',
-
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-			'&[data-blocks-drag-handle-container] div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-				display: 'contents !important',
-			},
 
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 			'&[data-blocks-drop-target-container]': {

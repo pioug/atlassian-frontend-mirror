@@ -23,6 +23,6 @@ snapshotInformational(VRIssueLikeTable, {
 		},
 	],
 	featureFlags: {
-		'navx-1895-new-logo-design': [true, false],
+		'navx-1895-new-logo-design': true,
 	},
 });

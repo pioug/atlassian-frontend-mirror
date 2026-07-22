@@ -4,8 +4,8 @@ import { CharacterCounter } from '@atlaskit/form/character-counter';
 import { Label } from '@atlaskit/form/label';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import TextArea from '@atlaskit/textarea';
-import TextField from '@atlaskit/textfield';
+import TextArea from '@atlaskit/textarea/text-area';
+import TextField from '@atlaskit/textfield/text-field';
 
 /**
  * Standalone CharacterCounter example - used outside of Form context

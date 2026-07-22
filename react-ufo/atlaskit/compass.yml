@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/36b9713b-0981-4184-b6bc-23c860fa62b9
 name: '@atlaskit/react-ufo'
-ownerId: ari:cloud:identity::team/645d438d-d0a4-4494-b909-459edf116d4d # Dev Infra - Frontend Observability
+ownerId: ari:cloud:identity::team/7b4b530c-7365-4a18-ac45-f4e77767ea88 # Dev Infra - Measurement & Insights Platform
 labels:
   - platform-code
   - platform-afm
@@ -23,7 +23,7 @@ links:
 customFields:
   - name: Department
     type: text
-    value: Eng - Frontend Observability
+    value: Eng - Measurement
   - name: Technical Owner
     type: user
     value: ari:cloud:identity::user/61546d63048360006af7c123 # Luiz Petters

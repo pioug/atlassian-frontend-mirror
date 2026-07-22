@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 21.0.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.28
+
+### Patch Changes
+
+- [`ea47d8afdb33d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea47d8afdb33d) -
+  Clean up experiment `platform_editor_ignore_metadata_connection_errors`
+- Updated dependencies
+
 ## 21.0.27
 
 ### Patch Changes

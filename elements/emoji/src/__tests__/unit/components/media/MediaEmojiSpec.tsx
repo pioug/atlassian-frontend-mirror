@@ -19,6 +19,8 @@ jest.mock('@atlaskit/platform-feature-flags', () => ({
 	fg: jest.fn().mockReturnValue(false),
 }));
 
+const mediaEmojiLabel = `Change emoji, currently ${mediaEmoji.name}`;
+
 describe('Media Emoji Handling across components', () => {
 	mockReactDomWarningGlobal();
 
@@ -46,14 +48,14 @@ describe('Media Emoji Handling across components', () => {
 		it('Media emoji rendered in picker', async () => {
 			const { container } = renderWithIntl(<EmojiPicker emojiProvider={emojiProvider} />);
 			// Wait until loaded
-			await screen.findByLabelText('Emoji picker');
+			await screen.findByRole('grid', { name: 'Emojis' });
 
 			const list = screen.getByRole('grid', { name: 'Emojis' });
 			const emojis = await emojisVisible(list);
 			expect(emojis).toHaveLength(1);
 
 			const emoji = emojis[0];
-			expect(emoji).toHaveAttribute('aria-label', ':media:');
+			expect(emoji).toHaveAttribute('aria-label', mediaEmojiLabel);
 
 			// CachingMediaEmoji
 			expect(container.querySelectorAll('img.emoji')).toHaveLength(1);
@@ -67,7 +69,7 @@ describe('Media Emoji Handling across components', () => {
 			expect(emojis).toHaveLength(1);
 
 			const emoji = emojis[0];
-			expect(emoji).toHaveAttribute('aria-label', ':media:');
+			expect(emoji).toHaveAttribute('aria-label', mediaEmojiLabel);
 
 			expect(container.querySelectorAll('img.emoji')).toHaveLength(1);
 
@@ -80,7 +82,7 @@ describe('Media Emoji Handling across components', () => {
 			await waitFor(() => expect(within(emojiPreview).getAllByRole('img')[0]));
 
 			const previewEmojiDescription = within(emojiPreview).getAllByRole('img')[0];
-			expect(previewEmojiDescription).toHaveAttribute('aria-label', ':media:');
+			expect(previewEmojiDescription).toHaveAttribute('aria-label', mediaEmojiLabel);
 
 			// CachingMediaEmoji
 			expect(previewEmojiDescription.querySelectorAll('img.emoji')).toHaveLength(1);

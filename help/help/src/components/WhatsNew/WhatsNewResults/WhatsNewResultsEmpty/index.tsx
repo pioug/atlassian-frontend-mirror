@@ -4,7 +4,12 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
+import {
+	injectIntl,
+	FormattedMessage,
+	type WithIntlProps,
+	type WrappedComponentProps,
+} from 'react-intl';
 import { Text } from '@atlaskit/primitives/compiled';
 import Button from '@atlaskit/button/new';
 
@@ -51,10 +56,16 @@ export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 							componentName: 'WhatsNewResultsEmpty',
 						}}
 					>
-						<Button appearance="primary" onClick={handleClearFilterLinkClick}>
-							{formatMessage(messages.help_whats_new_no_results_clear_filter_button_label)}
-						</Button>
-						<Text>{formatMessage(messages.help_whats_new_no_results_clear_filter_info)}</Text>
+						<FormattedMessage
+							{...messages.help_whats_new_no_results_clear_filter_button_label}
+							values={{
+								button: (chunks) => (
+									<Button appearance="primary" onClick={handleClearFilterLinkClick}>
+										{chunks}
+									</Button>
+								),
+							}}
+						/>
 					</AnalyticsContext>
 				</Text>
 			</WhatsNewResultsEmptyMessageText>

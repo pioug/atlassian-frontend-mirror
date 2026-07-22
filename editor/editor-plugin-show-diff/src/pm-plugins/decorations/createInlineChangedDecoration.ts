@@ -23,10 +23,28 @@ import {
 } from './colorSchemes/traditional';
 import { createInlineIndicatorAnchorWidgets } from './createAnchorDecorationWidgets';
 import { buildDiffDecorationSpec } from './decorationKeys';
+import type { InlineAttrChangeNodeName } from './utils/getAttrChangeRanges';
 
 const displayNoneStyle = convertToInlineCss({
 	display: 'none',
 });
+
+const getAtomicInlineNodeClassName = (
+	inlineNodeName: InlineAttrChangeNodeName | undefined,
+	colorScheme: ColorScheme | undefined,
+): string => {
+	const classNames = ['show-diff-atomic-inline-changed'];
+
+	if (inlineNodeName) {
+		classNames.push(`show-diff-atomic-inline-changed-${inlineNodeName}`);
+	}
+
+	if (colorScheme === 'traditional') {
+		classNames.push('show-diff-atomic-inline-changed-traditional');
+	}
+
+	return classNames.join(' ');
+};
 /**
  * Inline decoration used for insertions as the content already exists in the document
  *
@@ -39,18 +57,22 @@ export const createInlineChangedDecoration = ({
 	colorScheme,
 	isActive = false,
 	isInserted = true,
+	isAtomicInlineNode = false,
 	shouldHideDeleted = false,
 	showIndicators = false,
 	doc,
 	diffType,
 	hideAddedDiffsUnderline = false,
+	inlineNodeName,
 }: {
 	change: { fromB: number; toB: number };
 	colorScheme?: ColorScheme;
 	diffType?: DiffType;
 	doc?: PMNode;
 	hideAddedDiffsUnderline?: boolean;
+	inlineNodeName?: InlineAttrChangeNodeName;
 	isActive?: boolean;
+	isAtomicInlineNode?: boolean;
 	isInserted?: boolean;
 	shouldHideDeleted?: boolean;
 	showIndicators?: boolean;
@@ -110,6 +132,10 @@ export const createInlineChangedDecoration = ({
 			change.toB,
 			{
 				style,
+				...(isAtomicInlineNode &&
+					isInserted && {
+						class: getAtomicInlineNodeClassName(inlineNodeName, colorScheme),
+					}),
 				'data-testid': 'show-diff-changed-decoration',
 			},
 			buildDiffDecorationSpec({ decorationType: 'inline', diffId, isActive }),

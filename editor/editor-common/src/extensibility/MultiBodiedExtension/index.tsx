@@ -325,12 +325,7 @@ const MultiBodiedExtensionWithWidth = ({
 		'isEnabled',
 		true,
 	);
-	const breakoutExtensionFixEnabled = expValEquals(
-		'confluence_max_width_breakout_extension_fix',
-		'isEnabled',
-		true,
-	);
-	const shouldUseBreakoutFix = tinymceFullWidthModeEnabled && breakoutExtensionFixEnabled;
+	const shouldUseBreakoutFix = tinymceFullWidthModeEnabled;
 	const shouldBreakout = shouldUseBreakoutFix
 		? shouldExtensionBreakout({
 				layout,

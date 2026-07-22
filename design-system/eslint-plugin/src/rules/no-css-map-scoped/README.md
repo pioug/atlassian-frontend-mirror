@@ -1,0 +1,38 @@
+Disallows usage of the experimental `cssMapScoped` API from `@compiled/react`.
+
+## Rationale
+
+`cssMapScoped` is an experimental, internal Compiled CSS-in-JS API that produces non-atomic CSS
+output (one `cc-<hash>` class per variant, with all declarations grouped under that class).
+
+It is **not** part of the public Compiled CSS-in-JS interface and is intentionally not exported from
+`@compiled/react`'s public type definitions. The Compiled team does not currently support this API
+for general consumption, and using it can negatively impact CSS cascade and specificity behaviour
+when composed across packages.
+
+This rule prevents accidental adoption outside of the small set of packages (e.g. editor-core) that
+are explicitly approved to use it.
+
+## How the rule works
+
+This rule reports any call expression where the callee is an `Identifier` resolved to a named import
+of `cssMapScoped` from `@compiled/react` or `@atlaskit/css`.
+
+```ts
+// ❌ Reported
+import { cssMapScoped } from '@compiled/react';
+
+const styles = cssMapScoped({
+	panel: { color: 'red' },
+});
+
+// ✅ Allowed — standard atomic cssMap
+import { cssMap } from '@compiled/react';
+
+const styles = cssMap({
+	panel: { color: 'red' },
+});
+```
+
+If your package has a legitimate need to use `cssMapScoped`, please contact the Compiled team and
+the Editor Platform team for approval before disabling this rule.

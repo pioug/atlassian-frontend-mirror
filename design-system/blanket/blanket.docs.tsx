@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'Blanket',
-				package: '@atlaskit/blanket',
+				package: '@atlaskit/blanket/blanket',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

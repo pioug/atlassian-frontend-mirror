@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.24
+
+### Patch Changes
+
+- [`0deb2b2ba8068`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0deb2b2ba8068) -
+  Include raw-handler VC data in post-interaction-log payloads behind a feature gate.
+- [`49e1b6243cb6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49e1b6243cb6d) -
+  Update React UFO ownership metadata
+
 ## 7.3.23
 
 ### Patch Changes

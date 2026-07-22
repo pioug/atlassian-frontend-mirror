@@ -1,5 +1,50 @@
 # @atlaskit/editor-core
 
+## 221.12.1
+
+### Patch Changes
+
+- [`00f3166426df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00f3166426df4) -
+  adopt cssMapScoped for editor core compiled css migration
+- Updated dependencies
+
+## 221.12.0
+
+### Minor Changes
+
+- [`8c398862a4d1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c398862a4d1d) -
+  Add an `EditorContentContainer` entry point.
+
+### Patch Changes
+
+- [`161922d5b8cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/161922d5b8cee) -
+  Fix editor tooltips affected by inline top-layer rendering. Table cell menu tooltips are no longer
+  constrained by the button background selector, and layout column drag handles now own their
+  wrapper layout without flattening the tooltip's visual surface.
+- Updated dependencies
+
+## 221.11.1
+
+### Patch Changes
+
+- [`6a14c075f433a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a14c075f433a) -
+  Always use refreshed UGC font tokens and new heading styles in editor content containers.
+- [`ed6e0c3974d3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed6e0c3974d3c) -
+  EDITOR-7466 scope markdown preview toolbar preference to converted live pages
+- Updated dependencies
+
+## 221.11.0
+
+### Minor Changes
+
+- [`30f196e640e18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30f196e640e18) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.10.0
 
 ### Minor Changes

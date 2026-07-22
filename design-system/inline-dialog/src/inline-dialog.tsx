@@ -4,7 +4,9 @@ import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-import { Layering, useCloseOnEscapePress, useLayering } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering/layering';
+import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
+import { useLayering } from '@atlaskit/layering/use-layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 

@@ -1,5 +1,12 @@
 # @atlaskit/editor-performance-metrics
 
+## 3.1.2
+
+### Patch Changes
+
+- [`ce458bc7e24d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce458bc7e24d2) -
+  Replace editor-performance-metrics source imports with package entrypoints.
+
 ## 3.1.1
 
 ### Patch Changes

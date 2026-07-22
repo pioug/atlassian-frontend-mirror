@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3afe6335ea362e4654bf9c95553a30c9>>
+ * @codegen <<SignedSource::e523ff1a2200f42011b66a0847a1749b>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -127,6 +127,13 @@ html[data-color-mode="dark"][data-theme~="dark:light"], [data-subtree-theme][dat
   --ds-background-accent-gray-bolder: #6B6E76;
   --ds-background-accent-gray-bolder-hovered: #505258;
   --ds-background-accent-gray-bolder-pressed: #3B3D42;
+  --ds-background-code-added-highlight: #DCFFF1;
+  --ds-background-code-added-line: #BAF3DB;
+  --ds-background-code-default: #FFFFFF;
+  --ds-background-code-gutter: #F0F1F2;
+  --ds-background-code-highlight: #F0F1F2;
+  --ds-background-code-removed-highlight: #FFECEB;
+  --ds-background-code-removed-line: #FFD5D2;
   --ds-background-disabled: #0515240F;
   --ds-background-input: #FFFFFF;
   --ds-background-input-hovered: #F8F8F8;
@@ -229,6 +236,7 @@ html[data-color-mode="dark"][data-theme~="dark:light"], [data-subtree-theme][dat
   --ds-border-accent-magenta-subtle: #F797D2;
   --ds-border-accent-gray: #7D818A;
   --ds-border-accent-gray-subtle: #B7B9BE;
+  --ds-border-code: #0B120E24;
   --ds-border-disabled: #0515240F;
   --ds-border-focused: #4688EC;
   --ds-border-input: #8C8F97;
@@ -267,6 +275,17 @@ html[data-color-mode="dark"][data-theme~="dark:light"], [data-subtree-theme][dat
   --ds-text-accent-magenta-bolder: #50253F;
   --ds-text-accent-gray: #505258;
   --ds-text-accent-gray-bolder: #1E1F21;
+  --ds-text-code-accent-1: #943D73;
+  --ds-text-code-accent-2: #1558BC;
+  --ds-text-code-comments: #505258;
+  --ds-text-code-default: #505258;
+  --ds-text-code-functions: #216E4E;
+  --ds-text-code-gutter: #6B6E76;
+  --ds-text-code-keywords: #AE2E24;
+  --ds-text-code-numbers: #7F5F01;
+  --ds-text-code-operators: #292A2E;
+  --ds-text-code-strings: #4C6B1F;
+  --ds-text-code-tags: #9E4C00;
   --ds-text-disabled: #080F214A;
   --ds-text-inverse: #FFFFFF;
   --ds-text-selected: #1868DB;

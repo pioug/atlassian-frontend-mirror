@@ -19,8 +19,7 @@ export function contextPanelPluginOptions({
 	return (
 		// SECTION: From confluence/next/packages/editor-presets/src/full-page/useFullPageEditorPreset.ts
 		// If object-sidebar is not enabled, then we don't need to pass the contextPanelOptions
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('confluence_frontend_content_wrapper') && fg('platform_editor_ai_object_sidebar_injection')
+		fg('platform_editor_ai_object_sidebar_injection')
 			? {
 					objectSideBar: options.objectSideBar,
 				}

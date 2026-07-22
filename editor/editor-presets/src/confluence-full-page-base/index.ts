@@ -201,7 +201,7 @@ export function confluenceFullPageBasePreset(
 			contextIdentifierPlugin,
 			contextIdentifierPluginOptions({ options: pluginOptions.contextIdentifier, providers }),
 		])
-		.add([basePlugin, basePluginOptions({ options: pluginOptions.base })])
+		.add([basePlugin, basePluginOptions()])
 		.maybeAdd(
 			[
 				userPreferencesPlugin,

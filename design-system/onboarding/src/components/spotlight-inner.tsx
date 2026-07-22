@@ -4,7 +4,7 @@ import { canUseDOM } from 'exenv';
 import ScrollLock from 'react-scrolllock';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
-import { Layering } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering/layering';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';

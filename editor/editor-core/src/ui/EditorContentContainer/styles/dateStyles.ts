@@ -68,6 +68,21 @@ export const dateVanillaStyles: SerializedStyles = css({
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const dateStyles: SerializedStyles = css({
+	// Show diff: date attr change highlight. Keep this with date node styles so the highlight
+	// follows the date node view instead of living in shared smart-card diff styles.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-date': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		outline: '2px solid var(--show-diff-atomic-inline-changed-border-color)',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		outlineOffset: '1px',
+		borderRadius: token('radius.medium'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-date.show-diff-atomic-inline-changed-traditional': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+	},
+
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`.${DateSharedCssClassName.DATE_WRAPPER} span`]: {
 		whiteSpace: 'unset',

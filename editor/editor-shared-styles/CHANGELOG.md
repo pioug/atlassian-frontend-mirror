@@ -1,5 +1,25 @@
 # @atlaskit/editor-shared-styles
 
+## 4.0.30
+
+### Patch Changes
+
+- [`00f3166426df4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/00f3166426df4) -
+  adopt cssMapScoped for editor core compiled css migration
+- Updated dependencies
+
+## 4.0.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.27
 
 ### Patch Changes

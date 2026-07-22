@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Layering, useLayering } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering/layering';
+import { useLayering } from '@atlaskit/layering/use-layering';
 
 const SomeLayerWrapper = () => {
 	const { currentLevel, getTopLevel, isLayerDisabled } = useLayering();

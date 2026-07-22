@@ -1493,6 +1493,7 @@ export const DragHandle = ({
 					content={tooltipContent}
 					ignoreTooltipPointerEvents={true}
 					position={'top'}
+					tag={fg('platform-dst-top-layer-tooltip') ? 'span' : 'div'}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					onShow={() => {
 						api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
@@ -1622,6 +1623,7 @@ export const DragHandleWithVisibility = ({
 				expValEquals('platform_editor_drag_handle_keyboard_a11y', 'isEnabled', true) &&
 				!!handleOptions?.isFocused
 			}
+			shouldUseDisplayContents={isLayoutColumn && fg('platform-dst-top-layer-tooltip')}
 		>
 			<DragHandle
 				view={view}

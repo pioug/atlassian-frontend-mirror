@@ -6,7 +6,7 @@ import React from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
-import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
+import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
 import { token } from '@atlaskit/tokens';
 
 import { openLayerObserverTopNavMiddleNamespace } from '../constants';

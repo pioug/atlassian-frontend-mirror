@@ -11,6 +11,7 @@ import {
 	akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../types';
@@ -503,7 +504,13 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 		sticky / fallback layout. The masks belong to the wrapper of the table
 		that owns the sticky row, never to an ancestor wrapper.
 	*/
-	.${ClassName.TABLE_NODE_WRAPPER}:has(> table > tbody > tr.${ClassName.NATIVE_STICKY_ACTIVE})
+	.${ClassName.TABLE_NODE_WRAPPER}:has(> table > tbody > tr.${expValEquals(
+			'platform_editor_table_q4_patch_4',
+			'isEnabled',
+			true,
+		)
+			? `${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}`
+			: ClassName.NATIVE_STICKY_ACTIVE})
 		> .${ClassName.TABLE_CORNER_MASK},
 		.${ClassName.TABLE_NODE_WRAPPER}:has(> table.${ClassName.TABLE_STICKY} > tbody > tr.sticky)
 		> .${ClassName.TABLE_CORNER_MASK} {

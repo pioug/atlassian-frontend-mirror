@@ -176,11 +176,6 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	help_search_results_external_site_link: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	help_search_results_no_results: {
 		defaultMessage: string;
 		description: string;
@@ -206,7 +201,12 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	help_show_more_button_label_more: {
+	help_show_more_button_label_more_articles: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	help_show_more_button_label_more_changes: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -267,11 +267,6 @@ export const messages: {
 		id: string;
 	};
 	help_whats_new_no_results_clear_filter_button_label: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	help_whats_new_no_results_clear_filter_info: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -419,9 +414,9 @@ export const messages: {
 	},
 	help_search_results_search_external_site: {
 		id: 'help.search_results.search_external_site',
-		defaultMessage: `Can't find what you're looking for? Try again with a different term or `,
+		defaultMessage: `Can't find what you're looking for? Try again with a different term or <a>search all online help articles</a>.`,
 		description:
-			'Text for the button displayed at the end of the search result used to open an external search site',
+			'Text shown at the bottom of search results with a link to an external search site. The <a> tag wraps the link text.',
 	},
 	help_search_results_no_results: {
 		id: 'help.search_results.no_results',
@@ -430,13 +425,8 @@ export const messages: {
 	},
 	help_search_results_no_results_line_two: {
 		id: 'help.search_results.no_results_line_two',
-		defaultMessage: `Try again with a different term or `,
-		description: `Message displayed when the search doesn't return any results (line 2)`,
-	},
-	help_search_results_external_site_link: {
-		id: 'help.search_results.external_site_link',
-		defaultMessage: `search all online help articles.`,
-		description: `Text for the button used to open an external search site`,
+		defaultMessage: `Try again with a different term or <a>search all online help articles</a>.`,
+		description: `Message displayed when the search doesn't return any results. The <a> tag wraps a link to an external search site.`,
 	},
 	help_article_error_title: {
 		id: 'help.article_error.title',
@@ -525,13 +515,8 @@ export const messages: {
 	},
 	help_whats_new_no_results_clear_filter_button_label: {
 		id: 'help.whats.new_no_results_clear_filter_button_label',
-		defaultMessage: `Clear the filter`,
-		description: `text to display when the "What's new" API returns an empty array of articles"`,
-	},
-	help_whats_new_no_results_clear_filter_info: {
-		id: 'help.whats.new_no_results_clear_filter_button_label',
-		defaultMessage: ` to try again.`,
-		description: `text to display when the "What's new" API returns an empty array of articles"`,
+		defaultMessage: `<button>Clear the filter</button> to try again.`,
+		description: `Text displayed when the "What's new" API returns no results. The <button> tag wraps the interactive clear filter button text.`,
 	},
 	help_whats_new_related_link_support: {
 		id: 'help.whats_new.related_links.support',
@@ -543,11 +528,19 @@ export const messages: {
 		defaultMessage: `Discuss with community`,
 		description: `text for the "Discuss with community" link in the related links section of "what's new" articles`,
 	},
-	help_show_more_button_label_more: {
-		id: 'help.show_more_button.label_more',
-		defaultMessage: 'Show {numberOfItemsLeft} more {itemsType}',
+	help_show_more_button_label_more_articles: {
+		id: 'help.show_more_button.label_more_articles',
+		defaultMessage:
+			'{numberOfItemsLeft, plural, one {Show # more article} other {Show # more articles}}',
 		description:
-			'Label for the show more button in the help panel. The placeholder {numberOfItemsLeft} is the count of remaining hidden items, and {itemsType} is the type of items (e.g. articles, results).',
+			'Label for the show more button in the help panel when showing help articles. The # is replaced by the count of remaining hidden articles.',
+	},
+	help_show_more_button_label_more_changes: {
+		id: 'help.show_more_button.label_more_changes',
+		defaultMessage:
+			'{numberOfItemsLeft, plural, one {Show # more change} other {Show # more changes}}',
+		description:
+			"Label for the show more button in the help panel when showing what's new changes. The # is replaced by the count of remaining hidden changes.",
 	},
 	help_show_more_button_label_less: {
 		id: 'help.show_more_button.label_less',

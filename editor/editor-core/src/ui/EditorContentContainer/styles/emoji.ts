@@ -31,6 +31,25 @@ import { token } from '@atlaskit/tokens';
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
 export const emojiStyles: SerializedStyles = css({
+	// Show diff: emoji attr change highlight. Keep this with emoji node styles so the highlight
+	// targets sprite/image/unicode emoji renderers.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-emoji': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-emoji.show-diff-atomic-inline-changed-traditional': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
+		{
+			outline: '2px solid var(--show-diff-atomic-inline-changed-border-color)',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			outlineOffset: '1px',
+			borderRadius: token('radius.xsmall'),
+		},
+
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-emoji-type="unicode"]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -126,6 +145,25 @@ export const emojiStyles: SerializedStyles = css({
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
 export const scaledEmojiStyles: SerializedStyles = css({
+	// Show diff: emoji attr change highlight. Keep this with scaled emoji node styles too,
+	// because scaled emoji styles replace the base emoji style bucket when enabled.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-emoji': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.show-diff-atomic-inline-changed-emoji.show-diff-atomic-inline-changed-traditional': {
+		'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
+		{
+			outline: '2px solid var(--show-diff-atomic-inline-changed-border-color)',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			outlineOffset: '1px',
+			borderRadius: token('radius.xsmall'),
+		},
+
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror [data-emoji-type="unicode"]': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values

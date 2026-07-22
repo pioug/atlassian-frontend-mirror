@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7dbd9cbdf302d9fb4b4ffcd0900a87fe>>
+ * @codegen <<SignedSource::228bc24157dc9c63e00f500c45cd1a98>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -16,6 +16,7 @@ import expandMotionShorthand from './expand-motion-shorthand';
 import iconLabel from './icon-label';
 import lozengeBadgeTagLabellingSystemMigration from './lozenge-badge-tag-labelling-system-migration';
 import noBannedImports from './no-banned-imports';
+import noCssMapScoped from './no-css-map-scoped';
 import noCssTaggedTemplateExpression from './no-css-tagged-template-expression';
 import noDarkThemeVrTests from './no-dark-theme-vr-tests';
 import noDeprecatedApis from './no-deprecated-apis';
@@ -41,6 +42,7 @@ import noIconSpacingProp from './no-icon-spacing-prop';
 import noInvalidCssMap from './no-invalid-css-map';
 import noKeyframesTaggedTemplateExpression from './no-keyframes-tagged-template-expression';
 import noMargin from './no-margin';
+import noModalLabel from './no-modal-label';
 import noNestedStyles from './no-nested-styles';
 import noPhysicalProperties from './no-physical-properties';
 import noPlaceholder from './no-placeholder';
@@ -96,6 +98,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'icon-label': iconLabel,
 	'lozenge-badge-tag-labelling-system-migration': lozengeBadgeTagLabellingSystemMigration,
 	'no-banned-imports': noBannedImports,
+	'no-css-map-scoped': noCssMapScoped,
 	'no-css-tagged-template-expression': noCssTaggedTemplateExpression,
 	'no-dark-theme-vr-tests': noDarkThemeVrTests,
 	'no-deprecated-apis': noDeprecatedApis,
@@ -121,6 +124,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-invalid-css-map': noInvalidCssMap,
 	'no-keyframes-tagged-template-expression': noKeyframesTaggedTemplateExpression,
 	'no-margin': noMargin,
+	'no-modal-label': noModalLabel,
 	'no-nested-styles': noNestedStyles,
 	'no-physical-properties': noPhysicalProperties,
 	'no-placeholder': noPlaceholder,

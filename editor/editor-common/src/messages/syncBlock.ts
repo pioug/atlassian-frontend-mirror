@@ -301,7 +301,17 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	syncBlockCopiedLivePageDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	syncBlockCopiedTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncBlockCopiedUnpublishedDescription: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -783,6 +793,19 @@ export const syncBlockMessages: {
 		defaultMessage:
 			'Paste your synced block to keep content auto-updated. Permissions are the same.',
 		description: 'Description in flag which appears when a sync block is copied',
+	},
+	syncBlockCopiedLivePageDescription: {
+		id: 'editor-common.messages.syncBlock.syncBlockCopiedLivePageDescription',
+		defaultMessage: 'Paste this synced block content in another location to reuse its content.',
+		description:
+			'Instruction in a confirmation flag after a synced block with published content is copied from a live page.',
+	},
+	syncBlockCopiedUnpublishedDescription: {
+		id: 'editor-common.messages.syncBlock.syncBlockCopiedUnpublishedDescription',
+		defaultMessage:
+			'To reuse this content, publish this page and paste this synced block in another location.',
+		description:
+			'Instruction in a confirmation flag after a synced block with unpublished content is copied from a classic page.',
 	},
 	syncBlockCopiedAction: {
 		id: 'fabric.editor.syncBlockCopiedAction',

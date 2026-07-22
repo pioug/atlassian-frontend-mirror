@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import createStub from 'raf-stub';
 import invariant from 'tiny-invariant';
 
-import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
 import { type CustomPopperProps, type PopperChildrenProps } from '@atlaskit/popper';
 import * as popperModule from '@atlaskit/popper';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';

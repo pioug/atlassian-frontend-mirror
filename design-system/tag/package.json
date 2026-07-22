@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "15.3.4",
+	"version": "15.4.0",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,6 +55,7 @@
 		"./new": "./src/tag-new/entrypoint.tsx",
 		"./removable-tag": "./src/entry-points/removable-tag.tsx",
 		"./simple-tag": "./src/entry-points/simple-tag.tsx",
+		"./tag": "./src/entry-points/tag.tsx",
 		"./tag-dropdown-trigger": "./src/entry-points/tag-dropdown-trigger.tsx",
 		"./tag-new/types": "./src/entry-points/tag-new-types.tsx",
 		"./tag/types": "./src/entry-points/tag-types.tsx",

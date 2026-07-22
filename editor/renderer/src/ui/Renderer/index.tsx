@@ -464,6 +464,20 @@ export const RendererFunctionalComponent = (
 
 					const isTTRTrackingExplicitlyDisabled = analyticsEventSeverityTracking?.enabled === false;
 
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					const distortedDuration = renderedMeasurementDistortedDurationMonitor!.distortedDuration;
+					const ttfb = getResponseEndTime();
+					const nodes = countNodes(props.document);
+
+					// Always signal that the renderer has finished rendering, regardless of analytics
+					// sampling or TTR tracking config. This is a reliable, unsampled lifecycle hook
+					// (e.g. used to release a UFO load hold) and must not be coupled to the sampled
+					// `rendered` analytics event below, which only fires for a fraction of renders.
+					if (props.onRendered) {
+						props.onRendered({ duration, distortedDuration, nodes, ttfb });
+					}
+
 					if (!isTTRTrackingExplicitlyDisabled) {
 						const event = {
 							action: ACTION.RENDERED,
@@ -471,11 +485,9 @@ export const RendererFunctionalComponent = (
 							attributes: {
 								platform: PLATFORM.WEB,
 								duration,
-								// Ignored via go/ees005
-								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								distortedDuration: renderedMeasurementDistortedDurationMonitor!.distortedDuration,
-								ttfb: getResponseEndTime(),
-								nodes: countNodes(props.document),
+								distortedDuration,
+								ttfb,
+								nodes,
 								nestedRendererType: editorExperiment('platform_synced_block', true)
 									? nestedRendererType
 									: undefined,

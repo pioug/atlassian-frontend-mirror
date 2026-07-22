@@ -7,7 +7,7 @@
  */
 import React from 'react';
 
-import { css, cssMap, jsx, keyframes } from '@compiled/react';
+import { css, cssMapScoped, jsx, keyframes } from '@compiled/react';
 
 // eslint-disable-next-line import/order
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -202,7 +202,6 @@ const dangerBackgroundStyles = css({
 const mentionsSelectedColor = css({
 	color: token('color.text.subtle'),
 });
-
 const fixVerticalAlignmentSelector = `
 	&:first-of-type + ul,
 	&:first-of-type + span + ul,
@@ -443,7 +442,8 @@ const overflowShadowStyles = css({
  *
  * If you are not sure, please contact #proj-cc-editor-full-compiled-css-migration
  */
-const editorContentStyles = cssMap({
+// eslint-disable-next-line @atlaskit/design-system/no-css-map-scoped
+const editorContentStyles = cssMapScoped({
 	aiPanelBaseFirefoxStyles: {
 		'div[extensionType="com.atlassian.ai-blocks"]': {
 			'&::before, &::after': {
@@ -869,10 +869,8 @@ const editorContentStyles = cssMap({
 				borderLeftColor: token('color.border'),
 				margin: '0.75rem 0 0 0', // From https://docs.google.com/spreadsheets/d/1iYusRGCT4PoPfvxbJ8NrgjtfFgXLm5lpDWXzjua1W2E/edit#gid=93913128
 				marginRight: 0,
-				'[dir="rtl"] &': {
-					paddingLeft: 0,
-					paddingRight: token('space.200'),
-				},
+				// '[dir="rtl"] &' moved to <style> tag injection at bottom of component
+				// (ampersand on the right is broken in Compiled CSS)
 				'&:first-child': {
 					marginTop: 0,
 				},
@@ -932,6 +930,18 @@ const editorContentStyles = cssMap({
 						marginTop: '0',
 					},
 				},
+		},
+	},
+	// RTL blockquote padding fix — moved from nested 'blockquote' in blocktypeStyles
+	// because '[dir="rtl"] &' (ampersand on the right) is broken when nested in Compiled CSS.
+	// At the root level of a cssMap variant, '&' is correctly substituted.
+	// DO NOT, change this to `[dir="rtl"] .ProseMirror blockquote` because it will break, it needs the right &
+	blocktypeStylesRtlBlockquote: {
+		'[dir="rtl"] &': {
+			'.ProseMirror blockquote': {
+				paddingLeft: 0,
+				paddingRight: token('space.200'),
+			},
 		},
 	},
 	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes: {
@@ -1009,89 +1019,6 @@ const editorContentStyles = cssMap({
 					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 					fontWeight: 'var(--editor-font-ugc-token-weight-heading-bold)',
 				},
-			},
-		},
-	},
-	blocktypeStyles_without_fg_platform_editor_typography_ugc: {
-		'.ProseMirror': {
-			'& h1': {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				fontSize: 'calc(24em / 14)',
-				fontStyle: 'inherit',
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				lineHeight: 'calc(28 / 24)',
-				color: token('color.text'),
-				fontWeight: token('font.weight.medium'),
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				letterSpacing: `-0.01em`,
-				marginBottom: 0,
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.667em',
-			},
-			'& h2': {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				fontSize: 'calc(20em / 14)',
-				fontStyle: 'inherit',
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				lineHeight: 'calc(24 / 20)',
-				color: token('color.text'),
-				fontWeight: token('font.weight.medium'),
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				letterSpacing: `-0.008em`,
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.8em',
-				marginBottom: 0,
-			},
-			'& h3': {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				fontSize: 'calc(16em / 14)',
-				fontStyle: 'inherit',
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				lineHeight: 'calc(20 / 16)',
-				color: token('color.text'),
-				fontWeight: token('font.weight.semibold'),
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				letterSpacing: `-0.006em`,
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '2em',
-				marginBottom: 0,
-			},
-			'& h4': {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				fontSize: 'calc(14em / 14)',
-				fontStyle: 'inherit',
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				lineHeight: 'calc(16 / 14)',
-				color: token('color.text'),
-				fontWeight: token('font.weight.semibold'),
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				letterSpacing: '-0.003em',
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.357em',
-			},
-			'& h5': {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				fontSize: 'calc(12em / 14)',
-				fontStyle: 'inherit',
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				lineHeight: 'calc(16 / 12)',
-				color: token('color.text'),
-				fontWeight: token('font.weight.semibold'),
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.667em',
-				textTransform: 'none',
-			},
-			'& h6': {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				fontSize: 'calc(11em / 14)',
-				fontStyle: 'inherit',
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				lineHeight: 'calc(16 / 11)',
-				color: token('color.text.subtlest'),
-				fontWeight: token('font.weight.bold'),
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginTop: '1.455em',
-				textTransform: 'none',
 			},
 		},
 	},
@@ -1389,6 +1316,19 @@ const editorContentStyles = cssMap({
 		},
 	},
 	dateStyles: {
+		// Show diff: date attr change highlight. Keep this with date node styles so the highlight
+		// follows the date node view instead of living in shared smart-card diff styles.
+		'.show-diff-atomic-inline-changed-date': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+			outline: '2px solid var(--show-diff-atomic-inline-changed-border-color)',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			outlineOffset: '1px',
+			borderRadius: token('radius.medium'),
+		},
+		'.show-diff-atomic-inline-changed-date.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		'.date-lozenger-container span': {
 			whiteSpace: 'unset',
@@ -1594,26 +1534,6 @@ const editorContentStyles = cssMap({
 		},
 	},
 	/**
-	 * Use when fg('platform_editor_typography_ugc') is disabled.
-	 */
-	editorUGCTokensDefault: {
-		'--editor-font-ugc-token-heading-h1':
-			'normal 500 1.71429em/1.16667 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-		'--editor-font-ugc-token-heading-h2':
-			'normal 500 1.42857em/1.2 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-		'--editor-font-ugc-token-heading-h3':
-			'normal 600 1.14286em/1.25 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-		'--editor-font-ugc-token-heading-h4':
-			'normal 600 1em/1.14286 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-		'--editor-font-ugc-token-heading-h5':
-			'normal 600 0.857143em/1.33333 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-		'--editor-font-ugc-token-heading-h6':
-			'normal 700 0.785714em/1.45455 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-		'--editor-font-ugc-token-body':
-			'normal 400 1em/1.714 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif',
-		'--editor-font-ugc-token-weight-heading-bold': '700',
-	},
-	/**
 	 * Use when fg('platform_editor_typography_ugc') is enabled and the following is enabled:
 	 * - fg('atlas_editor_typography_refreshed')
 	 */
@@ -1676,6 +1596,23 @@ const editorContentStyles = cssMap({
 	},
 	// Emoji node view styles
 	emojiStyles: {
+		// Show diff: emoji attr change highlight. Keep this with emoji node styles so the highlight
+		// targets sprite/image/unicode emoji renderers.
+		'.show-diff-atomic-inline-changed-emoji': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		},
+		'.show-diff-atomic-inline-changed-emoji.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
+			{
+				outline: '2px solid var(--show-diff-atomic-inline-changed-border-color)',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				outlineOffset: '1px',
+				borderRadius: token('radius.xsmall'),
+			},
+
 		'.ProseMirror [data-emoji-type="unicode"]': {
 			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
 		},
@@ -1791,15 +1728,10 @@ const editorContentStyles = cssMap({
 			transitionProperty: 'background, border-color',
 			transitionDuration: '0.3s, 0.3s',
 			transitionTimingFunction: 'cubic-bezier(0.15, 1, 0.3, 1), cubic-bezier(0.15, 1, 0.3, 1)',
-			padding: token('space.100'),
-			'td > :not(style):first-child, td > style:first-child + *': {
-				marginTop: 0,
-			},
-
 			cursor: 'pointer',
 			boxSizing: 'border-box',
-
-			'td > &': {
+			padding: token('space.100'),
+			'td > :not(style):first-child, td > style:first-child + *': {
 				marginTop: 0,
 			},
 
@@ -2711,17 +2643,23 @@ const editorContentStyles = cssMap({
 		// sync block (reference) - inactive match - light mode - without node selection
 		'.search-match-block.ak-editor-sync-block': {
 			borderRadius: token('space.050'),
-			boxShadow: `inset 0 0 0 1px ${token('color.border.accent.magenta')}, inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}`,
+			boxShadow: `inset 0 0 0 1px ${token('color.border.accent.magenta')}, inset 0 0 0 5px ${token(
+				'color.background.accent.magenta.subtler',
+			)}`,
 			backgroundColor: token('color.background.accent.magenta.subtler'),
 		},
 		// sync block (reference) - active match - light mode - without node selection
 		'.search-match-block.search-match-block-selected.ak-editor-sync-block': {
-			boxShadow: `inset 0 0 0 1px ${token('color.background.accent.magenta.bolder.hovered')}, inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}`,
+			boxShadow: `inset 0 0 0 1px ${token(
+				'color.background.accent.magenta.bolder.hovered',
+			)}, inset 0 0 0 5px ${token('color.background.accent.magenta.subtlest.pressed')}`,
 			backgroundColor: token('color.background.accent.magenta.subtlest.pressed'),
 		},
 		// sync block (reference) - inactive match - light mode - with node selection
 		'.search-match-block.ak-editor-sync-block.ak-editor-selected-node': {
-			boxShadow: `inset 0 0 0 1px ${token('color.border.accent.magenta')}, inset 0 0 0 5px ${token('color.background.accent.magenta.subtler')}, 0 0 0 1px ${token('color.border.selected')}`,
+			boxShadow: `inset 0 0 0 1px ${token('color.border.accent.magenta')}, inset 0 0 0 5px ${token(
+				'color.background.accent.magenta.subtler',
+			)}, 0 0 0 1px ${token('color.border.selected')}`,
 			backgroundColor: token('color.background.accent.magenta.subtler'),
 		},
 		// sync block (reference) - active match - light mode - with node selection
@@ -2732,17 +2670,25 @@ const editorContentStyles = cssMap({
 			},
 		// sync block (reference) - inactive match - dark mode - without node selection
 		'.search-match-block.search-match-dark.ak-editor-sync-block': {
-			boxShadow: `inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')}, inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}`,
+			boxShadow: `inset 0 0 0 1px ${token(
+				'color.background.accent.magenta.bolder',
+			)}, inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}`,
 			backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
 		},
 		// sync block (reference) - active match - dark mode - without node selection
 		'.search-match-block.search-match-block-selected.search-match-dark.ak-editor-sync-block': {
-			boxShadow: `inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')}, inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}`,
+			boxShadow: `inset 0 0 0 1px ${token(
+				'color.background.accent.magenta.bolder',
+			)}, inset 0 0 0 4px ${token('color.background.accent.magenta.bolder.hovered')}`,
 			backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
 		},
 		// sync block (reference) - inactive match - dark mode - with node selection
 		'.search-match-block.search-match-dark.ak-editor-sync-block.ak-editor-selected-node': {
-			boxShadow: `inset 0 0 0 1px ${token('color.background.accent.magenta.bolder')}, inset 0 0 0 5px ${token('color.background.accent.magenta.bolder.pressed')}, 0 0 0 1px ${token('color.border.selected')}`,
+			boxShadow: `inset 0 0 0 1px ${token(
+				'color.background.accent.magenta.bolder',
+			)}, inset 0 0 0 5px ${token(
+				'color.background.accent.magenta.bolder.pressed',
+			)}, 0 0 0 1px ${token('color.border.selected')}`,
 			backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
 		},
 		// sync block (reference) - active match - dark mode - with node selection
@@ -3573,17 +3519,20 @@ const editorContentStyles = cssMap({
 	/**
 	 * Layout section styles when advanced layouts experiment is on
 	 */
+	layoutDragHandleWrapperStylesLegacy: {
+		// Legacy tooltips are portalled, so flattening every div does not affect their surface.
+		'.ProseMirror .layout-section-container [data-layout-section] > .ProseMirror-widget[data-blocks-drag-handle-container] div':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+				display: 'contents !important',
+			},
+	},
 	layoutSectionStylesAdvanced: {
 		'.ProseMirror .layout-section-container [data-layout-section]': {
 			'> .ProseMirror-widget': {
 				flex: 'none',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				display: 'contents !important',
-
-				'&[data-blocks-drag-handle-container] div': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-					display: 'contents !important',
-				},
 
 				'&[data-blocks-drop-target-container]': {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
@@ -3674,6 +3623,11 @@ const editorContentStyles = cssMap({
 							// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 							marginLeft: -25,
 						},
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+						'[data-layout-column]:is([data-valign="middle"], [data-valign="bottom"]):not(:first-of-type) [data-layout-content]::before':
+							{
+								top: token('space.150'),
+							},
 					},
 
 				'&.selected.danger [data-layout-section]': {
@@ -4396,6 +4350,18 @@ const editorContentStyles = cssMap({
 		},
 	},
 	mentionNodeStyles: {
+		// Show diff: mention attr change highlight. Keep this with mention node styles so the
+		// highlight targets the mention primitive's rounded shape.
+		'.show-diff-atomic-inline-changed-mention': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		},
+		'.show-diff-atomic-inline-changed-mention.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+		'.show-diff-atomic-inline-changed-mention .editor-mention-primitive': {
+			boxShadow: '0 0 0 2px var(--show-diff-atomic-inline-changed-border-color)',
+		},
+
 		'.editor-mention-primitive': {
 			display: 'inline',
 			borderRadius: token('radius.full'),
@@ -4442,6 +4408,26 @@ const editorContentStyles = cssMap({
 			},
 			'&:active': {
 				background: token('color.background.brand.bold.pressed'),
+			},
+		},
+
+		// Disabled variant — mirrors `MentionType.DISABLED` in
+		// `packages/elements/mention/src/components/Mention/PrimitiveMention.tsx`.
+		// Hover / active states are intentionally flat: a disabled chip should
+		// not respond to mouse interaction. The chip is still keyboard-focusable
+		// (see `MentionNodeView.setClassList`) so the focus ring is still
+		// allowed to render via `:focus-visible`.
+		'.editor-mention-primitive.mention-disabled': {
+			background: token('color.background.disabled'),
+			border: '1px solid transparent',
+			color: token('color.text.disabled'),
+			cursor: 'default',
+
+			'&:hover': {
+				background: token('color.background.disabled'),
+			},
+			'&:active': {
+				background: token('color.background.disabled'),
 			},
 		},
 	},
@@ -4656,7 +4642,7 @@ const editorContentStyles = cssMap({
 					/*
 					https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox
 					The default value for min-width is auto, which is computed to zero.
-					When an element is a flex item, the value of min-width doesn’t compute to zero.
+					When an element is a flex item, the value of min-width doesnâ€™t compute to zero.
 					The minimum size of a flex item is equal to the size of its contents.
 				*/
 					minWidth: 0,
@@ -5158,7 +5144,7 @@ const editorContentStyles = cssMap({
 			'&:has(> .fabric-editor-breakout-mark-dom > [data-prosemirror-node-name="rule"].first-node-in-document)':
 				{
 					'> .pm-breakout-resize-handle-container': {
-						transform: 'translateY(-12px)',
+						transform: 'translateY(-14px)',
 					},
 				},
 		},
@@ -5402,6 +5388,23 @@ const editorContentStyles = cssMap({
 		},
 	},
 	scaledEmojiStyles: {
+		// Show diff: emoji attr change highlight. Keep this with scaled emoji node styles too,
+		// because scaled emoji styles replace the base emoji style bucket when enabled.
+		'.show-diff-atomic-inline-changed-emoji': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		},
+		'.show-diff-atomic-inline-changed-emoji.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image, .emoji-common-emoji-unicode)':
+			{
+				outline: '2px solid var(--show-diff-atomic-inline-changed-border-color)',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				outlineOffset: '1px',
+				borderRadius: token('radius.xsmall'),
+			},
+
 		'.ProseMirror [data-emoji-type="unicode"]': {
 			'--emoji-common-unicode-size': `${defaultEmojiHeight}px`,
 		},
@@ -6530,7 +6533,11 @@ const editorContentStyles = cssMap({
 					animationTimingFunction: 'linear',
 					animationIterationCount: 'infinite',
 					border: '1px solid transparent',
-					background: `linear-gradient(${token('elevation.surface')}, ${token('elevation.surface')}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token('color.background.accent.purple.subtlest.pressed')}, #3279E0, #1868DB) border-box`,
+					background: `linear-gradient(${token('elevation.surface')}, ${token(
+						'elevation.surface',
+					)}) padding-box, conic-gradient(from var(--angle), #1868DB, ${token(
+						'color.background.accent.purple.subtlest.pressed',
+					)}, #3279E0, #1868DB) border-box`,
 					backgroundClip: 'padding-box, border-box',
 
 					boxShadow: 'none',
@@ -6793,6 +6800,7 @@ const editorContentStyles = cssMap({
 			},
 		},
 	},
+
 	// SSR-safe rounded corners for the outermost table cells. Mirrors tableRoundedCornerStyles in
 	// ./styles/tableStyles.ts. See EDITOR-7600. The data-reaches-* attributes are emitted during SSR,
 	// but the corner-radius CSS previously lived only in the table plugin's client-only <Global> styles,
@@ -7328,6 +7336,19 @@ const editorContentStyles = cssMap({
 		},
 	},
 	statusStyles: {
+		// Show diff: status attr change highlight. Keep this with status node styles so the highlight
+		// targets the lozenge shape rather than the decoration wrapper.
+		'.show-diff-atomic-inline-changed-status': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
+		},
+		'.show-diff-atomic-inline-changed-status.show-diff-atomic-inline-changed-traditional': {
+			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
+		},
+		'.show-diff-atomic-inline-changed-status .status-lozenge-span > span, .show-diff-atomic-inline-changed-status .lozenge-wrapper':
+			{
+				boxShadow: '0 0 0 2px var(--show-diff-atomic-inline-changed-border-color)',
+			},
+
 		'.pm-table-cell-content-wrap, .pm-table-header-content-wrap, [data-layout-section]': {
 			'.statusView-content-wrap': {
 				maxWidth: '100%',
@@ -7763,16 +7784,10 @@ const editorContentStyles = cssMap({
 				'--telepointer-participant-text-color': token('color.text.accent.gray.bolder'),
 				'--telepointer-participant-bg-color': token('color.background.accent.magenta.subtle'),
 			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'html:not([data-color-mode=dark]) &': {
-				'--telepointer-participant-background-first-stop': '-850000%',
-				'--telepointer-participant-background-second-stop': '150000%',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'html[data-color-mode=dark] &': {
-				'--telepointer-participant-background-first-stop': '-800000%',
-				'--telepointer-participant-background-second-stop': '200000%',
-			},
+			// light mode defaults — applied unconditionally; dark mode overrides via
+			// telepointerColorAndCommonStyleDarkMode variant keyed on colorMode
+			'--telepointer-participant-background-first-stop': '-850000%',
+			'--telepointer-participant-background-second-stop': '150000%',
 			'&[class*="color-"]': {
 				background:
 					'linear-gradient(to bottom, var(--telepointer-participant-bg-color) var(--telepointer-participant-background-first-stop), transparent var(--telepointer-participant-background-second-stop))',
@@ -7782,6 +7797,15 @@ const editorContentStyles = cssMap({
 					borderColor: 'var(--telepointer-participant-bg-color)',
 				},
 			},
+		},
+	},
+	// Dark mode overrides for telepointer background gradient stops.
+	// Split out from telepointerColorAndCommonStyle because 'html[data-color-mode=dark] &'
+	// (ampersand on the right) is broken in Compiled CSS. Uses colorMode prop instead.
+	telepointerColorAndCommonStyleDarkMode: {
+		'.ProseMirror .telepointer': {
+			'--telepointer-participant-background-first-stop': '-800000%',
+			'--telepointer-participant-background-second-stop': '200000%',
 		},
 	},
 	telepointerStyle: {
@@ -8064,20 +8088,18 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					editorContentStyles.placeholderWrapStyles,
 				editorContentStyles.codeBlockStyles,
 				contentMode === 'compact' && editorContentStyles.codeBlockStylesWithEmUnits,
-				!fg('platform_editor_typography_ugc') && editorContentStyles.editorUGCTokensDefault,
-				fg('platform_editor_typography_ugc') && editorContentStyles.editorUGCTokensRefreshed,
+				editorContentStyles.editorUGCTokensRefreshed,
 				expValEquals('platform_editor_small_font_size', 'isEnabled', true) &&
 					editorContentStyles.editorUGCSmallText,
 				editorContentStyles.blocktypeStyles,
+				editorContentStyles.blocktypeStylesRtlBlockquote,
 				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 					editorContentStyles.blockquoteSelectedNodeStyles,
 				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 					editorContentStyles.listSelectedNodeStyles,
 				editorExperiment('platform_editor_block_menu', true, { exposure: true }) &&
 					editorContentStyles.textSelectedNodeStyles,
-				fg('platform_editor_typography_ugc')
-					? editorContentStyles.blocktypeStyles_fg_platform_editor_typography_ugc
-					: editorContentStyles.blocktypeStyles_without_fg_platform_editor_typography_ugc,
+				editorContentStyles.blocktypeStyles_fg_platform_editor_typography_ugc,
 				fg('platform_editor_nested_dnd_styles_changes') &&
 					editorContentStyles.blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 				editorContentStyles.codeMarkStyles,
@@ -8107,6 +8129,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.telepointerStyle,
 				/* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
 				editorContentStyles.telepointerColorAndCommonStyle,
+				colorMode === 'dark' && editorContentStyles.telepointerColorAndCommonStyleDarkMode,
 				editorContentStyles.gapCursorStyles,
 				editorExperiment('platform_synced_block', true) &&
 					editorContentStyles.gapCursorStylesVisibilityFix,
@@ -8215,6 +8238,9 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorExperiment('advanced_layouts', true)
 					? editorContentStyles.layoutSectionStylesAdvanced
 					: editorContentStyles.layoutSectionStylesNotAdvanced,
+				editorExperiment('advanced_layouts', true) &&
+					!fg('platform-dst-top-layer-tooltip') &&
+					editorContentStyles.layoutDragHandleWrapperStylesLegacy,
 				editorExperiment('advanced_layouts', true) &&
 					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
 					editorContentStyles.layoutColumnDividerStyles,

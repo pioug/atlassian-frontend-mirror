@@ -1,4 +1,4 @@
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 
 type NotifyOpenLayerObserverProps = {
 	isOpen: boolean;

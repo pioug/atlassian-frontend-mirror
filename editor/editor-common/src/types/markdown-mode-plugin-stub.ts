@@ -1,6 +1,7 @@
 import type { NextEditorPlugin } from './index';
 
 export type _MarkdownModePluginStateStub = {
+	isLivePage?: boolean;
 	isMarkdownMode: boolean;
 	showSourceLineNumbers: boolean;
 	sourceBlockFormatState: {

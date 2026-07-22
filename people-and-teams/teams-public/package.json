@@ -144,7 +144,7 @@
 		}
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "2.5.0",
+	"version": "2.5.1",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -175,6 +175,9 @@
 			"type": "boolean"
 		},
 		"enable_teams_t26_design_drop_core_experiences": {
+			"type": "boolean"
+		},
+		"teams-a11y-34974-34752-34709": {
 			"type": "boolean"
 		}
 	}

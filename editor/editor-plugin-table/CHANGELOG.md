@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.18
+
+### Patch Changes
+
+- [`08b7535d56701`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08b7535d56701) -
+  Disable sticky headers for single-row tables and delay sticky corner masks until the native header
+  is active behind the table Q4 patch 4 experiment
+- [`b5f13b4e19c45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b5f13b4e19c45) -
+  HOT-304844 Fixed table flicker issue when table is inside layout and selection moves in/out of
+  table.
+- Updated dependencies
+
+## 24.4.17
+
+### Patch Changes
+
+- [`161922d5b8cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/161922d5b8cee) -
+  Fix editor tooltips affected by inline top-layer rendering. Table cell menu tooltips are no longer
+  constrained by the button background selector, and layout column drag handles now own their
+  wrapper layout without flattening the tooltip's visual surface.
+- Updated dependencies
+
+## 24.4.16
+
+### Patch Changes
+
+- [`6afed619aa443`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6afed619aa443) -
+  Clean up experiment `platform_editor_table_close_cell_menu_on_move_exp`
+- Updated dependencies
+
 ## 24.4.15
 
 ### Patch Changes

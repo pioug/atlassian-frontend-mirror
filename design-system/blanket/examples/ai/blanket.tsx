@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Blanket from '@atlaskit/blanket';
+import Blanket from '@atlaskit/blanket/blanket';
 
 const Examples = (): React.JSX.Element => (
 	<>

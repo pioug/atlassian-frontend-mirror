@@ -205,7 +205,7 @@ const containerStyles = cssMap({
 	rootMotion: {
 		transition: token('motion.listitem.hovered'),
 		'&:hover': {
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),
@@ -241,7 +241,7 @@ const containerStyles = cssMap({
 	selectedMotion: {
 		transition: token('motion.listitem.selected'),
 		'&:hover': {
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),
@@ -331,7 +331,7 @@ const buttonOrAnchorStyles = cssMap({
 	rootMotion: {
 		transition: token('motion.listitem.hovered'),
 		'&:hover': {
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),
@@ -355,7 +355,7 @@ const buttonOrAnchorStyles = cssMap({
 	selectedMotion: {
 		transition: token('motion.listitem.selected'),
 		'&:hover': {
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),

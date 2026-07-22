@@ -726,10 +726,7 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while setting metadata');
 			// Don't re-throw for transient connectivity/initialization errors.
 			// (e.g. socket not yet ready, user momentarily offline)
-			if (
-				(error instanceof NotInitializedError || error instanceof NotConnectedError) &&
-				expValEquals('platform_editor_ignore_metadata_connection_errors', 'isEnabled', true)
-			) {
+			if (error instanceof NotInitializedError || error instanceof NotConnectedError) {
 				return;
 			}
 			throw new SetMetadataError('Error while setting metadata', error);

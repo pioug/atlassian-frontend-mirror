@@ -7,7 +7,12 @@ import {
 import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/core/link-external';
 import { token } from '@atlaskit/tokens';
-import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
+import {
+	injectIntl,
+	FormattedMessage,
+	type WithIntlProps,
+	type WrappedComponentProps,
+} from 'react-intl';
 import { Text } from '@atlaskit/primitives/compiled';
 
 import NotFoundImage from '../../../assets/NotFoundImage';
@@ -55,23 +60,28 @@ export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 			{searchExternalUrl && (
 				<SearchResultEmptyMessageText>
 					<Text as="p">
-						{formatMessage(messages.help_search_results_no_results_line_two)}
-						<br />
 						<AnalyticsContext
 							data={{
 								componentName: 'searchExternalUrl',
 							}}
 						>
-							<Button
-								appearance="link"
-								iconAfter={<ShortcutIcon label="" color={token('color.icon.subtle')} />}
-								spacing="compact"
-								href={searchExternalUrl}
-								target="_blank"
-								onClick={handleExternalUrlClick}
-							>
-								{formatMessage(messages.help_search_results_external_site_link)}
-							</Button>
+							<FormattedMessage
+								{...messages.help_search_results_no_results_line_two}
+								values={{
+									a: (chunks) => (
+										<Button
+											appearance="link"
+											iconAfter={<ShortcutIcon label="" color={token('color.icon.subtle')} />}
+											spacing="compact"
+											href={searchExternalUrl}
+											target="_blank"
+											onClick={handleExternalUrlClick}
+										>
+											{chunks}
+										</Button>
+									),
+								}}
+							/>
 						</AnalyticsContext>
 					</Text>
 				</SearchResultEmptyMessageText>

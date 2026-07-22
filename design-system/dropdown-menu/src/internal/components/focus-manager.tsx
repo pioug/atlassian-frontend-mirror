@@ -2,7 +2,7 @@ import React, { type FC, type ReactNode, useCallback, useEffect, useRef, useStat
 
 import { bind } from 'bind-event-listener';
 
-import { useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering/use-layering';
 
 import { type FocusableElementRef } from '../../types';
 import handleFocus from '../utils/handle-focus';

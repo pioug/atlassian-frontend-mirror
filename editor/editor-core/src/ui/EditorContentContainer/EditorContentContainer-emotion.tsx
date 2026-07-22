@@ -52,7 +52,6 @@ import {
 	blocktypeStyles,
 	blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
 	blocktypeStyles_fg_platform_editor_typography_ugc,
-	blocktypeStyles_without_fg_platform_editor_typography_ugc,
 	listDangerStyles,
 	listSelectedNodeStyles,
 	textDangerStyles,
@@ -69,11 +68,7 @@ import { commentEditorStyles } from './styles/commentEditorStyles';
 import { nonFullPageContainerTypeStyles } from './styles/containerTypeStyles';
 import { cursorStyles } from './styles/cursorStyles';
 import { dangerDateStyles, dateStyles, dateVanillaStyles } from './styles/dateStyles';
-import {
-	editorUGCSmallText,
-	editorUGCTokensDefault,
-	editorUGCTokensRefreshed,
-} from './styles/editorUGCTokenStyles';
+import { editorUGCSmallText, editorUGCTokensRefreshed } from './styles/editorUGCTokenStyles';
 import { embedCardStyles } from './styles/embedCardStyles';
 import {
 	emojiDangerStyles,
@@ -122,6 +117,7 @@ import {
 	layoutColumnStylesNotAdvanced,
 	layoutResponsiveBaseStyles,
 	layoutResponsiveStylesForView,
+	layoutDragHandleWrapperStylesLegacy,
 	layoutSectionStylesAdvanced,
 	layoutSectionStylesNotAdvanced,
 	layoutSelectedStylesAdvanced,
@@ -434,10 +430,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				contentMode === 'compact' && codeBlockStylesWithEmUnits,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				!fg('platform_editor_typography_ugc') && editorUGCTokensDefault,
-				fg('platform_editor_typography_ugc') &&
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					editorUGCTokensRefreshed,
+				editorUGCTokensRefreshed,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				expValEquals('platform_editor_small_font_size', 'isEnabled', true) && editorUGCSmallText,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -452,11 +445,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					textSelectedNodeStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				fg('platform_editor_typography_ugc')
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						blocktypeStyles_fg_platform_editor_typography_ugc
-					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						blocktypeStyles_without_fg_platform_editor_typography_ugc,
+				blocktypeStyles_fg_platform_editor_typography_ugc,
 				fg('platform_editor_nested_dnd_styles_changes') &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					blocktypeStyles_fg_platform_editor_nested_dnd_styles_changes,
@@ -674,6 +663,10 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 						layoutSectionStylesAdvanced
 					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						layoutSectionStylesNotAdvanced,
+				editorExperiment('advanced_layouts', true) &&
+					!fg('platform-dst-top-layer-tooltip') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					layoutDragHandleWrapperStylesLegacy,
 				editorExperiment('advanced_layouts', true) &&
 					editorExperiment('platform_editor_layout_column_resize_handle', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

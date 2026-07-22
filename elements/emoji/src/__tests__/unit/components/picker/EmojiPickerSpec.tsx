@@ -91,6 +91,13 @@ const emojiCategoryIds = {
 	ATLASSIAN: 'ATLASSIAN',
 	FLAGS: 'FLAGS',
 };
+const changeEmojiLabel = (emoji: EmojiDescription) =>
+	`Change emoji, currently ${emoji.name ?? emoji.shortName}`;
+const raisedHandEmoji = helper.allEmojis.find(
+	(emoji: EmojiDescription) => emoji.shortName === ':raised_hand:',
+) as EmojiDescription & {
+	skinVariations?: EmojiDescription[];
+};
 // Add the custom matchers provided by '@emotion/jest'
 expect.extend(matchers);
 // Add matcher provided by 'jest-axe'
@@ -196,12 +203,12 @@ describe('<EmojiPicker />', () => {
 
 			const firstEmoji = emojis[0];
 			// First emoji displayed
-			expect(firstEmoji.getAttribute('aria-label')).toEqual(helper.allEmojis[0].shortName);
+			expect(firstEmoji.getAttribute('aria-label')).toEqual(changeEmojiLabel(helper.allEmojis[0]));
 
 			const lastEmoji = emojis[emojis.length - 1];
 			// Last displayed emoji in same order as source data
 			expect(lastEmoji.getAttribute('aria-label')).toEqual(
-				helper.allEmojis[emojis.length - 1].shortName,
+				changeEmojiLabel(helper.allEmojis[emojis.length - 1]),
 			);
 		});
 
@@ -361,7 +368,7 @@ describe('<EmojiPicker />', () => {
 			const previewEmoji = within(footer).getAllByRole('img')[0];
 			expect(previewEmoji).toBeVisible();
 
-			expect(previewEmoji).toHaveAttribute('aria-label', helper.allEmojis[0].shortName);
+			expect(previewEmoji).toHaveAttribute('aria-label', changeEmojiLabel(helper.allEmojis[0]));
 		});
 
 		it('should keep preview after emoji blur when upload is unsupported', async () => {
@@ -779,8 +786,6 @@ describe('<EmojiPicker />', () => {
 			await waitFor(() => {
 				expect(screen.queryByTestId('sprite-emoji-:red_car:')).toBeInTheDocument();
 
-				expect(screen.getByLabelText(':red_car:')).toBeInTheDocument();
-
 				const emojis = within(helperTestingLibrary.getVirtualList()).getAllByRole('button');
 
 				expect(emojis.length).toEqual(1);
@@ -924,7 +929,7 @@ describe('<EmojiPicker />', () => {
 			const hoverOffset = helper.findHandEmoji(emojis);
 			expect(hoverOffset).toBeGreaterThan(-1);
 			const handEmoji = helper.findEmoji(list)[hoverOffset];
-			expect(handEmoji).toHaveAttribute('aria-label', ':raised_hand:');
+			expect(handEmoji).toHaveAttribute('aria-label', changeEmojiLabel(raisedHandEmoji));
 		});
 
 		it('should fire tone selected and not cancelled', async () => {
@@ -1015,7 +1020,10 @@ describe('<EmojiPicker />', () => {
 			const hoverOffset = helper.findHandEmoji(emojis);
 			expect(hoverOffset).toBeGreaterThan(-1);
 			const handEmoji = helper.findEmoji(list)[hoverOffset];
-			expect(handEmoji).toHaveAttribute('aria-label', ':raised_hand::skin-tone-2:');
+			expect(handEmoji).toHaveAttribute(
+				'aria-label',
+				changeEmojiLabel(raisedHandEmoji.skinVariations![0]),
+			);
 		});
 	});
 
@@ -1039,12 +1047,18 @@ describe('<EmojiPicker />', () => {
 
 			// First picker should have tone set by default
 			const handEmoji1 = await findToneEmojiInNewPicker();
-			expect(handEmoji1).toHaveAttribute('aria-label', ':raised_hand::skin-tone-3:');
+			expect(handEmoji1).toHaveAttribute(
+				'aria-label',
+				changeEmojiLabel(raisedHandEmoji.skinVariations![1]),
+			);
 			unmount!();
 
 			// Second picker should have tone set by default
 			const handEmoji2 = await findToneEmojiInNewPicker();
-			expect(handEmoji2).toHaveAttribute('aria-label', ':raised_hand::skin-tone-3:');
+			expect(handEmoji2).toHaveAttribute(
+				'aria-label',
+				changeEmojiLabel(raisedHandEmoji.skinVariations![1]),
+			);
 		});
 	});
 

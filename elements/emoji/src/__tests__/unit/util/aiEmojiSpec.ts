@@ -1,4 +1,4 @@
-import { slugifyPrompt, wrapEmojiPrompt, MAX_SHORTNAME_LENGTH } from '../../../util/ai-emoji';
+import { slugifyPrompt, MAX_SHORTNAME_LENGTH } from '../../../util/ai-emoji';
 
 describe('slugifyPrompt', () => {
 	it('slugifies a simple phrase and strips a leading article', () => {
@@ -35,23 +35,5 @@ describe('slugifyPrompt', () => {
 	it('returns an empty string for empty input', () => {
 		expect(slugifyPrompt('')).toBe('');
 		expect(slugifyPrompt('   ')).toBe('');
-	});
-});
-
-describe('wrapEmojiPrompt', () => {
-	it('prefixes the user prompt with the emoji-style prefix', () => {
-		expect(wrapEmojiPrompt('a cat wearing a hard hat')).toBe(
-			'Generate a clean, simple, emoji-style icon of a cat wearing a hard hat',
-		);
-	});
-
-	it('produces a single line with no newlines', () => {
-		expect(wrapEmojiPrompt('a cat')).not.toContain('\n');
-	});
-
-	it('trims surrounding whitespace from the user prompt', () => {
-		expect(wrapEmojiPrompt('  rocket  ')).toBe(
-			'Generate a clean, simple, emoji-style icon of rocket',
-		);
 	});
 });

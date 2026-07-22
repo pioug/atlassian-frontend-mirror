@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7cae0a4365766a3c1b06c8ab29cc7711>>
+ * @codegen <<SignedSource::ed93ae8adbd5266e92fe7d1db46a9433>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -13,6 +13,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/ensure-design-token-usage': 'error',
 		'@atlaskit/design-system/icon-label': 'warn',
 		'@atlaskit/design-system/no-banned-imports': 'error',
+		'@atlaskit/design-system/no-css-map-scoped': 'error',
 		'@atlaskit/design-system/no-deprecated-apis': 'error',
 		'@atlaskit/design-system/no-deprecated-design-token-usage': 'warn',
 		'@atlaskit/design-system/no-deprecated-imports': 'error',
@@ -35,6 +36,7 @@ const rules: ESLint.ConfigData = {
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
 			},
 		],
+		'@atlaskit/design-system/no-modal-label': 'warn',
 		'@atlaskit/design-system/no-nested-styles': 'error',
 		'@atlaskit/design-system/no-placeholder': 'warn',
 		'@atlaskit/design-system/no-readonly-or-disabled-inputs': 'warn',

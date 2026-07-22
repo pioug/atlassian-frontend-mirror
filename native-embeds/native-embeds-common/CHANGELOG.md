@@ -1,5 +1,13 @@
 # @atlaskit/native-embeds-common
 
+## 2.2.4
+
+### Patch Changes
+
+- [`9135fb9538960`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9135fb9538960) -
+  [ux] Reuse native embed placement for first-paint placeholders
+- Updated dependencies
+
 ## 2.2.3
 
 ### Patch Changes

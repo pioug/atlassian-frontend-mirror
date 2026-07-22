@@ -547,6 +547,46 @@ export interface TextColorTokenSchema<BaseToken> {
 	};
 }
 
+export interface CodeColorTokenSchema<BaseToken> {
+	color: {
+		text: {
+			code: {
+				default: PaintToken<BaseToken>;
+				comments: PaintToken<BaseToken>;
+				operators: PaintToken<BaseToken>;
+				keywords: PaintToken<BaseToken>;
+				strings: PaintToken<BaseToken>;
+				numbers: PaintToken<BaseToken>;
+				functions: PaintToken<BaseToken>;
+				tags: PaintToken<BaseToken>;
+				accent: {
+					'1': PaintToken<BaseToken>;
+					'2': PaintToken<BaseToken>;
+				};
+				gutter: PaintToken<BaseToken>;
+			};
+		};
+		background: {
+			code: {
+				default: PaintToken<BaseToken>;
+				gutter: PaintToken<BaseToken>;
+				highlight: PaintToken<BaseToken>;
+				added: {
+					highlight: PaintToken<BaseToken>;
+					line: PaintToken<BaseToken>;
+				};
+				removed: {
+					highlight: PaintToken<BaseToken>;
+					line: PaintToken<BaseToken>;
+				};
+			};
+		};
+		border: {
+			code: PaintToken<BaseToken>;
+		};
+	};
+}
+
 export interface AccentColorTokenSchema<BaseToken> {
 	color: {
 		text: {

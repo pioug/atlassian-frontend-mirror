@@ -37,6 +37,9 @@ const toneEmoji: EmojiDescriptionWithVariations = {
 	],
 };
 
+const changeEmojiLabel = (emoji: EmojiDescriptionWithVariations) =>
+	`Change emoji, currently ${emoji.name ?? emoji.shortName}`;
+
 const props = {
 	onUploadCancelled: jest.fn(),
 	onUploadEmoji: jest.fn(),
@@ -127,14 +130,15 @@ describe('<EmojiActions />', () => {
 			expect(toneSelector).toBeVisible();
 
 			const toneSelectorToneOption1 = within(toneSelector)
-				.getByLabelText(':raised_back_of_hand:')
+				.getByLabelText(changeEmojiLabel(toneEmoji))
 				.closest('label');
 
 			// No tone selected, focus on default tone radio input
 			expect(within(toneSelectorToneOption1!).getByRole('radio')).toHaveFocus();
 
-			const toneSelectorToneOption2 =
-				within(toneSelector).getByLabelText(':raised_back_of_hand-2:');
+			const toneSelectorToneOption2 = within(toneSelector).getByLabelText(
+				changeEmojiLabel(toneEmoji.skinVariations![1]),
+			);
 			fireEvent.click(toneSelectorToneOption2);
 
 			// Automatically close tone ui
@@ -152,7 +156,9 @@ describe('<EmojiActions />', () => {
 			const tonePreviewButton = await screen.getByTestId(tonePreviewTestId);
 
 			expect(
-				await within(tonePreviewButton).findByLabelText(toneEmoji!.skinVariations![2].shortName),
+				await within(tonePreviewButton).findByLabelText(
+					changeEmojiLabel(toneEmoji.skinVariations![2]),
+				),
 			).toBeInTheDocument();
 		});
 
@@ -162,7 +168,7 @@ describe('<EmojiActions />', () => {
 			const tonePreviewButton = await screen.getByTestId(tonePreviewTestId);
 
 			expect(
-				await within(tonePreviewButton).findByLabelText(toneEmoji.shortName),
+				await within(tonePreviewButton).findByLabelText(changeEmojiLabel(toneEmoji)),
 			).toBeInTheDocument();
 		});
 
@@ -177,7 +183,9 @@ describe('<EmojiActions />', () => {
 			expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
 			// Click a Different Tone
-			const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+			const toneSelectorToneOption = await screen.findByLabelText(
+				changeEmojiLabel(toneEmoji.skinVariations![1]),
+			);
 			fireEvent.click(toneSelectorToneOption);
 
 			// Automatically close tone ui
@@ -201,7 +209,9 @@ describe('<EmojiActions />', () => {
 				await userEvent.click(toneSelectorButton);
 				expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
-				const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+				const toneSelectorToneOption = await screen.findByLabelText(
+					changeEmojiLabel(toneEmoji.skinVariations![1]),
+				);
 				fireEvent.click(toneSelectorToneOption);
 
 				// Automatically close tone ui
@@ -224,7 +234,9 @@ describe('<EmojiActions />', () => {
 			await userEvent.click(toneSelectorButton);
 			expect(await screen.findByTestId(toneSelectorTestId)).toBeInTheDocument();
 
-			const toneSelectorToneOption = await screen.findByLabelText(':raised_back_of_hand-2:');
+			const toneSelectorToneOption = await screen.findByLabelText(
+				changeEmojiLabel(toneEmoji.skinVariations![1]),
+			);
 
 			fireEvent.click(toneSelectorToneOption);
 

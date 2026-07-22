@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'InlineMessage',
-				package: '@atlaskit/inline-message',
+				package: '@atlaskit/inline-message/inline-message',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

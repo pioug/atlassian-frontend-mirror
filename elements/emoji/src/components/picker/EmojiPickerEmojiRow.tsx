@@ -124,7 +124,19 @@ const EmojiPickerEmojiRow = ({
 			});
 			onFocus && onFocus(emojiId, emoji, event);
 		};
-	if (fg('platform_a11y_fixes_reaction_emoji')) {
+	// A11Y-31084: When the emoji picker list experiment is enabled, each row of
+	// emojis is exposed as an unordered list (<ul role="list">) with every emoji
+	// as a <li role="listitem">, so screen readers announce the list and its
+	// items. Each virtualized row is its own list (valid list/listitem ownership,
+	// virtualization-safe). This is gated separately from the existing
+	// platform_a11y_fixes_reaction_emoji flag.
+	const isEmojiPickerListEnabled = expValEqualsNoExposure(
+		'platform_a11y_fixes_emoji_picker_list',
+		'isEnabled',
+		true,
+	);
+
+	if (isEmojiPickerListEnabled || fg('platform_a11y_fixes_reaction_emoji')) {
 		return (
 			<ul css={emojiPickerRowList} role="list">
 				{emojis.map((emoji, index) => {

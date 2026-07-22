@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed30c2bf99d111ff3f668bf307c4f979>>
+ * @codegen <<SignedSource::e321e4d05dbb0935d0d5b9557d3bacb3>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Linter } from 'eslint';
@@ -20,6 +20,7 @@ const rules: Linter.FlatConfig = {
 		'@atlaskit/design-system/icon-label': 'warn',
 		'@atlaskit/design-system/lozenge-badge-tag-labelling-system-migration': 'warn',
 		'@atlaskit/design-system/no-banned-imports': 'error',
+		'@atlaskit/design-system/no-css-map-scoped': 'error',
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-dark-theme-vr-tests': 'error',
 		'@atlaskit/design-system/no-deprecated-apis': 'error',
@@ -47,6 +48,7 @@ const rules: Linter.FlatConfig = {
 		],
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-margin': 'warn',
+		'@atlaskit/design-system/no-modal-label': 'warn',
 		'@atlaskit/design-system/no-nested-styles': 'error',
 		'@atlaskit/design-system/no-physical-properties': 'error',
 		'@atlaskit/design-system/no-placeholder': 'warn',

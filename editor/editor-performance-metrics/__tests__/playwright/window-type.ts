@@ -4,7 +4,7 @@ import type {
 	Timeline,
 	TimelineClock,
 	TimelineSerializable,
-} from '@atlaskit/editor-performance-metrics/src/internals/timelineInterfaces';
+} from '@atlaskit/editor-performance-metrics/timeline/timelineInterfaces';
 
 export type WindowWithEditorPerformanceGlobals = Window &
 	typeof globalThis & {

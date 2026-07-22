@@ -5,7 +5,8 @@ import React, { type SyntheticEvent, useCallback, useEffect } from 'react';
 import { canUseDOM } from 'exenv';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
-import { Layering, useCloseOnEscapePress } from '@atlaskit/layering';
+import { Layering } from '@atlaskit/layering/layering';
+import { useCloseOnEscapePress } from '@atlaskit/layering/use-close-on-escape-press';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 

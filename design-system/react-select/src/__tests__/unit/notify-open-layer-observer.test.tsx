@@ -17,7 +17,8 @@ import Select from '../../select';
  */
 
 const legacyObserverSpy = jest.fn();
-jest.mock('@atlaskit/layering/experimental/open-layer-observer', () => ({
+jest.mock('@atlaskit/layering/use-notify-open-layer-observer', () => ({
+	...jest.requireActual('@atlaskit/layering/use-notify-open-layer-observer'),
 	__esModule: true,
 	useNotifyOpenLayerObserver: ({
 		type,

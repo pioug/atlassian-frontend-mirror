@@ -54,7 +54,7 @@ const styles = cssMap({
 	rootMotion: {
 		transition: token('motion.listitem.hovered'),
 		'&:hover': {
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),
@@ -63,7 +63,7 @@ const styles = cssMap({
 	selectedMotion: {
 		transition: token('motion.listitem.selected'),
 		'&:hover': {
-			transition: token('motion.listitem.pressed'),
+			transition: token('motion.listitem.hovered'),
 		},
 		'&:active': {
 			transition: token('motion.listitem.pressed'),

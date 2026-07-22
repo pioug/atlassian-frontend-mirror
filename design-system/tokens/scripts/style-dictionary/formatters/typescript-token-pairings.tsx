@@ -34,6 +34,21 @@ function classifyTokenPair(
 	foregroundToken: ContrastTokenMetadata,
 	backgroundToken: ContrastTokenMetadata,
 ) {
+	const isIncludedPairing = !!includePairings.find((value) => {
+		return value[0] === foregroundToken.name && value[1] === backgroundToken.name;
+	});
+
+	if (isIncludedPairing) {
+		return true;
+	}
+
+	// Code backgrounds have a dedicated composition model. They must not be inferred as
+	// generic UI backgrounds and paired with every text, link, icon, and border token.
+	// Add intentional code pairings through includePairings when that model is defined.
+	if (backgroundToken.name.startsWith('color.background.code.')) {
+		return false;
+	}
+
 	// Special case: background.brand.subtlest should be paired with text.brand
 	if (
 		foregroundToken.name === 'color.text.brand' &&
@@ -164,10 +179,6 @@ function classifyTokenPair(
 		typeof backgroundToken.value === 'string' &&
 		typeof foregroundToken.value === 'string' &&
 		(getAlpha(backgroundToken?.value) < 1 || getAlpha(foregroundToken?.value) < 1);
-
-	const isIncludedPairing = !!includePairings.find((value) => {
-		return value[0] === foregroundToken.name && value[1] === backgroundToken.name;
-	});
 
 	const isExcludedPairing = !!excludePairings.find((value) => {
 		return value[0] === foregroundToken.name && value[1] === backgroundToken.name;

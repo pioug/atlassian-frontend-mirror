@@ -7,7 +7,7 @@ import React, { useEffect, useRef } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { OpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { OpenLayerObserver } from '@atlaskit/layering/open-layer-observer';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SkipLinksProvider } from '../../context/skip-links/skip-links-provider';

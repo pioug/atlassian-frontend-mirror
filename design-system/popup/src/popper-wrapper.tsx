@@ -7,7 +7,7 @@ import { forwardRef, Fragment, useMemo, useState } from 'react';
 import { css, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
-import { useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering/use-layering';
 import { Motion, type MotionProps } from '@atlaskit/motion';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';

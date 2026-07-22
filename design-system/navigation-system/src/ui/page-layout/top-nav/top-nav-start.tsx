@@ -7,7 +7,7 @@ import React, { forwardRef, useContext, useEffect, useLayoutEffect, useRef, useS
 import { cssMap, jsx } from '@compiled/react';
 
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
-import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/experimental/open-layer-observer';
+import { OpenLayerObserverNamespaceProvider } from '@atlaskit/layering/open-layer-observer-namespace-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';

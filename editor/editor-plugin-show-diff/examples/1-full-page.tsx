@@ -17,6 +17,7 @@ import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import Textarea from '@atlaskit/textarea';
 import { token } from '@atlaskit/tokens';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { fullPagePreset } from '@atlassian/confluence-presets/full-page';
 import * as cljs from '@atlassian/content-reconciliation';
 import { createPromptEditor } from '@atlassian/editor-ai-injected-editors/prompt-editor';
@@ -47,7 +48,14 @@ const DEFAULT_ORIGINAL_DOC: DocNode = {
 	content: [
 		{
 			type: 'paragraph',
-			content: [{ type: 'text', text: 'Hello world' }],
+			content: [
+				{ type: 'text', text: 'Hello world ' },
+				{
+					type: 'emoji',
+					attrs: { shortName: ':grinning:', id: '1f600', text: '😀' },
+				},
+				{ type: 'text', text: ' how are you?' },
+			],
 		},
 	],
 };
@@ -58,7 +66,14 @@ const DEFAULT_NEW_DOC: DocNode = {
 	content: [
 		{
 			type: 'paragraph',
-			content: [{ type: 'text', text: 'Hello updated world!' }],
+			content: [
+				{ type: 'text', text: 'Hello updated world ' },
+				{
+					type: 'emoji',
+					attrs: { shortName: ':smiley:', id: '1f603', text: '😃' },
+				},
+				{ type: 'text', text: ' how are you?' },
+			],
 		},
 	],
 };
@@ -148,9 +163,6 @@ function FullPageDiffEditor(): React.JSX.Element {
 			fullPagePreset({
 				intl,
 				pluginOptions: {
-					base: {
-						__livePage: false,
-					},
 					hyperlink: {
 						editorAppearance: 'full-page',
 						linkPicker: undefined,
@@ -310,7 +322,7 @@ function FullPageDiffEditor(): React.JSX.Element {
 					collabEditProvider: undefined,
 					contextIdentifierProvider: undefined,
 					emojiNodeDataProvider: undefined,
-					emojiProvider: undefined,
+					emojiProvider: getTestEmojiResource(),
 					inlineCommentAnnotationProvider: undefined,
 					mediaProvider: undefined,
 					mentionProvider: undefined,
@@ -481,6 +493,9 @@ function FullPageDiffEditor(): React.JSX.Element {
 	);
 }
 
+/**
+ * Full page show diff editor example.
+ */
 export default function FullPageDiffEditorExample(): React.JSX.Element {
 	return (
 		<IntlProvider locale="en">

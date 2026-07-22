@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9ab04cc69b856c1b192780387d2a1e04>>
+ * @codegen <<SignedSource::b6ec7db5bbe082b6ba120ba9b103e81e>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -179,6 +179,13 @@ export type ActiveTokens =
 	| 'color.background.accent.gray.bolder'
 	| 'color.background.accent.gray.bolder.hovered'
 	| 'color.background.accent.gray.bolder.pressed'
+	| 'color.background.code.added.highlight'
+	| 'color.background.code.added.line'
+	| 'color.background.code.default'
+	| 'color.background.code.gutter'
+	| 'color.background.code.highlight'
+	| 'color.background.code.removed.highlight'
+	| 'color.background.code.removed.line'
 	| 'color.background.disabled'
 	| 'color.background.input'
 	| 'color.background.input.hovered'
@@ -281,6 +288,7 @@ export type ActiveTokens =
 	| 'color.border.accent.magenta.subtle'
 	| 'color.border.accent.gray'
 	| 'color.border.accent.gray.subtle'
+	| 'color.border.code'
 	| 'color.border.disabled'
 	| 'color.border.focused'
 	| 'color.border.input'
@@ -319,6 +327,17 @@ export type ActiveTokens =
 	| 'color.text.accent.magenta.bolder'
 	| 'color.text.accent.gray'
 	| 'color.text.accent.gray.bolder'
+	| 'color.text.code.accent.1'
+	| 'color.text.code.accent.2'
+	| 'color.text.code.comments'
+	| 'color.text.code.default'
+	| 'color.text.code.functions'
+	| 'color.text.code.gutter'
+	| 'color.text.code.keywords'
+	| 'color.text.code.numbers'
+	| 'color.text.code.operators'
+	| 'color.text.code.strings'
+	| 'color.text.code.tags'
 	| 'color.text.disabled'
 	| 'color.text.inverse'
 	| 'color.text.selected'

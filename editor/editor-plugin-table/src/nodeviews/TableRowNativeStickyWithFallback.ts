@@ -94,6 +94,11 @@ export default class TableRowNativeStickyWithFallback
 		super(node, view, getPos, eventDispatcher);
 
 		this.isHeaderRow = supportedHeaderRow(node);
+
+		if (this.isHeaderRow && expValEquals('platform_editor_table_q4_patch_4', 'isEnabled', true)) {
+			this.isSingleRowTable = this.checkIsSingleRowTable();
+		}
+
 		this.isLegacySticky = false;
 
 		const { pluginConfig } = getPluginState(view.state);
@@ -224,6 +229,7 @@ export default class TableRowNativeStickyWithFallback
 	private onEditorContentAreaHeightChange?: () => void;
 	private editorContentAreaHeight?: number;
 	private nodeVisibilityObserver?: IntersectionObserver;
+	private isSingleRowTable: boolean = false;
 
 	/**
 	 * Methods: Nodeview Lifecycle
@@ -231,6 +237,10 @@ export default class TableRowNativeStickyWithFallback
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	update(node: PMNode, ..._args: any[]): boolean {
+		if (this.isHeaderRow && expValEquals('platform_editor_table_q4_patch_4', 'isEnabled', true)) {
+			this.updateSingleRowTableStickyHeaderState();
+		}
+
 		// do nothing if nodes were identical
 		if (node === this.node) {
 			return true;
@@ -366,6 +376,13 @@ export default class TableRowNativeStickyWithFallback
 				 *  be cleaned up.
 				 */
 				entries.forEach((entry) => {
+					if (
+						expValEquals('platform_editor_table_q4_patch_4', 'isEnabled', true) &&
+						this.updateSingleRowTableStickyHeaderState()
+					) {
+						return;
+					}
+
 					const tableWrapper = this.dom.closest(`.${ClassName.TABLE_NODE_WRAPPER}`);
 					if (tableWrapper && tableWrapper instanceof HTMLElement && !areAllRectsZero(entry)) {
 						if (entry.isIntersecting) {
@@ -462,6 +479,12 @@ export default class TableRowNativeStickyWithFallback
 				if (!(observer.root instanceof HTMLElement)) {
 					return;
 				}
+				if (
+					expValEquals('platform_editor_table_q4_patch_4', 'isEnabled', true) &&
+					this.updateSingleRowTableStickyHeaderState()
+				) {
+					return;
+				}
 				// Only apply classes if page has scrolled since load
 				if (!this.hasScrolledSinceLoad) {
 					this.overflowObserverEntries = entries;
@@ -512,6 +535,13 @@ export default class TableRowNativeStickyWithFallback
 
 		this.stickyStateObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
+				if (
+					expValEquals('platform_editor_table_q4_patch_4', 'isEnabled', true) &&
+					this.updateSingleRowTableStickyHeaderState()
+				) {
+					return;
+				}
+
 				const tableContainer = this.dom.closest(`.${ClassName.TABLE_CONTAINER}`);
 				if (entry.intersectionRect.top === entry.rootBounds?.top && !this.disableNativeSticky) {
 					this.dom.classList.add(ClassName.NATIVE_STICKY_ACTIVE);
@@ -649,6 +679,13 @@ export default class TableRowNativeStickyWithFallback
 		this.nodeVisibilityObserver = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
+					if (
+						expValEquals('platform_editor_table_q4_patch_4', 'isEnabled', true) &&
+						this.updateSingleRowTableStickyHeaderState()
+					) {
+						return;
+					}
+
 					if (!this.isNativeSticky) {
 						return;
 					}
@@ -745,6 +782,13 @@ export default class TableRowNativeStickyWithFallback
 	}
 
 	private refreshLegacyStickyState() {
+		if (
+			expValEquals('platform_editor_table_q4_patch_4', 'isEnabled', true) &&
+			this.updateSingleRowTableStickyHeaderState()
+		) {
+			return;
+		}
+
 		const tree = getTree(this.dom);
 		if (!tree) {
 			return;
@@ -910,7 +954,6 @@ export default class TableRowNativeStickyWithFallback
 		const tableContentWrapper = tableContainer?.parentElement;
 
 		const parentContainer = tableContentWrapper && tableContentWrapper.parentElement;
-
 		const isTableInsideLayout =
 			parentContainer && parentContainer.getAttribute('data-layout-content');
 
@@ -918,15 +961,27 @@ export default class TableRowNativeStickyWithFallback
 			if (isCurrentTableSelected) {
 				this.colControlsOffset = tableControlsSpacing;
 
-				// move table a little out of the way
-				// to provide spacing for table controls
-				if (isTableInsideLayout) {
-					tableContentWrapper.style.paddingLeft = '11px';
+				/**
+				 * Adding padding left causes flicker when table is inside layout column
+				 * 	and selection moves in/out of table.
+				 */
+				if (!fg('platform_editor_table_flicker_issue')) {
+					// move table a little out of the way
+					// to provide spacing for table controls
+					if (isTableInsideLayout) {
+						tableContentWrapper.style.paddingLeft = '11px';
+					}
 				}
 			} else {
 				this.colControlsOffset = 0;
-				if (isTableInsideLayout) {
-					tableContentWrapper.style.removeProperty('padding-left');
+				/**
+				 * Adding padding left causes flicker when table is inside layout column
+				 * 	and selection moves in/out of table.
+				 */
+				if (!fg('platform_editor_table_flicker_issue')) {
+					if (isTableInsideLayout) {
+						tableContentWrapper.style.removeProperty('padding-left');
+					}
 				}
 			}
 		}
@@ -960,6 +1015,71 @@ export default class TableRowNativeStickyWithFallback
 				}
 			});
 		}
+	}
+
+	private checkIsSingleRowTable(): boolean {
+		const pos = this.getPos();
+		if (typeof pos !== 'number') {
+			return false;
+		}
+
+		try {
+			const $tableRowPos = this.view.state.doc.resolve(pos);
+			const tableNode = findParentNodeClosestToPos(
+				$tableRowPos,
+				(node) => node.type === this.view.state.schema.nodes.table,
+			)?.node;
+
+			return tableNode?.childCount === 1;
+		} catch {
+			// getPos can return stale positions during AI streaming. Preserve the original sticky
+			// header behaviour when the containing table cannot be determined.
+			return false;
+		}
+	}
+
+	private updateSingleRowTableStickyHeaderState(): boolean {
+		const wasSingleRowTable = this.isSingleRowTable;
+		this.isSingleRowTable = this.checkIsSingleRowTable();
+
+		if (this.isSingleRowTable) {
+			this.removeSingleRowTableStickyHeaderState();
+		} else if (wasSingleRowTable) {
+			this.refireNativeStickyObservers();
+		}
+
+		return this.isSingleRowTable;
+	}
+
+	private removeSingleRowTableStickyHeaderState(): void {
+		this.dom.classList.remove(ClassName.NATIVE_STICKY, ClassName.NATIVE_STICKY_ACTIVE);
+		this.isNativeSticky = false;
+
+		const tableWrapper = this.dom.closest(`.${ClassName.TABLE_NODE_WRAPPER}`);
+		tableWrapper?.classList.remove(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
+
+		const tableContainer = this.dom.closest(`.${ClassName.TABLE_CONTAINER}`);
+		if (tableContainer instanceof HTMLElement) {
+			delete tableContainer.dataset.tableHeaderIsStuck;
+		}
+
+		const tree = getTree(this.dom);
+		if (tree) {
+			this.makeRowHeaderNotLegacySticky(tree.table);
+		}
+	}
+
+	private refireNativeStickyObservers(): void {
+		const table = this.dom.closest('table');
+		if (table) {
+			this.overflowObserver?.unobserve(table);
+			this.overflowObserver?.observe(table);
+			this.nodeVisibilityObserver?.unobserve(table);
+			this.nodeVisibilityObserver?.observe(table);
+		}
+
+		this.stickyStateObserver?.unobserve(this.dom);
+		this.stickyStateObserver?.observe(this.dom);
 	}
 
 	private toggleDisableNativeSticky = (headerHeight: number, viewportHeight: number) => {

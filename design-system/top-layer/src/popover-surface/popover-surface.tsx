@@ -16,6 +16,9 @@ export type TPopoverSurfaceProps = {
 const styles = cssMap({
 	root: {
 		backgroundColor: token('elevation.surface.overlay'),
+		// Set the surface text colour so content does not inherit the ambient colour
+		// from the trigger's DOM context (top-layer promotion is paint only).
+		color: token('color.text'),
 		borderRadius: token('radius.small', '3px'),
 		boxShadow: token('elevation.shadow.overlay'),
 		overflow: 'auto',

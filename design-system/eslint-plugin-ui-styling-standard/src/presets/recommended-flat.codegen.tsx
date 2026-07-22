@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::61c9435885ec26523572667a3a476d30>>
+ * @codegen <<SignedSource::8a252381063c65bbbd7bd21e6a7f99a7>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import type { Linter } from 'eslint';
@@ -59,6 +59,7 @@ const config: Linter.FlatConfig = {
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
 			},
 		],
+		'@atlaskit/design-system/no-css-map-scoped': 'error',
 	},
 };
 

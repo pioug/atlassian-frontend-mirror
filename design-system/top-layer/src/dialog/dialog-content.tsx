@@ -17,7 +17,7 @@ import { bind } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
-import { useNotifyOpenLayerObserver } from '@atlaskit/layering/experimental/open-layer-observer';
+import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { token } from '@atlaskit/tokens';
 
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
@@ -49,6 +49,26 @@ const dialogAnimationStyles = cssMap({
 			animation: token('motion.modal.enter'),
 			animationFillMode: 'backwards',
 		},
+	},
+});
+
+// Surface reset — see the rationale on `surfaceResetStyles` in `popover/popover.tsx`.
+// Neutralises inherited text-layout properties (e.g. `white-space: nowrap`) that leak
+// into the top-layer surface. Excludes `color`/`font` (theming) and
+// `direction`/`unicode-bidi` (RTL must inherit). Pure layout reset with no box
+// side-effects, so it does not reintroduce the `margin: auto` centering problem that
+// kept `height: auto` off `Dialog`.
+//
+// KEEP IN SYNC with the identical `surfaceResetStyles` in `popover/popover.tsx`
+// (ADS forbids sharing styles across files, so it is co-located and duplicated).
+const surfaceResetStyles = cssMap({
+	root: {
+		whiteSpace: 'normal',
+		wordBreak: 'normal',
+		overflowWrap: 'normal',
+		textAlign: 'start',
+		textIndent: '0',
+		textTransform: 'none',
 	},
 });
 
@@ -289,6 +309,7 @@ export const Dialog: React.ForwardRefExoticComponent<
 			aria-labelledby={label ? undefined : labelledBy}
 			css={[
 				styles.dialog,
+				surfaceResetStyles.root,
 				shouldHideBackdrop ? backdropStyles.hidden : backdropStyles.root,
 				preset && backdropStyles.motion,
 				preset && dialogAnimationStyles.root,

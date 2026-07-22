@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
 import { bind, bindAll } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { useLayering } from '@atlaskit/layering';
+import { useLayering } from '@atlaskit/layering/use-layering';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type CloseManagerHook } from './types';

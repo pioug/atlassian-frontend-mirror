@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'Calendar',
-				package: '@atlaskit/calendar',
+				package: '@atlaskit/calendar/calendar',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 116.35.2
+
+### Patch Changes
+
+- [`d73da6cdded98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d73da6cdded98) -
+  Clean up experiment `confluence_max_width_breakout_extension_fix` (now permanently enabled)
+- Updated dependencies
+
+## 116.35.1
+
+### Patch Changes
+
+- [`ed6e0c3974d3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed6e0c3974d3c) -
+  EDITOR-7466 scope markdown preview toolbar preference to converted live pages
+- Updated dependencies
+
+## 116.35.0
+
+### Minor Changes
+
+- [`30f196e640e18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30f196e640e18) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`ead18351c8a3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ead18351c8a3c) -
+  Add educational guidance to synced block copy confirmation flags in the activation experiment.
+- [`1f87f2121b069`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1f87f2121b069) -
+  Fix first-block layout jitter in Native Tabs bodies when editor block controls appear.
+- Updated dependencies
+
 ## 116.34.0
 
 ### Minor Changes

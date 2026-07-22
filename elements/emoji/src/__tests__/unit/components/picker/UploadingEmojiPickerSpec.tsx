@@ -401,11 +401,13 @@ describe('<UploadingEmojiPicker />', () => {
 			});
 
 			await waitFor(() => {
-				expect(helperTestingLibrary.queryAddCustomEmojiButton()).toBeInTheDocument();
+				expect(helperTestingLibrary.getEmojiPickerFooter()).toBeInTheDocument();
 			});
 
 			await userEvent.click(
-				within(helperTestingLibrary.queryAddCustomEmojiButton()!).getByRole('button'),
+				within(helperTestingLibrary.getEmojiPickerFooter()).getByRole('button', {
+					name: 'Add emoji',
+				}),
 			);
 
 			await waitFor(() => {
@@ -473,11 +475,13 @@ describe('<UploadingEmojiPicker />', () => {
 			});
 
 			await waitFor(() => {
-				expect(helperTestingLibrary.queryAddCustomEmojiButton()).toBeInTheDocument();
+				expect(helperTestingLibrary.getEmojiPickerFooter()).toBeInTheDocument();
 			});
 
 			await userEvent.click(
-				within(helperTestingLibrary.queryAddCustomEmojiButton()!).getByRole('button'),
+				within(helperTestingLibrary.getEmojiPickerFooter()).getByRole('button', {
+					name: 'Add emoji',
+				}),
 			);
 
 			await waitFor(() => {
@@ -578,8 +582,8 @@ describe('<UploadingEmojiPicker />', () => {
 			// let scroll finish after timeout
 			jest.runAllTimers();
 
-			const cheeseBurgerEmoji = await screen.findAllByRole('img', {
-				name: ':cheese_burger:',
+			const cheeseBurgerEmoji = await screen.findAllByRole('button', {
+				name: 'Change emoji, currently Cheese burger',
 			});
 			expect(helperTestingLibrary.getEmojiSearchInput()).toHaveFocus();
 			expect(cheeseBurgerEmoji[0]).not.toHaveFocus();

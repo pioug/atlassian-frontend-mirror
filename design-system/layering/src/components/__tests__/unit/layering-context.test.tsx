@@ -6,7 +6,8 @@ import userEvent from '@testing-library/user-event';
 import Button from '@atlaskit/button/new';
 import Modal, { ModalBody, ModalHeader } from '@atlaskit/modal-dialog';
 
-import { Layering, useLayering } from '../../../index';
+import { useLayering } from '../../../hooks/use-layering';
+import { Layering } from '../../layering';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Layering', () => {

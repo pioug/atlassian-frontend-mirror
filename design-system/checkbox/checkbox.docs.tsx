@@ -14,7 +14,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'Checkbox',
-				package: '@atlaskit/checkbox',
+				package: '@atlaskit/checkbox/checkbox',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

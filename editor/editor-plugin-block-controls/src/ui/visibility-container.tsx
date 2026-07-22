@@ -24,6 +24,10 @@ interface VisibilityContainerProps {
 	children: React.ReactNode;
 	controlSide?: 'left' | 'right';
 	forceVisibleOnMouseOut?: boolean;
+	/**
+	 * Set when the container should not create its own layout box while its descendants retain theirs.
+	 */
+	shouldUseDisplayContents?: boolean;
 }
 
 const baseStyles = xcss({
@@ -38,6 +42,10 @@ const visibleStyles = xcss({
 const hiddenStyles = xcss({
 	opacity: 0,
 	visibility: 'hidden',
+});
+
+const displayContentsStyles = xcss({
+	display: 'contents',
 });
 
 const baseStylesCSS = css({
@@ -60,11 +68,16 @@ const hiddenStylesCSS = css({
 	visibility: 'hidden',
 });
 
+const displayContentsStylesCSS = css({
+	display: 'contents',
+});
+
 export const VisibilityContainer = ({
 	api,
 	children,
 	controlSide,
 	forceVisibleOnMouseOut,
+	shouldUseDisplayContents,
 }: VisibilityContainerProps): jsx.JSX.Element => {
 	const {
 		isTypeAheadOpen,
@@ -151,10 +164,28 @@ export const VisibilityContainer = ({
 		})
 	) {
 		return (
-			<div css={[baseStylesCSS, shouldHide ? hiddenStylesCSS : visibleStylesCSS]}>{children}</div>
+			<div
+				css={[
+					baseStylesCSS,
+					shouldHide ? hiddenStylesCSS : visibleStylesCSS,
+					shouldUseDisplayContents && displayContentsStylesCSS,
+				]}
+			>
+				{children}
+			</div>
 		);
 	}
 
-	// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-	return <Box xcss={[baseStyles, shouldHide ? hiddenStyles : visibleStyles]}>{children}</Box>;
+	return (
+		<Box
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			xcss={[
+				baseStyles,
+				shouldHide ? hiddenStyles : visibleStyles,
+				shouldUseDisplayContents && displayContentsStyles,
+			]}
+		>
+			{children}
+		</Box>
+	);
 };

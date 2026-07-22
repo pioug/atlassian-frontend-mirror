@@ -31,7 +31,7 @@
 	"exports": {
 		"./types": "./src/types.ts",
 		"./AnalyticsContext": "./src/components/AnalyticsContext/index.tsx",
-		"./AnalyticsDecorator": "./src/components/AnalyticsDecorator/index.ts",
+		"./AnalyticsDecorator": "./src/components/AnalyticsDecorator/AnalyticsDecorator.ts",
 		"./AnalyticsDelegate": "./src/components/AnalyticsDelegate/index.ts",
 		"./withAnalytics": "./src/utils/withAnalytics.tsx",
 		"./AnalyticsListener": "./src/components/AnalyticsListener/index.tsx",
@@ -43,7 +43,9 @@
 		"./useCallbackWithAnalytics": "./src/hooks/useCallbackWithAnalytics.ts",
 		"./usePatchedProps": "./src/hooks/usePatchedProps.ts",
 		"./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
+		"./isAnalyticsEvent": "./src/events/isAnalyticsEvent.ts",
 		"./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
+		"./isUIAnalyticsEvent": "./src/events/isUIAnalyticsEvent.ts",
 		"./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
 		".": "./src/index.ts",
 		"./cleanProps": "./src/utils/cleanProps.ts",

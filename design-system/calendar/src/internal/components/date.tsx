@@ -106,7 +106,7 @@ const dateCellStylesT26Shape = css({
 const dateCellMotionStyles = css({
 	transition: token('motion.listitem.hovered'),
 	'&:hover': {
-		transition: token('motion.listitem.pressed'),
+		transition: token('motion.listitem.hovered'),
 	},
 	'&:active': {
 		transition: token('motion.listitem.pressed'),

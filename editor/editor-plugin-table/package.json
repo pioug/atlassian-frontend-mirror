@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "24.4.15",
+	"version": "24.4.18",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -165,6 +165,12 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_cell_menu_update": {
+			"type": "boolean"
+		},
+		"platform-dst-top-layer-tooltip": {
+			"type": "boolean"
+		},
+		"platform_editor_table_flicker_issue": {
 			"type": "boolean"
 		}
 	},

@@ -117,7 +117,6 @@ import type { agentManagedExtensionPluginOptions } from './pluginOptions/agentMa
 import type { analyticsPluginOptions } from './pluginOptions/analyticsPluginOptions';
 import type { annotationPluginOptions } from './pluginOptions/annotationPluginOptions';
 import type { avatarGroupPluginOptions } from './pluginOptions/avatarGroupPluginOptions';
-import type { basePluginOptions } from './pluginOptions/basePluginOptions';
 import type { blockMenuPluginOptions } from './pluginOptions/blockMenuPluginOptions';
 import type { blockTypePluginOptions } from './pluginOptions/blockTypePluginOptions';
 import type { breakoutPluginOptions } from './pluginOptions/breakoutPluginOptions';
@@ -349,7 +348,7 @@ export interface AllPublicPluginOptions {
 	analytics: OptionsFromPluginOptionsBuilder<typeof analyticsPluginOptions>;
 	annotation: OptionsFromPluginOptionsBuilder<typeof annotationPluginOptions>;
 	avatarGroup: OptionsFromPluginOptionsBuilder<typeof avatarGroupPluginOptions>;
-	base: OptionsFromPluginOptionsBuilder<typeof basePluginOptions>;
+	base: never;
 	batchAttributeUpdates: never;
 	betterTypeHistory: never;
 	blockControls: never;

@@ -21,6 +21,8 @@
 		"./fallback-ui": "./src/ui/index.tsx",
 		"./constants": "./src/entry-points/constants.ts",
 		"./initial-layout": "./src/entry-points/initial-layout.ts",
+		"./initial-placeholder": "./src/entry-points/initial-placeholder.tsx",
+		"./native-embed-styles": "./src/entry-points/native-embed-styles.ts",
 		"./embed-depth/constants": "./src/entry-points/embed-depth-constants.ts",
 		"./plugin-actions/types": "./src/entry-points/plugin-actions-types.ts",
 		"./types": "./src/entry-points/types.ts",
@@ -41,7 +43,8 @@
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/afm-i18n-platform-native-embeds-native-embeds-common": "root:*",
 		"@babel/runtime": "root:*",
-		"@compiled/react": "root:*"
+		"@compiled/react": "root:*",
+		"@emotion/react": "root:*"
 	},
 	"peerDependencies": {
 		"react": "^18.2.0",
@@ -51,6 +54,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
@@ -95,7 +99,7 @@
 		}
 	},
 	"name": "@atlaskit/native-embeds-common",
-	"version": "2.2.3",
+	"version": "2.2.4",
 	"description": "A shared package for native embeds to be used across experiences and plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -121,4 +121,18 @@ export const externalRules: ExternalRuleMeta[] = [
 			},
 		},
 	},
+	{
+		name: '@atlaskit/design-system/no-css-map-scoped',
+		displayName: 'no-css-map-scoped',
+		isExternal: true,
+		docs: {
+			description:
+				'Disallows usage of the experimental `cssMapScoped` API from `@compiled/react`. This API is internal and is not part of the public Compiled CSS-in-JS interface.',
+			url: getRuleUrl('no-css-map-scoped'),
+			externalUrl:
+				'https://atlassian.design/components/eslint-plugin-design-system/no-css-map-scoped/usage',
+			recommended: true,
+			severity: 'error',
+		},
+	},
 ];

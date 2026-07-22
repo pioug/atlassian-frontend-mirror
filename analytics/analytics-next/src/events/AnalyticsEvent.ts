@@ -36,4 +36,3 @@ export type AnalyticsEventPayload = Record<string, any>;
 export type AnalyticsEventProps = {
 	payload: AnalyticsEventPayload;
 };
-export { isAnalyticsEvent } from './isAnalyticsEvent';

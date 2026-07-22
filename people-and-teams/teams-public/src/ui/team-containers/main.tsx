@@ -7,7 +7,7 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid } from '@atlaskit/primitives';
-import { Inline, Stack } from '@atlaskit/primitives/compiled';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
 import {
 	hasProductPermission,
@@ -310,10 +310,12 @@ export const TeamContainers = ({
 			<Stack space="space.200">
 				{(() => {
 					const GridComponent = components?.Grid || Grid;
+					const isTeamsA11yGateEnabled = fg('teams-a11y-34974-34752-34709');
 					return (
 						<GridComponent
 							templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
 							gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
+							{...(isTeamsA11yGateEnabled && { role: 'list' as const })}
 						>
 							{elemBeforeCards &&
 								(() => {
@@ -321,7 +323,7 @@ export const TeamContainers = ({
 									return <ElemBeforeCards />;
 								})()}
 							{filteredTeamLinks.slice(0, maxNumberOfContainersToShow).map((container) => {
-								return (
+								const card = (
 									<LinkedContainerCardComponent
 										key={container.id}
 										containerType={container.type}
@@ -342,6 +344,13 @@ export const TeamContainers = ({
 										onEditLinkClick={() => handleEditContainerClick(container)}
 									/>
 								);
+								return isTeamsA11yGateEnabled ? (
+									<Box key={container.id} role="listitem">
+										{card}
+									</Box>
+								) : (
+									card
+								);
 							})}
 
 							{getAddContainerCards({
@@ -349,11 +358,12 @@ export const TeamContainers = ({
 								onAddAContainerClick: onAddAContainerClick,
 								CustomAddContainerCard: components?.AddContainerCard,
 								canCreateContainers: hasPermissionToCreateContainer,
+								isTeamsA11yGateEnabled,
 							})}
 
 							{showMore &&
 								filteredTeamLinks.slice(maxNumberOfContainersToShow).map((container) => {
-									return (
+									const card = (
 										<LinkedContainerCardComponent
 											key={container.id}
 											containerType={container.type}
@@ -373,6 +383,13 @@ export const TeamContainers = ({
 											}
 											onEditLinkClick={() => handleEditContainerClick(container)}
 										/>
+									);
+									return isTeamsA11yGateEnabled ? (
+										<Box key={container.id} role="listitem">
+											{card}
+										</Box>
+									) : (
+										card
 									);
 								})}
 						</GridComponent>

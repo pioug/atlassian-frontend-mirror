@@ -1,7 +1,9 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import coinflip from '../coinflip';
 import { type PostInteractionLogOutput, type ReactProfilerTiming } from '../common';
 import type { LateMutation } from '../common/react-ufo-payload-schema';
-import { type RevisionPayload } from '../common/vc/types';
+import { type RevisionPayload, type RevisionPayloadEntry } from '../common/vc/types';
 import {
 	DEFAULT_TTVC_REVISION,
 	getConfig,
@@ -141,6 +143,23 @@ function transformReactProfilerTimings(
 	return [...reactProfilerTimingsMap.values()];
 }
 
+function getPostInteractionVCRevision(
+	revisions: RevisionPayload | undefined,
+	mostRecentVCRevision: string,
+): RevisionPayloadEntry | undefined {
+	return revisions?.find(({ revision }) => revision === mostRecentVCRevision);
+}
+
+function getRawHandlerVCRevision(
+	revisions: RevisionPayload | undefined,
+): RevisionPayloadEntry | undefined {
+	if (!fg('platform_ufo_post_interaction_raw_vc90')) {
+		return undefined;
+	}
+
+	return revisions?.find(({ revision }) => revision === 'raw-handler');
+}
+
 function createPostInteractionLogPayload({
 	lastInteractionFinish,
 	reactProfilerTimings,
@@ -174,6 +193,10 @@ function createPostInteractionLogPayload({
 							ignoreOnSubmit?: boolean;
 					  }[]
 					| undefined;
+				rawVCRevisions?: {
+					lastInteractionFinish?: RevisionPayloadEntry;
+					postInteractionFinish?: RevisionPayloadEntry;
+				};
 				lastInteractionFinish: {
 					ufoName: string;
 					start: number;
@@ -259,12 +282,14 @@ function createPostInteractionLogPayload({
 	let lastInteractionFinishVC90: number | null = null;
 	let lastInteractionFinishVCClean: boolean = false;
 
-	const lastInteractionFinishVCRev = lastInteractionFinishVCResult?.[
-		'ufo:vc:rev'
-	] as RevisionPayload;
-	const lastInteractionFinishRevision = lastInteractionFinishVCRev?.find(
-		({ revision }) => revision === mostRecentVCRevision,
+	const lastInteractionFinishVCRev = lastInteractionFinishVCResult?.['ufo:vc:rev'] as
+		| RevisionPayload
+		| undefined;
+	const lastInteractionFinishRevision = getPostInteractionVCRevision(
+		lastInteractionFinishVCRev,
+		mostRecentVCRevision,
 	);
+	const lastInteractionFinishRawRevision = getRawHandlerVCRevision(lastInteractionFinishVCRev);
 	if (lastInteractionFinishRevision?.clean) {
 		lastInteractionFinishVCClean = true;
 		lastInteractionFinishVC90 = lastInteractionFinishRevision['metric:vc90'] ?? null;
@@ -275,12 +300,25 @@ function createPostInteractionLogPayload({
 	let revisedVC90: number | null = null;
 	let lateMutations: LateMutation[] = [];
 
-	const postInteractionFinishVCRev = postInteractionFinishVCResult?.[
-		'ufo:vc:rev'
-	] as RevisionPayload;
-	const postInteractionFinishRevision = postInteractionFinishVCRev?.find(
-		({ revision }) => revision === mostRecentVCRevision,
+	const postInteractionFinishVCRev = postInteractionFinishVCResult?.['ufo:vc:rev'] as
+		| RevisionPayload
+		| undefined;
+	const postInteractionFinishRevision = getPostInteractionVCRevision(
+		postInteractionFinishVCRev,
+		mostRecentVCRevision,
 	);
+	const postInteractionFinishRawRevision = getRawHandlerVCRevision(postInteractionFinishVCRev);
+	const rawVCRevisions =
+		lastInteractionFinishRawRevision || postInteractionFinishRawRevision
+			? {
+					...(lastInteractionFinishRawRevision
+						? { lastInteractionFinish: lastInteractionFinishRawRevision }
+						: {}),
+					...(postInteractionFinishRawRevision
+						? { postInteractionFinish: postInteractionFinishRawRevision }
+						: {}),
+				}
+			: undefined;
 
 	if (postInteractionFinishRevision?.clean) {
 		postInteractionFinishVCClean = true;
@@ -321,6 +359,7 @@ function createPostInteractionLogPayload({
 				'event:region': config.region || 'unknown',
 				'experience:key': 'custom.post-interaction-logs',
 				postInteractionLog: {
+					...(rawVCRevisions ? { rawVCRevisions } : {}),
 					lastInteractionFinish: {
 						...lastInteractionFinish,
 						ufoName,

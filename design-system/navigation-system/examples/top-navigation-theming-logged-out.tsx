@@ -14,13 +14,11 @@ import {
 	TopNavStart,
 } from '@atlaskit/navigation-system';
 
-// TODO: consider exposing this type properly, but it isn't needed for normal usage
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { type CustomTheme } from '../src/ui/top-nav-items/themed/get-custom-theme-styles';
-
 import { WithResponsiveViewport } from './utils/example-utils';
 import { MockRoot } from './utils/mock-root';
 import { MockSearch } from './utils/mock-search';
+
+type CustomTheme = React.ComponentProps<typeof TopNav>['customTheme'];
 
 const TopNavigationThemingInstance = ({ customTheme }: { customTheme?: CustomTheme }) => {
 	const [isAppSwitcherSelected, toggleIsAppSwitcherSelected] = useReducer(

@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 6.2.0
+
+### Minor Changes
+
+- [`fea8ee4d97d15`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fea8ee4d97d15) -
+  Assets macro in Confluence now resolves the primary Unit workspace on non-primary sites via an
+  in-package unit-aware resolver, behind the astral_units_workspace_host_resolver gate (default
+  off). Gate-off and single-site behaviour is unchanged.
+
 ## 6.1.12
 
 ### Patch Changes

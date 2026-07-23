@@ -1,0 +1,23 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/__tests__/**/*",
+		"**/*.test.*",
+		"**/test.*"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__platform-feature-experiments/app",
+		"isolatedDeclarations": true
+	},
+	"references": [
+		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		},
+		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
+		}
+	],
+	"files": []
+}

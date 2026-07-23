@@ -9,8 +9,10 @@
  * `@atlaskit/ads-mcp`, so the MCP server, the ADS skill, and this CLI stay in lock-step.
  */
 
+import { CLI_DESCRIPTION, globalFlags } from './commands/cli-metadata';
 import { commands } from './commands/definitions';
 import { getCommand } from './commands/get-command';
+import { getVersion } from './commands/get-version';
 import { importToolHandler } from './commands/import-tool-handler';
 import { runTool } from './commands/run-tool';
 import type { CommandDefinition, CommandInput } from './commands/types';
@@ -24,30 +26,6 @@ import { writeJsonEnvelope } from './output/write-json-envelope';
 import { defaultWriter, type Writer } from './output/writer';
 import { parseArgs } from './parse-args';
 import { ExitCode, type ExitCodeValue } from './types';
-
-/**
- * Resolve the CLI version from package.json. Kept in a function so a failure to read it never
- * crashes the CLI (it falls back to `0.0.0`).
- */
-const getVersion = (): string => {
-	try {
-		// Read our own package.json at runtime via the package-name subpath. This mirrors
-		// the sibling `@atlaskit/ads-mcp` package and is depth-independent, so it resolves
-		// correctly in both the in-repo source layout (`src/cli`) and the published build
-		// (`dist/cjs/cli`). Requires the `./package.json` subpath in this package's exports.
-		// eslint-disable-next-line import/no-extraneous-dependencies, @typescript-eslint/no-var-requires -- this uses require because not all supported node versions use the same import assertions/attributes
-		const pkgJson = require('@atlaskit/ads-cli/package.json') as { version?: string };
-		return pkgJson.version ?? '0.0.0';
-	} catch {
-		return '0.0.0';
-	}
-};
-
-/**
- * One-line description of the CLI, shown at the top of `--help`.
- */
-const CLI_DESCRIPTION =
-	'Query Atlassian Design System (ADS) structured content — components, tokens, icons, and guidelines — from the terminal.';
 
 /**
  * Build the top-level help text from the command registry so it can never drift from the
@@ -72,6 +50,12 @@ const buildHelpText = (): string => {
 			return `${usageLines}\n      ${command.description}`;
 		})
 		.join('\n');
+	const globalFlagLines = globalFlags
+		.map((flag) => {
+			const aliases = flag.alias ? `, -${flag.alias}` : '';
+			return `  --${flag.name}${aliases}`.padEnd(18) + flag.description;
+		})
+		.join('\n');
 
 	return [
 		CLI_DESCRIPTION,
@@ -83,9 +67,7 @@ const buildHelpText = (): string => {
 		commandLines,
 		'',
 		'Global options',
-		'  --json          Emit a machine-readable JSON envelope on stdout.',
-		'  --help, -h      Show this help.',
-		'  --version, -v   Show the CLI version.',
+		globalFlagLines,
 		'',
 		'Examples',
 		'  $ npx @atlaskit/ads-cli search button          # unified: components, tokens & icons',
@@ -96,6 +78,7 @@ const buildHelpText = (): string => {
 		'  $ npx @atlaskit/ads-cli docs spacing           # foundations docs',
 		'  $ npx @atlaskit/ads-cli docs a11y buttons      # accessibility guidance',
 		'  $ npx @atlaskit/ads-cli docs migration motion  # migration guide',
+		'  $ npx @atlaskit/ads-cli manifest --json        # machine-readable CLI contract',
 	].join('\n');
 };
 

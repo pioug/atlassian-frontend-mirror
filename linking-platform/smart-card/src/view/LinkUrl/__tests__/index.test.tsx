@@ -7,10 +7,6 @@ import LinkUrl from '../index';
 import * as UseLinkWarningModalExports from '../LinkWarningModal/hooks/use-link-warning-modal';
 import type { LinkUrlProps } from '../types';
 
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn().mockReturnValue(false),
-}));
-
 describe('LinkUrl', () => {
 	const TestComponent = (props: Partial<LinkUrlProps>) => (
 		<LinkUrl href="https://atlassian.com" {...props}>

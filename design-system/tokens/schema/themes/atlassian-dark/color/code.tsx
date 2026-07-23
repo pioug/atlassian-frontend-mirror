@@ -27,11 +27,11 @@ const color: ValueSchema<CodeColorTokenSchema<BaseToken>> = {
 				highlight: { value: 'DarkNeutral200' },
 				added: {
 					highlight: { value: 'Green1000' },
-					line: { value: 'Green900' },
+					line: { value: 'Green900A70' },
 				},
 				removed: {
 					highlight: { value: 'Red1000' },
-					line: { value: 'Red900' },
+					line: { value: 'Red900A70' },
 				},
 			},
 		},

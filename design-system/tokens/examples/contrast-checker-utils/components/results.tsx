@@ -15,11 +15,8 @@ import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
+import { dark as rawTokensDark, light as rawTokensLight } from '@atlaskit/tokens/tokens-raw';
 
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import rawTokensDark from '../../../src/artifacts/tokens-raw/atlassian-dark';
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import rawTokensLight from '../../../src/artifacts/tokens-raw/atlassian-light';
 import checkThemePairContrasts, {
 	darkResults,
 	darkResultsAAA,

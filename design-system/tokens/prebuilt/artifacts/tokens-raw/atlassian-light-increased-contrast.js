@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a478fbff356db43bc18135c66e7151d2>>
+ * @codegen <<SignedSource::6df3eff117a75a85216aa6a92c81f805>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2673,7 +2673,7 @@ var tokens = [{
   "path": ["color", "background", "code", "added", "highlight"],
   "cleanName": "color.background.code.added.highlight"
 }, {
-  "value": "#BAF3DB",
+  "value": "#BAF3DB66",
   "filePath": "schema/themes/atlassian-light/color/code.tsx",
   "isSource": false,
   "attributes": {
@@ -2683,7 +2683,7 @@ var tokens = [{
     "description": "Use for added code lines."
   },
   "original": {
-    "value": "Green200",
+    "value": "Green200A40",
     "attributes": {
       "group": "paint",
       "state": "active",
@@ -2783,7 +2783,7 @@ var tokens = [{
   "path": ["color", "background", "code", "removed", "highlight"],
   "cleanName": "color.background.code.removed.highlight"
 }, {
-  "value": "#FFD5D2",
+  "value": "#FFD5D266",
   "filePath": "schema/themes/atlassian-light/color/code.tsx",
   "isSource": false,
   "attributes": {
@@ -2793,7 +2793,7 @@ var tokens = [{
     "description": "Use for removed code lines."
   },
   "original": {
-    "value": "Red200",
+    "value": "Red200A40",
     "attributes": {
       "group": "paint",
       "state": "active",

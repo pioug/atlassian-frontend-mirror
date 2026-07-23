@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useDatasourceAnalyticsEvents } from '../analytics';
-import { fetchObjectSchema, fetchObjectSchemas, getWorkspaceId } from '../services/cmdbService';
+import {
+	fetchObjectSchema,
+	fetchObjectSchemas,
+	getWorkspaceId,
+	resolvePrimaryWorkspace,
+} from '../services/cmdbService';
+import { getMeta } from '../services/getMeta';
 import { type ObjectSchema } from '../types/assets/types';
 import { type AssetsDatasourceParameters } from '../ui/assets-modal/types';
 
@@ -40,6 +48,9 @@ export const useAssetsClient = (
 	const [objectSchemasError, setObjectSchemasError] = useState<Error | undefined>();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
+	// cloudId resolved from <meta name="ajs-cloud-id"> rendered by the host page.
+	const cloudId = getMeta('ajs-cloud-id') ?? '';
+
 	/*
 	 * We wrap this in nested try/catch blocks because we want to handle
 	 * workspaceError/existingObjectSchemaError/objectSchemasError differently
@@ -50,7 +61,18 @@ export const useAssetsClient = (
 			setLoading(true);
 			setWorkspaceError(undefined);
 			try {
-				const workspaceId = await getWorkspaceId(fireEvent);
+				// When the gate is on and a cloudId is present, resolve the primary Unit
+				// workspace; on any failure fall back to the legacy current-site lookup.
+				let workspaceId: string;
+				if (cloudId && fg('astral_units_workspace_host_resolver')) {
+					try {
+						({ workspaceId } = await resolvePrimaryWorkspace(cloudId));
+					} catch (resolvePrimaryWorkspaceError) {
+						workspaceId = await getWorkspaceId(fireEvent);
+					}
+				} else {
+					workspaceId = await getWorkspaceId(fireEvent);
+				}
 				setWorkspaceId(workspaceId);
 				// Check schema from initial parameters still exists and fetch name/permissions for schema select
 				if (initialParameters?.schemaId) {
@@ -82,7 +104,7 @@ export const useAssetsClient = (
 				setLoading(false);
 			}
 		})();
-	}, [initialParameters, fireEvent]);
+	}, [initialParameters, fireEvent, cloudId]);
 
 	return {
 		workspaceId,

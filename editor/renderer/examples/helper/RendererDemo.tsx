@@ -130,6 +130,7 @@ interface DemoRendererProps {
 	actionButtons?: React.ReactNode;
 	adfStage?: ADFStage;
 	allowAnnotations?: boolean;
+	allowCollapsibleHeadings?: boolean;
 	allowColumnSorting?: boolean;
 	allowCopyToClipboard?: boolean;
 	allowCustomPanels?: boolean;
@@ -351,6 +352,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 			props.truncated = this.props.truncationEnabled && this.state.truncated;
 			props.allowColumnSorting = this.props.allowColumnSorting;
 			props.allowAnnotations = this.props.allowAnnotations;
+			props.allowCollapsibleHeadings = this.props.allowCollapsibleHeadings;
 			props.allowHeadingAnchorLinks = this.props.allowHeadingAnchorLinks;
 			props.useSpecBasedValidator = this.props.useSpecBasedValidator;
 			props.allowCopyToClipboard = this.props.allowCopyToClipboard;

@@ -52,7 +52,7 @@ type FieldAttributes =
 	  }
 	| {
 			field: 'knowledgeSources';
-			knowledgeSourcesCount: number;
+			enabledKnowledgeSourcesCount: number;
 			crossSiteKnowledgeSourcesCount: number | null;
 	  }
 	| {

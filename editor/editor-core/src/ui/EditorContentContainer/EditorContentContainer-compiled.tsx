@@ -325,6 +325,12 @@ const pulseOutDuringTr = keyframes({
 	},
 });
 
+// Agent edit shimmer: skeleton-loader sweep across the agent-authored range.
+const agentShimmer = keyframes({
+	from: { backgroundPosition: '200% 0' },
+	to: { backgroundPosition: '-200% 0' },
+});
+
 const syncBlockCreationLoadingKeyframes = keyframes({
 	from: { '--angle': '0deg' },
 	to: { '--angle': '360deg' },
@@ -7808,6 +7814,64 @@ const editorContentStyles = cssMapScoped({
 			'--telepointer-participant-background-second-stop': '200000%',
 		},
 	},
+	// Agent-edit shimmer (CCI-18033): its own entry so it's easy to find and remove if the approach
+	// changes. Mirror of `styles/agentShimmerStyles.ts`.
+	agentShimmerStyles: {
+		// Skeleton-loader bar over the agent-authored range (text hidden, grey skeleton with a moving
+		// highlight), plus a Rovo AI telepointer/cursor at the end of the range.
+		'.ProseMirror .collab-agent-shimmer': {
+			animationDuration: '1.25s',
+			animationIterationCount: 'infinite',
+			animationName: agentShimmer,
+			animationTimingFunction: 'linear',
+			backgroundColor: token('color.skeleton'),
+			backgroundImage: `linear-gradient(90deg, ${token('color.skeleton')} 0%, ${token('color.skeleton.subtle')} 50%, ${token('color.skeleton')} 100%)`,
+			backgroundSize: '200% 100%',
+			borderRadius: token('radius.xsmall'),
+			boxDecorationBreak: 'clone',
+			color: 'transparent',
+			caretColor: 'transparent',
+		},
+		'.ProseMirror .ai-in-editor-telepointer': {
+			position: 'relative',
+			zIndex: 1,
+			'& > .ai-in-editor-telepointer-label': {
+				position: 'absolute',
+				boxSizing: 'border-box',
+				display: 'flex',
+				flexDirection: 'row',
+				justifyContent: 'center',
+				alignItems: 'center',
+				padding: token('space.025'),
+				gap: token('space.075'),
+				height: 16,
+				top: token('space.0'),
+				left: token('space.0'),
+				borderRadius: `0 ${token('space.050')} ${token('space.050')} 0`,
+				border: `${token('border.width')} solid transparent`,
+				background: `linear-gradient(${token('color.text')}, ${token('color.text')}) padding-box, conic-gradient(from 270deg at 50% 50%, #1868db 0deg, #1868db 115deg, #fca700 115deg, #fca700 180deg, #bf63f3 180deg, #bf63f3 310deg, #82b536 310deg, #82b536 359.96deg, #1868db 360deg) border-box`,
+				fontFamily: token('font.family.body'),
+				fontWeight: token('font.weight.semibold'),
+				// Match the AI in-editor telepointer label's fixed 10px/9px sizing (no exact typography token).
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				fontSize: 10,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+				lineHeight: '9px',
+				textAlign: 'center',
+				whiteSpace: 'pre',
+				color: token('color.text.inverse'),
+			},
+			'&::after': {
+				content: "''",
+				position: 'absolute',
+				width: 1,
+				height: 24,
+				top: token('space.0'),
+				left: token('space.0'),
+				background: token('color.border.brand'),
+			},
+		},
+	},
 	telepointerStyle: {
 		'.ProseMirror .telepointer': {
 			'&.telepointer-selection-badge': {
@@ -8130,6 +8194,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				/* This needs to be after telepointer styles as some overlapping rules have equal specificity, and so the order is significant */
 				editorContentStyles.telepointerColorAndCommonStyle,
 				colorMode === 'dark' && editorContentStyles.telepointerColorAndCommonStyleDarkMode,
+				editorContentStyles.agentShimmerStyles,
 				editorContentStyles.gapCursorStyles,
 				editorExperiment('platform_synced_block', true) &&
 					editorContentStyles.gapCursorStylesVisibilityFix,
@@ -8335,7 +8400,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 					? editorContentStyles.firstCodeBlockWithNoMargin
 					: editorContentStyles.firstCodeBlockWithNoMarginOld,
 				editorContentStyles.firstBlockNodeStyles,
-				editorExperiment('platform_editor_first_node_fix', true) &&
+				expValEquals('platform_editor_first_node_fix', 'isEnabled', true) &&
 					editorContentStyles.firstNodeWidgetFixStyles,
 				editorContentStyles.mentionNodeStyles,
 				expValEqualsNoExposure('platform_editor_find_and_replace_improvements', 'isEnabled', true)

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { cssMap, jsx } from '@atlaskit/css';
@@ -29,10 +29,6 @@ import { LinkMenuItem } from '@atlaskit/side-nav-items/link-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
 import { token } from '@atlaskit/tokens';
 
-// TODO: consider exposing this type properly, but it isn't needed for normal usage
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { type CustomTheme } from '../src/ui/top-nav-items/themed/get-custom-theme-styles';
-
 import { WithResponsiveViewport } from './utils/example-utils';
 
 const headingStyles = cssMap({
@@ -41,6 +37,8 @@ const headingStyles = cssMap({
 		paddingBlockStart: token('space.300'),
 	},
 });
+
+type CustomTheme = ComponentProps<typeof TopNav>['customTheme'];
 
 const customTheme: CustomTheme = { backgroundColor: '#ff8160', highlightColor: '#d8388a' };
 

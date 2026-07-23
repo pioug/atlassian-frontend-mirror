@@ -8,6 +8,10 @@ import { token } from '@atlaskit/tokens';
 
 export const ACTIVE_DRAG_HANDLE_ATTR = 'data-active-drag-handle';
 export const ACTIVE_QUICK_INSERT_ATTR = 'data-active-quick-insert';
+export const ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME =
+	'--editor-block-controls-active-drag-handle-anchor';
+export const ACTIVE_QUICK_INSERT_FALLBACK_ANCHOR_NAME =
+	'--editor-block-controls-active-quick-insert-anchor';
 
 export const DRAG_HANDLE_HEIGHT = 24;
 

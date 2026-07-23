@@ -24,7 +24,7 @@ import { PopoverContent } from '@atlaskit/spotlight/popover-content';
 import { PopoverProvider } from '@atlaskit/spotlight/popover-provider';
 import { PopoverTarget } from '@atlaskit/spotlight/popover-target';
 import { SpotlightPrimaryAction } from '@atlaskit/spotlight/primary-action';
-import { UNSAFE_UpdateOnChange } from '@atlaskit/spotlight/update-on-change';
+import { UNSAFE_UpdateOnChange as UnsafeUpdateOnChange } from '@atlaskit/spotlight/update-on-change';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -68,8 +68,7 @@ export default (): JSX.Element => {
 			</div>
 			<div css={styles.content}>
 				<PopoverProvider>
-					{/* eslint-disable-next-line react/jsx-pascal-case */}
-					<UNSAFE_UpdateOnChange selectors={['#reflow-test-1', '#reflow-test-2']} />
+					<UnsafeUpdateOnChange selectors={['#reflow-test-1', '#reflow-test-2']} />
 					<PopoverTarget>
 						<Box xcss={styles.target}>
 							<Text>Target element</Text>

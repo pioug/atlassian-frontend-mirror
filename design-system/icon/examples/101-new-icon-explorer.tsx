@@ -20,7 +20,6 @@ import { token } from '@atlaskit/tokens';
 import FlaskIcon from '../core/flask';
 
 import IconExplorerCell from './utils/new-icon-explorer-cell';
-// eslint-disable-next-line no-duplicate-imports
 import type { IconExplorerCellProps } from './utils/new-icon-explorer-cell';
 
 type IconsList = Record<string, IconExplorerCellProps>;

@@ -21,7 +21,7 @@ import {
 	type WithContextProps,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 import { type Link } from '@atlaskit/linking-types';
 import {
 	ModalBody,

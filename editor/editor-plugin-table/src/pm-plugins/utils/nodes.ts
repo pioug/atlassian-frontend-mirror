@@ -166,17 +166,25 @@ const anyChildCellMergedAcrossColumn = (node: PmNode): boolean =>
  *  - all children are tableHeader cells
  *  - no table cells have been merged with other table row cells (rowspan > 1)
  *  - no table cells have been merged with other table column cells (colspan > 1),
- *    (colspan check gated behind platform_editor_fix_sticky_header_malfunction)
+ *    (colspan check gated behind platform_editor_fix_sticky_header_malfunction,
+ *     and only applied to non-first rows — the first/sticky header row is allowed
+ *     to have merged columns within itself, gated behind platform_editor_fix_sticky_header_row)
  *
  * @param node ProseMirror node
+ * @param rowIndex index of this row within its parent (default 0 = first/sticky row)
  * @returns boolean if it meets definition
  */
-export const supportedHeaderRow = (node: PmNode): boolean => {
+export const supportedHeaderRow = (node: PmNode, rowIndex: number = 0): boolean => {
 	const allHeaders = mapChildren(node, (child) => child.type.name === 'tableHeader').every(Boolean);
 
 	if (expValEquals('platform_editor_fix_sticky_header_malfunction', 'isEnabled', true)) {
 		const someMergedAcrossRow = anyChildCellMergedAcrossRow(node);
-		const someMergedAcrossColumn = anyChildCellMergedAcrossColumn(node);
+		// Only apply the colspan check to non-first rows (rowIndex > 0) when the fix is enabled.
+		const isFirstStickyRowExempt =
+			expValEquals('platform_editor_fix_sticky_header_row', 'isEnabled', true) && rowIndex === 0;
+		const someMergedAcrossColumn = isFirstStickyRowExempt
+			? false
+			: anyChildCellMergedAcrossColumn(node);
 		return allHeaders && !someMergedAcrossRow && !someMergedAcrossColumn;
 	}
 

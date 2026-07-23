@@ -206,6 +206,13 @@ describe('run — dispatch', () => {
 		expect(lastDispatch?.handlerName).toBe('migrationGuidesTool');
 		expect(lastDispatch?.args).toEqual({ migration: 'jira-spotlight', description: '' });
 	});
+
+	it('builds `manifest` from the command registry without dispatching an ADS MCP tool', async () => {
+		const writer = createTestWriter();
+		const code = await run(['manifest'], writer);
+		expect(code).toBe(ExitCode.Ok);
+		expect(allDispatches).toHaveLength(0);
+	});
 });
 
 describe('run — JSON envelope', () => {
@@ -262,6 +269,49 @@ describe('run — JSON envelope', () => {
 		await run(['search', 'space', '--type', 'token', '--json'], writer);
 		const envelope = JSON.parse(writer.stdout.join('\n'));
 		expect(envelope.type).toBe('ads-cli/search-tokens');
+	});
+
+	it('emits a self-describing capability manifest under --json', async () => {
+		const writer = createTestWriter();
+		const code = await run(['manifest', '--json'], writer);
+
+		expect(code).toBe(ExitCode.Ok);
+		expect(writer.stderr).toEqual([]);
+		const envelope = JSON.parse(writer.stdout.join('\n'));
+		expect(envelope).toMatchObject({
+			type: 'ads-cli/manifest',
+			command: 'manifest',
+			ok: true,
+			data: {
+				schemaVersion: 1,
+				name: '@atlaskit/ads-cli',
+				bin: 'ads-cli',
+				version: expect.stringMatching(/^\d+\.\d+\.\d+/),
+				invocation: 'npx @atlaskit/ads-cli',
+				errorResponseType: 'ads-cli/error',
+			},
+		});
+
+		const search = envelope.data.commands.find(
+			(command: { name: string }) => command.name === 'search',
+		);
+		expect(search).toMatchObject({
+			jsonSupported: true,
+			arguments: [{ name: 'query', type: 'string', required: true, variadic: true }],
+			responseTypes: [
+				'ads-cli/search',
+				'ads-cli/search-components',
+				'ads-cli/search-tokens',
+				'ads-cli/search-icons',
+			],
+		});
+		expect(search.flags.find((flag: { name: string }) => flag.name === 'type')).toMatchObject({
+			type: 'string',
+			choices: ['component', 'token', 'icon'],
+		});
+		expect(envelope.data.commands.map((command: { name: string }) => command.name)).toContain(
+			'manifest',
+		);
 	});
 
 	it('parses each block of a multi-block result into an array', async () => {
@@ -386,6 +436,23 @@ describe('run — output contract', () => {
 		const writer = createTestWriter();
 		await run(['docs', 'spacing'], writer);
 		expect(writer.stdout.join('\n')).toBe('# Spacing\n\nUse space tokens.');
+	});
+
+	it('renders a command catalog by default and reserves structured output for --json', async () => {
+		const writer = createTestWriter();
+		await run(['manifest'], writer);
+		const out = writer.stdout.join('\n');
+		expect(out).toMatch(/^ads-cli v\d+\.\d+\.\d+.* — 7 commands/);
+		expect(out).toContain(
+			'  search [--json]\n    Fuzzy-search ADS components, tokens, and icons together',
+		);
+		expect(out).toContain(
+			'  manifest [--json]\n    Describe every CLI command, argument, flag, and JSON response type.',
+		);
+		expect(out).toContain(
+			'Run `npx @atlaskit/ads-cli manifest --json` for the full structured manifest.',
+		);
+		expect(out).not.toContain('"schemaVersion"');
 	});
 
 	it('renders `component <name>` as human-readable docs, not raw JSON', async () => {
@@ -747,20 +814,6 @@ describe('run — usage & exit codes', () => {
 		}
 	});
 
-	it('treats `list` as an unknown command now that it has been retired', async () => {
-		const writer = createTestWriter();
-		const code = await run(['list', 'components'], writer);
-		expect(code).toBe(ExitCode.UsageError);
-		expect(writer.stderr.join('\n')).toContain('Unknown command');
-	});
-
-	it('treats `plan` as an unknown command now that it has been retired', async () => {
-		const writer = createTestWriter();
-		const code = await run(['plan'], writer);
-		expect(code).toBe(ExitCode.UsageError);
-		expect(writer.stderr.join('\n')).toContain('Unknown command');
-	});
-
 	it('returns a friendly exit-0 index (not an error) when docs is given no topic', async () => {
 		const writer = createTestWriter();
 		const code = await run(['docs'], writer);
@@ -854,7 +907,7 @@ describe('run — version & help', () => {
 		expect(writer.stdout.join('\n')).toMatch(/\d+\.\d+\.\d+/);
 	});
 
-	it('lists the current commands in --help and omits retired ones', async () => {
+	it('lists the current commands in --help', async () => {
 		const writer = createTestWriter();
 		const code = await run(['--help'], writer);
 		expect(code).toBe(ExitCode.Ok);
@@ -871,30 +924,16 @@ describe('run — version & help', () => {
 				.filter((name): name is string => Boolean(name)),
 		);
 
-		for (const current of ['search', 'component', 'token', 'icon', 'lint-rules', 'docs']) {
-			expect(listedCommands.has(current)).toBe(true);
-		}
-		// Retired / consolidated commands must no longer be listed.
-		for (const removed of [
-			'plan',
-			'list',
-			'search-icons',
-			'search-tokens',
-			'get-guidelines',
-			'get-lint-rules',
-			'get-a11y-guidelines',
-			'migration-guides',
-			'i18n-conversion',
+		for (const current of [
+			'search',
+			'component',
+			'token',
+			'icon',
+			'lint-rules',
+			'docs',
 			'manifest',
 		]) {
-			expect(listedCommands.has(removed)).toBe(false);
+			expect(listedCommands.has(current)).toBe(true);
 		}
-	});
-
-	it('treats `manifest` as an unknown command now that it has been retired', async () => {
-		const writer = createTestWriter();
-		const code = await run(['manifest'], writer);
-		expect(code).toBe(ExitCode.UsageError);
-		expect(writer.stderr.join('\n')).toContain('Unknown command');
 	});
 });

@@ -1,0 +1,50 @@
+Modal headers should include `ModalTitle` so modal dialogs expose a clear accessible title.
+
+We recommend using `ModalTitle`, but if a custom implementation is required, use `titleId` from the
+`useModal()` hook to provide the modal's accessible name.
+
+## Examples
+
+This rule warns when `ModalHeader` does not include a `ModalTitle`.
+
+### Incorrect
+
+```tsx
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import { ModalHeader } from '@atlaskit/modal-dialog/modal-header';
+
+<ModalDialog>
+	<ModalHeader>
+		<h1>New issue</h1>
+	</ModalHeader>
+</ModalDialog>;
+```
+
+```tsx
+import { ModalHeader } from '@atlaskit/modal-dialog/modal-header';
+
+<ModalHeader>
+	<h1>New issue</h1>
+</ModalHeader>;
+```
+
+### Correct
+
+```tsx
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import { ModalHeader } from '@atlaskit/modal-dialog/modal-header';
+
+<ModalDialog>
+	<ModalHeader>
+		<ModalTitle>New issue</ModalTitle>
+	</ModalHeader>
+</ModalDialog>;
+```
+
+```tsx
+import { ModalHeader } from '@atlaskit/modal-dialog/modal-header';
+
+<ModalHeader>
+	<ModalTitle>New issue</ModalTitle>
+</ModalHeader>;
+```

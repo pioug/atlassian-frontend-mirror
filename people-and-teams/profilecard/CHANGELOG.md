@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 26.13.0
+
+### Minor Changes
+
+- [`6e37f0b73c921`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e37f0b73c921) -
+  Feature gate clean up for issue_view_agent_discovery_fast_follows
+
 ## 26.12.4
 
 ### Patch Changes

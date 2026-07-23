@@ -62,6 +62,11 @@ export type SyncedBlockRendererProps = {
 	syncBlockFetchResult: UseFetchSyncBlockDataResult;
 };
 
+export type SyncedBlockFeedbackContext = {
+	blockType: 'source' | 'reference';
+	entryPoint?: string;
+};
+
 export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOptions {
 	/**
 	 * Enables Live Page specific behaviour for the synced block plugin.
@@ -72,6 +77,12 @@ export interface SyncedBlockPluginOptions extends LongPressSelectionPluginOption
 	 */
 	__livePage?: boolean;
 	enableSourceCreation?: boolean;
+	/**
+	 * Opens the host product's synced-block feedback collector.
+	 * The editor plugin owns the menu affordance; the product owns the collector
+	 * configuration and lifecycle.
+	 */
+	onGiveFeedback?: (context: SyncedBlockFeedbackContext) => void;
 	syncBlockDataProvider: SyncBlockDataProviderInterface;
 	syncedBlockRenderer: (props: SyncedBlockRendererProps) => React.JSX.Element;
 }

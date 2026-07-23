@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 13.3.0
+
+### Minor Changes
+
+- [`fee74586b3125`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fee74586b3125) -
+  Improve block controls anchor reliability by adding control-specific fallback anchor names for
+  active drag-handle and quick-insert nodes.
+
+  When reliable-anchor mode is enabled, active nodes now expose fallback anchor names in addition to
+  `data-node-anchor`, so controls can resolve positioning even when primary anchor lookup is
+  temporarily out of sync.
+
+  Example of resulting CSS anchor usage:
+  - Drag handle:
+    `anchor(<data-node-anchor> start, anchor(--editor-block-controls-active-drag-handle-anchor start))`
+  - Quick insert:
+    `anchor(<data-node-anchor> start, anchor(--editor-block-controls-active-quick-insert-anchor start))`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.17
 
 ### Patch Changes

@@ -722,8 +722,7 @@ describe('EditorCardProvider', () => {
 
 		it('overrides the requested inline appearance when the shortlink resolves to a hardcoded embed URL', async () => {
 			passGate('platform_native_embeds_enable_shortlink_resolution');
-			const resolvedUrl =
-				'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789';
+			const resolvedUrl = 'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789';
 			const fetchData = setupResolveMocks(provider, resolvedUrl);
 
 			const adf = await provider.resolve(shortLinkUrl, 'inline', false, true);
@@ -735,10 +734,7 @@ describe('EditorCardProvider', () => {
 
 		it('keeps the requested appearance when the resolved URL has no hardcoded embed appearance', async () => {
 			passGate('platform_native_embeds_enable_shortlink_resolution');
-			setupResolveMocks(
-				provider,
-				'https://example.atlassian.net/wiki/spaces/TEST/pages/123456789',
-			);
+			setupResolveMocks(provider, 'https://example.atlassian.net/wiki/spaces/TEST/pages/123456789');
 
 			const adf = await provider.resolve(shortLinkUrl, 'inline', false, true);
 

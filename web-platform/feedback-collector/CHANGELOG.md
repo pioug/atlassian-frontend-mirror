@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 16.6.2
+
+### Patch Changes
+
+- [`38d753092aa79`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38d753092aa79) -
+  Fix feedback collector translations failing to load. The locale messages loader now resolves
+  bundles through an explicit per-locale loader map instead of a free-form dynamic import that
+  generated non-existent async chunk URLs in some builds (causing the dialog to silently fall back
+  to English). The fix is behind the `fun-2388_fix_feedback_collector_i18n` gate; when the gate is
+  off the previous loading behaviour is preserved.
+- Updated dependencies
+
 ## 16.6.1
 
 ### Patch Changes

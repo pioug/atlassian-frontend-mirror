@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-palette",
-	"version": "3.1.4",
+	"version": "3.1.5",
 	"description": "The editor palette",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -30,6 +30,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
 	},

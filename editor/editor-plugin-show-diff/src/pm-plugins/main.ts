@@ -18,6 +18,7 @@ import type {
 	DiffDescriptor,
 	DiffParams,
 	DiffType,
+	InlineDeletedDiffPlacement,
 	ShowDiffPlugin,
 	SmartDiffThresholds,
 } from '../showDiffPluginType';
@@ -48,8 +49,14 @@ export type ShowDiffPluginState = {
 	 */
 	diffDescriptors?: DiffDescriptor[];
 	diffType?: DiffType;
-	hideDeletedDiffs?: boolean;
 	hideAddedDiffsUnderline?: boolean;
+	hideDeletedDiffs?: boolean;
+	/**
+	 * For the `smart` diffType, where inline-level (and sentence-level) deleted content is rendered
+	 * relative to the new content. Set via SHOW_DIFF meta. Defaults to `'before'`. Independent of
+	 * `deletedDiffPlacement`.
+	 */
+	inlineDeletedDiffPlacement?: InlineDeletedDiffPlacement;
 	isDisplayingChanges: boolean;
 	isInverted?: boolean;
 	originalDoc: PMNode | undefined;
@@ -139,6 +146,7 @@ export const createPlugin = (
 										showIndicators: newPluginState?.showIndicators,
 										smartThresholds: newPluginState?.smartThresholds,
 										deletedDiffPlacement: newPluginState?.deletedDiffPlacement,
+										inlineDeletedDiffPlacement: newPluginState?.inlineDeletedDiffPlacement,
 									}
 								: {}),
 						});
@@ -218,6 +226,7 @@ export const createPlugin = (
 												showIndicators: newPluginState.showIndicators,
 												smartThresholds: newPluginState.smartThresholds,
 												deletedDiffPlacement: newPluginState.deletedDiffPlacement,
+												inlineDeletedDiffPlacement: newPluginState.inlineDeletedDiffPlacement,
 											}
 										: {}),
 								});

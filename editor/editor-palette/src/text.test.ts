@@ -1,6 +1,15 @@
+import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { hexToEditorTextPaletteColor } from './index';
+
+jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure', () => ({
+	expValEqualsNoExposure: jest.fn(),
+}));
+
+const mockExpValEqualsNoExposure = expValEqualsNoExposure as jest.MockedFunction<
+	typeof expValEqualsNoExposure
+>;
 
 describe('hexToEditorTextPaletteColor', () => {
 	test.each([
@@ -44,12 +53,14 @@ describe('hexToEditorTextPaletteColor', () => {
 	});
 
 	test('uses icon accent yellow for the yellow palette swatch when patch gate is disabled', () => {
+		mockExpValEqualsNoExposure.mockReturnValue(true);
 		failGate('platform_editor_lovability_text_bg_color_patch_1');
 
 		expect(hexToEditorTextPaletteColor('#B38600')).toBe('var(--ds-icon-accent-yellow)');
 	});
 
 	test('uses border accent yellow for the yellow palette swatch when patch gate is enabled', () => {
+		mockExpValEqualsNoExposure.mockReturnValue(true);
 		passGate('platform_editor_lovability_text_bg_color_patch_1');
 
 		expect(hexToEditorTextPaletteColor('#B38600')).toBe('var(--ds-border-accent-yellow)');

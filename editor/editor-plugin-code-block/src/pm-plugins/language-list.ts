@@ -3,117 +3,116 @@ import { SUPPORTED_LANGUAGES } from '@atlaskit/code/constants';
 // We expect alias[0] to be used for the ADF attribute, see ED-2813
 export const DEFAULT_LANGUAGES: (
 	| {
-			readonly name: 'PHP';
 			readonly alias: readonly ['php', 'php3', 'php4', 'php5'];
+			readonly name: 'PHP';
 			readonly value: 'php';
 	  }
 	| {
-			readonly name: 'Java';
 			readonly alias: readonly ['java'];
+			readonly name: 'Java';
 			readonly value: 'java';
 	  }
 	| {
-			readonly name: 'CSharp';
 			readonly alias: readonly ['csharp', 'c#'];
+			readonly name: 'CSharp';
 			readonly value: 'cs';
 	  }
 	| {
-			readonly name: 'Python';
 			readonly alias: readonly ['python', 'py'];
+			readonly name: 'Python';
 			readonly value: 'python';
 	  }
 	| {
-			readonly name: 'JavaScript';
 			readonly alias: readonly ['javascript', 'js'];
+			readonly name: 'JavaScript';
 			readonly value: 'javascript';
 	  }
 	| {
-			readonly name: 'Html';
 			readonly alias: readonly ['html'];
+			readonly name: 'Html';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'C++';
 			readonly alias: readonly ['c++', 'cpp', 'clike'];
+			readonly name: 'C++';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Ruby';
 			readonly alias: readonly ['ruby', 'rb', 'duby'];
+			readonly name: 'Ruby';
 			readonly value: 'ruby';
 	  }
 	| {
-			readonly name: 'Objective-C';
 			readonly alias: readonly ['objective-c', 'objectivec', 'obj-c', 'objc'];
+			readonly name: 'Objective-C';
 			readonly value: 'objectivec';
 	  }
 	| {
-			readonly name: 'C';
 			readonly alias: readonly ['c'];
+			readonly name: 'C';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Swift';
 			readonly alias: readonly ['swift'];
+			readonly name: 'Swift';
 			readonly value: 'swift';
 	  }
 	| {
-			readonly name: 'TeX';
 			readonly alias: readonly ['tex', 'latex'];
+			readonly name: 'TeX';
 			readonly value: 'tex';
 	  }
 	| {
-			readonly name: 'Shell';
 			readonly alias: readonly ['shell', 'bash', 'sh', 'ksh', 'zsh'];
+			readonly name: 'Shell';
 			readonly value: 'shell';
 	  }
 	| {
-			readonly name: 'Scala';
 			readonly alias: readonly ['scala'];
+			readonly name: 'Scala';
 			readonly value: 'scala';
 	  }
 	| {
-			readonly name: 'Go';
 			readonly alias: readonly ['go'];
+			readonly name: 'Go';
 			readonly value: 'go';
 	  }
 	| {
-			readonly name: 'ActionScript';
 			readonly alias: readonly ['actionscript', 'actionscript3', 'as'];
+			readonly name: 'ActionScript';
 			readonly value: 'actionscript';
 	  }
 	| {
-			readonly name: 'ColdFusion';
 			readonly alias: readonly ['coldfusion'];
+			readonly name: 'ColdFusion';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'JavaFX';
 			readonly alias: readonly ['javafx', 'jfx'];
+			readonly name: 'JavaFX';
 			readonly value: 'java';
 	  }
 	| {
-			readonly name: 'VbNet';
 			readonly alias: readonly ['vbnet', 'vb.net', 'vfp', 'clipper', 'xbase'];
+			readonly name: 'VbNet';
 			readonly value: 'vbnet';
 	  }
 	| {
-			readonly name: 'JSON';
 			readonly alias: readonly ['json'];
+			readonly name: 'JSON';
 			readonly value: 'json';
 	  }
 	| {
-			readonly name: 'MATLAB';
 			readonly alias: readonly ['matlab'];
+			readonly name: 'MATLAB';
 			readonly value: 'matlab';
 	  }
 	| {
-			readonly name: 'Groovy';
 			readonly alias: readonly ['groovy'];
+			readonly name: 'Groovy';
 			readonly value: 'groovy';
 	  }
 	| {
-			readonly name: 'SQL';
 			readonly alias: readonly [
 				'sql',
 				'postgresql',
@@ -127,443 +126,453 @@ export const DEFAULT_LANGUAGES: (
 				'mysql',
 				'sqlite',
 			];
+			readonly name: 'SQL';
 			readonly value: 'sql';
 	  }
 	| {
-			readonly name: 'R';
 			readonly alias: readonly ['r'];
+			readonly name: 'R';
 			readonly value: 'r';
 	  }
 	| {
-			readonly name: 'Perl';
 			readonly alias: readonly ['perl', 'pl'];
+			readonly name: 'Perl';
 			readonly value: 'perl';
 	  }
 	| {
-			readonly name: 'Lua';
 			readonly alias: readonly ['lua'];
+			readonly name: 'Lua';
 			readonly value: 'lua';
 	  }
 	| {
-			readonly name: 'Pascal';
 			readonly alias: readonly ['pas', 'pascal', 'objectpascal', 'delphi'];
+			readonly name: 'Pascal';
 			readonly value: 'pascal';
 	  }
 	| {
-			readonly name: 'XML';
 			readonly alias: readonly ['xml'];
+			readonly name: 'XML';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'TypeScript';
 			readonly alias: readonly ['typescript', 'ts'];
+			readonly name: 'TypeScript';
 			readonly value: 'typescript';
 	  }
 	| {
-			readonly name: 'CoffeeScript';
 			readonly alias: readonly ['coffeescript', 'coffee-script', 'coffee'];
+			readonly name: 'CoffeeScript';
 			readonly value: 'coffeescript';
 	  }
 	| {
-			readonly name: 'Haskell';
 			readonly alias: readonly ['haskell', 'hs'];
+			readonly name: 'Haskell';
 			readonly value: 'haskell';
 	  }
 	| {
-			readonly name: 'Puppet';
 			readonly alias: readonly ['puppet'];
+			readonly name: 'Puppet';
 			readonly value: 'puppet';
 	  }
 	| {
-			readonly name: 'Arduino';
 			readonly alias: readonly ['arduino'];
+			readonly name: 'Arduino';
 			readonly value: 'arduino';
 	  }
 	| {
-			readonly name: 'Fortran';
 			readonly alias: readonly ['fortran'];
+			readonly name: 'Fortran';
 			readonly value: 'fortran';
 	  }
 	| {
-			readonly name: 'Erlang';
 			readonly alias: readonly ['erlang', 'erl'];
+			readonly name: 'Erlang';
 			readonly value: 'erlang';
 	  }
 	| {
-			readonly name: 'PowerShell';
 			readonly alias: readonly ['powershell', 'posh', 'ps1', 'psm1'];
+			readonly name: 'PowerShell';
 			readonly value: 'powershell';
 	  }
 	| {
-			readonly name: 'Haxe';
 			readonly alias: readonly ['haxe', 'hx', 'hxsl'];
+			readonly name: 'Haxe';
 			readonly value: 'haxe';
 	  }
 	| {
-			readonly name: 'Elixir';
 			readonly alias: readonly ['elixir', 'ex', 'exs'];
+			readonly name: 'Elixir';
 			readonly value: 'elixir';
 	  }
 	| {
-			readonly name: 'Verilog';
 			readonly alias: readonly ['verilog', 'v'];
+			readonly name: 'Verilog';
 			readonly value: 'verilog';
 	  }
 	| {
-			readonly name: 'Rust';
 			readonly alias: readonly ['rust'];
+			readonly name: 'Rust';
 			readonly value: 'rust';
 	  }
 	| {
-			readonly name: 'VHDL';
 			readonly alias: readonly ['vhdl'];
+			readonly name: 'VHDL';
 			readonly value: 'vhdl';
 	  }
 	| {
-			readonly name: 'Sass';
 			readonly alias: readonly ['sass'];
+			readonly name: 'Sass';
 			readonly value: 'less';
 	  }
 	| {
-			readonly name: 'OCaml';
 			readonly alias: readonly ['ocaml'];
+			readonly name: 'OCaml';
 			readonly value: 'ocaml';
 	  }
 	| {
-			readonly name: 'Dart';
 			readonly alias: readonly ['dart'];
+			readonly name: 'Dart';
 			readonly value: 'dart';
 	  }
 	| {
-			readonly name: 'CSS';
 			readonly alias: readonly ['css'];
+			readonly name: 'CSS';
 			readonly value: 'css';
 	  }
 	| {
-			readonly name: 'reStructuredText';
 			readonly alias: readonly ['restructuredtext', 'rst', 'rest'];
+			readonly name: 'reStructuredText';
 			readonly value: 'rest';
 	  }
 	| {
-			readonly name: 'Kotlin';
 			readonly alias: readonly ['kotlin'];
+			readonly name: 'Kotlin';
 			readonly value: 'kotlin';
 	  }
 	| {
-			readonly name: 'D';
 			readonly alias: readonly ['d'];
+			readonly name: 'D';
 			readonly value: 'd';
 	  }
 	| {
-			readonly name: 'Octave';
 			readonly alias: readonly ['octave'];
+			readonly name: 'Octave';
 			readonly value: 'matlab';
 	  }
 	| {
-			readonly name: 'QML';
 			readonly alias: readonly ['qbs', 'qml'];
+			readonly name: 'QML';
 			readonly value: 'qml';
 	  }
 	| {
-			readonly name: 'Prolog';
 			readonly alias: readonly ['prolog'];
+			readonly name: 'Prolog';
 			readonly value: 'prolog';
 	  }
 	| {
-			readonly name: 'FoxPro';
 			readonly alias: readonly ['foxpro', 'purebasic'];
+			readonly name: 'FoxPro';
 			readonly value: 'purebasic';
 	  }
 	| {
-			readonly name: 'Scheme';
 			readonly alias: readonly ['scheme', 'scm'];
+			readonly name: 'Scheme';
 			readonly value: 'scheme';
 	  }
 	| {
-			readonly name: 'CUDA';
 			readonly alias: readonly ['cuda', 'cu'];
+			readonly name: 'CUDA';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Julia';
 			readonly alias: readonly ['julia', 'jl'];
+			readonly name: 'Julia';
 			readonly value: 'julia';
 	  }
 	| {
-			readonly name: 'Racket';
 			readonly alias: readonly ['racket', 'rkt'];
+			readonly name: 'Racket';
 			readonly value: 'lisp';
 	  }
 	| {
-			readonly name: 'Ada';
 			readonly alias: readonly ['ada', 'ada95', 'ada2005'];
+			readonly name: 'Ada';
 			readonly value: 'ada';
 	  }
 	| {
-			readonly name: 'Tcl';
 			readonly alias: readonly ['tcl'];
+			readonly name: 'Tcl';
 			readonly value: 'tcl';
 	  }
 	| {
-			readonly name: 'Mathematica';
 			readonly alias: readonly ['mathematica', 'mma', 'nb'];
+			readonly name: 'Mathematica';
 			readonly value: 'mathematica';
 	  }
 	| {
-			readonly name: 'Autoit';
 			readonly alias: readonly ['autoit'];
+			readonly name: 'Autoit';
 			readonly value: 'autoit';
 	  }
 	| {
-			readonly name: 'StandardML';
 			readonly alias: readonly ['standardmL', 'sml', 'standardml'];
+			readonly name: 'StandardML';
 			readonly value: 'sml';
 	  }
 	| {
-			readonly name: 'Objective-J';
 			readonly alias: readonly ['objective-j', 'objectivej', 'obj-j', 'objj'];
+			readonly name: 'Objective-J';
 			readonly value: 'objectivec';
 	  }
 	| {
-			readonly name: 'Smalltalk';
 			readonly alias: readonly ['smalltalk', 'squeak', 'st'];
+			readonly name: 'Smalltalk';
 			readonly value: 'smalltalk';
 	  }
 	| {
-			readonly name: 'Vala';
 			readonly alias: readonly ['vala', 'vapi'];
+			readonly name: 'Vala';
 			readonly value: 'vala';
 	  }
 	| {
-			readonly name: 'LiveScript';
 			readonly alias: readonly ['livescript', 'live-script'];
+			readonly name: 'LiveScript';
 			readonly value: 'livescript';
 	  }
 	| {
-			readonly name: 'XQuery';
 			readonly alias: readonly ['xquery', 'xqy', 'xq', 'xql', 'xqm'];
+			readonly name: 'XQuery';
 			readonly value: 'xquery';
 	  }
 	| {
-			readonly name: 'PlainText';
 			readonly alias: readonly ['text', 'plaintext'];
+			readonly name: 'PlainText';
 			readonly value: 'text';
 	  }
 	| {
-			readonly name: 'Yaml';
 			readonly alias: readonly ['yaml', 'yml'];
+			readonly name: 'Yaml';
 			readonly value: 'yaml';
 	  }
 	| {
-			readonly name: 'GraphQL';
 			readonly alias: readonly ['graphql'];
+			readonly name: 'GraphQL';
 			readonly value: 'graphql';
 	  }
 	| {
-			readonly name: 'AppleScript';
 			readonly alias: readonly ['applescript'];
+			readonly name: 'AppleScript';
 			readonly value: 'applescript';
 	  }
 	| {
-			readonly name: 'Clojure';
 			readonly alias: readonly ['clojure'];
+			readonly name: 'Clojure';
 			readonly value: 'clojure';
 	  }
 	| {
-			readonly name: 'Diff';
 			readonly alias: readonly ['diff'];
+			readonly name: 'Diff';
 			readonly value: 'diff';
 	  }
 	| {
-			readonly name: 'VisualBasic';
 			readonly alias: readonly ['visualbasic'];
+			readonly name: 'VisualBasic';
 			readonly value: 'visual-basic';
 	  }
 	| {
-			readonly name: 'JSX';
 			readonly alias: readonly ['jsx'];
+			readonly name: 'JSX';
 			readonly value: 'jsx';
 	  }
 	| {
-			readonly name: 'TSX';
 			readonly alias: readonly ['tsx'];
+			readonly name: 'TSX';
 			readonly value: 'tsx';
 	  }
 	| {
-			readonly name: 'SplunkSPL';
 			readonly alias: readonly ['splunk-spl'];
+			readonly name: 'SplunkSPL';
 			readonly value: 'splunk-spl';
 	  }
 	| {
-			readonly name: 'Dockerfile';
 			readonly alias: readonly ['docker', 'dockerfile'];
+			readonly name: 'Dockerfile';
 			readonly value: 'dockerfile';
 	  }
 	| {
-			readonly name: 'HCL';
 			readonly alias: readonly ['hcl', 'terraform'];
+			readonly name: 'HCL';
 			readonly value: 'hcl';
 	  }
 	| {
-			readonly name: 'NGINX';
 			readonly alias: readonly ['nginx'];
+			readonly name: 'NGINX';
 			readonly value: 'nginx';
 	  }
 	| {
-			readonly name: 'Protocol Buffers';
 			readonly alias: readonly ['protobuf', 'proto'];
+			readonly name: 'Protocol Buffers';
 			readonly value: 'protobuf';
 	  }
 	| {
-			readonly name: 'TOML';
 			readonly alias: readonly ['toml'];
+			readonly name: 'TOML';
 			readonly value: 'toml';
 	  }
 	| {
-			readonly name: 'Handlebars';
 			readonly alias: readonly ['handlebars', 'mustache'];
+			readonly name: 'Handlebars';
 			readonly value: 'handlebars';
 	  }
 	| {
-			readonly name: 'Gherkin';
 			readonly alias: readonly ['gherkin', 'cucumber'];
+			readonly name: 'Gherkin';
 			readonly value: 'gherkin';
 	  }
 	| {
-			readonly name: 'ABAP';
 			readonly alias: readonly ['abap'];
+			readonly name: 'ABAP';
 			readonly value: 'abap';
 	  }
 	| {
-			readonly name: 'Markdown';
 			readonly alias: readonly ['markdown'];
+			readonly name: 'Markdown';
 			readonly value: 'markdown';
 	  }
 	| {
-			name: string;
 			alias: string[];
+			name: string;
 			value: string;
 	  }
 )[] = [{ name: '(None)', alias: ['none'], value: 'none' }, ...SUPPORTED_LANGUAGES];
 
 export type Language = (typeof DEFAULT_LANGUAGES)[number];
 
+// Feature-gated languages injected into the picker at runtime. Kept out of the
+// shared @atlaskit/code SUPPORTED_LANGUAGES so they stay gated and don't leak to
+// other consumers (e.g. the renderer). The mutable-array literal matches the
+// `Language` union's catch-all member, so the verbose types above need no change.
+export const MERMAID_LANGUAGE: Language = {
+	name: 'Mermaid',
+	alias: ['mermaid'],
+	value: 'mermaid',
+};
+
 export function findMatchedLanguage(
 	supportedLanguages: Language[],
 	language?: string,
 ):
 	| {
-			readonly name: 'PHP';
 			readonly alias: readonly ['php', 'php3', 'php4', 'php5'];
+			readonly name: 'PHP';
 			readonly value: 'php';
 	  }
 	| {
-			readonly name: 'Java';
 			readonly alias: readonly ['java'];
+			readonly name: 'Java';
 			readonly value: 'java';
 	  }
 	| {
-			readonly name: 'CSharp';
 			readonly alias: readonly ['csharp', 'c#'];
+			readonly name: 'CSharp';
 			readonly value: 'cs';
 	  }
 	| {
-			readonly name: 'Python';
 			readonly alias: readonly ['python', 'py'];
+			readonly name: 'Python';
 			readonly value: 'python';
 	  }
 	| {
-			readonly name: 'JavaScript';
 			readonly alias: readonly ['javascript', 'js'];
+			readonly name: 'JavaScript';
 			readonly value: 'javascript';
 	  }
 	| {
-			readonly name: 'Html';
 			readonly alias: readonly ['html'];
+			readonly name: 'Html';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'C++';
 			readonly alias: readonly ['c++', 'cpp', 'clike'];
+			readonly name: 'C++';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Ruby';
 			readonly alias: readonly ['ruby', 'rb', 'duby'];
+			readonly name: 'Ruby';
 			readonly value: 'ruby';
 	  }
 	| {
-			readonly name: 'Objective-C';
 			readonly alias: readonly ['objective-c', 'objectivec', 'obj-c', 'objc'];
+			readonly name: 'Objective-C';
 			readonly value: 'objectivec';
 	  }
 	| {
-			readonly name: 'C';
 			readonly alias: readonly ['c'];
+			readonly name: 'C';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Swift';
 			readonly alias: readonly ['swift'];
+			readonly name: 'Swift';
 			readonly value: 'swift';
 	  }
 	| {
-			readonly name: 'TeX';
 			readonly alias: readonly ['tex', 'latex'];
+			readonly name: 'TeX';
 			readonly value: 'tex';
 	  }
 	| {
-			readonly name: 'Shell';
 			readonly alias: readonly ['shell', 'bash', 'sh', 'ksh', 'zsh'];
+			readonly name: 'Shell';
 			readonly value: 'shell';
 	  }
 	| {
-			readonly name: 'Scala';
 			readonly alias: readonly ['scala'];
+			readonly name: 'Scala';
 			readonly value: 'scala';
 	  }
 	| {
-			readonly name: 'Go';
 			readonly alias: readonly ['go'];
+			readonly name: 'Go';
 			readonly value: 'go';
 	  }
 	| {
-			readonly name: 'ActionScript';
 			readonly alias: readonly ['actionscript', 'actionscript3', 'as'];
+			readonly name: 'ActionScript';
 			readonly value: 'actionscript';
 	  }
 	| {
-			readonly name: 'ColdFusion';
 			readonly alias: readonly ['coldfusion'];
+			readonly name: 'ColdFusion';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'JavaFX';
 			readonly alias: readonly ['javafx', 'jfx'];
+			readonly name: 'JavaFX';
 			readonly value: 'java';
 	  }
 	| {
-			readonly name: 'VbNet';
 			readonly alias: readonly ['vbnet', 'vb.net', 'vfp', 'clipper', 'xbase'];
+			readonly name: 'VbNet';
 			readonly value: 'vbnet';
 	  }
 	| {
-			readonly name: 'JSON';
 			readonly alias: readonly ['json'];
+			readonly name: 'JSON';
 			readonly value: 'json';
 	  }
 	| {
-			readonly name: 'MATLAB';
 			readonly alias: readonly ['matlab'];
+			readonly name: 'MATLAB';
 			readonly value: 'matlab';
 	  }
 	| {
-			readonly name: 'Groovy';
 			readonly alias: readonly ['groovy'];
+			readonly name: 'Groovy';
 			readonly value: 'groovy';
 	  }
 	| {
-			readonly name: 'SQL';
 			readonly alias: readonly [
 				'sql',
 				'postgresql',
@@ -577,321 +586,322 @@ export function findMatchedLanguage(
 				'mysql',
 				'sqlite',
 			];
+			readonly name: 'SQL';
 			readonly value: 'sql';
 	  }
 	| {
-			readonly name: 'R';
 			readonly alias: readonly ['r'];
+			readonly name: 'R';
 			readonly value: 'r';
 	  }
 	| {
-			readonly name: 'Perl';
 			readonly alias: readonly ['perl', 'pl'];
+			readonly name: 'Perl';
 			readonly value: 'perl';
 	  }
 	| {
-			readonly name: 'Lua';
 			readonly alias: readonly ['lua'];
+			readonly name: 'Lua';
 			readonly value: 'lua';
 	  }
 	| {
-			readonly name: 'Pascal';
 			readonly alias: readonly ['pas', 'pascal', 'objectpascal', 'delphi'];
+			readonly name: 'Pascal';
 			readonly value: 'pascal';
 	  }
 	| {
-			readonly name: 'XML';
 			readonly alias: readonly ['xml'];
+			readonly name: 'XML';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'TypeScript';
 			readonly alias: readonly ['typescript', 'ts'];
+			readonly name: 'TypeScript';
 			readonly value: 'typescript';
 	  }
 	| {
-			readonly name: 'CoffeeScript';
 			readonly alias: readonly ['coffeescript', 'coffee-script', 'coffee'];
+			readonly name: 'CoffeeScript';
 			readonly value: 'coffeescript';
 	  }
 	| {
-			readonly name: 'Haskell';
 			readonly alias: readonly ['haskell', 'hs'];
+			readonly name: 'Haskell';
 			readonly value: 'haskell';
 	  }
 	| {
-			readonly name: 'Puppet';
 			readonly alias: readonly ['puppet'];
+			readonly name: 'Puppet';
 			readonly value: 'puppet';
 	  }
 	| {
-			readonly name: 'Arduino';
 			readonly alias: readonly ['arduino'];
+			readonly name: 'Arduino';
 			readonly value: 'arduino';
 	  }
 	| {
-			readonly name: 'Fortran';
 			readonly alias: readonly ['fortran'];
+			readonly name: 'Fortran';
 			readonly value: 'fortran';
 	  }
 	| {
-			readonly name: 'Erlang';
 			readonly alias: readonly ['erlang', 'erl'];
+			readonly name: 'Erlang';
 			readonly value: 'erlang';
 	  }
 	| {
-			readonly name: 'PowerShell';
 			readonly alias: readonly ['powershell', 'posh', 'ps1', 'psm1'];
+			readonly name: 'PowerShell';
 			readonly value: 'powershell';
 	  }
 	| {
-			readonly name: 'Haxe';
 			readonly alias: readonly ['haxe', 'hx', 'hxsl'];
+			readonly name: 'Haxe';
 			readonly value: 'haxe';
 	  }
 	| {
-			readonly name: 'Elixir';
 			readonly alias: readonly ['elixir', 'ex', 'exs'];
+			readonly name: 'Elixir';
 			readonly value: 'elixir';
 	  }
 	| {
-			readonly name: 'Verilog';
 			readonly alias: readonly ['verilog', 'v'];
+			readonly name: 'Verilog';
 			readonly value: 'verilog';
 	  }
 	| {
-			readonly name: 'Rust';
 			readonly alias: readonly ['rust'];
+			readonly name: 'Rust';
 			readonly value: 'rust';
 	  }
 	| {
-			readonly name: 'VHDL';
 			readonly alias: readonly ['vhdl'];
+			readonly name: 'VHDL';
 			readonly value: 'vhdl';
 	  }
 	| {
-			readonly name: 'Sass';
 			readonly alias: readonly ['sass'];
+			readonly name: 'Sass';
 			readonly value: 'less';
 	  }
 	| {
-			readonly name: 'OCaml';
 			readonly alias: readonly ['ocaml'];
+			readonly name: 'OCaml';
 			readonly value: 'ocaml';
 	  }
 	| {
-			readonly name: 'Dart';
 			readonly alias: readonly ['dart'];
+			readonly name: 'Dart';
 			readonly value: 'dart';
 	  }
 	| {
-			readonly name: 'CSS';
 			readonly alias: readonly ['css'];
+			readonly name: 'CSS';
 			readonly value: 'css';
 	  }
 	| {
-			readonly name: 'reStructuredText';
 			readonly alias: readonly ['restructuredtext', 'rst', 'rest'];
+			readonly name: 'reStructuredText';
 			readonly value: 'rest';
 	  }
 	| {
-			readonly name: 'Kotlin';
 			readonly alias: readonly ['kotlin'];
+			readonly name: 'Kotlin';
 			readonly value: 'kotlin';
 	  }
 	| {
-			readonly name: 'D';
 			readonly alias: readonly ['d'];
+			readonly name: 'D';
 			readonly value: 'd';
 	  }
 	| {
-			readonly name: 'Octave';
 			readonly alias: readonly ['octave'];
+			readonly name: 'Octave';
 			readonly value: 'matlab';
 	  }
 	| {
-			readonly name: 'QML';
 			readonly alias: readonly ['qbs', 'qml'];
+			readonly name: 'QML';
 			readonly value: 'qml';
 	  }
 	| {
-			readonly name: 'Prolog';
 			readonly alias: readonly ['prolog'];
+			readonly name: 'Prolog';
 			readonly value: 'prolog';
 	  }
 	| {
-			readonly name: 'FoxPro';
 			readonly alias: readonly ['foxpro', 'purebasic'];
+			readonly name: 'FoxPro';
 			readonly value: 'purebasic';
 	  }
 	| {
-			readonly name: 'Scheme';
 			readonly alias: readonly ['scheme', 'scm'];
+			readonly name: 'Scheme';
 			readonly value: 'scheme';
 	  }
 	| {
-			readonly name: 'CUDA';
 			readonly alias: readonly ['cuda', 'cu'];
+			readonly name: 'CUDA';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Julia';
 			readonly alias: readonly ['julia', 'jl'];
+			readonly name: 'Julia';
 			readonly value: 'julia';
 	  }
 	| {
-			readonly name: 'Racket';
 			readonly alias: readonly ['racket', 'rkt'];
+			readonly name: 'Racket';
 			readonly value: 'lisp';
 	  }
 	| {
-			readonly name: 'Ada';
 			readonly alias: readonly ['ada', 'ada95', 'ada2005'];
+			readonly name: 'Ada';
 			readonly value: 'ada';
 	  }
 	| {
-			readonly name: 'Tcl';
 			readonly alias: readonly ['tcl'];
+			readonly name: 'Tcl';
 			readonly value: 'tcl';
 	  }
 	| {
-			readonly name: 'Mathematica';
 			readonly alias: readonly ['mathematica', 'mma', 'nb'];
+			readonly name: 'Mathematica';
 			readonly value: 'mathematica';
 	  }
 	| {
-			readonly name: 'Autoit';
 			readonly alias: readonly ['autoit'];
+			readonly name: 'Autoit';
 			readonly value: 'autoit';
 	  }
 	| {
-			readonly name: 'StandardML';
 			readonly alias: readonly ['standardmL', 'sml', 'standardml'];
+			readonly name: 'StandardML';
 			readonly value: 'sml';
 	  }
 	| {
-			readonly name: 'Objective-J';
 			readonly alias: readonly ['objective-j', 'objectivej', 'obj-j', 'objj'];
+			readonly name: 'Objective-J';
 			readonly value: 'objectivec';
 	  }
 	| {
-			readonly name: 'Smalltalk';
 			readonly alias: readonly ['smalltalk', 'squeak', 'st'];
+			readonly name: 'Smalltalk';
 			readonly value: 'smalltalk';
 	  }
 	| {
-			readonly name: 'Vala';
 			readonly alias: readonly ['vala', 'vapi'];
+			readonly name: 'Vala';
 			readonly value: 'vala';
 	  }
 	| {
-			readonly name: 'LiveScript';
 			readonly alias: readonly ['livescript', 'live-script'];
+			readonly name: 'LiveScript';
 			readonly value: 'livescript';
 	  }
 	| {
-			readonly name: 'XQuery';
 			readonly alias: readonly ['xquery', 'xqy', 'xq', 'xql', 'xqm'];
+			readonly name: 'XQuery';
 			readonly value: 'xquery';
 	  }
 	| {
-			readonly name: 'PlainText';
 			readonly alias: readonly ['text', 'plaintext'];
+			readonly name: 'PlainText';
 			readonly value: 'text';
 	  }
 	| {
-			readonly name: 'Yaml';
 			readonly alias: readonly ['yaml', 'yml'];
+			readonly name: 'Yaml';
 			readonly value: 'yaml';
 	  }
 	| {
-			readonly name: 'GraphQL';
 			readonly alias: readonly ['graphql'];
+			readonly name: 'GraphQL';
 			readonly value: 'graphql';
 	  }
 	| {
-			readonly name: 'AppleScript';
 			readonly alias: readonly ['applescript'];
+			readonly name: 'AppleScript';
 			readonly value: 'applescript';
 	  }
 	| {
-			readonly name: 'Clojure';
 			readonly alias: readonly ['clojure'];
+			readonly name: 'Clojure';
 			readonly value: 'clojure';
 	  }
 	| {
-			readonly name: 'Diff';
 			readonly alias: readonly ['diff'];
+			readonly name: 'Diff';
 			readonly value: 'diff';
 	  }
 	| {
-			readonly name: 'VisualBasic';
 			readonly alias: readonly ['visualbasic'];
+			readonly name: 'VisualBasic';
 			readonly value: 'visual-basic';
 	  }
 	| {
-			readonly name: 'JSX';
 			readonly alias: readonly ['jsx'];
+			readonly name: 'JSX';
 			readonly value: 'jsx';
 	  }
 	| {
-			readonly name: 'TSX';
 			readonly alias: readonly ['tsx'];
+			readonly name: 'TSX';
 			readonly value: 'tsx';
 	  }
 	| {
-			readonly name: 'SplunkSPL';
 			readonly alias: readonly ['splunk-spl'];
+			readonly name: 'SplunkSPL';
 			readonly value: 'splunk-spl';
 	  }
 	| {
-			readonly name: 'Dockerfile';
 			readonly alias: readonly ['docker', 'dockerfile'];
+			readonly name: 'Dockerfile';
 			readonly value: 'dockerfile';
 	  }
 	| {
-			readonly name: 'HCL';
 			readonly alias: readonly ['hcl', 'terraform'];
+			readonly name: 'HCL';
 			readonly value: 'hcl';
 	  }
 	| {
-			readonly name: 'NGINX';
 			readonly alias: readonly ['nginx'];
+			readonly name: 'NGINX';
 			readonly value: 'nginx';
 	  }
 	| {
-			readonly name: 'Protocol Buffers';
 			readonly alias: readonly ['protobuf', 'proto'];
+			readonly name: 'Protocol Buffers';
 			readonly value: 'protobuf';
 	  }
 	| {
-			readonly name: 'TOML';
 			readonly alias: readonly ['toml'];
+			readonly name: 'TOML';
 			readonly value: 'toml';
 	  }
 	| {
-			readonly name: 'Handlebars';
 			readonly alias: readonly ['handlebars', 'mustache'];
+			readonly name: 'Handlebars';
 			readonly value: 'handlebars';
 	  }
 	| {
-			readonly name: 'Gherkin';
 			readonly alias: readonly ['gherkin', 'cucumber'];
+			readonly name: 'Gherkin';
 			readonly value: 'gherkin';
 	  }
 	| {
-			readonly name: 'ABAP';
 			readonly alias: readonly ['abap'];
+			readonly name: 'ABAP';
 			readonly value: 'abap';
 	  }
 	| {
-			readonly name: 'Markdown';
 			readonly alias: readonly ['markdown'];
+			readonly name: 'Markdown';
 			readonly value: 'markdown';
 	  }
 	| {
-			name: string;
 			alias: string[];
+			name: string;
 			value: string;
 	  }
 	| undefined {
@@ -932,117 +942,116 @@ export function getLanguageIdentifier(language: Language): string {
 
 export function createLanguageList(supportedLanguages: Language[]): (
 	| {
-			readonly name: 'PHP';
 			readonly alias: readonly ['php', 'php3', 'php4', 'php5'];
+			readonly name: 'PHP';
 			readonly value: 'php';
 	  }
 	| {
-			readonly name: 'Java';
 			readonly alias: readonly ['java'];
+			readonly name: 'Java';
 			readonly value: 'java';
 	  }
 	| {
-			readonly name: 'CSharp';
 			readonly alias: readonly ['csharp', 'c#'];
+			readonly name: 'CSharp';
 			readonly value: 'cs';
 	  }
 	| {
-			readonly name: 'Python';
 			readonly alias: readonly ['python', 'py'];
+			readonly name: 'Python';
 			readonly value: 'python';
 	  }
 	| {
-			readonly name: 'JavaScript';
 			readonly alias: readonly ['javascript', 'js'];
+			readonly name: 'JavaScript';
 			readonly value: 'javascript';
 	  }
 	| {
-			readonly name: 'Html';
 			readonly alias: readonly ['html'];
+			readonly name: 'Html';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'C++';
 			readonly alias: readonly ['c++', 'cpp', 'clike'];
+			readonly name: 'C++';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Ruby';
 			readonly alias: readonly ['ruby', 'rb', 'duby'];
+			readonly name: 'Ruby';
 			readonly value: 'ruby';
 	  }
 	| {
-			readonly name: 'Objective-C';
 			readonly alias: readonly ['objective-c', 'objectivec', 'obj-c', 'objc'];
+			readonly name: 'Objective-C';
 			readonly value: 'objectivec';
 	  }
 	| {
-			readonly name: 'C';
 			readonly alias: readonly ['c'];
+			readonly name: 'C';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Swift';
 			readonly alias: readonly ['swift'];
+			readonly name: 'Swift';
 			readonly value: 'swift';
 	  }
 	| {
-			readonly name: 'TeX';
 			readonly alias: readonly ['tex', 'latex'];
+			readonly name: 'TeX';
 			readonly value: 'tex';
 	  }
 	| {
-			readonly name: 'Shell';
 			readonly alias: readonly ['shell', 'bash', 'sh', 'ksh', 'zsh'];
+			readonly name: 'Shell';
 			readonly value: 'shell';
 	  }
 	| {
-			readonly name: 'Scala';
 			readonly alias: readonly ['scala'];
+			readonly name: 'Scala';
 			readonly value: 'scala';
 	  }
 	| {
-			readonly name: 'Go';
 			readonly alias: readonly ['go'];
+			readonly name: 'Go';
 			readonly value: 'go';
 	  }
 	| {
-			readonly name: 'ActionScript';
 			readonly alias: readonly ['actionscript', 'actionscript3', 'as'];
+			readonly name: 'ActionScript';
 			readonly value: 'actionscript';
 	  }
 	| {
-			readonly name: 'ColdFusion';
 			readonly alias: readonly ['coldfusion'];
+			readonly name: 'ColdFusion';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'JavaFX';
 			readonly alias: readonly ['javafx', 'jfx'];
+			readonly name: 'JavaFX';
 			readonly value: 'java';
 	  }
 	| {
-			readonly name: 'VbNet';
 			readonly alias: readonly ['vbnet', 'vb.net', 'vfp', 'clipper', 'xbase'];
+			readonly name: 'VbNet';
 			readonly value: 'vbnet';
 	  }
 	| {
-			readonly name: 'JSON';
 			readonly alias: readonly ['json'];
+			readonly name: 'JSON';
 			readonly value: 'json';
 	  }
 	| {
-			readonly name: 'MATLAB';
 			readonly alias: readonly ['matlab'];
+			readonly name: 'MATLAB';
 			readonly value: 'matlab';
 	  }
 	| {
-			readonly name: 'Groovy';
 			readonly alias: readonly ['groovy'];
+			readonly name: 'Groovy';
 			readonly value: 'groovy';
 	  }
 	| {
-			readonly name: 'SQL';
 			readonly alias: readonly [
 				'sql',
 				'postgresql',
@@ -1056,321 +1065,322 @@ export function createLanguageList(supportedLanguages: Language[]): (
 				'mysql',
 				'sqlite',
 			];
+			readonly name: 'SQL';
 			readonly value: 'sql';
 	  }
 	| {
-			readonly name: 'R';
 			readonly alias: readonly ['r'];
+			readonly name: 'R';
 			readonly value: 'r';
 	  }
 	| {
-			readonly name: 'Perl';
 			readonly alias: readonly ['perl', 'pl'];
+			readonly name: 'Perl';
 			readonly value: 'perl';
 	  }
 	| {
-			readonly name: 'Lua';
 			readonly alias: readonly ['lua'];
+			readonly name: 'Lua';
 			readonly value: 'lua';
 	  }
 	| {
-			readonly name: 'Pascal';
 			readonly alias: readonly ['pas', 'pascal', 'objectpascal', 'delphi'];
+			readonly name: 'Pascal';
 			readonly value: 'pascal';
 	  }
 	| {
-			readonly name: 'XML';
 			readonly alias: readonly ['xml'];
+			readonly name: 'XML';
 			readonly value: 'xml';
 	  }
 	| {
-			readonly name: 'TypeScript';
 			readonly alias: readonly ['typescript', 'ts'];
+			readonly name: 'TypeScript';
 			readonly value: 'typescript';
 	  }
 	| {
-			readonly name: 'CoffeeScript';
 			readonly alias: readonly ['coffeescript', 'coffee-script', 'coffee'];
+			readonly name: 'CoffeeScript';
 			readonly value: 'coffeescript';
 	  }
 	| {
-			readonly name: 'Haskell';
 			readonly alias: readonly ['haskell', 'hs'];
+			readonly name: 'Haskell';
 			readonly value: 'haskell';
 	  }
 	| {
-			readonly name: 'Puppet';
 			readonly alias: readonly ['puppet'];
+			readonly name: 'Puppet';
 			readonly value: 'puppet';
 	  }
 	| {
-			readonly name: 'Arduino';
 			readonly alias: readonly ['arduino'];
+			readonly name: 'Arduino';
 			readonly value: 'arduino';
 	  }
 	| {
-			readonly name: 'Fortran';
 			readonly alias: readonly ['fortran'];
+			readonly name: 'Fortran';
 			readonly value: 'fortran';
 	  }
 	| {
-			readonly name: 'Erlang';
 			readonly alias: readonly ['erlang', 'erl'];
+			readonly name: 'Erlang';
 			readonly value: 'erlang';
 	  }
 	| {
-			readonly name: 'PowerShell';
 			readonly alias: readonly ['powershell', 'posh', 'ps1', 'psm1'];
+			readonly name: 'PowerShell';
 			readonly value: 'powershell';
 	  }
 	| {
-			readonly name: 'Haxe';
 			readonly alias: readonly ['haxe', 'hx', 'hxsl'];
+			readonly name: 'Haxe';
 			readonly value: 'haxe';
 	  }
 	| {
-			readonly name: 'Elixir';
 			readonly alias: readonly ['elixir', 'ex', 'exs'];
+			readonly name: 'Elixir';
 			readonly value: 'elixir';
 	  }
 	| {
-			readonly name: 'Verilog';
 			readonly alias: readonly ['verilog', 'v'];
+			readonly name: 'Verilog';
 			readonly value: 'verilog';
 	  }
 	| {
-			readonly name: 'Rust';
 			readonly alias: readonly ['rust'];
+			readonly name: 'Rust';
 			readonly value: 'rust';
 	  }
 	| {
-			readonly name: 'VHDL';
 			readonly alias: readonly ['vhdl'];
+			readonly name: 'VHDL';
 			readonly value: 'vhdl';
 	  }
 	| {
-			readonly name: 'Sass';
 			readonly alias: readonly ['sass'];
+			readonly name: 'Sass';
 			readonly value: 'less';
 	  }
 	| {
-			readonly name: 'OCaml';
 			readonly alias: readonly ['ocaml'];
+			readonly name: 'OCaml';
 			readonly value: 'ocaml';
 	  }
 	| {
-			readonly name: 'Dart';
 			readonly alias: readonly ['dart'];
+			readonly name: 'Dart';
 			readonly value: 'dart';
 	  }
 	| {
-			readonly name: 'CSS';
 			readonly alias: readonly ['css'];
+			readonly name: 'CSS';
 			readonly value: 'css';
 	  }
 	| {
-			readonly name: 'reStructuredText';
 			readonly alias: readonly ['restructuredtext', 'rst', 'rest'];
+			readonly name: 'reStructuredText';
 			readonly value: 'rest';
 	  }
 	| {
-			readonly name: 'Kotlin';
 			readonly alias: readonly ['kotlin'];
+			readonly name: 'Kotlin';
 			readonly value: 'kotlin';
 	  }
 	| {
-			readonly name: 'D';
 			readonly alias: readonly ['d'];
+			readonly name: 'D';
 			readonly value: 'd';
 	  }
 	| {
-			readonly name: 'Octave';
 			readonly alias: readonly ['octave'];
+			readonly name: 'Octave';
 			readonly value: 'matlab';
 	  }
 	| {
-			readonly name: 'QML';
 			readonly alias: readonly ['qbs', 'qml'];
+			readonly name: 'QML';
 			readonly value: 'qml';
 	  }
 	| {
-			readonly name: 'Prolog';
 			readonly alias: readonly ['prolog'];
+			readonly name: 'Prolog';
 			readonly value: 'prolog';
 	  }
 	| {
-			readonly name: 'FoxPro';
 			readonly alias: readonly ['foxpro', 'purebasic'];
+			readonly name: 'FoxPro';
 			readonly value: 'purebasic';
 	  }
 	| {
-			readonly name: 'Scheme';
 			readonly alias: readonly ['scheme', 'scm'];
+			readonly name: 'Scheme';
 			readonly value: 'scheme';
 	  }
 	| {
-			readonly name: 'CUDA';
 			readonly alias: readonly ['cuda', 'cu'];
+			readonly name: 'CUDA';
 			readonly value: 'cpp';
 	  }
 	| {
-			readonly name: 'Julia';
 			readonly alias: readonly ['julia', 'jl'];
+			readonly name: 'Julia';
 			readonly value: 'julia';
 	  }
 	| {
-			readonly name: 'Racket';
 			readonly alias: readonly ['racket', 'rkt'];
+			readonly name: 'Racket';
 			readonly value: 'lisp';
 	  }
 	| {
-			readonly name: 'Ada';
 			readonly alias: readonly ['ada', 'ada95', 'ada2005'];
+			readonly name: 'Ada';
 			readonly value: 'ada';
 	  }
 	| {
-			readonly name: 'Tcl';
 			readonly alias: readonly ['tcl'];
+			readonly name: 'Tcl';
 			readonly value: 'tcl';
 	  }
 	| {
-			readonly name: 'Mathematica';
 			readonly alias: readonly ['mathematica', 'mma', 'nb'];
+			readonly name: 'Mathematica';
 			readonly value: 'mathematica';
 	  }
 	| {
-			readonly name: 'Autoit';
 			readonly alias: readonly ['autoit'];
+			readonly name: 'Autoit';
 			readonly value: 'autoit';
 	  }
 	| {
-			readonly name: 'StandardML';
 			readonly alias: readonly ['standardmL', 'sml', 'standardml'];
+			readonly name: 'StandardML';
 			readonly value: 'sml';
 	  }
 	| {
-			readonly name: 'Objective-J';
 			readonly alias: readonly ['objective-j', 'objectivej', 'obj-j', 'objj'];
+			readonly name: 'Objective-J';
 			readonly value: 'objectivec';
 	  }
 	| {
-			readonly name: 'Smalltalk';
 			readonly alias: readonly ['smalltalk', 'squeak', 'st'];
+			readonly name: 'Smalltalk';
 			readonly value: 'smalltalk';
 	  }
 	| {
-			readonly name: 'Vala';
 			readonly alias: readonly ['vala', 'vapi'];
+			readonly name: 'Vala';
 			readonly value: 'vala';
 	  }
 	| {
-			readonly name: 'LiveScript';
 			readonly alias: readonly ['livescript', 'live-script'];
+			readonly name: 'LiveScript';
 			readonly value: 'livescript';
 	  }
 	| {
-			readonly name: 'XQuery';
 			readonly alias: readonly ['xquery', 'xqy', 'xq', 'xql', 'xqm'];
+			readonly name: 'XQuery';
 			readonly value: 'xquery';
 	  }
 	| {
-			readonly name: 'PlainText';
 			readonly alias: readonly ['text', 'plaintext'];
+			readonly name: 'PlainText';
 			readonly value: 'text';
 	  }
 	| {
-			readonly name: 'Yaml';
 			readonly alias: readonly ['yaml', 'yml'];
+			readonly name: 'Yaml';
 			readonly value: 'yaml';
 	  }
 	| {
-			readonly name: 'GraphQL';
 			readonly alias: readonly ['graphql'];
+			readonly name: 'GraphQL';
 			readonly value: 'graphql';
 	  }
 	| {
-			readonly name: 'AppleScript';
 			readonly alias: readonly ['applescript'];
+			readonly name: 'AppleScript';
 			readonly value: 'applescript';
 	  }
 	| {
-			readonly name: 'Clojure';
 			readonly alias: readonly ['clojure'];
+			readonly name: 'Clojure';
 			readonly value: 'clojure';
 	  }
 	| {
-			readonly name: 'Diff';
 			readonly alias: readonly ['diff'];
+			readonly name: 'Diff';
 			readonly value: 'diff';
 	  }
 	| {
-			readonly name: 'VisualBasic';
 			readonly alias: readonly ['visualbasic'];
+			readonly name: 'VisualBasic';
 			readonly value: 'visual-basic';
 	  }
 	| {
-			readonly name: 'JSX';
 			readonly alias: readonly ['jsx'];
+			readonly name: 'JSX';
 			readonly value: 'jsx';
 	  }
 	| {
-			readonly name: 'TSX';
 			readonly alias: readonly ['tsx'];
+			readonly name: 'TSX';
 			readonly value: 'tsx';
 	  }
 	| {
-			readonly name: 'SplunkSPL';
 			readonly alias: readonly ['splunk-spl'];
+			readonly name: 'SplunkSPL';
 			readonly value: 'splunk-spl';
 	  }
 	| {
-			readonly name: 'Dockerfile';
 			readonly alias: readonly ['docker', 'dockerfile'];
+			readonly name: 'Dockerfile';
 			readonly value: 'dockerfile';
 	  }
 	| {
-			readonly name: 'HCL';
 			readonly alias: readonly ['hcl', 'terraform'];
+			readonly name: 'HCL';
 			readonly value: 'hcl';
 	  }
 	| {
-			readonly name: 'NGINX';
 			readonly alias: readonly ['nginx'];
+			readonly name: 'NGINX';
 			readonly value: 'nginx';
 	  }
 	| {
-			readonly name: 'Protocol Buffers';
 			readonly alias: readonly ['protobuf', 'proto'];
+			readonly name: 'Protocol Buffers';
 			readonly value: 'protobuf';
 	  }
 	| {
-			readonly name: 'TOML';
 			readonly alias: readonly ['toml'];
+			readonly name: 'TOML';
 			readonly value: 'toml';
 	  }
 	| {
-			readonly name: 'Handlebars';
 			readonly alias: readonly ['handlebars', 'mustache'];
+			readonly name: 'Handlebars';
 			readonly value: 'handlebars';
 	  }
 	| {
-			readonly name: 'Gherkin';
 			readonly alias: readonly ['gherkin', 'cucumber'];
+			readonly name: 'Gherkin';
 			readonly value: 'gherkin';
 	  }
 	| {
-			readonly name: 'ABAP';
 			readonly alias: readonly ['abap'];
+			readonly name: 'ABAP';
 			readonly value: 'abap';
 	  }
 	| {
-			readonly name: 'Markdown';
 			readonly alias: readonly ['markdown'];
+			readonly name: 'Markdown';
 			readonly value: 'markdown';
 	  }
 	| {
-			name: string;
 			alias: string[];
+			name: string;
 			value: string;
 	  }
 )[] {

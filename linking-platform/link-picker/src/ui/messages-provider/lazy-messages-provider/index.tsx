@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 
 import en from '../../../i18n/en';
 

@@ -18,9 +18,18 @@ import { AllSelection, NodeSelection } from '@atlaskit/editor-prosemirror/state'
 import { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { receiveTransaction } from '@atlaskit/prosemirror-collab';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import type { PrivateCollabEditOptions } from '../types';
 
+import {
+	ADD_AGENT_SHIMMER_META,
+	AGENT_SHIMMER_DEFAULT_DURATION_MS,
+	type AgentShimmerRange,
+	REMOVE_AGENT_SHIMMER_META,
+} from './main/agent-shimmer-decorations';
+import { getAgentShimmerRanges } from './main/agent-shimmer-ranges';
 import { replaceDocument } from './utils';
 
 /*
@@ -110,6 +119,30 @@ export const applyRemoteSteps = (
 		tr.setMeta('addToHistory', false);
 		tr.setMeta('isRemote', true);
 
+		// Agent edit shimmer: mark the ranges agent steps just wrote so the plugin reveals them with the
+		// gloss-sweep → purple-highlight sequence. Gated as a whole so no experiment reads run
+		// off-experiment; off-path leaves `agentShimmers` empty and everything below is a no-op.
+		let durationMs = 0;
+		let agentShimmers: AgentShimmerRange[] = [];
+		if (expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)) {
+			durationMs = expVal(
+				'platform_editor_agent_be_streaming',
+				'durationMs',
+				AGENT_SHIMMER_DEFAULT_DURATION_MS,
+			);
+			// Telepointer shown by default; `telepointerDisabled` hides it (inverted because `expVal`
+			// only permits `false` as a boolean default).
+			const telepointerEnabled = !expVal(
+				'platform_editor_agent_be_streaming',
+				'telepointerDisabled',
+				false,
+			);
+			agentShimmers = getAgentShimmerRanges(json, steps, tr, view, durationMs, telepointerEnabled);
+			if (agentShimmers.length) {
+				tr.setMeta(ADD_AGENT_SHIMMER_META, agentShimmers);
+			}
+		}
+
 		/*
 		 * Persist marks across transactions. Fixes an issue where
 		 * marks are lost if remote transactions are dispatched
@@ -120,6 +153,24 @@ export const applyRemoteSteps = (
 		}
 
 		view.dispatch(tr);
+
+		// Remove each shimmer after `durationMs`. `dispatchMeta` is guarded so a timer firing after
+		// teardown is a harmless no-op. Only reached when the gated block above produced ranges, so this
+		// whole path is off-experiment-safe.
+		if (agentShimmers.length) {
+			const dispatchMeta = (metaKey: string, value: unknown): void => {
+				try {
+					view.dispatch(view.state.tr.setMeta(metaKey, value));
+				} catch {
+					// View torn down before the timer fired — nothing to clean up.
+				}
+			};
+			agentShimmers.forEach(({ shimmerId }) => {
+				setTimeout(() => {
+					dispatchMeta(REMOVE_AGENT_SHIMMER_META, shimmerId);
+				}, durationMs);
+			});
+		}
 	}
 };
 

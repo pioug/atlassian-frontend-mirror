@@ -1091,7 +1091,7 @@
       }
     },
     "Light increased-contrast/color.background.code.added.line": {
-      "value": "#BAF3DB",
+      "value": "#BAF3DB66",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1136,7 +1136,7 @@
       }
     },
     "Light increased-contrast/color.background.code.removed.line": {
-      "value": "#FFD5D2",
+      "value": "#FFD5D266",
       "attributes": {
         "group": "paint",
         "state": "active",

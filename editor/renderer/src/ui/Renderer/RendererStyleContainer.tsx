@@ -78,6 +78,8 @@ import {
 	SyncBlockSharedCssClassName,
 } from '@atlaskit/editor-common/sync-block';
 
+import { COLLAPSED_CONTENT_OWNERS_ATTRIBUTE } from '../collapsible-headings-dom';
+
 const wrappedMediaBreakoutPoint = 410;
 const TELEPOINTER_ID = 'ai-streaming-telepointer';
 const tableShadowWidth = 32;
@@ -144,6 +146,14 @@ const baseStyles = css({
 	},
 
 	[`.${RendererCssClassName.DOCUMENT}`]: {
+		[`> [${COLLAPSED_CONTENT_OWNERS_ATTRIBUTE}][hidden='until-found']`]: {
+			display: 'block',
+			minBlockSize: 0,
+			marginBlock: 0,
+			paddingBlock: 0,
+			borderBlockWidth: 0,
+		},
+
 		// p, h3, and action items
 		[`.${INLINE_IMAGE_WRAPPER_CLASS_NAME}`]: {
 			height: '22px',

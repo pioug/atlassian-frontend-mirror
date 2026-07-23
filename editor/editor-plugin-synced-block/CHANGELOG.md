@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.4.0
+
+### Minor Changes
+
+- [`b0cecd4d5b970`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0cecd4d5b970) -
+  Add a product feedback trigger to synced block overflow actions.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "26.12.4",
+	"version": "26.13.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -198,9 +198,6 @@
 			"type": "boolean"
 		},
 		"confluence_fix_agent_profile_card_flash": {
-			"type": "boolean"
-		},
-		"issue_view_agent_discovery_fast_follows": {
 			"type": "boolean"
 		},
 		"update_profile_card_to_open_on_mouse_over": {

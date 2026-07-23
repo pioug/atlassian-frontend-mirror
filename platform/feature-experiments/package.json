@@ -1,0 +1,35 @@
+{
+	"name": "@atlaskit/platform-feature-experiments",
+	"version": "0.2.0",
+	"description": "Typed wrappers for Statsig experiments, with distributed experiment registration via module augmentation",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"sideEffects": false,
+	"atlaskit:src": "src/exp-val.ts",
+	"exports": {
+		"./exp-val": "./src/exp-val.ts",
+		"./unsafe-exp-val-no-exposure": "./src/unsafe-exp-val-no-exposure.ts",
+		"./is-experiment-enabled": "./src/is-experiment-enabled.ts",
+		"./dev-override": "./src/dev-override.ts"
+	},
+	"dependencies": {
+		"@atlaskit/feature-gate-js-client": "workspace:^",
+		"@atlaskit/react-ufo": "workspace:^",
+		"@babel/runtime": "root:*"
+	},
+	"devDependencies": {
+		"@atlassian/experiment-test-utils": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"react": "root:*"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0"
+	}
+}

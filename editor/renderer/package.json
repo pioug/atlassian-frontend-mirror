@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "133.14.2",
+	"version": "133.15.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,6 +39,7 @@
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/code": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-palette": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",

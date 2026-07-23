@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-code-block
 
+## 14.2.0
+
+### Minor Changes
+
+- [`6891ca32d94cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6891ca32d94cc) -
+  Add `Mermaid` as a selectable language in the code block language picker, behind the
+  `platform_editor_code_block_mermaid_language` feature gate. When the gate is enabled, Mermaid
+  appears in the picker and the advanced (CodeMirror) code block provides Mermaid syntax
+  highlighting via `codemirror-lang-mermaid`. The language is intentionally kept out of the shared
+  `@atlaskit/code` supported-languages list so it is fully gated and does not leak into other
+  consumers.
+
 ## 14.1.32
 
 ### Patch Changes

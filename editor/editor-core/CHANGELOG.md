@@ -1,5 +1,46 @@
 # @atlaskit/editor-core
 
+## 221.13.1
+
+### Patch Changes
+
+- [`a7950c254eaad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7950c254eaad) -
+  Replace editorExperiment with expValEquals
+- Updated dependencies
+
+## 221.13.0
+
+### Minor Changes
+
+- [`895ac23f1a3be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/895ac23f1a3be) -
+  Agent edit presence: surface agent-authored collaborative edits to other users.
+  - `collab-provider` detects agent-authored remote steps (`agentType`/`agentId`) and registers a
+    synthetic agent participant in the AI-provider (`agent:`) partition so the agent appears in
+    presence, with a 30s sliding inactivity window (CCI-18030). `editor-common` gains optional
+    `agentId`/`agentType` on the collab step types.
+  - `editor-plugin-collab-edit` + `editor-core` add the in-editor shimmer (CCI-18033): when an
+    agent-authored step lands, the top-level block(s) it touched are covered by a skeleton-loader
+    shimmer (grey skeleton with a moving highlight) with a Rovo agent telepointer/cursor — labelled
+    with the agent's type — at the end of the range, then removed on a timer to reveal the content.
+    Gated behind the default-OFF `platform_editor_agent_be_streaming` experiment; the `durationMs`
+    dynamic-config param controls how long the shimmer stays (0 disables it) and
+    `telepointerDisabled` hides the telepointer. `tmp-editor-statsig` registers the experiment.
+  - `ratcheting` excludes the new `agentShimmerStyles.ts` from the "No unsafe typography" rule (the
+    agent telepointer label mirrors the existing AI in-editor telepointer's sub-token 10px/9px
+    sizing, matching its already-excluded Compiled counterpart).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 221.12.2
+
+### Patch Changes
+
+- [`f596f4ca80078`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f596f4ca80078) -
+  Clean up feature gate `platform_editor_table_auto_convert_fix`
+- Updated dependencies
+
 ## 221.12.1
 
 ### Patch Changes

@@ -14,7 +14,7 @@ interface Props {
 
 export function tablePluginOptions({ options }: Props): TablePluginOptions {
 	return {
-		__livePage: fg('platform_editor_table_auto_convert_fix') ? options.__livePage : undefined,
+		__livePage: options.__livePage,
 		// value from next/packages/editor-features/src/hooks/useTableOptions.ts
 		tableOptions: {
 			allowTableResizing: true,

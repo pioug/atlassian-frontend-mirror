@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::41033e5adb032ffbd213bfc97d609e0e>>
+ * @codegen <<SignedSource::10a5981b88ab9d586c02ff046af21df5>>
  * @codegenCommand yarn build tokens
  */
 
@@ -3689,7 +3689,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.code.added.highlight"
   },
   {
-    "value": "#164B35",
+    "value": "#164B35B2",
     "filePath": "schema/themes/atlassian-dark/color/code.tsx",
     "isSource": false,
     "attributes": {
@@ -3699,7 +3699,7 @@ const tokens: Token[] = [
       "description": "Use for added code lines."
     },
     "original": {
-      "value": "Green900",
+      "value": "Green900A70",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -3831,7 +3831,7 @@ const tokens: Token[] = [
     "cleanName": "color.background.code.removed.highlight"
   },
   {
-    "value": "#5D1F1A",
+    "value": "#5D1F1AB2",
     "filePath": "schema/themes/atlassian-dark/color/code.tsx",
     "isSource": false,
     "attributes": {
@@ -3841,7 +3841,7 @@ const tokens: Token[] = [
       "description": "Use for removed code lines."
     },
     "original": {
-      "value": "Red900",
+      "value": "Red900A70",
       "attributes": {
         "group": "paint",
         "state": "active",

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f9c9243152a7667475539d8ab18f0cee>>
+ * @codegen <<SignedSource::a42ee9120ce1871f4540b72091a0ef1d>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2679,7 +2679,7 @@ var tokens = [{
     "introduced": "16.0.0",
     "description": "Use for added code lines."
   },
-  "value": "#164B35",
+  "value": "#164B35B2",
   "filePath": "schema/themes/atlassian-dark/color/code.tsx",
   "isSource": true,
   "original": {
@@ -2689,7 +2689,7 @@ var tokens = [{
       "introduced": "16.0.0",
       "description": "Use for added code lines."
     },
-    "value": "Green900"
+    "value": "Green900A70"
   },
   "name": "color.background.code.added.line",
   "path": ["color", "background", "code", "added", "line"],
@@ -2789,7 +2789,7 @@ var tokens = [{
     "introduced": "16.0.0",
     "description": "Use for removed code lines."
   },
-  "value": "#5D1F1A",
+  "value": "#5D1F1AB2",
   "filePath": "schema/themes/atlassian-dark/color/code.tsx",
   "isSource": true,
   "original": {
@@ -2799,7 +2799,7 @@ var tokens = [{
       "introduced": "16.0.0",
       "description": "Use for removed code lines."
     },
-    "value": "Red900"
+    "value": "Red900A70"
   },
   "name": "color.background.code.removed.line",
   "path": ["color", "background", "code", "removed", "line"],

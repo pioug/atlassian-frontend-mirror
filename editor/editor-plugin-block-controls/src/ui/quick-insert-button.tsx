@@ -42,6 +42,7 @@ import { getLeftPositionForRootElement } from '../pm-plugins/utils/widget-positi
 
 import {
 	ACTIVE_QUICK_INSERT_ATTR,
+	ACTIVE_QUICK_INSERT_FALLBACK_ANCHOR_NAME,
 	QUICK_INSERT_DIMENSIONS,
 	QUICK_INSERT_HEIGHT,
 	QUICK_INSERT_LEFT_OFFSET,
@@ -202,6 +203,20 @@ type Props = {
 	view: EditorView;
 };
 
+const getQuickInsertAnchorReference = ({
+	edge,
+	safeAnchorName,
+}: {
+	edge: 'start' | 'end';
+	safeAnchorName: string;
+}): string => {
+	if (expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)) {
+		return `anchor(${safeAnchorName} ${edge}, anchor(${ACTIVE_QUICK_INSERT_FALLBACK_ANCHOR_NAME} ${edge}))`;
+	}
+
+	return `anchor(${safeAnchorName} ${edge})`;
+};
+
 export const TypeAheadControl = ({
 	view,
 	api,
@@ -235,7 +250,6 @@ export const TypeAheadControl = ({
 		const node = pos !== undefined ? view.state.doc.nodeAt(pos) : undefined;
 
 		const safeAnchorName = refreshAnchorName({ getPos, view, anchorName: rootAnchorName });
-
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 		);
@@ -276,15 +290,25 @@ export const TypeAheadControl = ({
 
 		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
 		const isSticky = shouldBeSticky(rootNodeType);
-		const bottom = getControlBottomCSSValue(safeAnchorName || anchorName, isSticky, true);
+		const anchorStart = getQuickInsertAnchorReference({
+			edge: 'start',
+			safeAnchorName,
+		});
+		const bottom = getControlBottomCSSValue(
+			safeAnchorName || anchorName,
+			isSticky,
+			true,
+			false,
+			ACTIVE_QUICK_INSERT_FALLBACK_ANCHOR_NAME,
+		);
 
 		if (supportsAnchor) {
 			return {
 				left: isEdgeCase
-					? `calc(anchor(${safeAnchorName} start) + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + -${QUICK_INSERT_LEFT_OFFSET}px)`
-					: `calc(anchor(${safeAnchorName} start) - ${QUICK_INSERT_DIMENSIONS.width}px - ${rootElementGap(rootNodeType)}px + -${QUICK_INSERT_LEFT_OFFSET}px)`,
+					? `calc(${anchorStart} + ${getLeftPositionForRootElement(dom, rootNodeType, QUICK_INSERT_DIMENSIONS, innerContainer, isMacroInteractionUpdates)} + -${QUICK_INSERT_LEFT_OFFSET}px)`
+					: `calc(${anchorStart} - ${QUICK_INSERT_DIMENSIONS.width}px - ${rootElementGap(rootNodeType)}px + -${QUICK_INSERT_LEFT_OFFSET}px)`,
 				// small text requires further tweaking to positioning, re-using existing methods to calculate to keep it unified with drag handle
-				top: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(node && node.type.name === 'paragraph' && expValEquals('platform_editor_small_font_size', 'isEnabled', true) ? getNodeTypeWithLevel(node) : rootNodeType)}px)`,
+				top: `calc(${anchorStart} + ${topPositionAdjustment(node && node.type.name === 'paragraph' && expValEquals('platform_editor_small_font_size', 'isEnabled', true) ? getNodeTypeWithLevel(node) : rootNodeType)}px)`,
 				...bottom,
 			} as CSSProperties;
 		}

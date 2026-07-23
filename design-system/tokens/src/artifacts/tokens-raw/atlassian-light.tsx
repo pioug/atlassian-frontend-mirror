@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::93ec998465a9d1d0bd8fa6ec148b6678>>
+ * @codegen <<SignedSource::4336045c58b7f87272423624aa92387b>>
  * @codegenCommand yarn build tokens
  */
 
@@ -3695,7 +3695,7 @@ const tokens: Token[] = [
       "introduced": "16.0.0",
       "description": "Use for added code lines."
     },
-    "value": "#BAF3DB",
+    "value": "#BAF3DB66",
     "filePath": "schema/themes/atlassian-light/color/code.tsx",
     "isSource": true,
     "original": {
@@ -3705,7 +3705,7 @@ const tokens: Token[] = [
         "introduced": "16.0.0",
         "description": "Use for added code lines."
       },
-      "value": "Green200"
+      "value": "Green200A40"
     },
     "name": "color.background.code.added.line",
     "path": [
@@ -3837,7 +3837,7 @@ const tokens: Token[] = [
       "introduced": "16.0.0",
       "description": "Use for removed code lines."
     },
-    "value": "#FFD5D2",
+    "value": "#FFD5D266",
     "filePath": "schema/themes/atlassian-light/color/code.tsx",
     "isSource": true,
     "original": {
@@ -3847,7 +3847,7 @@ const tokens: Token[] = [
         "introduced": "16.0.0",
         "description": "Use for removed code lines."
       },
-      "value": "Red200"
+      "value": "Red200A40"
     },
     "name": "color.background.code.removed.line",
     "path": [

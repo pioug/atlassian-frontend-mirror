@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::a4eb2e29830d1b698e435ffc76b8bd21>>
+ * @codegen <<SignedSource::1b6b44203d7eb7b3dcbf51c39fcb53eb>>
  * @codegenCommand yarn workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -152,44 +152,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description:
 					"A function which will be called when an event is fired on this Listener's\nchannel. It is passed the event and the channel as arguments.",
 				isRequired: true,
-			},
-		],
-	},
-	{
-		name: 'Notifications',
-		package: '@atlaskit/atlassian-notifications',
-		description: 'A component for displaying a list of notifications for Atlassian products.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use Notifications to display a list of user-relevant events or updates.',
-			'Typically used within a notification drawer or popover.',
-		],
-		keywords: ['notifications', 'alerts', 'updates', 'list'],
-		category: 'interaction',
-		examples: [
-			"import React, { useEffect } from 'react';\nimport { Notifications } from '../src';\nconst onLoad = (...args: any[]) => {\n\tconsole.log('onLoad', ...args);\n};\nconst BasicUsage = (): React.JSX.Element => {\n\t// Fake the notifications iframe url as it is unreachable from examples\n\tuseEffect(() => {\n\t\tconst iframe = document.querySelector('iframe[title=\"Notifications\"]') as HTMLIFrameElement;\n\t\tif (iframe) {\n\t\t\tconst content = `\n        <h1>Notifications</h1>\n        <script>\n          setTimeout(() => {\n            window.parent.postMessage('readyForUser', '*');\n          }, 1000);\n        </script>\n      `;\n\t\t\tiframe.src = `data:text/html,${encodeURIComponent(content)}`;\n\t\t}\n\t}, []);\n\treturn (\n\t\t<Notifications\n\t\t\tlocale=\"en\"\n\t\t\tonLoad={onLoad}\n\t\t\tproduct=\"jira\"\n\t\t\ttestId=\"jira-notifications\"\n\t\t\ttitle=\"Notifications\"\n\t\t/>\n\t);\n};\nexport default BasicUsage;",
-		],
-		props: [
-			{
-				name: '_url',
-				type: 'string',
-				description: 'Reserved for testing, avoid using this',
-			},
-			{
-				name: 'isNewExperience',
-				type: 'boolean',
-			},
-			{
-				name: 'locale',
-				type: 'string',
-			},
-			{
-				name: 'product',
-				type: 'string',
-			},
-			{
-				name: 'subproduct',
-				type: 'string',
 			},
 		],
 	},

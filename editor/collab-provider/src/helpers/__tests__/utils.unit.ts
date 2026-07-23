@@ -13,7 +13,14 @@ import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { getStepUGCFreeDetails, isAIProviderID, isGCPtenant, logObfuscatedSteps } from '../utils';
+import {
+	getAgentProviderId,
+	getStepUGCFreeDetails,
+	isAIProviderID,
+	isGCPtenant,
+	logObfuscatedSteps,
+	normalizeAgentId,
+} from '../utils';
 
 import { collab as collabPlugin, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -43,6 +50,38 @@ describe('Utils unit tests', () => {
 		expect(isAIProviderID('test')).toBe(false);
 		expect(isAIProviderID('test:agent')).toBe(false);
 		expect(isAIProviderID('test:agent:')).toBe(false);
+	});
+
+	describe('normalizeAgentId', () => {
+		it('unwraps an identity user ARI to the bare AAID', () => {
+			expect(
+				normalizeAgentId('ari:cloud:identity::user/712020:e7a5fef1-25cd-4943-9bff-c725bf3f9804'),
+			).toBe('712020:e7a5fef1-25cd-4943-9bff-c725bf3f9804');
+		});
+		it('returns a bare AAID unchanged', () => {
+			expect(normalizeAgentId('712020:e7a5fef1-25cd-4943-9bff-c725bf3f9804')).toBe(
+				'712020:e7a5fef1-25cd-4943-9bff-c725bf3f9804',
+			);
+		});
+	});
+
+	describe('getAgentProviderId', () => {
+		it('returns undefined for a non-agent step (no agentType)', () => {
+			expect(getAgentProviderId({ agentId: '712020:abc' })).toBeUndefined();
+			expect(getAgentProviderId({})).toBeUndefined();
+		});
+		it('keys on the AAID (normalised) when agentId is present', () => {
+			expect(getAgentProviderId({ agentType: 'mcp', agentId: '712020:abc' })).toBe(
+				'agent:712020:abc',
+			);
+			expect(
+				getAgentProviderId({ agentType: 'mcp', agentId: 'ari:cloud:identity::user/712020:abc' }),
+			).toBe('agent:712020:abc');
+		});
+		it('falls back to the agent type when agentId is absent', () => {
+			expect(getAgentProviderId({ agentType: 'mcp' })).toBe('agent:mcp');
+			expect(getAgentProviderId({ agentType: 'twg' })).toBe('agent:twg');
+		});
 	});
 
 	it('returns obfuscated steps', async () => {

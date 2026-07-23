@@ -80,7 +80,6 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 	) {
 		super(node, view, getPos, eventDispatcher);
 
-		this.isHeaderRow = supportedHeaderRow(node);
 		this.isSticky = false;
 
 		const { pluginConfig } = getPluginState(view.state);
@@ -99,18 +98,25 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		const pos = this.getPos();
 		this.isInNestedTable = false;
 
+		let rowIndex = 0;
 		try {
 			// We cannot trust that the value from getPos will be defined
 			// https://discuss.prosemirror.net/t/getpos-is-undefined-in-nodeview-constructor/1246/4
 			// There are also scenarios where the value it brings back does not tally with the current doc
 			// E.g. when AI streaming brings in new content, this position brings back incorrect values that cannot be resolved
 			if (pos) {
-				this.isInNestedTable =
-					getParentOfTypeCount(view.state.schema.nodes.table)(view.state.doc.resolve(pos)) > 1;
+				const $pos = view.state.doc.resolve(pos);
+				this.isInNestedTable = getParentOfTypeCount(view.state.schema.nodes.table)($pos) > 1;
+				// Resolve rowIndex only when the flag is on — otherwise it's unused
+				if (expValEquals('platform_editor_fix_sticky_header_row', 'isEnabled', true)) {
+					rowIndex = $pos.index();
+				}
 			}
 		} catch {
 			// Intentionally swallowed — getPos can return stale positions during AI streaming
 		}
+
+		this.isHeaderRow = supportedHeaderRow(node, rowIndex);
 
 		if (this.isHeaderRow) {
 			this.dom.setAttribute('data-vc-nvs', 'true');
@@ -186,7 +192,18 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 		// see if we're changing into a header row or
 		// changing away from one
-		const newNodeIsHeaderRow = supportedHeaderRow(node);
+		let rowIndex = 0;
+		if (expValEquals('platform_editor_fix_sticky_header_row', 'isEnabled', true)) {
+			try {
+				const pos = this.getPos();
+				if (pos) {
+					rowIndex = this.view.state.doc.resolve(pos).index();
+				}
+			} catch {
+				// Intentionally swallowed — getPos can return stale positions during AI streaming
+			}
+		}
+		const newNodeIsHeaderRow = supportedHeaderRow(node, rowIndex);
 		if (this.isHeaderRow !== newNodeIsHeaderRow) {
 			return false; // re-create nodeview
 		}

@@ -31,9 +31,11 @@ import type AnalyticsHelper from '../analytics/analytics-helper';
 import { MEASURE_NAME, startMeasure, stopMeasure } from '../analytics/performance';
 import type { InternalError } from '../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
+
 import type { UGCFreeStepDetails } from '../helpers/utils';
 import {
 	createLogger,
+	getAgentProviderId,
 	getDocAdfWithObfuscationFromJSON,
 	getObfuscatedSteps,
 	getStepUGCFreeDetails,
@@ -437,6 +439,9 @@ export class DocumentService implements DocumentServiceInterface {
 				this.stepRejectCounter = 0;
 				this.participantsService.emitTelepointersFromSteps(steps);
 
+				// Surface agent edit presence from agent-authored steps.
+				this.maybeAddAgentPresenceFromSteps(steps);
+
 				// Resend local steps if none of the received steps originated with us!
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -457,6 +462,39 @@ export class DocumentService implements DocumentServiceInterface {
 
 				this.throttledCatchupv2(CatchupEventReason.PROCESS_STEPS);
 			}
+		}
+	}
+
+	/**
+	 * Detect agent-authored steps in a received batch and register
+	 * each distinct agent as a local participant so it appears in the presence facepile.
+	 *
+	 * Gated behind a default-OFF feature gate: `collab-provider` is shared platform infra (used by
+	 * Jira JWM/JPD etc.), so this is a strict no-op everywhere unless the gate is explicitly enabled.
+	 *
+	 * Isolated in its own try/catch so a presence failure can never affect step persistence.
+	 *
+	 * Known limitation (PoC): steps replayed via catch-up/reconnect can briefly re-surface an agent
+	 * whose activity is stale — a freshness guard is a follow-up.
+	 * @example
+	 */
+	private maybeAddAgentPresenceFromSteps(steps: StepJson[]): void {
+		if (!expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)) {
+			return;
+		}
+		try {
+			const providerIds = new Set<string>();
+			for (const step of steps) {
+				const providerId = getAgentProviderId(step);
+				if (providerId) {
+					providerIds.add(providerId);
+				}
+			}
+			providerIds.forEach((providerId) =>
+				this.participantsService.upsertAIProviderParticipantLocally(providerId),
+			);
+		} catch (error) {
+			this.analyticsHelper?.sendErrorEvent(error, 'Error while adding agent presence from steps');
 		}
 	}
 
@@ -537,22 +575,11 @@ export class DocumentService implements DocumentServiceInterface {
 		unconfirmedSteps: readonly ProseMirrorStep[] | undefined,
 		currentState?: ResolvedEditorState<JSONDocNode>,
 	): {
+		obfuscatedDoc: string | ADFEntity | null | undefined;
 		obfuscatedSteps:
 			| string
 			| {
-					stepType: {
-						type: string;
-						contentTypes: string | null;
-					};
 					stepContent: ADFEntity[] | null;
-					stepPositions: {
-						pos?: number | undefined;
-						insert?: number | undefined;
-						gapFrom?: number | undefined;
-						gapTo?: number | undefined;
-						from?: number | undefined;
-						to?: number | undefined;
-					};
 					stepMetadata:
 						| {
 								createdOffline?: boolean;
@@ -566,8 +593,19 @@ export class DocumentService implements DocumentServiceInterface {
 								unconfirmedStepAfterRecovery?: boolean;
 						  }
 						| undefined;
+					stepPositions: {
+						from?: number | undefined;
+						gapFrom?: number | undefined;
+						gapTo?: number | undefined;
+						insert?: number | undefined;
+						pos?: number | undefined;
+						to?: number | undefined;
+					};
+					stepType: {
+						contentTypes: string | null;
+						type: string;
+					};
 			  }[];
-		obfuscatedDoc: string | ADFEntity | null | undefined;
 	} => {
 		let obfuscatedSteps;
 		try {

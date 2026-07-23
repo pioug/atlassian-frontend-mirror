@@ -226,7 +226,7 @@ export const createPlugin = (
 			let focusListenerBinding: UnbindFn | null = null;
 
 			if (
-				(!fg('platform_editor_table_auto_convert_fix') || !__livePage) &&
+				!__livePage &&
 				pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&
 				isContentModeSupported({
 					allowColumnResizing: !!pluginConfig.allowColumnResizing,

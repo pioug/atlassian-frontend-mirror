@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::228bc24157dc9c63e00f500c45cd1a98>>
+ * @codegen <<SignedSource::2965e87bf78f2f027e2fe25bc9793c4b>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -71,6 +71,7 @@ import useLatestXcssSyntax from './use-latest-xcss-syntax';
 import useLatestXcssSyntaxTypography from './use-latest-xcss-syntax-typography';
 import useMenuSectionTitle from './use-menu-section-title';
 import useModalDialogCloseButton from './use-modal-dialog-close-button';
+import useModalTitle from './use-modal-title';
 import useOnboardingSpotlightLabel from './use-onboarding-spotlight-label';
 import usePopupLabel from './use-popup-label';
 import usePrimitivesText from './use-primitives-text';
@@ -153,6 +154,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'use-latest-xcss-syntax-typography': useLatestXcssSyntaxTypography,
 	'use-menu-section-title': useMenuSectionTitle,
 	'use-modal-dialog-close-button': useModalDialogCloseButton,
+	'use-modal-title': useModalTitle,
 	'use-onboarding-spotlight-label': useOnboardingSpotlightLabel,
 	'use-popup-label': usePopupLabel,
 	'use-primitives-text': usePrimitivesText,

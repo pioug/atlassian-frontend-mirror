@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 import type { DatasourceTableView } from '@atlaskit/link-datasource';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type DatasourceParameters } from '@atlaskit/linking-types';

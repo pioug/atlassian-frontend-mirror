@@ -15,6 +15,7 @@ export type PaletteValues =
 	| 'Blue1000'
 	| 'Red100'
 	| 'Red200'
+	| 'Red200A40'
 	| 'Red250'
 	| 'Red300'
 	| 'Red400'
@@ -24,6 +25,7 @@ export type PaletteValues =
 	| 'Red800'
 	| 'Red850'
 	| 'Red900'
+	| 'Red900A70'
 	| 'Red1000'
 	| 'Yellow100'
 	| 'Yellow200'
@@ -39,6 +41,7 @@ export type PaletteValues =
 	| 'Yellow1000'
 	| 'Green100'
 	| 'Green200'
+	| 'Green200A40'
 	| 'Green250'
 	| 'Green300'
 	| 'Green400'
@@ -48,6 +51,7 @@ export type PaletteValues =
 	| 'Green800'
 	| 'Green850'
 	| 'Green900'
+	| 'Green900A70'
 	| 'Green1000'
 	| 'Purple100'
 	| 'Purple200'
@@ -273,6 +277,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 					category: 'red',
 				},
 			},
+			Red200A40: {
+				// #FFD5D2 40%
+				value: '#FFD5D266',
+				attributes: {
+					group: 'palette',
+					category: 'red',
+				},
+			},
 			Red250: {
 				value: '#FFB8B2',
 				attributes: {
@@ -331,6 +343,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 			},
 			Red900: {
 				value: '#5D1F1A',
+				attributes: {
+					group: 'palette',
+					category: 'red',
+				},
+			},
+			Red900A70: {
+				// #5D1F1A 70%
+				value: '#5D1F1AB2',
 				attributes: {
 					group: 'palette',
 					category: 'red',
@@ -441,6 +461,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 					category: 'green',
 				},
 			},
+			Green200A40: {
+				// #BAF3DB 40%
+				value: '#BAF3DB66',
+				attributes: {
+					group: 'palette',
+					category: 'green',
+				},
+			},
 			Green250: {
 				value: '#97EDC9',
 				attributes: {
@@ -499,6 +527,14 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
 			},
 			Green900: {
 				value: '#164B35',
+				attributes: {
+					group: 'palette',
+					category: 'green',
+				},
+			},
+			Green900A70: {
+				// #164B35 70%
+				value: '#164B35B2',
 				attributes: {
 					group: 'palette',
 					category: 'green',

@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.0.0
+
+### Major Changes
+
+- [`d786421d6d238`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d786421d6d238) -
+  Update knowledge source count attribute name to reflect enabled count.
+
 ## 5.4.0
 
 ### Minor Changes

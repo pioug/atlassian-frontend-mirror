@@ -1097,7 +1097,7 @@
         "introduced": "16.0.0",
         "description": "Use for added code lines."
       },
-      "value": "#164B35"
+      "value": "#164B35B2"
     },
     "Dark/color.background.code.default": {
       "attributes": {
@@ -1142,7 +1142,7 @@
         "introduced": "16.0.0",
         "description": "Use for removed code lines."
       },
-      "value": "#5D1F1A"
+      "value": "#5D1F1AB2"
     },
     "Dark/color.background.disabled": {
       "attributes": {

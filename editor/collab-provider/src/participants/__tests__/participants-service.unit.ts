@@ -3,7 +3,7 @@ import FeatureGates from '@atlaskit/feature-gate-js-client';
 import type { PresencePayload } from '../../types';
 import type { BatchProps, ParticipantsMap } from '../participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
-import { ParticipantsService } from '../participants-service';
+import { AGENT_PRESENCE_TTL_MS, ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
 import { PARTICIPANT_UPDATE_INTERVAL } from '../participants-helper';
 import AnalyticsHelper from '../../analytics/analytics-helper';
@@ -81,6 +81,112 @@ describe('removeInactiveParticipants', () => {
 		});
 		participantsService.startInactiveRemover(undefined);
 		expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), PARTICIPANT_UPDATE_INTERVAL);
+	});
+});
+
+describe('upsertAIProviderParticipantLocally', () => {
+	const providerId = 'agent:abc';
+	const expectedSessionId = `${providerId}::${sessionId}`;
+
+	beforeEach(() => {
+		jest.useFakeTimers();
+	});
+	afterEach(() => {
+		jest.clearAllTimers();
+		jest.useRealTimers();
+	});
+
+	it('adds the agent to the AI-provider partition, emits presence(joined) on first add, and bypasses getUser', () => {
+		const emit = jest.fn();
+		const getUser = jest.fn();
+		const service = participantsServiceConstructor({ emit, getUser });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+
+		const agents = service.getAIProviderParticipants();
+		expect(agents).toHaveLength(1);
+		expect(agents[0]).toEqual(
+			expect.objectContaining({
+				userId: providerId,
+				sessionId: expectedSessionId,
+				name: '',
+				avatar: '',
+			}),
+		);
+		expect(emit).toHaveBeenCalledWith('presence', {
+			joined: [expect.objectContaining({ userId: providerId, sessionId: expectedSessionId })],
+		});
+		// getUser is only for human hydration; agents must bypass it.
+		expect(getUser).not.toHaveBeenCalled();
+		// Agents are not part of the human participant list.
+		expect(service.getParticipants()).toHaveLength(0);
+	});
+
+	it('does not re-emit presence on refresh (same agent, subsequent steps)', () => {
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		emit.mockClear();
+
+		service.upsertAIProviderParticipantLocally(providerId);
+
+		expect(emit).not.toHaveBeenCalled();
+		expect(service.getAIProviderParticipants()).toHaveLength(1);
+	});
+
+	it('removes the agent and emits presence(left) after the 30s sliding window elapses', () => {
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		emit.mockClear();
+
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS);
+
+		expect(service.getAIProviderParticipants()).toHaveLength(0);
+		expect(emit).toHaveBeenCalledWith('presence', {
+			left: [{ sessionId: expectedSessionId }],
+		});
+	});
+
+	it('slides the window: a refresh before expiry keeps the agent alive, then expires later', () => {
+		const service = participantsServiceConstructor({});
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS - 1);
+
+		// Refresh resets the sliding window.
+		service.upsertAIProviderParticipantLocally(providerId);
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS - 1);
+		expect(service.getAIProviderParticipants()).toHaveLength(1);
+
+		jest.advanceTimersByTime(1);
+		expect(service.getAIProviderParticipants()).toHaveLength(0);
+	});
+
+	it('tracks multiple distinct agents independently', () => {
+		const service = participantsServiceConstructor({});
+
+		service.upsertAIProviderParticipantLocally('agent:abc');
+		service.upsertAIProviderParticipantLocally('agent:mcp');
+
+		expect(service.getAIProviderParticipants()).toHaveLength(2);
+	});
+
+	it('clearTimers cancels pending agent removal timers', () => {
+		const emit = jest.fn();
+		const service = participantsServiceConstructor({ emit });
+
+		service.upsertAIProviderParticipantLocally(providerId);
+		emit.mockClear();
+
+		service.clearTimers();
+		jest.advanceTimersByTime(AGENT_PRESENCE_TTL_MS * 2);
+
+		// Timer cancelled → no leave emitted; participant stays in state.
+		expect(emit).not.toHaveBeenCalled();
+		expect(service.getAIProviderParticipants()).toHaveLength(1);
 	});
 });
 

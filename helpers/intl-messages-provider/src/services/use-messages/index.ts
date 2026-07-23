@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 
 import { DEFAULT_LOCALE_STATE } from '../../common/constants';
-import { type I18NMessages } from '../../index';
+import { type I18NMessages } from '../../common/types';
 
 export type LocaleState = {
 	locale: string;

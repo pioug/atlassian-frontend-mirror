@@ -4,7 +4,11 @@ import { type LRUMap } from 'lru_map';
 import { type Interpreter } from 'xstate';
 
 import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
-import type { ErrorFileState, FileState, UploadingFileState } from '@atlaskit/media-state/file-state';
+import type {
+	ErrorFileState,
+	FileState,
+	UploadingFileState,
+} from '@atlaskit/media-state/file-state';
 
 import {
 	type MobileUpload,

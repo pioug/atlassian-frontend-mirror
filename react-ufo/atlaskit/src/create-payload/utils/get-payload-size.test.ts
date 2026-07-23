@@ -1,10 +1,7 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
-import getPayloadSize, { SAFE_PAYLOAD_SIZE_GATE } from './get-payload-size';
+import getPayloadSize from './get-payload-size';
 
 describe('getPayloadSize', () => {
 	it('should calculate size for empty object', () => {
-		failGate(SAFE_PAYLOAD_SIZE_GATE);
 		const payload = {};
 		const result = getPayloadSize(payload);
 
@@ -13,7 +10,6 @@ describe('getPayloadSize', () => {
 	});
 
 	it('should calculate size for simple object', () => {
-		failGate(SAFE_PAYLOAD_SIZE_GATE);
 		const payload = { key: 'value' };
 		const result = getPayloadSize(payload);
 
@@ -23,7 +19,6 @@ describe('getPayloadSize', () => {
 	});
 
 	it('should calculate size for complex nested object', () => {
-		failGate(SAFE_PAYLOAD_SIZE_GATE);
 		const payload = {
 			string: 'test',
 			number: 123,
@@ -45,7 +40,6 @@ describe('getPayloadSize', () => {
 	});
 
 	it('should handle large objects', () => {
-		failGate(SAFE_PAYLOAD_SIZE_GATE);
 		const largePayload = {
 			data: new Array(1000).fill('x').join(''),
 			items: new Array(100).fill({ id: 1, name: 'test item' }),
@@ -58,7 +52,6 @@ describe('getPayloadSize', () => {
 	});
 
 	it('should handle objects with special characters', () => {
-		failGate(SAFE_PAYLOAD_SIZE_GATE);
 		const payload = {
 			unicode: '🚀🎉',
 			special: 'line\nbreak\ttab"quote',
@@ -73,7 +66,6 @@ describe('getPayloadSize', () => {
 	});
 
 	it('should return integer value', () => {
-		failGate(SAFE_PAYLOAD_SIZE_GATE);
 		const payload = { test: 'value' };
 		const result = getPayloadSize(payload);
 
@@ -81,16 +73,7 @@ describe('getPayloadSize', () => {
 	});
 
 	describe('safe serializer', () => {
-		it('preserves legacy throw behavior for circular payloads when the gate is off', () => {
-			failGate(SAFE_PAYLOAD_SIZE_GATE);
-			const payload: { circular?: unknown } = {};
-			payload.circular = payload;
-
-			expect(() => getPayloadSize(payload)).toThrow('Converting circular structure to JSON');
-		});
-
-		it('calculates size metadata for circular payloads when the gate is on', () => {
-			passGate(SAFE_PAYLOAD_SIZE_GATE);
+		it('calculates size metadata for circular payloads', () => {
 			const payload: { circular?: unknown } = {};
 			payload.circular = payload;
 
@@ -105,7 +88,6 @@ describe('getPayloadSize', () => {
 		});
 
 		it('replaces DOM nodes and React internal properties when calculating size', () => {
-			passGate(SAFE_PAYLOAD_SIZE_GATE);
 			const element = document.createElement('a') as HTMLAnchorElement & {
 				__reactFiber$test?: unknown;
 			};
@@ -120,8 +102,6 @@ describe('getPayloadSize', () => {
 		});
 
 		it('replaces BigInt values when calculating size', () => {
-			passGate(SAFE_PAYLOAD_SIZE_GATE);
-
 			const result = getPayloadSize({ value: BigInt(123) }, { includeMetadata: true });
 
 			expect(result.usedSafeSerializer).toBe(true);
@@ -130,7 +110,6 @@ describe('getPayloadSize', () => {
 		});
 
 		it('returns an over-budget fallback if safe JSON serialization still fails', () => {
-			passGate(SAFE_PAYLOAD_SIZE_GATE);
 			const payload = {
 				toJSON() {
 					throw new Error('serialization failed');

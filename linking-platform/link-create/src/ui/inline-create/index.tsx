@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 
 import { PACKAGE_DATA } from '../../common/constants';
 import type { LinkCreateProps } from '../../common/types';

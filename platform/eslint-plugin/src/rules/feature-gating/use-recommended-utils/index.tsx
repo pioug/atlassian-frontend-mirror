@@ -11,7 +11,7 @@ const rule: Rule.RuleModule = {
 		},
 		messages: {
 			notSupported:
-				'Experimentation is not suported in platform feature flags, reach out to #help-statsig-switcheroo.',
+				'Experimentation is not supported in platform feature flags, reach out to #help-statsig-switcheroo.',
 			useRecommended:
 				'Please do not use FeatureGates.{{util}}, use {{recommended}} from {{lib}} instead.',
 		},
@@ -45,8 +45,13 @@ const rule: Rule.RuleModule = {
 					isIdentifierImportedFrom(node.object.name, BANNED_IMPORTS_SET, context, node)
 				) {
 					context.report({
-						messageId: 'notSupported',
+						messageId: 'useRecommended',
 						node,
+						data: {
+							lib: '`@atlaskit/platform-feature-experiments`',
+							util: (node.property as any).name,
+							recommended: '`isExperimentEnabled` or `expVal`',
+						},
 					});
 				}
 			},

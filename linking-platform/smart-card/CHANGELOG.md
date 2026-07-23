@@ -1,5 +1,51 @@
 # @atlaskit/smart-card
 
+## 45.12.0
+
+### Minor Changes
+
+- [`103ecc1edeedc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/103ecc1edeedc) -
+  Remove Confluence short link metadata from smart link clicked analytics payloads.
+
+  This removes the temporary `isConfluenceShortLink` field that was added to support an
+  investigation into Confluence short link usage. The investigation is complete, and the smart link
+  clicked analytics payload now returns to its previous shape.
+
+  This also removes the temporary `smart_link_confluence_short_link_analytics` experiment from
+  `editorExperimentsConfig` and the generated experiment key types. Consumers that checked this
+  temporary experiment can remove that branch.
+
+  Before:
+
+  ```ts
+  if (expValEquals('smart_link_confluence_short_link_analytics', 'cohort', 'test')) {
+  	trackLinkClicked({ isConfluenceShortLink });
+  }
+  ```
+
+  After:
+
+  ```ts
+  trackLinkClicked();
+  ```
+
+  Before:
+
+  ```ts
+  const { isConfluenceShortLink, ...payload } = event;
+  sendAnalytics(payload, { isShortLink: isConfluenceShortLink });
+  ```
+
+  After:
+
+  ```ts
+  sendAnalytics(event);
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.11.2
 
 ### Patch Changes

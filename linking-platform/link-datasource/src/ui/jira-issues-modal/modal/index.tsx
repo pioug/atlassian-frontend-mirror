@@ -5,7 +5,7 @@ import { cssMap } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client';
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 import LinkComponent from '@atlaskit/link';
 import type { DatasourceParameters, Link } from '@atlaskit/linking-types';
 import {

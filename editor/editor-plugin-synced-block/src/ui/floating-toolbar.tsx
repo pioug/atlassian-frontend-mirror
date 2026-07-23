@@ -3,7 +3,11 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import commonMessages, { syncBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import commonMessages, {
+	syncBlockMessages as messages,
+	toolbarInsertBlockMessages,
+} from '@atlaskit/editor-common/messages';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import type {
 	Command,
 	ExtractInjectionAPI,
@@ -23,6 +27,7 @@ import CopyIcon from '@atlaskit/icon/core/copy';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
+import MegaphoneIcon from '@atlaskit/icon/core/megaphone';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -33,7 +38,7 @@ import {
 	unsync,
 } from '../editor-commands';
 import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plugins/utils/utils';
-import type { SyncedBlockPlugin } from '../syncedBlockPluginType';
+import type { SyncedBlockFeedbackContext, SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
 import { SyncedLocationDropdown } from './SyncedLocationDropdown';
@@ -44,6 +49,7 @@ export const getToolbarConfig = (
 	api: ExtractInjectionAPI<SyncedBlockPlugin> | undefined,
 	syncBlockStore: SyncBlockStoreManager,
 	isLivePage?: boolean,
+	onGiveFeedback?: (context: SyncedBlockFeedbackContext) => void,
 ): FloatingToolbarConfig | undefined => {
 	const syncBlockObject = findSyncBlockOrBodiedSyncBlock(state.schema, state.selection);
 	if (!syncBlockObject) {
@@ -240,6 +246,28 @@ export const getToolbarConfig = (
 					type: 'overflow-dropdown',
 					testId,
 					options: [
+						...(isSyncBlockActivationEnabled && onGiveFeedback
+							? [
+									{
+										title: formatMessage(toolbarInsertBlockMessages.feedbackDialog),
+										icon: <MegaphoneIcon label="" />,
+										onClick: () => {
+											api?.core.actions.execute(({ tr }) =>
+												tr.setSelection(
+													new GapCursorSelection(
+														tr.doc.resolve(syncBlockObject.pos + syncBlockObject.node.nodeSize),
+														Side.RIGHT,
+													),
+												),
+											);
+											onGiveFeedback({
+												blockType: isBodiedSyncBlock ? 'source' : 'reference',
+											});
+											return true;
+										},
+									},
+								]
+							: []),
 						{
 							title: formatMessage(commonMessages.delete),
 							onClick: removeSyncedBlock(api),

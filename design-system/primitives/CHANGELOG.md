@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 22.1.1
+
+### Patch Changes
+
+- [`c6fd2ecdc1056`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6fd2ecdc1056) -
+  Add Pressable button motion guidance
+
 ## 22.1.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { type DatasourceParameters } from '@atlaskit/linking-types';

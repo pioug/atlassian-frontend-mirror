@@ -19,7 +19,6 @@ export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
 	'platform_editor_controls',
 	'platform_editor_preview_panel_linking_exp',
 	'platform_synced_block',
-	'smart_link_confluence_short_link_analytics',
 	'platform_editor_static_css',
 	'advanced_layouts',
 	'single_column_layouts',
@@ -54,6 +53,18 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * existing experiments.
  */
 export const editorExperimentsConfig: {
+	// Added 2026-07-21
+	// Agent edit presence — cosmetic skeleton-loader shimmer over agent-authored edits (with a Rovo
+	// agent telepointer at the end of the range). `isEnabled` toggles the feature; the dynamic-config
+	// params `durationMs` (how long the shimmer stays) and `telepointerDisabled` (hide the trailing
+	// telepointer, shown by default) tune it — read via `expVal` with defaults in
+	// `editor-plugin-collab-edit/.../agent-shimmer-constants.ts`, so they are safe when unset.
+	platform_editor_agent_be_streaming: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-07-17
 	platform_editor_status_popup_suggestions: {
 		defaultValue: boolean;
@@ -1010,14 +1021,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-25
-	smart_link_confluence_short_link_analytics: {
-		defaultValue: 'control' | 'test';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'test';
-		values: ('control' | 'test')[];
-	};
 	// Added 2026-04-30 (QS-9895)
 	linking_platform_track_non_primary_3p_clicks: {
 		defaultValue: boolean;
@@ -1292,6 +1295,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-07-07
 	'cc-maui-overlay-by-localid': {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-22
+	cc_maui_polish_changes_batch_1: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1896,6 +1906,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-17
+	platform_editor_fix_sticky_header_row: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	platform_editor_paste_actions_menu_v2: {
 		defaultValue: 'control' | 'hasSpellingAndGrammar' | 'hasAltAiActions';
 		param: string;
@@ -2078,6 +2095,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-21
+	platform_renderer_collapsible_headings: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-07-20
 	platform_editor_lovability_breakout_resizing_fixes: {
 		defaultValue: boolean;
@@ -2136,6 +2160,17 @@ export const editorExperimentsConfig: {
 	};
 } = {
 	// new format to avoid collisions with other users when updating the file
+
+	// Added 2026-07-21
+	// `isEnabled` is the gating param; the experiment's dynamic config also carries the numeric
+	// `durationMs` shimmer duration, read at runtime via `expVal`.
+	platform_editor_agent_be_streaming: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_agent_be_streaming',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 
 	// Added 2026-07-17
 	platform_editor_status_popup_suggestions: createBooleanExperiment({
@@ -2888,17 +2923,6 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
-	// Added 2025-09-17
-	// Added 2025-11-25
-	smart_link_confluence_short_link_analytics: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'smart-link-confluence-short-link-analytics',
-			jira: 'smart-link-confluence-short-link-analytics',
-		},
-		param: 'cohort',
-		values: ['control', 'test'],
-		defaultValue: 'control',
-	}),
 	// Added 2026-06-25
 	jira_editor_a11y_toolbar_fixes: createBooleanExperiment({
 		productKeys: {
@@ -3524,6 +3548,14 @@ export const editorExperimentsConfig: {
 	'cc-maui-overlay-by-localid': createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc-maui-overlay-by-localid',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-22
+	cc_maui_polish_changes_batch_1: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_maui_polish_changes_batch_1',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4362,6 +4394,14 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-17
+	platform_editor_fix_sticky_header_row: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_sticky_header_row',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-06-10
 	confluence_editor_paste_3p_link_actions_menu: createBooleanExperiment({
 		productKeys: {
@@ -4528,6 +4568,14 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_extension_block_spacing',
 			jira: 'platform_editor_extension_block_spacing',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-21
+	platform_renderer_collapsible_headings: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_renderer_collapsible_headings',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

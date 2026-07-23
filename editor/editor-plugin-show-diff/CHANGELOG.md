@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.6.0
+
+### Minor Changes
+
+- [`0840aa4f6b2d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0840aa4f6b2d0) -
+  Add a new `inlineDeletedDiffPlacement: 'before' | 'after'` option to `PMDiffParams` for the
+  `smart` diff type. When set to `'after'`, inline-level (and sentence-level) deleted content is
+  rendered after the added/updated content instead of before it. Defaults to `'before'` and is
+  independent of the existing node/paragraph-level `deletedDiffPlacement` option. Post Stream Review
+  now requests `'after'` so reviewers read the new text first.
+
 ## 10.5.3
 
 ### Patch Changes

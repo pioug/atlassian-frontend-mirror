@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-presets",
-	"version": "6.0.2",
+	"version": "6.0.3",
 	"license": "Apache-2.0",
 	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
 	"publishConfig": {
@@ -178,9 +178,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_fixed_column_width_prop": {
-			"type": "boolean"
-		},
-		"platform_editor_table_auto_convert_fix": {
 			"type": "boolean"
 		},
 		"confluence_remix_button_right_side_block_fg": {

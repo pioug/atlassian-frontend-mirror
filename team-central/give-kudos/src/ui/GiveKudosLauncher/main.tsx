@@ -15,7 +15,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { Drawer } from '@atlaskit/drawer';
 import ArrowLeft from '@atlaskit/icon/core/arrow-left';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 import Link from '@atlaskit/link';
 import Modal, {
 	ModalBody,

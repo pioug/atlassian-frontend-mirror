@@ -56,7 +56,12 @@ import {
 	provideVisualFeedbackForCopyButton,
 	removeVisualFeedbackForCopyButton,
 } from './codeBlockCopySelectionPlugin';
-import { createLanguageList, DEFAULT_LANGUAGES, getLanguageIdentifier } from './language-list';
+import {
+	createLanguageList,
+	DEFAULT_LANGUAGES,
+	getLanguageIdentifier,
+	MERMAID_LANGUAGE,
+} from './language-list';
 import type { Language } from './language-list';
 import type { CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
@@ -140,16 +145,21 @@ export const getToolbarConfig = (
 	overrideLanguageName: ((name: Language['name']) => string) | undefined = undefined,
 	formatCodeProvider: CodeBlockFormatProvider | undefined = undefined,
 ): FloatingToolbarHandler => {
+	// Append gated languages (e.g. Mermaid) at runtime. Build a fresh array since
+	// createLanguageList sorts in place and would otherwise mutate DEFAULT_LANGUAGES.
+	const supportedLanguages: Language[] = fg('platform_editor_code_block_mermaid_language')
+		? [...DEFAULT_LANGUAGES, MERMAID_LANGUAGE]
+		: DEFAULT_LANGUAGES;
 	const languageList = createLanguageList(
 		overrideLanguageName
-			? DEFAULT_LANGUAGES.map(
+			? supportedLanguages.map(
 					(languageOption) =>
 						({
 							...languageOption,
 							name: overrideLanguageName(languageOption.name),
 						}) as Language,
 				)
-			: DEFAULT_LANGUAGES,
+			: supportedLanguages,
 	);
 	const languagePickerOptions: LanguagePickerOption[] = languageList.map((lang) => ({
 		label: lang.name,
@@ -424,9 +434,6 @@ export const getToolbarConfig = (
 
 /**
  * Filters language list based on both name and alias properties.
- * @param option
- * @param rawInput
- * @example
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const languageListFilter = (option: SelectOption, rawInput: string): any => {

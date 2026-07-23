@@ -374,6 +374,12 @@ export interface StepMetadata {
 }
 
 export interface BaseStepPM extends StepMetadata {
+	// Optional agent attribution set by NCS on agent-authored steps.
+	// `agentType` (e.g. 'mcp' | 'twg') present ⇒ the step was made by an agent on behalf of the
+	// user; `agentId` is the agent's AAID when available. See the NCS↔Editor agent steps contract.
+	// Both are optional/additive so human steps are unchanged.
+	agentId?: string;
+	agentType?: string;
 	clientId: number | string;
 	from?: number;
 	slice?: SliceJson;

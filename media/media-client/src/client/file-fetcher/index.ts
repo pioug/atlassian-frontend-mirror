@@ -51,7 +51,13 @@ import { getMediaTypeFromMimeType } from '@atlaskit/media-common/mediaTypeUtils'
 import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
-import type { ErrorFileState, UploadingFileState, FilePreview, FileState, ProcessingFileState } from '@atlaskit/media-state/file-state';
+import type {
+	ErrorFileState,
+	UploadingFileState,
+	FilePreview,
+	FileState,
+	ProcessingFileState,
+} from '@atlaskit/media-state/file-state';
 import { type MediaStore, mediaStore } from '@atlaskit/media-state/media-store';
 import {
 	type CopyIntentKey,

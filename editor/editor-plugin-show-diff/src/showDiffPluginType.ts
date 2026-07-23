@@ -24,6 +24,15 @@ export type DiffType = 'inline' | 'block' | 'step' | 'smart';
  */
 export type DeletedDiffPlacement = 'top' | 'bottom';
 
+/**
+ * Where inline-level (and sentence-level) deleted content is rendered relative to the new
+ * (replacement) content in the `smart` diffType. This is independent of the node/paragraph-level
+ * `deletedDiffPlacement` option:
+ * - `'before'` (default): the deleted content is anchored before the new content.
+ * - `'after'`: the deleted content is anchored after the new content.
+ */
+export type InlineDeletedDiffPlacement = 'before' | 'after';
+
 // Re-export the canonical `SmartDiffThresholds` declaration (single source of truth) so the
 // public plugin types stay in sync with the smart-diff implementation.
 export type SmartDiffThresholds = SmartDiffThresholdsInternal;
@@ -62,6 +71,13 @@ export type PMDiffParams = {
 	 */
 	hideAddedDiffsUnderline?: boolean;
 	hideDeletedDiffs?: boolean;
+	/**
+	 * For the `smart` diffType, where inline-level (and sentence-level) deleted content is rendered
+	 * relative to the new content. Defaults to `'before'`. Independent of `deletedDiffPlacement`
+	 * (which controls node/paragraph-level placement). Ignored for other diff types, and a no-op
+	 * unless the relevant gate is enabled.
+	 */
+	inlineDeletedDiffPlacement?: InlineDeletedDiffPlacement;
 	isInverted?: boolean;
 	originalDoc: Node;
 	/**

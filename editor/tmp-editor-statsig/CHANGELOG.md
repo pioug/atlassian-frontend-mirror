@@ -1,5 +1,86 @@
 # @atlaskit/editor-statsig-tmp
 
+## 132.4.0
+
+### Minor Changes
+
+- [`d1f841209d233`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d1f841209d233) -
+  [ux] Fix MAUI image loading cleanup on Rovo stream errors
+
+### Patch Changes
+
+- Updated dependencies
+
+## 132.3.1
+
+### Patch Changes
+
+- [`895ac23f1a3be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/895ac23f1a3be) -
+  Agent edit presence: surface agent-authored collaborative edits to other users.
+  - `collab-provider` detects agent-authored remote steps (`agentType`/`agentId`) and registers a
+    synthetic agent participant in the AI-provider (`agent:`) partition so the agent appears in
+    presence, with a 30s sliding inactivity window (CCI-18030). `editor-common` gains optional
+    `agentId`/`agentType` on the collab step types.
+  - `editor-plugin-collab-edit` + `editor-core` add the in-editor shimmer (CCI-18033): when an
+    agent-authored step lands, the top-level block(s) it touched are covered by a skeleton-loader
+    shimmer (grey skeleton with a moving highlight) with a Rovo agent telepointer/cursor — labelled
+    with the agent's type — at the end of the range, then removed on a timer to reveal the content.
+    Gated behind the default-OFF `platform_editor_agent_be_streaming` experiment; the `durationMs`
+    dynamic-config param controls how long the shimmer stays (0 disables it) and
+    `telepointerDisabled` hides the telepointer. `tmp-editor-statsig` registers the experiment.
+  - `ratcheting` excludes the new `agentShimmerStyles.ts` from the "No unsafe typography" rule (the
+    agent telepointer label mirrors the existing AI in-editor telepointer's sub-token 10px/9px
+    sizing, matching its already-excluded Compiled counterpart).
+
+## 132.3.0
+
+### Minor Changes
+
+- [`103ecc1edeedc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/103ecc1edeedc) -
+  Remove Confluence short link metadata from smart link clicked analytics payloads.
+
+  This removes the temporary `isConfluenceShortLink` field that was added to support an
+  investigation into Confluence short link usage. The investigation is complete, and the smart link
+  clicked analytics payload now returns to its previous shape.
+
+  This also removes the temporary `smart_link_confluence_short_link_analytics` experiment from
+  `editorExperimentsConfig` and the generated experiment key types. Consumers that checked this
+  temporary experiment can remove that branch.
+
+  Before:
+
+  ```ts
+  if (expValEquals('smart_link_confluence_short_link_analytics', 'cohort', 'test')) {
+  	trackLinkClicked({ isConfluenceShortLink });
+  }
+  ```
+
+  After:
+
+  ```ts
+  trackLinkClicked();
+  ```
+
+  Before:
+
+  ```ts
+  const { isConfluenceShortLink, ...payload } = event;
+  sendAnalytics(payload, { isShortLink: isConfluenceShortLink });
+  ```
+
+  After:
+
+  ```ts
+  sendAnalytics(event);
+  ```
+
+## 132.2.0
+
+### Minor Changes
+
+- [`d6d4b831bab67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6d4b831bab67) -
+  [ux] Implements collapsible headings feature for the full-page renderer.
+
 ## 132.1.0
 
 ### Minor Changes

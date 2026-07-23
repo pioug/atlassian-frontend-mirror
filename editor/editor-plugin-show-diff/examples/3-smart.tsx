@@ -82,7 +82,12 @@ import {
 import { Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-import type { ColorScheme, DeletedDiffPlacement, DiffType } from '../src/showDiffPluginType';
+import type {
+	ColorScheme,
+	DeletedDiffPlacement,
+	DiffType,
+	InlineDeletedDiffPlacement,
+} from '../src/showDiffPluginType';
 
 // `smart` is the star of this example; the others are kept so you can compare.
 const diffTypes: DiffType[] = ['smart', 'inline', 'block', 'step'];
@@ -1476,6 +1481,7 @@ function KitchenSinkEditor({
 	showIndicators,
 	diffType,
 	deletedDiffPlacement,
+	inlineDeletedDiffPlacement,
 	scenario,
 	labelIndex,
 }: {
@@ -1485,6 +1491,7 @@ function KitchenSinkEditor({
 	/** When true, hides the purple underline on added/updated diff content (extended/smart only). */
 	hideAddedDiffsUnderline: boolean;
 	hideDeletedDiffs: boolean;
+	inlineDeletedDiffPlacement: InlineDeletedDiffPlacement;
 	/** 1-based index of this scenario's label in the full visible gallery. */
 	labelIndex: number;
 	scenario: Scenario;
@@ -1570,6 +1577,7 @@ function KitchenSinkEditor({
 				diffType,
 				smartThresholds,
 				deletedDiffPlacement,
+				inlineDeletedDiffPlacement,
 			}),
 		);
 	}, [
@@ -1579,6 +1587,7 @@ function KitchenSinkEditor({
 		showIndicators,
 		diffType,
 		deletedDiffPlacement,
+		inlineDeletedDiffPlacement,
 		scenario,
 	]);
 
@@ -1610,6 +1619,8 @@ function DiffPanel({
 	const [showIndicators, setShowIndicators] = useState(false);
 	const [diffType, setDiffType] = useState<DiffType>(initialDiffType);
 	const [deletedDiffPlacement, setDeletedDiffPlacement] = useState<DeletedDiffPlacement>('top');
+	const [inlineDeletedDiffPlacement, setInlineDeletedDiffPlacement] =
+		useState<InlineDeletedDiffPlacement>('before');
 
 	// Split the visible scenarios into the merged set and the optional separate kitchen-sink
 	// scenario, and derive the merged BEFORE/AFTER JSON. Recomputed whenever the visible set
@@ -1727,6 +1738,7 @@ function DiffPanel({
 				diffType,
 				smartThresholds,
 				deletedDiffPlacement,
+				inlineDeletedDiffPlacement,
 			}),
 		);
 	}, [
@@ -1736,6 +1748,7 @@ function DiffPanel({
 		showIndicators,
 		diffType,
 		deletedDiffPlacement,
+		inlineDeletedDiffPlacement,
 		mergedScenarios,
 	]);
 
@@ -1769,6 +1782,13 @@ function DiffPanel({
 				>
 					Deleted placement: {deletedDiffPlacement}
 				</Button>
+				<Button
+					onClick={() =>
+						setInlineDeletedDiffPlacement((prev) => (prev === 'before' ? 'after' : 'before'))
+					}
+				>
+					Inline deleted placement: {inlineDeletedDiffPlacement}
+				</Button>
 				<Text color="color.text.subtle">
 					{numberOfChanges > 0 ? `${numberOfChanges} change(s)` : 'No changes'}
 				</Text>
@@ -1789,6 +1809,7 @@ function DiffPanel({
 					showIndicators={showIndicators}
 					diffType={diffType}
 					deletedDiffPlacement={deletedDiffPlacement}
+					inlineDeletedDiffPlacement={inlineDeletedDiffPlacement}
 					scenario={kitchenSinkScenario}
 					labelIndex={mergedScenarios.length + 1}
 				/>

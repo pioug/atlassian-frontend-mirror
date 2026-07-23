@@ -1,6 +1,12 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { fetchObjectSchema, fetchObjectSchemas, getWorkspaceId, validateAql } from '../cmdbService';
+import {
+	fetchObjectSchema,
+	fetchObjectSchemas,
+	getWorkspaceId,
+	resolvePrimaryWorkspace,
+	validateAql,
+} from '../cmdbService';
 import { FetchError, getStatusCodeGroup, PermissionError } from '../cmdbService.utils';
 
 describe('cmdbService', () => {
@@ -68,6 +74,59 @@ describe('cmdbService', () => {
 				expect(fireEventMock).toHaveBeenCalledWith('operational.getWorkspaceId.failed', {
 					statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)),
 				});
+			},
+		);
+	});
+
+	describe('resolvePrimaryWorkspace', () => {
+		const cloudId = 'cloud-id-123';
+		const resolverUrl = '/assets/internal/workspace?productContext=confluence';
+
+		it('should call the unit-aware resolver with the cloudId header and map linkedAssetsWorkspaceId to workspaceId', async () => {
+			const mock = fetchMock.get({
+				url: resolverUrl,
+				response: {
+					linkedAssetsWorkspaceId: 'primary-workspace-id',
+					linkedAssetsSiteCloudId: '858300e7-08ae-403f-852d-924d7db4b1e8',
+					siteWithJiraUrl: 'https://primary.jira-dev.com',
+				},
+			});
+
+			const response = await resolvePrimaryWorkspace(cloudId);
+
+			expect(mock.calls()).toHaveLength(1);
+			expect(mock.done()).toBe(true);
+			// cloudId is sent via the x-atlassian-cloud-id header
+			const [, requestInit] = mock.lastCall() ?? [];
+			expect(new Headers(requestInit?.headers).get('x-atlassian-cloud-id')).toBe(cloudId);
+			expect(response).toEqual({ workspaceId: 'primary-workspace-id' });
+		});
+
+		it('should throw when the resolver returns no linkedAssetsWorkspaceId', async () => {
+			const mock = fetchMock.get({
+				url: resolverUrl,
+				response: {
+					linkedAssetsSiteCloudId: '858300e7-08ae-403f-852d-924d7db4b1e8',
+					siteWithJiraUrl: 'https://primary.jira-dev.com',
+				},
+			});
+
+			await expect(resolvePrimaryWorkspace(cloudId)).rejects.toThrow(
+				'Assets workspace resolver returned no workspaceId',
+			);
+			expect(mock.done()).toBe(true);
+		});
+
+		it.each([[404], [403], [500]])(
+			'should throw when the resolver responds with status %s',
+			async (statusCode: number) => {
+				const mock = fetchMock.get({
+					url: resolverUrl,
+					response: statusCode,
+				});
+
+				await expect(resolvePrimaryWorkspace(cloudId)).rejects.toBeDefined();
+				expect(mock.done()).toBe(true);
 			},
 		);
 	});

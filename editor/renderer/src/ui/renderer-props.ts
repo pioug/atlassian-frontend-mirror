@@ -59,6 +59,13 @@ export interface RendererProps {
 	adfStage?: ADFStage;
 	allowAltTextOnImages?: boolean;
 	allowAnnotations?: boolean;
+	/**
+	 * **WARNING** this attribute is not supported outside of Confluence Full Page editors
+	 * Until `platform_renderer_collapsible_headings` is cleaned up.
+	 *
+	 * Enables collapsing top-level heading sections in a full-page, full-width, max renderer only.
+	 */
+	allowCollapsibleHeadings?: boolean;
 	allowColumnSorting?: boolean;
 	allowCopyToClipboard?: boolean;
 	allowCustomPanels?: boolean;

@@ -4,7 +4,7 @@
  */
 import { jsx, styled } from '@compiled/react';
 
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 

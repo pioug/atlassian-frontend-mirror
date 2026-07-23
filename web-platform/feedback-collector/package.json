@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "16.6.1",
+	"version": "16.6.2",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -104,6 +104,9 @@
 			"type": "boolean"
 		},
 		"ak_feedback_collector_select_escape": {
+			"type": "boolean"
+		},
+		"fun-2388_fix_feedback_collector_i18n": {
 			"type": "boolean"
 		}
 	}

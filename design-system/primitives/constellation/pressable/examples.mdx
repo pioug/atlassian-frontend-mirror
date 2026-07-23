@@ -40,6 +40,30 @@ Pressable can be styled further using the design system styling API,
 
 Make sure styling indicates the interaction state using `:hover` and `:active` pseudo-classes.
 
+Pressable does not include button motion by default. For a custom button that cannot use the
+[Button](/components/button/examples) component, add button motion tokens to the background-color
+transition:
+
+```tsx
+const styles = cssMap({
+	root: {
+		backgroundColor: token('color.background.neutral'),
+		transition: token('motion.button.hovered'),
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.pressed'),
+			transition: token('motion.button.pressed'),
+		},
+	},
+});
+```
+
+Use button motion only for Pressable elements that are semantically buttons. Keep Pressable cards,
+list items, navigation items, links, and form controls motion-neutral or use the motion tokens for
+their semantic component.
+
 <Example Component={PressableBasic} packageName="@atlaskit/primitives/compiled/pressable" />
 
 ## Advanced styling

@@ -29,6 +29,7 @@ The CLI has these commands:
 | `icon <name>`          | Detail for a single icon (with a copy-paste import). Exact name → detail; ambiguous → a "did you mean?" list. `--all` lists every icon.                                                                                                                                 |
 | `lint-rules [term...]` | ADS ESLint rules. A term that matches one rule (exactly or uniquely) prints its docs; several matches show a "did you mean?" list. Bare `lint-rules` prints every rule; `--limit N` caps the candidate list.                                                            |
 | `docs <topic...>`      | Read ADS reference docs. Three forms:<br>• `docs <term...>` — foundations guidelines (spacing, color, …)<br>• `docs a11y [topic]` — accessibility guidance (optional topic e.g. `buttons`, `forms`, `colors`)<br>• `docs migration <id>` — a structured migration guide |
+| `manifest`             | Describe every command, argument, flag, and JSON response type. Use `--json` for the machine-readable contract.                                                                                                                                                         |
 
 ### Global flags
 
@@ -60,6 +61,9 @@ npx @atlaskit/ads-cli docs migration motion
 
 # Machine-readable envelope for agents / jq
 npx @atlaskit/ads-cli search button --json
+
+# Discover the complete CLI contract
+npx @atlaskit/ads-cli manifest --json
 ```
 
 ## Output contract
@@ -79,6 +83,9 @@ npx @atlaskit/ads-cli search button --json
   `{ "ambiguous": true, "query", "noun", "candidates": [...] }`.
 - **Data is written to stdout only.** Logs, hints, and errors go to **stderr**. This keeps `--json`
   output clean for piping.
+- **The manifest is derived from the live command registry.** `manifest --json` lists every command,
+  positional argument, flag, example, and success response type without maintaining a separate copy
+  of the CLI surface.
 - With `--json`, every success prints a `SuccessEnvelope` and every failure prints an
   `ErrorEnvelope`:
 

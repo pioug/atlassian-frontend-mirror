@@ -109,7 +109,20 @@ export const getControlBottomCSSValue = (
 	isSticky: boolean,
 	isTopLevelNode: boolean,
 	isLayoutColumn?: boolean,
+	fallbackAnchor?: string,
 ): { bottom: String } => {
+	if (expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)) {
+		return (editorExperiment('advanced_layouts', true) && isLayoutColumn) ||
+			!isSticky ||
+			!isTopLevelNode
+			? { bottom: 'unset' }
+			: {
+					bottom: fallbackAnchor
+						? `anchor(${anchor} end, anchor(${fallbackAnchor} end))`
+						: `anchor(${anchor} end)`,
+				};
+	}
+
 	return (editorExperiment('advanced_layouts', true) && isLayoutColumn) ||
 		!isSticky ||
 		!isTopLevelNode

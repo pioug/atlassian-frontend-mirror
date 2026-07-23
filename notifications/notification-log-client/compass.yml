@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/a75e92db-d8c7-47c1-aaba-7adcc858ae35
 name: '@atlaskit/notification-log-client'
-ownerId: ari:cloud:identity::team/97e0e646-5ee3-47b5-b96a-0af646452e8e # Work Platform
+ownerId: ari:cloud:teams::team/7ef0c286-15e0-4f83-b322-a9adae1fe305 # Post Office - Engagement
 labels:
   - platform-code
   - platform-afm

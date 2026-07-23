@@ -92,6 +92,20 @@ type ViewSuggestionAEP = TrackAEP<
 	undefined
 >;
 
+export type SuggestionFeedbackSentiment = 'good' | 'bad';
+
+type SubmitFeedbackSuggestionAEP = TrackAEP<
+	ACTION.SUBMITTED,
+	ACTION_SUBJECT.AI_SUGGESTIONS,
+	undefined,
+	{
+		interactionPoint: AiSuggestionInteractionPoint;
+		sentiment: SuggestionFeedbackSentiment;
+		suggestionType: string;
+	},
+	undefined
+>;
+
 export type AiSuggestionsEventPayload =
 	| NoDiffSuggestionAEP
 	| EntryPointClickedAEP
@@ -99,4 +113,5 @@ export type AiSuggestionsEventPayload =
 	| AcceptSuggestionAEP
 	| DiscardSuggestionAEP
 	| DismissSuggestionAEP
-	| ViewSuggestionAEP;
+	| ViewSuggestionAEP
+	| SubmitFeedbackSuggestionAEP;

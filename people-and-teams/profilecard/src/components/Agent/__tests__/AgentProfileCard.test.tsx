@@ -300,32 +300,22 @@ describe('ProfileCardTrigger', () => {
 	});
 
 	describe('hideAgentActions', () => {
-		ffTest.on('issue_view_agent_discovery_fast_follows', 'feature gate enabled', () => {
-			it('should hide agent actions when hideAgentActions is true', () => {
-				renderWithIntl({ hideAgentActions: true });
-				expect(screen.queryByTestId('agent-dropdown-menu--trigger')).not.toBeInTheDocument();
-				expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
-			});
-
-			it('should show agent actions when hideAgentActions is false', () => {
-				renderWithIntl({ hideAgentActions: false });
-				expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
-				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
-			});
-
-			it('should show agent actions by default', () => {
-				renderWithIntl({});
-				expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
-				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
-			});
+		it('should hide agent actions when hideAgentActions is true', () => {
+			renderWithIntl({ hideAgentActions: true });
+			expect(screen.queryByTestId('agent-dropdown-menu--trigger')).not.toBeInTheDocument();
+			expect(screen.queryByRole('button', { name: /chat with agent/i })).not.toBeInTheDocument();
 		});
 
-		ffTest.off('issue_view_agent_discovery_fast_follows', 'feature gate disabled', () => {
-			it('should render agent actions even when hideAgentActions is true', () => {
-				renderWithIntl({ hideAgentActions: true });
-				expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
-				expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
-			});
+		it('should show agent actions when hideAgentActions is false', () => {
+			renderWithIntl({ hideAgentActions: false });
+			expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
+		});
+
+		it('should show agent actions by default', () => {
+			renderWithIntl({});
+			expect(screen.getByTestId('agent-dropdown-menu--trigger')).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: /chat with agent/i })).toBeInTheDocument();
 		});
 	});
 

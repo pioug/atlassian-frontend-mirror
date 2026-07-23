@@ -31,6 +31,7 @@ export const createMockService = (
 		updateLastActive: jest.fn(),
 		emitTelepointersFromSteps: jest.fn(),
 		getCollabMode: jest.fn(),
+		upsertAIProviderParticipantLocally: jest.fn(),
 	} as unknown as ParticipantsService;
 
 	const fetchCatchupv2Mock = jest.fn();

@@ -9,7 +9,7 @@ import TableTree from '@atlaskit/table-tree/table-tree';
 
 import staticData from './data-cleancode-toc.json';
 
-// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class extends PureComponent<any, any> {
 	state: any = {
 		expansionMap: {

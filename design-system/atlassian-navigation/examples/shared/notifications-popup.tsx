@@ -9,29 +9,22 @@ import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Notifications } from '@atlaskit/atlassian-navigation';
-import { Notifications as NotificationsIframe } from '@atlaskit/atlassian-notifications';
 import { NotificationIndicator } from '@atlaskit/notification-indicator';
 import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import Popup from '@atlaskit/popup';
+import SectionMessage from '@atlaskit/section-message';
 
 const wrapperStyles = css({
-	display: 'flex',
 	width: 540,
-	height: 'calc(100vh - 200px)',
 	paddingBlockStart: 18,
 	paddingInlineStart: 18,
 });
 
 const NotificationsContent = () => (
 	<div css={wrapperStyles}>
-		<NotificationsIframe
-			// _url="https://start.stg.atlassian.com/notificationsDrawer/iframe.html?scope=user&product=uchi&locale=en"
-			_url="https://start.stg.atlassian.com/notificationsDrawer/iframe.html"
-			locale="en"
-			product="jira"
-			testId="jira-notifications"
-			title="Notifications"
-		/>
+		<SectionMessage appearance="information" headingLevel="h2" title="Notifications">
+			Notifications are unavailable in this example.
+		</SectionMessage>
 	</div>
 );
 

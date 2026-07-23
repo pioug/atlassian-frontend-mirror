@@ -342,10 +342,7 @@ export default function AvatarTagExample(): JSX.Element {
 							// eslint-disable-next-line no-alert
 							return window.confirm('Are you sure you want to remove this tag?');
 						}}
-						onAfterRemoveAction={(text) => {
-							// eslint-disable-next-line no-console
-							console.log(`Removed tag: ${text}`);
-						}}
+						onAfterRemoveAction={() => {}}
 						testId="avatar-tag-callbacks"
 					/>
 					<AvatarTag
@@ -357,10 +354,7 @@ export default function AvatarTagExample(): JSX.Element {
 							// eslint-disable-next-line no-alert
 							return window.confirm('Are you sure you want to remove this team tag?');
 						}}
-						onAfterRemoveAction={(text) => {
-							// eslint-disable-next-line no-console
-							console.log(`Removed team tag: ${text}`);
-						}}
+						onAfterRemoveAction={() => {}}
 						testId="avatar-tag-team-callbacks"
 					/>
 				</Inline>

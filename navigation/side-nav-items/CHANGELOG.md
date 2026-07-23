@@ -1,5 +1,12 @@
 # @atlaskit/side-nav-items
 
+## 2.3.4
+
+### Patch Changes
+
+- [`2ef6cff815ece`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2ef6cff815ece) -
+  Roll out stability fixes for GSN components
+
 ## 2.3.3
 
 ### Patch Changes

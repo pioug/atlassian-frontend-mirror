@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-cli",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "An npx-runnable command-line tool to query Atlassian Design System (ADS) structured content — components, tokens, icons, and guidelines — from the terminal.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

@@ -97,7 +97,7 @@ const childCountOptions: {
 
 type ChildCount = (typeof childCountOptions)[number];
 
-// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class extends PureComponent {
 	state: {
 		childCount: number;

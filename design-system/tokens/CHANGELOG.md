@@ -1,5 +1,16 @@
 # @atlaskit/tokens
 
+## 16.3.0
+
+### Minor Changes
+
+- [`2a6fe72f2d5f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a6fe72f2d5f2) -
+  Add alpha-aware color palette tokens for added and removed code diff lines.
+
+  The existing `color.background.code.added.line` and `color.background.code.removed.line` semantic
+  tokens now resolve to alpha-channel values in light, dark, and increased-contrast themes so code
+  diff lines retain their intended transparency.
+
 ## 16.2.0
 
 ### Minor Changes
@@ -38,6 +49,11 @@
 ## Unreleased
 
 ### Minor Changes
+
+- Add alpha-aware code diff line palette tokens: `color.palette.Green200A40`,
+  `color.palette.Green900A70`, `color.palette.Red200A40`, and `color.palette.Red900A70`.
+- Update `color.background.code.added.line` and `color.background.code.removed.line` to use
+  transparent values across light, dark, and increased-contrast themes.
 
 - Add semantic code syntax tokens:
   - `color.background.code.default`

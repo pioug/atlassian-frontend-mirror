@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.3.0
+
+### Minor Changes
+
+- [`6b78df4959ab8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b78df4959ab8) -
+  Add new rule for enforcing the usage of `ModalTitle` within a modal header.
+
 ## 16.2.1
 
 ### Patch Changes

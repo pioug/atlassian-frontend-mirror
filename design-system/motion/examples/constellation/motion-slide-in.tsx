@@ -9,10 +9,9 @@ import { css, jsx } from '@compiled/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { type Direction, ExitingPersistence, SlideIn } from '@atlaskit/motion';
+import { type Fade } from '@atlaskit/motion/entering/types';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples -- Not exported
-import { type Fade } from '../../src/entering/types';
 import { Block, Centered, RetryContainer } from '../utils';
 
 const MotionSlideInExample = (): JSX.Element => {

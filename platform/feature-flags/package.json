@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/platform-feature-flags",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Platform Feature Flags",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,10 +21,6 @@
 		"team": "Build Infra",
 		"singleton": true
 	},
-	"files": [
-		"dist",
-		"CHANGELOG.md"
-	],
 	"exports": {
 		".": "./src/index.ts",
 		"./fg": "./src/fg.ts",

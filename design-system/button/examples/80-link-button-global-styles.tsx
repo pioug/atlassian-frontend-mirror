@@ -5,14 +5,16 @@
 
 import capitalize from 'lodash/capitalize';
 
+import {
+	type IconButtonAppearance,
+	type LinkButtonAppearance,
+} from '@atlaskit/button/variants/types';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import type { IconButtonAppearance, LinkButtonAppearance } from '../src/new-button/variants/types';
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
 

@@ -1,5 +1,16 @@
 # @atlaskit/renderer
 
+## 133.15.0
+
+### Minor Changes
+
+- [`d6d4b831bab67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6d4b831bab67) -
+  [ux] Implements collapsible headings feature for the full-page renderer.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.14.2
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 7.3.25
+
+### Patch Changes
+
+- [`21ddeef55baf4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/21ddeef55baf4) -
+  Cleanup safe payload size feature gate
+
 ## 7.3.24
 
 ### Patch Changes

@@ -91,6 +91,26 @@ Disabled buttons can cause accessibility problems. Avoid disabling buttons and
 Custom buttons should look interactive. Make sure clickable elements are clearly identifiable
 through styles, surrounding context, labels, and other cues.
 
+### Apply motion to Pressable
+
+Pressable has no motion by default because it can be used to build a variety of button-like
+interactive elements.
+
+If a custom control looks and acts like a button, apply button motion tokens to background-color
+changes:
+
+- Use `motion.button.hovered` for the default and hover transition.
+- Use `motion.button.pressed` for the pressed state.
+- Apply these tokens only to background-color transitions.
+
+If it does not look and act like a button, use the appropriate semantic motion tokens where
+available. If no semantic motion token exists, build custom motion using base tokens. For example,
+as a card looks and behaves differently to a button and has no semantic motion token, build custom
+motion using base tokens.
+
+Use the ADS [Button](/components/button/examples) component whenever it supports the customisation
+you need. It includes button motion by default.
+
 ### Use pressable for on-page actions, not navigation
 
 Pressable is meant for on-page actions such as opening modals or submitting forms. If you're making

@@ -6,6 +6,16 @@ export type GetWorkspaceDetailsResponse = {
 	];
 };
 
+/**
+ * Wire shape of the unit-aware `/assets/internal/workspace` resolver response.
+ * `linkedAssetsWorkspaceId` is the workspace of the Unit's primary Assets site.
+ */
+export type ResolvePrimaryWorkspaceResponse = {
+	linkedAssetsSiteCloudId?: string;
+	linkedAssetsWorkspaceId?: string;
+	siteWithJiraUrl?: string;
+};
+
 export type ObjectSchema = {
 	id: string;
 	name: string;

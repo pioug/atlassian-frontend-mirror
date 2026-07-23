@@ -1,9 +1,9 @@
 /**
  * Types for the ADS CLI command registry.
  *
- * Both command dispatch and the top-level `--help` text (in `cli.tsx`) are derived
- * from the single set of {@link CommandDefinition}s, so the runnable surface and the
- * documented surface can never drift apart.
+ * Command dispatch, the top-level `--help` text, and the self-describing `manifest` command are
+ * derived from the single set of {@link CommandDefinition}s, so the runnable and documented
+ * surfaces cannot drift apart.
  */
 
 /**
@@ -21,7 +21,19 @@ export type CommandInput = {
 };
 
 /**
- * A documented flag for a command, surfaced by `--help`.
+ * A documented positional argument for a command, surfaced by `manifest`.
+ */
+export type CommandArgument = {
+	name: string;
+	type: 'string';
+	description: string;
+	required: boolean;
+	variadic?: boolean;
+	choices?: string[];
+};
+
+/**
+ * A documented flag for a command, surfaced by `manifest` and `--help`.
  */
 export type CommandFlag = {
 	name: string;
@@ -29,6 +41,7 @@ export type CommandFlag = {
 	description: string;
 	alias?: string;
 	default?: string | number | boolean;
+	choices?: string[];
 };
 
 /**
@@ -105,13 +118,17 @@ export type CommandDefinition = {
 	 */
 	resultKind?: (input: CommandInput) => RowKind | undefined;
 	/**
-	 * One-line summary for `--help`.
+	 * One-line summary for `manifest` and `--help`.
 	 */
 	description: string;
 	/**
 	 * Usage string, e.g. `search <query...> [--type components|tokens|icons] [--limit N]`.
 	 */
 	usage: string;
+	/**
+	 * Structured positional argument metadata for agent discovery.
+	 */
+	arguments: CommandArgument[];
 	/**
 	 * Documented flags.
 	 */
@@ -120,6 +137,10 @@ export type CommandDefinition = {
 	 * Example invocations.
 	 */
 	examples: string[];
+	/**
+	 * Full success-envelope `type` discriminators this command can emit with `--json`.
+	 */
+	responseTypes: string[];
 	/**
 	 * The envelope `type` suffix used for this command's JSON output, e.g. `search-components`
 	 * produces `type: "ads-cli/search-components"`. May depend on input (e.g. `search --type

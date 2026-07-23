@@ -37,6 +37,11 @@ const UNIDENTIFIED = 'unidentified';
 export const SINGLE_COLLAB_MODE = 'single';
 export const MULTI_COLLAB_MODE = 'collab';
 
+// Sliding inactivity window for agent (AI provider) participants that are added locally from
+// remote agent-authored steps. Reset on each new step for that agent.
+// NOTE: temporary/demonstration lifecycle — long-term expiry may move to NCS.
+export const AGENT_PRESENCE_TTL_MS: number = 30 * 1000; // 30 seconds
+
 /**
  * This service is responsible for handling presence and participant events, as well as sending them on to the editor or NCS.
  * @param analyticsHelper Analytics helper instance
@@ -50,6 +55,8 @@ export class ParticipantsService {
 	private participantUpdateTimeout: number | undefined;
 	private presenceUpdateTimeout: number | undefined;
 	private presenceFetchTimeout: number | undefined;
+	// Per-agent sliding inactivity timers, keyed by the agent participant sessionId.
+	private agentPresenceTimers: Map<string, number> = new Map();
 	private currentlyPollingFetchUsers: boolean = true;
 	private hasBatchFetchError: boolean = false;
 	// Initialized in the constructor body; declared here so the parameter
@@ -158,6 +165,93 @@ export class ParticipantsService {
 				this.sendAIProviderParticipantUpdated(presenceData);
 			});
 		}
+	};
+
+	/**
+	 * Locally register — or refresh — an agent participant in the
+	 * AI-provider (`agent:`) partition from a received agent-authored step, so the agent appears in
+	 * the presence facepile.
+	 *
+	 * Local-only: mutates this client's participants-state and emits `presence` WITHOUT any socket
+	 * broadcast. BE-originated agent steps are already fanned out to every client, so each client
+	 * detects the same steps and adds the agent independently — no cross-client coordination needed.
+	 *
+	 * Deliberately does NOT go through the `getUser` hydration path: agents have no human profile,
+	 * so `getUser('agent:<id>')` would 404/throw (and could drop the participant) or add latency;
+	 * the agent's display identity is resolved downstream in the facepile.
+	 *
+	 * `presence` is emitted only on the FIRST add for an agent. Subsequent steps for the same agent
+	 * refresh `lastActive` and reset the sliding inactivity timer silently, to avoid churning every
+	 * presence consumer on each streamed step.
+	 *
+	 * @param providerId `agent:<aaid|type>` id of the agent
+	 * @example
+	 */
+	upsertAIProviderParticipantLocally = (providerId: string): void => {
+		const payload = this.buildAIProviderPresencePayload(providerId);
+		const { sessionId } = payload;
+		const existing = this.participantsState.getBySessionId(sessionId);
+
+		const participant: ProviderParticipant = {
+			...payload,
+			// `payload.userId` is typed `string | undefined`; here it is always the (string)
+			// providerId, so pin it to satisfy ProviderParticipant.userId (string).
+			userId: providerId,
+			lastActive: payload.timestamp,
+			// name/avatar/email are intentionally empty: an agent has no human profile here. Its display
+			// identity (name + avatar) is resolved downstream in the facepile from the agent id, so the
+			// provider stays identity-free (no getUser/assistance lookup on this hot path).
+			name: '',
+			avatar: '',
+			email: '',
+		};
+		this.participantsState.setBySessionId(sessionId, participant);
+
+		// Emit only on the first add; a refresh of an already-present agent shouldn't re-emit.
+		if (!existing) {
+			this.emitPresence({ joined: [participant] }, 'adding agent participant from remote step');
+		}
+
+		this.resetAgentPresenceTimer(sessionId);
+	};
+
+	/**
+	 * (Re)starts the sliding 30s inactivity timer for an agent participant. Called on every agent
+	 * step so the window slides forward from the agent's most recent activity.
+	 * @example
+	 */
+	private resetAgentPresenceTimer = (sessionId: string): void => {
+		const existingTimer = this.agentPresenceTimers.get(sessionId);
+		if (existingTimer !== undefined) {
+			clearTimeout(existingTimer);
+		}
+		this.agentPresenceTimers.set(
+			sessionId,
+			window.setTimeout(() => this.removeAgentParticipant(sessionId), AGENT_PRESENCE_TTL_MS),
+		);
+	};
+
+	/**
+	 * Removes an inactive agent participant once its sliding window elapses and emits the `presence`
+	 * leave so the facepile drops it.
+	 * @example
+	 */
+	private removeAgentParticipant = (sessionId: string): void => {
+		this.agentPresenceTimers.delete(sessionId);
+		if (this.participantsState.getBySessionId(sessionId)) {
+			this.participantsState.removeBySessionId(sessionId);
+			this.emitPresence({ left: [{ sessionId }] }, 'removing inactive agent participant');
+		}
+	};
+
+	/**
+	 * Clears all pending agent presence sliding timers (on disconnect/destroy) so they don't fire
+	 * against cleared state.
+	 * @example
+	 */
+	private clearAgentPresenceTimers = (): void => {
+		this.agentPresenceTimers.forEach((timer) => clearTimeout(timer));
+		this.agentPresenceTimers.clear();
 	};
 
 	private hasPresenceActivityChanged = (
@@ -367,6 +461,8 @@ export class ParticipantsService {
 	disconnect = (reason: string, sessionId: string | undefined): void => {
 		const left = this.participantsState.getParticipants();
 		this.participantsState.clear();
+		// Stop any pending agent presence timers so they don't fire against cleared state.
+		this.clearAgentPresenceTimers();
 		try {
 			this.emit('disconnected', {
 				reason: disconnectedReasonMapper(reason),
@@ -620,6 +716,7 @@ export class ParticipantsService {
 	clearTimers = (): void => {
 		clearTimeout(this.participantUpdateTimeout);
 		clearTimeout(this.presenceFetchTimeout);
+		this.clearAgentPresenceTimers();
 	};
 
 	private sendPresence = (): void => {

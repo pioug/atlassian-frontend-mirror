@@ -248,7 +248,18 @@ export default class TableRowNativeStickyWithFallback
 
 		// see if we're changing into a header row or
 		// changing away from one
-		const newNodeIsHeaderRow = supportedHeaderRow(node);
+		let rowIndex = 0;
+		if (expValEquals('platform_editor_fix_sticky_header_row', 'isEnabled', true)) {
+			try {
+				const pos = this.getPos();
+				if (pos) {
+					rowIndex = this.view.state.doc.resolve(pos).index();
+				}
+			} catch {
+				// Intentionally swallowed — getPos can return stale positions during AI streaming
+			}
+		}
+		const newNodeIsHeaderRow = supportedHeaderRow(node, rowIndex);
 		if (this.isHeaderRow !== newNodeIsHeaderRow) {
 			if (!newNodeIsHeaderRow && this.isHeaderRow) {
 				this.dom

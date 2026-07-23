@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ed93ae8adbd5266e92fe7d1db46a9433>>
+ * @codegen <<SignedSource::4570dbfd0eed9cd8e93ea405da678db6>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -60,6 +60,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/use-latest-xcss-syntax-typography': 'warn',
 		'@atlaskit/design-system/use-menu-section-title': 'warn',
 		'@atlaskit/design-system/use-modal-dialog-close-button': 'warn',
+		'@atlaskit/design-system/use-modal-title': 'warn',
 		'@atlaskit/design-system/use-onboarding-spotlight-label': 'warn',
 		'@atlaskit/design-system/use-popup-label': 'warn',
 		'@atlaskit/design-system/use-primitives-text': 'warn',

@@ -26,7 +26,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 	platform_editor_controls: 'control',
 	cc_editor_ai_content_mode: 'control',
 	platform_hover_card_preview_panel: 'control',
-	smart_link_confluence_short_link_analytics: 'control',
 	cc_editor_insm_outlier_events: 'test',
 	platform_editor_table_sticky_header_improvements: 'test_with_overflow',
 	cc_fd_db_top_editor_toolbar: 'control',
@@ -39,6 +38,7 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	'cc-maui-ai-edit-loading-experiment': true,
+	cc_maui_polish_changes_batch_1: false,
 	social_proof_3p_unauth_block_exp: false,
 	linking_platform_track_non_primary_3p_clicks: false,
 	platform_sl_3p_preauth_better_hovercard: true,

@@ -11,6 +11,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardBadSuggestionLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardCloseButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -42,6 +47,11 @@ export const aiSuggestionsMessages: {
 		id: string;
 	};
 	cardExpandButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	cardGoodSuggestionLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -137,6 +147,11 @@ export const aiSuggestionsMessages: {
 		id: string;
 	};
 	reviewNote: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	sourceLabel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -411,6 +426,18 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'More options',
 		description: 'Label for the overflow actions button on the AI suggestions card',
 	},
+	cardGoodSuggestionLabel: {
+		id: 'fabric.editor.ai.suggestions.card.goodSuggestionLabel.non-final',
+		defaultMessage: 'Good suggestion',
+		description:
+			'Label for the overflow menu item / button that submits positive (thumbs up) feedback on an AI suggestion',
+	},
+	cardBadSuggestionLabel: {
+		id: 'fabric.editor.ai.suggestions.card.badSuggestionLabel.non-final',
+		defaultMessage: 'Bad suggestion',
+		description:
+			'Label for the overflow menu item / button that submits negative (thumbs down) feedback on an AI suggestion',
+	},
 	cardOnlyShowSuggestionOptionLabel: {
 		id: 'fabric.editor.ai.suggestions.card.onlyShowSuggestionOptionLabel.non-final',
 		defaultMessage: 'Only show suggestion',
@@ -489,5 +516,10 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.thinkingComplete.close.non-final',
 		defaultMessage: 'Close',
 		description: 'Accessible label for the close button on the thinking complete bar',
+	},
+	sourceLabel: {
+		id: 'fabric.editor.ai.suggestions.sourceLabel.non-final',
+		defaultMessage: 'Source',
+		description: 'Label for the sources section on the AI suggestions card',
 	},
 });

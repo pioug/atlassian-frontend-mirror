@@ -1,5 +1,13 @@
 # @atlaskit/editor-presets
 
+## 6.0.3
+
+### Patch Changes
+
+- [`f596f4ca80078`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f596f4ca80078) -
+  Clean up feature gate `platform_editor_table_auto_convert_fix`
+- Updated dependencies
+
 ## 6.0.2
 
 ### Patch Changes

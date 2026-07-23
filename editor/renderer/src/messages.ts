@@ -1,38 +1,56 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import { defineMessages } from 'react-intl';
+import { defineMessages, type MessageDescriptor } from 'react-intl';
+
+export const collapsibleHeadingMessages: Record<
+	'collapseSection' | 'expandSection',
+	MessageDescriptor
+> = defineMessages({
+	collapseSection: {
+		id: 'fabric.editor.collapsibleHeading.collapseSection.ai-non-final',
+		defaultMessage: 'Collapse section',
+		description:
+			'Accessible label and tooltip for the button beside an expanded renderer heading. Activating the button hides the content in that heading section.',
+	},
+	expandSection: {
+		id: 'fabric.editor.collapsibleHeading.expandSection.ai-non-final',
+		defaultMessage: 'Expand section',
+		description:
+			'Accessible label and tooltip for the button beside a collapsed renderer heading. Activating the button reveals the content in that heading section.',
+	},
+});
 
 export const headingAnchorLinkMessages: {
-	copyHeadingLinkToClipboard: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	copyLinkToClipboard: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	copyHeadingLinkLabelledBy: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	copiedHeadingLinkToClipboard: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	failedToCopyHeadingLink: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	copyAriaLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	copyHeadingLinkLabelledBy: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	copyHeadingLinkToClipboard: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	copyLinkToClipboard: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	failedToCopyHeadingLink: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	copyHeadingLinkToClipboard: {
@@ -73,20 +91,20 @@ export const headingAnchorLinkMessages: {
 });
 
 export const tableCellMessages: {
-	noneSortingLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	ascSortingLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	descSortingLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	noneSortingLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	noneSortingLabel: {
@@ -108,15 +126,15 @@ export const tableCellMessages: {
 });
 
 export const inlineCommentMessages: {
-	contentRendererInlineCommentMarkerStart: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	contentRendererInlineCommentMarkerEnd: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	contentRendererInlineCommentMarkerStart: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	contentRendererInlineCommentMarkerStart: {

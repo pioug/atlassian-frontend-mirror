@@ -109,7 +109,6 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
 		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/atlassian-notifications": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/badge": "workspace:^",
 		"@atlaskit/docs": "workspace:^",

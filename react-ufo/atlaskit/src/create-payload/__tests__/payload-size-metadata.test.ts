@@ -1,9 +1,6 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import type { InteractionMetrics } from '../../common';
 import { setUFOConfig } from '../../config';
 import { createPayloads } from '../index';
-import { SAFE_PAYLOAD_SIZE_GATE } from '../utils/get-payload-size';
 
 const originalPerformance = global.performance;
 const originalPerformanceObserver = global.PerformanceObserver;
@@ -113,7 +110,6 @@ describe('createPayloads payload size serialization metadata', () => {
 	});
 
 	it('emits safe serializer metadata when payload sizing replaces unsafe values', async () => {
-		passGate(SAFE_PAYLOAD_SIZE_GATE);
 		const circular: any = {};
 		circular.self = circular;
 		const interaction = createMinimalInteraction([
@@ -125,18 +121,5 @@ describe('createPayloads payload size serialization metadata', () => {
 
 		expect(properties['event:payloadSizeUsedSafeSerializer']).toBe(true);
 		expect(properties['event:payloadSizeSerializationFailed']).toBeUndefined();
-	});
-
-	it('preserves legacy sizing behavior when the safe serializer gate is off', async () => {
-		failGate(SAFE_PAYLOAD_SIZE_GATE);
-		const circular: any = {};
-		circular.self = circular;
-		const interaction = createMinimalInteraction([
-			{ labelStack: [{ name: 'unsafe-custom-data' }], data: circular },
-		]);
-
-		await expect(createPayloads('test-interaction', interaction)).rejects.toThrow(
-			'Converting circular structure to JSON',
-		);
 	});
 });

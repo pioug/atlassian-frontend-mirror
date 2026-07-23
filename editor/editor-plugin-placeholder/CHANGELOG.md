@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 12.0.34
+
+### Patch Changes
+
+- [`c5a6973a90849`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5a6973a90849) -
+  Revert the multi-bodied extension empty frame placeholder.
+- Updated dependencies
+
 ## 12.0.33
 
 ### Patch Changes

@@ -5,14 +5,14 @@
 
 import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
+import type { ObjectProps } from '@atlaskit/object/types';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { allObjects } from '../examples-utils/all-objects';
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import type { ObjectSize } from '../src/components/object/types';
+
+type ObjectSize = NonNullable<ObjectProps['size']>;
 
 const containerStyles = css({
 	maxWidth: '600px',

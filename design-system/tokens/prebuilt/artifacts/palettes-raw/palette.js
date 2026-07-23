@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::53794f446833e9543b9fc09809fc6844>>
+ * @codegen <<SignedSource::d990bbd734a8d8e531136e364654fcbc>>
  * @codegenCommand yarn build tokens
  */
 
@@ -249,6 +249,23 @@ var tokens = [{
   "name": "color.palette.Red200",
   "path": ["color", "palette", "Red200"]
 }, {
+  "value": "#FFD5D266",
+  "attributes": {
+    "group": "palette",
+    "category": "red"
+  },
+  "filePath": "schema/palettes/palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "#FFD5D266",
+    "attributes": {
+      "group": "palette",
+      "category": "red"
+    }
+  },
+  "name": "color.palette.Red200A40",
+  "path": ["color", "palette", "Red200A40"]
+}, {
   "value": "#FFB8B2",
   "attributes": {
     "group": "palette",
@@ -401,6 +418,23 @@ var tokens = [{
   },
   "name": "color.palette.Red900",
   "path": ["color", "palette", "Red900"]
+}, {
+  "value": "#5D1F1AB2",
+  "attributes": {
+    "group": "palette",
+    "category": "red"
+  },
+  "filePath": "schema/palettes/palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "#5D1F1AB2",
+    "attributes": {
+      "group": "palette",
+      "category": "red"
+    }
+  },
+  "name": "color.palette.Red900A70",
+  "path": ["color", "palette", "Red900A70"]
 }, {
   "value": "#42221F",
   "attributes": {
@@ -861,6 +895,23 @@ var tokens = [{
   "name": "color.palette.Green200",
   "path": ["color", "palette", "Green200"]
 }, {
+  "value": "#BAF3DB66",
+  "attributes": {
+    "group": "palette",
+    "category": "green"
+  },
+  "filePath": "schema/palettes/palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "#BAF3DB66",
+    "attributes": {
+      "group": "palette",
+      "category": "green"
+    }
+  },
+  "name": "color.palette.Green200A40",
+  "path": ["color", "palette", "Green200A40"]
+}, {
   "value": "#97EDC9",
   "attributes": {
     "group": "palette",
@@ -1013,6 +1064,23 @@ var tokens = [{
   },
   "name": "color.palette.Green900",
   "path": ["color", "palette", "Green900"]
+}, {
+  "value": "#164B35B2",
+  "attributes": {
+    "group": "palette",
+    "category": "green"
+  },
+  "filePath": "schema/palettes/palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "#164B35B2",
+    "attributes": {
+      "group": "palette",
+      "category": "green"
+    }
+  },
+  "name": "color.palette.Green900A70",
+  "path": ["color", "palette", "Green900A70"]
 }, {
   "value": "#1C3329",
   "attributes": {

@@ -13,6 +13,7 @@ const styles = cssMap({
 		color: token('color.text.subtle'),
 		fontWeight: token('font.weight.medium'),
 		backgroundColor: token('color.background.neutral.subtle'),
+		transition: token('motion.button.hovered'),
 		paddingBlockStart: token('space.0'),
 		paddingInlineEnd: token('space.0'),
 		paddingBlockEnd: token('space.0'),
@@ -25,6 +26,7 @@ const styles = cssMap({
 		'&:active': {
 			color: token('color.link.pressed'),
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
+			transition: token('motion.button.pressed'),
 		},
 	},
 });

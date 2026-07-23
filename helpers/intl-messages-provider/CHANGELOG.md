@@ -1,5 +1,19 @@
 # @atlaskit/intl-messages-provider
 
+## 4.2.0
+
+### Minor Changes
+
+- [`db050139d16aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db050139d16aa) -
+  Added explicit subpath exports so consumers can import directly from the relevant entry point:
+  - `import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';`
+  - `import { createAsyncIntlProvider } from '@atlaskit/intl-messages-provider/async';`
+  - `import type { I18NMessages } from '@atlaskit/intl-messages-provider/types';`
+
+  The package root (`@atlaskit/intl-messages-provider`) continues to export `IntlMessagesProvider`,
+  `IntlMessagesProviderProps` and `I18NMessages`, so existing imports keep working. New code should
+  prefer the subpath exports.
+
 ## 4.1.0
 
 ### Minor Changes

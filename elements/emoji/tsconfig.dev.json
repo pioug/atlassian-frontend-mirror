@@ -44,6 +44,7 @@
 		"outDir": "../../../tsDist/@atlaskit__emoji/dev",
 		"isolatedDeclarations": true
 	},
+	"avoidSelfReferencePaths": true,
 	"references": [
 		{
 			"path": "./tsconfig.app.json"

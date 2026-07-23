@@ -70,7 +70,7 @@ tester.run('feature-flags/use-recommended-utils', rule, {
 			errors: [
 				{
 					message:
-						'Experimentation is not suported in platform feature flags, reach out to #help-statsig-switcheroo.',
+						'Please do not use FeatureGates.getExperimentValue, use `isExperimentEnabled` or `expVal` from `@atlaskit/platform-feature-experiments` instead.',
 				},
 			],
 		},

@@ -1,5 +1,12 @@
 # @atlaskit/ads-cli
 
+## 0.2.0
+
+### Minor Changes
+
+- [`f37252516ee5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f37252516ee5d) -
+  Add a `manifest` command for discovering ADS CLI commands in human-readable or JSON format.
+
 ## 0.1.0
 
 ### Minor Changes

@@ -222,7 +222,7 @@ const AgentProfileCard = ({
 		(isRovoDevOrJiraCodingAgent &&
 		FeatureGates.getExperimentValue('jira_hide_conversations_for_jca', 'isEnabled', false)
 			? false
-			: !isRovoDev) && !(hideAgentActions && fg('issue_view_agent_discovery_fast_follows'));
+			: !isRovoDev) && !hideAgentActions;
 
 	return (
 		<AgentProfileCardWrapper>

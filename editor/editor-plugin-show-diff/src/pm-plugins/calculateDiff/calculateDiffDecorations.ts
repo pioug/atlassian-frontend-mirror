@@ -18,6 +18,7 @@ import type {
 	DeletedDiffPlacement,
 	DiffDescriptor,
 	DiffType,
+	InlineDeletedDiffPlacement,
 	ShowDiffPlugin,
 	SmartDiffThresholds,
 } from '../../showDiffPluginType';
@@ -197,6 +198,7 @@ const calculateDiffDecorationsInner = ({
 	showIndicators = false,
 	smartThresholds,
 	deletedDiffPlacement = 'top',
+	inlineDeletedDiffPlacement = 'before',
 }: {
 	activeIndexPos?: { from: number; to: number };
 	api: ExtractInjectionAPI<ShowDiffPlugin> | undefined;
@@ -205,6 +207,7 @@ const calculateDiffDecorationsInner = ({
 	diffType?: DiffType;
 	hideAddedDiffsUnderline?: boolean;
 	hideDeletedDiffs?: boolean;
+	inlineDeletedDiffPlacement?: InlineDeletedDiffPlacement;
 	intl: IntlShape;
 	isInverted?: boolean;
 	nodeViewSerializer: NodeViewSerializer;
@@ -382,14 +385,22 @@ const calculateDiffDecorationsInner = ({
 							isInserted: !isInserted,
 							diffType,
 							hideAddedDiffsUnderline,
-							// For `smart` node- and paragraph-level changes, optionally render the
-							// deleted content below the new content (gray + strikethrough) instead
-							// of above it. Controlled by `deletedDiffPlacement` (default `'top'`).
+							// For `smart` changes, optionally render the deleted content after the new
+							// content (gray + strikethrough) instead of before it. Two independent
+							// controls, split by change level:
+							// - node/paragraph-level: `deletedDiffPlacement` (default `'top'`).
+							// - inline/sentence-level: `inlineDeletedDiffPlacement` (default `'before'`).
 							placeBelow:
-								deletedDiffPlacement === 'bottom' &&
 								diffType === 'smart' &&
 								fg('platform_editor_ai_smart_diff') &&
-								(smartChangeLevel(change) === 'node' || smartChangeLevel(change) === 'paragraph'),
+								(() => {
+									const level = smartChangeLevel(change);
+									if (level === 'node' || level === 'paragraph') {
+										return deletedDiffPlacement === 'bottom';
+									}
+									// Inline-level (undefined) and sentence-level changes.
+									return inlineDeletedDiffPlacement === 'after';
+								})(),
 						}),
 						showIndicators,
 					}),
@@ -589,6 +600,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		deletedDiffPlacement?: DeletedDiffPlacement;
 		hideAddedDiffsUnderline?: boolean;
 		hideDeletedDiffs?: boolean;
+		inlineDeletedDiffPlacement?: InlineDeletedDiffPlacement;
 		intl: IntlShape;
 		nodeViewSerializer: NodeViewSerializer;
 		pluginState: Omit<ShowDiffPluginState, 'decorations'>;
@@ -614,6 +626,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				showIndicators,
 				smartThresholds,
 				deletedDiffPlacement,
+				inlineDeletedDiffPlacement,
 			},
 		],
 		[
@@ -630,6 +643,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				showIndicators: lastShowIndicators,
 				smartThresholds: lastSmartThresholds,
 				deletedDiffPlacement: lastDeletedDiffPlacement,
+				inlineDeletedDiffPlacement: lastInlineDeletedDiffPlacement,
 			},
 		],
 	) => {
@@ -652,7 +666,8 @@ export const calculateDiffDecorations: MemoizedFn<
 					hideAddedDiffsUnderline === lastHideAddedDiffsUnderline &&
 					showIndicators === lastShowIndicators &&
 					isEqual(smartThresholds, lastSmartThresholds) &&
-					deletedDiffPlacement === lastDeletedDiffPlacement) ??
+					deletedDiffPlacement === lastDeletedDiffPlacement &&
+					inlineDeletedDiffPlacement === lastInlineDeletedDiffPlacement) ??
 				false
 			);
 		}

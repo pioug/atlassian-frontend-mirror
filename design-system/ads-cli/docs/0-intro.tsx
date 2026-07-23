@@ -37,6 +37,8 @@ const intro: React.ReactElement = md`
 	    - \`docs a11y [topic]\` — accessibility guidance; optional topic such as \`buttons\`,
 	      \`forms\`, or \`colors\` (omit for the full bundle).
 	    - \`docs migration <id>\` — a structured migration guide for a known package or API migration.
+	- \`manifest\` — describe every command, argument, flag, and JSON response type. Use \`--json\`
+	  for the machine-readable contract.
 
 	### Global flags
 
@@ -68,6 +70,9 @@ const intro: React.ReactElement = md`
 
 	# Machine-readable envelope for agents / jq
 	npx @atlaskit/ads-cli search button --json
+
+	# Discover the complete CLI contract
+	npx @atlaskit/ads-cli manifest --json
 	\`\`\`
 
 	## Output contract
@@ -77,6 +82,8 @@ const intro: React.ReactElement = md`
 	- With \`--json\`, every success prints a success envelope and every failure prints an error
 	  envelope. The \`type\` discriminator (\`ads-cli/<command>\` or \`ads-cli/error\`) lets consumers
 	  branch without re-parsing:
+	- The \`manifest --json\` payload is derived from the live command registry and lists every
+	  command, positional argument, flag, example, and success response type.
 
 	\`\`\`json
 	{

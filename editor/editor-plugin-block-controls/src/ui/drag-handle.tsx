@@ -84,6 +84,7 @@ import {
 
 import {
 	ACTIVE_DRAG_HANDLE_ATTR,
+	ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,
 	DRAG_HANDLE_BORDER_RADIUS,
 	DRAG_HANDLE_HEIGHT,
 	DRAG_HANDLE_MAX_SHIFT_CLICK_DEPTH,
@@ -496,6 +497,20 @@ type DragHandleProps = {
 	isTopLevelNode?: boolean;
 	nodeType: string;
 	view: EditorView;
+};
+
+const getDragHandleAnchorReference = ({
+	edge,
+	safeAnchorName,
+}: {
+	edge: 'start' | 'end' | 'left' | 'right' | 'top';
+	safeAnchorName: string;
+}): string => {
+	if (expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true)) {
+		return `anchor(${safeAnchorName} ${edge}, anchor(${ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME} ${edge}))`;
+	}
+
+	return `anchor(${safeAnchorName} ${edge})`;
 };
 
 export const DragHandle = ({
@@ -1013,7 +1028,6 @@ export const DragHandle = ({
 		const safeAnchorName = editorExperiment('platform_editor_controls', 'variant1')
 			? refreshAnchorName({ getPos, view, anchorName })
 			: anchorName;
-
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 		);
@@ -1057,21 +1071,43 @@ export const DragHandle = ({
 		const isSticky = shouldBeSticky(nodeType);
 
 		if (supportsAnchor) {
+			const anchorStart = getDragHandleAnchorReference({
+				edge: 'start',
+				safeAnchorName,
+			});
+			const anchorTop = getDragHandleAnchorReference({
+				edge: 'top',
+				safeAnchorName,
+			});
+			const anchorLeft = getDragHandleAnchorReference({
+				edge: 'left',
+				safeAnchorName,
+			});
+			const anchorRight = getDragHandleAnchorReference({
+				edge: 'right',
+				safeAnchorName,
+			});
 			const bottom = editorExperiment('platform_editor_controls', 'variant1')
-				? getControlBottomCSSValue(safeAnchorName, isSticky, isTopLevelNodeValue, isLayoutColumn)
+				? getControlBottomCSSValue(
+						safeAnchorName,
+						isSticky,
+						isTopLevelNodeValue,
+						isLayoutColumn,
+						ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,
+					)
 				: {};
 
 			return {
 				left: isEdgeCase
-					? `calc(anchor(${safeAnchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
+					? `calc(${anchorStart} + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
 					: editorExperiment('advanced_layouts', true) && isLayoutColumn
-						? `calc((anchor(${safeAnchorName} right) + anchor(${safeAnchorName} left))/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
-						: `calc(anchor(${safeAnchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
+						? `calc((${anchorRight} + ${anchorLeft})/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
+						: `calc(${anchorStart} - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
 
 				top:
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
-						? `calc(anchor(${safeAnchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
-						: `calc(anchor(${safeAnchorName} start) + ${topPositionAdjustment(
+						? `calc(${anchorTop} - ${DRAG_HANDLE_WIDTH}px)`
+						: `calc(${anchorStart} + ${topPositionAdjustment(
 								expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 									? ($pos && $pos.nodeAfter && getNodeTypeWithLevel($pos.nodeAfter)) || nodeType
 									: nodeType,

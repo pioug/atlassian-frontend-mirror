@@ -1,13 +1,14 @@
 /**
  * The command definitions — the single source of truth for the ADS CLI surface.
  *
- * Both command dispatch and the top-level `--help` text (in `cli.tsx`) are derived
+ * Command dispatch, top-level `--help`, and the self-describing manifest are derived
  * from this one array, so there is no way for the runnable surface and the documented surface
  * to drift apart. Each entry declares:
  *
  *  - which `@atlaskit/ads-mcp/tools/*` subpath to import and which handler it exports,
  *  - how to turn parsed CLI input (positional terms + flags) into the tool's args object,
- *  - the metadata (description, flags, examples) surfaced by `--help`.
+ *  - the metadata (arguments, flags, response types, and examples) surfaced by `manifest` and
+ *    `--help`.
  *
  * The CLI is deliberately a thin layer: it never reimplements search ranking or bundles a
  * copy of the dataset. All heavy lifting stays in `@atlaskit/ads-mcp`.
@@ -22,9 +23,12 @@ import { formatDisambiguation } from '../output/format-disambiguation';
 import { formatDocObject } from '../output/format-doc-object';
 import { formatIcon } from '../output/format-icon';
 import { formatLintRules } from '../output/format-lint-rules';
+import { formatManifest } from '../output/format-manifest';
 import { formatToken } from '../output/format-token';
 import { type LintRule, parseLintRuleRecords } from '../output/parse-lint-rule-records';
 
+import { buildManifest } from './build-manifest';
+import { getVersion } from './get-version';
 import type { CommandDefinition, CommandFlag, CommandInput, ResolveResult } from './types';
 
 /**
@@ -213,6 +217,7 @@ const resolveSearch = ({
 const allFlag: CommandFlag = {
 	name: 'all',
 	type: 'boolean',
+	default: false,
 	description: 'List every entry of this kind instead of looking up a single name.',
 };
 
@@ -296,8 +301,17 @@ const makeItemCommand = ({
 		name,
 		description: `Get details for a single ADS ${name}, or list all with --all.`,
 		usage: `${name} <name> | ${name} --all`,
+		arguments: [
+			{
+				name: 'name',
+				type: 'string',
+				required: false,
+				description: `Exact or fuzzy ADS ${name} name. Omit when using --all.`,
+			},
+		],
 		flags: [allFlag],
 		examples: [`${name} ${EXAMPLE_NAME[kind]}`, `${name} --all`],
+		responseTypes: [`ads-cli/${name}`, `ads-cli/${listTool.envelopeType}`],
 		// `--all` returns an array → render it as the compact per-row list for this kind. A single
 		// `<name>` lookup is post-processed by `transform` into either one detail object or a
 		// disambiguation marker, both handled by `formatHuman`.
@@ -398,18 +412,28 @@ const resolveUnifiedSearch = (input: CommandInput): ResolveResult => {
 };
 
 /**
- * The full set of CLI commands. Order here is the order shown by `--help`.
+ * The full set of CLI commands. Order here is the order shown by `manifest` and `--help`.
  */
 export const commands: CommandDefinition[] = [
 	{
 		name: 'search',
 		description: 'Fuzzy-search ADS components, tokens, and icons together (or narrow with --type).',
 		usage: `search <query...> [--type ${Object.keys(SEARCH_TYPE_VALUES).join('|')}] [--limit N]`,
+		arguments: [
+			{
+				name: 'query',
+				type: 'string',
+				required: true,
+				variadic: true,
+				description: 'One or more terms to search for.',
+			},
+		],
 		flags: [
 			{
 				name: 'type',
 				type: 'string',
 				alias: 't',
+				choices: Object.keys(SEARCH_TYPE_VALUES),
 				description: `Narrow the search to a single kind: ${Object.keys(SEARCH_TYPE_VALUES).join(', ')}.`,
 			},
 			limitFlag,
@@ -418,6 +442,10 @@ export const commands: CommandDefinition[] = [
 			'search button',
 			'search space color --type token',
 			'search add --type icon --limit 5',
+		],
+		responseTypes: [
+			'ads-cli/search',
+			...Object.values(searchKindTools).map((tool) => `ads-cli/${tool.envelopeType}`),
 		],
 		// With `--type`, the result is a single kind (compact per-row rendering). Without it, the
 		// result is grouped across all kinds, so there is no single result kind — the grouped
@@ -463,8 +491,18 @@ export const commands: CommandDefinition[] = [
 		name: 'lint-rules',
 		description: 'Get ADS ESLint lint rules, optionally filtered by term.',
 		usage: 'lint-rules [term...] [--limit N]',
+		arguments: [
+			{
+				name: 'term',
+				type: 'string',
+				required: false,
+				variadic: true,
+				description: 'Terms used to filter lint rules.',
+			},
+		],
 		flags: [limitFlag],
 		examples: ['lint-rules', 'lint-rules unsafe', 'lint-rules no-unsafe-style-overrides'],
+		responseTypes: ['ads-cli/lint-rules'],
 		envelopeType: () => 'lint-rules',
 		// Ambiguous fuzzy lookup → render the "did you mean?" list; otherwise print each rule's
 		// Markdown `content` verbatim rather than JSON.
@@ -541,10 +579,21 @@ export const commands: CommandDefinition[] = [
 		name: 'docs',
 		description: 'Read ADS reference docs: foundations, accessibility (a11y), or migrations.',
 		usage: `docs <topic...>  |  docs a11y [${A11Y_TOPICS.join('|')}]  |  docs migration <${MIGRATION_IDS.join('|')}>`,
+		arguments: [
+			{
+				name: 'topic',
+				type: 'string',
+				required: false,
+				variadic: true,
+				description:
+					'Foundation terms, an accessibility topic after a11y, or a migration id after migration.',
+			},
+		],
 		// No `--limit`: every `docs` variant returns a single document (a foundation doc, an a11y
 		// guide, or a migration guide), so there is nothing to limit.
 		flags: [],
 		examples: ['docs spacing', 'docs color contrast', 'docs a11y buttons', 'docs migration motion'],
+		responseTypes: ['ads-cli/docs-guidelines', 'ads-cli/docs-a11y', 'ads-cli/docs-migration'],
 		envelopeType: (input) => {
 			const namespace = input.positionals[0];
 			if (namespace === 'a11y') {
@@ -633,5 +682,20 @@ export const commands: CommandDefinition[] = [
 				meta: args,
 			});
 		},
+	},
+	{
+		name: 'manifest',
+		description: 'Describe every CLI command, argument, flag, and JSON response type.',
+		usage: 'manifest',
+		arguments: [],
+		flags: [],
+		examples: ['manifest --json'],
+		responseTypes: ['ads-cli/manifest'],
+		envelopeType: () => 'manifest',
+		formatHuman: formatManifest,
+		resolve: () => ({
+			data: buildManifest(commands, getVersion()),
+			meta: { schemaVersion: 1 },
+		}),
 	},
 ];

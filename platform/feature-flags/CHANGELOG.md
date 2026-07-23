@@ -1,5 +1,25 @@
 # @atlaskit/platform-feature-flags
 
+## 2.1.1
+
+### Patch Changes
+
+- [`db6ada9ffbb86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db6ada9ffbb86) -
+  Remove explicit files field from @atlaskit/platform-feature-flags
+
+  The files field in package.json was explicitly set to ["dist", "CHANGELOG.md"], which caused the
+  build-generated subpath shim directories (fg/, getBooleanFF/, setBooleanFeatureFlagResolver/) to
+  be excluded from the published npm tarball.
+
+  These shim directories are generated at build time by the platform build pipeline and are required
+  for consumers to resolve subpath imports like @atlaskit/platform-feature-flags/fg. Without them,
+  bundlers like Parcel fail to resolve the subpath since the exports field is stripped from the
+  published package.json at release time.
+
+  Removing the files field means npm will publish all files by default (consistent with how all
+  other packages in the monorepo handle this), ensuring the generated shim directories are included
+  in the tarball.
+
 ## 2.1.0
 
 ### Minor Changes

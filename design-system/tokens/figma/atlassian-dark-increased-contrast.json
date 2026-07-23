@@ -1091,7 +1091,7 @@
       }
     },
     "Dark increased-contrast/color.background.code.added.line": {
-      "value": "#164B35",
+      "value": "#164B35B2",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -1136,7 +1136,7 @@
       }
     },
     "Dark increased-contrast/color.background.code.removed.line": {
-      "value": "#5D1F1A",
+      "value": "#5D1F1AB2",
       "attributes": {
         "group": "paint",
         "state": "active",

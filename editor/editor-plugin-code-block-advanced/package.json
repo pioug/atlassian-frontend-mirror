@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "12.0.32",
+	"version": "12.1.0",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -51,7 +51,8 @@
 		"@xiechao/codemirror-lang-handlebars": "root:*",
 		"bind-event-listener": "root:*",
 		"cm6-graphql": "root:*",
-		"codemirror-lang-elixir": "root:*"
+		"codemirror-lang-elixir": "root:*",
+		"codemirror-lang-mermaid": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
@@ -102,6 +103,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_code_block_folding_analytics": {
+			"type": "boolean"
+		},
+		"platform_editor_code_block_mermaid_language": {
 			"type": "boolean"
 		}
 	},

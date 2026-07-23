@@ -53,9 +53,6 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
-			"path": "../../navigation/atlassian-notifications/tsconfig.app.json"
-		},
-		{
 			"path": "../avatar/tsconfig.app.json"
 		},
 		{

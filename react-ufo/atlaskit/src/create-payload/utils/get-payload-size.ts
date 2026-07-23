@@ -1,6 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
-export const SAFE_PAYLOAD_SIZE_GATE = 'platform_ufo_safe_payload_size';
 const SERIALIZATION_FAILED_PAYLOAD_SIZE_KB = 1024;
 
 // Reusable TextEncoder instance to avoid creating new instances
@@ -98,16 +95,7 @@ function getPayloadSizeWithMetadata(payload: object): PayloadSizeResult {
 		};
 	}
 
-	if (fg('platform_ufo_safe_payload_size')) {
-		return getSafePayloadSize(payload);
-	}
-
-	// Preserve legacy behavior behind the feature gate, including throwing when JSON.stringify throws.
-	return {
-		sizeInKb: getStringSizeInKb(JSON.stringify(payload) ?? ''),
-		usedSafeSerializer: false,
-		serializationFailed: false,
-	};
+	return getSafePayloadSize(payload);
 }
 
 export default function getPayloadSize<IncludeMetadata extends boolean | undefined = undefined>(

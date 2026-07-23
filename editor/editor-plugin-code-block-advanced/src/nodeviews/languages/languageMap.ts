@@ -2,6 +2,7 @@ import { LanguageDescription, LanguageSupport } from '@codemirror/language';
 import { languages } from '@codemirror/language-data';
 
 import type { LanguageAlias } from '@atlaskit/code';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type LanguageAliasValue = LanguageAlias[0];
 
@@ -11,6 +12,27 @@ export const mapLanguageToCodeMirror = (
 ): LanguageDescription | undefined => {
 	if (!language || language === 'none') {
 		return undefined;
+	}
+	// mermaid is gated out of the shared SUPPORTED_LANGUAGES list; load its grammar only when the gate is on
+	if (language === 'mermaid') {
+		if (!fg('platform_editor_code_block_mermaid_language')) {
+			return undefined;
+		}
+		return LanguageDescription.of({
+			name: 'Mermaid',
+			load() {
+				return import(
+					/* webpackChunkName: "@atlaskit-internal_@atlaskit/editor-plugin-code-block-advanced-lang-mermaid" */
+					'codemirror-lang-mermaid'
+				).then(
+					(m) =>
+						// Construct locally (like the Handlebars case) to avoid a type clash between
+						// this package's `@codemirror/language` and the copy codemirror-lang-mermaid
+						// bundles; equivalent to the package's own `mermaid()`.
+						new LanguageSupport(m.mermaidLanguage),
+				);
+			},
+		});
 	}
 	switch (language) {
 		case 'markdown':

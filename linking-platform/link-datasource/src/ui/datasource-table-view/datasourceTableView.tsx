@@ -15,7 +15,7 @@ import { css, jsx } from '@compiled/react';
 import isEqual from 'lodash/isEqual';
 
 import { withAnalyticsContext, type WithContextProps } from '@atlaskit/analytics-next';
-import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import IntlMessagesProvider from '@atlaskit/intl-messages-provider/main';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 

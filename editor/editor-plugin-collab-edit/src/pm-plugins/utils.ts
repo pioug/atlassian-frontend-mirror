@@ -21,12 +21,12 @@ import { token } from '@atlaskit/tokens';
 import { preserveNodeIdentity } from './preserve-node-identity';
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
-	decorations
-		.find()
-		.reduce<Decoration[]>(
-			(arr, deco) => (deco.spec.pointer.presenceId === id ? arr.concat(deco) : arr),
-			[],
-		);
+	decorations.find().reduce<Decoration[]>(
+		// `pointer` is absent on non-telepointer decorations (e.g. the agent-shimmer
+		// sweep decorations), so guard against it to avoid crashing this shared helper.
+		(arr, deco) => (deco.spec.pointer?.presenceId === id ? arr.concat(deco) : arr),
+		[],
+	);
 
 function style(options: { color: string }) {
 	const color = (options && options.color) || token('color.border');

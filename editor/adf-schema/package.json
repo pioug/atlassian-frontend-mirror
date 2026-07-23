@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/adf-schema",
-	"version": "56.1.13",
+	"version": "56.1.15",
 	"description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,7 +80,7 @@
 		"json-schema-diff-validator": "root:*",
 		"prettier": "root:*",
 		"prop-types": "root:*",
-		"react": "^16.8.0",
+		"react": "root:*",
 		"react-dom": "root:*",
 		"react-magnetic-di": "root:*",
 		"rxjs": "root:*",

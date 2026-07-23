@@ -6,7 +6,6 @@ import DynamicTable from '@atlaskit/dynamic-table';
 import { lorem } from './content/lorem';
 import { caption, head, rows } from './content/sample-data';
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default function NoPaginationIfOnlyOnePageExample(): React.JSX.Element {
 	const [showMoreData, setShowMoreData] = useState(true);
 	const [numRows, setNumRows] = useState(10);

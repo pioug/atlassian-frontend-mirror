@@ -10,7 +10,6 @@ export interface PlaceHolderState {
 	contextPlaceholderADF?: DocNode;
 	hasPlaceholder: boolean;
 	isPlaceholderHidden?: boolean;
-	multiBodiedExtensionPlaceholderDecorations?: DecorationSet;
 	placeholderPrompts?: string[];
 	placeholderText?: string;
 	pos?: number;

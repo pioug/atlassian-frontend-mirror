@@ -126,10 +126,10 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::29f37b8b7b02021b4d74ed753f31bc68>>
+ * @codegen <<SignedSource::cecbb60225015ef013a4e73dfd416688>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::039dd27ad333f204e9bdcdbf98d721e5>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
  */
 export const inverseColorMap: {
 	'color.background.neutral.bold': 'color.text.inverse';
@@ -201,11 +201,11 @@ export const inverseColorMap: {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::1ea94c9a28ee5261d871c9650059230a>>
+ * @codegen <<SignedSource::69ef8886637c9f045f9472445e8c8566>>
  * @codegenId elevation
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::039dd27ad333f204e9bdcdbf98d721e5>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
  */
 export const opacityMap: {
 	'opacity.disabled': 'var(--ds-opacity-disabled)';
@@ -280,11 +280,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4244fb900baa02fcc94e03a59eee384c>>
+ * @codegen <<SignedSource::548ef781254ab306c81d45a25c2ae014>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::039dd27ad333f204e9bdcdbf98d721e5>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::4e25079e2363933fae45ad0f1e9c123b>>
  */
 export const borderColorMap: {
 	'color.border': 'var(--ds-border)';
@@ -1032,7 +1032,7 @@ export const backgroundColorMap: {
 		'color.background.code.added.highlight',
 		'#DCFFF1',
 	),
-	'color.background.code.added.line': token('color.background.code.added.line', '#BAF3DB'),
+	'color.background.code.added.line': token('color.background.code.added.line', '#BAF3DB66'),
 	'color.background.code.default': token('color.background.code.default', '#FFFFFF'),
 	'color.background.code.gutter': token('color.background.code.gutter', '#F0F1F2'),
 	'color.background.code.highlight': token('color.background.code.highlight', '#F0F1F2'),
@@ -1040,7 +1040,7 @@ export const backgroundColorMap: {
 		'color.background.code.removed.highlight',
 		'#FFECEB',
 	),
-	'color.background.code.removed.line': token('color.background.code.removed.line', '#FFD5D2'),
+	'color.background.code.removed.line': token('color.background.code.removed.line', '#FFD5D266'),
 	'color.background.disabled': token('color.background.disabled', '#0515240F'),
 	'color.background.input': token('color.background.input', '#FFFFFF'),
 	'color.background.input.hovered': token('color.background.input.hovered', '#F8F8F8'),

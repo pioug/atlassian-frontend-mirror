@@ -25,11 +25,6 @@ jest.mock('../../../../state/hooks/use-resolve-hyperlink/useResolveHyperlinkVali
 	isSharePointDomain: jest.fn(),
 }));
 
-// Mock the expValEquals function
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn().mockReturnValue(false),
-}));
-
 describe('HyperlinkWithSmartLinkResolver', () => {
 	const useResolveHyperlink = jest.requireMock(
 		'../../../../state/hooks/use-resolve-hyperlink',

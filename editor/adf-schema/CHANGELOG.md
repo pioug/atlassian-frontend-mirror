@@ -1,5 +1,21 @@
 # @atlaskit/adf-schema
 
+## 56.1.15
+
+### Patch Changes
+
+- [`9cb51fee86454`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9cb51fee86454) -
+  Remove support for React 16 and 17 in preparation for React 19 migration.
+- Updated dependencies
+
+## 56.1.14
+
+### Patch Changes
+
+- [`9e160952215f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e160952215f0) -
+  [EDITOR-8193] gate the yellow text color token update behind the parent experiment
+- Updated dependencies
+
 ## 56.1.13
 
 ### Patch Changes

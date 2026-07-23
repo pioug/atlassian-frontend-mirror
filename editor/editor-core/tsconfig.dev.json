@@ -27,7 +27,8 @@
 		"./example-helpers/**/*",
 		"./example-helpers/**/*.json",
 		"./src/plugins/media/nodeviews/__mocks__/**/*",
-		"./package.json"
+		"./package.json",
+		"./src/types/compiled-shims.d.ts"
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
@@ -36,6 +37,7 @@
 		"outDir": "../../../tsDist/@atlaskit__editor-core/dev",
 		"isolatedDeclarations": true
 	},
+	"avoidSelfReferencePaths": true,
 	"references": [
 		{
 			"path": "./tsconfig.app.json"

@@ -1,6 +1,6 @@
-import { type MessageFormatElement } from 'react-intl';
+import { type I18NMessages } from '../common/types';
 
-export type I18NMessages = Record<string, string> | Record<string, MessageFormatElement[]>;
+export { type I18NMessages };
 
 export type IntlMessagesProviderProps = {
 	/**

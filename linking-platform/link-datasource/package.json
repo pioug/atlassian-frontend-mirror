@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "6.1.12",
+	"version": "6.2.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -214,6 +214,9 @@
 			"type": "boolean"
 		},
 		"navx-5290-sllv-modal-a11y-updates": {
+			"type": "boolean"
+		},
+		"astral_units_workspace_host_resolver": {
 			"type": "boolean"
 		}
 	},

@@ -24,6 +24,7 @@ import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
 
+import { agentShimmerStyle } from './styles/agentShimmerStyles';
 import {
 	aiPanelBaseFirefoxStyles,
 	aiPanelBaseStyles,
@@ -499,6 +500,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				telepointerColorAndCommonStyle,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				agentShimmerStyle,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				gapCursorStyles,
 				editorExperiment('platform_synced_block', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
@@ -814,7 +817,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 						firstCodeBlockWithNoMarginOld,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				firstBlockNodeStyles,
-				editorExperiment('platform_editor_first_node_fix', true) &&
+				expValEquals('platform_editor_first_node_fix', 'isEnabled', true) &&
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					firstNodeWidgetFixStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

@@ -10,6 +10,7 @@ export default function Example(): React.JSX.Element {
 		<RendererDemo
 			appearance="full-page"
 			serializer="react"
+			allowCollapsibleHeadings
 			allowHeadingAnchorLinks
 			allowColumnSorting={true}
 			allowCopyToClipboard

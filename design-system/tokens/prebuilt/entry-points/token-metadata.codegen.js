@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::d2f73c7ccdd4dfd2d7013fb9d84f04f4>>
+ * @codegen <<SignedSource::d5ee204f4c379b49390c0f7b2a98f516>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1601,7 +1601,7 @@ var tokens = exports.tokens = [{
   name: 'color.background.code.added.line',
   path: ['color', 'background', 'code', 'added', 'line'],
   description: 'Use for added code lines.',
-  exampleValue: '#BAF3DB',
+  exampleValue: '#BAF3DB66',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
     cssProperties: ['background-color']
@@ -1646,7 +1646,7 @@ var tokens = exports.tokens = [{
   name: 'color.background.code.removed.line',
   path: ['color', 'background', 'code', 'removed', 'line'],
   description: 'Use for removed code lines.',
-  exampleValue: '#FFD5D2',
+  exampleValue: '#FFD5D266',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
     cssProperties: ['background-color']

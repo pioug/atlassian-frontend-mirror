@@ -63,6 +63,7 @@ import {
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
 import { ActiveHeaderIdProvider } from '../active-header-id-provider';
 import { AnnotationsPositionContext, AnnotationsWrapper } from '../annotations';
+import { CollapsibleHeadingsProvider } from '../collapsible-headings';
 import type { RendererProps } from '../renderer-props';
 import { ErrorBoundary } from './ErrorBoundary';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
@@ -579,6 +580,11 @@ export const RendererFunctionalComponent = (
 		}),
 		[props.featureFlags, props.isTopLevelRenderer, createRendererContext, props.timeZone],
 	);
+	const isCollapsibleHeadingsEnabled =
+		props.allowCollapsibleHeadings === true &&
+		['full-page', 'full-width', 'max'].includes(props.appearance || '') &&
+		rendererContext.isTopLevelRenderer &&
+		expValEquals('platform_renderer_collapsible_headings', 'isEnabled', true);
 
 	useScrollToBlock(editorRef, props.document, props.scrollToBlock);
 
@@ -655,7 +661,13 @@ export const RendererFunctionalComponent = (
 										schema={schema}
 										onAnalyticsEvent={fireAnalyticsEvent}
 									>
-										{result}
+										<CollapsibleHeadingsProvider
+											pmDocument={pmDoc}
+											rendererRef={editorRef}
+											isEnabled={isCollapsibleHeadingsEnabled}
+										>
+											{result}
+										</CollapsibleHeadingsProvider>
 									</RendererActionsInternalUpdater>
 								</RendererWrapper>
 							</ProviderFactoryProvider>

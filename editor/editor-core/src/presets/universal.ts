@@ -359,7 +359,7 @@ export default function createUniversalPresetInternal({
 							typeof props.allowTables !== 'boolean' &&
 							props.allowTables.allowFixedColumnWidthOption
 						: false,
-					__livePage: fg('platform_editor_table_auto_convert_fix') ? props.__livePage : undefined,
+					__livePage: props.__livePage,
 				},
 			],
 			Boolean(props.allowTables),

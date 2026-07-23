@@ -55,6 +55,37 @@ export function sleep(ms: number): Promise<any> {
 export const isAIProviderID = (id: string): boolean =>
 	typeof id === 'string' && id.startsWith('agent:');
 
+const IDENTITY_USER_ARI_PREFIX = 'ari:cloud:identity::user/';
+
+/**
+ * Normalises an agent identifier that may arrive as an identity ARI
+ * (`ari:cloud:identity::user/<aaid>`) down to the bare AAID. Any other value is
+ * returned unchanged.
+ */
+export const normalizeAgentId = (agentId: string): string =>
+	agentId.startsWith(IDENTITY_USER_ARI_PREFIX)
+		? agentId.slice(IDENTITY_USER_ARI_PREFIX.length)
+		: agentId;
+
+/**
+ * Derives the synthetic AI-provider participant id (`agent:<id>`) for an
+ * agent-authored step, or `undefined` if the step is not agent-authored.
+ *
+ * `agentType` is the reliable "made by an agent" signal (present even when
+ * `agentId` is not). We key on the agent's AAID when available, otherwise the
+ * agent type (e.g. `mcp`/`twg`), otherwise a generic `agent`.
+ */
+export const getAgentProviderId = (step: {
+	agentId?: string;
+	agentType?: string;
+}): string | undefined => {
+	if (!step.agentType) {
+		return undefined;
+	}
+	const id = step.agentId ? normalizeAgentId(step.agentId) : step.agentType;
+	return `agent:${id || 'agent'}`;
+};
+
 export const getProduct = (productInfo?: ProductInformation): string =>
 	productInfo?.product ?? 'unknown';
 

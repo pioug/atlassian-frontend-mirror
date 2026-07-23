@@ -1,5 +1,13 @@
 # @atlaskit/editor-palette
 
+## 3.1.5
+
+### Patch Changes
+
+- [`9e160952215f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e160952215f0) -
+  [EDITOR-8193] gate the yellow text color token update behind the parent experiment
+- Updated dependencies
+
 ## 3.1.4
 
 ### Patch Changes

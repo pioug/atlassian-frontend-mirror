@@ -186,7 +186,14 @@ export const syncedBlockPlugin: SyncedBlockPlugin = ({ config, api }) => {
 				if (!syncedBlockPluginKey.getState(state)?.hasSyncedBlocks && isPerfExperimentOn) {
 					return undefined;
 				}
-				return getToolbarConfig(state, intl, api, syncBlockStore, config?.__livePage);
+				return getToolbarConfig(
+					state,
+					intl,
+					api,
+					syncBlockStore,
+					config?.__livePage,
+					config?.onGiveFeedback,
+				);
 			},
 		},
 

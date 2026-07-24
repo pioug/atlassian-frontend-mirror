@@ -63,6 +63,8 @@ const CardView = ({
 	url,
 	urls,
 	inheritDimensions,
+	product,
+	rovoOptions,
 	truncateInline,
 	showHoverPreview,
 	CompetitorPrompt,
@@ -84,7 +86,7 @@ const CardView = ({
 	));
 
 	return (
-		<SmartCardProvider client={client}>
+		<SmartCardProvider client={client} product={product} rovoOptions={rovoOptions}>
 			<EmbedCardWrapper inheritDimensions={inheritDimensions}>
 				{stackUrlListVertically ? <div css={cardUrlListStackStyles}>{cards}</div> : cards}
 			</EmbedCardWrapper>

@@ -41,6 +41,14 @@ import EmbedCardUnauthorisedView from '../../../examples/vr-embed-card/vr-embed-
 import EmbedCardUnauthorisedViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-frame-hide';
 import EmbedCardUnauthorisedViewWithNoAuth from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-no-auth';
 import EmbedCardUnauthorisedViewWithProviderImage from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-with-provider-image';
+import {
+	EmbedCardUnauthorizedCarouselGoogleInConfluenceSlide1,
+	EmbedCardUnauthorizedCarouselGoogleInConfluenceSlide2,
+	EmbedCardUnauthorizedCarouselGoogleInConfluenceSlide3,
+	EmbedCardUnauthorizedCarouselFigmaInTrelloSlide1,
+	EmbedCardUnauthorizedCarouselFigmaInTrelloSlide2,
+	EmbedCardUnauthorizedCarouselFigmaInTrelloSlide3,
+} from '../../../examples/vr-embed-card/vr-embed-card-unauthorized-carousel';
 import { VREmbedProfileObject } from '../../../examples/vr-embed-card/vr-embed-profile-object';
 
 const EmbedCardForbiddenDefault = EmbedCardForbiddenView;
@@ -112,6 +120,12 @@ snapshot(EmbedCardSelected);
 snapshot(EmbedCardUnauthorisedView);
 snapshot(EmbedCardUnauthorisedViewWithProviderImage);
 snapshot(EmbedCardUnauthorisedViewWithNoAuth);
+snapshot(EmbedCardUnauthorizedCarouselGoogleInConfluenceSlide1);
+snapshot(EmbedCardUnauthorizedCarouselGoogleInConfluenceSlide2);
+snapshot(EmbedCardUnauthorizedCarouselGoogleInConfluenceSlide3);
+snapshot(EmbedCardUnauthorizedCarouselFigmaInTrelloSlide1);
+snapshot(EmbedCardUnauthorizedCarouselFigmaInTrelloSlide2);
+snapshot(EmbedCardUnauthorizedCarouselFigmaInTrelloSlide3);
 
 snapshot(EmbedCardFrameWithHref, {
 	description: 'embed card frame should render as a link when there is an href',

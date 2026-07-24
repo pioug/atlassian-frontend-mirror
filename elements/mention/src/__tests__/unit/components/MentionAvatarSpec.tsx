@@ -14,7 +14,7 @@ jest.mock('@atlaskit/avatar', () => ({
 	__esModule: true,
 }));
 
-jest.mock('@atlaskit/teams-avatar', () => ({
+jest.mock('@atlaskit/teams-avatar/teams-avatar', () => ({
 	default: () => <div>Team Avatar</div>,
 	__esModule: true,
 }));

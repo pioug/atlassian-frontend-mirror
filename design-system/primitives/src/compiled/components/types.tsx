@@ -74,6 +74,7 @@ export type PositiveSpaceToken =
 	| 'space.600'
 	| 'space.800'
 	| 'space.1000';
+export type Space = PositiveSpaceToken;
 export type PaddingToken = PositiveSpaceToken;
 export type GapToken = PositiveSpaceToken;
 

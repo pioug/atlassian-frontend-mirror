@@ -18,7 +18,7 @@ import { isSafari } from '@atlaskit/ds-lib/is-safari';
 import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
-import Focusable from './focusable';
+import { Focusable } from './focusable';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BasePressableProps = {
@@ -87,7 +87,7 @@ const styles = unboundedCssMap({
  * - [Code](https://atlassian.design/components/primitives/pressable/code)
  * - [Usage](https://atlassian.design/components/primitives/pressable/usage)
  */
-const Pressable: React.ForwardRefExoticComponent<
+export const Pressable: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<PressableProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef(
 	(
@@ -152,5 +152,3 @@ const Pressable: React.ForwardRefExoticComponent<
 		);
 	},
 );
-
-export default Pressable;

@@ -25,32 +25,20 @@ the tab order.
 
 The time field is used to select a time from the [select](/components/select) menu.
 
-<Example
-	Component={DateTimePickerDefault}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerDefault} packageName="@atlaskit/datetime-picker" />
 
 ## Form
 
 Date time picker used with the [form](/components/form) component includes a field label and helper
 text.
 
-<Example
-	Component={DateTimePickerForm}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerForm} packageName="@atlaskit/datetime-picker" />
 
 ### Required
 
 How date time picker works when the form is required.
 
-<Example
-	Component={DateTimePickerRequired}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerRequired} packageName="@atlaskit/datetime-picker" />
 
 ### Validation
 
@@ -68,22 +56,14 @@ Keep helper text as short as possible. For complex information, provide a link t
 in a new browser tab. Use the [messaging guidelines](/foundations/content/designing-messages) for
 more help.
 
-<Example
-	Component={DateTimePickerValidation}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerValidation} packageName="@atlaskit/datetime-picker" />
 
 ### Spacing
 
 Use `spacing` to control the vertical spacing of the date time picker. The default spacing is
 `gridSize() * 5`, and compact spacing is `gridSize() * 4`.
 
-<Example
-	Component={DateTimePickerDefaultCompact}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerDefaultCompact} packageName="@atlaskit/datetime-picker" />
 
 ## Disabled dates
 
@@ -94,33 +74,21 @@ does not restrict the dates that a user may type, so validation is necessary.
 
 Use `disabled` to restrict selection of individual dates.
 
-<Example
-	Component={DateTimePickerDisable}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerDisable} packageName="@atlaskit/datetime-picker" />
 
 ### Date ranges
 
 Use `minDate` to set a minimum valid date and `maxDate` to set a maximum valid date. These can be
 used to define a valid date range.
 
-<Example
-	Component={DateTimePickerDisableRange}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerDisableRange} packageName="@atlaskit/datetime-picker" />
 
 ### Complex behavior
 
 Use `disabledDateFilter` for more complicated date options, like enabling only specific days of the
 week to be selectable.
 
-<Example
-	Component={DateTimePickerDisableComplex}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerDisableComplex} packageName="@atlaskit/datetime-picker" />
 
 ## Internationalization
 
@@ -133,22 +101,14 @@ Date time picker supports internationalization through two props:
 
 Use `locale` to tailor UI copy to local audiences.
 
-<Example
-	Component={DateTimePickerLocale}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerLocale} packageName="@atlaskit/datetime-picker" />
 
 ### Week start day
 
 Use `weekStartDay` to adjust which day of the week is shown first in the calendar. A value of `0`
 corresponds to Sunday (default), `1` to Monday, and so on.
 
-<Example
-	Component={DateTimePickerWeekStartDay}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerWeekStartDay} packageName="@atlaskit/datetime-picker" />
 
 ## Date and time formats
 
@@ -161,11 +121,7 @@ and use the syntax specified at Modern JavaScript Date Utility Library.
 Where possible use `locale` for date and time formatting, instead of a custom format. Date and time
 formats should be informed by the user’s locale and the use case.
 
-<Example
-	Component={DateTimePickerFormatting}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerFormatting} packageName="@atlaskit/datetime-picker" />
 
 ## Accessibility
 
@@ -181,8 +137,4 @@ use keyboards.
 Instead, the clear control is optimized for pointer interactions, like mouse click or tap. And
 people using a keyboard will use the `DELETE` key to clear contents and `CTRL+A` to select all.
 
-<Example
-	Component={DateTimePickerFormAccessible}
-	packageName="@atlaskit/datetime-picker"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DateTimePickerFormAccessible} packageName="@atlaskit/datetime-picker" />

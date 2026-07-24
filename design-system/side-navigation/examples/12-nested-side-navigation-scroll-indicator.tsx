@@ -167,9 +167,8 @@ const BasicExample = (): React.JSX.Element => {
 						>
 							Your work
 						</ButtonItem>
-						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem
-							href="#"
+							href="/"
 							iconBefore={
 								<Flex xcss={iconSpacingStyles.space050}>
 									<CustomerIcon label="" />

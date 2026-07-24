@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 133.16.2
+
+### Patch Changes
+
+- [`8e4275326153d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8e4275326153d) -
+  [ux] Fixes an issue where heading couldn't collapse when sync blocks is partially visible.
+- Updated dependencies
+
+## 133.16.1
+
+### Patch Changes
+
+- [`d7a60d4dc93f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7a60d4dc93f0) -
+  Fix embed cards collapsing to 0 height in host renderers (e.g. Jira issue view). When an embed
+  uses the aspect-ratio (padding-bottom) sizing and the resolved pixel width is 0/NaN - which
+  happens when `lineLength`/`editorWidth` is unavailable in the host render context - the ratio
+  becomes `NaN`, producing an invalid `calc(NaN% + 32px)` that the browser drops, collapsing the
+  embed. `MediaSingle` now falls back to the embed's absolute height in that case. Guarded by
+  `platform_editor_embed_height_only_fallback`.
+- Updated dependencies
+
+## 133.16.0
+
+### Minor Changes
+
+- [`5228612e884f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5228612e884f4) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 133.15.0
 
 ### Minor Changes

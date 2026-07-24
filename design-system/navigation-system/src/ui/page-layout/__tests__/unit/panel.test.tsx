@@ -5,6 +5,12 @@ import { render, screen } from '@testing-library/react';
 import { Panel } from '../../panel';
 import * as panelSplitterProvider from '../../panel-splitter/provider';
 
+it('should pass basic accessibility checks', async () => {
+	const { container } = render(<Panel testId="panel">panel</Panel>);
+
+	await expect(container).toBeAccessible();
+});
+
 it('should set the default panel width to the default value if width is not provided', () => {
 	render(<Panel testId="panel">panel</Panel>);
 
@@ -60,4 +66,33 @@ describe('resize bounds', () => {
 			expect(getResizeBounds()).toHaveProperty('min', expectedResizeMinWidth);
 		},
 	);
+
+	it('should default the resize max width to half the viewport width when `maxWidth` is not provided', () => {
+		render(<Panel>panel</Panel>);
+
+		const [{ getResizeBounds }] = PanelSplitterProvider.mock.calls[0];
+
+		// jsdom defaults window.innerWidth to 1024, and the side nav is not mounted (0px).
+		expect(getResizeBounds()).toHaveProperty('max', '512px');
+	});
+
+	it('should use the provided `maxWidth` as the resize max width', () => {
+		render(<Panel maxWidth="70vw">panel</Panel>);
+
+		const [{ getResizeBounds }] = PanelSplitterProvider.mock.calls[0];
+
+		expect(getResizeBounds()).toHaveProperty('max', '70vw');
+	});
+});
+
+it('should use the provided `maxWidth` as the rendered width clamp maximum', () => {
+	render(
+		<Panel testId="panel" maxWidth="70vw">
+			panel
+		</Panel>,
+	);
+
+	expect(screen.getByTestId('panel')).toHaveStyle({
+		'--n_pnlW': `clamp(365px, 365px, 70vw)`,
+	});
 });

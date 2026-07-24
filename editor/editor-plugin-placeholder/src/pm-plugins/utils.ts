@@ -251,8 +251,7 @@ export function createPlaceHolderStateFrom({
 		if (
 			nodeTypesWithSyncBlockPlaceholderText.includes(parentType) &&
 			isEmptyNode &&
-			editorExperiment('platform_synced_block', true) &&
-			!expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
+			editorExperiment('platform_synced_block', true)
 		) {
 			return setPlaceHolderState({
 				placeholderText: intl.formatMessage(messages.sourceSyncBlockPlaceholderText),

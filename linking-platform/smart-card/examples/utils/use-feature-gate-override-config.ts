@@ -18,6 +18,9 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	platform_sl_3p_auth_inline_tailored_cta: {
 		isEnabled: true,
 	},
+	platform_sl_embed_preauth_teaser_exp: {
+		isEnabled: true,
+	},
 };
 
 const enabledGates = [

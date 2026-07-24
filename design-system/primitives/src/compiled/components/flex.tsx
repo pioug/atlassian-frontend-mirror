@@ -171,7 +171,7 @@ const styles = cssMap({
  * )
  * ```
  */
-const Flex: MemoExoticComponent<
+export const Flex: MemoExoticComponent<
 	ForwardRefExoticComponent<Omit<FlexProps<ElementType>, 'ref'> & RefAttributes<any>>
 > = memo(
 	forwardRef(
@@ -221,5 +221,3 @@ const Flex: MemoExoticComponent<
 );
 
 Flex.displayName = 'Flex';
-
-export default Flex;

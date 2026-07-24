@@ -10,6 +10,8 @@ type XOR<T1, T2> =
 			[k in Exclude<keyof T1, keyof T2>]?: never;
 	  });
 
-export type MultiCardViewProps = Partial<Pick<ProviderProps, 'client'>> &
+export type MultiCardViewProps = Partial<
+	Pick<ProviderProps, 'client' | 'product' | 'rovoOptions'>
+> &
 	Omit<CardProps, 'url'> &
 	XOR<{ urls?: string[] }, { url?: string }>;

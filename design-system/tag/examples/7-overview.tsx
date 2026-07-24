@@ -3,7 +3,7 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 import { Box } from '@atlaskit/primitives/compiled';
 import Tag, { AvatarTag } from '@atlaskit/tag';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 
 export default (): React.JSX.Element => (
 	<Box role="group" aria-label="Overview examples">

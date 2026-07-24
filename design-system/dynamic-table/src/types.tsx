@@ -2,7 +2,7 @@
 import { type default as React, type Ref } from 'react';
 
 import { type UIAnalyticsEvent, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import type { Size as SizeType } from '@atlaskit/spinner';
+import type { Size as SizeType } from '@atlaskit/spinner/types';
 
 export interface RowCellType {
 	/**

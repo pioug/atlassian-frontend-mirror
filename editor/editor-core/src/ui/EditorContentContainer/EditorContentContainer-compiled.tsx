@@ -1,3 +1,6 @@
+// oxlint-disable-next-line typescript-eslint/triple-slash-reference
+/// <reference path="../../types/compiled-shims.d.ts" />
+
 // TODO: EDITOR-6833 - Expected across this entire file, future violations are expected. Will try to remove them later after fully migration
 /* eslint-disable @atlaskit/platform/use-motion-token-values, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/platform/expand-spacing-shorthand, @atlaskit/platform/expand-border-shorthand, @atlaskit/platform/expand-background-shorthand */
 /**
@@ -32,7 +35,7 @@ import {
 	SyncBlockLabelSharedCssClassName,
 	SyncBlockStateCssClassName,
 } from '@atlaskit/editor-common/sync-block';
-import { tableCellBackgroundStyleOverrideForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
+import { tableCellBackgroundColorVariablesForCompiled } from '@atlaskit/editor-common/table-cell-background-for-compiled';
 import type {
 	EditorAppearance,
 	EditorContentMode,
@@ -6658,6 +6661,97 @@ const editorContentStyles = cssMapScoped({
 			maxWidth: '140px',
 		},
 	},
+
+	// SSR-safe table cell background color overrides. The actual palette values are
+	// provided via CSS variables derived from tableBackgroundColorNames +
+	// hexToEditorBackgroundPaletteColor in editor-common. These rules need !important
+	// to override the inline background colors emitted from ADF attrs.
+	tableCellBackgroundColorOverrides: {
+		'td[colorname="white" i], th[colorname="white" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-white) !important',
+		},
+		'td[colorname="light blue" i], th[colorname="light blue" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-blue) !important',
+		},
+		'td[colorname="light teal" i], th[colorname="light teal" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-teal) !important',
+		},
+		'td[colorname="light green" i], th[colorname="light green" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-green) !important',
+		},
+		'td[colorname="light yellow" i], th[colorname="light yellow" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-yellow) !important',
+		},
+		'td[colorname="light red" i], th[colorname="light red" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-red) !important',
+		},
+		'td[colorname="light purple" i], th[colorname="light purple" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-purple) !important',
+		},
+		'td[colorname="light gray" i], th[colorname="light gray" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-light-gray) !important',
+		},
+		'td[colorname="blue" i], th[colorname="blue" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-blue) !important',
+		},
+		'td[colorname="teal" i], th[colorname="teal" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-teal) !important',
+		},
+		'td[colorname="green" i], th[colorname="green" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-green) !important',
+		},
+		'td[colorname="yellow" i], th[colorname="yellow" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-yellow) !important',
+		},
+		'td[colorname="red" i], th[colorname="red" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-red) !important',
+		},
+		'td[colorname="purple" i], th[colorname="purple" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-purple) !important',
+		},
+		'td[colorname="gray" i], th[colorname="gray" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-gray) !important',
+		},
+		'td[colorname="dark blue" i], th[colorname="dark blue" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-blue) !important',
+		},
+		'td[colorname="dark teal" i], th[colorname="dark teal" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-teal) !important',
+		},
+		'td[colorname="dark green" i], th[colorname="dark green" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-green) !important',
+		},
+		'td[colorname="dark yellow" i], th[colorname="dark yellow" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-yellow) !important',
+		},
+		'td[colorname="dark red" i], th[colorname="dark red" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-red) !important',
+		},
+		'td[colorname="dark purple" i], th[colorname="dark purple" i]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/ensure-design-token-usage
+			backgroundColor: 'var(--ak-editor-table-cell-background-dark-purple) !important',
+		},
+	},
 	tableCommentEditorStyles: {
 		'.ProseMirror .pm-table-wrapper > table': {
 			marginLeft: 0,
@@ -8098,6 +8192,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	// For the legacy path, compute it from the Emotion theme as before.
 	const style = {
 		'--ak-editor--table-overflow-shadow': tableOverflowShadow,
+		...tableCellBackgroundColorVariablesForCompiled,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 		...(!editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 			exposure: true,
@@ -8446,6 +8541,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				expValEquals('platform_editor_table_fit_to_content_auto_convert', 'isEnabled', true) &&
 					fg('platform_editor_table_nested_renderer_fix') &&
 					editorContentStyles.tableContentModeNestedTableStyles,
+				editorContentStyles.tableCellBackgroundColorOverrides,
 				editorContentStyles.hyperLinkFloatingToolbarStyles,
 				editorContentStyles.selectionToolbarAnimationStyles,
 				editorExperiment('platform_editor_block_menu', true) && [
@@ -8474,8 +8570,6 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 			tabIndex={isScrollable ? 0 : undefined}
 			role={isScrollable ? 'region' : undefined}
 		>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Required for custom styles for table */}
-			<style>{tableCellBackgroundStyleOverrideForCompiled}</style>
 			{children}
 		</div>
 	);

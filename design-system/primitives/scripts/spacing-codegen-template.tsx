@@ -1,12 +1,26 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import format from '@af/formatting/sync';
 import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { generateTypeDefs } from './generate-type-defs';
 import { constructTokenFunctionCall } from './utils';
 
+type SpacingToken = {
+	name: string;
+	fallback: string;
+};
+
+type SpacingProperty = 'positive' | 'negative' | 'all';
+
+type SpacingPropertyConfig = {
+	objectName: string;
+	typeName: string;
+	tokens: SpacingToken[];
+};
+
 const spacingTokenPrefix = 'space.';
 const negativeSuffix = '.negative';
-const positiveSpaceTokens = tokens
+const positiveSpaceTokens: SpacingToken[] = tokens
 	.filter((token) => token.name.startsWith(spacingTokenPrefix))
 	.filter((token) => !token.name.includes(negativeSuffix))
 	.map((t) => ({
@@ -14,7 +28,7 @@ const positiveSpaceTokens = tokens
 		fallback: t.value,
 	}));
 
-const negativeSpaceTokens = tokens
+const negativeSpaceTokens: SpacingToken[] = tokens
 	.filter((token) => token.name.startsWith(spacingTokenPrefix))
 	.filter((token) => token.name.includes(negativeSuffix))
 	.map((t) => ({
@@ -22,26 +36,43 @@ const negativeSpaceTokens = tokens
 		fallback: t.value,
 	}));
 
-export const createSpacingStylesFromTemplate: () => string = () => {
-	const output = [
-		`export const positiveSpaceMap: {
-			${generateTypeDefs(positiveSpaceTokens.map((t) => t.name))}
-		} = {\n${positiveSpaceTokens
-			.map(({ name, fallback }) => `'${name}': ${constructTokenFunctionCall(name, fallback)},`)
-			.join('\n')}}`,
-		`export type Space = keyof typeof positiveSpaceMap;\n`,
-		`export const negativeSpaceMap: {
-			${generateTypeDefs(negativeSpaceTokens.map((t) => t.name))}
-		} = {\n${negativeSpaceTokens
-			.map(({ name, fallback }) => `'${name}': ${constructTokenFunctionCall(name, fallback)},`)
-			.join('\n')}}`,
-		`export type NegativeSpace = keyof typeof negativeSpaceMap;\n`,
-		`export const allSpaceMap: {
-			${generateTypeDefs(positiveSpaceTokens.map((t) => t.name))}
-			${generateTypeDefs(negativeSpaceTokens.map((t) => t.name))}
-		} = { ...positiveSpaceMap, ...negativeSpaceMap };\n`,
-		`export type AllSpace = keyof typeof allSpaceMap;\n`,
-	].join('\n');
+const spacingProperties: Record<SpacingProperty, SpacingPropertyConfig> = {
+	positive: {
+		objectName: 'positiveSpace',
+		typeName: 'Space',
+		tokens: positiveSpaceTokens,
+	},
+	negative: {
+		objectName: 'negativeSpace',
+		typeName: 'NegativeSpace',
+		tokens: negativeSpaceTokens,
+	},
+	all: {
+		objectName: 'allSpace',
+		typeName: 'AllSpace',
+		tokens: [...positiveSpaceTokens, ...negativeSpaceTokens],
+	},
+};
 
-	return format(output, 'typescript');
+export const createSpacingStylesFromTemplate: (property: SpacingProperty) => string = (
+	property,
+) => {
+	if (!spacingProperties[property]) {
+		throw new Error(`[codegen] Unknown option found "${property}"`);
+	}
+
+	const { objectName, typeName, tokens } = spacingProperties[property];
+
+	return (
+		format(
+			`export const ${objectName}Map: {
+	${generateTypeDefs(tokens.map(({ name }) => name))}
+} = {
+${tokens
+	.map(({ name, fallback }) => `	'${name}': ${constructTokenFunctionCall(name, fallback)},`)
+	.join('\n')}
+};`,
+			'typescript',
+		) + `\nexport type ${typeName} = keyof typeof ${objectName}Map;\n`
+	);
 };

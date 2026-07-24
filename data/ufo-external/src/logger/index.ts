@@ -22,10 +22,5 @@ class UFOLogger {
 
 export const ufologger: UFOLogger = new UFOLogger();
 
-export const ufolog = (...args: Array<any>): void => {
-	ufologger.log(...args);
-};
-
-export const ufowarn = (...args: Array<any>): void => {
-	ufologger.warn(...args);
-};
+export { ufolog } from './ufolog';
+export { ufowarn } from './ufowarn';

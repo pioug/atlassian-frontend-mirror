@@ -53,6 +53,13 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * existing experiments.
  */
 export const editorExperimentsConfig: {
+	// Added 2026-07-24
+	platform_editor_layout_column_delete_shortcut_fix: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-07-21
 	// Agent edit presence — cosmetic skeleton-loader shimmer over agent-authored edits (with a Rovo
 	// agent telepointer at the end of the range). `isEnabled` toggles the feature; the dynamic-config
@@ -737,7 +744,7 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-07-09
-	platform_editor_reduced_profile_cards: {
+	platform_editor_reduced_agent_profile_cards: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1051,6 +1058,13 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-04-13
 	platform_editor_hide_extension_renderer_support: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
+	// Added 2026-07-23
+	platform_editor_fix_new_line_after_heading: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2011,6 +2025,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-16
+	platform_a11y_fixes_emoji_title_shortname: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-05-25
 	platform_editor_use_html_plus_streaming_parser: {
 		defaultValue: boolean;
@@ -2088,6 +2109,13 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
+	// Added 2026-07-20 — CCI-18026 — convo-ai → cc-smarts routing for Concise Page Summary
+	cc_smarts_concise_page_summary_migration: {
+		defaultValue: boolean;
+		param: string;
+		productKeys?: ProductKeys;
+		typeGuard: IsBooleanType;
+	};
 	// Added 2026-06-26 — HUBS-850 — opt-in CSS var hook for editor block spacing
 	platform_editor_extension_block_spacing: {
 		defaultValue: boolean;
@@ -2160,6 +2188,15 @@ export const editorExperimentsConfig: {
 	};
 } = {
 	// new format to avoid collisions with other users when updating the file
+
+	// Added 2026-07-24
+	platform_editor_layout_column_delete_shortcut_fix: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_layout_column_delete_shortcut_fix',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 
 	// Added 2026-07-21
 	// `isEnabled` is the gating param; the experiment's dynamic config also carries the numeric
@@ -2675,10 +2712,10 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-07-09
-	platform_editor_reduced_profile_cards: createBooleanExperiment({
+	platform_editor_reduced_agent_profile_cards: createBooleanExperiment({
 		productKeys: {
-			confluence: 'platform_editor_reduced_profile_cards',
-			jira: 'platform_editor_reduced_profile_cards',
+			confluence: 'platform_editor_reduced_agent_profile_cards',
+			jira: 'platform_editor_reduced_agent_profile_cards',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -3305,6 +3342,15 @@ export const editorExperimentsConfig: {
 	platform_editor_hide_extension_renderer_support: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_hide_extension_renderer_support',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
+	// Added 2026-07-23
+	platform_editor_fix_new_line_after_heading: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_editor_fix_new_line_after_heading',
+			jira: 'platform_editor_fix_new_line_after_heading',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -4463,6 +4509,15 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
+	// Added 2026-07-16
+	platform_a11y_fixes_emoji_title_shortname: createBooleanExperiment({
+		productKeys: {
+			confluence: 'platform_a11y_fixes_emoji_title_shortname',
+			jira: 'platform_a11y_fixes_emoji_title_shortname',
+		},
+		param: 'isEnabled',
+		defaultValue: false,
+	}),
 	// Added 2026-05-25
 	// HTML+ v2 incremental tool-call streaming contract — gates the new
 	// PartialStreamParserV2 / ToolCallProcessorV2 / AdfChunkStrategyV2 stack
@@ -4558,6 +4613,13 @@ export const editorExperimentsConfig: {
 	cc_smarts_heading_autocomplete_migration: createBooleanExperiment({
 		productKeys: {
 			confluence: 'cc_smarts_heading_autocomplete_migration',
+		},
+		param: 'useCcSmarts',
+		defaultValue: false,
+	}),
+	cc_smarts_concise_page_summary_migration: createBooleanExperiment({
+		productKeys: {
+			confluence: 'cc_smarts_concise_page_summary_migration',
 		},
 		param: 'useCcSmarts',
 		defaultValue: false,

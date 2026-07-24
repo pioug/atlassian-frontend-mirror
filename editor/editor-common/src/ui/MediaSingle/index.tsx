@@ -105,6 +105,10 @@ export default function MediaSingle({
 	// When both width and height are set we use them to determine ratio and use that to define
 	// embed height in relation to whatever width of an dom element is in runtime.
 	const isHeightOnly = width === undefined;
+	// Preserve the absolute height before it is scaled below, so we can fall back to it if the
+	// pixel-width computation yields a non-finite value (e.g. editorWidth/lineLength is 0 or
+	// undefined in some host renderers such as Jira issue view).
+	const absoluteHeight = height;
 	if (mediaSingleWidth) {
 		const pxWidth = getMediaSinglePixelWidth(
 			mediaSingleWidth,
@@ -134,6 +138,21 @@ export default function MediaSingle({
 	let paddingBottom: string | undefined;
 	if (isHeightOnly) {
 		mediaWrapperHeight = height;
+	} else if (
+		width !== undefined &&
+		!Number.isFinite((height / width) * 100) &&
+		fg('platform_editor_embed_height_only_fallback')
+	) {
+		// The aspect-ratio (padding-bottom) trick collapses to 0 when the ratio is non-finite,
+		// which happens when the resolved pixel width is 0/NaN (e.g. editorWidth/lineLength is
+		// unavailable in the host renderer). Fall back to the embed's absolute height so the box
+		// keeps a usable height instead of collapsing.
+		// For embedCard nodes the `height` prop is the iframe height only; the normal ratio path
+		// adds 32px for the embed header (see `calc(... + 32px)` below), so add it here too to
+		// avoid clipping the header.
+		mediaWrapperHeight = Number.isFinite(absoluteHeight)
+			? absoluteHeight + (nodeType === 'embedCard' ? 32 : 0)
+			: undefined;
 	} else if (width !== undefined) {
 		const mediaWrapperRatio = (height / width) * 100;
 		paddingBottom = `${mediaWrapperRatio.toFixed(3)}%`;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { Container } from '../styled/container';
 import { ContentsContainer } from '../styled/contents-container';

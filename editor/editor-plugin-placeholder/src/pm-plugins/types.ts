@@ -2,7 +2,6 @@ import type { IntlShape } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export interface PlaceHolderState {
 	// if true, showOnEmptyParagraph will be true after setTimeout
@@ -14,7 +13,6 @@ export interface PlaceHolderState {
 	placeholderText?: string;
 	pos?: number;
 	showOnEmptyParagraph?: boolean;
-	sourceSyncBlockPlaceholderDecorations?: DecorationSet;
 	typedAndDeleted?: boolean;
 	userHadTyped?: boolean;
 }

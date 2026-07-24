@@ -30,8 +30,7 @@ const ValidationExample = (): React.JSX.Element => (
 			defaultValue={cities[0]}
 			validate={validate}
 			component={({ fieldProps: { isInvalid, ...props } }: any) => (
-				// eslint-disable-next-line @atlaskit/design-system/no-placeholder
-				<Select {...props} options={cities} placeholder="" isInvalid={isInvalid} />
+				<Select {...props} options={cities} isInvalid={isInvalid} />
 			)}
 		/>
 
@@ -40,8 +39,7 @@ const ValidationExample = (): React.JSX.Element => (
 			id="invalid"
 			name="invalid-city"
 			component={({ fieldProps: props }: any) => (
-				// eslint-disable-next-line @atlaskit/design-system/no-placeholder
-				<Select {...props} options={cities} placeholder="" isInvalid={true} />
+				<Select {...props} options={cities} isInvalid={true} />
 			)}
 		/>
 	</Form>

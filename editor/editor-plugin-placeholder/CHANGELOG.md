@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 12.0.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.0.35
+
+### Patch Changes
+
+- [`67ae1e14e8090`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67ae1e14e8090) -
+  Revert persistent placeholder decorations for empty source synced blocks while retaining the sync
+  block activation experiment setup.
+
 ## 12.0.34
 
 ### Patch Changes

@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 45.13.0
+
+### Minor Changes
+
+- [`7f2eb99bad9b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f2eb99bad9b3) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.12.1
+
+### Patch Changes
+
+- [`1ab0d112d17a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ab0d112d17a5) -
+  [ux] Add images for pre-auth embed experiment carousol
+- Updated dependencies
+
 ## 45.12.0
 
 ### Minor Changes

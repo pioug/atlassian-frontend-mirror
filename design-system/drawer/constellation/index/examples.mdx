@@ -13,11 +13,7 @@ import DrawerComposition from '../../examples/constellation/drawer-custom-compos
 The default form of a drawer. Use either the `label` or `titleId` prop to announce the accessible
 name of the drawer to users of assistive technology.
 
-<Example
-	Component={DrawerDefaultExample}
-	packageName="@atlaskit/drawer"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DrawerDefaultExample} packageName="@atlaskit/drawer" />
 
 ## Width
 
@@ -25,11 +21,7 @@ You can set the drawer's width to one of the predefined sizes. Use `medium` or `
 applications. Use `extended` and `full` with caution, because there isn’t enough visual affordance
 that this is a drawer and not a new page.
 
-<Example
-	Component={DrawerWidths}
-	packageName="@atlaskit/drawer"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DrawerWidths} packageName="@atlaskit/drawer" />
 
 ## Customization
 
@@ -38,11 +30,7 @@ that this is a drawer and not a new page.
 You can customize the `DrawerContent` and `DrawerSidebar` components using the `xcss` prop. This
 prop allows you to apply a subset of styles that are consistent with the Design System.
 
-<Example
-	Component={DrawerXcss}
-	packageName="@atlaskit/drawer"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DrawerXcss} packageName="@atlaskit/drawer" />
 
 ### Composition
 
@@ -51,11 +39,7 @@ needed to create a custom drawer. Refer to the
 [composing code guide](/get-started/develop/composition) for more information on effective
 composition with the Atlassian Design System.
 
-<Example
-	Component={DrawerComposition}
-	packageName="@atlaskit/drawer"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DrawerComposition} packageName="@atlaskit/drawer" />
 
 ## Surface detection
 
@@ -63,8 +47,4 @@ The [current surface CSS variable](/components/tokens/code#current-surface-color
 surface color of the drawer. You can use the `utility.elevation.surface.current` design token to
 style children with the current surface color.
 
-<Example
-	Component={DrawerSurfaceDetection}
-	packageName="@atlaskit/drawer"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={DrawerSurfaceDetection} packageName="@atlaskit/drawer" />

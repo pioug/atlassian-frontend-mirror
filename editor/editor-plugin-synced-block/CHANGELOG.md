@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 10.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.4.3
+
+### Patch Changes
+
+- [`8b49fc1fd582e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b49fc1fd582e) -
+  Show the number of synced block references in the floating toolbar when the sync block activation
+  experiment is enabled.
+- Updated dependencies
+
+## 10.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.4.1
+
+### Patch Changes
+
+- [`67ae1e14e8090`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67ae1e14e8090) -
+  Revert persistent placeholder decorations for empty source synced blocks while retaining the sync
+  block activation experiment setup.
+
 ## 10.4.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 10.6.1
+
+### Patch Changes
+
+- [`963920819d38c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/963920819d38c) -
+  Fix rounded table diff overlays for whole-table widgets.
+- Updated dependencies
+
 ## 10.6.0
 
 ### Minor Changes

@@ -22,7 +22,7 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
-import Focusable from './focusable';
+import { Focusable } from './focusable';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BaseAnchorProps = {
@@ -206,10 +206,10 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
  * - [Code](https://atlassian.design/components/primitives/anchor/code)
  * - [Usage](https://atlassian.design/components/primitives/anchor/usage)
  */
-const Anchor = forwardRef(AnchorNoRef) as <RouterLinkConfig extends Record<string, any> = never>(
+export const Anchor = forwardRef(AnchorNoRef) as <
+	RouterLinkConfig extends Record<string, any> = never,
+>(
 	props: AnchorProps<RouterLinkConfig> & {
 		ref?: Ref<HTMLAnchorElement>;
 	},
 ) => ReturnType<typeof AnchorNoRef>;
-
-export default Anchor;

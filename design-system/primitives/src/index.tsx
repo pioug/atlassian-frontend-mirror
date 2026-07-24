@@ -1,28 +1,27 @@
-export type {
-	Dimension,
-	BackgroundColor,
-	Space,
-	BorderColor,
-	BorderRadius,
-	BorderWidth,
-	Layer,
-	TextColor,
-	Shadow,
-} from './xcss/style-maps.partial';
+export type { Dimension } from './xcss/dimension';
+export type { BackgroundColor } from './xcss/background-color';
+export type { Space } from './xcss/positive-space';
+export type { BorderColor } from './xcss/border-color';
+export type { BorderRadius } from './xcss/border-radius';
+export type { BorderWidth } from './xcss/border-width';
+export type { Layer } from './xcss/layer';
+export type { TextColor } from './xcss/text-color';
+export type { Shadow } from './xcss/shadow';
 
 export { default as Box } from './components/box';
 export type { BoxProps } from './components/box';
 export { default as Inline } from './components/inline';
 export type { InlineProps } from './components/inline';
-export { xcss, tokensMap } from './xcss/xcss';
+export { xcss } from './xcss/xcss';
+export { tokensMap } from './xcss/tokens-map';
 export type { XCSS } from './xcss/xcss';
 export { default as Stack } from './components/stack';
 export type { StackProps } from './components/stack';
 export { default as Flex } from './components/flex';
 export type { FlexProps } from './components/flex';
-export { default as Grid } from './components/grid';
+export { Grid } from './components/grid';
 export type { GridProps } from './components/grid';
-export { default as Bleed } from './components/bleed';
+export { Bleed } from './components/bleed';
 export type { BleedProps } from './components/bleed';
 export { default as Text } from './components/text';
 export type { TextProps } from './components/text';
@@ -36,4 +35,4 @@ export { media, UNSAFE_media, UNSAFE_BREAKPOINTS_CONFIG } from './responsive';
 export type { Breakpoint, MediaQuery } from './responsive';
 export { useSurface as UNSAFE_useSurface } from './utils/surface-provider';
 
-export { inverseColorMap as UNSAFE_inverseColorMap } from './xcss/style-maps.partial';
+export { inverseColorMap as UNSAFE_inverseColorMap } from './xcss/inverse-color';

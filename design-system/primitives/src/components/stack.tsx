@@ -16,7 +16,7 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { type Space } from '../xcss/style-maps.partial';
+import { type Space } from '../xcss/positive-space';
 import { type XCSS, xcss } from '../xcss/xcss';
 
 import Flex from './flex';

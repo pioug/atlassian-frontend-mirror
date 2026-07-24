@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 13.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.2.8
 
 ### Patch Changes

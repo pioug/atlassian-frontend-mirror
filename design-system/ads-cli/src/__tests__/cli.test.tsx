@@ -71,12 +71,13 @@ beforeEach(() => {
 });
 
 describe('run — dispatch', () => {
-	it('routes unified `search <q>` (no --type) to all three search tools', async () => {
+	it('routes unified `search <q>` (no --type) to entity and docs search tools', async () => {
 		const writer = createTestWriter();
 		await run(['search', 'avatar'], writer);
-		// All three tools are dispatched; assert every one ran with the same args.
+		// All four tools are dispatched; assert every one ran with the same args.
 		const paths = allDispatches.map((d) => d.importPath).sort();
 		expect(paths).toEqual([
+			'@atlaskit/ads-mcp/tools/get-guidelines',
 			'@atlaskit/ads-mcp/tools/search-components',
 			'@atlaskit/ads-mcp/tools/search-icons',
 			'@atlaskit/ads-mcp/tools/search-tokens',
@@ -103,12 +104,21 @@ describe('run — dispatch', () => {
 		expect(lastDispatch?.handlerName).toBe('searchIconsTool');
 	});
 
+	it('routes `search --type docs` to only the foundations docs search tool', async () => {
+		const writer = createTestWriter();
+		await run(['search', 'contrast', '--type', 'docs'], writer);
+		expect(allDispatches).toHaveLength(1);
+		expect(lastDispatch?.importPath).toBe('@atlaskit/ads-mcp/tools/get-guidelines');
+		expect(lastDispatch?.handlerName).toBe('getGuidelinesTool');
+		expect(lastDispatch?.args).toEqual({ terms: ['contrast'] });
+	});
+
 	it('rejects the plural `--type` forms as invalid', async () => {
 		const writer = createTestWriter();
 		const code = await run(['search', 'space', '--type', 'tokens'], writer);
 		expect(code).toBe(ExitCode.UsageError);
 		expect(allDispatches).toHaveLength(0);
-		expect(writer.stderr.join('\n')).toContain('Must be one of: component, token, icon');
+		expect(writer.stderr.join('\n')).toContain('Must be one of: component, token, icon, docs');
 	});
 
 	it('passes a parsed numeric --limit to the tool', async () => {
@@ -235,7 +245,7 @@ describe('run — JSON envelope', () => {
 		expect(envelope.meta.terms).toEqual(['avatar']);
 	});
 
-	it('groups unified search into { components, tokens, icons } under one envelope', async () => {
+	it('groups unified search into { components, tokens, icons, docs } under one envelope', async () => {
 		mockResultByPath = {
 			'@atlaskit/ads-mcp/tools/search-components': {
 				content: [
@@ -247,6 +257,9 @@ describe('run — JSON envelope', () => {
 					{ type: 'text', text: JSON.stringify([{ name: 'space.100', exampleValue: '8px' }]) },
 				],
 			},
+			'@atlaskit/ads-mcp/tools/get-guidelines': {
+				content: [{ type: 'text', text: '# Button contrast\n\nUse color tokens.' }],
+			},
 			// icons intentionally empty (falls back to mockToolResult '[]')
 		};
 		const writer = createTestWriter();
@@ -255,12 +268,19 @@ describe('run — JSON envelope', () => {
 		expect(code).toBe(ExitCode.Ok);
 		const envelope = JSON.parse(writer.stdout.join('\n'));
 		expect(envelope.type).toBe('ads-cli/search');
-		expect(Object.keys(envelope.data)).toEqual(['components', 'tokens', 'icons']);
+		expect(Object.keys(envelope.data)).toEqual(['components', 'tokens', 'icons', 'docs']);
 		expect(envelope.data.components).toHaveLength(1);
 		expect(envelope.data.tokens).toHaveLength(1);
 		expect(envelope.data.icons).toEqual([]);
+		expect(envelope.data.docs).toEqual([
+			{
+				title: 'Button',
+				summary: 'Button contrast Use color tokens.',
+				followUp: 'docs button',
+			},
+		]);
 		// meta.count is the combined total across all groups.
-		expect(envelope.meta.count).toBe(2);
+		expect(envelope.meta.count).toBe(3);
 	});
 
 	it('reports the type-specific discriminator for token search', async () => {
@@ -303,15 +323,33 @@ describe('run — JSON envelope', () => {
 				'ads-cli/search-components',
 				'ads-cli/search-tokens',
 				'ads-cli/search-icons',
+				'ads-cli/search-docs',
 			],
 		});
 		expect(search.flags.find((flag: { name: string }) => flag.name === 'type')).toMatchObject({
 			type: 'string',
-			choices: ['component', 'token', 'icon'],
+			choices: ['component', 'token', 'icon', 'docs'],
 		});
 		expect(envelope.data.commands.map((command: { name: string }) => command.name)).toContain(
 			'manifest',
 		);
+	});
+
+	it('reports the type-specific discriminator and concise records for docs search', async () => {
+		mockToolResult = {
+			content: [{ type: 'text', text: '## Color accessibility\n\nMeet contrast requirements.' }],
+		};
+		const writer = createTestWriter();
+		await run(['search', 'contrast', '--type', 'docs', '--json'], writer);
+		const envelope = JSON.parse(writer.stdout.join('\n'));
+		expect(envelope.type).toBe('ads-cli/search-docs');
+		expect(envelope.data).toEqual([
+			{
+				title: 'Contrast',
+				summary: 'Color accessibility Meet contrast requirements.',
+				followUp: 'docs contrast',
+			},
+		]);
 	});
 
 	it('parses each block of a multi-block result into an array', async () => {
@@ -370,8 +408,7 @@ describe('run — output contract', () => {
 		await run(['search', 'avatar', '--type', 'component'], writer);
 		const out = writer.stdout.join('\n');
 		expect(out).toContain('Avatar  @atlaskit/avatar');
-		// A single-kind (`--type`) listing is terse: no per-row drill-in follow-up.
-		expect(out).not.toContain('→ ads-cli component Avatar');
+		expect(out).toContain('→ ads-cli component Avatar');
 		// It must NOT be the raw JSON dump.
 		expect(out).not.toContain('"package"');
 	});
@@ -393,6 +430,9 @@ describe('run — output contract', () => {
 					{ type: 'text', text: JSON.stringify([{ name: 'space.100', exampleValue: '8px' }]) },
 				],
 			},
+			'@atlaskit/ads-mcp/tools/get-guidelines': {
+				content: [{ type: 'text', text: '# Button contrast\n\nUse color tokens.' }],
+			},
 		};
 		const writer = createTestWriter();
 		await run(['search', 'button'], writer);
@@ -401,9 +441,13 @@ describe('run — output contract', () => {
 		expect(out).toContain('Button  @atlaskit/button');
 		expect(out).toContain('Tokens (1):');
 		expect(out).toContain('space.100 = 8px');
+		expect(out).toContain('Docs (1):');
+		expect(out).toContain('Button  — Button contrast Use color tokens.');
 		// Unified search shows per-row drill-in follow-ups for every kind.
 		expect(out).toContain('→ ads-cli component Button');
 		expect(out).toContain('→ ads-cli token space.100');
+		expect(out).toContain('→ ads-cli docs button');
+		expect(out).not.toContain('# Button contrast');
 		// The empty icons group is omitted from the human view.
 		expect(out).not.toContain('Icons (');
 	});
@@ -416,7 +460,37 @@ describe('run — output contract', () => {
 		};
 		const writer = createTestWriter();
 		await run(['search', 'space', '--type', 'token'], writer);
-		expect(writer.stdout.join('\n')).toContain('space.100 = 8px');
+		const out = writer.stdout.join('\n');
+		expect(out).toContain('space.100 = 8px');
+		expect(out).toContain('→ ads-cli token space.100');
+	});
+
+	it('renders `search --type docs` as a concise row with a docs follow-up', async () => {
+		mockToolResult = {
+			content: [
+				{
+					type: 'text',
+					text: [
+						'Color accessibility guidance explains how to meet contrast requirements without relying',
+						'on raw color values and provides implementation details for every supported theme.',
+						'',
+						'## Full guidance',
+						'',
+						'A long body.',
+					].join('\n'),
+				},
+			],
+		};
+		const writer = createTestWriter();
+		await run(['search', 'contrast', '--type', 'docs'], writer);
+		const out = writer.stdout.join('\n');
+		expect(out).toContain(
+			'Contrast  — Color accessibility guidance explains how to meet contrast requirements',
+		);
+		expect(out).toContain('…');
+		expect(out).toContain('→ ads-cli docs contrast');
+		expect(out).not.toContain('Full guidance');
+		expect(out).not.toContain('A long body.');
 	});
 
 	it('still emits the full structured payload under --json (narrowed)', async () => {
@@ -444,7 +518,7 @@ describe('run — output contract', () => {
 		const out = writer.stdout.join('\n');
 		expect(out).toMatch(/^ads-cli v\d+\.\d+\.\d+.* — 7 commands/);
 		expect(out).toContain(
-			'  search [--json]\n    Fuzzy-search ADS components, tokens, and icons together',
+			'  search [--json]\n    Fuzzy-search ADS components, tokens, icons, and docs together (or narrow results with --type).',
 		);
 		expect(out).toContain(
 			'  manifest [--json]\n    Describe every CLI command, argument, flag, and JSON response type.',
@@ -805,6 +879,15 @@ describe('run — usage & exit codes', () => {
 		expect(code).toBe(ExitCode.UsageError);
 	});
 
+	it('reports every unified search domain when no results are found', async () => {
+		const writer = createTestWriter();
+		const code = await run(['search', 'zzznope'], writer);
+		expect(code).toBe(ExitCode.NotFound);
+		expect(writer.stderr.join('\n')).toContain(
+			'No components, tokens, icons, or docs found for "zzznope".',
+		);
+	});
+
 	it('returns UsageError when an item command is given neither a name nor --all', async () => {
 		for (const name of ['component', 'token', 'icon']) {
 			const writer = createTestWriter();
@@ -912,6 +995,7 @@ describe('run — version & help', () => {
 		const code = await run(['--help'], writer);
 		expect(code).toBe(ExitCode.Ok);
 		const out = writer.stdout.join('\n');
+		expect(out).toContain('components, tokens, icons, and docs');
 
 		// Collect the command tokens actually listed under "Commands" — each command entry is a
 		// line indented by two spaces whose first word is the command name. Matching on this

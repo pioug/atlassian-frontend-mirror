@@ -52,7 +52,7 @@ export type ToolCall = {
 	/**
 	 * A stable key identifying this call within a multi-tool command. For grouped commands
 	 * (e.g. unified `search`) this becomes the key in the assembled data object, e.g.
-	 * `components` / `tokens` / `icons`. Ignored for single-tool commands.
+	 * `components` / `tokens` / `icons` / `docs`. Ignored for single-tool commands.
 	 */
 	key: string;
 	importPath: string;
@@ -95,12 +95,11 @@ export type ResolveResult = ResolvedCommand | ResolvedStatic | { error: string }
 
 /**
  * The kind of *listable row* a command renders, used by the default (non-`--json`) formatter to
- * pick a compact per-row renderer. Scoped to the entity types the CLI returns as arrays of rows
- * (components, tokens, icons); it is intentionally NOT used for single-rich-object commands like
- * docs, a11y, or lint-rules — those render via {@link CommandDefinition.formatHuman} or the
- * generic fallback (pretty-printed JSON for objects, verbatim text for strings).
+ * pick a compact per-row renderer. Search results include concise documentation matches, while
+ * standalone docs, a11y, and lint-rules commands render their full content via
+ * {@link CommandDefinition.formatHuman} or the generic fallback.
  */
-export type RowKind = 'components' | 'tokens' | 'icons';
+export type RowKind = 'components' | 'tokens' | 'icons' | 'docs';
 
 /**
  * A single CLI command definition.

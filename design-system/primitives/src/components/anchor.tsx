@@ -22,16 +22,13 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
-import {
-	type BackgroundColor,
-	backgroundColorStylesMap,
-	borderColorMap,
-	borderWidthMap,
-	paddingStylesMap,
-	positiveSpaceMap,
-	type Space,
-} from '../xcss/style-maps.partial';
-import { parseXcss } from '../xcss/xcss';
+import { type BackgroundColor } from '../xcss/background-color';
+import { backgroundColorStylesMap } from '../xcss/background-color-styles-map';
+import { borderColorMap } from '../xcss/border-color';
+import { borderWidthMap } from '../xcss/border-width';
+import { paddingStylesMap } from '../xcss/padding-styles-map';
+import { parseXcss } from '../xcss/parse-xcss';
+import { positiveSpaceMap, type Space } from '../xcss/positive-space';
 
 import type { BasePrimitiveProps, StyleProp } from './types';
 

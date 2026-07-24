@@ -24,11 +24,7 @@ import LegacyButtonWithIconOnly from '../../examples/constellation/legacy-button
 The default form of a button, used for most cases. They are not impactful enough to represent the
 primary action in a container.
 
-<Example
-	Component={LegacyButtonDefault}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonDefault} packageName="@atlaskit/button" />
 
 <!-- WARNING: A pollinator test visits this page and searches for this title to validate the page loaded correctly -->
 <!-- https://pollinator.prod.atl-paas.net/checks/f7425790-6c31-4368-9911-3facd24cb51f -->
@@ -43,21 +39,13 @@ the strongest call to action on a page. Primary buttons should only appear once 
 including the application header or in a [modal dialog](/components/modal-dialog)). Not every screen
 requires a primary button.
 
-<Example
-	Component={LegacyButtonPrimary}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonPrimary} packageName="@atlaskit/button" />
 
 ### Subtle
 
 Use a `subtle` button with a `primary` button for secondary actions, such as “Cancel".
 
-<Example
-	Component={LegacyButtonSubtle}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonSubtle} packageName="@atlaskit/button" />
 
 ### Link
 
@@ -65,11 +53,7 @@ Use a `link` button to navigate to another page. These should open in the same w
 information may be lost (for example, when someone is filling out a form), or when the destination
 is an external site (for example, a knowledge base article).
 
-<Example
-	Component={LegacyButtonLink}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonLink} packageName="@atlaskit/button" />
 
 ### Subtle link
 
@@ -80,33 +64,21 @@ context around it to show that it can be interacted with.
 This can make subtle link buttons less accessible than other link buttons. Make sure designs have
 clear visual affordances for interactive areas and elements.
 
-<Example
-	Component={LegacyButtonSubtleLink}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonSubtleLink} packageName="@atlaskit/button" />
 
 ### Warning
 
 A `warning` button appears before we request the user to take action, usually in anticipation of a
 significant change. These are found mostly in confirmation modals.
 
-<Example
-	Component={LegacyButtonWarning}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonWarning} packageName="@atlaskit/button" />
 
 ### Danger
 
 The `danger` button appears as a final confirmation for a destructive action such as deleting. These
 are found mostly in confirmation modals.
 
-<Example
-	Component={LegacyButtonDanger}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonDanger} packageName="@atlaskit/button" />
 
 ## States
 
@@ -119,53 +91,33 @@ issues as disabled elements are not in the tab order so wherever possible we rec
 You should never put a tooltip on a disabled button. For more information see our
 [usage guidelines](/components/button/button-legacy/usage#do-not-put-tooltips-on-disabled-buttons).
 
-<Example
-	Component={LegacyButtonDisabled}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonDisabled} packageName="@atlaskit/button" />
 
 ### Selected
 
 Set `isSelected` to indicate the button is selected.
 
-<Example
-	Component={LegacyButtonSelected}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonSelected} packageName="@atlaskit/button" />
 
 ### Loading
 
 Set `isLoading` to indicate the button is loading. The button text is hidden and a spinner is shown
 in its place, while maintaining the width that it would have if the text were visible.
 
-<Example
-	Component={LegacyButtonLoading}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonLoading} packageName="@atlaskit/button" />
 
 ## Spacing
 
 Buttons can have various spacing. Default spacing is used for most use cases, compact for tables and
 none for breadcrumbs.
 
-<Example
-	Component={LegacyButtonPadding}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonPadding} packageName="@atlaskit/button" />
 
 ## Full width
 
 Buttons can be expanded to full width to fill its parent container.
 
-<Example
-	Component={LegacyButtonFullWidth}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonFullWidth} packageName="@atlaskit/button" />
 
 ## Button with icon
 
@@ -175,31 +127,19 @@ Buttons may include an icon before or after the text. Omit the text to use an ic
 
 Display an icon before the text.
 
-<Example
-	Component={LegacyButtonWithIconBefore}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonWithIconBefore} packageName="@atlaskit/button" />
 
 ### Icon after
 
 Display an icon after the text.
 
-<Example
-	Component={LegacyButtonWithIconAfter}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonWithIconAfter} packageName="@atlaskit/button" />
 
 ### Icon only
 
 Display an icon-only button.
 
-<Example
-	Component={LegacyButtonWithIconOnly}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={LegacyButtonWithIconOnly} packageName="@atlaskit/button" />
 
 ## Routing
 

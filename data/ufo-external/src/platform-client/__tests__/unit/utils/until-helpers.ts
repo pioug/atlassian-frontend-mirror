@@ -1,9 +1,9 @@
+import { UFOExperience } from '../../../core/experience/experience';
+import { UFOExperienceState } from '../../../core/experience/experience-state';
 import {
 	ExperiencePerformanceTypes,
 	ExperienceTypes,
-	UFOExperience,
-	UFOExperienceState,
-} from '../../../core';
+} from '../../../core/experience/experience-types';
 import { untilAll } from '../../../utils/until-helpers';
 
 describe('untilAll helper', () => {

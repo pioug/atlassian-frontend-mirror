@@ -26,33 +26,21 @@ you want to place a spotlight, import `Spotlight`, `SpotlightTarget` and `Spotli
 `SpotlightTransition` will handle the animation of spotlights as they render in. It should wrap any
 `Spotlight` components. `SpotlightTarget` should wrap your spotlight target.
 
-<Example
-	Component={SpotlightSingle}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightSingle} packageName="@atlaskit/onboarding" />
 
 ## Tours
 
 You can connect spotlights in multi-step onboarding tours. Only one spotlight should be shown at a
 time.
 
-<Example
-	Component={SpotlightTour}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightTour} packageName="@atlaskit/onboarding" />
 
 ## Blanket tint
 
 If you prefer the spotlight to appear without the tinted blanket background, set the
 `blanketIsTinted` prop to `false` on the `SpotlightManager` component.
 
-<Example
-	Component={SpotlightBlanketIsTinted}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightBlanketIsTinted} packageName="@atlaskit/onboarding" />
 
 ## Actions
 
@@ -63,22 +51,14 @@ You can change the default action button appearance to `subtle` or `subtle-link`
 leads people through the onboarding process or prompts an action, with other actions such as "Skip"
 using the subtle appearance.
 
-<Example
-	Component={SpotlightActionsAppearance}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightActionsAppearance} packageName="@atlaskit/onboarding" />
 
 ### Actions before element
 
 To add a left-aligned element before the action buttons, use the `actionsBeforeElement` prop. One
 use case for this is adding a step number to an onboarding tour with 3 or more steps.
 
-<Example
-	Component={SpotlightActionsBefore}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightActionsBefore} packageName="@atlaskit/onboarding" />
 
 ## Heading
 
@@ -90,11 +70,7 @@ To add a heading to a spotlight, use the `heading` prop. For content guidance, s
 The `headingAfterElement` prop allows you to place an element to the right of the heading. This is
 sometimes used to implement a close icon button in a spotlight.
 
-<Example
-	Component={SpotlightHeadingAfterElement}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightHeadingAfterElement} packageName="@atlaskit/onboarding" />
 
 ## Image
 
@@ -102,11 +78,7 @@ You can add an image to a spotlight with the `image` prop. Most Atlassian illust
 to work with neutral backgrounds, so you may need brand design support to implement an ideal
 spotlight image.
 
-<Example
-	Component={SpotlightImage}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightImage} packageName="@atlaskit/onboarding" />
 
 ## Pulse
 
@@ -115,43 +87,27 @@ you to use this spotlight pulse in custom ways. For example, you can apply the p
 element _before_ the spotlight is active, and trigger the spotlight the first time a person
 interacts with it.
 
-<Example
-	Component={SpotlightPulse}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightPulse} packageName="@atlaskit/onboarding" />
 
 ### Turning off the pulse
 
 You can turn off the pulsing animation by setting the `pulse` prop to `false`.
 
-<Example
-	Component={SpotlightPulseFalse}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightPulseFalse} packageName="@atlaskit/onboarding" />
 
 ## Dialog placement
 
 By default, a spotlight dialog will be positioned to the "bottom left" relative to the target. You
 can change this by setting your desired position in the `dialogPlacement` prop.
 
-<Example
-	Component={SpotlightDialogPlacement}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightDialogPlacement} packageName="@atlaskit/onboarding" />
 
 ## Dialog width
 
 You can set a dialog width for a spotlight dialog with the `dialogWidth` prop. The minimum supported
 width is `160px`, and the maximum is `600px`.
 
-<Example
-	Component={SpotlightDialogWidth}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightDialogWidth} packageName="@atlaskit/onboarding" />
 
 ## Target border radius
 
@@ -159,11 +115,7 @@ The border radius of the spotlight target needs to be explicitly set. In the nex
 spotlight applies the default behavior, the second spotlight sets `targetRadius` to `3` to match a
 target button, and the final spotlight has `targetRadius` to `24` to match a round target.
 
-<Example
-	Component={SpotlightTargetRadius}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightTargetRadius} packageName="@atlaskit/onboarding" />
 
 ## Target background color
 
@@ -171,29 +123,17 @@ Sometimes the blanket can affect the background color of the target element. For
 buttons are semi-transparent, which causes them to look darker when the blanket is applied. In cases
 like this, you can pass a color value to `targetBgColor` to make your target stand out properly.
 
-<Example
-	Component={SpotlightTargetBackground}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightTargetBackground} packageName="@atlaskit/onboarding" />
 
 ## Target replacement
 
 You can replace the original target with another component using the `targetReplacement` prop.
 
-<Example
-	Component={SpotlightTargetReplacement}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightTargetReplacement} packageName="@atlaskit/onboarding" />
 
 ## Conditional spotlight targets
 
 You can use the `useSpotlight` hook to check if a spotlight target is rendered or not. This allows
 you to conditionally add steps into a spotlight tour.
 
-<Example
-	Component={SpotlightConditionalTargets}
-	packageName="@atlaskit/onboarding"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={SpotlightConditionalTargets} packageName="@atlaskit/onboarding" />

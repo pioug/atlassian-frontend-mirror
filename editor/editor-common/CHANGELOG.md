@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 116.39.1
+
+### Patch Changes
+
+- [`8b49fc1fd582e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b49fc1fd582e) -
+  Show the number of synced block references in the floating toolbar when the sync block activation
+  experiment is enabled.
+- Updated dependencies
+
+## 116.39.0
+
+### Minor Changes
+
+- [`6f1966b837385`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f1966b837385) -
+  refactor table cell background to fix hydration errors
+
+### Patch Changes
+
+- [`cbcd7893f2fe7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbcd7893f2fe7) -
+  Add codemod for upgrading Editor package.jsons to React 19.
+- [`d7a60d4dc93f0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d7a60d4dc93f0) -
+  Fix embed cards collapsing to 0 height in host renderers (e.g. Jira issue view). When an embed
+  uses the aspect-ratio (padding-bottom) sizing and the resolved pixel width is 0/NaN - which
+  happens when `lineLength`/`editorWidth` is unavailable in the host render context - the ratio
+  becomes `NaN`, producing an invalid `calc(NaN% + 32px)` that the browser drops, collapsing the
+  embed. `MediaSingle` now falls back to the embed's absolute height in that case. Guarded by
+  `platform_editor_embed_height_only_fallback`.
+- Updated dependencies
+
+## 116.38.0
+
+### Minor Changes
+
+- [`5228612e884f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5228612e884f4) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 116.37.0
 
 ### Minor Changes

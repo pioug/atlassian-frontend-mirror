@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 221.14.1
+
+### Patch Changes
+
+- [`6f1966b837385`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f1966b837385) -
+  refactor table cell background to fix hydration errors
+- Updated dependencies
+
+## 221.14.0
+
+### Minor Changes
+
+- [`5228612e884f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5228612e884f4) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 221.13.1
 
 ### Patch Changes

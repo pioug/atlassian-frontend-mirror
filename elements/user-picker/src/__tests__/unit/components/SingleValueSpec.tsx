@@ -8,7 +8,6 @@ import { SingleValue } from '../../../components/SingleValue';
 import { SizeableAvatar } from '../../../components/SizeableAvatar';
 import { type Team, type Group } from '../../../types';
 import { type Props as SizeableAvatarProps } from '../../../components/SizeableAvatar';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { getAppearanceForAppType } from '@atlaskit/avatar';
 
 const data = {
@@ -156,7 +155,7 @@ describe('SingleValue', () => {
 		});
 	});
 
-	describe('archived team lozenge (enable-sup-archive-experience)', () => {
+	describe('archived team lozenge', () => {
 		const renderWithIntl = (props: Partial<Props> = {}) =>
 			render(
 				<IntlProvider locale="en">
@@ -164,87 +163,63 @@ describe('SingleValue', () => {
 				</IntlProvider>,
 			);
 
-		ffTest.on('enable-sup-archive-experience', 'on', () => {
-			it('should render Archived lozenge when team state is DISBANDED', async () => {
-				const disbandedTeam: Team = {
-					name: 'Archived Team',
-					type: 'team',
-					id: 'team-disbanded',
-					state: 'DISBANDED',
-				};
+		it('should render Archived lozenge when team state is DISBANDED', async () => {
+			const disbandedTeam: Team = {
+				name: 'Archived Team',
+				type: 'team',
+				id: 'team-disbanded',
+				state: 'DISBANDED',
+			};
 
-				renderWithIntl({
-					data: {
-						label: disbandedTeam.name,
-						value: disbandedTeam.id,
-						data: disbandedTeam,
-					},
-				});
-
-				expect(screen.getByText('Archived')).toBeInTheDocument();
-				await expect(document.body).toBeAccessible();
+			renderWithIntl({
+				data: {
+					label: disbandedTeam.name,
+					value: disbandedTeam.id,
+					data: disbandedTeam,
+				},
 			});
 
-			it('should not render Archived lozenge when team state is ACTIVE', async () => {
-				const activeTeam: Team = {
-					name: 'Active Team',
-					type: 'team',
-					id: 'team-active',
-					state: 'ACTIVE',
-				};
-
-				renderWithIntl({
-					data: {
-						label: activeTeam.name,
-						value: activeTeam.id,
-						data: activeTeam,
-					},
-				});
-
-				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
-				await expect(document.body).toBeAccessible();
-			});
-
-			it('should not render Archived lozenge for user (non-team) option', async () => {
-				const user = {
-					name: 'John Doe',
-					type: 'user' as const,
-					id: 'user-1',
-				};
-
-				renderWithIntl({
-					data: {
-						label: user.name,
-						value: user.id,
-						data: user,
-					},
-				});
-
-				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
-				await expect(document.body).toBeAccessible();
-			});
+			expect(screen.getByText('Archived')).toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
 		});
 
-		ffTest.off('enable-sup-archive-experience', 'off', () => {
-			it('should not render Archived lozenge when feature flag is off even if team is DISBANDED', async () => {
-				const disbandedTeam: Team = {
-					name: 'Archived Team',
-					type: 'team',
-					id: 'team-disbanded',
-					state: 'DISBANDED',
-				};
+		it('should not render Archived lozenge when team state is ACTIVE', async () => {
+			const activeTeam: Team = {
+				name: 'Active Team',
+				type: 'team',
+				id: 'team-active',
+				state: 'ACTIVE',
+			};
 
-				renderWithIntl({
-					data: {
-						label: disbandedTeam.name,
-						value: disbandedTeam.id,
-						data: disbandedTeam,
-					},
-				});
-
-				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
-				await expect(document.body).toBeAccessible();
+			renderWithIntl({
+				data: {
+					label: activeTeam.name,
+					value: activeTeam.id,
+					data: activeTeam,
+				},
 			});
+
+			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should not render Archived lozenge for user (non-team) option', async () => {
+			const user = {
+				name: 'John Doe',
+				type: 'user' as const,
+				id: 'user-1',
+			};
+
+			renderWithIntl({
+				data: {
+					label: user.name,
+					value: user.id,
+					data: user,
+				},
+			});
+
+			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
 		});
 	});
 

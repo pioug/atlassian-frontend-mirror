@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import createUniversalPreset from '../../../presets/universal';
 import { RenderTracking } from '../../../utils/performance/components/RenderTracking';
@@ -49,37 +49,35 @@ describe('ComposableEditor', () => {
 		});
 	});
 
-	ffTest.on('platform_editor_disable_rerender_tracking_jira', 'rerenders', () => {
-		it('should not render RenderTracking', () => {
-			const preset = createUniversalPreset({
-				appearance: 'full-page',
-				props: { paste: {} },
-				featureFlags: {},
-			});
-
-			render(<ComposableEditor preset={preset} />);
-
-			expect(RenderTracking).toHaveBeenCalledTimes(0);
-			expect(RenderTracking).not.toHaveBeenCalledWith(
-				expect.objectContaining({
-					actionSubject: 'editor',
-				}),
-			);
+	it('should not render RenderTracking when platform_editor_disable_rerender_tracking_jira is enabled', () => {
+		passGate('platform_editor_disable_rerender_tracking_jira');
+		const preset = createUniversalPreset({
+			appearance: 'full-page',
+			props: { paste: {} },
+			featureFlags: {},
 		});
+
+		render(<ComposableEditor preset={preset} />);
+
+		expect(RenderTracking).toHaveBeenCalledTimes(0);
+		expect(RenderTracking).not.toHaveBeenCalledWith(
+			expect.objectContaining({
+				actionSubject: 'editor',
+			}),
+		);
 	});
 
-	ffTest.off('platform_editor_disable_rerender_tracking_jira', 'rerenders', () => {
-		it('should render RenderTracking', () => {
-			const preset = createUniversalPreset({
-				appearance: 'full-page',
-				props: { paste: {} },
-				featureFlags: {},
-			});
-
-			render(<ComposableEditor preset={preset} />);
-
-			expect(RenderTracking).toHaveBeenCalled();
+	it('should render RenderTracking when platform_editor_disable_rerender_tracking_jira is disabled', () => {
+		failGate('platform_editor_disable_rerender_tracking_jira');
+		const preset = createUniversalPreset({
+			appearance: 'full-page',
+			props: { paste: {} },
+			featureFlags: {},
 		});
+
+		render(<ComposableEditor preset={preset} />);
+
+		expect(RenderTracking).toHaveBeenCalled();
 	});
 });
 

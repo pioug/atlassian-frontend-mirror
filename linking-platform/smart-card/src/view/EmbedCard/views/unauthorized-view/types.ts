@@ -7,3 +7,5 @@ export type UnauthorizedViewProps = UnresolvedViewCardProps & {
 	isProductIntegrationSupported?: boolean;
 	onAuthorize?: () => void;
 };
+
+export type ParentProductType = 'ATLAS' | 'BITBUCKET' | 'CONFLUENCE' | 'JIRA' | 'TRELLO';

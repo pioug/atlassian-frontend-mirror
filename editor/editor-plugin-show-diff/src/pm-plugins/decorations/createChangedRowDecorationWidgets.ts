@@ -25,66 +25,11 @@ import {
 } from './colorSchemes/traditional';
 import { buildDiffDecorationSpec } from './decorationKeys';
 import { findSafeInsertPos } from './utils/findSafeInsertPos';
-
-type CellEdgeAttrs = {
-	reachesBottom: boolean;
-	reachesLeft: boolean;
-	reachesRight: boolean;
-	reachesTop: boolean;
-};
-
-/**
- * Inserted table rows are rendered as decoration widgets, so their cells do not get the
- * `data-reaches-*` attrs normally applied by the table cell node view. Mirror that boundary
- * metadata here so the existing rounded-table CSS can round widget cells like real table cells.
- */
-const getChangedRowCellEdgeAttrs = ({
-	rowNode,
-	rowStart,
-	tableMap,
-}: {
-	rowNode: PMNode;
-	rowStart: number;
-	tableMap: TableMap;
-}): CellEdgeAttrs[] => {
-	const cellEdgeAttrs: CellEdgeAttrs[] = [];
-
-	rowNode.content.forEach((cellNode, cellOffset) => {
-		if (cellNode.type.name !== 'tableCell' && cellNode.type.name !== 'tableHeader') {
-			return;
-		}
-
-		const cellRect = tableMap.findCell(rowStart + 1 + cellOffset);
-
-		cellEdgeAttrs.push({
-			reachesBottom: cellRect.bottom >= tableMap.height,
-			reachesLeft: cellRect.left === 0,
-			reachesRight: cellRect.right >= tableMap.width,
-			reachesTop: cellRect.top === 0,
-		});
-	});
-
-	return cellEdgeAttrs;
-};
-
-const applyCellEdgeAttrs = (cell: HTMLElement, edgeAttrs?: CellEdgeAttrs): void => {
-	if (!edgeAttrs) {
-		return;
-	}
-
-	if (edgeAttrs.reachesTop) {
-		cell.setAttribute('data-reaches-top', 'true');
-	}
-	if (edgeAttrs.reachesBottom) {
-		cell.setAttribute('data-reaches-bottom', 'true');
-	}
-	if (edgeAttrs.reachesLeft) {
-		cell.setAttribute('data-reaches-left', 'true');
-	}
-	if (edgeAttrs.reachesRight) {
-		cell.setAttribute('data-reaches-right', 'true');
-	}
-};
+import {
+	applyCellEdgeAttrs,
+	getRowCellEdgeAttrs,
+	type CellEdgeAttrs,
+} from './utils/tableCellEdgeAttrs';
 
 interface RowInfo {
 	cellEdgeAttrs?: CellEdgeAttrs[];
@@ -165,8 +110,9 @@ const extractChangedRows = ({
 		) {
 			const cellEdgeAttrs =
 				isExtendedEnabled(diffType) &&
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
 				expValEquals('platform_editor_table_diff_rounded_corners', 'isEnabled', true)
-					? getChangedRowCellEdgeAttrs({ rowNode, rowStart, tableMap: oldTableMap })
+					? getRowCellEdgeAttrs({ rowNode, rowStart, tableMap: oldTableMap })
 					: undefined;
 
 			const startOfRow = newTableMap.mapByRow

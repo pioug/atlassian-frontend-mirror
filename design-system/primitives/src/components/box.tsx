@@ -14,17 +14,14 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import type { BackgroundColor, Space } from '../compiled';
 import { SurfaceContext } from '../utils/surface-context';
 import { type SVGElements } from '../utils/types';
-import {
-	type BackgroundColor,
-	backgroundColorStylesMap,
-	isSurfaceColorToken,
-	paddingStylesMap,
-	type Space,
-	surfaceColorStylesMap,
-} from '../xcss/style-maps.partial';
-import { parseXcss } from '../xcss/xcss';
+import { backgroundColorStylesMap } from '../xcss/background-color-styles-map';
+import { isSurfaceColorToken } from '../xcss/is-surface-color-token';
+import { paddingStylesMap } from '../xcss/padding-styles-map';
+import { parseXcss } from '../xcss/parse-xcss';
+import { surfaceColorStylesMap } from '../xcss/surface-color-styles-map';
 
 import type { BasePrimitiveProps, StyleProp } from './types';
 

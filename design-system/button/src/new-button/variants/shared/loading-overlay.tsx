@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import { type Appearance, type ButtonSpacing } from '../types';
 

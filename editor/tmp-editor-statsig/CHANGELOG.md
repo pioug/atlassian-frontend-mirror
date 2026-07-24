@@ -1,5 +1,70 @@
 # @atlaskit/editor-statsig-tmp
 
+## 133.2.0
+
+### Minor Changes
+
+- [`b90bdc71cdf99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b90bdc71cdf99) -
+  Fix layout column delete shortcut deleting the whole column when the caret is a text selection
+  inside a column (e.g. a table nested in a layout), gated behind
+  platform_editor_layout_column_delete_shortcut_fix.
+
+  Adds a new experiment key `platform_editor_layout_column_delete_shortcut_fix` to
+  `@atlaskit/tmp-editor-statsig`. Usage:
+
+  ```ts
+  import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+  if (expValEquals('platform_editor_layout_column_delete_shortcut_fix', 'isEnabled', true)) {
+  	// new behaviour: preserve the column when the caret is a text selection inside it
+  }
+  ```
+
+### Patch Changes
+
+- [`0a6416897fb9f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a6416897fb9f) -
+  A11Y-39563: Register the `platform_a11y_fixes_emoji_title_shortname` experiment in the editor
+  experiments config so it can be resolved via `expValEqualsNoExposure`.
+
+## 133.1.0
+
+### Minor Changes
+
+- [`bed6e0c408de8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bed6e0c408de8) -
+  [ux] Fix: pressing Enter after a heading that has trailing whitespace now creates a paragraph
+  instead of another heading — but only when the caret sits after all heading content and
+  immediately before the trailing whitespace (so it looks like the end of the heading). Mid-heading
+  splits still produce a heading. Behind the `platform_editor_fix_new_line_after_heading`
+  experiment.
+
+## 133.0.0
+
+### Major Changes
+
+- [`3e55e8eea5a11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e55e8eea5a11) -
+  Fixes reduced profile card exp flag name
+
+## 132.6.0
+
+### Minor Changes
+
+- [`4718ca6f37dbd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4718ca6f37dbd) -
+  [CCI-18026] Route Company Hub Concise Page Summary streaming requests to cc-smarts behind the
+  `cc_smarts_concise_page_summary_migration` experiment.
+
+  Usage:
+
+  ```ts
+  expValEquals('cc_smarts_concise_page_summary_migration', 'useCcSmarts', true, false);
+  ```
+
+## 132.5.0
+
+### Minor Changes
+
+- [`6f1a6a07b4be1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f1a6a07b4be1) -
+  Fixes malfunctioning sticky header row when header columns are merged
+
 ## 132.4.0
 
 ### Minor Changes

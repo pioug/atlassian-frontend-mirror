@@ -14,7 +14,7 @@ import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import { type TeamContainer, TeamContainers, useTeamContainers } from '@atlaskit/teams-public';
 import { token } from '@atlaskit/tokens';
 

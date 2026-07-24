@@ -89,7 +89,7 @@ type FocusableComponent = <T extends CustomElement>(props: FocusableProps<T>) =>
  * A focus ring visually indicates the currently focused item.
  *
  */
-const Focusable = forwardRef(
+export const Focusable = forwardRef(
 	<T extends CustomElement>(
 		{
 			as: Component = 'button' as T,
@@ -122,5 +122,3 @@ const Focusable = forwardRef(
 		);
 	},
 ) as FocusableComponent;
-
-export default Focusable;

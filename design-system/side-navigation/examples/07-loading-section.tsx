@@ -122,9 +122,8 @@ const LoadingSkeleton = (): React.JSX.Element => {
 						}
 					>
 						<Section title="My project">
-							{/* eslint-disable @atlassian/a11y/anchor-is-valid */}
 							<LinkItem
-								href="#"
+								href="/"
 								iconBefore={
 									<Flex xcss={iconSpacingStyles.space050}>
 										<RoadmapIcon label="" />
@@ -134,7 +133,7 @@ const LoadingSkeleton = (): React.JSX.Element => {
 								Roadmap
 							</LinkItem>
 							<LinkItem
-								href="#"
+								href="/"
 								iconBefore={
 									<Flex xcss={iconSpacingStyles.space050}>
 										<BacklogIcon label="" />
@@ -144,7 +143,7 @@ const LoadingSkeleton = (): React.JSX.Element => {
 								Backlog
 							</LinkItem>
 							<LinkItem
-								href="#"
+								href="/"
 								iconBefore={
 									<Flex xcss={iconSpacingStyles.space050}>
 										<BoardIcon label="" />
@@ -154,7 +153,7 @@ const LoadingSkeleton = (): React.JSX.Element => {
 								Board
 							</LinkItem>
 							<LinkItem
-								href="#"
+								href="/"
 								iconBefore={
 									<Flex xcss={iconSpacingStyles.space050}>
 										<ChartTrendUpIcon label="" />
@@ -163,7 +162,6 @@ const LoadingSkeleton = (): React.JSX.Element => {
 							>
 								Reports
 							</LinkItem>
-							{/* eslint-enable @atlassian/a11y/anchor-is-valid */}
 							<SettingsItem />
 						</Section>
 					</LoadingItems>

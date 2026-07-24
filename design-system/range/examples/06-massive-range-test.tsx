@@ -12,7 +12,6 @@ import { Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const containerStyles = css({
 	width: '500px',
 });

@@ -13,7 +13,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import Pressable from '../../pressable';
+import { Pressable } from '../../pressable';
 
 const testId = 'test-pressable';
 const styles = cssMap({

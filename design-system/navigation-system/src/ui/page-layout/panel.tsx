@@ -36,7 +36,7 @@ import {
 import { DangerouslyHoistCssVarToDocumentRoot } from './dangerously-hoist-css-var-to-document-root';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import { PanelSplitterProvider } from './panel-splitter/provider';
-import type { ResizeBounds } from './panel-splitter/types';
+import type { ResizeBound, ResizeBounds } from './panel-splitter/types';
 import { useSideNavRef } from './side-nav/use-side-nav-ref';
 import type { CommonSlotProps } from './types';
 import { useLayoutId } from './use-layout-id';
@@ -154,6 +154,7 @@ export function Panel({
 	id: providedId,
 	xcss,
 	hasBorder = true,
+	maxWidth,
 }: CommonSlotProps & {
 	/**
 	 * The content of the layout area.
@@ -172,6 +173,18 @@ export function Panel({
 	 * in which case `400px` will be used as the minimum resizing width instead.
 	 */
 	defaultWidth?: number;
+	/**
+	 * Opt-in override for the maximum width the panel can be resized to, applied to both the rendered
+	 * width and the resize bounds (mouse and keyboard).
+	 *
+	 * When omitted, the panel defaults to half the viewport width (after removing the sidebar width),
+	 * which keeps it from growing larger than the page content. Provide a `vw` or `px` value (e.g.
+	 * `'70vw'`) to allow a wider panel.
+	 *
+	 * This is currently used by Jira's Issue Navigator native issue preview panel; other consumers
+	 * should leave it unset to keep the default cap.
+	 */
+	maxWidth?: ResizeBound;
 	/**
 	 * Bounded style overrides.
 	 */
@@ -289,19 +302,22 @@ export function Panel({
 	const getResizeBounds = useCallback((): ResizeBounds => {
 		const sideNavWidth = sideNavRef.current?.offsetWidth ?? 0;
 		/**
-		 * The panel should not resize larger than the page content, equivalent to the `Main` + `Aside` slots.
+		 * By default the panel should not resize larger than the page content, equivalent to the `Main` + `Aside` slots.
 		 *
 		 * This maximum width is equivalent to half the viewport width, after removing the sidebar width.
+		 *
+		 * Consumers can opt in to a larger maximum via the `maxWidth` prop.
 		 */
-		const maxWidth = Math.round((window.innerWidth - sideNavWidth) / 2);
+		const defaultMaxWidth: ResizeBound = `${Math.round((window.innerWidth - sideNavWidth) / 2)}px`;
 
-		return { min: `${minWidth}px`, max: `${maxWidth}px` };
-	}, [minWidth, sideNavRef]);
+		return { min: `${minWidth}px`, max: maxWidth ?? defaultMaxWidth };
+	}, [maxWidth, minWidth, sideNavRef]);
 
 	const panelWidthSlotBounds = {
 		min: `${minWidth}px`,
 		// `sideNavLiveWidthVar` is not defined if the `SideNav` is not mounted, so we fallback to `0px`.
-		max: `round(nearest, calc((100vw - var(${sideNavLiveWidthVar}, 0px)) / 2), 1px)`,
+		// Consumers can opt in to a larger maximum via the `maxWidth` prop.
+		max: maxWidth ?? `round(nearest, calc((100vw - var(${sideNavLiveWidthVar}, 0px)) / 2), 1px)`,
 	};
 
 	const panelVariableWidth = `clamp(${panelWidthSlotBounds.min}, ${width}px, ${panelWidthSlotBounds.max})`;

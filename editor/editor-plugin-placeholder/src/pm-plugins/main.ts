@@ -11,10 +11,6 @@ import type { PlaceholderPlugin } from '../placeholderPluginType';
 
 import { TYPEWRITER_TYPED_AND_DELETED_DELAY } from './constants';
 import { createPlaceholderDecoration } from './decorations';
-import {
-	createSourceSyncBlockPlaceholderDecorations,
-	updateSourceSyncBlockPlaceholderDecorations,
-} from './source-sync-block-placeholder-decorations';
 import type { PlaceHolderState } from './types';
 import {
 	calculateUserInteractionState,
@@ -53,8 +49,8 @@ export default function createPlugin(
 	return new SafePlugin<PlaceHolderState>({
 		key: pluginKey,
 		state: {
-			init: (_, state) => ({
-				...createPlaceHolderStateFrom({
+			init: (_, state) =>
+				createPlaceHolderStateFrom({
 					isInitial: true,
 					isEditorFocused: Boolean(api?.focus?.sharedState.currentState()?.hasFocus),
 					editorState: state,
@@ -70,11 +66,6 @@ export default function createPlugin(
 					withEmptyParagraph,
 					isPlaceholderHidden: initialIsPlaceholderHidden,
 				}),
-				sourceSyncBlockPlaceholderDecorations: createSourceSyncBlockPlaceholderDecorations(
-					state,
-					intl,
-				),
-			}),
 
 			apply: (tr, placeholderState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
@@ -104,39 +95,28 @@ export default function createPlugin(
 					}
 				}
 
-				const newPlaceholderState = {
-					...createPlaceHolderStateFrom({
-						isEditorFocused,
-						editorState: newEditorState,
-						isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
-						defaultPlaceholderText: withEmptyParagraph
-							? defaultPlaceholderText
-							: (meta?.placeholderText ??
-								placeholderState?.placeholderText ??
-								defaultPlaceholderText),
-						bracketPlaceholderText,
-						emptyLinePlaceholder,
-						placeholderADF,
-						placeholderPrompts:
-							meta?.placeholderPrompts ??
-							placeholderState?.placeholderPrompts ??
-							placeholderPrompts,
-						typedAndDeleted,
-						userHadTyped,
-						intl,
-						isPlaceholderHidden,
-						withEmptyParagraph,
-						showOnEmptyParagraph:
-							meta?.showOnEmptyParagraph ?? placeholderState?.showOnEmptyParagraph,
-					}),
-					sourceSyncBlockPlaceholderDecorations: updateSourceSyncBlockPlaceholderDecorations({
-						currentDecorationSet: placeholderState?.sourceSyncBlockPlaceholderDecorations,
-						intl,
-						newEditorState,
-						oldEditorState: _oldEditorState,
-						tr,
-					}),
-				};
+				const newPlaceholderState = createPlaceHolderStateFrom({
+					isEditorFocused,
+					editorState: newEditorState,
+					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
+					defaultPlaceholderText: withEmptyParagraph
+						? defaultPlaceholderText
+						: (meta?.placeholderText ??
+							placeholderState?.placeholderText ??
+							defaultPlaceholderText),
+					bracketPlaceholderText,
+					emptyLinePlaceholder,
+					placeholderADF,
+					placeholderPrompts:
+						meta?.placeholderPrompts ?? placeholderState?.placeholderPrompts ?? placeholderPrompts,
+					typedAndDeleted,
+					userHadTyped,
+					intl,
+					isPlaceholderHidden,
+					withEmptyParagraph,
+					showOnEmptyParagraph:
+						meta?.showOnEmptyParagraph ?? placeholderState?.showOnEmptyParagraph,
+				});
 
 				// Clear timeouts when hasPlaceholder becomes false
 				if (!newPlaceholderState.hasPlaceholder) {
@@ -159,7 +139,6 @@ export default function createPlugin(
 					typedAndDeleted,
 					contextPlaceholderADF,
 					showOnEmptyParagraph,
-					sourceSyncBlockPlaceholderDecorations,
 				} = getPlaceholderState(editorState);
 
 				// Decorations is still called after plugin is destroyed
@@ -172,11 +151,6 @@ export default function createPlugin(
 				const isShowingDiff = Boolean(
 					api?.showDiff?.sharedState.currentState()?.isDisplayingChanges,
 				);
-
-				const syncBlockPlaceholderDecorations =
-					!compositionPluginState?.isComposing && !isShowingDiff
-						? sourceSyncBlockPlaceholderDecorations
-						: undefined;
 
 				if (
 					hasPlaceholder &&
@@ -202,9 +176,9 @@ export default function createPlugin(
 						initialDelayWhenUserTypedAndDeleted,
 						placeholderAdfToUse,
 						showOnEmptyParagraph,
-					).add(editorState.doc, syncBlockPlaceholderDecorations?.find() ?? []);
+					);
 				}
-				return syncBlockPlaceholderDecorations;
+				return;
 			},
 		},
 

@@ -18,7 +18,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { type Space } from '../xcss/style-maps.partial';
+import { type Space } from '../xcss/positive-space';
 import { type XCSS, xcss } from '../xcss/xcss';
 
 import Flex from './flex';

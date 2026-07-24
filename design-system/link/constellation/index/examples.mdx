@@ -30,11 +30,7 @@ import HtmlAttributes from '../../examples/constellation/link-html-attributes';
 
 The default appearance of a link.
 
-<Example
-	Component={Default}
-	packageName="@atlaskit/link"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={Default} packageName="@atlaskit/link" />
 
 ## Subtle
 
@@ -45,33 +41,20 @@ Ensure the surrounding context makes it clear that the link is interactive, such
 breadcrumbs. Avoid using subtle links in body copy because they're hard to distinguish from the
 surrounding text.
 
-<Example
-	Component={Subtle}
-	packageName="@atlaskit/link"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={Subtle} packageName="@atlaskit/link" />
 
 ## Inverse
 
 Use an inverse link when displaying it on a bold background.
 
-<Example
-	Component={Inverse}
-	packageName="@atlaskit/link"
-	backgroundColor="blue"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={Inverse} packageName="@atlaskit/link" backgroundColor="blue" />
 
 ## Visited
 
 Links that have been visited will display in a different color. This is not supported for inverse
 links due to color contrast limitations.
 
-<Example
-	Component={Visited}
-	packageName="@atlaskit/link"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={Visited} packageName="@atlaskit/link" />
 
 ## Links that open in a new window or tab
 
@@ -82,41 +65,25 @@ Opening links in a new window can be disorienting for people, so only do it when
 information see
 ['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
 
-<Example
-	Component={NewWindow}
-	packageName="@atlaskit/link"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={NewWindow} packageName="@atlaskit/link" />
 
 ## In body text
 
 Links work in body copy, and will wrap onto new lines if necessary.
 
-<Example
-	Component={BodyCopy}
-	packageName="@atlaskit/link"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={BodyCopy} packageName="@atlaskit/link" />
 
 ## Inheriting font styles
 
 Links will inherit font styles of surrounding text.
 
-<Example
-	Component={FontStyleInheritance}
-	packageName="@atlaskit/link"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={FontStyleInheritance} packageName="@atlaskit/link" />
 
 ## HTML attributes
 
 Link passes through all valid HTML attributes to the underlying `<a>` element.
 
-<Example
-	Component={HtmlAttributes}
-	packageName="@atlaskit/link"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={HtmlAttributes} packageName="@atlaskit/link" />
 
 ## Router links
 

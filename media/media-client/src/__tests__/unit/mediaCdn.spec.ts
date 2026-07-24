@@ -1,11 +1,17 @@
 import { mapToMediaCdnUrl, isCDNEnabled } from '../../utils/mediaCdn';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
-import { isGCPtenant } from '@atlaskit/media-common/mediaEnvUtils';
+import { isGoogleCloudPlatform } from '@atlaskit/atlassian-context/cloud-provider';
+import { isGCPtenant as isGCPtenantInStaging } from '@atlaskit/media-common/mediaEnvUtils';
 
 jest.mock('@atlaskit/atlassian-context/is-isolated-cloud', () => ({
 	...jest.requireActual('@atlaskit/atlassian-context/is-isolated-cloud'),
 	isIsolatedCloud: jest.fn(),
+}));
+
+jest.mock('@atlaskit/atlassian-context/cloud-provider', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context/cloud-provider'),
+	isGoogleCloudPlatform: jest.fn(),
 }));
 
 jest.mock('@atlaskit/media-common/mediaEnvUtils', () => ({
@@ -16,7 +22,8 @@ jest.mock('@atlaskit/media-common/mediaEnvUtils', () => ({
 describe('mediaCdn', () => {
 	beforeEach(() => {
 		(isIsolatedCloud as jest.Mock).mockReturnValue(false);
-		(isGCPtenant as jest.Mock).mockReturnValue(false);
+		(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+		(isGCPtenantInStaging as jest.Mock).mockReturnValue(false);
 
 		// Set up commercial environment for isCommercial() to return true
 		global.MICROS_PERIMETER = 'commercial';
@@ -141,12 +148,48 @@ describe('mediaCdn', () => {
 					});
 
 					it('should return false for isCDNEnabled when GCP tenant', () => {
-						(isGCPtenant as jest.Mock).mockReturnValue(true);
+						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
 						expect(isCDNEnabled()).toBe(false);
 					});
 
 					it('should not map to cdn url when GCP tenant', () => {
-						(isGCPtenant as jest.Mock).mockReturnValue(true);
+						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
+
+						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+					});
+
+					// Additional test cases explicitly covering GCP cookie/SSR scenarios
+					// Note: SSR (globalThis.ssrContext?.isInGCP) and raw cookie parsing behavior
+					// are unit-tested directly in the helper's own test suite at
+					// @atlaskit/atlassian-context/cloud-provider. This spec verifies that
+					// mediaCdn.ts correctly consumes the helper's boolean result.
+
+					it('should disable CDN when GCP cookie scenario (isGoogleCloudPlatform returns true)', () => {
+						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
+						expect(isCDNEnabled()).toBe(false);
+					});
+
+					it('should enable CDN when AWS cookie / non-GCP scenario (isGoogleCloudPlatform returns false)', () => {
+						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+						// When isGoogleCloudPlatform is false (AWS or unknown), CDN should be enabled
+						// (assuming other conditions like isCommercial, isIsolatedCloud, and feature flags are met)
+						expect(isCDNEnabled()).toBe(true);
+					});
+
+					// Staging GCP tenants do not have a reliable value for the
+					// Bifrost-Atl-Ctx-Cloud-Service-Provider cookie, so isGoogleCloudPlatform()
+					// returns false. We fall back to the staging hostname pattern via
+					// isGCPtenantInStaging() and combine the two checks with `||`.
+					it('should return false for isCDNEnabled when GCP staging tenant (cookie missing but hostname matches)', () => {
+						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+						(isGCPtenantInStaging as jest.Mock).mockReturnValue(true);
+						expect(isCDNEnabled()).toBe(false);
+					});
+
+					it('should not map to cdn url when GCP staging tenant (cookie missing but hostname matches)', () => {
+						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+						(isGCPtenantInStaging as jest.Mock).mockReturnValue(true);
 
 						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
 						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);

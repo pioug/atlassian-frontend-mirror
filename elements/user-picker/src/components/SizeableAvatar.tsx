@@ -1,5 +1,5 @@
 import Avatar, { type AvatarPropTypes, type AppearanceType } from '@atlaskit/avatar';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import React from 'react';
 import { getAvatarSize } from './utils';
 

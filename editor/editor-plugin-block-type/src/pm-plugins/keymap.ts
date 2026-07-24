@@ -4,6 +4,7 @@ import {
 	backspace,
 	bindKeymapWithCommand,
 	deleteKey,
+	enter,
 	findKeyMapForBrowser,
 	findShortcutByKeymap,
 	forwardDelete,
@@ -26,6 +27,7 @@ import {
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { redo, undo } from '@atlaskit/prosemirror-history';
+import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
@@ -33,6 +35,7 @@ import * as blockTypes from './block-types';
 import { cleanUpAtTheStartOfDocument, insertBlockQuoteWithAnalytics } from './commands/block-type';
 import { deleteAndMoveCursor } from './commands/delete-and-move-cursor';
 import { deleteBlockContent } from './commands/delete-block-content';
+import { splitHeadingWithTrailingSpace } from './commands/split-heading-with-trailing-space';
 import { isNodeAWrappingBlockNode } from './utils';
 
 const backspaceCommand = chainCommands(
@@ -61,6 +64,14 @@ export default function keymapPlugin(
 		insertNewLineWithAnalytics(editorAnalyticsApi),
 		list,
 	);
+
+	// Fixes the "Enter after a heading with trailing whitespace creates another
+	// heading instead of a paragraph" bug. The command is a no-op (returns false)
+	// in every case except that exact scenario, so other Enter handlers are
+	// unaffected.
+	if (expValEquals('platform_editor_fix_new_line_after_heading', 'isEnabled', true)) {
+		bindKeymapWithCommand(enter.common ?? 'Enter', splitHeadingWithTrailingSpace, list);
+	}
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveUp.common!, createNewParagraphAbove, list);

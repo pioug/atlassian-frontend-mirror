@@ -127,7 +127,7 @@ import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { EditorConfig } from '../../../types/editor-config';
 import { getEditorDomSize } from '../../../utils/getEditorDomSize';
@@ -333,51 +333,49 @@ describe('@atlaskit/editor-core', () => {
 				'platform_editor_no_cursor_on_edit_page_init is ON',
 			)
 			.variant(true, () => {
-				ffTest.on('cc_editor_focus_before_editor_on_load', '', () => {
-					it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
-						const document = doc(p('hello'))(defaultSchema);
-						const result = renderWithIntl(
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							<ReactEditorView
-								{...{
-									...requiredProps(),
-									editorProps: {
-										appearance: 'full-page',
-										shouldFocus: true,
-										defaultValue: toJSON(document),
-									},
-								}}
-							/>,
-						);
-						expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
+				it('should focus on react-editor-view-inital-focus-element on initial load, then single tab should focus the main content area', async () => {
+					passGate('cc_editor_focus_before_editor_on_load');
+					const document = doc(p('hello'))(defaultSchema);
+					const result = renderWithIntl(
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						<ReactEditorView
+							{...{
+								...requiredProps(),
+								editorProps: {
+									appearance: 'full-page',
+									shouldFocus: true,
+									defaultValue: toJSON(document),
+								},
+							}}
+						/>,
+					);
+					expect(result.getByTestId('react-editor-view-inital-focus-element')).toHaveFocus();
 
-						await userEvent.tab();
-						expect(
-							result.getByLabelText('Page editing area, start typing to enter text.'),
-						).toHaveFocus();
-					});
+					await userEvent.tab();
+					expect(
+						result.getByLabelText('Page editing area, start typing to enter text.'),
+					).toHaveFocus();
 				});
 
-				ffTest.off('cc_editor_focus_before_editor_on_load', '', () => {
-					it('react-editor-view-inital-focus-element should not be in the document', () => {
-						const document = doc(p('hello'))(defaultSchema);
-						const result = renderWithIntl(
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							<ReactEditorView
-								{...{
-									...requiredProps(),
-									editorProps: {
-										appearance: 'full-page',
-										shouldFocus: true,
-										defaultValue: toJSON(document),
-									},
-								}}
-							/>,
-						);
-						expect(
-							result.queryByTestId('react-editor-view-inital-focus-element'),
-						).not.toBeInTheDocument();
-					});
+				it('react-editor-view-inital-focus-element should not be in the document when cc_editor_focus_before_editor_on_load is disabled', () => {
+					failGate('cc_editor_focus_before_editor_on_load');
+					const document = doc(p('hello'))(defaultSchema);
+					const result = renderWithIntl(
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						<ReactEditorView
+							{...{
+								...requiredProps(),
+								editorProps: {
+									appearance: 'full-page',
+									shouldFocus: true,
+									defaultValue: toJSON(document),
+								},
+							}}
+						/>,
+					);
+					expect(
+						result.queryByTestId('react-editor-view-inital-focus-element'),
+					).not.toBeInTheDocument();
 				});
 			});
 

@@ -1,5 +1,12 @@
 # @atlaskit/native-embeds-common
 
+## 2.2.5
+
+### Patch Changes
+
+- [`98f123ee15575`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/98f123ee15575) -
+  [ux] Align native embed placeholders in edit mode on first paint
+
 ## 2.2.4
 
 ### Patch Changes

@@ -173,6 +173,23 @@ describe('<EmojiPicker />', () => {
 			initializeCompletedSpy.mockRestore();
 		}
 	};
+	const withInitialFocusFix = async (test: () => Promise<void>) => {
+		const initializeCompletedSpy = jest
+			.spyOn(FeatureGates, 'initializeCompleted')
+			.mockReturnValue(true);
+		const getExperimentValueSpy = jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((experimentName, _parameterName, defaultValue) =>
+				experimentName === 'tef_fix_a11y_keyboard_control_emoji_picker' ? true : defaultValue,
+			);
+
+		try {
+			await test();
+		} finally {
+			getExperimentValueSpy.mockRestore();
+			initializeCompletedSpy.mockRestore();
+		}
+	};
 
 	describe('analytics for component lifecycle', () => {
 		it('should fire analytics when component unmounts', async () => {
@@ -1093,6 +1110,45 @@ describe('<EmojiPicker />', () => {
 	});
 
 	describe('Accessibility', () => {
+		it('focuses the selected People category instead of search when the fix is enabled', async () => {
+			await withInitialFocusFix(async () => {
+				await helper.setupPicker();
+				const peopleCategory = await screen.findByRole('tab', {
+					name: messages.peopleCategory.defaultMessage,
+				});
+
+				await waitFor(() => {
+					expect(peopleCategory).toHaveFocus();
+					expect(helperTestingLibrary.getEmojiSearchInput()).not.toHaveFocus();
+				});
+			});
+		});
+
+		it('preserves search autofocus when the fix is disabled', async () => {
+			const initializeCompletedSpy = jest
+				.spyOn(FeatureGates, 'initializeCompleted')
+				.mockReturnValue(true);
+			const getExperimentValueSpy = jest
+				.spyOn(FeatureGates, 'getExperimentValue')
+				.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
+			const requestAnimationFrameSpy = jest
+				.spyOn(window, 'requestAnimationFrame')
+				.mockImplementation((callback) => {
+					callback(0);
+					return 0;
+				});
+
+			try {
+				await helper.setupPicker();
+
+				expect(helperTestingLibrary.getEmojiSearchInput()).toHaveFocus();
+			} finally {
+				requestAnimationFrameSpy.mockRestore();
+				getExperimentValueSpy.mockRestore();
+				initializeCompletedSpy.mockRestore();
+			}
+		});
+
 		it('should have no accessibility violations', async () => {
 			const { container } = await helper.setupPicker();
 			const list = getUpdatedList();

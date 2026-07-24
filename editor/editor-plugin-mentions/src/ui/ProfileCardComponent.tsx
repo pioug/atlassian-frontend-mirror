@@ -168,7 +168,9 @@ export function ProfileCardComponent({
 					accountId={id}
 					provider={provider}
 					text={
-						expVal('platform_editor_reduced_profile_cards', 'isEnabled', false) ? text : undefined
+						expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
+							? text
+							: undefined
 					}
 					onChatClick={
 						onAgentMentionChatClick && fg('platform_editor_agent_mentions_drop_one_fixes')
@@ -251,7 +253,7 @@ const AgentProfileCardContent = ({
 	text?: MentionAttributes['text'];
 }): JSX.Element => {
 	const agentName = (text ?? '').replace(LEADING_AT_SIGN_RE, '');
-	return expVal('platform_editor_reduced_profile_cards', 'isEnabled', false) ? (
+	return expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false) ? (
 		<AgentProfileCardResourcedLazy
 			accountId={accountId}
 			cloudId={provider.cloudId}

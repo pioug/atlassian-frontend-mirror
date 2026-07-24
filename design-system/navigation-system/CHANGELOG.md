@@ -1,5 +1,52 @@
 # @atlassian/navigation-system
 
+## 10.8.0
+
+### Minor Changes
+
+- [`5dd6269af3c70`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd6269af3c70) -
+  Add an opt-in `maxWidth` to the `Panel` layout slot and preview panel `Panel` config, letting a
+  single consumer request a wider resize bound (e.g. `70vw`) than the default cap of half the
+  viewport width. Defaults are unchanged, so all existing consumers remain capped at the default.
+
+  **`@atlaskit/navigation-system`** — the `Panel` layout slot accepts a `maxWidth` (`vw`/`px`),
+  applied to both the rendered width and the resize bounds (mouse and keyboard):
+
+  ```tsx
+  import { Panel } from '@atlaskit/navigation-system/layout/panel';
+
+  <Panel defaultWidth={600} maxWidth="70vw">
+  	{/* ...panel content... */}
+  </Panel>;
+  ```
+
+  **`@atlassian/preview-panels-api`** — the opened panel config takes the same `maxWidth`:
+
+  ```tsx
+  import { usePreviewPanelsActions } from '@atlassian/preview-panels-api';
+
+  const { open } = usePreviewPanelsActions();
+
+  open({
+  	panel: {
+  		id: 'issue-123',
+  		type: 'issue',
+  		product: 'jira',
+  		content: () => <IssuePreview />,
+  		maxWidth: '70vw',
+  	},
+  });
+  ```
+
+  **`@atlassian/preview-panel-global-objects`** — `useGlobalObjectPreviewPanels` accepts a
+  `maxWidth` option that it forwards onto the panel it opens, so global-object preview panels
+  (Confluence page, goals, teams, CMDB object, etc.) share the same wider bound. Omitting it keeps
+  the default cap:
+
+  ```tsx
+  const previewPanels = useGlobalObjectPreviewPanels('jira', cloudId, { maxWidth: '70vw' });
+  ```
+
 ## 10.7.1
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import React from 'react';
 import { render as rtlRender, screen } from '@testing-library/react';
 
 import Avatar from '@atlaskit/avatar';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 
 import { AvatarTag } from '../../../tag-new';
 

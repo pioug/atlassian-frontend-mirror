@@ -1,6 +1,6 @@
 import React from 'react';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
-import { WidthContext } from '@atlaskit/editor-common/ui';
+import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
 import '@atlaskit/link-test-helpers/jest';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer';
@@ -10,7 +10,7 @@ import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/l
 import { Card } from '@atlaskit/smart-card';
 import { render } from '@testing-library/react';
 
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmbedCard from '../../../../react/nodes/embedCard';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
@@ -161,6 +161,145 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
 		runScenarios(1000, { 'full-width': '904px', wide: '904px' });
 		runScenarios(600, { 'full-width': '504px', wide: '600px' }, true);
 		runScenarios(200, { 'full-width': '104px', wide: '200px' }, true);
+
+		describe('height-only embed collapse repro (EDSD-2436)', () => {
+			const mediaWrapperSelector = '.mediaSingleView-content-wrap > div';
+			const originalHeight = 480;
+
+			// Live scenario: NCE Confluence embed provides an absolute height (data-card-original-height="480")
+			// but NO originalWidth. data-width is 100 (percentage). We reproduce across document widths.
+			// The height-only path is gate-independent (it never reaches the fallback gate check).
+			it('a height-only embed (no originalWidth) emits an explicit height spacer', () => {
+				const { baseElement } = render(
+					<Provider client={new Client('staging')}>
+						<WidthContext.Provider value={{ width: 680, breakpoint: 'S' }}>
+							<EmbedCard layout="center" url={url} originalHeight={originalHeight} />
+						</WidthContext.Provider>
+					</Provider>,
+				);
+
+				const wrapper = baseElement.querySelector(mediaWrapperSelector);
+				// Height-only mode must produce an explicit height (independent of parent width),
+				// otherwise the embed collapses to 0.
+				expect(wrapper).toHaveStyleDeclaration('height', `${originalHeight}px`, {
+					target: '::after',
+				});
+				// And it must NOT use a padding-bottom ratio (which collapses when width resolves to 0).
+				expect(wrapper).not.toHaveStyleDeclaration('padding-bottom', expect.anything(), {
+					target: '::after',
+				});
+			});
+
+			it.each([2000, 1000, 680, 200, 0])(
+				'height-only embed keeps an explicit height spacer at document width %d',
+				(documentWidth) => {
+					const { baseElement } = render(
+						<Provider client={new Client('staging')}>
+							<WidthContext.Provider value={{ width: documentWidth, breakpoint: 'S' }}>
+								<EmbedCard layout="center" url={url} originalHeight={originalHeight} />
+							</WidthContext.Provider>
+						</Provider>,
+					);
+
+					expect(baseElement.querySelector(mediaWrapperSelector)).toHaveStyleDeclaration(
+						'height',
+						`${originalHeight}px`,
+						{ target: '::after' },
+					);
+				},
+			);
+
+			// The live broken DOM showed data-width-type="percentage" (ratio path), so the embed
+			// had BOTH width and height. Reproduce that path and inspect the emitted padding-bottom.
+			it.each([2000, 1000, 680, 200, 0])(
+				'ratio-path embed (finite width+height) never emits NaN padding-bottom at document width %d',
+				(documentWidth) => {
+					const { baseElement } = render(
+						<Provider client={new Client('staging')}>
+							<WidthContext.Provider value={{ width: documentWidth, breakpoint: 'S' }}>
+								<EmbedCard
+									layout="center"
+									url={url}
+									originalHeight={originalHeight}
+									originalWidth={640}
+								/>
+							</WidthContext.Provider>
+						</Provider>,
+					);
+
+					const wrapper = baseElement.querySelector(mediaWrapperSelector);
+					// The ratio path must never emit a NaN padding-bottom (which collapses the box).
+					// calc(NaN% + 32px) would be the live-bug signature.
+					expect(wrapper).not.toHaveStyleDeclaration('padding-bottom', 'calc(NaN% + 32px)', {
+						target: '::after',
+					});
+					expect(wrapper).not.toHaveStyleDeclaration('padding-bottom', 'calc(NaN% + 32px)');
+				},
+			);
+
+			// Direct MediaSingle repro: ratio path with a zero/non-finite lineLength (editorWidth)
+			// is what collapses the box in the live bug. getMediaSinglePixelWidth(100, 0) -> 0,
+			// then (height/width)*0 -> 0, then (0/0)*100 -> NaN -> calc(NaN% + 32px).
+			const msSelector = '.mediaSingleView-content-wrap > div';
+
+			it.each([0, undefined, NaN])(
+				'gate OFF: MediaSingle ratio path with lineLength=%p emits NaN padding-bottom (reproduces the collapse)',
+				(lineLength) => {
+					failGate('platform_editor_embed_height_only_fallback');
+					const { baseElement } = render(
+						<UIMediaSingle
+							layout="center"
+							width={640}
+							height={480}
+							pctWidth={100}
+							nodeType="embedCard"
+							lineLength={lineLength as unknown as number}
+							hasFallbackContainer
+						>
+							<div />
+						</UIMediaSingle>,
+					);
+
+					// Bug signature: an invalid calc(NaN% + 32px) padding-bottom that the browser drops,
+					// collapsing the embed to 0 height.
+					expect(baseElement.querySelector(msSelector)).toHaveStyleDeclaration(
+						'padding-bottom',
+						'calc(NaN% + 32px)',
+						{
+							target: '::after',
+						},
+					);
+				},
+			);
+
+			it.each([0, undefined, NaN])(
+				'gate ON: MediaSingle ratio path with lineLength=%p falls back to explicit height (fix)',
+				(lineLength) => {
+					passGate('platform_editor_embed_height_only_fallback');
+					const { baseElement } = render(
+						<UIMediaSingle
+							layout="center"
+							width={640}
+							height={480}
+							pctWidth={100}
+							nodeType="embedCard"
+							lineLength={lineLength as unknown as number}
+							hasFallbackContainer
+						>
+							<div />
+						</UIMediaSingle>,
+					);
+
+					const wrapper = baseElement.querySelector(msSelector);
+					// Fix: falls back to the absolute height (+32px embed header, matching the ratio
+					// path's `calc(... + 32px)`), no NaN padding-bottom.
+					expect(wrapper).toHaveStyleDeclaration('height', '512px', { target: '::after' });
+					expect(wrapper).not.toHaveStyleDeclaration('padding-bottom', 'calc(NaN% + 32px)', {
+						target: '::after',
+					});
+				},
+			);
+		});
 
 		describe('with ssr', () => {
 			const mountEmbedCardSSR = (rendererAppearance: RendererAppearance = 'full-width') =>

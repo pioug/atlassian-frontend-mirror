@@ -11,7 +11,7 @@ import Heading from '@atlaskit/heading';
 import TagIcon from '@atlaskit/icon/core/tag';
 import Tag, { AvatarTag, type TagColor } from '@atlaskit/tag';
 import TagNew, { type NewTagColor } from '@atlaskit/tag/new';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
 const colors: TagColor[] = [

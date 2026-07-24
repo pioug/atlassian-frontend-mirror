@@ -242,7 +242,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 				if (
 					response.status === 403 &&
 					FeatureGates.getExperimentValue(
-						'platform_editor_reduced_profile_cards',
+						'platform_editor_reduced_agent_profile_cards',
 						'isEnabled',
 						false,
 					)
@@ -263,7 +263,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgentCardClie
 				if (
 					response.status === 403 &&
 					FeatureGates.getExperimentValue(
-						'platform_editor_reduced_profile_cards',
+						'platform_editor_reduced_agent_profile_cards',
 						'isEnabled',
 						false,
 					)

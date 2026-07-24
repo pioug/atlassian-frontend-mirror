@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 18.2.4
+
+### Patch Changes
+
+- [`6ee8cd1f53196`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ee8cd1f53196) -
+  Fix action padding for normal and bold flag appearances.
+
 ## 18.2.3
 
 ### Patch Changes

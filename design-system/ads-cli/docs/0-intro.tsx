@@ -21,8 +21,10 @@ const intro: React.ReactElement = md`
 
 	## Commands
 
-	- \`search <query...>\` — **unified** fuzzy-search across components, tokens, and icons at once,
-	  grouped by kind. Narrow with \`--type component|token|icon\`; limit with \`--limit N\`.
+		- \`search <query...>\` — **unified** fuzzy-search across components, tokens, icons, and
+		  foundations docs at once, grouped by kind. Search results include a command for opening the
+		  full detail. Narrow results with \`--type component|token|icon|docs\`; limit with
+		  \`--limit N\`.
 	- \`component <name>\` — detail for a single component; an exact name shows detail, an ambiguous
 	  name shows a "did you mean?" list (\`--all\` lists every component).
 	- \`token <name>\` — detail for a single token, same exact-vs-ambiguous behaviour (\`--all\` lists
@@ -49,11 +51,12 @@ const intro: React.ReactElement = md`
 	## Examples
 
 	\`\`\`sh
-	# Unified human-readable search — components, tokens, and icons grouped together
-	npx @atlaskit/ads-cli search button
+	# Unified human-readable search — components, tokens, icons, and docs grouped together
+	npx @atlaskit/ads-cli search contrast
 
-	# Narrow to a single kind
-	npx @atlaskit/ads-cli search space color --type token
+		# Narrow to a single kind
+		npx @atlaskit/ads-cli search space color --type token
+		npx @atlaskit/ads-cli search contrast --type docs
 
 	# Detail for a single component, token, or icon
 	npx @atlaskit/ads-cli component Avatar

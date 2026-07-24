@@ -1,10 +1,26 @@
-import { mapBackgroundColors } from './mapBackgroundColors';
+import { tableBackgroundColorNames } from '@atlaskit/adf-schema/tableNodes';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/background';
+
+const tableCellBackgroundColorVariablePrefix = '--ak-editor-table-cell-background';
+
+const getTableCellBackgroundColorVariableName = (colorName: string) =>
+	`${tableCellBackgroundColorVariablePrefix}-${colorName.replace(/\s+/gu, '-')}`;
 
 /**
- * Pre-built CSS string with `background-color` rules for every named table cell
- * color (e.g. `td[colorname='red' i]`, `th[colorname='red' i]`).
+ * CSS custom properties for every named table cell background color.
  *
- * Intended for Compiled CSS consumers — render inside a `<style>` tag, since
- * these rules are dynamically derived and cannot be expressed in a `cssMap`.
+ * Compiled consumers can use these with static cssMap/cssMapScoped selectors to
+ * avoid rendering a runtime <style> tag while still deriving the themed palette
+ * value from tableBackgroundColorNames + hexToEditorBackgroundPaletteColor.
  */
-export const tableCellBackgroundStyleOverrideForCompiled: string = mapBackgroundColors();
+export const tableCellBackgroundColorVariablesForCompiled: Record<string, string> = Array.from(
+	tableBackgroundColorNames.entries(),
+).reduce<Record<string, string>>((acc, [colorName, hexColor]) => {
+	const paletteColorValue = hexToEditorBackgroundPaletteColor(hexColor);
+
+	if (paletteColorValue) {
+		acc[getTableCellBackgroundColorVariableName(colorName)] = paletteColorValue;
+	}
+
+	return acc;
+}, {});

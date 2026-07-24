@@ -25,11 +25,7 @@ import IconButtonLoading from '../../examples/constellation/new-button/icon-butt
 The default icon button, used for most cases. They aren't impactful enough to represent a primary
 action.
 
-<Example
-	Component={IconButtonDefault}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonDefault} packageName="@atlaskit/button" />
 
 ## Tooltips
 
@@ -41,22 +37,14 @@ action.
 Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` will be used for the
 tooltip content.
 
-<Example
-	Component={IconButtonTooltip}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonTooltip} packageName="@atlaskit/button" />
 
 ### Overriding tooltip props
 
 Use the `tooltip` prop to override the default tooltip props. It accepts all
 [tooptip props](/components/tooltip/code), excluding `children`.
 
-<Example
-	Component={IconButtonTooltipOptions}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonTooltipOptions} packageName="@atlaskit/button" />
 
 ## Appearance
 
@@ -66,42 +54,26 @@ A primary button calls attention to the most important action on a page or in an
 buttons aren't common because critical actions should typically use
 [a button with a label for clarity](/components/button).
 
-<Example
-	Component={IconButtonPrimary}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonPrimary} packageName="@atlaskit/button" />
 
 ### Subtle
 
 Use a `subtle` icon button for secondary actions.
 
-<Example
-	Component={IconButtonSubtle}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonSubtle} packageName="@atlaskit/button" />
 
 ### Rovo
 
 Use the `rovo` icon button for primary Rovo actions such as "send" in Prompt boxes.
 
-<Example
-	Component={IconButtonRovo}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonRovo} packageName="@atlaskit/button" />
 
 ## Spacing
 
 Icon button spacing depends on the surrounding UI. Default spacing is used for most use cases and
 `compact` for tables or smaller spaces.
 
-<Example
-	Component={IconButtonSpacing}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonSpacing} packageName="@atlaskit/button" />
 
 ## Shape
 
@@ -110,21 +82,13 @@ Icon button spacing depends on the surrounding UI. Default spacing is used for m
 Only use circle icon buttons in the top navigation or other areas that already have circular
 buttons.
 
-<Example
-	Component={IconButtonCircle}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonCircle} packageName="@atlaskit/button" />
 
 ## Overriding icon props
 
 Use the `icon` render prop to override the default icon props.
 
-<Example
-	Component={IconButtonIconOverrides}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonIconOverrides} packageName="@atlaskit/button" />
 
 ## States
 
@@ -136,29 +100,17 @@ faded and won't respond to user interaction.
 Avoid disabling buttons because this can cause accessibility problems, and
 [never put a tooltip on a disabled button](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
 
-<Example
-	Component={IconButtonDisabled}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonDisabled} packageName="@atlaskit/button" />
 
 ### Selected
 
 Set `isSelected` to indicate the button is selected.
 
-<Example
-	Component={IconButtonSelected}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonSelected} packageName="@atlaskit/button" />
 
 ### Loading
 
 When a button is still loading and not actionable, a loading spinner can be displayed in place of
 the icon. This also disables the button and blocks user interaction.
 
-<Example
-	Component={IconButtonLoading}
-	packageName="@atlaskit/button"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={IconButtonLoading} packageName="@atlaskit/button" />

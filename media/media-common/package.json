@@ -33,6 +33,7 @@
 		"./isValidUuid": "./src/utils/isValidUuid.ts",
 		"./jestHelpers": "./src/test-helpers/jestHelpers.ts",
 		"./media-use-only": "./src/docs/media-use-only.tsx",
+		"./mediaEnvUtils": "./src/utils/mediaEnvUtils.ts",
 		"./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
 		"./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
 		"./nextTick": "./src/test-helpers/nextTick.ts",
@@ -52,7 +53,6 @@
 		"./wideImageURI": "./src/test-helpers/dataURIs/wideImageURI.ts",
 		"./wideTransparentImageURI": "./src/test-helpers/dataURIs/wideTransparentImageURI.ts",
 		"./withMediaAnalyticsContext": "./src/analytics/withMediaAnalyticsContext.tsx",
-		"./mediaEnvUtils": "./src/utils/mediaEnvUtils.ts",
 		"./main-types": "./src/main-types.ts"
 	},
 	"atlassian": {

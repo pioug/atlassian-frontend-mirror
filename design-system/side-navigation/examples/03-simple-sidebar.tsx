@@ -48,9 +48,8 @@ const BasicExample = (): React.JSX.Element => {
 						>
 							It can contain buttons
 						</ButtonItem>
-						{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 						<LinkItem
-							href="#"
+							href="/"
 							iconBefore={
 								<Flex xcss={iconSpacingStyles.space050}>
 									<LinkIcon label="" />

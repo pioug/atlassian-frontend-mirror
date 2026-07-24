@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar, { getAppearanceForAppType } from '@atlaskit/avatar';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { isAppMention, isTeamMention, type MentionDescription, type Presence } from '../../types';

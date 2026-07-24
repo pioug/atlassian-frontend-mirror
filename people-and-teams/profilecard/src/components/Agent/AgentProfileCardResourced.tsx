@@ -166,7 +166,11 @@ export const AgentProfileCardResourced = (
 		} catch (err: any) {
 			if (
 				err instanceof AgentForbiddenError &&
-				FeatureGates.getExperimentValue('platform_editor_reduced_profile_cards', 'isEnabled', false)
+				FeatureGates.getExperimentValue(
+					'platform_editor_reduced_agent_profile_cards',
+					'isEnabled',
+					false,
+				)
 			) {
 				setIsPermitted(false);
 			} else {
@@ -229,7 +233,11 @@ export const AgentProfileCardResourced = (
 
 	if (
 		!isPermitted &&
-		FeatureGates.getExperimentValue('platform_editor_reduced_profile_cards', 'isEnabled', false)
+		FeatureGates.getExperimentValue(
+			'platform_editor_reduced_agent_profile_cards',
+			'isEnabled',
+			false,
+		)
 	) {
 		return (
 			<AgentProfileCardWrapper>

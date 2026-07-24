@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-layout
 
+## 13.3.22
+
+### Patch Changes
+
+- [`b90bdc71cdf99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b90bdc71cdf99) -
+  Fix layout column delete shortcut deleting the whole column when the caret is a text selection
+  inside a column (e.g. a table nested in a layout), gated behind
+  platform_editor_layout_column_delete_shortcut_fix.
+
+  Adds a new experiment key `platform_editor_layout_column_delete_shortcut_fix` to
+  `@atlaskit/tmp-editor-statsig`. Usage:
+
+  ```ts
+  import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+
+  if (expValEquals('platform_editor_layout_column_delete_shortcut_fix', 'isEnabled', true)) {
+  	// new behaviour: preserve the column when the caret is a text selection inside it
+  }
+  ```
+
+- Updated dependencies
+
+## 13.3.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.20
 
 ### Patch Changes

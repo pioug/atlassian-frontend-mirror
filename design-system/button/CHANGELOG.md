@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 24.3.7
+
+### Patch Changes
+
+- [`2f0267b89e66f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f0267b89e66f) -
+  [ux] Removed references to 'platform-visual-refresh-icons' feature flag
+
 ## 24.3.6
 
 ### Patch Changes

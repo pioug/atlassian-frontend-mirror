@@ -293,3 +293,5 @@ export type BackgroundColorToken =
 	| 'elevation.surface.raised.pressed'
 	| 'elevation.surface.sunken'
 	| 'utility.elevation.surface.current';
+
+export type BackgroundColor = BackgroundColorToken;

@@ -59,14 +59,12 @@ class AsyncCreatableExample extends Component<{}, State> {
 		return (
 			<>
 				<Label htmlFor="async-creatable-example">Which city do you live in?</Label>
-				{/* eslint-disable-next-line @atlaskit/design-system/no-placeholder */}
 				<AsyncCreatable
 					testId="react-select"
 					inputId="async-creatable-example"
 					loadOptions={this.loadOptions}
 					allowCreateWhileLoading={allowCreateWhileLoading}
 					onCreateOption={this.handleCreateOption}
-					placeholder=""
 				/>
 				<Checkbox
 					value="allowCreateWhileLoading"

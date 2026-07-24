@@ -1,12 +1,3 @@
-import { createContext, type Provider, useContext } from 'react';
+import { createContext } from 'react';
 
-const HasTextAncestorContext = createContext(false);
-/**
- * @internal
- */
-export const useHasTextAncestor = (): boolean => useContext(HasTextAncestorContext);
-/**
- * @internal
- */
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
-export const HasTextAncestorProvider: Provider<boolean> = HasTextAncestorContext.Provider;
+export const HasTextAncestorContext: React.Context<boolean> = createContext(false);

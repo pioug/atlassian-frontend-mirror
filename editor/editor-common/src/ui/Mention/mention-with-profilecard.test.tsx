@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, screen } from '@atlassian/testing-library';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
@@ -66,49 +66,39 @@ const profilecardProvider = {
 } as unknown as ProfilecardProvider;
 
 describe('MentionWithProfileCard agent mentions', () => {
-	ffTest.on(
-		'rovo_chat_agent_selection',
-		'an APP mention opens the agent profile card on click',
-		() => {
-			it('renders AgentProfileCardTrigger with the agent id, cloud id and click trigger', async () => {
-				render(
-					<MentionWithProfileCard
-						id={AGENT_ID}
-						text="@Vestie"
-						userType="APP"
-						profilecardProvider={profilecardProvider}
-					/>,
-				);
+	it('renders AgentProfileCardTrigger with the agent id, cloud id and click trigger when rovo_chat_agent_selection is enabled', async () => {
+		passGate('rovo_chat_agent_selection');
+		render(
+			<MentionWithProfileCard
+				id={AGENT_ID}
+				text="@Vestie"
+				userType="APP"
+				profilecardProvider={profilecardProvider}
+			/>,
+		);
 
-				// Lazy-loaded via react-loadable, so await the chunk resolving.
-				const trigger = await screen.findByTestId('agent-profile-card-trigger');
-				expect(trigger).toHaveAttribute('data-agent-id', AGENT_ID);
-				expect(trigger).toHaveAttribute('data-cloud-id', CLOUD_ID);
-				expect(trigger).toHaveAttribute('data-trigger', 'click');
-				expect(screen.queryByTestId('user-profile-card-trigger')).not.toBeInTheDocument();
-			});
-		},
-	);
+		// Lazy-loaded via react-loadable, so await the chunk resolving.
+		const trigger = await screen.findByTestId('agent-profile-card-trigger');
+		expect(trigger).toHaveAttribute('data-agent-id', AGENT_ID);
+		expect(trigger).toHaveAttribute('data-cloud-id', CLOUD_ID);
+		expect(trigger).toHaveAttribute('data-trigger', 'click');
+		expect(screen.queryByTestId('user-profile-card-trigger')).not.toBeInTheDocument();
+	});
 
-	ffTest.off(
-		'rovo_chat_agent_selection',
-		'an APP mention falls back to the person profile card',
-		() => {
-			it('renders the user ProfileCardTrigger, not the agent one', () => {
-				render(
-					<MentionWithProfileCard
-						id={AGENT_ID}
-						text="@Vestie"
-						userType="APP"
-						profilecardProvider={profilecardProvider}
-					/>,
-				);
+	it('renders the user ProfileCardTrigger, not the agent one when rovo_chat_agent_selection is disabled', () => {
+		failGate('rovo_chat_agent_selection');
+		render(
+			<MentionWithProfileCard
+				id={AGENT_ID}
+				text="@Vestie"
+				userType="APP"
+				profilecardProvider={profilecardProvider}
+			/>,
+		);
 
-				expect(screen.queryByTestId('agent-profile-card-trigger')).not.toBeInTheDocument();
-				expect(screen.getByTestId('user-profile-card-trigger')).toBeInTheDocument();
-			});
-		},
-	);
+		expect(screen.queryByTestId('agent-profile-card-trigger')).not.toBeInTheDocument();
+		expect(screen.getByTestId('user-profile-card-trigger')).toBeInTheDocument();
+	});
 
 	it('renders the person profile card for a non-APP mention', async () => {
 		const { container } = render(

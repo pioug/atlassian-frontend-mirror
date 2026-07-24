@@ -18,6 +18,7 @@ import { runTool } from './commands/run-tool';
 import type { CommandDefinition, CommandInput } from './commands/types';
 import { createErrorEnvelope } from './envelope/create-error-envelope';
 import { createSuccessEnvelope } from './envelope/create-success-envelope';
+import { createDocSearchResults } from './output/create-doc-search-results';
 import { formatGroupedResults } from './output/format-grouped-results';
 import { formatCompactResults } from './output/format-results';
 import { writeHumanError } from './output/write-human-error';
@@ -70,8 +71,9 @@ const buildHelpText = (): string => {
 		globalFlagLines,
 		'',
 		'Examples',
-		'  $ npx @atlaskit/ads-cli search button          # unified: components, tokens & icons',
+		'  $ npx @atlaskit/ads-cli search contrast        # unified: components, tokens, icons & docs',
 		'  $ npx @atlaskit/ads-cli search button --type component',
+		'  $ npx @atlaskit/ads-cli search contrast --type docs',
 		'  $ npx @atlaskit/ads-cli component Button        # detail for one component',
 		'  $ npx @atlaskit/ads-cli token space.100         # detail for one token',
 		'  $ npx @atlaskit/ads-cli icon --all              # list every icon',
@@ -240,7 +242,13 @@ const renderSingleResult = ({
 	//   3. The generic fallback: verbatim strings (e.g. foundations markdown) or pretty JSON.
 	// Each step returns `null` to defer to the next, so a raw JSON dump is only ever a last resort.
 	const resultKind = command.resultKind?.(input);
-	const compact = resultKind ? formatCompactResults({ kind: resultKind, data }) : null;
+	const compact = resultKind
+		? formatCompactResults({
+				kind: resultKind,
+				data,
+				showFollowUp: command.name === 'search',
+			})
+		: null;
 	const human = compact ?? command.formatHuman?.(data) ?? null;
 
 	if (human !== null) {
@@ -274,16 +282,24 @@ const renderGroupedResult = ({
 	writer: Writer;
 }): ExitCodeValue => {
 	// Assemble `{ [key]: results }`, coercing "no matches" sub-results to empty arrays so one
-	// empty domain does not blank out the others.
+	// empty domain does not blank out the others. The guidelines tool returns full Markdown, so
+	// summarize its highest-ranked match for search; `docs <query>` remains the detail view.
 	const grouped: Record<string, unknown[]> = {};
 	for (const { key, data, isError } of results) {
-		grouped[key] = isError || !Array.isArray(data) ? [] : data;
+		if (key === 'docs' && !isError && typeof data === 'string' && data.trim() !== '') {
+			grouped[key] = createDocSearchResults({
+				data,
+				query: input.positionals.join(' '),
+			});
+		} else {
+			grouped[key] = isError || !Array.isArray(data) ? [] : data;
+		}
 	}
 
 	const totalCount = Object.values(grouped).reduce((sum, arr) => sum + arr.length, 0);
 
 	if (totalCount === 0) {
-		const message = 'No components, tokens, or icons found.';
+		const message = `No components, tokens, icons, or docs found for "${input.positionals.join(' ')}".`;
 		if (json) {
 			writeJsonEnvelope({
 				envelope: createErrorEnvelope({ command: command.name, code: 'NOT_FOUND', message }),
@@ -300,8 +316,8 @@ const renderGroupedResult = ({
 			envelope: createSuccessEnvelope({
 				envelopeType: command.envelopeType(input),
 				command: command.name,
-				// `data` for grouped commands is `{ components, tokens, icons }` (already counted
-				// per group), so `count` is the combined total across groups.
+				// `data` for grouped commands is `{ components, tokens, icons, docs }` (already
+				// counted per group), so `count` is the combined total across groups.
 				data: grouped,
 				meta: { ...meta, count: totalCount },
 			}),

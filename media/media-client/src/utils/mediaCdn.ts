@@ -1,7 +1,8 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 import { isCommercial } from './isCommercial';
 import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
-import { isGCPtenant } from '@atlaskit/media-common/mediaEnvUtils';
+import { isGoogleCloudPlatform } from '@atlaskit/atlassian-context/cloud-provider';
+import { isGCPtenant as isGCPtenantInStaging } from '@atlaskit/media-common/mediaEnvUtils';
 import { isPathBasedEnabled } from './pathBasedUrl';
 
 export const MEDIA_CDN_MAP: { [key: string]: string } = {
@@ -18,7 +19,7 @@ export function isCDNEnabled(): boolean {
 	return (
 		isCommercial() &&
 		!isIsolatedCloud() &&
-		!isGCPtenant() &&
+		!(isGoogleCloudPlatform() || isGCPtenantInStaging()) &&
 		fg('platform_media_cdn_delivery') &&
 		!isPathBasedEnabled()
 	);
@@ -30,8 +31,9 @@ export function mapToMediaCdnUrl(url: string, token: string): string {
 		return url;
 	}
 
+	const isGcpTenant = isGoogleCloudPlatform() || isGCPtenantInStaging();
 	// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-	if (!isGCPtenant() && fg('platform_media_cdn_delivery') && fg('platform_media_cdn_single_host')) {
+	if (!isGcpTenant && fg('platform_media_cdn_delivery') && fg('platform_media_cdn_single_host')) {
 		try {
 			const parsedUrl = new URL(url);
 			const cdnHost = MEDIA_CDN_MAP[parsedUrl.host];

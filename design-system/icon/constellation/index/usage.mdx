@@ -5,12 +5,20 @@ order: 3
 import SectionMessage from '@atlaskit/section-message';
 import PremiumIcon from '@atlaskit/icon/core/premium';
 
-import settingsDo from './images/settings-do.png';
-import settingsDont from './images/settings-dont.png';
-import menuDo from './images/menu-do.png';
-import menuDont from './images/menu-dont.png';
+import settingsDo from './images/settings-do-light.png';
+import settingsDoDark from './images/settings-do-dark.png';
+import settingsDont from './images/settings-dont-light.png';
+import settingsDontDark from './images/settings-dont-dark.png';
+import menuDo from './images/menu-do-light.png';
+import menuDoDark from './images/menu-do-dark.png';
+import menuDont from './images/menu-dont-light.png';
+import menuDontDark from './images/menu-dont-dark.png';
 import iconTileLight from './images/icon-tile-light.png';
 import iconTileDark from './images/icon-tile-dark.png';
+import iconSpacing from './images/icon-spacing-light.png';
+import iconSpacingDark from './images/icon-spacing-dark.png';
+import iconSmall from './images/small-icons-light.png';
+import iconSmallDark from './images/small-icons-dark.png';
 
 import Image from '@atlaskit/image';
 
@@ -32,6 +40,7 @@ clear and established associations to across the web wherever possible.
 		type="do"
 		image={{
 			url: settingsDo,
+			urlDarkMode: settingsDoDark,
 			alt: 'A gear icon, meant to represent settings.',
 		}}
 	>
@@ -42,6 +51,7 @@ clear and established associations to across the web wherever possible.
 		type="dont"
 		image={{
 			url: settingsDont,
+			urlDarkMode: settingsDontDark,
 			alt: 'A wrench and screwdriver crossed as an icon.',
 		}}
 	>
@@ -75,6 +85,7 @@ icons are needed at all.
 		type="do"
 		image={{
 			url: menuDo,
+			urlDarkMode: menuDoDark,
 			alt: 'A more actions menu where each menu item is simple text label.',
 		}}
 	>
@@ -84,6 +95,7 @@ icons are needed at all.
 		type="dont"
 		image={{
 			url: menuDont,
+			urlDarkMode: menuDontDark,
 			alt: 'A more actions menu where each menu item has a different icon preceding the text label. Other icon buttons surround the menu.',
 		}}
 	>
@@ -159,7 +171,7 @@ The majority of icons in Atlassian apps are 16 by 16px.
 Icons have no padding by default, allowing the buttons or other components to control the whitespace
 between icons and other elements. Use center-alignment to position icons in larger spaces.
 
-![Icon with padding around it.](./images/icon-spacing.png)
+<Image src={iconSpacing} srcDark={iconSpacingDark} alt="Icon with two different sizes." />
 
 ### Small 12px icons
 
@@ -172,7 +184,11 @@ Icons are also available at a smaller size for visual alignment in small spaces.
 smaller and harder to read, they should be used sparingly, such as for chevrons in buttons and
 menus.
 
-![Diagram of 12 pixel small icons in components. The X that indicates clearing a field and the drag handle dots icon are both 12 px.](./images/small-icons.png)
+<Image
+	src={iconSmall}
+	srcDark={iconSmallDark}
+	alt="Diagram of 12 pixel small icons in components. The chevron icon in the select field and the drag handle dots icon are both 12 px."
+/>
 
 ### Larger than 16px icons — consider icon tile
 

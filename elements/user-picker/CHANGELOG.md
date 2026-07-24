@@ -1,5 +1,27 @@
 # @atlaskit/user-picker
 
+## 13.7.2
+
+### Patch Changes
+
+- [`0e7deed0f8954`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0e7deed0f8954) -
+  Clean up feature gate `enable-sup-archive-experience`. The archived team lozenge for DISBANDED
+  teams is now always shown.
+
+## 13.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.7.0
+
+### Minor Changes
+
+- [`5228612e884f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5228612e884f4) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
 ## 13.6.0
 
 ### Minor Changes

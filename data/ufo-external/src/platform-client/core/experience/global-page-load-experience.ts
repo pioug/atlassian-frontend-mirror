@@ -1,13 +1,11 @@
 import { type PageLoadExperienceData } from '../../../types';
 import { untilAll } from '../../utils/until-helpers';
 
-import {
-	type AbstractExperienceConfig,
-	perfNowOrTimestamp,
-	UFOAbstractExperience,
-} from './abstract-experience';
+import type { AbstractExperienceConfig } from './abstract-experience';
 import { ExperiencePerformanceTypes, ExperienceTypes } from './experience-types';
 import { PageSegmentExperienceTypes } from './page-segment-experience-types';
+import { perfNowOrTimestamp } from './perf-now-or-timestamp';
+import { UFOAbstractExperience } from './ufo-abstract-experience';
 
 class UFOGlobalPageLoadExperience extends UFOAbstractExperience {
 	loadingPageLoadId: string = 'UNKNOWN';

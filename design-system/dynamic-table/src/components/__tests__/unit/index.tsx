@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import DynamicTable, { DynamicTableStateless } from '../../../index';
 import { type RowCellType, type RowType } from '../../../types';
@@ -27,8 +27,8 @@ const headNumeric: {
 	],
 };
 
-jest.mock('@atlaskit/spinner', () => {
-	const actual = jest.requireActual('@atlaskit/spinner');
+jest.mock('@atlaskit/spinner/spinner', () => {
+	const actual = jest.requireActual('@atlaskit/spinner/spinner');
 	return {
 		__esModule: true,
 		...actual,

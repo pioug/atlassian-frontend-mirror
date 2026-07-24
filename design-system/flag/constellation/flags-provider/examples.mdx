@@ -17,12 +17,7 @@ import FlagsProviderHideFlag from '../../examples/constellation/flags-provider-h
 To show flags without managing a `FlagGroup`, wrap your application in a `FlagsProvider`, which
 provides context to its children.
 
-<Example
-	Component={FlagsProviderExample}
-	packageName="@atlaskit/flag"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-	appearance="source-only"
-/>
+<Example Component={FlagsProviderExample} packageName="@atlaskit/flag" appearance="source-only" />
 
 ### Using showFlags
 
@@ -34,11 +29,7 @@ displayed. `CreateFlagArgs` is defined as follows:
 
 The return value of `showFlags` is a function that dismisses the flag that was just created.
 
-<Example
-	Component={FlagsProviderShowFlag}
-	packageName="@atlaskit/flag"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={FlagsProviderShowFlag} packageName="@atlaskit/flag" />
 
 ### Using hideFlag
 
@@ -48,8 +39,4 @@ The return value of `showFlags` is a function that dismisses the flag that was j
 different component, an effect, or an external event. Calling `hideFlag` with an `id` that is not
 currently shown is a no-op.
 
-<Example
-	Component={FlagsProviderHideFlag}
-	packageName="@atlaskit/flag"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-button': true }}
-/>
+<Example Component={FlagsProviderHideFlag} packageName="@atlaskit/flag" />

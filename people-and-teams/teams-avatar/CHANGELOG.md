@@ -1,5 +1,20 @@
 # @atlaskit/teams-avatar
 
+## 4.0.0
+
+### Major Changes
+
+- [`175997bf1d626`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/175997bf1d626) -
+  Removed barrel (entry-point) re-exports from the package root. Consumers must now import directly
+  from the package subpaths instead of the root barrel.
+  - `import TeamAvatar from '@atlaskit/teams-avatar'` →
+    `import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar'`
+  - `import { UNSAFE_urlIsRefreshedTeamAvatar } from '@atlaskit/teams-avatar'` →
+    `import { UNSAFE_urlIsRefreshedTeamAvatar } from '@atlaskit/teams-avatar/unsafe-url-is-refreshed-team-avatar'`
+
+  The root re-exports remain temporarily as `@deprecated` for backwards compatibility but will be
+  removed in a future release.
+
 ## 3.2.0
 
 ### Minor Changes

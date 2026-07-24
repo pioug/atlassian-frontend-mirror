@@ -17,6 +17,7 @@
 import { accessibilityGuidelines } from '@atlaskit/ads-mcp/a11y-guidelines';
 import { migrationRegistry } from '@atlaskit/ads-mcp/migration-registry';
 
+import { createDocSearchResults } from '../output/create-doc-search-results';
 import { isDisambiguation } from '../output/disambiguation';
 import { formatComponent } from '../output/format-component';
 import { formatDisambiguation } from '../output/format-disambiguation';
@@ -60,7 +61,7 @@ const parseLimit = (flags: Record<string, unknown>): number | null | undefined =
 };
 
 /**
- * Map of the three `search --type` variants to their ADS MCP tool exports.
+ * Map of the `search --type` variants to their ADS MCP tool exports.
  */
 const searchKindTools = {
 	components: {
@@ -78,19 +79,24 @@ const searchKindTools = {
 		handlerName: 'searchIconsTool',
 		envelopeType: 'search-icons',
 	},
+	docs: {
+		importPath: '@atlaskit/ads-mcp/tools/get-guidelines',
+		handlerName: 'getGuidelinesTool',
+		envelopeType: 'search-docs',
+	},
 } as const;
 
 type SearchKind = keyof typeof searchKindTools;
 
 /**
- * Accepted `--type` values (singular, matching the item command names) → the internal (plural)
- * {@link SearchKind}. Everything downstream keys off the plural `SearchKind` (envelope types,
- * grouped JSON keys), so the singular input normalises to it here.
+ * Accepted `--type` values → the internal {@link SearchKind}. Entity inputs are singular to match
+ * their item commands; `docs` matches the dedicated documentation command.
  */
 const SEARCH_TYPE_VALUES = {
 	component: 'components',
 	token: 'tokens',
 	icon: 'icons',
+	docs: 'docs',
 } as const satisfies Record<string, SearchKind>;
 
 type SearchTypeValue = keyof typeof SEARCH_TYPE_VALUES;
@@ -264,7 +270,7 @@ const truncateHint = (text: string | undefined, max = 72): string | undefined =>
 /**
  * A representative example name per kind, used in each item command's `--help` examples.
  */
-const EXAMPLE_NAME: Record<SearchKind, string> = {
+const EXAMPLE_NAME: Record<keyof typeof itemFields, string> = {
 	components: 'Button',
 	tokens: 'space.100',
 	icons: 'AddIcon',
@@ -289,7 +295,7 @@ const makeItemCommand = ({
 	name,
 	formatHuman,
 }: {
-	kind: SearchKind;
+	kind: keyof typeof itemFields;
 	name: string;
 	formatHuman: (data: unknown) => string | null;
 }): CommandDefinition => {
@@ -383,10 +389,11 @@ const makeItemCommand = ({
 };
 
 /**
- * Resolver for the unified `search` (no `--type`): fan out to all three search tools in one
- * command. The results are grouped by kind (components/tokens/icons) rather than merged into a
- * single ranked list — each tool ranks its own domain, and re-ranking across domains would
- * mean duplicating ranking logic here (breaking the zero-drift contract with `@atlaskit/ads-mcp`).
+ * Resolver for the unified `search` (no `--type`): fan out to the three entity search tools and
+ * foundations documentation search in one command. The results are grouped by kind
+ * (components/tokens/icons/docs) rather than merged into a single ranked list — each tool ranks its
+ * own domain, and re-ranking across domains would mean duplicating ranking logic here (breaking the
+ * zero-drift contract with `@atlaskit/ads-mcp`).
  */
 const resolveUnifiedSearch = (input: CommandInput): ResolveResult => {
 	const terms = input.positionals;
@@ -406,6 +413,7 @@ const resolveUnifiedSearch = (input: CommandInput): ResolveResult => {
 			{ key: 'components', ...searchKindTools.components, args },
 			{ key: 'tokens', ...searchKindTools.tokens, args },
 			{ key: 'icons', ...searchKindTools.icons, args },
+			{ key: 'docs', ...searchKindTools.docs, args },
 		],
 		meta: args,
 	};
@@ -417,7 +425,8 @@ const resolveUnifiedSearch = (input: CommandInput): ResolveResult => {
 export const commands: CommandDefinition[] = [
 	{
 		name: 'search',
-		description: 'Fuzzy-search ADS components, tokens, and icons together (or narrow with --type).',
+		description:
+			'Fuzzy-search ADS components, tokens, icons, and docs together (or narrow results with --type).',
 		usage: `search <query...> [--type ${Object.keys(SEARCH_TYPE_VALUES).join('|')}] [--limit N]`,
 		arguments: [
 			{
@@ -442,6 +451,7 @@ export const commands: CommandDefinition[] = [
 			'search button',
 			'search space color --type token',
 			'search add --type icon --limit 5',
+			'search contrast --type docs',
 		],
 		responseTypes: [
 			'ads-cli/search',
@@ -451,12 +461,16 @@ export const commands: CommandDefinition[] = [
 		// result is grouped across all kinds, so there is no single result kind — the grouped
 		// formatter handles rendering instead.
 		resultKind: (input) => resolveSearchType(input.flags) ?? undefined,
+		transform: ({ data, input }) =>
+			resolveSearchType(input.flags) === 'docs'
+				? createDocSearchResults({ data, query: input.positionals.join(' ') })
+				: data,
 		envelopeType: (input) => {
 			const searchType = resolveSearchType(input.flags);
 			return searchType ? searchKindTools[searchType].envelopeType : 'search';
 		},
 		resolve: (input) => {
-			// No `--type`: unified search across all three kinds.
+			// No `--type`: unified search across all three entity kinds and foundations docs.
 			if (input.flags.type === undefined) {
 				return resolveUnifiedSearch(input);
 			}

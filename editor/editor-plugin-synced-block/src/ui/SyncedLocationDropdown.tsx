@@ -31,6 +31,7 @@ import type {
 } from '@atlaskit/editor-synced-block-provider';
 import type { SyncBlockJiraIssueType } from '@atlaskit/editor-synced-block-provider/types';
 import { IconTile } from '@atlaskit/icon';
+// eslint-disable-next-line import/order -- CI requires icon-lab imports before core icon imports.
 import PageLiveDocIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import BugIcon from '@atlaskit/icon/core/bug';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
@@ -156,6 +157,11 @@ const styles = cssMap({
 });
 
 type FetchStatus = 'none' | 'loading' | 'success' | 'error';
+
+interface ReferenceDataState {
+	fetchStatus: FetchStatus;
+	referenceData: SyncBlockSourceInfo[];
+}
 
 const shouldApplyMinHeight = (fetchStatus: FetchStatus, itemCount: number) => {
 	// When there are 1/2 items, dropdown height is less than minHeight 144px
@@ -399,28 +405,28 @@ export const SyncedLocationDropdown = ({
 	api,
 	floatingToolbarRenderContext,
 }: Props): JSX.Element => {
-	if (fg('platform_synced_block_patch_13')) {
+	if (!fg('platform_synced_block_patch_13')) {
 		return (
-			<EditorPositionedSyncedLocationDropdown
+			<LegacySyncedLocationDropdown
 				syncBlockStore={syncBlockStore}
 				resourceId={resourceId}
 				intl={intl}
 				isSource={isSource}
 				localId={localId}
 				api={api}
-				floatingToolbarRenderContext={floatingToolbarRenderContext}
 			/>
 		);
 	}
 
 	return (
-		<LegacySyncedLocationDropdown
+		<EditorPositionedSyncedLocationDropdown
 			syncBlockStore={syncBlockStore}
 			resourceId={resourceId}
 			intl={intl}
 			isSource={isSource}
 			localId={localId}
 			api={api}
+			floatingToolbarRenderContext={floatingToolbarRenderContext}
 		/>
 	);
 };
@@ -434,8 +440,7 @@ const EditorPositionedSyncedLocationDropdown = ({
 	api,
 	floatingToolbarRenderContext,
 }: Props): JSX.Element => {
-	const { formatMessage } = intl;
-	const triggerTitle = formatMessage(messages.syncedLocationDropdownTitle);
+	const triggerTitle = intl.formatMessage(messages.syncedLocationDropdownTitle);
 	const [isOpen, setIsOpen] = useState(false);
 
 	const content = isOpen ? (
@@ -515,8 +520,7 @@ const LegacySyncedLocationDropdown = ({
 	localId,
 	api,
 }: Props): JSX.Element => {
-	const { formatMessage } = intl;
-	const triggerTitle = formatMessage(messages.syncedLocationDropdownTitle);
+	const triggerTitle = intl.formatMessage(messages.syncedLocationDropdownTitle);
 	const [isOpen, setIsOpen] = useState(false);
 
 	const content = isOpen ? (
@@ -557,10 +561,99 @@ const LegacySyncedLocationDropdown = ({
 	);
 };
 
+export const SyncedLocationDropdownWithCount = ({
+	syncBlockStore,
+	resourceId,
+	intl,
+	isSource,
+	localId,
+	api,
+	floatingToolbarRenderContext,
+}: Props): JSX.Element => {
+	const [isOpen, setIsOpen] = useState(false);
+	const { fetchStatus, referenceData } = useReferenceData({
+		intl,
+		isSource,
+		localId,
+		resourceId,
+		syncBlockStore,
+	});
+
+	const content = isOpen ? (
+		<DropdownContentWithReferenceData
+			resourceId={resourceId}
+			intl={intl}
+			api={api}
+			fetchStatus={fetchStatus}
+			referenceData={referenceData}
+		/>
+	) : null;
+
+	const toggleOpen = useCallback(() => {
+		setIsOpen((currentIsOpen) => !currentIsOpen);
+	}, []);
+
+	const closeDropdown = useCallback(() => {
+		setIsOpen(false);
+	}, []);
+
+	const setDisableParentScroll = floatingToolbarRenderContext?.setDisableParentScroll;
+
+	useEffect(() => {
+		if (!isOpen) {
+			return;
+		}
+
+		setDisableParentScroll?.(true);
+
+		return () => {
+			setDisableParentScroll?.(false);
+		};
+	}, [isOpen, setDisableParentScroll]);
+
+	const trigger = useMemo(
+		() => (
+			<Button
+				areAnyNewToolbarFlagsEnabled={true}
+				testId={SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSyncedLocationsTrigger}
+				selected={isOpen}
+				iconAfter={
+					<ChevronDownIcon color="currentColor" spacing="spacious" label="" size="small" />
+				}
+				onClick={toggleOpen}
+				ariaHasPopup
+			>
+				<SyncedLocationTriggerContent
+					intl={intl}
+					fetchStatus={fetchStatus}
+					referenceData={referenceData}
+				/>
+			</Button>
+		),
+		[fetchStatus, intl, isOpen, referenceData, toggleOpen],
+	);
+
+	return (
+		<DropdownContainer
+			testId={SYNCED_LOCATIONS_DROPDOWN_TEST_ID}
+			isOpen={isOpen}
+			trigger={trigger}
+			handleClickOutside={closeDropdown}
+			handleEscapeKeydown={closeDropdown}
+			mountTo={floatingToolbarRenderContext?.popupsMountPoint}
+			boundariesElement={floatingToolbarRenderContext?.popupsBoundariesElement}
+			scrollableElement={floatingToolbarRenderContext?.popupsScrollableElement}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			arrowKeyNavigationProviderOptions={{ type: ArrowKeyNavigationType.MENU }}
+		>
+			{content}
+		</DropdownContainer>
+	);
+};
+
 type SourceInfoMap = Map<string, SyncBlockSourceInfo[]>;
 
 const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, api }: Props) => {
-	const { formatMessage } = intl;
 	const [fetchStatus, setFetchStatus] = useState<FetchStatus>('none');
 	const [referenceData, setReferenceData] = useState<SyncBlockSourceInfo[]>([]);
 
@@ -581,8 +674,123 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 			setReferenceData(processReferenceData(response.references, intl));
 			setFetchStatus('success');
 		};
-		getReferenceData();
+		void getReferenceData();
 	}, [syncBlockStore, intl, isSource, localId, resourceId]);
+
+	return (
+		<DropdownContentWithReferenceData
+			resourceId={resourceId}
+			intl={intl}
+			api={api}
+			fetchStatus={fetchStatus}
+			referenceData={referenceData}
+		/>
+	);
+};
+
+const useReferenceData = ({
+	syncBlockStore,
+	resourceId,
+	intl,
+	isSource,
+	localId,
+}: Pick<
+	Props,
+	'syncBlockStore' | 'resourceId' | 'intl' | 'isSource' | 'localId'
+>): ReferenceDataState => {
+	const [state, setState] = useState<{
+		fetchStatus: FetchStatus;
+		referenceData: SyncBlockSourceInfo[];
+	}>({
+		fetchStatus: 'loading',
+		referenceData: [],
+	});
+
+	useEffect(() => {
+		let isCurrentRequest = true;
+		setState({ fetchStatus: 'loading', referenceData: [] });
+
+		const getReferenceData = async () => {
+			const response = await syncBlockStore.fetchReferencesSourceInfo(
+				resourceId,
+				localId,
+				isSource,
+			);
+
+			if (!isCurrentRequest) {
+				return;
+			}
+
+			if (response.error) {
+				setState({ fetchStatus: 'error', referenceData: [] });
+				return;
+			}
+			setState({
+				fetchStatus: 'success',
+				referenceData: processReferenceData(response.references, intl),
+			});
+		};
+
+		void getReferenceData();
+
+		return () => {
+			isCurrentRequest = false;
+		};
+	}, [syncBlockStore, resourceId, intl, isSource, localId]);
+
+	return {
+		fetchStatus: state.fetchStatus,
+		referenceData: state.referenceData,
+	};
+};
+
+const SyncedLocationTriggerContent = ({
+	intl,
+	fetchStatus,
+	referenceData,
+}: ReferenceDataState & { intl: IntlShape }) => {
+	const { formatMessage } = intl;
+	const triggerTitle = formatMessage(messages.syncedLocationDropdownTitle);
+	const referenceCount = useMemo(
+		() => referenceData.filter(({ isSource }) => !isSource).length,
+		[referenceData],
+	);
+
+	switch (fetchStatus) {
+		case 'loading':
+			return (
+				<Inline alignBlock="center" space="space.050">
+					{triggerTitle}
+					<Spinner size="small" label={formatMessage(messages.syncedLocationDropdownLoading)} />
+				</Inline>
+			);
+		case 'success': {
+			const count =
+				referenceCount === 0
+					? formatMessage(messages.syncedLocationDropdownNone)
+					: referenceCount > 99
+						? '99+'
+						: intl.formatNumber(referenceCount);
+
+			return formatMessage(messages.syncedLocationDropdownTitleWithCount, { count });
+		}
+		case 'none':
+		case 'error':
+			return triggerTitle;
+	}
+};
+
+type DropdownContentProps = Pick<Props, 'resourceId' | 'intl' | 'api'> &
+	Pick<ReferenceDataState, 'fetchStatus' | 'referenceData'>;
+
+const DropdownContentWithReferenceData = ({
+	resourceId,
+	intl,
+	api,
+	fetchStatus,
+	referenceData,
+}: DropdownContentProps) => {
+	const { formatMessage } = intl;
 
 	const handleLocationClick = () => {
 		api?.analytics?.actions?.fireAnalyticsEvent({
@@ -599,7 +807,7 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 	const content = () => {
 		switch (fetchStatus) {
 			case 'loading':
-				return <LoadingScreen />;
+				return <LoadingScreen formatMessage={formatMessage} />;
 			case 'error':
 				return <ErrorScreen formatMessage={formatMessage} />;
 			case 'success':
@@ -666,10 +874,10 @@ const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, 
 	);
 };
 
-const LoadingScreen = () => {
+const LoadingScreen = ({ formatMessage }: { formatMessage: IntlShape['formatMessage'] }) => {
 	return (
 		<Box>
-			<Spinner></Spinner>
+			<Spinner label={formatMessage(messages.syncedLocationDropdownLoading)} />
 		</Box>
 	);
 };

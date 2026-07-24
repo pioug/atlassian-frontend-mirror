@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 14.9.7
+
+### Patch Changes
+
+- [`3e55e8eea5a11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e55e8eea5a11) -
+  Fixes reduced profile card exp flag name
+- Updated dependencies
+
 ## 14.9.6
 
 ### Patch Changes

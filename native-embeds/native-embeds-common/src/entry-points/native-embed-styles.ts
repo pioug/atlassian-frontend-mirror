@@ -62,6 +62,20 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 			width: 'fit-content !important',
 			maxWidth: '100cqw',
 		},
+	// The editor loading path intentionally keeps its outer extension container at 100% width.
+	// Align the already-sized placeholder frame within that container until the native embed UI
+	// mounts and takes ownership of the outer wrapper's persisted width.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target the editor loading frame through its shared placeholder metadata
+	'[data-native-embed-initial-placeholder="true"][data-native-embed-alignment="center"] > [data-testid="native-embed-initial-placeholder"]':
+		{
+			marginLeft: 'auto',
+			marginRight: 'auto',
+		},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target the editor loading frame through its shared placeholder metadata
+	'[data-native-embed-initial-placeholder="true"][data-native-embed-alignment="right"] > [data-testid="native-embed-initial-placeholder"]':
+		{
+			marginLeft: 'auto',
+		},
 	// Some renderer variants omit data-top-level even for top-level extensions. Mirror the native
 	// embed runtime's DOM nesting detection instead: table cells/headers, expands, layouts, enclosing
 	// extensions, sync blocks, and panels clamp the placeholder to the immediate containing node.

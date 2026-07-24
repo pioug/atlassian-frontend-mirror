@@ -55,13 +55,18 @@ describe('Carousel', () => {
 		});
 
 		it('renders the connect button with the given label', () => {
-			setup({ primaryButtonLabel: 'Connect to Figma' });
+			setup({ primaryButtonLabel: 'Connect to Figma', onPrimaryButtonClick: jest.fn() });
 			expect(screen.getByTestId('carousel-slide-connect')).toHaveTextContent('Connect to Figma');
 		});
 
 		it('renders a "See next" button on the first slide when there are multiple slides', () => {
 			setup();
 			expect(screen.getByTestId('carousel-slide-next')).toBeInTheDocument();
+		});
+
+		it('does not render a "Back" button on the first slide', () => {
+			setup();
+			expect(screen.queryByTestId('carousel-slide-back')).not.toBeInTheDocument();
 		});
 
 		it('does not render a "See next" button on the last slide', () => {
@@ -101,6 +106,42 @@ describe('Carousel', () => {
 			setup({ items: [makeCarouselItem(1), makeCarouselItem(2)] });
 			fireEvent.click(screen.getByTestId('carousel-slide-next'));
 			expect(screen.queryByTestId('carousel-slide-next')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('goPrev — "Back" button', () => {
+		it('shows the "Back" button on the second slide after navigating forward', () => {
+			setup();
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			expect(screen.getByTestId('carousel-slide-back')).toBeInTheDocument();
+		});
+
+		it('goes back to the first slide when "Back" is clicked from the second slide', () => {
+			setup();
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			fireEvent.click(screen.getByTestId('carousel-slide-back'));
+			expect(screen.getByTestId('carousel-slide-title')).toHaveTextContent('Slide 1 title');
+		});
+
+		it('shows "Back" but hides "Next" on the last slide', () => {
+			setup({ items: [makeCarouselItem(1), makeCarouselItem(2)] });
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			expect(screen.getByTestId('carousel-slide-back')).toBeInTheDocument();
+			expect(screen.queryByTestId('carousel-slide-next')).not.toBeInTheDocument();
+		});
+
+		it('shows both "Back" and "Next" on a middle slide', () => {
+			setup();
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			expect(screen.getByTestId('carousel-slide-back')).toBeInTheDocument();
+			expect(screen.getByTestId('carousel-slide-next')).toBeInTheDocument();
+		});
+
+		it('does not render "Back" on the first slide after navigating back from second', () => {
+			setup();
+			fireEvent.click(screen.getByTestId('carousel-slide-next'));
+			fireEvent.click(screen.getByTestId('carousel-slide-back'));
+			expect(screen.queryByTestId('carousel-slide-back')).not.toBeInTheDocument();
 		});
 	});
 
@@ -149,9 +190,16 @@ describe('Carousel', () => {
 			expect(onPrimaryButtonClick).toHaveBeenCalledTimes(1);
 		});
 
-		it('does not throw when onPrimaryButtonClick is not provided', () => {
+		it('does not render the connect button when onPrimaryButtonClick is not provided', () => {
 			setup({ onPrimaryButtonClick: undefined });
-			expect(() => fireEvent.click(screen.getByTestId('carousel-slide-connect'))).not.toThrow();
+			expect(screen.queryByTestId('carousel-slide-connect')).not.toBeInTheDocument();
+		});
+
+		it('does not render the button row when there is one slide and no onPrimaryButtonClick', () => {
+			setup({ items: [makeCarouselItem(1)], onPrimaryButtonClick: undefined });
+			// No navigation (single slide) and no primary button — the rowButton container should be absent
+			expect(screen.queryByTestId('carousel-slide-connect')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('carousel-slide-next')).not.toBeInTheDocument();
 		});
 	});
 
@@ -159,7 +207,7 @@ describe('Carousel', () => {
 		it('shows the image panel in full size layout', () => {
 			setup();
 			// Default size is 'full' (no ResizeObserver firing in JSDOM)
-			expect(screen.getByTestId('carousel-slide-image-panel')).toBeInTheDocument();
+			expect(screen.getByTestId('carousel-slide-image-panel-0')).toBeInTheDocument();
 		});
 
 		it('hides the image panel in compact layout', () => {
@@ -189,14 +237,14 @@ describe('Carousel', () => {
 				);
 			});
 
-			expect(screen.queryByTestId('carousel-slide-image-panel')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('carousel-slide-image-panel-0')).not.toBeInTheDocument();
 
 			// Restore default mock
 			// @ts-ignore
 			global.ResizeObserver = MockResizeObserver;
 		});
 
-		it('shows the compact connect button in compact layout', () => {
+		it('shows the compact connect button in compact layout when onPrimaryButtonClick is provided', () => {
 			let observerCallback: ResizeObserverCallback;
 			class CapturingResizeObserver {
 				constructor(cb: ResizeObserverCallback) {
@@ -209,7 +257,7 @@ describe('Carousel', () => {
 			// @ts-ignore
 			global.ResizeObserver = CapturingResizeObserver;
 
-			setup();
+			setup({ onPrimaryButtonClick: jest.fn() });
 
 			act(() => {
 				observerCallback!(

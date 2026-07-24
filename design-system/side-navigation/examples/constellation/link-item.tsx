@@ -8,13 +8,11 @@ const ButtonItemExample = (): React.JSX.Element => {
 	return (
 		<div>
 			<Section>
-				{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
-				<LinkItem href="#">My articles</LinkItem>
+				<LinkItem href="/">My articles</LinkItem>
 			</Section>
 			<Section>
-				{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
 				<LinkItem
-					href="#"
+					href="/"
 					description="All published articles"
 					iconBefore={<BookWithBookmarkIcon label="" />}
 				>

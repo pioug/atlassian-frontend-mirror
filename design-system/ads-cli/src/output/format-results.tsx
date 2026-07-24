@@ -11,6 +11,8 @@
 
 import type { RowKind } from '../commands/types';
 
+import type { DocSearchResult } from './create-doc-search-results';
+
 /**
  * A component result as returned by `searchComponentsTool` / `getAllComponentsTool`.
  * Only the fields the compact view needs are modelled; others are ignored.
@@ -59,9 +61,8 @@ const truncate = (text: string, max = 80): string =>
 /**
  * Append a `→ ads-cli <command> <name>` drill-in hint beneath a row.
  *
- * Only used in unified `search`, where a row is one of many mixed results and the natural next
- * step is to view that one in full. Single-kind listings (`--all`, `--type`) omit it — you asked
- * for the whole list, so echoing each row's own name back would just be noise.
+ * Used for every `search` result, where the natural next step is to view that match in full.
+ * `--all` listings omit it because echoing every row's own name would just be noise.
  */
 const withFollowUp = ({
 	line,
@@ -118,12 +119,20 @@ const formatIconLine = (iconResult: IconResult, showFollowUp: boolean): string =
 };
 
 /**
+ * Render one foundations-document match without dumping its full Markdown body.
+ */
+const formatDocLine = (doc: DocSearchResult, showFollowUp: boolean): string => {
+	const summary = doc.summary ? `  — ${doc.summary}` : '';
+	const line = `${doc.title}${summary}`;
+	return showFollowUp ? `${line}\n    → ads-cli ${doc.followUp}` : line;
+};
+
+/**
  * Render an array of results as compact lines for the given kind. Returns `null` when the data
  * is not an array (so the caller can fall back to generic JSON rendering).
  *
  * `showFollowUp` (default `false`) adds a `→ ads-cli <command> <name>` drill-in hint beneath each
- * row. It is enabled only by unified `search`; single-kind listings (`--all`, `--type`) leave it
- * off so the output stays terse.
+ * row. Search enables it for both grouped and `--type` output; `--all` listings leave it off.
  */
 export const formatCompactResults = ({
 	kind,
@@ -150,6 +159,8 @@ export const formatCompactResults = ({
 				return formatTokenLine(entry as TokenResult, showFollowUp);
 			case 'icons':
 				return formatIconLine(entry as IconResult, showFollowUp);
+			case 'docs':
+				return formatDocLine(entry as DocSearchResult, showFollowUp);
 			default:
 				return JSON.stringify(entry);
 		}

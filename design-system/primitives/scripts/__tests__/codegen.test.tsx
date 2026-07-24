@@ -39,10 +39,15 @@ describe('@atlaskit/primitives', () => {
 
 	// spacing
 	test('spacing styles are generated correctly', () => {
-		const output = createSpacingStylesFromTemplate();
-		expect(output).toContain('export type Space = keyof typeof positiveSpaceMap;');
-		expect(output).toContain('export type NegativeSpace = keyof typeof negativeSpaceMap;');
-		expect(output).toContain('export type AllSpace = keyof typeof allSpaceMap;');
+		expect(createSpacingStylesFromTemplate('positive')).toContain(
+			'export type Space = keyof typeof positiveSpaceMap;',
+		);
+		expect(createSpacingStylesFromTemplate('negative')).toContain(
+			'export type NegativeSpace = keyof typeof negativeSpaceMap;',
+		);
+		expect(createSpacingStylesFromTemplate('all')).toContain(
+			'export type AllSpace = keyof typeof allSpaceMap;',
+		);
 	});
 
 	test('incorrect config throws', () => {

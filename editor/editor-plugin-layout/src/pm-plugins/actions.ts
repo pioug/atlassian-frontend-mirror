@@ -1115,7 +1115,16 @@ export const deleteLayoutColumn =
 			return null;
 		}
 
-		const selectedLayoutColumnsResult = getLayoutColumnsFromContentSelection(tr.selection);
+		// Only delete columns that are explicitly selected (a column NodeSelection or a selection
+		// fully containing columns). This stops a bare caret inside a column — including inside
+		// nested content such as a table — from deleting the whole column via the delete shortcut.
+		const selectedLayoutColumnsResult = expValEquals(
+			'platform_editor_layout_column_delete_shortcut_fix',
+			'isEnabled',
+			true,
+		)
+			? getSelectedLayoutColumnsFromSelection(tr.selection)
+			: getLayoutColumnsFromContentSelection(tr.selection);
 		if (
 			!selectedLayoutColumnsResult ||
 			selectedLayoutColumnsResult.selectedLayoutColumns.length === 0

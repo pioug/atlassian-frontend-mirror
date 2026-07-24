@@ -15,5 +15,3 @@ export const useSurface = (): BackgroundColorToken => {
 };
 
 SurfaceContext.displayName = 'SurfaceProvider';
-
-export { SurfaceContext } from './surface-context';

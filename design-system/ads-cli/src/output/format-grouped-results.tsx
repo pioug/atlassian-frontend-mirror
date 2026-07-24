@@ -1,9 +1,8 @@
 /**
  * Sectioned compact renderer for grouped (multi-kind) results, e.g. unified `search`.
  *
- * Prints a Components section, then Tokens, then Icons — reusing the per-kind compact renderer
- * for each. Empty groups are skipped, so one command surfaces whatever kinds match, grouped by
- * kind.
+ * Prints Components, Tokens, Icons, and Docs sections using the per-kind compact renderer. Empty
+ * groups are skipped, so one command surfaces whatever kinds match, grouped by kind.
  */
 
 import type { RowKind } from '../commands/types';
@@ -25,6 +24,7 @@ export const formatGroupedResults = ({
 		{ kind: 'components', title: 'Components' },
 		{ kind: 'tokens', title: 'Tokens' },
 		{ kind: 'icons', title: 'Icons' },
+		{ kind: 'docs', title: 'Docs' },
 	];
 
 	const blocks: string[] = [`Results (${totalCount}):`];

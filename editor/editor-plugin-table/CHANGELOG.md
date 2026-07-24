@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 24.4.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.4.20
+
+### Patch Changes
+
+- [`6f1a6a07b4be1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f1a6a07b4be1) -
+  Fixes malfunctioning sticky header row when header columns are merged
+- Updated dependencies
+
 ## 24.4.19
 
 ### Patch Changes

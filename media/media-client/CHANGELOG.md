@@ -1,5 +1,22 @@
 # @atlaskit/media-client
 
+## 37.2.15
+
+### Patch Changes
+
+- [`977dc624ae756`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/977dc624ae756) -
+  Media CDN GCP detection now uses `isGoogleCloudPlatform()` from
+  `@atlaskit/atlassian-context/cloud-provider` (cookie/SSR-based) combined with the staging-only
+  hostname fallback `isGCPtenant` from `@atlaskit/media-common/mediaEnvUtils` (imported as
+  `isGCPtenantInStaging`). Both checks are combined with `||` because staging tenants do not
+  reliably have a proper value for the `Bifrost-Atl-Ctx-Cloud-Service-Provider` cookie.
+
+## 37.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.2.13
 
 ### Patch Changes

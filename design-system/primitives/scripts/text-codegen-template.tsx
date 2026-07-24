@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import format from '@af/formatting/sync';
 import { typography as tokens } from '@atlaskit/tokens/tokens-raw';
 
@@ -10,6 +11,15 @@ type Token = {
 	fallback: string;
 };
 
+type TextProperty = 'textSize' | 'textWeight' | 'metricTextSize';
+
+type TextPropertyConfig = {
+	objectName: string;
+	cssProperty: string;
+	prefix: string;
+	filterFn: (token: Token) => boolean;
+};
+
 const activeTokens: Token[] = tokens
 	.filter((t) => t.attributes.state !== 'deleted')
 	.map((t) => ({
@@ -17,26 +27,26 @@ const activeTokens: Token[] = tokens
 		fallback: t.value,
 	}));
 
-const textProperties = [
-	{
+const textProperties: Record<TextProperty, TextPropertyConfig> = {
+	textSize: {
 		objectName: 'textSize',
 		cssProperty: 'font',
 		prefix: 'font.body',
-		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.body'),
+		filterFn: (t: Token): boolean => t.name.startsWith('font.body'),
 	},
-	{
+	textWeight: {
 		objectName: 'textWeight',
 		cssProperty: 'fontWeight',
 		prefix: 'font.weight.',
-		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.weight'),
+		filterFn: (t: Token): boolean => t.name.startsWith('font.weight'),
 	},
-	{
+	metricTextSize: {
 		objectName: 'metricTextSize',
 		cssProperty: 'font',
 		prefix: 'font.metric',
-		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.metric'),
+		filterFn: (t: Token): boolean => t.name.startsWith('font.metric'),
 	},
-] as const;
+};
 
 const sizeMap = {
 	'body.small': 'small',
@@ -63,19 +73,21 @@ const removeVerbosity = (name: string): string => {
 	return name;
 };
 
-export const createTextStylesFromTemplate: () => string = () => {
-	return textProperties
-		.map((textProperty) => {
-			const { filterFn, objectName } = textProperty;
+export const createTextStylesFromTemplate: (property: TextProperty) => string = (property) => {
+	if (!textProperties[property]) {
+		throw new Error(`[codegen] Unknown option found "${property}"`);
+	}
 
-			const tokenNames = activeTokens
-				.filter(filterFn)
-				.map((t) => t.name.replace(/\.\[default\]/g, ''))
-				.sort((a, b) => (a < b ? -1 : 1));
+	const { filterFn, objectName } = textProperties[property];
 
-			return (
-				format(
-					`
+	const tokenNames = activeTokens
+		.filter(filterFn)
+		.map((t) => t.name.replace(/\.\[default\]/g, ''))
+		.sort((a, b) => (a < b ? -1 : 1));
+
+	return (
+		format(
+			`
 	export const ${objectName}Map: {
 		${generateTypeDefs(
 			tokenNames,
@@ -93,9 +105,7 @@ export const createTextStylesFromTemplate: () => string = () => {
 		})
 		.join(',\n\t')}
 	};`,
-					'typescript',
-				) + `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
-			);
-		})
-		.join('\n');
+			'typescript',
+		) + `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
+	);
 };

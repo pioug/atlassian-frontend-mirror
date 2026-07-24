@@ -18,8 +18,9 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { type Space, spaceStylesMap } from '../xcss/style-maps.partial';
-import { parseXcss } from '../xcss/xcss';
+import { parseXcss } from '../xcss/parse-xcss';
+import { type Space } from '../xcss/positive-space';
+import { spaceStylesMap } from '../xcss/space-styles-map';
 
 import type { BasePrimitiveProps } from './types';
 
@@ -216,7 +217,7 @@ const gridAutoFlowMap: {
  * )
  * ```
  */
-const Grid: MemoExoticComponent<
+export const Grid: MemoExoticComponent<
 	ForwardRefExoticComponent<Omit<GridProps<ElementType>, 'ref'> & RefAttributes<any>>
 > = memo(
 	forwardRef(
@@ -297,5 +298,3 @@ const Grid: MemoExoticComponent<
 );
 
 Grid.displayName = 'Grid';
-
-export default Grid;

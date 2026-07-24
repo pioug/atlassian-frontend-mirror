@@ -1,5 +1,12 @@
 # @atlaskit/editor-json-transformer
 
+## 9.1.0
+
+### Minor Changes
+
+- [`05b85944df003`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05b85944df003) -
+  Autofix: add explicit package exports (barrel removal)
+
 ## 9.0.2
 
 ### Patch Changes

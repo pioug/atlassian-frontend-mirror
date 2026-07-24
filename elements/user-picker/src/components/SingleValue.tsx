@@ -10,7 +10,6 @@ import { AvatarOrIcon } from './AvatarOrIcon';
 import { SizeableAvatar } from './SizeableAvatar';
 import { getAvatarUrl, isTeam, isGroup } from './utils';
 import { getAppearanceForAppType } from '@atlaskit/avatar';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { FormattedMessage } from 'react-intl';
@@ -71,8 +70,7 @@ export const SingleValue = (props: Props): JSX.Element | null => {
 		//@ts-ignore react-select unsupported props
 		selectProps: { appearance, isFocused },
 	} = props;
-	const canShowArchivedLozenge =
-		isTeam(data) && data?.state === 'DISBANDED' && fg('enable-sup-archive-experience');
+	const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED';
 
 	return !isFocused ? (
 		<components.SingleValue {...(props as any)}>

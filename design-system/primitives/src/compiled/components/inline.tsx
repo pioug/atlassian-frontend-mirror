@@ -22,7 +22,7 @@ import { jsx } from '@compiled/react';
 import { cssMap, cx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import Flex, { type FlexProps } from './flex';
+import { Flex, type FlexProps } from './flex';
 import type { AlignBlock, AlignInline, BasePrimitiveProps, Grow, Spread } from './types';
 
 export type InlineProps<T extends ElementType = 'div'> = {
@@ -116,7 +116,7 @@ const Separator: FC<{ children: string }> = ({ children }) => (
  * ```
  *
  */
-const Inline: MemoExoticComponent<
+export const Inline: MemoExoticComponent<
 	ForwardRefExoticComponent<Omit<InlineProps<ElementType>, 'ref'> & RefAttributes<any>>
 > = memo(
 	forwardRef(
@@ -177,5 +177,3 @@ const Inline: MemoExoticComponent<
 );
 
 Inline.displayName = 'Inline';
-
-export default Inline;

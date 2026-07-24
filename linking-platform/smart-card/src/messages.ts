@@ -72,19 +72,21 @@ export type MessageKey =
 	| 'connect_link_account_card_name'
 	| 'connect_link_account_preview'
 	| 'connect_link_account_card_description'
-	| 'connect_link_account_embed_teaser_button_next'
-	| 'connect_link_account_embed_teaser_dot_label'
-	| 'connect_link_account_embed_teaser_dot_row_label'
-	| 'connect_link_account_embed_teaser_slide_1_description'
-	| 'connect_link_account_embed_teaser_slide_1_title'
-	| 'connect_link_account_embed_teaser_slide_2_description'
-	| 'connect_link_account_embed_teaser_slide_2_title'
-	| 'connect_link_account_embed_teaser_slide_3_description'
-	| 'connect_link_account_embed_teaser_slide_3_title'
+	| 'connect_link_account_embed_carousel_button_back'
+	| 'connect_link_account_embed_carousel_button_next'
+	| 'connect_link_account_embed_carousel_dot_label'
+	| 'connect_link_account_embed_carousel_dot_row_label'
+	| 'connect_link_account_embed_carousel_sl_description'
+	| 'connect_link_account_embed_carousel_sl_title'
+	| 'connect_link_account_embed_carousel_rovo_description'
+	| 'connect_link_account_embed_carousel_rovo_title'
+	| 'connect_link_account_embed_carousel_rovochat_description'
+	| 'connect_link_account_embed_carousel_rovochat_title'
 	| 'connect_link_account_success_flag_description'
 	| 'connect_link_account_success_flag_title'
 	| 'connect_link_account_success_flag_title_default'
 	| 'connect_unauthorised_account_action'
+	| 'connect_3p_account'
 	| 'connect_inline_social_proof'
 	| 'social_proof_inline_cta_tag_high_with_context'
 	| 'social_proof_inline_cta_tag_high_no_context'
@@ -428,56 +430,78 @@ export const messages: Messages = defineMessages({
 		description:
 			'Shown when a user does not have access to a link, but can connect their external account to view the link on card view. Displayed in byline.',
 	},
-	connect_link_account_embed_teaser_dot_label: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_dot_label.non-final',
+	connect_link_account_embed_carousel_dot_label: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_dot_label.non-final',
 		defaultMessage: 'Go to slide {index} of {total}',
 		description:
 			'Accessible label for a dot indicator button in the teaser carousel, describing which slide it navigates to',
 	},
-	connect_link_account_embed_teaser_dot_row_label: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_dot_row_label.non-final',
+	connect_link_account_embed_carousel_dot_row_label: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_dot_row_label.non-final',
 		defaultMessage: 'Slides',
 		description: 'Accessible label for the group of dot indicator buttons in the teaser carousel',
 	},
-	connect_link_account_embed_teaser_button_next: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_button_next.non-final',
+	connect_link_account_embed_carousel_button_back: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_button_back.non-final',
+		defaultMessage: 'Back',
+		description: 'Label for the back button in the embed card carousel teaser',
+	},
+	connect_link_account_embed_carousel_button_next: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_button_next.non-final',
 		defaultMessage: 'Next',
 		description:
 			'A button to view next teaser on benefit of connecting account on Smart Link embed',
 	},
-	connect_link_account_embed_teaser_slide_1_description: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_slide_1_description.non-final',
-		defaultMessage:
-			'Connect your account to preview {context} files and documents directly inside Atlassian. No more context switching.',
+	connect_link_account_embed_carousel_sl_description: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_sl_description.non-final',
+		defaultMessage: `Embed live previews of {context, select, 
+				Google {Google Docs, Sheets, and Slides} 
+				other {{context}}} {product, select, 
+				BITBUCKET {right inside Bitbucket}
+				CONFLUENCE {right inside Confluence and Jira}
+				JIRA {right inside Confluence and Jira}
+				TRELLO {right inside Trello}
+				other {across Atlassian}}.`,
 		description:
-			'A description on a teaser slide 1 on benefit of connecting account on Smart Link embed',
+			'A description on a teaser slide 1 on benefit of connecting account on Smart Link embed.' +
+			' Example Google+CONFLUENCE: Embed live previews of Google Docs, Sheets, and Slides right inside Confluence and Jira.' +
+			' Example Google+TRELLO: Embed live previews of Google Docs, Sheets, and Slides right inside Trello.' +
+			' Example other+TRELLO: Embed live previews of Figma right inside Trello.' +
+			' Example other+other: Embed live previews of Figma across Atlassian.',
 	},
-	connect_link_account_embed_teaser_slide_1_title: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_slide_1_title.non-final',
-		defaultMessage: 'See your {context} work without leaving Atlassian',
+	connect_link_account_embed_carousel_sl_title: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_sl_title.non-final',
+		defaultMessage: 'Turn smart links into rich previews',
 		description: 'A title on a teaser slide 1 on benefit of connecting account on Smart Link embed',
 	},
-	connect_link_account_embed_teaser_slide_2_title: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_slide_2_title.non-final',
-		defaultMessage: 'Search once, find it everywhere',
+	connect_link_account_embed_carousel_rovo_title: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_rovo_title.non-final',
+		defaultMessage: 'Find everything in one search',
 		description: 'A title on a teaser slide 2 on benefit of connecting account on Smart Link embed',
 	},
-	connect_link_account_embed_teaser_slide_2_description: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_slide_2_description.non-final',
-		defaultMessage:
-			'Search relevant {context} files alongside your Confluence pages and Jira issues, always respecting your {context} permissions.',
+	connect_link_account_embed_carousel_rovo_description: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_rovo_description.non-final',
+		defaultMessage: `Access {context} files alongside your work in {product, select, 
+				BITBUCKET {Bitbucket}
+				CONFLUENCE {Confluence and Jira}
+				JIRA {Confluence and Jira}
+				TRELLO {Trello}
+				other {Atlassian}}. We'll always respect your {context} permissions.`,
 		description:
-			'A description on a teaser slide 2 on benefit of connecting account on Smart Link embed',
+			'A description on a teaser slide 2 on benefit of connecting account on Smart Link embed.' +
+			" Example Figma+JIRA: Access Figma files alongside your work in Confluence and Jira. We'll always respect your Figma permissions." +
+			" Example Figma+BITBUCKET: Access Figma files alongside your work in Bitbucket. We'll always respect your Figma permissions." +
+			" Example Figma+other: Access Figma files alongside your work in Atlassian. We'll always respect your Figma permissions.",
 	},
-	connect_link_account_embed_teaser_slide_3_title: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_slide_3_title.non-final',
+	connect_link_account_embed_carousel_rovochat_title: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_rovochat_title.non-final',
 		defaultMessage: 'Get help from Rovo',
 		description: 'A title on a teaser slide 3 on benefit of connecting account on Smart Link embed',
 	},
-	connect_link_account_embed_teaser_slide_3_description: {
-		id: 'fabric.linking.connect_link_account_embed_teaser_slide_3_description.non-final',
+	connect_link_account_embed_carousel_rovochat_description: {
+		id: 'fabric.linking.connect_link_account_embed_carousel_rovochat_description.non-final',
 		defaultMessage:
-			"Rovo uses your {context} content to answer questions, summarise docs, and draft updates using the work you've already done.",
+			'Rovo uses your {context} content to answer questions, summarise docs, and draft updates using the work you’ve already done.',
 		description:
 			'A description on a teaser slide 3 on benefit of connecting account on Smart Link embed',
 	},
@@ -503,6 +527,12 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.connect_unauthorised_account_action',
 		defaultMessage: 'Connect to {context}',
 		description: 'Shown on a button to connect user external account to their Atlassian account.',
+	},
+	connect_3p_account: {
+		id: 'fabric.linking.connect_3p_account.non-final',
+		defaultMessage: 'Connect {context}',
+		description:
+			'Shown on a button to connect user external 3P account to their Atlassian account, e.g. Connect Figma',
 	},
 	connect_inline_social_proof: {
 		id: 'fabric.linking.connect_inline_social_proof',

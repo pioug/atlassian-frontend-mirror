@@ -16,17 +16,16 @@ import invariant from 'tiny-invariant';
 
 import { token } from '@atlaskit/tokens';
 
-import { HasTextAncestorProvider, useHasTextAncestor } from '../utils/has-text-ancestor-context';
+import { HasTextAncestorProvider } from '../utils/has-text-ancestor-provider';
 import { useSurface } from '../utils/surface-provider';
-import {
-	inverseColorMap,
-	type TextColor,
-	textColorStylesMap,
-	type TextSize,
-	textSizeStylesMap,
-	type TextWeight,
-	textWeightStylesMap,
-} from '../xcss/style-maps.partial';
+import { useHasTextAncestor } from '../utils/use-has-text-ancestor';
+import { inverseColorMap } from '../xcss/inverse-color';
+import { type TextColor } from '../xcss/text-color';
+import { textColorStylesMap } from '../xcss/text-color-styles-map';
+import { type TextSize } from '../xcss/text-size';
+import { textSizeStylesMap } from '../xcss/text-size-styles-map';
+import { type TextWeight } from '../xcss/text-weight';
+import { textWeightStylesMap } from '../xcss/text-weight-styles-map';
 
 import type { BasePrimitiveProps } from './types';
 

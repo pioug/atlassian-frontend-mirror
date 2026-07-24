@@ -29,6 +29,7 @@ import {
 	editingStyleActiveExtendedNoUnderline,
 	editingStyleNode,
 	addedCellOverlayStyle,
+	addedCellOverlayRoundedStyle,
 	deletedCellOverlayStyle,
 } from '../colorSchemes/standard';
 import {
@@ -45,9 +46,12 @@ import {
 	traditionalInsertStyleActive,
 	traditionalStyleNodeActive,
 	traditionalStyleNodeNew,
+	traditionalAddedCellOverlayRoundedStyle,
 	traditionalAddedCellOverlayStyleNew,
 	deletedTraditionalCellOverlayStyle,
 } from '../colorSchemes/traditional';
+
+import { applyTableCellEdgeAttrs } from './tableCellEdgeAttrs';
 
 const lozengeStyle = convertToInlineCss({
 	display: 'inline-flex',
@@ -254,16 +258,30 @@ const applyCellOverlayStyles = ({
 	element: HTMLElement;
 	isInserted: boolean;
 }) => {
+	const isRoundedTable = expValEquals(
+		'platform_editor_table_diff_rounded_corners',
+		'isEnabled',
+		true,
+	);
+
 	element.querySelectorAll('td, th').forEach((cell) => {
 		const overlay = document.createElement('span');
-		const overlayStyle =
-			colorScheme === 'traditional'
-				? isInserted
-					? traditionalAddedCellOverlayStyleNew
-					: deletedTraditionalCellOverlayStyle
-				: isInserted
-					? addedCellOverlayStyle
-					: deletedCellOverlayStyle;
+		const isTraditional = colorScheme === 'traditional';
+
+		const deletedCellStyle = isTraditional
+			? deletedTraditionalCellOverlayStyle
+			: deletedCellOverlayStyle;
+
+		const addedCellStyle = isTraditional
+			? isRoundedTable
+				? traditionalAddedCellOverlayRoundedStyle
+				: traditionalAddedCellOverlayStyleNew
+			: isRoundedTable
+				? addedCellOverlayRoundedStyle
+				: addedCellOverlayStyle;
+
+		const overlayStyle = isInserted ? addedCellStyle : deletedCellStyle;
+
 		overlay.setAttribute('style', overlayStyle);
 		cell.appendChild(overlay);
 	});
@@ -765,6 +783,13 @@ export const wrapBlockNodeView = ({
 			}
 
 			if (targetNode.type.name === 'table') {
+				if (
+					expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+					expValEquals('platform_editor_table_diff_rounded_corners', 'isEnabled', true)
+				) {
+					applyTableCellEdgeAttrs({ element: nodeView, tableNode: targetNode });
+				}
+
 				applyCellOverlayStyles({ element: nodeView, colorScheme, isInserted });
 				dom.append(nodeView);
 				return;

@@ -273,13 +273,31 @@ function renderRenderer({
 	document?: DocNode;
 } = {}) {
 	return render(
+		<RendererWithIntl
+			allowCollapsibleHeadings={allowCollapsibleHeadings}
+			appearance={appearance}
+			document={document}
+		/>,
+	);
+}
+
+function RendererWithIntl({
+	appearance = 'full-page',
+	allowCollapsibleHeadings = true,
+	document = documentWithHeadingSections,
+}: {
+	allowCollapsibleHeadings?: boolean;
+	appearance?: RendererAppearance;
+	document?: DocNode;
+}) {
+	return (
 		<IntlProvider locale="en">
 			<Renderer
 				allowCollapsibleHeadings={allowCollapsibleHeadings}
 				appearance={appearance}
 				document={document}
 			/>
-		</IntlProvider>,
+		</IntlProvider>
 	);
 }
 
@@ -448,6 +466,32 @@ describe('collapsible headings', () => {
 		const collapsedState = observedStates[observedStates.length - 1];
 		expect(collapsedState).not.toBe(initialState);
 		expect(collapsedState?.toggle).toBe(initialState?.toggle);
+	});
+
+	it('preserves collapsed sections when the renderer rerenders an equivalent document', async () => {
+		const { rerender } = renderRenderer();
+		const betaHeading = screen.getByRole('heading', { name: 'Beta' });
+		const betaContent = screen.getByText('Beta content').closest('p');
+		if (!betaContent) {
+			throw new Error('Expected Beta content to be rendered in a paragraph');
+		}
+
+		await userEvent.hover(betaHeading);
+		await userEvent.click(screen.getAllByRole('button', { name: 'Collapse section' })[1]);
+		await waitFor(() => expect(betaContent).toHaveAttribute('hidden', 'until-found'));
+
+		rerender(<RendererWithIntl document={{ ...documentWithHeadingSections }} />);
+
+		await waitFor(() =>
+			expect(screen.getByText('Beta content').closest('p')).toHaveAttribute(
+				'hidden',
+				'until-found',
+			),
+		);
+		expect(screen.getByRole('button', { name: 'Expand section' })).toHaveAttribute(
+			'aria-expanded',
+			'false',
+		);
 	});
 
 	it('does not render controls when collapsible headings are not allowed', () => {

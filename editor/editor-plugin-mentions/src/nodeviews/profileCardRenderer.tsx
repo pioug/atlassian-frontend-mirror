@@ -74,7 +74,7 @@ export const profileCardRenderer = ({
 			const selection = nextSharedState?.selection;
 			if (
 				selection instanceof NodeSelection
-					? expVal('platform_editor_reduced_profile_cards', 'isEnabled', false)
+					? expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
 						? selection.node.sameMarkup(currentNode)
 						: selection.node === node
 					: false
@@ -87,7 +87,7 @@ export const profileCardRenderer = ({
 
 	const renderEditorProfileCard = (): void => {
 		const isReducedProfileCards = expVal(
-			'platform_editor_reduced_profile_cards',
+			'platform_editor_reduced_agent_profile_cards',
 			'isEnabled',
 			false,
 		);
@@ -196,7 +196,7 @@ export const profileCardRenderer = ({
 		type: 'click',
 		listener: () => {
 			if (fg('people-teams_migrate-user-profile-card')) {
-				const userId = expVal('platform_editor_reduced_profile_cards', 'isEnabled', false)
+				const userId = expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
 					? currentNode.attrs?.id
 					: node.attrs?.id;
 				if (!userId) {
@@ -212,7 +212,7 @@ export const profileCardRenderer = ({
 
 					if (
 						isAgentMentionType(
-							expVal('platform_editor_reduced_profile_cards', 'isEnabled', false)
+							expVal('platform_editor_reduced_agent_profile_cards', 'isEnabled', false)
 								? currentNode.attrs?.userType
 								: node.attrs?.userType,
 						)

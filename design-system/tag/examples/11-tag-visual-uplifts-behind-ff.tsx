@@ -9,7 +9,7 @@ import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import Tag, { AvatarTag } from '@atlaskit/tag';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples

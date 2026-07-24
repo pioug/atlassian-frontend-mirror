@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 import { readdirSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { dirname, join } from 'path';
 
-import { createPartialSignedArtifact } from '@atlassian/codegen';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { createPartialSignedArtifact, createSignedArtifact } from '@atlassian/codegen';
 
 import { createColorStylesFromTemplate } from './color-codegen-template';
 import { createElevationStylesFromTemplate } from './elevation-codegen-template';
@@ -26,10 +27,9 @@ const templateFiles = readdirSync(join(__dirname, 'codegen-file-templates'), {
 	.filter((item) => !item.isDirectory())
 	.map((item) => join(__dirname, 'codegen-file-templates', item.name));
 
-// Output paths for partial codegen
-const primitivesOutputs = [
-	join(__dirname, '../src/xcss/style-maps.partial.tsx'),
-	join(__dirname, '../../css/codemods/0.5.2-primitives-emotion-to-compiled/style-maps.partial.tsx'),
+const primitiveOutputDirectories = [
+	join(__dirname, '../src/xcss'),
+	join(__dirname, '../../css/codemods/0.5.2-primitives-emotion-to-compiled'),
 ];
 
 const forgeOutputPath = join(
@@ -37,126 +37,158 @@ const forgeOutputPath = join(
 	'../../../forge/forge-ui/src/components/UIKit/tokens.partial.tsx',
 );
 
-// Generate partial sections for @atlaskit/primitives style-maps
-const primitivesSourceFns = [
-	// width, height, minWidth, maxWidth, minHeight, maxHeight
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				(options) => options.map(createStylesFromFileTemplate).join('\n'),
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'dimensions',
-					absoluteFilePath: outputPath,
-					dependencies: templateFiles.filter((v) => v.includes('dimensions')),
-				},
-			),
-	),
-	// padding*, gap*, inset*
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				createSpacingStylesFromTemplate,
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'spacing',
-					absoluteFilePath: outputPath,
-					dependencies: [spacingTokensDependencyPath],
-				},
-			),
-	),
-	// text color, background-color, border-color
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				(options) => options.map(createColorStylesFromTemplate).join('\n'),
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'colors',
-					absoluteFilePath: outputPath,
-					dependencies: [colorTokensDependencyPath],
-				},
-			),
-	),
-	// inverse color map
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				createInverseColorMapTemplate,
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'inverse-colors',
-					absoluteFilePath: outputPath,
-					dependencies: [colorTokensDependencyPath],
-				},
-			),
-	),
-	// elevation (opacity, shadow, surface)
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				(options) => options.map(createElevationStylesFromTemplate).join('\n'),
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'elevation',
-					absoluteFilePath: outputPath,
-					dependencies: [colorTokensDependencyPath],
-				},
-			),
-	),
-	// border-width, border-radius
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				(options) => options.map(createShapeStylesFromTemplate).join('\n'),
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'border',
-					absoluteFilePath: outputPath,
-					dependencies: [shapeTokensDependencyPath],
-				},
-			),
-	),
-	// border-color, border-radius, border-width, layer
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				(options) => options.map(createStylesFromFileTemplate).join('\n'),
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'misc',
-					absoluteFilePath: outputPath,
-					dependencies: templateFiles,
-				},
-			),
-	),
-	// font*, lineheight
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				createTypographyStylesFromTemplate,
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'typography',
-					absoluteFilePath: outputPath,
-					dependencies: templateFiles,
-				},
-			),
-	),
-	// font and weight map for text primitive
-	...primitivesOutputs.map(
-		(outputPath) => () =>
-			createPartialSignedArtifact(
-				createTextStylesFromTemplate,
-				'yarn workspace @atlaskit/primitives codegen-styles',
-				{
-					id: 'text',
-					absoluteFilePath: outputPath,
-					dependencies: templateFiles,
-				},
-			),
-	),
+type PrimitiveArtifactDefinition = {
+	fileName: string;
+	dependencies: string[];
+	template: string | (() => string);
+	needsTokenImport?: boolean;
+};
+
+const createPrimitiveArtifactSource = ({
+	template,
+	needsTokenImport,
+}: Pick<PrimitiveArtifactDefinition, 'template' | 'needsTokenImport'>): string => {
+	const source = typeof template === 'function' ? template() : template;
+
+	if (!needsTokenImport) {
+		return source;
+	}
+
+	return `import { token } from '@atlaskit/tokens';\n\n${source}`;
+};
+
+const primitiveArtifactDefinitions: PrimitiveArtifactDefinition[] = [
+	{
+		fileName: 'dimension.tsx',
+		template: () => createStylesFromFileTemplate('dimensions').toString(),
+		dependencies: templateFiles.filter((v) => v.includes('dimensions')),
+	},
+	{
+		fileName: 'positive-space.tsx',
+		template: () => createSpacingStylesFromTemplate('positive'),
+		dependencies: [spacingTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'negative-space.tsx',
+		template: () => createSpacingStylesFromTemplate('negative'),
+		dependencies: [spacingTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'all-space.tsx',
+		template: () => createSpacingStylesFromTemplate('all'),
+		dependencies: [spacingTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'border-color.tsx',
+		template: () => createColorStylesFromTemplate('border'),
+		dependencies: [colorTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'background-color.tsx',
+		template: () => createColorStylesFromTemplate('background'),
+		dependencies: [colorTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'text-color.tsx',
+		template: () => createColorStylesFromTemplate('text'),
+		dependencies: [colorTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'fill.tsx',
+		template: () => createColorStylesFromTemplate('fill'),
+		dependencies: [colorTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'inverse-color.tsx',
+		template: createInverseColorMapTemplate,
+		dependencies: [colorTokensDependencyPath],
+	},
+	{
+		fileName: 'opacity.tsx',
+		template: () => createElevationStylesFromTemplate('opacity'),
+		dependencies: [colorTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'shadow.tsx',
+		template: () => createElevationStylesFromTemplate('shadow'),
+		dependencies: [colorTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'surface-color.tsx',
+		template: () => createElevationStylesFromTemplate('surface'),
+		dependencies: [colorTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'layer.tsx',
+		template: () => createStylesFromFileTemplate('layer').toString(),
+		dependencies: templateFiles,
+	},
+	{
+		fileName: 'border-width.tsx',
+		template: () => createShapeStylesFromTemplate('width'),
+		dependencies: [shapeTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'border-radius.tsx',
+		template: () => createShapeStylesFromTemplate('radius'),
+		dependencies: [shapeTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'font.tsx',
+		template: () => createTypographyStylesFromTemplate('font'),
+		dependencies: templateFiles,
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'font-weight.tsx',
+		template: () => createTypographyStylesFromTemplate('fontWeight'),
+		dependencies: templateFiles,
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'font-family.tsx',
+		template: () => createTypographyStylesFromTemplate('fontFamily'),
+		dependencies: templateFiles,
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'text-size.tsx',
+		template: () => createTextStylesFromTemplate('textSize'),
+		dependencies: templateFiles,
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'text-weight.tsx',
+		template: () => createTextStylesFromTemplate('textWeight'),
+		dependencies: templateFiles,
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'metric-text-size.tsx',
+		template: () => createTextStylesFromTemplate('metricTextSize'),
+		dependencies: templateFiles,
+		needsTokenImport: true,
+	},
 ];
+
+const primitiveOutputs = primitiveOutputDirectories.flatMap((outputDirectory) =>
+	primitiveArtifactDefinitions.map((definition) => ({
+		...definition,
+		outputPath: join(outputDirectory, definition.fileName),
+	})),
+);
 
 /**
  * Generate Forge UI Kit tokens using partial codegen
@@ -172,7 +204,7 @@ const generateForgeTokensContent = (): string => {
 		'/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */',
 		createStylesFromFileTemplate('dimensions'),
 		'',
-		createSpacingStylesFromTemplate(),
+		...(['positive', 'negative', 'all'] as const).map(createSpacingStylesFromTemplate),
 		'',
 		...(['text', 'background', 'border'] as const).map(createColorStylesFromTemplate),
 		'',
@@ -184,9 +216,9 @@ const generateForgeTokensContent = (): string => {
 		'',
 		createStylesFromFileTemplate('layer'),
 		'',
-		createTypographyStylesFromTemplate(),
+		...(['font', 'fontWeight', 'fontFamily'] as const).map(createTypographyStylesFromTemplate),
 		'',
-		createTextStylesFromTemplate(),
+		...(['textSize', 'textWeight', 'metricTextSize'] as const).map(createTextStylesFromTemplate),
 	];
 
 	return sections.join('\n');
@@ -209,13 +241,22 @@ const forgeSourceFn = () =>
 	);
 
 // Write all generated files
-primitivesSourceFns.forEach((sourceFn) => {
-	writeFileSync(primitivesOutputs[0], sourceFn());
-	writeFileSync(primitivesOutputs[1], sourceFn());
+primitiveOutputs.forEach(({ outputPath, dependencies, template, needsTokenImport }) => {
+	writeFileSync(
+		outputPath,
+		createSignedArtifact(
+			createPrimitiveArtifactSource({ template, needsTokenImport }),
+			'yarn workspace @atlaskit/primitives codegen-styles',
+			{
+				dependencies,
+				outputFolder: dirname(outputPath),
+			},
+		),
+	);
 });
 
 writeFileSync(forgeOutputPath, forgeSourceFn());
 
 console.log('Generated style maps for:');
-primitivesOutputs.forEach((path) => console.log(`  - ${path}`));
+primitiveOutputs.forEach(({ outputPath }) => console.log(`  - ${outputPath}`));
 console.log(`  - ${forgeOutputPath}`);

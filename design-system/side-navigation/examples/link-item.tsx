@@ -18,13 +18,12 @@ const iconSpacingStyles = cssMap({
 const Example = (): React.JSX.Element => (
 	// eslint-disable-next-line @atlassian/a11y/interactive-element-not-keyboard-focusable
 	<Box onClick={(e: MouseEvent) => e.preventDefault()}>
-		{/* eslint-disable @atlassian/a11y/anchor-is-valid */}
-		<LinkItem href="#">My articles</LinkItem>
-		<LinkItem href="#" isDisabled>
+		<LinkItem href="/">My articles</LinkItem>
+		<LinkItem href="/" isDisabled>
 			My articles
 		</LinkItem>
 		<LinkItem
-			href="#"
+			href="/"
 			iconAfter={
 				<Flex xcss={iconSpacingStyles.space050}>
 					<StarStarredIcon label="" />
@@ -33,11 +32,11 @@ const Example = (): React.JSX.Element => (
 		>
 			My articles
 		</LinkItem>
-		<LinkItem href="#" description="Will create an article">
+		<LinkItem href="/" description="Will create an article">
 			My articles
 		</LinkItem>
 		<LinkItem
-			href="#"
+			href="/"
 			iconBefore={
 				<Flex xcss={iconSpacingStyles.space050}>
 					<BookIcon label="" />
@@ -47,7 +46,7 @@ const Example = (): React.JSX.Element => (
 			My articles
 		</LinkItem>
 		<LinkItem
-			href="#"
+			href="/"
 			iconBefore={
 				<Flex xcss={iconSpacingStyles.space050}>
 					<BookIcon label="" />
@@ -62,7 +61,7 @@ const Example = (): React.JSX.Element => (
 			My articles
 		</LinkItem>
 		<LinkItem
-			href="#"
+			href="/"
 			description="Will create an article"
 			iconBefore={
 				<Flex xcss={iconSpacingStyles.space050}>
@@ -73,7 +72,7 @@ const Example = (): React.JSX.Element => (
 			My articles
 		</LinkItem>
 		<LinkItem
-			href="#"
+			href="/"
 			description="Will create an article"
 			iconBefore={
 				<Flex xcss={iconSpacingStyles.space050}>
@@ -88,7 +87,6 @@ const Example = (): React.JSX.Element => (
 		>
 			My articles
 		</LinkItem>
-		{/* eslint-enable @atlassian/a11y/anchor-is-valid */}
 	</Box>
 );
 

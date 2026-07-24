@@ -1,5 +1,17 @@
 # @atlaskit/ads-cli
 
+## 0.3.0
+
+### Minor Changes
+
+- [`d678f1fec09ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d678f1fec09ca) -
+  Include concise, query-labelled foundations docs in unified search results, with leading-text
+  previews, docs filtering, and detail commands. For example:
+
+  ```sh
+  npx @atlaskit/ads-cli search contrast --type docs
+  ```
+
 ## 0.2.0
 
 ### Minor Changes

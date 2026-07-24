@@ -27,5 +27,3 @@ export const UNSAFE_media: {
 		readonly xl: '@media not all and (min-width: 110.5rem)';
 	};
 } = media;
-
-export { media } from './media';

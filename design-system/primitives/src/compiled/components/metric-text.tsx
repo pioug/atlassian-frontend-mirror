@@ -78,7 +78,7 @@ const fontSizeMap = cssMap({
  *
  * @internal
  */
-const MetricText: React.ForwardRefExoticComponent<
+export const MetricText: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<MetricTextProps<ElementType>> & React.RefAttributes<any>
 > = forwardRef(
 	<T extends ElementType = 'span'>(
@@ -104,5 +104,3 @@ const MetricText: React.ForwardRefExoticComponent<
 		return component;
 	},
 );
-
-export default MetricText;

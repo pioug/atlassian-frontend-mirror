@@ -9,7 +9,7 @@ import Avatar from '@atlaskit/avatar';
 import Heading from '@atlaskit/heading';
 import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { AvatarTag } from '@atlaskit/tag';
-import TeamAvatar from '@atlaskit/teams-avatar';
+import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
 // Sample avatar images

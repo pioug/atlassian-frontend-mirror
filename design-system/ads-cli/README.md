@@ -23,7 +23,7 @@ The CLI has these commands:
 
 | Command                | Description                                                                                                                                                                                                                                                             |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `search <query...>`    | **Unified** fuzzy-search across components, tokens, and icons at once. Narrow with `--type component\|token\|icon`; limit with `--limit N`.                                                                                                                             |
+| `search <query...>`    | **Unified** fuzzy-search across components, tokens, icons, and foundations docs at once. Narrow results with `--type component\|token\|icon\|docs`; limit with `--limit N`.                                                                                             |
 | `component <name>`     | Detail for a single component. Exact name → detail; ambiguous → a "did you mean?" list. `--all` lists every component.                                                                                                                                                  |
 | `token <name>`         | Detail for a single token. Exact name → detail; ambiguous → a "did you mean?" list. `--all` lists every token.                                                                                                                                                          |
 | `icon <name>`          | Detail for a single icon (with a copy-paste import). Exact name → detail; ambiguous → a "did you mean?" list. `--all` lists every icon.                                                                                                                                 |
@@ -40,11 +40,12 @@ The CLI has these commands:
 ## Examples
 
 ```sh
-# Unified human-readable search — components, tokens, and icons grouped together
-npx @atlaskit/ads-cli search button
+# Unified human-readable search — components, tokens, icons, and docs grouped together
+npx @atlaskit/ads-cli search contrast
 
 # Narrow to a single kind
 npx @atlaskit/ads-cli search space color --type token
+npx @atlaskit/ads-cli search contrast --type docs
 
 # Detail for a single component, token, or icon
 npx @atlaskit/ads-cli component Avatar
@@ -71,11 +72,13 @@ npx @atlaskit/ads-cli manifest --json
 - **Every command is human-readable by default; `--json` is the only path to structured output.**
   `search` and the `--all` listings print one compact line per result (e.g.
   `Avatar  @atlaskit/avatar  (42 props, 1 example)`), and unified `search` groups results into
-  `Components` / `Tokens` / `Icons` sections with a `→ ads-cli component Avatar` follow-up hint per
-  row. `component`/`token`/`icon` print a readable detail view (the icon view includes a copy-paste
-  `import` line); `docs` (foundations, `a11y`, and `migration`) and `lint-rules` print
-  prose/Markdown. A raw JSON dump is only ever a last-resort fallback for an unrecognised shape. For
-  the **full structured payload**, use `--json`.
+  `Components` / `Tokens` / `Icons` / `Docs` sections. Every `search` row includes a follow-up
+  command, such as `→ ads-cli component Avatar` or `→ ads-cli docs contrast`; this also applies to
+  narrowed `search --type` output. Documentation search results stay concise, while `docs <query>`
+  prints the full matched Markdown. `component`/`token`/`icon` print a readable detail view (the
+  icon view includes a copy-paste `import` line); `docs` (`foundations`, `a11y`, and `migration`)
+  and `lint-rules` print prose/Markdown. A raw JSON dump is only ever a last-resort fallback for an
+  unrecognised shape. For the **full structured payload**, use `--json`.
 - **Lookups never silently guess.** `component`/`token`/`icon <name>` — and a fuzzy
   `lint-rules <term>` — render the entry whose name matches exactly (case-insensitively). If there
   is no exact match but several candidates, they print a `Did you mean?` list (each with a
@@ -95,7 +98,18 @@ npx @atlaskit/ads-cli manifest --json
     "type": "ads-cli/search",
     "command": "search",
     "ok": true,
-    "data": { "components": [ /* … */ ], "tokens": [ /* … */ ], "icons": [ /* … */ ] },
+    "data": {
+      "components": [ /* … */ ],
+      "tokens": [ /* … */ ],
+      "icons": [ /* … */ ],
+      "docs": [
+        {
+          "title": "Button",
+          "summary": "A concise preview of the leading textual content.",
+          "followUp": "docs button"
+        }
+      ]
+    },
     "meta": { "terms": ["button"], "count": 12 }
   }
 

@@ -44,8 +44,7 @@ type ButtonBaseProps = BaseProps & {
  * These CSS variables consumed by the new icons, to allow them to have appropriate
  * padding inside Button while also maintaining spacing for the existing icons.
  *
- * These styles can be removed once the new icons are fully rolled out, feature flag
- * platform-visual-refresh-icons is cleaned up,
+ * These styles can be removed once the new icons are fully rolled out
  * and we bump Button to set padding based on the new icons.
  */
 const iconBeforeSpacingFixStyle = css({

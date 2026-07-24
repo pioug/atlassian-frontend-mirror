@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-avatar",
-	"version": "3.2.0",
+	"version": "4.0.0",
 	"description": "A team avatar is a visual representation of a team.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,7 +33,9 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./teams-avatar": "./src/ui/teams-avatar/index.tsx",
-		"./utils": "./src/ui/teams-avatar/utils.ts"
+		"./utils": "./src/ui/teams-avatar/utils.ts",
+		"./index": "./src/ui/teams-avatar/index.tsx",
+		"./unsafe-url-is-refreshed-team-avatar": "./src/ui/teams-avatar/utils.ts"
 	},
 	"scripts": {
 		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/teams-avatar/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-avatar/src/**\", \"!packages/people-and-teams/teams-avatar/src/**/**/types.ts\", \"!packages/people-and-teams/teams-avatar/src/ui/**/styled.tsx\"]')"

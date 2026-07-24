@@ -35,11 +35,3 @@ export const or: <T extends any>(...fns: BooleanCallback<T>[]) => (val: T) => bo
 	<T extends any>(...fns: BooleanCallback<T>[]) =>
 	(val: T) =>
 		fns.some((fn) => fn(val));
-
-export { compose } from './compose';
-export { pick } from './pick';
-export { isAccent } from './is-accent';
-export { isPressed } from './is-pressed';
-export { isHovered } from './is-hovered';
-export { capitalize } from './capitalize';
-export { generateTypeDefs } from './generate-type-defs';

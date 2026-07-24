@@ -1,4 +1,4 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { scrubAttrs, scrubStr, scrubLink } from '../../../scrub/scrub-content';
 
@@ -321,23 +321,23 @@ describe('scrubStr', () => {
 		expect(scrubbedStr).toEqual('loremip');
 	});
 
-	ffTest(
-		'platform_adf-utils_fix-dummy-text-index-oob',
-		async () => {
-			// Test that the modulo wrap-around maintains the expected DUMMY_TEXT pattern
-			// Even when offset exceeds base string length
+	it('should wrap around modulo when offset exceeds DUMMY_TEXT length', async () => {
+		passGate('platform_adf-utils_fix-dummy-text-index-oob');
+		// Test that the modulo wrap-around maintains the expected DUMMY_TEXT pattern
+		// Even when offset exceeds base string length
 
-			// Use a case where we know we'll exceed base length (string matching DUMMY_TEXT size without spaces)
-			const longInput = 'a'.repeat(437);
-			const result = scrubStr(longInput, 0);
-			expect(result.length).toBe(437);
-		},
-		async () => {
-			// Before the fix, throws an error when reaching `raw.toUpperCase()` when index goes out of bounds
-			const longInput = 'a'.repeat(437);
-			expect(() => scrubStr(longInput, 0)).toThrow();
-		},
-	);
+		// Use a case where we know we'll exceed base length (string matching DUMMY_TEXT size without spaces)
+		const longInput = 'a'.repeat(437);
+		const result = scrubStr(longInput, 0);
+		expect(result.length).toBe(437);
+	});
+
+	it('should throw when feature flag is disabled', async () => {
+		failGate('platform_adf-utils_fix-dummy-text-index-oob');
+		// Before the fix, throws an error when reaching `raw.toUpperCase()` when index goes out of bounds
+		const longInput = 'a'.repeat(437);
+		expect(() => scrubStr(longInput, 0)).toThrow();
+	});
 });
 
 describe('scrubLink', () => {

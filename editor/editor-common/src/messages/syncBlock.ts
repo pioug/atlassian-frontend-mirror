@@ -376,6 +376,16 @@ export const syncBlockMessages: {
 		description: string;
 		id: string;
 	};
+	syncedLocationDropdownLoading: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownNone: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	syncedLocationDropdownNoResults: {
 		defaultMessage: string;
 		description: string;
@@ -412,6 +422,11 @@ export const syncBlockMessages: {
 		id: string;
 	};
 	syncedLocationDropdownTitleNoteForJiraWorkItem: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	syncedLocationDropdownTitleWithCount: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -817,6 +832,22 @@ export const syncBlockMessages: {
 		defaultMessage: 'Synced locations',
 		description:
 			'Title for the dropdown menu that shows the synced (referenced) locations of the source sync block',
+	},
+	syncedLocationDropdownTitleWithCount: {
+		id: 'fabric.editor.syncedLocationDropdownTitleWithCount.ai-non-final',
+		defaultMessage: 'Synced locations ({count})',
+		description:
+			'Toolbar button label that shows the number of references to the selected synced block.',
+	},
+	syncedLocationDropdownNone: {
+		id: 'fabric.editor.syncedLocationDropdownNone.ai-non-final',
+		defaultMessage: 'None',
+		description: 'Toolbar reference count shown when a synced block has no references.',
+	},
+	syncedLocationDropdownLoading: {
+		id: 'fabric.editor.syncedLocationDropdownLoading.ai-non-final',
+		defaultMessage: 'Loading synced locations',
+		description: 'Accessible label for the spinner while synced locations are loading.',
 	},
 	syncedLocationDropdownHeading: {
 		id: 'fabric.editor.syncedLocationDropdownHeading',

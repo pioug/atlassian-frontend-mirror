@@ -2,7 +2,7 @@ import React from 'react';
 
 import { queryByAttribute, render, screen } from '@testing-library/react';
 
-import MetricText from '../../metric-text';
+import { MetricText } from '../../metric-text';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MetricText component', () => {

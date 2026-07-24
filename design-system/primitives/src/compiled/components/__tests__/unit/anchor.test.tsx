@@ -12,7 +12,7 @@ import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provid
 import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import Anchor from '../../anchor';
+import { Anchor } from '../../anchor';
 
 const testId = 'test-anchor';
 const styles = cssMap({

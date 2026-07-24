@@ -29,6 +29,14 @@ export type CollapsibleHeading = {
 const CollapsibleHeadingsContext = React.createContext<CollapsibleHeadingsController | null>(null);
 const emptyCollapsedHeadings = new Set<number>();
 
+function isSameDocument(currentDocument?: PMNode, nextDocument?: PMNode): boolean {
+	// Renderer reparses equivalent ADF on parent rerenders, so object identity is not stable.
+	return (
+		currentDocument === nextDocument ||
+		Boolean(currentDocument && nextDocument && currentDocument.eq(nextDocument))
+	);
+}
+
 function supportsHiddenUntilFound(rendererRef: React.RefObject<HTMLDivElement>): boolean {
 	const body = rendererRef.current?.ownerDocument.body;
 	return body ? 'onbeforematch' in body : false;
@@ -62,8 +70,8 @@ export function CollapsibleHeadingsProvider({
 			),
 		[sections],
 	);
-	const collapsedHeadings =
-		state.pmDocument === pmDocument ? state.positions : emptyCollapsedHeadings;
+	const isCurrentDocument = isSameDocument(state.pmDocument, pmDocument);
+	const collapsedHeadings = isCurrentDocument ? state.positions : emptyCollapsedHeadings;
 	const isActive = isEnabled && isBrowserFindSupported && Boolean(pmDocument);
 
 	useEffect(() => {
@@ -73,11 +81,12 @@ export function CollapsibleHeadingsProvider({
 	const updateCollapsedHeadings = useCallback(
 		(update: (positions: Set<number>) => boolean) => {
 			setState((currentState) => {
+				const isStillCurrentDocument = isSameDocument(currentState.pmDocument, pmDocument);
 				const positions = new Set(
-					currentState.pmDocument === pmDocument ? currentState.positions : emptyCollapsedHeadings,
+					isStillCurrentDocument ? currentState.positions : emptyCollapsedHeadings,
 				);
 				if (!update(positions)) {
-					return currentState.pmDocument === pmDocument ? currentState : { pmDocument, positions };
+					return isStillCurrentDocument ? currentState : { pmDocument, positions };
 				}
 				return { pmDocument, positions };
 			});

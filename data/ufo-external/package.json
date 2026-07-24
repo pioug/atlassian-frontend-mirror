@@ -26,14 +26,14 @@
 		"./logger": "./src/logger/index.ts",
 		"./platform-client": "./src/platform-client/index.ts",
 		"./types": "./src/types.ts",
-		"./buildVersion": "./src/entry-points/buildVersion.ts",
-		"./concurrent-experience": "./src/entry-points/concurrent-experience.ts",
-		"./experience": "./src/entry-points/experience.ts",
-		"./experience-state": "./src/entry-points/experience-state.ts",
-		"./experience-types": "./src/entry-points/experience-types.ts",
-		"./global-page-load-experience": "./src/entry-points/global-page-load-experience.ts",
-		"./until-helpers": "./src/entry-points/until-helpers.ts",
-		"./visibility-change-observer": "./src/entry-points/visibility-change-observer.ts"
+		"./buildVersion": "./src/buildVersion.ts",
+		"./concurrent-experience": "./src/platform-client/core/experience/concurrent-experience.ts",
+		"./experience": "./src/platform-client/core/experience/experience.ts",
+		"./experience-state": "./src/platform-client/core/experience/experience-state.ts",
+		"./experience-types": "./src/platform-client/core/experience/experience-types.ts",
+		"./global-page-load-experience": "./src/platform-client/core/experience/global-page-load-experience.ts",
+		"./until-helpers": "./src/platform-client/utils/until-helpers.ts",
+		"./visibility-change-observer": "./src/observer/visibility-change-observer.ts"
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "workspace:^",

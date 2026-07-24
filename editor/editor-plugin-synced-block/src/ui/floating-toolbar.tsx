@@ -41,7 +41,7 @@ import { findSyncBlockOrBodiedSyncBlock, isBodiedSyncBlockNode } from '../pm-plu
 import type { SyncedBlockFeedbackContext, SyncedBlockPlugin } from '../syncedBlockPluginType';
 import { SYNCED_BLOCK_BUTTON_TEST_ID } from '../types';
 
-import { SyncedLocationDropdown } from './SyncedLocationDropdown';
+import { SyncedLocationDropdown, SyncedLocationDropdownWithCount } from './SyncedLocationDropdown';
 
 export const getToolbarConfig = (
 	state: EditorState,
@@ -148,6 +148,21 @@ export const getToolbarConfig = (
 					_dispatchAnalyticsEvent,
 					floatingToolbarRenderContext?: FloatingToolbarCustomRenderContext,
 				) => {
+					if (isSyncBlockActivationEnabled) {
+						return (
+							<SyncedLocationDropdownWithCount
+								key={`${resourceId}:${localId}:${isBodiedSyncBlock}`}
+								syncBlockStore={syncBlockStore}
+								resourceId={resourceId}
+								localId={localId}
+								intl={intl}
+								isSource={isBodiedSyncBlock}
+								api={api}
+								floatingToolbarRenderContext={floatingToolbarRenderContext}
+							/>
+						);
+					}
+
 					return (
 						<SyncedLocationDropdown
 							syncBlockStore={syncBlockStore}

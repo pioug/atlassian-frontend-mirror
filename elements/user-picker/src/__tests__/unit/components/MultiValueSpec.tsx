@@ -213,7 +213,7 @@ describe('MultiValue', () => {
 		});
 	});
 
-	describe('archived team lozenge (enable-sup-archive-experience)', () => {
+	describe('archived team lozenge', () => {
 		const renderMultiValueWithIntl = (props: any = {}) =>
 			render(
 				<IntlProvider locale="en">
@@ -226,87 +226,63 @@ describe('MultiValue', () => {
 				</IntlProvider>,
 			);
 
-		ffTest.on('enable-sup-archive-experience', 'on', () => {
-			it('should render Archived lozenge when team state is DISBANDED', async () => {
-				const disbandedTeam: Team = {
-					name: 'Archived Team',
-					type: 'team',
-					id: 'team-disbanded',
-					state: 'DISBANDED',
-				};
+		it('should render Archived lozenge when team state is DISBANDED', async () => {
+			const disbandedTeam: Team = {
+				name: 'Archived Team',
+				type: 'team',
+				id: 'team-disbanded',
+				state: 'DISBANDED',
+			};
 
-				renderMultiValueWithIntl({
-					data: {
-						label: disbandedTeam.name,
-						value: disbandedTeam.id,
-						data: disbandedTeam,
-					},
-				});
-
-				expect(screen.getByText('Archived')).toBeInTheDocument();
-				await expect(document.body).toBeAccessible();
+			renderMultiValueWithIntl({
+				data: {
+					label: disbandedTeam.name,
+					value: disbandedTeam.id,
+					data: disbandedTeam,
+				},
 			});
 
-			it('should not render Archived lozenge when team state is ACTIVE', async () => {
-				const activeTeam: Team = {
-					name: 'Active Team',
-					type: 'team',
-					id: 'team-active',
-					state: 'ACTIVE',
-				};
-
-				renderMultiValueWithIntl({
-					data: {
-						label: activeTeam.name,
-						value: activeTeam.id,
-						data: activeTeam,
-					},
-				});
-
-				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
-				await expect(document.body).toBeAccessible();
-			});
-
-			it('should not render Archived lozenge for user (non-team) option', async () => {
-				const user: User = {
-					name: 'John Doe',
-					id: 'user-1',
-					avatarUrl: 'http://example.com/avatar.png',
-				};
-
-				renderMultiValueWithIntl({
-					data: {
-						label: user.name,
-						value: user.id,
-						data: user,
-					},
-				});
-
-				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
-				await expect(document.body).toBeAccessible();
-			});
+			expect(screen.getByText('Archived')).toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
 		});
 
-		ffTest.off('enable-sup-archive-experience', 'off', () => {
-			it('should not render Archived lozenge when feature flag is off even if team is DISBANDED', async () => {
-				const disbandedTeam: Team = {
-					name: 'Archived Team',
-					type: 'team',
-					id: 'team-disbanded',
-					state: 'DISBANDED',
-				};
+		it('should not render Archived lozenge when team state is ACTIVE', async () => {
+			const activeTeam: Team = {
+				name: 'Active Team',
+				type: 'team',
+				id: 'team-active',
+				state: 'ACTIVE',
+			};
 
-				renderMultiValueWithIntl({
-					data: {
-						label: disbandedTeam.name,
-						value: disbandedTeam.id,
-						data: disbandedTeam,
-					},
-				});
-
-				expect(screen.queryByText('Archived')).not.toBeInTheDocument();
-				await expect(document.body).toBeAccessible();
+			renderMultiValueWithIntl({
+				data: {
+					label: activeTeam.name,
+					value: activeTeam.id,
+					data: activeTeam,
+				},
 			});
+
+			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should not render Archived lozenge for user (non-team) option', async () => {
+			const user: User = {
+				name: 'John Doe',
+				id: 'user-1',
+				avatarUrl: 'http://example.com/avatar.png',
+			};
+
+			renderMultiValueWithIntl({
+				data: {
+					label: user.name,
+					value: user.id,
+					data: user,
+				},
+			});
+
+			expect(screen.queryByText('Archived')).not.toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
 		});
 	});
 

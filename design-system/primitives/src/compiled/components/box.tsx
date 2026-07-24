@@ -784,7 +784,7 @@ const paddingInlineEndMap = cssMap({
  * - [Code](https://atlassian.design/components/primitives/box/code)
  * - [Usage](https://atlassian.design/components/primitives/box/usage)
  */
-const Box = forwardRef(
+export const Box = forwardRef(
 	<T extends CustomElementType>(
 		{
 			as: Component = 'div' as T,
@@ -840,8 +840,6 @@ const Box = forwardRef(
 	// @ts-ignore This typescript error has been surpessed while locally enrolling `@atlaskit/primitives` into Jira
 	// The return type of `BoxComponent` does not match the return type of `forwardRef` in React 18
 ) as BoxComponent;
-
-export default Box;
 
 function isSurfaceToken(
 	backgroundColor: string,

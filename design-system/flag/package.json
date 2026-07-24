@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/flag",
-	"version": "18.2.3",
+	"version": "18.2.4",
 	"description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -125,6 +125,9 @@
 			"type": "boolean"
 		},
 		"platform_dst_flag_keyboard_dismiss": {
+			"type": "boolean"
+		},
+		"platform_dst_flag_action_padding_fix": {
 			"type": "boolean"
 		},
 		"cc_mohiti_flag_anchoring": {

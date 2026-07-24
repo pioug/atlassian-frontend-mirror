@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { parseXcss } from '../xcss/xcss';
+import { parseXcss } from '../xcss/parse-xcss';
 
 import type { BasePrimitiveProps } from './types';
 
@@ -85,7 +85,7 @@ const inlineBleedMap = {
  * - [Examples](https://atlassian.design/components/primitives/bleed/examples)
  * - [Code](https://atlassian.design/components/primitives/bleed/code)
  */
-const Bleed: React.MemoExoticComponent<
+export const Bleed: React.MemoExoticComponent<
 	({ children, testId, inline, block, all, xcss }: BleedProps) => jsx.JSX.Element
 > = React.memo(({ children, testId, inline, block, all, xcss }: BleedProps): jsx.JSX.Element => {
 	const resolvedStyles = parseXcss(xcss);
@@ -108,5 +108,3 @@ const Bleed: React.MemoExoticComponent<
 });
 
 Bleed.displayName = 'Bleed';
-
-export default Bleed;

@@ -1,4 +1,5 @@
-import { getGlobalEventStream, setGlobalEventStream } from '../../index';
+import { getGlobalEventStream } from '../../getGlobalEventStream';
+import { setGlobalEventStream } from '../../setGlobalEventStream';
 
 describe('getGlobalEventStream', () => {
 	beforeEach(() => {

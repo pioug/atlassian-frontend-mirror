@@ -4,6 +4,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { Box } from '@atlaskit/primitives/compiled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Flag from '../../flag';
 import { type AppearanceTypes, type FlagProps } from '../../types';
@@ -33,6 +34,42 @@ describe('actions prop', () => {
 		expect(actions).toHaveTextContent('Hello!·Goodbye!·with href');
 	});
 
+	it('actions with normal appearance should have no padding', () => {
+		passGate('platform_dst_flag_action_padding_fix');
+
+		render(
+			generateFlag({
+				actions: [{ content: 'Hello!', onClick: noop }],
+			}),
+		);
+
+		const action = screen.getByRole('button', { name: 'Hello!' });
+		const styles = window.getComputedStyle(action);
+
+		expect(styles.paddingTop).toBe('0px');
+		expect(styles.paddingRight).toBe('0px');
+		expect(styles.paddingBottom).toBe('0px');
+		expect(styles.paddingLeft).toBe('0px');
+	});
+
+	it('actions should retain legacy default appearance padding when the new style model is disabled', () => {
+		failGate('platform_dst_flag_action_padding_fix');
+
+		render(
+			generateFlag({
+				actions: [{ content: 'Hello!', onClick: noop }],
+			}),
+		);
+
+		const action = screen.getByRole('button', { name: 'Hello!' });
+		const styles = window.getComputedStyle(action);
+
+		expect(styles.paddingTop).toBe('0px');
+		expect(styles.paddingRight).toBe('0px');
+		expect(styles.paddingBottom).toBe('0px');
+		expect(styles.paddingLeft).toBe('0px');
+	});
+
 	it('actions with bold appearance should be rendered without dots', () => {
 		(['info', 'warning', 'error', 'success'] as Array<AppearanceTypes>).forEach((appearance) => {
 			const { unmount } = render(
@@ -54,6 +91,28 @@ describe('actions prop', () => {
 
 			unmount();
 		});
+	});
+
+	it('actions with bold appearance should retain inline padding', () => {
+		passGate('platform_dst_flag_action_padding_fix');
+
+		render(
+			generateFlag({
+				testId: 'flag-action-test',
+				actions: [{ content: 'Hello!', onClick: noop }],
+				appearance: 'error',
+			}),
+		);
+
+		fireEvent.click(screen.getByTestId('flag-action-test-toggle'));
+
+		const action = screen.getByRole('button', { name: 'Hello!' });
+		const styles = window.getComputedStyle(action);
+
+		expect(styles.paddingTop).toBe('0px');
+		expect(styles.paddingRight).toBe('var(--ds-space-100,8px)');
+		expect(styles.paddingBottom).toBe('0px');
+		expect(styles.paddingLeft).toBe('var(--ds-space-100,8px)');
 	});
 
 	it('actions without a href should should be rendered as a button', () => {

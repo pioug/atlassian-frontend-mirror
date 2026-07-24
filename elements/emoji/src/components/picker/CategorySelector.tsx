@@ -41,6 +41,19 @@ const isRefreshEmojiPickerEnabled = (): boolean => {
 	return isEnabled;
 };
 
+const isEmojiPickerInitialFocusFixEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	return FeatureGates.getExperimentValue(
+		'tef_fix_a11y_keyboard_control_emoji_picker',
+		'isEnabled',
+		false,
+	);
+};
+
 const styles = cssMap({
 	commonCategory: {
 		backgroundColor: token('color.background.neutral.subtle'),
@@ -207,6 +220,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 	);
 	const [currentFocus, setCurrentFocus] = useState(0);
 	const categoryRef = useRef<HTMLDivElement>(null);
+	const hasSetInitialFocus = useRef(false);
 	const prevDynamicCategories = usePrevious(dynamicCategories);
 	const { formatMessage } = useIntl();
 
@@ -230,6 +244,28 @@ const CategorySelector = (props: Props): JSX.Element => {
 		},
 		[categoryRef, setCurrentFocus],
 	);
+
+	useEffect(() => {
+		if (hasSetInitialFocus.current || !isEmojiPickerInitialFocusFixEnabled() || !activeCategoryId) {
+			return;
+		}
+
+		const activeCategoryIndex = categories.indexOf(activeCategoryId);
+		if (activeCategoryIndex === -1) {
+			return;
+		}
+
+		const picker = categoryRef.current?.closest('[data-emoji-picker-container]');
+		const activeElement = categoryRef.current?.ownerDocument.activeElement;
+
+		if (activeElement && picker?.contains(activeElement)) {
+			hasSetInitialFocus.current = true;
+			return;
+		}
+
+		focusCategory(activeCategoryIndex);
+		hasSetInitialFocus.current = true;
+	}, [activeCategoryId, categories, focusCategory]);
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
 		if (!CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED.includes(e.key)) {

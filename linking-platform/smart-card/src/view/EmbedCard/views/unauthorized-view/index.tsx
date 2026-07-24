@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/new';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 
 import { useAnalyticsEvents } from '../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../messages';
@@ -11,6 +12,7 @@ import UnresolvedView from '../unresolved-view';
 
 import { type UnauthorizedViewProps } from './types';
 import { UnauthorizedSVG } from './unauthorized-svg';
+import UnauthorizedCarouselView from './UnauthorizedCarouselView';
 
 const UnauthorizedView = ({
 	context,
@@ -88,4 +90,14 @@ const UnauthorizedView = ({
 	);
 };
 
-export default UnauthorizedView;
+const UnauthorizedViewGated = (props: UnauthorizedViewProps): React.JSX.Element => {
+	if (
+		FeatureGates.initializeCompleted() &&
+		FeatureGates.getExperimentValue('platform_sl_embed_preauth_teaser_exp', 'isEnabled', false)
+	) {
+		return <UnauthorizedCarouselView {...props} />;
+	}
+	return <UnauthorizedView {...props} />;
+};
+
+export default UnauthorizedViewGated;

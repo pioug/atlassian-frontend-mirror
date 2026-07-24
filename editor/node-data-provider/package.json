@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/node-data-provider",
-	"version": "13.0.28",
+	"version": "13.0.29",
 	"description": "Node data provider for @atlaskit/editor-core plugins and @atlaskit/renderer",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

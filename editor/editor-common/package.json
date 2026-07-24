@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "116.37.0",
+	"version": "116.39.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -757,6 +757,7 @@
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
+		"@types/jscodeshift": "root:*",
 		"@types/linkify-it": "root:*",
 		"@types/markdown-it": "root:*",
 		"@types/raf-schd": "root:*",
@@ -886,6 +887,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_lovability_text_bg_color_patch_1": {
+			"type": "boolean"
+		},
+		"platform_editor_embed_height_only_fallback": {
 			"type": "boolean"
 		}
 	}

@@ -7,15 +7,15 @@ export {
 	GlobalPageLoadExperience,
 } from './platform-client';
 
-export { ufolog, ufologger, ufowarn } from './logger';
+export { ufologger } from './logger';
+export { ufolog } from './logger/ufolog';
+export { ufowarn } from './logger/ufowarn';
 
-export {
-	getGlobalEventStream,
-	setGlobalEventStream,
-	experiencePayloadEvent,
-	unsubscribeEvent,
-	subscribeEvent,
-} from './global-stream-buffer';
+export { experiencePayloadEvent } from './global-stream-buffer/experiencePayloadEvent';
+export { getGlobalEventStream } from './global-stream-buffer/getGlobalEventStream';
+export { setGlobalEventStream } from './global-stream-buffer/setGlobalEventStream';
+export { subscribeEvent } from './global-stream-buffer/subscribeEvent';
+export { unsubscribeEvent } from './global-stream-buffer/unsubscribeEvent';
 
 export type { CustomData } from './types';
 

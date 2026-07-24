@@ -8,7 +8,7 @@ import React, { type FC, forwardRef, type HTMLProps, type ReactNode } from 'reac
 
 import { css, jsx } from '@compiled/react';
 
-import Spinner from '@atlaskit/spinner';
+import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import type { SpinnerSizeType } from '../types';

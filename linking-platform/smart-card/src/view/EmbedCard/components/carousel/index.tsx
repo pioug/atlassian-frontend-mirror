@@ -22,15 +22,12 @@ const styles = cssMap({
 	},
 });
 
-// Slide enters from the right: translates from 40px right + fades in
-const slideInFromRight = keyframes({
+const fadeIn = keyframes({
 	from: {
 		opacity: 0,
-		transform: 'translateX(40px)',
 	},
 	to: {
 		opacity: 1,
-		transform: 'translateX(0)',
 	},
 });
 
@@ -42,7 +39,7 @@ const slideWrapperMap = cssMap({
 	animated: {
 		width: '100%',
 		height: '100%',
-		animationName: slideInFromRight,
+		animationName: fadeIn,
 		animationDuration: '280ms',
 		animationTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
 		animationFillMode: 'both',
@@ -58,6 +55,8 @@ type CarouselProps = {
 	icon?: React.ReactNode | string;
 	/** Alt for the icon, e.g. "Figma" */
 	iconLabel?: string;
+	/** Initial slide index — only used in VR tests via magnetic-di injection */
+	initialSlideIndex?: number;
 	/** Ordered list of teaser slides */
 	items: CarouselItem[];
 	/** Called when the user clicks the primary button */
@@ -86,12 +85,13 @@ const getSize = (width: number, height: number): CarouselSize => {
 const Carousel = ({
 	icon,
 	iconLabel,
+	initialSlideIndex = 0,
 	items,
 	onPrimaryButtonClick,
 	primaryButtonLabel,
 	testId = 'embed-card-teaser-carousel',
 }: CarouselProps): React.JSX.Element => {
-	const [activeIndex, setActiveIndex] = useState(0);
+	const [activeIndex, setActiveIndex] = useState(initialSlideIndex);
 	const [size, setSize] = useState<CarouselSize>('full');
 
 	// Tracks whether the user has navigated at least once.
@@ -119,6 +119,11 @@ const Carousel = ({
 		setActiveIndex((current) => (current + 1) % items.length);
 	}, [items.length]);
 
+	const goPrev = useCallback(() => {
+		hasNavigated.current = true;
+		setActiveIndex((current) => Math.max(0, current - 1));
+	}, []);
+
 	const goTo = useCallback(
 		(index: number) => {
 			if (index === activeIndex) {
@@ -131,6 +136,7 @@ const Carousel = ({
 	);
 
 	const currentSlide = items[activeIndex];
+	const isFirstSlide = activeIndex === 0;
 	const isLastSlide = activeIndex === items.length - 1;
 
 	return (
@@ -148,6 +154,7 @@ const Carousel = ({
 					image={currentSlide.image}
 					title={currentSlide.title}
 					onPrimaryButtonClick={onPrimaryButtonClick}
+					onBackClick={!isFirstSlide ? goPrev : undefined}
 					onDotClick={goTo}
 					onNextClick={!isLastSlide ? goNext : undefined}
 					size={size}

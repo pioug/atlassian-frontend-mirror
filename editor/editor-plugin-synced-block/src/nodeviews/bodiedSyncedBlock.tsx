@@ -25,7 +25,6 @@ import {
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { SyncedBlockPlugin, SyncedBlockPluginOptions } from '../syncedBlockPluginType';
 import { BodiedSyncBlockWrapper } from '../ui/BodiedSyncBlockWrapper';
@@ -262,11 +261,8 @@ export class BodiedSyncBlock implements NodeView {
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document
 			labelContainer = document.createElement('div');
 			this.dom.appendChild(labelContainer);
-		} else if (
-			fg('platform_synced_block_patch_14') ||
-			expValEquals('platform_editor_sync_block_activation', 'isEnabled', true)
-		) {
-			// Render the label into a separate container for the activation experience so
+		} else if (fg('platform_synced_block_patch_14')) {
+			// Render the label into a separate container for the patch path so
 			// portal implementations that write directly into the target do not clobber
 			// the ProseMirror contentDOM.
 			// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage -- NodeView DOM must be created against active runtime document

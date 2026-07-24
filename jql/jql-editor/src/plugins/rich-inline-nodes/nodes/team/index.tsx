@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TeamsAvatar from '@atlaskit/teams-avatar';
+import TeamsAvatar from '@atlaskit/teams-avatar/teams-avatar';
 
 import { useHydratedTeam } from '../../../../state';
 import { type NodeViewProps } from '../../util/react-node-view';

@@ -7,22 +7,44 @@
 */
 
 import React from 'react';
+import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMap } from '../../../../components/picker/categories';
 import CategorySelector, {
 	type Props,
 	sortCategories,
 } from '../../../../components/picker/CategorySelector';
+import { RENDER_EMOJI_PICKER_LIST_TESTID } from '../../../../components/picker/EmojiPickerList';
 import { defaultCategories } from '../../../../util/constants';
 import { isMessagesKey } from '../../../../util/type-helpers';
 import type { CategoryId } from '../../../../types';
 import { renderWithIntl } from '../../_testing-library';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { expectTabIndexFromList } from './_emoji-picker-test-helpers';
 import { act } from 'react-test-renderer';
 
 describe('<CategorySelector />', () => {
 	const setupComponent = (props?: Props) => renderWithIntl(<CategorySelector {...props} />);
+	const setupComponentWithTabPanel = (props?: Props) =>
+		renderWithIntl(
+			<div data-emoji-picker-container>
+				<CategorySelector {...props} />
+				<input aria-label="Search emojis" />
+				<div id={RENDER_EMOJI_PICKER_LIST_TESTID} />
+			</div>,
+		);
+	const enableInitialFocusFix = () => {
+		jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
+		jest
+			.spyOn(FeatureGates, 'getExperimentValue')
+			.mockImplementation((experimentName, _parameterName, defaultValue) =>
+				experimentName === 'tef_fix_a11y_keyboard_control_emoji_picker' ? true : defaultValue,
+			);
+	};
+
+	afterEach(() => {
+		jest.restoreAllMocks();
+	});
 
 	it('all standard categories visible by default', async () => {
 		await setupComponent();
@@ -165,5 +187,81 @@ describe('<CategorySelector />', () => {
 		});
 		expect(categoryButtons[0]).toHaveFocus();
 		expectTabIndexFromList(categoryButtons, 0);
+	});
+
+	it('focuses the selected category when the initial focus fix is enabled', async () => {
+		enableInitialFocusFix();
+		const activeCategoryId = defaultCategories[0];
+
+		await setupComponentWithTabPanel({ activeCategoryId });
+
+		await waitFor(() => {
+			expect(screen.getByTestId(`category-selector-${activeCategoryId}`)).toHaveFocus();
+		});
+	});
+
+	it('focuses the selected dynamic frequent category', async () => {
+		enableInitialFocusFix();
+
+		await setupComponentWithTabPanel({
+			activeCategoryId: 'FREQUENT',
+			dynamicCategories: ['FREQUENT'],
+		});
+
+		await waitFor(() => {
+			expect(screen.getByTestId('category-selector-FREQUENT')).toHaveFocus();
+		});
+	});
+
+	it('only sets initial focus once', async () => {
+		enableInitialFocusFix();
+		const initialCategoryId = defaultCategories[0];
+		const laterCategoryId = defaultCategories[2];
+		const { rerender } = await setupComponentWithTabPanel({
+			activeCategoryId: initialCategoryId,
+		});
+		const categoryButtons = screen.getAllByRole('tab');
+
+		await waitFor(() => {
+			expect(categoryButtons[0]).toHaveFocus();
+		});
+
+		fireEvent.keyDown(categoryButtons[0], { key: 'ArrowRight' });
+		expect(categoryButtons[1]).toHaveFocus();
+
+		rerender(
+			<div data-emoji-picker-container>
+				<CategorySelector activeCategoryId={laterCategoryId} />
+				<input aria-label="Search emojis" />
+				<div id={RENDER_EMOJI_PICKER_LIST_TESTID} />
+			</div>,
+		);
+
+		await waitFor(() => {
+			expect(categoryButtons[1]).toHaveFocus();
+			expectTabIndexFromList(categoryButtons, 1);
+		});
+	});
+
+	it('does not move focus when the user focuses search before the active category is set', async () => {
+		enableInitialFocusFix();
+		const activeCategoryId = defaultCategories[0];
+		const { rerender } = await setupComponentWithTabPanel();
+		const searchInput = screen.getByRole('textbox', { name: 'Search emojis' });
+
+		searchInput.focus();
+		expect(searchInput).toHaveFocus();
+
+		rerender(
+			<div data-emoji-picker-container>
+				<CategorySelector activeCategoryId={activeCategoryId} />
+				<input aria-label="Search emojis" />
+				<div id={RENDER_EMOJI_PICKER_LIST_TESTID} />
+			</div>,
+		);
+
+		await waitFor(() => {
+			expect(searchInput).toHaveFocus();
+		});
 	});
 });

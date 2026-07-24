@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 22.2.0
+
+### Minor Changes
+
+- [`7044faff2ad80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7044faff2ad80) -
+  Internal refactor to improve tree-shaking. There should be no change to consumers.
+
 ## 22.1.1
 
 ### Patch Changes

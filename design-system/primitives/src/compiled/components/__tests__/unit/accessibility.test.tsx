@@ -11,8 +11,8 @@ import { axe } from '@af/accessibility-testing';
 import { cssMap } from '@atlaskit/css';
 
 import { Box, Flex, Grid, Inline, Stack, Text } from '../../../index';
-import Anchor from '../../anchor';
-import Pressable from '../../pressable';
+import { Anchor } from '../../anchor';
+import { Pressable } from '../../pressable';
 
 const gridStyles = cssMap({
 	parent: {

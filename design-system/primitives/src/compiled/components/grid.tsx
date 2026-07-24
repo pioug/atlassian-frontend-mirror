@@ -190,7 +190,7 @@ const gridAutoFlowMap = cssMap({
  * )
  * ```
  */
-const Grid: MemoExoticComponent<
+export const Grid: MemoExoticComponent<
 	ForwardRefExoticComponent<Omit<GridProps<ElementType>, 'ref'> & RefAttributes<any>>
 > = memo(
 	forwardRef(
@@ -242,5 +242,3 @@ const Grid: MemoExoticComponent<
 );
 
 Grid.displayName = 'Grid';
-
-export default Grid;

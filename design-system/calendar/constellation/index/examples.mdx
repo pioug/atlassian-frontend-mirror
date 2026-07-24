@@ -12,11 +12,7 @@ import CalendarLocale from '../../examples/constellation/calendar-locale';
 
 The calendar component provides a way to render dates for selection or presentation purposes.
 
-<Example
-	Component={CalendarDefault}
-	packageName="@atlaskit/calendar"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={CalendarDefault} packageName="@atlaskit/calendar" />
 
 ## Disabled
 
@@ -24,11 +20,7 @@ Calendar provides a `disabled` prop that accepts an array of arbitrary dates to 
 disable dates where the reason for disabling dates is clear. For example, a calendar selection for
 booking appointments, where only the days that have available options are enabled.
 
-<Example
-	Component={CalendarDisabled}
-	packageName="@atlaskit/calendar"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={CalendarDisabled} packageName="@atlaskit/calendar" />
 
 ## Disabled ranges
 
@@ -37,22 +29,14 @@ all dates before or after a specific day respectively. Use a `minDate` and a `ma
 create a range of days to choose from. The minimum and maximum dates are non inclusive, only the
 previous and next dates outside of these values will be disabled.
 
-<Example
-	Component={CalendarDisabledRange}
-	packageName="@atlaskit/calendar"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={CalendarDisabledRange} packageName="@atlaskit/calendar" />
 
 ## Disabled filters
 
 For even more control, use the `disabledDateFilter` prop, which accepts a callback that can be
 configured to return whether a given date is disabled or not.
 
-<Example
-	Component={CalendarDisabledFilter}
-	packageName="@atlaskit/calendar"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={CalendarDisabledFilter} packageName="@atlaskit/calendar" />
 
 ## Localization
 
@@ -60,8 +44,4 @@ Use the `locale` prop to update the calendar language and formatting for differe
 also want to pair `locale` with the `weekStartDay` prop to change the day of the week the calendar
 starts with.
 
-<Example
-	Component={CalendarLocale}
-	packageName="@atlaskit/calendar"
-	featureFlagDefaults={{ 'platform-dst-motion-uplift-list-item': true }}
-/>
+<Example Component={CalendarLocale} packageName="@atlaskit/calendar" />

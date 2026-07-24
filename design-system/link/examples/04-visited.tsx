@@ -32,8 +32,7 @@ export default function VisitedExample(): React.JSX.Element {
 								}
 							>
 								{/* Anchor content will come from the variations file */}
-								{/* eslint-disable-next-line @atlassian/a11y/anchor-is-valid */}
-								<Link {...props} href="" testId={name}>
+								<Link {...props} href="/" testId={name}>
 									I have been visited
 								</Link>
 							</Box>

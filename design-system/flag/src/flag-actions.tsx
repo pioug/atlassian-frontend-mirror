@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import type { CustomThemeButtonProps } from '@atlaskit/button/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
@@ -24,7 +25,7 @@ type FlagActionsProps = {
 	testId?: string;
 };
 
-const buttonStyles = css({
+const buttonStylesOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&, a&&': {
 		background: 'var(--bg-color)',
@@ -54,6 +55,28 @@ const buttonStyles = css({
 	},
 });
 
+const buttonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&, a&&': {
+		background: 'var(--bg-color)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		color: 'var(--color) !important',
+		fontWeight: token('font.weight.medium'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&:hover, &&:active, a&&:hover, a&&:active': {
+		textDecoration: 'underline',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&:hover': {
+		backgroundColor: 'var(--bg-color-hover)',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&:active': {
+		backgroundColor: 'var(--bg-color-active)',
+	},
+});
+
 const fontStyles = css({
 	font: token('font.body'),
 });
@@ -63,6 +86,20 @@ const appearanceNormalButtonStyles = css({
 	'&&, a&&': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		padding: '0 !important',
+	},
+});
+
+const appearanceBoldButtonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&, a&&': {
+		// eslint-disable-next-line @atlaskit/design-system/no-physical-properties, @atlaskit/ui-styling-standard/no-important-styles -- Physical properties avoid collisions with Button's physical padding declarations.
+		paddingTop: '0 !important',
+		// eslint-disable-next-line @atlaskit/design-system/no-physical-properties, @atlaskit/ui-styling-standard/no-important-styles -- Physical properties avoid collisions with Button's physical padding declarations.
+		paddingRight: `${token('space.100')} !important`,
+		// eslint-disable-next-line @atlaskit/design-system/no-physical-properties, @atlaskit/ui-styling-standard/no-important-styles -- Physical properties avoid collisions with Button's physical padding declarations.
+		paddingBottom: '0 !important',
+		// eslint-disable-next-line @atlaskit/design-system/no-physical-properties, @atlaskit/ui-styling-standard/no-important-styles -- Physical properties avoid collisions with Button's physical padding declarations.
+		paddingLeft: `${token('space.100')} !important`,
 	},
 });
 
@@ -105,33 +142,64 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
 				separator={isBold ? undefined : '·'}
 				testId={testId && `${testId}-actions`}
 			>
-				{actions.map((action, index) => (
-					<Button
-						onClick={action.onClick}
-						href={action.href}
-						target={action.target}
-						appearance={isBold ? 'default' : 'link'}
-						component={linkComponent}
-						spacing="compact"
-						testId={action.testId}
-						key={index}
-						style={
-							{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								'--color': actionTextColor[appearance],
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								'--bg-color': actionBackgroundColor[appearance].default,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								'--bg-color-hover': actionBackgroundColor[appearance].pressed,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								'--bg-color-active': actionBackgroundColor[appearance].active,
-							} as CSSProperties
-						}
-						css={[buttonStyles, appearance === DEFAULT_APPEARANCE && appearanceNormalButtonStyles]}
-					>
-						{action.content}
-					</Button>
-				))}
+				{actions.map((action, index) =>
+					fg('platform_dst_flag_action_padding_fix') ? (
+						<Button
+							onClick={action.onClick}
+							href={action.href}
+							target={action.target}
+							appearance={isBold ? 'default' : 'link'}
+							component={linkComponent}
+							spacing="compact"
+							testId={action.testId}
+							key={index}
+							style={
+								{
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									'--color': actionTextColor[appearance],
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									'--bg-color': actionBackgroundColor[appearance].default,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									'--bg-color-hover': actionBackgroundColor[appearance].pressed,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									'--bg-color-active': actionBackgroundColor[appearance].active,
+								} as CSSProperties
+							}
+							css={[
+								buttonStyles,
+								isBold ? appearanceBoldButtonStyles : appearanceNormalButtonStyles,
+							]}
+						>
+							{action.content}
+						</Button>
+					) : (
+						<Button
+							onClick={action.onClick}
+							href={action.href}
+							target={action.target}
+							appearance={isBold ? 'default' : 'link'}
+							component={linkComponent}
+							spacing="compact"
+							testId={action.testId}
+							key={index}
+							style={
+								{
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+									'--color': actionTextColor[appearance],
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									'--bg-color': actionBackgroundColor[appearance].default,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									'--bg-color-hover': actionBackgroundColor[appearance].pressed,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									'--bg-color-active': actionBackgroundColor[appearance].active,
+								} as CSSProperties
+							}
+							css={[buttonStylesOld, !isBold && appearanceNormalButtonStyles]}
+						>
+							{action.content}
+						</Button>
+					),
+				)}
 			</Inline>
 		</span>
 	);

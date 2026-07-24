@@ -30,6 +30,19 @@ const isRefreshEmojiPickerEnabled = (): boolean => {
 	return isEnabled;
 };
 
+const isEmojiPickerInitialFocusFixEnabled = (): boolean => {
+	if (!FeatureGates.initializeCompleted()) {
+		return false;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	return FeatureGates.getExperimentValue(
+		'tef_fix_a11y_keyboard_control_emoji_picker',
+		'isEnabled',
+		false,
+	);
+};
+
 const input = css({
 	boxSizing: 'border-box',
 	color: 'inherit',
@@ -140,6 +153,10 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 	};
 
 	useLayoutEffect(() => {
+		if (isEmojiPickerInitialFocusFixEnabled()) {
+			return;
+		}
+
 		requestAnimationFrame(() => {
 			if (textRef) {
 				textRef.current?.focus();

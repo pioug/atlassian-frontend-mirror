@@ -16,7 +16,7 @@ import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { AvatarPropTypes } from '@atlaskit/avatar';
 import StatusVerifiedIcon from '@atlaskit/icon/core/status-verified';
-import type { TeamAvatarProps } from '@atlaskit/teams-avatar';
+import type { TeamAvatarProps } from '@atlaskit/teams-avatar/teams-avatar';
 import { token } from '@atlaskit/tokens';
 
 import { LinkWrapper } from './link-wrapper';

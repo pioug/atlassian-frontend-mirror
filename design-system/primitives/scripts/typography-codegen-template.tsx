@@ -11,6 +11,15 @@ type Token = {
 	isDeprecated: boolean;
 };
 
+type TypographyProperty = 'font' | 'fontWeight' | 'fontFamily';
+
+type TypographyPropertyConfig = {
+	objectName: string;
+	cssProperty: string;
+	prefix: string;
+	filterFn: (token: Token) => boolean;
+};
+
 const activeTokens: Token[] = tokens
 	.filter((t) => t.attributes.state !== 'deleted')
 	.map((t) => ({
@@ -19,39 +28,43 @@ const activeTokens: Token[] = tokens
 		isDeprecated: t.attributes.state === 'deprecated',
 	}));
 
-const typographyProperties = [
-	{
+const typographyProperties: Record<TypographyProperty, TypographyPropertyConfig> = {
+	font: {
 		objectName: 'font',
 		cssProperty: 'font',
 		prefix: 'font.body',
-		filterFn: <T extends Token>(t: T) =>
+		filterFn: (t: Token): boolean =>
 			t.name.startsWith('font.body') ||
 			t.name.startsWith('font.heading') ||
 			t.name.startsWith('font.metric') ||
 			t.name.startsWith('font.code'),
 	},
-	{
+	fontWeight: {
 		objectName: 'fontWeight',
 		cssProperty: 'fontWeight',
 		prefix: 'font.weight.',
-		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.weight'),
+		filterFn: (t: Token): boolean => t.name.startsWith('font.weight'),
 	},
-	{
+	fontFamily: {
 		objectName: 'fontFamily',
 		cssProperty: 'fontFamily',
 		prefix: 'font.family.',
-		filterFn: <T extends Token>(t: T) => t.name.startsWith('font.family'),
+		filterFn: (t: Token): boolean => t.name.startsWith('font.family'),
 	},
-] as const;
+};
 
-export const createTypographyStylesFromTemplate: () => string = () => {
-	return typographyProperties
-		.map((typographyProperty) => {
-			const { filterFn, objectName } = typographyProperty;
+export const createTypographyStylesFromTemplate: (property: TypographyProperty) => string = (
+	property,
+) => {
+	if (!typographyProperties[property]) {
+		throw new Error(`[codegen] Unknown option found "${property}"`);
+	}
 
-			return (
-				format(
-					`
+	const { filterFn, objectName } = typographyProperties[property];
+
+	return (
+		format(
+			`
 export const ${objectName}Map: {
 	${generateTypeDefs(
 		activeTokens
@@ -72,9 +85,7 @@ ${activeTokens
 	})
 	.join(',\n\t')}
 };`,
-					'typescript',
-				) + `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
-			);
-		})
-		.join('\n');
+			'typescript',
+		) + `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
+	);
 };

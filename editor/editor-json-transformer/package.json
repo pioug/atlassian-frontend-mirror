@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-json-transformer",
-	"version": "9.0.2",
+	"version": "9.1.0",
 	"description": "JSON transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,6 +22,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./main": "./src/entry-points/main.ts",
 		"./markOverrideRules": "./src/entry-points/markOverrideRules.ts",
 		"./sanitize/remove-marks": "./src/entry-points/sanitize-remove-marks.ts",
 		"./sanitize/sanitize-node": "./src/entry-points/sanitize-sanitize-node.ts",

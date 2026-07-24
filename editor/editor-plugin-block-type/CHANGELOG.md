@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-type
 
+## 16.1.30
+
+### Patch Changes
+
+- [`bed6e0c408de8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bed6e0c408de8) -
+  [ux] Fix: pressing Enter after a heading that has trailing whitespace now creates a paragraph
+  instead of another heading — but only when the caret sits after all heading content and
+  immediately before the trailing whitespace (so it looks like the end of the heading). Mid-heading
+  splits still produce a heading. Behind the `platform_editor_fix_new_line_after_heading`
+  experiment.
+- Updated dependencies
+
+## 16.1.29
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.28
 
 ### Patch Changes

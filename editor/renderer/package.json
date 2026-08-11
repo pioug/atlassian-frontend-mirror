@@ -252,9 +252,6 @@
 		"platform_editor_video_caption_commit": {
 			"type": "boolean"
 		},
-		"platform_editor_block_menu_v2_patch_4": {
-			"type": "boolean"
-		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
 			"type": "boolean"
 		},

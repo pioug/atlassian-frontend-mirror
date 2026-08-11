@@ -859,6 +859,9 @@
 		"platform_editor_native_anchor_patch_3": {
 			"type": "boolean"
 		},
+		"platform_editor_block_menu_v2_patch_4": {
+			"type": "boolean"
+		},
 		"jim-lower-ranking-in-jira-macro-search": {
 			"type": "boolean"
 		},

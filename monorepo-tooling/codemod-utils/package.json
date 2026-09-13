@@ -1,0 +1,62 @@
+{
+	"name": "@atlaskit/codemod-utils",
+	"version": "5.0.0",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"description": " jscodeshift-compatible codemod utilities",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Build Infra",
+		"toolingLabels": [
+			"codemods"
+		]
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./support": "./src/utils/support.ts",
+		"./utils": "./src/utils/index.ts"
+	},
+	"dependencies": {
+		"@babel/runtime": "root:*"
+	},
+	"devDependencies": {
+		"@types/jscodeshift": "root:*",
+		"jscodeshift": "root:*"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			]
+		}
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"name": "@atlaskit/dummy-pkg-b",
+	"version": "2.0.1",
+	"description": "Dummy package used to end to end test integration with external systems",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Build Infra",
+		"website": {
+			"name": "DummyPkgB",
+			"deprecated": "This package is not for external consumption, only for testing"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/dummy-pkg-a": "workspace:^",
+		"@babel/runtime": "root:*"
+	},
+	"devDependencies": {
+		"@atlaskit/checkbox": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/dropdown-menu": "workspace:^",
+		"@atlaskit/form": "workspace:^",
+		"@atlaskit/select": "workspace:^"
+	}
+}

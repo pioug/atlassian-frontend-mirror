@@ -1,0 +1,71 @@
+{
+	"name": "@atlaskit/eslint-plugin-no-lookahead-lookbehind-regexp",
+	"version": "1.0.0",
+	"description": "Fork of https://github.com/JonasBa/eslint-plugin-no-lookahead-lookbehind-regexp",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Loop Experiences",
+		"website": {
+			"name": "EslintPluginNoLookaheadLookbehindRegexp",
+			"category": "Components"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@babel/runtime": "root:*",
+		"browserslist": "root:*",
+		"caniuse-lite": "root:*",
+		"eslint": "root:*"
+	},
+	"devDependencies": {
+		"@atlassian/eslint-utils": "workspace:^"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
+}

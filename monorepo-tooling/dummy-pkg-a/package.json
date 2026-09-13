@@ -1,0 +1,65 @@
+{
+	"name": "@atlaskit/dummy-pkg-a",
+	"version": "4.0.1",
+	"description": "Dummy package used to end to end test integration with external systems",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Build Infra",
+		"website": {
+			"name": "DummyPkgA",
+			"deprecated": "This package is not for external consumption, only for testing"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./bar": "./src/bar.ts",
+		"./foo": "./src/foo.ts",
+		"./glyph/*": {
+			"types": "./glyph/*.d.ts",
+			"default": "./glyph/*.js"
+		},
+		"./ufo-helpers/*": "./src/ufo-helpers/*.ts",
+		"./new-bar": {
+			"types": "./src/new-bar.d.ts",
+			"publish": "./src/new-bar-override.ts",
+			"default": "./src/new-bar.ts"
+		},
+		"./new-baz": {
+			"types": "./src/new-baz.d.ts",
+			"publish": null,
+			"default": "./src/new-baz.ts"
+		},
+		"./new-foo": {
+			"types": "./src/new-foo.d.ts",
+			"default": "./src/new-foo.ts"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/codemod-utils": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@babel/runtime": "root:*"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "workspace:^",
+		"@af/integration-testing": "workspace:^",
+		"@af/visual-regression": "workspace:^",
+		"@atlaskit/app-provider": "workspace:^",
+		"@atlaskit/select": "workspace:^"
+	},
+	"platform-feature-flags": {
+		"platform.renovate-next-dummy-pkg-a": {
+			"type": "boolean"
+		}
+	}
+}

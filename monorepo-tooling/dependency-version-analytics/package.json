@@ -1,0 +1,58 @@
+{
+	"name": "@atlaskit/dependency-version-analytics",
+	"version": "2.0.0",
+	"description": "Tool to pull atlaskit version history from a repo",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Build Infra",
+		"toolingLabels": [
+			"__unclassified_tooling__"
+		]
+	},
+	"bin": "./bin/dependency-version-analytics.js",
+	"scripts": {
+		"test": "jest"
+	},
+	"dependencies": {
+		"@atlassian/ts-loader": "workspace:^",
+		"@babel/runtime": "root:*",
+		"chalk": "root:*",
+		"debug": "root:*",
+		"inquirer": "root:*",
+		"meow": "root:*",
+		"micromatch": "root:*",
+		"node-fetch": "root:*",
+		"semver": "root:*",
+		"simple-git": "root:*"
+	},
+	"peerDependencies": {
+		"@atlassiansox/analytics-node-client": "^4.0.0"
+	},
+	"devDependencies": {
+		"@atlassiansox/analytics-node-client": "root:*",
+		"@types/debug": "root:*",
+		"@types/jest": "root:*",
+		"@types/micromatch": "root:*",
+		"@types/node": "root:*",
+		"jest": "root:*",
+		"ts-jest": "root:*"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./cli": "./src/cli.ts",
+		"./constants": "./src/constants.ts",
+		"./types": "./src/types.ts",
+		"./analytics": "./src/entry-points/analytics.ts",
+		"./package": "./src/entry-points/package.ts",
+		"./product": "./src/entry-points/product.ts"
+	}
+}

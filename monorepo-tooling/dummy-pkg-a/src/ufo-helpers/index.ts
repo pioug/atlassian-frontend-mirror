@@ -1,0 +1,1 @@
+export { commonExperienceConfig } from './constants';

@@ -1,0 +1,1498 @@
+{
+  "generatedAt": "2026-09-13T20:51:18.616Z",
+  "packageCount": 373,
+  "packages": [
+    {
+      "name": "@atlaskit/activity-provider",
+      "sourceDir": "packages/editor/activity-provider"
+    },
+    {
+      "name": "@atlaskit/adf-schema",
+      "sourceDir": "packages/editor/adf-schema"
+    },
+    {
+      "name": "@atlaskit/adf-schema-generator",
+      "sourceDir": "packages/editor/adf-schema-generator"
+    },
+    {
+      "name": "@atlaskit/adf-utils",
+      "sourceDir": "packages/editor/adf-utils"
+    },
+    {
+      "name": "@atlaskit/ads-cli",
+      "sourceDir": "packages/design-system/ads-cli"
+    },
+    {
+      "name": "@atlaskit/ads-mcp",
+      "sourceDir": "packages/design-system/ads-mcp"
+    },
+    {
+      "name": "@atlaskit/analytics",
+      "sourceDir": "packages/analytics/analytics"
+    },
+    {
+      "name": "@atlaskit/analytics-cross-product",
+      "sourceDir": "packages/atlassian-analytics-pipeline/analytics-cross-product"
+    },
+    {
+      "name": "@atlaskit/analytics-gas-types",
+      "sourceDir": "packages/analytics/analytics-gas-types"
+    },
+    {
+      "name": "@atlaskit/analytics-listeners",
+      "sourceDir": "packages/analytics/analytics-listeners"
+    },
+    {
+      "name": "@atlaskit/analytics-namespaced-context",
+      "sourceDir": "packages/analytics/analytics-namespaced-context"
+    },
+    {
+      "name": "@atlaskit/analytics-next",
+      "sourceDir": "packages/analytics/analytics-next"
+    },
+    {
+      "name": "@atlaskit/anonymous-assets",
+      "sourceDir": "packages/elements/anonymous-assets"
+    },
+    {
+      "name": "@atlaskit/app-provider",
+      "sourceDir": "packages/design-system/app-provider"
+    },
+    {
+      "name": "@atlaskit/atlassian-context",
+      "sourceDir": "packages/uip/atlassian-context"
+    },
+    {
+      "name": "@atlaskit/atlassian-navigation",
+      "sourceDir": "packages/design-system/atlassian-navigation"
+    },
+    {
+      "name": "@atlaskit/avatar",
+      "sourceDir": "packages/design-system/avatar"
+    },
+    {
+      "name": "@atlaskit/avatar-group",
+      "sourceDir": "packages/design-system/avatar-group"
+    },
+    {
+      "name": "@atlaskit/badge",
+      "sourceDir": "packages/design-system/badge"
+    },
+    {
+      "name": "@atlaskit/banner",
+      "sourceDir": "packages/design-system/banner"
+    },
+    {
+      "name": "@atlaskit/blanket",
+      "sourceDir": "packages/design-system/blanket"
+    },
+    {
+      "name": "@atlaskit/breadcrumbs",
+      "sourceDir": "packages/design-system/breadcrumbs"
+    },
+    {
+      "name": "@atlaskit/browser-apis",
+      "sourceDir": "packages/helpers/browser-apis"
+    },
+    {
+      "name": "@atlaskit/button",
+      "sourceDir": "packages/design-system/button"
+    },
+    {
+      "name": "@atlaskit/calendar",
+      "sourceDir": "packages/design-system/calendar"
+    },
+    {
+      "name": "@atlaskit/charlie-hierarchy",
+      "sourceDir": "packages/technology-innovation/charlie-hierarchy"
+    },
+    {
+      "name": "@atlaskit/checkbox",
+      "sourceDir": "packages/design-system/checkbox"
+    },
+    {
+      "name": "@atlaskit/chunkinator",
+      "sourceDir": "packages/media/chunkinator"
+    },
+    {
+      "name": "@atlaskit/code",
+      "sourceDir": "packages/design-system/code"
+    },
+    {
+      "name": "@atlaskit/codemod-cli",
+      "sourceDir": "packages/design-system/codemod-cli"
+    },
+    {
+      "name": "@atlaskit/codemod-utils",
+      "sourceDir": "packages/monorepo-tooling/codemod-utils"
+    },
+    {
+      "name": "@atlaskit/collab-provider",
+      "sourceDir": "packages/editor/collab-provider"
+    },
+    {
+      "name": "@atlaskit/color-picker",
+      "sourceDir": "packages/jira/color-picker"
+    },
+    {
+      "name": "@atlaskit/comment",
+      "sourceDir": "packages/design-system/comment"
+    },
+    {
+      "name": "@atlaskit/config-common-libs",
+      "sourceDir": "packages/measurement/config-common-libs"
+    },
+    {
+      "name": "@atlaskit/contextual-survey",
+      "sourceDir": "packages/engagement-platform/contextual-survey"
+    },
+    {
+      "name": "@atlaskit/conversation",
+      "sourceDir": "packages/editor/conversation"
+    },
+    {
+      "name": "@atlaskit/css",
+      "sourceDir": "packages/design-system/css"
+    },
+    {
+      "name": "@atlaskit/css-reset",
+      "sourceDir": "packages/design-system/css-reset"
+    },
+    {
+      "name": "@atlaskit/custom-steps",
+      "sourceDir": "packages/editor/custom-steps"
+    },
+    {
+      "name": "@atlaskit/date",
+      "sourceDir": "packages/elements/date"
+    },
+    {
+      "name": "@atlaskit/date-label",
+      "sourceDir": "packages/design-system/date-label"
+    },
+    {
+      "name": "@atlaskit/datetime-picker",
+      "sourceDir": "packages/design-system/datetime-picker"
+    },
+    {
+      "name": "@atlaskit/dependency-version-analytics",
+      "sourceDir": "packages/monorepo-tooling/dependency-version-analytics"
+    },
+    {
+      "name": "@atlaskit/docs",
+      "sourceDir": "build/website/docs"
+    },
+    {
+      "name": "@atlaskit/drawer",
+      "sourceDir": "packages/design-system/drawer"
+    },
+    {
+      "name": "@atlaskit/dropdown-menu",
+      "sourceDir": "packages/design-system/dropdown-menu"
+    },
+    {
+      "name": "@atlaskit/ds-explorations",
+      "sourceDir": "packages/design-system/ds-explorations"
+    },
+    {
+      "name": "@atlaskit/ds-lib",
+      "sourceDir": "packages/design-system/ds-lib"
+    },
+    {
+      "name": "@atlaskit/dummy-pkg-a",
+      "sourceDir": "packages/monorepo-tooling/dummy-pkg-a"
+    },
+    {
+      "name": "@atlaskit/dummy-pkg-b",
+      "sourceDir": "packages/monorepo-tooling/dummy-pkg-b"
+    },
+    {
+      "name": "@atlaskit/dynamic-table",
+      "sourceDir": "packages/design-system/dynamic-table"
+    },
+    {
+      "name": "@atlaskit/editor-bitbucket-transformer",
+      "sourceDir": "packages/editor/editor-bitbucket-transformer"
+    },
+    {
+      "name": "@atlaskit/editor-card-provider",
+      "sourceDir": "packages/editor/editor-card-provider"
+    },
+    {
+      "name": "@atlaskit/editor-code-format-provider",
+      "sourceDir": "packages/editor/editor-code-format-provider"
+    },
+    {
+      "name": "@atlaskit/editor-common",
+      "sourceDir": "packages/editor/editor-common"
+    },
+    {
+      "name": "@atlaskit/editor-confluence-transformer",
+      "sourceDir": "packages/editor/editor-confluence-transformer"
+    },
+    {
+      "name": "@atlaskit/editor-core",
+      "sourceDir": "packages/editor/editor-core"
+    },
+    {
+      "name": "@atlaskit/editor-element-browser",
+      "sourceDir": "packages/editor/editor-element-browser"
+    },
+    {
+      "name": "@atlaskit/editor-extension-dropbox",
+      "sourceDir": "packages/editor/extension-dropbox"
+    },
+    {
+      "name": "@atlaskit/editor-extension-googledrive",
+      "sourceDir": "packages/editor/extension-googledrive"
+    },
+    {
+      "name": "@atlaskit/editor-jira-transformer",
+      "sourceDir": "packages/editor/editor-jira-transformer"
+    },
+    {
+      "name": "@atlaskit/editor-json-transformer",
+      "sourceDir": "packages/editor/editor-json-transformer"
+    },
+    {
+      "name": "@atlaskit/editor-markdown-transformer",
+      "sourceDir": "packages/editor/editor-markdown-transformer"
+    },
+    {
+      "name": "@atlaskit/editor-mention-types",
+      "sourceDir": "packages/editor/editor-mention-types"
+    },
+    {
+      "name": "@atlaskit/editor-palette",
+      "sourceDir": "packages/editor/editor-palette"
+    },
+    {
+      "name": "@atlaskit/editor-performance-metrics",
+      "sourceDir": "packages/editor/editor-performance-metrics"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-accessibility-utils",
+      "sourceDir": "packages/editor/editor-plugin-accessibility-utils"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-alignment",
+      "sourceDir": "packages/editor/editor-plugin-alignment"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-analytics",
+      "sourceDir": "packages/editor/editor-plugin-analytics"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-annotation",
+      "sourceDir": "packages/editor/editor-plugin-annotation"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-autocomplete",
+      "sourceDir": "packages/editor/editor-plugin-autocomplete"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-avatar-group",
+      "sourceDir": "packages/editor/editor-plugin-avatar-group"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-base",
+      "sourceDir": "packages/editor/editor-plugin-base"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-batch-attribute-updates",
+      "sourceDir": "packages/editor/editor-plugin-batch-attribute-updates"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-before-primary-toolbar",
+      "sourceDir": "packages/editor/editor-plugin-before-primary-toolbar"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-better-type-history",
+      "sourceDir": "packages/editor/editor-plugin-better-type-history"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-block-controls",
+      "sourceDir": "packages/editor/editor-plugin-block-controls"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-block-menu",
+      "sourceDir": "packages/editor/editor-plugin-block-menu"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-block-type",
+      "sourceDir": "packages/editor/editor-plugin-block-type"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-border",
+      "sourceDir": "packages/editor/editor-plugin-border"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-breakout",
+      "sourceDir": "packages/editor/editor-plugin-breakout"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-caption",
+      "sourceDir": "packages/editor/editor-plugin-caption"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-card",
+      "sourceDir": "packages/editor/editor-plugin-card"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-clear-marks-on-empty-doc",
+      "sourceDir": "packages/editor/editor-plugin-clear-marks-on-empty-doc"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-clipboard",
+      "sourceDir": "packages/editor/editor-plugin-clipboard"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-code-bidi-warning",
+      "sourceDir": "packages/editor/editor-plugin-code-bidi-warning"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-code-block",
+      "sourceDir": "packages/editor/editor-plugin-code-block"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-code-block-advanced",
+      "sourceDir": "packages/editor/editor-plugin-code-block-advanced"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-collab-edit",
+      "sourceDir": "packages/editor/editor-plugin-collab-edit"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-composition",
+      "sourceDir": "packages/editor/editor-plugin-composition"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-connectivity",
+      "sourceDir": "packages/editor/editor-plugin-connectivity"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-content-format",
+      "sourceDir": "packages/editor/editor-plugin-content-format"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-content-insertion",
+      "sourceDir": "packages/editor/editor-plugin-content-insertion"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-context-identifier",
+      "sourceDir": "packages/editor/editor-plugin-context-identifier"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-context-panel",
+      "sourceDir": "packages/editor/editor-plugin-context-panel"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-copy-button",
+      "sourceDir": "packages/editor/editor-plugin-copy-button"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-custom-autoformat",
+      "sourceDir": "packages/editor/editor-plugin-custom-autoformat"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-data-consumer",
+      "sourceDir": "packages/editor/editor-plugin-data-consumer"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-date",
+      "sourceDir": "packages/editor/editor-plugin-date"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-decorations",
+      "sourceDir": "packages/editor/editor-plugin-decorations"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-editor-disabled",
+      "sourceDir": "packages/editor/editor-plugin-editor-disabled"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-editor-viewmode",
+      "sourceDir": "packages/editor/editor-plugin-editor-viewmode"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-editor-viewmode-effects",
+      "sourceDir": "packages/editor/editor-plugin-editor-viewmode-effects"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-emoji",
+      "sourceDir": "packages/editor/editor-plugin-emoji"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-engagement-platform",
+      "sourceDir": "packages/editor/editor-plugin-engagement-platform"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-expand",
+      "sourceDir": "packages/editor/editor-plugin-expand"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-extension",
+      "sourceDir": "packages/editor/editor-plugin-extension"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-feature-flags",
+      "sourceDir": "packages/editor/editor-plugin-feature-flags"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-feedback-dialog",
+      "sourceDir": "packages/editor/editor-plugin-feedback-dialog"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-find-replace",
+      "sourceDir": "packages/editor/editor-plugin-find-replace"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-floating-toolbar",
+      "sourceDir": "packages/editor/editor-plugin-floating-toolbar"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-focus",
+      "sourceDir": "packages/editor/editor-plugin-focus"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-fragment",
+      "sourceDir": "packages/editor/editor-plugin-fragment"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-grid",
+      "sourceDir": "packages/editor/editor-plugin-grid"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-guideline",
+      "sourceDir": "packages/editor/editor-plugin-guideline"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-help-dialog",
+      "sourceDir": "packages/editor/editor-plugin-help-dialog"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-highlight",
+      "sourceDir": "packages/editor/editor-plugin-highlight"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-history",
+      "sourceDir": "packages/editor/editor-plugin-history"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-hyperlink",
+      "sourceDir": "packages/editor/editor-plugin-hyperlink"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-image-upload",
+      "sourceDir": "packages/editor/editor-plugin-image-upload"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-indentation",
+      "sourceDir": "packages/editor/editor-plugin-indentation"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-insert-block",
+      "sourceDir": "packages/editor/editor-plugin-insert-block"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-interaction",
+      "sourceDir": "packages/editor/editor-plugin-interaction"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-layout",
+      "sourceDir": "packages/editor/editor-plugin-layout"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-limited-mode",
+      "sourceDir": "packages/editor/editor-plugin-limited-mode"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-list",
+      "sourceDir": "packages/editor/editor-plugin-list"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-local-id",
+      "sourceDir": "packages/editor/editor-plugin-local-id"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-loom",
+      "sourceDir": "packages/editor/editor-plugin-loom"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-max-content-size",
+      "sourceDir": "packages/editor/editor-plugin-max-content-size"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-media",
+      "sourceDir": "packages/editor/editor-plugin-media"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-media-editing",
+      "sourceDir": "packages/editor/editor-plugin-media-editing"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-media-insert",
+      "sourceDir": "packages/editor/editor-plugin-media-insert"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-mentions",
+      "sourceDir": "packages/editor/editor-plugin-mentions"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-metrics",
+      "sourceDir": "packages/editor/editor-plugin-metrics"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-panel",
+      "sourceDir": "packages/editor/editor-plugin-panel"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-paste",
+      "sourceDir": "packages/editor/editor-plugin-paste"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-paste-options-toolbar",
+      "sourceDir": "packages/editor/editor-plugin-paste-options-toolbar"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-placeholder",
+      "sourceDir": "packages/editor/editor-plugin-placeholder"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-placeholder-text",
+      "sourceDir": "packages/editor/editor-plugin-placeholder-text"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-primary-toolbar",
+      "sourceDir": "packages/editor/editor-plugin-primary-toolbar"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-quick-insert",
+      "sourceDir": "packages/editor/editor-plugin-quick-insert"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-rule",
+      "sourceDir": "packages/editor/editor-plugin-rule"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-save-on-enter",
+      "sourceDir": "packages/editor/editor-plugin-save-on-enter"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-scroll-into-view",
+      "sourceDir": "packages/editor/editor-plugin-scroll-into-view"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-selection",
+      "sourceDir": "packages/editor/editor-plugin-selection"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-selection-extension",
+      "sourceDir": "packages/editor/editor-plugin-selection-extension"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-selection-marker",
+      "sourceDir": "packages/editor/editor-plugin-selection-marker"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-selection-toolbar",
+      "sourceDir": "packages/editor/editor-plugin-selection-toolbar"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-show-diff",
+      "sourceDir": "packages/editor/editor-plugin-show-diff"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-status",
+      "sourceDir": "packages/editor/editor-plugin-status"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-submit-editor",
+      "sourceDir": "packages/editor/editor-plugin-submit-editor"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-synced-block",
+      "sourceDir": "packages/editor/editor-plugin-synced-block"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-table",
+      "sourceDir": "packages/editor/editor-plugin-table"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-tasks-and-decisions",
+      "sourceDir": "packages/editor/editor-plugin-tasks-and-decisions"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-text-color",
+      "sourceDir": "packages/editor/editor-plugin-text-color"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-text-formatting",
+      "sourceDir": "packages/editor/editor-plugin-text-formatting"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-toolbar",
+      "sourceDir": "packages/editor/editor-plugin-toolbar"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-toolbar-lists-indentation",
+      "sourceDir": "packages/editor/editor-plugin-toolbar-lists-indentation"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-track-changes",
+      "sourceDir": "packages/editor/editor-plugin-track-changes"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-type-ahead",
+      "sourceDir": "packages/editor/editor-plugin-type-ahead"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-ufo",
+      "sourceDir": "packages/editor/editor-plugin-ufo"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-ui-control-registry",
+      "sourceDir": "packages/editor/editor-plugin-ui-control-registry"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-undo-redo",
+      "sourceDir": "packages/editor/editor-plugin-undo-redo"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-unsupported-content",
+      "sourceDir": "packages/editor/editor-plugin-unsupported-content"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-user-intent",
+      "sourceDir": "packages/editor/editor-plugin-user-intent"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-user-preferences",
+      "sourceDir": "packages/editor/editor-plugin-user-preferences"
+    },
+    {
+      "name": "@atlaskit/editor-plugin-width",
+      "sourceDir": "packages/editor/editor-plugin-width"
+    },
+    {
+      "name": "@atlaskit/editor-plugins",
+      "sourceDir": "packages/editor/editor-plugins"
+    },
+    {
+      "name": "@atlaskit/editor-presets",
+      "sourceDir": "packages/editor/editor-presets"
+    },
+    {
+      "name": "@atlaskit/editor-prosemirror",
+      "sourceDir": "packages/editor/editor-prosemirror"
+    },
+    {
+      "name": "@atlaskit/editor-shared-styles",
+      "sourceDir": "packages/editor/editor-shared-styles"
+    },
+    {
+      "name": "@atlaskit/editor-slack-transformer",
+      "sourceDir": "packages/editor/editor-slack-transformer"
+    },
+    {
+      "name": "@atlaskit/editor-smart-link-draggable",
+      "sourceDir": "packages/editor/editor-smart-link-draggable"
+    },
+    {
+      "name": "@atlaskit/editor-ssr-renderer",
+      "sourceDir": "packages/editor/editor-ssr-renderer"
+    },
+    {
+      "name": "@atlaskit/editor-synced-block-provider",
+      "sourceDir": "packages/editor/editor-synced-block-provider"
+    },
+    {
+      "name": "@atlaskit/editor-synced-block-renderer",
+      "sourceDir": "packages/editor/editor-synced-block-renderer"
+    },
+    {
+      "name": "@atlaskit/editor-tables",
+      "sourceDir": "packages/editor/editor-tables"
+    },
+    {
+      "name": "@atlaskit/editor-toolbar",
+      "sourceDir": "packages/editor/editor-toolbar"
+    },
+    {
+      "name": "@atlaskit/editor-toolbar-model",
+      "sourceDir": "packages/editor/editor-toolbar-model"
+    },
+    {
+      "name": "@atlaskit/editor-ui-control-model",
+      "sourceDir": "packages/editor/editor-ui-control-model"
+    },
+    {
+      "name": "@atlaskit/editor-wikimarkup-transformer",
+      "sourceDir": "packages/editor/editor-wikimarkup-transformer"
+    },
+    {
+      "name": "@atlaskit/email-renderer",
+      "sourceDir": "packages/editor/email-renderer"
+    },
+    {
+      "name": "@atlaskit/embedded-confluence",
+      "sourceDir": "packages/confluence/embedded-confluence-public"
+    },
+    {
+      "name": "@atlaskit/embedded-document",
+      "sourceDir": "packages/editor/embedded-document"
+    },
+    {
+      "name": "@atlaskit/emoji",
+      "sourceDir": "packages/elements/emoji"
+    },
+    {
+      "name": "@atlaskit/empty-state",
+      "sourceDir": "packages/design-system/empty-state"
+    },
+    {
+      "name": "@atlaskit/eslint-plugin-design-system",
+      "sourceDir": "packages/design-system/eslint-plugin"
+    },
+    {
+      "name": "@atlaskit/eslint-plugin-editor",
+      "sourceDir": "packages/editor/eslint-plugin-editor"
+    },
+    {
+      "name": "@atlaskit/eslint-plugin-no-lookahead-lookbehind-regexp",
+      "sourceDir": "packages/monorepo-tooling/eslint-plugin-no-lookahead-lookbehind-regexp"
+    },
+    {
+      "name": "@atlaskit/eslint-plugin-platform",
+      "sourceDir": "packages/platform/eslint-plugin"
+    },
+    {
+      "name": "@atlaskit/eslint-plugin-ui-styling-standard",
+      "sourceDir": "packages/design-system/eslint-plugin-ui-styling-standard"
+    },
+    {
+      "name": "@atlaskit/eslint-plugin-volt-strict-mode",
+      "sourceDir": "packages/design-system/eslint-plugin-volt-strict-mode"
+    },
+    {
+      "name": "@atlaskit/eslint-utils",
+      "sourceDir": "packages/design-system/eslint-utils"
+    },
+    {
+      "name": "@atlaskit/feature-flag-client",
+      "sourceDir": "packages/growth/feature-flag-client"
+    },
+    {
+      "name": "@atlaskit/feature-gate-fetcher",
+      "sourceDir": "packages/measurement/feature-gate-fetcher"
+    },
+    {
+      "name": "@atlaskit/feature-gate-js-client",
+      "sourceDir": "packages/measurement/feature-gate-js-client"
+    },
+    {
+      "name": "@atlaskit/feature-gate-polling-provider",
+      "sourceDir": "packages/measurement/feature-gate-polling-provider"
+    },
+    {
+      "name": "@atlaskit/feature-gate-single-fetch-provider",
+      "sourceDir": "packages/measurement/feature-gate-single-fetch-provider"
+    },
+    {
+      "name": "@atlaskit/feedback-collector",
+      "sourceDir": "packages/web-platform/feedback-collector"
+    },
+    {
+      "name": "@atlaskit/flag",
+      "sourceDir": "packages/design-system/flag"
+    },
+    {
+      "name": "@atlaskit/focus-ring",
+      "sourceDir": "packages/design-system/focus-ring"
+    },
+    {
+      "name": "@atlaskit/focused-task-close-account",
+      "sourceDir": "packages/people-and-teams/focused-task-close-account"
+    },
+    {
+      "name": "@atlaskit/forge-react-types",
+      "sourceDir": "packages/forge/forge-react-types"
+    },
+    {
+      "name": "@atlaskit/form",
+      "sourceDir": "packages/design-system/form"
+    },
+    {
+      "name": "@atlaskit/frontend-utilities",
+      "sourceDir": "packages/helpers/frontend-utilities"
+    },
+    {
+      "name": "@atlaskit/give-kudos",
+      "sourceDir": "packages/team-central/give-kudos"
+    },
+    {
+      "name": "@atlaskit/grid",
+      "sourceDir": "packages/design-system/grid"
+    },
+    {
+      "name": "@atlaskit/heading",
+      "sourceDir": "packages/design-system/heading"
+    },
+    {
+      "name": "@atlaskit/help",
+      "sourceDir": "packages/help/help"
+    },
+    {
+      "name": "@atlaskit/help-article",
+      "sourceDir": "packages/help/help-article"
+    },
+    {
+      "name": "@atlaskit/help-layout",
+      "sourceDir": "packages/help/help-layout"
+    },
+    {
+      "name": "@atlaskit/icon",
+      "sourceDir": "packages/design-system/icon"
+    },
+    {
+      "name": "@atlaskit/icon-file-type",
+      "sourceDir": "packages/media/icon-file-type"
+    },
+    {
+      "name": "@atlaskit/icon-lab",
+      "sourceDir": "packages/design-system/icon-lab"
+    },
+    {
+      "name": "@atlaskit/image",
+      "sourceDir": "packages/design-system/image"
+    },
+    {
+      "name": "@atlaskit/inline-dialog",
+      "sourceDir": "packages/design-system/inline-dialog"
+    },
+    {
+      "name": "@atlaskit/inline-edit",
+      "sourceDir": "packages/design-system/inline-edit"
+    },
+    {
+      "name": "@atlaskit/inline-message",
+      "sourceDir": "packages/design-system/inline-message"
+    },
+    {
+      "name": "@atlaskit/insm",
+      "sourceDir": "packages/editor/insm"
+    },
+    {
+      "name": "@atlaskit/interaction-context",
+      "sourceDir": "packages/observability/interaction-context"
+    },
+    {
+      "name": "@atlaskit/intl-messages-provider",
+      "sourceDir": "packages/helpers/intl-messages-provider"
+    },
+    {
+      "name": "@atlaskit/jql-ast",
+      "sourceDir": "packages/jql/jql-ast"
+    },
+    {
+      "name": "@atlaskit/jql-autocomplete",
+      "sourceDir": "packages/jql/jql-autocomplete"
+    },
+    {
+      "name": "@atlaskit/jql-editor",
+      "sourceDir": "packages/jql/jql-editor"
+    },
+    {
+      "name": "@atlaskit/jql-editor-autocomplete-rest",
+      "sourceDir": "packages/jql/jql-editor-autocomplete-rest"
+    },
+    {
+      "name": "@atlaskit/jql-editor-common",
+      "sourceDir": "packages/jql/jql-editor-common"
+    },
+    {
+      "name": "@atlaskit/jql-parser",
+      "sourceDir": "packages/jql/jql-parser"
+    },
+    {
+      "name": "@atlaskit/json-ld-types",
+      "sourceDir": "packages/linking-platform/json-ld-types"
+    },
+    {
+      "name": "@atlaskit/json-schema-generator",
+      "sourceDir": "packages/editor/json-schema-generator"
+    },
+    {
+      "name": "@atlaskit/layering",
+      "sourceDir": "packages/design-system/layering"
+    },
+    {
+      "name": "@atlaskit/link",
+      "sourceDir": "packages/design-system/link"
+    },
+    {
+      "name": "@atlaskit/link-analytics",
+      "sourceDir": "packages/linking-platform/link-analytics"
+    },
+    {
+      "name": "@atlaskit/link-client-extension",
+      "sourceDir": "packages/linking-platform/link-client-extension"
+    },
+    {
+      "name": "@atlaskit/link-create",
+      "sourceDir": "packages/linking-platform/link-create"
+    },
+    {
+      "name": "@atlaskit/link-datasource",
+      "sourceDir": "packages/linking-platform/link-datasource"
+    },
+    {
+      "name": "@atlaskit/link-extractors",
+      "sourceDir": "packages/linking-platform/link-extractors"
+    },
+    {
+      "name": "@atlaskit/link-picker",
+      "sourceDir": "packages/linking-platform/link-picker"
+    },
+    {
+      "name": "@atlaskit/link-provider",
+      "sourceDir": "packages/linking-platform/link-provider"
+    },
+    {
+      "name": "@atlaskit/link-test-helpers",
+      "sourceDir": "packages/linking-platform/link-test-helpers"
+    },
+    {
+      "name": "@atlaskit/linking-common",
+      "sourceDir": "packages/linking-platform/linking-common"
+    },
+    {
+      "name": "@atlaskit/linking-types",
+      "sourceDir": "packages/linking-platform/linking-types"
+    },
+    {
+      "name": "@atlaskit/locale",
+      "sourceDir": "packages/design-system/locale"
+    },
+    {
+      "name": "@atlaskit/logo",
+      "sourceDir": "packages/design-system/logo"
+    },
+    {
+      "name": "@atlaskit/lozenge",
+      "sourceDir": "packages/design-system/lozenge"
+    },
+    {
+      "name": "@atlaskit/media-avatar-picker",
+      "sourceDir": "packages/media/media-avatar-picker"
+    },
+    {
+      "name": "@atlaskit/media-card",
+      "sourceDir": "packages/media/media-card"
+    },
+    {
+      "name": "@atlaskit/media-card-relay",
+      "sourceDir": "packages/media/media-card-relay"
+    },
+    {
+      "name": "@atlaskit/media-client",
+      "sourceDir": "packages/media/media-client"
+    },
+    {
+      "name": "@atlaskit/media-client-react",
+      "sourceDir": "packages/media/media-client-react"
+    },
+    {
+      "name": "@atlaskit/media-common",
+      "sourceDir": "packages/media/media-common"
+    },
+    {
+      "name": "@atlaskit/media-core",
+      "sourceDir": "packages/media/media-core"
+    },
+    {
+      "name": "@atlaskit/media-document-viewer",
+      "sourceDir": "packages/media/media-document-viewer"
+    },
+    {
+      "name": "@atlaskit/media-file-preview",
+      "sourceDir": "packages/media/media-file-preview"
+    },
+    {
+      "name": "@atlaskit/media-filmstrip",
+      "sourceDir": "packages/media/media-filmstrip"
+    },
+    {
+      "name": "@atlaskit/media-image",
+      "sourceDir": "packages/media/media-image"
+    },
+    {
+      "name": "@atlaskit/media-picker",
+      "sourceDir": "packages/media/media-picker"
+    },
+    {
+      "name": "@atlaskit/media-state",
+      "sourceDir": "packages/media/media-state"
+    },
+    {
+      "name": "@atlaskit/media-svg",
+      "sourceDir": "packages/media/media-svg"
+    },
+    {
+      "name": "@atlaskit/media-table",
+      "sourceDir": "packages/media/media-table"
+    },
+    {
+      "name": "@atlaskit/media-test-data",
+      "sourceDir": "packages/media/media-test-data"
+    },
+    {
+      "name": "@atlaskit/media-test-helpers",
+      "sourceDir": "packages/media/media-test-helpers"
+    },
+    {
+      "name": "@atlaskit/media-ui",
+      "sourceDir": "packages/media/media-ui"
+    },
+    {
+      "name": "@atlaskit/media-viewer",
+      "sourceDir": "packages/media/media-viewer"
+    },
+    {
+      "name": "@atlaskit/mention",
+      "sourceDir": "packages/elements/mention"
+    },
+    {
+      "name": "@atlaskit/menu",
+      "sourceDir": "packages/design-system/menu"
+    },
+    {
+      "name": "@atlaskit/mobile-header",
+      "sourceDir": "packages/bitbucket/mobile-header"
+    },
+    {
+      "name": "@atlaskit/modal-dialog",
+      "sourceDir": "packages/design-system/modal-dialog"
+    },
+    {
+      "name": "@atlaskit/motion",
+      "sourceDir": "packages/design-system/motion"
+    },
+    {
+      "name": "@atlaskit/native-embeds-common",
+      "sourceDir": "packages/native-embeds/native-embeds-common"
+    },
+    {
+      "name": "@atlaskit/navigation-system",
+      "sourceDir": "packages/design-system/navigation-system"
+    },
+    {
+      "name": "@atlaskit/node-data-provider",
+      "sourceDir": "packages/editor/node-data-provider"
+    },
+    {
+      "name": "@atlaskit/notification-indicator",
+      "sourceDir": "packages/notifications/notification-indicator"
+    },
+    {
+      "name": "@atlaskit/notification-log-client",
+      "sourceDir": "packages/notifications/notification-log-client"
+    },
+    {
+      "name": "@atlaskit/object",
+      "sourceDir": "packages/design-system/object"
+    },
+    {
+      "name": "@atlaskit/onboarding",
+      "sourceDir": "packages/design-system/onboarding"
+    },
+    {
+      "name": "@atlaskit/outbound-auth-flow-client",
+      "sourceDir": "packages/teamwork-ecosystem/outbound-auth-flow-client"
+    },
+    {
+      "name": "@atlaskit/page",
+      "sourceDir": "packages/design-system/page"
+    },
+    {
+      "name": "@atlaskit/page-header",
+      "sourceDir": "packages/design-system/page-header"
+    },
+    {
+      "name": "@atlaskit/page-layout",
+      "sourceDir": "packages/design-system/page-layout"
+    },
+    {
+      "name": "@atlaskit/pagination",
+      "sourceDir": "packages/design-system/pagination"
+    },
+    {
+      "name": "@atlaskit/panel",
+      "sourceDir": "packages/bitbucket/panel"
+    },
+    {
+      "name": "@atlaskit/people-teams-ui-public",
+      "sourceDir": "packages/people-and-teams/people-teams-ui-public"
+    },
+    {
+      "name": "@atlaskit/platform-feature-experiments",
+      "sourceDir": "packages/platform/feature-experiments"
+    },
+    {
+      "name": "@atlaskit/platform-feature-flags",
+      "sourceDir": "packages/platform/feature-flags"
+    },
+    {
+      "name": "@atlaskit/platform-feature-flags-react",
+      "sourceDir": "packages/platform/feature-flags-react"
+    },
+    {
+      "name": "@atlaskit/popper",
+      "sourceDir": "packages/design-system/popper"
+    },
+    {
+      "name": "@atlaskit/popup",
+      "sourceDir": "packages/design-system/popup"
+    },
+    {
+      "name": "@atlaskit/portal",
+      "sourceDir": "packages/design-system/portal"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop",
+      "sourceDir": "packages/pragmatic-drag-and-drop/core"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-auto-scroll",
+      "sourceDir": "packages/pragmatic-drag-and-drop/auto-scroll"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-docs",
+      "sourceDir": "packages/pragmatic-drag-and-drop/documentation"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-flourish",
+      "sourceDir": "packages/pragmatic-drag-and-drop/flourish"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-hitbox",
+      "sourceDir": "packages/pragmatic-drag-and-drop/hitbox"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-live-region",
+      "sourceDir": "packages/pragmatic-drag-and-drop/live-region"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-react-accessibility",
+      "sourceDir": "packages/pragmatic-drag-and-drop/react-accessibility"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll",
+      "sourceDir": "packages/pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration",
+      "sourceDir": "packages/pragmatic-drag-and-drop/react-beautiful-dnd-migration"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator",
+      "sourceDir": "packages/pragmatic-drag-and-drop/react-drop-indicator"
+    },
+    {
+      "name": "@atlaskit/pragmatic-drag-and-drop-unit-testing",
+      "sourceDir": "packages/pragmatic-drag-and-drop/unit-testing"
+    },
+    {
+      "name": "@atlaskit/primitives",
+      "sourceDir": "packages/design-system/primitives"
+    },
+    {
+      "name": "@atlaskit/profilecard",
+      "sourceDir": "packages/people-and-teams/profilecard"
+    },
+    {
+      "name": "@atlaskit/progress-bar",
+      "sourceDir": "packages/design-system/progress-bar"
+    },
+    {
+      "name": "@atlaskit/progress-indicator",
+      "sourceDir": "packages/design-system/progress-indicator"
+    },
+    {
+      "name": "@atlaskit/progress-tracker",
+      "sourceDir": "packages/design-system/progress-tracker"
+    },
+    {
+      "name": "@atlaskit/prosemirror-collab",
+      "sourceDir": "packages/editor/prosemirror-collab"
+    },
+    {
+      "name": "@atlaskit/prosemirror-history",
+      "sourceDir": "packages/editor/prosemirror-history"
+    },
+    {
+      "name": "@atlaskit/prosemirror-input-rules",
+      "sourceDir": "packages/editor/input-rules"
+    },
+    {
+      "name": "@atlaskit/prs-locale-mapper",
+      "sourceDir": "packages/helpers/prs-locale-mapper"
+    },
+    {
+      "name": "@atlaskit/pubsub",
+      "sourceDir": "packages/elements/pubsub"
+    },
+    {
+      "name": "@atlaskit/quick-search",
+      "sourceDir": "packages/search/quick-search"
+    },
+    {
+      "name": "@atlaskit/quiz-widget",
+      "sourceDir": "packages/help/quiz-widget"
+    },
+    {
+      "name": "@atlaskit/radio",
+      "sourceDir": "packages/design-system/radio"
+    },
+    {
+      "name": "@atlaskit/range",
+      "sourceDir": "packages/design-system/range"
+    },
+    {
+      "name": "@atlaskit/rating",
+      "sourceDir": "packages/dev-portal/rating"
+    },
+    {
+      "name": "@atlaskit/react-compiler-gating",
+      "sourceDir": "packages/react-compiler/react-compiler-gating"
+    },
+    {
+      "name": "@atlaskit/react-select",
+      "sourceDir": "packages/design-system/react-select"
+    },
+    {
+      "name": "@atlaskit/react-ufo",
+      "sourceDir": "packages/react-ufo/atlaskit"
+    },
+    {
+      "name": "@atlaskit/reactions",
+      "sourceDir": "packages/elements/reactions"
+    },
+    {
+      "name": "@atlaskit/reduced-ui-pack",
+      "sourceDir": "packages/design-system/reduced-ui-pack"
+    },
+    {
+      "name": "@atlaskit/renderer",
+      "sourceDir": "packages/editor/renderer"
+    },
+    {
+      "name": "@atlaskit/report-error",
+      "sourceDir": "packages/data/report-error"
+    },
+    {
+      "name": "@atlaskit/right-side-panel",
+      "sourceDir": "packages/help/right-side-panel"
+    },
+    {
+      "name": "@atlaskit/rovo-agent-analytics",
+      "sourceDir": "packages/ai-mate/rovo-agent-analytics"
+    },
+    {
+      "name": "@atlaskit/rovo-agent-components",
+      "sourceDir": "packages/ai-mate/rovo-agent-components"
+    },
+    {
+      "name": "@atlaskit/rovo-agent-selector",
+      "sourceDir": "packages/servo/rovo-agent-selector"
+    },
+    {
+      "name": "@atlaskit/rovo-triggers",
+      "sourceDir": "packages/ai-mate/rovo-triggers"
+    },
+    {
+      "name": "@atlaskit/section-message",
+      "sourceDir": "packages/design-system/section-message"
+    },
+    {
+      "name": "@atlaskit/select",
+      "sourceDir": "packages/design-system/select"
+    },
+    {
+      "name": "@atlaskit/side-nav-items",
+      "sourceDir": "packages/navigation/side-nav-items"
+    },
+    {
+      "name": "@atlaskit/side-navigation",
+      "sourceDir": "packages/design-system/side-navigation"
+    },
+    {
+      "name": "@atlaskit/simple-xdm",
+      "sourceDir": "packages/connect/simple-xdm"
+    },
+    {
+      "name": "@atlaskit/skeleton",
+      "sourceDir": "packages/design-system/skeleton"
+    },
+    {
+      "name": "@atlaskit/smart-card",
+      "sourceDir": "packages/linking-platform/smart-card"
+    },
+    {
+      "name": "@atlaskit/smart-common",
+      "sourceDir": "packages/smart-experiences/smart-common"
+    },
+    {
+      "name": "@atlaskit/smart-hooks",
+      "sourceDir": "packages/smart-experiences/smart-hooks"
+    },
+    {
+      "name": "@atlaskit/smart-user-picker",
+      "sourceDir": "packages/smart-experiences/smart-user-picker"
+    },
+    {
+      "name": "@atlaskit/spinner",
+      "sourceDir": "packages/design-system/spinner"
+    },
+    {
+      "name": "@atlaskit/spotlight",
+      "sourceDir": "packages/design-system/spotlight"
+    },
+    {
+      "name": "@atlaskit/status",
+      "sourceDir": "packages/elements/status"
+    },
+    {
+      "name": "@atlaskit/storybook-addon-design-system",
+      "sourceDir": "packages/design-system/storybook-addon"
+    },
+    {
+      "name": "@atlaskit/stylelint-design-system",
+      "sourceDir": "packages/design-system/stylelint"
+    },
+    {
+      "name": "@atlaskit/table",
+      "sourceDir": "packages/design-system/table"
+    },
+    {
+      "name": "@atlaskit/table-tree",
+      "sourceDir": "packages/design-system/table-tree"
+    },
+    {
+      "name": "@atlaskit/tabs",
+      "sourceDir": "packages/design-system/tabs"
+    },
+    {
+      "name": "@atlaskit/tag",
+      "sourceDir": "packages/design-system/tag"
+    },
+    {
+      "name": "@atlaskit/tag-group",
+      "sourceDir": "packages/design-system/tag-group"
+    },
+    {
+      "name": "@atlaskit/task-decision",
+      "sourceDir": "packages/elements/task-decision"
+    },
+    {
+      "name": "@atlaskit/teams-app-config",
+      "sourceDir": "packages/people-and-teams/teams-app-config"
+    },
+    {
+      "name": "@atlaskit/teams-app-internal-analytics",
+      "sourceDir": "packages/people-and-teams/teams-app-internal-analytics"
+    },
+    {
+      "name": "@atlaskit/teams-app-internal-navigation",
+      "sourceDir": "packages/people-and-teams/teams-app-internal-navigation"
+    },
+    {
+      "name": "@atlaskit/teams-app-internal-product-permissions",
+      "sourceDir": "packages/people-and-teams/teams-app-internal-product-permissions"
+    },
+    {
+      "name": "@atlaskit/teams-avatar",
+      "sourceDir": "packages/people-and-teams/teams-avatar"
+    },
+    {
+      "name": "@atlaskit/teams-client",
+      "sourceDir": "packages/people-and-teams/teams-client"
+    },
+    {
+      "name": "@atlaskit/teams-public",
+      "sourceDir": "packages/people-and-teams/teams-public"
+    },
+    {
+      "name": "@atlaskit/textarea",
+      "sourceDir": "packages/design-system/textarea"
+    },
+    {
+      "name": "@atlaskit/textfield",
+      "sourceDir": "packages/design-system/textfield"
+    },
+    {
+      "name": "@atlaskit/theme",
+      "sourceDir": "packages/design-system/theme"
+    },
+    {
+      "name": "@atlaskit/tile",
+      "sourceDir": "packages/design-system/tile"
+    },
+    {
+      "name": "@atlaskit/tmp-editor-statsig",
+      "sourceDir": "packages/editor/tmp-editor-statsig"
+    },
+    {
+      "name": "@atlaskit/toggle",
+      "sourceDir": "packages/design-system/toggle"
+    },
+    {
+      "name": "@atlaskit/tokens",
+      "sourceDir": "packages/design-system/tokens"
+    },
+    {
+      "name": "@atlaskit/tooltip",
+      "sourceDir": "packages/design-system/tooltip"
+    },
+    {
+      "name": "@atlaskit/top-layer",
+      "sourceDir": "packages/design-system/top-layer"
+    },
+    {
+      "name": "@atlaskit/townsquare-emoji-provider",
+      "sourceDir": "packages/townsquare/townsquare-emoji-provider"
+    },
+    {
+      "name": "@atlaskit/ufo",
+      "sourceDir": "packages/data/ufo-external"
+    },
+    {
+      "name": "@atlaskit/ufo-experience-key",
+      "sourceDir": "packages/ufo/ufo-experience-key"
+    },
+    {
+      "name": "@atlaskit/user-picker",
+      "sourceDir": "packages/elements/user-picker"
+    },
+    {
+      "name": "@atlaskit/util-data-test",
+      "sourceDir": "packages/elements/util-data-test"
+    },
+    {
+      "name": "@atlaskit/util-service-support",
+      "sourceDir": "packages/elements/util-service-support"
+    },
+    {
+      "name": "@atlaskit/visually-hidden",
+      "sourceDir": "packages/design-system/visually-hidden"
+    },
+    {
+      "name": "@atlaskit/web-config-client",
+      "sourceDir": "packages/measurement/web-config-client"
+    },
+    {
+      "name": "@atlaskit/width-detector",
+      "sourceDir": "packages/design-system/width-detector"
+    }
+  ]
+}

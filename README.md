@@ -92,4 +92,4 @@ Copyright © 2020 Atlassian
 
 ![cheers](imgs/cheers.png)
 
-This is a mirror of all public @atlaskit scoped packages from Atlassian Frontend. No issues, commits, or pull requests can be made to this repository at this time.
+This is a mirror of all public @atlaskit scoped packages from Atlassian Frontend. The repository also includes a generated `MIRROR_SYNC_METADATA.json` file recording the most recent sync time and mirrored package list. No issues, commits, or pull requests can be made to this repository at this time.

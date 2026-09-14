@@ -105,18 +105,6 @@ export const baseStylesMaxContainerWidthFixes: SerializedStyles = css({
 	},
 });
 
-// This is to avoid using akEditorGutterPaddingDynamic()
-/**
- * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
- * If you need to make changes here, also update the corresponding style in
- * packages/editor/editor-core/src/ui/EditorContentContainer/EditorContentContainer-compiled.tsx
- * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const editorLargeGutterPuddingBaseStyles: SerializedStyles = css({
-	'--ak-editor--large-gutter-padding': '52px',
-});
-
 // This is to avoid using akEditorGutterPaddingDynamic
 /**
  * @deprecated This style has been migrated to Compiled CSS, under experiment platform_editor_core_static_css
@@ -125,7 +113,7 @@ export const editorLargeGutterPuddingBaseStyles: SerializedStyles = css({
  * See EDITOR-7600 for more details: https://hello.jira.atlassian.cloud/jira/browse/EDITOR-7600
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/volt-strict-mode/no-multiple-exports
-export const editorLargeGutterPuddingBaseStylesEditorControls: SerializedStyles = css({
+export const editorGutterPaddingBaseStyles: SerializedStyles = css({
 	'--ak-editor--large-gutter-padding': '72px',
 });
 /**

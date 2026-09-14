@@ -42,7 +42,7 @@ export default class MediaInlineCardLoader extends React.PureComponent<
 			try {
 				const [mediaClient, cardModule, mediaInlineErrorBoundaryModule] = await Promise.all([
 					import(
-						/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
+						/* webpackChunkName: "@atlaskit-internal_media-client-react_with-media-client" */ '@atlaskit/media-client-react/with-media-client'
 					),
 					import(
 						/* webpackChunkName: "@atlaskit-internal_inline-media-card" */ './mediaInlineCard'

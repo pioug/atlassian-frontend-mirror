@@ -11,6 +11,7 @@ import { css, cssMap, jsx } from '@compiled/react';
 import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
 import { type Color as ColorType } from '../Status';
+import { getColorLabelKey } from '../status-colors';
 
 const styles = cssMap({
 	button: {
@@ -77,7 +78,7 @@ export default class Color extends PureComponent<ColorProps> {
 		} = this.props;
 		return (
 			<li css={buttonWrapperStyles}>
-				<FormattedMessage {...messages[`${value}Color` as keyof typeof messages]}>
+				<FormattedMessage {...messages[getColorLabelKey(value)]}>
 					{(labels) => (
 						<Pressable
 							xcss={styles.button}

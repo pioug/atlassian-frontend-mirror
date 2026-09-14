@@ -57,6 +57,7 @@ import type { NodeViewSerializer } from '../NodeViewSerializer';
 import { diffBySteps } from './diffBySteps';
 import { groupChangesByBlock } from './groupChangesByBlock';
 import { isMarkOnlyChange } from './isMarkOnlyChange';
+import { isOpenTokenOnlyChange } from './isOpenTokenOnlyChange';
 import { optimizeChanges } from './optimizeChanges';
 import { selectTokenEncoder } from './selectTokenEncoder';
 import {
@@ -638,6 +639,16 @@ const calculateDiffDecorationsInner = ({
 			change.deleted.length > 0 &&
 			isMarkOnlyChange({ change, originalDoc, newDoc: tr.doc });
 
+		// The deleted side of a change over a node's open token is an attribute state rather than
+		// content, so there is nothing for the deleted-content widget to draw. Decided here, with
+		// the other deleted-side suppressions, so the widget is never asked for a slice it can only
+		// render as an empty copy of the block (EDITOR-8912). Its inserted side is untouched, and
+		// the node's content change is a change of its own.
+		const hasNoDeletedContent =
+			fg('platform_editor_ai_show_diff_patch_1') &&
+			change.deleted.length > 0 &&
+			isOpenTokenOnlyChange({ change, originalDoc });
+
 		// Hoisted because it decides BOTH where the deleted widget is anchored and — since the
 		// widget pins whichever end of the range it sits at — how the indicator anchors below are
 		// allowed to move.
@@ -765,7 +776,7 @@ const calculateDiffDecorationsInner = ({
 				}),
 			);
 		}
-		if (change.deleted.length > 0 && !isMarkOnly) {
+		if (change.deleted.length > 0 && !isMarkOnly && !hasNoDeletedContent) {
 			const shouldHideDeleted = shouldHideDeletedSide({
 				change,
 				diffType,

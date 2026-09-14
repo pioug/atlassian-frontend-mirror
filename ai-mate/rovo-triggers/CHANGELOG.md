@@ -1,5 +1,23 @@
 # @atlaskit/rovo-triggers
 
+## 10.37.0
+
+### Minor Changes
+
+- [`8181d8d675df9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8181d8d675df9) -
+  Add chat entry points for the JSM RFS activation Test now flow.
+
+## 10.36.0
+
+### Minor Changes
+
+- [`fd47723e42634`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd47723e42634) -
+  Add artifacts context type
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.35.0
 
 ### Minor Changes

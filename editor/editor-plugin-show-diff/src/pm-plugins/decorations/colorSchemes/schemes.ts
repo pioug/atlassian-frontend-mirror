@@ -27,6 +27,7 @@ export const traditionalScheme: DiffColorScheme = {
 	roundedAddedCellOverlayInheritsBorder: true,
 	insertedInlineTreatment: 'underline',
 	deletedInlineTreatment: 'strikethrough',
+	deletedInlineHighlight: 'always',
 	insertedNodeEmphasis: 'stateful',
 	deletedNodeEmphasis: 'stateful',
 	deletedQuoteNodeActiveTone: 'backgroundPressed',
@@ -55,6 +56,7 @@ export const standardScheme: DiffColorScheme = {
 	roundedAddedCellOverlayInheritsBorder: false,
 	insertedInlineTreatment: 'borderBottom',
 	deletedInlineTreatment: 'glyphTint',
+	deletedInlineHighlight: 'always',
 	insertedNodeEmphasis: 'static',
 	deletedNodeEmphasis: 'static',
 	deletedQuoteNodeActiveTone: 'borderAccent',
@@ -69,7 +71,11 @@ const createAttributionScheme = (color: AdsAccentColor): DiffColorScheme => {
 		insertActiveColor: color,
 		deleteColor: color,
 		deletedInlineBorderTone: 'background',
-		deleteTextColor: 'gray',
+		// Like the public schemes, the highlight holds its resting tint when active.
+		deletedInlineActiveEmphasis: 'underline',
+		// The contributor's own hue, so deleted text reads as theirs without a highlight behind it.
+		deleteTextColor: color,
+		deletedInlineHighlight: 'onEmphasis',
 		deleteActiveColor: color,
 		deletedCellColor: color,
 	};

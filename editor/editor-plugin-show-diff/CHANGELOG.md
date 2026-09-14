@@ -1,5 +1,83 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 16.0.6
+
+### Patch Changes
+
+- [`9e68346721d6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e68346721d6d) -
+  Show deleted text in the contributor's colour, strikethrough included, and hold its background
+  highlight back until the change is active or hovered. When it arrives, the highlight is a light
+  tint under a darker contributor-hue underline — the same treatment hovered and active, rather than
+  deepening the background when active.
+- Updated dependencies
+
+## 16.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.4
+
+### Patch Changes
+
+- [`d12940d0a5964`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d12940d0a5964) -
+  Fix layout and decision diff underlines and attribution colors, preserve column width styles, and
+  align the blue indicator outside layout column borders under platform_editor_ai_show_diff_patch_1.
+- [`f044fcdd726df`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f044fcdd726df) -
+  [EDITOR-8912] Under `platform_editor_ai_show_diff_patch_1`, a change that spans only a block
+  node's open token no longer draws a deleted-content widget. A same-type node replacement (an AI
+  suggestion rewriting a code block, say) reports the node's attribute change separately from its
+  content change, and the attribute half has no deleted content — it rendered as an empty copy of
+  the block, e.g. an empty code block above the real diff. Its inserted side, and the node's content
+  change, are unaffected.
+- Updated dependencies
+
+## 16.0.3
+
+### Patch Changes
+
+- [`0265ca1688db1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0265ca1688db1) -
+  [EDITOR-8971] `VanillaTooltip` takes an optional container to append its tooltip to, instead of
+  appending it inside the trigger. Opt-in per caller, and used by the diff contributor tag; every
+  other tooltip is unchanged.
+
+  Diff contributor tag fixes, all behind `confluence_ncs_step_diffing_version_history`:
+  - The tag's full label no longer renders off screen. Its tooltip is hoisted out of the tag, so
+    Popper and the browser measure a top-layer popover from the same origin — inside the trigger
+    they disagreed whenever an ancestor was transformed, such as a wide image.
+  - Stepping to a change reveals only that change's tag, not every tag the active range touches.
+  - A contributor no longer gets two tags inside one navigation stop. Two of their changes that
+    merely touched each kept a tag, and the trailing one could be hovered but never stepped to; it
+    now folds into the leading tag and stays a hover target. Tags for different contributors sharing
+    a stop are still kept apart.
+  - A tag on deleted content no longer disappears when the document changes. Any change remaps the
+    decoration, which rebuilds its widget and fired the teardown — but the deleted-content widget's
+    DOM is reused as-is and runs no mount callback, so the tag was faded out of a change that was
+    still the active one. The tag is now kept whenever its host is still in a live editor.
+
+- Updated dependencies
+
+## 16.0.2
+
+### Patch Changes
+
+- [`44acf8971ef0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44acf8971ef0e) -
+  Preserve contributor attribution for attribute-only diff decorations so they use the correct
+  colour and contributor tags.
+- [`683c1a024bcb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/683c1a024bcb3) -
+  Improve the accessibility of contributor diff tags, behind the
+  `confluence_ncs_step_diffing_version_history` gate. A tag now announces its contributor once
+  rather than three times over, names itself through `aria-labelledby` so it is no longer a focus
+  stop without an accessible name, says in its label when the contributor is an AI agent, and draws
+  an inset focus ring that reads against every accent fill.
+
+  Stepping to the next or previous change now announces the reader's position in the diff and who
+  made the change, through the editor's shared live region. Behind the
+  `platform_editor_diff_plugin_extended` experiment.
+
+- Updated dependencies
+
 ## 16.0.1
 
 ### Patch Changes

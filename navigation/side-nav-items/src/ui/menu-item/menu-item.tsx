@@ -164,7 +164,7 @@ const containerStyles = cssMap({
 		height: '2rem',
 		alignItems: 'center',
 		userSelect: 'none',
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.medium', '6px'),
 		color: token('color.text.subtle'),
 		// Applying :hover styles on the container rather than on
 		// just the button / anchor so that we will still trigger the
@@ -212,10 +212,6 @@ const containerStyles = cssMap({
 		'&:active': {
 			transition: token('motion.listitem.pressed'),
 		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	rootT26Shape: {
-		borderRadius: token('radius.medium', '6px'),
 	},
 	removeElemAfter: {
 		[elemAfterDisplayVar]: 'none',
@@ -323,7 +319,7 @@ const buttonOrAnchorStyles = cssMap({
 		paddingBlockStart: token('space.050'),
 		paddingBlockEnd: token('space.050'),
 		backgroundColor: 'transparent',
-		borderRadius: token('radius.small'),
+		borderRadius: token('radius.medium', '6px'),
 		color: token('color.text.subtle'),
 		alignItems: 'center',
 		textAlign: 'start',
@@ -352,10 +348,6 @@ const buttonOrAnchorStyles = cssMap({
 		'&:active': {
 			transition: token('motion.listitem.pressed'),
 		},
-	},
-	// platform-dst-shape-theme-default TODO: Merge into base after rollout
-	rootT26Shape: {
-		borderRadius: token('radius.medium', '6px'),
 	},
 	selected: {
 		color: token('color.text.selected'),
@@ -738,7 +730,6 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 					nestedOpenPopupStyles.root,
 					isFinesseEnabled && containerStyles.rootFinesse,
 					isFinesseEnabled && nestedOpenPopupStyles.rootFinesse,
-					fg('platform-dst-shape-theme-default') && containerStyles.rootT26Shape,
 					isSelected && containerStyles.selected,
 					isSelected &&
 						fg('platform-dst-motion-uplift-list-item') &&
@@ -804,7 +795,6 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								xcss={cx(
 									buttonOrAnchorStyles.root,
 									fg('platform-dst-motion-uplift-list-item') && buttonOrAnchorStyles.rootMotion,
-									fg('platform-dst-shape-theme-default') && buttonOrAnchorStyles.rootT26Shape,
 									isFinesseEnabled && buttonOrAnchorStyles.rootFinesse,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,
@@ -852,7 +842,6 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								xcss={cx(
 									buttonOrAnchorStyles.root,
 									fg('platform-dst-motion-uplift-list-item') && buttonOrAnchorStyles.rootMotion,
-									fg('platform-dst-shape-theme-default') && buttonOrAnchorStyles.rootT26Shape,
 									isFinesseEnabled && buttonOrAnchorStyles.rootFinesse,
 									topLevelSiblingStyles.root,
 									isSelected && buttonOrAnchorStyles.selected,

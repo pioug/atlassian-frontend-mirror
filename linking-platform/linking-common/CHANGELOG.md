@@ -1,5 +1,25 @@
 # @atlaskit/linking-common
 
+## 12.2.0
+
+### Minor Changes
+
+- [`2474922a7a598`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2474922a7a598) -
+  Adds a shared `@atlaskit/linking-common/units-rollout` entry point that resolves whether unit
+  isolation applies to the current organisation, and moves `useAvailableSites` and
+  `useAvailableSitesV2` onto it.
+
+  During the units rollout, the unit compliant available sites and accessible products endpoints are
+  only used when the units GA master gate `cc-units-ga` is on (killswitch), either the existing
+  `linking_platform_site_picker_api_unit_compliant` (org id targeted) or the new
+  `linking_platform_site_picker_api_unit_compliant_cloud_id` (cloud id targeted) gate is enabled,
+  **and** `Query.admin_unitSettings` in AGG reports that the organisation has both
+  `endUsersLaunched` and `boundaryEnforced`. Anything else keeps the existing, non-isolated
+  behaviour.
+
+  The organisation is resolved from the current hostname via `Query.tenantContexts`, so callers do
+  not need to supply an org id. The settings are fetched at most once per page load.
+
 ## 12.1.2
 
 ### Patch Changes

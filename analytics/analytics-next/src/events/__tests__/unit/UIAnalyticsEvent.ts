@@ -1,5 +1,3 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { isUIAnalyticsEvent } from '../../isUIAnalyticsEvent';
 import {
 	default as UIAnalyticsEvent,
@@ -79,8 +77,7 @@ describe('cloning a payload with a circular reference (HOT-127428)', () => {
 		});
 	};
 
-	it('does not throw and falls back to a shallow clone when the gate is on', () => {
-		passGate('platform-analytics-next-safe-clone');
+	it('does not throw and falls back to a shallow clone', () => {
 		const analyticsEvent = buildCircularEvent();
 
 		let clonedEvent: UIAnalyticsEvent | null = null;
@@ -93,13 +90,6 @@ describe('cloning a payload with a circular reference (HOT-127428)', () => {
 		expect(clonedEvent!.payload).not.toBe(analyticsEvent.payload);
 		expect(clonedEvent!.payload.action).toBe('click');
 		expect(clonedEvent!.payload.self).toBe(analyticsEvent.payload.self);
-	});
-
-	it('preserves legacy throwing behaviour when the gate is off', () => {
-		failGate('platform-analytics-next-safe-clone');
-		const analyticsEvent = buildCircularEvent();
-
-		expect(() => analyticsEvent.clone()).toThrow(TypeError);
 	});
 });
 

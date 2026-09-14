@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-breakout
 
+## 18.0.4
+
+### Patch Changes
+
+- [`9f005c4fabff9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f005c4fabff9) -
+  Clean up experiment `platform_editor_sync_block_guideline_bugfix`
+- Updated dependencies
+
+## 18.0.3
+
+### Patch Changes
+
+- [`a0b5ab4d98338`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0b5ab4d98338) -
+  [FFCLEANUP-147868] clean up experiment `platform_editor_lovability_breakout_resizing_fixes`
+- Updated dependencies
+
+## 18.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.0.0
 
 ### Patch Changes

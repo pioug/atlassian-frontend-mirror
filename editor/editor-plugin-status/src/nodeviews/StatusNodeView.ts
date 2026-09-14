@@ -6,6 +6,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { normalizeStatusColorAttr } from '../utils/normalizeStatusColor';
+
 import { statusToDOM } from './statusNodeSpec';
 
 /**
@@ -74,9 +76,10 @@ export class StatusNodeView implements NodeView {
 		}
 
 		if (node.attrs.color !== this.node.attrs.color) {
-			this.box?.setAttribute('data-color', node.attrs.color);
+			const dataColor = normalizeStatusColorAttr(node.attrs.color);
+			this.box?.setAttribute('data-color', dataColor);
 			// Also update data-color on outer wrapper for parseDOM extraction when copying
-			this.domElement?.setAttribute('data-color', node.attrs.color);
+			this.domElement?.setAttribute('data-color', dataColor);
 		}
 
 		if (!node.attrs.text) {

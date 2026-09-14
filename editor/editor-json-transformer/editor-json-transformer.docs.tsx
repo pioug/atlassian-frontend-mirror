@@ -19,7 +19,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'JSONTransformer',
-				package: '@atlaskit/editor-json-transformer',
+				package: '@atlaskit/editor-json-transformer/JSONTransformer-2',
 				type: 'named',
 				packagePath,
 				packageJson,

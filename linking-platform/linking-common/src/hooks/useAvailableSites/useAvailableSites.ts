@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/utils/constants';
@@ -16,12 +15,17 @@ import {
 	type AvailableSitesRequest,
 	type AvailableSitesResponse,
 } from './types';
+import { shouldUseUnitCompliantApi } from '../../units-rollout/shouldUseUnitCompliantApi';
+
+import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
 
 async function getAvailableSites({
 	products,
 	gatewayBaseUrl,
 }: AvailableSitesRequest): Promise<AvailableSitesResponse> {
-	const availableSitesPath = fg('linking_platform_site_picker_api_unit_compliant')
+	// Organisations with units isolation in effect must be served the unit compliant endpoint,
+	// which filters the sites down to the unit the user belongs to.
+	const availableSitesPath = (await shouldUseUnitCompliantApi(isSitePickerInUnitsRollout))
 		? AVAILABLE_SITES_UNIT_COMPLIANT_PATH
 		: AVAILABLE_SITES_PATH;
 	const requestConfig = {

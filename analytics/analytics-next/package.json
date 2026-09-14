@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-next",
-	"version": "12.5.0",
+	"version": "12.5.1",
 	"description": "React components, HOCs and hooks to assist with tracking user activity with React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,9 +80,6 @@
 	},
 	"platform-feature-flags": {
 		"analytics-next-use-legacy-context": {
-			"type": "boolean"
-		},
-		"platform-analytics-next-safe-clone": {
 			"type": "boolean"
 		},
 		"adminhub-analytics-next-use-modern-context": {

@@ -39,6 +39,29 @@ describe('ColorPalette', () => {
 	});
 });
 
+describe('ColorPalette with the extended palette', () => {
+	const pressedTitle = () => screen.getByRole('button', { pressed: true }).getAttribute('title');
+
+	it('marks the Lime swatch selected for an existing named green', () => {
+		renderWithIntl(<ColorPalette palette="extended" onClick={jest.fn()} selectedColor={'green'} />);
+		expect(pressedTitle()).toBe('Lime');
+	});
+
+	it('marks the Orange swatch selected for an existing named yellow', () => {
+		renderWithIntl(
+			<ColorPalette palette="extended" onClick={jest.fn()} selectedColor={'yellow'} />,
+		);
+		expect(pressedTitle()).toBe('Orange');
+	});
+
+	it('marks the Green swatch selected for the green hex, not Lime', () => {
+		renderWithIntl(
+			<ColorPalette palette="extended" onClick={jest.fn()} selectedColor={'#abf5d1'} />,
+		);
+		expect(pressedTitle()).toBe('Green');
+	});
+});
+
 describe('ColorPalette keyboard navigation', () => {
 	it('should focus next color on right arrow', async () => {
 		renderWithIntl(<ColorPalette onClick={jest.fn()} selectedColor={'neutral'} />);
@@ -63,7 +86,7 @@ describe('ColorPalette keyboard navigation', () => {
 				keyCode: 39,
 			});
 		}
-		expect(colorButtons[0]).toHaveFocus(); // Grey
+		expect(colorButtons[0]).toHaveFocus(); // Gray
 	});
 
 	it('should select last color on leftArrow press at first color', () => {

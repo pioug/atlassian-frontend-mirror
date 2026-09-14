@@ -52,7 +52,6 @@ describe('ToolbarDropdownItem roles', () => {
 		enableLayoutColumnMenuExperiment();
 		setupEditorExperiments('test', {
 			platform_editor_layout_column_menu: true,
-			platform_editor_renderer_toolbar_updates: true,
 		});
 
 		render(
@@ -72,7 +71,6 @@ describe('ToolbarDropdownItem roles', () => {
 	it('sets aria-checked for selected anchor items with explicit menuitemradio role', () => {
 		setupEditorExperiments('test', {
 			platform_editor_layout_column_menu: true,
-			platform_editor_renderer_toolbar_updates: true,
 		});
 
 		render(
@@ -107,7 +105,6 @@ describe('ToolbarDropdownItem roles', () => {
 	it('sets aria-checked for selected anchor items with explicit menuitemcheckbox role', () => {
 		setupEditorExperiments('test', {
 			platform_editor_layout_column_menu: true,
-			platform_editor_renderer_toolbar_updates: true,
 		});
 
 		render(

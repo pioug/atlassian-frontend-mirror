@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 3.0.1
+
+### Patch Changes
+
+- [`83f3f6b294471`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/83f3f6b294471) -
+  Name the `target` of the `slowest` records in the `editor interactivity` event from the path of
+  the event as it was dispatched, rather than from the Event Timing entry, whose `target` is `null`
+  once the handlers of the interaction have removed the element. Behind the
+  `platform_editor_editor_interactivity_slowest` experiment.
+- Updated dependencies
+
 ## 3.0.0
 
 ### Patch Changes

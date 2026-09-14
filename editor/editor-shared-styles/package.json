@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-shared-styles",
-	"version": "4.3.0",
+	"version": "4.3.5",
 	"description": "Style values used in the editor/renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,9 +20,6 @@
 		"team": "Editor: Lego"
 	},
 	"platform-feature-flags": {
-		"platform_editor_controls_increase_full_page_gutter": {
-			"type": "boolean"
-		},
 		"platform_editor_ai_aifc_streaming": {
 			"type": "boolean"
 		}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/side-nav-items",
-	"version": "2.4.3",
+	"version": "2.4.4",
 	"description": "Menu items and elements for the side nav area.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -84,6 +84,7 @@
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"bind-event-listener": "root:*",
 		"react": "root:*",
@@ -91,9 +92,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-dst-motion-uplift-list-item": {
-			"type": "boolean"
-		},
-		"platform-dst-shape-theme-default": {
 			"type": "boolean"
 		},
 		"platform-dst-tokens-finesse": {

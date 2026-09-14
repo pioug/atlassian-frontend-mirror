@@ -4,6 +4,21 @@ import { token } from '@atlaskit/tokens';
 import type { AdsAccentColor, DiffColorScheme } from './types';
 import { getStandardDeletedTextDecorationStyle } from './getStandardDeletedTextDecorationStyle';
 
+/**
+ * Hover highlight for deleted text under an 'onEmphasis' scheme. Inline styles cannot express
+ * `:hover`, so the resting style resolves its background from this property and
+ * `ContributorTagController` sets it while the change is hovered. Custom properties inherit, so
+ * setting it on the element carrying `data-diff-id` also reaches the inner wrappers a
+ * deleted-content widget paints its background on.
+ */
+export const DELETED_HIGHLIGHT_BG_VAR = '--show-diff-deleted-highlight-bg';
+
+/**
+ * Bottom border of that same hover highlight, kept separate from `DELETED_HIGHLIGHT_BG_VAR` so an
+ * 'underline' scheme can darken the border without darkening the tint behind it.
+ */
+export const DELETED_HIGHLIGHT_BORDER_VAR = '--show-diff-deleted-highlight-border';
+
 // token() is a build-time transform needing static literals, so pre-compute every colour's
 // tokens here and index by name at runtime.
 
@@ -597,31 +612,66 @@ export function buildDeletedDecorationMarkerVariableSimple(colors: DiffColorSche
 	});
 }
 
-/**
- * 'glyphTint' deleted inline style — tints the glyph itself via `color:`. Opacity ramps 0.6
- * default, 0.83 "new", 1 active.
- */
+/** Whether the emphasised state is stated in the bottom border rather than a deeper highlight. */
+function usesUnderlineEmphasis(colors: DiffColorScheme): boolean {
+	return colors.deletedInlineActiveEmphasis === 'underline';
+}
+
 /** Extended deleted inline style — background highlight with an accent or background-matched bottom border. */
 export function buildDeletedInlineContentStyleExtended(
 	colors: DiffColorScheme,
 	isActive: boolean = false,
 ): string {
+	// Resting 'onEmphasis' paints nothing; the highlight arrives when the hover variables are set. The
+	// active state takes the literal branch below, so hover cannot disturb it.
+	if (colors.deletedInlineHighlight === 'onEmphasis' && !isActive) {
+		return convertToInlineCss({
+			backgroundColor: `var(${DELETED_HIGHLIGHT_BG_VAR}, transparent)`,
+			// Reserved while transparent, so the highlight arriving does not shift the text.
+			borderBottom: `2px solid var(${DELETED_HIGHLIGHT_BORDER_VAR}, transparent)`,
+			padding: `1px 0 2px`,
+		});
+	}
+
+	// Under 'underline' emphasis the highlight stays on its resting tint — the same one hover paints —
+	// so only the border carries the emphasis.
+	const isUnderlineEmphasis = isActive && usesUnderlineEmphasis(colors);
+
 	const backgroundColor =
-		isActive && colors.deletedInlineBorderTone === 'background'
+		isActive && !isUnderlineEmphasis && colors.deletedInlineBorderTone === 'background'
 			? bgSubtlerPressed(colors.deleteActiveColor)
 			: bgSubtlest(colors.deleteColor);
 
+	const borderColor = isUnderlineEmphasis
+		? borderAccent(colors.deleteActiveColor)
+		: colors.deletedInlineBorderTone === 'background'
+			? backgroundColor
+			: borderAccent(colors.deleteColor);
+
 	return convertToInlineCss({
 		backgroundColor,
-		borderBottom: `2px solid ${
-			colors.deletedInlineBorderTone === 'background'
-				? backgroundColor
-				: borderAccent(colors.deleteColor)
-		}`,
+		borderBottom: `2px solid ${borderColor}`,
 		padding: `1px 0 2px`,
 	});
 }
 
+/**
+ * Glyph opacity for the 'glyphTint' treatment. 'onEmphasis' schemes are opaque in every state: with
+ * no highlight behind the glyph at rest, the accent text token has to carry the contrast on its own.
+ */
+function deletedGlyphOpacity(colors: DiffColorScheme, state: 'default' | 'new' | 'active'): number {
+	if (colors.deletedInlineHighlight === 'onEmphasis') {
+		return 1;
+	}
+
+	if (state === 'active') {
+		return colors.deleteTextColor ? 0.83 : 1;
+	}
+
+	return colors.deleteTextColor || state === 'new' ? 0.83 : 0.6;
+}
+
+/** 'glyphTint' deleted inline style — tints the glyph itself via `color:`. */
 export function buildDeletedInlineStyleStandard(
 	colors: DiffColorScheme,
 	state: 'default' | 'new' | 'active',
@@ -632,14 +682,14 @@ export function buildDeletedInlineStyleStandard(
 			...getStandardDeletedTextDecorationStyle(),
 			textDecorationColor: textAccent(colors.deleteTextColor ?? colors.deleteColor),
 			position: 'relative',
-			opacity: colors.deleteTextColor ? 0.83 : 1,
+			opacity: deletedGlyphOpacity(colors, state),
 		});
 	}
 	return convertToInlineCss({
 		color: textAccent(colors.deleteTextColor ?? colors.deleteColor),
 		...getStandardDeletedTextDecorationStyle(),
 		position: 'relative',
-		opacity: colors.deleteTextColor || state === 'new' ? 0.83 : 0.6,
+		opacity: deletedGlyphOpacity(colors, state),
 	});
 }
 
@@ -810,10 +860,34 @@ export function getDeletedInlineRevealColors(colors: DiffColorScheme): {
 	background: string;
 	border: string;
 } {
+	// Nothing to wipe in where the resting state paints no highlight.
+	if (colors.deletedInlineHighlight === 'onEmphasis') {
+		return { background: 'transparent', border: 'transparent' };
+	}
+
 	return {
 		background: bgSubtlest(colors.deleteColor),
 		border: borderAccent(colors.deleteColor),
 	};
+}
+
+/**
+ * Value for `DELETED_HIGHLIGHT_BG_VAR` while a change is hovered — the same tint an 'always' scheme
+ * paints at rest, so hovering restores the appearance rather than introducing a third one.
+ */
+export function getDeletedHighlightHoverColor(colors: DiffColorScheme): string {
+	return bgSubtlest(colors.deleteColor);
+}
+
+/**
+ * Value for `DELETED_HIGHLIGHT_BORDER_VAR` while a change is hovered. An 'underline' scheme states
+ * both hover and active in the border, so the two read alike; anything else keeps the border on the
+ * tint, as it was before the border had a variable of its own.
+ */
+export function getDeletedHighlightHoverBorderColor(colors: DiffColorScheme): string {
+	return usesUnderlineEmphasis(colors)
+		? borderAccent(colors.deleteActiveColor)
+		: getDeletedHighlightHoverColor(colors);
 }
 
 /** The three visual states deleted inline content can be in. */

@@ -11,6 +11,7 @@
  * keeping the `*Next` bodies.
  */
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DiffType } from '../../../showDiffPluginType';
@@ -54,9 +55,7 @@ const getColorScheme = (colorScheme: ColorScheme | undefined): DiffColorScheme =
 	colorSchemeRegistry[colorScheme ?? 'standard'];
 
 /**
- * Inserted content inside a multi-container or list node always uses the standard scheme, so a
- * traditional diff shows purple here. Pre-existing: these call sites predate traditional.
- * Preserved as-is; see EDITOR-8281.
+ * Preserve the historical purple nested outlines when the layout/decision diff patch is off.
  */
 const nestedContentScheme = standardScheme;
 
@@ -109,7 +108,7 @@ const getChangedNodeStyleNext = (
 
 	if (isExtendedEnabled(diffType) && isInserted) {
 		if (isMultiContainerBlockNode(nodeName)) {
-			return hideAddedDiffsUnderline
+			return hideAddedDiffsUnderline || fg('platform_editor_ai_show_diff_patch_1')
 				? buildInsertStyleInBlockExtendedNoUnderline(nestedContentScheme)
 				: buildInsertStyleInBlockExtended(nestedContentScheme);
 		}
@@ -196,7 +195,10 @@ const resolveRemovedLozengeStyleNext = (
 	return isActive ? buildDeletedLozengeActiveStyle(colors) : buildDeletedLozengeStyle(colors);
 };
 
-const resolveNestedInsertedNodeStyleNext = (): string => buildInsertStyleNode(nestedContentScheme);
+const resolveNestedInsertedNodeStyleNext = (colorScheme?: ColorScheme): string =>
+	buildInsertStyleNode(
+		fg('platform_editor_ai_show_diff_patch_1') ? getColorScheme(colorScheme) : nestedContentScheme,
+	);
 
 // Only 'stateful' schemes have a resting ring.
 const hasRestingDeletedRingNext = (colorScheme?: ColorScheme): boolean =>
@@ -321,12 +323,11 @@ export const resolveRemovedLozengeStyle = (
 
 /**
  * Style for inserted content nested inside a multi-container or list node — the `decisionList` and
- * `taskList` `li`s and the `layoutSection` columns. Scheme-independent: see
- * `nestedContentScheme` above.
+ * `taskList` `li`s and the `layoutSection` columns.
  */
-export const resolveNestedInsertedNodeStyle = (): string =>
+export const resolveNestedInsertedNodeStyle = (colorScheme?: ColorScheme): string =>
 	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? resolveNestedInsertedNodeStyleNext()
+		? resolveNestedInsertedNodeStyleNext(colorScheme)
 		: resolveNestedInsertedNodeStyleLegacy();
 
 /**

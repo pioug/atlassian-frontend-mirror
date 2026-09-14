@@ -1,46 +1,66 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-	neutralColor: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	purpleColor: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	blueColor: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	redColor: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	yellowColor: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	greenColor: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	limeColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	magentaColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	neutralColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	orangeColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	purpleColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	redColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	statusInputLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	tealColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	yellowColor: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	neutralColor: {
 		id: 'fabric.status.color.grey',
-		defaultMessage: 'Grey',
-		description: 'Tooltip for the grey color in color palette',
+		defaultMessage: 'Gray',
+		description: 'Tooltip for the gray color in color palette',
 	},
 	purpleColor: {
 		id: 'fabric.status.color.purple',
@@ -66,6 +86,26 @@ export const messages: {
 		id: 'fabric.status.color.green',
 		defaultMessage: 'Green',
 		description: 'Tooltip for the green color in color palette',
+	},
+	tealColor: {
+		id: 'fabric.status.color.teal',
+		defaultMessage: 'Teal',
+		description: 'Tooltip for the teal color in color palette',
+	},
+	limeColor: {
+		id: 'fabric.status.color.lime',
+		defaultMessage: 'Lime',
+		description: 'Tooltip for the lime color in color palette',
+	},
+	orangeColor: {
+		id: 'fabric.status.color.orange',
+		defaultMessage: 'Orange',
+		description: 'Tooltip for the orange color in color palette',
+	},
+	magentaColor: {
+		id: 'fabric.status.color.magenta',
+		defaultMessage: 'Magenta',
+		description: 'Tooltip for the magenta color in color palette',
 	},
 	statusInputLabel: {
 		id: 'fabric.status.input.label',

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook, waitFor } from '@testing-library/react';
 
 import '@atlaskit/link-test-helpers/jest';
@@ -15,6 +14,10 @@ import { mockAvailableSitesWithError } from '../../common/mocks/mock-available-s
 import { mapAccessibleProductsToAvailableSites } from './mapAccessibleProductsToAvailableSites';
 import { useAvailableSites } from './useAvailableSites';
 import { useAvailableSitesV2 } from './useAvailableSitesV2';
+import { __clearUnitsRolloutSettingsCacheForTests } from '../../units-rollout/clearCacheForTests';
+import { shouldUseUnitCompliantApi } from '../../units-rollout/shouldUseUnitCompliantApi';
+
+import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { icon } from '../../common/mocks/icons';
 import { getOperationFailedAttributes } from './getOperationFailedAttributes';
@@ -25,6 +28,45 @@ const AVAILABLE_SITES_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/available
 const ACCESSIBLE_PRODUCTS_PATH = '/gateway/api/v2/accessible-products';
 const ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH = '/gateway/api/experimental/v2/accessible-products';
 const FALLBACK_SITE_URL = 'https://site-without-display-name.atlassian.net';
+const AGG_PATH = '/gateway/api/graphql';
+const AGG_MATCHER = /\/gateway\/api\/graphql/;
+const ORG_ID = 'test-org-id';
+
+/** Units GA master gate - acts as the killswitch for the whole isolation behaviour. */
+const MASTER_GATE = 'cc-units-ga';
+const ORG_GATE = 'linking_platform_site_picker_api_unit_compliant';
+const CLOUD_ID_GATE = 'linking_platform_site_picker_api_unit_compliant_cloud_id';
+
+const TENANT_CONTEXT_OPERATION = 'link_datasource_tenantContext';
+
+const parseBody = (body: RequestInit['body']): Record<string, any> =>
+	typeof body === 'string' ? JSON.parse(body) : {};
+
+/**
+ * The org id is not known by the browser, so reading the settings takes two AGG operations: the
+ * tenant context lookup that resolves the org id, then the settings themselves.
+ */
+const mockUnitsRolloutSettings = (
+	settings: { boundaryEnforced?: boolean | null; endUsersLaunched?: boolean | null } | null,
+	{ orgId = ORG_ID }: { orgId?: string | null } = {},
+): void => {
+	fetchMock.post(
+		AGG_MATCHER,
+		(_url: string, { body }: RequestInit) =>
+			parseBody(body).operationName === TENANT_CONTEXT_OPERATION
+				? { data: { tenantContexts: orgId ? [{ orgId }] : [] } }
+				: // eslint-disable-next-line @typescript-eslint/naming-convention -- matches the AGG field name
+					{ data: { admin_unitSettings: settings } },
+		{ overwriteRoutes: true },
+	);
+};
+
+const mockUnitsRolloutSettingsError = (): void => {
+	fetchMock.post(AGG_MATCHER, 500, { overwriteRoutes: true });
+};
+
+const aggCalls = (): unknown[] =>
+	fetchMock.calls().filter(([url]: [string]) => String(url).includes(AGG_PATH));
 
 const createAccessibleProductResponse = (workspaceDisplayName?: string): AccessibleProduct => ({
 	products: [
@@ -50,6 +92,11 @@ const createAccessibleProductResponse = (workspaceDisplayName?: string): Accessi
 describe('useAvailableSites', () => {
 	beforeEach(() => {
 		fetchMock.restore();
+		__clearUnitsRolloutSettingsCacheForTests();
+		// The units GA killswitch is the first gate read on every path through
+		// `shouldUseUnitCompliantApi`, so it is turned on for the whole suite. The tests that
+		// cover the killswitch itself live in their own describe below.
+		passGate(MASTER_GATE);
 	});
 
 	it('should return loading status and the result', async () => {
@@ -102,41 +149,110 @@ describe('useAvailableSites', () => {
 		});
 	});
 
-	ffTest.on(
-		'linking_platform_site_picker_api_unit_compliant',
-		'should use the experimental available sites endpoint when the gate is enabled',
-		() => {
-			it('requests the experimental available sites path', async () => {
-				mockAvailableSites();
-				const { result } = renderHook(() => useAvailableSites());
+	describe('should use the experimental available sites endpoint when the org is launched and enforced', () => {
+		beforeEach(() => {
+			passGate('linking_platform_site_picker_api_unit_compliant');
+		});
 
-				await waitFor(() => {
-					expect(result.current.loading).toBe(false);
-				});
+		it('requests the experimental available sites path', async () => {
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+			mockAvailableSites();
+			const { result } = renderHook(() => useAvailableSites());
 
-				const [requestUrl] = fetchMock.lastCall() ?? [];
-				expect(requestUrl).toBe(AVAILABLE_SITES_UNIT_COMPLIANT_PATH);
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
 			});
-		},
-	);
 
-	ffTest.off(
-		'linking_platform_site_picker_api_unit_compliant',
-		'should use the current available sites endpoint when the gate is disabled',
-		() => {
-			it('requests the current available sites path', async () => {
-				mockAvailableSites();
-				const { result } = renderHook(() => useAvailableSites());
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(AVAILABLE_SITES_UNIT_COMPLIANT_PATH);
+		});
 
-				await waitFor(() => {
-					expect(result.current.loading).toBe(false);
-				});
+		it.each([
+			['boundaries are not enforced', { boundaryEnforced: false, endUsersLaunched: true }],
+			['end users are not launched', { boundaryEnforced: true, endUsersLaunched: false }],
+			['the settings are unknown', null],
+		])('requests the current available sites path when %s', async (_, settings) => {
+			mockUnitsRolloutSettings(settings);
+			mockAvailableSites();
+			const { result } = renderHook(() => useAvailableSites());
 
-				const [requestUrl] = fetchMock.lastCall() ?? [];
-				expect(requestUrl).toBe(AVAILABLE_SITES_PATH);
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
 			});
-		},
-	);
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(AVAILABLE_SITES_PATH);
+		});
+
+		it('requests the current available sites path when the rollout settings request fails', async () => {
+			mockUnitsRolloutSettingsError();
+			mockAvailableSites();
+			const { result } = renderHook(() => useAvailableSites());
+
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+			});
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(AVAILABLE_SITES_PATH);
+		});
+
+		it('requests the current available sites path when the org id cannot be resolved', async () => {
+			// The tenant context lookup is what resolves the org id, so an empty result means the
+			// settings can never be read and the current behaviour has to be kept.
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true }, { orgId: null });
+			mockAvailableSites();
+			const { result } = renderHook(() => useAvailableSites());
+
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+			});
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(AVAILABLE_SITES_PATH);
+			expect(aggCalls()).toHaveLength(1);
+		});
+	});
+
+	describe('should use the experimental available sites endpoint when only the cloud id targeted gate is enabled', () => {
+		beforeEach(() => {
+			passGate('linking_platform_site_picker_api_unit_compliant_cloud_id');
+		});
+
+		it('requests the experimental available sites path', async () => {
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+			mockAvailableSites();
+			const { result } = renderHook(() => useAvailableSites());
+
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+			});
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(AVAILABLE_SITES_UNIT_COMPLIANT_PATH);
+		});
+	});
+
+	describe('should use the current available sites endpoint when the gates are disabled', () => {
+		beforeEach(() => {
+			failGate('linking_platform_site_picker_api_unit_compliant');
+		});
+
+		it('requests the current available sites path and does not call AGG', async () => {
+			failGate('linking_platform_site_picker_api_unit_compliant_cloud_id');
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+			mockAvailableSites();
+			const { result } = renderHook(() => useAvailableSites());
+
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+			});
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(AVAILABLE_SITES_PATH);
+			expect(aggCalls()).toHaveLength(0);
+		});
+	});
 });
 
 describe('mapAccessibleProductsToAvailableSites', () => {
@@ -274,6 +390,8 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 describe('useAvailableSitesV2', () => {
 	beforeEach(() => {
 		fetchMock.restore();
+		__clearUnitsRolloutSettingsCacheForTests();
+		passGate(MASTER_GATE);
 	});
 
 	it.each([
@@ -282,12 +400,12 @@ describe('useAvailableSitesV2', () => {
 	])(
 		'uses the site URL fallback with the %s endpoint',
 		async (_, isUnitCompliant, expectedEndpoint) => {
-			if (isUnitCompliant) {
-				passGate('linking_platform_site_picker_api_unit_compliant');
-			} else {
-				failGate('linking_platform_site_picker_api_unit_compliant');
-			}
+			// Both rollout gates are always evaluated, so both can be forced regardless of which
+			// endpoint is expected.
+			(isUnitCompliant ? passGate : failGate)(ORG_GATE);
+			failGate(CLOUD_ID_GATE);
 			passGate('platform_lp_sllv_display_name_fallback');
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
 			mockAccessibleProducts({ data: createAccessibleProductResponse() });
 
 			const { result } = renderHook(() => useAvailableSitesV2({}));
@@ -374,41 +492,175 @@ describe('useAvailableSitesV2', () => {
 		});
 	});
 
-	ffTest.on(
-		'linking_platform_site_picker_api_unit_compliant',
-		'should use the experimental accessible products endpoint when the gate is enabled',
-		() => {
-			it('requests the experimental accessible products path', async () => {
-				mockAccessibleProducts();
-				const { result } = renderHook(() => useAvailableSitesV2({}));
+	describe('should use the experimental accessible products endpoint when the org is launched and enforced', () => {
+		beforeEach(() => {
+			passGate('linking_platform_site_picker_api_unit_compliant');
+		});
 
-				await waitFor(() => {
-					expect(result.current.loading).toBe(false);
-				});
+		it('requests the experimental accessible products path', async () => {
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+			mockAccessibleProducts();
+			const { result } = renderHook(() => useAvailableSitesV2({}));
 
-				const [requestUrl] = fetchMock.lastCall() ?? [];
-				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
 			});
-		},
-	);
 
-	ffTest.off(
-		'linking_platform_site_picker_api_unit_compliant',
-		'should use the current accessible products endpoint when the gate is disabled',
-		() => {
-			it('requests the current accessible products path', async () => {
-				mockAccessibleProducts();
-				const { result } = renderHook(() => useAvailableSitesV2({}));
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
+		});
 
-				await waitFor(() => {
-					expect(result.current.loading).toBe(false);
-				});
+		it.each([
+			['boundaries are not enforced', { boundaryEnforced: false, endUsersLaunched: true }],
+			['end users are not launched', { boundaryEnforced: true, endUsersLaunched: false }],
+			['the settings are unknown', null],
+		])('requests the current accessible products path when %s', async (_, settings) => {
+			mockUnitsRolloutSettings(settings);
+			mockAccessibleProducts();
+			const { result } = renderHook(() => useAvailableSitesV2({}));
 
-				const [requestUrl] = fetchMock.lastCall() ?? [];
-				expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
 			});
-		},
-	);
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+		});
+
+		it('requests the current accessible products path when the org id cannot be resolved', async () => {
+			// The tenant context lookup is what resolves the org id, so an empty result means the
+			// settings can never be read and the current behaviour has to be kept.
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true }, { orgId: null });
+			mockAccessibleProducts();
+			const { result } = renderHook(() => useAvailableSitesV2({}));
+
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+			});
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+			expect(aggCalls()).toHaveLength(1);
+		});
+	});
+
+	describe('should use the experimental accessible products endpoint when only the cloud id targeted gate is enabled', () => {
+		beforeEach(() => {
+			passGate('linking_platform_site_picker_api_unit_compliant_cloud_id');
+		});
+
+		it('requests the experimental accessible products path', async () => {
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+			mockAccessibleProducts();
+			const { result } = renderHook(() => useAvailableSitesV2({}));
+
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+			});
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH);
+		});
+	});
+
+	describe('should use the current accessible products endpoint when the gates are disabled', () => {
+		beforeEach(() => {
+			failGate('linking_platform_site_picker_api_unit_compliant');
+		});
+
+		it('requests the current accessible products path and does not call AGG', async () => {
+			failGate('linking_platform_site_picker_api_unit_compliant_cloud_id');
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+			mockAccessibleProducts();
+			const { result } = renderHook(() => useAvailableSitesV2({}));
+
+			await waitFor(() => {
+				expect(result.current.loading).toBe(false);
+			});
+
+			const [requestUrl] = fetchMock.lastCall() ?? [];
+			expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+			expect(aggCalls()).toHaveLength(0);
+		});
+	});
+});
+
+describe('units GA killswitch', () => {
+	beforeEach(() => {
+		fetchMock.restore();
+		__clearUnitsRolloutSettingsCacheForTests();
+		// `cc-units-ga` short circuits the rollout check, so the org id and cloud id rollout
+		// gates are never evaluated and are deliberately left unforced in these tests.
+		failGate(MASTER_GATE);
+	});
+
+	it('keeps the current available sites endpoint and does not call AGG', async () => {
+		mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+		mockAvailableSites();
+		const { result } = renderHook(() => useAvailableSites());
+
+		await waitFor(() => {
+			expect(result.current.loading).toBe(false);
+		});
+
+		const [requestUrl] = fetchMock.lastCall() ?? [];
+		expect(requestUrl).toBe(AVAILABLE_SITES_PATH);
+		expect(aggCalls()).toHaveLength(0);
+	});
+
+	it('keeps the current accessible products endpoint and does not call AGG', async () => {
+		mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+		mockAccessibleProducts();
+		const { result } = renderHook(() => useAvailableSitesV2({}));
+
+		await waitFor(() => {
+			expect(result.current.loading).toBe(false);
+		});
+
+		const [requestUrl] = fetchMock.lastCall() ?? [];
+		expect(requestUrl).toBe(ACCESSIBLE_PRODUCTS_PATH);
+		expect(aggCalls()).toHaveLength(0);
+	});
+
+	it('does not enable the unit compliant api', async () => {
+		mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+
+		await expect(shouldUseUnitCompliantApi(isSitePickerInUnitsRollout)).resolves.toBe(false);
+		expect(aggCalls()).toHaveLength(0);
+	});
+});
+
+describe('shouldUseUnitCompliantApi', () => {
+	beforeEach(() => {
+		fetchMock.restore();
+		__clearUnitsRolloutSettingsCacheForTests();
+		passGate(MASTER_GATE);
+	});
+
+	describe('when the organisation targeted gate is enabled', () => {
+		beforeEach(() => {
+			passGate('linking_platform_site_picker_api_unit_compliant');
+		});
+
+		it('queries AGG for the org unit settings with the orgId', async () => {
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+
+			await expect(shouldUseUnitCompliantApi(isSitePickerInUnitsRollout)).resolves.toBe(true);
+
+			const [requestUrl, requestInit] = fetchMock.lastCall() ?? [];
+			// The org id is resolved from the current hostname, so the settings have to be read
+			// from the gateway on that same origin rather than from a caller supplied base url.
+			expect(requestUrl).toBe(AGG_PATH);
+
+			const body = JSON.parse(String(requestInit?.body));
+			expect(body.variables).toEqual({ orgId: ORG_ID });
+			expect(body.query).toContain('admin_unitSettings(orgId: $orgId)');
+			expect(body.query).toContain('boundaryEnforced');
+			expect(body.query).toContain('endUsersLaunched');
+			// `admin_unitSettings` is not an experimental field, so it needs no opt in.
+			expect(body.query).not.toContain('@optIn');
+		});
+	});
 });
 
 describe('getOperationFailedAttributes', () => {

@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 6.13.4
+
+### Patch Changes
+
+- [`2474922a7a598`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2474922a7a598) -
+  Internal change only. The units rollout check now uses the shared
+  `@atlaskit/linking-common/units-rollout` helper instead of a local copy. Behaviour is unchanged.
+- Updated dependencies
+
+## 6.13.3
+
+### Patch Changes
+
+- [`cf6a13a455065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf6a13a455065) -
+  Redirect modal imports to their existing definitions.
+- Updated dependencies
+
 ## 6.13.2
 
 ### Patch Changes

@@ -12,7 +12,6 @@ import {
 } from 'react';
 import { css, jsx } from '@compiled/react';
 import Lozenge from '@atlaskit/lozenge/lozenge';
-import type { SemanticColor } from '@atlaskit/lozenge/types';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
@@ -20,20 +19,15 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { createStatusAnalyticsAndFire } from './analytics';
 import { ANALYTICS_HOVER_DELAY } from './constants';
+import { getLozengeAppearance, type NamedColor, normalizeColor } from './status-colors';
 
-export type Color = 'neutral' | 'purple' | 'blue' | 'red' | 'yellow' | 'green';
+/**
+ * What the ADF `color` attribute can hold. `HexColor` is the closed set we persist — do
+ * not substitute it here, or graceful rendering of unknown hex becomes a type error.
+ */
+export type Color = NamedColor | `#${string}`;
 export type StatusStyle = 'bold' | 'subtle';
 
-const colorToLozengeAppearanceMap: { [K in Color]: SemanticColor } = {
-	neutral: 'neutral',
-	purple: 'discovery',
-	blue: 'information',
-	red: 'danger',
-	yellow: 'warning',
-	green: 'success',
-};
-
-const DEFAULT_APPEARANCE = 'neutral';
 const MAX_WIDTH = 200;
 
 /**
@@ -128,7 +122,7 @@ class StatusInternal extends PureComponent<Props, any> {
 			return null;
 		}
 
-		const appearance = colorToLozengeAppearanceMap[color] || DEFAULT_APPEARANCE;
+		const appearance = getLozengeAppearance(color);
 		// Note: ommitted data-local-id attribute to avoid copying/pasting the same localId
 		return (
 			<span
@@ -146,7 +140,7 @@ class StatusInternal extends PureComponent<Props, any> {
 				onBlur={this.handleBlur}
 				tabIndex={onClick ? -1 : undefined}
 				data-node-type="status"
-				data-color={color}
+				data-color={normalizeColor(color)}
 				data-style={style}
 				role={role}
 			>

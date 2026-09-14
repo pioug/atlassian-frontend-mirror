@@ -1,5 +1,43 @@
 # @atlaskit/renderer
 
+## 140.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 140.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 140.1.0
+
+### Minor Changes
+
+- [`e909670f087d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e909670f087d4) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 140.0.1
+
+### Patch Changes
+
+- [`8c22b996302b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c22b996302b5) -
+  Clean up the permanently enabled `platform_editor_table_fit_to_content_auto_convert` experiment
+  and keep table fit-to-content conversion enabled across the editor and renderer.
+- [`3c205719730cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c205719730cb) -
+  Cleanup `platform_editor_table_nested_content_mode_fix` (`FFCLEANUP-152658`). Nested table renders
+  now permanently disable content mode, preserving the fully rolled-out behavior. The experiment is
+  removed from `@atlaskit/tmp-editor-statsig`; consumers that reference its typed
+  `editorExperimentsConfig` entry must remove those references when upgrading.
+- Updated dependencies
+
 ## 140.0.0
 
 ### Patch Changes

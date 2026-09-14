@@ -8,10 +8,6 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-	akEditorDefaultLayoutWidth,
-	akEditorFullWidthLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -85,36 +81,18 @@ export const handleKeyDown =
 				if (breakoutMark) {
 					const step = event.code === 'BracketRight' ? KEYBOARD_RESIZE_STEP : -KEYBOARD_RESIZE_STEP;
 
-					if (
-						expValEquals('platform_editor_lovability_breakout_resizing_fixes', 'isEnabled', true)
-					) {
-						const newWidth = getKeyboardResizeWidth(breakoutMark.attrs.width, step, api);
+					const newWidth = getKeyboardResizeWidth(breakoutMark.attrs.width, step, api);
 
-						if (newWidth !== breakoutMark.attrs.width) {
-							const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
+					if (newWidth !== breakoutMark.attrs.width) {
+						const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
 
-							setBreakoutWidth(
-								newWidth,
-								breakoutMark.attrs.mode,
-								pos,
-								isEditMode,
-							)(view.state, view.dispatch);
-							view.focus();
-						}
-					} else {
-						const newWidth = breakoutMark.attrs.width + step;
-
-						if (newWidth < akEditorFullWidthLayoutWidth && newWidth > akEditorDefaultLayoutWidth) {
-							const isEditMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'edit';
-
-							setBreakoutWidth(
-								breakoutMark.attrs.width + step,
-								breakoutMark.attrs.mode,
-								pos,
-								isEditMode,
-							)(view.state, view.dispatch);
-							view.focus();
-						}
+						setBreakoutWidth(
+							newWidth,
+							breakoutMark.attrs.mode,
+							pos,
+							isEditMode,
+						)(view.state, view.dispatch);
+						view.focus();
 					}
 
 					return true;

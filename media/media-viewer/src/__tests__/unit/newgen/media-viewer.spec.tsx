@@ -1,8 +1,3 @@
-jest.mock('@atlaskit/media-client-react', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-client-react');
-	return { __esModule: true, ...actualModule };
-});
-
 import React from 'react';
 import { type MediaClientConfig, getFileStreamsCache } from '@atlaskit/media-client';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';

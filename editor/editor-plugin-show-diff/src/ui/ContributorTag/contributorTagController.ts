@@ -5,7 +5,13 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { VanillaTooltip } from '@atlaskit/editor-common/vanilla-tooltip';
 import { token } from '@atlaskit/tokens';
 
-import { getAccentTokens } from '../../pm-plugins/decorations/colorSchemes/factory';
+import {
+	DELETED_HIGHLIGHT_BG_VAR,
+	DELETED_HIGHLIGHT_BORDER_VAR,
+	getAccentTokens,
+	getDeletedHighlightHoverBorderColor,
+	getDeletedHighlightHoverColor,
+} from '../../pm-plugins/decorations/colorSchemes/factory';
 import { colorSchemeRegistry } from '../../pm-plugins/decorations/colorSchemes/schemes';
 import type { ColorScheme } from '../../pm-plugins/decorations/colorSchemes/types';
 import type { ContributorTagModel, ShowDiffPlugin, TagContributor } from '../../showDiffPluginType';
@@ -158,6 +164,8 @@ export class ContributorTagController {
 	private boundSelector: string | undefined;
 	private dom: ContributorTagDom | undefined;
 	private fullLabel = '';
+	/** The bound highlights themselves, so hover can write the deleted highlight onto them. */
+	private highlightElements: HTMLElement[] = [];
 	private host: HTMLElement | undefined;
 	private isDestroyed = false;
 	/** Last visibility written, so a teardown knows whether there is anything on screen to fade. */
@@ -400,6 +408,34 @@ export class ContributorTagController {
 		this.isVisible = isVisible;
 
 		setRevealed(this.dom.tag, isVisible);
+		this.applyHighlightHover();
+	}
+
+	/**
+	 * Brings the deleted highlight up alongside the tag, for the schemes that paint none at rest —
+	 * see `DELETED_HIGHLIGHT_BG_VAR`. Keyed on `revealSources` rather than on the tag's own
+	 * visibility: an active change paints its highlight from its decoration style, which this must
+	 * not be able to override.
+	 */
+	private applyHighlightHover(): void {
+		const isHovered = this.revealSources.size > 0;
+		const colors = colorSchemeRegistry[this.model?.colorScheme ?? 'standard'];
+
+		this.highlightElements.forEach((highlight) => {
+			if (isHovered) {
+				highlight.style.setProperty(
+					DELETED_HIGHLIGHT_BG_VAR,
+					getDeletedHighlightHoverColor(colors),
+				);
+				highlight.style.setProperty(
+					DELETED_HIGHLIGHT_BORDER_VAR,
+					getDeletedHighlightHoverBorderColor(colors),
+				);
+			} else {
+				highlight.style.removeProperty(DELETED_HIGHLIGHT_BG_VAR);
+				highlight.style.removeProperty(DELETED_HIGHLIGHT_BORDER_VAR);
+			}
+		});
 	}
 
 	/**
@@ -502,7 +538,7 @@ export class ContributorTagController {
 		// Scoped to this editor's content root, so a tag can only ever bind to the decorations its own
 		// plugin instance rendered — another editor on the page, or one nested inside this one, cannot
 		// reveal this tag.
-		const highlights = this.options.getEditorRoot()?.querySelectorAll(selector);
+		const highlights = this.options.getEditorRoot()?.querySelectorAll<HTMLElement>(selector);
 		if (!highlights?.length) {
 			return;
 		}
@@ -510,16 +546,27 @@ export class ContributorTagController {
 		// `bindAll` takes a single target, and a change can render more than one highlight. Each is its
 		// own member of `revealSources`, so the pointer can cross between them without the set
 		// emptying.
-		this.unbindHighlights = Array.from(highlights).map((highlight) =>
+		this.highlightElements = Array.from(highlights);
+		this.unbindHighlights = this.highlightElements.map((highlight) =>
 			bindAll(highlight, [
 				{ type: 'mouseenter', listener: this.trackRevealSource(highlight, true) },
 				{ type: 'mouseleave', listener: this.trackRevealSource(highlight, false) },
 			]),
 		);
+		// The pointer may already be over a highlight by the time this binds, a draw pass after it
+		// entered.
+		this.applyHighlightHover();
 	}
 
 	private unbindHighlightState(): void {
 		this.unbindHighlights.forEach((unbind) => unbind());
 		this.unbindHighlights = [];
+		// Cleared before the elements are released: ProseMirror reuses decoration DOM, so a hover left
+		// written on one would paint a highlight nothing is holding up.
+		this.highlightElements.forEach((highlight) => {
+			highlight.style.removeProperty(DELETED_HIGHLIGHT_BG_VAR);
+			highlight.style.removeProperty(DELETED_HIGHLIGHT_BORDER_VAR);
+		});
+		this.highlightElements = [];
 	}
 }

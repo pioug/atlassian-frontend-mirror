@@ -1,7 +1,24 @@
-import { request } from '@atlaskit/linking-common';
+/**
+ * Reads where the current organisation is in the units migration from AGG.
+ *
+ * It takes two queries, because the settings are keyed by org id and the browser only knows the
+ * host it is served from: first resolve the host to an org id, then read that org's unit settings.
+ *
+ * Only `shouldUseUnitCompliantApi` should need this - see that file for how the result is used.
+ */
+import { request } from '../api';
+
+import { cache } from './cache';
+import { type UnitsRolloutSettings } from './types';
 
 const AGG_URL = '/gateway/api/graphql';
 
+/**
+ * The operation names are the ones `@atlaskit/link-datasource` already sends from production, and
+ * they are deliberately kept as they are now that the caller has moved into this package: AGG side
+ * observability - dashboards, per operation traffic and rate limiting - is keyed off them, so
+ * renaming them would silently orphan it.
+ */
 const TENANT_CONTEXT_OPERATION_NAME = 'link_datasource_tenantContext';
 const UNITS_ROLLOUT_SETTINGS_OPERATION_NAME = 'link_datasource_unitSettings';
 
@@ -9,7 +26,7 @@ const UNITS_ROLLOUT_SETTINGS_OPERATION_NAME = 'link_datasource_unitSettings';
  * `Query.admin_unitSettings` is keyed by org id, which the browser does not know, so the org id
  * is resolved from the host the product is currently served from.
  */
-export const tenantContextQuery: string = `
+const tenantContextQuery: string = `
 	query ${TENANT_CONTEXT_OPERATION_NAME}($hostNames: [String!]) {
 		tenantContexts(hostNames: $hostNames) {
 			orgId
@@ -21,7 +38,7 @@ export const tenantContextQuery: string = `
  * `admin_unitSettings` exposes both flags of the rollout and is callable with the session of the
  * end user, so no opt-in directive or admin OAuth scope is needed from the browser.
  */
-export const unitsRolloutSettingsQuery: string = `
+const unitsRolloutSettingsQuery: string = `
 	query ${UNITS_ROLLOUT_SETTINGS_OPERATION_NAME}($orgId: ID!) {
 		admin_unitSettings(orgId: $orgId) {
 			boundaryEnforced
@@ -29,11 +46,6 @@ export const unitsRolloutSettingsQuery: string = `
 		}
 	}
 `;
-
-export interface UnitsRolloutSettings {
-	boundaryEnforced: boolean;
-	endUsersLaunched: boolean;
-}
 
 interface GraphQLResponse<TData> {
 	data?: TData | null;
@@ -61,11 +73,6 @@ const DEFAULT_SETTINGS: UnitsRolloutSettings = {
 	boundaryEnforced: false,
 	endUsersLaunched: false,
 };
-
-/**
- * Holds the in-flight/resolved request so that the settings are only fetched once per page load.
- */
-export const cache: { promise?: Promise<UnitsRolloutSettings> } = {};
 
 /**
  * AGG answers with a 200 and an `errors` array for query level failures, so those have to be

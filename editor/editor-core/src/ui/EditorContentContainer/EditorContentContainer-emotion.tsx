@@ -6,7 +6,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports -- Ignored via go/DSP-18766; jsx required at runtime for @jsxRuntime classic
-import { jsx, useTheme } from '@emotion/react';
+import { css, jsx, type SerializedStyles, useTheme } from '@emotion/react';
 
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
 import { richMediaClassName, tableSharedStyle } from '@atlaskit/editor-common/styles';
@@ -17,10 +17,12 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { akEditorGutterPaddingDynamic, editorFontSize } from '@atlaskit/editor-shared-styles';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { getBaseFontSize } from '../../composable-editor/utils/getBaseFontSize';
@@ -41,8 +43,7 @@ import {
 import {
 	baseStyles,
 	baseStylesMaxContainerWidthFixes,
-	editorLargeGutterPuddingBaseStyles,
-	editorLargeGutterPuddingBaseStylesEditorControls,
+	editorGutterPaddingBaseStyles,
 	editorLargeGutterPuddingReducedBaseStyles,
 	maxModeReizeFixStyles,
 } from './styles/baseStyles';
@@ -182,6 +183,7 @@ import {
 	resizerStyles,
 } from './styles/resizerStyles';
 import { dangerRuleStyles, ruleStyles } from './styles/rule';
+import { ruleWithAttrsStyles } from './styles/ruleWithAttrs';
 import { scrollbarStyles } from './styles/scrollbarStyles';
 import {
 	hideCursorWhenHideSelectionStyles,
@@ -310,6 +312,176 @@ const firstWrappedMediaStyles = {
  * If you are not sure, please contact with #proj-cc-editor-full-compiled-css-migration
  * https://home.atlassian.com/o/2346a038-3c8c-498b-a79b-e7847859868d/s/a436116f-02ce-4520-8fbb-7301462a1674/project/ATLAS-120555
  */
+/**
+ * Pre-experiment semantic mapping for every named colour except neutral. Replaced
+ * (not overlaid) by statusStylesNamedAccent when platform_editor_update_status_colors
+ * is on, and deleted wholesale when that experiment is cleaned up.
+ * See EDITOR-7600: keep in sync with EditorContentContainer-compiled.tsx.
+ */
+const statusStylesNamedSemantic: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.discovery.subtler'),
+		borderColor: token('color.border.discovery.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+		color: token('color.text.discovery.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.information.subtler'),
+		borderColor: token('color.border.information.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+		color: token('color.text.information.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.danger.subtler'),
+		borderColor: token('color.border.danger.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+		color: token('color.text.danger.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.warning.subtler'),
+		borderColor: token('color.border.warning.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+		color: token('color.text.warning.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.success.subtler'),
+		borderColor: token('color.border.success.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+		color: token('color.text.success.bolder'),
+	},
+});
+/**
+ * Accent mapping for every named colour except neutral, used when
+ * platform_editor_update_status_colors is on. Replaces statusStylesNamedSemantic.
+ * yellow/green map to the orange/lime accents: their tokens are byte-identical to
+ * warning/success in both themes, so this is not a recolour. Neutral stays on Team26.
+ * See EDITOR-7600: keep in sync with EditorContentContainer-compiled.tsx.
+ */
+const statusStylesNamedAccent: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.blue.subtler'),
+		borderColor: token('color.border.accent.blue.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+		color: token('color.text.accent.blue.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.purple.subtler'),
+		borderColor: token('color.border.accent.purple.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+		color: token('color.text.accent.purple.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.red.subtler'),
+		borderColor: token('color.border.accent.red.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+		color: token('color.text.accent.red.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.orange.subtler'),
+		borderColor: token('color.border.accent.orange.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+		color: token('color.text.accent.orange.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.lime.subtler'),
+		borderColor: token('color.border.accent.lime.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+		color: token('color.text.accent.lime.bolder'),
+	},
+});
+/**
+ * Hex IDs the 10-color picker persists (hues that cannot use a named colour).
+ * Applied when platform_editor_gracefully_render_status_color or
+ * platform_editor_update_status_colors is on.
+ * See EDITOR-7600: keep in sync with EditorContentContainer-compiled.tsx.
+ */
+const statusStylesHexAccent: SerializedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#B3F5FF"] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.teal.subtler'),
+		borderColor: token('color.border.accent.teal.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#B3F5FF"] .lozenge-text': {
+		color: token('color.text.accent.teal.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#ABF5D1"] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.green.subtler'),
+		borderColor: token('color.border.accent.green.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#ABF5D1"] .lozenge-text': {
+		color: token('color.text.accent.green.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#D3F1A7"] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.lime.subtler'),
+		borderColor: token('color.border.accent.lime.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#D3F1A7"] .lozenge-text': {
+		color: token('color.text.accent.lime.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#FFF0B3"] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.yellow.subtler'),
+		borderColor: token('color.border.accent.yellow.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#FFF0B3"] .lozenge-text': {
+		color: token('color.text.accent.yellow.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#FCE4A6"] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.orange.subtler'),
+		borderColor: token('color.border.accent.orange.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#FCE4A6"] .lozenge-text': {
+		color: token('color.text.accent.orange.bolder'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#FDD0EC"] > .lozenge-wrapper': {
+		backgroundColor: token('color.background.accent.magenta.subtler'),
+		borderColor: token('color.border.accent.magenta.subtle'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-prosemirror-node-name="status"] > [data-color="#FDD0EC"] .lozenge-text': {
+		color: token('color.text.accent.magenta.bolder'),
+	},
+});
+
 export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 	EditorContentContainerProps & React.RefAttributes<HTMLDivElement>
 > = React.forwardRef<HTMLDivElement, EditorContentContainerProps>((props, ref) => {
@@ -368,6 +540,12 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 	// Evaluate the block-spacing experiment once per render.
 	const isBlockSpacingEnabled = isExperimentEnabled('platform_editor_extension_block_spacing');
 	const isFloatingTocEnabled = isExperimentEnabled('platform_editor_floating_toc');
+	const isUpdateStatusColorsEnabled = UNSAFE_expValNoExposure(
+		'platform_editor_update_status_colors',
+		'isEnabled',
+		false,
+	);
+	const isStatusStylesTeam26 = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 
 	return (
 		<div
@@ -381,13 +559,8 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				maxModeReizeFixStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				baseStylesMaxContainerWidthFixes,
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				fg('platform_editor_controls_increase_full_page_gutter') &&
-				editorExperiment('platform_editor_controls', 'variant1')
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						editorLargeGutterPuddingBaseStylesEditorControls
-					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						editorLargeGutterPuddingBaseStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				editorGutterPaddingBaseStyles,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 					exposure: true,
 				}) &&
@@ -475,6 +648,9 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 					listsStylesMarginLayoutShiftFix,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				ruleStyles,
+				isExperimentEnabled('platform_editor_lovability_dividers_attributes') &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					ruleWithAttrsStyles,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				smartCardDiffStyles,
 				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
@@ -570,7 +746,7 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 				decisionIconWithVisualRefresh,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				statusStyles,
-				fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+				isStatusStylesTeam26
 					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 						statusStylesTeam26
 					: fg('platform-component-visual-refresh')
@@ -578,6 +754,17 @@ export const EditorContentContainerEmotion: React.ForwardRefExoticComponent<
 							statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
 						: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 							statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
+				isStatusStylesTeam26 &&
+					isUpdateStatusColorsEnabled &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					statusStylesNamedAccent,
+				isStatusStylesTeam26 &&
+					!isUpdateStatusColorsEnabled &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					statusStylesNamedSemantic,
+				(fg('platform_editor_gracefully_render_status_color') || isUpdateStatusColorsEnabled) &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					statusStylesHexAccent,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				annotationStyles,
 				editorExperiment('platform_editor_block_menu', true)

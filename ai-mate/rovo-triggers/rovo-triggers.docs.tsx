@@ -26,7 +26,12 @@ const documentation: StructuredContentSource = {
 				'Render when a component-style subscription is preferable to calling useSubscribe directly.',
 			],
 			examples: [
-				// TODO: Add AI-first example(s); see `afm-platform-documentation` skill
+				{
+					name: 'Subscribe a chat host to Rovo events',
+					description:
+						'Mounts a renderless subscription at the product boundary that owns event handling.',
+					source: path.resolve(packagePath, './examples/ai/subscriber.tsx'),
+				},
 			],
 			keywords: ['rovo', 'trigger', 'subscriber', 'pubsub'],
 			categories: ['rovo', 'events'],
@@ -46,7 +51,11 @@ const documentation: StructuredContentSource = {
 				'Mount once at the host boundary that receives cross-window Rovo trigger messages.',
 			],
 			examples: [
-				// TODO: Add AI-first example(s); see `afm-platform-documentation` skill
+				{
+					name: 'Listen for cross-window Rovo events',
+					description: 'Mounts the allowlisted postMessage listener once at a chat host boundary.',
+					source: path.resolve(packagePath, './examples/ai/post-message-listener.tsx'),
+				},
 			],
 			keywords: ['rovo', 'postmessage', 'listener', 'pubsub'],
 			categories: ['rovo', 'events'],

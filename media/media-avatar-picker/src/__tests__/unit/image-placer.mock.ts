@@ -1,16 +1,17 @@
 /** Extracted into its own file so the mock variables can be instantiated before other imports in the test file that would otherwise be hoisted before it */
-import { mockCanvas, loadImageMockSetup } from '@atlaskit/media-test-helpers';
+import { mockCanvas } from '@atlaskit/media-test-helpers/mockCanvas';
+import { loadImageMockSetup } from '@atlaskit/media-test-helpers/mockLoadImage';
 
 jest.mock('../../util', () => {
 	return {
-		...jest.requireActual<Object>('../../util'),
+		...jest.requireActual<object>('../../util'),
 		getCanvas: jest.fn().mockReturnValue(mockCanvasMock),
 	};
 });
 
 const mockCanvasMock = mockCanvas();
 
-loadImageMockSetup(); // setup calls jest.mock('@atlaskit/media-ui') that hoists mocked package
+loadImageMockSetup(); // Register the image utility subpath mocks before importing the component.
 
 export const mockImage = {
 	naturalWidth: 1,

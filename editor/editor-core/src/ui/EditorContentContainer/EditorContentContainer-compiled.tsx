@@ -52,6 +52,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { overflowShadowForCompiled } from '@atlaskit/editor-shared-styles/overflow-shadow-for-compiled';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -1381,6 +1382,34 @@ const editorContentStyles = cssMapScoped({
 			backgroundColor: token('color.border.danger'),
 		},
 	},
+	ruleWithAttrsStyles: {
+		'.ProseMirror hr[data-style="dashed"]': {
+			maskImage: 'linear-gradient(to right, black 0, black 4px, transparent 4px, transparent 10px)',
+			maskRepeat: 'repeat-x',
+			maskSize: '10px 100%',
+		},
+		'.ProseMirror hr[data-style="dotted"]': {
+			maskImage: 'radial-gradient(circle at center, black 1px, transparent 1.1px)',
+			maskPosition: 'center',
+			maskRepeat: 'repeat-x',
+			maskSize: '6px 2px',
+		},
+		'.ProseMirror hr[data-style="sketch"]': {
+			height: `calc(2px + ${token('space.050')} + ${token('space.050')})`,
+			maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 10'%3E%3Cpath fill='none' stroke='%23000' stroke-width='2' d='M0 5C3 2 3 2 6 5C9 8 9 8 12 5C15 2 15 2 18 5C21 8 21 8 24 5'/%3E%3C/svg%3E")`,
+			maskPosition: 'center',
+			maskRepeat: 'repeat-x',
+			maskSize: '24px 10px',
+			paddingTop: 0,
+			paddingBottom: 0,
+		},
+		'.ProseMirror hr[data-style="fade"]': {
+			maskImage:
+				'linear-gradient(to right, transparent 0%, black 27.4%, black 74%, transparent 100%)',
+			maskRepeat: 'no-repeat',
+			maskSize: '100% 100%',
+		},
+	},
 	dateStyles: {
 		// Show diff: date attr change highlight. Keep this with date node styles so the highlight
 		// follows the date node view instead of living in shared smart-card diff styles.
@@ -1591,10 +1620,7 @@ const editorContentStyles = cssMapScoped({
 			},
 		},
 	},
-	editorLargeGutterPuddingBaseStyles: {
-		'--ak-editor--large-gutter-padding': '52px',
-	},
-	editorLargeGutterPuddingBaseStylesEditorControls: {
+	editorGutterPaddingBaseStyles: {
 		'--ak-editor--large-gutter-padding': '72px',
 	},
 	editorLargeGutterPuddingReducedBaseStyles: {
@@ -7804,6 +7830,25 @@ const editorContentStyles = cssMapScoped({
 		'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
 			color: token('color.text'),
 		},
+
+		/* Find and Replace Styles */
+		'.statusView-content-wrap:not(.search-match-block)': {
+			'&.ak-editor-selected-node .status-lozenge-span > span': {
+				boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
+			},
+		},
+
+		'.danger': {
+			'.statusView-content-wrap:not(.search-match-block).ak-editor-selected-node .status-lozenge-span > span':
+				{
+					boxShadow: `0 0 0 2px ${token('color.border.danger')}`,
+				},
+		},
+	},
+	// Pre-experiment semantic mapping for every named colour except neutral. Replaced
+	// by statusStylesNamedAccent when platform_editor_update_status_colors is on, and
+	// deleted wholesale when that experiment is cleaned up.
+	statusStylesNamedSemantic: {
 		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.discovery.subtler'),
 			borderColor: token('color.border.discovery.subtle'),
@@ -7839,19 +7884,92 @@ const editorContentStyles = cssMapScoped({
 		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
 			color: token('color.text.success.bolder'),
 		},
-
-		/* Find and Replace Styles */
-		'.statusView-content-wrap:not(.search-match-block)': {
-			'&.ak-editor-selected-node .status-lozenge-span > span': {
-				boxShadow: `0 0 0 2px ${token('color.border.selected')}`,
-			},
+	},
+	// Accent mapping for every named colour except neutral, when
+	// platform_editor_update_status_colors is on. yellow/green map to the orange/lime
+	// accents, whose tokens are byte-identical to warning/success in both themes.
+	statusStylesNamedAccent: {
+		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.blue.subtler'),
+			borderColor: token('color.border.accent.blue.subtle'),
 		},
-
-		'.danger': {
-			'.statusView-content-wrap:not(.search-match-block).ak-editor-selected-node .status-lozenge-span > span':
-				{
-					boxShadow: `0 0 0 2px ${token('color.border.danger')}`,
-				},
+		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
+			color: token('color.text.accent.blue.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.purple.subtler'),
+			borderColor: token('color.border.accent.purple.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
+			color: token('color.text.accent.purple.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.red.subtler'),
+			borderColor: token('color.border.accent.red.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
+			color: token('color.text.accent.red.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.orange.subtler'),
+			borderColor: token('color.border.accent.orange.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
+			color: token('color.text.accent.orange.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.lime.subtler'),
+			borderColor: token('color.border.accent.lime.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
+			color: token('color.text.accent.lime.bolder'),
+		},
+	},
+	// Hex IDs the 10-color picker persists (hues that cannot use a named colour).
+	// Applied when platform_editor_gracefully_render_status_color or
+	// platform_editor_update_status_colors is on.
+	statusStylesHexAccent: {
+		'[data-prosemirror-node-name="status"] > [data-color="#B3F5FF"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.teal.subtler'),
+			borderColor: token('color.border.accent.teal.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#B3F5FF"] .lozenge-text': {
+			color: token('color.text.accent.teal.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#ABF5D1"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.green.subtler'),
+			borderColor: token('color.border.accent.green.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#ABF5D1"] .lozenge-text': {
+			color: token('color.text.accent.green.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#D3F1A7"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.lime.subtler'),
+			borderColor: token('color.border.accent.lime.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#D3F1A7"] .lozenge-text': {
+			color: token('color.text.accent.lime.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FFF0B3"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.yellow.subtler'),
+			borderColor: token('color.border.accent.yellow.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FFF0B3"] .lozenge-text': {
+			color: token('color.text.accent.yellow.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FCE4A6"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.orange.subtler'),
+			borderColor: token('color.border.accent.orange.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FCE4A6"] .lozenge-text': {
+			color: token('color.text.accent.orange.bolder'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FDD0EC"] > .lozenge-wrapper': {
+			backgroundColor: token('color.background.accent.magenta.subtler'),
+			borderColor: token('color.border.accent.magenta.subtle'),
+		},
+		'[data-prosemirror-node-name="status"] > [data-color="#FDD0EC"] .lozenge-text': {
+			color: token('color.text.accent.magenta.bolder'),
 		},
 	},
 	telepointerColorAndCommonStyle: {
@@ -8435,6 +8553,12 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 	// Evaluate the block-spacing experiment once per render.
 	const isBlockSpacingEnabled = isExperimentEnabled('platform_editor_extension_block_spacing');
 	const isFloatingTocEnabled = isExperimentEnabled('platform_editor_floating_toc');
+	const isUpdateStatusColorsEnabled = UNSAFE_expValNoExposure(
+		'platform_editor_update_status_colors',
+		'isEnabled',
+		false,
+	);
+	const isStatusStylesTeam26 = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 
 	return (
 		<div
@@ -8445,11 +8569,7 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.baseStyles,
 				editorContentStyles.maxModeReizeFixStyles,
 				editorContentStyles.baseStylesMaxContainerWidthFixes,
-				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-				fg('platform_editor_controls_increase_full_page_gutter') &&
-				editorExperiment('platform_editor_controls', 'variant1')
-					? editorContentStyles.editorLargeGutterPuddingBaseStylesEditorControls
-					: editorContentStyles.editorLargeGutterPuddingBaseStyles,
+				editorContentStyles.editorGutterPaddingBaseStyles,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 					exposure: true,
 				}) && editorContentStyles.editorLargeGutterPuddingReducedBaseStyles,
@@ -8500,6 +8620,8 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				contentMode === 'compact' && isDense && editorContentStyles.listsDenseStyles,
 				isFullPage && editorContentStyles.listsStylesMarginLayoutShiftFix,
 				editorContentStyles.ruleStyles,
+				isExperimentEnabled('platform_editor_lovability_dividers_attributes') &&
+					editorContentStyles.ruleWithAttrsStyles,
 				editorContentStyles.smartCardDiffStyles,
 				expValEquals('platform_editor_enghealth_a11y_jan_fixes', 'isEnabled', true)
 					? editorContentStyles.showDiffDeletedNodeStylesNew
@@ -8554,11 +8676,19 @@ export const EditorContentContainerCompiled: React.ForwardRefExoticComponent<
 				editorContentStyles.taskItemCheckboxStyles,
 				editorContentStyles.decisionIconWithVisualRefresh,
 				editorContentStyles.statusStyles,
-				fg('platform-dst-lozenge-tag-badge-visual-uplifts')
+				isStatusStylesTeam26
 					? editorContentStyles.statusStylesTeam26
 					: fg('platform-component-visual-refresh')
 						? editorContentStyles.statusStylesMixin_fg_platform_component_visual_refresh_with_search_match
 						: editorContentStyles.statusStylesMixin_without_fg_platform_component_visual_refresh_with_search_match,
+				isStatusStylesTeam26 &&
+					isUpdateStatusColorsEnabled &&
+					editorContentStyles.statusStylesNamedAccent,
+				isStatusStylesTeam26 &&
+					!isUpdateStatusColorsEnabled &&
+					editorContentStyles.statusStylesNamedSemantic,
+				(fg('platform_editor_gracefully_render_status_color') || isUpdateStatusColorsEnabled) &&
+					editorContentStyles.statusStylesHexAccent,
 				editorContentStyles.annotationStyles,
 				editorExperiment('platform_editor_block_menu', true)
 					? editorContentStyles.smartCardStylesWithSearchMatchAndBlockMenuDangerStyles

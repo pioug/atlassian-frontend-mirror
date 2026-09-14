@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { useIsMounted } from '../useIsMounted';
 import {
@@ -15,12 +14,17 @@ import {
 	type AvailableSite,
 	type AvailableSitesRequest,
 } from './types';
+import { shouldUseUnitCompliantApi } from '../../units-rollout/shouldUseUnitCompliantApi';
+
+import { isSitePickerInUnitsRollout } from './isSitePickerInUnitsRollout';
 
 async function getAccessibleProducts({
 	products,
 	gatewayBaseUrl,
 }: AvailableSitesRequest): Promise<AccessibleProductResponse> {
-	const accessibleProductsPath = fg('linking_platform_site_picker_api_unit_compliant')
+	// Organisations with units isolation in effect must be served the unit compliant endpoint,
+	// which filters the products down to the unit the user belongs to.
+	const accessibleProductsPath = (await shouldUseUnitCompliantApi(isSitePickerInUnitsRollout))
 		? ACCESSIBLE_PRODUCTS_UNIT_COMPLIANT_PATH
 		: ACCESSIBLE_PRODUCTS_PATH;
 	const requestConfig = {

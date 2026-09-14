@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-date
 
+## 20.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.0.1
+
+### Patch Changes
+
+- [`a091435114cee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a091435114cee) -
+  Make date picker autofocus and arrow-key focus trapping permanent.
+- Updated dependencies
+
 ## 20.0.0
 
 ### Patch Changes

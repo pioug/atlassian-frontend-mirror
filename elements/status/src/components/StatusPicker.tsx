@@ -13,6 +13,13 @@ import { messages } from './i18n';
 
 export type ColorType = Color;
 
+/**
+ * Which set of selectable values the picker offers.
+ * - `default`: the six named colours.
+ * - `extended`: ten colours; hues without an existing name are persisted as hex.
+ */
+export type StatusPaletteVariant = 'default' | 'extended';
+
 const fieldTextWrapperStyles = css({
 	marginTop: 0,
 	marginBottom: 0,
@@ -40,6 +47,11 @@ export interface Props {
 	onColorHover?: (value: ColorType) => void;
 	onEnter: () => void;
 	onTextChanged: (value: string) => void;
+	/**
+	 * Which set of selectable colours to offer. Defaults to the six named colours;
+	 * `extended` offers ten and can emit hex values through `onColorClick`.
+	 */
+	palette?: StatusPaletteVariant;
 	scrollableContent?: ReactNode;
 	selectedColor: ColorType;
 	text: string;
@@ -56,13 +68,15 @@ class Picker extends PureComponent<Props & WrappedComponentProps, any> {
 	};
 
 	render() {
-		const { text, selectedColor, onColorClick, onColorHover, intl, scrollableContent } = this.props;
+		const { text, selectedColor, onColorClick, onColorHover, intl, scrollableContent, palette } =
+			this.props;
 		const colorPalette = (
 			<ColorPalette
 				key={this.colorPaletteKey}
 				onClick={onColorClick}
 				onHover={onColorHover}
 				selectedColor={selectedColor}
+				palette={palette}
 			/>
 		);
 

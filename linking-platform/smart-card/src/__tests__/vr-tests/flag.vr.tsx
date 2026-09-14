@@ -4,7 +4,4 @@ import ConnectSuccessFlag from '../../../examples/vr-flag/vr-connect-success-fla
 
 snapshot(ConnectSuccessFlag, {
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-dst-shape-theme-default': [true, false],
-	},
 });

@@ -32,7 +32,7 @@ export class DropzoneLoader extends React.PureComponent<DropzoneWithMediaClientC
 		if (!this.state.Dropzone || !this.state.MediaPickerErrorBoundary) {
 			Promise.all([
 				import(
-					/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
+					/* webpackChunkName: "@atlaskit-internal_media-client-react_with-media-client" */ '@atlaskit/media-client-react/with-media-client'
 				),
 				import(/* webpackChunkName: "@atlaskit-internal_media-dropzone" */ './dropzone'),
 				import(

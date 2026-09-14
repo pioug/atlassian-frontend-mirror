@@ -10,7 +10,6 @@ import { jsx, cssMap, cx } from '@compiled/react';
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import { Box } from '@atlaskit/primitives/compiled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { useToolbarUI } from '../hooks/ui-context';
@@ -116,11 +115,7 @@ const ToolbarDropdownMenuContent = ({
 							triggerProps.onClick && triggerProps.onClick(e);
 						}}
 						onFocus={triggerProps.onFocus}
-						id={
-							expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)
-								? id
-								: undefined
-						}
+						id={id}
 						testId={testId}
 						iconBefore={iconBefore}
 						isDisabled={isDisabled}
@@ -162,9 +157,7 @@ export const ToolbarDropdownMenu = ({
 		<ToolbarDropdownMenuContent
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
-			id={
-				expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true) ? id : undefined
-			}
+			id={id}
 			testId={testId}
 			label={label}
 			onClick={onClick}

@@ -294,51 +294,6 @@ export const statusStylesTeam26: SerializedStyles = css({
 	'[data-prosemirror-node-name="status"] > [data-color=neutral] .lozenge-text': {
 		color: token('color.text'),
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
-		backgroundColor: token('color.background.discovery.subtler'),
-		borderColor: token('color.border.discovery.subtle'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
-		color: token('color.text.discovery.bolder'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
-		backgroundColor: token('color.background.information.subtler'),
-		borderColor: token('color.border.information.subtle'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
-		color: token('color.text.information.bolder'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
-		backgroundColor: token('color.background.danger.subtler'),
-		borderColor: token('color.border.danger.subtle'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
-		color: token('color.text.danger.bolder'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
-		backgroundColor: token('color.background.warning.subtler'),
-		borderColor: token('color.border.warning.subtle'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
-		color: token('color.text.warning.bolder'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
-		backgroundColor: token('color.background.success.subtler'),
-		borderColor: token('color.border.success.subtle'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
-		color: token('color.text.success.bolder'),
-	},
 
 	/* Find and Replace Styles */
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors

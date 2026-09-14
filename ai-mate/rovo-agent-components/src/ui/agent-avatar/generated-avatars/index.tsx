@@ -145,6 +145,9 @@ const ResearchScoutAvatar = lazy(
 			/* webpackChunkName: "@atlaskit-rovo-avatar-ResearchScoutAvatar"*/ './assets/research-scout'
 		),
 );
+const RovoChatAvatar = lazy(
+	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-RovoChatAvatar"*/ './assets/rovo-chat'),
+);
 const RovoDevAvatar = lazy(
 	() => import(/* webpackChunkName: "@atlaskit-rovo-avatar-RovoDevAvatar"*/ './assets/rovo-dev'),
 );
@@ -337,6 +340,16 @@ type GeneratedAvatarProps = {
 const outOfTheBoxAgentAvatar: {
 	[key: string]: { getRender: (size: SizeType) => React.ReactNode; color: AgentAvatarColor };
 } = {
+	ai_mate_agent: {
+		getRender: (size: SizeType) => (
+			<RovoChatAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={blueColor.primary}
+				secondaryColor={blueColor.secondary}
+			/>
+		),
+		color: blueColor,
+	},
 	autodev_template_unit_test_creator: {
 		getRender: (size: SizeType) => (
 			<AutoFixAvatar

@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-table
 
+## 30.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.1
+
+### Patch Changes
+
+- [`8c22b996302b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c22b996302b5) -
+  Clean up the permanently enabled `platform_editor_table_fit_to_content_auto_convert` experiment
+  and keep table fit-to-content conversion enabled across the editor and renderer.
+- [`c85599979620a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c85599979620a) -
+  Cleanup experiment `platform_editor_table_q4_patch_6`; optimized rounded-table edge detection is
+  now permanent.
+- [`66b95ac437117`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66b95ac437117) -
+  Clean up `platform_editor_table_menu_updates_patch_3` and always preserve the table cell's raw
+  background color when selecting a TableMenu palette color.
+- [`8ed2cba592e7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ed2cba592e7a) -
+  Clean up the retired table sticky-header experiment.
+  - Preserve the permanently enabled sticky-header drag-row positioning.
+  - Remove the retired experiment configuration. Consumers should remove any overrides and rely on
+    the permanently enabled behavior.
+
+- Updated dependencies
+
 ## 30.0.0
 
 ### Patch Changes

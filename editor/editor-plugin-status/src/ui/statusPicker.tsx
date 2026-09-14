@@ -125,16 +125,26 @@ const suggestedStatusesContainerStyles = css({
 const STATUS_PICKER_FIT_HEIGHT = 288;
 // Seven suggestions fit below the color palette before the content starts scrolling.
 const MAX_SUGGESTIONS_WITHOUT_SCROLLBAR = 7;
-const STATUS_PICKER_CONTENT_WIDTH = 208;
+// ColorPalette: swatches per row * 32px slot + 16px inline margin.
+const STATUS_PICKER_CONTENT_WIDTH = 208; // 6 * 32 + 16
+const STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH = 176; // 5 * 32 + 16
 const STATUS_PICKER_SCROLLBAR_WIDTH = 16;
 
-const statusPickerWidthStyles = css({
+const statusPickerWidthStylesOld = css({
 	width: `${STATUS_PICKER_CONTENT_WIDTH}px`,
 });
 
-const statusPickerWithScrollbarWidthStyles = css({
+const statusPickerWidthStyles = css({
+	width: `${STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH}px`,
+});
+
+const statusPickerWithScrollbarWidthStylesOld = css({
 	// Reserve space for the native scrollbar without reducing the picker content width.
 	width: `${STATUS_PICKER_CONTENT_WIDTH + STATUS_PICKER_SCROLLBAR_WIDTH}px`,
+});
+
+const statusPickerWithScrollbarWidthStyles = css({
+	width: `${STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH + STATUS_PICKER_SCROLLBAR_WIDTH}px`,
 });
 
 // When cleaning up `platform_editor_status_popup_suggestions_patch_1`, merge this into
@@ -409,6 +419,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		const suggestionsPatchEnabled =
 			isExperimentEnabled('platform_editor_status_popup_suggestions') &&
 			fg('platform_editor_status_popup_suggestions_patch_1');
+		const isUpdateStatusColorsEnabled = isExperimentEnabled('platform_editor_update_status_colors');
 		const suggestedStatusList =
 			suggestedStatuses?.length &&
 			isExperimentEnabled('platform_editor_status_popup_suggestions') ? (
@@ -457,6 +468,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 					onColorHover={this.onColorHover}
 					onTextChanged={this.onTextChanged}
 					onEnter={this.onEnter}
+					palette={isUpdateStatusColorsEnabled ? 'extended' : 'default'}
 					scrollableContent={suggestionsPatchEnabled ? suggestedStatusList : undefined}
 				/>
 				{suggestionsPatchEnabled ? null : suggestedStatusList}
@@ -469,10 +481,21 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 						fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 							? pickerContainerStylesTeam26
 							: pickerContainerStyles,
-						suggestionsPatchEnabled ? statusPickerWidthStyles : undefined,
+						suggestionsPatchEnabled && isUpdateStatusColorsEnabled
+							? statusPickerWidthStyles
+							: undefined,
+						suggestionsPatchEnabled && !isUpdateStatusColorsEnabled
+							? statusPickerWidthStylesOld
+							: undefined,
 						suggestionsPatchEnabled &&
+						isUpdateStatusColorsEnabled &&
 						(suggestedStatuses?.length ?? 0) > MAX_SUGGESTIONS_WITHOUT_SCROLLBAR
 							? statusPickerWithScrollbarWidthStyles
+							: undefined,
+						suggestionsPatchEnabled &&
+						!isUpdateStatusColorsEnabled &&
+						(suggestedStatuses?.length ?? 0) > MAX_SUGGESTIONS_WITHOUT_SCROLLBAR
+							? statusPickerWithScrollbarWidthStylesOld
 							: undefined,
 					]}
 					role="none"

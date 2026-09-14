@@ -19,7 +19,6 @@ import {
 	akEditorDefaultLayoutWidth,
 	akEditorMaxLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -78,9 +77,7 @@ export const getGuidelines: MemoizedFn<
 					break;
 				case 'bodiedSyncBlock':
 				case 'syncBlock':
-					if (isExperimentEnabled('platform_editor_sync_block_guideline_bugfix')) {
-						innerPaddingOffset = SYNC_BLOCK_PADDING;
-					}
+					innerPaddingOffset = SYNC_BLOCK_PADDING;
 					break;
 				case 'extension':
 				case 'multiBodiedExtension':

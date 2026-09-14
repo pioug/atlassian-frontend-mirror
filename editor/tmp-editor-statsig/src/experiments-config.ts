@@ -742,13 +742,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-01-29
-	platform_editor_renderer_toolbar_updates: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	platform_editor_fix_cross_origin_editor_focus: {
 		defaultValue: boolean;
 		param: string;
@@ -1357,13 +1350,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-20
 	platform_editor_ssr_toolbar_optimistic: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-07-20
-	platform_editor_lovability_breakout_resizing_fixes: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -2214,14 +2200,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-01-29
-	platform_editor_renderer_toolbar_updates: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_renderer_toolbar_updates',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-01-30
 	platform_editor_fix_cross_origin_editor_focus: createBooleanExperiment({
 		productKeys: {
@@ -2986,16 +2964,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-
-	// Added 2026-07-20
-	platform_editor_lovability_breakout_resizing_fixes: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_lovability_breakout_resizing_fixes',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
 	// Added 2026-06-19
 	platform_editor_lovability_resize_dividers_panels: createBooleanExperiment({
 		productKeys: {

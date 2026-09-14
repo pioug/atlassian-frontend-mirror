@@ -55,7 +55,7 @@ import { DatasourceViewModeDropDown } from '../../common/modal/mode-switcher/Dat
 import { useViewModeContext } from '../../common/modal/mode-switcher/useViewModeContext';
 import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
-import { EmptyState } from '../../issue-like-table';
+import EmptyState from '../../issue-like-table/empty-state';
 import type { SelectedOptionsMap } from '../basic-filters/types';
 import { availableBasicFilterTypes } from '../basic-filters/ui';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';

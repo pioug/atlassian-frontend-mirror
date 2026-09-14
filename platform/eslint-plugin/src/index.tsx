@@ -15,6 +15,7 @@ import ensureReactPeerDepsInDevDeps from './rules/ensure-react-peer-deps-in-dev-
 import expandBorderShorthand from './rules/compiled/expand-border-shorthand';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
+import ensureProductCollectionNamePrefix from './rules/ensure-product-collection-name-prefix';
 import ensureStaticStructuredContent from './rules/ensure-static-structured-content';
 import noInternalDependenciesInPublicPackages from './rules/no-internal-dependencies-in-public-packages';
 import noModuleLevelEval from './rules/feature-gating/no-module-level-eval';
@@ -99,6 +100,7 @@ const rules: {
 	'no-pre-post-install-scripts': Rule.RuleModule;
 	'no-invalid-storybook-decorator-usage': Rule.RuleModule;
 	'ensure-publish-valid': Rule.RuleModule;
+	'ensure-product-collection-name-prefix': Rule.RuleModule;
 	'ensure-static-structured-content': Rule.RuleModule;
 	'no-internal-dependencies-in-public-packages': Rule.RuleModule;
 	'no-module-level-eval': Rule.RuleModule;
@@ -151,6 +153,7 @@ const rules: {
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
 	'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
 	'ensure-publish-valid': ensurePublishValid,
+	'ensure-product-collection-name-prefix': ensureProductCollectionNamePrefix,
 	'ensure-static-structured-content': ensureStaticStructuredContent,
 	'no-internal-dependencies-in-public-packages': noInternalDependenciesInPublicPackages,
 	'no-module-level-eval': noModuleLevelEval,
@@ -266,6 +269,7 @@ const plugin: {
 		'no-pre-post-install-scripts': Rule.RuleModule;
 		'no-invalid-storybook-decorator-usage': Rule.RuleModule;
 		'ensure-publish-valid': Rule.RuleModule;
+		'ensure-product-collection-name-prefix': Rule.RuleModule;
 		'ensure-static-structured-content': Rule.RuleModule;
 		'no-internal-dependencies-in-public-packages': Rule.RuleModule;
 		'no-module-level-eval': Rule.RuleModule;

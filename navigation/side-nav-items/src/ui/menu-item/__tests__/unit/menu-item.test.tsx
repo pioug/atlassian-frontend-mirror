@@ -71,7 +71,6 @@ describe('Menu items', () => {
 
 			it('should use neutral subtle interaction colors when the Finesse gate is on', () => {
 				failGate('platform-dst-motion-uplift-list-item');
-				failGate('platform-dst-shape-theme-default');
 				passGate('platform-dst-tokens-finesse');
 				setupComponent({ testId });
 

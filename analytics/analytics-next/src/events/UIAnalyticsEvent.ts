@@ -1,7 +1,5 @@
 /// <reference types="node" />
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import AnalyticsEvent, {
 	type AnalyticsEventPayload,
 	type AnalyticsEventProps,
@@ -84,29 +82,20 @@ export default class UIAnalyticsEvent extends AnalyticsEvent {
 type ChannelIdentifier = string;
 type Context = Record<string, any>[];
 const clonePayload = (payload: AnalyticsEventPayload): AnalyticsEventPayload => {
-	if (fg('platform-analytics-next-safe-clone')) {
-		try {
-			return JSON.parse(JSON.stringify(payload));
-		} catch (e) {
-			if (process.env.NODE_ENV !== 'production') {
-				// eslint-disable-next-line no-console
-				console.error(
-					'[analytics-next] UIAnalyticsEvent payload could not be deep cloned; falling back to a shallow clone:',
-					e,
-				);
-			}
-
-			// Shallow clone keeps the event usable without crashing the UI.
-			return { ...payload };
+	try {
+		return JSON.parse(JSON.stringify(payload));
+	} catch (e) {
+		if (process.env.NODE_ENV !== 'production') {
+			// eslint-disable-next-line no-console
+			console.error(
+				'[analytics-next] UIAnalyticsEvent payload could not be deep cloned; falling back to a shallow clone:',
+				e,
+			);
 		}
-	}
 
-	/**
-	 * A hacky "deep clone" of the object. This is limited in that it wont
-	 * support functions, regexs, Maps, Sets, etc, but none of those need to
-	 * be represented in our payload.
-	 */
-	return JSON.parse(JSON.stringify(payload));
+		// Shallow clone keeps the event usable without crashing the UI.
+		return { ...payload };
+	}
 };
 export type UIAnalyticsEventHandler = (
 	event: UIAnalyticsEvent,

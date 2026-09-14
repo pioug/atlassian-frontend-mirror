@@ -116,6 +116,9 @@
 		},
 		{
 			"path": "../../activity-platform/recent-work-client/tsconfig.app.json"
+		},
+		{
+			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]
 }

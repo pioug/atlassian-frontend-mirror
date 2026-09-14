@@ -39,7 +39,6 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
@@ -483,10 +482,7 @@ const Content = React.forwardRef<
 					<div
 						css={[
 							editorContentGutterStyles,
-							// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-							fg('platform_editor_controls_increase_full_page_gutter') &&
-								editorExperiment('platform_editor_controls', 'variant1') &&
-								editorContentGutterStyleFG,
+							editorContentGutterStyleFG,
 							editorExperiment('platform_editor_preview_panel_responsiveness', true, {
 								exposure: true,
 							}) && editorContentReducedGutterStyles,

@@ -1,5 +1,12 @@
 # @atlaskit/side-nav-items
 
+## 2.4.4
+
+### Patch Changes
+
+- [`a095cd22de095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a095cd22de095) -
+  Make the rolled-out shape theme the default across Platform.
+
 ## 2.4.3
 
 ### Patch Changes

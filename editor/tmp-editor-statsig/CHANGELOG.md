@@ -1,5 +1,51 @@
 # @atlaskit/editor-statsig-tmp
 
+## 192.0.0
+
+### Major Changes
+
+- [`b3f788656e6f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3f788656e6f9) -
+  [FFCLEANUP-91521] clean up references to `platform_editor_renderer_toolbar_updates`
+
+## 191.0.0
+
+### Major Changes
+
+- [`a0b5ab4d98338`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0b5ab4d98338) -
+  [FFCLEANUP-147868] clean up experiment `platform_editor_lovability_breakout_resizing_fixes`
+
+## 190.0.0
+
+### Major Changes
+
+- [`077f0fa90b5c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/077f0fa90b5c9) -
+  Clean up experiment `platform_editor_prevent_taskitem_remount`
+
+## 189.0.0
+
+### Major Changes
+
+- [`3c205719730cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c205719730cb) -
+  Cleanup `platform_editor_table_nested_content_mode_fix` (`FFCLEANUP-152658`). Nested table renders
+  now permanently disable content mode, preserving the fully rolled-out behavior. The experiment is
+  removed from `@atlaskit/tmp-editor-statsig`; consumers that reference its typed
+  `editorExperimentsConfig` entry must remove those references when upgrading.
+- [`66b95ac437117`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66b95ac437117) -
+  Remove the `platform_editor_table_menu_updates_patch_3` experiment from the public experiment
+  configuration. Consumers must stop resolving this experiment through `expValEquals`; the table
+  menu now uses the permanent `true` behavior.
+- [`8ed2cba592e7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ed2cba592e7a) -
+  Clean up the retired table sticky-header experiment.
+  - Preserve the permanently enabled sticky-header drag-row positioning.
+  - Remove the retired experiment configuration. Consumers should remove any overrides and rely on
+    the permanently enabled behavior.
+
+### Patch Changes
+
+- [`8c22b996302b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c22b996302b5) -
+  Clean up the permanently enabled `platform_editor_table_fit_to_content_auto_convert` experiment
+  and keep table fit-to-content conversion enabled across the editor and renderer.
+
 ## 188.0.0
 
 ### Major Changes

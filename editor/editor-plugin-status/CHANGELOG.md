@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-status
 
+## 19.0.4
+
+### Patch Changes
+
+- [`30567ec57fc8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30567ec57fc8c) -
+  Opt the status picker into the ten-colour `palette` from `@atlaskit/status` behind
+  `platform_editor_update_status_colors`, uppercase the `data-color` attribute so the hex CSS
+  selectors match, and split the editor status styles so the pre-experiment semantic colour rules
+  can be deleted with the experiment. Hex colour rules are applied behind
+  `platform_editor_gracefully_render_status_color`.
+- Updated dependencies
+
+## 19.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.0
 
 ### Patch Changes

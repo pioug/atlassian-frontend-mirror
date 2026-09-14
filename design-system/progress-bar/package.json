@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-bar",
-	"version": "5.3.2",
+	"version": "5.3.3",
 	"description": "A progress bar communicates the status of a system process.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -65,10 +65,5 @@
 		"react",
 		"ui"
 	],
-	"platform-feature-flags": {
-		"platform-dst-shape-theme-default": {
-			"type": "boolean"
-		}
-	},
 	"homepage": "https://atlassian.design/components/progress-bar/"
 }

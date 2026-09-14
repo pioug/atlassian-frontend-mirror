@@ -1,5 +1,45 @@
 # @atlaskit/status
 
+## 5.11.0
+
+### Minor Changes
+
+- [`30567ec57fc8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30567ec57fc8c) -
+  [ux] Add an optional `palette` prop to `StatusPicker` (`'default' | 'extended'`). `extended`
+  offers ten colours instead of six and can emit hex values through `onColorClick`; `default` is
+  unchanged, so existing consumers keep today's six named colours. Status colours now come from a
+  single registry, and `Status` renders hex behind `platform_editor_gracefully_render_status_color`.
+  The ten-colour picker is rolled out by `platform_editor_update_status_colors` in
+  `@atlaskit/editor-plugin-status`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.10.0
+
+### Minor Changes
+
+- [`e909670f087d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e909670f087d4) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.9.20
 
 ### Patch Changes

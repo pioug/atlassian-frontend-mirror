@@ -301,26 +301,41 @@ const applyMultiContainerLikeStyles = ({
 		) || '';
 
 	if (targetNode.type.name === 'decisionList') {
-		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle();
+		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle(colorScheme);
 		element.querySelectorAll('li').forEach((listItem) => {
 			const currentListItemStyle = listItem.getAttribute('style') || '';
-			listItem.setAttribute('style', `${currentListItemStyle}${nestedInsertedNodeStyle}`);
+			listItem.setAttribute(
+				'style',
+				fg('platform_editor_ai_show_diff_patch_1')
+					? combineStyles(currentListItemStyle, nestedInsertedNodeStyle)
+					: `${currentListItemStyle}${nestedInsertedNodeStyle}`,
+			);
 		});
 	} else if (targetNode.type.name === 'layoutSection') {
-		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle();
+		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle(colorScheme);
 		element.querySelectorAll('[data-layout-column="true"]').forEach((section) => {
 			const currentSectionStyle = section.getAttribute('style') || '';
-			section.setAttribute('style', `${currentSectionStyle}${nestedInsertedNodeStyle}`);
+			section.setAttribute(
+				'style',
+				fg('platform_editor_ai_show_diff_patch_1')
+					? combineStyles(currentSectionStyle, nestedInsertedNodeStyle)
+					: `${currentSectionStyle}${nestedInsertedNodeStyle}`,
+			);
 		});
 	} else if (targetNode.type.name === 'taskList') {
-		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle();
+		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle(colorScheme);
 		element.querySelectorAll('li').forEach((listItem) => {
 			const currentListItemStyle = listItem.getAttribute('style') || '';
 			listItem.setAttribute('style', `${currentListItemStyle}${nestedInsertedNodeStyle}`);
 		});
 	}
 
-	element.setAttribute('style', `${currentStyle};${nodeSpecificStyle}`);
+	element.setAttribute(
+		'style',
+		fg('platform_editor_ai_show_diff_patch_1')
+			? combineStyles(currentStyle, nodeSpecificStyle)
+			: `${currentStyle};${nodeSpecificStyle}`,
+	);
 };
 
 const combineStyles = (currentStyle: string, appendedStyle: string): string => {

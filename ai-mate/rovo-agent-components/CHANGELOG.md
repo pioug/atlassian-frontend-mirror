@@ -1,5 +1,34 @@
 # @atlaskit/rovo-agent-components
 
+## 8.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.10.0
+
+### Minor Changes
+
+- [`9b594c204939a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b594c204939a) -
+  [ux] Add Rovo Chat avatar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.33
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.9.32
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.9.31
 
 ### Patch Changes

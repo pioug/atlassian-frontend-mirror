@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-platform
 
+## 4.3.0
+
+### Minor Changes
+
+- [`18a2f04aa88ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/18a2f04aa88ec) -
+  Add `ensure-product-collection-name-prefix`, an optionless rule requiring packages inside
+  `packages/product-collection` to be named with the `@atlassian/product-collection__` prefix.
+  Enable it with `'@atlaskit/platform/ensure-product-collection-name-prefix': 'error'`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.0
 
 ### Minor Changes

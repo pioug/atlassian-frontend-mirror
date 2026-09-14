@@ -16,7 +16,7 @@ import { SmartCardContext as Context } from '..';
 import CardClient from '../../../client';
 import type { CardContext } from '..';
 import { SmartCardProvider } from '../../../smart-card-provider';
-import { SMART_CARD_EXTERNAL_AUTH_EVENT } from '../../../provider';
+import { SMART_CARD_EXTERNAL_AUTH_EVENT } from '../../../smart-card-external-auth-event';
 import type { CardStore } from '@atlaskit/linking-common/store';
 import { APIError } from '@atlaskit/linking-common';
 

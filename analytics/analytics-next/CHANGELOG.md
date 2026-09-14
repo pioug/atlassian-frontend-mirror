@@ -1,5 +1,13 @@
 # @atlaskit/analytics-next
 
+## 12.5.1
+
+### Patch Changes
+
+- [`31d46e9b95a11`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31d46e9b95a11) -
+  Remove the `platform-analytics-next-safe-clone` gate. Always fall back to a shallow clone when an
+  analytics payload cannot be deep-cloned.
+
 ## 12.5.0
 
 ### Minor Changes

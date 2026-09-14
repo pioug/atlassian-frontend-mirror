@@ -1,5 +1,31 @@
 # @atlaskit/editor-toolbar
 
+## 2.6.36
+
+### Patch Changes
+
+- [`b3f788656e6f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b3f788656e6f9) -
+  [FFCLEANUP-91521] clean up references to `platform_editor_renderer_toolbar_updates`
+- Updated dependencies
+
+## 2.6.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.34
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.33
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.32
 
 ### Patch Changes

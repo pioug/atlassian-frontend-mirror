@@ -1,5 +1,38 @@
 # @atlaskit/editor-shared-styles
 
+## 4.3.5
+
+### Patch Changes
+
+- [`3f76a4ffe41c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f76a4ffe41c8) -
+  Cleanup `platform_editor_controls_increase_full_page_gutter` and the fully rolled-out
+  `platform_editor_controls` checks directly stacked with it, retaining the larger full-page gutter
+  permanently. Other controls experiment checks remain for iterative cleanup.
+
+## 4.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.3.0
 
 ### Minor Changes

@@ -43,7 +43,7 @@
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/editor-toolbar-model",
-	"version": "1.2.53",
+	"version": "1.2.57",
 	"description": "register and render toolbar component",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

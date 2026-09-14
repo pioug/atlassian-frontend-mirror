@@ -118,6 +118,7 @@
 		"@atlassian/link-picker-plugins": "workspace:^",
 		"@atlassian/recent-work-client": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",

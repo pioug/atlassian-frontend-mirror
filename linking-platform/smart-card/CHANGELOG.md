@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 45.22.5
+
+### Patch Changes
+
+- [`db48c56767ec6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/db48c56767ec6) -
+  Use existing direct translation and Confluence Page entry points while preserving locale fallback
+  and lazy loading.
+- Updated dependencies
+
+## 45.22.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.22.3
+
+### Patch Changes
+
+- [`a095cd22de095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a095cd22de095) -
+  Make the rolled-out shape theme the default across Platform.
+- Updated dependencies
+
+## 45.22.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.22.1
 
 ### Patch Changes

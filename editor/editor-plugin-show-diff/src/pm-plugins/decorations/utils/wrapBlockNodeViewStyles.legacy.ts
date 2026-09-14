@@ -9,6 +9,7 @@
  * `colorSchemes/standard.ts`, `colorSchemes/traditional.ts` (EDITOR-8281).
  */
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -169,7 +170,7 @@ export const getChangedNodeStyleLegacy = (
 
 	if (isExtendedEnabled(diffType) && isInserted) {
 		if (isMultiContainerBlockNode(nodeName)) {
-			return hideAddedDiffsUnderline
+			return hideAddedDiffsUnderline || fg('platform_editor_ai_show_diff_patch_1')
 				? editingContentStyleInBlockExtendedNoUnderline
 				: editingContentStyleInBlockExtended;
 		}

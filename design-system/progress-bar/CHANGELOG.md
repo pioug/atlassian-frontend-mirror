@@ -1,5 +1,12 @@
 # @atlaskit/progress-bar
 
+## 5.3.3
+
+### Patch Changes
+
+- [`a095cd22de095`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a095cd22de095) -
+  Make the rolled-out shape theme the default across Platform.
+
 ## 5.3.2
 
 ### Patch Changes

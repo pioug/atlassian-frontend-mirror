@@ -1,5 +1,59 @@
 # @atlaskit/editor-common
 
+## 122.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 122.3.1
+
+### Patch Changes
+
+- [`0165bd2a039d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0165bd2a039d1) -
+  Clean up feature gate `platform_editor_blocks_patch_9`
+- Updated dependencies
+
+## 122.3.0
+
+### Minor Changes
+
+- [`e909670f087d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e909670f087d4) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`0265ca1688db1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0265ca1688db1) -
+  [EDITOR-8971] `VanillaTooltip` takes an optional container to append its tooltip to, instead of
+  appending it inside the trigger. Opt-in per caller, and used by the diff contributor tag; every
+  other tooltip is unchanged.
+
+  Diff contributor tag fixes, all behind `confluence_ncs_step_diffing_version_history`:
+  - The tag's full label no longer renders off screen. Its tooltip is hoisted out of the tag, so
+    Popper and the browser measure a top-layer popover from the same origin — inside the trigger
+    they disagreed whenever an ancestor was transformed, such as a wide image.
+  - Stepping to a change reveals only that change's tag, not every tag the active range touches.
+  - A contributor no longer gets two tags inside one navigation stop. Two of their changes that
+    merely touched each kept a tag, and the trailing one could be hovered but never stepped to; it
+    now folds into the leading tag and stays a hover target. Tags for different contributors sharing
+    a stop are still kept apart.
+  - A tag on deleted content no longer disappears when the document changes. Any change remaps the
+    decoration, which rebuilds its widget and fired the teardown — but the deleted-content widget's
+    DOM is reused as-is and runs no mount callback, so the tag was faded out of a change that was
+    still the active one. The tag is now kept whenever its host is still in a live editor.
+
+- Updated dependencies
+
+## 122.2.1
+
+### Patch Changes
+
+- [`8c22b996302b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c22b996302b5) -
+  Clean up the permanently enabled `platform_editor_table_fit_to_content_auto_convert` experiment
+  and keep table fit-to-content conversion enabled across the editor and renderer.
+- Updated dependencies
+
 ## 122.2.0
 
 ### Minor Changes

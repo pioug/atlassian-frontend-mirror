@@ -1,0 +1,46 @@
+import { wb, type WorkbenchExample } from '@atlassian/workbench';
+import ButtonMenuItemExample from './button-menu-item.vr.ap';
+import DragAndDropJiraScalingVrExample from './drag-and-drop-jira-scaling-vr.vr.ap';
+import ExpandableMenuItemExample from './expandable-menu-item.vr.ap';
+import FlyoutMenuItemAsyncContentExample from './flyout-menu-item-async-content.vr.ap';
+import FlyoutMenuItemLazyLoadedContentFocusExample from './flyout-menu-item-lazy-loaded-content-focus';
+import FlyoutMenuItemMultipleExample from './flyout-menu-item-multiple';
+import FlyoutMenuItemExample from './flyout-menu-item.vr.ap';
+import LinkMenuItemExample from './link-menu-item.vr.ap';
+import MenuItemActionsOnHoverExample from './menu-item-actions-on-hover';
+import MenuItemAvatarExample from './menu-item-avatar.vr.ap';
+import MenuItemConditionalTooltipExample from './menu-item-conditional-tooltip.vr.ap';
+import MenuItemFocusRingBleedExample from './menu-item-focus-ring-bleed.vr.ap';
+import MenuItemIntegrationExample from './menu-item-integration';
+import MenuItemNarrowExample from './menu-item-narrow.vr.ap';
+import MenuItemScrollIntoViewExample from './menu-item-scroll-into-view.vr.ap';
+import MenuItemsDeeplyNestedExample from './menu-items-deeply-nested.vr.ap';
+import MenuListExample from './menu-list';
+import MenuSectionExample from './menu-section.vr.ap';
+import SideNavWithMenuSectionsExample from './side-nav-with-menu-sections';
+import SkeletonExample from './skeleton.vr.ap';
+import TopLevelSpacerExample from './top-level-spacer.vr.ap';
+
+export const ButtonMenuItem: WorkbenchExample = wb(ButtonMenuItemExample);
+export const DragAndDropJiraScalingVr: WorkbenchExample = wb(DragAndDropJiraScalingVrExample);
+export const ExpandableMenuItem: WorkbenchExample = wb(ExpandableMenuItemExample);
+export const FlyoutMenuItemAsyncContent: WorkbenchExample = wb(FlyoutMenuItemAsyncContentExample);
+export const FlyoutMenuItemLazyLoadedContentFocus: WorkbenchExample = wb(
+	FlyoutMenuItemLazyLoadedContentFocusExample,
+);
+export const FlyoutMenuItemMultiple: WorkbenchExample = wb(FlyoutMenuItemMultipleExample);
+export const FlyoutMenuItem: WorkbenchExample = wb(FlyoutMenuItemExample);
+export const LinkMenuItem: WorkbenchExample = wb(LinkMenuItemExample);
+export const MenuItemActionsOnHover: WorkbenchExample = wb(MenuItemActionsOnHoverExample);
+export const MenuItemAvatar: WorkbenchExample = wb(MenuItemAvatarExample);
+export const MenuItemConditionalTooltip: WorkbenchExample = wb(MenuItemConditionalTooltipExample);
+export const MenuItemFocusRingBleed: WorkbenchExample = wb(MenuItemFocusRingBleedExample);
+export const MenuItemIntegration: WorkbenchExample = wb(MenuItemIntegrationExample);
+export const MenuItemNarrow: WorkbenchExample = wb(MenuItemNarrowExample);
+export const MenuItemScrollIntoView: WorkbenchExample = wb(MenuItemScrollIntoViewExample);
+export const MenuItemsDeeplyNested: WorkbenchExample = wb(MenuItemsDeeplyNestedExample);
+export const MenuList: WorkbenchExample = wb(MenuListExample);
+export const MenuSection: WorkbenchExample = wb(MenuSectionExample);
+export const SideNavWithMenuSections: WorkbenchExample = wb(SideNavWithMenuSectionsExample);
+export const Skeleton: WorkbenchExample = wb(SkeletonExample);
+export const TopLevelSpacer: WorkbenchExample = wb(TopLevelSpacerExample);

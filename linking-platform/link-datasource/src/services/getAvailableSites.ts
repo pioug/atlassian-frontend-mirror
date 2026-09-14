@@ -1,8 +1,9 @@
 import { mapAccessibleProductsToAvailableSites } from '@atlaskit/linking-common/hooks';
+import { shouldUseUnitCompliantApi } from '@atlaskit/linking-common/units-rollout';
 
 import type { Site } from '../common/types';
 
-import { isUnitsIsolationEnabled } from './isUnitsIsolationEnabled';
+import { isLinkDatasourceInUnitsRollout } from './isLinkDatasourceInUnitsRollout';
 
 export const getAccessibleProducts = async (product: 'jira' | 'confluence'): Promise<Site[]> => {
 	const requestConfig = {
@@ -27,7 +28,9 @@ export const getAccessibleProducts = async (product: 'jira' | 'confluence'): Pro
 		}),
 	};
 
-	const endpoint = (await isUnitsIsolationEnabled())
+	// Organisations with units isolation in effect must be served the unit compliant endpoint,
+	// which filters the products down to the unit the user belongs to.
+	const endpoint = (await shouldUseUnitCompliantApi(isLinkDatasourceInUnitsRollout))
 		? '/gateway/api/experimental/v2/accessible-products'
 		: '/gateway/api/v2/accessible-products';
 

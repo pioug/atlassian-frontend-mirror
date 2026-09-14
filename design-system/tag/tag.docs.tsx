@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'Tag',
-				package: '@atlaskit/tag',
+				package: '@atlaskit/tag/removable-tag',
 				type: 'default',
 				packagePath: path.resolve(__dirname),
 				packageJson: require('./package.json'),

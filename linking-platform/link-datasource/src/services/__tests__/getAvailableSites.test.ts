@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 import { mockProductsData, mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { __clearUnitsRolloutSettingsCacheForTests } from '../__clearUnitsRolloutSettingsCacheForTests';
+import { __clearUnitsRolloutSettingsCacheForTests } from '@atlaskit/linking-common/units-rollout-test-utils';
 import { getAccessibleProducts } from '../getAvailableSites';
 
 const ACCESSIBLE_PRODUCTS_PATH = '/gateway/api/v2/accessible-products';

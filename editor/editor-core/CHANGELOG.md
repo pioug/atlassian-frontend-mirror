@@ -1,5 +1,70 @@
 # @atlaskit/editor-core
 
+## 228.1.3
+
+### Patch Changes
+
+- [`3f76a4ffe41c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f76a4ffe41c8) -
+  Cleanup `platform_editor_controls_increase_full_page_gutter` and the fully rolled-out
+  `platform_editor_controls` checks directly stacked with it, retaining the larger full-page gutter
+  permanently. Other controls experiment checks remain for iterative cleanup.
+- Updated dependencies
+
+## 228.1.2
+
+### Patch Changes
+
+- [`738675ffe5e64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/738675ffe5e64) -
+  [ux] [EDITOR-8980] apply divider stroke to dividers in editor behind
+  `platform_editor_lovability_dividers_attributes`
+- [`30567ec57fc8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30567ec57fc8c) -
+  Opt the status picker into the ten-colour `palette` from `@atlaskit/status` behind
+  `platform_editor_update_status_colors`, uppercase the `data-color` attribute so the hex CSS
+  selectors match, and split the editor status styles so the pre-experiment semantic colour rules
+  can be deleted with the experiment. Hex colour rules are applied behind
+  `platform_editor_gracefully_render_status_color`.
+- Updated dependencies
+
+## 228.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 228.1.0
+
+### Minor Changes
+
+- [`e909670f087d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e909670f087d4) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+- [`6d2d1afe4f194`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d2d1afe4f194) -
+  Enable React 19 compatibility
+
+### Patch Changes
+
+- Updated dependencies
+
+## 228.0.2
+
+### Patch Changes
+
+- [`8c22b996302b5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c22b996302b5) -
+  Clean up the permanently enabled `platform_editor_table_fit_to_content_auto_convert` experiment
+  and keep table fit-to-content conversion enabled across the editor and renderer.
+- [`683c1a024bcb3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/683c1a024bcb3) -
+  Improve the accessibility of contributor diff tags, behind the
+  `confluence_ncs_step_diffing_version_history` gate. A tag now announces its contributor once
+  rather than three times over, names itself through `aria-labelledby` so it is no longer a focus
+  stop without an accessible name, says in its label when the contributor is an AI agent, and draws
+  an inset focus ring that reads against every accent fill.
+
+  Stepping to the next or previous change now announces the reader's position in the diff and who
+  made the change, through the editor's shared live region. Behind the
+  `platform_editor_diff_plugin_extended` experiment.
+
+- Updated dependencies
+
 ## 228.0.1
 
 ### Patch Changes

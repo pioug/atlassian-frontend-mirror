@@ -15,7 +15,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AgentAvatar',
-				package: '@atlaskit/rovo-agent-components',
+				package: '@atlaskit/rovo-agent-components/ui/AgentAvatar',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -26,14 +26,10 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Basic Avatar',
-					description: 'Standard agent avatar display.',
-					source: path.resolve(packagePath, './examples/02-agent-avatar.vr.ap.tsx'),
-				},
-				{
-					name: 'Generated Avatar',
-					description: 'Agent avatar with a generated image.',
-					source: path.resolve(packagePath, './examples/03-agent-avatar-generated.vr.ap.tsx'),
+					name: 'Render an agent avatar',
+					description:
+						'Uses the built-in Rovo identity to label an agent in a conversation surface. (AI-generated — please review)',
+					source: path.resolve(packagePath, './examples/ai/agent-avatar.tsx'),
 				},
 			],
 			keywords: ['rovo', 'agent', 'avatar', 'identity', 'ai'],
@@ -46,7 +42,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AgentProfileInfo',
-				package: '@atlaskit/rovo-agent-components',
+				package: '@atlaskit/rovo-agent-components/ui/AgentProfileInfo',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -57,9 +53,10 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Profile Info',
-					description: 'Standard agent profile information display.',
-					source: path.resolve(packagePath, './examples/01-agent-profile-info.vr.ap.tsx'),
+					name: 'Show an agent profile summary',
+					description:
+						'Composes an agent name, creator, description, and host-controlled star state for a profile surface. (AI-generated — please review)',
+					source: path.resolve(packagePath, './examples/ai/agent-profile-info.tsx'),
 				},
 			],
 			keywords: ['rovo', 'agent', 'profile', 'info', 'ai'],

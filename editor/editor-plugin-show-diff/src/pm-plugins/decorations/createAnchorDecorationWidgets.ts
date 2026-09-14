@@ -48,13 +48,22 @@ const resolveDocLevelNode = (
 const edgeCases = (
 	doc: PMNode,
 	from: number,
-): { beforePos: number; leftOffset?: number; measurePos?: number } | undefined => {
+):
+	| { beforePos: number; leftOffset?: number; measurePos?: number; measureSelector?: string }
+	| undefined => {
 	const resolved = resolveDocLevelNode(doc, from);
 	if (!resolved) {
 		return undefined;
 	}
 
 	const { node, nodeStart, beforePos } = resolved;
+
+	if (node.type.name === 'layoutSection' && fg('platform_editor_ai_show_diff_patch_1')) {
+		// Columns extend past the node-view wrapper via negative margins (12px or 20px).
+		// Measure their container so the indicator stays outside the diff outline, including
+		// breakout layouts and after responsive resizing, without changing the column geometry.
+		return { beforePos, measurePos: beforePos, measureSelector: '[data-layout-section]' };
+	}
 
 	/**
 	 * All resizable nodes will need dynamic calculations of the block indicator left anchor
@@ -167,7 +176,11 @@ export const createLeftAnchorWidget = ({
 					return;
 				}
 
-				const dom = view.nodeDOM(edgeCase.measurePos);
+				const nodeDOM = view.nodeDOM(edgeCase.measurePos);
+				const dom =
+					edgeCase.measureSelector && nodeDOM instanceof HTMLElement
+						? (nodeDOM.querySelector<HTMLElement>(edgeCase.measureSelector) ?? nodeDOM)
+						: nodeDOM;
 				if (dom instanceof HTMLElement) {
 					// The left anchor only needs the container width so the
 					// IndicatorBar can align against the block's horizontal extent.

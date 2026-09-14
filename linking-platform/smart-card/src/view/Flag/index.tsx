@@ -36,7 +36,6 @@ import { IntlProvider } from 'react-intl';
 import FlagGroup from '@atlaskit/flag/flag-group';
 import type { FlagProps } from '@atlaskit/flag/types';
 import AutoDismissFlag from '@atlaskit/flag/auto-dismiss-flag';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import AIPrism from '../common/ai-prism';
 
@@ -86,11 +85,7 @@ const renderToRoot = () => {
 			<FlagGroup onDismissed={removeFlag}>
 				{flagGroupState.map((flagProps) => {
 					return (
-						<AIPrism
-							borderRadius={fg('platform-dst-shape-theme-default') ? 'large' : 'small'}
-							isVisible={true}
-							key={flagProps.id}
-						>
+						<AIPrism borderRadius={'large'} isVisible={true} key={flagProps.id}>
 							<AutoDismissFlag {...flagProps} key={flagProps.id} />
 						</AIPrism>
 					);

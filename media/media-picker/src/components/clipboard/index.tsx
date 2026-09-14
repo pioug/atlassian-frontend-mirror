@@ -36,7 +36,7 @@ export class ClipboardLoader extends React.PureComponent<
 		if (!this.state.Clipboard) {
 			Promise.all([
 				import(
-					/* webpackChunkName: "@atlaskit-internal_media-client-react" */ '@atlaskit/media-client-react'
+					/* webpackChunkName: "@atlaskit-internal_media-client-react_with-media-client" */ '@atlaskit/media-client-react/with-media-client'
 				),
 				import(/* webpackChunkName: "@atlaskit-internal_media-clipboard" */ './clipboard'),
 			]).then(([mediaClient, clipboardModule]) => {

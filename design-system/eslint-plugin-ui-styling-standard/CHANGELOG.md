@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 2.1.7
+
+### Patch Changes
+
+- [`f0c3543359684`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f0c3543359684) -
+  Allow safe local named dimension-based container queries
+
 ## 2.1.6
 
 ### Patch Changes

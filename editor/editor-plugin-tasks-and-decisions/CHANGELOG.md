@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 21.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 21.0.2
+
+### Patch Changes
+
+- [`077f0fa90b5c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/077f0fa90b5c9) -
+  Clean up experiment `platform_editor_prevent_taskitem_remount`
+- Updated dependencies
+
+## 21.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.0
 
 ### Patch Changes

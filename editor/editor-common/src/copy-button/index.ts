@@ -4,7 +4,6 @@ import type { Transaction, Selection } from '@atlaskit/editor-prosemirror/state'
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	copyHTMLToClipboard,
@@ -70,10 +69,8 @@ const copyDomNodeWithResult = (
 	const isSyncedBlock = nodeType.name === 'syncBlock' || nodeType.name === 'bodiedSyncBlock';
 	if (browser.safari && isSyncedBlock) {
 		// clipboard-polyfill/native-first clipboard.write only reaches DOM fallback after rejection; Safari can
-		// resolve native writes without retaining synced-block HTML, so Patch 9 forces copy-event/execCommand while click activation is live.
-		if (fg('platform_editor_blocks_patch_9')) {
-			return copyHTMLToClipboardSynchronously(div);
-		}
+		// resolve native writes without retaining synced-block HTML, so we force copy-event/execCommand while click activation is live.
+		return copyHTMLToClipboardSynchronously(div);
 	}
 
 	// Safari's ClipboardItem API may not preserve HTML for extension nodes or mediaSingle nodes.

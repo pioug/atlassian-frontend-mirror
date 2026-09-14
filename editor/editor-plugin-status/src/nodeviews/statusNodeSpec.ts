@@ -4,6 +4,8 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { normalizeStatusColorAttr } from '../utils/normalizeStatusColor';
+
 // eg. Version/4.0 Chrome/95.0.4638.50
 const isAndroidChromium =
 	typeof window !== 'undefined' && /Version\/.* Chrome\/.*/u.test(window.navigator.userAgent);
@@ -11,6 +13,7 @@ const isAndroidChromium =
 export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 	const browser = getBrowserInfo();
 	const { text, color, style, localId } = node.attrs;
+	const dataColor = normalizeStatusColorAttr(color);
 
 	const editorNodeWrapperAttrs: Record<string, string> = {
 		class: 'statusView-content-wrap inlineNodeView',
@@ -19,7 +22,7 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		localid: localId,
 		// Required for parseDOM to correctly parse status when NodeView DOM is copied directly
 		'data-node-type': 'status',
-		'data-color': color,
+		'data-color': dataColor,
 		'data-text': text, // Text stored as attribute for parseDOM extraction
 	};
 
@@ -35,7 +38,7 @@ export const statusToDOM = (node: PMNode): DOMOutputSpec => {
 		),
 		class: 'status-lozenge-span',
 		'data-node-type': 'status',
-		'data-color': color,
+		'data-color': dataColor,
 		'data-style': style,
 	};
 

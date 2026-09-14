@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "12.1.2",
+	"version": "12.2.0",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,6 +45,7 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"@types/linkify-it": "root:*",
 		"fetch-mock": "root:*",
@@ -58,8 +59,8 @@
 		".": "./src/index.ts",
 		"./accessible-products-result": "./src/common/mocks/accessible-products-result.ts",
 		"./actions": "./src/actions.ts",
-		"./api/errors": "./src/errors.ts",
 		"./api": "./src/api.ts",
+		"./api/errors": "./src/errors.ts",
 		"./available-sites-result": "./src/common/mocks/available-sites-result.ts",
 		"./browser": "./src/user-agent/index.ts",
 		"./client": "./src/environments.ts",
@@ -71,25 +72,34 @@
 		"./linkify": "./src/url.ts",
 		"./mocks": "./src/common/mocks/index.ts",
 		"./pulse": "./src/components/Pulse/index.tsx",
-		"./sentry/capture-exception": "./src/sentry/capture-exception.ts",
 		"./sentry": "./src/sentry/capture-exception.ts",
+		"./sentry/capture-exception": "./src/sentry/capture-exception.ts",
 		"./skeleton": "./src/components/Skeleton/index.tsx",
 		"./span-skeleton": "./src/components/Skeleton/span-skeleton.tsx",
 		"./store": "./src/store.ts",
 		"./types": "./src/types.ts",
+		"./units-rollout": "./src/units-rollout/shouldUseUnitCompliantApi.ts",
+		"./units-rollout-test-utils": "./src/units-rollout/clearCacheForTests.ts",
 		"./url": "./src/url.ts",
 		"./user-agent": "./src/user-agent/index.ts",
+		"./utils": "./src/utils/index.ts",
 		"./utils/filter-site-products": "./src/utils/filter-site-products.ts",
 		"./utils/filter-unique-items": "./src/utils/filter-unique-items.ts",
 		"./utils/get-status": "./src/utils/get-status.ts",
 		"./utils/get-trace-id": "./src/utils/get-trace-id.ts",
 		"./utils/preview-panel": "./src/utils/preview-panel-utils.ts",
 		"./utils/promise-debounce": "./src/utils/promise-debounce.ts",
-		"./utils/with-feature-flagged-component": "./src/utils/with-feature-flagged-component.tsx",
-		"./utils": "./src/utils/index.ts"
+		"./utils/with-feature-flagged-component": "./src/utils/with-feature-flagged-component.tsx"
 	},
 	"platform-feature-flags": {
+		"cc-units-ga": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"linking_platform_site_picker_api_unit_compliant": {
+			"type": "boolean"
+		},
+		"linking_platform_site_picker_api_unit_compliant_cloud_id": {
 			"type": "boolean"
 		},
 		"platform_lp_sllv_display_name_fallback": {

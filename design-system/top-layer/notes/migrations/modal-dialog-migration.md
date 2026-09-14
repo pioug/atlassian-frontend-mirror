@@ -70,8 +70,7 @@ The `Dialog` component was enhanced to support modal-dialog's requirements:
 
 Modal-dialog provides its own visual styling via a `cssMap` (the top-layer `Dialog` provides only
 the raw `<dialog>` lifecycle). Styles include background, color, flex layout, elevation surface,
-box-shadow, focus-visible ring, and border-radius (with a separate T26 shape theme variant behind
-`platform-dst-shape-theme-default`).
+box-shadow, focus-visible ring, and border-radius.
 
 ---
 

@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 4.9.5
+
+### Patch Changes
+
+- [`47d46618708c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47d46618708c3) -
+  Removed the indicator bar from hovered and keyboard-active Select options when
+  `platform-dst-tokens-finesse` is enabled.
+
 ## 4.9.4
 
 ### Patch Changes

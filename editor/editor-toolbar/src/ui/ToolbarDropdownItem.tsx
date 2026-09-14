@@ -159,11 +159,7 @@ const CustomDropdownMenuItemButton = forwardRef<
 			aria-keyshortcuts={ariaKeyshortcuts}
 			data-toolbar-component="menu-item"
 			ref={ref}
-			title={
-				expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)
-					? title
-					: undefined
-			}
+			title={title}
 			data-extension-item-key={fg('cc_blocks_changeboarding') ? dataExtensionItemKey : undefined}
 		>
 			{children}
@@ -352,21 +348,13 @@ export const ToolbarDropdownItem = ({
 			target={target}
 			rel={rel}
 			// @ts-ignore -- This `CustomDropdownMenuItemButton` has type conflicts with the `DropdownItem` component in a way that cannot be reconciled (ignored as it fails types in Jira and should in Platform)
-			component={
-				href
-					? expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)
-						? CustomDropdownMenuItemAnchor
-						: undefined
-					: CustomDropdownMenuItemButton
-			}
+			component={href ? CustomDropdownMenuItemAnchor : CustomDropdownMenuItemButton}
 			testId={testId}
 			data-toolbar-component="menu-item"
 			title={title}
 			shouldTitleWrap={shouldTitleWrap}
 			// eslint-disable-next-line react/jsx-props-no-spreading
-			{...(expValEquals('platform_editor_renderer_toolbar_updates', 'isEnabled', true)
-				? dataAttributes
-				: {})}
+			{...dataAttributes}
 		>
 			{children}
 			{elemAfterText ? (

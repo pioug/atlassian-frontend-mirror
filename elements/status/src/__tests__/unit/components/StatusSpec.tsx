@@ -6,7 +6,8 @@ import { renderWithIntl } from '../helpers/_testing-library';
 import React from 'react';
 import { ELEMENTS_CHANNEL } from '../../../components/analytics';
 import { ANALYTICS_HOVER_DELAY } from '../../../components/constants';
-import { type Color, Status } from '../../..';
+import { Status } from '../../..';
+import { type NamedColor } from '../../../components/status-colors';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -48,7 +49,7 @@ describe('Status', () => {
 	});
 
 	describe('should map colors to lozenge appearances', () => {
-		const colorToLozengeAppearanceMap: { [key in Color]: string } = {
+		const colorToLozengeAppearanceMap: { [key in NamedColor]: string } = {
 			neutral: token('color.text'),
 			purple: token('color.text'),
 			blue: token('color.text'),
@@ -59,7 +60,7 @@ describe('Status', () => {
 
 		Object.entries(colorToLozengeAppearanceMap).forEach(([color, appearance]) => {
 			it(`should map ${color} to correct text color`, () => {
-				renderWithIntl(<Status text="In progress" color={color as Color} />);
+				renderWithIntl(<Status text="In progress" color={color as NamedColor} />);
 				expect(screen.getByText('In progress')).toHaveCompiledCss(
 					'color',
 					formatColorToken(appearance),

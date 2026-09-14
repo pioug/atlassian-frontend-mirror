@@ -10,6 +10,8 @@ import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 import { css, jsx } from '@compiled/react';
 
 import { type Color as ColorType } from '../Status';
+import { type StatusPaletteVariant } from '../StatusPicker';
+import { isSwatchSelected, COLORS, PICKER_SWATCHES, SWATCH_ICON_COLOR } from '../status-colors';
 
 import Color from './color';
 
@@ -130,7 +132,26 @@ type PaletteEntry = [
 	iconColor: string,
 ];
 
-const getPalette = (colorMode?: string): PaletteEntry[] => {
+// Derived from the status colour registry so the swatch list, the Lozenge appearances
+// and the i18n keys cannot drift apart. See COLORS.
+const paletteHex: PaletteEntry[] = PICKER_SWATCHES.flatMap((value) => {
+	const swatch = COLORS[value].swatch;
+	return swatch ? [[value, swatch.backgroundColor, swatch.borderColor, SWATCH_ICON_COLOR]] : [];
+});
+
+/** Columns each variant is laid out in; `extended` wraps its ten swatches onto two rows. */
+const variantToCols: Record<StatusPaletteVariant, number> = {
+	default: 7,
+	extended: 5,
+};
+
+const getPalette = (
+	colorMode?: string,
+	variant: StatusPaletteVariant = 'default',
+): PaletteEntry[] => {
+	if (variant === 'extended') {
+		return paletteHex;
+	}
 	if (fg('platform-dst-lozenge-tag-badge-visual-uplifts')) {
 		const isDark = colorMode === 'dark';
 		return paletteTeam26.map(
@@ -162,18 +183,22 @@ interface ColorPaletteProps {
 	cols?: number;
 	onClick: (value: ColorType) => void;
 	onHover?: (value: ColorType) => void;
+	/** Which set of selectable values to offer. Defaults to the six named colours. */
+	palette?: StatusPaletteVariant;
 	selectedColor?: ColorType;
 }
 
 export default ({
-	cols = 7,
+	cols,
 	onClick,
 	selectedColor,
 	className,
 	onHover,
+	palette: variant = 'default',
 }: ColorPaletteProps): JSX.Element => {
 	const { colorMode } = useThemeObserver();
-	const palette = getPalette(colorMode);
+	const palette = getPalette(colorMode, variant);
+	const resolvedCols = cols ?? variantToCols[variant];
 	const colorRefs: React.MutableRefObject<HTMLButtonElement[]> = useRef([]);
 	useEffect(() => {
 		colorRefs.current = colorRefs.current.slice(0, palette.length);
@@ -210,7 +235,7 @@ export default ({
 			css={colorPaletteWrapperStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
-			style={{ maxWidth: cols * 32 }}
+			style={{ maxWidth: resolvedCols * 32 }}
 		>
 			{palette.map(([colorValue, backgroundColor, borderColor, iconColor], i) => (
 				<Color
@@ -221,7 +246,7 @@ export default ({
 					iconColor={iconColor}
 					onClick={onClick}
 					onHover={onHover}
-					isSelected={colorValue === selectedColor}
+					isSelected={isSwatchSelected(colorValue, selectedColor)}
 					tabIndex={i === 0 ? 0 : -1}
 					setRef={(el) => (colorRefs.current[i] = el)}
 					onKeyDown={createKeyDownHandler(i)}

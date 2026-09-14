@@ -41,8 +41,19 @@ export type DiffColorScheme = {
 	deletedCellColor: AdsAccentColor;
 	/** Opacity of the deleted cell overlay background. Counterpart to `insertedCellOpacity`. */
 	deletedCellOpacity: number;
+	/**
+	 * Emphasised deleted text — hovered or active: deepen the highlight, or hold the resting tint and
+	 * darken the bottom border instead. Defaults to 'background'. Only the attribution schemes take
+	 * 'underline', so it reaches no one outside their gates.
+	 */
+	deletedInlineActiveEmphasis?: 'background' | 'underline';
 	/** Bottom border tone for deleted text highlights. Defaults to accent. */
 	deletedInlineBorderTone?: 'accent' | 'background';
+	/**
+	 * Deleted text highlight: painted at rest, or only once the change is active or hovered. See
+	 * `DELETED_HIGHLIGHT_BG_VAR` for how 'onEmphasis' resolves the hovered half.
+	 */
+	deletedInlineHighlight: 'always' | 'onEmphasis';
 	/** Deleted inline content: tint the strikethrough, or tint and dim the glyph itself. */
 	deletedInlineTreatment: 'strikethrough' | 'glyphTint';
 	/** Resting "REMOVED" lozenge tint. Gray in both current schemes; the active state uses `deleteActiveColor`. */

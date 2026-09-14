@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "45.22.1",
+	"version": "45.22.5",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -136,6 +136,7 @@
 		"@atlassian/gemini": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/workbench": "workspace:*",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@types/facepaint": "root:*",
@@ -292,9 +293,6 @@
 			"type": "boolean"
 		},
 		"platform_sl_action_refactoring": {
-			"type": "boolean"
-		},
-		"platform-dst-shape-theme-default": {
 			"type": "boolean"
 		},
 		"jpx-1074-smart-links-iframe": {
